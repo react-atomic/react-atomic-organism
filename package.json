@@ -1,0 +1,21 @@
+{
+  "name": "react-atomic-organism",
+  "version": "0.0.0",
+  "description": "Atomic design in React (organisms)",
+  "main": "./src/index.js",
+  "repository": "react-atomic/react-atomic-organisms",
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "react": "^0.14.3",
+    "react-dom": "^0.14.0",
+    "flux": "^2.1.1",
+    "immutable": "^3.7.4",
+    "webpack": "^1.12.2",
+    "babel-core": "^5.x",
+    "babel-loader": "^5.x"
+  }
+}
