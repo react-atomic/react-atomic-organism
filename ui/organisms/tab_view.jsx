@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; 
-import assign from "react/lib/Object.assign";
 import {
+    assign,
     mixClass,
     Item,
     SemanticUI
