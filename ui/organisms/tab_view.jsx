@@ -25,6 +25,7 @@ export default class TabView extends Component
         let itemList = [];
         let contentView = null;
         let content = null;
+        let tabMenu;
         
         React.Children.map(props.children,(item)=>{
             let itemProps = item.props;
@@ -55,17 +56,34 @@ export default class TabView extends Component
             })
         });
         if (contentView) {
-           content = (
-                <SemanticUI  className="bottom attached tab segment active">
+            // Tab Body
+            if (React.isValidElement(props.body)) {
+              content = React.cloneElement(props.body, props, contentView);
+            } else if (typeof props.body === 'function') {
+              content = props.body(props, contentView);
+            } else {
+              content = (
+                <SemanticUI className="bottom attached tab segment active">
                     {contentView}        
                 </SemanticUI>
-           );
+              );
+            }
+        }
+        // Tab Menu
+        if (React.isValidElement(props.menu)) {
+          tabMenu = React.cloneElement(props.menu, props, itemList);
+        } else if (typeof props.menu === 'function') {
+          tabMenu = props.menu(props, itemList);
+        } else {
+          tabMenu = (
+            <SemanticUI className="top attached tabular menu">
+                {itemList}
+            </SemanticUI>
+          );
         }
         return (
             <SemanticUI>
-                <SemanticUI className="top attached tabular menu">
-                    {itemList} 
-                </SemanticUI>
+                {tabMenu}
                 {content}
             </SemanticUI>
         );
