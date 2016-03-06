@@ -18,6 +18,10 @@ export default class TabView extends Component
 
    } 
 
+   componentWillReceiveProps(newProps) {
+        this.setState({selected: newProps.selected});
+   }
+
     render()
     {
         let props = this.props;
@@ -26,7 +30,6 @@ export default class TabView extends Component
         let contentView = null;
         let content = null;
         let tabMenu;
-        
         React.Children.map(props.children,(item)=>{
             let itemProps = item.props;
             let selected = (itemProps.name && itemProps.name === state.selected);
@@ -44,8 +47,12 @@ export default class TabView extends Component
                     key: item.props.name,
                     selected: selected,
                     className: nodeClasses,
-                    onClick: () => { 
-                        this.setState({selected: item.props.name});
+                    onClickCapture: function(e) { 
+                        if (!props.disableSwitch) {
+                            if (!node.props.disableSwitch) {
+                                this.setState({selected: item.props.name});
+                            }
+                        }
                         if (props.onTabItemPress) {
                             props.onTabItemPress(item.props.name) 
                         }
