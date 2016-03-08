@@ -96,3 +96,4 @@ export default class TabView extends Component
         );
     }
 }
+TabView.defaultProps = { switchTab: true };
