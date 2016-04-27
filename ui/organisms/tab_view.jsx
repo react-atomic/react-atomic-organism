@@ -65,7 +65,7 @@ export default class TabView extends Component
         if (contentView) {
             // Tab Body
             if (React.isValidElement(props.body)) {
-              content = React.cloneElement(props.body, props, contentView);
+              content = React.cloneElement(props.body, assign({},props), contentView);
             } else if (typeof props.body === 'function') {
               content = props.body(props, contentView);
             } else {
@@ -78,7 +78,7 @@ export default class TabView extends Component
         }
         // Tab Menu
         if (React.isValidElement(props.menu)) {
-          tabMenu = React.cloneElement(props.menu, props, itemList);
+          tabMenu = React.cloneElement(props.menu, assign({},props), itemList);
         } else if (typeof props.menu === 'function') {
           tabMenu = props.menu(props, itemList);
         } else {
