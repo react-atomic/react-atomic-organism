@@ -24,7 +24,7 @@ export default class TabView extends Component
 
     render()
     {
-        let props = this.props;
+        const {menu, body, disableSwitch, ...props} = this.props;
         let state = this.state;
         let itemList = [];
         let contentView = null;
@@ -48,7 +48,7 @@ export default class TabView extends Component
                     selected: selected,
                     className: nodeClasses,
                     onClickCapture: function(e) { 
-                        if (!props.disableSwitch) {
+                        if (!disableSwitch) {
                             if (!node.props.disableSwitch) {
                                 this.setState({selected: item.props.name});
                             }
@@ -64,10 +64,10 @@ export default class TabView extends Component
         });
         if (contentView) {
             // Tab Body
-            if (React.isValidElement(props.body)) {
-              content = React.cloneElement(props.body, assign({},props), contentView);
-            } else if (typeof props.body === 'function') {
-              content = props.body(props, contentView);
+            if (React.isValidElement(body)) {
+              content = React.cloneElement(body, props, contentView);
+            } else if (typeof body === 'function') {
+              content = body(props, contentView);
             } else {
               content = (
                 <SemanticUI className="bottom attached tab segment active">
@@ -77,10 +77,10 @@ export default class TabView extends Component
             }
         }
         // Tab Menu
-        if (React.isValidElement(props.menu)) {
-          tabMenu = React.cloneElement(props.menu, assign({},props), itemList);
-        } else if (typeof props.menu === 'function') {
-          tabMenu = props.menu(props, itemList);
+        if (React.isValidElement(menu)) {
+          tabMenu = React.cloneElement(menu, props, itemList);
+        } else if (typeof menu === 'function') {
+          tabMenu = menu(props, itemList);
         } else {
           tabMenu = (
             <SemanticUI className="top attached tabular menu">

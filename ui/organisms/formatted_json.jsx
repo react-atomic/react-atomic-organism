@@ -3,6 +3,7 @@ import {
     Field,
     Form,
     SemanticUI,
+    assign,
     mixClass
 } from 'react-atomic-molecule';
 
@@ -39,11 +40,13 @@ export default class FormattedJSON extends Component
         } else {
             Parent = SemanticUI;
         }
+        let props = assign({},this.props);
+        delete props.indent;
       return (
-        <Parent atom={this.props.atom}>
+        <Parent atom={this.props.atom} className="form">
         <Field
           readOnly={true}
-          {...this.props}
+          {...props}
           atom="textarea"
           value={outputText}
           className={classes}
