@@ -29,7 +29,9 @@ export default class CardView extends Component
         if (props.meta) {
             meta=<Meta>{props.meta}</Meta>;
         }
-        if (props.description) {
+        if (React.isValidElement(props.description)) {
+            description=props.description;
+        } else if (props.description) {
             description=<Description>{props.description}</Description>;
         }
         if (props.imageSrc) {

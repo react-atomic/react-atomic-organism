@@ -1,4 +1,5 @@
 // ui
+export { default as Breadcrumb } from '../ui/organisms/Breadcrumb';
 export { default as CardView } from '../ui/organisms/card_view';
 export { default as CDN } from '../ui/organisms/cdn';
 export { default as FormattedJson } from '../ui/organisms/formatted_json';
