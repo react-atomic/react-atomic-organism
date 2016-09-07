@@ -1,8 +1,8 @@
 {
-  "name": "getOffset",
-  "version": "0.0.0",
+  "name": "getoffset",
+  "version": "0.0.2",
   "description": "Get dom offset",
-  "repository": "react-atomic/getOffset",
+  "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [ ],
   "author": "Hill <hill@kimo.com>",
