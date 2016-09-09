@@ -4,3 +4,4 @@ npm-debug.log
 coverage*
 .tern-port
 v8.log
+build
