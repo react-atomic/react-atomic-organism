@@ -1,6 +1,6 @@
 {
   "name": "smooth-scroll-to",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Smooth scroll to library",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
