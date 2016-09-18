@@ -9,6 +9,9 @@ React Animate
 Demo Url:
 http://react-atomic.github.io/react-atomic-organism/packages/organism-react-animate/index.html
 
+Code:
+https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-animate/ui/pages/index.jsx
+
 
 
 

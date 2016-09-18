@@ -1,4 +1,9 @@
 import React,{Component} from 'react'; 
+
+/**
+ * Production please use
+ * import Animate from "organism-react-animate"
+ */
 import Animate from "../../src/index"
 
 const hello = (<div>Hello world!!</div>);
