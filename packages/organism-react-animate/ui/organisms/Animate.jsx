@@ -79,7 +79,7 @@ class Animate extends Component
             data = appear.split('-');
             this.appear = data[0];
             if (!isNaN(data[1])) {
-                this.appearTimeout=data[1];
+                this.appearTimeout = parseInt(data[1],10);
             }
             enableAppear = true;
         }
@@ -89,7 +89,7 @@ class Animate extends Component
             data = enter.split('-');
             this.enter = data[0];
             if (!isNaN(data[1])) {
-                this.enterTimeout=data[1];
+                this.enterTimeout = parseInt(data[1],10);
             }
             enableEnter = true;
         }
@@ -99,7 +99,7 @@ class Animate extends Component
             data = leave.split('-');
             this.leave = data[0];
             if (!isNaN(data[1])) {
-                this.leaveTimeout=data[1];
+                this.leaveTimeout = parseInt(data[1],10);
             }
             enableLeave = true;
         }

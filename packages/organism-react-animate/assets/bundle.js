@@ -17321,8 +17321,8 @@ webpackJsonp([0],[
 
 	            return _jsx("div", {}, void 0, _jsx(_index2.default, {
 	                appear: "fadeInLeft",
-	                enter: "fadeInRight",
-	                leave: "fadeOutRight"
+	                enter: "fadeInRight-100",
+	                leave: "fadeOutRight-1000"
 	            }, void 0, this.state.text), _jsx("a", {
 	                href: "#",
 	                onClick: function () {
@@ -17520,7 +17520,7 @@ webpackJsonp([0],[
 	                data = appear.split('-');
 	                this.appear = data[0];
 	                if (!isNaN(data[1])) {
-	                    this.appearTimeout = data[1];
+	                    this.appearTimeout = parseInt(data[1], 10);
 	                }
 	                enableAppear = true;
 	            }
@@ -17530,7 +17530,7 @@ webpackJsonp([0],[
 	                data = enter.split('-');
 	                this.enter = data[0];
 	                if (!isNaN(data[1])) {
-	                    this.enterTimeout = data[1];
+	                    this.enterTimeout = parseInt(data[1], 10);
 	                }
 	                enableEnter = true;
 	            }
@@ -17540,7 +17540,7 @@ webpackJsonp([0],[
 	                data = leave.split('-');
 	                this.leave = data[0];
 	                if (!isNaN(data[1])) {
-	                    this.leaveTimeout = data[1];
+	                    this.leaveTimeout = parseInt(data[1], 10);
 	                }
 	                enableLeave = true;
 	            }

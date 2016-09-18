@@ -19,8 +19,8 @@ class Index extends Component
             <div>
                 <Animate
                     appear="fadeInLeft"
-                    enter="fadeInRight"
-                    leave="fadeOutRight"
+                    enter="fadeInRight-100"
+                    leave="fadeOutRight-1000"
                 >
                 {this.state.text}    
                 </Animate>

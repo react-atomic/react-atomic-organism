@@ -6,7 +6,7 @@
   "main": "./build/src/index.js",
   "keywords": [
     "react",
-    "react-component",
+    "react-component"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
