@@ -1,21 +1,21 @@
 const Styles = {
-    fadeInLeft: [ 
+    fadeInUp: [
         [
             {
-                 opacity: 0,
-                 transform: ['translate3d(-100%, 0, 0)']
+                opacity: 0,
+                transform: ['translate3d(0, 100%, 0)']
             },
             {
                 opacity: 1,
                 transform: ['none']
             }
         ],
-        [ 
-            '@keyframes fadeInLeft',
+        [
+            '@keyframes fadeInUp',
             'from',
             'to'
         ]
-    ], 
+    ],
     fadeInRight: [
         [
             {
@@ -33,18 +33,52 @@ const Styles = {
             'to'
         ]
     ],
-    fadeOutLeft: [
+    fadeInDown: [
+        [
+            {
+                opacity: 0,
+                transform: ['translate3d(0, -100%, 0)']
+            },
+            {
+                opacity: 1,
+                transform: ['none']
+            }
+        ],
+        [
+            '@keyframes fadeInDown',
+            'from',
+            'to'
+        ]
+    ],
+    fadeInLeft: [ 
+        [
+            {
+                 opacity: 0,
+                 transform: ['translate3d(-100%, 0, 0)']
+            },
+            {
+                opacity: 1,
+                transform: ['none']
+            }
+        ],
+        [ 
+            '@keyframes fadeInLeft',
+            'from',
+            'to'
+        ]
+    ], 
+    fadeOutUp: [
         [
             {
                 opacity: 1,
             },
             {
                 opacity: 0,
-                transform: ['translate3d(-100%, 0, 0)']
+                transform: ['translate3d(0, -100%, 0)']
             }
         ],
         [
-            '@keyframes fadeOutLeft',
+            '@keyframes fadeOutUp',
             'from',
             'to'
         ]
@@ -61,6 +95,38 @@ const Styles = {
         ],
         [
             '@keyframes fadeOutRight',
+            'from',
+            'to'
+        ]
+    ],
+    fadeOutDown: [
+        [
+            {
+                opacity: 1,
+            },
+            {
+                opacity: 0,
+                transform: ['translate3d(0, 100%, 0)']
+            }
+        ],
+        [
+            '@keyframes fadeOutDown',
+            'from',
+            'to'
+        ]
+    ],
+    fadeOutLeft: [
+        [
+            {
+                opacity: 1,
+            },
+            {
+                opacity: 0,
+                transform: ['translate3d(-100%, 0, 0)']
+            }
+        ],
+        [
+            '@keyframes fadeOutLeft',
             'from',
             'to'
         ]
