@@ -4,45 +4,55 @@ import Animate from 'organism-react-animate';
 import {
     ScrollSpy,
     ScrollReceiver,
-    scrollDispatch   
+    scrollDispatch,
+    scrollStore
 } from 'organism-react-scroll-nav'
 
 scrollDispatch({scrollMargin:0});
 
-
 const Content = (props) => {
     const {
-        active,
-        isOnScreen,
         children,
         enter,
         leave,
-        ...others 
+        once,
+        scrollInfo
     } = props;
     let show = null;
-    if (isOnScreen) {
-        show = <SemanticUI>{children}</SemanticUI>;
+    let force = false;
+    if (once && scrollInfo.isShown) {
+        const node = scrollStore.getNode(scrollInfo.targetId);
+        if (node) {
+            node.detach();
+        }
+        force = true;
+    }
+    if (scrollInfo.isOnScreen || force) {
+        if (React.isValidElement(children)) {
+            show = children;
+        } else {
+            show = <SemanticUI>{children}</SemanticUI>;
+        }
     }
     return (
-        <Animate 
-            enter={enter}
-            appear={enter}
-            leave={leave}
-        >
+        <Animate enter={enter} leave={leave}>
             {show}
         </Animate>
     );
 };
 
 const ScrollAnimate = (props) => { 
-    const {enter, leave, children, ...others} = props;
+    const {enter, leave, once, children, ...others} = props;
     return ( 
-        <ScrollSpy {...others}>
-            <ScrollReceiver container={
-                <Content enter={enter} leave={leave}>
-                    {children}
-                </Content>
-            }/>
+        <ScrollSpy {...others} testScrollTo={false}>
+            <ScrollReceiver
+                container={<Content />}
+                enter={enter}
+                leave={leave}
+                once={once}
+            >
+                {children}
+            </ScrollReceiver>
         </ScrollSpy>
     );
 };

@@ -1,19 +1,21 @@
 {
   "name": "organism-react-scroll-animate",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React Animate When You Scroll",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [
     "react",
-    "react-component"
+    "react-component",
+    "organism",
+    "atomic-ui"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
     "react-atomic-molecule": "*",
-    "organism-react-animate": "0.0.3",
-    "organism-react-scroll-nav": "*"
+    "organism-react-animate": "^0.0.3",
+    "organism-react-scroll-nav": "^0.0.7"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
