@@ -3,7 +3,7 @@ import {assign} from 'react-atomic-molecule';
 
 /**
  * Production please use
- * import Animate from "organism-react-animate"
+ * import ScrollAnimate from "organism-react-scroll-animate"
  */
 import ScrollAnimate from "../../src/index"
 

@@ -1,16 +1,16 @@
 React Animate 
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-animate 
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-scroll-animate
    * NPM
-      * https://npm.im/organism-react-animate
+      * https://npm.im/organism-react-scroll-animate
 
 ## Example Usage
 Demo Url:
-http://react-atomic.github.io/react-atomic-organism/packages/organism-react-animate/index.html
+http://react-atomic.github.io/react-atomic-organism/packages/organism-react-scroll-animate/index.html
 
 Code:
-https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-animate/ui/pages/index.jsx
+https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-scroll-animate/ui/pages/index.jsx
 
 
 
