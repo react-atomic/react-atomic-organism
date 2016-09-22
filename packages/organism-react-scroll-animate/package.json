@@ -1,6 +1,6 @@
 {
   "name": "organism-react-scroll-animate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React Animate When You Scroll",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -15,7 +15,7 @@
   "dependencies": {
     "react-atomic-molecule": "*",
     "organism-react-animate": "^0.0.3",
-    "organism-react-scroll-nav": "^0.0.7"
+    "organism-react-scroll-nav": "^0.0.8"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

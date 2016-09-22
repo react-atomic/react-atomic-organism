@@ -68,7 +68,8 @@ const Styles = {
     block: {
         display:"inline-block",
         margin: "0 50px",
-        minHeight: "100px",
+        minHeight: size,
+        minWidth: size
     },
     circle: {
         borderRadius: '50%',
