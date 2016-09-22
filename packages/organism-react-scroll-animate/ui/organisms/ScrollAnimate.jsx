@@ -4,11 +4,8 @@ import Animate from 'organism-react-animate';
 import {
     ScrollSpy,
     ScrollReceiver,
-    scrollDispatch,
     scrollStore
 } from 'organism-react-scroll-nav'
-
-scrollDispatch({scrollMargin:0});
 
 const Content = (props) => {
     const {

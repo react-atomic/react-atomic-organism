@@ -17398,7 +17398,8 @@ webpackJsonp([0],[
 	    },
 	    block: {
 	        display: "inline-block",
-	        margin: "0 50px"
+	        margin: "0 50px",
+	        minHeight: "100px"
 	    },
 	    circle: {
 	        borderRadius: '50%',
@@ -18758,8 +18759,6 @@ webpackJsonp([0],[
 	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
 	    }return target;
 	}
-
-	(0, _organismReactScrollNav.scrollDispatch)({ scrollMargin: 0 });
 
 	var Content = function Content(props) {
 	    var children = props.children;
