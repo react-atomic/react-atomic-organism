@@ -38,19 +38,19 @@ class Index extends Component
         return (
             <div>
                 <div style={Styles.row}>
-                    <BlackCircle enter="fadeInRight-1000">Hello</BlackCircle>
-                    <WhiteCircle enter="fadeInLeft-1000">World</WhiteCircle>
-                    <BlackCircle enter="fadeInUp-1000">!!!</BlackCircle>
+                    <BlackCircle enter="fadeInRight-1000">Fade in right</BlackCircle>
+                    <WhiteCircle enter="fadeInLeft-1000">Fade in left</WhiteCircle>
+                    <BlackCircle enter="fadeInUp-1000">Fade in up !!!</BlackCircle>
                 </div>
                 <div style={Styles.row}>
-                    <BlackCircle once={true} enter="fadeInLeft-1000">Hello</BlackCircle>
-                    <WhiteCircle enter="fadeInDown-1000">World</WhiteCircle>
-                    <BlackCircle once={true} enter="fadeInRight-1000">222</BlackCircle>
+                    <BlackCircle once={true} enter="fadeInLeft-1000">Fade in left (once)</BlackCircle>
+                    <WhiteCircle enter="fadeInDown-1000">Fade in down</WhiteCircle>
+                    <BlackCircle once={true} enter="fadeInRight-1000">Right (once) 2</BlackCircle>
                 </div>
                 <div style={Styles.row}>
-                    <BlackCircle enter="fadeOutRight-1000">Hello</BlackCircle>
-                    <WhiteCircle enter="fadeOutUp-1000">World</WhiteCircle>
-                    <BlackCircle enter="fadeOutLeft-1000">333</BlackCircle>
+                    <BlackCircle enter="fadeOutRight-1000">Fade out right</BlackCircle>
+                    <WhiteCircle enter="fadeOutUp-1000">Fade out up</WhiteCircle>
+                    <BlackCircle enter="fadeOutLeft-1000">Out left 333</BlackCircle>
                 </div>
             </div>
         );
@@ -69,7 +69,7 @@ const Styles = {
         display:"inline-block",
         margin: "0 50px",
         minHeight: size,
-        minWidth: size
+        minWidth: size,
     },
     circle: {
         borderRadius: '50%',
@@ -77,5 +77,6 @@ const Styles = {
         height: size,
         lineHeight: size,
         textAlign: 'center',
+        overflow: 'hidden',
     }
 };

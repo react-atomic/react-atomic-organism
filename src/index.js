@@ -11,5 +11,3 @@ export { default as Tappable } from '../ui/organisms/tappable';
 //material
 export { default as MaterialInput} from '../ui/organisms/material_input';
 
-//lib
-export { default as getOffset } from '../src/lib/getOffset';

@@ -1,6 +1,5 @@
+import React, {Component} from 'react'; 
 import {
-    React,
-    Component,
     Field,
     SemanticUI,
     assign, 

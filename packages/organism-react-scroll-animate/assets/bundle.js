@@ -17359,29 +17359,29 @@ webpackJsonp([0],[
 	                style: Styles.row
 	            }, void 0, _jsx(BlackCircle, {
 	                enter: 'fadeInRight-1000'
-	            }, void 0, 'Hello'), _jsx(WhiteCircle, {
+	            }, void 0, 'Fade in right'), _jsx(WhiteCircle, {
 	                enter: 'fadeInLeft-1000'
-	            }, void 0, 'World'), _jsx(BlackCircle, {
+	            }, void 0, 'Fade in left'), _jsx(BlackCircle, {
 	                enter: 'fadeInUp-1000'
-	            }, void 0, '!!!')), _jsx('div', {
+	            }, void 0, 'Fade in up !!!')), _jsx('div', {
 	                style: Styles.row
 	            }, void 0, _jsx(BlackCircle, {
 	                once: true,
 	                enter: 'fadeInLeft-1000'
-	            }, void 0, 'Hello'), _jsx(WhiteCircle, {
+	            }, void 0, 'Fade in left (once)'), _jsx(WhiteCircle, {
 	                enter: 'fadeInDown-1000'
-	            }, void 0, 'World'), _jsx(BlackCircle, {
+	            }, void 0, 'Fade in down'), _jsx(BlackCircle, {
 	                once: true,
 	                enter: 'fadeInRight-1000'
-	            }, void 0, '222')), _jsx('div', {
+	            }, void 0, 'Right (once) 2')), _jsx('div', {
 	                style: Styles.row
 	            }, void 0, _jsx(BlackCircle, {
 	                enter: 'fadeOutRight-1000'
-	            }, void 0, 'Hello'), _jsx(WhiteCircle, {
+	            }, void 0, 'Fade out right'), _jsx(WhiteCircle, {
 	                enter: 'fadeOutUp-1000'
-	            }, void 0, 'World'), _jsx(BlackCircle, {
+	            }, void 0, 'Fade out up'), _jsx(BlackCircle, {
 	                enter: 'fadeOutLeft-1000'
-	            }, void 0, '333')));
+	            }, void 0, 'Out left 333')));
 	        }
 	    }]);
 
@@ -17407,7 +17407,8 @@ webpackJsonp([0],[
 	        width: size,
 	        height: size,
 	        lineHeight: size,
-	        textAlign: 'center'
+	        textAlign: 'center',
+	        overflow: 'hidden'
 	    }
 	};
 	module.exports = exports['default'];
