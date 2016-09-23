@@ -16,39 +16,34 @@ export default class CardView extends Component
 {
     render()
     {
-        let props = this.props;
-        let header = null;
-        let meta = null;
-        let description = null;
-        let image = null;
-        let content = null;
+        let {header, meta, description, content, imageSrc, href, item, ...props } = this.props;
         let View;
-        if (props.header) {
-            header=<Header>{props.header}</Header>;
+        let image;
+
+        if (header) {
+            header=<Header>{header}</Header>;
         }
-        if (props.meta) {
-            meta=<Meta>{props.meta}</Meta>;
+        if (meta) {
+            meta=<Meta>{meta}</Meta>;
         }
-        if (React.isValidElement(props.description)) {
-            description=props.description;
-        } else if (props.description) {
-            description=<Description>{props.description}</Description>;
+        if (!React.isValidElement(description)) {
+            description=<Description>{description}</Description>;
         }
-        if (props.imageSrc) {
+        if (imageSrc) {
            let imgWrapperDom = null;
-           if (props.href) {
+           if (href) {
                 imgWrapperDom = 'a'; 
            }
            image = 
             <SemanticUI
                 atom={imgWrapperDom} 
                 style={Styles.imgWrapper}
-                href={props.href}
+                href={href}
             >
-                <Image style={Styles.image} src={props.imageSrc} className="rounded"/>
+                <Image style={Styles.image} src={imageSrc} className="rounded"/>
             </SemanticUI>; 
         }
-        if (props.item) {
+        if (item) {
             View = Item;
         } else {
             View = Card;
@@ -63,7 +58,7 @@ export default class CardView extends Component
         }
 
         return (
-            <View>
+            <View {...props}>
                 {image}
                 {content}
             </View>
