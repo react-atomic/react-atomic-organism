@@ -1,13 +1,14 @@
 React Atomic Organism Popup
 ===============
    * GIT
-      * https://github.com/react-atomic/react-organism-popup 
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-popup 
    * NPM
-      * https://www.npmjs.com/package/react-organism-popup
+      * https://npm.im/organism-react-popup
 
 ## Example Usage
 Demo Url:
-https://dl.dropboxusercontent.com/u/3396570/list/index.html
+http://react-atomic.github.io/react-atomic-organism/packages/organism-react-popup/index.html
 
-Documentation:
+Code:
+https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/pages/index.jsx
 
