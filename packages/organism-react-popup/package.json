@@ -1,8 +1,8 @@
 {
   "name": "organism-react-popup",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React Atomic Organism Popup",
-  "main": "./src/index.js",
+  "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
   "keywords": [
     "react",
