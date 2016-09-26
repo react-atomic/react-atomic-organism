@@ -16,7 +16,17 @@ export default class CardView extends Component
 {
     render()
     {
-        let {header, meta, description, content, imageSrc, href, item, ...props } = this.props;
+        let {
+            header,
+            meta,
+            description,
+            dimmer,
+            content,
+            imageSrc,
+            href,
+            item,
+            ...props 
+        } = this.props;
         let View;
         let image;
 
@@ -61,6 +71,7 @@ export default class CardView extends Component
             <View {...props}>
                 {image}
                 {content}
+                {dimmer}
             </View>
         );
     }
