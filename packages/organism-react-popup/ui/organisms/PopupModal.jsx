@@ -5,6 +5,11 @@ import {
     Dimmer
 } from 'react-atomic-molecule';
 
+let originBodyStyle;
+if (document.body) {
+    originBodyStyle = document.body.style.overflow;
+}
+
 class PopupModal extends Component
 {
     constructor(props) 
@@ -28,7 +33,12 @@ class PopupModal extends Component
 
     render()
     {
-        const props = this.props;
+        const {fullScreenStyle, ...props} = this.props;
+        if (this.state.show && document.body) {
+            document.body.style.overflow = 'hidden';
+        } else if (document.body) {
+            document.body.style.overflow = originBodyStyle;
+        }
         return (
             <Dimmer
                 className="page"
@@ -42,7 +52,7 @@ class PopupModal extends Component
                     style={assign(
                         {},
                         Styles.fullScreen,
-                        props.fullScreenStyle
+                        fullScreenStyle
                     )}
                 />
             </Dimmer>
