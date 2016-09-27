@@ -25018,19 +25018,24 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            if (this.state.show) {
+	                if (document) {
+	                    document.body.style.overflow = 'hidden';
+	                }
+	            } else {
+	                if (document) {
+	                    document.body.style.overflow = originBodyStyle;
+	                }
+	                return null;
+	            }
 	            var _props = this.props;
 	            var fullScreenStyle = _props.fullScreenStyle;
 
 	            var props = _objectWithoutProperties(_props, ['fullScreenStyle']);
 
-	            if (this.state.show && document.body) {
-	                document.body.style.overflow = 'hidden';
-	            } else if (document.body) {
-	                document.body.style.overflow = originBodyStyle;
-	            }
 	            return _jsx(_reactAtomicMolecule.Dimmer, {
 	                className: 'page',
-	                show: this.state.show,
+	                show: true,
 	                style: props.style,
 	                onClick: this.handleClick.bind(this)
 	            }, void 0, _react2.default.createElement(_reactAtomicMolecule.Dimmer, _extends({}, props, {

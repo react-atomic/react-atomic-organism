@@ -33,16 +33,21 @@ class PopupModal extends Component
 
     render()
     {
-        const {fullScreenStyle, ...props} = this.props;
-        if (this.state.show && document.body) {
-            document.body.style.overflow = 'hidden';
-        } else if (document.body) {
-            document.body.style.overflow = originBodyStyle;
+        if (this.state.show) {
+            if (document) {
+                document.body.style.overflow = 'hidden';
+            }
+        } else {
+            if (document) {
+                document.body.style.overflow = originBodyStyle;
+            }
+            return null;
         }
+        const {fullScreenStyle, ...props} = this.props;
         return (
             <Dimmer
                 className="page"
-                show={this.state.show}
+                show={true}
                 style={props.style}
                 onClick={this.handleClick.bind(this)}
             >
