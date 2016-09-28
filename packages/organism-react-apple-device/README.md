@@ -12,6 +12,10 @@ http://react-atomic.github.io/react-atomic-organism/packages/organism-react-appl
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-apple-device/ui/pages/index.jsx
 
+## Components
+https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-apple-device/ui/organisms
 
+## Concept
+https://codepen.io/willpaige/pen/rFElD
 
 

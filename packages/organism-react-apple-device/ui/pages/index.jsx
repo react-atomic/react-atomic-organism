@@ -1,33 +1,21 @@
-import React,{Component} from 'react'; 
+import React from 'react'; 
 
 /**
  * Production please use
- * import Animate from "organism-react-animate"
+ * import {...xxx} from "organism-react-apple-device"
  */
 import {
     Monitor,
     Browser,
 } from "../../src/index"
 
-
-class Index extends Component
-{
-    constructor(props) 
-    {
-        super(props);
-        this.state = {
-        };
-    }
-
-    render()
-    {
-        return (
-            <div style={{margin:'10px'}}>
-                <div style={{margin:'10px'}}><Monitor /></div>
-                <Browser />
-            </div>
-        );
-    }
-}
+const Index = (props)=>{
+    return (
+        <div style={{margin:'10px'}}>
+            <Monitor style={{marginBottom:'10px'}} />
+            <Browser />
+        </div>
+    );
+};
 
 export default Index;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { assign } from 'react-atomic-molecule';
 import {
     Keyboard
 } from "../../src/index"
@@ -35,16 +36,17 @@ const Base = ()=>
     </div>
 </div>
 
-const Screen = ()=>
+const Screen = (props)=>
 <div style={Styles.screen}>
     <Camera />
     <Logo />
+    {props.children}
 </div>
 
-const Monitor = ()=>{
+const Monitor = (props)=>{
     return (
-        <div style={Styles.container}>
-            <Screen />
+        <div style={assign({}, Styles.container, props.style)}>
+            <Screen>{props.children}</Screen>
             <Base />
             <div style={{
                 textAlign:'center',

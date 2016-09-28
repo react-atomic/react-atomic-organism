@@ -17258,15 +17258,10 @@ webpackJsonp([0],[
 	    };
 	}();
 
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
+	/**
+	 * Production please use
+	 * import {...xxx} from "organism-react-apple-device"
+	 */
 
 	var _react = __webpack_require__(1);
 
@@ -17278,54 +17273,13 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	/**
-	 * Production please use
-	 * import Animate from "organism-react-animate"
-	 */
-
-	var Index = function (_Component) {
-	    _inherits(Index, _Component);
-
-	    function Index(props) {
-	        _classCallCheck(this, Index);
-
-	        var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this, props));
-
-	        _this.state = {};
-	        return _this;
-	    }
-
-	    _createClass(Index, [{
-	        key: 'render',
-	        value: function render() {
-	            return _jsx('div', {
-	                style: { margin: '10px' }
-	            }, void 0, _jsx('div', {
-	                style: { margin: '10px' }
-	            }, void 0, _jsx(_index.Monitor, {})), _jsx(_index.Browser, {}));
-	        }
-	    }]);
-
-	    return Index;
-	}(_react.Component);
+	var Index = function Index(props) {
+	    return _jsx('div', {
+	        style: { margin: '10px' }
+	    }, void 0, _jsx(_index.Monitor, {
+	        style: { marginBottom: '10px' }
+	    }), _jsx(_index.Browser, {}));
+	};
 
 	exports.default = Index;
 	module.exports = exports['default'];
@@ -23129,6 +23083,8 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactAtomicMolecule = __webpack_require__(175);
+
 	var _index = __webpack_require__(173);
 
 	function _interopRequireDefault(obj) {
@@ -23185,16 +23141,16 @@ webpackJsonp([0],[
 	    }), _jsx(BaseShadow, {}), _jsx(FootTop, {}), _jsx(FootBottom, {})));
 	};
 
-	var Screen = function Screen() {
+	var Screen = function Screen(props) {
 	    return _jsx('div', {
 	        style: Styles.screen
-	    }, void 0, _jsx(Camera, {}), _jsx(Logo, {}));
+	    }, void 0, _jsx(Camera, {}), _jsx(Logo, {}), props.children);
 	};
 
-	var Monitor = function Monitor() {
+	var Monitor = function Monitor(props) {
 	    return _jsx('div', {
-	        style: Styles.container
-	    }, void 0, _jsx(Screen, {}), _jsx(Base, {}), _jsx('div', {
+	        style: (0, _reactAtomicMolecule.assign)({}, Styles.container, props.style)
+	    }, void 0, _jsx(Screen, {}, void 0, props.children), _jsx(Base, {}), _jsx('div', {
 	        style: {
 	            textAlign: 'center',
 	            paddingTop: '10px'
