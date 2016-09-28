@@ -17318,7 +17318,9 @@ webpackJsonp([0],[
 	        value: function render() {
 	            return _jsx('div', {
 	                style: { margin: '10px' }
-	            }, void 0, _jsx(_index.Monitor, {}));
+	            }, void 0, _jsx('div', {
+	                style: { margin: '10px' }
+	            }, void 0, _jsx(_index.Monitor, {})), _jsx(_index.Browser, {}));
 	        }
 	    }]);
 
@@ -17353,6 +17355,15 @@ webpackJsonp([0],[
 	  enumerable: true,
 	  get: function get() {
 	    return _interopRequireDefault(_Monitor).default;
+	  }
+	});
+
+	var _Browser = __webpack_require__(250);
+
+	Object.defineProperty(exports, 'Browser', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_Browser).default;
 	  }
 	});
 
@@ -23295,6 +23306,128 @@ webpackJsonp([0],[
 	        bottom: '0',
 	        left: '-26px',
 	        background: '#e8ebf0'
+	    }
+	};
+	module.exports = exports['default'];
+
+/***/ },
+/* 250 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _jsx = function () {
+	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
+	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
+	            props = {};
+	        }if (props && defaultProps) {
+	            for (var propName in defaultProps) {
+	                if (props[propName] === void 0) {
+	                    props[propName] = defaultProps[propName];
+	                }
+	            }
+	        } else if (!props) {
+	            props = defaultProps || {};
+	        }if (childrenLength === 1) {
+	            props.children = children;
+	        } else if (childrenLength > 1) {
+	            var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
+	                childArray[i] = arguments[i + 3];
+	            }props.children = childArray;
+	        }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
+	    };
+	}();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAtomicMolecule = __webpack_require__(175);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Bar = function Bar(props) {
+	    return _jsx('div', {
+	        style: Styles.bar
+	    }, void 0, _jsx(ActionButtons, {}), _jsx(URL, {}));
+	};
+
+	var Button = function Button(props) {
+	    return _jsx('div', {
+	        style: (0, _reactAtomicMolecule.assign)({
+	            width: props.size + 'px',
+	            height: props.size + 'px',
+	            borderRadius: props.size + 'px',
+	            marginLeft: props.size + 'px'
+	        }, Styles.button, props.style)
+	    });
+	};
+
+	Button.defaultProps = {
+	    size: 10
+	};
+
+	var ActionButtons = function ActionButtons() {
+	    return _jsx('div', {
+	        style: Styles.buttons
+	    }, void 0, _jsx(Button, {}), _jsx(Button, {
+	        style: { background: '#fcae52' }
+	    }), _jsx(Button, {
+	        style: { background: '#66b34e' }
+	    }));
+	};
+
+	var URL = function URL(props) {
+	    return _jsx('div', {
+	        style: Styles.url
+	    });
+	};
+
+	var Browser = function Browser(props) {
+	    return _jsx('div', {
+	        style: Styles.container
+	    }, void 0, _jsx(Bar, {}), 'test browser');
+	};
+
+	exports.default = Browser;
+
+	var Styles = {
+	    container: {
+	        minWidth: '240px',
+	        minHeight: '180px',
+	        background: '#fff',
+	        border: '2px solid #f1f1f1',
+	        borderTop: '30px solid #f4f5f7',
+	        borderRadius: '10px',
+	        position: 'relative'
+	    },
+	    bar: {
+	        position: 'absolute',
+	        top: '-20px',
+	        width: '100%'
+	    },
+	    buttons: {
+	        position: 'relative',
+	        top: '-3px'
+	    },
+	    button: {
+	        display: 'inline-block',
+	        background: '#fc5254'
+	    },
+	    url: {
+	        position: 'absolute',
+	        background: '#fff',
+	        borderRadius: '3px',
+	        height: '13px',
+	        top: '0',
+	        left: '80px',
+	        right: '10px'
 	    }
 	};
 	module.exports = exports['default'];

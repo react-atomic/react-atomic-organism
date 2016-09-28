@@ -6,7 +6,7 @@ import React,{Component} from 'react';
  */
 import {
     Monitor,
-    Keyboard
+    Browser,
 } from "../../src/index"
 
 
@@ -23,7 +23,8 @@ class Index extends Component
     {
         return (
             <div style={{margin:'10px'}}>
-                <Monitor />
+                <div style={{margin:'10px'}}><Monitor /></div>
+                <Browser />
             </div>
         );
     }
