@@ -24,7 +24,7 @@ export default class Items extends Component
     {
         return React.Children.map(
             this.props.children,
-            (child, index)=>{
+            ((child, index)=>{
                 child = React.cloneElement(
                     child, 
                     assign(
@@ -34,7 +34,7 @@ export default class Items extends Component
                     )
                 );
                 return child;
-            }.bind(this));
+            }).bind(this));
     }
 }
 

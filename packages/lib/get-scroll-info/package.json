@@ -1,6 +1,6 @@
 {
   "name": "get-scroll-info",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Get Scroll Information",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

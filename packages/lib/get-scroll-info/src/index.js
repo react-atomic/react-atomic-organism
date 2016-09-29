@@ -2,12 +2,19 @@
 
 let lastScroll;
 
-const isWebkit = 'undefined' !== typeof document.webkitIsFullScreen;
-const docEl = document.documentElement;
+if (document) {
+    const isWebkit = 'undefined' !== typeof document.webkitIsFullScreen;
+    const docEl = document.documentElement;
+} else {
+    let isWebkit;
+    let docEl;
+}
 
 const getScrollNode = (el) => {
     if (!el) {
-        el = document.body; 
+        if (document) {
+            el = document.body; 
+        }
         if ('undefined' === typeof el.scrollLeft) {
             el = docEl;
         }
