@@ -6,7 +6,7 @@ import {
 } from 'react-atomic-molecule';
 
 let originBodyStyle;
-if (document.body) {
+if ('undefined' !== typeof document) {
     originBodyStyle = document.body.style.overflow;
 }
 
@@ -34,11 +34,11 @@ class PopupModal extends Component
     render()
     {
         if (this.state.show) {
-            if (document) {
+            if ('undefined' !== typeof document) {
                 document.body.style.overflow = 'hidden';
             }
         } else {
-            if (document) {
+            if ('undefined' !== typeof document) {
                 document.body.style.overflow = originBodyStyle;
             }
             return null;

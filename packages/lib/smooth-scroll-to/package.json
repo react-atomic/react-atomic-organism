@@ -1,6 +1,6 @@
 {
   "name": "smooth-scroll-to",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Smooth scroll to library",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -8,7 +8,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": { 
-    "get-scroll-info": "^0.0.6"
+    "get-scroll-info": "^0.0.10"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

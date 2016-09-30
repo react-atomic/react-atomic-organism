@@ -2,17 +2,16 @@
 
 let lastScroll;
 
-if ('undefined' !== document) {
-    const isWebkit = 'undefined' !== typeof document.webkitIsFullScreen;
-    const docEl = document.documentElement;
-} else {
-    let isWebkit;
-    let docEl;
+let isWebkit;
+let docEl;
+if ('undefined' !== typeof document) {
+    isWebkit = 'undefined' !== typeof document.webkitIsFullScreen;
+    docEl = document.documentElement;
 }
 
 const getScrollNode = (el) => {
     if (!el) {
-        if ('undefined' !== document) {
+        if ('undefined' !== typeof document) {
             el = document.body; 
         }
         if ('undefined' === typeof el.scrollLeft) {
