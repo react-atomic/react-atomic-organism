@@ -53,7 +53,8 @@ class PopupModal extends Component
             closeEl = React.cloneElement(
                  closeEl,
                  {
-                    onClick:this.handleClick.bind(this)
+                    onClick:this.handleClick.bind(this),
+                    key: 1 
                  }
             );
         }
@@ -68,6 +69,7 @@ class PopupModal extends Component
             >
                 <Dimmer 
                     {...props}
+                    key={0}
                     fullScreen="true" 
                     style={assign(
                         {},
