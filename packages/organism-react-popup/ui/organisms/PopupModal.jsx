@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; 
 
 import {
+    mixClass,
     assign,
     Dimmer
 } from 'react-atomic-molecule';
@@ -43,13 +44,27 @@ class PopupModal extends Component
             }
             return null;
         }
-        const {fullScreenStyle, ...props} = this.props;
+        let {fullScreenStyle, closeEl, ...props} = this.props;
+        
+        let containerClick = null;
+        if (!closeEl) {
+            containerClick = this.handleClick.bind(this);
+        } else {
+            closeEl = React.cloneElement(
+                 closeEl,
+                 {
+                    onClick:this.handleClick.bind(this)
+                 }
+            );
+        }
+
         return (
             <Dimmer
-                className="page"
+                className="page modals"
                 show={true}
-                style={props.style}
-                onClick={this.handleClick.bind(this)}
+                center={false}
+                style={assign({}, Styles.container, props.style)}
+                onClick={containerClick}
             >
                 <Dimmer 
                     {...props}
@@ -59,7 +74,9 @@ class PopupModal extends Component
                         Styles.fullScreen,
                         fullScreenStyle
                     )}
+                    className={mixClass('scrolling',props.className)}
                 />
+                {closeEl}
             </Dimmer>
         );
     }
@@ -68,6 +85,9 @@ class PopupModal extends Component
 export default PopupModal;
 
 const Styles = {
+    container: {
+        overflow: 'auto'
+    },
     fullScreen: {
         boxSizing: 'border-box'
     }
