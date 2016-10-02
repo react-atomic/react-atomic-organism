@@ -1,9 +1,9 @@
-React Atomic Organism Ajax 
+React Ajax 
 ===============
    * GIT
-      * https://github.com/react-atomic/react-organism-ajax 
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-ajax 
    * NPM
-      * https://www.npmjs.com/package/react-organism-ajax
+      * https://npm.im/organism-react-ajax
 
 ## Example Usage
 Demo Url:

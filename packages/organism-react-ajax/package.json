@@ -1,9 +1,9 @@
 {
-  "name": "react-organism-ajax",
-  "version": "0.0.8",
-  "description": "React Atomic Organism Ajax",
+  "name": "organism-react-ajax",
+  "version": "0.0.0",
+  "description": "React Ajax",
   "main": "./build/src/index.js",
-  "repository": "react-atomic/react-organism-ajax",
+  "repository": "react-atomic/react-atomic-organism",
   "keywords": [
     "reactjs"
   ],
