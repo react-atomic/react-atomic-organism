@@ -32,10 +32,11 @@ const URL = (props)=>
     <div style={Styles.url} />
 
 const Browser = (props)=> {
+    const {children, style, ...others} = props;
     return (
-    <div style={Styles.container}>
+    <div {...others} style={assign({},Styles.container,style)}>
         <Bar/>
-        test browser
+        {children}
     </div>
     );
 };
@@ -59,7 +60,8 @@ const Styles = {
     },
     buttons: {
         position: 'relative',
-        top: '-3px'
+        top: '-3px',
+        textAlign: 'left',
     },
     button: {
         display: 'inline-block',

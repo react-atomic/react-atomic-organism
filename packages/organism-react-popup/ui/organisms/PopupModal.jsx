@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 import {
     mixClass,
     assign,
-    Dimmer
+    Dimmer,
+    SemanticUI
 } from 'react-atomic-molecule';
 
 let originBodyStyle;
@@ -53,23 +54,28 @@ class PopupModal extends Component
             closeEl = React.cloneElement(
                  closeEl,
                  {
-                    onClick:this.handleClick.bind(this),
-                    key: 1 
+                    onClick: this.handleClick.bind(this),
+                    key: 1,
+                    style: assign({},{
+                        zIndex:1001,
+                        position: 'fixed',
+                    },closeEl.props.style)
                  }
             );
         }
 
         return (
+            <SemanticUI>
             <Dimmer
                 className="page modals"
                 show={true}
                 center={false}
                 style={assign({}, Styles.container, props.style)}
                 onClick={containerClick}
+                key={0}
             >
                 <Dimmer 
                     {...props}
-                    key={0}
                     fullScreen="true" 
                     style={assign(
                         {},
@@ -78,8 +84,9 @@ class PopupModal extends Component
                     )}
                     className={mixClass('scrolling',props.className)}
                 />
-                {closeEl}
             </Dimmer>
+            {closeEl}
+            </SemanticUI>
         );
     }
 }
