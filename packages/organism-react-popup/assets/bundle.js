@@ -24988,8 +24988,23 @@ webpackJsonp([0],[
 	        key: 'handleClick',
 	        value: function handleClick() {
 	            this.setState({
-	                show: 0
+	                show: false
 	            });
+	            if (typeof this.props.closeCallBack === 'function') {
+	                this.props.closeCallBack();
+	            }
+	        }
+	    }, {
+	        key: 'detach',
+	        value: function detach() {
+	            if ('undefined' !== typeof document) {
+	                document.body.style.overflow = originBodyStyle;
+	            }
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            this.detach();
 	        }
 	    }, {
 	        key: 'componentWillReceiveProps',
@@ -24999,21 +25014,21 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _props = this.props;
+	            var fullScreenStyle = _props.fullScreenStyle;
+	            var closeEl = _props.closeEl;
+	            var closeCallBack = _props.closeCallBack;
+
+	            var props = _objectWithoutProperties(_props, ['fullScreenStyle', 'closeEl', 'closeCallBack']);
+
 	            if (this.state.show) {
 	                if ('undefined' !== typeof document) {
 	                    document.body.style.overflow = 'hidden';
 	                }
 	            } else {
-	                if ('undefined' !== typeof document) {
-	                    document.body.style.overflow = originBodyStyle;
-	                }
+	                this.detach();
 	                return null;
 	            }
-	            var _props = this.props;
-	            var fullScreenStyle = _props.fullScreenStyle;
-	            var closeEl = _props.closeEl;
-
-	            var props = _objectWithoutProperties(_props, ['fullScreenStyle', 'closeEl']);
 
 	            var containerClick = null;
 	            if (!closeEl) {
@@ -26342,6 +26357,9 @@ webpackJsonp([0],[
 	                    popup: popup
 	                }
 	            });
+	            if (typeof props.callBack === 'function') {
+	                props.callBack(popup);
+	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -26349,8 +26367,9 @@ webpackJsonp([0],[
 	            var _props = this.props;
 	            var container = _props.container;
 	            var popup = _props.popup;
+	            var callBack = _props.callBack;
 
-	            var reset = _objectWithoutProperties(_props, ['container', 'popup']);
+	            var reset = _objectWithoutProperties(_props, ['container', 'popup', 'callBack']);
 
 	            if (!_react2.default.isValidElement(container)) {
 	                container = _jsx(_reactAtomicMolecule.SemanticUI, {});

@@ -25,27 +25,40 @@ class PopupModal extends Component
     handleClick()
     {
         this.setState({
-             show: 0 
+             show: false 
         });
+        if (typeof this.props.closeCallBack === 'function') {
+            this.props.closeCallBack();
+        }
     }
 
-   componentWillReceiveProps(newProps) {
+    detach()
+    {
+        if ('undefined' !== typeof document) {
+            document.body.style.overflow = originBodyStyle;
+        }
+    }
+
+    componentWillUnmount()
+    {
+        this.detach();
+    }
+
+    componentWillReceiveProps(newProps) {
         this.setState({show: newProps.show});
-   }
+    }
 
     render()
     {
+        let {fullScreenStyle, closeEl, closeCallBack, ...props} = this.props;
         if (this.state.show) {
             if ('undefined' !== typeof document) {
                 document.body.style.overflow = 'hidden';
             }
         } else {
-            if ('undefined' !== typeof document) {
-                document.body.style.overflow = originBodyStyle;
-            }
+            this.detach();
             return null;
         }
-        let {fullScreenStyle, closeEl, ...props} = this.props;
         
         let containerClick = null;
         if (!closeEl) {

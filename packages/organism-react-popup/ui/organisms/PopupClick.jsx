@@ -29,11 +29,14 @@ class PopupClick extends Component
                 popup: popup 
             }
         });
+        if (typeof props.callBack === 'function') {
+            props.callBack(popup); 
+        }
     }
 
     render()
     {
-        let {container, popup, ...reset} = this.props;
+        let {container, popup, callBack, ...reset} = this.props;
         if (!React.isValidElement(container)) {
             container = <SemanticUI />
         }
