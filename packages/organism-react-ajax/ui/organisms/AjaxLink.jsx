@@ -30,6 +30,9 @@ class AjaxLink extends Component
         if (!myHref) {
             if (path) {
                 let baseUrl = ajaxStore.getState().get('baseUrl');
+                if (!baseUrl) {
+                    baseUrl = '';
+                }
                 myHref = baseUrl+path;
             } else {
                 myHref = '#';

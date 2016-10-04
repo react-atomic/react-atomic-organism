@@ -2,7 +2,8 @@
 
 import Immutable from 'immutable';
 import {ReduceStore} from 'flux/utils';
-import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
+import path from 'path';
+import dispatcher from '../actions/ajaxDispatcher';
 
 const AjaxState = Immutable.Map();
 
@@ -16,12 +17,17 @@ class AjaxStore extends ReduceStore
       return AjaxState;
   }
 
+  baseName(s)
+  {
+    return path.basename(s);
+  }
+
   cookAjaxUrl(state, ajaxUrl)
   {
-    let json = state.get('jsonUrl');
+    let json = state.get('jsonBaseName');
     if (json) {
-        let index = 'index.php';
-        if (-1!==ajaxUrl.indexOf(index)) {
+        if ('/'!==ajaxUrl.substr(-1)) {
+            const index = baseName(ajaxUrl);
             ajaxUrl = ajaxUrl.replace(index,json);
         } else {
             ajaxUrl += json;
@@ -32,8 +38,12 @@ class AjaxStore extends ReduceStore
 
   getRawUrl(state, params){
      let url = params.url;
+     let baseUrl = state.get('baseUrl');
+     if (!baseUrl) {
+        baseUrl = '';
+     }
      if (!url) {
-        url = state.get('baseUrl')+ params.path; 
+        url = baseUrl + params.path; 
      }
      return url;
   }
@@ -86,7 +96,10 @@ class AjaxStore extends ReduceStore
     if (params.updateUrl) {
         history.pushState('','',rawUrl);
     }
-    const ajaxUrl = rawUrl;
+    if (!state.get('ajax')) {
+        return state;
+    }
+    const ajaxUrl = this.cookAjaxUrl(state, rawUrl);
     params.query.r = ((new Date()).getTime());
     require(['superagent'],function(req){ 
        req.get(ajaxUrl)
@@ -108,7 +121,7 @@ class AjaxStore extends ReduceStore
     let self = this;
     let params = action.params;
     let rawUrl = this.getRawUrl(state, params);
-    const ajaxUrl = rawUrl;
+    const ajaxUrl = this.cookAjaxUrl(state, rawUrl);
     require(['superagent'],function(req){ 
        req.post(ajaxUrl)
           .send(params.query)
