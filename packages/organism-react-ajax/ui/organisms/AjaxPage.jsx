@@ -35,10 +35,8 @@ class AjaxPage extends Component
         const props = this.props;
         let themePath = props.themePath;
         if ('undefined' === typeof props.themes[themePath]) {
-            if (!themePath) {
-                let pageState = ajaxStore.getState();
-                themePath = pageState.get('lastThemePath');
-            }
+            let pageState = ajaxStore.getState();
+            themePath = pageState.get('lastThemePath');
             if ('undefined' === typeof props.themes[themePath]) {
                 console.error('can not find themes on ['+props.themePath+']', props.themes);
                 return null;
@@ -48,7 +46,8 @@ class AjaxPage extends Component
             type: 'config/set',
             params: {
                 lastThemePath: themePath,
-                ajax: props.ajax
+                ajax: props.ajax,
+                updateWithUrl: props.updateWithUrl
             }
         });
         return props.themes[themePath];

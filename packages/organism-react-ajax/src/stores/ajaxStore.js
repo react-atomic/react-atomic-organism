@@ -96,6 +96,10 @@ class AjaxStore extends ReduceStore
     if (params.updateUrl) {
         history.pushState('','',rawUrl);
     }
+    const updateWithUrl = state.get('updateWithUrl');
+    if (updateWithUrl) {
+        updateWithUrl(rawUrl);
+    }
     if (!state.get('ajax')) {
         return state;
     }
