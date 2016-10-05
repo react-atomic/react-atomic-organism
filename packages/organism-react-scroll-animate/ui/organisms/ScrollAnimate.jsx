@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {SemanticUI, assign} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import {
@@ -16,6 +16,7 @@ const Content = (props) => {
         scrollInfo
     } = props;
     let show = null;
+    let style = null;
     let force = false;
     if (once && scrollInfo.isShown) {
         const node = scrollStore.getNode(scrollInfo.targetId);
@@ -27,12 +28,20 @@ const Content = (props) => {
     if (scrollInfo.isOnScreen || force) {
         if (React.isValidElement(children)) {
             show = children;
+        } else if ('function' === typeof children) {
+            show = children();
         } else {
             show = <SemanticUI>{children}</SemanticUI>;
         }
     }
+    if (!show) {
+        style = {
+            visibility: 'hidden',
+            minHeight: '100px'
+        };
+    }
     return (
-        <Animate enter={enter} leave={leave}>
+        <Animate style={style} enter={enter} leave={leave}>
             {show}
         </Animate>
     );
