@@ -6,7 +6,7 @@ import React,{Component} from 'react';
  */
 import {
     PopupModal,
-    PopupDom,
+    PopupElement,
     PopupClick
 } from "../../src/index"
 
@@ -27,7 +27,7 @@ class Index extends Component
                 }}
                 container={<a />}
             >show</PopupClick>
-            <PopupDom />
+            <PopupElement />
             </div>
         );
     }

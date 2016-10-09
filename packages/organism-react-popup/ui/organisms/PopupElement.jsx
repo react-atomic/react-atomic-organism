@@ -6,7 +6,7 @@ import {
     popupDispatch
 } from '../../src/index';
 
-class PopupDom extends Component
+class PopupElement extends Component
 {
     static getStores()
     {
@@ -30,5 +30,5 @@ class PopupDom extends Component
         }
     }
 }
-const PopupDomContainer = Container.create(PopupDom);
-export default PopupDomContainer;
+const PopupElementContainer = Container.create(PopupElement);
+export default PopupElementContainer;
