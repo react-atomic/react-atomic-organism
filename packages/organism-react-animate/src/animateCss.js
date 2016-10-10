@@ -1,4 +1,15 @@
 const Styles = {
+    fadeIn: [
+        [
+            { opacity: 0 },
+            { opacity: 1 },
+        ],
+        [
+            '@keyframes fadeIn',
+            'from',
+            'to'
+        ]
+    ],
     fadeInUp: [
         [
             {
