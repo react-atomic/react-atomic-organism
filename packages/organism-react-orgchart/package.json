@@ -1,0 +1,19 @@
+{
+  "name": "react-organism-orgchart",
+  "version": "0.0.1",
+  "description": "React Atomic Organism / Organization Chart",
+  "main": "./src/index.js",
+  "repository": "react-atomic/react-organism-orgchart",
+  "keywords": [
+    "reactjs"
+  ],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react-atomic-molecule": "*"
+  },
+  "devDependencies": {
+    "react": "^15.0.1",
+    "babel-core": "^5.x"
+  }
+}
