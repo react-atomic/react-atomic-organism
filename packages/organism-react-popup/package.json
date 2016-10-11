@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "React Atomic Organism Popup",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -15,9 +15,10 @@
   "dependencies": {
     "flux": "^2.1.1",
     "immutable": "^3.8.1",
-    "react-atomic-molecule": ">=0.0.31",
+    "react-atomic-molecule": ">=0.0.40",
     "getoffset": "*",
-    "react-addons-css-transition-group": "*"
+    "react-addons-css-transition-group": "*",
+    "organism-react-animate": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

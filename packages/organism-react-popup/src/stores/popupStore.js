@@ -1,28 +1,46 @@
 'use strict';
 
-import Immutable from 'immutable';
+import {Map} from 'immutable';
 import {ReduceStore} from 'flux/utils';
 import dispatcher from '../actions/popupDispatcher';
-
-const PopupState = Immutable.Map();
 
 class PopupStore extends ReduceStore
 {
 
   getInitialState()
   {
-      return PopupState;
+      return Map({node:Map()});
   }
 
   updateDom(state, action)
   {
-      let params = action.params;
-      return state.set('popup', params.popup);
+      const params = action.params;
+      const popupNode = params.popup;
+      let result;
+      result = state.set('popup', popupNode);
+      const key = popupNode.props.name;
+      if (key) {
+        const node = result.get('node').set(key,true);
+        result = result.set('node',node);
+      } else {
+        result = result.set('show', true);
+      }
+      return result;
   }
 
-  closeDom(state, action)
+  closeAll(state, action)
   {
-      return state.delete('popup');
+     const params = action.params;
+     let result;
+     result = state.set('node', Map());
+     result = result.set('show', false);
+     return result;
+  }
+
+  cleanDom(state, action)
+  {
+      return state.delete('popup').
+        set('node', Map());
   }
 
   reduce (state, action)
@@ -31,8 +49,10 @@ class PopupStore extends ReduceStore
       {
           case 'dom/update':
               return this.updateDom(state, action);
-          case 'dom/close':
-              return this.closeDom(state, action);
+          case 'dom/closeAll':
+              return this.closeAll(state, action);
+          case 'dom/clean':
+              return this.cleanDom(state, action);
           case 'config/set':
               return state.merge(action.params);
           default:

@@ -1,11 +1,15 @@
 import React, {Component} from 'react'; 
-
+import { Container } from 'flux/utils';
 import {
     mixClass,
     assign,
     Dimmer,
     SemanticUI
 } from 'react-atomic-molecule';
+import Animate from 'organism-react-animate';
+import {
+    popupStore
+} from '../../src/index';
 
 let originBodyStyle;
 if ('undefined' !== typeof document) {
@@ -14,6 +18,26 @@ if ('undefined' !== typeof document) {
 
 class PopupModal extends Component
 {
+    static getStores()
+    {
+        return [popupStore];
+    }
+
+   static calculateState(prevState,props)
+   {
+        const state = popupStore.getState();
+        const key = props.name;
+        let show; 
+        if (key) {
+            show = state.get('node').get(key);
+        } else {
+            show = state.get('show');
+        }
+        return {
+            show: show 
+        }
+   }
+
     constructor(props) 
     {
         super(props);
@@ -50,61 +74,80 @@ class PopupModal extends Component
 
     render()
     {
-        let {fullScreenStyle, closeEl, closeCallBack, ...props} = this.props;
+        let {
+            appear,
+            enter,
+            leave,
+            fullScreenStyle,
+            closeEl,
+            closeCallBack,
+            ...props
+        } = this.props;
+        let containerClick = null;
+        let content;
         if (this.state.show) {
             if ('undefined' !== typeof document) {
                 document.body.style.overflow = 'hidden';
             }
+            if (!closeEl) {
+                containerClick = this.handleClick.bind(this);
+            } else {
+                closeEl = React.cloneElement(
+                     closeEl,
+                     {
+                        onClick: this.handleClick.bind(this),
+                        key: 1,
+                        style: assign({},{
+                            zIndex:1001,
+                            position: 'fixed',
+                        },closeEl.props.style)
+                     }
+                );
+            }
+            content = (
+                <Dimmer
+                    className="page modals"
+                    show={true}
+                    center={false}
+                    style={assign({}, Styles.container, props.style)}
+                    onClick={containerClick}
+                    key={0}
+                >
+                    <Dimmer 
+                        {...props}
+                        fullScreen="true" 
+                        style={assign(
+                            {},
+                            Styles.fullScreen,
+                            fullScreenStyle
+                        )}
+                        className={mixClass('scrolling',props.className)}
+                    />
+                </Dimmer>
+            );
         } else {
             this.detach();
-            return null;
-        }
-        
-        let containerClick = null;
-        if (!closeEl) {
-            containerClick = this.handleClick.bind(this);
-        } else {
-            closeEl = React.cloneElement(
-                 closeEl,
-                 {
-                    onClick: this.handleClick.bind(this),
-                    key: 1,
-                    style: assign({},{
-                        zIndex:1001,
-                        position: 'fixed',
-                    },closeEl.props.style)
-                 }
-            );
+            closeEl = null;
         }
 
         return (
-            <SemanticUI>
-            <Dimmer
-                className="page modals"
-                show={true}
-                center={false}
-                style={assign({}, Styles.container, props.style)}
-                onClick={containerClick}
-                key={0}
-            >
-                <Dimmer 
-                    {...props}
-                    fullScreen="true" 
-                    style={assign(
-                        {},
-                        Styles.fullScreen,
-                        fullScreenStyle
-                    )}
-                    className={mixClass('scrolling',props.className)}
-                />
-            </Dimmer>
+            <Animate {...{
+                appear: appear,
+                enter: enter,
+                leave: leave
+            }}>
+            {content}
             {closeEl}
-            </SemanticUI>
+            </Animate>
         );
     }
 }
 
-export default PopupModal;
+const PopupModalContainer = Container.create(
+    PopupModal,
+    { withProps:true }
+);
+export default PopupModalContainer;
 
 const Styles = {
     container: {

@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import { Container } from 'flux/utils';
 
 import {
-    popupStore,
-    popupDispatch
+    popupStore
 } from '../../src/index';
 
 class PopupElement extends Component
@@ -21,14 +20,14 @@ class PopupElement extends Component
         }
    }
 
-    render() {
-        let state = this.state;
-        if (state.popup) {
-            return state.popup;
-        } else {
-            return null;
-        }
-    }
+   render() {
+       let state = this.state;
+       if (state.popup) {
+           return state.popup;
+       } else {
+           return null;
+       }
+   }
 }
 const PopupElementContainer = Container.create(PopupElement);
 export default PopupElementContainer;

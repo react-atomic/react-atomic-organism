@@ -18,7 +18,9 @@ class PopupMonitor extends Component
                 }
             });
         } else {
-            popupDispatch({type: 'dom/close'});
+            popupDispatch({
+                type: 'dom/closeAll'
+            });
         }
         return prevState;
    }
