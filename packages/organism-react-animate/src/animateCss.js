@@ -78,6 +78,17 @@ const Styles = {
             'to'
         ]
     ], 
+    fadeOut: [
+        [
+            { opacity: 1 },
+            { opacity: 0 },
+        ],
+        [
+            '@keyframes fadeOut',
+            'from',
+            'to'
+        ]
+    ],
     fadeOutUp: [
         [
             {

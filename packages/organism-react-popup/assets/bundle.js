@@ -26079,6 +26079,7 @@ webpackJsonp([0],[
 	        opacity: 1,
 	        transform: ['none']
 	    }], ['@keyframes fadeInLeft', 'from', 'to']],
+	    fadeOut: [[{ opacity: 1 }, { opacity: 0 }], ['@keyframes fadeOut', 'from', 'to']],
 	    fadeOutUp: [[{
 	        opacity: 1
 	    }, {
@@ -26763,14 +26764,14 @@ webpackJsonp([0],[
 	        value: function closeAll(state, action) {
 	            var params = action.params;
 	            var result = void 0;
-	            result = state.set('node', new _immutable.Map());
+	            result = state.set('node', (0, _immutable.Map)());
 	            result = result.set('show', false);
 	            return result;
 	        }
 	    }, {
 	        key: 'cleanDom',
 	        value: function cleanDom(state, action) {
-	            return state.delete('popup').set('node', {});
+	            return state.delete('popup').set('node', (0, _immutable.Map)());
 	        }
 	    }, {
 	        key: 'reduce',

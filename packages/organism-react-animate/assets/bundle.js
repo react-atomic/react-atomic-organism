@@ -17430,7 +17430,7 @@ webpackJsonp([0],[
 
 	var _reactAtomicMolecule = __webpack_require__(182);
 
-	var _animateCss = __webpack_require__(259);
+	var _animateCss = __webpack_require__(258);
 
 	var _animateCss2 = _interopRequireDefault(_animateCss);
 
@@ -18746,16 +18746,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _search = __webpack_require__(254);
-
-	Object.defineProperty(exports, 'SearchIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_search).default;
-	  }
-	});
-
-	var _my_location = __webpack_require__(255);
+	var _my_location = __webpack_require__(254);
 
 	Object.defineProperty(exports, 'MyLocationIco', {
 	  enumerable: true,
@@ -18764,7 +18755,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _calendar = __webpack_require__(256);
+	var _calendar = __webpack_require__(255);
 
 	Object.defineProperty(exports, 'CalendarIco', {
 	  enumerable: true,
@@ -18773,7 +18764,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _pulse = __webpack_require__(257);
+	var _pulse = __webpack_require__(256);
 
 	Object.defineProperty(exports, 'PulseIco', {
 	  enumerable: true,
@@ -18782,7 +18773,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _pin = __webpack_require__(258);
+	var _pin = __webpack_require__(257);
 
 	Object.defineProperty(exports, 'PinIco', {
 	  enumerable: true,
@@ -19164,6 +19155,7 @@ webpackJsonp([0],[
 	        value: function render() {
 	            var renderChildren = this.props.renderChildren;
 	            var SemanticUI = void 0;
+	            var ui = this.props.ui;
 	            switch (this.props.atom) {
 	                case 'h1':
 	                    SemanticUI = Atoms.H1;
@@ -19227,6 +19219,10 @@ webpackJsonp([0],[
 	                case 'svg':
 	                    SemanticUI = Atoms.Svg;
 	                    break;
+	                case 'path':
+	                    SemanticUI = Atoms.Path;
+	                    ui = false;
+	                    break;
 	                case 'i':
 	                    SemanticUI = Atoms.I;
 	                    break;
@@ -19247,7 +19243,7 @@ webpackJsonp([0],[
 	            // bindStyles need after inject
 	            var props = (0, _index.assign)({}, this.props, {
 	                className: (0, _index.mixClass)(this.props.className, {
-	                    ui: this.props.ui
+	                    ui: ui
 	                })
 	            });
 	            var newProps = (0, _injectStyle.bindStyles)(props);
@@ -19263,6 +19259,9 @@ webpackJsonp([0],[
 	            delete props.styles;
 	            delete props.styleOrder;
 	            delete props.ui;
+	            if (!props.className) {
+	                delete props.className;
+	            }
 	            return props;
 	        }
 	    }, {
@@ -21008,24 +21007,16 @@ webpackJsonp([0],[
 
 	    var others = _objectWithoutProperties(props, ['opacity', 'zIndex', 'show', 'children', 'center', 'fullScreen']);
 
-	    var cssVisible = void 0;
-	    var cssActive = void 0;
-	    var cssHidden = void 0;
-	    var oStyle = (0, _index.assign)({}, props.style);
-	    if (show) {
-	        cssVisible = true;
-	        cssActive = true;
-	        oStyle.opacity = opacity;
-	        oStyle.zIndex = zIndex;
-	    } else {
-	        cssHidden = true;
+	    if (!show) {
+	        return null;
 	    }
-	    var classes = (0, _index.mixClass)(props.className, 'transition', {
+	    var oStyle = (0, _index.assign)({}, props.style, {
+	        opacity: opacity,
+	        zIndex: zIndex
+	    });
+	    var classes = (0, _index.mixClass)(props.className, 'transition visible active', {
 	        dimmer: !fullScreen,
-	        modal: fullScreen,
-	        visible: cssVisible,
-	        active: cssActive,
-	        hidden: cssHidden
+	        modal: fullScreen
 	    });
 
 	    var content = void 0;
@@ -21827,19 +21818,19 @@ webpackJsonp([0],[
 	    if (!css) {
 	        return;
 	    }
-	    styleId = styleId || genStyleId();
+	    if ('undefined' === typeof styleId) {
+	        styleId = genStyleId();
+	    }
 	    if (!isArray(css)) {
 	        css = [css];
 	    }
 	    var styles = [];
-	    var cssKeys;
-	    var key;
-	    var j;
-	    var jlen;
+	    var cssKeys = void 0;
+	    var key = void 0;
 	    for (var i = 0, len = css.length; i < len; i++) {
 	        cssKeys = keys(css[i]);
 	        styles[i] = {};
-	        for (j = 0, jlen = cssKeys.length; j < jlen; j++) {
+	        for (var j = 0, jlen = cssKeys.length; j < jlen; j++) {
 	            key = cssKeys[j];
 	            if (isArray(css[i][key])) {
 	                styles[i][Browser.webkit + ucfirst(key)] = styles[i][Browser.ms + ucfirst(key)] = styles[i][Browser.moz + ucfirst(key)] = styles[i][key] = css[i][key][0];
@@ -21849,7 +21840,7 @@ webpackJsonp([0],[
 	        }
 	    }
 
-	    var styleDecl = new _style2.default(styles, styleId, selector);
+	    var styleDecl = new _style2.default(styles, selector, styleId);
 	    _store2.default.styles.push(styleDecl);
 	    _store2.default.newStyles.push(styleDecl);
 	    return styleDecl;
@@ -21865,16 +21856,22 @@ webpackJsonp([0],[
 	/*jslint browser: true*/
 	'use strict';
 
-	var Store = __webpack_require__(217);
+	var _store = __webpack_require__(217);
 
-	function Style(style, styleId, selector) {
+	var _store2 = _interopRequireDefault(_store);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function Style(style, selector, styleId) {
 	  this.style = style;
-	  this.styleId = styleId;
 	  this.selector = selector;
+	  this.styleId = styleId;
 	}
 
 	Style.prototype.isCompiled = function () {
-	  var registry = Store.registry;
+	  var registry = _store2.default.registry;
 	  return registry && registry[this.styleId];
 	};
 
@@ -23260,68 +23257,6 @@ webpackJsonp([0],[
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var _jsx = function () {
-	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
-	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
-	            props = {};
-	        }if (props && defaultProps) {
-	            for (var propName in defaultProps) {
-	                if (props[propName] === void 0) {
-	                    props[propName] = defaultProps[propName];
-	                }
-	            }
-	        } else if (!props) {
-	            props = defaultProps || {};
-	        }if (childrenLength === 1) {
-	            props.children = children;
-	        } else if (childrenLength > 1) {
-	            var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
-	                childArray[i] = arguments[i + 3];
-	            }props.children = childArray;
-	        }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
-	    };
-	}();
-
-	var _index = __webpack_require__(182);
-
-	var SearchIcon = function SearchIcon(props) {
-	    return _index.React.createElement("svg", _extends({ fill: "#000000" }, props, { xmlns: "http://www.w3.org/2000/svg" }), _jsx("path", {
-	        d: "M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-	    }), _jsx("path", {
-	        d: "M0 0h24v24H0z",
-	        fill: "none"
-	    }));
-	};
-
-	SearchIcon.defaultProps = {
-	    width: 24,
-	    height: 24,
-	    viewBox: '0 0 24 24',
-	    fill: '#000000'
-	};
-	exports.default = SearchIcon;
-	module.exports = exports['default'];
-
-/***/ },
-/* 255 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -23475,7 +23410,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 256 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -23538,7 +23473,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 257 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23700,7 +23635,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 258 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23867,7 +23802,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 259 */
+/* 258 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -23876,6 +23811,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 	var Styles = {
+	    fadeIn: [[{ opacity: 0 }, { opacity: 1 }], ['@keyframes fadeIn', 'from', 'to']],
 	    fadeInUp: [[{
 	        opacity: 0,
 	        transform: ['translate3d(0, 100%, 0)']
@@ -23904,6 +23840,7 @@ webpackJsonp([0],[
 	        opacity: 1,
 	        transform: ['none']
 	    }], ['@keyframes fadeInLeft', 'from', 'to']],
+	    fadeOut: [[{ opacity: 1 }, { opacity: 0 }], ['@keyframes fadeOut', 'from', 'to']],
 	    fadeOutUp: [[{
 	        opacity: 1
 	    }, {

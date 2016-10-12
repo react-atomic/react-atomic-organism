@@ -47,7 +47,8 @@ class AjaxPage extends Component
             params: {
                 lastThemePath: themePath,
                 ajax: props.ajax,
-                updateWithUrl: props.updateWithUrl
+                updateWithUrl: props.updateWithUrl,
+                baseUrl: props.baseUrl
             }
         });
         return props.themes[themePath];
