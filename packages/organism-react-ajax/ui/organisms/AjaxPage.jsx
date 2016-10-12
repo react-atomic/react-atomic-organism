@@ -45,10 +45,7 @@ class AjaxPage extends Component
         ajaxDispatch({
             type: 'config/set',
             params: {
-                lastThemePath: themePath,
-                ajax: props.ajax,
-                updateWithUrl: props.updateWithUrl,
-                baseUrl: props.baseUrl
+                lastThemePath: themePath
             }
         });
         return props.themes[themePath];
