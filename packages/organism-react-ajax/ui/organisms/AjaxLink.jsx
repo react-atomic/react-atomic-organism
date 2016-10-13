@@ -45,6 +45,7 @@ class AjaxLink extends Component
         }
         return (
             <SemanticUI
+                atom="a"
                 href={myHref}
                 {...rest}
                 onClick={this.handleOnClick.bind(this)}
