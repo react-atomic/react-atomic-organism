@@ -2,10 +2,7 @@
 
 import Immutable from 'immutable';
 import {ReduceStore} from 'flux/utils';
-import path from 'path';
 import dispatcher from '../actions/ajaxDispatcher';
-
-const AjaxState = Immutable.Map();
 
 const empty = function(){}
 
@@ -14,26 +11,12 @@ class AjaxStore extends ReduceStore
 
   getInitialState()
   {
-      return AjaxState;
-  }
-
-  baseName(s)
-  {
-    return path.basename(s);
+      return Immutable.Map();
   }
 
   cookAjaxUrl(state, ajaxUrl)
   {
-    let json = state.get('jsonBaseName');
-    if (json) {
-        if ('/'!==ajaxUrl.substr(-1)) {
-            const index = baseName(ajaxUrl);
-            ajaxUrl = ajaxUrl.replace(index,json);
-        } else {
-            ajaxUrl += json;
-        }
-    }
-    return ajaxUrl;
+      return ajaxUrl;
   }
 
   getRawUrl(state, params){
