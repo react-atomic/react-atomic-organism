@@ -17,9 +17,8 @@ class AjaxPage extends Component
     }
 
     componentDidMount() {
-        window.onpopstate = function (e) {
-            let pageState = ajaxStore.getState();
-            let url = document.URL;
+        const updateWithUrl = (url)=>{
+            const pageState = ajaxStore.getState();
             if (pageState.get('url')!==url) {
                 ajaxDispatch({
                     type: 'ajaxGet',
@@ -28,7 +27,20 @@ class AjaxPage extends Component
                     }
                 });
             }
-        }
+        };
+        setTimeout(()=>{
+            ajaxDispatch({
+                type: 'config/set',
+                params: {
+                    updateWithUrl: updateWithUrl
+                }
+            });
+        });
+        window.onpopstate = (e)=> {
+            const pageState = ajaxStore.getState();
+            const updateWithUrl = pageState.get('updateWithUrl');
+            updateWithUrl(document.URL);
+        };
     }
 
     render() {
