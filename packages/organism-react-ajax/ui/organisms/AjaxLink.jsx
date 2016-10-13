@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; 
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
+import { SemanticUI } from 'react-atomic-molecule';
 
 class AjaxLink extends Component
 {
@@ -43,12 +44,11 @@ class AjaxLink extends Component
             return null;
         }
         return (
-            <a href={myHref}
+            <SemanticUI
+                href={myHref}
                 {...rest}
                 onClick={this.handleOnClick.bind(this)}
-            >
-                {this.props.children}
-            </a>
+            />
         );  
     }
 }
