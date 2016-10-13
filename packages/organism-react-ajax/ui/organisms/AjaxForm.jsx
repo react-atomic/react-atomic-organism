@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
-import { SemanticUI } from 'react-atomic-molecule';
+import { Form } from 'react-atomic-molecule';
 
 class AjaxForm extends Component
 {
@@ -49,7 +49,7 @@ class AjaxForm extends Component
         const {path, callback, errorCallback, ...rest} = this.props;
         let baseUrl = ajaxStore.getState().get('baseUrl')+path;
         return (
-            <SemanticUI
+            <Form
                 atom="form"
                 action={baseUrl}
                 {...rest}
