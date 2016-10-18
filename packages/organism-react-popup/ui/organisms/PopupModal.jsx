@@ -1,5 +1,5 @@
-import React, {Component} from 'react'; 
-import { Container } from 'flux/utils';
+import React from 'react'; 
+import { Container } from 'reshow';
 import {
     mixClass,
     assign,
@@ -7,45 +7,16 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
-import {
-    popupStore
-} from '../../src/index';
+
+import { PopupOverlay } from '../organisms/PopupOverlay';
 
 let originBodyStyle;
 if ('undefined' !== typeof document) {
     originBodyStyle = document.body.style.overflow;
 }
 
-class PopupModal extends Component
+class PopupModal extends PopupOverlay
 {
-    static getStores()
-    {
-        return [popupStore];
-    }
-
-   static calculateState(prevState,props)
-   {
-        const state = popupStore.getState();
-        const key = props.name;
-        let show; 
-        if (key) {
-            show = state.get('node').get(key);
-        } else {
-            show = state.get('show');
-        }
-        return {
-            show: show 
-        }
-   }
-
-    constructor(props) 
-    {
-        super(props);
-        this.state = {
-             show: props.show
-        };
-    }
-
     handleClick()
     {
         this.setState({
@@ -66,10 +37,6 @@ class PopupModal extends Component
     componentWillUnmount()
     {
         this.detach();
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({show: newProps.show});
     }
 
     render()

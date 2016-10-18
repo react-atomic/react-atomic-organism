@@ -27,7 +27,6 @@ class PopupHover extends Component
     {
         let dom = ReactDOM.findDOMNode(this.dom); 
         let bodyWidth = document.body.clientWidth;
-        console.log('over');
         let domOffset = getOffset(dom);
         let popupClass = 'visible bottom left';
         let popupStyle = {
@@ -65,7 +64,7 @@ class PopupHover extends Component
     mouseOut()
     {
         popupDispatch({
-            type: 'dom/close'
+        //    type: 'dom/closeAll'
         });
     }
 

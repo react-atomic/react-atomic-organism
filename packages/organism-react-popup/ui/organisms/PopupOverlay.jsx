@@ -1,26 +1,73 @@
 import React, {Component} from 'react'; 
-
+import { Container } from 'reshow';
 import {
-    FullscreenIco,
     mixClass,
     SemanticUI
 } from 'react-atomic-molecule';
 
-export default class PopupOverlay extends Component
+import {
+    popupStore
+} from '../../src/index';
+
+class PopupOverlay extends Component
 {
+    static defaultProps = { show: 1 }
+
+    static getStores()
+    {
+        return [popupStore];
+    }
+
+   static calculateState(prevState,props)
+   {
+        const state = popupStore.getState();
+        const key = props.name;
+        let show; 
+        if (key) {
+            show = state.get('node').get(key);
+        } else {
+            show = state.get('show');
+        }
+        return {
+            show: show 
+        }
+   }
+
+    constructor(props) 
+    {
+        super(props);
+        this.state = {
+             show: props.show
+        };
+    }
+
+    componentWillReceiveProps(newProps)
+    {
+        this.setState({show: newProps.show});
+    }
+
     render()
     {
-        let classes = mixClass (
+        if (!this.state.show) {
+            return null;
+        }
+        const classes = mixClass (
             this.props.className,
             'popup'
         );
         return (
             <SemanticUI {...this.props} className={classes}>
             {this.props.children}
-            <div style={{position:'absolute',top:'5px',right:'5px'}}>
-                <FullscreenIco width="30px" height="30px"/>
-            </div>
             </SemanticUI>
         );
     }
 }
+
+const PopupOverlayContainer = Container.create(
+    PopupOverlay,
+    { withProps:true }
+);
+
+export {PopupOverlay};
+
+export default PopupOverlayContainer;
