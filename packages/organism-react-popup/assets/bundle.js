@@ -26324,6 +26324,12 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+	    }return target;
+	}
+
 	function _classCallCheck(instance, Constructor) {
 	    if (!(instance instanceof Constructor)) {
 	        throw new TypeError("Cannot call a class as a function");
@@ -26342,13 +26348,13 @@ webpackJsonp([0],[
 	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var Popup = function (_Component) {
-	    _inherits(Popup, _Component);
+	var PopupHover = function (_Component) {
+	    _inherits(PopupHover, _Component);
 
-	    function Popup(props) {
-	        _classCallCheck(this, Popup);
+	    function PopupHover(props) {
+	        _classCallCheck(this, PopupHover);
 
-	        var _this = _possibleConstructorReturn(this, (Popup.__proto__ || Object.getPrototypeOf(Popup)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (PopupHover.__proto__ || Object.getPrototypeOf(PopupHover)).call(this, props));
 
 	        _this.state = {
 	            popup: false,
@@ -26358,7 +26364,7 @@ webpackJsonp([0],[
 	        return _this;
 	    }
 
-	    _createClass(Popup, [{
+	    _createClass(PopupHover, [{
 	        key: 'mouseOver',
 	        value: function mouseOver() {
 	            var dom = ReactDOM.findDOMNode(this.dom);
@@ -26372,19 +26378,19 @@ webpackJsonp([0],[
 	                left: '5px'
 	            };
 	            var props = this.props;
-	            var popup = null;
-	            if (props.popup) {
-	                var classes = (0, _reactAtomicMolecule.mixClass)(popupClass, props.popup.props.className);
+	            var popup = props.popup;
+	            if (popup) {
+	                var classes = (0, _reactAtomicMolecule.mixClass)(popupClass, popup.props.className);
 	                var popupProps = {
 	                    className: classes,
 	                    style: popupStyle
 	                };
-	                if (_react2.default.isValidElement(props.popup)) {
-	                    popup = _react2.default.cloneElement(props.popup, popupProps);
-	                } else if (typeof props.popup === 'function') {
-	                    popup = props.popup(popupProps);
+	                if (_react2.default.isValidElement(popup)) {
+	                    popup = _react2.default.cloneElement(popup, popupProps);
+	                } else if (typeof popup === 'function') {
+	                    popup = popup(popupProps);
 	                } else {
-	                    popup = _react2.default.createElement(_index.PopupOverlay, popupProps, props.popup);
+	                    popup = _react2.default.createElement(_index.PopupOverlay, popupProps, popup);
 	                }
 	            }
 	            (0, _index.popupDispatch)({
@@ -26406,6 +26412,11 @@ webpackJsonp([0],[
 	        value: function render() {
 	            var _this2 = this;
 
+	            var _props = this.props;
+	            var popup = _props.popup;
+
+	            var others = _objectWithoutProperties(_props, ['popup']);
+
 	            return _react2.default.createElement(_reactAtomicMolecule.SemanticUI, _extends({
 	                ref: function ref(dom) {
 	                    return _this2.dom = dom;
@@ -26413,14 +26424,14 @@ webpackJsonp([0],[
 	                onMouseEnter: this.mouseOver.bind(this),
 	                onMouseLeave: this.mouseOut.bind(this),
 	                style: { position: 'relative' }
-	            }, this.props));
+	            }, others));
 	        }
 	    }]);
 
-	    return Popup;
+	    return PopupHover;
 	}(_react.Component);
 
-	exports.default = Popup;
+	exports.default = PopupHover;
 	module.exports = exports['default'];
 
 /***/ },

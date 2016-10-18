@@ -11,7 +11,7 @@ import {
     PopupOverlay
 } from '../../src/index';
 
-export default class Popup extends Component
+class PopupHover extends Component
 {
    constructor(props)
    {
@@ -35,23 +35,23 @@ export default class Popup extends Component
             top: window.scrollY+10+'px', 
             left: '5px'
         };
-        let props = this.props;
-        let popup = null;
-        if (props.popup) {
-            let classes = mixClass(
+        const props = this.props;
+        let popup = props.popup;
+        if (popup) {
+            const classes = mixClass(
                 popupClass,
-                props.popup.props.className
+                popup.props.className
             );
-            let popupProps = {
+            const popupProps = {
                 className: classes,
                 style: popupStyle
             };
-            if (React.isValidElement(props.popup)) {
-              popup = React.cloneElement(props.popup, popupProps);
-            } else if (typeof props.popup === 'function') {
-              popup = props.popup(popupProps);
+            if (React.isValidElement(popup)) {
+              popup = React.cloneElement(popup, popupProps);
+            } else if (typeof popup === 'function') {
+              popup = popup(popupProps);
             } else {
-              popup = <PopupOverlay {...popupProps}>{props.popup}</PopupOverlay>; 
+              popup = <PopupOverlay {...popupProps}>{popup}</PopupOverlay>; 
             }
         }
         popupDispatch({
@@ -71,14 +71,17 @@ export default class Popup extends Component
 
     render()
     {
+        const {popup, ...others} = this.props;
         return (
         <SemanticUI
            ref={dom=>this.dom=dom}
            onMouseEnter={this.mouseOver.bind(this)} 
            onMouseLeave={this.mouseOut.bind(this)} 
            style={{position:'relative'}}
-           {...this.props}
+           {...others}
         />
         );
     }
 }
+
+export default PopupHover;
