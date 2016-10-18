@@ -13,19 +13,19 @@ const Content = (props) => {
         enter,
         leave,
         once,
-        scrollInfo
+        targetInfo
     } = props;
     let show = null;
     let style = null;
     let force = false;
-    if (once && scrollInfo.isShown) {
-        const node = scrollStore.getNode(scrollInfo.targetId);
+    if (once && targetInfo.isShown) {
+        const node = scrollStore.getNode(targetInfo.targetId);
         if (node) {
             node.detach();
         }
         force = true;
     }
-    if (scrollInfo.isOnScreen || force) {
+    if (targetInfo.isOnScreen || force) {
         if (React.isValidElement(children)) {
             show = children;
         } else if ('function' === typeof children) {
