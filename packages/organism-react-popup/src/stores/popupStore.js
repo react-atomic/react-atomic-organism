@@ -1,7 +1,7 @@
 'use strict';
 
 import {Map} from 'immutable';
-import {ReduceStore} from 'flux/utils';
+import {ReduceStore} from 'reduce-flux';
 import dispatcher from '../actions/popupDispatcher';
 
 class PopupStore extends ReduceStore

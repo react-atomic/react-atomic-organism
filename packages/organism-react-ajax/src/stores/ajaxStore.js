@@ -1,7 +1,7 @@
 'use strict';
 
 import Immutable from 'immutable';
-import {ReduceStore} from 'flux/utils';
+import {ReduceStore} from 'reduce-flux';
 import dispatcher from '../actions/ajaxDispatcher';
 
 const empty = function(){}

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "React Ajax",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -10,9 +10,9 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "flux": "^2.1.1",
-    "immutable": "^3.7.4",
+    "immutable": "^3.8.0",
     "react-atomic-molecule": ">=0.0.42",
+    "reduce-flux": "*",
     "superagent": "^0.21.0"
   },
   "devDependencies": {

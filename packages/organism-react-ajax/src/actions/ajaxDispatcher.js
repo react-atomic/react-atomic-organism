@@ -1,6 +1,6 @@
 'use strict';
 
-import {Dispatcher} from 'flux';
+import {Dispatcher} from 'reduce-flux';
 
 const instance = new Dispatcher();
 export default instance;

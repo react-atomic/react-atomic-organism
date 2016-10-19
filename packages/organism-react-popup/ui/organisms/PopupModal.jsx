@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { Container } from 'reshow';
+import { Container } from 'reduce-flux';
 import {
     mixClass,
     assign,

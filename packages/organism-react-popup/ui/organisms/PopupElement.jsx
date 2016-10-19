@@ -1,5 +1,5 @@
 import React, {Component} from 'react'; 
-import { Container } from 'flux/utils';
+import { Container } from 'reduce-flux';
 
 import {
     popupStore
