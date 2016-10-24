@@ -14,6 +14,12 @@ const Index = (props) => {
         <EventTimeline
             backgroundColor="#fff"
             eventElement={<Event />}
+            animate={{
+                enter: 'fadeInLeft'
+            }}
+            evenAnimate={{
+                enter: 'fadeInRight'
+            }}
             events={[
                 {
                     header: 'header',

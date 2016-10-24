@@ -11837,7 +11837,8 @@ webpackJsonp([0],[
 	  if (x === y) {
 	    // Steps 1-5, 7-10
 	    // Steps 6.b-6.e: +0 != -0
-	    return x !== 0 || 1 / x === 1 / y;
+	    // Added the nonzero y check to make Flow happy, but it is redundant
+	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
 	  } else {
 	    // Step 6.a: NaN == NaN
 	    return x !== x && y !== y;
@@ -17300,7 +17301,7 @@ webpackJsonp([0],[
 
 	var _reactAtomicMolecule = __webpack_require__(173);
 
-	var _index = __webpack_require__(245);
+	var _index = __webpack_require__(248);
 
 	var _index2 = _interopRequireDefault(_index);
 
@@ -17420,353 +17421,377 @@ webpackJsonp([0],[
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _avatar = __webpack_require__(174);
 
 	Object.defineProperty(exports, 'Avatar', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_avatar).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_avatar).default;
+	    }
 	});
 
 	var _button = __webpack_require__(177);
 
 	Object.defineProperty(exports, 'Button', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_button).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_button).default;
+	    }
 	});
 
-	var _card = __webpack_require__(212);
+	var _card = __webpack_require__(214);
 
 	Object.defineProperty(exports, 'Card', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_card).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_card).default;
+	    }
 	});
 
-	var _content = __webpack_require__(213);
+	var _content = __webpack_require__(215);
 
 	Object.defineProperty(exports, 'Content', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_content).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_content).default;
+	    }
 	});
 
-	var _circular_image = __webpack_require__(214);
+	var _circular_image = __webpack_require__(216);
 
 	Object.defineProperty(exports, 'CircularImage', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_circular_image).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_circular_image).default;
+	    }
 	});
 
-	var _description = __webpack_require__(215);
+	var _description = __webpack_require__(217);
 
 	Object.defineProperty(exports, 'Description', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_description).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_description).default;
+	    }
 	});
 
-	var _divider_horizontal = __webpack_require__(216);
+	var _Divider = __webpack_require__(218);
 
-	Object.defineProperty(exports, 'DividerHorizontal', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_divider_horizontal).default;
-	  }
+	Object.defineProperty(exports, 'Divider', {
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_Divider).default;
+	    }
 	});
 
 	var _dividing_header = __webpack_require__(219);
 
 	Object.defineProperty(exports, 'DividingHeader', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_dividing_header).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_dividing_header).default;
+	    }
 	});
 
-	var _facebook_button = __webpack_require__(220);
+	var _Dimmer = __webpack_require__(220);
+
+	Object.defineProperty(exports, 'Dimmer', {
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_Dimmer).default;
+	    }
+	});
+
+	var _facebook_button = __webpack_require__(221);
 
 	Object.defineProperty(exports, 'FacebookButton', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_facebook_button).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_facebook_button).default;
+	    }
 	});
 
-	var _form = __webpack_require__(222);
+	var _form = __webpack_require__(223);
 
 	Object.defineProperty(exports, 'Form', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_form).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_form).default;
+	    }
 	});
 
-	var _field = __webpack_require__(223);
+	var _field = __webpack_require__(224);
 
 	Object.defineProperty(exports, 'Field', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_field).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_field).default;
+	    }
 	});
 
-	var _item = __webpack_require__(224);
+	var _item = __webpack_require__(225);
 
 	Object.defineProperty(exports, 'Item', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_item).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_item).default;
+	    }
 	});
 
-	var _header = __webpack_require__(225);
+	var _header = __webpack_require__(226);
 
 	Object.defineProperty(exports, 'Header', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_header).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_header).default;
+	    }
 	});
 
 	var _image = __webpack_require__(175);
 
 	Object.defineProperty(exports, 'Image', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_image).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_image).default;
+	    }
 	});
 
-	var _input_ui = __webpack_require__(226);
+	var _input_ui = __webpack_require__(227);
 
 	Object.defineProperty(exports, 'InputUI', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_input_ui).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_input_ui).default;
+	    }
 	});
 
-	var _inputbox = __webpack_require__(227);
+	var _inputbox = __webpack_require__(228);
 
 	Object.defineProperty(exports, 'InputBox', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_inputbox).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_inputbox).default;
+	    }
 	});
 
-	var _list = __webpack_require__(228);
+	var _list = __webpack_require__(231);
 
 	Object.defineProperty(exports, 'List', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_list).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_list).default;
+	    }
 	});
 
-	var _menu = __webpack_require__(229);
+	var _Label = __webpack_require__(232);
+
+	Object.defineProperty(exports, 'Label', {
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_Label).default;
+	    }
+	});
+
+	var _menu = __webpack_require__(233);
 
 	Object.defineProperty(exports, 'Menu', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_menu).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_menu).default;
+	    }
 	});
 
-	var _message = __webpack_require__(230);
+	var _message = __webpack_require__(234);
 
 	Object.defineProperty(exports, 'Message', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_message).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_message).default;
+	    }
 	});
 
-	var _meta = __webpack_require__(231);
+	var _meta = __webpack_require__(235);
 
 	Object.defineProperty(exports, 'Meta', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_meta).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_meta).default;
+	    }
 	});
 
-	var _rail = __webpack_require__(232);
+	var _rail = __webpack_require__(236);
 
 	Object.defineProperty(exports, 'Rail', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_rail).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_rail).default;
+	    }
 	});
 
-	var _side_navigation = __webpack_require__(233);
-
-	Object.defineProperty(exports, 'SideNavigation', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_side_navigation).default;
-	  }
-	});
-
-	var _sidebar = __webpack_require__(235);
+	var _sidebar = __webpack_require__(237);
 
 	Object.defineProperty(exports, 'Sidebar', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_sidebar).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_sidebar).default;
+	    }
 	});
 
 	var _semantic_ui = __webpack_require__(178);
 
 	Object.defineProperty(exports, 'SemanticUI', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_semantic_ui).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_semantic_ui).default;
+	    }
 	});
 
-	var _segment = __webpack_require__(236);
+	var _segment = __webpack_require__(238);
 
 	Object.defineProperty(exports, 'Segment', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_segment).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_segment).default;
+	    }
 	});
 
 	var _objectAssign = __webpack_require__(4);
 
 	Object.defineProperty(exports, 'assign', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_objectAssign).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_objectAssign).default;
+	    }
 	});
 
-	var _index = __webpack_require__(217);
+	var _index = __webpack_require__(229);
 
 	Object.defineProperty(exports, 'reactStyle', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_index).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_index).default;
+	    }
 	});
 
-	var _injectStyle = __webpack_require__(206);
+	var _injectStyle = __webpack_require__(207);
 
 	Object.defineProperty(exports, 'injectStyle', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_injectStyle).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_injectStyle).default;
+	    }
+	});
+
+	var _lazyInject = __webpack_require__(239);
+
+	Object.defineProperty(exports, 'lazyInject', {
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_lazyInject).default;
+	    }
 	});
 
 	var _classnames = __webpack_require__(176);
 
 	Object.defineProperty(exports, 'mixClass', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_classnames).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_classnames).default;
+	    }
 	});
 
-	var _exenv = __webpack_require__(237);
+	var _exenv = __webpack_require__(240);
 
 	Object.defineProperty(exports, 'executionEnvironment', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_exenv).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_exenv).default;
+	    }
 	});
 
-	var _x = __webpack_require__(238);
+	var _rwd = __webpack_require__(241);
+
+	Object.defineProperty(exports, 'min', {
+	    enumerable: true,
+	    get: function get() {
+	        return _rwd.min;
+	    }
+	});
+	Object.defineProperty(exports, 'max', {
+	    enumerable: true,
+	    get: function get() {
+	        return _rwd.max;
+	    }
+	});
+
+	var _x = __webpack_require__(242);
 
 	Object.defineProperty(exports, 'XIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_x).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_x).default;
+	    }
 	});
 
-	var _facebook = __webpack_require__(221);
+	var _facebook = __webpack_require__(222);
 
 	Object.defineProperty(exports, 'FacebookIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_facebook).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_facebook).default;
+	    }
 	});
 
-	var _fullscreen = __webpack_require__(239);
+	var _fullscreen = __webpack_require__(243);
 
 	Object.defineProperty(exports, 'FullscreenIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_fullscreen).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_fullscreen).default;
+	    }
 	});
 
-	var _search = __webpack_require__(240);
-
-	Object.defineProperty(exports, 'SearchIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_search).default;
-	  }
-	});
-
-	var _my_location = __webpack_require__(241);
+	var _my_location = __webpack_require__(244);
 
 	Object.defineProperty(exports, 'MyLocationIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_my_location).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_my_location).default;
+	    }
 	});
 
-	var _calendar = __webpack_require__(242);
+	var _calendar = __webpack_require__(245);
 
 	Object.defineProperty(exports, 'CalendarIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_calendar).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_calendar).default;
+	    }
 	});
 
-	var _pulse = __webpack_require__(243);
+	var _pulse = __webpack_require__(246);
 
 	Object.defineProperty(exports, 'PulseIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_pulse).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_pulse).default;
+	    }
 	});
 
-	var _pin = __webpack_require__(244);
+	var _pin = __webpack_require__(247);
 
 	Object.defineProperty(exports, 'PinIco', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_pin).default;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _interopRequireDefault(_pin).default;
+	    }
 	});
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
+	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
 /***/ },
@@ -17883,7 +17908,7 @@ webpackJsonp([0],[
 	    function Image() {
 	        _classCallCheck(this, Image);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Image).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).apply(this, arguments));
 	    }
 
 	    _createClass(Image, [{
@@ -18039,7 +18064,7 @@ webpackJsonp([0],[
 	    function Button() {
 	        _classCallCheck(this, Button);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Button).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
 	    }
 
 	    _createClass(Button, [{
@@ -18066,12 +18091,6 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
-	    return typeof obj;
-	} : function (obj) {
-	    return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
-	};
-
 	var _createClass = function () {
 	    function defineProperties(target, props) {
 	        for (var i = 0; i < props.length; i++) {
@@ -18086,7 +18105,7 @@ webpackJsonp([0],[
 
 	var Atoms = _interopRequireWildcard(_reactAtomicAtom);
 
-	var _injectStyle = __webpack_require__(206);
+	var _injectStyle = __webpack_require__(207);
 
 	var _injectStyle2 = _interopRequireDefault(_injectStyle);
 
@@ -18136,19 +18155,15 @@ webpackJsonp([0],[
 	    function SemanticUI() {
 	        _classCallCheck(this, SemanticUI);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(SemanticUI).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (SemanticUI.__proto__ || Object.getPrototypeOf(SemanticUI)).apply(this, arguments));
 	    }
 
 	    _createClass(SemanticUI, [{
 	        key: 'render',
 	        value: function render() {
-	            var ui = this.props.ui;
 	            var renderChildren = this.props.renderChildren;
-	            var SemanticUI;
-	            var classes = [];
-	            if (ui) {
-	                classes.push('ui');
-	            }
+	            var SemanticUI = void 0;
+	            var ui = this.props.ui;
 	            switch (this.props.atom) {
 	                case 'h1':
 	                    SemanticUI = Atoms.H1;
@@ -18180,6 +18195,12 @@ webpackJsonp([0],[
 	                case 'nav':
 	                    SemanticUI = Atoms.Nav;
 	                    break;
+	                case 'section':
+	                    SemanticUI = Atoms.Section;
+	                    break;
+	                case 'dl':
+	                    SemanticUI = Atoms.Dl;
+	                    break;
 	                case 'button':
 	                    SemanticUI = Atoms.Button;
 	                    break;
@@ -18206,6 +18227,10 @@ webpackJsonp([0],[
 	                case 'svg':
 	                    SemanticUI = Atoms.Svg;
 	                    break;
+	                case 'path':
+	                    SemanticUI = Atoms.Path;
+	                    ui = false;
+	                    break;
 	                case 'i':
 	                    SemanticUI = Atoms.I;
 	                    break;
@@ -18218,9 +18243,6 @@ webpackJsonp([0],[
 	                case 'td':
 	                    SemanticUI = Atoms.Td;
 	                    break;
-	                case 'section':
-	                    SemanticUI = Atoms.Section;
-	                    break;
 	                default:
 	                    SemanticUI = Atoms.Div;
 	                    break;
@@ -18228,7 +18250,9 @@ webpackJsonp([0],[
 	            (0, _injectStyle2.default)();
 	            // bindStyles need after inject
 	            var props = (0, _index.assign)({}, this.props, {
-	                className: (0, _index.mixClass)(this.props.className, classes)
+	                className: (0, _index.mixClass)(this.props.className, {
+	                    ui: ui
+	                })
 	            });
 	            var newProps = (0, _injectStyle.bindStyles)(props);
 	            newProps = (0, _index.assign)(props, newProps);
@@ -18243,6 +18267,10 @@ webpackJsonp([0],[
 	            delete props.styles;
 	            delete props.styleOrder;
 	            delete props.ui;
+	            if (!props.className) {
+	                delete props.className;
+	            }
+	            return props;
 	        }
 	    }, {
 	        key: 'renderChildren',
@@ -18250,19 +18278,13 @@ webpackJsonp([0],[
 	            if (!render) {
 	                return null;
 	            }
+	            /**
+	             * Hack for https://fb.me/react-warning-keys
+	             * Each child in an array or iterator should have a unique "key"
+	             */
 	            return _react2.default.Children.map(this.props.children, function (child) {
-	                if ('object' !== (typeof child === 'undefined' ? 'undefined' : _typeof(child)) || !child) {
-	                    return child;
-	                }
-	                var childProps = child.props;
-	                var newProps = (0, _injectStyle.bindStyles)(childProps);
-	                childProps = (0, _index.assign)({}, childProps, newProps);
-	                this.cleanProps(childProps);
-	                if ('undefined' !== typeof newProps) {
-	                    child = _react2.default.cloneElement(child, childProps);
-	                }
 	                return child;
-	            }.bind(this));
+	            });
 	        }
 	    }]);
 
@@ -18314,7 +18336,16 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _form = __webpack_require__(183);
+	var _dl = __webpack_require__(183);
+
+	Object.defineProperty(exports, 'Dl', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_dl).default;
+	  }
+	});
+
+	var _form = __webpack_require__(184);
 
 	Object.defineProperty(exports, 'Form', {
 	  enumerable: true,
@@ -18323,7 +18354,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _h = __webpack_require__(184);
+	var _h = __webpack_require__(185);
 
 	Object.defineProperty(exports, 'H1', {
 	  enumerable: true,
@@ -18332,7 +18363,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _h2 = __webpack_require__(185);
+	var _h2 = __webpack_require__(186);
 
 	Object.defineProperty(exports, 'H2', {
 	  enumerable: true,
@@ -18341,7 +18372,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _h3 = __webpack_require__(186);
+	var _h3 = __webpack_require__(187);
 
 	Object.defineProperty(exports, 'H3', {
 	  enumerable: true,
@@ -18350,7 +18381,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _h4 = __webpack_require__(187);
+	var _h4 = __webpack_require__(188);
 
 	Object.defineProperty(exports, 'H4', {
 	  enumerable: true,
@@ -18359,7 +18390,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _h5 = __webpack_require__(188);
+	var _h5 = __webpack_require__(189);
 
 	Object.defineProperty(exports, 'H5', {
 	  enumerable: true,
@@ -18368,7 +18399,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _h6 = __webpack_require__(189);
+	var _h6 = __webpack_require__(190);
 
 	Object.defineProperty(exports, 'H6', {
 	  enumerable: true,
@@ -18377,7 +18408,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _i = __webpack_require__(190);
+	var _i = __webpack_require__(191);
 
 	Object.defineProperty(exports, 'I', {
 	  enumerable: true,
@@ -18386,7 +18417,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _img = __webpack_require__(191);
+	var _img = __webpack_require__(192);
 
 	Object.defineProperty(exports, 'Img', {
 	  enumerable: true,
@@ -18395,21 +18426,12 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _input = __webpack_require__(192);
+	var _input = __webpack_require__(193);
 
 	Object.defineProperty(exports, 'Input', {
 	  enumerable: true,
 	  get: function get() {
 	    return _interopRequireDefault(_input).default;
-	  }
-	});
-
-	var _li = __webpack_require__(193);
-
-	Object.defineProperty(exports, 'Li', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_li).default;
 	  }
 	});
 
@@ -18422,7 +18444,16 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _nav = __webpack_require__(195);
+	var _li = __webpack_require__(195);
+
+	Object.defineProperty(exports, 'Li', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_li).default;
+	  }
+	});
+
+	var _nav = __webpack_require__(196);
 
 	Object.defineProperty(exports, 'Nav', {
 	  enumerable: true,
@@ -18431,7 +18462,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _ol = __webpack_require__(196);
+	var _ol = __webpack_require__(197);
 
 	Object.defineProperty(exports, 'Ol', {
 	  enumerable: true,
@@ -18440,7 +18471,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _path = __webpack_require__(197);
+	var _path = __webpack_require__(198);
 
 	Object.defineProperty(exports, 'Path', {
 	  enumerable: true,
@@ -18449,25 +18480,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _span = __webpack_require__(198);
-
-	Object.defineProperty(exports, 'Span', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_span).default;
-	  }
-	});
-
-	var _svg = __webpack_require__(199);
-
-	Object.defineProperty(exports, 'Svg', {
-	  enumerable: true,
-	  get: function get() {
-	    return _interopRequireDefault(_svg).default;
-	  }
-	});
-
-	var _section = __webpack_require__(200);
+	var _section = __webpack_require__(199);
 
 	Object.defineProperty(exports, 'Section', {
 	  enumerable: true,
@@ -18476,25 +18489,25 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _textarea = __webpack_require__(201);
+	var _span = __webpack_require__(200);
 
-	Object.defineProperty(exports, 'Textarea', {
+	Object.defineProperty(exports, 'Span', {
 	  enumerable: true,
 	  get: function get() {
-	    return _interopRequireDefault(_textarea).default;
+	    return _interopRequireDefault(_span).default;
 	  }
 	});
 
-	var _ul = __webpack_require__(202);
+	var _svg = __webpack_require__(201);
 
-	Object.defineProperty(exports, 'Ul', {
+	Object.defineProperty(exports, 'Svg', {
 	  enumerable: true,
 	  get: function get() {
-	    return _interopRequireDefault(_ul).default;
+	    return _interopRequireDefault(_svg).default;
 	  }
 	});
 
-	var _table = __webpack_require__(203);
+	var _table = __webpack_require__(202);
 
 	Object.defineProperty(exports, 'Table', {
 	  enumerable: true,
@@ -18503,7 +18516,25 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _th = __webpack_require__(204);
+	var _td = __webpack_require__(203);
+
+	Object.defineProperty(exports, 'Td', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_td).default;
+	  }
+	});
+
+	var _textarea = __webpack_require__(204);
+
+	Object.defineProperty(exports, 'Textarea', {
+	  enumerable: true,
+	  get: function get() {
+	    return _interopRequireDefault(_textarea).default;
+	  }
+	});
+
+	var _th = __webpack_require__(205);
 
 	Object.defineProperty(exports, 'Th', {
 	  enumerable: true,
@@ -18512,12 +18543,12 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _td = __webpack_require__(205);
+	var _ul = __webpack_require__(206);
 
-	Object.defineProperty(exports, 'Td', {
+	Object.defineProperty(exports, 'Ul', {
 	  enumerable: true,
 	  get: function get() {
-	    return _interopRequireDefault(_td).default;
+	    return _interopRequireDefault(_ul).default;
 	  }
 	});
 
@@ -18531,13 +18562,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'A',
-	    render: function render() {
-	        return React.createElement('a', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var A = function A(props) {
+	    return _react2.default.createElement('a', props);
+	};
+	exports.default = A;
+	module.exports = exports['default'];
 
 /***/ },
 /* 181 */
@@ -18545,13 +18586,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'AtomButton',
-	    render: function render() {
-	        return React.createElement('button', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Button = function Button(props) {
+	    return _react2.default.createElement('button', props);
+	};
+	exports.default = Button;
+	module.exports = exports['default'];
 
 /***/ },
 /* 182 */
@@ -18583,13 +18634,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Form',
-	    render: function render() {
-	        return React.createElement('form', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Dl = function Dl(props) {
+	    return _react2.default.createElement('dl', props);
+	};
+	exports.default = Dl;
+	module.exports = exports['default'];
 
 /***/ },
 /* 184 */
@@ -18597,13 +18658,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'H1',
-	    render: function render() {
-	        return React.createElement('h1', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Form = function Form(props) {
+	    return _react2.default.createElement('form', props);
+	};
+	exports.default = Form;
+	module.exports = exports['default'];
 
 /***/ },
 /* 185 */
@@ -18611,13 +18682,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'H2',
-	    render: function render() {
-	        return React.createElement('h2', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var H1 = function H1(props) {
+	    return _react2.default.createElement('h1', props);
+	};
+	exports.default = H1;
+	module.exports = exports['default'];
 
 /***/ },
 /* 186 */
@@ -18625,13 +18706,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'H3',
-	    render: function render() {
-	        return React.createElement('h3', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var H2 = function H2(props) {
+	    return _react2.default.createElement('h2', props);
+	};
+	exports.default = H2;
+	module.exports = exports['default'];
 
 /***/ },
 /* 187 */
@@ -18639,13 +18730,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'H4',
-	    render: function render() {
-	        return React.createElement('h4', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var H3 = function H3(props) {
+	    return _react2.default.createElement('h3', props);
+	};
+	exports.default = H3;
+	module.exports = exports['default'];
 
 /***/ },
 /* 188 */
@@ -18653,13 +18754,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'H5',
-	    render: function render() {
-	        return React.createElement('h5', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var H4 = function H4(props) {
+	    return _react2.default.createElement('h4', props);
+	};
+	exports.default = H4;
+	module.exports = exports['default'];
 
 /***/ },
 /* 189 */
@@ -18667,13 +18778,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'H6',
-	    render: function render() {
-	        return React.createElement('h6', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var H5 = function H5(props) {
+	    return _react2.default.createElement('h5', props);
+	};
+	exports.default = H5;
+	module.exports = exports['default'];
 
 /***/ },
 /* 190 */
@@ -18681,13 +18802,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'I',
-	    render: function render() {
-	        return React.createElement('i', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var H6 = function H6(props) {
+	    return _react2.default.createElement('h6', props);
+	};
+	exports.default = H6;
+	module.exports = exports['default'];
 
 /***/ },
 /* 191 */
@@ -18695,13 +18826,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Img',
-	    render: function render() {
-	        return React.createElement('img', this.props);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var I = function I(props) {
+	    return _react2.default.createElement('i', props);
+	};
+	exports.default = I;
+	module.exports = exports['default'];
 
 /***/ },
 /* 192 */
@@ -18709,13 +18850,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Input',
-	    render: function render() {
-	        return React.createElement('input', this.props);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Img = function Img(props) {
+	    return _react2.default.createElement('img', props);
+	};
+	exports.default = Img;
+	module.exports = exports['default'];
 
 /***/ },
 /* 193 */
@@ -18723,13 +18874,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Li',
-	    render: function render() {
-	        return React.createElement('li', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Input = function Input(props) {
+	    return _react2.default.createElement('input', props);
+	};
+	exports.default = Input;
+	module.exports = exports['default'];
 
 /***/ },
 /* 194 */
@@ -18761,13 +18922,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Nav',
-	    render: function render() {
-	        return React.createElement('nav', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Li = function Li(props) {
+	    return _react2.default.createElement('li', props);
+	};
+	exports.default = Li;
+	module.exports = exports['default'];
 
 /***/ },
 /* 196 */
@@ -18775,13 +18946,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Ol',
-	    render: function render() {
-	        return React.createElement('ol', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Nav = function Nav(props) {
+	    return _react2.default.createElement('nav', props);
+	};
+	exports.default = Nav;
+	module.exports = exports['default'];
 
 /***/ },
 /* 197 */
@@ -18789,13 +18970,23 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Path',
-	    render: function render() {
-	        return React.createElement('path', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Ol = function Ol(props) {
+	    return _react2.default.createElement('ol', props);
+	};
+	exports.default = Ol;
+	module.exports = exports['default'];
 
 /***/ },
 /* 198 */
@@ -18803,30 +18994,26 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Span',
-	    render: function render() {
-	        return React.createElement('span', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Path = function Path(props) {
+	    return _react2.default.createElement('path', props);
+	};
+	exports.default = Path;
+	module.exports = exports['default'];
 
 /***/ },
 /* 199 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'Svg',
-	    render: function render() {
-	        return React.createElement('svg', this.props, this.props.children);
-	    }
-	});
-
-/***/ },
-/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18850,7 +19037,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 201 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18858,16 +19045,6 @@ webpackJsonp([0],[
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
 
 	var _react = __webpack_require__(1);
 
@@ -18877,62 +19054,38 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var Textarea = function (_Component) {
-	    _inherits(Textarea, _Component);
-
-	    function Textarea() {
-	        _classCallCheck(this, Textarea);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Textarea).apply(this, arguments));
-	    }
-
-	    _createClass(Textarea, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement('textarea', this.props, this.props.children);
-	        }
-	    }]);
-
-	    return Textarea;
-	}(_react.Component);
-
-	exports.default = Textarea;
+	var Span = function Span(props) {
+	    return _react2.default.createElement('span', props);
+	};
+	exports.default = Span;
 	module.exports = exports['default'];
 
 /***/ },
-/* 202 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	module.exports = React.createClass({
-	    displayName: 'UL',
-	    render: function render() {
-	        return React.createElement('ul', this.props, this.props.children);
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Svg = function Svg(props) {
+	    return _react2.default.createElement('svg', props);
+	};
+	exports.default = Svg;
+	module.exports = exports['default'];
+
 /***/ },
-/* 203 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18983,7 +19136,7 @@ webpackJsonp([0],[
 	    function Table() {
 	        _classCallCheck(this, Table);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Table).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).apply(this, arguments));
 	    }
 
 	    _createClass(Table, [{
@@ -19000,7 +19153,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 204 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19008,16 +19161,6 @@ webpackJsonp([0],[
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
 
 	var _react = __webpack_require__(1);
 
@@ -19027,44 +19170,34 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
+	var Td = function Td(props) {
+	    return _react2.default.createElement('td', props);
+	};
+	exports.default = Td;
+	module.exports = exports['default'];
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var Th = function (_Component) {
-	    _inherits(Th, _Component);
-
-	    function Th() {
-	        _classCallCheck(this, Th);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Th).apply(this, arguments));
-	    }
-
-	    _createClass(Th, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement('th', this.props, this.props.children);
-	        }
-	    }]);
-
-	    return Th;
-	}(_react.Component);
-
-	exports.default = Th;
+	var Textarea = function Textarea(props) {
+	    return _react2.default.createElement('textarea', props);
+	};
+	exports.default = Textarea;
 	module.exports = exports['default'];
 
 /***/ },
@@ -19077,16 +19210,6 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -19095,44 +19218,10 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var Td = function (_Component) {
-	    _inherits(Td, _Component);
-
-	    function Td() {
-	        _classCallCheck(this, Td);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Td).apply(this, arguments));
-	    }
-
-	    _createClass(Td, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement('td', this.props, this.props.children);
-	        }
-	    }]);
-
-	    return Td;
-	}(_react.Component);
-
-	exports.default = Td;
+	var Th = function Th(props) {
+	    return _react2.default.createElement('th', props);
+	};
+	exports.default = Th;
 	module.exports = exports['default'];
 
 /***/ },
@@ -19144,13 +19233,49 @@ webpackJsonp([0],[
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Ul = function Ul(props) {
+	    return _react2.default.createElement('ul', props);
+	};
+	exports.default = Ul;
+	module.exports = exports['default'];
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	exports.reInjectStyle = exports.bindStyles = undefined;
+
+	var _store = __webpack_require__(208);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _applyStyles = __webpack_require__(209);
+
+	var _applyStyles2 = _interopRequireDefault(_applyStyles);
+
+	var _stylesToCSS = __webpack_require__(211);
+
+	var _stylesToCSS2 = _interopRequireDefault(_stylesToCSS);
 
 	var _index = __webpack_require__(173);
 
-	var Store = __webpack_require__(207);
-	var ApplyStyle = __webpack_require__(208);
-	var stylesToCSS = __webpack_require__(209);
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
 
 	/**
 	 *  props.className
@@ -19175,7 +19300,7 @@ webpackJsonp([0],[
 	        className: myClass,
 	        style: myStyle
 	    };
-	    ApplyStyle(newStyleProps, props.styles, order);
+	    (0, _applyStyles2.default)(newStyleProps, props.styles, order);
 	    if (!newStyleProps.className) {
 	        delete newStyleProps.className;
 	    }
@@ -19186,18 +19311,18 @@ webpackJsonp([0],[
 	};
 
 	var reInjectStyle = function reInjectStyle() {
-	    Store.newStyles = Store.styles;
+	    _store2.default.newStyles = _store2.default.styles;
 	    injectStyle();
 	};
 
 	var injectStyle = function injectStyle() {
-	    if (!Store.newStyles.length) {
+	    if (!_store2.default.newStyles.length) {
 	        // We are in Node or Styles are already injected
 	        return null;
 	    }
-	    var compiled = stylesToCSS(Store.newStyles);
-	    Store.newStyles = [];
-	    Store.registry = (0, _index.assign)(Store.registry, compiled.styleIds);
+	    var compiled = (0, _stylesToCSS2.default)(_store2.default.newStyles);
+	    _store2.default.newStyles = [];
+	    _store2.default.registry = (0, _index.assign)(_store2.default.registry, compiled.styleIds);
 	    if (compiled.css) {
 	        if (_index.executionEnvironment.canUseDOM) {
 	            var tag = document.createElement('style');
@@ -19214,7 +19339,7 @@ webpackJsonp([0],[
 	exports.default = injectStyle;
 
 /***/ },
-/* 207 */
+/* 208 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -19227,12 +19352,12 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 208 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var CSSProperty = __webpack_require__(98);
+	var CSSProperty = __webpack_require__(210);
 	var isArray = Array.isArray;
 	var keys = Object.keys;
 
@@ -19310,14 +19435,16 @@ webpackJsonp([0],[
 	module.exports = applyStyles;
 
 /***/ },
-/* 209 */
+/* 210 */
+98,
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var hyphenateStyleName = __webpack_require__(210);
-	var CSSProperty = __webpack_require__(98);
-	var unsupportedPseudoClasses = __webpack_require__(211);
+	var hyphenateStyleName = __webpack_require__(212);
+	var CSSProperty = __webpack_require__(210);
+	var unsupportedPseudoClasses = __webpack_require__(213);
 
 	// Follows syntax at https://developer.mozilla.org/en-US/docs/Web/CSS/content,
 	// including multiple space separated values.
@@ -19434,7 +19561,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 210 */
+/* 212 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19453,7 +19580,7 @@ webpackJsonp([0],[
 	module.exports = hyphenateStyleName;
 
 /***/ },
-/* 211 */
+/* 213 */
 /***/ function(module, exports) {
 
 	/**
@@ -19506,7 +19633,7 @@ webpackJsonp([0],[
 	module.exports = unsupportedPseudoClasses;
 
 /***/ },
-/* 212 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19575,7 +19702,7 @@ webpackJsonp([0],[
 	    function Card() {
 	        _classCallCheck(this, Card);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Card).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).apply(this, arguments));
 	    }
 
 	    _createClass(Card, [{
@@ -19595,7 +19722,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 213 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19664,7 +19791,7 @@ webpackJsonp([0],[
 	    function Content() {
 	        _classCallCheck(this, Content);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Content).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).apply(this, arguments));
 	    }
 
 	    _createClass(Content, [{
@@ -19685,7 +19812,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 214 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19748,7 +19875,7 @@ webpackJsonp([0],[
 	    function CircularImage() {
 	        _classCallCheck(this, CircularImage);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(CircularImage).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (CircularImage.__proto__ || Object.getPrototypeOf(CircularImage)).apply(this, arguments));
 	    }
 
 	    _createClass(CircularImage, [{
@@ -19767,7 +19894,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 215 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19836,7 +19963,7 @@ webpackJsonp([0],[
 	    function Description() {
 	        _classCallCheck(this, Description);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Description).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Description.__proto__ || Object.getPrototypeOf(Description)).apply(this, arguments));
 	    }
 
 	    _createClass(Description, [{
@@ -19857,7 +19984,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 216 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19876,177 +20003,26 @@ webpackJsonp([0],[
 	    }return target;
 	};
 
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
+	var _react = __webpack_require__(1);
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
+	var _react2 = _interopRequireDefault(_react);
 
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var React = __webpack_require__(1);
-	var SemanticUI = __webpack_require__(178);
-	var mixClass = __webpack_require__(176);
-	var ReactStyle = __webpack_require__(217);
-
-	var Styles = {
-	    general: ReactStyle({
-	        borderTop: '1px solid #bdbdbd',
-	        top: '10px'
-	    }, '.ui.horizontal.divider:after, .ui.horizontal.divider:before'),
-	    left: ReactStyle({
-	        left: '-10px'
-	    }, '.ui.horizontal.divider:before'),
-	    right: ReactStyle({
-	        right: '-10px'
-	    }, '.ui.horizontal.divider:after'),
-	    line: {
-	        color: '#757575',
-	        marginLeft: '10px',
-	        marginRight: '10px'
-	    }
-	};
-
-	var DividerHorizontal = function (_React$Component) {
-	    _inherits(DividerHorizontal, _React$Component);
-
-	    function DividerHorizontal() {
-	        _classCallCheck(this, DividerHorizontal);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(DividerHorizontal).apply(this, arguments));
-	    }
-
-	    _createClass(DividerHorizontal, [{
-	        key: 'render',
-	        value: function render() {
-	            var classes = mixClass(this.props.className, 'horizontal divider header');
-	            return React.createElement(SemanticUI, _extends({}, this.props, { className: classes, style: Styles.line }), this.props.children);
-	        }
-	    }]);
-
-	    return DividerHorizontal;
-	}(React.Component);
-
-	exports.default = DividerHorizontal;
-	module.exports = exports['default'];
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*jslint browser: true*/
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _style = __webpack_require__(218);
-
-	var _style2 = _interopRequireDefault(_style);
-
-	var _store = __webpack_require__(207);
-
-	var _store2 = _interopRequireDefault(_store);
+	var _index = __webpack_require__(173);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var isArray = Array.isArray;
-	var keys = Object.keys;
+	var Divider = function Divider(props) {
+	    var classes = (0, _index.mixClass)(props.className, 'divider');
 
-	var Browser = {
-	    webkit: 'Webkit',
-	    ms: 'ms',
-	    moz: 'Moz'
+	    return _react2.default.createElement(_index.SemanticUI, _extends({}, props, {
+	        className: classes
+	    }));
 	};
 
-	function ucfirst(str) {
-	    return str.charAt(0).toUpperCase() + str.substr(1);
-	}
-
-	function genStyleId() {
-	    _store2.default.counter += 1;
-	    return 'c' + _store2.default.counter + '_';
-	}
-
-	var createStyle = function createStyle(css, selector, styleId) {
-	    if (!css) {
-	        return;
-	    }
-	    styleId = styleId || genStyleId();
-	    if (!isArray(css)) {
-	        css = [css];
-	    }
-	    var styles = [];
-	    var cssKeys;
-	    var key;
-	    var j;
-	    var jlen;
-	    for (var i = 0, len = css.length; i < len; i++) {
-	        cssKeys = keys(css[i]);
-	        styles[i] = {};
-	        for (j = 0, jlen = cssKeys.length; j < jlen; j++) {
-	            key = cssKeys[j];
-	            if (isArray(css[i][key])) {
-	                styles[i][Browser.webkit + ucfirst(key)] = styles[i][Browser.ms + ucfirst(key)] = styles[i][Browser.moz + ucfirst(key)] = styles[i][key] = css[i][key][0];
-	            } else {
-	                styles[i][key] = css[i][key];
-	            }
-	        }
-	    }
-
-	    var styleDecl = new _style2.default(styles, styleId, selector);
-	    _store2.default.styles.push(styleDecl);
-	    _store2.default.newStyles.push(styleDecl);
-	    return styleDecl;
-	};
-
-	exports.default = createStyle;
+	exports.default = Divider;
 	module.exports = exports['default'];
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*jslint browser: true*/
-	'use strict';
-
-	var Store = __webpack_require__(207);
-
-	function Style(style, styleId, selector) {
-	  this.style = style;
-	  this.styleId = styleId;
-	  this.selector = selector;
-	}
-
-	Style.prototype.isCompiled = function () {
-	  var registry = Store.registry;
-	  return registry && registry[this.styleId];
-	};
-
-	module.exports = Style;
 
 /***/ },
 /* 219 */
@@ -20106,7 +20082,7 @@ webpackJsonp([0],[
 	    function DividingHeader() {
 	        _classCallCheck(this, DividingHeader);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(DividingHeader).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (DividingHeader.__proto__ || Object.getPrototypeOf(DividingHeader)).apply(this, arguments));
 	    }
 
 	    _createClass(DividingHeader, [{
@@ -20125,6 +20101,112 @@ webpackJsonp([0],[
 
 /***/ },
 /* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
+	var _jsx = function () {
+	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
+	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
+	            props = {};
+	        }if (props && defaultProps) {
+	            for (var propName in defaultProps) {
+	                if (props[propName] === void 0) {
+	                    props[propName] = defaultProps[propName];
+	                }
+	            }
+	        } else if (!props) {
+	            props = defaultProps || {};
+	        }if (childrenLength === 1) {
+	            props.children = children;
+	        } else if (childrenLength > 1) {
+	            var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
+	                childArray[i] = arguments[i + 3];
+	            }props.children = childArray;
+	        }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
+	    };
+	}();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(173);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+	    }return target;
+	} /* jshint esnext: true */
+
+	var Dimmer = function Dimmer(props) {
+	    var opacity = props.opacity;
+	    var zIndex = props.zIndex;
+	    var show = props.show;
+	    var children = props.children;
+	    var center = props.center;
+	    var fullScreen = props.fullScreen;
+
+	    var others = _objectWithoutProperties(props, ['opacity', 'zIndex', 'show', 'children', 'center', 'fullScreen']);
+
+	    if (!show) {
+	        return null;
+	    }
+	    var oStyle = (0, _index.assign)({}, props.style, {
+	        opacity: opacity,
+	        zIndex: zIndex
+	    });
+	    var classes = (0, _index.mixClass)(props.className, 'transition visible active', {
+	        dimmer: !fullScreen,
+	        modal: fullScreen
+	    });
+
+	    var content = void 0;
+	    if (center) {
+	        content = _jsx(_index.Content, {
+	            style: { boxSizing: 'inherit' }
+	        }, void 0, _jsx('div', {
+	            className: 'center'
+	        }, void 0, children));
+	    } else {
+	        content = children;
+	    }
+
+	    return _react2.default.createElement(_index.SemanticUI, _extends({}, others, {
+	        style: oStyle,
+	        className: classes
+	    }), content);
+	};
+
+	Dimmer.defaultProps = {
+	    show: false,
+	    fullScreen: false,
+	    center: true
+	};
+
+	exports.default = Dimmer;
+	module.exports = exports['default'];
+
+/***/ },
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20187,7 +20269,7 @@ webpackJsonp([0],[
 
 	var _button2 = _interopRequireDefault(_button);
 
-	var _facebook = __webpack_require__(221);
+	var _facebook = __webpack_require__(222);
 
 	var _facebook2 = _interopRequireDefault(_facebook);
 
@@ -20219,7 +20301,7 @@ webpackJsonp([0],[
 	    function FacebookButton() {
 	        _classCallCheck(this, FacebookButton);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(FacebookButton).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (FacebookButton.__proto__ || Object.getPrototypeOf(FacebookButton)).apply(this, arguments));
 	    }
 
 	    _createClass(FacebookButton, [{
@@ -20243,7 +20325,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20334,7 +20416,7 @@ webpackJsonp([0],[
 	    function FacebookIcon() {
 	        _classCallCheck(this, FacebookIcon);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(FacebookIcon).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (FacebookIcon.__proto__ || Object.getPrototypeOf(FacebookIcon)).apply(this, arguments));
 	    }
 
 	    _createClass(FacebookIcon, [{
@@ -20363,7 +20445,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20382,16 +20464,6 @@ webpackJsonp([0],[
 	    }return target;
 	};
 
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -20402,55 +20474,34 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
-	}
-
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
-
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+	    }return target;
 	} /* jshint esnext: true */
 
-	var Form = function (_Component) {
-	    _inherits(Form, _Component);
+	var Form = function Form(props) {
+	    var message = props.message;
+	    var className = props.className;
 
-	    function Form() {
-	        _classCallCheck(this, Form);
+	    var others = _objectWithoutProperties(props, ['message', 'className']);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Form).apply(this, arguments));
-	    }
-
-	    _createClass(Form, [{
-	        key: 'render',
-	        value: function render() {
-	            var classes = (0, _index.mixClass)(this.props.className, {
-	                error: this.props.error === 'error',
-	                success: this.props.error === 'success',
-	                warning: this.props.error === 'warning'
-	            }, 'form');
-	            var props = (0, _index.assign)({}, this.props);
-	            delete props.error;
-	            return _react2.default.createElement(_index.SemanticUI, _extends({ atom: 'form' }, props, { className: classes }), props.children);
-	        }
-	    }]);
-
-	    return Form;
-	}(_react.Component);
-
+	    var classes = (0, _index.mixClass)(className, {
+	        error: message === 'error',
+	        success: message === 'success',
+	        warning: message === 'warning'
+	    }, 'form');
+	    return _react2.default.createElement(_index.SemanticUI, _extends({
+	        atom: 'form'
+	    }, others, {
+	        className: classes
+	    }));
+	};
 	exports.default = Form;
 	module.exports = exports['default'];
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20525,7 +20576,7 @@ webpackJsonp([0],[
 	    function Field() {
 	        _classCallCheck(this, Field);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Field).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Field.__proto__ || Object.getPrototypeOf(Field)).apply(this, arguments));
 	    }
 
 	    _createClass(Field, [{
@@ -20567,7 +20618,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20636,7 +20687,7 @@ webpackJsonp([0],[
 	    function Item() {
 	        _classCallCheck(this, Item);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Item).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).apply(this, arguments));
 	    }
 
 	    _createClass(Item, [{
@@ -20656,7 +20707,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20725,7 +20776,7 @@ webpackJsonp([0],[
 	    function Header() {
 	        _classCallCheck(this, Header);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Header).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
 	    }
 
 	    _createClass(Header, [{
@@ -20745,7 +20796,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20773,7 +20824,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 227 */
+/* 228 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20812,7 +20863,7 @@ webpackJsonp([0],[
 
 	/* jshint esnext: true */
 	var React = __webpack_require__(1);
-	var reactStyle = __webpack_require__(217);
+	var reactStyle = __webpack_require__(229);
 	var SemanticUI = __webpack_require__(178);
 	var mixClass = __webpack_require__(176);
 
@@ -20853,7 +20904,110 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 228 */
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*jslint browser: true*/
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _style = __webpack_require__(230);
+
+	var _style2 = _interopRequireDefault(_style);
+
+	var _store = __webpack_require__(208);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var isArray = Array.isArray;
+	var keys = Object.keys;
+	var Browser = {
+	    webkit: 'Webkit',
+	    ms: 'ms',
+	    moz: 'Moz'
+	};
+
+	var ucfirst = function ucfirst(str) {
+	    return str.charAt(0).toUpperCase() + str.substr(1);
+	};
+
+	var genStyleId = function genStyleId() {
+	    _store2.default.counter += 1;
+	    return 'c' + _store2.default.counter + '_';
+	};
+
+	var createStyle = function createStyle(css, selector, styleId) {
+	    if (!css) {
+	        return;
+	    }
+	    if ('undefined' === typeof styleId) {
+	        styleId = genStyleId();
+	    }
+	    if (!isArray(css)) {
+	        css = [css];
+	    }
+	    var styles = [];
+	    var cssKeys = void 0;
+	    var key = void 0;
+	    for (var i = 0, len = css.length; i < len; i++) {
+	        cssKeys = keys(css[i]);
+	        styles[i] = {};
+	        for (var j = 0, jlen = cssKeys.length; j < jlen; j++) {
+	            key = cssKeys[j];
+	            if (isArray(css[i][key])) {
+	                styles[i][Browser.webkit + ucfirst(key)] = styles[i][Browser.ms + ucfirst(key)] = styles[i][Browser.moz + ucfirst(key)] = styles[i][key] = css[i][key][0];
+	            } else {
+	                styles[i][key] = css[i][key];
+	            }
+	        }
+	    }
+
+	    var styleDecl = new _style2.default(styles, selector, styleId);
+	    _store2.default.styles.push(styleDecl);
+	    _store2.default.newStyles.push(styleDecl);
+	    return styleDecl;
+	};
+
+	exports.default = createStyle;
+	module.exports = exports['default'];
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*jslint browser: true*/
+	'use strict';
+
+	var _store = __webpack_require__(208);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function Style(style, selector, styleId) {
+	  this.style = style;
+	  this.selector = selector;
+	  this.styleId = styleId;
+	}
+
+	Style.prototype.isCompiled = function () {
+	  var registry = _store2.default.registry;
+	  return registry && registry[this.styleId];
+	};
+
+	module.exports = Style;
+
+/***/ },
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -20922,7 +21076,7 @@ webpackJsonp([0],[
 	    function List() {
 	        _classCallCheck(this, List);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(List).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).apply(this, arguments));
 	    }
 
 	    _createClass(List, [{
@@ -20982,7 +21136,47 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 229 */
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _index = __webpack_require__(173);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var Label = function Label(props) {
+	    var classes = (0, _index.mixClass)(props.className, 'label');
+	    return _react2.default.createElement(_index.SemanticUI, _extends({}, props, {
+	        className: classes
+	    }));
+	};
+
+	exports.default = Label;
+	module.exports = exports['default'];
+
+/***/ },
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21051,7 +21245,7 @@ webpackJsonp([0],[
 	    function Menu() {
 	        _classCallCheck(this, Menu);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Menu).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
 	    }
 
 	    _createClass(Menu, [{
@@ -21069,7 +21263,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 230 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21132,7 +21326,7 @@ webpackJsonp([0],[
 
 	var _semantic_ui2 = _interopRequireDefault(_semantic_ui);
 
-	var _header = __webpack_require__(225);
+	var _header = __webpack_require__(226);
 
 	var _header2 = _interopRequireDefault(_header);
 
@@ -21170,7 +21364,7 @@ webpackJsonp([0],[
 	    function Message() {
 	        _classCallCheck(this, Message);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Message).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).apply(this, arguments));
 	    }
 
 	    _createClass(Message, [{
@@ -21201,7 +21395,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 231 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21270,7 +21464,7 @@ webpackJsonp([0],[
 	    function Meta() {
 	        _classCallCheck(this, Meta);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Meta).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Meta.__proto__ || Object.getPrototypeOf(Meta)).apply(this, arguments));
 	    }
 
 	    _createClass(Meta, [{
@@ -21291,7 +21485,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 232 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21360,7 +21554,7 @@ webpackJsonp([0],[
 	    function Rail() {
 	        _classCallCheck(this, Rail);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Rail).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (Rail.__proto__ || Object.getPrototypeOf(Rail)).apply(this, arguments));
 	    }
 
 	    _createClass(Rail, [{
@@ -21380,390 +21574,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 233 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var React = __webpack_require__(1);
-	var mixClass = __webpack_require__(176);
-	var Menu = __webpack_require__(229);
-	var Colors = __webpack_require__(234);
-	var ReactStyle = __webpack_require__(217);
-
-	var Styles = {
-
-	    normalSideNavStyle: ReactStyle({
-	        bottom: 0,
-	        left: 0,
-	        overflow: 'auto',
-	        position: 'fixed',
-	        top: 0,
-	        transition: 'transform .2s cubic-bezier(.4,0,.2,1), visibility 0s linear .21s',
-	        zIndex: '1001',
-	        visibility: 'hidden'
-	    }),
-
-	    showSideNavStyle: ReactStyle({
-	        transform: 'translateX(0)',
-	        transition: 'transform .2s cubic-bezier(.4,0,.2,1), visibility 0s linear 0s',
-	        visibility: 'visible'
-	    })
-
-	};
-
-	module.exports = React.createClass({
-	    displayName: 'SideNavigation',
-	    render: function render() {
-	        var props = this.props;
-	        var classes = mixClass(this.props.className, 'sidebarNavi');
-	        var sideNavigationStyles = [Styles.normalSideNavStyle];
-	        if (props.show) {
-	            sideNavigationStyles.push(Styles.showSideNavStyle);
-	        }
-	        var width = props.width || null === props.width ? props.width : '240px';
-	        if (width && !isNaN(width)) {
-	            sideNavigationStyles.push(ReactStyle({
-	                width: width,
-	                transform: 'translateX(-' + width++ + 'px)'
-	            }, false));
-	        }
-	        if (props.background) {
-	            sideNavigationStyles.push(ReactStyle({
-	                backgroundColor: 'white',
-	                borderRight: '1px solid ' + Colors.grey.P300
-	            }, false));
-	        } else {
-	            sideNavigationStyles.push(ReactStyle({
-	                boxShadow: 'none'
-	            }, false));
-	        }
-	        sideNavigationStyles = sideNavigationStyles.concat(props.styles);
-	        return React.createElement(Menu, _extends({}, props, {
-	            className: classes,
-	            styles: sideNavigationStyles
-	        }), this.props.children);
-	    }
-
-	});
-
-/***/ },
-/* 234 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var Colors = {
-	  red: {
-	    P50: '#fde0dc',
-	    P100: '#f9bdbb',
-	    P200: '#f69988',
-	    P300: '#f36c60',
-	    P400: '#e84e40',
-	    P500: '#e51c23',
-	    P600: '#dd191d',
-	    P700: '#d01716',
-	    P800: '#c41411',
-	    P900: '#b0120a',
-	    A100: '#ff7997',
-	    A200: '#ff5177',
-	    A400: '#ff2d6f',
-	    A700: '#e00032'
-	  },
-	  pink: {
-	    P50: '#fce4ec',
-	    P100: '#f8bbd0',
-	    P200: '#f48fb1',
-	    P300: '#f06292',
-	    P400: '#ec407a',
-	    P500: '#e91e63',
-	    P600: '#d81b60',
-	    P700: '#c2185b',
-	    P800: '#ad1457',
-	    P900: '#880e4f',
-	    A100: '#ff80ab',
-	    A200: '#ff4081',
-	    A400: '#f50057',
-	    A700: '#c51162'
-	  },
-	  purple: {
-	    P50: '#f3e5f5',
-	    P100: '#e1bee7',
-	    P200: '#ce93d8',
-	    P300: '#ba68c8',
-	    P400: '#ab47bc',
-	    P500: '#9c27b0',
-	    P600: '#8e24aa',
-	    P700: '#7b1fa2',
-	    P800: '#6a1b9a',
-	    P900: '#4a148c',
-	    A100: '#ea80fc',
-	    A200: '#e040fb',
-	    A400: '#d500f9',
-	    A700: '#aa00ff'
-	  },
-	  deepPurple: {
-	    P50: '#ede7f6',
-	    P100: '#d1c4e9',
-	    P200: '#b39ddb',
-	    P300: '#9575cd',
-	    P400: '#7e57c2',
-	    P500: '#673ab7',
-	    P600: '#5e35b1',
-	    P700: '#512da8',
-	    P800: '#4527a0',
-	    P900: '#311b92',
-	    A100: '#b388ff',
-	    A200: '#7c4dff',
-	    A400: '#651fff',
-	    A700: '#6200ea'
-	  },
-	  indigo: {
-	    P50: '#e8eaf6',
-	    P100: '#c5cae9',
-	    P200: '#9fa8da',
-	    P300: '#7986cb',
-	    P400: '#5c6bc0',
-	    P500: '#3f51b5',
-	    P600: '#3949ab',
-	    P700: '#303f9f',
-	    P800: '#283593',
-	    P900: '#1a237e',
-	    A100: '#8c9eff',
-	    A200: '#536dfe',
-	    A400: '#3d5afe',
-	    A700: '#304ffe'
-	  },
-	  blue: {
-	    P50: '#e7e9fd',
-	    P100: '#d0d9ff',
-	    P200: '#afbfff',
-	    P300: '#91a7ff',
-	    P400: '#738ffe',
-	    P500: '#5677fc',
-	    P600: '#4e6cef',
-	    P700: '#455ede',
-	    P800: '#3b50ce',
-	    P900: '#2a36b1',
-	    A100: '#a6baff',
-	    A200: '#6889ff',
-	    A400: '#4d73ff',
-	    A700: '#4d69ff'
-	  },
-	  lightBlue: {
-	    P50: '#e1f5fe',
-	    P100: '#b3e5fc',
-	    P200: '#81d4fa',
-	    P300: '#4fc3f7',
-	    P400: '#29b6f6',
-	    P500: '#03a9f4',
-	    P600: '#039be5',
-	    P700: '#0288d1',
-	    P800: '#0277bd',
-	    P900: '#01579b',
-	    A100: '#80d8ff',
-	    A200: '#40c4ff',
-	    A400: '#00b0ff',
-	    A700: '#0091ea'
-	  },
-	  cyan: {
-	    P50: '#e0f7fa',
-	    P100: '#b2ebf2',
-	    P200: '#80deea',
-	    P300: '#4dd0e1',
-	    P400: '#26c6da',
-	    P500: '#00bcd4',
-	    P600: '#00acc1',
-	    P700: '#0097a7',
-	    P800: '#00838f',
-	    P900: '#006064',
-	    A100: '#84ffff',
-	    A200: '#18ffff',
-	    A400: '#00e5ff',
-	    A700: '#00b8d4'
-	  },
-	  teal: {
-	    P50: '#e0f2f1',
-	    P100: '#b2dfdb',
-	    P200: '#80cbc4',
-	    P300: '#4db6ac',
-	    P400: '#26a69a',
-	    P500: '#009688',
-	    P600: '#00897b',
-	    P700: '#00796b',
-	    P800: '#00695c',
-	    P900: '#004d40',
-	    A100: '#a7ffeb',
-	    A200: '#64ffda',
-	    A400: '#1de9b6',
-	    A700: '#00bfa5'
-	  },
-	  green: {
-	    P50: '#d0f8ce',
-	    P100: '#a3e9a4',
-	    P200: '#72d572',
-	    P300: '#42bd41',
-	    P400: '#2baf2b',
-	    P500: '#259b24',
-	    P600: '#0a8f08',
-	    P700: '#0a7e07',
-	    P800: '#056f00',
-	    P900: '#0d5302',
-	    A100: '#a2f78d',
-	    A200: '#5af158',
-	    A400: '#14e715',
-	    A700: '#12c700'
-	  },
-	  lightGreen: {
-	    P50: '#f1f8e9',
-	    P100: '#dcedc8',
-	    P200: '#c5e1a5',
-	    P300: '#aed581',
-	    P400: '#9ccc65',
-	    P500: '#8bc34a',
-	    P600: '#7cb342',
-	    P700: '#689f38',
-	    P800: '#558b2f',
-	    P900: '#33691e',
-	    A100: '#ccff90',
-	    A200: '#b2ff59',
-	    A400: '#76ff03',
-	    A700: '#64dd17'
-	  },
-	  lime: {
-	    P50: '#f9fbe7',
-	    P100: '#f0f4c3',
-	    P200: '#e6ee9c',
-	    P300: '#dce775',
-	    P400: '#d4e157',
-	    P500: '#cddc39',
-	    P600: '#c0ca33',
-	    P700: '#afb42b',
-	    P800: '#9e9d24',
-	    P900: '#827717',
-	    A100: '#f4ff81',
-	    A200: '#eeff41',
-	    A400: '#c6ff00',
-	    A700: '#aeea00'
-	  },
-	  yellow: {
-	    P50: '#fffde7',
-	    P100: '#fff9c4',
-	    P200: '#fff59d',
-	    P300: '#fff176',
-	    P400: '#ffee58',
-	    P500: '#ffeb3b',
-	    P600: '#fdd835',
-	    P700: '#fbc02d',
-	    P800: '#f9a825',
-	    P900: '#f57f17',
-	    A100: '#ffff8d',
-	    A200: '#ffff00',
-	    A400: '#ffea00',
-	    A700: '#ffd600'
-	  },
-	  amber: {
-	    P50: '#fff8e1',
-	    P100: '#ffecb3',
-	    P200: '#ffe082',
-	    P300: '#ffd54f',
-	    P400: '#ffca28',
-	    P500: '#ffc107',
-	    P600: '#ffb300',
-	    P700: '#ffa000',
-	    P800: '#ff8f00',
-	    P900: '#ff6f00',
-	    A100: '#ffe57f',
-	    A200: '#ffd740',
-	    A400: '#ffc400',
-	    A700: '#ffab00'
-	  },
-	  orange: {
-	    P50: '#fff3e0',
-	    P100: '#ffe0b2',
-	    P200: '#ffcc80',
-	    P300: '#ffb74d',
-	    P400: '#ffa726',
-	    P500: '#ff9800',
-	    P600: '#fb8c00',
-	    P700: '#f57c00',
-	    P800: '#ef6c00',
-	    P900: '#e65100',
-	    A100: '#ffd180',
-	    A200: '#ffab40',
-	    A400: '#ff9100',
-	    A700: '#ff6d00'
-	  },
-	  deepOrange: {
-	    P50: '#fbe9e7',
-	    P100: '#ffccbc',
-	    P200: '#ffab91',
-	    P300: '#ff8a65',
-	    P400: '#ff7043',
-	    P500: '#ff5722',
-	    P600: '#f4511e',
-	    P700: '#e64a19',
-	    P800: '#d84315',
-	    P900: '#bf360c',
-	    A100: '#ff9e80',
-	    A200: '#ff6e40',
-	    A400: '#ff3d00',
-	    A700: '#dd2c00'
-	  },
-	  brown: {
-	    P50: '#efebe9',
-	    P100: '#d7ccc8',
-	    P200: '#bcaaa4',
-	    P300: '#a1887f',
-	    P400: '#8d6e63',
-	    P500: '#795548',
-	    P600: '#6d4c41',
-	    P700: '#5d4037',
-	    P800: '#4e342e',
-	    P900: '#3e2723'
-	  },
-	  grey: {
-	    P50: '#fafafa',
-	    P100: '#f5f5f5',
-	    P200: '#eeeeee',
-	    P300: '#e0e0e0',
-	    P400: '#bdbdbd',
-	    P500: '#9e9e9e',
-	    P600: '#757575',
-	    P700: '#616161',
-	    P800: '#424242',
-	    P900: '#212121',
-	    P1000: '#000000',
-	    P1000_: '#ffffff'
-	  },
-	  blueGrey: {
-	    P50: '#eceff1',
-	    P100: '#cfd8dc',
-	    P200: '#b0bec5',
-	    P300: '#90a4ae',
-	    P400: '#78909c',
-	    P500: '#607d8b',
-	    P600: '#546e7a',
-	    P700: '#455a64',
-	    P800: '#37474f',
-	    P900: '#263238'
-	  }
-	};
-
-	module.exports = Colors;
-
-/***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21779,7 +21590,7 @@ webpackJsonp([0],[
 	};
 
 	var React = __webpack_require__(1);
-	var Menu = __webpack_require__(229);
+	var Menu = __webpack_require__(233);
 	var mixClass = __webpack_require__(176);
 
 	module.exports = React.createClass({
@@ -21791,7 +21602,7 @@ webpackJsonp([0],[
 	});
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21860,7 +21671,7 @@ webpackJsonp([0],[
 	  function Segment() {
 	    _classCallCheck(this, Segment);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Segment).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (Segment.__proto__ || Object.getPrototypeOf(Segment)).apply(this, arguments));
 	  }
 
 	  _createClass(Segment, [{
@@ -21878,7 +21689,40 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 237 */
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _index = __webpack_require__(229);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) {
+	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var lazyInject = function lazyInject(injects, configs) {
+	    if (!injects) {
+	        injects = {};
+	        var keys = Object.keys(configs);
+	        keys.forEach(function (key) {
+	            var item = configs[key];
+	            injects[key] = _index2.default.apply(null, item);
+	        });
+	    }
+	    return injects;
+	};
+
+	exports.default = lazyInject;
+	module.exports = exports['default'];
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -21917,7 +21761,33 @@ webpackJsonp([0],[
 	})();
 
 /***/ },
-/* 238 */
+/* 241 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var min = {
+	    sm: '@media (min-width: 35.5em)',
+	    md: '@media (min-width: 48em)',
+	    lg: '@media (min-width: 64em)',
+	    xl: '@media (min-width: 80em)'
+	};
+
+	var max = {
+	    sm: '@media (max-width: 35.5em)',
+	    md: '@media (max-width: 48em)',
+	    lg: '@media (max-width: 64em)',
+	    xl: '@media (max-width: 80em)'
+	};
+
+	exports.min = min;
+	exports.max = max;
+
+/***/ },
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21958,16 +21828,6 @@ webpackJsonp([0],[
 	    };
 	}();
 
-	var _createClass = function () {
-	    function defineProperties(target, props) {
-	        for (var i = 0; i < props.length; i++) {
-	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
-	        }
-	    }return function (Constructor, protoProps, staticProps) {
-	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
-	    };
-	}();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -21978,95 +21838,76 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _classCallCheck(instance, Constructor) {
-	    if (!(instance instanceof Constructor)) {
-	        throw new TypeError("Cannot call a class as a function");
-	    }
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+	    }return target;
 	}
 
-	function _possibleConstructorReturn(self, call) {
-	    if (!self) {
-	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
-	}
+	var injects = void 0;
 
-	function _inherits(subClass, superClass) {
-	    if (typeof superClass !== "function" && superClass !== null) {
-	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
+	var ICON_X = function ICON_X(props) {
+	    injects = (0, _index.lazyInject)(injects, InjectStyles);
+	    var weight = props.weight;
+	    var size = props.size;
+	    var className = props.className;
+	    var color = props.color;
+	    var style = props.style;
 
-	var ICON_X = function (_Component) {
-	    _inherits(ICON_X, _Component);
+	    var others = _objectWithoutProperties(props, ['weight', 'size', 'className', 'color', 'style']);
 
-	    function ICON_X() {
-	        _classCallCheck(this, ICON_X);
-
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ICON_X).apply(this, arguments));
-	    }
-
-	    _createClass(ICON_X, [{
-	        key: 'render',
-	        value: function render() {
-	            var classes = (0, _index.mixClass)(this.props.className, 'icon', 'x');
-	            return _react2.default.createElement(_index.SemanticUI, _extends({}, this.props, {
-	                className: classes,
-	                styles: [Styles.close, this.props.styles],
-	                style: (0, _index.assign)({
-	                    background: this.props.backgroud,
-	                    width: this.props.size,
-	                    height: this.props.size,
-	                    top: '5px',
-	                    right: '5px'
-	                }, this.props.style)
-	            }), _jsx('div', {
-	                styles: Styles.line,
-	                style: {
-	                    width: this.props.width,
-	                    height: this.props.size,
-	                    background: this.props.color
-	                }
-	            }), _jsx('div', {
-	                styles: Styles.line,
-	                style: {
-	                    width: this.props.size,
-	                    height: this.props.width,
-	                    background: this.props.color
-	                }
-	            }));
-	        }
-	    }]);
-
-	    return ICON_X;
-	}(_react.Component);
-
-	exports.default = ICON_X;
-
+	    var classes = (0, _index.mixClass)(className, 'icon', 'x');
+	    var lineStyle = {
+	        width: weight,
+	        height: size,
+	        background: color
+	    };
+	    return _react2.default.createElement(_index.SemanticUI, _extends({
+	        className: classes
+	    }, others, {
+	        style: (0, _index.assign)({}, Styles.container, style)
+	    }), _jsx(_index.SemanticUI, {
+	        styles: injects.line,
+	        style: lineStyle
+	    }, void 0, _jsx(_index.SemanticUI, {
+	        styles: injects.line2,
+	        style: lineStyle
+	    })));
+	};
 	ICON_X.defaultProps = {
 	    style: {},
-	    backgroud: 'transparent',
-	    size: '1em',
-	    width: '.2em',
+	    size: '1rem',
+	    weight: '.2rem',
 	    color: '#333'
 	};
 
+	exports.default = ICON_X;
+
 	var Styles = {
-	    close: (0, _index.reactStyle)({
+	    container: {
+	        background: 'transparent',
 	        position: 'absolute',
-	        cursor: 'pointer',
-	        transform: ['rotate(45deg)']
-	    }),
-	    line: (0, _index.reactStyle)({
+	        top: '5px',
+	        right: '5px',
+	        cursor: 'pointer'
+	    }
+	};
+
+	var InjectStyles = {
+	    line: [{
 	        position: 'absolute',
 	        left: '50%',
 	        top: '50%',
-	        transform: ['translate(-50%,-50%)']
-	    })
+	        transform: ['translate(-50%,-50%) rotate(45deg)']
+	    }],
+	    line2: [{
+	        transform: ['rotate(90deg)']
+	    }]
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 239 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22223,69 +22064,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 240 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
-	var _jsx = function () {
-	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
-	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
-	            props = {};
-	        }if (props && defaultProps) {
-	            for (var propName in defaultProps) {
-	                if (props[propName] === void 0) {
-	                    props[propName] = defaultProps[propName];
-	                }
-	            }
-	        } else if (!props) {
-	            props = defaultProps || {};
-	        }if (childrenLength === 1) {
-	            props.children = children;
-	        } else if (childrenLength > 1) {
-	            var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
-	                childArray[i] = arguments[i + 3];
-	            }props.children = childArray;
-	        }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
-	    };
-	}();
-
-	var _index = __webpack_require__(173);
-
-	var SearchIcon = function SearchIcon(props) {
-	    return _index.React.createElement("svg", _extends({ fill: "#000000" }, props, { xmlns: "http://www.w3.org/2000/svg" }), _jsx("path", {
-	        d: "M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
-	    }), _jsx("path", {
-	        d: "M0 0h24v24H0z",
-	        fill: "none"
-	    }));
-	};
-
-	SearchIcon.defaultProps = {
-	    width: 24,
-	    height: 24,
-	    viewBox: '0 0 24 24',
-	    fill: '#000000'
-	};
-	exports.default = SearchIcon;
-	module.exports = exports['default'];
-
-/***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22388,7 +22167,7 @@ webpackJsonp([0],[
 	    function MyLocation() {
 	        _classCallCheck(this, MyLocation);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(MyLocation).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (MyLocation.__proto__ || Object.getPrototypeOf(MyLocation)).apply(this, arguments));
 	    }
 
 	    _createClass(MyLocation, [{
@@ -22441,7 +22220,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22504,7 +22283,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22589,7 +22368,7 @@ webpackJsonp([0],[
 	    function PulseIcon() {
 	        _classCallCheck(this, PulseIcon);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(PulseIcon).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (PulseIcon.__proto__ || Object.getPrototypeOf(PulseIcon)).apply(this, arguments));
 	    }
 
 	    _createClass(PulseIcon, [{
@@ -22666,7 +22445,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22751,7 +22530,7 @@ webpackJsonp([0],[
 	    function PinIcon() {
 	        _classCallCheck(this, PinIcon);
 
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(PinIcon).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (PinIcon.__proto__ || Object.getPrototypeOf(PinIcon)).apply(this, arguments));
 	    }
 
 	    _createClass(PinIcon, [{
@@ -22833,7 +22612,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22842,7 +22621,7 @@ webpackJsonp([0],[
 	  value: true
 	});
 
-	var _ScrollAnimate = __webpack_require__(246);
+	var _ScrollAnimate = __webpack_require__(249);
 
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
@@ -22851,7 +22630,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _organismReactScrollNav = __webpack_require__(257);
+	var _organismReactScrollNav = __webpack_require__(260);
 
 	Object.defineProperty(exports, 'scrollDispatch', {
 	  enumerable: true,
@@ -22865,7 +22644,7 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22912,11 +22691,11 @@ webpackJsonp([0],[
 
 	var _reactAtomicMolecule = __webpack_require__(173);
 
-	var _organismReactAnimate = __webpack_require__(247);
+	var _organismReactAnimate = __webpack_require__(250);
 
 	var _organismReactAnimate2 = _interopRequireDefault(_organismReactAnimate);
 
-	var _organismReactScrollNav = __webpack_require__(257);
+	var _organismReactScrollNav = __webpack_require__(260);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -22945,7 +22724,6 @@ webpackJsonp([0],[
 	        }
 	        force = true;
 	    }
-	    console.log(props);
 	    if (targetInfo.isOnScreen || force) {
 	        if (_react2.default.isValidElement(children)) {
 	            show = children;
@@ -22988,7 +22766,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22997,7 +22775,7 @@ webpackJsonp([0],[
 	  value: true
 	});
 
-	var _Animate = __webpack_require__(248);
+	var _Animate = __webpack_require__(251);
 
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
@@ -23013,7 +22791,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23058,13 +22836,13 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactAddonsCssTransitionGroup = __webpack_require__(249);
+	var _reactAddonsCssTransitionGroup = __webpack_require__(252);
 
 	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
 
 	var _reactAtomicMolecule = __webpack_require__(173);
 
-	var _animateCss = __webpack_require__(256);
+	var _animateCss = __webpack_require__(259);
 
 	var _animateCss2 = _interopRequireDefault(_animateCss);
 
@@ -23220,13 +22998,13 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(250);
+	module.exports = __webpack_require__(253);
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23246,8 +23024,8 @@ webpackJsonp([0],[
 
 	var React = __webpack_require__(2);
 
-	var ReactTransitionGroup = __webpack_require__(251);
-	var ReactCSSTransitionGroupChild = __webpack_require__(253);
+	var ReactTransitionGroup = __webpack_require__(254);
+	var ReactCSSTransitionGroupChild = __webpack_require__(256);
 
 	function createTransitionTimeoutPropValidator(transitionType) {
 	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
@@ -23318,7 +23096,7 @@ webpackJsonp([0],[
 	module.exports = ReactCSSTransitionGroup;
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23338,7 +23116,7 @@ webpackJsonp([0],[
 
 	var React = __webpack_require__(2);
 	var ReactInstanceMap = __webpack_require__(119);
-	var ReactTransitionChildMapping = __webpack_require__(252);
+	var ReactTransitionChildMapping = __webpack_require__(255);
 
 	var emptyFunction = __webpack_require__(12);
 
@@ -23570,7 +23348,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23679,7 +23457,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 253 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -23698,8 +23476,8 @@ webpackJsonp([0],[
 	var React = __webpack_require__(2);
 	var ReactDOM = __webpack_require__(35);
 
-	var CSSCore = __webpack_require__(254);
-	var ReactTransitionEvents = __webpack_require__(255);
+	var CSSCore = __webpack_require__(257);
+	var ReactTransitionEvents = __webpack_require__(258);
 
 	var onlyChild = __webpack_require__(33);
 
@@ -23851,7 +23629,7 @@ webpackJsonp([0],[
 	module.exports = ReactCSSTransitionGroupChild;
 
 /***/ },
-/* 254 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -23978,7 +23756,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 255 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24056,7 +23834,7 @@ webpackJsonp([0],[
 	module.exports = ReactTransitionEvents;
 
 /***/ },
-/* 256 */
+/* 259 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -24065,6 +23843,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 	var Styles = {
+	    fadeIn: [[{ opacity: 0 }, { opacity: 1 }], ['@keyframes fadeIn', 'from', 'to']],
 	    fadeInUp: [[{
 	        opacity: 0,
 	        transform: ['translate3d(0, 100%, 0)']
@@ -24093,6 +23872,7 @@ webpackJsonp([0],[
 	        opacity: 1,
 	        transform: ['none']
 	    }], ['@keyframes fadeInLeft', 'from', 'to']],
+	    fadeOut: [[{ opacity: 1 }, { opacity: 0 }], ['@keyframes fadeOut', 'from', 'to']],
 	    fadeOutUp: [[{
 	        opacity: 1
 	    }, {
@@ -24123,7 +23903,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 257 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24132,7 +23912,7 @@ webpackJsonp([0],[
 	  value: true
 	});
 
-	var _scrollStore = __webpack_require__(258);
+	var _scrollStore = __webpack_require__(261);
 
 	Object.defineProperty(exports, 'scrollStore', {
 	  enumerable: true,
@@ -24141,7 +23921,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _dispatcher = __webpack_require__(277);
+	var _dispatcher = __webpack_require__(276);
 
 	Object.defineProperty(exports, 'scrollDispatch', {
 	  enumerable: true,
@@ -24150,7 +23930,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _ScrollSpy = __webpack_require__(281);
+	var _ScrollSpy = __webpack_require__(278);
 
 	Object.defineProperty(exports, 'ScrollSpy', {
 	  enumerable: true,
@@ -24159,7 +23939,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _ScrollReceiver = __webpack_require__(283);
+	var _ScrollReceiver = __webpack_require__(280);
 
 	Object.defineProperty(exports, 'ScrollReceiver', {
 	  enumerable: true,
@@ -24168,7 +23948,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _SmoothScrollLink = __webpack_require__(284);
+	var _SmoothScrollLink = __webpack_require__(281);
 
 	Object.defineProperty(exports, 'SmoothScrollLink', {
 	  enumerable: true,
@@ -24182,7 +23962,7 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 258 */
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -24201,17 +23981,17 @@ webpackJsonp([0],[
 	    };
 	}();
 
-	var _immutable = __webpack_require__(259);
+	var _immutable = __webpack_require__(262);
 
 	var _immutable2 = _interopRequireDefault(_immutable);
 
-	var _utils = __webpack_require__(260);
+	var _reduceFlux = __webpack_require__(263);
 
-	var _dispatcher = __webpack_require__(277);
+	var _dispatcher = __webpack_require__(276);
 
 	var _dispatcher2 = _interopRequireDefault(_dispatcher);
 
-	var _getScrollInfo = __webpack_require__(280);
+	var _getScrollInfo = __webpack_require__(277);
 
 	var _getScrollInfo2 = _interopRequireDefault(_getScrollInfo);
 
@@ -24381,7 +24161,7 @@ webpackJsonp([0],[
 	    }]);
 
 	    return ScrollStore;
-	}(_utils.ReduceStore);
+	}(_reduceFlux.ReduceStore);
 
 	// Export a singleton instance of the store, could do this some other way if
 	// you want to avoid singletons.
@@ -24392,7 +24172,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 259 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24629,26 +24409,38 @@ webpackJsonp([0],[
 	}var Immutable={Iterable:Iterable,Seq:Seq,Collection:Collection,Map:Map,OrderedMap:OrderedMap,List:List,Stack:Stack,Set:Set,OrderedSet:OrderedSet,Record:Record,Range:Range,Repeat:Repeat,is:is,fromJS:fromJS};return Immutable;});
 
 /***/ },
-/* 260 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
+	'use strict';
 
-	module.exports.Container = __webpack_require__(261);
-	module.exports.MapStore = __webpack_require__(265);
-	module.exports.Mixin = __webpack_require__(276);
-	module.exports.ReduceStore = __webpack_require__(266);
-	module.exports.Store = __webpack_require__(267);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Dispatcher = exports.ReduceStore = exports.Container = undefined;
+
+	var _FluxContainer = __webpack_require__(264);
+
+	var _FluxContainer2 = _interopRequireDefault(_FluxContainer);
+
+	var _FluxReduceStore = __webpack_require__(267);
+
+	var _FluxReduceStore2 = _interopRequireDefault(_FluxReduceStore);
+
+	var _Dispatcher2 = __webpack_require__(275);
+
+	var _Dispatcher3 = _interopRequireDefault(_Dispatcher2);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	exports.Container = _FluxContainer2.default;
+	exports.ReduceStore = _FluxReduceStore2.default;
+	exports.Dispatcher = _Dispatcher3.default;
 
 /***/ },
-/* 261 */
+/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24662,6 +24454,7 @@ webpackJsonp([0],[
 	 * @providesModule FluxContainer
 	 * 
 	 */
+
 	'use strict';
 
 	var _extends = Object.assign || function (target) {
@@ -24686,14 +24479,18 @@ webpackJsonp([0],[
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var FluxStoreGroup = __webpack_require__(262);
+	var FluxContainerSubscriptions = __webpack_require__(265);
+	var React = __webpack_require__(1);
 
-	var invariant = __webpack_require__(263);
-	var shallowEqual = __webpack_require__(264);
+	var invariant = __webpack_require__(8);
+	var shallowEqual = __webpack_require__(124);
+
+	var Component = React.Component;
 
 	var DEFAULT_OPTIONS = {
 	  pure: true,
-	  withProps: false
+	  withProps: false,
+	  withContext: false
 	};
 
 	/**
@@ -24703,139 +24500,160 @@ webpackJsonp([0],[
 	 * The component receives information from the stores via state. The state
 	 * is generated using a static `calculateState()` method that each container
 	 * must implement. A simple container may look like:
+	 *
+	 *   class FooContainer extends Component {
+	 *     static getStores() {
+	 *       return [FooStore];
+	 *     }
+	 *
+	 *     static calculateState() {
+	 *       return {
+	 *         foo: FooStore.getState(),
+	 *       };
+	 *     }
+	 *
+	 *     render() {
+	 *       return <FooView {...this.state} />;
+	 *     }
+	 *   }
+	 *
+	 *   module.exports = FluxContainer.create(FooContainer);
+	 *
+	 * Flux container also supports some other, more advanced use cases. If you need
+	 * to base your state off of props as well:
+	 *
+	 *   class FooContainer extends Component {
+	 *     ...
+	 *
+	 *     static calculateState(prevState, props) {
+	 *       return {
+	 *         foo: FooStore.getSpecificFoo(props.id),
+	 *       };
+	 *     }
+	 *
+	 *     ...
+	 *   }
+	 *
+	 *   module.exports = FluxContainer.create(FooContainer, {withProps: true});
+	 *
+	 * Or if your stores are passed through your props:
+	 *
+	 *   class FooContainer extends Component {
+	 *     ...
+	 *
+	 *     static getStores(props) {
+	 *       const {BarStore, FooStore} = props.stores;
+	 *       return [BarStore, FooStore];
+	 *     }
+	 *
+	 *     statc calculateState(prevState, props) {
+	 *       const {BarStore, FooStore} = props.stores;
+	 *       return {
+	 *         bar: BarStore.getState(),
+	 *         foo: FooStore.getState(),
+	 *       };
+	 *     }
+	 *
+	 *     ...
+	 *   }
+	 *
+	 *   module.exports = FluxContainer.create(FooContainer, {withProps: true});
 	 */
 	function create(Base, options) {
 	  enforceInterface(Base);
 
-	  // Construct the options using default, override with user values as necessary
+	  // Construct the options using default, override with user values as necessary.
 	  var realOptions = _extends({}, DEFAULT_OPTIONS, options || {});
 
-	  var FluxContainerClass = function (_Base) {
-	    _inherits(FluxContainerClass, _Base);
+	  var getState = function (state, maybeProps, maybeContext) {
+	    var props = realOptions.withProps ? maybeProps : undefined;
+	    var context = realOptions.withContext ? maybeContext : undefined;
+	    return Base.calculateState(state, props, context);
+	  };
 
-	    function FluxContainerClass(props) {
-	      _classCallCheck(this, FluxContainerClass);
+	  var getStores = function (maybeProps, maybeContext) {
+	    var props = realOptions.withProps ? maybeProps : undefined;
+	    var context = realOptions.withContext ? maybeContext : undefined;
+	    return Base.getStores(props, context);
+	  };
 
-	      _Base.call(this, props);
-	      this.state = realOptions.withProps ? Base.calculateState(null, props) : Base.calculateState(null, undefined);
+	  // Build the container class.
+
+	  var ContainerClass = function (_Base) {
+	    _inherits(ContainerClass, _Base);
+
+	    function ContainerClass(props, context) {
+	      var _this = this;
+
+	      _classCallCheck(this, ContainerClass);
+
+	      _Base.call(this, props, context);
+	      this._fluxContainerSubscriptions = new FluxContainerSubscriptions();
+	      this._fluxContainerSubscriptions.setStores(getStores(props));
+	      this._fluxContainerSubscriptions.addListener(function () {
+	        _this.setState(function (prevState, currentProps) {
+	          return getState(prevState, currentProps, context);
+	        });
+	      });
+	      var calculatedState = getState(undefined, props, context);
+	      this.state = _extends({}, this.state || {}, calculatedState);
 	    }
 
 	    // Make sure we override shouldComponentUpdate only if the pure option is
 	    // specified. We can't override this above because we don't want to override
-	    // the default behavior on accident. Super works weird with react ES6 classes
-	    // right now
+	    // the default behavior on accident. Super works weird with react ES6 classes.
 
-	    FluxContainerClass.prototype.componentDidMount = function componentDidMount() {
-	      var _this = this;
-
-	      if (_Base.prototype.componentDidMount) {
-	        _Base.prototype.componentDidMount.call(this);
-	      }
-
-	      var stores = Base.getStores();
-
-	      // This tracks when any store has changed and we may need to update.
-	      var changed = false;
-	      var setChanged = function () {
-	        changed = true;
-	      };
-
-	      // This adds subscriptions to stores. When a store changes all we do is
-	      // set changed to true.
-	      this._fluxContainerSubscriptions = stores.map(function (store) {
-	        return store.addListener(setChanged);
-	      });
-
-	      // This callback is called after the dispatch of the relevant stores. If
-	      // any have reported a change we update the state, then reset changed.
-	      var callback = function () {
-	        if (changed) {
-	          _this.setState(function (prevState) {
-	            return realOptions.withProps ? Base.calculateState(prevState, _this.props) : Base.calculateState(prevState, undefined);
-	          });
-	        }
-	        changed = false;
-	      };
-	      this._fluxContainerStoreGroup = new FluxStoreGroup(stores, callback);
-	    };
-
-	    FluxContainerClass.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {
+	    ContainerClass.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextContext) {
 	      if (_Base.prototype.componentWillReceiveProps) {
 	        _Base.prototype.componentWillReceiveProps.call(this, nextProps, nextContext);
 	      }
 
-	      // Don't do anything else if the container is not configured to use props
-	      if (!realOptions.withProps) {
-	        return;
+	      if (realOptions.withProps || realOptions.withContext) {
+	        // Update both stores and state.
+	        this._fluxContainerSubscriptions.setStores(getStores(nextProps, nextContext));
+	        this.setState(function (prevState) {
+	          return getState(prevState, nextProps, nextContext);
+	        });
 	      }
-
-	      // If it's pure we can potentially optimize out the calculate state
-	      if (realOptions.pure && shallowEqual(this.props, nextProps)) {
-	        return;
-	      }
-
-	      // Finally update the state using the new props
-	      this.setState(function (prevState) {
-	        return Base.calculateState(prevState, nextProps);
-	      });
 	    };
 
-	    FluxContainerClass.prototype.componentWillUnmount = function componentWillUnmount() {
+	    ContainerClass.prototype.componentWillUnmount = function componentWillUnmount() {
 	      if (_Base.prototype.componentWillUnmount) {
 	        _Base.prototype.componentWillUnmount.call(this);
 	      }
 
-	      this._fluxContainerStoreGroup.release();
-	      for (var _iterator = this._fluxContainerSubscriptions, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	        var _ref;
-
-	        if (_isArray) {
-	          if (_i >= _iterator.length) break;
-	          _ref = _iterator[_i++];
-	        } else {
-	          _i = _iterator.next();
-	          if (_i.done) break;
-	          _ref = _i.value;
-	        }
-
-	        var subscription = _ref;
-
-	        subscription.remove();
-	      }
-	      this._fluxContainerSubscriptions = [];
+	      this._fluxContainerSubscriptions.reset();
 	    };
 
-	    return FluxContainerClass;
+	    return ContainerClass;
 	  }(Base);
 
-	  var container = realOptions.pure ? createPureContainer(FluxContainerClass) : FluxContainerClass;
+	  var container = realOptions.pure ? createPureComponent(ContainerClass) : ContainerClass;
 
 	  // Update the name of the container before returning
 	  var componentName = Base.displayName || Base.name;
 	  container.displayName = 'FluxContainer(' + componentName + ')';
-
 	  return container;
 	}
 
-	// TODO: typecheck this better
-	function createPureContainer(FluxContainerBase) {
-	  var PureFluxContainerClass = function (_FluxContainerBase) {
-	    _inherits(PureFluxContainerClass, _FluxContainerBase);
+	function createPureComponent(BaseComponent) {
+	  var PureComponent = function (_BaseComponent) {
+	    _inherits(PureComponent, _BaseComponent);
 
-	    function PureFluxContainerClass() {
-	      _classCallCheck(this, PureFluxContainerClass);
+	    function PureComponent() {
+	      _classCallCheck(this, PureComponent);
 
-	      _FluxContainerBase.apply(this, arguments);
+	      _BaseComponent.apply(this, arguments);
 	    }
 
-	    PureFluxContainerClass.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+	    PureComponent.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
 	      return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
 	    };
 
-	    return PureFluxContainerClass;
-	  }(FluxContainerBase);
+	    return PureComponent;
+	  }(BaseComponent);
 
-	  return PureFluxContainerClass;
+	  return PureComponent;
 	}
 
 	function enforceInterface(o) {
@@ -24843,11 +24661,187 @@ webpackJsonp([0],[
 	  !o.calculateState ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Components that use FluxContainer must implement `static calculateState()`') : invariant(false) : undefined;
 	}
 
-	module.exports = { create: create };
+	/**
+	 * This is a way to connect stores to a functional stateless view. Here's a
+	 * simple example:
+	 *
+	 *   // FooView.js
+	 *
+	 *   function FooView(props) {
+	 *     return <div>{props.value}</div>;
+	 *   }
+	 *
+	 *   module.exports = FooView;
+	 *
+	 *
+	 *   // FooContainer.js
+	 *
+	 *   function getStores() {
+	 *     return [FooStore];
+	 *   }
+	 *
+	 *   function calculateState() {
+	 *     return {
+	 *       value: FooStore.getState();
+	 *     };
+	 *   }
+	 *
+	 *   module.exports = FluxContainer.createFunctional(
+	 *     FooView,
+	 *     getStores,
+	 *     calculateState,
+	 *   );
+	 *
+	 */
+	function createFunctional(viewFn, _getStores, _calculateState, options) {
+	  var FunctionalContainer = function (_Component) {
+	    _inherits(FunctionalContainer, _Component);
+
+	    function FunctionalContainer() {
+	      _classCallCheck(this, FunctionalContainer);
+
+	      _Component.apply(this, arguments);
+	    }
+
+	    // Update the name of the component before creating the container.
+
+	    FunctionalContainer.getStores = function getStores(props, context) {
+	      return _getStores(props, context);
+	    };
+
+	    FunctionalContainer.calculateState = function calculateState(prevState, props, context) {
+	      return _calculateState(prevState, props, context);
+	    };
+
+	    FunctionalContainer.prototype.render = function render() {
+	      return viewFn(this.state);
+	    };
+
+	    return FunctionalContainer;
+	  }(Component);
+
+	  var viewFnName = viewFn.displayName || viewFn.name || 'FunctionalContainer';
+	  FunctionalContainer.displayName = viewFnName;
+	  return create(FunctionalContainer, options);
+	}
+
+	module.exports = { create: create, createFunctional: createFunctional };
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 262 */
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule FluxContainerSubscriptions
+	 * 
+	 */
+
+	'use strict';
+
+	function _classCallCheck(instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError('Cannot call a class as a function');
+	  }
+	}
+
+	var FluxStoreGroup = __webpack_require__(266);
+
+	var FluxContainerSubscriptions = function () {
+	  function FluxContainerSubscriptions() {
+	    _classCallCheck(this, FluxContainerSubscriptions);
+
+	    this._callbacks = [];
+	  }
+
+	  FluxContainerSubscriptions.prototype.setStores = function setStores(stores) {
+	    var _this = this;
+
+	    this._resetTokens();
+	    this._resetStoreGroup();
+
+	    var changed = false;
+	    var changedStores = [];
+
+	    if (process.env.NODE_ENV !== 'production') {
+	      // Keep track of the stores that changed for debugging purposes only
+	      this._tokens = stores.map(function (store) {
+	        return store.addListener(function () {
+	          changed = true;
+	          changedStores.push(store);
+	        });
+	      });
+	    } else {
+	      (function () {
+	        var setChanged = function () {
+	          changed = true;
+	        };
+	        _this._tokens = stores.map(function (store) {
+	          return store.addListener(setChanged);
+	        });
+	      })();
+	    }
+
+	    var callCallbacks = function () {
+	      if (changed) {
+	        _this._callbacks.forEach(function (fn) {
+	          return fn();
+	        });
+	        changed = false;
+	        if (process.env.NODE_ENV !== 'production') {
+	          // Uncomment this to print the stores that changed.
+	          // console.log(changedStores);
+	          changedStores = [];
+	        }
+	      }
+	    };
+	    this._storeGroup = new FluxStoreGroup(stores, callCallbacks);
+	  };
+
+	  FluxContainerSubscriptions.prototype.addListener = function addListener(fn) {
+	    this._callbacks.push(fn);
+	  };
+
+	  FluxContainerSubscriptions.prototype.reset = function reset() {
+	    this._resetTokens();
+	    this._resetStoreGroup();
+	    this._resetCallbacks();
+	  };
+
+	  FluxContainerSubscriptions.prototype._resetTokens = function _resetTokens() {
+	    if (this._tokens) {
+	      this._tokens.forEach(function (token) {
+	        return token.remove();
+	      });
+	      this._tokens = null;
+	    }
+	  };
+
+	  FluxContainerSubscriptions.prototype._resetStoreGroup = function _resetStoreGroup() {
+	    if (this._storeGroup) {
+	      this._storeGroup.release();
+	      this._storeGroup = null;
+	    }
+	  };
+
+	  FluxContainerSubscriptions.prototype._resetCallbacks = function _resetCallbacks() {
+	    this._callbacks = [];
+	  };
+
+	  return FluxContainerSubscriptions;
+	}();
+
+	module.exports = FluxContainerSubscriptions;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -24870,7 +24864,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var invariant = __webpack_require__(263);
+	var invariant = __webpack_require__(8);
 
 	/**
 	 * FluxStoreGroup allows you to execute a callback on every dispatch after
@@ -24885,12 +24879,12 @@ webpackJsonp([0],[
 
 	    this._dispatcher = _getUniformDispatcher(stores);
 
-	    // precompute store tokens
+	    // Precompute store tokens.
 	    var storeTokens = stores.map(function (store) {
 	      return store.getDispatchToken();
 	    });
 
-	    // register with the dispatcher
+	    // Register with the dispatcher.
 	    this._dispatchToken = this._dispatcher.register(function (payload) {
 	      _this._dispatcher.waitFor(storeTokens);
 	      callback();
@@ -24932,280 +24926,11 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 263 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule invariant
-	 */
-
-	"use strict";
-
-	/**
-	 * Use invariant() to assert state which your program assumes to be true.
-	 *
-	 * Provide sprintf-style format (only %s is supported) and arguments
-	 * to provide information about what broke and what you were
-	 * expecting.
-	 *
-	 * The invariant message will be stripped in production, but the invariant
-	 * will remain to ensure logic does not differ in production.
-	 */
-
-	var invariant = function (condition, format, a, b, c, d, e, f) {
-	  if (process.env.NODE_ENV !== 'production') {
-	    if (format === undefined) {
-	      throw new Error('invariant requires an error message argument');
-	    }
-	  }
-
-	  if (!condition) {
-	    var error;
-	    if (format === undefined) {
-	      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-	    } else {
-	      var args = [a, b, c, d, e, f];
-	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      }));
-	    }
-
-	    error.framesToPop = 1; // we don't care about invariant's own frame
-	    throw error;
-	  }
-	};
-
-	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 264 */
-/***/ function(module, exports) {
-
-	/**
-	 * Copyright 2013-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule shallowEqual
-	 * @typechecks
-	 * 
-	 */
-
-	'use strict';
-
-	var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-	/**
-	 * Performs equality by iterating through keys on an object and returning false
-	 * when any key has values which are not strictly equal between the arguments.
-	 * Returns true when the values of all keys are strictly equal.
-	 */
-	function shallowEqual(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-
-	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-	    return false;
-	  }
-
-	  var keysA = Object.keys(objA);
-	  var keysB = Object.keys(objB);
-
-	  if (keysA.length !== keysB.length) {
-	    return false;
-	  }
-
-	  // Test for A's keys different from B.
-	  var bHasOwnProperty = hasOwnProperty.bind(objB);
-	  for (var i = 0; i < keysA.length; i++) {
-	    if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
-	      return false;
-	    }
-	  }
-
-	  return true;
-	}
-
-	module.exports = shallowEqual;
-
-/***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule FluxMapStore
-	 * 
-	 */
-
-	'use strict';
-
-	function _classCallCheck(instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError('Cannot call a class as a function');
-	  }
-	}
-
-	function _inherits(subClass, superClass) {
-	  if (typeof superClass !== 'function' && superClass !== null) {
-	    throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass);
-	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-	}
-
-	var FluxReduceStore = __webpack_require__(266);
-	var Immutable = __webpack_require__(259);
-
-	var invariant = __webpack_require__(263);
-
-	/**
-	 * This is a simple store. It allows caching key value pairs. An implementation
-	 * of a store using this might look like:
-	 *
-	 *   class FooStore extends FluxMapStore {
-	 *     reduce(state, action) {
-	 *       switch (action.type) {
-	 *         case 'foo':
-	 *           return state.set(action.id, action.foo);
-	 *         case 'bar':
-	 *           return state.delete(action.id);
-	 *         default:
-	 *           return state;
-	 *       }
-	 *     }
-	 *   }
-	 *
-	 */
-
-	var FluxMapStore = function (_FluxReduceStore) {
-	  _inherits(FluxMapStore, _FluxReduceStore);
-
-	  function FluxMapStore() {
-	    _classCallCheck(this, FluxMapStore);
-
-	    _FluxReduceStore.apply(this, arguments);
-	  }
-
-	  FluxMapStore.prototype.getInitialState = function getInitialState() {
-	    return Immutable.Map();
-	  };
-
-	  /**
-	   * Access the value at the given key. throws an error if the key does not
-	   * exist in the cache.
-	   */
-
-	  FluxMapStore.prototype.at = function at(key) {
-	    !this.has(key) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Expected store to have key %s', key) : invariant(false) : undefined;
-	    return this.get(key);
-	  };
-
-	  /**
-	   * Check if the cache has a particular key
-	   */
-
-	  FluxMapStore.prototype.has = function has(key) {
-	    return this.getState().has(key);
-	  };
-
-	  /**
-	   * Get the value of a particular key. Returns undefined if the key does not
-	   * exist in the cache.
-	   */
-
-	  FluxMapStore.prototype.get = function get(key) {
-	    return this.getState().get(key);
-	  };
-
-	  /**
-	   * Gets an array of keys and puts the values in a map if they exist, it allows
-	   * providing a previous result to update instead of generating a new map.
-	   *
-	   * Providing a previous result allows the possibility of keeping the same
-	   * reference if the keys did not change.
-	   */
-
-	  FluxMapStore.prototype.getAll = function getAll(keys, prev) {
-	    var _this = this;
-
-	    var newKeys = Immutable.Set(keys);
-	    var start = prev || Immutable.Map();
-	    return start.withMutations(function (map) {
-	      // remove any old keys that are not in new keys or are no longer in
-	      // the cache
-	      for (var _iterator = start, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	        var _ref;
-
-	        if (_isArray) {
-	          if (_i >= _iterator.length) break;
-	          _ref = _iterator[_i++];
-	        } else {
-	          _i = _iterator.next();
-	          if (_i.done) break;
-	          _ref = _i.value;
-	        }
-
-	        var entry = _ref;
-	        var oldKey = entry[0];
-
-	        if (!newKeys.has(oldKey) || !_this.has(oldKey)) {
-	          map['delete'](oldKey);
-	        }
-	      }
-
-	      // then add all of the new keys that exist in the cache
-	      for (var _iterator2 = newKeys, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : _iterator2[Symbol.iterator]();;) {
-	        var _ref2;
-
-	        if (_isArray2) {
-	          if (_i2 >= _iterator2.length) break;
-	          _ref2 = _iterator2[_i2++];
-	        } else {
-	          _i2 = _iterator2.next();
-	          if (_i2.done) break;
-	          _ref2 = _i2.value;
-	        }
-
-	        var key = _ref2;
-
-	        if (_this.has(key)) {
-	          map.set(key, _this.at(key));
-	        }
-	      }
-	    });
-	  };
-
-	  return FluxMapStore;
-	}(FluxReduceStore);
-
-	module.exports = FluxMapStore;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
 	 * LICENSE file in the root directory of this source tree. An additional grant
@@ -25229,10 +24954,32 @@ webpackJsonp([0],[
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var FluxStore = __webpack_require__(267);
+	var FluxStore = __webpack_require__(268);
 
-	var abstractMethod = __webpack_require__(275);
-	var invariant = __webpack_require__(263);
+	var abstractMethod = __webpack_require__(274);
+	var invariant = __webpack_require__(8);
+
+	/**
+	 * This is the basic building block of a Flux application. All of your stores
+	 * should extend this class.
+	 *
+	 *   class CounterStore extends FluxReduceStore<number> {
+	 *     getInitialState(): number {
+	 *       return 1;
+	 *     }
+	 *
+	 *     reduce(state: number, action: Object): number {
+	 *       switch(action.type) {
+	 *         case: 'add':
+	 *           return state + action.value;
+	 *         case: 'double':
+	 *           return state * 2;
+	 *         default:
+	 *           return state;
+	 *       }
+	 *     }
+	 *   }
+	 */
 
 	var FluxReduceStore = function (_FluxStore) {
 	  _inherits(FluxReduceStore, _FluxStore);
@@ -25264,7 +25011,7 @@ webpackJsonp([0],[
 
 	  /**
 	   * Used to reduce a stream of actions coming from the dispatcher into a
-	   * single state object
+	   * single state object.
 	   */
 
 	  FluxReduceStore.prototype.reduce = function reduce(state, action) {
@@ -25280,18 +25027,14 @@ webpackJsonp([0],[
 	    return one === two;
 	  };
 
-	  /**
-	   * Use reduce and track _state instead of using __onDispatch
-	   */
-
 	  FluxReduceStore.prototype.__invokeOnDispatch = function __invokeOnDispatch(action) {
 	    this.__changed = false;
 
-	    // reduce the stream of incoming actions to state, update when necessary
+	    // Reduce the stream of incoming actions to state, update when necessary.
 	    var startingState = this._state;
 	    var endingState = this.reduce(startingState, action);
 
-	    // This means your ending state should never be undefined
+	    // This means your ending state should never be undefined.
 	    !(endingState !== undefined) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s returned undefined from reduce(...), did you forget to return ' + 'state in the default case? (use null if this was intentional)', this.constructor.name) : invariant(false) : undefined;
 
 	    if (!this.areEqual(startingState, endingState)) {
@@ -25315,12 +25058,11 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
+	 * Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
 	 *
 	 * This source code is licensed under the BSD-style license found in the
 	 * LICENSE file in the root directory of this source tree. An additional grant
@@ -25338,56 +25080,19 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var _require = __webpack_require__(268);
+	var _require = __webpack_require__(269);
 
 	var EventEmitter = _require.EventEmitter;
 
-	var invariant = __webpack_require__(263);
+	var invariant = __webpack_require__(8);
 
 	/**
-	 * This class should be extended by the stores in your application, like so:
-	 *
-	 * var FluxStore = require('FluxStore');
-	 * var MyDispatcher = require('MyDispatcher');
-	 *
-	 * var _foo;
-	 *
-	 * class MyStore extends FluxStore {
-	 *
-	 *   getFoo() {
-	 *     return _foo;
-	 *   }
-	 *
-	 *   __onDispatch = function(action) {
-	 *     switch(action.type) {
-	 *
-	 *       case 'an-action':
-	 *         changeState(action.someData);
-	 *         this.__emitChange();
-	 *         break;
-	 *
-	 *       case 'another-action':
-	 *         changeStateAnotherWay(action.otherData);
-	 *         this.__emitChange();
-	 *         break;
-	 *
-	 *       default:
-	 *         // no op
-	 *     }
-	 *   }
-	 *
-	 * }
-	 *
-	 * module.exports = new MyStore(MyDispatcher);
+	 * This class represents the most basic functionality for a FluxStore. Do not
+	 * extend this store directly; instead extend FluxReduceStore when creating a
+	 * new store.
 	 */
 
 	var FluxStore = function () {
-
-	  /**
-	   * @public
-	   * @param {Dispatcher} dispatcher
-	   */
-
 	  function FluxStore(dispatcher) {
 	    var _this = this;
 
@@ -25404,31 +25109,18 @@ webpackJsonp([0],[
 	    });
 	  }
 
-	  /**
-	   * @public
-	   * @param {function} callback
-	   * @return {object} EmitterSubscription that can be used with
-	   *   SubscriptionsHandler or directly used to release the subscription.
-	   */
-
 	  FluxStore.prototype.addListener = function addListener(callback) {
 	    return this.__emitter.addListener(this.__changeEvent, callback);
 	  };
-
-	  /**
-	   * @public
-	   * @return {Dispatcher} The dispatcher that this store is registered with.
-	   */
 
 	  FluxStore.prototype.getDispatcher = function getDispatcher() {
 	    return this.__dispatcher;
 	  };
 
 	  /**
-	   * @public
-	   * @return {string} A string the dispatcher uses to identify each store's
-	   *   registered callback. This is used with the dispatcher's waitFor method
-	   *   to declaratively depend on other stores updating themselves first.
+	   * This exposes a unique string to identify each store's registered callback.
+	   * This is used with the dispatcher's waitFor method to devlaratively depend
+	   * on other stores updating themselves first.
 	   */
 
 	  FluxStore.prototype.getDispatchToken = function getDispatchToken() {
@@ -25436,20 +25128,13 @@ webpackJsonp([0],[
 	  };
 
 	  /**
-	   * @public
-	   * @return {boolean} Whether the store has changed during the most recent
-	   *   dispatch.
+	   * Returns whether the store has changed during the most recent dispatch.
 	   */
 
 	  FluxStore.prototype.hasChanged = function hasChanged() {
 	    !this.__dispatcher.isDispatching() ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.hasChanged(): Must be invoked while dispatching.', this.__className) : invariant(false) : undefined;
 	    return this.__changed;
 	  };
-
-	  /**
-	   * @protected
-	   * Emit an event notifying listeners that the state of the store has changed.
-	   */
 
 	  FluxStore.prototype.__emitChange = function __emitChange() {
 	    !this.__dispatcher.isDispatching() ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.__emitChange(): Must be invoked while dispatching.', this.__className) : invariant(false) : undefined;
@@ -25460,11 +25145,6 @@ webpackJsonp([0],[
 	   * This method encapsulates all logic for invoking __onDispatch. It should
 	   * be used for things like catching changes and emitting them after the
 	   * subclass has handled a payload.
-	   *
-	   * @protected
-	   * @param {object} payload The data dispatched by the dispatcher, describing
-	   *   something that has happened in the real world: the user clicked, the
-	   *   server responded, time passed, etc.
 	   */
 
 	  FluxStore.prototype.__invokeOnDispatch = function __invokeOnDispatch(payload) {
@@ -25479,12 +25159,6 @@ webpackJsonp([0],[
 	   * The callback that will be registered with the dispatcher during
 	   * instantiation. Subclasses must override this method. This callback is the
 	   * only way the store receives new data.
-	   *
-	   * @protected
-	   * @override
-	   * @param {object} payload The data dispatched by the dispatcher, describing
-	   *   something that has happened in the real world: the user clicked, the
-	   *   server responded, time passed, etc.
 	   */
 
 	  FluxStore.prototype.__onDispatch = function __onDispatch(payload) {
@@ -25502,7 +25176,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25515,14 +25189,14 @@ webpackJsonp([0],[
 	 */
 
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(269),
-	  EmitterSubscription: __webpack_require__(270)
+	  EventEmitter: __webpack_require__(270),
+	  EmitterSubscription: __webpack_require__(271)
 	};
 
 	module.exports = fbemitter;
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25545,11 +25219,11 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var EmitterSubscription = __webpack_require__(270);
-	var EventSubscriptionVendor = __webpack_require__(272);
+	var EmitterSubscription = __webpack_require__(271);
+	var EventSubscriptionVendor = __webpack_require__(273);
 
-	var emptyFunction = __webpack_require__(274);
-	var invariant = __webpack_require__(273);
+	var emptyFunction = __webpack_require__(12);
+	var invariant = __webpack_require__(8);
 
 	/**
 	 * @class BaseEventEmitter
@@ -25723,7 +25397,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25752,7 +25426,7 @@ webpackJsonp([0],[
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var EventSubscription = __webpack_require__(271);
+	var EventSubscription = __webpack_require__(272);
 
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -25784,7 +25458,7 @@ webpackJsonp([0],[
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports) {
 
 	/**
@@ -25842,7 +25516,7 @@ webpackJsonp([0],[
 	module.exports = EventSubscription;
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25865,7 +25539,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var invariant = __webpack_require__(273);
+	var invariant = __webpack_require__(8);
 
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -25955,11 +25629,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 273 */
-8,
 /* 274 */
-12,
-/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -25976,7 +25646,7 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var invariant = __webpack_require__(263);
+	var invariant = __webpack_require__(8);
 
 	function abstractMethod(className, methodName) {
 	   true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Subclasses of %s must override %s() with their own implementation.', className, methodName) : invariant(false) : undefined;
@@ -25986,165 +25656,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 276 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 *
-	 * @providesModule FluxMixinLegacy
-	 * 
-	 */
-
-	'use strict';
-
-	var FluxStoreGroup = __webpack_require__(262);
-
-	var invariant = __webpack_require__(263);
-
-	/**
-	 * `FluxContainer` should be preferred over this mixin, but it requires using
-	 * react with classes. So this mixin is provided where it is not yet possible
-	 * to convert a container to be a class.
-	 *
-	 * This mixin should be used for React components that have state based purely
-	 * on stores. `this.props` will not be available inside of `calculateState()`.
-	 *
-	 * This mixin will only `setState` not replace it, so you should always return
-	 * every key in your state unless you know what you are doing. Consider this:
-	 *
-	 *   var Foo = React.createClass({
-	 *     mixins: [
-	 *       FluxMixinLegacy([FooStore])
-	 *     ],
-	 *
-	 *     statics: {
-	 *       calculateState(prevState) {
-	 *         if (!prevState) {
-	 *           return {
-	 *             foo: FooStore.getFoo(),
-	 *           };
-	 *         }
-	 *
-	 *         return {
-	 *           bar: FooStore.getBar(),
-	 *         };
-	 *       }
-	 *     },
-	 *   });
-	 *
-	 * On the second calculateState when prevState is not null, the state will be
-	 * updated to contain the previous foo AND the bar that was just returned. Only
-	 * returning bar will not delete foo.
-	 *
-	 */
-	function FluxMixinLegacy(stores) {
-	  return {
-	    getInitialState: function () {
-	      enforceInterface(this);
-	      return this.constructor.calculateState(null);
-	    },
-
-	    componentDidMount: function () {
-	      var _this = this;
-
-	      // This tracks when any store has changed and we may need to update.
-	      var changed = false;
-	      var setChanged = function () {
-	        changed = true;
-	      };
-
-	      // This adds subscriptions to stores. When a store changes all we do is
-	      // set changed to true.
-	      this._fluxMixinSubscriptions = stores.map(function (store) {
-	        return store.addListener(setChanged);
-	      });
-
-	      // This callback is called after the dispatch of the relevant stores. If
-	      // any have reported a change we update the state, then reset changed.
-	      var callback = function () {
-	        if (changed) {
-	          _this.setState(function (prevState) {
-	            return _this.constructor.calculateState(_this.state);
-	          });
-	        }
-	        changed = false;
-	      };
-	      this._fluxMixinStoreGroup = new FluxStoreGroup(stores, callback);
-	    },
-
-	    componentWillUnmount: function () {
-	      this._fluxMixinStoreGroup.release();
-	      for (var _iterator = this._fluxMixinSubscriptions, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
-	        var _ref;
-
-	        if (_isArray) {
-	          if (_i >= _iterator.length) break;
-	          _ref = _iterator[_i++];
-	        } else {
-	          _i = _iterator.next();
-	          if (_i.done) break;
-	          _ref = _i.value;
-	        }
-
-	        var subscription = _ref;
-
-	        subscription.remove();
-	      }
-	      this._fluxMixinSubscriptions = [];
-	    }
-	  };
-	}
-
-	function enforceInterface(o) {
-	  !o.constructor.calculateState ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Components that use FluxMixinLegacy must implement ' + '`calculateState()` on the statics object') : invariant(false) : undefined;
-	}
-
-	module.exports = FluxMixinLegacy;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
-/* 277 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.dispatch = undefined;
-
-	var _flux = __webpack_require__(278);
-
-	var instance = new _flux.Dispatcher();
-	exports.default = instance;
-
-	// So we can conveniently do, `import {dispatch} from './TodoDispatcher';`
-
-	var dispatch = exports.dispatch = instance.dispatch.bind(instance);
-
-/***/ },
-/* 278 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Copyright (c) 2014-2015, Facebook, Inc.
-	 * All rights reserved.
-	 *
-	 * This source code is licensed under the BSD-style license found in the
-	 * LICENSE file in the root directory of this source tree. An additional grant
-	 * of patent rights can be found in the PATENTS file in the same directory.
-	 */
-
-	module.exports.Dispatcher = __webpack_require__(279);
-
-/***/ },
-/* 279 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -26170,7 +25682,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var invariant = __webpack_require__(263);
+	var invariant = __webpack_require__(8);
 
 	var _prefix = 'ID_';
 
@@ -26385,7 +25897,24 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 280 */
+/* 276 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.dispatch = undefined;
+
+	var _reduceFlux = __webpack_require__(263);
+
+	var instance = new _reduceFlux.Dispatcher();
+	exports.default = instance;
+	var dispatch = exports.dispatch = instance.dispatch.bind(instance);
+
+/***/ },
+/* 277 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26463,7 +25992,7 @@ webpackJsonp([0],[
 	exports.getScrollNode = getScrollNode;
 
 /***/ },
-/* 281 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26496,9 +26025,9 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _index = __webpack_require__(257);
+	var _index = __webpack_require__(260);
 
-	var _getoffset = __webpack_require__(282);
+	var _getoffset = __webpack_require__(279);
 
 	var _getoffset2 = _interopRequireDefault(_getoffset);
 
@@ -26620,7 +26149,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 282 */
+/* 279 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26649,7 +26178,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 283 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26672,11 +26201,11 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utils = __webpack_require__(260);
-
-	var _index = __webpack_require__(257);
+	var _reduceFlux = __webpack_require__(263);
 
 	var _reactAtomicMolecule = __webpack_require__(173);
+
+	var _index = __webpack_require__(260);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -26726,19 +26255,21 @@ webpackJsonp([0],[
 
 	            var reset = _objectWithoutProperties(_props, ['atom', 'container', 'scrollMargin', 'targetId']);
 
+	            var state = this.state;
 	            if (!_react2.default.isValidElement(container)) {
 	                return _react2.default.createElement(_reactAtomicMolecule.SemanticUI, reset);
 	            }
-	            if (this.state.isOnScreen) {
-	                this.isShown = true;
-	            }
-	            var scrollInfo = {
-	                active: this.state.active,
-	                isOnScreen: this.state.isOnScreen,
+	            var targetInfo = {
+	                active: state.active,
+	                isOnScreen: state.isOnScreen,
 	                targetId: targetId,
-	                isShown: this.isShown
+	                isShown: state.isShown,
+	                atTop: state.atTop,
+	                atRight: state.atRight,
+	                atBottom: state.atBottom,
+	                atLeft: state.atLeft
 	            };
-	            var props = (0, _reactAtomicMolecule.assign)({}, reset, { scrollInfo: scrollInfo });
+	            var props = (0, _reactAtomicMolecule.assign)({}, reset, { targetInfo: targetInfo });
 	            return _react2.default.cloneElement(container, props);
 	        }
 	    }], [{
@@ -26750,22 +26281,51 @@ webpackJsonp([0],[
 	        key: 'calculateState',
 	        value: function calculateState(prevState, props) {
 	            var state = _index.scrollStore.getState();
-	            var target = props.targetId;
+	            var targetId = props.targetId;
 	            var isOnScreen = false;
+	            var isShown = prevState && prevState.isShown || false;
+	            var atTop = void 0;
+	            var atRight = void 0;
+	            var atBottom = void 0;
+	            var atLeft = void 0;
 	            var nodes = state.get('nodes');
 	            if (nodes) {
 	                nodes = nodes.toJS();
-	                if (nodes && nodes[target]) {
-	                    isOnScreen = nodes[target].isElementOnScreen;
+	            }
+	            if (nodes && nodes[targetId]) {
+	                isOnScreen = nodes[targetId].isElementOnScreen;
+	            }
+	            if (isOnScreen) {
+	                isShown = true;
+	            } else {
+	                if (nodes && nodes[targetId]) {
+	                    var scrollbar = state.get('scroll').toJS();
+	                    var _target = nodes[targetId];
+	                    if (scrollbar.top > _target.bottom) {
+	                        atTop = true;
+	                    } else if (scrollbar.bottom < _target.bottom) {
+	                        atBottom = true;
+	                    }
+	                    if (scrollbar.left > _target.right) {
+	                        atLeft = true;
+	                    } else if (scrollbar.right < _target.right) {
+	                        atRight = true;
+	                    }
 	                }
 	            }
-	            var active = 'undefined' !== typeof target && target === state.get('m' + props.scrollMargin);
+
+	            var active = 'undefined' !== typeof targetId && targetId === state.get('m' + props.scrollMargin);
 	            if (!isNaN(props.scrollMargin)) {
 	                _index.scrollStore.addMargin(props.scrollMargin);
 	            }
 	            return {
 	                active: active,
-	                isOnScreen: isOnScreen
+	                isOnScreen: isOnScreen,
+	                isShown: isShown,
+	                atTop: atTop,
+	                atRight: atRight,
+	                atBottom: atBottom,
+	                atLeft: atLeft
 	            };
 	        }
 	    }]);
@@ -26777,13 +26337,13 @@ webpackJsonp([0],[
 	    scrollMargin: 'default'
 	};
 
-	var ScrollReceiverContainer = _utils.Container.create(ScrollReceiver, { withProps: true });
+	var ScrollReceiverContainer = _reduceFlux.Container.create(ScrollReceiver, { withProps: true });
 
 	exports.default = ScrollReceiverContainer;
 	module.exports = exports['default'];
 
 /***/ },
-/* 284 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26816,13 +26376,13 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _index = __webpack_require__(257);
+	var _index = __webpack_require__(260);
 
-	var _smoothScrollTo = __webpack_require__(285);
+	var _smoothScrollTo = __webpack_require__(282);
 
 	var _smoothScrollTo2 = _interopRequireDefault(_smoothScrollTo);
 
-	var _getoffset = __webpack_require__(282);
+	var _getoffset = __webpack_require__(279);
 
 	var _getoffset2 = _interopRequireDefault(_getoffset);
 
@@ -26921,7 +26481,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 285 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26930,7 +26490,7 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _getScrollInfo = __webpack_require__(280);
+	var _getScrollInfo = __webpack_require__(277);
 
 	var easeInOutCubic = function easeInOutCubic(t, b, c, d) {
 	    if ((t /= d / 2) < 1) {

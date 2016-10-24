@@ -25,7 +25,6 @@ const Content = (props) => {
         }
         force = true;
     }
-    console.log(props);
     if (targetInfo.isOnScreen || force) {
         if (React.isValidElement(children)) {
             show = children;

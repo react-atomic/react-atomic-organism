@@ -46,12 +46,7 @@ const TimeBox = (props)=>
         <Time time={props.to} />
     </SemanticUI>
 
-const Event = (props) =>
-{
-    const classes = mixClass(
-        props.className,
-        'event pure-g'
-    );
+const EventContent = (props)=> {
     const {
         header,
         description,
@@ -61,6 +56,45 @@ const Event = (props) =>
         backgroundColor,
         borderColor
     } = props;
+    return (
+    <Content
+        className="pure-u-1 pure-u-md-11-24"
+        style={assign(
+            {
+                borderColor: backgroundColor,
+                backgroundColor: lightenColor(backgroundColor, 60, 500),
+                color: color
+            },
+            Styles.content
+        )}
+    >
+        <Header className="summary" style={Styles.summary}>{header}</Header>
+        <SemanticUI className="extra text">{description}</SemanticUI>
+        <TimeBox
+            from={from}
+            to={to}
+            color={color}
+            borderColor={borderColor}
+        />
+    </Content>
+    );
+};
+
+const Event = (props) =>
+{
+    const classes = mixClass(
+        props.className,
+        'event pure-g'
+    );
+    const {
+        animate,
+        backgroundColor,
+        borderColor
+    } = props;
+    let content = <EventContent {...props} />;
+    if (animate) {
+        content = <Animate {...animate}>{content}</Animate>;
+    }
     return (
     <SemanticUI className={classes} style={Styles.container}>
         <SemanticUI className="line" style={assign(
@@ -76,30 +110,11 @@ const Event = (props) =>
             },
             Styles.label
         )}/>
-        <Animate>
-        <Content
-            className="pure-u-1 pure-u-md-11-24"
-            style={assign(
-                {
-                    borderColor: backgroundColor,
-                    backgroundColor: lightenColor(backgroundColor, 60, 500)
-                },
-                Styles.content
-            )}
-        >
-            <Header className="summary" style={Styles.summary}>{header}</Header>
-            <SemanticUI className="extra text">{description}</SemanticUI>
-            <TimeBox
-                from={from}
-                to={to}
-                color={color}
-                borderColor={borderColor}
-            />
-        </Content>
-        </Animate>
+        {content}
     </SemanticUI>
     );
-}
+};
+
 Event.defaultProps = {
     color: '#000',
     backgroundColor: '#fff',

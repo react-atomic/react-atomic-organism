@@ -17289,6 +17289,12 @@ webpackJsonp([0],[
 	    return _jsx(_index.EventTimeline, {
 	        backgroundColor: "#fff",
 	        eventElement: _jsx(_index.Event, {}),
+	        animate: {
+	            enter: 'fadeInLeft'
+	        },
+	        evenAnimate: {
+	            enter: 'fadeInRight'
+	        },
 	        events: [{
 	            header: 'header',
 	            description: 'desc',
@@ -17423,8 +17429,7 @@ webpackJsonp([0],[
 	    }));
 	};
 
-	var Event = function Event(props) {
-	    var classes = (0, _reactAtomicMolecule.mixClass)(props.className, 'event pure-g');
+	var EventContent = function EventContent(props) {
 	    var header = props.header;
 	    var description = props.description;
 	    var from = props.from;
@@ -17433,6 +17438,36 @@ webpackJsonp([0],[
 	    var backgroundColor = props.backgroundColor;
 	    var borderColor = props.borderColor;
 
+	    return _jsx(_reactAtomicMolecule.Content, {
+	        className: 'pure-u-1 pure-u-md-11-24',
+	        style: (0, _reactAtomicMolecule.assign)({
+	            borderColor: backgroundColor,
+	            backgroundColor: (0, _colorlib.lightenColor)(backgroundColor, 60, 500),
+	            color: color
+	        }, Styles.content)
+	    }, void 0, _jsx(_reactAtomicMolecule.Header, {
+	        className: 'summary',
+	        style: Styles.summary
+	    }, void 0, header), _jsx(_reactAtomicMolecule.SemanticUI, {
+	        className: 'extra text'
+	    }, void 0, description), _jsx(TimeBox, {
+	        from: from,
+	        to: to,
+	        color: color,
+	        borderColor: borderColor
+	    }));
+	};
+
+	var Event = function Event(props) {
+	    var classes = (0, _reactAtomicMolecule.mixClass)(props.className, 'event pure-g');
+	    var animate = props.animate;
+	    var backgroundColor = props.backgroundColor;
+	    var borderColor = props.borderColor;
+
+	    var content = _react2.default.createElement(EventContent, props);
+	    if (animate) {
+	        content = _react2.default.createElement(_organismReactScrollAnimate2.default, animate, content);
+	    }
 	    return _jsx(_reactAtomicMolecule.SemanticUI, {
 	        className: classes,
 	        style: Styles.container
@@ -17446,24 +17481,9 @@ webpackJsonp([0],[
 	            borderColor: borderColor,
 	            backgroundColor: backgroundColor
 	        }, Styles.label)
-	    }), _jsx(_organismReactScrollAnimate2.default, {}, void 0, _jsx(_reactAtomicMolecule.Content, {
-	        className: 'pure-u-1 pure-u-md-11-24',
-	        style: (0, _reactAtomicMolecule.assign)({
-	            borderColor: backgroundColor,
-	            backgroundColor: (0, _colorlib.lightenColor)(backgroundColor, 60, 500)
-	        }, Styles.content)
-	    }, void 0, _jsx(_reactAtomicMolecule.Header, {
-	        className: 'summary',
-	        style: Styles.summary
-	    }, void 0, header), _jsx(_reactAtomicMolecule.SemanticUI, {
-	        className: 'extra text'
-	    }, void 0, description), _jsx(TimeBox, {
-	        from: from,
-	        to: to,
-	        color: color,
-	        borderColor: borderColor
-	    }))));
+	    }), content);
 	};
+
 	Event.defaultProps = {
 	    color: '#000',
 	    backgroundColor: '#fff',
@@ -17772,7 +17792,6 @@ webpackJsonp([0],[
 	        }
 	        force = true;
 	    }
-	    console.log(props);
 	    if (targetInfo.isOnScreen || force) {
 	        if (_react2.default.isValidElement(children)) {
 	            show = children;
@@ -23641,6 +23660,9 @@ webpackJsonp([0],[
 	    var eventElement = props.eventElement;
 
 	    var elProps = {};
+	    if (props.animate) {
+	        elProps.animate = props.animate;
+	    }
 	    if (props.color) {
 	        elProps.color = props.color;
 	    }
@@ -23655,6 +23677,9 @@ webpackJsonp([0],[
 	        style: Styles.container
 	    }, void 0, events.map(function (item, k) {
 	        item = (0, _reactAtomicMolecule.assign)(item, elProps);
+	        if (k % 2 && props.evenAnimate) {
+	            item.animate = props.evenAnimate;
+	        }
 	        var el = void 0;
 	        if (_react2.default.isValidElement(eventElement)) {
 	            el = _react2.default.cloneElement(eventElement, _extends({

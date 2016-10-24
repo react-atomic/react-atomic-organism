@@ -23,6 +23,9 @@ const EventTimeline = (props) =>
     );
     const {events, eventElement} = props;
     let elProps = {};
+    if (props.animate) {
+        elProps.animate = props.animate;
+    }
     if (props.color) {
         elProps.color = props.color;
     }
@@ -36,6 +39,9 @@ const EventTimeline = (props) =>
         <SemanticUI className={classes} style={Styles.container}>
             { events.map((item, k)=>{
                 item = assign(item, elProps);
+                if (k%2 && props.evenAnimate) {
+                    item.animate = props.evenAnimate;
+                }
                 let el;
                 if (React.isValidElement(eventElement)) {
                     el = React.cloneElement(
