@@ -1,6 +1,6 @@
 {
   "name": "organism-react-event-timeline",
-  "version": "0.0.7",
+  "version": "0.0.0",
   "description": "React Event Timeline",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

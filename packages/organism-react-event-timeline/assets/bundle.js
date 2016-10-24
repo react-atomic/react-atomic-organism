@@ -17272,7 +17272,7 @@ webpackJsonp([0],[
 
 	/**
 	 * Production please use
-	 * import Animate from "organism-react-animate"
+	 * import {xxx} from "organism-react-event-timeline"
 	 */
 
 	var _react = __webpack_require__(1);

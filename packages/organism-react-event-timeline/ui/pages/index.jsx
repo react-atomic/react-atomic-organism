@@ -1,8 +1,8 @@
-import React,{Component} from 'react'; 
+import React from 'react';
 
 /**
  * Production please use
- * import Animate from "organism-react-animate"
+ * import {xxx} from "organism-react-event-timeline"
  */
 import {
     EventTimeline,
