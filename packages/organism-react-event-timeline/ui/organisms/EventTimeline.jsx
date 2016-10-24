@@ -68,7 +68,8 @@ let injects;
 const InjectStyles = {
     evenEvent: [
         {
-            left: '50%'
+            left: '50%',
+            margin: '0 30px !important'
         },
         [
             min.md,

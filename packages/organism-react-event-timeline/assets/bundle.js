@@ -22810,7 +22810,8 @@ webpackJsonp([0],[
 	var injects = void 0;
 	var InjectStyles = {
 	    evenEvent: [{
-	        left: '50%'
+	        left: '50%',
+	        margin: '0 30px !important'
 	    }, [_reactAtomicMolecule.min.md, '.ui.timeline>.event:nth-child(even)>.content']],
 	    rwdLine: [{
 	        left: '50% !important'
