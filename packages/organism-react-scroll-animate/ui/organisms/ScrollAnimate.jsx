@@ -37,7 +37,7 @@ const Content = (props) => {
     if (!show) {
         style = {
             visibility: 'hidden',
-            minHeight: '100px'
+            minHeight: 200 //need great than browser minHeigh 150px
         };
     }
     return (
