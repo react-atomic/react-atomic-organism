@@ -19189,7 +19189,7 @@ webpackJsonp([0],[
 	    if (!show) {
 	        style = {
 	            visibility: 'hidden',
-	            minHeight: 200 //need great than browser minHeigh 150px
+	            minHeight: 155 //need great than browser minHeigh 150px
 	        };
 	    }
 	    return _jsx(_organismReactAnimate2.default, {

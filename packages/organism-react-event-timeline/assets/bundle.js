@@ -17305,6 +17305,46 @@ webpackJsonp([0],[
 	            description: 'desc2',
 	            from: ['2016', 'present'],
 	            to: ['2010', 'August']
+	        }, {
+	            header: 'header3',
+	            description: 'desc3',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header4',
+	            description: 'desc4',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header5',
+	            description: 'desc5',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header6',
+	            description: 'desc6',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header7',
+	            description: 'desc7',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header8',
+	            description: 'desc8',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header9',
+	            description: 'desc9',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
+	        }, {
+	            header: 'header10',
+	            description: 'desc10',
+	            from: ['2016', 'present'],
+	            to: ['2010', 'August']
 	        }]
 	    });
 	};
@@ -17804,7 +17844,7 @@ webpackJsonp([0],[
 	    if (!show) {
 	        style = {
 	            visibility: 'hidden',
-	            minHeight: 200
+	            minHeight: 155 //need great than browser minHeigh 150px
 	        };
 	    }
 	    return _jsx(_organismReactAnimate2.default, {
@@ -24321,6 +24361,11 @@ webpackJsonp([0],[
 	        item = (0, _reactAtomicMolecule.assign)(item, elProps);
 	        if (k % 2 && props.evenAnimate) {
 	            item.animate = props.evenAnimate;
+	        }
+	        if (item.animate) {
+	            if ('undefined' === typeof item.animate.once) {
+	                item.animate.once = true;
+	            }
 	        }
 	        var el = void 0;
 	        if (_react2.default.isValidElement(eventElement)) {

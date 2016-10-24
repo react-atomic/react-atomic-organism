@@ -1991,16 +1991,16 @@ organism-react-animate@>=0.0.4:
     react-atomic-molecule "*"
 
 organism-react-scroll-animate@*:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.0.11.tgz#6703949aae59941fe8a3e927a463b94e90ac6a21"
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.0.14.tgz#750375d61bbcfaa39a139024ed228a78379bc48a"
   dependencies:
     organism-react-animate ">=0.0.4"
     organism-react-scroll-nav ">=0.0.18"
     react-atomic-molecule "*"
 
 organism-react-scroll-nav@>=0.0.18:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.1.2.tgz#8cc8b92c683f174ab26b8130f43631f67f131f04"
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.1.3.tgz#457dc00c595dbeaf565b328545c55e23e59a3820"
   dependencies:
     get-scroll-info ">=0.0.10"
     getoffset "*"

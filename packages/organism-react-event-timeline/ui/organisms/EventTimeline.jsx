@@ -42,6 +42,11 @@ const EventTimeline = (props) =>
                 if (k%2 && props.evenAnimate) {
                     item.animate = props.evenAnimate;
                 }
+                if (item.animate) {
+                    if ('undefined' === typeof item.animate.once) {
+                        item.animate.once = true;
+                    }
+                }
                 let el;
                 if (React.isValidElement(eventElement)) {
                     el = React.cloneElement(
