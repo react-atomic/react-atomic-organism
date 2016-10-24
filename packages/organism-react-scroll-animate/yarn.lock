@@ -1990,14 +1990,6 @@ organism-react-animate@>=0.0.4:
     react-addons-css-transition-group "*"
     react-atomic-molecule "*"
 
-organism-react-scroll-animate@*:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.0.11.tgz#6703949aae59941fe8a3e927a463b94e90ac6a21"
-  dependencies:
-    organism-react-animate ">=0.0.4"
-    organism-react-scroll-nav ">=0.0.18"
-    react-atomic-molecule "*"
-
 organism-react-scroll-nav@>=0.0.18:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.1.2.tgz#8cc8b92c683f174ab26b8130f43631f67f131f04"

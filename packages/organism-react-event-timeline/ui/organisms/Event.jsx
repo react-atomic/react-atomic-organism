@@ -1,5 +1,6 @@
 import React from 'react';
 import {lightenColor, hexToRgba} from 'colorlib';
+import Animate from "organism-react-scroll-animate";
 
 import {
     mixClass,
@@ -75,6 +76,7 @@ const Event = (props) =>
             },
             Styles.label
         )}/>
+        <Animate>
         <Content
             className="pure-u-1 pure-u-md-11-24"
             style={assign(
@@ -94,6 +96,7 @@ const Event = (props) =>
                 borderColor={borderColor}
             />
         </Content>
+        </Animate>
     </SemanticUI>
     );
 }

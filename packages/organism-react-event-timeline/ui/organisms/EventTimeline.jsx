@@ -73,7 +73,7 @@ const InjectStyles = {
         },
         [
             min.md,
-            '.ui.timeline>.event:nth-child(even)>.content'
+            '.ui.timeline>.event:nth-child(even) .content'
         ]
     ],
     rwdLine: [

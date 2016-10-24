@@ -22933,19 +22933,20 @@ webpackJsonp([0],[
 	    var enter = props.enter;
 	    var leave = props.leave;
 	    var once = props.once;
-	    var scrollInfo = props.scrollInfo;
+	    var targetInfo = props.targetInfo;
 
 	    var show = null;
 	    var style = null;
 	    var force = false;
-	    if (once && scrollInfo.isShown) {
-	        var node = _organismReactScrollNav.scrollStore.getNode(scrollInfo.targetId);
+	    if (once && targetInfo.isShown) {
+	        var node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
 	        if (node) {
 	            node.detach();
 	        }
 	        force = true;
 	    }
-	    if (scrollInfo.isOnScreen || force) {
+	    console.log(props);
+	    if (targetInfo.isOnScreen || force) {
 	        if (_react2.default.isValidElement(children)) {
 	            show = children;
 	        } else if ('function' === typeof children) {
@@ -24287,25 +24288,27 @@ webpackJsonp([0],[
 	    }, {
 	        key: '_triggerScroll',
 	        value: function _triggerScroll() {
+	            var defaultMargin = this.getState().get('scrollMargin');
 	            var scroll = (0, _getScrollInfo2.default)(null, 0);
-	            var actives = {};
+	            var actives = { mdefault: null };
 	            var offsetCache = {};
-	            var margin = this.getState().get('scrollMargin');
-	            var scrollTop = scroll.top + margin;
+	            var scrollTop = scroll.top + defaultMargin;
 	            var arrTestScrollTo = [];
 	            this.spys.forEach(function (node) {
 	                var pos = node.getOffset();
 	                if (node.props.testScrollTo) {
 	                    if (scrollTop >= pos.top && scrollTop < pos.bottom) {
-	                        actives['default'] = node.id;
+	                        actives.mdefault = node.id;
 	                    }
 	                    arrTestScrollTo.push(node);
 	                }
+	                var margin = node.scrollMargin ? node.scrollMargin : defaultMargin;
 	                pos.isElementOnScreen = !(pos.top > scroll.bottom - margin || pos.bottom < scroll.top + margin || pos.right < scroll.left + margin || pos.left > scroll.right - margin);
 	                offsetCache[node.id] = pos;
 	            });
 	            this.margins.forEach(function (margin) {
 	                scrollTop = scroll.top + margin;
+	                actives['m' + margin] = null;
 	                arrTestScrollTo.every(function (node) {
 	                    var pos = offsetCache[node.id];
 	                    if (scrollTop >= pos.top && scrollTop < pos.bottom) {
@@ -26537,6 +26540,7 @@ webpackJsonp([0],[
 
 	        var _this = _possibleConstructorReturn(this, (ScrollSpy.__proto__ || Object.getPrototypeOf(ScrollSpy)).call(this, props));
 
+	        _this.scrollMargin = props.scrollMargin;
 	        _this.state = {
 	            id: _this.props.id
 	        };
@@ -26746,16 +26750,16 @@ webpackJsonp([0],[
 	        key: 'calculateState',
 	        value: function calculateState(prevState, props) {
 	            var state = _index.scrollStore.getState();
+	            var target = props.targetId;
 	            var isOnScreen = false;
 	            var nodes = state.get('nodes');
-	            var target = props.targetId;
 	            if (nodes) {
 	                nodes = nodes.toJS();
 	                if (nodes && nodes[target]) {
 	                    isOnScreen = nodes[target].isElementOnScreen;
 	                }
 	            }
-	            var active = target === state.get('m' + props.scrollMargin);
+	            var active = 'undefined' !== typeof target && target === state.get('m' + props.scrollMargin);
 	            if (!isNaN(props.scrollMargin)) {
 	                _index.scrollStore.addMargin(props.scrollMargin);
 	            }
