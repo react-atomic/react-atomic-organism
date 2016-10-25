@@ -17359,10 +17359,13 @@ webpackJsonp([0],[
 	            return _jsx('div', {}, void 0, _jsx('div', {
 	                style: Styles.row
 	            }, void 0, _jsx(BlackCircle, {
+	                once: false,
 	                enter: 'fadeInRight-1000'
 	            }, void 0, 'Fade in right'), _jsx(WhiteCircle, {
+	                once: false,
 	                enter: 'fadeInLeft-1000'
 	            }, void 0, 'Fade in left'), _jsx(BlackCircle, {
+	                once: false,
 	                enter: 'fadeInUp-1000'
 	            }, void 0, 'Fade in up !!!')), _jsx('div', {
 	                style: Styles.row
@@ -17370,6 +17373,7 @@ webpackJsonp([0],[
 	                once: true,
 	                enter: 'fadeInLeft-1000'
 	            }, void 0, 'Fade in left (once)'), _jsx(WhiteCircle, {
+	                once: false,
 	                enter: 'fadeInDown-1000'
 	            }, void 0, 'Fade in down'), _jsx(BlackCircle, {
 	                once: true,
@@ -17377,10 +17381,13 @@ webpackJsonp([0],[
 	            }, void 0, 'Right (once) 2')), _jsx('div', {
 	                style: Styles.row
 	            }, void 0, _jsx(BlackCircle, {
+	                once: false,
 	                enter: 'fadeOutRight-1000'
 	            }, void 0, 'Fade out right'), _jsx(WhiteCircle, {
+	                once: false,
 	                enter: 'fadeOutUp-1000'
 	            }, void 0, 'Fade out up'), _jsx(BlackCircle, {
+	                once: false,
 	                enter: 'fadeOutLeft-1000'
 	            }, void 0, 'Out left 333')));
 	        }
@@ -19214,7 +19221,9 @@ webpackJsonp([0],[
 	        once: once
 	    }, void 0, children));
 	};
-
+	ScrollAnimate.defaultProps = {
+	    once: true
+	};
 	exports.default = ScrollAnimate;
 	module.exports = exports['default'];
 

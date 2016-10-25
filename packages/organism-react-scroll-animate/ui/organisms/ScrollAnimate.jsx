@@ -62,5 +62,7 @@ const ScrollAnimate = (props) => {
         </ScrollSpy>
     );
 };
-
+ScrollAnimate.defaultProps = {
+    once: true
+};
 export default ScrollAnimate;
