@@ -20,7 +20,7 @@ const Content = (props) => {
     let force = false;
     if (once && targetInfo.isShown) {
         const node = scrollStore.getNode(targetInfo.targetId);
-        if (node) {
+        if (node && !node.props.testScrollTo) {
             node.detach();
         }
         force = true;
@@ -50,7 +50,7 @@ const Content = (props) => {
 const ScrollAnimate = (props) => { 
     const {enter, leave, once, children, ...others} = props;
     return ( 
-        <ScrollSpy {...others} testScrollTo={false}>
+        <ScrollSpy {...others}>
             <ScrollReceiver
                 container={<Content />}
                 enter={enter}
@@ -63,6 +63,7 @@ const ScrollAnimate = (props) => {
     );
 };
 ScrollAnimate.defaultProps = {
-    once: true
+    once: true,
+    testScrollTo: false
 };
 export default ScrollAnimate;

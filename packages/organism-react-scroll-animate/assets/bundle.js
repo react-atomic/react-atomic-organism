@@ -19113,16 +19113,6 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _extends = Object.assign || function (target) {
-	    for (var i = 1; i < arguments.length; i++) {
-	        var source = arguments[i];for (var key in source) {
-	            if (Object.prototype.hasOwnProperty.call(source, key)) {
-	                target[key] = source[key];
-	            }
-	        }
-	    }return target;
-	};
-
 	var _jsx = function () {
 	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
 	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
@@ -19168,18 +19158,18 @@ webpackJsonp([0],[
 	}
 
 	var Content = function Content(props) {
-	    var children = props.children;
-	    var enter = props.enter;
-	    var leave = props.leave;
-	    var once = props.once;
-	    var targetInfo = props.targetInfo;
+	    var children = props.children,
+	        enter = props.enter,
+	        leave = props.leave,
+	        once = props.once,
+	        targetInfo = props.targetInfo;
 
 	    var show = null;
 	    var style = null;
 	    var force = false;
 	    if (once && targetInfo.isShown) {
 	        var node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
-	        if (node) {
+	        if (node && !node.props.testScrollTo) {
 	            node.detach();
 	        }
 	        force = true;
@@ -19207,14 +19197,13 @@ webpackJsonp([0],[
 	};
 
 	var ScrollAnimate = function ScrollAnimate(props) {
-	    var enter = props.enter;
-	    var leave = props.leave;
-	    var once = props.once;
-	    var children = props.children;
+	    var enter = props.enter,
+	        leave = props.leave,
+	        once = props.once,
+	        children = props.children,
+	        others = _objectWithoutProperties(props, ['enter', 'leave', 'once', 'children']);
 
-	    var others = _objectWithoutProperties(props, ['enter', 'leave', 'once', 'children']);
-
-	    return _react2.default.createElement(_organismReactScrollNav.ScrollSpy, _extends({}, others, { testScrollTo: false }), _jsx(_organismReactScrollNav.ScrollReceiver, {
+	    return _react2.default.createElement(_organismReactScrollNav.ScrollSpy, others, _jsx(_organismReactScrollNav.ScrollReceiver, {
 	        container: _jsx(Content, {}),
 	        enter: enter,
 	        leave: leave,
@@ -19222,7 +19211,8 @@ webpackJsonp([0],[
 	    }, void 0, children));
 	};
 	ScrollAnimate.defaultProps = {
-	    once: true
+	    once: true,
+	    testScrollTo: false
 	};
 	exports.default = ScrollAnimate;
 	module.exports = exports['default'];
