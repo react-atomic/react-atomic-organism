@@ -54,7 +54,8 @@ const EventContent = (props)=> {
         to,
         color,
         backgroundColor,
-        borderColor
+        borderColor,
+        minHeight
     } = props;
     return (
     <Content
@@ -63,7 +64,8 @@ const EventContent = (props)=> {
             {
                 borderColor: backgroundColor,
                 backgroundColor: lightenColor(backgroundColor, 60, 500),
-                color: color
+                color: color,
+                minHeight: minHeight
             },
             Styles.content
         )}
@@ -89,11 +91,16 @@ const Event = (props) =>
     const {
         animate,
         backgroundColor,
-        borderColor
+        borderColor,
+        minHeight
     } = props;
     let content = <EventContent {...props} />;
     if (animate) {
-        content = <Animate {...animate}>{content}</Animate>;
+        const aniProps = assign(
+            {minHeight: minHeight},
+            animate
+        );
+        content = <Animate {...aniProps}>{content}</Animate>;
     }
     return (
     <SemanticUI className={classes} style={Styles.container}>
@@ -118,7 +125,8 @@ const Event = (props) =>
 Event.defaultProps = {
     color: '#000',
     backgroundColor: '#fff',
-    borderColor: '#0f87cd'
+    borderColor: '#0f87cd',
+    minHeight: 180,
 };
 export default Event;
 
@@ -160,7 +168,6 @@ const Styles = {
     },
     content: {
         position: 'relative',
-        minHeight: 180,
         borderWidth: 12,
         borderStyle: 'solid',
         borderRightWidth: 100,
