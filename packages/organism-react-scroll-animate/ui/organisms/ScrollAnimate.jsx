@@ -13,6 +13,7 @@ const Content = (props) => {
         enter,
         leave,
         once,
+        minHeight,
         targetInfo
     } = props;
     let show = null;
@@ -37,7 +38,7 @@ const Content = (props) => {
     if (!show) {
         style = {
             visibility: 'hidden',
-            minHeight: 155 //need great than browser minHeigh 150px
+            minHeight: minHeight 
         };
     }
     return (
@@ -48,7 +49,7 @@ const Content = (props) => {
 };
 
 const ScrollAnimate = (props) => { 
-    const {enter, leave, once, children, ...others} = props;
+    const {enter, leave, once, minHeight, children, ...others} = props;
     return ( 
         <ScrollSpy {...others}>
             <ScrollReceiver
@@ -56,6 +57,7 @@ const ScrollAnimate = (props) => {
                 enter={enter}
                 leave={leave}
                 once={once}
+                minHeight={minHeight}
             >
                 {children}
             </ScrollReceiver>
@@ -64,6 +66,7 @@ const ScrollAnimate = (props) => {
 };
 ScrollAnimate.defaultProps = {
     once: true,
-    testScrollTo: false
+    testScrollTo: false,
+    minHeight: 155, //need great than browser minHeigh 150px
 };
 export default ScrollAnimate;
