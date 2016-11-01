@@ -7,8 +7,9 @@ import {
     assign,
     reactStyle,
     injectStyle,
-    Label,
     Content,
+    Description,
+    Label,
     Header,
     Meta,
     SemanticUI
@@ -71,7 +72,7 @@ const EventContent = (props)=> {
         )}
     >
         <Header className="summary" style={Styles.summary}>{header}</Header>
-        <SemanticUI className="extra text">{description}</SemanticUI>
+        <Description className="extra text">{description}</Description>
         <TimeBox
             from={from}
             to={to}
