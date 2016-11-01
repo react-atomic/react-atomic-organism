@@ -17473,10 +17473,17 @@ webpackJsonp([0],[
 	var Animate = function (_Component) {
 	    _inherits(Animate, _Component);
 
-	    function Animate() {
+	    function Animate(props) {
 	        _classCallCheck(this, Animate);
 
-	        return _possibleConstructorReturn(this, (Animate.__proto__ || Object.getPrototypeOf(Animate)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (Animate.__proto__ || Object.getPrototypeOf(Animate)).call(this, props));
+
+	        var appear = props.appear;
+	        if (appear) {
+	            var data = appear.split('-');
+	            (0, _keyframeCss2.default)(data[0]);
+	        }
+	        return _this;
 	    }
 
 	    _createClass(Animate, [{
@@ -17490,19 +17497,16 @@ webpackJsonp([0],[
 	            if (appear) {
 	                if (!inject[appear]) {
 	                    this.init(appear, this.appear, this.appearTimeout);
-	                    inject[appear] = true;
 	                }
 	            }
 	            if (enter) {
 	                if (!inject[enter]) {
 	                    this.init(enter, this.enter, this.enterTimeout);
-	                    inject[enter] = true;
 	                }
 	            }
 	            if (leave) {
 	                if (!inject[leave]) {
 	                    this.init(leave, this.leave, this.leaveTimeout);
-	                    inject[leave] = true;
 	                }
 	            }
 	            (0, _reactAtomicMolecule.injectStyle)();
@@ -17510,11 +17514,11 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'init',
 	        value: function init(key, ani, timeout) {
+	            inject[key] = true;
 	            (0, _reactAtomicMolecule.reactStyle)((0, _reactAtomicMolecule.assign)({
 	                animationName: [ani],
 	                animationDuration: [timeout + 'ms']
 	            }, baseStyle), '.' + key);
-	            (0, _keyframeCss2.default)(ani);
 	        }
 	    }, {
 	        key: 'render',
@@ -17533,6 +17537,7 @@ webpackJsonp([0],[
 	            if (appear) {
 	                data = appear.split('-');
 	                this.appear = data[0];
+	                (0, _keyframeCss2.default)(this.appear);
 	                if (!isNaN(data[1])) {
 	                    this.appearTimeout = parseInt(data[1], 10);
 	                }
@@ -17543,6 +17548,7 @@ webpackJsonp([0],[
 	            if (enter) {
 	                data = enter.split('-');
 	                this.enter = data[0];
+	                (0, _keyframeCss2.default)(this.enter);
 	                if (!isNaN(data[1])) {
 	                    this.enterTimeout = parseInt(data[1], 10);
 	                }
@@ -17553,6 +17559,7 @@ webpackJsonp([0],[
 	            if (leave) {
 	                data = leave.split('-');
 	                this.leave = data[0];
+	                (0, _keyframeCss2.default)(this.leave);
 	                if (!isNaN(data[1])) {
 	                    this.leaveTimeout = parseInt(data[1], 10);
 	                }

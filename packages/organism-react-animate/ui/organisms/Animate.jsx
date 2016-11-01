@@ -19,6 +19,16 @@ class Animate extends Component
         leave: null
     }
 
+    constructor(props) 
+    {
+        super(props);
+        const appear = props.appear;
+        if (appear) {
+            let data = appear.split('-');
+            getKeyframe(data[0]);
+        }
+    }
+
     componentDidMount()
     {
         const { 
@@ -29,19 +39,16 @@ class Animate extends Component
         if (appear) {
             if (!inject[appear]) {
                 this.init(appear, this.appear, this.appearTimeout);
-                inject[appear] = true;
             }
         }
         if (enter) {
             if (!inject[enter]) {
                 this.init(enter, this.enter, this.enterTimeout);
-                inject[enter] = true;
             }
         }
         if (leave) {
             if (!inject[leave]) {
                 this.init(leave, this.leave, this.leaveTimeout);
-                inject[leave] = true;
             }
         }
         injectStyle();
@@ -49,6 +56,7 @@ class Animate extends Component
 
     init(key, ani, timeout)
     {
+        inject[key] = true;
         reactStyle(assign(
             {
                 animationName: [ani],
@@ -56,7 +64,6 @@ class Animate extends Component
             },
             baseStyle, 
         ), '.'+key);
-        getKeyframe(ani);
     }
 
     render()
@@ -75,6 +82,7 @@ class Animate extends Component
         if (appear) {
             data = appear.split('-');
             this.appear = data[0];
+            getKeyframe(this.appear);
             if (!isNaN(data[1])) {
                 this.appearTimeout = parseInt(data[1],10);
             }
@@ -85,6 +93,7 @@ class Animate extends Component
         if (enter) {
             data = enter.split('-');
             this.enter = data[0];
+            getKeyframe(this.enter);
             if (!isNaN(data[1])) {
                 this.enterTimeout = parseInt(data[1],10);
             }
@@ -95,6 +104,7 @@ class Animate extends Component
         if (leave) {
             data = leave.split('-');
             this.leave = data[0];
+            getKeyframe(this.leave);
             if (!isNaN(data[1])) {
                 this.leaveTimeout = parseInt(data[1],10);
             }
