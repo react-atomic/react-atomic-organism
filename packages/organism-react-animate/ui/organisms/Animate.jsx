@@ -6,7 +6,7 @@ import {
     injectStyle
 } from 'react-atomic-molecule';
 
-import animateCss from '../../src/animateCss';
+import getKeyframe from 'keyframe-css';
 
 let inject = {};
 
@@ -56,11 +56,7 @@ class Animate extends Component
             },
             baseStyle, 
         ), '.'+key);
-        let keyframes = ani+'-keyframes';
-        if (!inject[keyframes]) { 
-            reactStyle.apply( null, animateCss[ani] );
-            inject[keyframes] = true;
-        }
+        getKeyframe(ani);
     }
 
     render()
