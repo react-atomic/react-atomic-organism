@@ -7,16 +7,19 @@ GetObjectValue
 
 ## Spec
 ```
+
 import get from 'get-object-value';
+
 get(object, path, defaultValue)
+
 ```
 
 ## Example Usage
    * Code:
       * https://github.com/react-atomic/react-atomic-organism/blob/master/packages/lib/get-object-value/src/index.js
    * How to use?
-```
 
+```
 import get from 'get-object-value';
 
 let demoObject = {
