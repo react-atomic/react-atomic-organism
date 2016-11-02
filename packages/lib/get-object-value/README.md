@@ -16,7 +16,7 @@ get(object, path, defaultValue)
    * Arguments
       * object (Object): The object to query.
       * path (Array): The path of the property to get.
-      * defaultValue ( option, mixed ): The value returned for undefined resolved values.
+      * defaultValue ( option, Mixed ): The value returned for undefined resolved values.
    * Code:
       * https://github.com/react-atomic/react-atomic-organism/blob/master/packages/lib/get-object-value/src/index.js
       
