@@ -1,4 +1,4 @@
-GetObjectValue
+GetObjectValue (only for 22 line)
 ===============
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/get-object-value 
@@ -13,13 +13,13 @@ import get from 'get-object-value';
 get(object, path, defaultValue)
 
 ```
-
-## Example Usage
    * Code:
       * https://github.com/react-atomic/react-atomic-organism/blob/master/packages/lib/get-object-value/src/index.js
-   * How to use?
+      
+## Example Usage
 
 ```
+
 import get from 'get-object-value';
 
 let demoObject = {
@@ -34,6 +34,7 @@ let v1 = get(demoObject, ['a','b','d'], 'c2'); // return c2
 
 ```
 
-
+## Loadash
+   * Doc https://lodash.com/docs/4.16.6#get
 
 
