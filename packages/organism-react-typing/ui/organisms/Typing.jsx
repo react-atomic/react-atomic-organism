@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 
 import {
-    reactStyle,
     assign,
+    lazyInject,
+    reactStyle,
     SemanticUI 
 } from 'react-atomic-molecule';
 
-let aniNum = 0;
 
 class TypingItem extends Component
 {
@@ -20,21 +20,28 @@ class TypingItem extends Component
 
     componentDidMount()
     {
-        let aniName ='typingNextWord-'+aniNum; 
-        aniNum++;
         const width = this.text.offsetWidth+ 50;
-        reactStyle([
+        const aniName ='typingNextWord-'+width; 
+        reactStyle(
+            [
+                {
+                    maxWidth: 0,
+                },
+                {
+                    maxWidth: width+'px'
+                },
+            ],
+            ['@keyframes '+aniName, '0%', '100%'],
+            'key-'+aniName
+        );
+        reactStyle(
             {
-                maxWidth: 0,
-            },
-            {
-                maxWidth: width+'px'
-            },
-        ],['@keyframes '+aniName, '0%', '100%']);
-        reactStyle({
-            animation: [aniName+ " "+ this.props.sec+ "s steps(10) infinite alternate"],
-            visibility: "visible !important"
-        },'.'+aniName);
+                animation: [aniName+ " "+ this.props.sec+ "s steps(10) infinite alternate"],
+                visibility: "visible !important"
+            }, 
+            '.'+aniName, 
+            'ani-'+aniName
+        );
         this.setState({
             className: aniName
         });
@@ -42,7 +49,7 @@ class TypingItem extends Component
 
     render()
     {
-        const {children, sec, ...props} = this.props;
+        const {children, sec, background, ...props} = this.props;
         return (
            <SemanticUI {...props}> 
                 <div
@@ -52,10 +59,7 @@ class TypingItem extends Component
                 >
                     {children}
                 </div>
-               <SemanticUI styles={reactStyle(assign(
-                    {},
-                    Styles.typingCursor,
-                ))}> | </SemanticUI>
+               <SemanticUI styles={injects.typingCursor}> | </SemanticUI>
            </SemanticUI>
         );
     }
@@ -74,8 +78,13 @@ class Typing extends Component
     {
         super(props);
         this.state = {
-            typingItemStyles: null 
+            typingItemStyles: null,
+            isRun: 1
         };
+        injects = lazyInject (
+            injects,
+            InjectStyles
+        );
     }
 
     componentDidMount()
@@ -84,23 +93,39 @@ class Typing extends Component
         const aniName = 'typingNextLine';
         const itemLength = props.children.length;
         const height = parseInt(props.height, 10);
+        const styleId = aniName+'-'+itemLength+height;
         let typingItemStyles = reactStyle({
             position: 'relative',
             animation: [aniName+ ' '+ ( itemLength * 2 * props.sec )+ 's steps('+itemLength+') infinite'],
             height: height
-        });
+        },null, false);
         reactStyle([
             {top: 0},
             {top: '-'+ ( height * itemLength )+ 'px'}
-        ],['@keyframes '+aniName, '0%', '100%']);
+        ],['@keyframes '+aniName, '0%', '100%'], styleId);
         this.setState({
             typingItemStyles: typingItemStyles
         });
     }
 
+    start()
+    {
+        this.setState({
+            isRun: true 
+        })
+    }
+
+    stop()
+    {
+        this.setState({
+            isRun: false 
+        })
+    }
+
     render()
     {
         const props = this.props;
+        const state = this.state;
         let items = [];
         let atts = { 
             color:props.color
@@ -108,18 +133,20 @@ class Typing extends Component
         if (props.background) {
             atts.background = props.background;
         }
-        React.Children.map(props.children,(item, key)=>{
-            items.push(
-                <TypingItem
-                    key={key}
-                    sec={props.sec}
-                    styles={this.state.typingItemStyles}
-                    {...atts}
-                >
-                    {item.props.children}
-                </TypingItem>
-            );
-        });
+        if (state.isRun) {
+            React.Children.map(props.children,(item, key)=>{
+                items.push(
+                    <TypingItem
+                        key={key}
+                        sec={props.sec}
+                        styles={state.typingItemStyles}
+                        {...atts}
+                    >
+                        {item.props.children}
+                    </TypingItem>
+                );
+            });
+        }
         return (
             <SemanticUI style={assign(
                 {},
@@ -146,27 +173,23 @@ const Styles = {
         overflow: "hidden",
         visibility: "hidden",
     },
-    typingCursor: {
+};
+
+let injects;
+const InjectStyles = {
+    typingCursor: [{
         display: "inline-block",
         position: "relative",
         marginLeft: "3px",
         verticalAlign: "top",
         animation: ["typingBlink 1s infinite"]
-    },
-    typingNextWord: reactStyle([
-        {
-            maxWidth: 0,
-        },
-        {
-            maxWidth: '30px',
-        },
-    ],['@keyframes typingNextWord', '0%',  '100%']),
-    typingBlink: reactStyle([
+    }],
+    typingBlink: [[
         {
             opacity: "1" 
         },
         {
             opacity: "0"
         }
-    ],['@keyframes typingBlink', '0%, 100%', '50%'])
+    ],['@keyframes typingBlink', '0%, 100%', '50%']]
 };
