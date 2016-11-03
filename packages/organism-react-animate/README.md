@@ -7,7 +7,7 @@ React Animate
 
 ## Example Usage
 Demo Url:
-http://react-atomic.github.io/react-atomic-organism/packages/organism-react-animate/index.html
+http://react-atomic.github.io/react-atomic-organism/packages/organism-react-animate/
 
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-animate/ui/pages/index.jsx
