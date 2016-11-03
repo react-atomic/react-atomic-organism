@@ -1,24 +1,12 @@
 import FSS from './fss';
 
-const FSS_Worker = function (opt, k) {
+const FSS_Worker = function (opt, element) {
 
     opt = opt || {};
-    var MESH = {}, LIGHT = [{}],
-            VERTEX = {}, LINE = {};
-
-
-    var rgbaToRgb = function (rgba) {
-        try {
-            var bits = rgba.split("(");
-        } catch (e) {
-            return;
-        }
-        if (typeof bits[1] !== "undefined") {
-            bits = bits[1].split(")")[0].split(",");
-            return "rgb(" + bits[0] + "," + bits[1] + "," + bits[2] + ")";
-        }
-        return;
-    };
+    var MESH = {},
+        LIGHT = [{}],
+        VERTEX = {},
+        LINE = {};
 
     //------------------------------
     // Mesh Properties
@@ -91,7 +79,7 @@ const FSS_Worker = function (opt, k) {
                 )
     };
 
-    var self = k;
+    var self = element;
 
     var createValues = function (opt) {
         opt.mesh = opt.mesh || MESH;
@@ -261,6 +249,7 @@ const FSS_Worker = function (opt, k) {
             }
         }
     }
+    let isRun=true;
     var callbacks = {
         resize: function (width, height) {
 
@@ -350,6 +339,15 @@ const FSS_Worker = function (opt, k) {
         formatRGBA: function (a) {
             var string = "rgba(" + a[0] + "," + a[1] + "," + a[2] + "," + a[3] + ")";
             return string;
+        },
+        start: ()=>{
+            if (!isRun) {
+                isRun = true;
+                animate();
+            }
+        },
+        stop: ()=>{
+            isRun = false;
         }
     };
 
@@ -358,7 +356,9 @@ const FSS_Worker = function (opt, k) {
         now = Date.now() - start;
         update();
         render();
-        requestAnimationFrame(animate);
+        if (isRun) {
+            requestAnimationFrame(animate);
+        }
     }
 
     function update() {

@@ -8,12 +8,22 @@ class GeometryAngle extends Component
     componentDidMount()
     {
         const {vertex, line, mesh, lights} = this.props;
-        FssWorker({
+        this.fss = FssWorker({
             vertex: vertex,
             line: line,
             mesh: mesh,
             lights: lights
         },this.dom);
+    }
+
+    start()
+    {
+        this.fss.start();
+    }
+
+    stop()
+    {
+        this.fss.stop();
     }
 
     render()

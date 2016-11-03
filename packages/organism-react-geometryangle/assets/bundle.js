@@ -17242,38 +17242,43 @@ webpackJsonp([0],[
 /* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _jsx = function () {
-	  var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
-	    var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
-	      props = {};
-	    }if (props && defaultProps) {
-	      for (var propName in defaultProps) {
-	        if (props[propName] === void 0) {
-	          props[propName] = defaultProps[propName];
-	        }
-	      }
-	    } else if (!props) {
-	      props = defaultProps || {};
-	    }if (childrenLength === 1) {
-	      props.children = children;
-	    } else if (childrenLength > 1) {
-	      var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
-	        childArray[i] = arguments[i + 3];
-	      }props.children = childArray;
-	    }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
-	  };
+	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
+	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
+	            props = {};
+	        }if (props && defaultProps) {
+	            for (var propName in defaultProps) {
+	                if (props[propName] === void 0) {
+	                    props[propName] = defaultProps[propName];
+	                }
+	            }
+	        } else if (!props) {
+	            props = defaultProps || {};
+	        }if (childrenLength === 1) {
+	            props.children = children;
+	        } else if (childrenLength > 1) {
+	            var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
+	                childArray[i] = arguments[i + 3];
+	            }props.children = childArray;
+	        }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
+	    };
 	}();
 
-	/**
-	 * Production please use
-	 * import GeometryAngle from 'organism-react-geometryangle';
-	 */
+	var _createClass = function () {
+	    function defineProperties(target, props) {
+	        for (var i = 0; i < props.length; i++) {
+	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	        }
+	    }return function (Constructor, protoProps, staticProps) {
+	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	    };
+	}();
 
 	var _react = __webpack_require__(1);
 
@@ -17284,14 +17289,81 @@ webpackJsonp([0],[
 	var _index2 = _interopRequireDefault(_index);
 
 	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
+	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var Index = function Index(props) {
-	  return _jsx(_index2.default, {});
-	};
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) {
+	        throw new TypeError("Cannot call a class as a function");
+	    }
+	}
+
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) {
+	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if (typeof superClass !== "function" && superClass !== null) {
+	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	/**
+	 * Production please use
+	 * import GeometryAngle from 'organism-react-geometryangle';
+	 */
+
+	var Index = function (_Component) {
+	    _inherits(Index, _Component);
+
+	    function Index() {
+	        var _ref;
+
+	        var _temp, _this, _ret;
+
+	        _classCallCheck(this, Index);
+
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Index.__proto__ || Object.getPrototypeOf(Index)).call.apply(_ref, [this].concat(args))), _this), _this.handleStart = function () {
+	            _this.el.start();
+	        }, _this.handleStop = function () {
+	            _this.el.stop();
+	            console.log(_this.el);
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+
+	    _createClass(Index, [{
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            return _jsx('div', {}, void 0, _react2.default.createElement(_index2.default, { ref: function ref(el) {
+	                    return _this2.el = el;
+	                } }), _jsx('button', {
+	                style: Styles.button,
+	                onClick: this.handleStart
+	            }, void 0, 'start'), _jsx('button', {
+	                style: Styles.button,
+	                onClick: this.handleStop
+	            }, void 0, 'stop'));
+	        }
+	    }]);
+
+	    return Index;
+	}(_react.Component);
 
 	exports.default = Index;
+
+	var Styles = {
+	    button: {
+	        position: 'relative'
+	    }
+	};
 	module.exports = exports['default'];
 
 /***/ },
@@ -17391,12 +17463,22 @@ webpackJsonp([0],[
 	                mesh = _props.mesh,
 	                lights = _props.lights;
 
-	            (0, _fss_worker2.default)({
+	            this.fss = (0, _fss_worker2.default)({
 	                vertex: vertex,
 	                line: line,
 	                mesh: mesh,
 	                lights: lights
 	            }, this.dom);
+	        }
+	    }, {
+	        key: "start",
+	        value: function start() {
+	            this.fss.start();
+	        }
+	    }, {
+	        key: "stop",
+	        value: function stop() {
+	            this.fss.stop();
 	        }
 	    }, {
 	        key: "render",
@@ -17526,7 +17608,7 @@ webpackJsonp([0],[
 /* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -17556,26 +17638,13 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	var FSS_Worker = function FSS_Worker(opt, k) {
+	var FSS_Worker = function FSS_Worker(opt, element) {
 
 	    opt = opt || {};
 	    var MESH = {},
 	        LIGHT = [{}],
 	        VERTEX = {},
 	        LINE = {};
-
-	    var rgbaToRgb = function rgbaToRgb(rgba) {
-	        try {
-	            var bits = rgba.split("(");
-	        } catch (e) {
-	            return;
-	        }
-	        if (typeof bits[1] !== "undefined") {
-	            bits = bits[1].split(")")[0].split(",");
-	            return "rgb(" + bits[0] + "," + bits[1] + "," + bits[2] + ")";
-	        }
-	        return;
-	    };
 
 	    //------------------------------
 	    // Mesh Properties
@@ -17643,7 +17712,7 @@ webpackJsonp([0],[
 	        step: _fss2.default.Vector3.create(Math.randomInRange(0.2, 1.0), Math.randomInRange(0.2, 1.0), Math.randomInRange(0.2, 1.0))
 	    };
 
-	    var self = k;
+	    var self = element;
 
 	    var createValues = function createValues(opt) {
 	        opt.mesh = opt.mesh || MESH;
@@ -17807,13 +17876,14 @@ webpackJsonp([0],[
 	            }
 	        }
 	    }
+	    var isRun = true;
 	    var callbacks = {
 	        resize: function resize(width, height) {
 
-	            if (typeof width == "undefined" || (typeof width === "undefined" ? "undefined" : _typeof(width)) === undefined) {
+	            if (typeof width == "undefined" || (typeof width === 'undefined' ? 'undefined' : _typeof(width)) === undefined) {
 	                width = self.width();
 	            }
-	            if (typeof height == "undefined" || (typeof height === "undefined" ? "undefined" : _typeof(height)) === undefined) {
+	            if (typeof height == "undefined" || (typeof height === 'undefined' ? 'undefined' : _typeof(height)) === undefined) {
 	                height = self.height();
 	            }
 	            var ratio_x = width / 1000;
@@ -17894,6 +17964,15 @@ webpackJsonp([0],[
 	        formatRGBA: function formatRGBA(a) {
 	            var string = "rgba(" + a[0] + "," + a[1] + "," + a[2] + "," + a[3] + ")";
 	            return string;
+	        },
+	        start: function start() {
+	            if (!isRun) {
+	                isRun = true;
+	                animate();
+	            }
+	        },
+	        stop: function stop() {
+	            isRun = false;
 	        }
 	    };
 
@@ -17901,7 +17980,9 @@ webpackJsonp([0],[
 	        now = Date.now() - start;
 	        update();
 	        render();
-	        requestAnimationFrame(animate);
+	        if (isRun) {
+	            requestAnimationFrame(animate);
+	        }
 	    }
 
 	    function update() {
@@ -18094,36 +18175,6 @@ webpackJsonp([0],[
 	 * @author Paul Irish
 	 * @see https://gist.github.com/paulirish/1579671
 	 */
-	(function () {
-	    if ('undefined' === typeof window) {
-	        return;
-	    }
-	    var lastTime = 0;
-	    var vendors = ['ms', 'moz', 'webkit', 'o'];
-
-	    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-	        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-	        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
-	    }
-
-	    if (!window.requestAnimationFrame) {
-	        window.requestAnimationFrame = function (callback, element) {
-	            var currentTime = new Date().getTime();
-	            var timeToCall = Math.max(0, 16 - (currentTime - lastTime));
-	            var id = window.setTimeout(function () {
-	                callback(currentTime + timeToCall);
-	            }, timeToCall);
-	            lastTime = currentTime + timeToCall;
-	            return id;
-	        };
-	    }
-
-	    if (!window.cancelAnimationFrame) {
-	        window.cancelAnimationFrame = function (id) {
-	            clearTimeout(id);
-	        };
-	    }
-	})();
 
 	/**
 	 * @object Math Augmentation

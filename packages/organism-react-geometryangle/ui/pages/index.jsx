@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, {Component} from 'react'; 
 
 /**
  * Production please use
@@ -6,8 +6,34 @@ import React from 'react';
  */
 import GeometryAngle from "../../src/index"
 
-const Index = (props) => (
-    <GeometryAngle />
-);
+class Index extends Component
+{
+
+    handleStart = ()=>{
+       this.el.start(); 
+    }
+
+    handleStop = ()=>{
+       this.el.stop(); 
+       console.log(this.el);
+    }
+
+    render()
+    {
+        return (
+        <div>
+        <GeometryAngle ref={el=>this.el=el}/>
+        <button style={Styles.button} onClick={this.handleStart}>start</button>
+        <button style={Styles.button} onClick={this.handleStop}>stop</button>
+        </div>
+        );
+    }
+}
 
 export default Index;
+
+const Styles = {
+    button: {
+        position: 'relative'
+    }
+};
