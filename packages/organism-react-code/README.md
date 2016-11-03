@@ -6,7 +6,7 @@ React Code
       * https://npm.im/organism-react-code
 
 ## Example Usage
-Demo Url:
+Live Demo:
 http://react-atomic.github.io/react-atomic-organism/packages/organism-react-code/index.html
 
 Code:
