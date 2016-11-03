@@ -1,4 +1,4 @@
-React Atomic Typing Animation (react-organism-typing) 
+React Tag Highlight
 ===============
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-tag-highlight
