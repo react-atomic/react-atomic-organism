@@ -12,8 +12,8 @@ http://react-atomic.github.io/react-atomic-organism/packages/organism-react-tag-
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-tag-highlight/ui/pages/index.jsx
 
-<img src="https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-tag-highlight/blob/master/screenshot/code.png">
-<img src="https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-tag-highlight/blob/master/screenshot/run.png">
+<img src="https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-tag-highlight/screenshot/code.png">
+<img src="https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-tag-highlight/screenshot/run.png">
 
 
 
