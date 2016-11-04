@@ -17333,7 +17333,6 @@ webpackJsonp([0],[
 	            _this.el.start();
 	        }, _this.handleStop = function () {
 	            _this.el.stop();
-	            console.log(_this.el);
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 
@@ -17344,7 +17343,7 @@ webpackJsonp([0],[
 
 	            return _jsx('div', {}, void 0, _react2.default.createElement(_index2.default, { ref: function ref(el) {
 	                    return _this2.el = el;
-	                } }), _jsx('button', {
+	                }, autoStart: true }), _jsx('button', {
 	                style: Styles.button,
 	                onClick: this.handleStart
 	            }, void 0, 'start'), _jsx('button', {
@@ -17461,13 +17460,15 @@ webpackJsonp([0],[
 	                vertex = _props.vertex,
 	                line = _props.line,
 	                mesh = _props.mesh,
-	                lights = _props.lights;
+	                lights = _props.lights,
+	                autoStart = _props.autoStart;
 
 	            this.fss = (0, _fss_worker2.default)({
 	                vertex: vertex,
 	                line: line,
 	                mesh: mesh,
-	                lights: lights
+	                lights: lights,
+	                autoStart: autoStart
 	            }, this.dom);
 	        }
 	    }, {
@@ -17494,17 +17495,9 @@ webpackJsonp([0],[
 	    return GeometryAngle;
 	}(_react.Component);
 
-	var Styles = {
-	    container: {
-	        position: 'absolute',
-	        top: 0,
-	        left: 0,
-	        right: 0,
-	        bottom: 0
-	    }
-	};
-
 	GeometryAngle.defaultProps = {
+	    autoStart: true,
+
 	    // Set the point attributes for the vertex. 
 	    vertex: {
 
@@ -17602,6 +17595,16 @@ webpackJsonp([0],[
 	};
 
 	exports.default = GeometryAngle;
+
+	var Styles = {
+	    container: {
+	        position: 'absolute',
+	        top: 0,
+	        left: 0,
+	        right: 0,
+	        bottom: 0
+	    }
+	};
 	module.exports = exports['default'];
 
 /***/ },
@@ -17876,7 +17879,7 @@ webpackJsonp([0],[
 	            }
 	        }
 	    }
-	    var isRun = true;
+	    var isRun = opt.autoStart;
 	    var callbacks = {
 	        resize: function resize(width, height) {
 

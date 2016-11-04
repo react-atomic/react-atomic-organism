@@ -15,14 +15,13 @@ class Index extends Component
 
     handleStop = ()=>{
        this.el.stop(); 
-       console.log(this.el);
     }
 
     render()
     {
         return (
         <div>
-        <GeometryAngle ref={el=>this.el=el}/>
+        <GeometryAngle ref={el=>this.el=el} autoStart={true}/>
         <button style={Styles.button} onClick={this.handleStart}>start</button>
         <button style={Styles.button} onClick={this.handleStop}>stop</button>
         </div>

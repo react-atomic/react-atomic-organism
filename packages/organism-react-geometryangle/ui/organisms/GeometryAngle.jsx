@@ -7,12 +7,13 @@ class GeometryAngle extends Component
 {
     componentDidMount()
     {
-        const {vertex, line, mesh, lights} = this.props;
+        const {vertex, line, mesh, lights, autoStart} = this.props;
         this.fss = FssWorker({
             vertex: vertex,
             line: line,
             mesh: mesh,
-            lights: lights
+            lights: lights,
+            autoStart: autoStart 
         },this.dom);
     }
 
@@ -34,17 +35,9 @@ class GeometryAngle extends Component
     }
 }
 
-const Styles ={
-    container: {
-        position:'absolute',
-        top:0,
-        left:0,
-        right:0,
-        bottom:0
-    }
-};
-
 GeometryAngle.defaultProps = {
+    autoStart: true,
+
     // Set the point attributes for the vertex. 
     vertex: {
 
@@ -148,3 +141,13 @@ GeometryAngle.defaultProps = {
 };
 
 export default GeometryAngle;
+
+const Styles ={
+    container: {
+        position:'absolute',
+        top:0,
+        left:0,
+        right:0,
+        bottom:0
+    }
+};

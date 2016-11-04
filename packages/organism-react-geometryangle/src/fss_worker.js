@@ -249,7 +249,7 @@ const FSS_Worker = function (opt, element) {
             }
         }
     }
-    let isRun=true;
+    let isRun = opt.autoStart;
     var callbacks = {
         resize: function (width, height) {
 
