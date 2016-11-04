@@ -72,6 +72,7 @@ class Typing extends Component
         color: '#000',
         background: null,
         sec: 1.5,
+        autoStart: true
     }
 
     constructor(props)
@@ -79,7 +80,7 @@ class Typing extends Component
         super(props);
         this.state = {
             typingItemStyles: null,
-            isRun: 1
+            isRun: props.autoStart
         };
         injects = lazyInject (
             injects,
@@ -90,19 +91,19 @@ class Typing extends Component
     componentDidMount()
     {
         const props = this.props;
-        const aniName = 'typingNextLine';
         const itemLength = props.children.length;
         const height = parseInt(props.height, 10);
-        const styleId = aniName+'-'+itemLength+height;
-        let typingItemStyles = reactStyle({
+        const aniName = 'typingNextLine';
+        const styleId = aniName+'-'+itemLength+'-'+height;
+        const typingItemStyles = reactStyle({
             position: 'relative',
-            animation: [aniName+ ' '+ ( itemLength * 2 * props.sec )+ 's steps('+itemLength+') infinite'],
+            animation: [styleId+ ' '+ ( itemLength * 2 * props.sec )+ 's steps('+itemLength+') infinite'],
             height: height
         },null, false);
         reactStyle([
             {top: 0},
-            {top: '-'+ ( height * itemLength )+ 'px'}
-        ],['@keyframes '+aniName, '0%', '100%'], styleId);
+            {top: 0 - ( height * itemLength )}
+        ],['@keyframes '+styleId, '0%', '100%'], styleId);
         this.setState({
             typingItemStyles: typingItemStyles
         });

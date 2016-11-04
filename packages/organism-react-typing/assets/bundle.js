@@ -17536,7 +17536,7 @@ webpackJsonp([0],[
 
 	        _this3.state = {
 	            typingItemStyles: null,
-	            isRun: 1
+	            isRun: props.autoStart
 	        };
 	        injects = (0, _reactAtomicMolecule.lazyInject)(injects, InjectStyles);
 	        return _this3;
@@ -17546,16 +17546,16 @@ webpackJsonp([0],[
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            var props = this.props;
-	            var aniName = 'typingNextLine';
 	            var itemLength = props.children.length;
 	            var height = parseInt(props.height, 10);
-	            var styleId = aniName + '-' + itemLength + height;
+	            var aniName = 'typingNextLine';
+	            var styleId = aniName + '-' + itemLength + '-' + height;
 	            var typingItemStyles = (0, _reactAtomicMolecule.reactStyle)({
 	                position: 'relative',
-	                animation: [aniName + ' ' + itemLength * 2 * props.sec + 's steps(' + itemLength + ') infinite'],
+	                animation: [styleId + ' ' + itemLength * 2 * props.sec + 's steps(' + itemLength + ') infinite'],
 	                height: height
 	            }, null, false);
-	            (0, _reactAtomicMolecule.reactStyle)([{ top: 0 }, { top: '-' + height * itemLength + 'px' }], ['@keyframes ' + aniName, '0%', '100%'], styleId);
+	            (0, _reactAtomicMolecule.reactStyle)([{ top: 0 }, { top: 0 - height * itemLength }], ['@keyframes ' + styleId, '0%', '100%'], styleId);
 	            this.setState({
 	                typingItemStyles: typingItemStyles
 	            });
@@ -17610,7 +17610,8 @@ webpackJsonp([0],[
 	    height: '80px',
 	    color: '#000',
 	    background: null,
-	    sec: 1.5
+	    sec: 1.5,
+	    autoStart: true
 	};
 	exports.default = Typing;
 
@@ -20426,8 +20427,14 @@ webpackJsonp([0],[
 	};
 
 	var reInjectStyle = function reInjectStyle() {
-	    _store2.default.newStyles = _store2.default.styles;
+	    _store2.default.newStyles = Object.values(_store2.default.registry);
 	    injectStyle();
+	};
+
+	var appendCss = function appendCss(css) {
+	    var tag = document.createElement('style');
+	    tag.innerHTML = css;
+	    document.getElementsByTagName('head')[0].appendChild(tag);
 	};
 
 	var injectStyle = function injectStyle() {
@@ -20440,9 +20447,7 @@ webpackJsonp([0],[
 	    _store2.default.registry = (0, _index.assign)(_store2.default.registry, compiled.styleIds);
 	    if (compiled.css) {
 	        if (_index.executionEnvironment.canUseDOM) {
-	            var tag = document.createElement('style');
-	            tag.innerHTML = compiled.css;
-	            document.getElementsByTagName('head')[0].appendChild(tag);
+	            appendCss(compiled.css);
 	        } else {
 	            console.log(compiled.css);
 	        }
@@ -20460,7 +20465,6 @@ webpackJsonp([0],[
 	'use strict';
 
 	var stylesStore = {
-	    styles: [],
 	    registry: [],
 	    newStyles: [],
 	    counter: 0
@@ -20997,7 +21001,6 @@ webpackJsonp([0],[
 	  }
 
 	  var styleDecl = new _style2.default(styles, selector, styleId);
-	  _store2.default.styles.push(styleDecl);
 	  _store2.default.newStyles.push(styleDecl);
 	  return styleDecl;
 	};
