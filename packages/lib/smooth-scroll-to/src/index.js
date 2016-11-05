@@ -9,7 +9,7 @@ const easeInOutCubic = function(t, b, c, d) {
     return c/2*((t-=2)*t*t + 2) + b
 }
 
-const smoothScrollTo = (to, duration, el) => {
+const smoothScrollTo = (to, duration, el, callback) => {
     el = getScrollNode(el);
     if (!duration) {
         duration = 900;
@@ -27,8 +27,13 @@ const smoothScrollTo = (to, duration, el) => {
             duration
         );
         el.scrollTop = progress;
-        elapsedTime < duration 
-            && requestAnimationFrame(scrollTo);
+        if ( elapsedTime < duration ) { 
+            requestAnimationFrame(scrollTo);
+        } else {
+            if ('function' === typeof callback) {
+                callback();
+            }
+        }
     };
     requestAnimationFrame(scrollTo);
 };
