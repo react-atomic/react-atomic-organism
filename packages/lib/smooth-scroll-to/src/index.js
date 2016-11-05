@@ -2,6 +2,8 @@
 
 import { getScrollNode } from 'get-scroll-info';
 
+let isRunning = false;
+
 const easeInOutCubic = function(t, b, c, d) {
     if ((t/=d/2) < 1) {
         return c/2*t*t*t + b
@@ -10,12 +12,17 @@ const easeInOutCubic = function(t, b, c, d) {
 }
 
 const smoothScrollTo = (to, duration, el, callback) => {
+    if (isRunning) {
+        return false;
+    } else {
+        isRunning = true;
+    }
     el = getScrollNode(el);
     if (!duration) {
         duration = 900;
     }
-    let from = el.scrollTop;
-    let go = to - from;
+    const from = el.scrollTop;
+    const go = to - from;
     let beginTimeStamp;
     const scrollTo = (timeStamp) => {
         beginTimeStamp = beginTimeStamp || timeStamp;
@@ -27,9 +34,10 @@ const smoothScrollTo = (to, duration, el, callback) => {
             duration
         );
         el.scrollTop = progress;
-        if ( elapsedTime < duration ) { 
+        if ( elapsedTime < duration && go) { 
             requestAnimationFrame(scrollTo);
         } else {
+            isRunning = false;
             if ('function' === typeof callback) {
                 callback();
             }
