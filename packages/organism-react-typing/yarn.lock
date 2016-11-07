@@ -1940,8 +1940,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-0.0.15.tgz#a389fd60104c650ac4f64febdcc7c4c303d84f4f"
 
 react-atomic-molecule@*:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.0.3.tgz#500a7dcb26cd4caae79d28a4b6bf1063932c9e74"
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.0.4.tgz#396d653b0904a67124dad74ade25a8b6573d6790"
   dependencies:
     classnames "*"
     exenv "1.2.1"
@@ -1996,8 +1996,8 @@ regenerate@^1.2.1:
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.3.1.tgz#0300203a5d2fdcf89116dce84275d011f5903f33"
 
 regenerator-runtime@^0.9.5:
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.9.5.tgz#403d6d40a4bdff9c330dd9392dcbb2d9a8bba1fc"
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.9.6.tgz#d33eb95d0d2001a4be39659707c51b0cb71ce029"
 
 regex-cache@^0.4.2:
   version "0.4.3"
@@ -2241,8 +2241,8 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.3.tgz#3da382f670f25ded78d7b3d1792119bca0b7132d"
 
 ua-parser-js@^0.7.9:
-  version "0.7.10"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.10.tgz#917559ddcce07cbc09ece7d80495e4c268f4ef9f"
+  version "0.7.11"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.11.tgz#3741e2dd2fb09251a960f9ef076cd0cc72eaf6a0"
 
 uglify-js@~2.7.3:
   version "2.7.4"

@@ -7,54 +7,62 @@ import {
     SemanticUI 
 } from 'react-atomic-molecule';
 
+const getTypingNextWordAniClassName = (el,sec) => {
+    const width = el.offsetWidth+ 50;
+    const ssec = ''+sec;
+    const aniName ='typingNextWord-'+width+'-'+ssec.replace('.','-'); 
+    if (injects[aniName]) {
+        return aniName;
+    }
+    reactStyle(
+        [
+            {
+                maxWidth: 0,
+            },
+            {
+                maxWidth: width+'px'
+            },
+        ],
+        ['@keyframes '+aniName, '0%', '100%'],
+        'key-'+aniName
+    );
+    reactStyle(
+        {
+            animation: [aniName+ " "+ sec+ "s steps(10) infinite alternate"],
+            visibility: "visible !important"
+        }, 
+        '.'+aniName, 
+        'ani-'+aniName
+    );
+    injects[aniName] = true;
+    return aniName;
+};
 
-class TypingItem extends Component
+class TypingItem extends Component 
 {
     constructor(props)
     {
         super(props);
         this.state = {
-            className: ''
+            classes: null
         };
     }
 
     componentDidMount()
     {
-        const width = this.text.offsetWidth+ 50;
-        const aniName ='typingNextWord-'+width; 
-        reactStyle(
-            [
-                {
-                    maxWidth: 0,
-                },
-                {
-                    maxWidth: width+'px'
-                },
-            ],
-            ['@keyframes '+aniName, '0%', '100%'],
-            'key-'+aniName
-        );
-        reactStyle(
-            {
-                animation: [aniName+ " "+ this.props.sec+ "s steps(10) infinite alternate"],
-                visibility: "visible !important"
-            }, 
-            '.'+aniName, 
-            'ani-'+aniName
-        );
         this.setState({
-            className: aniName
+            classes: getTypingNextWordAniClassName(this.el, this.props.sec)
         });
     }
-
+    
     render()
     {
-        const {children, sec, background, ...props} = this.props;
+        const {children, sec, background, ...others} = this.props;
         return (
-           <SemanticUI {...props}> 
+           <SemanticUI {...others}> 
                 <div
-                    className={this.state.className}
-                    ref={el=>this.text=el}
+                    className={this.state.classes}
+                    ref={el=>this.el=el}
                     style={Styles.typingItemText}
                 >
                     {children}
@@ -129,12 +137,13 @@ class Typing extends Component
         const state = this.state;
         let items = [];
         let atts = { 
+            height:props.height,
             color:props.color
         };
         if (props.background) {
             atts.background = props.background;
         }
-        if (state.isRun) {
+        if (state.isRun && state.typingItemStyles) { // need calculate offsetWidth
             React.Children.map(props.children,(item, key)=>{
                 items.push(
                     <TypingItem
@@ -152,9 +161,6 @@ class Typing extends Component
             <SemanticUI style={assign(
                 {},
                 Styles.typingContainer,
-                {
-                    height:props.height,
-                },
                 atts
             )}>
             {items}

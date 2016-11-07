@@ -17468,6 +17468,26 @@ webpackJsonp([0],[
 	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
+	var getTypingNextWordAniClassName = function getTypingNextWordAniClassName(el, sec) {
+	    var width = el.offsetWidth + 50;
+	    var ssec = '' + sec;
+	    var aniName = 'typingNextWord-' + width + '-' + ssec.replace('.', '-');
+	    if (injects[aniName]) {
+	        return aniName;
+	    }
+	    (0, _reactAtomicMolecule.reactStyle)([{
+	        maxWidth: 0
+	    }, {
+	        maxWidth: width + 'px'
+	    }], ['@keyframes ' + aniName, '0%', '100%'], 'key-' + aniName);
+	    (0, _reactAtomicMolecule.reactStyle)({
+	        animation: [aniName + " " + sec + "s steps(10) infinite alternate"],
+	        visibility: "visible !important"
+	    }, '.' + aniName, 'ani-' + aniName);
+	    injects[aniName] = true;
+	    return aniName;
+	};
+
 	var TypingItem = function (_Component) {
 	    _inherits(TypingItem, _Component);
 
@@ -17477,7 +17497,7 @@ webpackJsonp([0],[
 	        var _this = _possibleConstructorReturn(this, (TypingItem.__proto__ || Object.getPrototypeOf(TypingItem)).call(this, props));
 
 	        _this.state = {
-	            className: ''
+	            classes: null
 	        };
 	        return _this;
 	    }
@@ -17485,19 +17505,8 @@ webpackJsonp([0],[
 	    _createClass(TypingItem, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var width = this.text.offsetWidth + 50;
-	            var aniName = 'typingNextWord-' + width;
-	            (0, _reactAtomicMolecule.reactStyle)([{
-	                maxWidth: 0
-	            }, {
-	                maxWidth: width + 'px'
-	            }], ['@keyframes ' + aniName, '0%', '100%'], 'key-' + aniName);
-	            (0, _reactAtomicMolecule.reactStyle)({
-	                animation: [aniName + " " + this.props.sec + "s steps(10) infinite alternate"],
-	                visibility: "visible !important"
-	            }, '.' + aniName, 'ani-' + aniName);
 	            this.setState({
-	                className: aniName
+	                classes: getTypingNextWordAniClassName(this.el, this.props.sec)
 	            });
 	        }
 	    }, {
@@ -17509,12 +17518,12 @@ webpackJsonp([0],[
 	                children = _props.children,
 	                sec = _props.sec,
 	                background = _props.background,
-	                props = _objectWithoutProperties(_props, ['children', 'sec', 'background']);
+	                others = _objectWithoutProperties(_props, ['children', 'sec', 'background']);
 
-	            return _react2.default.createElement(_reactAtomicMolecule.SemanticUI, props, _react2.default.createElement('div', {
-	                className: this.state.className,
+	            return _react2.default.createElement(_reactAtomicMolecule.SemanticUI, others, _react2.default.createElement('div', {
+	                className: this.state.classes,
 	                ref: function ref(el) {
-	                    return _this2.text = el;
+	                    return _this2.el = el;
 	                },
 	                style: Styles.typingItemText
 	            }, children), _jsx(_reactAtomicMolecule.SemanticUI, {
@@ -17581,12 +17590,14 @@ webpackJsonp([0],[
 	            var state = this.state;
 	            var items = [];
 	            var atts = {
+	                height: props.height,
 	                color: props.color
 	            };
 	            if (props.background) {
 	                atts.background = props.background;
 	            }
-	            if (state.isRun) {
+	            if (state.isRun && state.typingItemStyles) {
+	                // need calculate offsetWidth
 	                _react2.default.Children.map(props.children, function (item, key) {
 	                    items.push(_react2.default.createElement(TypingItem, _extends({
 	                        key: key,
@@ -17596,9 +17607,7 @@ webpackJsonp([0],[
 	                });
 	            }
 	            return _jsx(_reactAtomicMolecule.SemanticUI, {
-	                style: (0, _reactAtomicMolecule.assign)({}, Styles.typingContainer, {
-	                    height: props.height
-	                }, atts)
+	                style: (0, _reactAtomicMolecule.assign)({}, Styles.typingContainer, atts)
 	            }, void 0, items);
 	        }
 	    }]);
@@ -20462,23 +20471,28 @@ webpackJsonp([0],[
 /* 231 */
 /***/ function(module, exports) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
 
 	var stylesStore = {
 	    registry: [],
 	    newStyles: [],
 	    counter: 0
 	};
+	var g = null;
 
 	if ('undefined' != typeof window) {
-	    if (window.reactStylesStore) {
-	        stylesStore = window.reactStylesStore;
-	    } else {
-	        window.reactStylesStore = stylesStore;
-	    }
+	    g = window;
+	} else {
+	    g = global;
+	}
+	if (g.reactStylesStore) {
+	    stylesStore = g.reactStylesStore;
+	} else {
+	    g.reactStylesStore = stylesStore;
 	}
 
 	module.exports = stylesStore;
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 232 */
