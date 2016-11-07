@@ -36,7 +36,9 @@ const Browser = (props)=> {
     return (
     <div {...others} style={assign({},Styles.container,style)}>
         <Bar/>
-        {children}
+        <div style={Styles.children}>
+            {children}
+        </div>
     </div>
     );
 };
@@ -53,7 +55,10 @@ const Styles = {
         borderRadius: '10px',
         position: 'relative',
         display: 'inline-block',
+    },
+    children: {
         overflow: 'hidden',
+        borderRadius: '10px',
     },
     bar: {
         position: 'absolute',

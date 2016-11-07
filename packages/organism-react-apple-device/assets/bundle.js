@@ -21216,7 +21216,9 @@ webpackJsonp([0],[
 	        style = props.style,
 	        others = _objectWithoutProperties(props, ['children', 'style']);
 
-	    return _react2.default.createElement('div', _extends({}, others, { style: (0, _reactAtomicMolecule.assign)({}, Styles.container, style) }), _jsx(Bar, {}), children);
+	    return _react2.default.createElement('div', _extends({}, others, { style: (0, _reactAtomicMolecule.assign)({}, Styles.container, style) }), _jsx(Bar, {}), _jsx('div', {
+	        style: Styles.children
+	    }, void 0, children));
 	};
 
 	exports.default = Browser;
@@ -21230,8 +21232,11 @@ webpackJsonp([0],[
 	        borderTop: '30px solid #f4f5f7',
 	        borderRadius: '10px',
 	        position: 'relative',
-	        display: 'inline-block',
-	        overflow: 'hidden'
+	        display: 'inline-block'
+	    },
+	    children: {
+	        overflow: 'hidden',
+	        borderRadius: '10px'
 	    },
 	    bar: {
 	        position: 'absolute',
