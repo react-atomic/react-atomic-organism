@@ -62,12 +62,12 @@ export default Monitor;
 
 const Styles = {
     container: {
-        minWidth: '460px',
         position: 'relative',
         display: 'inline-block',
     },
     screen: {
-        minHeight: '280px',
+        minWidth: 200,
+        minHeight: 100,
         background: '#ff6860',
         border: '20px solid #474e5d',
         borderRadius: '10px',

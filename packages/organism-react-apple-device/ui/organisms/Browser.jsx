@@ -51,7 +51,7 @@ const Styles = {
         minHeight: '180px',
         background: '#fff',
         border: '2px solid #f1f1f1',
-        borderTop: '30px solid #f4f5f7',
+        borderTop: '30px solid #eee',
         borderRadius: '10px',
         position: 'relative',
         display: 'inline-block',
@@ -62,12 +62,11 @@ const Styles = {
     },
     bar: {
         position: 'absolute',
-        top: '-20px',
+        top: '-22px',
         width: '100%'
     },
     buttons: {
         position: 'relative',
-        top: '-3px',
         textAlign: 'left',
     },
     button: {
@@ -78,9 +77,10 @@ const Styles = {
         position: 'absolute',
         background: '#fff',
         borderRadius: '3px',
-        height: '13px',
-        top: '0',
-        left: '80px', 
-        right: '10px',
+        height: 13,
+        top: 0,
+        left: 80, 
+        right: 10,
+        border: '1px solid #ececec',
     }
 };
