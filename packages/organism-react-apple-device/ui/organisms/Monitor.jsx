@@ -64,6 +64,7 @@ const Styles = {
     container: {
         minWidth: '460px',
         position: 'relative',
+        display: 'inline-block',
     },
     screen: {
         minHeight: '280px',

@@ -51,7 +51,9 @@ const Styles = {
         border: '2px solid #f1f1f1',
         borderTop: '30px solid #f4f5f7',
         borderRadius: '10px',
-        position: 'relative'
+        position: 'relative',
+        display: 'inline-block',
+        overflow: 'hidden',
     },
     bar: {
         position: 'absolute',
