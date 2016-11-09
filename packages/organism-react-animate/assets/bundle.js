@@ -17400,27 +17400,15 @@ webpackJsonp([0],[
 	    value: true
 	});
 
-	var _jsx = function () {
-	    var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7;return function createRawReactElement(type, props, key, children) {
-	        var defaultProps = type && type.defaultProps;var childrenLength = arguments.length - 3;if (!props && childrenLength !== 0) {
-	            props = {};
-	        }if (props && defaultProps) {
-	            for (var propName in defaultProps) {
-	                if (props[propName] === void 0) {
-	                    props[propName] = defaultProps[propName];
-	                }
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
 	            }
-	        } else if (!props) {
-	            props = defaultProps || {};
-	        }if (childrenLength === 1) {
-	            props.children = children;
-	        } else if (childrenLength > 1) {
-	            var childArray = Array(childrenLength);for (var i = 0; i < childrenLength; i++) {
-	                childArray[i] = arguments[i + 3];
-	            }props.children = childArray;
-	        }return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null };
-	    };
-	}();
+	        }
+	    }return target;
+	};
 
 	var _createClass = function () {
 	    function defineProperties(target, props) {
@@ -17448,6 +17436,12 @@ webpackJsonp([0],[
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+	    }return target;
 	}
 
 	function _classCallCheck(instance, Constructor) {
@@ -17529,7 +17523,8 @@ webpackJsonp([0],[
 	                appear = _props2.appear,
 	                enter = _props2.enter,
 	                leave = _props2.leave,
-	                style = _props2.style;
+	                style = _props2.style,
+	                others = _objectWithoutProperties(_props2, ['children', 'atom', 'appear', 'enter', 'leave', 'style']);
 
 	            var enableAppear = false;
 	            this.appearTimeout = 500;
@@ -17565,7 +17560,7 @@ webpackJsonp([0],[
 	                }
 	                enableLeave = true;
 	            }
-	            return _jsx(_reactAddonsCssTransitionGroup2.default, {
+	            return _react2.default.createElement(_reactAddonsCssTransitionGroup2.default, _extends({
 	                component: atom,
 	                transitionAppearTimeout: this.appearTimeout,
 	                transitionEnterTimeout: this.enterTimeout,
@@ -17579,7 +17574,7 @@ webpackJsonp([0],[
 	                    appear: appear
 	                },
 	                style: style
-	            }, void 0, children);
+	            }, others), children);
 	        }
 	    }]);
 

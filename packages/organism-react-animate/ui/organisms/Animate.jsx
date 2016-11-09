@@ -75,7 +75,8 @@ class Animate extends Component
             appear,
             enter,
             leave,
-            style
+            style,
+            ...others
         } = this.props;
         let enableAppear = false;
         this.appearTimeout = 500;
@@ -126,6 +127,7 @@ class Animate extends Component
                     appear: appear,
                 }}
                 style={style}
+                {...others}
             >
                 {children}
             </ReactCSSTransitionGroup>

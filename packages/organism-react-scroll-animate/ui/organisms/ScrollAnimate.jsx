@@ -14,7 +14,8 @@ const Content = (props) => {
         leave,
         once,
         minHeight,
-        targetInfo
+        targetInfo,
+        ...others
     } = props;
     let show = null;
     let style = null;
@@ -27,12 +28,10 @@ const Content = (props) => {
         force = true;
     }
     if (targetInfo.isOnScreen || force) {
-        if (React.isValidElement(children)) {
-            show = children;
-        } else if ('function' === typeof children) {
+        if ('function' === typeof children) {
             show = children();
         } else {
-            show = <SemanticUI>{children}</SemanticUI>;
+            show = children;
         }
     }
     if (!show) {
@@ -42,7 +41,7 @@ const Content = (props) => {
         };
     }
     return (
-        <Animate style={style} enter={enter} leave={leave}>
+        <Animate style={style} enter={enter} leave={leave} {...others}>
             {show}
         </Animate>
     );

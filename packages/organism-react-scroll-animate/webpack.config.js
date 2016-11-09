@@ -40,7 +40,8 @@ module.exports = {
 	output: {
             filename: "bundle.js",
             path: __dirname + "/assets" ,
-            publicPath: PHPC.assetsRoot,
+            //publicPath: PHPC.assetsRoot,
+            publicPath: './assets/',
             chunkFilename: "[id].[hash].bundle.js"
 	},
         node: {
