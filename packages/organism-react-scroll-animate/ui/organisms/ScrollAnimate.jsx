@@ -51,9 +51,8 @@ const Content = (props) => {
 const ScrollAnimate = (props) => { 
     const {enter, leave, once, minHeight, children, ...others} = props;
     return ( 
-        <ScrollSpy {...others}>
+        <ScrollSpy {...others} container={<Content />}>
             <ScrollReceiver
-                container={<Content />}
                 enter={enter}
                 leave={leave}
                 once={once}

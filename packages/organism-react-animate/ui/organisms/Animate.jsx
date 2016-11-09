@@ -3,7 +3,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
     assign,
     reactStyle,
-    injectStyle
+    injectStyle,
+    SemanticUI
 } from 'react-atomic-molecule';
 
 import getKeyframe from 'keyframe-css';
@@ -13,7 +14,7 @@ let inject = {};
 class Animate extends Component
 {
     static defaultProps = {
-        atom: 'div',
+        atom: SemanticUI,
         appear: null,
         enter: null,
         leave: null
