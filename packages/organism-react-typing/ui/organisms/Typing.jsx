@@ -24,7 +24,7 @@ const getTypingNextWordAniClassName = (el,sec) => {
             },
         ],
         ['@keyframes '+aniName, '0%', '100%'],
-        'key-'+aniName
+        aniName+'-keyframe'
     );
     reactStyle(
         {
@@ -32,7 +32,7 @@ const getTypingNextWordAniClassName = (el,sec) => {
             visibility: "visible !important"
         }, 
         '.'+aniName, 
-        'ani-'+aniName
+        aniName+'-ani'
     );
     injects[aniName] = true;
     return aniName;

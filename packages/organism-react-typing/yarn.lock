@@ -1216,8 +1216,8 @@ forever-agent@~0.6.1:
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
 
 form-data@~2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.1.1.tgz#4adf0342e1a79afa1e84c8c320a9ffc82392a1f3"
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/form-data/-/form-data-2.1.2.tgz#89c3534008b97eada4cbb157d58f6f5df025eae4"
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
@@ -1946,8 +1946,8 @@ rc@~1.1.6:
     strip-json-comments "~1.0.4"
 
 react-atomic-atom@*:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-0.0.15.tgz#a389fd60104c650ac4f64febdcc7c4c303d84f4f"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.2.tgz#b13322adf38cad56013e79748755c24c020090b4"
 
 react-atomic-molecule@*:
   version "1.0.4"

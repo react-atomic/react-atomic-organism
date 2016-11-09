@@ -18,12 +18,12 @@ class HoverDimmerCardView extends Component
         };
     }
 
-    handleEnter()
+    handleHover = () =>
     {
         this.setState({show:true});
     }
 
-    handleLeave()
+    handleLeave = () =>
     {
         this.setState({show:false});
     }
@@ -47,8 +47,8 @@ class HoverDimmerCardView extends Component
             <CardView {...others}
                 className={classes}
                 style={newStyle}
-                onMouseEnter={this.handleEnter.bind(this)}            
-                onMouseLeave={this.handleLeave.bind(this)}            
+                onMouseOver={this.handleHover}            
+                onMouseLeave={this.handleLeave}            
                 dimmer={dimmer}
             />
         );
