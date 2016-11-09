@@ -14,20 +14,10 @@ let inject = {};
 class Animate extends Component
 {
     static defaultProps = {
-        atom: SemanticUI,
+        component: SemanticUI,
         appear: null,
         enter: null,
         leave: null
-    }
-
-    constructor(props) 
-    {
-        super(props);
-        const appear = props.appear;
-        if (appear) {
-            let data = appear.split('-');
-            getKeyframe(data[0]);
-        }
     }
 
     componentDidMount()
@@ -57,6 +47,7 @@ class Animate extends Component
 
     init(key, ani, timeout)
     {
+        getKeyframe(ani);
         inject[key] = true;
         reactStyle(assign(
             {
@@ -71,7 +62,6 @@ class Animate extends Component
     {
         const {
             children,
-            atom,
             appear,
             enter,
             leave,
@@ -84,7 +74,6 @@ class Animate extends Component
         if (appear) {
             data = appear.split('-');
             this.appear = data[0];
-            getKeyframe(this.appear);
             if (!isNaN(data[1])) {
                 this.appearTimeout = parseInt(data[1],10);
             }
@@ -95,7 +84,6 @@ class Animate extends Component
         if (enter) {
             data = enter.split('-');
             this.enter = data[0];
-            getKeyframe(this.enter);
             if (!isNaN(data[1])) {
                 this.enterTimeout = parseInt(data[1],10);
             }
@@ -106,7 +94,6 @@ class Animate extends Component
         if (leave) {
             data = leave.split('-');
             this.leave = data[0];
-            getKeyframe(this.leave);
             if (!isNaN(data[1])) {
                 this.leaveTimeout = parseInt(data[1],10);
             }
@@ -114,7 +101,6 @@ class Animate extends Component
         }
         return (
             <ReactCSSTransitionGroup
-                component={atom}
                 transitionAppearTimeout={this.appearTimeout}
                 transitionEnterTimeout ={this.enterTimeout}
                 transitionLeaveTimeout ={this.leaveTimeout}

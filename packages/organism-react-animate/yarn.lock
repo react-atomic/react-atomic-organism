@@ -1599,8 +1599,8 @@ jsprim@^1.2.2:
     verror "1.3.6"
 
 keyframe-css@*:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/keyframe-css/-/keyframe-css-0.0.4.tgz#b4f3819c0e944f9589bfa28ca46d66fba9bbbfb2"
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/keyframe-css/-/keyframe-css-0.0.6.tgz#f4828b856a09740278750af4810a30d2286ca7c3"
 
 kind-of@^3.0.2:
   version "3.0.4"
