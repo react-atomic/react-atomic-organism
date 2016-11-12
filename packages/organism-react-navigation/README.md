@@ -1,9 +1,9 @@
 React Navigation 
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-animate 
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-navigation
    * NPM
-      * https://npm.im/organism-react-animate
+      * https://npm.im/organism-react-navigation
 
 ## Example Usage
 Live Demo:
