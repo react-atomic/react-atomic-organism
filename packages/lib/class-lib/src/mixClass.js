@@ -3,11 +3,13 @@
 const isArray = Array.isArray;
 const keys = Object.keys;
 
-const mixClass = () =>
+const mixClass = function() 
 {
     let classes = [];
-    const arr = arguments;
-    arr.forEach((arg)=>{
+    let all = keys(arguments);
+    all.forEach((key)=>
+    {
+        const arg = arguments[key];
         if (!arg) {
             return;
         }
@@ -18,9 +20,9 @@ const mixClass = () =>
             classes.push(mixClass.apply(null, arg));
         } else if (argType === 'object') {
             const argKeys = keys(arg);
-            argKeys.forEach((item)=>{
-                if (arg[item]) {
-                    classes.push(key);
+            argKeys.forEach((k)=>{
+                if (arg[k]) {
+                    classes.push(k);
                 }
             });
         }
