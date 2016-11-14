@@ -6,9 +6,8 @@ import hasClass from './hasClass';
 const removeClass = (classes, name)=>
 {
     if (classes && hasClass(classes, name)) {
-        const sReg = getReg(name);
         classes = classes.replace(
-            sReg, ' '
+            getReg(name), ' '
         ).replace(
             /(^\s+)|\s+$/g, '' 
         );

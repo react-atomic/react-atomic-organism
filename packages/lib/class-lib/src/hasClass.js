@@ -4,9 +4,7 @@ import getReg from './getClassReg';
 
 const hasClass = (classes, name)=>
 {
-    const sReg = getReg(name);
-    const oReg = new RegExp(sReg);
-    return oReg.test(classes);
+    return getReg(name).test(classes);
 }
 
 export default hasClass;
