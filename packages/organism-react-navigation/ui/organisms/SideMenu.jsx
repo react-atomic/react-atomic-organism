@@ -1,13 +1,37 @@
 import React, {Component} from 'react';
-import { mixClass, reactStyle, Icon, Rail, SemanticUI } from 'react-atomic-molecule';
-import { ReLink } from 'reshow';
+import {
+    assign,
+    mixClass,
+    reactStyle,
+    Icon,
+    Rail,
+    SemanticUI 
+} from 'react-atomic-molecule';
 import Hamburger from 'ricon/HamburgerToArrow';
+import { Container } from 'reduce-flux';
+import get from 'get-object-value';
+import {hasClass,  removeClass} from 'class-lib';
+
 const getKeys = Object.keys;
 
-const getMenuByArray = (arr, active) =>
+import {
+    navigationStore,
+    navigationDispatch
+} from '../../src/index';
+
+const getMenuByArray = (arr, component, active) =>
 {
+    if (!arr) {
+        return null;
+    }
     const keys = getKeys(arr);
     let results = [];
+    let build;
+    if (React.isValidElement(component)) {
+        build = React.cloneElement;
+    } else {
+        build = React.createElement;
+    }
     keys.forEach((key, k)=>{
          const classes = mixClass(
               'item',
@@ -15,83 +39,92 @@ const getMenuByArray = (arr, active) =>
                   active: active === key
               }        
          );
-         results.push((
-             <ReLink
-                className={classes}
-                key={k}
-                href={arr[key].href}
-             >
-                {arr[key].text}
-             </ReLink>
+         results.push(build(
+            component,
+            {
+                className: classes,
+                key: k,
+                href: arr[key].href
+            },
+            arr[key].text
          ));
     });
     return results;
 }
 
-const toggleClass = (el, className) =>
-{
-    let classes = el.className.split(/\s+/);
-    const len = classes.length;
-    classes.every((c, i)=>{
-        if (classes[i] === className) {
-            classes.splice(i, 1);
-            return false;
-        } else {
-            return true;
-        }
-    });
-    if (len === classes.length) {
-        classes.push(className);
-    }
-    el.className = classes.join(' ');
-};
-
 class SideMenu extends Component 
 {
+   static getStores()
+   {
+       return [navigationStore];
+   }
+
+   static calculateState(prevState, props)
+   {
+        let id = get(props, ['id'], 'default');
+        const state = navigationStore.getState();
+        let settings = state.get(id); 
+        if (settings) {
+            settings = settings.toJS();
+        }
+        return {
+            on: get(settings, ['on']),
+            activeMenu: get(settings, ['activeMenu'])
+        };
+   }
+
     static defaultProps = {
         component: SemanticUI,
-        menus: {},
+        linkComponent: 'a',
+        menus: [],
         type: 'array',
-        active: null,
+        id: null,
+        root: null,
+        rootActiveClass: 'side-menu-active'
     };
 
     handleOn = ()=>{
-        this.setState({
-            on: !this.state.on
+        let on = !this.state.on;
+        navigationDispatch({
+            id: this.props.id,
+            params: {
+                on: on 
+            }
         });
-        toggleClass(document.body, 'side-menu-active');
+        let root = this.props.root;
+        if (!root) {
+            root = document.body;
+        }
+        if (on) {
+            root.className = mixClass(root.className, this.props.rootActiveClass);
+        } else {
+            root.className = removeClass(root.className, this.props.rootActiveClass);
+        }
     }
-
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            on: false
-        };
-    }
+    
 
     render()
     {
         const {
             component,
-            menus,
-            type,
-            active,
-            on,
+            linkComponent,
             className,
+            type,
+            menus,
+            root,
+            rootActiveClass,
             ...others
         } = this.props;
-         const classes = mixClass(
-              className, 
-              {
-                  active: this.state.on 
-              }        
-         );
+        const {
+            activeMenu,
+            on
+        } = this.state;
         let menuItems;
         if ('array'===type) {
             menuItems = getMenuByArray(
                 menus,
-                active
+                linkComponent,
+                activeMenu
             );
         }
         let build;
@@ -100,13 +133,29 @@ class SideMenu extends Component
         } else {
             build = React.createElement;
         }
+        const classes = mixClass(
+              {
+                  active: on 
+              },        
+              className, 
+              component.props.className,
+        );
+        let buildProps = assign(
+            others,
+            {
+                className: classes
+            }
+        );
+        if (!buildProps.id) {
+            delete buildProps.id;
+        }
         const menuElement =  build(
-             component,
-             others,
-             menuItems    
+            component,
+            buildProps,
+            menuItems    
         );
         return (
-            <Rail className={classes}>
+            <Rail>
                 {menuElement}
                 <Icon 
                     onClick={this.handleOn} 
@@ -116,14 +165,18 @@ class SideMenu extends Component
                         transition: ['all 0.2s ease-out']
                     },null,false)}
                 >
-                    <Hamburger style={Styles.hamburger} on={this.state.on}/>
+                    <Hamburger style={Styles.hamburger} on={on}/>
                 </Icon>
             </Rail>
         );
     }
 }
 
-export default SideMenu;
+const SideMenuContainer = Container.create(
+    SideMenu,
+    { withProps:true }    
+);
+export default SideMenuContainer;
 
 const Styles = {
     icon: {

@@ -3,10 +3,10 @@
 const _isArray = Array.isArray;
 
 const getObjectValue = (o, path, defaultValue) => {
-    let current = o;
-    if (!_isArray(path)) {
-        return undefined;
+    if (!o || !_isArray(path)) {
+        return defaultValue;
     }
+    let current = o;
     path.every((a) => {
         if ( current[a] ) {
             current = current[a];

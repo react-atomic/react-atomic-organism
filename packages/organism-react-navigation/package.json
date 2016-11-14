@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React Navigation",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -11,6 +11,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "class-lib": "*",
+    "get-object-value": "*",
     "react-atomic-molecule": "*",
     "reshow": "*",
     "ricon": "*"

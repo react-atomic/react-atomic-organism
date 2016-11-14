@@ -1,6 +1,6 @@
 {
   "name": "get-object-value",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Get Object Value",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
