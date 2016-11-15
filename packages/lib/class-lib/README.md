@@ -7,8 +7,7 @@ Better classname tool, especially more make sense for reactjs
       * https://npm.im/class-lib
 
 ## Functions
-
-    * hasClass( rawClass, newName )
+   * hasClass( rawClass, newName )
       * Ex: rawClass = "a b c"
       * hasClass(rawClass, "d") // return false
       * hasClass(rawClass, "a") // return true
