@@ -133,18 +133,9 @@ class SideMenu extends Component
         } else {
             build = React.createElement;
         }
-        const classes = mixClass(
-              {
-                  active: on 
-              },        
-              className, 
-              component.props.className,
-        );
-        let buildProps = assign(
-            others,
-            {
-                className: classes
-            }
+        let buildProps = assign (
+            {},
+            others
         );
         if (!buildProps.id) {
             delete buildProps.id;
@@ -154,8 +145,14 @@ class SideMenu extends Component
             buildProps,
             menuItems    
         );
+        const classes = mixClass(
+              {
+                  active: on 
+              },        
+              className, 
+        );
         return (
-            <Rail>
+            <Rail className={classes}>
                 {menuElement}
                 <Icon 
                     onClick={this.handleOn} 
