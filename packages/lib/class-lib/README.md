@@ -1,6 +1,6 @@
 ClassName Library
 ===============
-Better classname tool, especially more make sense for reactjs that change all first parametr to pure class string.
+Better classname tool, especially more make sense for reactjs that change all first parameters to pure class string.
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/class-lib
    * NPM
