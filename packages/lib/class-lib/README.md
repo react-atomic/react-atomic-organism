@@ -25,4 +25,4 @@ Better classname tool, especially more make sense for reactjs that change all fi
 ### toggleClass( rawClass, newName )
    * Ex. rawClass = "a b c"
    * toggleClass(rawClass, "d"); //return "a b c d"
-   * toggleClass(rawClass, "c"); //return "a b c"
+   * toggleClass(rawClass, "c"); //return "a b"
