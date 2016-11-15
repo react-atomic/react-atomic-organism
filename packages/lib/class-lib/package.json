@@ -1,6 +1,6 @@
 {
   "name": "class-lib",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "ClassName Library",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
