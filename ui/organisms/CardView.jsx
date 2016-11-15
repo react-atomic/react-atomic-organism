@@ -35,7 +35,7 @@ const CardView = (props) =>
     if (meta) {
         meta=<Meta>{meta}</Meta>;
     }
-    if (!React.isValidElement(description)) {
+    if (description) {
         description=<Description>{description}</Description>;
     }
     if (imageSrc) {

@@ -6,6 +6,8 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 
+import get from 'get-object-value';
+
 class Breakcrumb extends Component
 {
     render()
@@ -23,32 +25,23 @@ class Breakcrumb extends Component
             if (!node) {
                 return;
             }
-            const nodeProps = node.props;
             classes = mixClass(
-                nodeProps.className,
+                get(node, ['props','className']),
                 'section'
             );
             node = React.cloneElement(
                 node, 
-                assign(
-                    {},
-                    nodeProps,
-                    {
-                        key: k,
-                        className: classes
-                    }
-                )
+                {
+                    key: k,
+                    className: classes
+                }
             );
             itemList.push(node);  
             node = React.cloneElement(
                 myDivider, 
-                assign(
-                    {},
-                    myDivider.props,
-                    {
-                        key: k+'-div',
-                    }
-                )
+                {
+                    key: k+'-div',
+                }
             );
             itemList.push(node);
         });

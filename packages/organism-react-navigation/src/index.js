@@ -1,4 +1,5 @@
 // Default
+export DropDown from '../ui/organisms/DropDown';
 export SideMenu from '../ui/organisms/SideMenu';
 export HorizontalToVerticalMenu from '../ui/organisms/HorizontalToVerticalMenu';
 
