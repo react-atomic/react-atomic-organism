@@ -24,6 +24,8 @@ class Breakcrumb extends Component
         React.Children.map(children,(node, k)=>{
             if (!node) {
                 return;
+            } else if (!React.isValidElement(node)) {
+                node = <SemanticUI>{node}</SemanticUI>;
             }
             classes = mixClass(
                 get(node, ['props','className']),
