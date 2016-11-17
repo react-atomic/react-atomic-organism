@@ -46,12 +46,15 @@ class AjaxForm extends Component
 
 
     render() {
-        const {path, callback, errorCallback, ...rest} = this.props;
-        let baseUrl = ajaxStore.getState().get('baseUrl')+path;
+        const {action, path, callback, errorCallback, ...rest} = this.props;
+        let thisUrl = ajaxStore.getRawUrl({
+            url: action,
+            path: path
+        });
         return (
             <Form
                 atom="form"
-                action={baseUrl}
+                action={thisUrl}
                 {...rest}
                 onSubmit={this.handleOnSubmit.bind(this)}
             />

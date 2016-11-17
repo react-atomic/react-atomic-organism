@@ -5,14 +5,15 @@ import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
 class AjaxPage extends Component
 {
     static defaultProps = {
-        ajax: true
+        ajax: true,
+        themes: {}
     }
 
     constructor(props) {
         super(props);
         ajaxDispatch({
             type: 'config/set',
-            params: this.props 
+            params: props 
         });
     }
 
@@ -44,23 +45,24 @@ class AjaxPage extends Component
     }
 
     render() {
-        const props = this.props;
-        let themePath = props.themePath;
-        if ('undefined' === typeof props.themes[themePath]) {
-            let pageState = ajaxStore.getState();
-            themePath = pageState.get('lastThemePath');
-            if ('undefined' === typeof props.themes[themePath]) {
-                console.error('can not find themes on ['+props.themePath+']', props.themes);
+        const {themes, themePath, baseUrl} = this.props;
+        let thisThemePath = themePath;
+        if ('undefined' === typeof themes[thisThemePath]) {
+            const pageState = ajaxStore.getState();
+            thisThemePath = pageState.get('lastThemePath');
+            if ('undefined' === typeof themes[thisThemePath]) {
+                console.error('can not find themes on ['+themePath+']', themes);
                 return null;
             }
         }
         ajaxDispatch({
             type: 'config/set',
             params: {
-                lastThemePath: themePath
+                lastThemePath: themePath,
+                baseUrl: baseUrl
             }
         });
-        return props.themes[themePath];
+        return themes[thisThemePath];
     }
 }
 

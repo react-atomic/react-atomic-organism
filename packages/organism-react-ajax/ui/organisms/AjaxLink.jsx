@@ -27,18 +27,10 @@ class AjaxLink extends Component
 
     render() {
         const { path, href, run, ...rest } = this.props;
-        let myHref = href;
-        if (!myHref) {
-            if (path) {
-                let baseUrl = ajaxStore.getState().get('baseUrl');
-                if (!baseUrl) {
-                    baseUrl = '';
-                }
-                myHref = baseUrl+path;
-            } else {
-                myHref = '#';
-            }
-        }
+        let myHref = ajaxStore.getRawUrl({
+            path: path,
+            url: href
+        });
         if (run && '#'!==myHref) {
             this.go(myHref);
             return null;
