@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React Navigation",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -14,7 +14,7 @@
     "class-lib": "*",
     "get-object-value": "*",
     "react-atomic-molecule": "*",
-    "reshow": "*",
+    "reduce-flux": "*",
     "ricon": "*"
   },
   "devDependencies": {

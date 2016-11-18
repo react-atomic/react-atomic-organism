@@ -36,11 +36,11 @@ const Page = (props)=>(
 );
 
 const Forward = (props)=>(
-    <BasePage {...props}>More &gt;</BasePage>
+    <BasePage {...props}>{'> '+ props.txtMore}</BasePage>
 );
 
 const Backward = (props)=>(
-    <BasePage {...props}>&lt;</BasePage>
+    <BasePage {...props}>{'<'}</BasePage>
 );
 
 const Current = (props)=>(
@@ -67,7 +67,7 @@ const Ellipsis = (props)=>(
 const Pagination = (props)=>
 {
     const pg = props; 
-    const {linkComponent, textMore} = pg;
+    const {linkComponent, txtMore} = pg;
     let firstPage;
     let firstEllipsis;
     let lastPage;
@@ -85,13 +85,23 @@ const Pagination = (props)=>
         {firstPage}
         {firstEllipsis}
         {pg.list.map((v,k)=>{
+            const current = pg.currentPage;
             if(v.currentPage){
+                if ( (current.backward && current.backward.currentPage === v.currentPage) || 
+                    (current.forward && current.forward.currentPage === v.currentPage)
+                ) {
+                    return null;
+                }
                 return <Page key={k} {...v} component={linkComponent}/>;
             } else {
                 let re = [];
-                let current = pg.currentPage;
                 if (current.backward) {
-                    re.push(<Backward {...current.backward} component={linkComponent}/>);
+                    re.push(
+                    <Backward
+                        {...current.backward}
+                        component={linkComponent}
+                    />
+                    );
                 }
                 re.push(<Current key={k} {...current[0]} component={linkComponent}/>);
                 if (current.forward) {
@@ -99,7 +109,7 @@ const Pagination = (props)=>
                     <Forward
                         {...current.forward}
                         component={linkComponent}
-                        textMore={textMore}
+                        txtMore={txtMore}
                     />
                     );
                 }
@@ -113,6 +123,6 @@ const Pagination = (props)=>
 }
 Pagination.defaultProps = {
     linkComponent: 'a',
-    textMore: 'More'
+    txtMore: 'Next',
 };
 export default Pagination;
