@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Atomic design in React (organisms)",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organisms",

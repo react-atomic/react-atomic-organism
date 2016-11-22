@@ -26,15 +26,11 @@ class AjaxLink extends Component
     }
 
     render() {
-        const { path, href, run, ...rest } = this.props;
+        const { path, href, ...rest } = this.props;
         let myHref = ajaxStore.getRawUrl({
             path: path,
             url: href
         });
-        if (run && '#'!==myHref) {
-            this.go(myHref);
-            return null;
-        }
         return (
             <SemanticUI
                 atom="a"

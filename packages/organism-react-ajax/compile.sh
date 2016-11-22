@@ -1,5 +1,5 @@
 #!/bin/sh
-find ./assets -name "*.js" | xargs rm -rf
+#find ./assets -name "*.js" | xargs rm -rf
 
 
 production(){

@@ -14,9 +14,13 @@ class AjaxStore extends ReduceStore
       return Immutable.Map();
   }
 
-  cookAjaxUrl(state, ajaxUrl)
+  cookAjaxUrl(params, ajaxUrl)
   {
-      return ajaxUrl;
+      const urls = ajaxUrl.split('#');
+      if (urls[1]) {
+        params.query['--hashState'] = urls[1];
+      }
+      return urls[0];
   }
 
   getRawUrl = (params)=>
@@ -91,7 +95,7 @@ class AjaxStore extends ReduceStore
         }
         return state;
     }
-    const ajaxUrl = this.cookAjaxUrl(state, rawUrl);
+    const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
     params.query.r = ((new Date()).getTime());
     require(['superagent'],function(req){ 
        req.get(ajaxUrl)
@@ -113,7 +117,7 @@ class AjaxStore extends ReduceStore
     let self = this;
     let params = action.params;
     let rawUrl = this.getRawUrl(params);
-    const ajaxUrl = this.cookAjaxUrl(state, rawUrl);
+    const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
     require(['superagent'],function(req){ 
        req.post(ajaxUrl)
           .send(params.query)

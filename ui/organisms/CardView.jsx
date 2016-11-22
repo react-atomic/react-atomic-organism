@@ -22,6 +22,7 @@ const CardView = (props) =>
         dimmer,
         content,
         imageSrc,
+        imageContainer,
         href,
         item,
         ...others 
@@ -43,13 +44,16 @@ const CardView = (props) =>
        if (href) {
             imgWrapperDom = 'a'; 
        }
-       image = 
-        <SemanticUI
-            atom={imgWrapperDom} 
-            style={Styles.imgWrapper}
-            href={href}
-            className="image-wrapper"
-        >
+       if (!imageContainer) {
+            imageContainer = <SemanticUI atom={imgWrapperDom} />;
+       }
+       image = React.cloneElement(
+            imageContainer,
+            {
+                style: Styles.imgWrapper,
+                href: href,
+                className: 'image-wrapper'
+            },
             <Image
                 style={Styles.image}
                 styles={reactStyle({
@@ -58,7 +62,7 @@ const CardView = (props) =>
                 src={imageSrc}
                 className="rounded"
             />
-        </SemanticUI>; 
+       );
     }
     if (item) {
         View = Item;
