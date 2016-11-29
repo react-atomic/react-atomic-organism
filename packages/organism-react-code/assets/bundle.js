@@ -529,11 +529,11 @@ webpackJsonp([0],[
 	                thisCode = _jsx(_CodeBlock2.default, {}, void 0, code);
 	            }
 	            if (git) {
-	                var readmeUrl = 'https://raw.githubusercontent.com/' + git.replace(/(\/blob\/master\/)/, '/master/') + 'README.md';
+	                var readmeUrl = 'https://raw.githubusercontent.com/' + git.replace(/(\/(blob|tree)\/master\/)/, '/master/') + 'README.md';
 	                var gitUrl = 'https://github.com/' + git;
-	                thisReadme = _jsx(_reactAtomicMolecule.Segment, {}, void 0, _jsx(_CodeReadme2.default, {
+	                thisReadme = _jsx(_CodeReadme2.default, {
 	                    url: readmeUrl
-	                }));
+	                });
 	                thisGit = _jsx(_reactAtomicMolecule.Icon, {
 	                    atom: 'a',
 	                    target: '_blank',
@@ -15662,7 +15662,7 @@ webpackJsonp([0],[
 	            var text = this.state.text;
 
 	            if (text) {
-	                return _jsx(_reactAtomicMolecule.Unsafe, {}, void 0, (0, _marked2.default)(text));
+	                return _jsx(_reactAtomicMolecule.Segment, {}, void 0, _jsx(_reactAtomicMolecule.Unsafe, {}, void 0, (0, _marked2.default)(text)));
 	            } else {
 	                return null;
 	            }

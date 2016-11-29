@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import marked from 'marked';
 import {ajaxDispatch} from 'organism-react-ajax';
-import {Unsafe} from 'react-atomic-molecule';
+import {Segment, Unsafe} from 'react-atomic-molecule';
 
 class CodeReadme extends Component
 {
@@ -40,7 +40,9 @@ class CodeReadme extends Component
     {
         const {text} = this.state;
         if (text) {
-            return <Unsafe>{marked(text)}</Unsafe>;
+            return <Segment>
+                <Unsafe>{marked(text)}</Unsafe>
+            </Segment>;
         } else {
             return null;
         }

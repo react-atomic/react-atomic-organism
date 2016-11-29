@@ -43,12 +43,10 @@ class CodeExample extends Component
         }
         if (git) {
             let readmeUrl ='https://raw.githubusercontent.com/'+
-                git.replace(/(\/blob\/master\/)/, '/master/')+
+                git.replace(/(\/(blob|tree)\/master\/)/, '/master/')+
                 'README.md'; 
             let gitUrl = 'https://github.com/'+git;
-            thisReadme = <Segment>
-                    <CodeReadme url={readmeUrl}/>
-            </Segment>;
+            thisReadme = <CodeReadme url={readmeUrl}/>;
             thisGit = <Icon atom="a" target="_blank" href={gitUrl} style={Styles.icon}>
                 <GitIcon />
             </Icon>;
