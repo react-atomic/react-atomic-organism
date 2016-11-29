@@ -2,7 +2,7 @@ import React from 'react';
 
 /**
  * Production please use
- * import CodeExample from "organism-react-code"
+ * import CodeExample from 'organism-react-code'
  */
 import CodeExample from "../../src/index"
 

@@ -13,6 +13,7 @@
   "dependencies": {
     "highlight.js": "*",
     "marked": "*",
+    "organism-react-ajax": "*",
     "react-atomic-molecule": "*",
     "ricon": "*"
   },

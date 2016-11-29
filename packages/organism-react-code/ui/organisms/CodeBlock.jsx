@@ -1,6 +1,7 @@
 import React from 'react';
 import marked from 'marked';
 import {Unsafe} from 'react-atomic-molecule';
+import hl from 'highlight.js';
 
 marked.setOptions({
   gfm: true,
@@ -10,9 +11,9 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  highlight: function(code, lang) {
-    return require('highlight.js').highlight(lang, code).value;
-  },
+  highlight: (code, lang) => {
+    return hl.highlight(lang, code).value;
+  }
 });
 
 const CodeBlock = (props) =>

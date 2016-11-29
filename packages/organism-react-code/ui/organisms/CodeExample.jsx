@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {lazyInject, List, Header, Segment, Icon} from 'react-atomic-molecule';
 import CodeIcon from 'ricon/Code';
 import CodeBlock from '../organisms/CodeBlock';
+import CodeReadme from '../organisms/CodeReadme';
 
 class CodeExample extends Component
 {
@@ -26,14 +27,23 @@ class CodeExample extends Component
 
     render()
     {
-        const {header, children, code} = this.props;
+        const {header, children, code, git} = this.props;
         const state = this.state;
         let codeStyle = {};
         let thisCode;
+        let thisReadme;
         if (!state.on) {
             codeStyle = Styles.hidden;
         } else {
             thisCode = <CodeBlock>{code}</CodeBlock>;
+        }
+        if (git) {
+            let readmeUrl ='https://raw.githubusercontent.com/'+
+                git.replace(/(\/blob\/master\/)/, '/master/')+
+                'README.md'; 
+            thisReadme = <Segment>
+                    <CodeReadme url={readmeUrl}/>
+            </Segment>;
         }
         return (
             <List type="segment"> 
@@ -49,6 +59,7 @@ class CodeExample extends Component
                     {thisCode} 
                 </Segment>
                 <Segment>{children}</Segment>
+                {thisReadme}
             </List>
         );
     }
@@ -60,8 +71,8 @@ const Styles = {
         margin: 0
     },
     hidden: {
-        height: 0,
-        padding: 0,
+        maxHeight: 0,
+        padding: '0 16px',
         margin: 0,
         ovarflow: 'hidden'
     },
@@ -77,6 +88,6 @@ const Styles = {
 let injects;
 const InjectStyles = {
     code: [{
-        transition: ['box-shadow 0.2s ease, padding 0.2s ease']
+        transition: ['padding 500ms ease']
     }]    
 };
