@@ -1,9 +1,9 @@
-import React, {Component} from 'react'; 
+import { Form } from 'react-atomic-molecule';
+import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
-import { Form } from 'react-atomic-molecule';
 
-class AjaxForm extends Component
+class AjaxForm extends AjaxBase 
 {
 
     handleOnSubmit(e) {
@@ -20,11 +20,14 @@ class AjaxForm extends Component
             }   
         }
         let type;
-        let updateUrl = false;
+        let otherParams = {};
         switch(formDom.method){
             case 'get':
                 type = 'ajaxGet'; 
-                updateUrl = this.props.updateUrl;
+                otherParams = {
+                    disableAjax: !this.isRunAjax(),
+                    updateUrl: this.props.updateUrl
+                };
                 break;
             case 'post':
             default:
@@ -36,10 +39,10 @@ class AjaxForm extends Component
             type: type,
             params: {
                 url: action,
-                updateUrl: updateUrl,
                 query: formParams,
                 callback: this.props.callback,
-                errorCallback: this.props.errorCallback
+                errorCallback: this.props.errorCallback,
+                ...otherParams
             }
         });
     }

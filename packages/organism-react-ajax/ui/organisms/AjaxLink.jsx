@@ -1,10 +1,13 @@
-import React, {Component} from 'react'; 
+import { SemanticUI } from 'react-atomic-molecule';
+import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
-import { SemanticUI } from 'react-atomic-molecule';
 
-class AjaxLink extends Component
+class AjaxLink extends AjaxBase
 {
+    static defaultProps = {
+        updateUrl: true
+    }
 
     handleOnClick(e) {
         e.preventDefault();
@@ -20,7 +23,8 @@ class AjaxLink extends Component
             type: 'ajaxGet',
             params: {
                 url: url,
-                updateUrl: true
+                disableAjax: !this.isRunAjax(),
+                updateUrl: this.props.updateUrl,
             }
         });
     }

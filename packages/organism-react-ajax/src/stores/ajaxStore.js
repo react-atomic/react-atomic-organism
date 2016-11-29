@@ -77,6 +77,17 @@ class AjaxStore extends ReduceStore
       return callback;
   }
 
+  getJson(text)
+  {
+      let json;
+      try {
+          json = JSON.parse(text);
+      } catch (e) {
+          json = {};
+      }
+      return json;
+  }
+
   ajaxGet(state, action)
   {
     let self = this;
@@ -88,7 +99,7 @@ class AjaxStore extends ReduceStore
     if (params.updateUrl) {
         history.pushState('','',rawUrl);
     }
-    if (!state.get('ajax')) {
+    if (params.disableAjax) {
         const updateWithUrl = state.get('updateWithUrl');
         if (updateWithUrl) {
             updateWithUrl(rawUrl);
@@ -99,14 +110,15 @@ class AjaxStore extends ReduceStore
     params.query.r = ((new Date()).getTime());
     require(['superagent'],function(req){ 
        req.get(ajaxUrl)
-          .withCredentials()
           .query(params.query)
           .set('Accept', 'application/json')
-          .end(function(res){
-                let json = JSON.parse(res.text);
+          .end((res)=>{
+                const json = self.getJson(res.text);
                 let callback = self.getCallback(state, action, json);
-                callback(json);
-                window.scrollTo(0,0);
+                callback(json, res.text);
+                if (params.updateUrl) {
+                    window.scrollTo(0,0);
+                }
            });
     });
     return state;
@@ -124,9 +136,9 @@ class AjaxStore extends ReduceStore
           .withCredentials()
           .set('Accept', 'application/json')
           .end((res)=>{
-                let json = JSON.parse(res.text);
+                const json = self.getJson(res.text);
                 let callback = self.getCallback(state, action, json);
-                callback(json);
+                callback(json, res.text);
            });
     });
     return state;
