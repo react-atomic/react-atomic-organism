@@ -108,7 +108,7 @@ class AjaxStore extends ReduceStore
     }
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
     params.query.r = ((new Date()).getTime());
-    require(['superagent'],function(req){ 
+    require(['superagent'],(req)=>{ 
        req.get(ajaxUrl)
           .query(params.query)
           .set('Accept', 'application/json')
@@ -130,7 +130,7 @@ class AjaxStore extends ReduceStore
     let params = action.params;
     let rawUrl = this.getRawUrl(params);
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-    require(['superagent'],function(req){ 
+    require(['superagent'],(req)=>{ 
        req.post(ajaxUrl)
           .send(params.query)
           .withCredentials()
