@@ -1,5 +1,6 @@
-React Animate 
+React Progress
 ===============
+<!--Info-->
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-progress 
    * NPM
@@ -8,7 +9,7 @@ React Animate
 ## Example Usage
 Demo Url:
 https://react-atomic-ui.js.org/#/organisms
-
+<!--/Info-->
 
 
 
