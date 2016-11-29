@@ -1,5 +1,6 @@
 React Code 
 ===============
+<!--hidden-->
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-code 
    * NPM
@@ -14,7 +15,12 @@ https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organ
 
 ## Inspiration
    * http://www.material-ui.com/
+<!--/hidden-->
 
+## How hide readme section.
+```
+<!--hidden--><!--/hidden-->
+```
 
 
 
