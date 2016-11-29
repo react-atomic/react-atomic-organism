@@ -23,9 +23,9 @@ https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organ
    * Sync the same readme with remote one
 
 ## How to hide readme section.
-```
-<!--hidden--><!--/hidden-->
-```
+
+&lt;!--hidden--> xxx hiden section &lt;!--/hidden-->
+
 
 
 
