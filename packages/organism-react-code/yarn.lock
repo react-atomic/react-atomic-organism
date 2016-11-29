@@ -1218,7 +1218,7 @@ fill-range@^2.1.0:
 
 find-cache-dir@^0.1.1:
   version "0.1.1"
-  resolved "https://registry.yarnpkg.com/find-cache-dir/-/find-cache-dir-0.1.1.tgz#c8defae57c8a52a8a784f9e31c57c742e993a0b9"
+  resolved "http://registry.npmjs.org/find-cache-dir/-/find-cache-dir-0.1.1.tgz#c8defae57c8a52a8a784f9e31c57c742e993a0b9"
   dependencies:
     commondir "^1.0.1"
     mkdirp "^0.5.1"
@@ -1807,14 +1807,14 @@ node-libs-browser@^0.6.0:
     vm-browserify "0.0.4"
 
 node-pre-gyp@^0.6.29:
-  version "0.6.31"
-  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.6.31.tgz#d8a00ddaa301a940615dbcc8caad4024d58f6017"
+  version "0.6.32"
+  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.6.32.tgz#fc452b376e7319b3d255f5f34853ef6fd8fe1fd5"
   dependencies:
     mkdirp "~0.5.1"
     nopt "~3.0.6"
-    npmlog "^4.0.0"
+    npmlog "^4.0.1"
     rc "~1.1.6"
-    request "^2.75.0"
+    request "^2.79.0"
     rimraf "~2.5.4"
     semver "~5.3.0"
     tar "~2.2.1"
@@ -1830,7 +1830,7 @@ normalize-path@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-2.0.1.tgz#47886ac1662760d4261b7d979d241709d3ce3f7a"
 
-npmlog@^4.0.0:
+npmlog@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-4.0.1.tgz#d14f503b4cd79710375553004ba96e6662fbc0b8"
   dependencies:
@@ -1878,8 +1878,8 @@ optimist@~0.6.0:
     wordwrap "~0.0.2"
 
 organism-react-ajax@*:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.15.tgz#912eed8fe1ccb9704b0e6cac92d2f1b982eca489"
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.18.tgz#e8d6d21aa73eac29f82bb972209ea7421bf0b8b6"
   dependencies:
     react-atomic-molecule "*"
     reduce-flux "*"
@@ -2027,8 +2027,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.2.tgz#b13322adf38cad56013e79748755c24c020090b4"
 
 react-atomic-molecule@*:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.7.tgz#14dbf076ddf754de8115523561c10aae8b54054c"
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.10.tgz#a4aa121ddd35a4d7d5cd4c5575df5615036d8cad"
   dependencies:
     class-lib "*"
     exenv "1.2.1"
@@ -2161,7 +2161,7 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-request@^2.75.0:
+request@^2.79.0:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
@@ -2187,8 +2187,8 @@ request@^2.75.0:
     uuid "^3.0.0"
 
 ricon@*:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.8.tgz#50ce0b920b22685c51247c14e4918a08371b313e"
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.9.tgz#ce600a5f0bd2f4ff9902b6c1d8142c4898515d0a"
   dependencies:
     keyframe-css "*"
 
@@ -2428,8 +2428,8 @@ util@0.10.3, util@~0.10.3:
     inherits "2.0.1"
 
 uuid@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.0.tgz#6728fc0459c450d796a99c31837569bdf672d728"
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
 v8flags@^2.0.10:
   version "2.0.11"

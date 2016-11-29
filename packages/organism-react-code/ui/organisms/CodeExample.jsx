@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import {lazyInject, List, Header, Segment, Icon} from 'react-atomic-molecule';
+import {lazyInject, List, Header, Segment, SemanticUI, Icon} from 'react-atomic-molecule';
 import CodeIcon from 'ricon/Code';
+import GitIcon from 'ricon/Git';
+import NpmIcon from 'ricon/Npm';
 import CodeBlock from '../organisms/CodeBlock';
 import CodeReadme from '../organisms/CodeReadme';
 
@@ -27,11 +29,13 @@ class CodeExample extends Component
 
     render()
     {
-        const {header, children, code, git} = this.props;
+        const {header, children, code, git, npm} = this.props
         const state = this.state;
         let codeStyle = {};
         let thisCode;
         let thisReadme;
+        let thisGit;
+        let thisNpm;
         if (!state.on) {
             codeStyle = Styles.hidden;
         } else {
@@ -41,15 +45,29 @@ class CodeExample extends Component
             let readmeUrl ='https://raw.githubusercontent.com/'+
                 git.replace(/(\/blob\/master\/)/, '/master/')+
                 'README.md'; 
+            let gitUrl = 'https://github.com/'+git;
             thisReadme = <Segment>
                     <CodeReadme url={readmeUrl}/>
             </Segment>;
+            thisGit = <Icon atom="a" target="_blank" href={gitUrl} style={Styles.icon}>
+                <GitIcon />
+            </Icon>;
+        }
+        if (npm) {
+            let npmUrl = 'https://npm.im/'+npm;
+            thisNpm = <Icon atom="a" target="_blank" href={npmUrl} style={Styles.icon}>
+                <NpmIcon />
+            </Icon>;
         }
         return (
             <List type="segment"> 
                 <Segment className="tertiary">
                     <Header style={Styles.header} className="grey">{header}</Header>
-                    <Icon onClick={this.handleClick} style={Styles.icon}><CodeIcon /></Icon>
+                    <SemanticUI style={Styles.iconBlock}>
+                        {thisNpm}
+                        {thisGit}
+                        <Icon onClick={this.handleClick} style={Styles.icon}><CodeIcon /></Icon>
+                    </SemanticUI>
                 </Segment>
                 <Segment 
                     className="secondary"
@@ -76,12 +94,15 @@ const Styles = {
         margin: 0,
         ovarflow: 'hidden'
     },
-    icon: {
-        maxWidth: 24,
+    iconBlock: {
         position: 'absolute',
         top: 16,
-        right: 16,
-        cursor: 'pointer'
+        right: 6,
+    },
+    icon: {
+        maxWidth: 24,
+        cursor: 'pointer',
+        marginRight: 10
     },
 };
 
