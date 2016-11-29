@@ -1,6 +1,6 @@
 React Progress
 ===============
-<!--Info-->
+<!--hidden-->
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-progress 
    * NPM
@@ -9,7 +9,7 @@ React Progress
 ## Example Usage
 Demo Url:
 https://react-atomic-ui.js.org/#/organisms
-<!--/Info-->
+<!--/hidden-->
 
 
 
