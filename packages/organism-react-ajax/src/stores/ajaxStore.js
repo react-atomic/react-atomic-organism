@@ -115,7 +115,7 @@ class AjaxStore extends ReduceStore
           .end((res)=>{
                 const json = self.getJson(res.text);
                 let callback = self.getCallback(state, action, json);
-                callback(json, res.text);
+                callback(json, res.text, res);
                 if (params.updateUrl) {
                     window.scrollTo(0,0);
                 }
