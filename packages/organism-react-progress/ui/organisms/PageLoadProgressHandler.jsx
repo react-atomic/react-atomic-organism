@@ -4,9 +4,6 @@ import { Container } from 'reduce-flux';
 import { popupDispatch } from 'organism-react-popup';
 import { Progress, SemanticUI } from 'react-atomic-molecule';
 
-import {ProgressBar} from '../../src/index';
-
-
 class PageLoadProgressHandle extends Component
 {
     _timer = null;
@@ -33,7 +30,7 @@ class PageLoadProgressHandle extends Component
 
     static defaultProps={
         name: 'processBar',
-        gap: 200
+        delay: 200
     };
 
     componentDidMount()
@@ -79,13 +76,13 @@ class PageLoadProgressHandle extends Component
         this._timer = false;
     }
 
-    start = (pause, gap)=>
+    start = (pause, delay)=>
     {
         if (this._timer) {
             return false;
         }
-        if (!gap) {
-            gap = this.props.gap;
+        if (!delay) {
+            delay = this.props.delay;
         }
         if (!pause || pause > 100) {
             pause = 100;
@@ -93,7 +90,7 @@ class PageLoadProgressHandle extends Component
         this._start(pause);
         this._timer = setInterval(()=>{
             this._start(pause);
-        }, gap);
+        }, delay);
     }
 
     _start = (pause) =>
@@ -113,9 +110,11 @@ class PageLoadProgressHandle extends Component
 
     render()
     {
-        const {percent} = this.state;
+        const {percent, opacity} = this.state;
         let bar = <Progress
-            style={Styles.progress}
+            style={{...Styles.progress,...{
+                opacity: opacity
+            }}}
             barProps={{
                 style: Styles.bar
             }}
@@ -125,21 +124,6 @@ class PageLoadProgressHandle extends Component
     }
 }
 
-/*
-      let bar = <SemanticUI
-          className="float-progress-bar"
-          style={{...Styles.floatBar, ...{
-                opacity: this.state.opacity
-          }}}
-          styles={injects.floatBar}
-       >
-          <ProgressBar 
-            style={Styles.bar}
-            percent={this.state.percent}
-          />
-      </SemanticUI>;
- */
-
 export default Container.create(PageLoadProgressHandle);
 
 const Styles = {
@@ -148,7 +132,8 @@ const Styles = {
         top: 0,
         left: 0,
         right: 0,
-        transition: ['opacity 500ms linear']
+        transition: ['opacity 500ms linear'],
+        zIndex: 1
     },
     bar: {
         position: 'fixed',
