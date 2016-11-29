@@ -12,7 +12,7 @@ http://react-atomic.github.io/react-atomic-organism/packages/organism-react-code
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-code/ui/pages/index.jsx
 
-## Concept
+## Inspiration
    * http://www.material-ui.com/
 
 
