@@ -10,7 +10,7 @@ production(){
 develop(){
     echo "Develop Mode";
     npm run build
-    webpack
+    CONFIG='{"assetsRoot":"./assets/"}' webpack
 }
 
 case "$1" in
