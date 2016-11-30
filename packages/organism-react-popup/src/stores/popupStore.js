@@ -2,6 +2,7 @@
 
 import {Map} from 'immutable';
 import {ReduceStore} from 'reduce-flux';
+import get from 'get-object-value';
 import dispatcher from '../actions/popupDispatcher';
 
 class PopupStore extends ReduceStore
@@ -48,7 +49,7 @@ class PopupStore extends ReduceStore
         .set('nodes', Map());
   }
 
-  cleanOne()
+  cleanOne(state, action)
   {
       const key = this.getKey(action);
       const node = state.get('nodes').delete(key);

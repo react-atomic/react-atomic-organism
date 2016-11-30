@@ -25531,6 +25531,10 @@ webpackJsonp([0],[
 
 	var _reduceFlux = __webpack_require__(181);
 
+	var _getObjectValue = __webpack_require__(271);
+
+	var _getObjectValue2 = _interopRequireDefault(_getObjectValue);
+
 	var _popupDispatcher = __webpack_require__(308);
 
 	var _popupDispatcher2 = _interopRequireDefault(_popupDispatcher);
@@ -25576,7 +25580,7 @@ webpackJsonp([0],[
 	        value: function updateDom(state, action) {
 	            var params = action.params;
 	            var popupNode = params.popup;
-	            var key = get(popupNode, ['props', 'name'], 'default');
+	            var key = (0, _getObjectValue2.default)(popupNode, ['props', 'name'], 'default');
 	            var node = state.get('node').set(key, true);
 	            var nodes = state.get('nodes').set(key, popupNode);
 	            return state.set('node', node).set('nodes', nodes);
@@ -25584,8 +25588,8 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'getKey',
 	        value: function getKey(action) {
-	            var popup = get(action, ['params', 'popup'], 'default');
-	            var key = get(popup, ['props', 'name'], popup);
+	            var popup = (0, _getObjectValue2.default)(action, ['params', 'popup'], 'default');
+	            var key = (0, _getObjectValue2.default)(popup, ['props', 'name'], popup);
 	            return key;
 	        }
 	    }, {
@@ -25607,7 +25611,7 @@ webpackJsonp([0],[
 	        }
 	    }, {
 	        key: 'cleanOne',
-	        value: function cleanOne() {
+	        value: function cleanOne(state, action) {
 	            var key = this.getKey(action);
 	            var node = state.get('nodes').delete(key);
 	            return state.set('nodes', node);
