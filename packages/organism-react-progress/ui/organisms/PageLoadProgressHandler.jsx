@@ -8,6 +8,11 @@ class PageLoadProgressHandle extends Component
 {
     _timer = null;
 
+    static defaultProps={
+        name: 'processBar',
+        delay: 200,
+        isFloat: true
+    };
 
     static getStores()
     {
@@ -28,22 +33,8 @@ class PageLoadProgressHandle extends Component
         };
     }
 
-    static defaultProps={
-        name: 'processBar',
-        delay: 200
-    };
-
-    componentDidMount()
+    complete = () =>
     {
-        popupDispatch({
-            type: 'dom/update',
-            params: {
-                popup: this 
-            }
-        });
-    }
-
-    complete = () =>{
         this.pause();
         this.setState({
             percent: 100, 
@@ -107,9 +98,16 @@ class PageLoadProgressHandle extends Component
             percent: end
         });
     }
+    
+    componentDidMount()
+    {
+        if (this.props.isFloat) {
+        }
+    }
 
     render()
     {
+        const {name, isFloat} = this.props;
         const {percent, opacity} = this.state;
         let bar = <Progress
             style={{...Styles.progress,...{
@@ -119,8 +117,21 @@ class PageLoadProgressHandle extends Component
                 style: Styles.bar
             }}
             percent={percent}
+            name={name}
         />;
-        return bar; 
+        if (isFloat) {
+            setTimeout(()=>{
+                popupDispatch({
+                    type: 'dom/update',
+                    params: {
+                        popup: bar 
+                    }
+                });
+            });
+            return null;
+        } else {
+            return bar; 
+        }
     }
 }
 

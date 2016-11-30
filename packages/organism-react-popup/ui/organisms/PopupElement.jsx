@@ -21,6 +21,9 @@ class PopupElement extends Component
    {
         const state = popupStore.getState();
         const popup = state.get('popup');
+        if (!popup) {
+            return prevState;
+        }
         const key = get(popup, ['props', 'name'], 'default'); 
         elements[key] = React.cloneElement(
             popup,
