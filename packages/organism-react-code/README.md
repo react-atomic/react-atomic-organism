@@ -17,13 +17,11 @@ https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organ
    * http://www.material-ui.com/
 <!--/hidden-->
 
-## test
-<!--hidden-->test<!--/hidden-->
 
 ## Features
    * View source directly
    * Integrate with GIT and NPM
-   * Sync the same readme with remote one
+   * Sync the same readme with remote github.
 
 ## How to hide readme section.
 
