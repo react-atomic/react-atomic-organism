@@ -2,7 +2,7 @@
 
 import Immutable from 'immutable';
 import {ReduceStore} from 'reduce-flux';
-import dispatcher from '../actions/ajaxDispatcher';
+import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 
 const empty = function(){}
 
@@ -88,6 +88,26 @@ class AjaxStore extends ReduceStore
       return json;
   }
 
+  start()
+  {
+       ajaxDispatch({
+        type: 'config/set',
+        params: {
+            isRunning: 1
+        }
+       });
+  }
+
+  done()
+  {
+       ajaxDispatch({
+        type: 'config/set',
+        params: {
+            isRunning: 0 
+        }
+       });
+  }
+
   ajaxGet(state, action)
   {
     let self = this;
@@ -109,10 +129,12 @@ class AjaxStore extends ReduceStore
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
     params.query.r = ((new Date()).getTime());
     require(['superagent'],(req)=>{ 
+       self.start();
        req.get(ajaxUrl)
           .query(params.query)
           .set('Accept', 'application/json')
           .end((res)=>{
+                self.done();
                 const json = self.getJson(res.text);
                 let callback = self.getCallback(state, action, json);
                 callback(json, res.text, res);
@@ -131,11 +153,13 @@ class AjaxStore extends ReduceStore
     let rawUrl = this.getRawUrl(params);
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
     require(['superagent'],(req)=>{ 
+       self.start();
        req.post(ajaxUrl)
           .send(params.query)
           .withCredentials()
           .set('Accept', 'application/json')
           .end((res)=>{
+                self.done();
                 const json = self.getJson(res.text);
                 let callback = self.getCallback(state, action, json);
                 callback(json, res.text);

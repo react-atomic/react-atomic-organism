@@ -55,12 +55,14 @@ class AjaxPage extends Component
                 return null;
             }
         }
-        ajaxDispatch({
-            type: 'config/set',
-            params: {
-                lastThemePath: themePath,
-                baseUrl: baseUrl
-            }
+        setTimeout(()=>{
+            ajaxDispatch({
+                type: 'config/set',
+                params: {
+                    lastThemePath: themePath,
+                    baseUrl: baseUrl
+                }
+            });
         });
         return themes[thisThemePath];
     }
