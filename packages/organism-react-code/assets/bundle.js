@@ -15649,7 +15649,7 @@ webpackJsonp([0],[
 	                    callback: function callback(json, text, o) {
 	                        if (200 === o.status) {
 	                            self.setState({
-	                                text: text.replace(/(\<\!\-\-hidden\-\-\>)([\s\S]*)(\<\!\-\-\/hidden\-\-\>)/g, '')
+	                                text: text.replace(/(\<\!\-\-hidden\-\-\>)([\s\S]*?)(\<\!\-\-\/hidden\-\-\>)/g, '')
 	                            });
 	                        }
 	                    }

@@ -26,7 +26,7 @@ class CodeReadme extends Component
                     if (200 === o.status) { 
                         self.setState({
                             text: text.replace(
-                                /(\<\!\-\-hidden\-\-\>)([\s\S]*)(\<\!\-\-\/hidden\-\-\>)/g,
+                                /(\<\!\-\-hidden\-\-\>)([\s\S]*?)(\<\!\-\-\/hidden\-\-\>)/g,
                                 ''
                             )
                         });
