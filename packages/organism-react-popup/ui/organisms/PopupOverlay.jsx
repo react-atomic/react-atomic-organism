@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
 import { Container } from 'reduce-flux';
+import get from 'get-object-value';
 import {
     mixClass,
     SemanticUI
@@ -21,13 +22,8 @@ class PopupOverlay extends Component
    static calculateState(prevState,props)
    {
         const state = popupStore.getState();
-        const key = props.name;
-        let show; 
-        if (key) {
-            show = state.get('node').get(key);
-        } else {
-            show = state.get('show');
-        }
+        const key = get(props, ['name'], 'default'); 
+        let show = state.get('node').get(key);
         return {
             show: show 
         }
@@ -63,11 +59,9 @@ class PopupOverlay extends Component
     }
 }
 
-const PopupOverlayContainer = Container.create(
+export {PopupOverlay};
+
+export default Container.create(
     PopupOverlay,
     { withProps:true }
 );
-
-export {PopupOverlay};
-
-export default PopupOverlayContainer;

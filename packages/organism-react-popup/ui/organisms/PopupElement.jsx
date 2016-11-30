@@ -1,13 +1,10 @@
 import React, {Component} from 'react'; 
 import { Container } from 'reduce-flux';
 import { SemanticUI } from 'react-atomic-molecule'; 
-import get from 'get-object-value';
-
 import {
     popupStore
 } from '../../src/index';
 
-let elements = {};
 const keys = Object.keys;
 
 class PopupElement extends Component
@@ -20,22 +17,18 @@ class PopupElement extends Component
    static calculateState(prevState)
    {
         const state = popupStore.getState();
-        const popup = state.get('popup');
-        if (!popup) {
-            return prevState;
-        }
-        const key = get(popup, ['props', 'name'], 'default'); 
-        elements[key] = React.cloneElement(
-            popup,
-            {key: key}
-        );
-        const allKeys = keys(elements);
+        const nodes = state.get('nodes').toJS();
+        const allKeys = keys(nodes);
         let pops=[];
         allKeys.forEach((k)=>{
-            pops.push(elements[k]); 
+            nodes[k] = React.cloneElement(
+                nodes[k],
+                {key: k}
+            );
+            pops.push(nodes[k]); 
         });
         return {
-            pops: pops 
+            pops: pops
         }
    }
 

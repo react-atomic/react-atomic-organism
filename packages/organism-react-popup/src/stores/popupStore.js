@@ -9,38 +9,50 @@ class PopupStore extends ReduceStore
 
   getInitialState()
   {
-      return Map({node:Map()});
+      return Map({node:Map(), nodes:Map()});
   }
 
   updateDom(state, action)
   {
       const params = action.params;
       const popupNode = params.popup;
-      let result;
-      result = state.set('popup', popupNode);
-      const key = popupNode.props.name;
-      if (key) {
-        const node = result.get('node').set(key,true);
-        result = result.set('node',node);
-      } else {
-        result = result.set('show', true);
-      }
-      return result;
+      const key = get(popupNode, ['props', 'name'], 'default'); 
+      const node = state.get('node').set(key,true);
+      const nodes = state.get('nodes').set(key, popupNode);
+      return state.set('node', node)
+        .set('nodes', nodes);
+  }
+
+  getKey(action)
+  {
+    const popup = get(action, ['params','popup'], 'default');
+    const key = get(popup, ['props', 'name'], popup);
+    return key;
   }
 
   closeAll(state, action)
   {
-     const params = action.params;
-     let result;
-     result = state.set('node', Map());
-     result = result.set('show', false);
-     return result;
+     return state.set('node', Map());
   }
 
-  cleanDom(state, action)
+  closeOne(state, action)
   {
-      return state.delete('popup').
-        set('node', Map());
+      const key = this.getKey(action);
+      const node = state.get('node').delete(key);
+      return state.set('node', node);
+  }
+
+  cleanAll(state, action)
+  {
+      return state.set('node', Map())
+        .set('nodes', Map());
+  }
+
+  cleanOne()
+  {
+      const key = this.getKey(action);
+      const node = state.get('nodes').delete(key);
+      return state.set('nodes', node);
   }
 
   reduce (state, action)
@@ -51,8 +63,12 @@ class PopupStore extends ReduceStore
               return this.updateDom(state, action);
           case 'dom/closeAll':
               return this.closeAll(state, action);
-          case 'dom/clean':
-              return this.cleanDom(state, action);
+          case 'dom/cleanAll':
+              return this.cleanAll(state, action);
+          case 'dom/closeOne':
+              return this.closeOne(state, action);
+          case 'dom/cleanOne':
+              return this.cleanOne(state, action);
           case 'config/set':
               return state.merge(action.params);
           default:

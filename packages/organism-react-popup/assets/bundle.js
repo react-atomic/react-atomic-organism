@@ -17180,7 +17180,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _PopupOverlay = __webpack_require__(271);
+	var _PopupOverlay = __webpack_require__(270);
 
 	Object.defineProperty(exports, 'PopupOverlay', {
 	  enumerable: true,
@@ -17306,10 +17306,6 @@ webpackJsonp([0],[
 
 	var _reactAtomicMolecule = __webpack_require__(194);
 
-	var _getObjectValue = __webpack_require__(270);
-
-	var _getObjectValue2 = _interopRequireDefault(_getObjectValue);
-
 	var _index = __webpack_require__(179);
 
 	function _interopRequireDefault(obj) {
@@ -17334,7 +17330,6 @@ webpackJsonp([0],[
 	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var elements = {};
 	var keys = Object.keys;
 
 	var PopupElement = function (_Component) {
@@ -17368,16 +17363,12 @@ webpackJsonp([0],[
 	        key: 'calculateState',
 	        value: function calculateState(prevState) {
 	            var state = _index.popupStore.getState();
-	            var popup = state.get('popup');
-	            if (!popup) {
-	                return prevState;
-	            }
-	            var key = (0, _getObjectValue2.default)(popup, ['props', 'name'], 'default');
-	            elements[key] = _react2.default.cloneElement(popup, { key: key });
-	            var allKeys = keys(elements);
+	            var nodes = state.get('nodes').toJS();
+	            var allKeys = keys(nodes);
 	            var pops = [];
 	            allKeys.forEach(function (k) {
-	                pops.push(elements[k]);
+	                nodes[k] = _react2.default.cloneElement(nodes[k], { key: k });
+	                pops.push(nodes[k]);
 	            });
 	            return {
 	                pops: pops
@@ -22090,37 +22081,6 @@ webpackJsonp([0],[
 
 /***/ },
 /* 270 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var _isArray = Array.isArray;
-
-	var getObjectValue = function getObjectValue(o, path, defaultValue) {
-	    if (!o || !_isArray(path)) {
-	        return defaultValue;
-	    }
-	    var current = o;
-	    path.every(function (a) {
-	        if (current[a]) {
-	            current = current[a];
-	            return true;
-	        } else {
-	            current = defaultValue;
-	            return false;
-	        }
-	    });
-	    return current;
-	};
-
-	exports.default = getObjectValue;
-	module.exports = exports['default'];
-
-/***/ },
-/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22155,6 +22115,10 @@ webpackJsonp([0],[
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reduceFlux = __webpack_require__(181);
+
+	var _getObjectValue = __webpack_require__(271);
+
+	var _getObjectValue2 = _interopRequireDefault(_getObjectValue);
 
 	var _reactAtomicMolecule = __webpack_require__(194);
 
@@ -22194,13 +22158,8 @@ webpackJsonp([0],[
 	        key: 'calculateState',
 	        value: function calculateState(prevState, props) {
 	            var state = _index.popupStore.getState();
-	            var key = props.name;
-	            var show = void 0;
-	            if (key) {
-	                show = state.get('node').get(key);
-	            } else {
-	                show = state.get('show');
-	            }
+	            var key = (0, _getObjectValue2.default)(props, ['name'], 'default');
+	            var show = state.get('node').get(key);
 	            return {
 	                show: show
 	            };
@@ -22238,11 +22197,39 @@ webpackJsonp([0],[
 	}(_react.Component);
 
 	PopupOverlay.defaultProps = { show: 1 };
-
-	var PopupOverlayContainer = _reduceFlux.Container.create(PopupOverlay, { withProps: true });
-
 	exports.PopupOverlay = PopupOverlay;
-	exports.default = PopupOverlayContainer;
+	exports.default = _reduceFlux.Container.create(PopupOverlay, { withProps: true });
+
+/***/ },
+/* 271 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var _isArray = Array.isArray;
+
+	var getObjectValue = function getObjectValue(o, path, defaultValue) {
+	    if (!o || !_isArray(path)) {
+	        return defaultValue;
+	    }
+	    var current = o;
+	    path.every(function (a) {
+	        if (current[a]) {
+	            current = current[a];
+	            return true;
+	        } else {
+	            current = defaultValue;
+	            return false;
+	        }
+	    });
+	    return current;
+	};
+
+	exports.default = getObjectValue;
+	module.exports = exports['default'];
 
 /***/ },
 /* 272 */
@@ -22308,7 +22295,7 @@ webpackJsonp([0],[
 
 	var _organismReactAnimate2 = _interopRequireDefault(_organismReactAnimate);
 
-	var _PopupOverlay2 = __webpack_require__(271);
+	var _PopupOverlay2 = __webpack_require__(270);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -25582,37 +25569,48 @@ webpackJsonp([0],[
 	    _createClass(PopupStore, [{
 	        key: 'getInitialState',
 	        value: function getInitialState() {
-	            return (0, _immutable.Map)({ node: (0, _immutable.Map)() });
+	            return (0, _immutable.Map)({ node: (0, _immutable.Map)(), nodes: (0, _immutable.Map)() });
 	        }
 	    }, {
 	        key: 'updateDom',
 	        value: function updateDom(state, action) {
 	            var params = action.params;
 	            var popupNode = params.popup;
-	            var result = void 0;
-	            result = state.set('popup', popupNode);
-	            var key = popupNode.props.name;
-	            if (key) {
-	                var node = result.get('node').set(key, true);
-	                result = result.set('node', node);
-	            } else {
-	                result = result.set('show', true);
-	            }
-	            return result;
+	            var key = get(popupNode, ['props', 'name'], 'default');
+	            var node = state.get('node').set(key, true);
+	            var nodes = state.get('nodes').set(key, popupNode);
+	            return state.set('node', node).set('nodes', nodes);
+	        }
+	    }, {
+	        key: 'getKey',
+	        value: function getKey(action) {
+	            var popup = get(action, ['params', 'popup'], 'default');
+	            var key = get(popup, ['props', 'name'], popup);
+	            return key;
 	        }
 	    }, {
 	        key: 'closeAll',
 	        value: function closeAll(state, action) {
-	            var params = action.params;
-	            var result = void 0;
-	            result = state.set('node', (0, _immutable.Map)());
-	            result = result.set('show', false);
-	            return result;
+	            return state.set('node', (0, _immutable.Map)());
 	        }
 	    }, {
-	        key: 'cleanDom',
-	        value: function cleanDom(state, action) {
-	            return state.delete('popup').set('node', (0, _immutable.Map)());
+	        key: 'closeOne',
+	        value: function closeOne(state, action) {
+	            var key = this.getKey(action);
+	            var node = state.get('node').delete(key);
+	            return state.set('node', node);
+	        }
+	    }, {
+	        key: 'cleanAll',
+	        value: function cleanAll(state, action) {
+	            return state.set('node', (0, _immutable.Map)()).set('nodes', (0, _immutable.Map)());
+	        }
+	    }, {
+	        key: 'cleanOne',
+	        value: function cleanOne() {
+	            var key = this.getKey(action);
+	            var node = state.get('nodes').delete(key);
+	            return state.set('nodes', node);
 	        }
 	    }, {
 	        key: 'reduce',
@@ -25622,8 +25620,12 @@ webpackJsonp([0],[
 	                    return this.updateDom(state, action);
 	                case 'dom/closeAll':
 	                    return this.closeAll(state, action);
-	                case 'dom/clean':
-	                    return this.cleanDom(state, action);
+	                case 'dom/cleanAll':
+	                    return this.cleanAll(state, action);
+	                case 'dom/closeOne':
+	                    return this.closeOne(state, action);
+	                case 'dom/cleanOne':
+	                    return this.cleanOne(state, action);
 	                case 'config/set':
 	                    return state.merge(action.params);
 	                default:
