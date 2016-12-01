@@ -5,6 +5,7 @@ import {Segment, Unsafe} from 'react-atomic-molecule';
 
 class CodeReadme extends Component
 {
+    _isMount = true;
     constructor(props)
     {
         super(props);
@@ -20,9 +21,11 @@ class CodeReadme extends Component
             type: 'ajaxGet',
             params: {
                 url: this.props.url,
-                updateUrl: false,
                 callback: (json,text,o)=>
                 {
+                    if (!this._isMount) {
+                        return false;
+                    }
                     if (200 === o.status) { 
                         self.setState({
                             text: text.replace(
@@ -34,6 +37,11 @@ class CodeReadme extends Component
                 }
             }
         });
+    }
+
+    componentWillUnmount()
+    {
+        this._isMount = false;
     }
 
     render()
