@@ -52,13 +52,13 @@ class AjaxStore extends ReduceStore
       if (json.debugs) {
         let debugs = json.debugs; 
         let bFail = false;
-        require(['../lib/dlog'],function(dlog){ 
+        require(['../lib/dlog'],(dlog)=>{ 
             let c = new dlog({ level: 'trace'});
-            debugs.forEach(function(v){
+            debugs.forEach((v)=>{
                 c[v[0]](v[1]);
             });
         });
-        debugs.forEach(function(v){
+        debugs.forEach((v)=>{
             if ('error' === v[1]) {
                 bFail = true;
             }
@@ -90,22 +90,26 @@ class AjaxStore extends ReduceStore
 
   start()
   {
+    setTimeout(()=>{
        ajaxDispatch({
         type: 'config/set',
         params: {
             isRunning: 1
         }
        });
+    });
   }
 
   done()
   {
+    setTimeout(()=>{
        ajaxDispatch({
         type: 'config/set',
         params: {
             isRunning: 0 
         }
        });
+    });
   }
 
   ajaxGet(state, action)
