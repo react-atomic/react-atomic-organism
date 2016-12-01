@@ -1408,7 +1408,7 @@ is-number@^2.0.2, is-number@^2.1.0:
 
 is-posix-bracket@^0.1.0:
   version "0.1.1"
-  resolved "https://registry.yarnpkg.com/is-posix-bracket/-/is-posix-bracket-0.1.1.tgz#3334dc79774368e92f016e6fbc0a88f5cd6e6bc4"
+  resolved "http://registry.npmjs.org/is-posix-bracket/-/is-posix-bracket-0.1.1.tgz#3334dc79774368e92f016e6fbc0a88f5cd6e6bc4"
 
 is-primitive@^2.0.0:
   version "2.0.0"
@@ -1602,14 +1602,14 @@ node-fetch@^1.0.1:
     is-stream "^1.0.1"
 
 node-pre-gyp@^0.6.29:
-  version "0.6.31"
-  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.6.31.tgz#d8a00ddaa301a940615dbcc8caad4024d58f6017"
+  version "0.6.32"
+  resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.6.32.tgz#fc452b376e7319b3d255f5f34853ef6fd8fe1fd5"
   dependencies:
     mkdirp "~0.5.1"
     nopt "~3.0.6"
-    npmlog "^4.0.0"
+    npmlog "^4.0.1"
     rc "~1.1.6"
-    request "^2.75.0"
+    request "^2.79.0"
     rimraf "~2.5.4"
     semver "~5.3.0"
     tar "~2.2.1"
@@ -1625,7 +1625,7 @@ normalize-path@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-2.0.1.tgz#47886ac1662760d4261b7d979d241709d3ce3f7a"
 
-npmlog@^4.0.0:
+npmlog@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-4.0.1.tgz#d14f503b4cd79710375553004ba96e6662fbc0b8"
   dependencies:
@@ -1666,8 +1666,8 @@ once@~1.3.3:
     wrappy "1"
 
 organism-react-ajax@*:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.15.tgz#912eed8fe1ccb9704b0e6cac92d2f1b982eca489"
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.18.tgz#e8d6d21aa73eac29f82bb972209ea7421bf0b8b6"
   dependencies:
     react-atomic-molecule "*"
     reduce-flux "*"
@@ -1682,10 +1682,11 @@ organism-react-animate@*:
     react-atomic-molecule "*"
 
 organism-react-popup@*:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.0.13.tgz#ae00e5e3b13fceb1dbbef2212cd4b9bbc177a9ba"
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.0.14.tgz#fd952192f0c767aa879728ed7b91bce690f8ac92"
   dependencies:
     getoffset "*"
+    immutable "^3.8.0"
     organism-react-animate "*"
     react-addons-css-transition-group "*"
     react-atomic-molecule ">=0.0.40"
@@ -1922,7 +1923,7 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-request@^2.75.0:
+request@^2.79.0:
   version "2.79.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
   dependencies:
@@ -2106,8 +2107,8 @@ util-deprecate@~1.0.1:
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
 
 uuid@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.0.tgz#6728fc0459c450d796a99c31837569bdf672d728"
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
 v8flags@^2.0.10:
   version "2.0.11"

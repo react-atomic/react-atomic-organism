@@ -7,11 +7,16 @@ import { Progress, SemanticUI } from 'react-atomic-molecule';
 class PageLoadProgressHandle extends Component
 {
     _timer = null;
+    _timerComplete = null;
+    _timerReset1 = null;
+    _timerReset2 = null;
 
     static defaultProps={
         name: 'processBar',
         delay: 200,
-        isFloat: true
+        isFloat: true,
+        ajax: false,
+        pause: 90
     };
 
     static getStores()
@@ -21,7 +26,10 @@ class PageLoadProgressHandle extends Component
 
     static calculateState(prevState)
     {
-
+        const state = ajaxStore.getState();
+        return {
+            isRunning: state.get('isRunning')
+        };
     }
 
     constructor(props)
@@ -39,7 +47,7 @@ class PageLoadProgressHandle extends Component
         this.setState({
             percent: 100, 
         });
-        setTimeout(()=>{
+        this._timerComplete=setTimeout(()=>{
             this.reset();
         },500);
     }
@@ -49,11 +57,11 @@ class PageLoadProgressHandle extends Component
         this.setState({
             opacity: 0 
         });
-        setTimeout(()=>{
+        this._timerReset1 = setTimeout(()=>{
             this.setState({
                 percent: 0, 
             });
-            setTimeout(()=>{
+            this._timerReset2 = setTimeout(()=>{
                 this.setState({
                     opacity: 1 
                 });
@@ -64,6 +72,9 @@ class PageLoadProgressHandle extends Component
     pause = () =>
     {
         clearInterval(this._timer);
+        clearTimeout(this._timerComplete);
+        clearTimeout(this._timerReset1);
+        clearTimeout(this._timerReset2);
         this._timer = false;
     }
 
@@ -99,9 +110,31 @@ class PageLoadProgressHandle extends Component
         });
     }
     
-    componentDidMount()
+    componentWillUnmount()
     {
-        if (this.props.isFloat) {
+        this.pause();
+        popupDispatch({
+            type: 'dom/cleanOne',
+            params: {
+                popup: this.props.name
+            }
+        });
+    }
+
+    componentDidUpdate(prevProps, prevState)
+    {
+        const {isRunning} = this.state; 
+        const self = this;
+        if (self.props.ajax && prevState && prevState.isRunning !== isRunning) {
+            if (isRunning) {
+                setTimeout(()=>{
+                    self.start(self.props.pause);
+                });
+            } else {
+                setTimeout(()=>{
+                    self.complete();
+                });
+            }
         }
     }
 
