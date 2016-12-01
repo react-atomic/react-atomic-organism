@@ -1,3 +1,4 @@
+import React from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule';
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
@@ -9,7 +10,7 @@ class AjaxLink extends AjaxBase
         updateUrl: true
     }
 
-    handleOnClick(e) {
+    handleOnClick = (e) => {
         e.preventDefault();
         let href = e.currentTarget.href;
         this.go(href);
@@ -31,16 +32,16 @@ class AjaxLink extends AjaxBase
 
     render() {
         const { path, href, ...rest } = this.props;
-        let myHref = ajaxStore.getRawUrl({
+        const thisHref = ajaxStore.getRawUrl({
             path: path,
             url: href
         });
         return (
             <SemanticUI
                 atom="a"
-                href={myHref}
+                href={thisHref}
                 {...rest}
-                onClick={this.handleOnClick.bind(this)}
+                onClick={this.handleOnClick}
             />
         );  
     }

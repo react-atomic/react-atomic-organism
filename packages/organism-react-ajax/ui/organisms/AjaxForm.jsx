@@ -1,3 +1,4 @@
+import React from 'react'; 
 import { Form } from 'react-atomic-molecule';
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
@@ -6,8 +7,9 @@ import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
 class AjaxForm extends AjaxBase 
 {
 
-    handleOnSubmit(e) {
+    handleOnSubmit = (e) => {
         e.preventDefault();
+        const { callback, errorCallback, updateUrl} = this.props;
         let formDom = e.target;
         let elements = formDom.elements;
         let action = formDom.action;
@@ -26,7 +28,7 @@ class AjaxForm extends AjaxBase
                 type = 'ajaxGet'; 
                 otherParams = {
                     disableAjax: !this.isRunAjax(),
-                    updateUrl: this.props.updateUrl
+                    updateUrl: updateUrl
                 };
                 break;
             case 'post':
@@ -40,8 +42,8 @@ class AjaxForm extends AjaxBase
             params: {
                 url: action,
                 query: formParams,
-                callback: this.props.callback,
-                errorCallback: this.props.errorCallback,
+                callback: callback,
+                errorCallback: errorCallback,
                 ...otherParams
             }
         });
@@ -50,7 +52,7 @@ class AjaxForm extends AjaxBase
 
     render() {
         const {action, path, callback, errorCallback, ...rest} = this.props;
-        let thisUrl = ajaxStore.getRawUrl({
+        const thisUrl = ajaxStore.getRawUrl({
             url: action,
             path: path
         });
@@ -59,7 +61,7 @@ class AjaxForm extends AjaxBase
                 atom="form"
                 action={thisUrl}
                 {...rest}
-                onSubmit={this.handleOnSubmit.bind(this)}
+                onSubmit={this.handleOnSubmit}
             />
         );  
     }
