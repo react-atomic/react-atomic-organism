@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
-    assign,
     reactStyle,
     injectStyle,
     SemanticUI
@@ -49,13 +48,13 @@ class Animate extends Component
     {
         getKeyframe(ani);
         inject[key] = true;
-        reactStyle(assign(
-            {
+        reactStyle({
+            ...{
                 animationName: [ani],
                 animationDuration: [timeout+'ms']
             },
-            baseStyle, 
-        ), '.'+key);
+            ...baseStyle, 
+        }, '.'+key);
     }
 
     render()
