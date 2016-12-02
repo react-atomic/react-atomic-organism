@@ -31,7 +31,7 @@ class AjaxLink extends AjaxBase
     }
 
     render() {
-        const { path, href, ...rest } = this.props;
+        const { path, href, updateUrl, ...rest } = this.props;
         const thisHref = ajaxStore.getRawUrl({
             path: path,
             url: href

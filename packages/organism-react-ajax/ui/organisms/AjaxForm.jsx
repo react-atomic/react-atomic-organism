@@ -6,6 +6,9 @@ import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
 
 class AjaxForm extends AjaxBase 
 {
+    static defaultProps = {
+        updateUrl: false 
+    }
 
     handleOnSubmit = (e) => {
         e.preventDefault();
@@ -51,7 +54,14 @@ class AjaxForm extends AjaxBase
 
 
     render() {
-        const {action, path, callback, errorCallback, ...rest} = this.props;
+        const {
+            action,
+            path,
+            callback,
+            errorCallback,
+            updateUrl,
+            ...rest
+        } = this.props;
         const thisUrl = ajaxStore.getRawUrl({
             url: action,
             path: path
