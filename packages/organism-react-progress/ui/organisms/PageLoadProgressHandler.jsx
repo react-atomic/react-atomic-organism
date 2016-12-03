@@ -16,7 +16,8 @@ class PageLoadProgressHandle extends Component
         delay: 200,
         isFloat: true,
         ajax: false,
-        pause: 90
+        pause: 90,
+        zIndex: 1
     };
 
     static getStores()
@@ -140,11 +141,12 @@ class PageLoadProgressHandle extends Component
 
     render()
     {
-        const {name, isFloat} = this.props;
+        const {name, zIndex, isFloat} = this.props;
         const {percent, opacity} = this.state;
         let bar = <Progress
             style={{...Styles.progress,...{
-                opacity: opacity
+                opacity: opacity,
+                zIndex: zIndex
             }}}
             barProps={{
                 style: Styles.bar
@@ -177,7 +179,6 @@ const Styles = {
         left: 0,
         right: 0,
         transition: ['opacity 500ms linear'],
-        zIndex: 1
     },
     bar: {
         position: 'fixed',
