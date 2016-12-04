@@ -22898,6 +22898,16 @@ webpackJsonp([0],[
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
 	var _createClass = function () {
 	    function defineProperties(target, props) {
 	        for (var i = 0; i < props.length; i++) {
@@ -22922,12 +22932,6 @@ webpackJsonp([0],[
 	    return obj && obj.__esModule ? obj : { default: obj };
 	}
 
-	function _objectWithoutProperties(obj, keys) {
-	    var target = {};for (var i in obj) {
-	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
-	    }return target;
-	}
-
 	function _classCallCheck(instance, Constructor) {
 	    if (!(instance instanceof Constructor)) {
 	        throw new TypeError("Cannot call a class as a function");
@@ -22946,6 +22950,19 @@ webpackJsonp([0],[
 	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
+	function _objectWithoutProperties(obj, keys) {
+	    var target = {};for (var i in obj) {
+	        if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+	    }return target;
+	}
+
+	var image = function image(props) {
+	    var animate = props.animate,
+	        others = _objectWithoutProperties(props, ['animate']);
+
+	    return _react2.default.createElement(_reactAtomicMolecule.Image, others);
+	};
+
 	var AnimateImage = function (_Component) {
 	    _inherits(AnimateImage, _Component);
 
@@ -22954,11 +22971,8 @@ webpackJsonp([0],[
 
 	        var _this = _possibleConstructorReturn(this, (AnimateImage.__proto__ || Object.getPrototypeOf(AnimateImage)).call(this, props));
 
-	        var animate = props.animate,
-	            others = _objectWithoutProperties(props, ['animate']);
-
 	        _this.state = {
-	            image: _react2.default.createElement(_reactAtomicMolecule.Image, others)
+	            image: image(props)
 	        };
 	        return _this;
 	    }
@@ -22967,25 +22981,32 @@ webpackJsonp([0],[
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(props) {
 	            var self = this;
-	            self.setState({ image: null });
-
-	            var animate = props.animate,
-	                others = _objectWithoutProperties(props, ['animate']);
+	            var animate = props.animate;
 
 	            setTimeout(function () {
+	                self.setState({ image: null });
+	            });
+	            var delay = 100;
+	            if (animate.leave) {
+	                delay = this.ani.leaveTimeout + 100;
+	            }
+	            setTimeout(function () {
 	                self.setState({
-	                    image: _react2.default.createElement(_reactAtomicMolecule.Image, others)
+	                    image: image(props)
 	                });
-	            }, 100);
+	            }, delay);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _props = this.props,
-	                animate = _props.animate,
-	                others = _objectWithoutProperties(_props, ['animate']);
+	            var _this2 = this;
 
-	            return _react2.default.createElement(_Animate2.default, animate, this.state.image);
+	            var animate = this.props.animate;
+	            var image = this.state.image;
+
+	            return _react2.default.createElement(_Animate2.default, _extends({}, animate, { ref: function ref(o) {
+	                    return _this2.ani = o;
+	                } }), image);
 	        }
 	    }]);
 
@@ -22994,7 +23015,8 @@ webpackJsonp([0],[
 
 	AnimateImage.defaultProps = {
 	    animate: {
-	        enter: 'fadeIn-1500'
+	        enter: 'fadeIn-1500',
+	        leave: 'fadeOut-500'
 	    }
 	};
 	exports.default = AnimateImage;

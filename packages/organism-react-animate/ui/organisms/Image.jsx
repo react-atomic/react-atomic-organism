@@ -5,41 +5,55 @@ import {
 
 import Animate from '../organisms/Animate';
 
+const image = (props) =>
+{
+    const {animate, ...others} = props;
+    return <Image {...others}/>;
+}
+
 class AnimateImage extends Component
 {
     static defaultProps = {
         animate: {
-            enter: 'fadeIn-1500'
+            enter: 'fadeIn-1500',
+            leave: 'fadeOut-500',
         }
     };
 
     constructor(props)
     {
         super(props);
-        const {animate, ...others} = props;
         this.state = {
-            image: <Image {...others}/> 
+            image: image(props)
         };
     }
+
 
     componentWillReceiveProps(props)
     {
         const self = this;
-        self.setState({image:null});
-        const {animate, ...others} = props;
+        const {animate} = props;
+        setTimeout(()=>{
+            self.setState({image: null});
+        });
+        let delay = 100;
+        if (animate.leave) {
+            delay = this.ani.leaveTimeout+100;
+        }
         setTimeout(()=>{
             self.setState({
-                image: <Image {...others}/>
+                image: image(props)
             });
-        },100);
+        },delay);
     }
 
     render()
     {
-        const {animate, ...others} = this.props;
+        const {animate} = this.props;
+        const {image} = this.state;
         return (
-            <Animate {...animate}>
-            {this.state.image}
+            <Animate {...animate} ref={o=>this.ani=o}>
+            {image}
             </Animate>
         );
     }
