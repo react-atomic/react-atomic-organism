@@ -1,6 +1,6 @@
-webpackJsonp([9],{
+webpackJsonp([2],{
 
-/***/ 262:
+/***/ 274:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9,12 +9,13 @@ webpackJsonp([9],{
 	    value: true
 	});
 	var css = {
-	    fadeOutDown: [[{
-	        opacity: 1
-	    }, {
+	    fadeInUp: [[{
 	        opacity: 0,
 	        transform: ['translate3d(0, 100%, 0)']
-	    }], ['@keyframes fadeOutDown', 'from', 'to']]
+	    }, {
+	        opacity: 1,
+	        transform: ['none']
+	    }], ['@keyframes fadeInUp', 'from', 'to']]
 	};
 	exports.default = css;
 	module.exports = exports['default'];

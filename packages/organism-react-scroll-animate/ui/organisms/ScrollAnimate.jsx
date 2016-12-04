@@ -50,7 +50,7 @@ const Content = (props) => {
 const ScrollAnimate = (props) => { 
     const {enter, leave, once, minHeight, children, ...others} = props;
     return ( 
-        <ScrollSpy {...others} container={<Content />}>
+        <ScrollSpy {...others}>
             <ScrollReceiver
                 enter={enter}
                 leave={leave}
@@ -63,6 +63,7 @@ const ScrollAnimate = (props) => {
     );
 };
 ScrollAnimate.defaultProps = {
+    container: <Content />,
     once: true,
     testScrollTo: false,
     minHeight: 155, //need great than browser minHeigh 150px
