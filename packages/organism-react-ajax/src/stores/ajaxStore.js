@@ -114,12 +114,12 @@ class AjaxStore extends ReduceStore
 
   ajaxGet(state, action)
   {
-    let self = this;
-    let params = action.params;
+    const self = this;
+    const params = action.params;
     if (!params.query) {
         params.query = {};
     }
-    let rawUrl = this.getRawUrl(params);
+    const rawUrl = this.getRawUrl(params);
     if (params.updateUrl) {
         history.pushState('','',rawUrl);
     }
@@ -130,10 +130,12 @@ class AjaxStore extends ReduceStore
         }
         return state;
     }
+    self.start();
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-    params.query.r = ((new Date()).getTime());
+    if (params.disableRandom) {
+        params.query.r = ((new Date()).getTime());
+    }
     require(['superagent'],(req)=>{ 
-       self.start();
        req.get(ajaxUrl)
           .query(params.query)
           .set('Accept', 'application/json')
@@ -152,12 +154,12 @@ class AjaxStore extends ReduceStore
 
   ajaxPost(state, action)
   {
-    let self = this;
-    let params = action.params;
-    let rawUrl = this.getRawUrl(params);
+    const self = this;
+    self.start();
+    const params = action.params;
+    const rawUrl = this.getRawUrl(params);
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
     require(['superagent'],(req)=>{ 
-       self.start();
        req.post(ajaxUrl)
           .send(params.query)
           .withCredentials()

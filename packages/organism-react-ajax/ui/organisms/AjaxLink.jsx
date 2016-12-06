@@ -7,12 +7,13 @@ import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
 class AjaxLink extends AjaxBase
 {
     static defaultProps = {
-        updateUrl: true
+        updateUrl: true,
+        disableRandom: true
     }
 
     handleOnClick = (e) => {
         e.preventDefault();
-        let href = e.currentTarget.href;
+        const href = e.currentTarget.href;
         this.go(href);
         if (this.props.onClick) {
             this.props.onClick();
@@ -26,12 +27,13 @@ class AjaxLink extends AjaxBase
                 url: url,
                 disableAjax: !this.isRunAjax(),
                 updateUrl: this.props.updateUrl,
+                disableRandom: this.props.disableRandom
             }
         });
     }
 
     render() {
-        const { path, href, updateUrl, ...rest } = this.props;
+        const { path, href, updateUrl, disableRandom, ...rest } = this.props;
         const thisHref = ajaxStore.getRawUrl({
             path: path,
             url: href
