@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Image
-} from 'react-atomic-molecule';
+import { Image } from 'react-atomic-molecule';
 
 import Animate from '../organisms/Animate';
 
@@ -15,7 +13,7 @@ class AnimateImage extends Component
 {
     static defaultProps = {
         animate: {
-            enter: 'fadeIn-1500',
+            enter: 'fadeIn-500',
             leave: 'fadeOut-500',
         }
     };
@@ -28,17 +26,20 @@ class AnimateImage extends Component
         };
     }
 
-
     componentWillReceiveProps(props)
     {
+        if ( this.props.src === props.src
+           || 'undefined' === typeof window 
+        ) {
+            return;
+        }
         const self = this;
-        const {animate} = props;
-        setTimeout(()=>{
-            self.setState({image: null});
-        });
+        const {animate, src} = props;
+        (new window.Image()).src = src;
+        self.setState({image: null});
         let delay = 100;
         if (animate.leave) {
-            delay = this.ani.leaveTimeout+100;
+            delay = self.ani.leaveTimeout+150;
         }
         setTimeout(()=>{
             self.setState({

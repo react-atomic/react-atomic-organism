@@ -22980,15 +22980,18 @@ webpackJsonp([0],[
 	    _createClass(AnimateImage, [{
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(props) {
+	            if (this.props.src === props.src || 'undefined' === typeof window) {
+	                return;
+	            }
 	            var self = this;
-	            var animate = props.animate;
+	            var animate = props.animate,
+	                src = props.src;
 
-	            setTimeout(function () {
-	                self.setState({ image: null });
-	            });
+	            new window.Image().src = src;
+	            self.setState({ image: null });
 	            var delay = 100;
 	            if (animate.leave) {
-	                delay = this.ani.leaveTimeout + 100;
+	                delay = self.ani.leaveTimeout + 150;
 	            }
 	            setTimeout(function () {
 	                self.setState({
@@ -23015,7 +23018,7 @@ webpackJsonp([0],[
 
 	AnimateImage.defaultProps = {
 	    animate: {
-	        enter: 'fadeIn-1500',
+	        enter: 'fadeIn-500',
 	        leave: 'fadeOut-500'
 	    }
 	};
