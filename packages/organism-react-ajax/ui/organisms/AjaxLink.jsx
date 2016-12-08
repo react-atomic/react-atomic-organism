@@ -8,7 +8,7 @@ class AjaxLink extends AjaxBase
 {
     static defaultProps = {
         updateUrl: true,
-        disableRandom: true
+        disableRandom: false
     }
 
     handleOnClick = (e) => {

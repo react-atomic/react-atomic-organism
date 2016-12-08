@@ -3,6 +3,7 @@
 import Immutable from 'immutable';
 import {ReduceStore} from 'reduce-flux';
 import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
+import get from 'get-object-value';
 
 const empty = function(){}
 
@@ -132,19 +133,19 @@ class AjaxStore extends ReduceStore
     }
     self.start();
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-    if (params.disableRandom) {
+    if (!params.disableRandom) {
         params.query.r = ((new Date()).getTime());
     }
     require(['superagent'],(req)=>{ 
        req.get(ajaxUrl)
           .query(params.query)
-          .set('Accept', 'application/json')
+          .set('Accept', get(params, ['accept'], 'application/json'))
           .end((res)=>{
                 self.done();
                 const json = self.getJson(res.text);
                 let callback = self.getCallback(state, action, json);
                 callback(json, res.text, res);
-                if (params.updateUrl) {
+                if (params.updateUrl || params.scrollBack) {
                     window.scrollTo(0,0);
                 }
            });
