@@ -1,19 +1,25 @@
 import React, {Component} from 'react'; 
 
 import {
+    min,
+    reactStyle,
     Item,
     Menu
 } from 'react-atomic-molecule';
 
-const plusOne = (i)=>{
+const plusOne = (i) =>
+{
     return i+1;
 };
 
+const getFromTo = (from, to) =>
+{
+    return plusOne(from)+ '-'+ plusOne(to);
+}
+
 const BasePage = (props)=>
 {
-    const {component, className, url, children} = props;
-    const from = plusOne(props[0]);
-    const to = plusOne(props[1]);
+    const {component, className,  children, style, url} = props;
     let build;
     if (React.isValidElement(component)) {
         build = React.cloneElement;
@@ -23,9 +29,13 @@ const BasePage = (props)=>
     return build(
         component,
         {
-            title: from+ '-'+ to,
+            title: getFromTo(props[0], props[1]),
             className: className,
-            href: url
+            href: url,
+            style: {
+                ...{display:'none', minWidth: '2rem'},
+                ...style
+            }
         },
         children
     );
@@ -36,17 +46,18 @@ const Page = (props)=>(
 );
 
 const Forward = (props)=>(
-    <BasePage {...props}>{'> '+ props.txtMore}</BasePage>
+    <BasePage style={{display:'inline'}} {...props}>{'> '+ props.txtMore}</BasePage>
 );
 
 const Backward = (props)=>(
-    <BasePage {...props}>{'<'}</BasePage>
+    <BasePage style={{display:'inline'}} {...props}>{'<'}</BasePage>
 );
 
 const Current = (props)=>(
     <Item
-        title={plusOne(props[0])+'-'+plusOne(props[1])}
+        title={getFromTo(props[0], props[1])}
         className="active"
+        style={{display: 'inline'}}
     >
     {props.currentPage}
     </Item>
@@ -61,7 +72,15 @@ const LastPage = (props)=>(
 );
 
 const Ellipsis = (props)=>(
-    <Item className="disabled">...</Item>
+    <Item
+        className="disabled"
+        style={{
+            display:'none',
+            minWidth: '1rem'
+        }}
+    >
+    ...
+    </Item>
 );
 
 const Pagination = (props)=>
@@ -80,8 +99,13 @@ const Pagination = (props)=>
         lastPage = <LastPage {...pg.lastPage} component={linkComponent}/>;
         lastEllipsis =  <Ellipsis />;
     }
+    reactStyle(
+        {display: 'inline !important'},
+        [min.sm, '.pagination.menu .item'],
+        'pagination'
+    );
     return (
-        <Menu className="compact">
+        <Menu className="compact pagination">
         {firstPage}
         {firstEllipsis}
         {pg.list.map((v,k)=>{
