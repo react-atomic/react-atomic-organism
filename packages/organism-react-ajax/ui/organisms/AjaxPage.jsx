@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
 
+let pages={};
+
 class AjaxPage extends Component
 {
     static defaultProps = {
@@ -64,7 +66,21 @@ class AjaxPage extends Component
                 }
             });
         });
-        return themes[thisThemePath];
+        if (!pages[thisThemePath]) {
+            const myTheme = themes[thisThemePath];
+            if (Array.isArray(myTheme)) {
+                pages[thisThemePath] = myTheme[0]();
+            } else {
+                let build;
+                if (React.isValidElement(myTheme)) {
+                    build = React.cloneElement;
+                } else {
+                    build = React.createElement;
+                }
+                pages[thisThemePath] = build(myTheme);
+            }
+        }
+        return pages[thisThemePath];
     }
 }
 

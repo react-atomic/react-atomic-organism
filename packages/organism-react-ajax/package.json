@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.0.27",
+  "version": "0.0.28",
   "description": "React Ajax",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -10,9 +10,9 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "get-object-value": "*",
     "react-atomic-molecule": "*",
     "reduce-flux": "*",
-    "get-object-value": "*",
     "superagent": "^0.21.0"
   },
   "devDependencies": {
