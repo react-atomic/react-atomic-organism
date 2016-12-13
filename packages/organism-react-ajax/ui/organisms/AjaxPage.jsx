@@ -68,17 +68,13 @@ class AjaxPage extends Component
         });
         if (!pages[thisThemePath]) {
             const myTheme = themes[thisThemePath];
-            if (Array.isArray(myTheme)) {
-                pages[thisThemePath] = myTheme[0]();
+            let build;
+            if (React.isValidElement(myTheme)) {
+                build = React.cloneElement;
             } else {
-                let build;
-                if (React.isValidElement(myTheme)) {
-                    build = React.cloneElement;
-                } else {
-                    build = React.createElement;
-                }
-                pages[thisThemePath] = build(myTheme);
+                build = React.createElement;
             }
+            pages[thisThemePath] = build(myTheme);
         }
         return pages[thisThemePath];
     }
