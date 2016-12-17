@@ -29,6 +29,7 @@ class AjaxPage extends Component
                         url: url 
                     }
                 });
+                window.scrollTo(0,0);
             }
         };
         setTimeout(()=>{
