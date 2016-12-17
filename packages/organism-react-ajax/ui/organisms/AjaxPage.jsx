@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; 
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
+import smoothScrollTo from 'smooth-scroll-to';
 
 let pages={};
 
@@ -29,7 +30,7 @@ class AjaxPage extends Component
                         url: url 
                     }
                 });
-                window.scrollTo(0,0);
+                smoothScrollTo(0);
             }
         };
         setTimeout(()=>{
