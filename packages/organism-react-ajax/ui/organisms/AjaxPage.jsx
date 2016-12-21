@@ -1,7 +1,9 @@
 import React, {Component} from 'react'; 
+import smoothScrollTo from 'smooth-scroll-to';
+import get from 'get-object-value';
+
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
-import smoothScrollTo from 'smooth-scroll-to';
 
 let pages={};
 
@@ -21,6 +23,7 @@ class AjaxPage extends Component
     }
 
     componentDidMount() {
+        const props = this.props;
         const updateWithUrl = (url)=>{
             const pageState = ajaxStore.getState();
             if (pageState.get('url')!==url) {
@@ -46,6 +49,26 @@ class AjaxPage extends Component
             const updateWithUrl = pageState.get('updateWithUrl');
             updateWithUrl(document.URL);
         };
+        if (props.webSocketUrl && window.Worker) {
+            require(['worker-loader!../../src/worker'],(WorkerObject)=>{ 
+                const worker = new WorkerObject();
+                worker.addEventListener('message', (e)=>{
+                    switch (get(e, ['data','type'])) {
+                        case 'ready':
+                            worker.postMessage({ws: props.webSocketUrl, type: 'initWs'});
+                            break;
+                        case 'ws':
+                            ajaxDispatch({
+                                type: 'callback',
+                                params: {
+                                    data: e.data.data
+                                }
+                            });
+                            break;
+                    };
+                });
+            });
+        }
     }
 
     render() {

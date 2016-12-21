@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "React Ajax",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -14,7 +14,8 @@
     "react-atomic-molecule": "*",
     "reduce-flux": "*",
     "smooth-scroll-to": "*",
-    "superagent": "^0.21.0"
+    "superagent": "^0.21.0",
+    "worker-loader": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -143,7 +143,7 @@ class AjaxStore extends ReduceStore
           .end((res)=>{
                 self.done();
                 const json = self.getJson(res.text);
-                let callback = self.getCallback(state, action, json);
+                const callback = self.getCallback(state, action, json);
                 callback(json, res.text, res);
                 if (params.updateUrl || params.scrollBack) {
                     window.scrollTo(0,0);
@@ -168,10 +168,21 @@ class AjaxStore extends ReduceStore
           .end((res)=>{
                 self.done();
                 const json = self.getJson(res.text);
-                let callback = self.getCallback(state, action, json);
+                const callback = self.getCallback(state, action, json);
                 callback(json, res.text);
            });
     });
+    return state;
+  }
+
+  applyCallback(state, action)
+  {
+    const data = get(action, ['params', 'data']);
+    const json = this.getJson(data);
+    const callback = this.getCallback(state, action, json);
+    if (get(json,['data','constructor'])===Object) {
+        callback(json.data, data);
+    }
     return state;
   }
 
@@ -183,6 +194,8 @@ class AjaxStore extends ReduceStore
                return this.ajaxGet(state, action); 
             case 'ajaxPost':
                return this.ajaxPost(state, action); 
+            case 'callback':
+                return this.applyCallback(state, action); 
             case 'config/set':
                return state.merge(action.params);
             default:
