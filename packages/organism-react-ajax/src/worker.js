@@ -1,25 +1,36 @@
 import get from 'get-object-value';
 
-let callbacks = [];
-
+var ws;
+var callbacks = [];
 var post;
+
 try {
     post = postMessage;
     post({ type: "ready" });
 } catch (e) {
     post = (data) =>
     {
-        const d = {
+        const e = {
             data: data
         };
         callbacks.forEach((c)=>{
-            c(d); 
+            c(e); 
         });
     };
 }
-
-
-let ws;
+export default {
+    postMessage: (data) =>
+    {
+        const e = {
+            data: data
+        };
+        onmessage(e);      
+    },
+    addEventListener: (type, callback) =>
+    {
+        callbacks.push(callback);        
+    }
+};
 
 onmessage = (e) =>
 {
@@ -80,17 +91,4 @@ const initWs = (url) =>
     ws.onmessage = (e) => {
         post({type: 'ws', text: e.data});
     };
-};
-export default {
-    postMessage: (data) =>
-    {
-        const d = {
-            data: data
-        };
-        onmessage(d);      
-    },
-    addEventListener: (type, callback) =>
-    {
-        callbacks.push(callback);        
-    }
 };
