@@ -75,7 +75,7 @@ class AjaxStore extends ReduceStore
 
   getCallback(state, action, json)
   {
-      let params = action.params;
+      const params = get(action, ['params'], {}); 
       let callback;
       if (json.errors) {
           if (params.errorCallback) {
@@ -194,7 +194,7 @@ class AjaxStore extends ReduceStore
   applyCallback(state, action)
   {
     this.done();
-    const params = get(action, ['params']); 
+    const params = get(action, ['params'], {}); 
     const text = get(action, ['text']);
     const json = this.getJson(text);
     const callback = this.getCallback(state, action, json);
