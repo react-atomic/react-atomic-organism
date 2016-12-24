@@ -29,7 +29,7 @@ class CodeExample extends Component
 
     render()
     {
-        const {header, children, code, git, npm} = this.props
+        const {header, children, code, git, npm, id} = this.props
         const state = this.state;
         let codeStyle = {};
         let thisCode;
@@ -58,7 +58,7 @@ class CodeExample extends Component
             </Icon>;
         }
         return (
-            <List type="segment"> 
+            <List type="segment" id={id}> 
                 <Segment className="tertiary">
                     <Header style={Styles.header} className="grey">{header}</Header>
                     <SemanticUI style={Styles.iconBlock}>

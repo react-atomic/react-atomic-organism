@@ -282,7 +282,7 @@ webpackJsonp([0],[
 
 	var _index2 = _interopRequireDefault(_index);
 
-	var _index3 = __webpack_require__(539);
+	var _index3 = __webpack_require__(549);
 
 	var _index4 = _interopRequireDefault(_index3);
 
@@ -389,7 +389,7 @@ webpackJsonp([0],[
 
 	var _CodeBlock2 = _interopRequireDefault(_CodeBlock);
 
-	var _CodeReadme = __webpack_require__(433);
+	var _CodeReadme = __webpack_require__(434);
 
 	var _CodeReadme2 = _interopRequireDefault(_CodeReadme);
 
@@ -444,7 +444,8 @@ webpackJsonp([0],[
 	                children = _props.children,
 	                code = _props.code,
 	                git = _props.git,
-	                npm = _props.npm;
+	                npm = _props.npm,
+	                id = _props.id;
 
 	            var state = this.state;
 	            var codeStyle = {};
@@ -480,7 +481,8 @@ webpackJsonp([0],[
 	                }, void 0, _jsx(_Npm2.default, {}));
 	            }
 	            return _jsx(_reactAtomicMolecule.List, {
-	                type: 'segment'
+	                type: 'segment',
+	                id: id
 	            }, void 0, _jsx(_reactAtomicMolecule.Segment, {
 	                className: 'tertiary'
 	            }, void 0, _jsx(_reactAtomicMolecule.Header, {
@@ -536,9 +538,9 @@ webpackJsonp([0],[
 
 /***/ },
 /* 182 */
-[540, 183, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 251, 252, 253, 5, 254, 245, 255, 256],
+[550, 183, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 251, 252, 253, 5, 254, 245, 255, 256],
 /* 183 */
-[541, 184, 185, 187, 188],
+[551, 184, 185, 187, 188],
 /* 184 */
 /***/ function(module, exports) {
 
@@ -589,7 +591,7 @@ webpackJsonp([0],[
 
 /***/ },
 /* 185 */
-[542, 186],
+[552, 186],
 /* 186 */
 /***/ function(module, exports) {
 
@@ -614,9 +616,9 @@ webpackJsonp([0],[
 
 /***/ },
 /* 187 */
-[543, 186, 185],
+[553, 186, 185],
 /* 188 */
-[544, 185, 187, 184],
+[554, 185, 187, 184],
 /* 189 */
 /***/ function(module, exports) {
 
@@ -644,61 +646,61 @@ webpackJsonp([0],[
 
 /***/ },
 /* 190 */
-[545, 182],
-/* 191 */
-[546, 182],
-/* 192 */
-[547, 182],
-/* 193 */
-[548, 182],
-/* 194 */
-[549, 182],
-/* 195 */
-[550, 182],
-/* 196 */
-[551, 182],
-/* 197 */
-[552, 182],
-/* 198 */
-[553, 182],
-/* 199 */
-[554, 182],
-/* 200 */
 [555, 182],
-/* 201 */
+/* 191 */
 [556, 182],
-/* 202 */
+/* 192 */
 [557, 182],
-/* 203 */
+/* 193 */
 [558, 182],
-/* 204 */
+/* 194 */
 [559, 182],
-/* 205 */
+/* 195 */
 [560, 182],
-/* 206 */
+/* 196 */
 [561, 182],
-/* 207 */
+/* 197 */
 [562, 182],
-/* 208 */
+/* 198 */
 [563, 182],
-/* 209 */
+/* 199 */
 [564, 182],
-/* 210 */
+/* 200 */
 [565, 182],
-/* 211 */
+/* 201 */
 [566, 182],
-/* 212 */
+/* 202 */
 [567, 182],
-/* 213 */
+/* 203 */
 [568, 182],
-/* 214 */
+/* 204 */
 [569, 182],
+/* 205 */
+[570, 182],
+/* 206 */
+[571, 182],
+/* 207 */
+[572, 182],
+/* 208 */
+[573, 182],
+/* 209 */
+[574, 182],
+/* 210 */
+[575, 182],
+/* 211 */
+[576, 182],
+/* 212 */
+[577, 182],
+/* 213 */
+[578, 182],
+/* 214 */
+[579, 182],
 /* 215 */
-[570, 216, 245, 182],
+[580, 216, 245, 182],
 /* 216 */
-[571, 217, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244],
+[581, 217, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244],
 /* 217 */
-[572, 218],
+[582, 218],
 /* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -741,59 +743,59 @@ webpackJsonp([0],[
 
 /***/ },
 /* 219 */
-[573, 218],
-/* 220 */
-[574, 218],
-/* 221 */
-[575, 218],
-/* 222 */
-[576, 218],
-/* 223 */
-[577, 218],
-/* 224 */
-[578, 218],
-/* 225 */
-[579, 218],
-/* 226 */
-[580, 218],
-/* 227 */
-[581, 218],
-/* 228 */
-[582, 218],
-/* 229 */
 [583, 218],
-/* 230 */
+/* 220 */
 [584, 218],
-/* 231 */
+/* 221 */
 [585, 218],
-/* 232 */
+/* 222 */
 [586, 218],
-/* 233 */
+/* 223 */
 [587, 218],
-/* 234 */
+/* 224 */
 [588, 218],
-/* 235 */
+/* 225 */
 [589, 218],
-/* 236 */
+/* 226 */
 [590, 218],
-/* 237 */
+/* 227 */
 [591, 218],
-/* 238 */
+/* 228 */
 [592, 218],
-/* 239 */
+/* 229 */
 [593, 218],
-/* 240 */
+/* 230 */
 [594, 218],
-/* 241 */
+/* 231 */
 [595, 218],
-/* 242 */
+/* 232 */
 [596, 218],
-/* 243 */
+/* 233 */
 [597, 218],
-/* 244 */
+/* 234 */
 [598, 218],
+/* 235 */
+[599, 218],
+/* 236 */
+[600, 218],
+/* 237 */
+[601, 218],
+/* 238 */
+[602, 218],
+/* 239 */
+[603, 218],
+/* 240 */
+[604, 218],
+/* 241 */
+[605, 218],
+/* 242 */
+[606, 218],
+/* 243 */
+[607, 218],
+/* 244 */
+[608, 218],
 /* 245 */
-[599, 246, 247, 248, 182],
+[609, 246, 247, 248, 182],
 /* 246 */
 /***/ function(module, exports) {
 
@@ -884,7 +886,7 @@ webpackJsonp([0],[
 
 /***/ },
 /* 248 */
-[600, 249, 250],
+[610, 249, 250],
 /* 249 */
 /***/ function(module, exports) {
 
@@ -957,11 +959,11 @@ webpackJsonp([0],[
 
 /***/ },
 /* 251 */
-[601, 182],
+[611, 182],
 /* 252 */
-[602, 182],
+[612, 182],
 /* 253 */
-[603, 182],
+[613, 182],
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1002,11 +1004,11 @@ webpackJsonp([0],[
 
 /***/ },
 /* 255 */
-[604, 256],
+[614, 256],
 /* 256 */
-[605, 257, 246],
+[615, 257, 246],
 /* 257 */
-[606, 246],
+[616, 246],
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2536,83 +2538,84 @@ webpackJsonp([0],[
 	hljs.registerLanguage('lisp', __webpack_require__(353));
 	hljs.registerLanguage('livecodeserver', __webpack_require__(354));
 	hljs.registerLanguage('livescript', __webpack_require__(355));
-	hljs.registerLanguage('lsl', __webpack_require__(356));
-	hljs.registerLanguage('lua', __webpack_require__(357));
-	hljs.registerLanguage('makefile', __webpack_require__(358));
-	hljs.registerLanguage('mathematica', __webpack_require__(359));
-	hljs.registerLanguage('matlab', __webpack_require__(360));
-	hljs.registerLanguage('maxima', __webpack_require__(361));
-	hljs.registerLanguage('mel', __webpack_require__(362));
-	hljs.registerLanguage('mercury', __webpack_require__(363));
-	hljs.registerLanguage('mipsasm', __webpack_require__(364));
-	hljs.registerLanguage('mizar', __webpack_require__(365));
-	hljs.registerLanguage('perl', __webpack_require__(366));
-	hljs.registerLanguage('mojolicious', __webpack_require__(367));
-	hljs.registerLanguage('monkey', __webpack_require__(368));
-	hljs.registerLanguage('moonscript', __webpack_require__(369));
-	hljs.registerLanguage('nginx', __webpack_require__(370));
-	hljs.registerLanguage('nimrod', __webpack_require__(371));
-	hljs.registerLanguage('nix', __webpack_require__(372));
-	hljs.registerLanguage('nsis', __webpack_require__(373));
-	hljs.registerLanguage('objectivec', __webpack_require__(374));
-	hljs.registerLanguage('ocaml', __webpack_require__(375));
-	hljs.registerLanguage('openscad', __webpack_require__(376));
-	hljs.registerLanguage('oxygene', __webpack_require__(377));
-	hljs.registerLanguage('parser3', __webpack_require__(378));
-	hljs.registerLanguage('pf', __webpack_require__(379));
-	hljs.registerLanguage('php', __webpack_require__(380));
-	hljs.registerLanguage('pony', __webpack_require__(381));
-	hljs.registerLanguage('powershell', __webpack_require__(382));
-	hljs.registerLanguage('processing', __webpack_require__(383));
-	hljs.registerLanguage('profile', __webpack_require__(384));
-	hljs.registerLanguage('prolog', __webpack_require__(385));
-	hljs.registerLanguage('protobuf', __webpack_require__(386));
-	hljs.registerLanguage('puppet', __webpack_require__(387));
-	hljs.registerLanguage('purebasic', __webpack_require__(388));
-	hljs.registerLanguage('python', __webpack_require__(389));
-	hljs.registerLanguage('q', __webpack_require__(390));
-	hljs.registerLanguage('qml', __webpack_require__(391));
-	hljs.registerLanguage('r', __webpack_require__(392));
-	hljs.registerLanguage('rib', __webpack_require__(393));
-	hljs.registerLanguage('roboconf', __webpack_require__(394));
-	hljs.registerLanguage('rsl', __webpack_require__(395));
-	hljs.registerLanguage('ruleslanguage', __webpack_require__(396));
-	hljs.registerLanguage('rust', __webpack_require__(397));
-	hljs.registerLanguage('scala', __webpack_require__(398));
-	hljs.registerLanguage('scheme', __webpack_require__(399));
-	hljs.registerLanguage('scilab', __webpack_require__(400));
-	hljs.registerLanguage('scss', __webpack_require__(401));
-	hljs.registerLanguage('smali', __webpack_require__(402));
-	hljs.registerLanguage('smalltalk', __webpack_require__(403));
-	hljs.registerLanguage('sml', __webpack_require__(404));
-	hljs.registerLanguage('sqf', __webpack_require__(405));
-	hljs.registerLanguage('sql', __webpack_require__(406));
-	hljs.registerLanguage('stan', __webpack_require__(407));
-	hljs.registerLanguage('stata', __webpack_require__(408));
-	hljs.registerLanguage('step21', __webpack_require__(409));
-	hljs.registerLanguage('stylus', __webpack_require__(410));
-	hljs.registerLanguage('subunit', __webpack_require__(411));
-	hljs.registerLanguage('swift', __webpack_require__(412));
-	hljs.registerLanguage('taggerscript', __webpack_require__(413));
-	hljs.registerLanguage('yaml', __webpack_require__(414));
-	hljs.registerLanguage('tap', __webpack_require__(415));
-	hljs.registerLanguage('tcl', __webpack_require__(416));
-	hljs.registerLanguage('tex', __webpack_require__(417));
-	hljs.registerLanguage('thrift', __webpack_require__(418));
-	hljs.registerLanguage('tp', __webpack_require__(419));
-	hljs.registerLanguage('twig', __webpack_require__(420));
-	hljs.registerLanguage('typescript', __webpack_require__(421));
-	hljs.registerLanguage('vala', __webpack_require__(422));
-	hljs.registerLanguage('vbnet', __webpack_require__(423));
-	hljs.registerLanguage('vbscript', __webpack_require__(424));
-	hljs.registerLanguage('vbscript-html', __webpack_require__(425));
-	hljs.registerLanguage('verilog', __webpack_require__(426));
-	hljs.registerLanguage('vhdl', __webpack_require__(427));
-	hljs.registerLanguage('vim', __webpack_require__(428));
-	hljs.registerLanguage('x86asm', __webpack_require__(429));
-	hljs.registerLanguage('xl', __webpack_require__(430));
-	hljs.registerLanguage('xquery', __webpack_require__(431));
-	hljs.registerLanguage('zephir', __webpack_require__(432));
+	hljs.registerLanguage('llvm', __webpack_require__(356));
+	hljs.registerLanguage('lsl', __webpack_require__(357));
+	hljs.registerLanguage('lua', __webpack_require__(358));
+	hljs.registerLanguage('makefile', __webpack_require__(359));
+	hljs.registerLanguage('mathematica', __webpack_require__(360));
+	hljs.registerLanguage('matlab', __webpack_require__(361));
+	hljs.registerLanguage('maxima', __webpack_require__(362));
+	hljs.registerLanguage('mel', __webpack_require__(363));
+	hljs.registerLanguage('mercury', __webpack_require__(364));
+	hljs.registerLanguage('mipsasm', __webpack_require__(365));
+	hljs.registerLanguage('mizar', __webpack_require__(366));
+	hljs.registerLanguage('perl', __webpack_require__(367));
+	hljs.registerLanguage('mojolicious', __webpack_require__(368));
+	hljs.registerLanguage('monkey', __webpack_require__(369));
+	hljs.registerLanguage('moonscript', __webpack_require__(370));
+	hljs.registerLanguage('nginx', __webpack_require__(371));
+	hljs.registerLanguage('nimrod', __webpack_require__(372));
+	hljs.registerLanguage('nix', __webpack_require__(373));
+	hljs.registerLanguage('nsis', __webpack_require__(374));
+	hljs.registerLanguage('objectivec', __webpack_require__(375));
+	hljs.registerLanguage('ocaml', __webpack_require__(376));
+	hljs.registerLanguage('openscad', __webpack_require__(377));
+	hljs.registerLanguage('oxygene', __webpack_require__(378));
+	hljs.registerLanguage('parser3', __webpack_require__(379));
+	hljs.registerLanguage('pf', __webpack_require__(380));
+	hljs.registerLanguage('php', __webpack_require__(381));
+	hljs.registerLanguage('pony', __webpack_require__(382));
+	hljs.registerLanguage('powershell', __webpack_require__(383));
+	hljs.registerLanguage('processing', __webpack_require__(384));
+	hljs.registerLanguage('profile', __webpack_require__(385));
+	hljs.registerLanguage('prolog', __webpack_require__(386));
+	hljs.registerLanguage('protobuf', __webpack_require__(387));
+	hljs.registerLanguage('puppet', __webpack_require__(388));
+	hljs.registerLanguage('purebasic', __webpack_require__(389));
+	hljs.registerLanguage('python', __webpack_require__(390));
+	hljs.registerLanguage('q', __webpack_require__(391));
+	hljs.registerLanguage('qml', __webpack_require__(392));
+	hljs.registerLanguage('r', __webpack_require__(393));
+	hljs.registerLanguage('rib', __webpack_require__(394));
+	hljs.registerLanguage('roboconf', __webpack_require__(395));
+	hljs.registerLanguage('rsl', __webpack_require__(396));
+	hljs.registerLanguage('ruleslanguage', __webpack_require__(397));
+	hljs.registerLanguage('rust', __webpack_require__(398));
+	hljs.registerLanguage('scala', __webpack_require__(399));
+	hljs.registerLanguage('scheme', __webpack_require__(400));
+	hljs.registerLanguage('scilab', __webpack_require__(401));
+	hljs.registerLanguage('scss', __webpack_require__(402));
+	hljs.registerLanguage('smali', __webpack_require__(403));
+	hljs.registerLanguage('smalltalk', __webpack_require__(404));
+	hljs.registerLanguage('sml', __webpack_require__(405));
+	hljs.registerLanguage('sqf', __webpack_require__(406));
+	hljs.registerLanguage('sql', __webpack_require__(407));
+	hljs.registerLanguage('stan', __webpack_require__(408));
+	hljs.registerLanguage('stata', __webpack_require__(409));
+	hljs.registerLanguage('step21', __webpack_require__(410));
+	hljs.registerLanguage('stylus', __webpack_require__(411));
+	hljs.registerLanguage('subunit', __webpack_require__(412));
+	hljs.registerLanguage('swift', __webpack_require__(413));
+	hljs.registerLanguage('taggerscript', __webpack_require__(414));
+	hljs.registerLanguage('yaml', __webpack_require__(415));
+	hljs.registerLanguage('tap', __webpack_require__(416));
+	hljs.registerLanguage('tcl', __webpack_require__(417));
+	hljs.registerLanguage('tex', __webpack_require__(418));
+	hljs.registerLanguage('thrift', __webpack_require__(419));
+	hljs.registerLanguage('tp', __webpack_require__(420));
+	hljs.registerLanguage('twig', __webpack_require__(421));
+	hljs.registerLanguage('typescript', __webpack_require__(422));
+	hljs.registerLanguage('vala', __webpack_require__(423));
+	hljs.registerLanguage('vbnet', __webpack_require__(424));
+	hljs.registerLanguage('vbscript', __webpack_require__(425));
+	hljs.registerLanguage('vbscript-html', __webpack_require__(426));
+	hljs.registerLanguage('verilog', __webpack_require__(427));
+	hljs.registerLanguage('vhdl', __webpack_require__(428));
+	hljs.registerLanguage('vim', __webpack_require__(429));
+	hljs.registerLanguage('x86asm', __webpack_require__(430));
+	hljs.registerLanguage('xl', __webpack_require__(431));
+	hljs.registerLanguage('xquery', __webpack_require__(432));
+	hljs.registerLanguage('zephir', __webpack_require__(433));
 
 	module.exports = hljs;
 
@@ -2807,7 +2810,7 @@ webpackJsonp([0],[
 
 	    while (original.length || highlighted.length) {
 	      var stream = selectStream();
-	      result += escape(value.substr(processed, stream[0].offset - processed));
+	      result += escape(value.substring(processed, stream[0].offset));
 	      processed = stream[0].offset;
 	      if (stream === original) {
 	        /*
@@ -2983,7 +2986,7 @@ webpackJsonp([0],[
 	      match = top.lexemesRe.exec(mode_buffer);
 
 	      while (match) {
-	        result += escape(mode_buffer.substr(last_index, match.index - last_index));
+	        result += escape(mode_buffer.substring(last_index, match.index));
 	        keyword_match = keywordMatch(top, match);
 	        if (keyword_match) {
 	          relevance += keyword_match[1];
@@ -3119,7 +3122,7 @@ webpackJsonp([0],[
 	        top.terminators.lastIndex = index;
 	        match = top.terminators.exec(value);
 	        if (!match) break;
-	        count = processLexeme(value.substr(index, match.index - index), match[0]);
+	        count = processLexeme(value.substring(index, match.index), match[0]);
 	        index = match.index + count;
 	      }
 	      processLexeme(value.substr(index));
@@ -5011,7 +5014,7 @@ webpackJsonp([0],[
 	  var KEYWORDS = {
 	    keyword:
 	    // JS keywords
-	    'in if for while finally new do return else break catch instanceof throw try this ' + 'switch continue typeof delete debugger super ' +
+	    'in if for while finally new do return else break catch instanceof throw try this ' + 'switch continue typeof delete debugger super yield import export from as default await ' +
 	    // Coffee keywords
 	    'then unless until loop of by when and or is isnt not',
 	    literal:
@@ -5059,9 +5062,13 @@ webpackJsonp([0],[
 	  }, {
 	    begin: '@' + JS_IDENT_RE // relevance booster
 	  }, {
-	    begin: '`', end: '`',
+	    subLanguage: 'javascript',
 	    excludeBegin: true, excludeEnd: true,
-	    subLanguage: 'javascript'
+	    variants: [{
+	      begin: '```', end: '```'
+	    }, {
+	      begin: '`', end: '`'
+	    }]
 	  }];
 	  SUBST.contains = EXPRESSIONS;
 
@@ -6009,11 +6016,11 @@ webpackJsonp([0],[
 
 	module.exports = function (hljs) {
 	  var KEYWORDS = 'exports register file shl array record property for mod while set ally label uses raise not ' + 'stored class safecall var interface or private static exit index inherited to else stdcall ' + 'override shr asm far resourcestring finalization packed virtual out and protected library do ' + 'xorwrite goto near function end div overload object unit begin string on inline repeat until ' + 'destructor write message program with read initialization except default nil if case cdecl in ' + 'downto threadvar of try pascal const external constructor type public then implementation ' + 'finally published procedure absolute reintroduce operator as is abstract alias assembler ' + 'bitpacked break continue cppdecl cvar enumerator experimental platform deprecated ' + 'unimplemented dynamic export far16 forward generic helper implements interrupt iochecks ' + 'local name nodefault noreturn nostackframe oldfpccall otherwise saveregisters softfloat ' + 'specialize strict unaligned varargs ';
-	  var COMMENT_MODES = [hljs.C_LINE_COMMENT_MODE, hljs.COMMENT(/\{/, /\}/, {
-	    relevance: 0
-	  }), hljs.COMMENT(/\(\*/, /\*\)/, {
-	    relevance: 10
-	  })];
+	  var COMMENT_MODES = [hljs.C_LINE_COMMENT_MODE, hljs.COMMENT(/\{/, /\}/, { relevance: 0 }), hljs.COMMENT(/\(\*/, /\*\)/, { relevance: 10 })];
+	  var DIRECTIVE = {
+	    className: 'meta',
+	    variants: [{ begin: /\{\$/, end: /\}/ }, { begin: /\(\*\$/, end: /\*\)/ }]
+	  };
 	  var STRING = {
 	    className: 'string',
 	    begin: /'/, end: /'/,
@@ -6034,15 +6041,15 @@ webpackJsonp([0],[
 	      className: 'params',
 	      begin: /\(/, end: /\)/,
 	      keywords: KEYWORDS,
-	      contains: [STRING, CHAR_STRING]
-	    }].concat(COMMENT_MODES)
+	      contains: [STRING, CHAR_STRING, DIRECTIVE].concat(COMMENT_MODES)
+	    }, DIRECTIVE].concat(COMMENT_MODES)
 	  };
 	  return {
 	    aliases: ['dpr', 'dfm', 'pas', 'pascal', 'freepascal', 'lazarus', 'lpr', 'lfm'],
 	    case_insensitive: true,
 	    keywords: KEYWORDS,
 	    illegal: /"|\$[G-Zg-z]|\/\*|<\/|\|/,
-	    contains: [STRING, CHAR_STRING, hljs.NUMBER_MODE, CLASS, FUNCTION].concat(COMMENT_MODES)
+	    contains: [STRING, CHAR_STRING, hljs.NUMBER_MODE, CLASS, FUNCTION, DIRECTIVE].concat(COMMENT_MODES)
 	  };
 	};
 
@@ -6607,7 +6614,7 @@ webpackJsonp([0],[
 	    begin: /\|/, end: /\|/,
 	    keywords: RUBY_KEYWORDS
 	  }, { // regexp container
-	    begin: '(' + hljs.RE_STARTERS_RE + ')\\s*',
+	    begin: '(' + hljs.RE_STARTERS_RE + '|unless)\\s*',
 	    contains: [IRB_OBJECT, {
 	      className: 'regexp',
 	      contains: [hljs.BACKSLASH_ESCAPE, SUBST],
@@ -8902,6 +8909,40 @@ webpackJsonp([0],[
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
+	  var identifier = '([-a-zA-Z$._][\\w\\-$.]*)';
+	  return {
+	    //lexemes: '[.%]?' + hljs.IDENT_RE,
+	    keywords: 'begin end true false declare define global ' + 'constant private linker_private internal ' + 'available_externally linkonce linkonce_odr weak ' + 'weak_odr appending dllimport dllexport common ' + 'default hidden protected extern_weak external ' + 'thread_local zeroinitializer undef null to tail ' + 'target triple datalayout volatile nuw nsw nnan ' + 'ninf nsz arcp fast exact inbounds align ' + 'addrspace section alias module asm sideeffect ' + 'gc dbg linker_private_weak attributes blockaddress ' + 'initialexec localdynamic localexec prefix unnamed_addr ' + 'ccc fastcc coldcc x86_stdcallcc x86_fastcallcc ' + 'arm_apcscc arm_aapcscc arm_aapcs_vfpcc ptx_device ' + 'ptx_kernel intel_ocl_bicc msp430_intrcc spir_func ' + 'spir_kernel x86_64_sysvcc x86_64_win64cc x86_thiscallcc ' + 'cc c signext zeroext inreg sret nounwind ' + 'noreturn noalias nocapture byval nest readnone ' + 'readonly inlinehint noinline alwaysinline optsize ssp ' + 'sspreq noredzone noimplicitfloat naked builtin cold ' + 'nobuiltin noduplicate nonlazybind optnone returns_twice ' + 'sanitize_address sanitize_memory sanitize_thread sspstrong ' + 'uwtable returned type opaque eq ne slt sgt ' + 'sle sge ult ugt ule uge oeq one olt ogt ' + 'ole oge ord uno ueq une x acq_rel acquire ' + 'alignstack atomic catch cleanup filter inteldialect ' + 'max min monotonic nand personality release seq_cst ' + 'singlethread umax umin unordered xchg add fadd ' + 'sub fsub mul fmul udiv sdiv fdiv urem srem ' + 'frem shl lshr ashr and or xor icmp fcmp ' + 'phi call trunc zext sext fptrunc fpext uitofp ' + 'sitofp fptoui fptosi inttoptr ptrtoint bitcast ' + 'addrspacecast select va_arg ret br switch invoke ' + 'unwind unreachable indirectbr landingpad resume ' + 'malloc alloca free load store getelementptr ' + 'extractelement insertelement shufflevector getresult ' + 'extractvalue insertvalue atomicrmw cmpxchg fence ' + 'argmemonly double',
+	    contains: [{
+	      className: 'keyword',
+	      begin: 'i\\d+'
+	    }, hljs.COMMENT(';', '\\n', { relevance: 0 }),
+	    // Double quote string
+	    hljs.QUOTE_STRING_MODE, {
+	      className: 'string',
+	      variants: [
+	      // Double-quoted string
+	      { begin: '"', end: '[^\\\\]"' }],
+	      relevance: 0
+	    }, {
+	      className: 'title',
+	      variants: [{ begin: '@' + identifier }, { begin: '@\\d+' }, { begin: '!' + identifier }, { begin: '!\\d+' + identifier }]
+	    }, {
+	      className: 'symbol',
+	      variants: [{ begin: '%' + identifier }, { begin: '%\\d+' }, { begin: '#\\d+' }]
+	    }, {
+	      className: 'number',
+	      variants: [{ begin: '0[xX][a-fA-F0-9]+' }, { begin: '-?\\d+(?:[.]\\d+)?(?:[eE][-+]?\\d+(?:[.]\\d+)?)?' }],
+	      relevance: 0
+	    }]
+	  };
+	};
+
+/***/ },
+/* 357 */
+/***/ function(module, exports) {
+
+	module.exports = function (hljs) {
 
 	    var LSL_STRING_ESCAPE_CHARS = {
 	        className: 'subst',
@@ -8962,7 +9003,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 357 */
+/* 358 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9000,7 +9041,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 358 */
+/* 359 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9038,7 +9079,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 359 */
+/* 360 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9057,7 +9098,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 360 */
+/* 361 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9111,7 +9152,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 361 */
+/* 362 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9159,7 +9200,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 362 */
+/* 363 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9177,7 +9218,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 363 */
+/* 364 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9226,7 +9267,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 364 */
+/* 365 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9290,7 +9331,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 365 */
+/* 366 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9301,7 +9342,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 366 */
+/* 367 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9407,7 +9448,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 367 */
+/* 368 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9434,7 +9475,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 368 */
+/* 369 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9486,7 +9527,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 369 */
+/* 370 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9576,7 +9617,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 370 */
+/* 371 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9649,7 +9690,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 371 */
+/* 372 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9687,7 +9728,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 372 */
+/* 373 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9725,7 +9766,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 373 */
+/* 374 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9806,7 +9847,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 374 */
+/* 375 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9857,7 +9898,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 375 */
+/* 376 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9907,7 +9948,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 376 */
+/* 377 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -9959,7 +10000,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 377 */
+/* 378 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10004,7 +10045,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 378 */
+/* 379 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10037,7 +10078,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 379 */
+/* 380 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10070,7 +10111,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 380 */
+/* 381 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10143,7 +10184,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 381 */
+/* 382 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10207,7 +10248,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 382 */
+/* 383 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10267,7 +10308,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 383 */
+/* 384 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10285,7 +10326,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 384 */
+/* 385 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10311,7 +10352,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 385 */
+/* 386 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10384,7 +10425,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 386 */
+/* 387 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10414,7 +10455,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 387 */
+/* 388 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10487,7 +10528,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 388 */
+/* 389 */
 /***/ function(module, exports) {
 
 	module.exports = // Base deafult colors in PB IDE: background: #FFFFDF; foreground: #000000;
@@ -10532,7 +10573,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 389 */
+/* 390 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10596,7 +10637,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 390 */
+/* 391 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10615,7 +10656,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 391 */
+/* 392 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10735,7 +10776,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 392 */
+/* 393 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10789,7 +10830,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 393 */
+/* 394 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10801,7 +10842,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 394 */
+/* 395 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10858,7 +10899,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 395 */
+/* 396 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10881,7 +10922,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 396 */
+/* 397 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10899,7 +10940,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 397 */
+/* 398 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -10961,7 +11002,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 398 */
+/* 399 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11057,7 +11098,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 399 */
+/* 400 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11148,7 +11189,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 400 */
+/* 401 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11188,7 +11229,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 401 */
+/* 402 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11255,7 +11296,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 402 */
+/* 403 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11295,7 +11336,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 403 */
+/* 404 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11334,7 +11375,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 404 */
+/* 405 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11381,11 +11422,24 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 405 */
+/* 406 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
 	  var CPP = hljs.getLanguage('cpp').exports;
+
+	  // In SQF, a variable start with _
+	  var VARIABLE = {
+	    className: 'variable',
+	    begin: /\b_+[a-zA-Z_]\w*/
+	  };
+
+	  // In SQF, a function should fit myTag_fnc_myFunction pattern
+	  // https://community.bistudio.com/wiki/Functions_Library_(Arma_3)#Adding_a_Function
+	  var FUNCTION = {
+	    className: 'title',
+	    begin: /[a-zA-Z][a-zA-Z0-9]+_fnc_\w*/
+	  };
 
 	  // In SQF strings, quotes matching the start are escaped by adding a consecutive.
 	  // Example of single escaped quotes: " "" " and  ' '' '.
@@ -11406,17 +11460,17 @@ webpackJsonp([0],[
 	    aliases: ['sqf'],
 	    case_insensitive: true,
 	    keywords: {
-	      keyword: 'case catch default do else exit exitWith for forEach from if ' + 'switch then throw to try while with',
-	      built_in: 'or plus abs accTime acos action actionKeys actionKeysImages ' + 'actionKeysNames actionKeysNamesArray actionName activateAddons ' + 'activatedAddons activateKey addAction addBackpack addBackpackCargo ' + 'addBackpackCargoGlobal addBackpackGlobal addCamShake ' + 'addCuratorAddons addCuratorCameraArea addCuratorEditableObjects ' + 'addCuratorEditingArea addCuratorPoints addEditorObject ' + 'addEventHandler addGoggles addGroupIcon addHandgunItem addHeadgear ' + 'addItem addItemCargo addItemCargoGlobal addItemPool ' + 'addItemToBackpack addItemToUniform addItemToVest addLiveStats ' + 'addMagazine addMagazine array addMagazineAmmoCargo ' + 'addMagazineCargo addMagazineCargoGlobal addMagazineGlobal ' + 'addMagazinePool addMagazines addMagazineTurret addMenu addMenuItem ' + 'addMissionEventHandler addMPEventHandler addMusicEventHandler ' + 'addPrimaryWeaponItem addPublicVariableEventHandler addRating ' + 'addResources addScore addScoreSide addSecondaryWeaponItem ' + 'addSwitchableUnit addTeamMember addToRemainsCollector addUniform ' + 'addVehicle addVest addWaypoint addWeapon addWeaponCargo ' + 'addWeaponCargoGlobal addWeaponGlobal addWeaponPool addWeaponTurret ' + 'agent agents AGLToASL aimedAtTarget aimPos airDensityRTD ' + 'airportSide AISFinishHeal alive allControls allCurators allDead ' + 'allDeadMen allDisplays allGroups allMapMarkers allMines ' + 'allMissionObjects allow3DMode allowCrewInImmobile ' + 'allowCuratorLogicIgnoreAreas allowDamage allowDammage ' + 'allowFileOperations allowFleeing allowGetIn allPlayers allSites ' + 'allTurrets allUnits allUnitsUAV allVariables ammo and animate ' + 'animateDoor animationPhase animationState append armoryPoints ' + 'arrayIntersect asin ASLToAGL ASLToATL assert assignAsCargo ' + 'assignAsCargoIndex assignAsCommander assignAsDriver assignAsGunner ' + 'assignAsTurret assignCurator assignedCargo assignedCommander ' + 'assignedDriver assignedGunner assignedItems assignedTarget ' + 'assignedTeam assignedVehicle assignedVehicleRole assignItem ' + 'assignTeam assignToAirport atan atan2 atg ATLToASL attachedObject ' + 'attachedObjects attachedTo attachObject attachTo attackEnabled ' + 'backpack backpackCargo backpackContainer backpackItems ' + 'backpackMagazines backpackSpaceFor behaviour benchmark binocular ' + 'blufor boundingBox boundingBoxReal boundingCenter breakOut breakTo ' + 'briefingName buildingExit buildingPos buttonAction buttonSetAction ' + 'cadetMode call callExtension camCommand camCommit ' + 'camCommitPrepared camCommitted camConstuctionSetParams camCreate ' + 'camDestroy cameraEffect cameraEffectEnableHUD cameraInterest ' + 'cameraOn cameraView campaignConfigFile camPreload camPreloaded ' + 'camPrepareBank camPrepareDir camPrepareDive camPrepareFocus ' + 'camPrepareFov camPrepareFovRange camPreparePos camPrepareRelPos ' + 'camPrepareTarget camSetBank camSetDir camSetDive camSetFocus ' + 'camSetFov camSetFovRange camSetPos camSetRelPos camSetTarget ' + 'camTarget camUseNVG canAdd canAddItemToBackpack ' + 'canAddItemToUniform canAddItemToVest cancelSimpleTaskDestination ' + 'canFire canMove canSlingLoad canStand canUnloadInCombat captive ' + 'captiveNum cbChecked cbSetChecked ceil cheatsEnabled ' + 'checkAIFeature civilian className clearAllItemsFromBackpack ' + 'clearBackpackCargo clearBackpackCargoGlobal clearGroupIcons ' + 'clearItemCargo clearItemCargoGlobal clearItemPool ' + 'clearMagazineCargo clearMagazineCargoGlobal clearMagazinePool ' + 'clearOverlay clearRadio clearWeaponCargo clearWeaponCargoGlobal ' + 'clearWeaponPool closeDialog closeDisplay closeOverlay ' + 'collapseObjectTree combatMode commandArtilleryFire commandChat ' + 'commander commandFire commandFollow commandFSM commandGetOut ' + 'commandingMenu commandMove commandRadio commandStop commandTarget ' + 'commandWatch comment commitOverlay compile compileFinal ' + 'completedFSM composeText configClasses configFile configHierarchy ' + 'configName configProperties configSourceMod configSourceModList ' + 'connectTerminalToUAV controlNull controlsGroupCtrl ' + 'copyFromClipboard copyToClipboard copyWaypoints cos count ' + 'countEnemy countFriendly countSide countType countUnknown ' + 'createAgent createCenter createDialog createDiaryLink ' + 'createDiaryRecord createDiarySubject createDisplay ' + 'createGearDialog createGroup createGuardedPoint createLocation ' + 'createMarker createMarkerLocal createMenu createMine ' + 'createMissionDisplay createSimpleTask createSite createSoundSource ' + 'createTask createTeam createTrigger createUnit createUnit array ' + 'createVehicle createVehicle array createVehicleCrew ' + 'createVehicleLocal crew ctrlActivate ctrlAddEventHandler ' + 'ctrlAutoScrollDelay ctrlAutoScrollRewind ctrlAutoScrollSpeed ' + 'ctrlChecked ctrlClassName ctrlCommit ctrlCommitted ctrlCreate ' + 'ctrlDelete ctrlEnable ctrlEnabled ctrlFade ctrlHTMLLoaded ctrlIDC ' + 'ctrlIDD ctrlMapAnimAdd ctrlMapAnimClear ctrlMapAnimCommit ' + 'ctrlMapAnimDone ctrlMapCursor ctrlMapMouseOver ctrlMapScale ' + 'ctrlMapScreenToWorld ctrlMapWorldToScreen ctrlModel ' + 'ctrlModelDirAndUp ctrlModelScale ctrlParent ctrlPosition ' + 'ctrlRemoveAllEventHandlers ctrlRemoveEventHandler ctrlScale ' + 'ctrlSetActiveColor ctrlSetAutoScrollDelay ctrlSetAutoScrollRewind ' + 'ctrlSetAutoScrollSpeed ctrlSetBackgroundColor ctrlSetChecked ' + 'ctrlSetEventHandler ctrlSetFade ctrlSetFocus ctrlSetFont ' + 'ctrlSetFontH1 ctrlSetFontH1B ctrlSetFontH2 ctrlSetFontH2B ' + 'ctrlSetFontH3 ctrlSetFontH3B ctrlSetFontH4 ctrlSetFontH4B ' + 'ctrlSetFontH5 ctrlSetFontH5B ctrlSetFontH6 ctrlSetFontH6B ' + 'ctrlSetFontHeight ctrlSetFontHeightH1 ctrlSetFontHeightH2 ' + 'ctrlSetFontHeightH3 ctrlSetFontHeightH4 ctrlSetFontHeightH5 ' + 'ctrlSetFontHeightH6 ctrlSetFontP ctrlSetFontPB ' + 'ctrlSetForegroundColor ctrlSetModel ctrlSetModelDirAndUp ' + 'ctrlSetModelScale ctrlSetPosition ctrlSetScale ' + 'ctrlSetStructuredText ctrlSetText ctrlSetTextColor ctrlSetTooltip ' + 'ctrlSetTooltipColorBox ctrlSetTooltipColorShade ' + 'ctrlSetTooltipColorText ctrlShow ctrlShown ctrlText ctrlTextHeight ' + 'ctrlType ctrlVisible curatorAddons curatorCamera curatorCameraArea ' + 'curatorCameraAreaCeiling curatorCoef curatorEditableObjects ' + 'curatorEditingArea curatorEditingAreaType curatorMouseOver ' + 'curatorPoints curatorRegisteredObjects curatorSelected ' + 'curatorWaypointCost currentChannel currentCommand currentMagazine ' + 'currentMagazineDetail currentMagazineDetailTurret ' + 'currentMagazineTurret currentMuzzle currentNamespace currentTask ' + 'currentTasks currentThrowable currentVisionMode currentWaypoint ' + 'currentWeapon currentWeaponMode currentWeaponTurret currentZeroing ' + 'cursorTarget customChat customRadio cutFadeOut cutObj cutRsc ' + 'cutText damage date dateToNumber daytime deActivateKey ' + 'debriefingText debugFSM debugLog deg deleteAt deleteCenter ' + 'deleteCollection deleteEditorObject deleteGroup deleteIdentity ' + 'deleteLocation deleteMarker deleteMarkerLocal deleteRange ' + 'deleteResources deleteSite deleteStatus deleteTeam deleteVehicle ' + 'deleteVehicleCrew deleteWaypoint detach detectedMines ' + 'diag activeMissionFSMs diag activeSQFScripts diag activeSQSScripts ' + 'diag captureFrame diag captureSlowFrame diag fps diag fpsMin ' + 'diag frameNo diag log diag logSlowFrame diag tickTime dialog ' + 'diarySubjectExists didJIP didJIPOwner difficulty difficultyEnabled ' + 'difficultyEnabledRTD direction directSay disableAI ' + 'disableCollisionWith disableConversation disableDebriefingStats ' + 'disableSerialization disableTIEquipment disableUAVConnectability ' + 'disableUserInput displayAddEventHandler displayCtrl displayNull ' + 'displayRemoveAllEventHandlers displayRemoveEventHandler ' + 'displaySetEventHandler dissolveTeam distance distance2D ' + 'distanceSqr distributionRegion doArtilleryFire doFire doFollow ' + 'doFSM doGetOut doMove doorPhase doStop doTarget doWatch drawArrow ' + 'drawEllipse drawIcon drawIcon3D drawLine drawLine3D drawLink ' + 'drawLocation drawRectangle driver drop east echo editObject ' + 'editorSetEventHandler effectiveCommander emptyPositions enableAI ' + 'enableAIFeature enableAttack enableCamShake enableCaustics ' + 'enableCollisionWith enableCopilot enableDebriefingStats ' + 'enableDiagLegend enableEndDialog enableEngineArtillery ' + 'enableEnvironment enableFatigue enableGunLights enableIRLasers ' + 'enableMimics enablePersonTurret enableRadio enableReload ' + 'enableRopeAttach enableSatNormalOnDetail enableSaving ' + 'enableSentences enableSimulation enableSimulationGlobal ' + 'enableTeamSwitch enableUAVConnectability enableUAVWaypoints ' + 'endLoadingScreen endMission engineOn enginesIsOnRTD enginesRpmRTD ' + 'enginesTorqueRTD entities estimatedEndServerTime estimatedTimeLeft ' + 'evalObjectArgument everyBackpack everyContainer exec ' + 'execEditorScript execFSM execVM exp expectedDestination ' + 'eyeDirection eyePos face faction fadeMusic fadeRadio fadeSound ' + 'fadeSpeech failMission fillWeaponsFromPool find findCover ' + 'findDisplay findEditorObject findEmptyPosition ' + 'findEmptyPositionReady findNearestEnemy finishMissionInit finite ' + 'fire fireAtTarget firstBackpack flag flagOwner fleeing floor ' + 'flyInHeight fog fogForecast fogParams forceAddUniform forceEnd ' + 'forceMap forceRespawn forceSpeed forceWalk forceWeaponFire ' + 'forceWeatherChange forEachMember forEachMemberAgent ' + 'forEachMemberTeam format formation formationDirection ' + 'formationLeader formationMembers formationPosition formationTask ' + 'formatText formLeader freeLook fromEditor fuel fullCrew ' + 'gearSlotAmmoCount gearSlotData getAllHitPointsDamage getAmmoCargo ' + 'getArray getArtilleryAmmo getArtilleryComputerSettings ' + 'getArtilleryETA getAssignedCuratorLogic getAssignedCuratorUnit ' + 'getBackpackCargo getBleedingRemaining getBurningValue ' + 'getCargoIndex getCenterOfMass getClientState getConnectedUAV ' + 'getDammage getDescription getDir getDirVisual getDLCs ' + 'getEditorCamera getEditorMode getEditorObjectScope ' + 'getElevationOffset getFatigue getFriend getFSMVariable ' + 'getFuelCargo getGroupIcon getGroupIconParams getGroupIcons ' + 'getHideFrom getHit getHitIndex getHitPointDamage getItemCargo ' + 'getMagazineCargo getMarkerColor getMarkerPos getMarkerSize ' + 'getMarkerType getMass getModelInfo getNumber getObjectArgument ' + 'getObjectChildren getObjectDLC getObjectMaterials getObjectProxy ' + 'getObjectTextures getObjectType getObjectViewDistance ' + 'getOxygenRemaining getPersonUsedDLCs getPlayerChannel getPlayerUID ' + 'getPos getPosASL getPosASLVisual getPosASLW getPosATL ' + 'getPosATLVisual getPosVisual getPosWorld getRepairCargo ' + 'getResolution getShadowDistance getSlingLoad getSpeed ' + 'getSuppression getTerrainHeightASL getText getVariable ' + 'getWeaponCargo getWPPos glanceAt globalChat globalRadio goggles ' + 'goto group groupChat groupFromNetId groupIconSelectable ' + 'groupIconsVisible groupId groupOwner groupRadio groupSelectedUnits ' + 'groupSelectUnit grpNull gunner gusts halt handgunItems ' + 'handgunMagazine handgunWeapon handsHit hasInterface hasWeapon ' + 'hcAllGroups hcGroupParams hcLeader hcRemoveAllGroups hcRemoveGroup ' + 'hcSelected hcSelectGroup hcSetGroup hcShowBar hcShownBar headgear ' + 'hideBody hideObject hideObjectGlobal hint hintC hintCadet ' + 'hintSilent hmd hostMission htmlLoad HUDMovementLevels humidity ' + 'image importAllGroups importance in incapacitatedState independent ' + 'inflame inflamed inGameUISetEventHandler inheritsFrom ' + 'initAmbientLife inputAction inRangeOfArtillery insertEditorObject ' + 'intersect isAbleToBreathe isAgent isArray isAutoHoverOn ' + 'isAutonomous isAutotest isBleeding isBurning isClass ' + 'isCollisionLightOn isCopilotEnabled isDedicated isDLCAvailable ' + 'isEngineOn isEqualTo isFlashlightOn isFlatEmpty isForcedWalk ' + 'isFormationLeader isHidden isInRemainsCollector ' + 'isInstructorFigureEnabled isIRLaserOn isKeyActive isKindOf ' + 'isLightOn isLocalized isManualFire isMarkedForCollection ' + 'isMultiplayer isNil isNull isNumber isObjectHidden isObjectRTD ' + 'isOnRoad isPipEnabled isPlayer isRealTime isServer ' + 'isShowing3DIcons isSteamMission isStreamFriendlyUIEnabled isText ' + 'isTouchingGround isTurnedOut isTutHintsEnabled isUAVConnectable ' + 'isUAVConnected isUniformAllowed isWalking isWeaponDeployed ' + 'isWeaponRested itemCargo items itemsWithMagazines join joinAs ' + 'joinAsSilent joinSilent joinString kbAddDatabase ' + 'kbAddDatabaseTargets kbAddTopic kbHasTopic kbReact kbRemoveTopic ' + 'kbTell kbWasSaid keyImage keyName knowsAbout land landAt ' + 'landResult language laserTarget lbAdd lbClear lbColor lbCurSel ' + 'lbData lbDelete lbIsSelected lbPicture lbSelection lbSetColor ' + 'lbSetCurSel lbSetData lbSetPicture lbSetPictureColor ' + 'lbSetPictureColorDisabled lbSetPictureColorSelected ' + 'lbSetSelectColor lbSetSelectColorRight lbSetSelected lbSetTooltip ' + 'lbSetValue lbSize lbSort lbSortByValue lbText lbValue leader ' + 'leaderboardDeInit leaderboardGetRows leaderboardInit leaveVehicle ' + 'libraryCredits libraryDisclaimers lifeState lightAttachObject ' + 'lightDetachObject lightIsOn lightnings limitSpeed linearConversion ' + 'lineBreak lineIntersects lineIntersectsObjs lineIntersectsSurfaces ' + 'lineIntersectsWith linkItem list listObjects ln lnbAddArray ' + 'lnbAddColumn lnbAddRow lnbClear lnbColor lnbCurSelRow lnbData ' + 'lnbDeleteColumn lnbDeleteRow lnbGetColumnsPosition lnbPicture ' + 'lnbSetColor lnbSetColumnsPos lnbSetCurSelRow lnbSetData ' + 'lnbSetPicture lnbSetText lnbSetValue lnbSize lnbText lnbValue load ' + 'loadAbs loadBackpack loadFile loadGame loadIdentity loadMagazine ' + 'loadOverlay loadStatus loadUniform loadVest local localize ' + 'locationNull locationPosition lock lockCameraTo lockCargo ' + 'lockDriver locked lockedCargo lockedDriver lockedTurret lockTurret ' + 'lockWP log logEntities lookAt lookAtPos magazineCargo magazines ' + 'magazinesAllTurrets magazinesAmmo magazinesAmmoCargo ' + 'magazinesAmmoFull magazinesDetail magazinesDetailBackpack ' + 'magazinesDetailUniform magazinesDetailVest magazinesTurret ' + 'magazineTurretAmmo mapAnimAdd mapAnimClear mapAnimCommit ' + 'mapAnimDone mapCenterOnCamera mapGridPosition ' + 'markAsFinishedOnSteam markerAlpha markerBrush markerColor ' + 'markerDir markerPos markerShape markerSize markerText markerType ' + 'max members min mineActive mineDetectedBy missionConfigFile ' + 'missionName missionNamespace missionStart mod modelToWorld ' + 'modelToWorldVisual moonIntensity morale move moveInAny moveInCargo ' + 'moveInCommander moveInDriver moveInGunner moveInTurret ' + 'moveObjectToEnd moveOut moveTime moveTo moveToCompleted ' + 'moveToFailed musicVolume name name location nameSound nearEntities ' + 'nearestBuilding nearestLocation nearestLocations ' + 'nearestLocationWithDubbing nearestObject nearestObjects ' + 'nearObjects nearObjectsReady nearRoads nearSupplies nearTargets ' + 'needReload netId netObjNull newOverlay nextMenuItemIndex ' + 'nextWeatherChange nMenuItems not numberToDate objectCurators ' + 'objectFromNetId objectParent objNull objStatus onBriefingGroup ' + 'onBriefingNotes onBriefingPlan onBriefingTeamSwitch ' + 'onCommandModeChanged onDoubleClick onEachFrame onGroupIconClick ' + 'onGroupIconOverEnter onGroupIconOverLeave ' + 'onHCGroupSelectionChanged onMapSingleClick onPlayerConnected ' + 'onPlayerDisconnected onPreloadFinished onPreloadStarted ' + 'onShowNewObject onTeamSwitch openCuratorInterface openMap ' + 'openYoutubeVideo opfor or orderGetIn overcast overcastForecast ' + 'owner param params parseNumber parseText parsingNamespace ' + 'particlesQuality pi pickWeaponPool pitch playableSlotsNumber ' + 'playableUnits playAction playActionNow player playerRespawnTime ' + 'playerSide playersNumber playGesture playMission playMove ' + 'playMoveNow playMusic playScriptedMission playSound playSound3D ' + 'position positionCameraToWorld posScreenToWorld posWorldToScreen ' + 'ppEffectAdjust ppEffectCommit ppEffectCommitted ppEffectCreate ' + 'ppEffectDestroy ppEffectEnable ppEffectForceInNVG precision ' + 'preloadCamera preloadObject preloadSound preloadTitleObj ' + 'preloadTitleRsc preprocessFile preprocessFileLineNumbers ' + 'primaryWeapon primaryWeaponItems primaryWeaponMagazine priority ' + 'private processDiaryLink productVersion profileName ' + 'profileNamespace profileNameSteam progressLoadingScreen ' + 'progressPosition progressSetPosition publicVariable ' + 'publicVariableClient publicVariableServer pushBack putWeaponPool ' + 'queryItemsPool queryMagazinePool queryWeaponPool rad ' + 'radioChannelAdd radioChannelCreate radioChannelRemove ' + 'radioChannelSetCallSign radioChannelSetLabel radioVolume rain ' + 'rainbow random rank rankId rating rectangular registeredTasks ' + 'registerTask reload reloadEnabled remoteControl remoteExec ' + 'remoteExecCall removeAction removeAllActions ' + 'removeAllAssignedItems removeAllContainers removeAllCuratorAddons ' + 'removeAllCuratorCameraAreas removeAllCuratorEditingAreas ' + 'removeAllEventHandlers removeAllHandgunItems removeAllItems ' + 'removeAllItemsWithMagazines removeAllMissionEventHandlers ' + 'removeAllMPEventHandlers removeAllMusicEventHandlers ' + 'removeAllPrimaryWeaponItems removeAllWeapons removeBackpack ' + 'removeBackpackGlobal removeCuratorAddons removeCuratorCameraArea ' + 'removeCuratorEditableObjects removeCuratorEditingArea ' + 'removeDrawIcon removeDrawLinks removeEventHandler ' + 'removeFromRemainsCollector removeGoggles removeGroupIcon ' + 'removeHandgunItem removeHeadgear removeItem removeItemFromBackpack ' + 'removeItemFromUniform removeItemFromVest removeItems ' + 'removeMagazine removeMagazineGlobal removeMagazines ' + 'removeMagazinesTurret removeMagazineTurret removeMenuItem ' + 'removeMissionEventHandler removeMPEventHandler ' + 'removeMusicEventHandler removePrimaryWeaponItem ' + 'removeSecondaryWeaponItem removeSimpleTask removeSwitchableUnit ' + 'removeTeamMember removeUniform removeVest removeWeapon ' + 'removeWeaponGlobal removeWeaponTurret requiredVersion ' + 'resetCamShake resetSubgroupDirection resistance resize resources ' + 'respawnVehicle restartEditorCamera reveal revealMine reverse ' + 'reversedMouseY roadsConnectedTo roleDescription ' + 'ropeAttachedObjects ropeAttachedTo ropeAttachEnabled ropeAttachTo ' + 'ropeCreate ropeCut ropeEndPosition ropeLength ropes ropeUnwind ' + 'ropeUnwound rotorsForcesRTD rotorsRpmRTD round runInitScript ' + 'safeZoneH safeZoneW safeZoneWAbs safeZoneX safeZoneXAbs safeZoneY ' + 'saveGame saveIdentity saveJoysticks saveOverlay ' + 'saveProfileNamespace saveStatus saveVar savingEnabled say say2D ' + 'say3D scopeName score scoreSide screenToWorld scriptDone ' + 'scriptName scriptNull scudState secondaryWeapon ' + 'secondaryWeaponItems secondaryWeaponMagazine select ' + 'selectBestPlaces selectDiarySubject selectedEditorObjects ' + 'selectEditorObject selectionPosition selectLeader selectNoPlayer ' + 'selectPlayer selectWeapon selectWeaponTurret sendAUMessage ' + 'sendSimpleCommand sendTask sendTaskResult sendUDPMessage ' + 'serverCommand serverCommandAvailable serverCommandExecutable ' + 'serverName serverTime set setAccTime setAirportSide setAmmo ' + 'setAmmoCargo setAperture setApertureNew setArmoryPoints ' + 'setAttributes setAutonomous setBehaviour setBleedingRemaining ' + 'setCameraInterest setCamShakeDefParams setCamShakeParams ' + 'setCamUseTi setCaptive setCenterOfMass setCollisionLight ' + 'setCombatMode setCompassOscillation setCuratorCameraAreaCeiling ' + 'setCuratorCoef setCuratorEditingAreaType setCuratorWaypointCost ' + 'setCurrentChannel setCurrentTask setCurrentWaypoint setDamage ' + 'setDammage setDate setDebriefingText setDefaultCamera ' + 'setDestination setDetailMapBlendPars setDir setDirection ' + 'setDrawIcon setDropInterval setEditorMode setEditorObjectScope ' + 'setEffectCondition setFace setFaceAnimation setFatigue ' + 'setFlagOwner setFlagSide setFlagTexture setFog setFog array ' + 'setFormation setFormationTask setFormDir setFriend setFromEditor ' + 'setFSMVariable setFuel setFuelCargo setGroupIcon ' + 'setGroupIconParams setGroupIconsSelectable setGroupIconsVisible ' + 'setGroupId setGroupIdGlobal setGroupOwner setGusts setHideBehind ' + 'setHit setHitIndex setHitPointDamage setHorizonParallaxCoef ' + 'setHUDMovementLevels setIdentity setImportance setLeader ' + 'setLightAmbient setLightAttenuation setLightBrightness ' + 'setLightColor setLightDayLight setLightFlareMaxDistance ' + 'setLightFlareSize setLightIntensity setLightnings setLightUseFlare ' + 'setLocalWindParams setMagazineTurretAmmo setMarkerAlpha ' + 'setMarkerAlphaLocal setMarkerBrush setMarkerBrushLocal ' + 'setMarkerColor setMarkerColorLocal setMarkerDir setMarkerDirLocal ' + 'setMarkerPos setMarkerPosLocal setMarkerShape setMarkerShapeLocal ' + 'setMarkerSize setMarkerSizeLocal setMarkerText setMarkerTextLocal ' + 'setMarkerType setMarkerTypeLocal setMass setMimic setMousePosition ' + 'setMusicEffect setMusicEventHandler setName setNameSound ' + 'setObjectArguments setObjectMaterial setObjectProxy ' + 'setObjectTexture setObjectTextureGlobal setObjectViewDistance ' + 'setOvercast setOwner setOxygenRemaining setParticleCircle ' + 'setParticleClass setParticleFire setParticleParams ' + 'setParticleRandom setPilotLight setPiPEffect setPitch setPlayable ' + 'setPlayerRespawnTime setPos setPosASL setPosASL2 setPosASLW ' + 'setPosATL setPosition setPosWorld setRadioMsg setRain setRainbow ' + 'setRandomLip setRank setRectangular setRepairCargo ' + 'setShadowDistance setSide setSimpleTaskDescription ' + 'setSimpleTaskDestination setSimpleTaskTarget setSimulWeatherLayers ' + 'setSize setSkill setSkill array setSlingLoad setSoundEffect ' + 'setSpeaker setSpeech setSpeedMode setStatValue setSuppression ' + 'setSystemOfUnits setTargetAge setTaskResult setTaskState ' + 'setTerrainGrid setText setTimeMultiplier setTitleEffect ' + 'setTriggerActivation setTriggerArea setTriggerStatements ' + 'setTriggerText setTriggerTimeout setTriggerType setType ' + 'setUnconscious setUnitAbility setUnitPos setUnitPosWeak ' + 'setUnitRank setUnitRecoilCoefficient setUnloadInCombat ' + 'setUserActionText setVariable setVectorDir setVectorDirAndUp ' + 'setVectorUp setVehicleAmmo setVehicleAmmoDef setVehicleArmor ' + 'setVehicleId setVehicleLock setVehiclePosition setVehicleTiPars ' + 'setVehicleVarName setVelocity setVelocityTransformation ' + 'setViewDistance setVisibleIfTreeCollapsed setWaves ' + 'setWaypointBehaviour setWaypointCombatMode ' + 'setWaypointCompletionRadius setWaypointDescription ' + 'setWaypointFormation setWaypointHousePosition ' + 'setWaypointLoiterRadius setWaypointLoiterType setWaypointName ' + 'setWaypointPosition setWaypointScript setWaypointSpeed ' + 'setWaypointStatements setWaypointTimeout setWaypointType ' + 'setWaypointVisible setWeaponReloadingTime setWind setWindDir ' + 'setWindForce setWindStr setWPPos show3DIcons showChat ' + 'showCinemaBorder showCommandingMenu showCompass showCuratorCompass ' + 'showGPS showHUD showLegend showMap shownArtilleryComputer ' + 'shownChat shownCompass shownCuratorCompass showNewEditorObject ' + 'shownGPS shownHUD shownMap shownPad shownRadio shownUAVFeed ' + 'shownWarrant shownWatch showPad showRadio showSubtitles ' + 'showUAVFeed showWarrant showWatch showWaypoint side sideChat ' + 'sideEnemy sideFriendly sideLogic sideRadio sideUnknown simpleTasks ' + 'simulationEnabled simulCloudDensity simulCloudOcclusion ' + 'simulInClouds simulWeatherSync sin size sizeOf skill skillFinal ' + 'skipTime sleep sliderPosition sliderRange sliderSetPosition ' + 'sliderSetRange sliderSetSpeed sliderSpeed slingLoadAssistantShown ' + 'soldierMagazines someAmmo sort soundVolume spawn speaker speed ' + 'speedMode splitString sqrt squadParams stance startLoadingScreen ' + 'step stop stopped str sunOrMoon supportInfo suppressFor ' + 'surfaceIsWater surfaceNormal surfaceType swimInDepth ' + 'switchableUnits switchAction switchCamera switchGesture ' + 'switchLight switchMove synchronizedObjects synchronizedTriggers ' + 'synchronizedWaypoints synchronizeObjectsAdd ' + 'synchronizeObjectsRemove synchronizeTrigger synchronizeWaypoint ' + 'synchronizeWaypoint trigger systemChat systemOfUnits tan ' + 'targetKnowledge targetsAggregate targetsQuery taskChildren ' + 'taskCompleted taskDescription taskDestination taskHint taskNull ' + 'taskParent taskResult taskState teamMember teamMemberNull teamName ' + 'teams teamSwitch teamSwitchEnabled teamType terminate ' + 'terrainIntersect terrainIntersectASL text text location textLog ' + 'textLogFormat tg time timeMultiplier titleCut titleFadeOut ' + 'titleObj titleRsc titleText toArray toLower toString toUpper ' + 'triggerActivated triggerActivation triggerArea ' + 'triggerAttachedVehicle triggerAttachObject triggerAttachVehicle ' + 'triggerStatements triggerText triggerTimeout triggerTimeoutCurrent ' + 'triggerType turretLocal turretOwner turretUnit tvAdd tvClear ' + 'tvCollapse tvCount tvCurSel tvData tvDelete tvExpand tvPicture ' + 'tvSetCurSel tvSetData tvSetPicture tvSetPictureColor tvSetTooltip ' + 'tvSetValue tvSort tvSortByValue tvText tvValue type typeName ' + 'typeOf UAVControl uiNamespace uiSleep unassignCurator unassignItem ' + 'unassignTeam unassignVehicle underwater uniform uniformContainer ' + 'uniformItems uniformMagazines unitAddons unitBackpack unitPos ' + 'unitReady unitRecoilCoefficient units unitsBelowHeight unlinkItem ' + 'unlockAchievement unregisterTask updateDrawIcon updateMenuItem ' + 'updateObjectTree useAudioTimeForMoves vectorAdd vectorCos ' + 'vectorCrossProduct vectorDiff vectorDir vectorDirVisual ' + 'vectorDistance vectorDistanceSqr vectorDotProduct vectorFromTo ' + 'vectorMagnitude vectorMagnitudeSqr vectorMultiply vectorNormalized ' + 'vectorUp vectorUpVisual vehicle vehicleChat vehicleRadio vehicles ' + 'vehicleVarName velocity velocityModelSpace verifySignature vest ' + 'vestContainer vestItems vestMagazines viewDistance visibleCompass ' + 'visibleGPS visibleMap visiblePosition visiblePositionASL ' + 'visibleWatch waitUntil waves waypointAttachedObject ' + 'waypointAttachedVehicle waypointAttachObject waypointAttachVehicle ' + 'waypointBehaviour waypointCombatMode waypointCompletionRadius ' + 'waypointDescription waypointFormation waypointHousePosition ' + 'waypointLoiterRadius waypointLoiterType waypointName ' + 'waypointPosition waypoints waypointScript waypointsEnabledUAV ' + 'waypointShow waypointSpeed waypointStatements waypointTimeout ' + 'waypointTimeoutCurrent waypointType waypointVisible ' + 'weaponAccessories weaponCargo weaponDirection weaponLowered ' + 'weapons weaponsItems weaponsItemsCargo weaponState weaponsTurret ' + 'weightRTD west WFSideText wind windDir windStr wingsForcesRTD ' + 'worldName worldSize worldToModel worldToModelVisual worldToScreen ' + '_forEachIndex _this _x',
+	      keyword: 'case catch default do else exit exitWith for forEach from if ' + 'switch then throw to try waitUntil while with',
+	      built_in: 'abs accTime acos action actionIDs actionKeys actionKeysImages actionKeysNames ' + 'actionKeysNamesArray actionName actionParams activateAddons activatedAddons activateKey ' + 'add3DENConnection add3DENEventHandler add3DENLayer addAction addBackpack addBackpackCargo ' + 'addBackpackCargoGlobal addBackpackGlobal addCamShake addCuratorAddons addCuratorCameraArea ' + 'addCuratorEditableObjects addCuratorEditingArea addCuratorPoints addEditorObject addEventHandler ' + 'addGoggles addGroupIcon addHandgunItem addHeadgear addItem addItemCargo addItemCargoGlobal ' + 'addItemPool addItemToBackpack addItemToUniform addItemToVest addLiveStats addMagazine ' + 'addMagazineAmmoCargo addMagazineCargo addMagazineCargoGlobal addMagazineGlobal addMagazinePool ' + 'addMagazines addMagazineTurret addMenu addMenuItem addMissionEventHandler addMPEventHandler ' + 'addMusicEventHandler addOwnedMine addPlayerScores addPrimaryWeaponItem ' + 'addPublicVariableEventHandler addRating addResources addScore addScoreSide addSecondaryWeaponItem ' + 'addSwitchableUnit addTeamMember addToRemainsCollector addUniform addVehicle addVest addWaypoint ' + 'addWeapon addWeaponCargo addWeaponCargoGlobal addWeaponGlobal addWeaponItem addWeaponPool ' + 'addWeaponTurret agent agents AGLToASL aimedAtTarget aimPos airDensityRTD airportSide ' + 'AISFinishHeal alive all3DENEntities allControls allCurators allCutLayers allDead allDeadMen ' + 'allDisplays allGroups allMapMarkers allMines allMissionObjects allow3DMode allowCrewInImmobile ' + 'allowCuratorLogicIgnoreAreas allowDamage allowDammage allowFileOperations allowFleeing allowGetIn ' + 'allowSprint allPlayers allSites allTurrets allUnits allUnitsUAV allVariables ammo and animate ' + 'animateDoor animateSource animationNames animationPhase animationSourcePhase animationState ' + 'append apply armoryPoints arrayIntersect asin ASLToAGL ASLToATL assert assignAsCargo ' + 'assignAsCargoIndex assignAsCommander assignAsDriver assignAsGunner assignAsTurret assignCurator ' + 'assignedCargo assignedCommander assignedDriver assignedGunner assignedItems assignedTarget ' + 'assignedTeam assignedVehicle assignedVehicleRole assignItem assignTeam assignToAirport atan atan2 ' + 'atg ATLToASL attachedObject attachedObjects attachedTo attachObject attachTo attackEnabled ' + 'backpack backpackCargo backpackContainer backpackItems backpackMagazines backpackSpaceFor ' + 'behaviour benchmark binocular blufor boundingBox boundingBoxReal boundingCenter breakOut breakTo ' + 'briefingName buildingExit buildingPos buttonAction buttonSetAction cadetMode call callExtension ' + 'camCommand camCommit camCommitPrepared camCommitted camConstuctionSetParams camCreate camDestroy ' + 'cameraEffect cameraEffectEnableHUD cameraInterest cameraOn cameraView campaignConfigFile ' + 'camPreload camPreloaded camPrepareBank camPrepareDir camPrepareDive camPrepareFocus camPrepareFov ' + 'camPrepareFovRange camPreparePos camPrepareRelPos camPrepareTarget camSetBank camSetDir ' + 'camSetDive camSetFocus camSetFov camSetFovRange camSetPos camSetRelPos camSetTarget camTarget ' + 'camUseNVG canAdd canAddItemToBackpack canAddItemToUniform canAddItemToVest ' + 'cancelSimpleTaskDestination canFire canMove canSlingLoad canStand canSuspend canUnloadInCombat ' + 'canVehicleCargo captive captiveNum cbChecked cbSetChecked ceil channelEnabled cheatsEnabled ' + 'checkAIFeature checkVisibility civilian className clearAllItemsFromBackpack clearBackpackCargo ' + 'clearBackpackCargoGlobal clearGroupIcons clearItemCargo clearItemCargoGlobal clearItemPool ' + 'clearMagazineCargo clearMagazineCargoGlobal clearMagazinePool clearOverlay clearRadio ' + 'clearWeaponCargo clearWeaponCargoGlobal clearWeaponPool clientOwner closeDialog closeDisplay ' + 'closeOverlay collapseObjectTree collect3DENHistory combatMode commandArtilleryFire commandChat ' + 'commander commandFire commandFollow commandFSM commandGetOut commandingMenu commandMove ' + 'commandRadio commandStop commandSuppressiveFire commandTarget commandWatch comment commitOverlay ' + 'compile compileFinal completedFSM composeText configClasses configFile configHierarchy configName ' + 'configNull configProperties configSourceAddonList configSourceMod configSourceModList ' + 'connectTerminalToUAV controlNull controlsGroupCtrl copyFromClipboard copyToClipboard ' + 'copyWaypoints cos count countEnemy countFriendly countSide countType countUnknown ' + 'create3DENComposition create3DENEntity createAgent createCenter createDialog createDiaryLink ' + 'createDiaryRecord createDiarySubject createDisplay createGearDialog createGroup ' + 'createGuardedPoint createLocation createMarker createMarkerLocal createMenu createMine ' + 'createMissionDisplay createMPCampaignDisplay createSimpleObject createSimpleTask createSite ' + 'createSoundSource createTask createTeam createTrigger createUnit createVehicle createVehicleCrew ' + 'createVehicleLocal crew ctrlActivate ctrlAddEventHandler ctrlAngle ctrlAutoScrollDelay ' + 'ctrlAutoScrollRewind ctrlAutoScrollSpeed ctrlChecked ctrlClassName ctrlCommit ctrlCommitted ' + 'ctrlCreate ctrlDelete ctrlEnable ctrlEnabled ctrlFade ctrlHTMLLoaded ctrlIDC ctrlIDD ' + 'ctrlMapAnimAdd ctrlMapAnimClear ctrlMapAnimCommit ctrlMapAnimDone ctrlMapCursor ctrlMapMouseOver ' + 'ctrlMapScale ctrlMapScreenToWorld ctrlMapWorldToScreen ctrlModel ctrlModelDirAndUp ctrlModelScale ' + 'ctrlParent ctrlParentControlsGroup ctrlPosition ctrlRemoveAllEventHandlers ctrlRemoveEventHandler ' + 'ctrlScale ctrlSetActiveColor ctrlSetAngle ctrlSetAutoScrollDelay ctrlSetAutoScrollRewind ' + 'ctrlSetAutoScrollSpeed ctrlSetBackgroundColor ctrlSetChecked ctrlSetEventHandler ctrlSetFade ' + 'ctrlSetFocus ctrlSetFont ctrlSetFontH1 ctrlSetFontH1B ctrlSetFontH2 ctrlSetFontH2B ctrlSetFontH3 ' + 'ctrlSetFontH3B ctrlSetFontH4 ctrlSetFontH4B ctrlSetFontH5 ctrlSetFontH5B ctrlSetFontH6 ' + 'ctrlSetFontH6B ctrlSetFontHeight ctrlSetFontHeightH1 ctrlSetFontHeightH2 ctrlSetFontHeightH3 ' + 'ctrlSetFontHeightH4 ctrlSetFontHeightH5 ctrlSetFontHeightH6 ctrlSetFontHeightSecondary ' + 'ctrlSetFontP ctrlSetFontPB ctrlSetFontSecondary ctrlSetForegroundColor ctrlSetModel ' + 'ctrlSetModelDirAndUp ctrlSetModelScale ctrlSetPosition ctrlSetScale ctrlSetStructuredText ' + 'ctrlSetText ctrlSetTextColor ctrlSetTooltip ctrlSetTooltipColorBox ctrlSetTooltipColorShade ' + 'ctrlSetTooltipColorText ctrlShow ctrlShown ctrlText ctrlTextHeight ctrlType ctrlVisible ' + 'curatorAddons curatorCamera curatorCameraArea curatorCameraAreaCeiling curatorCoef ' + 'curatorEditableObjects curatorEditingArea curatorEditingAreaType curatorMouseOver curatorPoints ' + 'curatorRegisteredObjects curatorSelected curatorWaypointCost current3DENOperation currentChannel ' + 'currentCommand currentMagazine currentMagazineDetail currentMagazineDetailTurret ' + 'currentMagazineTurret currentMuzzle currentNamespace currentTask currentTasks currentThrowable ' + 'currentVisionMode currentWaypoint currentWeapon currentWeaponMode currentWeaponTurret ' + 'currentZeroing cursorObject cursorTarget customChat customRadio cutFadeOut cutObj cutRsc cutText ' + 'damage date dateToNumber daytime deActivateKey debriefingText debugFSM debugLog deg ' + 'delete3DENEntities deleteAt deleteCenter deleteCollection deleteEditorObject deleteGroup ' + 'deleteIdentity deleteLocation deleteMarker deleteMarkerLocal deleteRange deleteResources ' + 'deleteSite deleteStatus deleteTeam deleteVehicle deleteVehicleCrew deleteWaypoint detach ' + 'detectedMines diag_activeMissionFSMs diag_activeScripts diag_activeSQFScripts ' + 'diag_activeSQSScripts diag_captureFrame diag_captureSlowFrame diag_codePerformance diag_drawMode ' + 'diag_enable diag_enabled diag_fps diag_fpsMin diag_frameNo diag_list diag_log diag_logSlowFrame ' + 'diag_mergeConfigFile diag_recordTurretLimits diag_tickTime diag_toggle dialog diarySubjectExists ' + 'didJIP didJIPOwner difficulty difficultyEnabled difficultyEnabledRTD difficultyOption direction ' + 'directSay disableAI disableCollisionWith disableConversation disableDebriefingStats ' + 'disableNVGEquipment disableRemoteSensors disableSerialization disableTIEquipment ' + 'disableUAVConnectability disableUserInput displayAddEventHandler displayCtrl displayNull ' + 'displayParent displayRemoveAllEventHandlers displayRemoveEventHandler displaySetEventHandler ' + 'dissolveTeam distance distance2D distanceSqr distributionRegion do3DENAction doArtilleryFire ' + 'doFire doFollow doFSM doGetOut doMove doorPhase doStop doSuppressiveFire doTarget doWatch ' + 'drawArrow drawEllipse drawIcon drawIcon3D drawLine drawLine3D drawLink drawLocation drawPolygon ' + 'drawRectangle driver drop east echo edit3DENMissionAttributes editObject editorSetEventHandler ' + 'effectiveCommander emptyPositions enableAI enableAIFeature enableAimPrecision enableAttack ' + 'enableAudioFeature enableCamShake enableCaustics enableChannel enableCollisionWith enableCopilot ' + 'enableDebriefingStats enableDiagLegend enableEndDialog enableEngineArtillery enableEnvironment ' + 'enableFatigue enableGunLights enableIRLasers enableMimics enablePersonTurret enableRadio ' + 'enableReload enableRopeAttach enableSatNormalOnDetail enableSaving enableSentences ' + 'enableSimulation enableSimulationGlobal enableStamina enableTeamSwitch enableUAVConnectability ' + 'enableUAVWaypoints enableVehicleCargo endLoadingScreen endMission engineOn enginesIsOnRTD ' + 'enginesRpmRTD enginesTorqueRTD entities estimatedEndServerTime estimatedTimeLeft ' + 'evalObjectArgument everyBackpack everyContainer exec execEditorScript execFSM execVM exp ' + 'expectedDestination exportJIPMessages eyeDirection eyePos face faction fadeMusic fadeRadio ' + 'fadeSound fadeSpeech failMission fillWeaponsFromPool find findCover findDisplay findEditorObject ' + 'findEmptyPosition findEmptyPositionReady findNearestEnemy finishMissionInit finite fire ' + 'fireAtTarget firstBackpack flag flagOwner flagSide flagTexture fleeing floor flyInHeight ' + 'flyInHeightASL fog fogForecast fogParams forceAddUniform forcedMap forceEnd forceMap forceRespawn ' + 'forceSpeed forceWalk forceWeaponFire forceWeatherChange forEachMember forEachMemberAgent ' + 'forEachMemberTeam format formation formationDirection formationLeader formationMembers ' + 'formationPosition formationTask formatText formLeader freeLook fromEditor fuel fullCrew ' + 'gearIDCAmmoCount gearSlotAmmoCount gearSlotData get3DENActionState get3DENAttribute get3DENCamera ' + 'get3DENConnections get3DENEntity get3DENEntityID get3DENGrid get3DENIconsVisible ' + 'get3DENLayerEntities get3DENLinesVisible get3DENMissionAttribute get3DENMouseOver get3DENSelected ' + 'getAimingCoef getAllHitPointsDamage getAllOwnedMines getAmmoCargo getAnimAimPrecision ' + 'getAnimSpeedCoef getArray getArtilleryAmmo getArtilleryComputerSettings getArtilleryETA ' + 'getAssignedCuratorLogic getAssignedCuratorUnit getBackpackCargo getBleedingRemaining ' + 'getBurningValue getCameraViewDirection getCargoIndex getCenterOfMass getClientState ' + 'getClientStateNumber getConnectedUAV getCustomAimingCoef getDammage getDescription getDir ' + 'getDirVisual getDLCs getEditorCamera getEditorMode getEditorObjectScope getElevationOffset ' + 'getFatigue getFriend getFSMVariable getFuelCargo getGroupIcon getGroupIconParams getGroupIcons ' + 'getHideFrom getHit getHitIndex getHitPointDamage getItemCargo getMagazineCargo getMarkerColor ' + 'getMarkerPos getMarkerSize getMarkerType getMass getMissionConfig getMissionConfigValue ' + 'getMissionDLCs getMissionLayerEntities getModelInfo getMousePosition getNumber getObjectArgument ' + 'getObjectChildren getObjectDLC getObjectMaterials getObjectProxy getObjectTextures getObjectType ' + 'getObjectViewDistance getOxygenRemaining getPersonUsedDLCs getPilotCameraDirection ' + 'getPilotCameraPosition getPilotCameraRotation getPilotCameraTarget getPlayerChannel ' + 'getPlayerScores getPlayerUID getPos getPosASL getPosASLVisual getPosASLW getPosATL ' + 'getPosATLVisual getPosVisual getPosWorld getRelDir getRelPos getRemoteSensorsDisabled ' + 'getRepairCargo getResolution getShadowDistance getShotParents getSlingLoad getSpeed getStamina ' + 'getStatValue getSuppression getTerrainHeightASL getText getUnitLoadout getUnitTrait getVariable ' + 'getVehicleCargo getWeaponCargo getWeaponSway getWPPos glanceAt globalChat globalRadio goggles ' + 'goto group groupChat groupFromNetId groupIconSelectable groupIconsVisible groupId groupOwner ' + 'groupRadio groupSelectedUnits groupSelectUnit grpNull gunner gusts halt handgunItems ' + 'handgunMagazine handgunWeapon handsHit hasInterface hasPilotCamera hasWeapon hcAllGroups ' + 'hcGroupParams hcLeader hcRemoveAllGroups hcRemoveGroup hcSelected hcSelectGroup hcSetGroup ' + 'hcShowBar hcShownBar headgear hideBody hideObject hideObjectGlobal hideSelection hint hintC ' + 'hintCadet hintSilent hmd hostMission htmlLoad HUDMovementLevels humidity image importAllGroups ' + 'importance in inArea inAreaArray incapacitatedState independent inflame inflamed ' + 'inGameUISetEventHandler inheritsFrom initAmbientLife inPolygon inputAction inRangeOfArtillery ' + 'insertEditorObject intersect is3DEN is3DENMultiplayer isAbleToBreathe isAgent isArray ' + 'isAutoHoverOn isAutonomous isAutotest isBleeding isBurning isClass isCollisionLightOn ' + 'isCopilotEnabled isDedicated isDLCAvailable isEngineOn isEqualTo isEqualType isEqualTypeAll ' + 'isEqualTypeAny isEqualTypeArray isEqualTypeParams isFilePatchingEnabled isFlashlightOn ' + 'isFlatEmpty isForcedWalk isFormationLeader isHidden isInRemainsCollector ' + 'isInstructorFigureEnabled isIRLaserOn isKeyActive isKindOf isLightOn isLocalized isManualFire ' + 'isMarkedForCollection isMultiplayer isMultiplayerSolo isNil isNull isNumber isObjectHidden ' + 'isObjectRTD isOnRoad isPipEnabled isPlayer isRealTime isRemoteExecuted isRemoteExecutedJIP ' + 'isServer isShowing3DIcons isSprintAllowed isStaminaEnabled isSteamMission ' + 'isStreamFriendlyUIEnabled isText isTouchingGround isTurnedOut isTutHintsEnabled isUAVConnectable ' + 'isUAVConnected isUniformAllowed isVehicleCargo isWalking isWeaponDeployed isWeaponRested ' + 'itemCargo items itemsWithMagazines join joinAs joinAsSilent joinSilent joinString kbAddDatabase ' + 'kbAddDatabaseTargets kbAddTopic kbHasTopic kbReact kbRemoveTopic kbTell kbWasSaid keyImage ' + 'keyName knowsAbout land landAt landResult language laserTarget lbAdd lbClear lbColor lbCurSel ' + 'lbData lbDelete lbIsSelected lbPicture lbSelection lbSetColor lbSetCurSel lbSetData lbSetPicture ' + 'lbSetPictureColor lbSetPictureColorDisabled lbSetPictureColorSelected lbSetSelectColor ' + 'lbSetSelectColorRight lbSetSelected lbSetTooltip lbSetValue lbSize lbSort lbSortByValue lbText ' + 'lbValue leader leaderboardDeInit leaderboardGetRows leaderboardInit leaveVehicle libraryCredits ' + 'libraryDisclaimers lifeState lightAttachObject lightDetachObject lightIsOn lightnings limitSpeed ' + 'linearConversion lineBreak lineIntersects lineIntersectsObjs lineIntersectsSurfaces ' + 'lineIntersectsWith linkItem list listObjects ln lnbAddArray lnbAddColumn lnbAddRow lnbClear ' + 'lnbColor lnbCurSelRow lnbData lnbDeleteColumn lnbDeleteRow lnbGetColumnsPosition lnbPicture ' + 'lnbSetColor lnbSetColumnsPos lnbSetCurSelRow lnbSetData lnbSetPicture lnbSetText lnbSetValue ' + 'lnbSize lnbText lnbValue load loadAbs loadBackpack loadFile loadGame loadIdentity loadMagazine ' + 'loadOverlay loadStatus loadUniform loadVest local localize locationNull locationPosition lock ' + 'lockCameraTo lockCargo lockDriver locked lockedCargo lockedDriver lockedTurret lockIdentity ' + 'lockTurret lockWP log logEntities logNetwork logNetworkTerminate lookAt lookAtPos magazineCargo ' + 'magazines magazinesAllTurrets magazinesAmmo magazinesAmmoCargo magazinesAmmoFull magazinesDetail ' + 'magazinesDetailBackpack magazinesDetailUniform magazinesDetailVest magazinesTurret ' + 'magazineTurretAmmo mapAnimAdd mapAnimClear mapAnimCommit mapAnimDone mapCenterOnCamera ' + 'mapGridPosition markAsFinishedOnSteam markerAlpha markerBrush markerColor markerDir markerPos ' + 'markerShape markerSize markerText markerType max members menuAction menuAdd menuChecked menuClear ' + 'menuCollapse menuData menuDelete menuEnable menuEnabled menuExpand menuHover menuPicture ' + 'menuSetAction menuSetCheck menuSetData menuSetPicture menuSetValue menuShortcut menuShortcutText ' + 'menuSize menuSort menuText menuURL menuValue min mineActive mineDetectedBy missionConfigFile ' + 'missionDifficulty missionName missionNamespace missionStart missionVersion mod modelToWorld ' + 'modelToWorldVisual modParams moonIntensity moonPhase morale move move3DENCamera moveInAny ' + 'moveInCargo moveInCommander moveInDriver moveInGunner moveInTurret moveObjectToEnd moveOut ' + 'moveTime moveTo moveToCompleted moveToFailed musicVolume name nameSound nearEntities ' + 'nearestBuilding nearestLocation nearestLocations nearestLocationWithDubbing nearestObject ' + 'nearestObjects nearestTerrainObjects nearObjects nearObjectsReady nearRoads nearSupplies ' + 'nearTargets needReload netId netObjNull newOverlay nextMenuItemIndex nextWeatherChange nMenuItems ' + 'not numberToDate objectCurators objectFromNetId objectParent objNull objStatus onBriefingGroup ' + 'onBriefingNotes onBriefingPlan onBriefingTeamSwitch onCommandModeChanged onDoubleClick ' + 'onEachFrame onGroupIconClick onGroupIconOverEnter onGroupIconOverLeave onHCGroupSelectionChanged ' + 'onMapSingleClick onPlayerConnected onPlayerDisconnected onPreloadFinished onPreloadStarted ' + 'onShowNewObject onTeamSwitch openCuratorInterface openDLCPage openMap openYoutubeVideo opfor or ' + 'orderGetIn overcast overcastForecast owner param params parseNumber parseText parsingNamespace ' + 'particlesQuality pi pickWeaponPool pitch pixelGrid pixelGridBase pixelGridNoUIScale pixelH pixelW ' + 'playableSlotsNumber playableUnits playAction playActionNow player playerRespawnTime playerSide ' + 'playersNumber playGesture playMission playMove playMoveNow playMusic playScriptedMission ' + 'playSound playSound3D position positionCameraToWorld posScreenToWorld posWorldToScreen ' + 'ppEffectAdjust ppEffectCommit ppEffectCommitted ppEffectCreate ppEffectDestroy ppEffectEnable ' + 'ppEffectEnabled ppEffectForceInNVG precision preloadCamera preloadObject preloadSound ' + 'preloadTitleObj preloadTitleRsc preprocessFile preprocessFileLineNumbers primaryWeapon ' + 'primaryWeaponItems primaryWeaponMagazine priority private processDiaryLink productVersion ' + 'profileName profileNamespace profileNameSteam progressLoadingScreen progressPosition ' + 'progressSetPosition publicVariable publicVariableClient publicVariableServer pushBack ' + 'pushBackUnique putWeaponPool queryItemsPool queryMagazinePool queryWeaponPool rad radioChannelAdd ' + 'radioChannelCreate radioChannelRemove radioChannelSetCallSign radioChannelSetLabel radioVolume ' + 'rain rainbow random rank rankId rating rectangular registeredTasks registerTask reload ' + 'reloadEnabled remoteControl remoteExec remoteExecCall remove3DENConnection remove3DENEventHandler ' + 'remove3DENLayer removeAction removeAll3DENEventHandlers removeAllActions removeAllAssignedItems ' + 'removeAllContainers removeAllCuratorAddons removeAllCuratorCameraAreas ' + 'removeAllCuratorEditingAreas removeAllEventHandlers removeAllHandgunItems removeAllItems ' + 'removeAllItemsWithMagazines removeAllMissionEventHandlers removeAllMPEventHandlers ' + 'removeAllMusicEventHandlers removeAllOwnedMines removeAllPrimaryWeaponItems removeAllWeapons ' + 'removeBackpack removeBackpackGlobal removeCuratorAddons removeCuratorCameraArea ' + 'removeCuratorEditableObjects removeCuratorEditingArea removeDrawIcon removeDrawLinks ' + 'removeEventHandler removeFromRemainsCollector removeGoggles removeGroupIcon removeHandgunItem ' + 'removeHeadgear removeItem removeItemFromBackpack removeItemFromUniform removeItemFromVest ' + 'removeItems removeMagazine removeMagazineGlobal removeMagazines removeMagazinesTurret ' + 'removeMagazineTurret removeMenuItem removeMissionEventHandler removeMPEventHandler ' + 'removeMusicEventHandler removeOwnedMine removePrimaryWeaponItem removeSecondaryWeaponItem ' + 'removeSimpleTask removeSwitchableUnit removeTeamMember removeUniform removeVest removeWeapon ' + 'removeWeaponGlobal removeWeaponTurret requiredVersion resetCamShake resetSubgroupDirection ' + 'resistance resize resources respawnVehicle restartEditorCamera reveal revealMine reverse ' + 'reversedMouseY roadAt roadsConnectedTo roleDescription ropeAttachedObjects ropeAttachedTo ' + 'ropeAttachEnabled ropeAttachTo ropeCreate ropeCut ropeDestroy ropeDetach ropeEndPosition ' + 'ropeLength ropes ropeUnwind ropeUnwound rotorsForcesRTD rotorsRpmRTD round runInitScript ' + 'safeZoneH safeZoneW safeZoneWAbs safeZoneX safeZoneXAbs safeZoneY save3DENInventory saveGame ' + 'saveIdentity saveJoysticks saveOverlay saveProfileNamespace saveStatus saveVar savingEnabled say ' + 'say2D say3D scopeName score scoreSide screenshot screenToWorld scriptDone scriptName scriptNull ' + 'scudState secondaryWeapon secondaryWeaponItems secondaryWeaponMagazine select selectBestPlaces ' + 'selectDiarySubject selectedEditorObjects selectEditorObject selectionNames selectionPosition ' + 'selectLeader selectMax selectMin selectNoPlayer selectPlayer selectRandom selectWeapon ' + 'selectWeaponTurret sendAUMessage sendSimpleCommand sendTask sendTaskResult sendUDPMessage ' + 'serverCommand serverCommandAvailable serverCommandExecutable serverName serverTime set ' + 'set3DENAttribute set3DENAttributes set3DENGrid set3DENIconsVisible set3DENLayer ' + 'set3DENLinesVisible set3DENMissionAttributes set3DENModelsVisible set3DENObjectType ' + 'set3DENSelected setAccTime setAirportSide setAmmo setAmmoCargo setAnimSpeedCoef setAperture ' + 'setApertureNew setArmoryPoints setAttributes setAutonomous setBehaviour setBleedingRemaining ' + 'setCameraInterest setCamShakeDefParams setCamShakeParams setCamUseTi setCaptive setCenterOfMass ' + 'setCollisionLight setCombatMode setCompassOscillation setCuratorCameraAreaCeiling setCuratorCoef ' + 'setCuratorEditingAreaType setCuratorWaypointCost setCurrentChannel setCurrentTask ' + 'setCurrentWaypoint setCustomAimCoef setDamage setDammage setDate setDebriefingText ' + 'setDefaultCamera setDestination setDetailMapBlendPars setDir setDirection setDrawIcon ' + 'setDropInterval setEditorMode setEditorObjectScope setEffectCondition setFace setFaceAnimation ' + 'setFatigue setFlagOwner setFlagSide setFlagTexture setFog setFormation setFormationTask ' + 'setFormDir setFriend setFromEditor setFSMVariable setFuel setFuelCargo setGroupIcon ' + 'setGroupIconParams setGroupIconsSelectable setGroupIconsVisible setGroupId setGroupIdGlobal ' + 'setGroupOwner setGusts setHideBehind setHit setHitIndex setHitPointDamage setHorizonParallaxCoef ' + 'setHUDMovementLevels setIdentity setImportance setLeader setLightAmbient setLightAttenuation ' + 'setLightBrightness setLightColor setLightDayLight setLightFlareMaxDistance setLightFlareSize ' + 'setLightIntensity setLightnings setLightUseFlare setLocalWindParams setMagazineTurretAmmo ' + 'setMarkerAlpha setMarkerAlphaLocal setMarkerBrush setMarkerBrushLocal setMarkerColor ' + 'setMarkerColorLocal setMarkerDir setMarkerDirLocal setMarkerPos setMarkerPosLocal setMarkerShape ' + 'setMarkerShapeLocal setMarkerSize setMarkerSizeLocal setMarkerText setMarkerTextLocal ' + 'setMarkerType setMarkerTypeLocal setMass setMimic setMousePosition setMusicEffect ' + 'setMusicEventHandler setName setNameSound setObjectArguments setObjectMaterial ' + 'setObjectMaterialGlobal setObjectProxy setObjectTexture setObjectTextureGlobal ' + 'setObjectViewDistance setOvercast setOwner setOxygenRemaining setParticleCircle setParticleClass ' + 'setParticleFire setParticleParams setParticleRandom setPilotCameraDirection ' + 'setPilotCameraRotation setPilotCameraTarget setPilotLight setPiPEffect setPitch setPlayable ' + 'setPlayerRespawnTime setPos setPosASL setPosASL2 setPosASLW setPosATL setPosition setPosWorld ' + 'setRadioMsg setRain setRainbow setRandomLip setRank setRectangular setRepairCargo ' + 'setShadowDistance setShotParents setSide setSimpleTaskAlwaysVisible setSimpleTaskCustomData ' + 'setSimpleTaskDescription setSimpleTaskDestination setSimpleTaskTarget setSimpleTaskType ' + 'setSimulWeatherLayers setSize setSkill setSlingLoad setSoundEffect setSpeaker setSpeech ' + 'setSpeedMode setStamina setStaminaScheme setStatValue setSuppression setSystemOfUnits ' + 'setTargetAge setTaskResult setTaskState setTerrainGrid setText setTimeMultiplier setTitleEffect ' + 'setTriggerActivation setTriggerArea setTriggerStatements setTriggerText setTriggerTimeout ' + 'setTriggerType setType setUnconscious setUnitAbility setUnitLoadout setUnitPos setUnitPosWeak ' + 'setUnitRank setUnitRecoilCoefficient setUnitTrait setUnloadInCombat setUserActionText setVariable ' + 'setVectorDir setVectorDirAndUp setVectorUp setVehicleAmmo setVehicleAmmoDef setVehicleArmor ' + 'setVehicleCargo setVehicleId setVehicleLock setVehiclePosition setVehicleTiPars setVehicleVarName ' + 'setVelocity setVelocityTransformation setViewDistance setVisibleIfTreeCollapsed setWaves ' + 'setWaypointBehaviour setWaypointCombatMode setWaypointCompletionRadius setWaypointDescription ' + 'setWaypointForceBehaviour setWaypointFormation setWaypointHousePosition setWaypointLoiterRadius ' + 'setWaypointLoiterType setWaypointName setWaypointPosition setWaypointScript setWaypointSpeed ' + 'setWaypointStatements setWaypointTimeout setWaypointType setWaypointVisible ' + 'setWeaponReloadingTime setWind setWindDir setWindForce setWindStr setWPPos show3DIcons showChat ' + 'showCinemaBorder showCommandingMenu showCompass showCuratorCompass showGPS showHUD showLegend ' + 'showMap shownArtilleryComputer shownChat shownCompass shownCuratorCompass showNewEditorObject ' + 'shownGPS shownHUD shownMap shownPad shownRadio shownScoretable shownUAVFeed shownWarrant ' + 'shownWatch showPad showRadio showScoretable showSubtitles showUAVFeed showWarrant showWatch ' + 'showWaypoint showWaypoints side sideAmbientLife sideChat sideEmpty sideEnemy sideFriendly ' + 'sideLogic sideRadio sideUnknown simpleTasks simulationEnabled simulCloudDensity ' + 'simulCloudOcclusion simulInClouds simulWeatherSync sin size sizeOf skill skillFinal skipTime ' + 'sleep sliderPosition sliderRange sliderSetPosition sliderSetRange sliderSetSpeed sliderSpeed ' + 'slingLoadAssistantShown soldierMagazines someAmmo sort soundVolume spawn speaker speed speedMode ' + 'splitString sqrt squadParams stance startLoadingScreen step stop stopEngineRTD stopped str ' + 'sunOrMoon supportInfo suppressFor surfaceIsWater surfaceNormal surfaceType swimInDepth ' + 'switchableUnits switchAction switchCamera switchGesture switchLight switchMove ' + 'synchronizedObjects synchronizedTriggers synchronizedWaypoints synchronizeObjectsAdd ' + 'synchronizeObjectsRemove synchronizeTrigger synchronizeWaypoint systemChat systemOfUnits tan ' + 'targetKnowledge targetsAggregate targetsQuery taskAlwaysVisible taskChildren taskCompleted ' + 'taskCustomData taskDescription taskDestination taskHint taskMarkerOffset taskNull taskParent ' + 'taskResult taskState taskType teamMember teamMemberNull teamName teams teamSwitch ' + 'teamSwitchEnabled teamType terminate terrainIntersect terrainIntersectASL text textLog ' + 'textLogFormat tg time timeMultiplier titleCut titleFadeOut titleObj titleRsc titleText toArray ' + 'toFixed toLower toString toUpper triggerActivated triggerActivation triggerArea ' + 'triggerAttachedVehicle triggerAttachObject triggerAttachVehicle triggerStatements triggerText ' + 'triggerTimeout triggerTimeoutCurrent triggerType turretLocal turretOwner turretUnit tvAdd tvClear ' + 'tvCollapse tvCount tvCurSel tvData tvDelete tvExpand tvPicture tvSetCurSel tvSetData tvSetPicture ' + 'tvSetPictureColor tvSetPictureColorDisabled tvSetPictureColorSelected tvSetPictureRight ' + 'tvSetPictureRightColor tvSetPictureRightColorDisabled tvSetPictureRightColorSelected tvSetText ' + 'tvSetTooltip tvSetValue tvSort tvSortByValue tvText tvTooltip tvValue type typeName typeOf ' + 'UAVControl uiNamespace uiSleep unassignCurator unassignItem unassignTeam unassignVehicle ' + 'underwater uniform uniformContainer uniformItems uniformMagazines unitAddons unitAimPosition ' + 'unitAimPositionVisual unitBackpack unitIsUAV unitPos unitReady unitRecoilCoefficient units ' + 'unitsBelowHeight unlinkItem unlockAchievement unregisterTask updateDrawIcon updateMenuItem ' + 'updateObjectTree useAISteeringComponent useAudioTimeForMoves vectorAdd vectorCos ' + 'vectorCrossProduct vectorDiff vectorDir vectorDirVisual vectorDistance vectorDistanceSqr ' + 'vectorDotProduct vectorFromTo vectorMagnitude vectorMagnitudeSqr vectorMultiply vectorNormalized ' + 'vectorUp vectorUpVisual vehicle vehicleCargoEnabled vehicleChat vehicleRadio vehicles ' + 'vehicleVarName velocity velocityModelSpace verifySignature vest vestContainer vestItems ' + 'vestMagazines viewDistance visibleCompass visibleGPS visibleMap visiblePosition ' + 'visiblePositionASL visibleScoretable visibleWatch waves waypointAttachedObject ' + 'waypointAttachedVehicle waypointAttachObject waypointAttachVehicle waypointBehaviour ' + 'waypointCombatMode waypointCompletionRadius waypointDescription waypointForceBehaviour ' + 'waypointFormation waypointHousePosition waypointLoiterRadius waypointLoiterType waypointName ' + 'waypointPosition waypoints waypointScript waypointsEnabledUAV waypointShow waypointSpeed ' + 'waypointStatements waypointTimeout waypointTimeoutCurrent waypointType waypointVisible ' + 'weaponAccessories weaponAccessoriesCargo weaponCargo weaponDirection weaponInertia weaponLowered ' + 'weapons weaponsItems weaponsItemsCargo weaponState weaponsTurret weightRTD west WFSideText wind',
 	      literal: 'true false nil'
 	    },
-	    contains: [hljs.C_LINE_COMMENT_MODE, hljs.C_BLOCK_COMMENT_MODE, hljs.NUMBER_MODE, STRINGS, CPP.preprocessor],
+	    contains: [hljs.C_LINE_COMMENT_MODE, hljs.C_BLOCK_COMMENT_MODE, hljs.NUMBER_MODE, VARIABLE, FUNCTION, STRINGS, CPP.preprocessor],
 	    illegal: /#/
 	  };
 	};
 
 /***/ },
-/* 406 */
+/* 407 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11451,7 +11505,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 407 */
+/* 408 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11510,7 +11564,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 408 */
+/* 409 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11537,7 +11591,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 409 */
+/* 410 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11575,7 +11629,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 410 */
+/* 411 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11700,7 +11754,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 411 */
+/* 412 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11728,7 +11782,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 412 */
+/* 413 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11799,7 +11853,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 413 */
+/* 414 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11842,7 +11896,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 414 */
+/* 415 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11907,7 +11961,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 415 */
+/* 416 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11939,7 +11993,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 416 */
+/* 417 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -11978,7 +12032,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 417 */
+/* 418 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12020,7 +12074,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 418 */
+/* 419 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12047,7 +12101,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 419 */
+/* 420 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12106,7 +12160,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 420 */
+/* 421 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12162,7 +12216,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 421 */
+/* 422 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12210,7 +12264,16 @@ webpackJsonp([0],[
 	      illegal: /%/,
 	      relevance: 0 // () => {} is more typical in TypeScript
 	    }, {
-	      beginKeywords: 'constructor', end: /\{/, excludeEnd: true
+	      beginKeywords: 'constructor', end: /\{/, excludeEnd: true,
+	      contains: ['self', {
+	        className: 'params',
+	        begin: /\(/, end: /\)/,
+	        excludeBegin: true,
+	        excludeEnd: true,
+	        keywords: KEYWORDS,
+	        contains: [hljs.C_LINE_COMMENT_MODE, hljs.C_BLOCK_COMMENT_MODE],
+	        illegal: /["'\(]/
+	      }]
 	    }, { // prevent references like module.id from being higlighted as module definitions
 	      begin: /module\./,
 	      keywords: { built_in: 'module' },
@@ -12224,12 +12287,14 @@ webpackJsonp([0],[
 	      begin: /\$[(.]/ // relevance booster for a pattern common to JS libs: `$(something)` and `$.something`
 	    }, {
 	      begin: '\\.' + hljs.IDENT_RE, relevance: 0 // hack: prevents detection of keywords after dots
+	    }, {
+	      className: 'meta', begin: '@[A-Za-z]+'
 	    }]
 	  };
 	};
 
 /***/ },
-/* 422 */
+/* 423 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12269,7 +12334,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 423 */
+/* 424 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12314,7 +12379,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 424 */
+/* 425 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12334,7 +12399,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 425 */
+/* 426 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12348,7 +12413,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 426 */
+/* 427 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12380,7 +12445,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 427 */
+/* 428 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12423,7 +12488,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 428 */
+/* 429 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12472,7 +12537,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 429 */
+/* 430 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12572,7 +12637,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 430 */
+/* 431 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12622,7 +12687,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 431 */
+/* 432 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12678,7 +12743,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 432 */
+/* 433 */
 /***/ function(module, exports) {
 
 	module.exports = function (hljs) {
@@ -12740,7 +12805,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 433 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12789,7 +12854,7 @@ webpackJsonp([0],[
 
 	var _marked2 = _interopRequireDefault(_marked);
 
-	var _organismReactAjax = __webpack_require__(434);
+	var _organismReactAjax = __webpack_require__(435);
 
 	var _reactAtomicMolecule = __webpack_require__(182);
 
@@ -12879,7 +12944,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 434 */
+/* 435 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12888,7 +12953,7 @@ webpackJsonp([0],[
 	  value: true
 	});
 
-	var _AjaxLink = __webpack_require__(435);
+	var _AjaxLink = __webpack_require__(436);
 
 	Object.defineProperty(exports, 'AjaxLink', {
 	  enumerable: true,
@@ -12897,7 +12962,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _AjaxPage = __webpack_require__(537);
+	var _AjaxPage = __webpack_require__(547);
 
 	Object.defineProperty(exports, 'AjaxPage', {
 	  enumerable: true,
@@ -12906,7 +12971,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _AjaxForm = __webpack_require__(538);
+	var _AjaxForm = __webpack_require__(548);
 
 	Object.defineProperty(exports, 'AjaxForm', {
 	  enumerable: true,
@@ -12915,7 +12980,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _ajaxStore = __webpack_require__(514);
+	var _ajaxStore = __webpack_require__(515);
 
 	Object.defineProperty(exports, 'ajaxStore', {
 	  enumerable: true,
@@ -12924,7 +12989,7 @@ webpackJsonp([0],[
 	  }
 	});
 
-	var _ajaxDispatcher = __webpack_require__(532);
+	var _ajaxDispatcher = __webpack_require__(536);
 
 	Object.defineProperty(exports, 'ajaxDispatch', {
 	  enumerable: true,
@@ -12938,7 +13003,7 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 435 */
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -12967,17 +13032,21 @@ webpackJsonp([0],[
 	    };
 	}();
 
-	var _reactAtomicMolecule = __webpack_require__(436);
+	var _react = __webpack_require__(2);
 
-	var _AjaxBase2 = __webpack_require__(513);
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAtomicMolecule = __webpack_require__(437);
+
+	var _AjaxBase2 = __webpack_require__(514);
 
 	var _AjaxBase3 = _interopRequireDefault(_AjaxBase2);
 
-	var _ajaxStore = __webpack_require__(514);
+	var _ajaxStore = __webpack_require__(515);
 
 	var _ajaxStore2 = _interopRequireDefault(_ajaxStore);
 
-	var _ajaxDispatcher = __webpack_require__(532);
+	var _ajaxDispatcher = __webpack_require__(536);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -13011,22 +13080,27 @@ webpackJsonp([0],[
 	    _inherits(AjaxLink, _AjaxBase);
 
 	    function AjaxLink() {
+	        var _ref;
+
+	        var _temp, _this, _ret;
+
 	        _classCallCheck(this, AjaxLink);
 
-	        return _possibleConstructorReturn(this, (AjaxLink.__proto__ || Object.getPrototypeOf(AjaxLink)).apply(this, arguments));
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AjaxLink.__proto__ || Object.getPrototypeOf(AjaxLink)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnClick = function (e) {
+	            e.preventDefault();
+	            var href = e.currentTarget.href;
+	            _this.go(href);
+	            if (_this.props.onClick) {
+	                _this.props.onClick();
+	            }
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 
 	    _createClass(AjaxLink, [{
-	        key: 'handleOnClick',
-	        value: function handleOnClick(e) {
-	            e.preventDefault();
-	            var href = e.currentTarget.href;
-	            this.go(href);
-	            if (this.props.onClick) {
-	                this.props.onClick();
-	            }
-	        }
-	    }, {
 	        key: 'go',
 	        value: function go(url) {
 	            (0, _ajaxDispatcher.ajaxDispatch)({
@@ -13034,7 +13108,8 @@ webpackJsonp([0],[
 	                params: {
 	                    url: url,
 	                    disableAjax: !this.isRunAjax(),
-	                    updateUrl: this.props.updateUrl
+	                    updateUrl: this.props.updateUrl,
+	                    disableRandom: this.props.disableRandom
 	                }
 	            });
 	        }
@@ -13044,17 +13119,19 @@ webpackJsonp([0],[
 	            var _props = this.props,
 	                path = _props.path,
 	                href = _props.href,
-	                rest = _objectWithoutProperties(_props, ['path', 'href']);
+	                updateUrl = _props.updateUrl,
+	                disableRandom = _props.disableRandom,
+	                rest = _objectWithoutProperties(_props, ['path', 'href', 'updateUrl', 'disableRandom']);
 
-	            var myHref = _ajaxStore2.default.getRawUrl({
+	            var thisHref = _ajaxStore2.default.getRawUrl({
 	                path: path,
 	                url: href
 	            });
-	            return React.createElement(_reactAtomicMolecule.SemanticUI, _extends({
+	            return _react2.default.createElement(_reactAtomicMolecule.SemanticUI, _extends({
 	                atom: 'a',
-	                href: myHref
+	                href: thisHref
 	            }, rest, {
-	                onClick: this.handleOnClick.bind(this)
+	                onClick: this.handleOnClick
 	            }));
 	        }
 	    }]);
@@ -13063,167 +13140,168 @@ webpackJsonp([0],[
 	}(_AjaxBase3.default);
 
 	AjaxLink.defaultProps = {
-	    updateUrl: true
+	    updateUrl: true,
+	    disableRandom: false
 	};
 	exports.default = AjaxLink;
 	module.exports = exports['default'];
 
 /***/ },
-/* 436 */
-[540, 437, 443, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 505, 506, 507, 508, 509, 499, 510, 511],
 /* 437 */
-[541, 438, 439, 441, 442],
+[550, 438, 444, 445, 446, 447, 448, 449, 450, 451, 452, 453, 454, 455, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 468, 469, 470, 506, 507, 508, 509, 510, 500, 511, 512],
 /* 438 */
-184,
+[551, 439, 440, 442, 443],
 /* 439 */
-[542, 440],
+184,
 /* 440 */
-186,
+[552, 441],
 /* 441 */
-[543, 440, 439],
+186,
 /* 442 */
-[544, 439, 441, 438],
+[553, 441, 440],
 /* 443 */
-189,
+[554, 440, 442, 439],
 /* 444 */
-[545, 436],
+189,
 /* 445 */
-[546, 436],
+[555, 437],
 /* 446 */
-[547, 436],
+[556, 437],
 /* 447 */
-[548, 436],
+[557, 437],
 /* 448 */
-[549, 436],
+[558, 437],
 /* 449 */
-[550, 436],
+[559, 437],
 /* 450 */
-[551, 436],
+[560, 437],
 /* 451 */
-[552, 436],
+[561, 437],
 /* 452 */
-[553, 436],
+[562, 437],
 /* 453 */
-[554, 436],
+[563, 437],
 /* 454 */
-[555, 436],
+[564, 437],
 /* 455 */
-[556, 436],
+[565, 437],
 /* 456 */
-[557, 436],
+[566, 437],
 /* 457 */
-[558, 436],
+[567, 437],
 /* 458 */
-[559, 436],
+[568, 437],
 /* 459 */
-[560, 436],
+[569, 437],
 /* 460 */
-[561, 436],
+[570, 437],
 /* 461 */
-[562, 436],
+[571, 437],
 /* 462 */
-[563, 436],
+[572, 437],
 /* 463 */
-[564, 436],
+[573, 437],
 /* 464 */
-[565, 436],
+[574, 437],
 /* 465 */
-[566, 436],
+[575, 437],
 /* 466 */
-[567, 436],
+[576, 437],
 /* 467 */
-[568, 436],
+[577, 437],
 /* 468 */
-[569, 436],
+[578, 437],
 /* 469 */
-[570, 470, 499, 436],
+[579, 437],
 /* 470 */
-[571, 471, 473, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498],
+[580, 471, 500, 437],
 /* 471 */
-[572, 472],
+[581, 472, 474, 475, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499],
 /* 472 */
-218,
+[582, 473],
 /* 473 */
-[573, 472],
+218,
 /* 474 */
-[574, 472],
+[583, 473],
 /* 475 */
-[575, 472],
+[584, 473],
 /* 476 */
-[576, 472],
+[585, 473],
 /* 477 */
-[577, 472],
+[586, 473],
 /* 478 */
-[578, 472],
+[587, 473],
 /* 479 */
-[579, 472],
+[588, 473],
 /* 480 */
-[580, 472],
+[589, 473],
 /* 481 */
-[581, 472],
+[590, 473],
 /* 482 */
-[582, 472],
+[591, 473],
 /* 483 */
-[583, 472],
+[592, 473],
 /* 484 */
-[584, 472],
+[593, 473],
 /* 485 */
-[585, 472],
+[594, 473],
 /* 486 */
-[586, 472],
+[595, 473],
 /* 487 */
-[587, 472],
+[596, 473],
 /* 488 */
-[588, 472],
+[597, 473],
 /* 489 */
-[589, 472],
+[598, 473],
 /* 490 */
-[590, 472],
+[599, 473],
 /* 491 */
-[591, 472],
+[600, 473],
 /* 492 */
-[592, 472],
+[601, 473],
 /* 493 */
-[593, 472],
+[602, 473],
 /* 494 */
-[594, 472],
+[603, 473],
 /* 495 */
-[595, 472],
+[604, 473],
 /* 496 */
-[596, 472],
+[605, 473],
 /* 497 */
-[597, 472],
+[606, 473],
 /* 498 */
-[598, 472],
+[607, 473],
 /* 499 */
-[599, 500, 501, 502, 436],
+[608, 473],
 /* 500 */
-246,
+[609, 501, 502, 503, 437],
 /* 501 */
-247,
+246,
 /* 502 */
-[600, 503, 504],
+247,
 /* 503 */
-249,
+[610, 504, 505],
 /* 504 */
-250,
+249,
 /* 505 */
-[601, 436],
+250,
 /* 506 */
-[602, 436],
+[611, 437],
 /* 507 */
-[603, 436],
+[612, 437],
 /* 508 */
-5,
+[613, 437],
 /* 509 */
-254,
+5,
 /* 510 */
-[604, 511],
+254,
 /* 511 */
-[605, 512, 500],
+[614, 512],
 /* 512 */
-[606, 500],
+[615, 513, 501],
 /* 513 */
+[616, 501],
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13246,7 +13324,7 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ajaxStore = __webpack_require__(514);
+	var _ajaxStore = __webpack_require__(515);
 
 	var _ajaxStore2 = _interopRequireDefault(_ajaxStore);
 
@@ -13299,7 +13377,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 514 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13324,13 +13402,29 @@ webpackJsonp([0],[
 	    };
 	}();
 
-	var _immutable = __webpack_require__(515);
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
 
-	var _immutable2 = _interopRequireDefault(_immutable);
+	var _immutable = __webpack_require__(516);
 
-	var _reduceFlux = __webpack_require__(516);
+	var _reduceFlux = __webpack_require__(517);
 
-	var _ajaxDispatcher = __webpack_require__(532);
+	var _getObjectValue = __webpack_require__(533);
+
+	var _getObjectValue2 = _interopRequireDefault(_getObjectValue);
+
+	var _smoothScrollTo = __webpack_require__(534);
+
+	var _smoothScrollTo2 = _interopRequireDefault(_smoothScrollTo);
+
+	var _ajaxDispatcher = __webpack_require__(536);
 
 	var _ajaxDispatcher2 = _interopRequireDefault(_ajaxDispatcher);
 
@@ -13357,6 +13451,27 @@ webpackJsonp([0],[
 	}
 
 	var empty = function empty() {};
+	var wsAuth = (0, _immutable.Map)();
+	var _worker = void 0;
+	var isWorkerReady = void 0;
+	var cbIndex = 0;
+	var Callbacks = [];
+
+	var initWorker = function initWorker(worker) {
+	    worker.addEventListener('message', function (e) {
+	        var data = (0, _getObjectValue2.default)(e, ['data']);
+	        switch ((0, _getObjectValue2.default)(e, ['data', 'type'])) {
+	            case 'ready':
+	                isWorkerReady = true;
+	                break;
+	            default:
+	                (0, _ajaxDispatcher.ajaxDispatch)(_extends({}, e.data, {
+	                    type: 'callback'
+	                }));
+	                break;
+	        }
+	    });
+	};
 
 	var AjaxStore = function (_ReduceStore) {
 	    _inherits(AjaxStore, _ReduceStore);
@@ -13392,7 +13507,19 @@ webpackJsonp([0],[
 	    _createClass(AjaxStore, [{
 	        key: 'getInitialState',
 	        value: function getInitialState() {
-	            return _immutable2.default.Map();
+	            if ('undefined' !== typeof window && window.Worker) {
+	                __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(537)]; (function (workerObject) {
+	                    _worker = workerObject();
+	                    initWorker(_worker);
+	                }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+	            } else {
+	                __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(538)]; (function (workerObject) {
+	                    _worker = workerObject;
+	                    initWorker(_worker);
+	                    isWorkerReady = true;
+	                }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+	            }
+	            return (0, _immutable.Map)();
 	        }
 	    }, {
 	        key: 'cookAjaxUrl',
@@ -13406,7 +13533,7 @@ webpackJsonp([0],[
 	    }, {
 	        key: 'getCallback',
 	        value: function getCallback(state, action, json) {
-	            var params = action.params;
+	            var params = (0, _getObjectValue2.default)(action, ['params'], {});
 	            var callback = void 0;
 	            if (json.errors) {
 	                if (params.errorCallback) {
@@ -13417,7 +13544,7 @@ webpackJsonp([0],[
 	                var _ret2 = function () {
 	                    var debugs = json.debugs;
 	                    var bFail = false;
-	                    __webpack_require__.e/* require */(2, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(533)]; (function (dlog) {
+	                    __webpack_require__.e/* require */(5, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(546)]; (function (dlog) {
 	                        var c = new dlog({ level: 'trace' });
 	                        debugs.forEach(function (v) {
 	                            c[v[0]](v[1]);
@@ -13439,7 +13566,8 @@ webpackJsonp([0],[
 	            }
 	            if (!callback) {
 	                if (params.callback) {
-	                    callback = params.callback;
+	                    callback = Callbacks[params.callback];
+	                    delete Callbacks[params.callback];
 	                } else {
 	                    callback = state.get('callback');
 	                }
@@ -13482,6 +13610,18 @@ webpackJsonp([0],[
 	            });
 	        }
 	    }, {
+	        key: 'storeCallback',
+	        value: function storeCallback(action) {
+	            var cb = (0, _getObjectValue2.default)(action, ['params', 'callback']);
+	            if (cb) {
+	                var cbKey = 'cb' + cbIndex;
+	                Callbacks[cbKey] = cb;
+	                action.params.callback = cbKey;
+	                cbIndex++;
+	            }
+	            return action;
+	        }
+	    }, {
 	        key: 'ajaxGet',
 	        value: function ajaxGet(state, action) {
 	            var self = this;
@@ -13500,39 +13640,87 @@ webpackJsonp([0],[
 	                }
 	                return state;
 	            }
+	            self.start();
 	            var ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-	            params.query.r = new Date().getTime();
-	            __webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(534)]; (function (req) {
-	                self.start();
-	                req.get(ajaxUrl).query(params.query).set('Accept', 'application/json').end(function (res) {
-	                    self.done();
-	                    var json = self.getJson(res.text);
-	                    var callback = self.getCallback(state, action, json);
-	                    callback(json, res.text, res);
-	                    if (params.updateUrl) {
-	                        window.scrollTo(0, 0);
-	                    }
-	                });
-	            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+	            if (!params.disableRandom) {
+	                params.query.r = new Date().getTime();
+	            }
+	            self.worker({
+	                type: 'ajaxGet',
+	                url: ajaxUrl,
+	                action: self.storeCallback(action)
+	            });
 	            return state;
 	        }
 	    }, {
 	        key: 'ajaxPost',
 	        value: function ajaxPost(state, action) {
 	            var self = this;
+	            self.start();
 	            var params = action.params;
 	            var rawUrl = this.getRawUrl(params);
 	            var ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-	            __webpack_require__.e/* require */(3/* duplicate */, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(534)]; (function (req) {
-	                self.start();
-	                req.post(ajaxUrl).send(params.query).withCredentials().set('Accept', 'application/json').end(function (res) {
-	                    self.done();
-	                    var json = self.getJson(res.text);
-	                    var callback = self.getCallback(state, action, json);
-	                    callback(json, res.text);
-	                });
-	            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+	            self.worker({
+	                type: 'ajaxPost',
+	                url: ajaxUrl,
+	                action: self.storeCallback(action)
+	            });
 	            return state;
+	        }
+	    }, {
+	        key: 'applyCallback',
+	        value: function applyCallback(state, action) {
+	            this.done();
+	            var params = (0, _getObjectValue2.default)(action, ['params'], {});
+	            var text = (0, _getObjectValue2.default)(action, ['text']);
+	            var response = (0, _getObjectValue2.default)(action, ['response']);
+	            var json = this.getJson(text);
+	            var callback = this.getCallback(state, action, json);
+	            switch ((0, _getObjectValue2.default)(json, ['type'])) {
+	                case 'auth':
+	                    this.setWsAuth((0, _getObjectValue2.default)(json, ['data']));
+	                    break;
+	                default:
+	                    callback(json, text, response);
+	                    break;
+	            }
+	            if (params.updateUrl || params.scrollBack) {
+	                (0, _smoothScrollTo2.default)(0);
+	            }
+	            return state;
+	        }
+	    }, {
+	        key: 'worker',
+	        value: function worker(data) {
+	            var _this2 = this;
+
+	            if (isWorkerReady) {
+	                setTimeout(function () {
+	                    _worker.postMessage(data);
+	                });
+	            } else {
+	                (function () {
+	                    var self = _this2;
+	                    setTimeout(function () {
+	                        self.worker(data);
+	                    }, 50);
+	                })();
+	            }
+	        }
+	    }, {
+	        key: 'initWs',
+	        value: function initWs(url) {
+	            this.worker({ ws: url, type: 'initWs' });
+	        }
+	    }, {
+	        key: 'setWsAuth',
+	        value: function setWsAuth(action) {
+	            wsAuth = wsAuth.merge(action);
+	        }
+	    }, {
+	        key: 'getWsAuth',
+	        value: function getWsAuth() {
+	            return wsAuth.toJS();
 	        }
 	    }, {
 	        key: 'reduce',
@@ -13542,6 +13730,8 @@ webpackJsonp([0],[
 	                    return this.ajaxGet(state, action);
 	                case 'ajaxPost':
 	                    return this.ajaxPost(state, action);
+	                case 'callback':
+	                    return this.applyCallback(state, action);
 	                case 'config/set':
 	                    return state.merge(action.params);
 	                default:
@@ -13557,12 +13747,12 @@ webpackJsonp([0],[
 	// you want to avoid singletons.
 
 
-	var instance = new AjaxStore(_ajaxDispatcher2.default);
-	exports.default = instance;
+	var ajaxStore = new AjaxStore(_ajaxDispatcher2.default);
+	exports.default = ajaxStore;
 	module.exports = exports['default'];
 
 /***/ },
-/* 515 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -13572,28 +13762,584 @@ webpackJsonp([0],[
 	 *  This source code is licensed under the BSD-style license found in the
 	 *  LICENSE file in the root directory of this source tree. An additional grant
 	 *  of patent rights can be found in the PATENTS file in the same directory.
-	 */(function(global,factory){ true?module.exports=factory():typeof define==='function'&&define.amd?define(factory):global.Immutable=factory();})(this,function(){'use strict';var SLICE$0=Array.prototype.slice;function createClass(ctor,superClass){if(superClass){ctor.prototype=Object.create(superClass.prototype);}ctor.prototype.constructor=ctor;}function Iterable(value){return isIterable(value)?value:Seq(value);}createClass(KeyedIterable,Iterable);function KeyedIterable(value){return isKeyed(value)?value:KeyedSeq(value);}createClass(IndexedIterable,Iterable);function IndexedIterable(value){return isIndexed(value)?value:IndexedSeq(value);}createClass(SetIterable,Iterable);function SetIterable(value){return isIterable(value)&&!isAssociative(value)?value:SetSeq(value);}function isIterable(maybeIterable){return!!(maybeIterable&&maybeIterable[IS_ITERABLE_SENTINEL]);}function isKeyed(maybeKeyed){return!!(maybeKeyed&&maybeKeyed[IS_KEYED_SENTINEL]);}function isIndexed(maybeIndexed){return!!(maybeIndexed&&maybeIndexed[IS_INDEXED_SENTINEL]);}function isAssociative(maybeAssociative){return isKeyed(maybeAssociative)||isIndexed(maybeAssociative);}function isOrdered(maybeOrdered){return!!(maybeOrdered&&maybeOrdered[IS_ORDERED_SENTINEL]);}Iterable.isIterable=isIterable;Iterable.isKeyed=isKeyed;Iterable.isIndexed=isIndexed;Iterable.isAssociative=isAssociative;Iterable.isOrdered=isOrdered;Iterable.Keyed=KeyedIterable;Iterable.Indexed=IndexedIterable;Iterable.Set=SetIterable;var IS_ITERABLE_SENTINEL='@@__IMMUTABLE_ITERABLE__@@';var IS_KEYED_SENTINEL='@@__IMMUTABLE_KEYED__@@';var IS_INDEXED_SENTINEL='@@__IMMUTABLE_INDEXED__@@';var IS_ORDERED_SENTINEL='@@__IMMUTABLE_ORDERED__@@';// Used for setting prototype methods that IE8 chokes on.
-	var DELETE='delete';// Constants describing the size of trie nodes.
-	var SHIFT=5;// Resulted in best performance after ______?
-	var SIZE=1<<SHIFT;var MASK=SIZE-1;// A consistent shared value representing "not set" which equals nothing other
-	// than itself, and nothing that could be provided externally.
-	var NOT_SET={};// Boolean references, Rough equivalent of `bool &`.
-	var CHANGE_LENGTH={value:false};var DID_ALTER={value:false};function MakeRef(ref){ref.value=false;return ref;}function SetRef(ref){ref&&(ref.value=true);}// A function which returns a value representing an "owner" for transient writes
-	// to tries. The return value will only ever equal itself, and will not equal
-	// the return of any subsequent call of this function.
-	function OwnerID(){}// http://jsperf.com/copy-array-inline
-	function arrCopy(arr,offset){offset=offset||0;var len=Math.max(0,arr.length-offset);var newArr=new Array(len);for(var ii=0;ii<len;ii++){newArr[ii]=arr[ii+offset];}return newArr;}function ensureSize(iter){if(iter.size===undefined){iter.size=iter.__iterate(returnTrue);}return iter.size;}function wrapIndex(iter,index){// This implements "is array index" which the ECMAString spec defines as:
-	//
-	//     A String property name P is an array index if and only if
-	//     ToString(ToUint32(P)) is equal to P and ToUint32(P) is not equal
-	//     to 2^32−1.
-	//
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-array-exotic-objects
-	if(typeof index!=='number'){var uint32Index=index>>>0;// N >>> 0 is shorthand for ToUint32
-	if(''+uint32Index!==index||uint32Index===4294967295){return NaN;}index=uint32Index;}return index<0?ensureSize(iter)+index:index;}function returnTrue(){return true;}function wholeSlice(begin,end,size){return(begin===0||size!==undefined&&begin<=-size)&&(end===undefined||size!==undefined&&end>=size);}function resolveBegin(begin,size){return resolveIndex(begin,size,0);}function resolveEnd(end,size){return resolveIndex(end,size,size);}function resolveIndex(index,size,defaultIndex){return index===undefined?defaultIndex:index<0?Math.max(0,size+index):size===undefined?index:Math.min(size,index);}/* global Symbol */var ITERATE_KEYS=0;var ITERATE_VALUES=1;var ITERATE_ENTRIES=2;var REAL_ITERATOR_SYMBOL=typeof Symbol==='function'&&Symbol.iterator;var FAUX_ITERATOR_SYMBOL='@@iterator';var ITERATOR_SYMBOL=REAL_ITERATOR_SYMBOL||FAUX_ITERATOR_SYMBOL;function Iterator(next){this.next=next;}Iterator.prototype.toString=function(){return'[Iterator]';};Iterator.KEYS=ITERATE_KEYS;Iterator.VALUES=ITERATE_VALUES;Iterator.ENTRIES=ITERATE_ENTRIES;Iterator.prototype.inspect=Iterator.prototype.toSource=function(){return this.toString();};Iterator.prototype[ITERATOR_SYMBOL]=function(){return this;};function iteratorValue(type,k,v,iteratorResult){var value=type===0?k:type===1?v:[k,v];iteratorResult?iteratorResult.value=value:iteratorResult={value:value,done:false};return iteratorResult;}function iteratorDone(){return{value:undefined,done:true};}function hasIterator(maybeIterable){return!!getIteratorFn(maybeIterable);}function isIterator(maybeIterator){return maybeIterator&&typeof maybeIterator.next==='function';}function getIterator(iterable){var iteratorFn=getIteratorFn(iterable);return iteratorFn&&iteratorFn.call(iterable);}function getIteratorFn(iterable){var iteratorFn=iterable&&(REAL_ITERATOR_SYMBOL&&iterable[REAL_ITERATOR_SYMBOL]||iterable[FAUX_ITERATOR_SYMBOL]);if(typeof iteratorFn==='function'){return iteratorFn;}}function isArrayLike(value){return value&&typeof value.length==='number';}createClass(Seq,Iterable);function Seq(value){return value===null||value===undefined?emptySequence():isIterable(value)?value.toSeq():seqFromValue(value);}Seq.of=function()/*...values*/{return Seq(arguments);};Seq.prototype.toSeq=function(){return this;};Seq.prototype.toString=function(){return this.__toString('Seq {','}');};Seq.prototype.cacheResult=function(){if(!this._cache&&this.__iterateUncached){this._cache=this.entrySeq().toArray();this.size=this._cache.length;}return this;};// abstract __iterateUncached(fn, reverse)
-	Seq.prototype.__iterate=function(fn,reverse){return seqIterate(this,fn,reverse,true);};// abstract __iteratorUncached(type, reverse)
-	Seq.prototype.__iterator=function(type,reverse){return seqIterator(this,type,reverse,true);};createClass(KeyedSeq,Seq);function KeyedSeq(value){return value===null||value===undefined?emptySequence().toKeyedSeq():isIterable(value)?isKeyed(value)?value.toSeq():value.fromEntrySeq():keyedSeqFromValue(value);}KeyedSeq.prototype.toKeyedSeq=function(){return this;};createClass(IndexedSeq,Seq);function IndexedSeq(value){return value===null||value===undefined?emptySequence():!isIterable(value)?indexedSeqFromValue(value):isKeyed(value)?value.entrySeq():value.toIndexedSeq();}IndexedSeq.of=function()/*...values*/{return IndexedSeq(arguments);};IndexedSeq.prototype.toIndexedSeq=function(){return this;};IndexedSeq.prototype.toString=function(){return this.__toString('Seq [',']');};IndexedSeq.prototype.__iterate=function(fn,reverse){return seqIterate(this,fn,reverse,false);};IndexedSeq.prototype.__iterator=function(type,reverse){return seqIterator(this,type,reverse,false);};createClass(SetSeq,Seq);function SetSeq(value){return(value===null||value===undefined?emptySequence():!isIterable(value)?indexedSeqFromValue(value):isKeyed(value)?value.entrySeq():value).toSetSeq();}SetSeq.of=function()/*...values*/{return SetSeq(arguments);};SetSeq.prototype.toSetSeq=function(){return this;};Seq.isSeq=isSeq;Seq.Keyed=KeyedSeq;Seq.Set=SetSeq;Seq.Indexed=IndexedSeq;var IS_SEQ_SENTINEL='@@__IMMUTABLE_SEQ__@@';Seq.prototype[IS_SEQ_SENTINEL]=true;createClass(ArraySeq,IndexedSeq);function ArraySeq(array){this._array=array;this.size=array.length;}ArraySeq.prototype.get=function(index,notSetValue){return this.has(index)?this._array[wrapIndex(this,index)]:notSetValue;};ArraySeq.prototype.__iterate=function(fn,reverse){var array=this._array;var maxIndex=array.length-1;for(var ii=0;ii<=maxIndex;ii++){if(fn(array[reverse?maxIndex-ii:ii],ii,this)===false){return ii+1;}}return ii;};ArraySeq.prototype.__iterator=function(type,reverse){var array=this._array;var maxIndex=array.length-1;var ii=0;return new Iterator(function(){return ii>maxIndex?iteratorDone():iteratorValue(type,ii,array[reverse?maxIndex-ii++:ii++]);});};createClass(ObjectSeq,KeyedSeq);function ObjectSeq(object){var keys=Object.keys(object);this._object=object;this._keys=keys;this.size=keys.length;}ObjectSeq.prototype.get=function(key,notSetValue){if(notSetValue!==undefined&&!this.has(key)){return notSetValue;}return this._object[key];};ObjectSeq.prototype.has=function(key){return this._object.hasOwnProperty(key);};ObjectSeq.prototype.__iterate=function(fn,reverse){var object=this._object;var keys=this._keys;var maxIndex=keys.length-1;for(var ii=0;ii<=maxIndex;ii++){var key=keys[reverse?maxIndex-ii:ii];if(fn(object[key],key,this)===false){return ii+1;}}return ii;};ObjectSeq.prototype.__iterator=function(type,reverse){var object=this._object;var keys=this._keys;var maxIndex=keys.length-1;var ii=0;return new Iterator(function(){var key=keys[reverse?maxIndex-ii:ii];return ii++>maxIndex?iteratorDone():iteratorValue(type,key,object[key]);});};ObjectSeq.prototype[IS_ORDERED_SENTINEL]=true;createClass(IterableSeq,IndexedSeq);function IterableSeq(iterable){this._iterable=iterable;this.size=iterable.length||iterable.size;}IterableSeq.prototype.__iterateUncached=function(fn,reverse){if(reverse){return this.cacheResult().__iterate(fn,reverse);}var iterable=this._iterable;var iterator=getIterator(iterable);var iterations=0;if(isIterator(iterator)){var step;while(!(step=iterator.next()).done){if(fn(step.value,iterations++,this)===false){break;}}}return iterations;};IterableSeq.prototype.__iteratorUncached=function(type,reverse){if(reverse){return this.cacheResult().__iterator(type,reverse);}var iterable=this._iterable;var iterator=getIterator(iterable);if(!isIterator(iterator)){return new Iterator(iteratorDone);}var iterations=0;return new Iterator(function(){var step=iterator.next();return step.done?step:iteratorValue(type,iterations++,step.value);});};createClass(IteratorSeq,IndexedSeq);function IteratorSeq(iterator){this._iterator=iterator;this._iteratorCache=[];}IteratorSeq.prototype.__iterateUncached=function(fn,reverse){if(reverse){return this.cacheResult().__iterate(fn,reverse);}var iterator=this._iterator;var cache=this._iteratorCache;var iterations=0;while(iterations<cache.length){if(fn(cache[iterations],iterations++,this)===false){return iterations;}}var step;while(!(step=iterator.next()).done){var val=step.value;cache[iterations]=val;if(fn(val,iterations++,this)===false){break;}}return iterations;};IteratorSeq.prototype.__iteratorUncached=function(type,reverse){if(reverse){return this.cacheResult().__iterator(type,reverse);}var iterator=this._iterator;var cache=this._iteratorCache;var iterations=0;return new Iterator(function(){if(iterations>=cache.length){var step=iterator.next();if(step.done){return step;}cache[iterations]=step.value;}return iteratorValue(type,iterations,cache[iterations++]);});};// # pragma Helper functions
-	function isSeq(maybeSeq){return!!(maybeSeq&&maybeSeq[IS_SEQ_SENTINEL]);}var EMPTY_SEQ;function emptySequence(){return EMPTY_SEQ||(EMPTY_SEQ=new ArraySeq([]));}function keyedSeqFromValue(value){var seq=Array.isArray(value)?new ArraySeq(value).fromEntrySeq():isIterator(value)?new IteratorSeq(value).fromEntrySeq():hasIterator(value)?new IterableSeq(value).fromEntrySeq():typeof value==='object'?new ObjectSeq(value):undefined;if(!seq){throw new TypeError('Expected Array or iterable object of [k, v] entries, '+'or keyed object: '+value);}return seq;}function indexedSeqFromValue(value){var seq=maybeIndexedSeqFromValue(value);if(!seq){throw new TypeError('Expected Array or iterable object of values: '+value);}return seq;}function seqFromValue(value){var seq=maybeIndexedSeqFromValue(value)||typeof value==='object'&&new ObjectSeq(value);if(!seq){throw new TypeError('Expected Array or iterable object of values, or keyed object: '+value);}return seq;}function maybeIndexedSeqFromValue(value){return isArrayLike(value)?new ArraySeq(value):isIterator(value)?new IteratorSeq(value):hasIterator(value)?new IterableSeq(value):undefined;}function seqIterate(seq,fn,reverse,useKeys){var cache=seq._cache;if(cache){var maxIndex=cache.length-1;for(var ii=0;ii<=maxIndex;ii++){var entry=cache[reverse?maxIndex-ii:ii];if(fn(entry[1],useKeys?entry[0]:ii,seq)===false){return ii+1;}}return ii;}return seq.__iterateUncached(fn,reverse);}function seqIterator(seq,type,reverse,useKeys){var cache=seq._cache;if(cache){var maxIndex=cache.length-1;var ii=0;return new Iterator(function(){var entry=cache[reverse?maxIndex-ii:ii];return ii++>maxIndex?iteratorDone():iteratorValue(type,useKeys?entry[0]:ii-1,entry[1]);});}return seq.__iteratorUncached(type,reverse);}function fromJS(json,converter){return converter?fromJSWith(converter,json,'',{'':json}):fromJSDefault(json);}function fromJSWith(converter,json,key,parentJSON){if(Array.isArray(json)){return converter.call(parentJSON,key,IndexedSeq(json).map(function(v,k){return fromJSWith(converter,v,k,json);}));}if(isPlainObj(json)){return converter.call(parentJSON,key,KeyedSeq(json).map(function(v,k){return fromJSWith(converter,v,k,json);}));}return json;}function fromJSDefault(json){if(Array.isArray(json)){return IndexedSeq(json).map(fromJSDefault).toList();}if(isPlainObj(json)){return KeyedSeq(json).map(fromJSDefault).toMap();}return json;}function isPlainObj(value){return value&&(value.constructor===Object||value.constructor===undefined);}/**
+	 */
+
+	(function (global, factory) {
+	   true ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : global.Immutable = factory();
+	})(this, function () {
+	  'use strict';
+	  var SLICE$0 = Array.prototype.slice;
+
+	  function createClass(ctor, superClass) {
+	    if (superClass) {
+	      ctor.prototype = Object.create(superClass.prototype);
+	    }
+	    ctor.prototype.constructor = ctor;
+	  }
+
+	  function Iterable(value) {
+	    return isIterable(value) ? value : Seq(value);
+	  }
+
+	  createClass(KeyedIterable, Iterable);
+	  function KeyedIterable(value) {
+	    return isKeyed(value) ? value : KeyedSeq(value);
+	  }
+
+	  createClass(IndexedIterable, Iterable);
+	  function IndexedIterable(value) {
+	    return isIndexed(value) ? value : IndexedSeq(value);
+	  }
+
+	  createClass(SetIterable, Iterable);
+	  function SetIterable(value) {
+	    return isIterable(value) && !isAssociative(value) ? value : SetSeq(value);
+	  }
+
+	  function isIterable(maybeIterable) {
+	    return !!(maybeIterable && maybeIterable[IS_ITERABLE_SENTINEL]);
+	  }
+
+	  function isKeyed(maybeKeyed) {
+	    return !!(maybeKeyed && maybeKeyed[IS_KEYED_SENTINEL]);
+	  }
+
+	  function isIndexed(maybeIndexed) {
+	    return !!(maybeIndexed && maybeIndexed[IS_INDEXED_SENTINEL]);
+	  }
+
+	  function isAssociative(maybeAssociative) {
+	    return isKeyed(maybeAssociative) || isIndexed(maybeAssociative);
+	  }
+
+	  function isOrdered(maybeOrdered) {
+	    return !!(maybeOrdered && maybeOrdered[IS_ORDERED_SENTINEL]);
+	  }
+
+	  Iterable.isIterable = isIterable;
+	  Iterable.isKeyed = isKeyed;
+	  Iterable.isIndexed = isIndexed;
+	  Iterable.isAssociative = isAssociative;
+	  Iterable.isOrdered = isOrdered;
+
+	  Iterable.Keyed = KeyedIterable;
+	  Iterable.Indexed = IndexedIterable;
+	  Iterable.Set = SetIterable;
+
+	  var IS_ITERABLE_SENTINEL = '@@__IMMUTABLE_ITERABLE__@@';
+	  var IS_KEYED_SENTINEL = '@@__IMMUTABLE_KEYED__@@';
+	  var IS_INDEXED_SENTINEL = '@@__IMMUTABLE_INDEXED__@@';
+	  var IS_ORDERED_SENTINEL = '@@__IMMUTABLE_ORDERED__@@';
+
+	  // Used for setting prototype methods that IE8 chokes on.
+	  var DELETE = 'delete';
+
+	  // Constants describing the size of trie nodes.
+	  var SHIFT = 5; // Resulted in best performance after ______?
+	  var SIZE = 1 << SHIFT;
+	  var MASK = SIZE - 1;
+
+	  // A consistent shared value representing "not set" which equals nothing other
+	  // than itself, and nothing that could be provided externally.
+	  var NOT_SET = {};
+
+	  // Boolean references, Rough equivalent of `bool &`.
+	  var CHANGE_LENGTH = { value: false };
+	  var DID_ALTER = { value: false };
+
+	  function MakeRef(ref) {
+	    ref.value = false;
+	    return ref;
+	  }
+
+	  function SetRef(ref) {
+	    ref && (ref.value = true);
+	  }
+
+	  // A function which returns a value representing an "owner" for transient writes
+	  // to tries. The return value will only ever equal itself, and will not equal
+	  // the return of any subsequent call of this function.
+	  function OwnerID() {}
+
+	  // http://jsperf.com/copy-array-inline
+	  function arrCopy(arr, offset) {
+	    offset = offset || 0;
+	    var len = Math.max(0, arr.length - offset);
+	    var newArr = new Array(len);
+	    for (var ii = 0; ii < len; ii++) {
+	      newArr[ii] = arr[ii + offset];
+	    }
+	    return newArr;
+	  }
+
+	  function ensureSize(iter) {
+	    if (iter.size === undefined) {
+	      iter.size = iter.__iterate(returnTrue);
+	    }
+	    return iter.size;
+	  }
+
+	  function wrapIndex(iter, index) {
+	    // This implements "is array index" which the ECMAString spec defines as:
+	    //
+	    //     A String property name P is an array index if and only if
+	    //     ToString(ToUint32(P)) is equal to P and ToUint32(P) is not equal
+	    //     to 2^32−1.
+	    //
+	    // http://www.ecma-international.org/ecma-262/6.0/#sec-array-exotic-objects
+	    if (typeof index !== 'number') {
+	      var uint32Index = index >>> 0; // N >>> 0 is shorthand for ToUint32
+	      if ('' + uint32Index !== index || uint32Index === 4294967295) {
+	        return NaN;
+	      }
+	      index = uint32Index;
+	    }
+	    return index < 0 ? ensureSize(iter) + index : index;
+	  }
+
+	  function returnTrue() {
+	    return true;
+	  }
+
+	  function wholeSlice(begin, end, size) {
+	    return (begin === 0 || size !== undefined && begin <= -size) && (end === undefined || size !== undefined && end >= size);
+	  }
+
+	  function resolveBegin(begin, size) {
+	    return resolveIndex(begin, size, 0);
+	  }
+
+	  function resolveEnd(end, size) {
+	    return resolveIndex(end, size, size);
+	  }
+
+	  function resolveIndex(index, size, defaultIndex) {
+	    return index === undefined ? defaultIndex : index < 0 ? Math.max(0, size + index) : size === undefined ? index : Math.min(size, index);
+	  }
+
+	  /* global Symbol */
+
+	  var ITERATE_KEYS = 0;
+	  var ITERATE_VALUES = 1;
+	  var ITERATE_ENTRIES = 2;
+
+	  var REAL_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+	  var FAUX_ITERATOR_SYMBOL = '@@iterator';
+
+	  var ITERATOR_SYMBOL = REAL_ITERATOR_SYMBOL || FAUX_ITERATOR_SYMBOL;
+
+	  function Iterator(next) {
+	    this.next = next;
+	  }
+
+	  Iterator.prototype.toString = function () {
+	    return '[Iterator]';
+	  };
+
+	  Iterator.KEYS = ITERATE_KEYS;
+	  Iterator.VALUES = ITERATE_VALUES;
+	  Iterator.ENTRIES = ITERATE_ENTRIES;
+
+	  Iterator.prototype.inspect = Iterator.prototype.toSource = function () {
+	    return this.toString();
+	  };
+	  Iterator.prototype[ITERATOR_SYMBOL] = function () {
+	    return this;
+	  };
+
+	  function iteratorValue(type, k, v, iteratorResult) {
+	    var value = type === 0 ? k : type === 1 ? v : [k, v];
+	    iteratorResult ? iteratorResult.value = value : iteratorResult = {
+	      value: value, done: false
+	    };
+	    return iteratorResult;
+	  }
+
+	  function iteratorDone() {
+	    return { value: undefined, done: true };
+	  }
+
+	  function hasIterator(maybeIterable) {
+	    return !!getIteratorFn(maybeIterable);
+	  }
+
+	  function isIterator(maybeIterator) {
+	    return maybeIterator && typeof maybeIterator.next === 'function';
+	  }
+
+	  function getIterator(iterable) {
+	    var iteratorFn = getIteratorFn(iterable);
+	    return iteratorFn && iteratorFn.call(iterable);
+	  }
+
+	  function getIteratorFn(iterable) {
+	    var iteratorFn = iterable && (REAL_ITERATOR_SYMBOL && iterable[REAL_ITERATOR_SYMBOL] || iterable[FAUX_ITERATOR_SYMBOL]);
+	    if (typeof iteratorFn === 'function') {
+	      return iteratorFn;
+	    }
+	  }
+
+	  function isArrayLike(value) {
+	    return value && typeof value.length === 'number';
+	  }
+
+	  createClass(Seq, Iterable);
+	  function Seq(value) {
+	    return value === null || value === undefined ? emptySequence() : isIterable(value) ? value.toSeq() : seqFromValue(value);
+	  }
+
+	  Seq.of = function () /*...values*/{
+	    return Seq(arguments);
+	  };
+
+	  Seq.prototype.toSeq = function () {
+	    return this;
+	  };
+
+	  Seq.prototype.toString = function () {
+	    return this.__toString('Seq {', '}');
+	  };
+
+	  Seq.prototype.cacheResult = function () {
+	    if (!this._cache && this.__iterateUncached) {
+	      this._cache = this.entrySeq().toArray();
+	      this.size = this._cache.length;
+	    }
+	    return this;
+	  };
+
+	  // abstract __iterateUncached(fn, reverse)
+
+	  Seq.prototype.__iterate = function (fn, reverse) {
+	    return seqIterate(this, fn, reverse, true);
+	  };
+
+	  // abstract __iteratorUncached(type, reverse)
+
+	  Seq.prototype.__iterator = function (type, reverse) {
+	    return seqIterator(this, type, reverse, true);
+	  };
+
+	  createClass(KeyedSeq, Seq);
+	  function KeyedSeq(value) {
+	    return value === null || value === undefined ? emptySequence().toKeyedSeq() : isIterable(value) ? isKeyed(value) ? value.toSeq() : value.fromEntrySeq() : keyedSeqFromValue(value);
+	  }
+
+	  KeyedSeq.prototype.toKeyedSeq = function () {
+	    return this;
+	  };
+
+	  createClass(IndexedSeq, Seq);
+	  function IndexedSeq(value) {
+	    return value === null || value === undefined ? emptySequence() : !isIterable(value) ? indexedSeqFromValue(value) : isKeyed(value) ? value.entrySeq() : value.toIndexedSeq();
+	  }
+
+	  IndexedSeq.of = function () /*...values*/{
+	    return IndexedSeq(arguments);
+	  };
+
+	  IndexedSeq.prototype.toIndexedSeq = function () {
+	    return this;
+	  };
+
+	  IndexedSeq.prototype.toString = function () {
+	    return this.__toString('Seq [', ']');
+	  };
+
+	  IndexedSeq.prototype.__iterate = function (fn, reverse) {
+	    return seqIterate(this, fn, reverse, false);
+	  };
+
+	  IndexedSeq.prototype.__iterator = function (type, reverse) {
+	    return seqIterator(this, type, reverse, false);
+	  };
+
+	  createClass(SetSeq, Seq);
+	  function SetSeq(value) {
+	    return (value === null || value === undefined ? emptySequence() : !isIterable(value) ? indexedSeqFromValue(value) : isKeyed(value) ? value.entrySeq() : value).toSetSeq();
+	  }
+
+	  SetSeq.of = function () /*...values*/{
+	    return SetSeq(arguments);
+	  };
+
+	  SetSeq.prototype.toSetSeq = function () {
+	    return this;
+	  };
+
+	  Seq.isSeq = isSeq;
+	  Seq.Keyed = KeyedSeq;
+	  Seq.Set = SetSeq;
+	  Seq.Indexed = IndexedSeq;
+
+	  var IS_SEQ_SENTINEL = '@@__IMMUTABLE_SEQ__@@';
+
+	  Seq.prototype[IS_SEQ_SENTINEL] = true;
+
+	  createClass(ArraySeq, IndexedSeq);
+	  function ArraySeq(array) {
+	    this._array = array;
+	    this.size = array.length;
+	  }
+
+	  ArraySeq.prototype.get = function (index, notSetValue) {
+	    return this.has(index) ? this._array[wrapIndex(this, index)] : notSetValue;
+	  };
+
+	  ArraySeq.prototype.__iterate = function (fn, reverse) {
+	    var array = this._array;
+	    var maxIndex = array.length - 1;
+	    for (var ii = 0; ii <= maxIndex; ii++) {
+	      if (fn(array[reverse ? maxIndex - ii : ii], ii, this) === false) {
+	        return ii + 1;
+	      }
+	    }
+	    return ii;
+	  };
+
+	  ArraySeq.prototype.__iterator = function (type, reverse) {
+	    var array = this._array;
+	    var maxIndex = array.length - 1;
+	    var ii = 0;
+	    return new Iterator(function () {
+	      return ii > maxIndex ? iteratorDone() : iteratorValue(type, ii, array[reverse ? maxIndex - ii++ : ii++]);
+	    });
+	  };
+
+	  createClass(ObjectSeq, KeyedSeq);
+	  function ObjectSeq(object) {
+	    var keys = Object.keys(object);
+	    this._object = object;
+	    this._keys = keys;
+	    this.size = keys.length;
+	  }
+
+	  ObjectSeq.prototype.get = function (key, notSetValue) {
+	    if (notSetValue !== undefined && !this.has(key)) {
+	      return notSetValue;
+	    }
+	    return this._object[key];
+	  };
+
+	  ObjectSeq.prototype.has = function (key) {
+	    return this._object.hasOwnProperty(key);
+	  };
+
+	  ObjectSeq.prototype.__iterate = function (fn, reverse) {
+	    var object = this._object;
+	    var keys = this._keys;
+	    var maxIndex = keys.length - 1;
+	    for (var ii = 0; ii <= maxIndex; ii++) {
+	      var key = keys[reverse ? maxIndex - ii : ii];
+	      if (fn(object[key], key, this) === false) {
+	        return ii + 1;
+	      }
+	    }
+	    return ii;
+	  };
+
+	  ObjectSeq.prototype.__iterator = function (type, reverse) {
+	    var object = this._object;
+	    var keys = this._keys;
+	    var maxIndex = keys.length - 1;
+	    var ii = 0;
+	    return new Iterator(function () {
+	      var key = keys[reverse ? maxIndex - ii : ii];
+	      return ii++ > maxIndex ? iteratorDone() : iteratorValue(type, key, object[key]);
+	    });
+	  };
+
+	  ObjectSeq.prototype[IS_ORDERED_SENTINEL] = true;
+
+	  createClass(IterableSeq, IndexedSeq);
+	  function IterableSeq(iterable) {
+	    this._iterable = iterable;
+	    this.size = iterable.length || iterable.size;
+	  }
+
+	  IterableSeq.prototype.__iterateUncached = function (fn, reverse) {
+	    if (reverse) {
+	      return this.cacheResult().__iterate(fn, reverse);
+	    }
+	    var iterable = this._iterable;
+	    var iterator = getIterator(iterable);
+	    var iterations = 0;
+	    if (isIterator(iterator)) {
+	      var step;
+	      while (!(step = iterator.next()).done) {
+	        if (fn(step.value, iterations++, this) === false) {
+	          break;
+	        }
+	      }
+	    }
+	    return iterations;
+	  };
+
+	  IterableSeq.prototype.__iteratorUncached = function (type, reverse) {
+	    if (reverse) {
+	      return this.cacheResult().__iterator(type, reverse);
+	    }
+	    var iterable = this._iterable;
+	    var iterator = getIterator(iterable);
+	    if (!isIterator(iterator)) {
+	      return new Iterator(iteratorDone);
+	    }
+	    var iterations = 0;
+	    return new Iterator(function () {
+	      var step = iterator.next();
+	      return step.done ? step : iteratorValue(type, iterations++, step.value);
+	    });
+	  };
+
+	  createClass(IteratorSeq, IndexedSeq);
+	  function IteratorSeq(iterator) {
+	    this._iterator = iterator;
+	    this._iteratorCache = [];
+	  }
+
+	  IteratorSeq.prototype.__iterateUncached = function (fn, reverse) {
+	    if (reverse) {
+	      return this.cacheResult().__iterate(fn, reverse);
+	    }
+	    var iterator = this._iterator;
+	    var cache = this._iteratorCache;
+	    var iterations = 0;
+	    while (iterations < cache.length) {
+	      if (fn(cache[iterations], iterations++, this) === false) {
+	        return iterations;
+	      }
+	    }
+	    var step;
+	    while (!(step = iterator.next()).done) {
+	      var val = step.value;
+	      cache[iterations] = val;
+	      if (fn(val, iterations++, this) === false) {
+	        break;
+	      }
+	    }
+	    return iterations;
+	  };
+
+	  IteratorSeq.prototype.__iteratorUncached = function (type, reverse) {
+	    if (reverse) {
+	      return this.cacheResult().__iterator(type, reverse);
+	    }
+	    var iterator = this._iterator;
+	    var cache = this._iteratorCache;
+	    var iterations = 0;
+	    return new Iterator(function () {
+	      if (iterations >= cache.length) {
+	        var step = iterator.next();
+	        if (step.done) {
+	          return step;
+	        }
+	        cache[iterations] = step.value;
+	      }
+	      return iteratorValue(type, iterations, cache[iterations++]);
+	    });
+	  };
+
+	  // # pragma Helper functions
+
+	  function isSeq(maybeSeq) {
+	    return !!(maybeSeq && maybeSeq[IS_SEQ_SENTINEL]);
+	  }
+
+	  var EMPTY_SEQ;
+
+	  function emptySequence() {
+	    return EMPTY_SEQ || (EMPTY_SEQ = new ArraySeq([]));
+	  }
+
+	  function keyedSeqFromValue(value) {
+	    var seq = Array.isArray(value) ? new ArraySeq(value).fromEntrySeq() : isIterator(value) ? new IteratorSeq(value).fromEntrySeq() : hasIterator(value) ? new IterableSeq(value).fromEntrySeq() : typeof value === 'object' ? new ObjectSeq(value) : undefined;
+	    if (!seq) {
+	      throw new TypeError('Expected Array or iterable object of [k, v] entries, ' + 'or keyed object: ' + value);
+	    }
+	    return seq;
+	  }
+
+	  function indexedSeqFromValue(value) {
+	    var seq = maybeIndexedSeqFromValue(value);
+	    if (!seq) {
+	      throw new TypeError('Expected Array or iterable object of values: ' + value);
+	    }
+	    return seq;
+	  }
+
+	  function seqFromValue(value) {
+	    var seq = maybeIndexedSeqFromValue(value) || typeof value === 'object' && new ObjectSeq(value);
+	    if (!seq) {
+	      throw new TypeError('Expected Array or iterable object of values, or keyed object: ' + value);
+	    }
+	    return seq;
+	  }
+
+	  function maybeIndexedSeqFromValue(value) {
+	    return isArrayLike(value) ? new ArraySeq(value) : isIterator(value) ? new IteratorSeq(value) : hasIterator(value) ? new IterableSeq(value) : undefined;
+	  }
+
+	  function seqIterate(seq, fn, reverse, useKeys) {
+	    var cache = seq._cache;
+	    if (cache) {
+	      var maxIndex = cache.length - 1;
+	      for (var ii = 0; ii <= maxIndex; ii++) {
+	        var entry = cache[reverse ? maxIndex - ii : ii];
+	        if (fn(entry[1], useKeys ? entry[0] : ii, seq) === false) {
+	          return ii + 1;
+	        }
+	      }
+	      return ii;
+	    }
+	    return seq.__iterateUncached(fn, reverse);
+	  }
+
+	  function seqIterator(seq, type, reverse, useKeys) {
+	    var cache = seq._cache;
+	    if (cache) {
+	      var maxIndex = cache.length - 1;
+	      var ii = 0;
+	      return new Iterator(function () {
+	        var entry = cache[reverse ? maxIndex - ii : ii];
+	        return ii++ > maxIndex ? iteratorDone() : iteratorValue(type, useKeys ? entry[0] : ii - 1, entry[1]);
+	      });
+	    }
+	    return seq.__iteratorUncached(type, reverse);
+	  }
+
+	  function fromJS(json, converter) {
+	    return converter ? fromJSWith(converter, json, '', { '': json }) : fromJSDefault(json);
+	  }
+
+	  function fromJSWith(converter, json, key, parentJSON) {
+	    if (Array.isArray(json)) {
+	      return converter.call(parentJSON, key, IndexedSeq(json).map(function (v, k) {
+	        return fromJSWith(converter, v, k, json);
+	      }));
+	    }
+	    if (isPlainObj(json)) {
+	      return converter.call(parentJSON, key, KeyedSeq(json).map(function (v, k) {
+	        return fromJSWith(converter, v, k, json);
+	      }));
+	    }
+	    return json;
+	  }
+
+	  function fromJSDefault(json) {
+	    if (Array.isArray(json)) {
+	      return IndexedSeq(json).map(fromJSDefault).toList();
+	    }
+	    if (isPlainObj(json)) {
+	      return KeyedSeq(json).map(fromJSDefault).toMap();
+	    }
+	    return json;
+	  }
+
+	  function isPlainObj(value) {
+	    return value && (value.constructor === Object || value.constructor === undefined);
+	  }
+
+	  /**
 	   * An extension of the "same-value" algorithm as [described for use by ES6 Map
 	   * and Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#Key_equality)
 	   *
@@ -13646,91 +14392,2716 @@ webpackJsonp([0],[
 	   *
 	   * All Immutable collections implement `equals` and `hashCode`.
 	   *
-	   */function is(valueA,valueB){if(valueA===valueB||valueA!==valueA&&valueB!==valueB){return true;}if(!valueA||!valueB){return false;}if(typeof valueA.valueOf==='function'&&typeof valueB.valueOf==='function'){valueA=valueA.valueOf();valueB=valueB.valueOf();if(valueA===valueB||valueA!==valueA&&valueB!==valueB){return true;}if(!valueA||!valueB){return false;}}if(typeof valueA.equals==='function'&&typeof valueB.equals==='function'&&valueA.equals(valueB)){return true;}return false;}function deepEqual(a,b){if(a===b){return true;}if(!isIterable(b)||a.size!==undefined&&b.size!==undefined&&a.size!==b.size||a.__hash!==undefined&&b.__hash!==undefined&&a.__hash!==b.__hash||isKeyed(a)!==isKeyed(b)||isIndexed(a)!==isIndexed(b)||isOrdered(a)!==isOrdered(b)){return false;}if(a.size===0&&b.size===0){return true;}var notAssociative=!isAssociative(a);if(isOrdered(a)){var entries=a.entries();return b.every(function(v,k){var entry=entries.next().value;return entry&&is(entry[1],v)&&(notAssociative||is(entry[0],k));})&&entries.next().done;}var flipped=false;if(a.size===undefined){if(b.size===undefined){if(typeof a.cacheResult==='function'){a.cacheResult();}}else{flipped=true;var _=a;a=b;b=_;}}var allEqual=true;var bSize=b.__iterate(function(v,k){if(notAssociative?!a.has(v):flipped?!is(v,a.get(k,NOT_SET)):!is(a.get(k,NOT_SET),v)){allEqual=false;return false;}});return allEqual&&a.size===bSize;}createClass(Repeat,IndexedSeq);function Repeat(value,times){if(!(this instanceof Repeat)){return new Repeat(value,times);}this._value=value;this.size=times===undefined?Infinity:Math.max(0,times);if(this.size===0){if(EMPTY_REPEAT){return EMPTY_REPEAT;}EMPTY_REPEAT=this;}}Repeat.prototype.toString=function(){if(this.size===0){return'Repeat []';}return'Repeat [ '+this._value+' '+this.size+' times ]';};Repeat.prototype.get=function(index,notSetValue){return this.has(index)?this._value:notSetValue;};Repeat.prototype.includes=function(searchValue){return is(this._value,searchValue);};Repeat.prototype.slice=function(begin,end){var size=this.size;return wholeSlice(begin,end,size)?this:new Repeat(this._value,resolveEnd(end,size)-resolveBegin(begin,size));};Repeat.prototype.reverse=function(){return this;};Repeat.prototype.indexOf=function(searchValue){if(is(this._value,searchValue)){return 0;}return-1;};Repeat.prototype.lastIndexOf=function(searchValue){if(is(this._value,searchValue)){return this.size;}return-1;};Repeat.prototype.__iterate=function(fn,reverse){for(var ii=0;ii<this.size;ii++){if(fn(this._value,ii,this)===false){return ii+1;}}return ii;};Repeat.prototype.__iterator=function(type,reverse){var this$0=this;var ii=0;return new Iterator(function(){return ii<this$0.size?iteratorValue(type,ii++,this$0._value):iteratorDone();});};Repeat.prototype.equals=function(other){return other instanceof Repeat?is(this._value,other._value):deepEqual(other);};var EMPTY_REPEAT;function invariant(condition,error){if(!condition)throw new Error(error);}createClass(Range,IndexedSeq);function Range(start,end,step){if(!(this instanceof Range)){return new Range(start,end,step);}invariant(step!==0,'Cannot step a Range by 0');start=start||0;if(end===undefined){end=Infinity;}step=step===undefined?1:Math.abs(step);if(end<start){step=-step;}this._start=start;this._end=end;this._step=step;this.size=Math.max(0,Math.ceil((end-start)/step-1)+1);if(this.size===0){if(EMPTY_RANGE){return EMPTY_RANGE;}EMPTY_RANGE=this;}}Range.prototype.toString=function(){if(this.size===0){return'Range []';}return'Range [ '+this._start+'...'+this._end+(this._step!==1?' by '+this._step:'')+' ]';};Range.prototype.get=function(index,notSetValue){return this.has(index)?this._start+wrapIndex(this,index)*this._step:notSetValue;};Range.prototype.includes=function(searchValue){var possibleIndex=(searchValue-this._start)/this._step;return possibleIndex>=0&&possibleIndex<this.size&&possibleIndex===Math.floor(possibleIndex);};Range.prototype.slice=function(begin,end){if(wholeSlice(begin,end,this.size)){return this;}begin=resolveBegin(begin,this.size);end=resolveEnd(end,this.size);if(end<=begin){return new Range(0,0);}return new Range(this.get(begin,this._end),this.get(end,this._end),this._step);};Range.prototype.indexOf=function(searchValue){var offsetValue=searchValue-this._start;if(offsetValue%this._step===0){var index=offsetValue/this._step;if(index>=0&&index<this.size){return index;}}return-1;};Range.prototype.lastIndexOf=function(searchValue){return this.indexOf(searchValue);};Range.prototype.__iterate=function(fn,reverse){var maxIndex=this.size-1;var step=this._step;var value=reverse?this._start+maxIndex*step:this._start;for(var ii=0;ii<=maxIndex;ii++){if(fn(value,ii,this)===false){return ii+1;}value+=reverse?-step:step;}return ii;};Range.prototype.__iterator=function(type,reverse){var maxIndex=this.size-1;var step=this._step;var value=reverse?this._start+maxIndex*step:this._start;var ii=0;return new Iterator(function(){var v=value;value+=reverse?-step:step;return ii>maxIndex?iteratorDone():iteratorValue(type,ii++,v);});};Range.prototype.equals=function(other){return other instanceof Range?this._start===other._start&&this._end===other._end&&this._step===other._step:deepEqual(this,other);};var EMPTY_RANGE;createClass(Collection,Iterable);function Collection(){throw TypeError('Abstract');}createClass(KeyedCollection,Collection);function KeyedCollection(){}createClass(IndexedCollection,Collection);function IndexedCollection(){}createClass(SetCollection,Collection);function SetCollection(){}Collection.Keyed=KeyedCollection;Collection.Indexed=IndexedCollection;Collection.Set=SetCollection;var imul=typeof Math.imul==='function'&&Math.imul(0xffffffff,2)===-2?Math.imul:function imul(a,b){a=a|0;// int
-	b=b|0;// int
-	var c=a&0xffff;var d=b&0xffff;// Shift by 0 fixes the sign on the high part.
-	return c*d+((a>>>16)*d+c*(b>>>16)<<16>>>0)|0;// int
-	};// v8 has an optimization for storing 31-bit signed numbers.
-	// Values which have either 00 or 11 as the high order bits qualify.
-	// This function drops the highest order bit in a signed number, maintaining
-	// the sign bit.
-	function smi(i32){return i32>>>1&0x40000000|i32&0xBFFFFFFF;}function hash(o){if(o===false||o===null||o===undefined){return 0;}if(typeof o.valueOf==='function'){o=o.valueOf();if(o===false||o===null||o===undefined){return 0;}}if(o===true){return 1;}var type=typeof o;if(type==='number'){if(o!==o||o===Infinity){return 0;}var h=o|0;if(h!==o){h^=o*0xFFFFFFFF;}while(o>0xFFFFFFFF){o/=0xFFFFFFFF;h^=o;}return smi(h);}if(type==='string'){return o.length>STRING_HASH_CACHE_MIN_STRLEN?cachedHashString(o):hashString(o);}if(typeof o.hashCode==='function'){return o.hashCode();}if(type==='object'){return hashJSObj(o);}if(typeof o.toString==='function'){return hashString(o.toString());}throw new Error('Value type '+type+' cannot be hashed.');}function cachedHashString(string){var hash=stringHashCache[string];if(hash===undefined){hash=hashString(string);if(STRING_HASH_CACHE_SIZE===STRING_HASH_CACHE_MAX_SIZE){STRING_HASH_CACHE_SIZE=0;stringHashCache={};}STRING_HASH_CACHE_SIZE++;stringHashCache[string]=hash;}return hash;}// http://jsperf.com/hashing-strings
-	function hashString(string){// This is the hash from JVM
-	// The hash code for a string is computed as
-	// s[0] * 31 ^ (n - 1) + s[1] * 31 ^ (n - 2) + ... + s[n - 1],
-	// where s[i] is the ith character of the string and n is the length of
-	// the string. We "mod" the result to make it between 0 (inclusive) and 2^31
-	// (exclusive) by dropping high bits.
-	var hash=0;for(var ii=0;ii<string.length;ii++){hash=31*hash+string.charCodeAt(ii)|0;}return smi(hash);}function hashJSObj(obj){var hash;if(usingWeakMap){hash=weakMap.get(obj);if(hash!==undefined){return hash;}}hash=obj[UID_HASH_KEY];if(hash!==undefined){return hash;}if(!canDefineProperty){hash=obj.propertyIsEnumerable&&obj.propertyIsEnumerable[UID_HASH_KEY];if(hash!==undefined){return hash;}hash=getIENodeHash(obj);if(hash!==undefined){return hash;}}hash=++objHashUID;if(objHashUID&0x40000000){objHashUID=0;}if(usingWeakMap){weakMap.set(obj,hash);}else if(isExtensible!==undefined&&isExtensible(obj)===false){throw new Error('Non-extensible objects are not allowed as keys.');}else if(canDefineProperty){Object.defineProperty(obj,UID_HASH_KEY,{'enumerable':false,'configurable':false,'writable':false,'value':hash});}else if(obj.propertyIsEnumerable!==undefined&&obj.propertyIsEnumerable===obj.constructor.prototype.propertyIsEnumerable){// Since we can't define a non-enumerable property on the object
-	// we'll hijack one of the less-used non-enumerable properties to
-	// save our hash on it. Since this is a function it will not show up in
-	// `JSON.stringify` which is what we want.
-	obj.propertyIsEnumerable=function(){return this.constructor.prototype.propertyIsEnumerable.apply(this,arguments);};obj.propertyIsEnumerable[UID_HASH_KEY]=hash;}else if(obj.nodeType!==undefined){// At this point we couldn't get the IE `uniqueID` to use as a hash
-	// and we couldn't use a non-enumerable property to exploit the
-	// dontEnum bug so we simply add the `UID_HASH_KEY` on the node
-	// itself.
-	obj[UID_HASH_KEY]=hash;}else{throw new Error('Unable to set a non-enumerable property on object.');}return hash;}// Get references to ES5 object methods.
-	var isExtensible=Object.isExtensible;// True if Object.defineProperty works as expected. IE8 fails this test.
-	var canDefineProperty=function(){try{Object.defineProperty({},'@',{});return true;}catch(e){return false;}}();// IE has a `uniqueID` property on DOM nodes. We can construct the hash from it
-	// and avoid memory leaks from the IE cloneNode bug.
-	function getIENodeHash(node){if(node&&node.nodeType>0){switch(node.nodeType){case 1:// Element
-	return node.uniqueID;case 9:// Document
-	return node.documentElement&&node.documentElement.uniqueID;}}}// If possible, use a WeakMap.
-	var usingWeakMap=typeof WeakMap==='function';var weakMap;if(usingWeakMap){weakMap=new WeakMap();}var objHashUID=0;var UID_HASH_KEY='__immutablehash__';if(typeof Symbol==='function'){UID_HASH_KEY=Symbol(UID_HASH_KEY);}var STRING_HASH_CACHE_MIN_STRLEN=16;var STRING_HASH_CACHE_MAX_SIZE=255;var STRING_HASH_CACHE_SIZE=0;var stringHashCache={};function assertNotInfinite(size){invariant(size!==Infinity,'Cannot perform this action with an infinite size.');}createClass(Map,KeyedCollection);// @pragma Construction
-	function Map(value){return value===null||value===undefined?emptyMap():isMap(value)&&!isOrdered(value)?value:emptyMap().withMutations(function(map){var iter=KeyedIterable(value);assertNotInfinite(iter.size);iter.forEach(function(v,k){return map.set(k,v);});});}Map.of=function(){var keyValues=SLICE$0.call(arguments,0);return emptyMap().withMutations(function(map){for(var i=0;i<keyValues.length;i+=2){if(i+1>=keyValues.length){throw new Error('Missing value for key: '+keyValues[i]);}map.set(keyValues[i],keyValues[i+1]);}});};Map.prototype.toString=function(){return this.__toString('Map {','}');};// @pragma Access
-	Map.prototype.get=function(k,notSetValue){return this._root?this._root.get(0,undefined,k,notSetValue):notSetValue;};// @pragma Modification
-	Map.prototype.set=function(k,v){return updateMap(this,k,v);};Map.prototype.setIn=function(keyPath,v){return this.updateIn(keyPath,NOT_SET,function(){return v;});};Map.prototype.remove=function(k){return updateMap(this,k,NOT_SET);};Map.prototype.deleteIn=function(keyPath){return this.updateIn(keyPath,function(){return NOT_SET;});};Map.prototype.update=function(k,notSetValue,updater){return arguments.length===1?k(this):this.updateIn([k],notSetValue,updater);};Map.prototype.updateIn=function(keyPath,notSetValue,updater){if(!updater){updater=notSetValue;notSetValue=undefined;}var updatedValue=updateInDeepMap(this,forceIterator(keyPath),notSetValue,updater);return updatedValue===NOT_SET?undefined:updatedValue;};Map.prototype.clear=function(){if(this.size===0){return this;}if(this.__ownerID){this.size=0;this._root=null;this.__hash=undefined;this.__altered=true;return this;}return emptyMap();};// @pragma Composition
-	Map.prototype.merge=function()/*...iters*/{return mergeIntoMapWith(this,undefined,arguments);};Map.prototype.mergeWith=function(merger){var iters=SLICE$0.call(arguments,1);return mergeIntoMapWith(this,merger,iters);};Map.prototype.mergeIn=function(keyPath){var iters=SLICE$0.call(arguments,1);return this.updateIn(keyPath,emptyMap(),function(m){return typeof m.merge==='function'?m.merge.apply(m,iters):iters[iters.length-1];});};Map.prototype.mergeDeep=function()/*...iters*/{return mergeIntoMapWith(this,deepMerger,arguments);};Map.prototype.mergeDeepWith=function(merger){var iters=SLICE$0.call(arguments,1);return mergeIntoMapWith(this,deepMergerWith(merger),iters);};Map.prototype.mergeDeepIn=function(keyPath){var iters=SLICE$0.call(arguments,1);return this.updateIn(keyPath,emptyMap(),function(m){return typeof m.mergeDeep==='function'?m.mergeDeep.apply(m,iters):iters[iters.length-1];});};Map.prototype.sort=function(comparator){// Late binding
-	return OrderedMap(sortFactory(this,comparator));};Map.prototype.sortBy=function(mapper,comparator){// Late binding
-	return OrderedMap(sortFactory(this,comparator,mapper));};// @pragma Mutability
-	Map.prototype.withMutations=function(fn){var mutable=this.asMutable();fn(mutable);return mutable.wasAltered()?mutable.__ensureOwner(this.__ownerID):this;};Map.prototype.asMutable=function(){return this.__ownerID?this:this.__ensureOwner(new OwnerID());};Map.prototype.asImmutable=function(){return this.__ensureOwner();};Map.prototype.wasAltered=function(){return this.__altered;};Map.prototype.__iterator=function(type,reverse){return new MapIterator(this,type,reverse);};Map.prototype.__iterate=function(fn,reverse){var this$0=this;var iterations=0;this._root&&this._root.iterate(function(entry){iterations++;return fn(entry[1],entry[0],this$0);},reverse);return iterations;};Map.prototype.__ensureOwner=function(ownerID){if(ownerID===this.__ownerID){return this;}if(!ownerID){this.__ownerID=ownerID;this.__altered=false;return this;}return makeMap(this.size,this._root,ownerID,this.__hash);};function isMap(maybeMap){return!!(maybeMap&&maybeMap[IS_MAP_SENTINEL]);}Map.isMap=isMap;var IS_MAP_SENTINEL='@@__IMMUTABLE_MAP__@@';var MapPrototype=Map.prototype;MapPrototype[IS_MAP_SENTINEL]=true;MapPrototype[DELETE]=MapPrototype.remove;MapPrototype.removeIn=MapPrototype.deleteIn;// #pragma Trie Nodes
-	function ArrayMapNode(ownerID,entries){this.ownerID=ownerID;this.entries=entries;}ArrayMapNode.prototype.get=function(shift,keyHash,key,notSetValue){var entries=this.entries;for(var ii=0,len=entries.length;ii<len;ii++){if(is(key,entries[ii][0])){return entries[ii][1];}}return notSetValue;};ArrayMapNode.prototype.update=function(ownerID,shift,keyHash,key,value,didChangeSize,didAlter){var removed=value===NOT_SET;var entries=this.entries;var idx=0;for(var len=entries.length;idx<len;idx++){if(is(key,entries[idx][0])){break;}}var exists=idx<len;if(exists?entries[idx][1]===value:removed){return this;}SetRef(didAlter);(removed||!exists)&&SetRef(didChangeSize);if(removed&&entries.length===1){return;// undefined
-	}if(!exists&&!removed&&entries.length>=MAX_ARRAY_MAP_SIZE){return createNodes(ownerID,entries,key,value);}var isEditable=ownerID&&ownerID===this.ownerID;var newEntries=isEditable?entries:arrCopy(entries);if(exists){if(removed){idx===len-1?newEntries.pop():newEntries[idx]=newEntries.pop();}else{newEntries[idx]=[key,value];}}else{newEntries.push([key,value]);}if(isEditable){this.entries=newEntries;return this;}return new ArrayMapNode(ownerID,newEntries);};function BitmapIndexedNode(ownerID,bitmap,nodes){this.ownerID=ownerID;this.bitmap=bitmap;this.nodes=nodes;}BitmapIndexedNode.prototype.get=function(shift,keyHash,key,notSetValue){if(keyHash===undefined){keyHash=hash(key);}var bit=1<<((shift===0?keyHash:keyHash>>>shift)&MASK);var bitmap=this.bitmap;return(bitmap&bit)===0?notSetValue:this.nodes[popCount(bitmap&bit-1)].get(shift+SHIFT,keyHash,key,notSetValue);};BitmapIndexedNode.prototype.update=function(ownerID,shift,keyHash,key,value,didChangeSize,didAlter){if(keyHash===undefined){keyHash=hash(key);}var keyHashFrag=(shift===0?keyHash:keyHash>>>shift)&MASK;var bit=1<<keyHashFrag;var bitmap=this.bitmap;var exists=(bitmap&bit)!==0;if(!exists&&value===NOT_SET){return this;}var idx=popCount(bitmap&bit-1);var nodes=this.nodes;var node=exists?nodes[idx]:undefined;var newNode=updateNode(node,ownerID,shift+SHIFT,keyHash,key,value,didChangeSize,didAlter);if(newNode===node){return this;}if(!exists&&newNode&&nodes.length>=MAX_BITMAP_INDEXED_SIZE){return expandNodes(ownerID,nodes,bitmap,keyHashFrag,newNode);}if(exists&&!newNode&&nodes.length===2&&isLeafNode(nodes[idx^1])){return nodes[idx^1];}if(exists&&newNode&&nodes.length===1&&isLeafNode(newNode)){return newNode;}var isEditable=ownerID&&ownerID===this.ownerID;var newBitmap=exists?newNode?bitmap:bitmap^bit:bitmap|bit;var newNodes=exists?newNode?setIn(nodes,idx,newNode,isEditable):spliceOut(nodes,idx,isEditable):spliceIn(nodes,idx,newNode,isEditable);if(isEditable){this.bitmap=newBitmap;this.nodes=newNodes;return this;}return new BitmapIndexedNode(ownerID,newBitmap,newNodes);};function HashArrayMapNode(ownerID,count,nodes){this.ownerID=ownerID;this.count=count;this.nodes=nodes;}HashArrayMapNode.prototype.get=function(shift,keyHash,key,notSetValue){if(keyHash===undefined){keyHash=hash(key);}var idx=(shift===0?keyHash:keyHash>>>shift)&MASK;var node=this.nodes[idx];return node?node.get(shift+SHIFT,keyHash,key,notSetValue):notSetValue;};HashArrayMapNode.prototype.update=function(ownerID,shift,keyHash,key,value,didChangeSize,didAlter){if(keyHash===undefined){keyHash=hash(key);}var idx=(shift===0?keyHash:keyHash>>>shift)&MASK;var removed=value===NOT_SET;var nodes=this.nodes;var node=nodes[idx];if(removed&&!node){return this;}var newNode=updateNode(node,ownerID,shift+SHIFT,keyHash,key,value,didChangeSize,didAlter);if(newNode===node){return this;}var newCount=this.count;if(!node){newCount++;}else if(!newNode){newCount--;if(newCount<MIN_HASH_ARRAY_MAP_SIZE){return packNodes(ownerID,nodes,newCount,idx);}}var isEditable=ownerID&&ownerID===this.ownerID;var newNodes=setIn(nodes,idx,newNode,isEditable);if(isEditable){this.count=newCount;this.nodes=newNodes;return this;}return new HashArrayMapNode(ownerID,newCount,newNodes);};function HashCollisionNode(ownerID,keyHash,entries){this.ownerID=ownerID;this.keyHash=keyHash;this.entries=entries;}HashCollisionNode.prototype.get=function(shift,keyHash,key,notSetValue){var entries=this.entries;for(var ii=0,len=entries.length;ii<len;ii++){if(is(key,entries[ii][0])){return entries[ii][1];}}return notSetValue;};HashCollisionNode.prototype.update=function(ownerID,shift,keyHash,key,value,didChangeSize,didAlter){if(keyHash===undefined){keyHash=hash(key);}var removed=value===NOT_SET;if(keyHash!==this.keyHash){if(removed){return this;}SetRef(didAlter);SetRef(didChangeSize);return mergeIntoNode(this,ownerID,shift,keyHash,[key,value]);}var entries=this.entries;var idx=0;for(var len=entries.length;idx<len;idx++){if(is(key,entries[idx][0])){break;}}var exists=idx<len;if(exists?entries[idx][1]===value:removed){return this;}SetRef(didAlter);(removed||!exists)&&SetRef(didChangeSize);if(removed&&len===2){return new ValueNode(ownerID,this.keyHash,entries[idx^1]);}var isEditable=ownerID&&ownerID===this.ownerID;var newEntries=isEditable?entries:arrCopy(entries);if(exists){if(removed){idx===len-1?newEntries.pop():newEntries[idx]=newEntries.pop();}else{newEntries[idx]=[key,value];}}else{newEntries.push([key,value]);}if(isEditable){this.entries=newEntries;return this;}return new HashCollisionNode(ownerID,this.keyHash,newEntries);};function ValueNode(ownerID,keyHash,entry){this.ownerID=ownerID;this.keyHash=keyHash;this.entry=entry;}ValueNode.prototype.get=function(shift,keyHash,key,notSetValue){return is(key,this.entry[0])?this.entry[1]:notSetValue;};ValueNode.prototype.update=function(ownerID,shift,keyHash,key,value,didChangeSize,didAlter){var removed=value===NOT_SET;var keyMatch=is(key,this.entry[0]);if(keyMatch?value===this.entry[1]:removed){return this;}SetRef(didAlter);if(removed){SetRef(didChangeSize);return;// undefined
-	}if(keyMatch){if(ownerID&&ownerID===this.ownerID){this.entry[1]=value;return this;}return new ValueNode(ownerID,this.keyHash,[key,value]);}SetRef(didChangeSize);return mergeIntoNode(this,ownerID,shift,hash(key),[key,value]);};// #pragma Iterators
-	ArrayMapNode.prototype.iterate=HashCollisionNode.prototype.iterate=function(fn,reverse){var entries=this.entries;for(var ii=0,maxIndex=entries.length-1;ii<=maxIndex;ii++){if(fn(entries[reverse?maxIndex-ii:ii])===false){return false;}}};BitmapIndexedNode.prototype.iterate=HashArrayMapNode.prototype.iterate=function(fn,reverse){var nodes=this.nodes;for(var ii=0,maxIndex=nodes.length-1;ii<=maxIndex;ii++){var node=nodes[reverse?maxIndex-ii:ii];if(node&&node.iterate(fn,reverse)===false){return false;}}};ValueNode.prototype.iterate=function(fn,reverse){return fn(this.entry);};createClass(MapIterator,Iterator);function MapIterator(map,type,reverse){this._type=type;this._reverse=reverse;this._stack=map._root&&mapIteratorFrame(map._root);}MapIterator.prototype.next=function(){var type=this._type;var stack=this._stack;while(stack){var node=stack.node;var index=stack.index++;var maxIndex;if(node.entry){if(index===0){return mapIteratorValue(type,node.entry);}}else if(node.entries){maxIndex=node.entries.length-1;if(index<=maxIndex){return mapIteratorValue(type,node.entries[this._reverse?maxIndex-index:index]);}}else{maxIndex=node.nodes.length-1;if(index<=maxIndex){var subNode=node.nodes[this._reverse?maxIndex-index:index];if(subNode){if(subNode.entry){return mapIteratorValue(type,subNode.entry);}stack=this._stack=mapIteratorFrame(subNode,stack);}continue;}}stack=this._stack=this._stack.__prev;}return iteratorDone();};function mapIteratorValue(type,entry){return iteratorValue(type,entry[0],entry[1]);}function mapIteratorFrame(node,prev){return{node:node,index:0,__prev:prev};}function makeMap(size,root,ownerID,hash){var map=Object.create(MapPrototype);map.size=size;map._root=root;map.__ownerID=ownerID;map.__hash=hash;map.__altered=false;return map;}var EMPTY_MAP;function emptyMap(){return EMPTY_MAP||(EMPTY_MAP=makeMap(0));}function updateMap(map,k,v){var newRoot;var newSize;if(!map._root){if(v===NOT_SET){return map;}newSize=1;newRoot=new ArrayMapNode(map.__ownerID,[[k,v]]);}else{var didChangeSize=MakeRef(CHANGE_LENGTH);var didAlter=MakeRef(DID_ALTER);newRoot=updateNode(map._root,map.__ownerID,0,undefined,k,v,didChangeSize,didAlter);if(!didAlter.value){return map;}newSize=map.size+(didChangeSize.value?v===NOT_SET?-1:1:0);}if(map.__ownerID){map.size=newSize;map._root=newRoot;map.__hash=undefined;map.__altered=true;return map;}return newRoot?makeMap(newSize,newRoot):emptyMap();}function updateNode(node,ownerID,shift,keyHash,key,value,didChangeSize,didAlter){if(!node){if(value===NOT_SET){return node;}SetRef(didAlter);SetRef(didChangeSize);return new ValueNode(ownerID,keyHash,[key,value]);}return node.update(ownerID,shift,keyHash,key,value,didChangeSize,didAlter);}function isLeafNode(node){return node.constructor===ValueNode||node.constructor===HashCollisionNode;}function mergeIntoNode(node,ownerID,shift,keyHash,entry){if(node.keyHash===keyHash){return new HashCollisionNode(ownerID,keyHash,[node.entry,entry]);}var idx1=(shift===0?node.keyHash:node.keyHash>>>shift)&MASK;var idx2=(shift===0?keyHash:keyHash>>>shift)&MASK;var newNode;var nodes=idx1===idx2?[mergeIntoNode(node,ownerID,shift+SHIFT,keyHash,entry)]:(newNode=new ValueNode(ownerID,keyHash,entry),idx1<idx2?[node,newNode]:[newNode,node]);return new BitmapIndexedNode(ownerID,1<<idx1|1<<idx2,nodes);}function createNodes(ownerID,entries,key,value){if(!ownerID){ownerID=new OwnerID();}var node=new ValueNode(ownerID,hash(key),[key,value]);for(var ii=0;ii<entries.length;ii++){var entry=entries[ii];node=node.update(ownerID,0,undefined,entry[0],entry[1]);}return node;}function packNodes(ownerID,nodes,count,excluding){var bitmap=0;var packedII=0;var packedNodes=new Array(count);for(var ii=0,bit=1,len=nodes.length;ii<len;ii++,bit<<=1){var node=nodes[ii];if(node!==undefined&&ii!==excluding){bitmap|=bit;packedNodes[packedII++]=node;}}return new BitmapIndexedNode(ownerID,bitmap,packedNodes);}function expandNodes(ownerID,nodes,bitmap,including,node){var count=0;var expandedNodes=new Array(SIZE);for(var ii=0;bitmap!==0;ii++,bitmap>>>=1){expandedNodes[ii]=bitmap&1?nodes[count++]:undefined;}expandedNodes[including]=node;return new HashArrayMapNode(ownerID,count+1,expandedNodes);}function mergeIntoMapWith(map,merger,iterables){var iters=[];for(var ii=0;ii<iterables.length;ii++){var value=iterables[ii];var iter=KeyedIterable(value);if(!isIterable(value)){iter=iter.map(function(v){return fromJS(v);});}iters.push(iter);}return mergeIntoCollectionWith(map,merger,iters);}function deepMerger(existing,value,key){return existing&&existing.mergeDeep&&isIterable(value)?existing.mergeDeep(value):is(existing,value)?existing:value;}function deepMergerWith(merger){return function(existing,value,key){if(existing&&existing.mergeDeepWith&&isIterable(value)){return existing.mergeDeepWith(merger,value);}var nextValue=merger(existing,value,key);return is(existing,nextValue)?existing:nextValue;};}function mergeIntoCollectionWith(collection,merger,iters){iters=iters.filter(function(x){return x.size!==0;});if(iters.length===0){return collection;}if(collection.size===0&&!collection.__ownerID&&iters.length===1){return collection.constructor(iters[0]);}return collection.withMutations(function(collection){var mergeIntoMap=merger?function(value,key){collection.update(key,NOT_SET,function(existing){return existing===NOT_SET?value:merger(existing,value,key);});}:function(value,key){collection.set(key,value);};for(var ii=0;ii<iters.length;ii++){iters[ii].forEach(mergeIntoMap);}});}function updateInDeepMap(existing,keyPathIter,notSetValue,updater){var isNotSet=existing===NOT_SET;var step=keyPathIter.next();if(step.done){var existingValue=isNotSet?notSetValue:existing;var newValue=updater(existingValue);return newValue===existingValue?existing:newValue;}invariant(isNotSet||existing&&existing.set,'invalid keyPath');var key=step.value;var nextExisting=isNotSet?NOT_SET:existing.get(key,NOT_SET);var nextUpdated=updateInDeepMap(nextExisting,keyPathIter,notSetValue,updater);return nextUpdated===nextExisting?existing:nextUpdated===NOT_SET?existing.remove(key):(isNotSet?emptyMap():existing).set(key,nextUpdated);}function popCount(x){x=x-(x>>1&0x55555555);x=(x&0x33333333)+(x>>2&0x33333333);x=x+(x>>4)&0x0f0f0f0f;x=x+(x>>8);x=x+(x>>16);return x&0x7f;}function setIn(array,idx,val,canEdit){var newArray=canEdit?array:arrCopy(array);newArray[idx]=val;return newArray;}function spliceIn(array,idx,val,canEdit){var newLen=array.length+1;if(canEdit&&idx+1===newLen){array[idx]=val;return array;}var newArray=new Array(newLen);var after=0;for(var ii=0;ii<newLen;ii++){if(ii===idx){newArray[ii]=val;after=-1;}else{newArray[ii]=array[ii+after];}}return newArray;}function spliceOut(array,idx,canEdit){var newLen=array.length-1;if(canEdit&&idx===newLen){array.pop();return array;}var newArray=new Array(newLen);var after=0;for(var ii=0;ii<newLen;ii++){if(ii===idx){after=1;}newArray[ii]=array[ii+after];}return newArray;}var MAX_ARRAY_MAP_SIZE=SIZE/4;var MAX_BITMAP_INDEXED_SIZE=SIZE/2;var MIN_HASH_ARRAY_MAP_SIZE=SIZE/4;createClass(List,IndexedCollection);// @pragma Construction
-	function List(value){var empty=emptyList();if(value===null||value===undefined){return empty;}if(isList(value)){return value;}var iter=IndexedIterable(value);var size=iter.size;if(size===0){return empty;}assertNotInfinite(size);if(size>0&&size<SIZE){return makeList(0,size,SHIFT,null,new VNode(iter.toArray()));}return empty.withMutations(function(list){list.setSize(size);iter.forEach(function(v,i){return list.set(i,v);});});}List.of=function()/*...values*/{return this(arguments);};List.prototype.toString=function(){return this.__toString('List [',']');};// @pragma Access
-	List.prototype.get=function(index,notSetValue){index=wrapIndex(this,index);if(index>=0&&index<this.size){index+=this._origin;var node=listNodeFor(this,index);return node&&node.array[index&MASK];}return notSetValue;};// @pragma Modification
-	List.prototype.set=function(index,value){return updateList(this,index,value);};List.prototype.remove=function(index){return!this.has(index)?this:index===0?this.shift():index===this.size-1?this.pop():this.splice(index,1);};List.prototype.insert=function(index,value){return this.splice(index,0,value);};List.prototype.clear=function(){if(this.size===0){return this;}if(this.__ownerID){this.size=this._origin=this._capacity=0;this._level=SHIFT;this._root=this._tail=null;this.__hash=undefined;this.__altered=true;return this;}return emptyList();};List.prototype.push=function()/*...values*/{var values=arguments;var oldSize=this.size;return this.withMutations(function(list){setListBounds(list,0,oldSize+values.length);for(var ii=0;ii<values.length;ii++){list.set(oldSize+ii,values[ii]);}});};List.prototype.pop=function(){return setListBounds(this,0,-1);};List.prototype.unshift=function()/*...values*/{var values=arguments;return this.withMutations(function(list){setListBounds(list,-values.length);for(var ii=0;ii<values.length;ii++){list.set(ii,values[ii]);}});};List.prototype.shift=function(){return setListBounds(this,1);};// @pragma Composition
-	List.prototype.merge=function()/*...iters*/{return mergeIntoListWith(this,undefined,arguments);};List.prototype.mergeWith=function(merger){var iters=SLICE$0.call(arguments,1);return mergeIntoListWith(this,merger,iters);};List.prototype.mergeDeep=function()/*...iters*/{return mergeIntoListWith(this,deepMerger,arguments);};List.prototype.mergeDeepWith=function(merger){var iters=SLICE$0.call(arguments,1);return mergeIntoListWith(this,deepMergerWith(merger),iters);};List.prototype.setSize=function(size){return setListBounds(this,0,size);};// @pragma Iteration
-	List.prototype.slice=function(begin,end){var size=this.size;if(wholeSlice(begin,end,size)){return this;}return setListBounds(this,resolveBegin(begin,size),resolveEnd(end,size));};List.prototype.__iterator=function(type,reverse){var index=0;var values=iterateList(this,reverse);return new Iterator(function(){var value=values();return value===DONE?iteratorDone():iteratorValue(type,index++,value);});};List.prototype.__iterate=function(fn,reverse){var index=0;var values=iterateList(this,reverse);var value;while((value=values())!==DONE){if(fn(value,index++,this)===false){break;}}return index;};List.prototype.__ensureOwner=function(ownerID){if(ownerID===this.__ownerID){return this;}if(!ownerID){this.__ownerID=ownerID;return this;}return makeList(this._origin,this._capacity,this._level,this._root,this._tail,ownerID,this.__hash);};function isList(maybeList){return!!(maybeList&&maybeList[IS_LIST_SENTINEL]);}List.isList=isList;var IS_LIST_SENTINEL='@@__IMMUTABLE_LIST__@@';var ListPrototype=List.prototype;ListPrototype[IS_LIST_SENTINEL]=true;ListPrototype[DELETE]=ListPrototype.remove;ListPrototype.setIn=MapPrototype.setIn;ListPrototype.deleteIn=ListPrototype.removeIn=MapPrototype.removeIn;ListPrototype.update=MapPrototype.update;ListPrototype.updateIn=MapPrototype.updateIn;ListPrototype.mergeIn=MapPrototype.mergeIn;ListPrototype.mergeDeepIn=MapPrototype.mergeDeepIn;ListPrototype.withMutations=MapPrototype.withMutations;ListPrototype.asMutable=MapPrototype.asMutable;ListPrototype.asImmutable=MapPrototype.asImmutable;ListPrototype.wasAltered=MapPrototype.wasAltered;function VNode(array,ownerID){this.array=array;this.ownerID=ownerID;}// TODO: seems like these methods are very similar
-	VNode.prototype.removeBefore=function(ownerID,level,index){if(index===level?1<<level:0||this.array.length===0){return this;}var originIndex=index>>>level&MASK;if(originIndex>=this.array.length){return new VNode([],ownerID);}var removingFirst=originIndex===0;var newChild;if(level>0){var oldChild=this.array[originIndex];newChild=oldChild&&oldChild.removeBefore(ownerID,level-SHIFT,index);if(newChild===oldChild&&removingFirst){return this;}}if(removingFirst&&!newChild){return this;}var editable=editableVNode(this,ownerID);if(!removingFirst){for(var ii=0;ii<originIndex;ii++){editable.array[ii]=undefined;}}if(newChild){editable.array[originIndex]=newChild;}return editable;};VNode.prototype.removeAfter=function(ownerID,level,index){if(index===(level?1<<level:0)||this.array.length===0){return this;}var sizeIndex=index-1>>>level&MASK;if(sizeIndex>=this.array.length){return this;}var newChild;if(level>0){var oldChild=this.array[sizeIndex];newChild=oldChild&&oldChild.removeAfter(ownerID,level-SHIFT,index);if(newChild===oldChild&&sizeIndex===this.array.length-1){return this;}}var editable=editableVNode(this,ownerID);editable.array.splice(sizeIndex+1);if(newChild){editable.array[sizeIndex]=newChild;}return editable;};var DONE={};function iterateList(list,reverse){var left=list._origin;var right=list._capacity;var tailPos=getTailOffset(right);var tail=list._tail;return iterateNodeOrLeaf(list._root,list._level,0);function iterateNodeOrLeaf(node,level,offset){return level===0?iterateLeaf(node,offset):iterateNode(node,level,offset);}function iterateLeaf(node,offset){var array=offset===tailPos?tail&&tail.array:node&&node.array;var from=offset>left?0:left-offset;var to=right-offset;if(to>SIZE){to=SIZE;}return function(){if(from===to){return DONE;}var idx=reverse?--to:from++;return array&&array[idx];};}function iterateNode(node,level,offset){var values;var array=node&&node.array;var from=offset>left?0:left-offset>>level;var to=(right-offset>>level)+1;if(to>SIZE){to=SIZE;}return function(){do{if(values){var value=values();if(value!==DONE){return value;}values=null;}if(from===to){return DONE;}var idx=reverse?--to:from++;values=iterateNodeOrLeaf(array&&array[idx],level-SHIFT,offset+(idx<<level));}while(true);};}}function makeList(origin,capacity,level,root,tail,ownerID,hash){var list=Object.create(ListPrototype);list.size=capacity-origin;list._origin=origin;list._capacity=capacity;list._level=level;list._root=root;list._tail=tail;list.__ownerID=ownerID;list.__hash=hash;list.__altered=false;return list;}var EMPTY_LIST;function emptyList(){return EMPTY_LIST||(EMPTY_LIST=makeList(0,0,SHIFT));}function updateList(list,index,value){index=wrapIndex(list,index);if(index!==index){return list;}if(index>=list.size||index<0){return list.withMutations(function(list){index<0?setListBounds(list,index).set(0,value):setListBounds(list,0,index+1).set(index,value);});}index+=list._origin;var newTail=list._tail;var newRoot=list._root;var didAlter=MakeRef(DID_ALTER);if(index>=getTailOffset(list._capacity)){newTail=updateVNode(newTail,list.__ownerID,0,index,value,didAlter);}else{newRoot=updateVNode(newRoot,list.__ownerID,list._level,index,value,didAlter);}if(!didAlter.value){return list;}if(list.__ownerID){list._root=newRoot;list._tail=newTail;list.__hash=undefined;list.__altered=true;return list;}return makeList(list._origin,list._capacity,list._level,newRoot,newTail);}function updateVNode(node,ownerID,level,index,value,didAlter){var idx=index>>>level&MASK;var nodeHas=node&&idx<node.array.length;if(!nodeHas&&value===undefined){return node;}var newNode;if(level>0){var lowerNode=node&&node.array[idx];var newLowerNode=updateVNode(lowerNode,ownerID,level-SHIFT,index,value,didAlter);if(newLowerNode===lowerNode){return node;}newNode=editableVNode(node,ownerID);newNode.array[idx]=newLowerNode;return newNode;}if(nodeHas&&node.array[idx]===value){return node;}SetRef(didAlter);newNode=editableVNode(node,ownerID);if(value===undefined&&idx===newNode.array.length-1){newNode.array.pop();}else{newNode.array[idx]=value;}return newNode;}function editableVNode(node,ownerID){if(ownerID&&node&&ownerID===node.ownerID){return node;}return new VNode(node?node.array.slice():[],ownerID);}function listNodeFor(list,rawIndex){if(rawIndex>=getTailOffset(list._capacity)){return list._tail;}if(rawIndex<1<<list._level+SHIFT){var node=list._root;var level=list._level;while(node&&level>0){node=node.array[rawIndex>>>level&MASK];level-=SHIFT;}return node;}}function setListBounds(list,begin,end){// Sanitize begin & end using this shorthand for ToInt32(argument)
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-toint32
-	if(begin!==undefined){begin=begin|0;}if(end!==undefined){end=end|0;}var owner=list.__ownerID||new OwnerID();var oldOrigin=list._origin;var oldCapacity=list._capacity;var newOrigin=oldOrigin+begin;var newCapacity=end===undefined?oldCapacity:end<0?oldCapacity+end:oldOrigin+end;if(newOrigin===oldOrigin&&newCapacity===oldCapacity){return list;}// If it's going to end after it starts, it's empty.
-	if(newOrigin>=newCapacity){return list.clear();}var newLevel=list._level;var newRoot=list._root;// New origin might need creating a higher root.
-	var offsetShift=0;while(newOrigin+offsetShift<0){newRoot=new VNode(newRoot&&newRoot.array.length?[undefined,newRoot]:[],owner);newLevel+=SHIFT;offsetShift+=1<<newLevel;}if(offsetShift){newOrigin+=offsetShift;oldOrigin+=offsetShift;newCapacity+=offsetShift;oldCapacity+=offsetShift;}var oldTailOffset=getTailOffset(oldCapacity);var newTailOffset=getTailOffset(newCapacity);// New size might need creating a higher root.
-	while(newTailOffset>=1<<newLevel+SHIFT){newRoot=new VNode(newRoot&&newRoot.array.length?[newRoot]:[],owner);newLevel+=SHIFT;}// Locate or create the new tail.
-	var oldTail=list._tail;var newTail=newTailOffset<oldTailOffset?listNodeFor(list,newCapacity-1):newTailOffset>oldTailOffset?new VNode([],owner):oldTail;// Merge Tail into tree.
-	if(oldTail&&newTailOffset>oldTailOffset&&newOrigin<oldCapacity&&oldTail.array.length){newRoot=editableVNode(newRoot,owner);var node=newRoot;for(var level=newLevel;level>SHIFT;level-=SHIFT){var idx=oldTailOffset>>>level&MASK;node=node.array[idx]=editableVNode(node.array[idx],owner);}node.array[oldTailOffset>>>SHIFT&MASK]=oldTail;}// If the size has been reduced, there's a chance the tail needs to be trimmed.
-	if(newCapacity<oldCapacity){newTail=newTail&&newTail.removeAfter(owner,0,newCapacity);}// If the new origin is within the tail, then we do not need a root.
-	if(newOrigin>=newTailOffset){newOrigin-=newTailOffset;newCapacity-=newTailOffset;newLevel=SHIFT;newRoot=null;newTail=newTail&&newTail.removeBefore(owner,0,newOrigin);// Otherwise, if the root has been trimmed, garbage collect.
-	}else if(newOrigin>oldOrigin||newTailOffset<oldTailOffset){offsetShift=0;// Identify the new top root node of the subtree of the old root.
-	while(newRoot){var beginIndex=newOrigin>>>newLevel&MASK;if(beginIndex!==newTailOffset>>>newLevel&MASK){break;}if(beginIndex){offsetShift+=(1<<newLevel)*beginIndex;}newLevel-=SHIFT;newRoot=newRoot.array[beginIndex];}// Trim the new sides of the new root.
-	if(newRoot&&newOrigin>oldOrigin){newRoot=newRoot.removeBefore(owner,newLevel,newOrigin-offsetShift);}if(newRoot&&newTailOffset<oldTailOffset){newRoot=newRoot.removeAfter(owner,newLevel,newTailOffset-offsetShift);}if(offsetShift){newOrigin-=offsetShift;newCapacity-=offsetShift;}}if(list.__ownerID){list.size=newCapacity-newOrigin;list._origin=newOrigin;list._capacity=newCapacity;list._level=newLevel;list._root=newRoot;list._tail=newTail;list.__hash=undefined;list.__altered=true;return list;}return makeList(newOrigin,newCapacity,newLevel,newRoot,newTail);}function mergeIntoListWith(list,merger,iterables){var iters=[];var maxSize=0;for(var ii=0;ii<iterables.length;ii++){var value=iterables[ii];var iter=IndexedIterable(value);if(iter.size>maxSize){maxSize=iter.size;}if(!isIterable(value)){iter=iter.map(function(v){return fromJS(v);});}iters.push(iter);}if(maxSize>list.size){list=list.setSize(maxSize);}return mergeIntoCollectionWith(list,merger,iters);}function getTailOffset(size){return size<SIZE?0:size-1>>>SHIFT<<SHIFT;}createClass(OrderedMap,Map);// @pragma Construction
-	function OrderedMap(value){return value===null||value===undefined?emptyOrderedMap():isOrderedMap(value)?value:emptyOrderedMap().withMutations(function(map){var iter=KeyedIterable(value);assertNotInfinite(iter.size);iter.forEach(function(v,k){return map.set(k,v);});});}OrderedMap.of=function()/*...values*/{return this(arguments);};OrderedMap.prototype.toString=function(){return this.__toString('OrderedMap {','}');};// @pragma Access
-	OrderedMap.prototype.get=function(k,notSetValue){var index=this._map.get(k);return index!==undefined?this._list.get(index)[1]:notSetValue;};// @pragma Modification
-	OrderedMap.prototype.clear=function(){if(this.size===0){return this;}if(this.__ownerID){this.size=0;this._map.clear();this._list.clear();return this;}return emptyOrderedMap();};OrderedMap.prototype.set=function(k,v){return updateOrderedMap(this,k,v);};OrderedMap.prototype.remove=function(k){return updateOrderedMap(this,k,NOT_SET);};OrderedMap.prototype.wasAltered=function(){return this._map.wasAltered()||this._list.wasAltered();};OrderedMap.prototype.__iterate=function(fn,reverse){var this$0=this;return this._list.__iterate(function(entry){return entry&&fn(entry[1],entry[0],this$0);},reverse);};OrderedMap.prototype.__iterator=function(type,reverse){return this._list.fromEntrySeq().__iterator(type,reverse);};OrderedMap.prototype.__ensureOwner=function(ownerID){if(ownerID===this.__ownerID){return this;}var newMap=this._map.__ensureOwner(ownerID);var newList=this._list.__ensureOwner(ownerID);if(!ownerID){this.__ownerID=ownerID;this._map=newMap;this._list=newList;return this;}return makeOrderedMap(newMap,newList,ownerID,this.__hash);};function isOrderedMap(maybeOrderedMap){return isMap(maybeOrderedMap)&&isOrdered(maybeOrderedMap);}OrderedMap.isOrderedMap=isOrderedMap;OrderedMap.prototype[IS_ORDERED_SENTINEL]=true;OrderedMap.prototype[DELETE]=OrderedMap.prototype.remove;function makeOrderedMap(map,list,ownerID,hash){var omap=Object.create(OrderedMap.prototype);omap.size=map?map.size:0;omap._map=map;omap._list=list;omap.__ownerID=ownerID;omap.__hash=hash;return omap;}var EMPTY_ORDERED_MAP;function emptyOrderedMap(){return EMPTY_ORDERED_MAP||(EMPTY_ORDERED_MAP=makeOrderedMap(emptyMap(),emptyList()));}function updateOrderedMap(omap,k,v){var map=omap._map;var list=omap._list;var i=map.get(k);var has=i!==undefined;var newMap;var newList;if(v===NOT_SET){// removed
-	if(!has){return omap;}if(list.size>=SIZE&&list.size>=map.size*2){newList=list.filter(function(entry,idx){return entry!==undefined&&i!==idx;});newMap=newList.toKeyedSeq().map(function(entry){return entry[0];}).flip().toMap();if(omap.__ownerID){newMap.__ownerID=newList.__ownerID=omap.__ownerID;}}else{newMap=map.remove(k);newList=i===list.size-1?list.pop():list.set(i,undefined);}}else{if(has){if(v===list.get(i)[1]){return omap;}newMap=map;newList=list.set(i,[k,v]);}else{newMap=map.set(k,list.size);newList=list.set(list.size,[k,v]);}}if(omap.__ownerID){omap.size=newMap.size;omap._map=newMap;omap._list=newList;omap.__hash=undefined;return omap;}return makeOrderedMap(newMap,newList);}createClass(ToKeyedSequence,KeyedSeq);function ToKeyedSequence(indexed,useKeys){this._iter=indexed;this._useKeys=useKeys;this.size=indexed.size;}ToKeyedSequence.prototype.get=function(key,notSetValue){return this._iter.get(key,notSetValue);};ToKeyedSequence.prototype.has=function(key){return this._iter.has(key);};ToKeyedSequence.prototype.valueSeq=function(){return this._iter.valueSeq();};ToKeyedSequence.prototype.reverse=function(){var this$0=this;var reversedSequence=reverseFactory(this,true);if(!this._useKeys){reversedSequence.valueSeq=function(){return this$0._iter.toSeq().reverse();};}return reversedSequence;};ToKeyedSequence.prototype.map=function(mapper,context){var this$0=this;var mappedSequence=mapFactory(this,mapper,context);if(!this._useKeys){mappedSequence.valueSeq=function(){return this$0._iter.toSeq().map(mapper,context);};}return mappedSequence;};ToKeyedSequence.prototype.__iterate=function(fn,reverse){var this$0=this;var ii;return this._iter.__iterate(this._useKeys?function(v,k){return fn(v,k,this$0);}:(ii=reverse?resolveSize(this):0,function(v){return fn(v,reverse?--ii:ii++,this$0);}),reverse);};ToKeyedSequence.prototype.__iterator=function(type,reverse){if(this._useKeys){return this._iter.__iterator(type,reverse);}var iterator=this._iter.__iterator(ITERATE_VALUES,reverse);var ii=reverse?resolveSize(this):0;return new Iterator(function(){var step=iterator.next();return step.done?step:iteratorValue(type,reverse?--ii:ii++,step.value,step);});};ToKeyedSequence.prototype[IS_ORDERED_SENTINEL]=true;createClass(ToIndexedSequence,IndexedSeq);function ToIndexedSequence(iter){this._iter=iter;this.size=iter.size;}ToIndexedSequence.prototype.includes=function(value){return this._iter.includes(value);};ToIndexedSequence.prototype.__iterate=function(fn,reverse){var this$0=this;var iterations=0;return this._iter.__iterate(function(v){return fn(v,iterations++,this$0);},reverse);};ToIndexedSequence.prototype.__iterator=function(type,reverse){var iterator=this._iter.__iterator(ITERATE_VALUES,reverse);var iterations=0;return new Iterator(function(){var step=iterator.next();return step.done?step:iteratorValue(type,iterations++,step.value,step);});};createClass(ToSetSequence,SetSeq);function ToSetSequence(iter){this._iter=iter;this.size=iter.size;}ToSetSequence.prototype.has=function(key){return this._iter.includes(key);};ToSetSequence.prototype.__iterate=function(fn,reverse){var this$0=this;return this._iter.__iterate(function(v){return fn(v,v,this$0);},reverse);};ToSetSequence.prototype.__iterator=function(type,reverse){var iterator=this._iter.__iterator(ITERATE_VALUES,reverse);return new Iterator(function(){var step=iterator.next();return step.done?step:iteratorValue(type,step.value,step.value,step);});};createClass(FromEntriesSequence,KeyedSeq);function FromEntriesSequence(entries){this._iter=entries;this.size=entries.size;}FromEntriesSequence.prototype.entrySeq=function(){return this._iter.toSeq();};FromEntriesSequence.prototype.__iterate=function(fn,reverse){var this$0=this;return this._iter.__iterate(function(entry){// Check if entry exists first so array access doesn't throw for holes
-	// in the parent iteration.
-	if(entry){validateEntry(entry);var indexedIterable=isIterable(entry);return fn(indexedIterable?entry.get(1):entry[1],indexedIterable?entry.get(0):entry[0],this$0);}},reverse);};FromEntriesSequence.prototype.__iterator=function(type,reverse){var iterator=this._iter.__iterator(ITERATE_VALUES,reverse);return new Iterator(function(){while(true){var step=iterator.next();if(step.done){return step;}var entry=step.value;// Check if entry exists first so array access doesn't throw for holes
-	// in the parent iteration.
-	if(entry){validateEntry(entry);var indexedIterable=isIterable(entry);return iteratorValue(type,indexedIterable?entry.get(0):entry[0],indexedIterable?entry.get(1):entry[1],step);}}});};ToIndexedSequence.prototype.cacheResult=ToKeyedSequence.prototype.cacheResult=ToSetSequence.prototype.cacheResult=FromEntriesSequence.prototype.cacheResult=cacheResultThrough;function flipFactory(iterable){var flipSequence=makeSequence(iterable);flipSequence._iter=iterable;flipSequence.size=iterable.size;flipSequence.flip=function(){return iterable;};flipSequence.reverse=function(){var reversedSequence=iterable.reverse.apply(this);// super.reverse()
-	reversedSequence.flip=function(){return iterable.reverse();};return reversedSequence;};flipSequence.has=function(key){return iterable.includes(key);};flipSequence.includes=function(key){return iterable.has(key);};flipSequence.cacheResult=cacheResultThrough;flipSequence.__iterateUncached=function(fn,reverse){var this$0=this;return iterable.__iterate(function(v,k){return fn(k,v,this$0)!==false;},reverse);};flipSequence.__iteratorUncached=function(type,reverse){if(type===ITERATE_ENTRIES){var iterator=iterable.__iterator(type,reverse);return new Iterator(function(){var step=iterator.next();if(!step.done){var k=step.value[0];step.value[0]=step.value[1];step.value[1]=k;}return step;});}return iterable.__iterator(type===ITERATE_VALUES?ITERATE_KEYS:ITERATE_VALUES,reverse);};return flipSequence;}function mapFactory(iterable,mapper,context){var mappedSequence=makeSequence(iterable);mappedSequence.size=iterable.size;mappedSequence.has=function(key){return iterable.has(key);};mappedSequence.get=function(key,notSetValue){var v=iterable.get(key,NOT_SET);return v===NOT_SET?notSetValue:mapper.call(context,v,key,iterable);};mappedSequence.__iterateUncached=function(fn,reverse){var this$0=this;return iterable.__iterate(function(v,k,c){return fn(mapper.call(context,v,k,c),k,this$0)!==false;},reverse);};mappedSequence.__iteratorUncached=function(type,reverse){var iterator=iterable.__iterator(ITERATE_ENTRIES,reverse);return new Iterator(function(){var step=iterator.next();if(step.done){return step;}var entry=step.value;var key=entry[0];return iteratorValue(type,key,mapper.call(context,entry[1],key,iterable),step);});};return mappedSequence;}function reverseFactory(iterable,useKeys){var reversedSequence=makeSequence(iterable);reversedSequence._iter=iterable;reversedSequence.size=iterable.size;reversedSequence.reverse=function(){return iterable;};if(iterable.flip){reversedSequence.flip=function(){var flipSequence=flipFactory(iterable);flipSequence.reverse=function(){return iterable.flip();};return flipSequence;};}reversedSequence.get=function(key,notSetValue){return iterable.get(useKeys?key:-1-key,notSetValue);};reversedSequence.has=function(key){return iterable.has(useKeys?key:-1-key);};reversedSequence.includes=function(value){return iterable.includes(value);};reversedSequence.cacheResult=cacheResultThrough;reversedSequence.__iterate=function(fn,reverse){var this$0=this;return iterable.__iterate(function(v,k){return fn(v,k,this$0);},!reverse);};reversedSequence.__iterator=function(type,reverse){return iterable.__iterator(type,!reverse);};return reversedSequence;}function filterFactory(iterable,predicate,context,useKeys){var filterSequence=makeSequence(iterable);if(useKeys){filterSequence.has=function(key){var v=iterable.get(key,NOT_SET);return v!==NOT_SET&&!!predicate.call(context,v,key,iterable);};filterSequence.get=function(key,notSetValue){var v=iterable.get(key,NOT_SET);return v!==NOT_SET&&predicate.call(context,v,key,iterable)?v:notSetValue;};}filterSequence.__iterateUncached=function(fn,reverse){var this$0=this;var iterations=0;iterable.__iterate(function(v,k,c){if(predicate.call(context,v,k,c)){iterations++;return fn(v,useKeys?k:iterations-1,this$0);}},reverse);return iterations;};filterSequence.__iteratorUncached=function(type,reverse){var iterator=iterable.__iterator(ITERATE_ENTRIES,reverse);var iterations=0;return new Iterator(function(){while(true){var step=iterator.next();if(step.done){return step;}var entry=step.value;var key=entry[0];var value=entry[1];if(predicate.call(context,value,key,iterable)){return iteratorValue(type,useKeys?key:iterations++,value,step);}}});};return filterSequence;}function countByFactory(iterable,grouper,context){var groups=Map().asMutable();iterable.__iterate(function(v,k){groups.update(grouper.call(context,v,k,iterable),0,function(a){return a+1;});});return groups.asImmutable();}function groupByFactory(iterable,grouper,context){var isKeyedIter=isKeyed(iterable);var groups=(isOrdered(iterable)?OrderedMap():Map()).asMutable();iterable.__iterate(function(v,k){groups.update(grouper.call(context,v,k,iterable),function(a){return a=a||[],a.push(isKeyedIter?[k,v]:v),a;});});var coerce=iterableClass(iterable);return groups.map(function(arr){return reify(iterable,coerce(arr));});}function sliceFactory(iterable,begin,end,useKeys){var originalSize=iterable.size;// Sanitize begin & end using this shorthand for ToInt32(argument)
-	// http://www.ecma-international.org/ecma-262/6.0/#sec-toint32
-	if(begin!==undefined){begin=begin|0;}if(end!==undefined){if(end===Infinity){end=originalSize;}else{end=end|0;}}if(wholeSlice(begin,end,originalSize)){return iterable;}var resolvedBegin=resolveBegin(begin,originalSize);var resolvedEnd=resolveEnd(end,originalSize);// begin or end will be NaN if they were provided as negative numbers and
-	// this iterable's size is unknown. In that case, cache first so there is
-	// a known size and these do not resolve to NaN.
-	if(resolvedBegin!==resolvedBegin||resolvedEnd!==resolvedEnd){return sliceFactory(iterable.toSeq().cacheResult(),begin,end,useKeys);}// Note: resolvedEnd is undefined when the original sequence's length is
-	// unknown and this slice did not supply an end and should contain all
-	// elements after resolvedBegin.
-	// In that case, resolvedSize will be NaN and sliceSize will remain undefined.
-	var resolvedSize=resolvedEnd-resolvedBegin;var sliceSize;if(resolvedSize===resolvedSize){sliceSize=resolvedSize<0?0:resolvedSize;}var sliceSeq=makeSequence(iterable);// If iterable.size is undefined, the size of the realized sliceSeq is
-	// unknown at this point unless the number of items to slice is 0
-	sliceSeq.size=sliceSize===0?sliceSize:iterable.size&&sliceSize||undefined;if(!useKeys&&isSeq(iterable)&&sliceSize>=0){sliceSeq.get=function(index,notSetValue){index=wrapIndex(this,index);return index>=0&&index<sliceSize?iterable.get(index+resolvedBegin,notSetValue):notSetValue;};}sliceSeq.__iterateUncached=function(fn,reverse){var this$0=this;if(sliceSize===0){return 0;}if(reverse){return this.cacheResult().__iterate(fn,reverse);}var skipped=0;var isSkipping=true;var iterations=0;iterable.__iterate(function(v,k){if(!(isSkipping&&(isSkipping=skipped++<resolvedBegin))){iterations++;return fn(v,useKeys?k:iterations-1,this$0)!==false&&iterations!==sliceSize;}});return iterations;};sliceSeq.__iteratorUncached=function(type,reverse){if(sliceSize!==0&&reverse){return this.cacheResult().__iterator(type,reverse);}// Don't bother instantiating parent iterator if taking 0.
-	var iterator=sliceSize!==0&&iterable.__iterator(type,reverse);var skipped=0;var iterations=0;return new Iterator(function(){while(skipped++<resolvedBegin){iterator.next();}if(++iterations>sliceSize){return iteratorDone();}var step=iterator.next();if(useKeys||type===ITERATE_VALUES){return step;}else if(type===ITERATE_KEYS){return iteratorValue(type,iterations-1,undefined,step);}else{return iteratorValue(type,iterations-1,step.value[1],step);}});};return sliceSeq;}function takeWhileFactory(iterable,predicate,context){var takeSequence=makeSequence(iterable);takeSequence.__iterateUncached=function(fn,reverse){var this$0=this;if(reverse){return this.cacheResult().__iterate(fn,reverse);}var iterations=0;iterable.__iterate(function(v,k,c){return predicate.call(context,v,k,c)&&++iterations&&fn(v,k,this$0);});return iterations;};takeSequence.__iteratorUncached=function(type,reverse){var this$0=this;if(reverse){return this.cacheResult().__iterator(type,reverse);}var iterator=iterable.__iterator(ITERATE_ENTRIES,reverse);var iterating=true;return new Iterator(function(){if(!iterating){return iteratorDone();}var step=iterator.next();if(step.done){return step;}var entry=step.value;var k=entry[0];var v=entry[1];if(!predicate.call(context,v,k,this$0)){iterating=false;return iteratorDone();}return type===ITERATE_ENTRIES?step:iteratorValue(type,k,v,step);});};return takeSequence;}function skipWhileFactory(iterable,predicate,context,useKeys){var skipSequence=makeSequence(iterable);skipSequence.__iterateUncached=function(fn,reverse){var this$0=this;if(reverse){return this.cacheResult().__iterate(fn,reverse);}var isSkipping=true;var iterations=0;iterable.__iterate(function(v,k,c){if(!(isSkipping&&(isSkipping=predicate.call(context,v,k,c)))){iterations++;return fn(v,useKeys?k:iterations-1,this$0);}});return iterations;};skipSequence.__iteratorUncached=function(type,reverse){var this$0=this;if(reverse){return this.cacheResult().__iterator(type,reverse);}var iterator=iterable.__iterator(ITERATE_ENTRIES,reverse);var skipping=true;var iterations=0;return new Iterator(function(){var step,k,v;do{step=iterator.next();if(step.done){if(useKeys||type===ITERATE_VALUES){return step;}else if(type===ITERATE_KEYS){return iteratorValue(type,iterations++,undefined,step);}else{return iteratorValue(type,iterations++,step.value[1],step);}}var entry=step.value;k=entry[0];v=entry[1];skipping&&(skipping=predicate.call(context,v,k,this$0));}while(skipping);return type===ITERATE_ENTRIES?step:iteratorValue(type,k,v,step);});};return skipSequence;}function concatFactory(iterable,values){var isKeyedIterable=isKeyed(iterable);var iters=[iterable].concat(values).map(function(v){if(!isIterable(v)){v=isKeyedIterable?keyedSeqFromValue(v):indexedSeqFromValue(Array.isArray(v)?v:[v]);}else if(isKeyedIterable){v=KeyedIterable(v);}return v;}).filter(function(v){return v.size!==0;});if(iters.length===0){return iterable;}if(iters.length===1){var singleton=iters[0];if(singleton===iterable||isKeyedIterable&&isKeyed(singleton)||isIndexed(iterable)&&isIndexed(singleton)){return singleton;}}var concatSeq=new ArraySeq(iters);if(isKeyedIterable){concatSeq=concatSeq.toKeyedSeq();}else if(!isIndexed(iterable)){concatSeq=concatSeq.toSetSeq();}concatSeq=concatSeq.flatten(true);concatSeq.size=iters.reduce(function(sum,seq){if(sum!==undefined){var size=seq.size;if(size!==undefined){return sum+size;}}},0);return concatSeq;}function flattenFactory(iterable,depth,useKeys){var flatSequence=makeSequence(iterable);flatSequence.__iterateUncached=function(fn,reverse){var iterations=0;var stopped=false;function flatDeep(iter,currentDepth){var this$0=this;iter.__iterate(function(v,k){if((!depth||currentDepth<depth)&&isIterable(v)){flatDeep(v,currentDepth+1);}else if(fn(v,useKeys?k:iterations++,this$0)===false){stopped=true;}return!stopped;},reverse);}flatDeep(iterable,0);return iterations;};flatSequence.__iteratorUncached=function(type,reverse){var iterator=iterable.__iterator(type,reverse);var stack=[];var iterations=0;return new Iterator(function(){while(iterator){var step=iterator.next();if(step.done!==false){iterator=stack.pop();continue;}var v=step.value;if(type===ITERATE_ENTRIES){v=v[1];}if((!depth||stack.length<depth)&&isIterable(v)){stack.push(iterator);iterator=v.__iterator(type,reverse);}else{return useKeys?step:iteratorValue(type,iterations++,v,step);}}return iteratorDone();});};return flatSequence;}function flatMapFactory(iterable,mapper,context){var coerce=iterableClass(iterable);return iterable.toSeq().map(function(v,k){return coerce(mapper.call(context,v,k,iterable));}).flatten(true);}function interposeFactory(iterable,separator){var interposedSequence=makeSequence(iterable);interposedSequence.size=iterable.size&&iterable.size*2-1;interposedSequence.__iterateUncached=function(fn,reverse){var this$0=this;var iterations=0;iterable.__iterate(function(v,k){return(!iterations||fn(separator,iterations++,this$0)!==false)&&fn(v,iterations++,this$0)!==false;},reverse);return iterations;};interposedSequence.__iteratorUncached=function(type,reverse){var iterator=iterable.__iterator(ITERATE_VALUES,reverse);var iterations=0;var step;return new Iterator(function(){if(!step||iterations%2){step=iterator.next();if(step.done){return step;}}return iterations%2?iteratorValue(type,iterations++,separator):iteratorValue(type,iterations++,step.value,step);});};return interposedSequence;}function sortFactory(iterable,comparator,mapper){if(!comparator){comparator=defaultComparator;}var isKeyedIterable=isKeyed(iterable);var index=0;var entries=iterable.toSeq().map(function(v,k){return[k,v,index++,mapper?mapper(v,k,iterable):v];}).toArray();entries.sort(function(a,b){return comparator(a[3],b[3])||a[2]-b[2];}).forEach(isKeyedIterable?function(v,i){entries[i].length=2;}:function(v,i){entries[i]=v[1];});return isKeyedIterable?KeyedSeq(entries):isIndexed(iterable)?IndexedSeq(entries):SetSeq(entries);}function maxFactory(iterable,comparator,mapper){if(!comparator){comparator=defaultComparator;}if(mapper){var entry=iterable.toSeq().map(function(v,k){return[v,mapper(v,k,iterable)];}).reduce(function(a,b){return maxCompare(comparator,a[1],b[1])?b:a;});return entry&&entry[0];}else{return iterable.reduce(function(a,b){return maxCompare(comparator,a,b)?b:a;});}}function maxCompare(comparator,a,b){var comp=comparator(b,a);// b is considered the new max if the comparator declares them equal, but
-	// they are not equal and b is in fact a nullish value.
-	return comp===0&&b!==a&&(b===undefined||b===null||b!==b)||comp>0;}function zipWithFactory(keyIter,zipper,iters){var zipSequence=makeSequence(keyIter);zipSequence.size=new ArraySeq(iters).map(function(i){return i.size;}).min();// Note: this a generic base implementation of __iterate in terms of
-	// __iterator which may be more generically useful in the future.
-	zipSequence.__iterate=function(fn,reverse){/* generic:
+	   */
+	  function is(valueA, valueB) {
+	    if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
+	      return true;
+	    }
+	    if (!valueA || !valueB) {
+	      return false;
+	    }
+	    if (typeof valueA.valueOf === 'function' && typeof valueB.valueOf === 'function') {
+	      valueA = valueA.valueOf();
+	      valueB = valueB.valueOf();
+	      if (valueA === valueB || valueA !== valueA && valueB !== valueB) {
+	        return true;
+	      }
+	      if (!valueA || !valueB) {
+	        return false;
+	      }
+	    }
+	    if (typeof valueA.equals === 'function' && typeof valueB.equals === 'function' && valueA.equals(valueB)) {
+	      return true;
+	    }
+	    return false;
+	  }
+
+	  function deepEqual(a, b) {
+	    if (a === b) {
+	      return true;
+	    }
+
+	    if (!isIterable(b) || a.size !== undefined && b.size !== undefined && a.size !== b.size || a.__hash !== undefined && b.__hash !== undefined && a.__hash !== b.__hash || isKeyed(a) !== isKeyed(b) || isIndexed(a) !== isIndexed(b) || isOrdered(a) !== isOrdered(b)) {
+	      return false;
+	    }
+
+	    if (a.size === 0 && b.size === 0) {
+	      return true;
+	    }
+
+	    var notAssociative = !isAssociative(a);
+
+	    if (isOrdered(a)) {
+	      var entries = a.entries();
+	      return b.every(function (v, k) {
+	        var entry = entries.next().value;
+	        return entry && is(entry[1], v) && (notAssociative || is(entry[0], k));
+	      }) && entries.next().done;
+	    }
+
+	    var flipped = false;
+
+	    if (a.size === undefined) {
+	      if (b.size === undefined) {
+	        if (typeof a.cacheResult === 'function') {
+	          a.cacheResult();
+	        }
+	      } else {
+	        flipped = true;
+	        var _ = a;
+	        a = b;
+	        b = _;
+	      }
+	    }
+
+	    var allEqual = true;
+	    var bSize = b.__iterate(function (v, k) {
+	      if (notAssociative ? !a.has(v) : flipped ? !is(v, a.get(k, NOT_SET)) : !is(a.get(k, NOT_SET), v)) {
+	        allEqual = false;
+	        return false;
+	      }
+	    });
+
+	    return allEqual && a.size === bSize;
+	  }
+
+	  createClass(Repeat, IndexedSeq);
+
+	  function Repeat(value, times) {
+	    if (!(this instanceof Repeat)) {
+	      return new Repeat(value, times);
+	    }
+	    this._value = value;
+	    this.size = times === undefined ? Infinity : Math.max(0, times);
+	    if (this.size === 0) {
+	      if (EMPTY_REPEAT) {
+	        return EMPTY_REPEAT;
+	      }
+	      EMPTY_REPEAT = this;
+	    }
+	  }
+
+	  Repeat.prototype.toString = function () {
+	    if (this.size === 0) {
+	      return 'Repeat []';
+	    }
+	    return 'Repeat [ ' + this._value + ' ' + this.size + ' times ]';
+	  };
+
+	  Repeat.prototype.get = function (index, notSetValue) {
+	    return this.has(index) ? this._value : notSetValue;
+	  };
+
+	  Repeat.prototype.includes = function (searchValue) {
+	    return is(this._value, searchValue);
+	  };
+
+	  Repeat.prototype.slice = function (begin, end) {
+	    var size = this.size;
+	    return wholeSlice(begin, end, size) ? this : new Repeat(this._value, resolveEnd(end, size) - resolveBegin(begin, size));
+	  };
+
+	  Repeat.prototype.reverse = function () {
+	    return this;
+	  };
+
+	  Repeat.prototype.indexOf = function (searchValue) {
+	    if (is(this._value, searchValue)) {
+	      return 0;
+	    }
+	    return -1;
+	  };
+
+	  Repeat.prototype.lastIndexOf = function (searchValue) {
+	    if (is(this._value, searchValue)) {
+	      return this.size;
+	    }
+	    return -1;
+	  };
+
+	  Repeat.prototype.__iterate = function (fn, reverse) {
+	    for (var ii = 0; ii < this.size; ii++) {
+	      if (fn(this._value, ii, this) === false) {
+	        return ii + 1;
+	      }
+	    }
+	    return ii;
+	  };
+
+	  Repeat.prototype.__iterator = function (type, reverse) {
+	    var this$0 = this;
+	    var ii = 0;
+	    return new Iterator(function () {
+	      return ii < this$0.size ? iteratorValue(type, ii++, this$0._value) : iteratorDone();
+	    });
+	  };
+
+	  Repeat.prototype.equals = function (other) {
+	    return other instanceof Repeat ? is(this._value, other._value) : deepEqual(other);
+	  };
+
+	  var EMPTY_REPEAT;
+
+	  function invariant(condition, error) {
+	    if (!condition) throw new Error(error);
+	  }
+
+	  createClass(Range, IndexedSeq);
+
+	  function Range(start, end, step) {
+	    if (!(this instanceof Range)) {
+	      return new Range(start, end, step);
+	    }
+	    invariant(step !== 0, 'Cannot step a Range by 0');
+	    start = start || 0;
+	    if (end === undefined) {
+	      end = Infinity;
+	    }
+	    step = step === undefined ? 1 : Math.abs(step);
+	    if (end < start) {
+	      step = -step;
+	    }
+	    this._start = start;
+	    this._end = end;
+	    this._step = step;
+	    this.size = Math.max(0, Math.ceil((end - start) / step - 1) + 1);
+	    if (this.size === 0) {
+	      if (EMPTY_RANGE) {
+	        return EMPTY_RANGE;
+	      }
+	      EMPTY_RANGE = this;
+	    }
+	  }
+
+	  Range.prototype.toString = function () {
+	    if (this.size === 0) {
+	      return 'Range []';
+	    }
+	    return 'Range [ ' + this._start + '...' + this._end + (this._step !== 1 ? ' by ' + this._step : '') + ' ]';
+	  };
+
+	  Range.prototype.get = function (index, notSetValue) {
+	    return this.has(index) ? this._start + wrapIndex(this, index) * this._step : notSetValue;
+	  };
+
+	  Range.prototype.includes = function (searchValue) {
+	    var possibleIndex = (searchValue - this._start) / this._step;
+	    return possibleIndex >= 0 && possibleIndex < this.size && possibleIndex === Math.floor(possibleIndex);
+	  };
+
+	  Range.prototype.slice = function (begin, end) {
+	    if (wholeSlice(begin, end, this.size)) {
+	      return this;
+	    }
+	    begin = resolveBegin(begin, this.size);
+	    end = resolveEnd(end, this.size);
+	    if (end <= begin) {
+	      return new Range(0, 0);
+	    }
+	    return new Range(this.get(begin, this._end), this.get(end, this._end), this._step);
+	  };
+
+	  Range.prototype.indexOf = function (searchValue) {
+	    var offsetValue = searchValue - this._start;
+	    if (offsetValue % this._step === 0) {
+	      var index = offsetValue / this._step;
+	      if (index >= 0 && index < this.size) {
+	        return index;
+	      }
+	    }
+	    return -1;
+	  };
+
+	  Range.prototype.lastIndexOf = function (searchValue) {
+	    return this.indexOf(searchValue);
+	  };
+
+	  Range.prototype.__iterate = function (fn, reverse) {
+	    var maxIndex = this.size - 1;
+	    var step = this._step;
+	    var value = reverse ? this._start + maxIndex * step : this._start;
+	    for (var ii = 0; ii <= maxIndex; ii++) {
+	      if (fn(value, ii, this) === false) {
+	        return ii + 1;
+	      }
+	      value += reverse ? -step : step;
+	    }
+	    return ii;
+	  };
+
+	  Range.prototype.__iterator = function (type, reverse) {
+	    var maxIndex = this.size - 1;
+	    var step = this._step;
+	    var value = reverse ? this._start + maxIndex * step : this._start;
+	    var ii = 0;
+	    return new Iterator(function () {
+	      var v = value;
+	      value += reverse ? -step : step;
+	      return ii > maxIndex ? iteratorDone() : iteratorValue(type, ii++, v);
+	    });
+	  };
+
+	  Range.prototype.equals = function (other) {
+	    return other instanceof Range ? this._start === other._start && this._end === other._end && this._step === other._step : deepEqual(this, other);
+	  };
+
+	  var EMPTY_RANGE;
+
+	  createClass(Collection, Iterable);
+	  function Collection() {
+	    throw TypeError('Abstract');
+	  }
+
+	  createClass(KeyedCollection, Collection);function KeyedCollection() {}
+
+	  createClass(IndexedCollection, Collection);function IndexedCollection() {}
+
+	  createClass(SetCollection, Collection);function SetCollection() {}
+
+	  Collection.Keyed = KeyedCollection;
+	  Collection.Indexed = IndexedCollection;
+	  Collection.Set = SetCollection;
+
+	  var imul = typeof Math.imul === 'function' && Math.imul(0xffffffff, 2) === -2 ? Math.imul : function imul(a, b) {
+	    a = a | 0; // int
+	    b = b | 0; // int
+	    var c = a & 0xffff;
+	    var d = b & 0xffff;
+	    // Shift by 0 fixes the sign on the high part.
+	    return c * d + ((a >>> 16) * d + c * (b >>> 16) << 16 >>> 0) | 0; // int
+	  };
+
+	  // v8 has an optimization for storing 31-bit signed numbers.
+	  // Values which have either 00 or 11 as the high order bits qualify.
+	  // This function drops the highest order bit in a signed number, maintaining
+	  // the sign bit.
+	  function smi(i32) {
+	    return i32 >>> 1 & 0x40000000 | i32 & 0xBFFFFFFF;
+	  }
+
+	  function hash(o) {
+	    if (o === false || o === null || o === undefined) {
+	      return 0;
+	    }
+	    if (typeof o.valueOf === 'function') {
+	      o = o.valueOf();
+	      if (o === false || o === null || o === undefined) {
+	        return 0;
+	      }
+	    }
+	    if (o === true) {
+	      return 1;
+	    }
+	    var type = typeof o;
+	    if (type === 'number') {
+	      if (o !== o || o === Infinity) {
+	        return 0;
+	      }
+	      var h = o | 0;
+	      if (h !== o) {
+	        h ^= o * 0xFFFFFFFF;
+	      }
+	      while (o > 0xFFFFFFFF) {
+	        o /= 0xFFFFFFFF;
+	        h ^= o;
+	      }
+	      return smi(h);
+	    }
+	    if (type === 'string') {
+	      return o.length > STRING_HASH_CACHE_MIN_STRLEN ? cachedHashString(o) : hashString(o);
+	    }
+	    if (typeof o.hashCode === 'function') {
+	      return o.hashCode();
+	    }
+	    if (type === 'object') {
+	      return hashJSObj(o);
+	    }
+	    if (typeof o.toString === 'function') {
+	      return hashString(o.toString());
+	    }
+	    throw new Error('Value type ' + type + ' cannot be hashed.');
+	  }
+
+	  function cachedHashString(string) {
+	    var hash = stringHashCache[string];
+	    if (hash === undefined) {
+	      hash = hashString(string);
+	      if (STRING_HASH_CACHE_SIZE === STRING_HASH_CACHE_MAX_SIZE) {
+	        STRING_HASH_CACHE_SIZE = 0;
+	        stringHashCache = {};
+	      }
+	      STRING_HASH_CACHE_SIZE++;
+	      stringHashCache[string] = hash;
+	    }
+	    return hash;
+	  }
+
+	  // http://jsperf.com/hashing-strings
+	  function hashString(string) {
+	    // This is the hash from JVM
+	    // The hash code for a string is computed as
+	    // s[0] * 31 ^ (n - 1) + s[1] * 31 ^ (n - 2) + ... + s[n - 1],
+	    // where s[i] is the ith character of the string and n is the length of
+	    // the string. We "mod" the result to make it between 0 (inclusive) and 2^31
+	    // (exclusive) by dropping high bits.
+	    var hash = 0;
+	    for (var ii = 0; ii < string.length; ii++) {
+	      hash = 31 * hash + string.charCodeAt(ii) | 0;
+	    }
+	    return smi(hash);
+	  }
+
+	  function hashJSObj(obj) {
+	    var hash;
+	    if (usingWeakMap) {
+	      hash = weakMap.get(obj);
+	      if (hash !== undefined) {
+	        return hash;
+	      }
+	    }
+
+	    hash = obj[UID_HASH_KEY];
+	    if (hash !== undefined) {
+	      return hash;
+	    }
+
+	    if (!canDefineProperty) {
+	      hash = obj.propertyIsEnumerable && obj.propertyIsEnumerable[UID_HASH_KEY];
+	      if (hash !== undefined) {
+	        return hash;
+	      }
+
+	      hash = getIENodeHash(obj);
+	      if (hash !== undefined) {
+	        return hash;
+	      }
+	    }
+
+	    hash = ++objHashUID;
+	    if (objHashUID & 0x40000000) {
+	      objHashUID = 0;
+	    }
+
+	    if (usingWeakMap) {
+	      weakMap.set(obj, hash);
+	    } else if (isExtensible !== undefined && isExtensible(obj) === false) {
+	      throw new Error('Non-extensible objects are not allowed as keys.');
+	    } else if (canDefineProperty) {
+	      Object.defineProperty(obj, UID_HASH_KEY, {
+	        'enumerable': false,
+	        'configurable': false,
+	        'writable': false,
+	        'value': hash
+	      });
+	    } else if (obj.propertyIsEnumerable !== undefined && obj.propertyIsEnumerable === obj.constructor.prototype.propertyIsEnumerable) {
+	      // Since we can't define a non-enumerable property on the object
+	      // we'll hijack one of the less-used non-enumerable properties to
+	      // save our hash on it. Since this is a function it will not show up in
+	      // `JSON.stringify` which is what we want.
+	      obj.propertyIsEnumerable = function () {
+	        return this.constructor.prototype.propertyIsEnumerable.apply(this, arguments);
+	      };
+	      obj.propertyIsEnumerable[UID_HASH_KEY] = hash;
+	    } else if (obj.nodeType !== undefined) {
+	      // At this point we couldn't get the IE `uniqueID` to use as a hash
+	      // and we couldn't use a non-enumerable property to exploit the
+	      // dontEnum bug so we simply add the `UID_HASH_KEY` on the node
+	      // itself.
+	      obj[UID_HASH_KEY] = hash;
+	    } else {
+	      throw new Error('Unable to set a non-enumerable property on object.');
+	    }
+
+	    return hash;
+	  }
+
+	  // Get references to ES5 object methods.
+	  var isExtensible = Object.isExtensible;
+
+	  // True if Object.defineProperty works as expected. IE8 fails this test.
+	  var canDefineProperty = function () {
+	    try {
+	      Object.defineProperty({}, '@', {});
+	      return true;
+	    } catch (e) {
+	      return false;
+	    }
+	  }();
+
+	  // IE has a `uniqueID` property on DOM nodes. We can construct the hash from it
+	  // and avoid memory leaks from the IE cloneNode bug.
+	  function getIENodeHash(node) {
+	    if (node && node.nodeType > 0) {
+	      switch (node.nodeType) {
+	        case 1:
+	          // Element
+	          return node.uniqueID;
+	        case 9:
+	          // Document
+	          return node.documentElement && node.documentElement.uniqueID;
+	      }
+	    }
+	  }
+
+	  // If possible, use a WeakMap.
+	  var usingWeakMap = typeof WeakMap === 'function';
+	  var weakMap;
+	  if (usingWeakMap) {
+	    weakMap = new WeakMap();
+	  }
+
+	  var objHashUID = 0;
+
+	  var UID_HASH_KEY = '__immutablehash__';
+	  if (typeof Symbol === 'function') {
+	    UID_HASH_KEY = Symbol(UID_HASH_KEY);
+	  }
+
+	  var STRING_HASH_CACHE_MIN_STRLEN = 16;
+	  var STRING_HASH_CACHE_MAX_SIZE = 255;
+	  var STRING_HASH_CACHE_SIZE = 0;
+	  var stringHashCache = {};
+
+	  function assertNotInfinite(size) {
+	    invariant(size !== Infinity, 'Cannot perform this action with an infinite size.');
+	  }
+
+	  createClass(Map, KeyedCollection);
+
+	  // @pragma Construction
+
+	  function Map(value) {
+	    return value === null || value === undefined ? emptyMap() : isMap(value) && !isOrdered(value) ? value : emptyMap().withMutations(function (map) {
+	      var iter = KeyedIterable(value);
+	      assertNotInfinite(iter.size);
+	      iter.forEach(function (v, k) {
+	        return map.set(k, v);
+	      });
+	    });
+	  }
+
+	  Map.of = function () {
+	    var keyValues = SLICE$0.call(arguments, 0);
+	    return emptyMap().withMutations(function (map) {
+	      for (var i = 0; i < keyValues.length; i += 2) {
+	        if (i + 1 >= keyValues.length) {
+	          throw new Error('Missing value for key: ' + keyValues[i]);
+	        }
+	        map.set(keyValues[i], keyValues[i + 1]);
+	      }
+	    });
+	  };
+
+	  Map.prototype.toString = function () {
+	    return this.__toString('Map {', '}');
+	  };
+
+	  // @pragma Access
+
+	  Map.prototype.get = function (k, notSetValue) {
+	    return this._root ? this._root.get(0, undefined, k, notSetValue) : notSetValue;
+	  };
+
+	  // @pragma Modification
+
+	  Map.prototype.set = function (k, v) {
+	    return updateMap(this, k, v);
+	  };
+
+	  Map.prototype.setIn = function (keyPath, v) {
+	    return this.updateIn(keyPath, NOT_SET, function () {
+	      return v;
+	    });
+	  };
+
+	  Map.prototype.remove = function (k) {
+	    return updateMap(this, k, NOT_SET);
+	  };
+
+	  Map.prototype.deleteIn = function (keyPath) {
+	    return this.updateIn(keyPath, function () {
+	      return NOT_SET;
+	    });
+	  };
+
+	  Map.prototype.update = function (k, notSetValue, updater) {
+	    return arguments.length === 1 ? k(this) : this.updateIn([k], notSetValue, updater);
+	  };
+
+	  Map.prototype.updateIn = function (keyPath, notSetValue, updater) {
+	    if (!updater) {
+	      updater = notSetValue;
+	      notSetValue = undefined;
+	    }
+	    var updatedValue = updateInDeepMap(this, forceIterator(keyPath), notSetValue, updater);
+	    return updatedValue === NOT_SET ? undefined : updatedValue;
+	  };
+
+	  Map.prototype.clear = function () {
+	    if (this.size === 0) {
+	      return this;
+	    }
+	    if (this.__ownerID) {
+	      this.size = 0;
+	      this._root = null;
+	      this.__hash = undefined;
+	      this.__altered = true;
+	      return this;
+	    }
+	    return emptyMap();
+	  };
+
+	  // @pragma Composition
+
+	  Map.prototype.merge = function () /*...iters*/{
+	    return mergeIntoMapWith(this, undefined, arguments);
+	  };
+
+	  Map.prototype.mergeWith = function (merger) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return mergeIntoMapWith(this, merger, iters);
+	  };
+
+	  Map.prototype.mergeIn = function (keyPath) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return this.updateIn(keyPath, emptyMap(), function (m) {
+	      return typeof m.merge === 'function' ? m.merge.apply(m, iters) : iters[iters.length - 1];
+	    });
+	  };
+
+	  Map.prototype.mergeDeep = function () /*...iters*/{
+	    return mergeIntoMapWith(this, deepMerger, arguments);
+	  };
+
+	  Map.prototype.mergeDeepWith = function (merger) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return mergeIntoMapWith(this, deepMergerWith(merger), iters);
+	  };
+
+	  Map.prototype.mergeDeepIn = function (keyPath) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return this.updateIn(keyPath, emptyMap(), function (m) {
+	      return typeof m.mergeDeep === 'function' ? m.mergeDeep.apply(m, iters) : iters[iters.length - 1];
+	    });
+	  };
+
+	  Map.prototype.sort = function (comparator) {
+	    // Late binding
+	    return OrderedMap(sortFactory(this, comparator));
+	  };
+
+	  Map.prototype.sortBy = function (mapper, comparator) {
+	    // Late binding
+	    return OrderedMap(sortFactory(this, comparator, mapper));
+	  };
+
+	  // @pragma Mutability
+
+	  Map.prototype.withMutations = function (fn) {
+	    var mutable = this.asMutable();
+	    fn(mutable);
+	    return mutable.wasAltered() ? mutable.__ensureOwner(this.__ownerID) : this;
+	  };
+
+	  Map.prototype.asMutable = function () {
+	    return this.__ownerID ? this : this.__ensureOwner(new OwnerID());
+	  };
+
+	  Map.prototype.asImmutable = function () {
+	    return this.__ensureOwner();
+	  };
+
+	  Map.prototype.wasAltered = function () {
+	    return this.__altered;
+	  };
+
+	  Map.prototype.__iterator = function (type, reverse) {
+	    return new MapIterator(this, type, reverse);
+	  };
+
+	  Map.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    var iterations = 0;
+	    this._root && this._root.iterate(function (entry) {
+	      iterations++;
+	      return fn(entry[1], entry[0], this$0);
+	    }, reverse);
+	    return iterations;
+	  };
+
+	  Map.prototype.__ensureOwner = function (ownerID) {
+	    if (ownerID === this.__ownerID) {
+	      return this;
+	    }
+	    if (!ownerID) {
+	      this.__ownerID = ownerID;
+	      this.__altered = false;
+	      return this;
+	    }
+	    return makeMap(this.size, this._root, ownerID, this.__hash);
+	  };
+
+	  function isMap(maybeMap) {
+	    return !!(maybeMap && maybeMap[IS_MAP_SENTINEL]);
+	  }
+
+	  Map.isMap = isMap;
+
+	  var IS_MAP_SENTINEL = '@@__IMMUTABLE_MAP__@@';
+
+	  var MapPrototype = Map.prototype;
+	  MapPrototype[IS_MAP_SENTINEL] = true;
+	  MapPrototype[DELETE] = MapPrototype.remove;
+	  MapPrototype.removeIn = MapPrototype.deleteIn;
+
+	  // #pragma Trie Nodes
+
+
+	  function ArrayMapNode(ownerID, entries) {
+	    this.ownerID = ownerID;
+	    this.entries = entries;
+	  }
+
+	  ArrayMapNode.prototype.get = function (shift, keyHash, key, notSetValue) {
+	    var entries = this.entries;
+	    for (var ii = 0, len = entries.length; ii < len; ii++) {
+	      if (is(key, entries[ii][0])) {
+	        return entries[ii][1];
+	      }
+	    }
+	    return notSetValue;
+	  };
+
+	  ArrayMapNode.prototype.update = function (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+	    var removed = value === NOT_SET;
+
+	    var entries = this.entries;
+	    var idx = 0;
+	    for (var len = entries.length; idx < len; idx++) {
+	      if (is(key, entries[idx][0])) {
+	        break;
+	      }
+	    }
+	    var exists = idx < len;
+
+	    if (exists ? entries[idx][1] === value : removed) {
+	      return this;
+	    }
+
+	    SetRef(didAlter);
+	    (removed || !exists) && SetRef(didChangeSize);
+
+	    if (removed && entries.length === 1) {
+	      return; // undefined
+	    }
+
+	    if (!exists && !removed && entries.length >= MAX_ARRAY_MAP_SIZE) {
+	      return createNodes(ownerID, entries, key, value);
+	    }
+
+	    var isEditable = ownerID && ownerID === this.ownerID;
+	    var newEntries = isEditable ? entries : arrCopy(entries);
+
+	    if (exists) {
+	      if (removed) {
+	        idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+	      } else {
+	        newEntries[idx] = [key, value];
+	      }
+	    } else {
+	      newEntries.push([key, value]);
+	    }
+
+	    if (isEditable) {
+	      this.entries = newEntries;
+	      return this;
+	    }
+
+	    return new ArrayMapNode(ownerID, newEntries);
+	  };
+
+	  function BitmapIndexedNode(ownerID, bitmap, nodes) {
+	    this.ownerID = ownerID;
+	    this.bitmap = bitmap;
+	    this.nodes = nodes;
+	  }
+
+	  BitmapIndexedNode.prototype.get = function (shift, keyHash, key, notSetValue) {
+	    if (keyHash === undefined) {
+	      keyHash = hash(key);
+	    }
+	    var bit = 1 << ((shift === 0 ? keyHash : keyHash >>> shift) & MASK);
+	    var bitmap = this.bitmap;
+	    return (bitmap & bit) === 0 ? notSetValue : this.nodes[popCount(bitmap & bit - 1)].get(shift + SHIFT, keyHash, key, notSetValue);
+	  };
+
+	  BitmapIndexedNode.prototype.update = function (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+	    if (keyHash === undefined) {
+	      keyHash = hash(key);
+	    }
+	    var keyHashFrag = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+	    var bit = 1 << keyHashFrag;
+	    var bitmap = this.bitmap;
+	    var exists = (bitmap & bit) !== 0;
+
+	    if (!exists && value === NOT_SET) {
+	      return this;
+	    }
+
+	    var idx = popCount(bitmap & bit - 1);
+	    var nodes = this.nodes;
+	    var node = exists ? nodes[idx] : undefined;
+	    var newNode = updateNode(node, ownerID, shift + SHIFT, keyHash, key, value, didChangeSize, didAlter);
+
+	    if (newNode === node) {
+	      return this;
+	    }
+
+	    if (!exists && newNode && nodes.length >= MAX_BITMAP_INDEXED_SIZE) {
+	      return expandNodes(ownerID, nodes, bitmap, keyHashFrag, newNode);
+	    }
+
+	    if (exists && !newNode && nodes.length === 2 && isLeafNode(nodes[idx ^ 1])) {
+	      return nodes[idx ^ 1];
+	    }
+
+	    if (exists && newNode && nodes.length === 1 && isLeafNode(newNode)) {
+	      return newNode;
+	    }
+
+	    var isEditable = ownerID && ownerID === this.ownerID;
+	    var newBitmap = exists ? newNode ? bitmap : bitmap ^ bit : bitmap | bit;
+	    var newNodes = exists ? newNode ? setIn(nodes, idx, newNode, isEditable) : spliceOut(nodes, idx, isEditable) : spliceIn(nodes, idx, newNode, isEditable);
+
+	    if (isEditable) {
+	      this.bitmap = newBitmap;
+	      this.nodes = newNodes;
+	      return this;
+	    }
+
+	    return new BitmapIndexedNode(ownerID, newBitmap, newNodes);
+	  };
+
+	  function HashArrayMapNode(ownerID, count, nodes) {
+	    this.ownerID = ownerID;
+	    this.count = count;
+	    this.nodes = nodes;
+	  }
+
+	  HashArrayMapNode.prototype.get = function (shift, keyHash, key, notSetValue) {
+	    if (keyHash === undefined) {
+	      keyHash = hash(key);
+	    }
+	    var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+	    var node = this.nodes[idx];
+	    return node ? node.get(shift + SHIFT, keyHash, key, notSetValue) : notSetValue;
+	  };
+
+	  HashArrayMapNode.prototype.update = function (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+	    if (keyHash === undefined) {
+	      keyHash = hash(key);
+	    }
+	    var idx = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+	    var removed = value === NOT_SET;
+	    var nodes = this.nodes;
+	    var node = nodes[idx];
+
+	    if (removed && !node) {
+	      return this;
+	    }
+
+	    var newNode = updateNode(node, ownerID, shift + SHIFT, keyHash, key, value, didChangeSize, didAlter);
+	    if (newNode === node) {
+	      return this;
+	    }
+
+	    var newCount = this.count;
+	    if (!node) {
+	      newCount++;
+	    } else if (!newNode) {
+	      newCount--;
+	      if (newCount < MIN_HASH_ARRAY_MAP_SIZE) {
+	        return packNodes(ownerID, nodes, newCount, idx);
+	      }
+	    }
+
+	    var isEditable = ownerID && ownerID === this.ownerID;
+	    var newNodes = setIn(nodes, idx, newNode, isEditable);
+
+	    if (isEditable) {
+	      this.count = newCount;
+	      this.nodes = newNodes;
+	      return this;
+	    }
+
+	    return new HashArrayMapNode(ownerID, newCount, newNodes);
+	  };
+
+	  function HashCollisionNode(ownerID, keyHash, entries) {
+	    this.ownerID = ownerID;
+	    this.keyHash = keyHash;
+	    this.entries = entries;
+	  }
+
+	  HashCollisionNode.prototype.get = function (shift, keyHash, key, notSetValue) {
+	    var entries = this.entries;
+	    for (var ii = 0, len = entries.length; ii < len; ii++) {
+	      if (is(key, entries[ii][0])) {
+	        return entries[ii][1];
+	      }
+	    }
+	    return notSetValue;
+	  };
+
+	  HashCollisionNode.prototype.update = function (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+	    if (keyHash === undefined) {
+	      keyHash = hash(key);
+	    }
+
+	    var removed = value === NOT_SET;
+
+	    if (keyHash !== this.keyHash) {
+	      if (removed) {
+	        return this;
+	      }
+	      SetRef(didAlter);
+	      SetRef(didChangeSize);
+	      return mergeIntoNode(this, ownerID, shift, keyHash, [key, value]);
+	    }
+
+	    var entries = this.entries;
+	    var idx = 0;
+	    for (var len = entries.length; idx < len; idx++) {
+	      if (is(key, entries[idx][0])) {
+	        break;
+	      }
+	    }
+	    var exists = idx < len;
+
+	    if (exists ? entries[idx][1] === value : removed) {
+	      return this;
+	    }
+
+	    SetRef(didAlter);
+	    (removed || !exists) && SetRef(didChangeSize);
+
+	    if (removed && len === 2) {
+	      return new ValueNode(ownerID, this.keyHash, entries[idx ^ 1]);
+	    }
+
+	    var isEditable = ownerID && ownerID === this.ownerID;
+	    var newEntries = isEditable ? entries : arrCopy(entries);
+
+	    if (exists) {
+	      if (removed) {
+	        idx === len - 1 ? newEntries.pop() : newEntries[idx] = newEntries.pop();
+	      } else {
+	        newEntries[idx] = [key, value];
+	      }
+	    } else {
+	      newEntries.push([key, value]);
+	    }
+
+	    if (isEditable) {
+	      this.entries = newEntries;
+	      return this;
+	    }
+
+	    return new HashCollisionNode(ownerID, this.keyHash, newEntries);
+	  };
+
+	  function ValueNode(ownerID, keyHash, entry) {
+	    this.ownerID = ownerID;
+	    this.keyHash = keyHash;
+	    this.entry = entry;
+	  }
+
+	  ValueNode.prototype.get = function (shift, keyHash, key, notSetValue) {
+	    return is(key, this.entry[0]) ? this.entry[1] : notSetValue;
+	  };
+
+	  ValueNode.prototype.update = function (ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+	    var removed = value === NOT_SET;
+	    var keyMatch = is(key, this.entry[0]);
+	    if (keyMatch ? value === this.entry[1] : removed) {
+	      return this;
+	    }
+
+	    SetRef(didAlter);
+
+	    if (removed) {
+	      SetRef(didChangeSize);
+	      return; // undefined
+	    }
+
+	    if (keyMatch) {
+	      if (ownerID && ownerID === this.ownerID) {
+	        this.entry[1] = value;
+	        return this;
+	      }
+	      return new ValueNode(ownerID, this.keyHash, [key, value]);
+	    }
+
+	    SetRef(didChangeSize);
+	    return mergeIntoNode(this, ownerID, shift, hash(key), [key, value]);
+	  };
+
+	  // #pragma Iterators
+
+	  ArrayMapNode.prototype.iterate = HashCollisionNode.prototype.iterate = function (fn, reverse) {
+	    var entries = this.entries;
+	    for (var ii = 0, maxIndex = entries.length - 1; ii <= maxIndex; ii++) {
+	      if (fn(entries[reverse ? maxIndex - ii : ii]) === false) {
+	        return false;
+	      }
+	    }
+	  };
+
+	  BitmapIndexedNode.prototype.iterate = HashArrayMapNode.prototype.iterate = function (fn, reverse) {
+	    var nodes = this.nodes;
+	    for (var ii = 0, maxIndex = nodes.length - 1; ii <= maxIndex; ii++) {
+	      var node = nodes[reverse ? maxIndex - ii : ii];
+	      if (node && node.iterate(fn, reverse) === false) {
+	        return false;
+	      }
+	    }
+	  };
+
+	  ValueNode.prototype.iterate = function (fn, reverse) {
+	    return fn(this.entry);
+	  };
+
+	  createClass(MapIterator, Iterator);
+
+	  function MapIterator(map, type, reverse) {
+	    this._type = type;
+	    this._reverse = reverse;
+	    this._stack = map._root && mapIteratorFrame(map._root);
+	  }
+
+	  MapIterator.prototype.next = function () {
+	    var type = this._type;
+	    var stack = this._stack;
+	    while (stack) {
+	      var node = stack.node;
+	      var index = stack.index++;
+	      var maxIndex;
+	      if (node.entry) {
+	        if (index === 0) {
+	          return mapIteratorValue(type, node.entry);
+	        }
+	      } else if (node.entries) {
+	        maxIndex = node.entries.length - 1;
+	        if (index <= maxIndex) {
+	          return mapIteratorValue(type, node.entries[this._reverse ? maxIndex - index : index]);
+	        }
+	      } else {
+	        maxIndex = node.nodes.length - 1;
+	        if (index <= maxIndex) {
+	          var subNode = node.nodes[this._reverse ? maxIndex - index : index];
+	          if (subNode) {
+	            if (subNode.entry) {
+	              return mapIteratorValue(type, subNode.entry);
+	            }
+	            stack = this._stack = mapIteratorFrame(subNode, stack);
+	          }
+	          continue;
+	        }
+	      }
+	      stack = this._stack = this._stack.__prev;
+	    }
+	    return iteratorDone();
+	  };
+
+	  function mapIteratorValue(type, entry) {
+	    return iteratorValue(type, entry[0], entry[1]);
+	  }
+
+	  function mapIteratorFrame(node, prev) {
+	    return {
+	      node: node,
+	      index: 0,
+	      __prev: prev
+	    };
+	  }
+
+	  function makeMap(size, root, ownerID, hash) {
+	    var map = Object.create(MapPrototype);
+	    map.size = size;
+	    map._root = root;
+	    map.__ownerID = ownerID;
+	    map.__hash = hash;
+	    map.__altered = false;
+	    return map;
+	  }
+
+	  var EMPTY_MAP;
+	  function emptyMap() {
+	    return EMPTY_MAP || (EMPTY_MAP = makeMap(0));
+	  }
+
+	  function updateMap(map, k, v) {
+	    var newRoot;
+	    var newSize;
+	    if (!map._root) {
+	      if (v === NOT_SET) {
+	        return map;
+	      }
+	      newSize = 1;
+	      newRoot = new ArrayMapNode(map.__ownerID, [[k, v]]);
+	    } else {
+	      var didChangeSize = MakeRef(CHANGE_LENGTH);
+	      var didAlter = MakeRef(DID_ALTER);
+	      newRoot = updateNode(map._root, map.__ownerID, 0, undefined, k, v, didChangeSize, didAlter);
+	      if (!didAlter.value) {
+	        return map;
+	      }
+	      newSize = map.size + (didChangeSize.value ? v === NOT_SET ? -1 : 1 : 0);
+	    }
+	    if (map.__ownerID) {
+	      map.size = newSize;
+	      map._root = newRoot;
+	      map.__hash = undefined;
+	      map.__altered = true;
+	      return map;
+	    }
+	    return newRoot ? makeMap(newSize, newRoot) : emptyMap();
+	  }
+
+	  function updateNode(node, ownerID, shift, keyHash, key, value, didChangeSize, didAlter) {
+	    if (!node) {
+	      if (value === NOT_SET) {
+	        return node;
+	      }
+	      SetRef(didAlter);
+	      SetRef(didChangeSize);
+	      return new ValueNode(ownerID, keyHash, [key, value]);
+	    }
+	    return node.update(ownerID, shift, keyHash, key, value, didChangeSize, didAlter);
+	  }
+
+	  function isLeafNode(node) {
+	    return node.constructor === ValueNode || node.constructor === HashCollisionNode;
+	  }
+
+	  function mergeIntoNode(node, ownerID, shift, keyHash, entry) {
+	    if (node.keyHash === keyHash) {
+	      return new HashCollisionNode(ownerID, keyHash, [node.entry, entry]);
+	    }
+
+	    var idx1 = (shift === 0 ? node.keyHash : node.keyHash >>> shift) & MASK;
+	    var idx2 = (shift === 0 ? keyHash : keyHash >>> shift) & MASK;
+
+	    var newNode;
+	    var nodes = idx1 === idx2 ? [mergeIntoNode(node, ownerID, shift + SHIFT, keyHash, entry)] : (newNode = new ValueNode(ownerID, keyHash, entry), idx1 < idx2 ? [node, newNode] : [newNode, node]);
+
+	    return new BitmapIndexedNode(ownerID, 1 << idx1 | 1 << idx2, nodes);
+	  }
+
+	  function createNodes(ownerID, entries, key, value) {
+	    if (!ownerID) {
+	      ownerID = new OwnerID();
+	    }
+	    var node = new ValueNode(ownerID, hash(key), [key, value]);
+	    for (var ii = 0; ii < entries.length; ii++) {
+	      var entry = entries[ii];
+	      node = node.update(ownerID, 0, undefined, entry[0], entry[1]);
+	    }
+	    return node;
+	  }
+
+	  function packNodes(ownerID, nodes, count, excluding) {
+	    var bitmap = 0;
+	    var packedII = 0;
+	    var packedNodes = new Array(count);
+	    for (var ii = 0, bit = 1, len = nodes.length; ii < len; ii++, bit <<= 1) {
+	      var node = nodes[ii];
+	      if (node !== undefined && ii !== excluding) {
+	        bitmap |= bit;
+	        packedNodes[packedII++] = node;
+	      }
+	    }
+	    return new BitmapIndexedNode(ownerID, bitmap, packedNodes);
+	  }
+
+	  function expandNodes(ownerID, nodes, bitmap, including, node) {
+	    var count = 0;
+	    var expandedNodes = new Array(SIZE);
+	    for (var ii = 0; bitmap !== 0; ii++, bitmap >>>= 1) {
+	      expandedNodes[ii] = bitmap & 1 ? nodes[count++] : undefined;
+	    }
+	    expandedNodes[including] = node;
+	    return new HashArrayMapNode(ownerID, count + 1, expandedNodes);
+	  }
+
+	  function mergeIntoMapWith(map, merger, iterables) {
+	    var iters = [];
+	    for (var ii = 0; ii < iterables.length; ii++) {
+	      var value = iterables[ii];
+	      var iter = KeyedIterable(value);
+	      if (!isIterable(value)) {
+	        iter = iter.map(function (v) {
+	          return fromJS(v);
+	        });
+	      }
+	      iters.push(iter);
+	    }
+	    return mergeIntoCollectionWith(map, merger, iters);
+	  }
+
+	  function deepMerger(existing, value, key) {
+	    return existing && existing.mergeDeep && isIterable(value) ? existing.mergeDeep(value) : is(existing, value) ? existing : value;
+	  }
+
+	  function deepMergerWith(merger) {
+	    return function (existing, value, key) {
+	      if (existing && existing.mergeDeepWith && isIterable(value)) {
+	        return existing.mergeDeepWith(merger, value);
+	      }
+	      var nextValue = merger(existing, value, key);
+	      return is(existing, nextValue) ? existing : nextValue;
+	    };
+	  }
+
+	  function mergeIntoCollectionWith(collection, merger, iters) {
+	    iters = iters.filter(function (x) {
+	      return x.size !== 0;
+	    });
+	    if (iters.length === 0) {
+	      return collection;
+	    }
+	    if (collection.size === 0 && !collection.__ownerID && iters.length === 1) {
+	      return collection.constructor(iters[0]);
+	    }
+	    return collection.withMutations(function (collection) {
+	      var mergeIntoMap = merger ? function (value, key) {
+	        collection.update(key, NOT_SET, function (existing) {
+	          return existing === NOT_SET ? value : merger(existing, value, key);
+	        });
+	      } : function (value, key) {
+	        collection.set(key, value);
+	      };
+	      for (var ii = 0; ii < iters.length; ii++) {
+	        iters[ii].forEach(mergeIntoMap);
+	      }
+	    });
+	  }
+
+	  function updateInDeepMap(existing, keyPathIter, notSetValue, updater) {
+	    var isNotSet = existing === NOT_SET;
+	    var step = keyPathIter.next();
+	    if (step.done) {
+	      var existingValue = isNotSet ? notSetValue : existing;
+	      var newValue = updater(existingValue);
+	      return newValue === existingValue ? existing : newValue;
+	    }
+	    invariant(isNotSet || existing && existing.set, 'invalid keyPath');
+	    var key = step.value;
+	    var nextExisting = isNotSet ? NOT_SET : existing.get(key, NOT_SET);
+	    var nextUpdated = updateInDeepMap(nextExisting, keyPathIter, notSetValue, updater);
+	    return nextUpdated === nextExisting ? existing : nextUpdated === NOT_SET ? existing.remove(key) : (isNotSet ? emptyMap() : existing).set(key, nextUpdated);
+	  }
+
+	  function popCount(x) {
+	    x = x - (x >> 1 & 0x55555555);
+	    x = (x & 0x33333333) + (x >> 2 & 0x33333333);
+	    x = x + (x >> 4) & 0x0f0f0f0f;
+	    x = x + (x >> 8);
+	    x = x + (x >> 16);
+	    return x & 0x7f;
+	  }
+
+	  function setIn(array, idx, val, canEdit) {
+	    var newArray = canEdit ? array : arrCopy(array);
+	    newArray[idx] = val;
+	    return newArray;
+	  }
+
+	  function spliceIn(array, idx, val, canEdit) {
+	    var newLen = array.length + 1;
+	    if (canEdit && idx + 1 === newLen) {
+	      array[idx] = val;
+	      return array;
+	    }
+	    var newArray = new Array(newLen);
+	    var after = 0;
+	    for (var ii = 0; ii < newLen; ii++) {
+	      if (ii === idx) {
+	        newArray[ii] = val;
+	        after = -1;
+	      } else {
+	        newArray[ii] = array[ii + after];
+	      }
+	    }
+	    return newArray;
+	  }
+
+	  function spliceOut(array, idx, canEdit) {
+	    var newLen = array.length - 1;
+	    if (canEdit && idx === newLen) {
+	      array.pop();
+	      return array;
+	    }
+	    var newArray = new Array(newLen);
+	    var after = 0;
+	    for (var ii = 0; ii < newLen; ii++) {
+	      if (ii === idx) {
+	        after = 1;
+	      }
+	      newArray[ii] = array[ii + after];
+	    }
+	    return newArray;
+	  }
+
+	  var MAX_ARRAY_MAP_SIZE = SIZE / 4;
+	  var MAX_BITMAP_INDEXED_SIZE = SIZE / 2;
+	  var MIN_HASH_ARRAY_MAP_SIZE = SIZE / 4;
+
+	  createClass(List, IndexedCollection);
+
+	  // @pragma Construction
+
+	  function List(value) {
+	    var empty = emptyList();
+	    if (value === null || value === undefined) {
+	      return empty;
+	    }
+	    if (isList(value)) {
+	      return value;
+	    }
+	    var iter = IndexedIterable(value);
+	    var size = iter.size;
+	    if (size === 0) {
+	      return empty;
+	    }
+	    assertNotInfinite(size);
+	    if (size > 0 && size < SIZE) {
+	      return makeList(0, size, SHIFT, null, new VNode(iter.toArray()));
+	    }
+	    return empty.withMutations(function (list) {
+	      list.setSize(size);
+	      iter.forEach(function (v, i) {
+	        return list.set(i, v);
+	      });
+	    });
+	  }
+
+	  List.of = function () /*...values*/{
+	    return this(arguments);
+	  };
+
+	  List.prototype.toString = function () {
+	    return this.__toString('List [', ']');
+	  };
+
+	  // @pragma Access
+
+	  List.prototype.get = function (index, notSetValue) {
+	    index = wrapIndex(this, index);
+	    if (index >= 0 && index < this.size) {
+	      index += this._origin;
+	      var node = listNodeFor(this, index);
+	      return node && node.array[index & MASK];
+	    }
+	    return notSetValue;
+	  };
+
+	  // @pragma Modification
+
+	  List.prototype.set = function (index, value) {
+	    return updateList(this, index, value);
+	  };
+
+	  List.prototype.remove = function (index) {
+	    return !this.has(index) ? this : index === 0 ? this.shift() : index === this.size - 1 ? this.pop() : this.splice(index, 1);
+	  };
+
+	  List.prototype.insert = function (index, value) {
+	    return this.splice(index, 0, value);
+	  };
+
+	  List.prototype.clear = function () {
+	    if (this.size === 0) {
+	      return this;
+	    }
+	    if (this.__ownerID) {
+	      this.size = this._origin = this._capacity = 0;
+	      this._level = SHIFT;
+	      this._root = this._tail = null;
+	      this.__hash = undefined;
+	      this.__altered = true;
+	      return this;
+	    }
+	    return emptyList();
+	  };
+
+	  List.prototype.push = function () /*...values*/{
+	    var values = arguments;
+	    var oldSize = this.size;
+	    return this.withMutations(function (list) {
+	      setListBounds(list, 0, oldSize + values.length);
+	      for (var ii = 0; ii < values.length; ii++) {
+	        list.set(oldSize + ii, values[ii]);
+	      }
+	    });
+	  };
+
+	  List.prototype.pop = function () {
+	    return setListBounds(this, 0, -1);
+	  };
+
+	  List.prototype.unshift = function () /*...values*/{
+	    var values = arguments;
+	    return this.withMutations(function (list) {
+	      setListBounds(list, -values.length);
+	      for (var ii = 0; ii < values.length; ii++) {
+	        list.set(ii, values[ii]);
+	      }
+	    });
+	  };
+
+	  List.prototype.shift = function () {
+	    return setListBounds(this, 1);
+	  };
+
+	  // @pragma Composition
+
+	  List.prototype.merge = function () /*...iters*/{
+	    return mergeIntoListWith(this, undefined, arguments);
+	  };
+
+	  List.prototype.mergeWith = function (merger) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return mergeIntoListWith(this, merger, iters);
+	  };
+
+	  List.prototype.mergeDeep = function () /*...iters*/{
+	    return mergeIntoListWith(this, deepMerger, arguments);
+	  };
+
+	  List.prototype.mergeDeepWith = function (merger) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return mergeIntoListWith(this, deepMergerWith(merger), iters);
+	  };
+
+	  List.prototype.setSize = function (size) {
+	    return setListBounds(this, 0, size);
+	  };
+
+	  // @pragma Iteration
+
+	  List.prototype.slice = function (begin, end) {
+	    var size = this.size;
+	    if (wholeSlice(begin, end, size)) {
+	      return this;
+	    }
+	    return setListBounds(this, resolveBegin(begin, size), resolveEnd(end, size));
+	  };
+
+	  List.prototype.__iterator = function (type, reverse) {
+	    var index = 0;
+	    var values = iterateList(this, reverse);
+	    return new Iterator(function () {
+	      var value = values();
+	      return value === DONE ? iteratorDone() : iteratorValue(type, index++, value);
+	    });
+	  };
+
+	  List.prototype.__iterate = function (fn, reverse) {
+	    var index = 0;
+	    var values = iterateList(this, reverse);
+	    var value;
+	    while ((value = values()) !== DONE) {
+	      if (fn(value, index++, this) === false) {
+	        break;
+	      }
+	    }
+	    return index;
+	  };
+
+	  List.prototype.__ensureOwner = function (ownerID) {
+	    if (ownerID === this.__ownerID) {
+	      return this;
+	    }
+	    if (!ownerID) {
+	      this.__ownerID = ownerID;
+	      return this;
+	    }
+	    return makeList(this._origin, this._capacity, this._level, this._root, this._tail, ownerID, this.__hash);
+	  };
+
+	  function isList(maybeList) {
+	    return !!(maybeList && maybeList[IS_LIST_SENTINEL]);
+	  }
+
+	  List.isList = isList;
+
+	  var IS_LIST_SENTINEL = '@@__IMMUTABLE_LIST__@@';
+
+	  var ListPrototype = List.prototype;
+	  ListPrototype[IS_LIST_SENTINEL] = true;
+	  ListPrototype[DELETE] = ListPrototype.remove;
+	  ListPrototype.setIn = MapPrototype.setIn;
+	  ListPrototype.deleteIn = ListPrototype.removeIn = MapPrototype.removeIn;
+	  ListPrototype.update = MapPrototype.update;
+	  ListPrototype.updateIn = MapPrototype.updateIn;
+	  ListPrototype.mergeIn = MapPrototype.mergeIn;
+	  ListPrototype.mergeDeepIn = MapPrototype.mergeDeepIn;
+	  ListPrototype.withMutations = MapPrototype.withMutations;
+	  ListPrototype.asMutable = MapPrototype.asMutable;
+	  ListPrototype.asImmutable = MapPrototype.asImmutable;
+	  ListPrototype.wasAltered = MapPrototype.wasAltered;
+
+	  function VNode(array, ownerID) {
+	    this.array = array;
+	    this.ownerID = ownerID;
+	  }
+
+	  // TODO: seems like these methods are very similar
+
+	  VNode.prototype.removeBefore = function (ownerID, level, index) {
+	    if (index === level ? 1 << level : 0 || this.array.length === 0) {
+	      return this;
+	    }
+	    var originIndex = index >>> level & MASK;
+	    if (originIndex >= this.array.length) {
+	      return new VNode([], ownerID);
+	    }
+	    var removingFirst = originIndex === 0;
+	    var newChild;
+	    if (level > 0) {
+	      var oldChild = this.array[originIndex];
+	      newChild = oldChild && oldChild.removeBefore(ownerID, level - SHIFT, index);
+	      if (newChild === oldChild && removingFirst) {
+	        return this;
+	      }
+	    }
+	    if (removingFirst && !newChild) {
+	      return this;
+	    }
+	    var editable = editableVNode(this, ownerID);
+	    if (!removingFirst) {
+	      for (var ii = 0; ii < originIndex; ii++) {
+	        editable.array[ii] = undefined;
+	      }
+	    }
+	    if (newChild) {
+	      editable.array[originIndex] = newChild;
+	    }
+	    return editable;
+	  };
+
+	  VNode.prototype.removeAfter = function (ownerID, level, index) {
+	    if (index === (level ? 1 << level : 0) || this.array.length === 0) {
+	      return this;
+	    }
+	    var sizeIndex = index - 1 >>> level & MASK;
+	    if (sizeIndex >= this.array.length) {
+	      return this;
+	    }
+
+	    var newChild;
+	    if (level > 0) {
+	      var oldChild = this.array[sizeIndex];
+	      newChild = oldChild && oldChild.removeAfter(ownerID, level - SHIFT, index);
+	      if (newChild === oldChild && sizeIndex === this.array.length - 1) {
+	        return this;
+	      }
+	    }
+
+	    var editable = editableVNode(this, ownerID);
+	    editable.array.splice(sizeIndex + 1);
+	    if (newChild) {
+	      editable.array[sizeIndex] = newChild;
+	    }
+	    return editable;
+	  };
+
+	  var DONE = {};
+
+	  function iterateList(list, reverse) {
+	    var left = list._origin;
+	    var right = list._capacity;
+	    var tailPos = getTailOffset(right);
+	    var tail = list._tail;
+
+	    return iterateNodeOrLeaf(list._root, list._level, 0);
+
+	    function iterateNodeOrLeaf(node, level, offset) {
+	      return level === 0 ? iterateLeaf(node, offset) : iterateNode(node, level, offset);
+	    }
+
+	    function iterateLeaf(node, offset) {
+	      var array = offset === tailPos ? tail && tail.array : node && node.array;
+	      var from = offset > left ? 0 : left - offset;
+	      var to = right - offset;
+	      if (to > SIZE) {
+	        to = SIZE;
+	      }
+	      return function () {
+	        if (from === to) {
+	          return DONE;
+	        }
+	        var idx = reverse ? --to : from++;
+	        return array && array[idx];
+	      };
+	    }
+
+	    function iterateNode(node, level, offset) {
+	      var values;
+	      var array = node && node.array;
+	      var from = offset > left ? 0 : left - offset >> level;
+	      var to = (right - offset >> level) + 1;
+	      if (to > SIZE) {
+	        to = SIZE;
+	      }
+	      return function () {
+	        do {
+	          if (values) {
+	            var value = values();
+	            if (value !== DONE) {
+	              return value;
+	            }
+	            values = null;
+	          }
+	          if (from === to) {
+	            return DONE;
+	          }
+	          var idx = reverse ? --to : from++;
+	          values = iterateNodeOrLeaf(array && array[idx], level - SHIFT, offset + (idx << level));
+	        } while (true);
+	      };
+	    }
+	  }
+
+	  function makeList(origin, capacity, level, root, tail, ownerID, hash) {
+	    var list = Object.create(ListPrototype);
+	    list.size = capacity - origin;
+	    list._origin = origin;
+	    list._capacity = capacity;
+	    list._level = level;
+	    list._root = root;
+	    list._tail = tail;
+	    list.__ownerID = ownerID;
+	    list.__hash = hash;
+	    list.__altered = false;
+	    return list;
+	  }
+
+	  var EMPTY_LIST;
+	  function emptyList() {
+	    return EMPTY_LIST || (EMPTY_LIST = makeList(0, 0, SHIFT));
+	  }
+
+	  function updateList(list, index, value) {
+	    index = wrapIndex(list, index);
+
+	    if (index !== index) {
+	      return list;
+	    }
+
+	    if (index >= list.size || index < 0) {
+	      return list.withMutations(function (list) {
+	        index < 0 ? setListBounds(list, index).set(0, value) : setListBounds(list, 0, index + 1).set(index, value);
+	      });
+	    }
+
+	    index += list._origin;
+
+	    var newTail = list._tail;
+	    var newRoot = list._root;
+	    var didAlter = MakeRef(DID_ALTER);
+	    if (index >= getTailOffset(list._capacity)) {
+	      newTail = updateVNode(newTail, list.__ownerID, 0, index, value, didAlter);
+	    } else {
+	      newRoot = updateVNode(newRoot, list.__ownerID, list._level, index, value, didAlter);
+	    }
+
+	    if (!didAlter.value) {
+	      return list;
+	    }
+
+	    if (list.__ownerID) {
+	      list._root = newRoot;
+	      list._tail = newTail;
+	      list.__hash = undefined;
+	      list.__altered = true;
+	      return list;
+	    }
+	    return makeList(list._origin, list._capacity, list._level, newRoot, newTail);
+	  }
+
+	  function updateVNode(node, ownerID, level, index, value, didAlter) {
+	    var idx = index >>> level & MASK;
+	    var nodeHas = node && idx < node.array.length;
+	    if (!nodeHas && value === undefined) {
+	      return node;
+	    }
+
+	    var newNode;
+
+	    if (level > 0) {
+	      var lowerNode = node && node.array[idx];
+	      var newLowerNode = updateVNode(lowerNode, ownerID, level - SHIFT, index, value, didAlter);
+	      if (newLowerNode === lowerNode) {
+	        return node;
+	      }
+	      newNode = editableVNode(node, ownerID);
+	      newNode.array[idx] = newLowerNode;
+	      return newNode;
+	    }
+
+	    if (nodeHas && node.array[idx] === value) {
+	      return node;
+	    }
+
+	    SetRef(didAlter);
+
+	    newNode = editableVNode(node, ownerID);
+	    if (value === undefined && idx === newNode.array.length - 1) {
+	      newNode.array.pop();
+	    } else {
+	      newNode.array[idx] = value;
+	    }
+	    return newNode;
+	  }
+
+	  function editableVNode(node, ownerID) {
+	    if (ownerID && node && ownerID === node.ownerID) {
+	      return node;
+	    }
+	    return new VNode(node ? node.array.slice() : [], ownerID);
+	  }
+
+	  function listNodeFor(list, rawIndex) {
+	    if (rawIndex >= getTailOffset(list._capacity)) {
+	      return list._tail;
+	    }
+	    if (rawIndex < 1 << list._level + SHIFT) {
+	      var node = list._root;
+	      var level = list._level;
+	      while (node && level > 0) {
+	        node = node.array[rawIndex >>> level & MASK];
+	        level -= SHIFT;
+	      }
+	      return node;
+	    }
+	  }
+
+	  function setListBounds(list, begin, end) {
+	    // Sanitize begin & end using this shorthand for ToInt32(argument)
+	    // http://www.ecma-international.org/ecma-262/6.0/#sec-toint32
+	    if (begin !== undefined) {
+	      begin = begin | 0;
+	    }
+	    if (end !== undefined) {
+	      end = end | 0;
+	    }
+	    var owner = list.__ownerID || new OwnerID();
+	    var oldOrigin = list._origin;
+	    var oldCapacity = list._capacity;
+	    var newOrigin = oldOrigin + begin;
+	    var newCapacity = end === undefined ? oldCapacity : end < 0 ? oldCapacity + end : oldOrigin + end;
+	    if (newOrigin === oldOrigin && newCapacity === oldCapacity) {
+	      return list;
+	    }
+
+	    // If it's going to end after it starts, it's empty.
+	    if (newOrigin >= newCapacity) {
+	      return list.clear();
+	    }
+
+	    var newLevel = list._level;
+	    var newRoot = list._root;
+
+	    // New origin might need creating a higher root.
+	    var offsetShift = 0;
+	    while (newOrigin + offsetShift < 0) {
+	      newRoot = new VNode(newRoot && newRoot.array.length ? [undefined, newRoot] : [], owner);
+	      newLevel += SHIFT;
+	      offsetShift += 1 << newLevel;
+	    }
+	    if (offsetShift) {
+	      newOrigin += offsetShift;
+	      oldOrigin += offsetShift;
+	      newCapacity += offsetShift;
+	      oldCapacity += offsetShift;
+	    }
+
+	    var oldTailOffset = getTailOffset(oldCapacity);
+	    var newTailOffset = getTailOffset(newCapacity);
+
+	    // New size might need creating a higher root.
+	    while (newTailOffset >= 1 << newLevel + SHIFT) {
+	      newRoot = new VNode(newRoot && newRoot.array.length ? [newRoot] : [], owner);
+	      newLevel += SHIFT;
+	    }
+
+	    // Locate or create the new tail.
+	    var oldTail = list._tail;
+	    var newTail = newTailOffset < oldTailOffset ? listNodeFor(list, newCapacity - 1) : newTailOffset > oldTailOffset ? new VNode([], owner) : oldTail;
+
+	    // Merge Tail into tree.
+	    if (oldTail && newTailOffset > oldTailOffset && newOrigin < oldCapacity && oldTail.array.length) {
+	      newRoot = editableVNode(newRoot, owner);
+	      var node = newRoot;
+	      for (var level = newLevel; level > SHIFT; level -= SHIFT) {
+	        var idx = oldTailOffset >>> level & MASK;
+	        node = node.array[idx] = editableVNode(node.array[idx], owner);
+	      }
+	      node.array[oldTailOffset >>> SHIFT & MASK] = oldTail;
+	    }
+
+	    // If the size has been reduced, there's a chance the tail needs to be trimmed.
+	    if (newCapacity < oldCapacity) {
+	      newTail = newTail && newTail.removeAfter(owner, 0, newCapacity);
+	    }
+
+	    // If the new origin is within the tail, then we do not need a root.
+	    if (newOrigin >= newTailOffset) {
+	      newOrigin -= newTailOffset;
+	      newCapacity -= newTailOffset;
+	      newLevel = SHIFT;
+	      newRoot = null;
+	      newTail = newTail && newTail.removeBefore(owner, 0, newOrigin);
+
+	      // Otherwise, if the root has been trimmed, garbage collect.
+	    } else if (newOrigin > oldOrigin || newTailOffset < oldTailOffset) {
+	      offsetShift = 0;
+
+	      // Identify the new top root node of the subtree of the old root.
+	      while (newRoot) {
+	        var beginIndex = newOrigin >>> newLevel & MASK;
+	        if (beginIndex !== newTailOffset >>> newLevel & MASK) {
+	          break;
+	        }
+	        if (beginIndex) {
+	          offsetShift += (1 << newLevel) * beginIndex;
+	        }
+	        newLevel -= SHIFT;
+	        newRoot = newRoot.array[beginIndex];
+	      }
+
+	      // Trim the new sides of the new root.
+	      if (newRoot && newOrigin > oldOrigin) {
+	        newRoot = newRoot.removeBefore(owner, newLevel, newOrigin - offsetShift);
+	      }
+	      if (newRoot && newTailOffset < oldTailOffset) {
+	        newRoot = newRoot.removeAfter(owner, newLevel, newTailOffset - offsetShift);
+	      }
+	      if (offsetShift) {
+	        newOrigin -= offsetShift;
+	        newCapacity -= offsetShift;
+	      }
+	    }
+
+	    if (list.__ownerID) {
+	      list.size = newCapacity - newOrigin;
+	      list._origin = newOrigin;
+	      list._capacity = newCapacity;
+	      list._level = newLevel;
+	      list._root = newRoot;
+	      list._tail = newTail;
+	      list.__hash = undefined;
+	      list.__altered = true;
+	      return list;
+	    }
+	    return makeList(newOrigin, newCapacity, newLevel, newRoot, newTail);
+	  }
+
+	  function mergeIntoListWith(list, merger, iterables) {
+	    var iters = [];
+	    var maxSize = 0;
+	    for (var ii = 0; ii < iterables.length; ii++) {
+	      var value = iterables[ii];
+	      var iter = IndexedIterable(value);
+	      if (iter.size > maxSize) {
+	        maxSize = iter.size;
+	      }
+	      if (!isIterable(value)) {
+	        iter = iter.map(function (v) {
+	          return fromJS(v);
+	        });
+	      }
+	      iters.push(iter);
+	    }
+	    if (maxSize > list.size) {
+	      list = list.setSize(maxSize);
+	    }
+	    return mergeIntoCollectionWith(list, merger, iters);
+	  }
+
+	  function getTailOffset(size) {
+	    return size < SIZE ? 0 : size - 1 >>> SHIFT << SHIFT;
+	  }
+
+	  createClass(OrderedMap, Map);
+
+	  // @pragma Construction
+
+	  function OrderedMap(value) {
+	    return value === null || value === undefined ? emptyOrderedMap() : isOrderedMap(value) ? value : emptyOrderedMap().withMutations(function (map) {
+	      var iter = KeyedIterable(value);
+	      assertNotInfinite(iter.size);
+	      iter.forEach(function (v, k) {
+	        return map.set(k, v);
+	      });
+	    });
+	  }
+
+	  OrderedMap.of = function () /*...values*/{
+	    return this(arguments);
+	  };
+
+	  OrderedMap.prototype.toString = function () {
+	    return this.__toString('OrderedMap {', '}');
+	  };
+
+	  // @pragma Access
+
+	  OrderedMap.prototype.get = function (k, notSetValue) {
+	    var index = this._map.get(k);
+	    return index !== undefined ? this._list.get(index)[1] : notSetValue;
+	  };
+
+	  // @pragma Modification
+
+	  OrderedMap.prototype.clear = function () {
+	    if (this.size === 0) {
+	      return this;
+	    }
+	    if (this.__ownerID) {
+	      this.size = 0;
+	      this._map.clear();
+	      this._list.clear();
+	      return this;
+	    }
+	    return emptyOrderedMap();
+	  };
+
+	  OrderedMap.prototype.set = function (k, v) {
+	    return updateOrderedMap(this, k, v);
+	  };
+
+	  OrderedMap.prototype.remove = function (k) {
+	    return updateOrderedMap(this, k, NOT_SET);
+	  };
+
+	  OrderedMap.prototype.wasAltered = function () {
+	    return this._map.wasAltered() || this._list.wasAltered();
+	  };
+
+	  OrderedMap.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    return this._list.__iterate(function (entry) {
+	      return entry && fn(entry[1], entry[0], this$0);
+	    }, reverse);
+	  };
+
+	  OrderedMap.prototype.__iterator = function (type, reverse) {
+	    return this._list.fromEntrySeq().__iterator(type, reverse);
+	  };
+
+	  OrderedMap.prototype.__ensureOwner = function (ownerID) {
+	    if (ownerID === this.__ownerID) {
+	      return this;
+	    }
+	    var newMap = this._map.__ensureOwner(ownerID);
+	    var newList = this._list.__ensureOwner(ownerID);
+	    if (!ownerID) {
+	      this.__ownerID = ownerID;
+	      this._map = newMap;
+	      this._list = newList;
+	      return this;
+	    }
+	    return makeOrderedMap(newMap, newList, ownerID, this.__hash);
+	  };
+
+	  function isOrderedMap(maybeOrderedMap) {
+	    return isMap(maybeOrderedMap) && isOrdered(maybeOrderedMap);
+	  }
+
+	  OrderedMap.isOrderedMap = isOrderedMap;
+
+	  OrderedMap.prototype[IS_ORDERED_SENTINEL] = true;
+	  OrderedMap.prototype[DELETE] = OrderedMap.prototype.remove;
+
+	  function makeOrderedMap(map, list, ownerID, hash) {
+	    var omap = Object.create(OrderedMap.prototype);
+	    omap.size = map ? map.size : 0;
+	    omap._map = map;
+	    omap._list = list;
+	    omap.__ownerID = ownerID;
+	    omap.__hash = hash;
+	    return omap;
+	  }
+
+	  var EMPTY_ORDERED_MAP;
+	  function emptyOrderedMap() {
+	    return EMPTY_ORDERED_MAP || (EMPTY_ORDERED_MAP = makeOrderedMap(emptyMap(), emptyList()));
+	  }
+
+	  function updateOrderedMap(omap, k, v) {
+	    var map = omap._map;
+	    var list = omap._list;
+	    var i = map.get(k);
+	    var has = i !== undefined;
+	    var newMap;
+	    var newList;
+	    if (v === NOT_SET) {
+	      // removed
+	      if (!has) {
+	        return omap;
+	      }
+	      if (list.size >= SIZE && list.size >= map.size * 2) {
+	        newList = list.filter(function (entry, idx) {
+	          return entry !== undefined && i !== idx;
+	        });
+	        newMap = newList.toKeyedSeq().map(function (entry) {
+	          return entry[0];
+	        }).flip().toMap();
+	        if (omap.__ownerID) {
+	          newMap.__ownerID = newList.__ownerID = omap.__ownerID;
+	        }
+	      } else {
+	        newMap = map.remove(k);
+	        newList = i === list.size - 1 ? list.pop() : list.set(i, undefined);
+	      }
+	    } else {
+	      if (has) {
+	        if (v === list.get(i)[1]) {
+	          return omap;
+	        }
+	        newMap = map;
+	        newList = list.set(i, [k, v]);
+	      } else {
+	        newMap = map.set(k, list.size);
+	        newList = list.set(list.size, [k, v]);
+	      }
+	    }
+	    if (omap.__ownerID) {
+	      omap.size = newMap.size;
+	      omap._map = newMap;
+	      omap._list = newList;
+	      omap.__hash = undefined;
+	      return omap;
+	    }
+	    return makeOrderedMap(newMap, newList);
+	  }
+
+	  createClass(ToKeyedSequence, KeyedSeq);
+	  function ToKeyedSequence(indexed, useKeys) {
+	    this._iter = indexed;
+	    this._useKeys = useKeys;
+	    this.size = indexed.size;
+	  }
+
+	  ToKeyedSequence.prototype.get = function (key, notSetValue) {
+	    return this._iter.get(key, notSetValue);
+	  };
+
+	  ToKeyedSequence.prototype.has = function (key) {
+	    return this._iter.has(key);
+	  };
+
+	  ToKeyedSequence.prototype.valueSeq = function () {
+	    return this._iter.valueSeq();
+	  };
+
+	  ToKeyedSequence.prototype.reverse = function () {
+	    var this$0 = this;
+	    var reversedSequence = reverseFactory(this, true);
+	    if (!this._useKeys) {
+	      reversedSequence.valueSeq = function () {
+	        return this$0._iter.toSeq().reverse();
+	      };
+	    }
+	    return reversedSequence;
+	  };
+
+	  ToKeyedSequence.prototype.map = function (mapper, context) {
+	    var this$0 = this;
+	    var mappedSequence = mapFactory(this, mapper, context);
+	    if (!this._useKeys) {
+	      mappedSequence.valueSeq = function () {
+	        return this$0._iter.toSeq().map(mapper, context);
+	      };
+	    }
+	    return mappedSequence;
+	  };
+
+	  ToKeyedSequence.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    var ii;
+	    return this._iter.__iterate(this._useKeys ? function (v, k) {
+	      return fn(v, k, this$0);
+	    } : (ii = reverse ? resolveSize(this) : 0, function (v) {
+	      return fn(v, reverse ? --ii : ii++, this$0);
+	    }), reverse);
+	  };
+
+	  ToKeyedSequence.prototype.__iterator = function (type, reverse) {
+	    if (this._useKeys) {
+	      return this._iter.__iterator(type, reverse);
+	    }
+	    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse);
+	    var ii = reverse ? resolveSize(this) : 0;
+	    return new Iterator(function () {
+	      var step = iterator.next();
+	      return step.done ? step : iteratorValue(type, reverse ? --ii : ii++, step.value, step);
+	    });
+	  };
+
+	  ToKeyedSequence.prototype[IS_ORDERED_SENTINEL] = true;
+
+	  createClass(ToIndexedSequence, IndexedSeq);
+	  function ToIndexedSequence(iter) {
+	    this._iter = iter;
+	    this.size = iter.size;
+	  }
+
+	  ToIndexedSequence.prototype.includes = function (value) {
+	    return this._iter.includes(value);
+	  };
+
+	  ToIndexedSequence.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    var iterations = 0;
+	    return this._iter.__iterate(function (v) {
+	      return fn(v, iterations++, this$0);
+	    }, reverse);
+	  };
+
+	  ToIndexedSequence.prototype.__iterator = function (type, reverse) {
+	    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse);
+	    var iterations = 0;
+	    return new Iterator(function () {
+	      var step = iterator.next();
+	      return step.done ? step : iteratorValue(type, iterations++, step.value, step);
+	    });
+	  };
+
+	  createClass(ToSetSequence, SetSeq);
+	  function ToSetSequence(iter) {
+	    this._iter = iter;
+	    this.size = iter.size;
+	  }
+
+	  ToSetSequence.prototype.has = function (key) {
+	    return this._iter.includes(key);
+	  };
+
+	  ToSetSequence.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    return this._iter.__iterate(function (v) {
+	      return fn(v, v, this$0);
+	    }, reverse);
+	  };
+
+	  ToSetSequence.prototype.__iterator = function (type, reverse) {
+	    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse);
+	    return new Iterator(function () {
+	      var step = iterator.next();
+	      return step.done ? step : iteratorValue(type, step.value, step.value, step);
+	    });
+	  };
+
+	  createClass(FromEntriesSequence, KeyedSeq);
+	  function FromEntriesSequence(entries) {
+	    this._iter = entries;
+	    this.size = entries.size;
+	  }
+
+	  FromEntriesSequence.prototype.entrySeq = function () {
+	    return this._iter.toSeq();
+	  };
+
+	  FromEntriesSequence.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    return this._iter.__iterate(function (entry) {
+	      // Check if entry exists first so array access doesn't throw for holes
+	      // in the parent iteration.
+	      if (entry) {
+	        validateEntry(entry);
+	        var indexedIterable = isIterable(entry);
+	        return fn(indexedIterable ? entry.get(1) : entry[1], indexedIterable ? entry.get(0) : entry[0], this$0);
+	      }
+	    }, reverse);
+	  };
+
+	  FromEntriesSequence.prototype.__iterator = function (type, reverse) {
+	    var iterator = this._iter.__iterator(ITERATE_VALUES, reverse);
+	    return new Iterator(function () {
+	      while (true) {
+	        var step = iterator.next();
+	        if (step.done) {
+	          return step;
+	        }
+	        var entry = step.value;
+	        // Check if entry exists first so array access doesn't throw for holes
+	        // in the parent iteration.
+	        if (entry) {
+	          validateEntry(entry);
+	          var indexedIterable = isIterable(entry);
+	          return iteratorValue(type, indexedIterable ? entry.get(0) : entry[0], indexedIterable ? entry.get(1) : entry[1], step);
+	        }
+	      }
+	    });
+	  };
+
+	  ToIndexedSequence.prototype.cacheResult = ToKeyedSequence.prototype.cacheResult = ToSetSequence.prototype.cacheResult = FromEntriesSequence.prototype.cacheResult = cacheResultThrough;
+
+	  function flipFactory(iterable) {
+	    var flipSequence = makeSequence(iterable);
+	    flipSequence._iter = iterable;
+	    flipSequence.size = iterable.size;
+	    flipSequence.flip = function () {
+	      return iterable;
+	    };
+	    flipSequence.reverse = function () {
+	      var reversedSequence = iterable.reverse.apply(this); // super.reverse()
+	      reversedSequence.flip = function () {
+	        return iterable.reverse();
+	      };
+	      return reversedSequence;
+	    };
+	    flipSequence.has = function (key) {
+	      return iterable.includes(key);
+	    };
+	    flipSequence.includes = function (key) {
+	      return iterable.has(key);
+	    };
+	    flipSequence.cacheResult = cacheResultThrough;
+	    flipSequence.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      return iterable.__iterate(function (v, k) {
+	        return fn(k, v, this$0) !== false;
+	      }, reverse);
+	    };
+	    flipSequence.__iteratorUncached = function (type, reverse) {
+	      if (type === ITERATE_ENTRIES) {
+	        var iterator = iterable.__iterator(type, reverse);
+	        return new Iterator(function () {
+	          var step = iterator.next();
+	          if (!step.done) {
+	            var k = step.value[0];
+	            step.value[0] = step.value[1];
+	            step.value[1] = k;
+	          }
+	          return step;
+	        });
+	      }
+	      return iterable.__iterator(type === ITERATE_VALUES ? ITERATE_KEYS : ITERATE_VALUES, reverse);
+	    };
+	    return flipSequence;
+	  }
+
+	  function mapFactory(iterable, mapper, context) {
+	    var mappedSequence = makeSequence(iterable);
+	    mappedSequence.size = iterable.size;
+	    mappedSequence.has = function (key) {
+	      return iterable.has(key);
+	    };
+	    mappedSequence.get = function (key, notSetValue) {
+	      var v = iterable.get(key, NOT_SET);
+	      return v === NOT_SET ? notSetValue : mapper.call(context, v, key, iterable);
+	    };
+	    mappedSequence.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      return iterable.__iterate(function (v, k, c) {
+	        return fn(mapper.call(context, v, k, c), k, this$0) !== false;
+	      }, reverse);
+	    };
+	    mappedSequence.__iteratorUncached = function (type, reverse) {
+	      var iterator = iterable.__iterator(ITERATE_ENTRIES, reverse);
+	      return new Iterator(function () {
+	        var step = iterator.next();
+	        if (step.done) {
+	          return step;
+	        }
+	        var entry = step.value;
+	        var key = entry[0];
+	        return iteratorValue(type, key, mapper.call(context, entry[1], key, iterable), step);
+	      });
+	    };
+	    return mappedSequence;
+	  }
+
+	  function reverseFactory(iterable, useKeys) {
+	    var reversedSequence = makeSequence(iterable);
+	    reversedSequence._iter = iterable;
+	    reversedSequence.size = iterable.size;
+	    reversedSequence.reverse = function () {
+	      return iterable;
+	    };
+	    if (iterable.flip) {
+	      reversedSequence.flip = function () {
+	        var flipSequence = flipFactory(iterable);
+	        flipSequence.reverse = function () {
+	          return iterable.flip();
+	        };
+	        return flipSequence;
+	      };
+	    }
+	    reversedSequence.get = function (key, notSetValue) {
+	      return iterable.get(useKeys ? key : -1 - key, notSetValue);
+	    };
+	    reversedSequence.has = function (key) {
+	      return iterable.has(useKeys ? key : -1 - key);
+	    };
+	    reversedSequence.includes = function (value) {
+	      return iterable.includes(value);
+	    };
+	    reversedSequence.cacheResult = cacheResultThrough;
+	    reversedSequence.__iterate = function (fn, reverse) {
+	      var this$0 = this;
+	      return iterable.__iterate(function (v, k) {
+	        return fn(v, k, this$0);
+	      }, !reverse);
+	    };
+	    reversedSequence.__iterator = function (type, reverse) {
+	      return iterable.__iterator(type, !reverse);
+	    };
+	    return reversedSequence;
+	  }
+
+	  function filterFactory(iterable, predicate, context, useKeys) {
+	    var filterSequence = makeSequence(iterable);
+	    if (useKeys) {
+	      filterSequence.has = function (key) {
+	        var v = iterable.get(key, NOT_SET);
+	        return v !== NOT_SET && !!predicate.call(context, v, key, iterable);
+	      };
+	      filterSequence.get = function (key, notSetValue) {
+	        var v = iterable.get(key, NOT_SET);
+	        return v !== NOT_SET && predicate.call(context, v, key, iterable) ? v : notSetValue;
+	      };
+	    }
+	    filterSequence.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      var iterations = 0;
+	      iterable.__iterate(function (v, k, c) {
+	        if (predicate.call(context, v, k, c)) {
+	          iterations++;
+	          return fn(v, useKeys ? k : iterations - 1, this$0);
+	        }
+	      }, reverse);
+	      return iterations;
+	    };
+	    filterSequence.__iteratorUncached = function (type, reverse) {
+	      var iterator = iterable.__iterator(ITERATE_ENTRIES, reverse);
+	      var iterations = 0;
+	      return new Iterator(function () {
+	        while (true) {
+	          var step = iterator.next();
+	          if (step.done) {
+	            return step;
+	          }
+	          var entry = step.value;
+	          var key = entry[0];
+	          var value = entry[1];
+	          if (predicate.call(context, value, key, iterable)) {
+	            return iteratorValue(type, useKeys ? key : iterations++, value, step);
+	          }
+	        }
+	      });
+	    };
+	    return filterSequence;
+	  }
+
+	  function countByFactory(iterable, grouper, context) {
+	    var groups = Map().asMutable();
+	    iterable.__iterate(function (v, k) {
+	      groups.update(grouper.call(context, v, k, iterable), 0, function (a) {
+	        return a + 1;
+	      });
+	    });
+	    return groups.asImmutable();
+	  }
+
+	  function groupByFactory(iterable, grouper, context) {
+	    var isKeyedIter = isKeyed(iterable);
+	    var groups = (isOrdered(iterable) ? OrderedMap() : Map()).asMutable();
+	    iterable.__iterate(function (v, k) {
+	      groups.update(grouper.call(context, v, k, iterable), function (a) {
+	        return a = a || [], a.push(isKeyedIter ? [k, v] : v), a;
+	      });
+	    });
+	    var coerce = iterableClass(iterable);
+	    return groups.map(function (arr) {
+	      return reify(iterable, coerce(arr));
+	    });
+	  }
+
+	  function sliceFactory(iterable, begin, end, useKeys) {
+	    var originalSize = iterable.size;
+
+	    // Sanitize begin & end using this shorthand for ToInt32(argument)
+	    // http://www.ecma-international.org/ecma-262/6.0/#sec-toint32
+	    if (begin !== undefined) {
+	      begin = begin | 0;
+	    }
+	    if (end !== undefined) {
+	      if (end === Infinity) {
+	        end = originalSize;
+	      } else {
+	        end = end | 0;
+	      }
+	    }
+
+	    if (wholeSlice(begin, end, originalSize)) {
+	      return iterable;
+	    }
+
+	    var resolvedBegin = resolveBegin(begin, originalSize);
+	    var resolvedEnd = resolveEnd(end, originalSize);
+
+	    // begin or end will be NaN if they were provided as negative numbers and
+	    // this iterable's size is unknown. In that case, cache first so there is
+	    // a known size and these do not resolve to NaN.
+	    if (resolvedBegin !== resolvedBegin || resolvedEnd !== resolvedEnd) {
+	      return sliceFactory(iterable.toSeq().cacheResult(), begin, end, useKeys);
+	    }
+
+	    // Note: resolvedEnd is undefined when the original sequence's length is
+	    // unknown and this slice did not supply an end and should contain all
+	    // elements after resolvedBegin.
+	    // In that case, resolvedSize will be NaN and sliceSize will remain undefined.
+	    var resolvedSize = resolvedEnd - resolvedBegin;
+	    var sliceSize;
+	    if (resolvedSize === resolvedSize) {
+	      sliceSize = resolvedSize < 0 ? 0 : resolvedSize;
+	    }
+
+	    var sliceSeq = makeSequence(iterable);
+
+	    // If iterable.size is undefined, the size of the realized sliceSeq is
+	    // unknown at this point unless the number of items to slice is 0
+	    sliceSeq.size = sliceSize === 0 ? sliceSize : iterable.size && sliceSize || undefined;
+
+	    if (!useKeys && isSeq(iterable) && sliceSize >= 0) {
+	      sliceSeq.get = function (index, notSetValue) {
+	        index = wrapIndex(this, index);
+	        return index >= 0 && index < sliceSize ? iterable.get(index + resolvedBegin, notSetValue) : notSetValue;
+	      };
+	    }
+
+	    sliceSeq.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      if (sliceSize === 0) {
+	        return 0;
+	      }
+	      if (reverse) {
+	        return this.cacheResult().__iterate(fn, reverse);
+	      }
+	      var skipped = 0;
+	      var isSkipping = true;
+	      var iterations = 0;
+	      iterable.__iterate(function (v, k) {
+	        if (!(isSkipping && (isSkipping = skipped++ < resolvedBegin))) {
+	          iterations++;
+	          return fn(v, useKeys ? k : iterations - 1, this$0) !== false && iterations !== sliceSize;
+	        }
+	      });
+	      return iterations;
+	    };
+
+	    sliceSeq.__iteratorUncached = function (type, reverse) {
+	      if (sliceSize !== 0 && reverse) {
+	        return this.cacheResult().__iterator(type, reverse);
+	      }
+	      // Don't bother instantiating parent iterator if taking 0.
+	      var iterator = sliceSize !== 0 && iterable.__iterator(type, reverse);
+	      var skipped = 0;
+	      var iterations = 0;
+	      return new Iterator(function () {
+	        while (skipped++ < resolvedBegin) {
+	          iterator.next();
+	        }
+	        if (++iterations > sliceSize) {
+	          return iteratorDone();
+	        }
+	        var step = iterator.next();
+	        if (useKeys || type === ITERATE_VALUES) {
+	          return step;
+	        } else if (type === ITERATE_KEYS) {
+	          return iteratorValue(type, iterations - 1, undefined, step);
+	        } else {
+	          return iteratorValue(type, iterations - 1, step.value[1], step);
+	        }
+	      });
+	    };
+
+	    return sliceSeq;
+	  }
+
+	  function takeWhileFactory(iterable, predicate, context) {
+	    var takeSequence = makeSequence(iterable);
+	    takeSequence.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      if (reverse) {
+	        return this.cacheResult().__iterate(fn, reverse);
+	      }
+	      var iterations = 0;
+	      iterable.__iterate(function (v, k, c) {
+	        return predicate.call(context, v, k, c) && ++iterations && fn(v, k, this$0);
+	      });
+	      return iterations;
+	    };
+	    takeSequence.__iteratorUncached = function (type, reverse) {
+	      var this$0 = this;
+	      if (reverse) {
+	        return this.cacheResult().__iterator(type, reverse);
+	      }
+	      var iterator = iterable.__iterator(ITERATE_ENTRIES, reverse);
+	      var iterating = true;
+	      return new Iterator(function () {
+	        if (!iterating) {
+	          return iteratorDone();
+	        }
+	        var step = iterator.next();
+	        if (step.done) {
+	          return step;
+	        }
+	        var entry = step.value;
+	        var k = entry[0];
+	        var v = entry[1];
+	        if (!predicate.call(context, v, k, this$0)) {
+	          iterating = false;
+	          return iteratorDone();
+	        }
+	        return type === ITERATE_ENTRIES ? step : iteratorValue(type, k, v, step);
+	      });
+	    };
+	    return takeSequence;
+	  }
+
+	  function skipWhileFactory(iterable, predicate, context, useKeys) {
+	    var skipSequence = makeSequence(iterable);
+	    skipSequence.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      if (reverse) {
+	        return this.cacheResult().__iterate(fn, reverse);
+	      }
+	      var isSkipping = true;
+	      var iterations = 0;
+	      iterable.__iterate(function (v, k, c) {
+	        if (!(isSkipping && (isSkipping = predicate.call(context, v, k, c)))) {
+	          iterations++;
+	          return fn(v, useKeys ? k : iterations - 1, this$0);
+	        }
+	      });
+	      return iterations;
+	    };
+	    skipSequence.__iteratorUncached = function (type, reverse) {
+	      var this$0 = this;
+	      if (reverse) {
+	        return this.cacheResult().__iterator(type, reverse);
+	      }
+	      var iterator = iterable.__iterator(ITERATE_ENTRIES, reverse);
+	      var skipping = true;
+	      var iterations = 0;
+	      return new Iterator(function () {
+	        var step, k, v;
+	        do {
+	          step = iterator.next();
+	          if (step.done) {
+	            if (useKeys || type === ITERATE_VALUES) {
+	              return step;
+	            } else if (type === ITERATE_KEYS) {
+	              return iteratorValue(type, iterations++, undefined, step);
+	            } else {
+	              return iteratorValue(type, iterations++, step.value[1], step);
+	            }
+	          }
+	          var entry = step.value;
+	          k = entry[0];
+	          v = entry[1];
+	          skipping && (skipping = predicate.call(context, v, k, this$0));
+	        } while (skipping);
+	        return type === ITERATE_ENTRIES ? step : iteratorValue(type, k, v, step);
+	      });
+	    };
+	    return skipSequence;
+	  }
+
+	  function concatFactory(iterable, values) {
+	    var isKeyedIterable = isKeyed(iterable);
+	    var iters = [iterable].concat(values).map(function (v) {
+	      if (!isIterable(v)) {
+	        v = isKeyedIterable ? keyedSeqFromValue(v) : indexedSeqFromValue(Array.isArray(v) ? v : [v]);
+	      } else if (isKeyedIterable) {
+	        v = KeyedIterable(v);
+	      }
+	      return v;
+	    }).filter(function (v) {
+	      return v.size !== 0;
+	    });
+
+	    if (iters.length === 0) {
+	      return iterable;
+	    }
+
+	    if (iters.length === 1) {
+	      var singleton = iters[0];
+	      if (singleton === iterable || isKeyedIterable && isKeyed(singleton) || isIndexed(iterable) && isIndexed(singleton)) {
+	        return singleton;
+	      }
+	    }
+
+	    var concatSeq = new ArraySeq(iters);
+	    if (isKeyedIterable) {
+	      concatSeq = concatSeq.toKeyedSeq();
+	    } else if (!isIndexed(iterable)) {
+	      concatSeq = concatSeq.toSetSeq();
+	    }
+	    concatSeq = concatSeq.flatten(true);
+	    concatSeq.size = iters.reduce(function (sum, seq) {
+	      if (sum !== undefined) {
+	        var size = seq.size;
+	        if (size !== undefined) {
+	          return sum + size;
+	        }
+	      }
+	    }, 0);
+	    return concatSeq;
+	  }
+
+	  function flattenFactory(iterable, depth, useKeys) {
+	    var flatSequence = makeSequence(iterable);
+	    flatSequence.__iterateUncached = function (fn, reverse) {
+	      var iterations = 0;
+	      var stopped = false;
+	      function flatDeep(iter, currentDepth) {
+	        var this$0 = this;
+	        iter.__iterate(function (v, k) {
+	          if ((!depth || currentDepth < depth) && isIterable(v)) {
+	            flatDeep(v, currentDepth + 1);
+	          } else if (fn(v, useKeys ? k : iterations++, this$0) === false) {
+	            stopped = true;
+	          }
+	          return !stopped;
+	        }, reverse);
+	      }
+	      flatDeep(iterable, 0);
+	      return iterations;
+	    };
+	    flatSequence.__iteratorUncached = function (type, reverse) {
+	      var iterator = iterable.__iterator(type, reverse);
+	      var stack = [];
+	      var iterations = 0;
+	      return new Iterator(function () {
+	        while (iterator) {
+	          var step = iterator.next();
+	          if (step.done !== false) {
+	            iterator = stack.pop();
+	            continue;
+	          }
+	          var v = step.value;
+	          if (type === ITERATE_ENTRIES) {
+	            v = v[1];
+	          }
+	          if ((!depth || stack.length < depth) && isIterable(v)) {
+	            stack.push(iterator);
+	            iterator = v.__iterator(type, reverse);
+	          } else {
+	            return useKeys ? step : iteratorValue(type, iterations++, v, step);
+	          }
+	        }
+	        return iteratorDone();
+	      });
+	    };
+	    return flatSequence;
+	  }
+
+	  function flatMapFactory(iterable, mapper, context) {
+	    var coerce = iterableClass(iterable);
+	    return iterable.toSeq().map(function (v, k) {
+	      return coerce(mapper.call(context, v, k, iterable));
+	    }).flatten(true);
+	  }
+
+	  function interposeFactory(iterable, separator) {
+	    var interposedSequence = makeSequence(iterable);
+	    interposedSequence.size = iterable.size && iterable.size * 2 - 1;
+	    interposedSequence.__iterateUncached = function (fn, reverse) {
+	      var this$0 = this;
+	      var iterations = 0;
+	      iterable.__iterate(function (v, k) {
+	        return (!iterations || fn(separator, iterations++, this$0) !== false) && fn(v, iterations++, this$0) !== false;
+	      }, reverse);
+	      return iterations;
+	    };
+	    interposedSequence.__iteratorUncached = function (type, reverse) {
+	      var iterator = iterable.__iterator(ITERATE_VALUES, reverse);
+	      var iterations = 0;
+	      var step;
+	      return new Iterator(function () {
+	        if (!step || iterations % 2) {
+	          step = iterator.next();
+	          if (step.done) {
+	            return step;
+	          }
+	        }
+	        return iterations % 2 ? iteratorValue(type, iterations++, separator) : iteratorValue(type, iterations++, step.value, step);
+	      });
+	    };
+	    return interposedSequence;
+	  }
+
+	  function sortFactory(iterable, comparator, mapper) {
+	    if (!comparator) {
+	      comparator = defaultComparator;
+	    }
+	    var isKeyedIterable = isKeyed(iterable);
+	    var index = 0;
+	    var entries = iterable.toSeq().map(function (v, k) {
+	      return [k, v, index++, mapper ? mapper(v, k, iterable) : v];
+	    }).toArray();
+	    entries.sort(function (a, b) {
+	      return comparator(a[3], b[3]) || a[2] - b[2];
+	    }).forEach(isKeyedIterable ? function (v, i) {
+	      entries[i].length = 2;
+	    } : function (v, i) {
+	      entries[i] = v[1];
+	    });
+	    return isKeyedIterable ? KeyedSeq(entries) : isIndexed(iterable) ? IndexedSeq(entries) : SetSeq(entries);
+	  }
+
+	  function maxFactory(iterable, comparator, mapper) {
+	    if (!comparator) {
+	      comparator = defaultComparator;
+	    }
+	    if (mapper) {
+	      var entry = iterable.toSeq().map(function (v, k) {
+	        return [v, mapper(v, k, iterable)];
+	      }).reduce(function (a, b) {
+	        return maxCompare(comparator, a[1], b[1]) ? b : a;
+	      });
+	      return entry && entry[0];
+	    } else {
+	      return iterable.reduce(function (a, b) {
+	        return maxCompare(comparator, a, b) ? b : a;
+	      });
+	    }
+	  }
+
+	  function maxCompare(comparator, a, b) {
+	    var comp = comparator(b, a);
+	    // b is considered the new max if the comparator declares them equal, but
+	    // they are not equal and b is in fact a nullish value.
+	    return comp === 0 && b !== a && (b === undefined || b === null || b !== b) || comp > 0;
+	  }
+
+	  function zipWithFactory(keyIter, zipper, iters) {
+	    var zipSequence = makeSequence(keyIter);
+	    zipSequence.size = new ArraySeq(iters).map(function (i) {
+	      return i.size;
+	    }).min();
+	    // Note: this a generic base implementation of __iterate in terms of
+	    // __iterator which may be more generically useful in the future.
+	    zipSequence.__iterate = function (fn, reverse) {
+	      /* generic:
 	      var iterator = this.__iterator(ITERATE_ENTRIES, reverse);
 	      var step;
 	      var iterations = 0;
@@ -13741,65 +17112,1458 @@ webpackJsonp([0],[
 	        }
 	      }
 	      return iterations;
-	      */// indexed:
-	var iterator=this.__iterator(ITERATE_VALUES,reverse);var step;var iterations=0;while(!(step=iterator.next()).done){if(fn(step.value,iterations++,this)===false){break;}}return iterations;};zipSequence.__iteratorUncached=function(type,reverse){var iterators=iters.map(function(i){return i=Iterable(i),getIterator(reverse?i.reverse():i);});var iterations=0;var isDone=false;return new Iterator(function(){var steps;if(!isDone){steps=iterators.map(function(i){return i.next();});isDone=steps.some(function(s){return s.done;});}if(isDone){return iteratorDone();}return iteratorValue(type,iterations++,zipper.apply(null,steps.map(function(s){return s.value;})));});};return zipSequence;}// #pragma Helper Functions
-	function reify(iter,seq){return isSeq(iter)?seq:iter.constructor(seq);}function validateEntry(entry){if(entry!==Object(entry)){throw new TypeError('Expected [K, V] tuple: '+entry);}}function resolveSize(iter){assertNotInfinite(iter.size);return ensureSize(iter);}function iterableClass(iterable){return isKeyed(iterable)?KeyedIterable:isIndexed(iterable)?IndexedIterable:SetIterable;}function makeSequence(iterable){return Object.create((isKeyed(iterable)?KeyedSeq:isIndexed(iterable)?IndexedSeq:SetSeq).prototype);}function cacheResultThrough(){if(this._iter.cacheResult){this._iter.cacheResult();this.size=this._iter.size;return this;}else{return Seq.prototype.cacheResult.call(this);}}function defaultComparator(a,b){return a>b?1:a<b?-1:0;}function forceIterator(keyPath){var iter=getIterator(keyPath);if(!iter){// Array might not be iterable in this environment, so we need a fallback
-	// to our wrapped type.
-	if(!isArrayLike(keyPath)){throw new TypeError('Expected iterable or array-like: '+keyPath);}iter=getIterator(Iterable(keyPath));}return iter;}createClass(Record,KeyedCollection);function Record(defaultValues,name){var hasInitialized;var RecordType=function Record(values){if(values instanceof RecordType){return values;}if(!(this instanceof RecordType)){return new RecordType(values);}if(!hasInitialized){hasInitialized=true;var keys=Object.keys(defaultValues);setProps(RecordTypePrototype,keys);RecordTypePrototype.size=keys.length;RecordTypePrototype._name=name;RecordTypePrototype._keys=keys;RecordTypePrototype._defaultValues=defaultValues;}this._map=Map(values);};var RecordTypePrototype=RecordType.prototype=Object.create(RecordPrototype);RecordTypePrototype.constructor=RecordType;return RecordType;}Record.prototype.toString=function(){return this.__toString(recordName(this)+' {','}');};// @pragma Access
-	Record.prototype.has=function(k){return this._defaultValues.hasOwnProperty(k);};Record.prototype.get=function(k,notSetValue){if(!this.has(k)){return notSetValue;}var defaultVal=this._defaultValues[k];return this._map?this._map.get(k,defaultVal):defaultVal;};// @pragma Modification
-	Record.prototype.clear=function(){if(this.__ownerID){this._map&&this._map.clear();return this;}var RecordType=this.constructor;return RecordType._empty||(RecordType._empty=makeRecord(this,emptyMap()));};Record.prototype.set=function(k,v){if(!this.has(k)){throw new Error('Cannot set unknown key "'+k+'" on '+recordName(this));}if(this._map&&!this._map.has(k)){var defaultVal=this._defaultValues[k];if(v===defaultVal){return this;}}var newMap=this._map&&this._map.set(k,v);if(this.__ownerID||newMap===this._map){return this;}return makeRecord(this,newMap);};Record.prototype.remove=function(k){if(!this.has(k)){return this;}var newMap=this._map&&this._map.remove(k);if(this.__ownerID||newMap===this._map){return this;}return makeRecord(this,newMap);};Record.prototype.wasAltered=function(){return this._map.wasAltered();};Record.prototype.__iterator=function(type,reverse){var this$0=this;return KeyedIterable(this._defaultValues).map(function(_,k){return this$0.get(k);}).__iterator(type,reverse);};Record.prototype.__iterate=function(fn,reverse){var this$0=this;return KeyedIterable(this._defaultValues).map(function(_,k){return this$0.get(k);}).__iterate(fn,reverse);};Record.prototype.__ensureOwner=function(ownerID){if(ownerID===this.__ownerID){return this;}var newMap=this._map&&this._map.__ensureOwner(ownerID);if(!ownerID){this.__ownerID=ownerID;this._map=newMap;return this;}return makeRecord(this,newMap,ownerID);};var RecordPrototype=Record.prototype;RecordPrototype[DELETE]=RecordPrototype.remove;RecordPrototype.deleteIn=RecordPrototype.removeIn=MapPrototype.removeIn;RecordPrototype.merge=MapPrototype.merge;RecordPrototype.mergeWith=MapPrototype.mergeWith;RecordPrototype.mergeIn=MapPrototype.mergeIn;RecordPrototype.mergeDeep=MapPrototype.mergeDeep;RecordPrototype.mergeDeepWith=MapPrototype.mergeDeepWith;RecordPrototype.mergeDeepIn=MapPrototype.mergeDeepIn;RecordPrototype.setIn=MapPrototype.setIn;RecordPrototype.update=MapPrototype.update;RecordPrototype.updateIn=MapPrototype.updateIn;RecordPrototype.withMutations=MapPrototype.withMutations;RecordPrototype.asMutable=MapPrototype.asMutable;RecordPrototype.asImmutable=MapPrototype.asImmutable;function makeRecord(likeRecord,map,ownerID){var record=Object.create(Object.getPrototypeOf(likeRecord));record._map=map;record.__ownerID=ownerID;return record;}function recordName(record){return record._name||record.constructor.name||'Record';}function setProps(prototype,names){try{names.forEach(setProp.bind(undefined,prototype));}catch(error){// Object.defineProperty failed. Probably IE8.
-	}}function setProp(prototype,name){Object.defineProperty(prototype,name,{get:function(){return this.get(name);},set:function(value){invariant(this.__ownerID,'Cannot set on an immutable record.');this.set(name,value);}});}createClass(Set,SetCollection);// @pragma Construction
-	function Set(value){return value===null||value===undefined?emptySet():isSet(value)&&!isOrdered(value)?value:emptySet().withMutations(function(set){var iter=SetIterable(value);assertNotInfinite(iter.size);iter.forEach(function(v){return set.add(v);});});}Set.of=function()/*...values*/{return this(arguments);};Set.fromKeys=function(value){return this(KeyedIterable(value).keySeq());};Set.prototype.toString=function(){return this.__toString('Set {','}');};// @pragma Access
-	Set.prototype.has=function(value){return this._map.has(value);};// @pragma Modification
-	Set.prototype.add=function(value){return updateSet(this,this._map.set(value,true));};Set.prototype.remove=function(value){return updateSet(this,this._map.remove(value));};Set.prototype.clear=function(){return updateSet(this,this._map.clear());};// @pragma Composition
-	Set.prototype.union=function(){var iters=SLICE$0.call(arguments,0);iters=iters.filter(function(x){return x.size!==0;});if(iters.length===0){return this;}if(this.size===0&&!this.__ownerID&&iters.length===1){return this.constructor(iters[0]);}return this.withMutations(function(set){for(var ii=0;ii<iters.length;ii++){SetIterable(iters[ii]).forEach(function(value){return set.add(value);});}});};Set.prototype.intersect=function(){var iters=SLICE$0.call(arguments,0);if(iters.length===0){return this;}iters=iters.map(function(iter){return SetIterable(iter);});var originalSet=this;return this.withMutations(function(set){originalSet.forEach(function(value){if(!iters.every(function(iter){return iter.includes(value);})){set.remove(value);}});});};Set.prototype.subtract=function(){var iters=SLICE$0.call(arguments,0);if(iters.length===0){return this;}iters=iters.map(function(iter){return SetIterable(iter);});var originalSet=this;return this.withMutations(function(set){originalSet.forEach(function(value){if(iters.some(function(iter){return iter.includes(value);})){set.remove(value);}});});};Set.prototype.merge=function(){return this.union.apply(this,arguments);};Set.prototype.mergeWith=function(merger){var iters=SLICE$0.call(arguments,1);return this.union.apply(this,iters);};Set.prototype.sort=function(comparator){// Late binding
-	return OrderedSet(sortFactory(this,comparator));};Set.prototype.sortBy=function(mapper,comparator){// Late binding
-	return OrderedSet(sortFactory(this,comparator,mapper));};Set.prototype.wasAltered=function(){return this._map.wasAltered();};Set.prototype.__iterate=function(fn,reverse){var this$0=this;return this._map.__iterate(function(_,k){return fn(k,k,this$0);},reverse);};Set.prototype.__iterator=function(type,reverse){return this._map.map(function(_,k){return k;}).__iterator(type,reverse);};Set.prototype.__ensureOwner=function(ownerID){if(ownerID===this.__ownerID){return this;}var newMap=this._map.__ensureOwner(ownerID);if(!ownerID){this.__ownerID=ownerID;this._map=newMap;return this;}return this.__make(newMap,ownerID);};function isSet(maybeSet){return!!(maybeSet&&maybeSet[IS_SET_SENTINEL]);}Set.isSet=isSet;var IS_SET_SENTINEL='@@__IMMUTABLE_SET__@@';var SetPrototype=Set.prototype;SetPrototype[IS_SET_SENTINEL]=true;SetPrototype[DELETE]=SetPrototype.remove;SetPrototype.mergeDeep=SetPrototype.merge;SetPrototype.mergeDeepWith=SetPrototype.mergeWith;SetPrototype.withMutations=MapPrototype.withMutations;SetPrototype.asMutable=MapPrototype.asMutable;SetPrototype.asImmutable=MapPrototype.asImmutable;SetPrototype.__empty=emptySet;SetPrototype.__make=makeSet;function updateSet(set,newMap){if(set.__ownerID){set.size=newMap.size;set._map=newMap;return set;}return newMap===set._map?set:newMap.size===0?set.__empty():set.__make(newMap);}function makeSet(map,ownerID){var set=Object.create(SetPrototype);set.size=map?map.size:0;set._map=map;set.__ownerID=ownerID;return set;}var EMPTY_SET;function emptySet(){return EMPTY_SET||(EMPTY_SET=makeSet(emptyMap()));}createClass(OrderedSet,Set);// @pragma Construction
-	function OrderedSet(value){return value===null||value===undefined?emptyOrderedSet():isOrderedSet(value)?value:emptyOrderedSet().withMutations(function(set){var iter=SetIterable(value);assertNotInfinite(iter.size);iter.forEach(function(v){return set.add(v);});});}OrderedSet.of=function()/*...values*/{return this(arguments);};OrderedSet.fromKeys=function(value){return this(KeyedIterable(value).keySeq());};OrderedSet.prototype.toString=function(){return this.__toString('OrderedSet {','}');};function isOrderedSet(maybeOrderedSet){return isSet(maybeOrderedSet)&&isOrdered(maybeOrderedSet);}OrderedSet.isOrderedSet=isOrderedSet;var OrderedSetPrototype=OrderedSet.prototype;OrderedSetPrototype[IS_ORDERED_SENTINEL]=true;OrderedSetPrototype.__empty=emptyOrderedSet;OrderedSetPrototype.__make=makeOrderedSet;function makeOrderedSet(map,ownerID){var set=Object.create(OrderedSetPrototype);set.size=map?map.size:0;set._map=map;set.__ownerID=ownerID;return set;}var EMPTY_ORDERED_SET;function emptyOrderedSet(){return EMPTY_ORDERED_SET||(EMPTY_ORDERED_SET=makeOrderedSet(emptyOrderedMap()));}createClass(Stack,IndexedCollection);// @pragma Construction
-	function Stack(value){return value===null||value===undefined?emptyStack():isStack(value)?value:emptyStack().unshiftAll(value);}Stack.of=function()/*...values*/{return this(arguments);};Stack.prototype.toString=function(){return this.__toString('Stack [',']');};// @pragma Access
-	Stack.prototype.get=function(index,notSetValue){var head=this._head;index=wrapIndex(this,index);while(head&&index--){head=head.next;}return head?head.value:notSetValue;};Stack.prototype.peek=function(){return this._head&&this._head.value;};// @pragma Modification
-	Stack.prototype.push=function()/*...values*/{if(arguments.length===0){return this;}var newSize=this.size+arguments.length;var head=this._head;for(var ii=arguments.length-1;ii>=0;ii--){head={value:arguments[ii],next:head};}if(this.__ownerID){this.size=newSize;this._head=head;this.__hash=undefined;this.__altered=true;return this;}return makeStack(newSize,head);};Stack.prototype.pushAll=function(iter){iter=IndexedIterable(iter);if(iter.size===0){return this;}assertNotInfinite(iter.size);var newSize=this.size;var head=this._head;iter.reverse().forEach(function(value){newSize++;head={value:value,next:head};});if(this.__ownerID){this.size=newSize;this._head=head;this.__hash=undefined;this.__altered=true;return this;}return makeStack(newSize,head);};Stack.prototype.pop=function(){return this.slice(1);};Stack.prototype.unshift=function()/*...values*/{return this.push.apply(this,arguments);};Stack.prototype.unshiftAll=function(iter){return this.pushAll(iter);};Stack.prototype.shift=function(){return this.pop.apply(this,arguments);};Stack.prototype.clear=function(){if(this.size===0){return this;}if(this.__ownerID){this.size=0;this._head=undefined;this.__hash=undefined;this.__altered=true;return this;}return emptyStack();};Stack.prototype.slice=function(begin,end){if(wholeSlice(begin,end,this.size)){return this;}var resolvedBegin=resolveBegin(begin,this.size);var resolvedEnd=resolveEnd(end,this.size);if(resolvedEnd!==this.size){// super.slice(begin, end);
-	return IndexedCollection.prototype.slice.call(this,begin,end);}var newSize=this.size-resolvedBegin;var head=this._head;while(resolvedBegin--){head=head.next;}if(this.__ownerID){this.size=newSize;this._head=head;this.__hash=undefined;this.__altered=true;return this;}return makeStack(newSize,head);};// @pragma Mutability
-	Stack.prototype.__ensureOwner=function(ownerID){if(ownerID===this.__ownerID){return this;}if(!ownerID){this.__ownerID=ownerID;this.__altered=false;return this;}return makeStack(this.size,this._head,ownerID,this.__hash);};// @pragma Iteration
-	Stack.prototype.__iterate=function(fn,reverse){if(reverse){return this.reverse().__iterate(fn);}var iterations=0;var node=this._head;while(node){if(fn(node.value,iterations++,this)===false){break;}node=node.next;}return iterations;};Stack.prototype.__iterator=function(type,reverse){if(reverse){return this.reverse().__iterator(type);}var iterations=0;var node=this._head;return new Iterator(function(){if(node){var value=node.value;node=node.next;return iteratorValue(type,iterations++,value);}return iteratorDone();});};function isStack(maybeStack){return!!(maybeStack&&maybeStack[IS_STACK_SENTINEL]);}Stack.isStack=isStack;var IS_STACK_SENTINEL='@@__IMMUTABLE_STACK__@@';var StackPrototype=Stack.prototype;StackPrototype[IS_STACK_SENTINEL]=true;StackPrototype.withMutations=MapPrototype.withMutations;StackPrototype.asMutable=MapPrototype.asMutable;StackPrototype.asImmutable=MapPrototype.asImmutable;StackPrototype.wasAltered=MapPrototype.wasAltered;function makeStack(size,head,ownerID,hash){var map=Object.create(StackPrototype);map.size=size;map._head=head;map.__ownerID=ownerID;map.__hash=hash;map.__altered=false;return map;}var EMPTY_STACK;function emptyStack(){return EMPTY_STACK||(EMPTY_STACK=makeStack(0));}/**
+	      */
+	      // indexed:
+	      var iterator = this.__iterator(ITERATE_VALUES, reverse);
+	      var step;
+	      var iterations = 0;
+	      while (!(step = iterator.next()).done) {
+	        if (fn(step.value, iterations++, this) === false) {
+	          break;
+	        }
+	      }
+	      return iterations;
+	    };
+	    zipSequence.__iteratorUncached = function (type, reverse) {
+	      var iterators = iters.map(function (i) {
+	        return i = Iterable(i), getIterator(reverse ? i.reverse() : i);
+	      });
+	      var iterations = 0;
+	      var isDone = false;
+	      return new Iterator(function () {
+	        var steps;
+	        if (!isDone) {
+	          steps = iterators.map(function (i) {
+	            return i.next();
+	          });
+	          isDone = steps.some(function (s) {
+	            return s.done;
+	          });
+	        }
+	        if (isDone) {
+	          return iteratorDone();
+	        }
+	        return iteratorValue(type, iterations++, zipper.apply(null, steps.map(function (s) {
+	          return s.value;
+	        })));
+	      });
+	    };
+	    return zipSequence;
+	  }
+
+	  // #pragma Helper Functions
+
+	  function reify(iter, seq) {
+	    return isSeq(iter) ? seq : iter.constructor(seq);
+	  }
+
+	  function validateEntry(entry) {
+	    if (entry !== Object(entry)) {
+	      throw new TypeError('Expected [K, V] tuple: ' + entry);
+	    }
+	  }
+
+	  function resolveSize(iter) {
+	    assertNotInfinite(iter.size);
+	    return ensureSize(iter);
+	  }
+
+	  function iterableClass(iterable) {
+	    return isKeyed(iterable) ? KeyedIterable : isIndexed(iterable) ? IndexedIterable : SetIterable;
+	  }
+
+	  function makeSequence(iterable) {
+	    return Object.create((isKeyed(iterable) ? KeyedSeq : isIndexed(iterable) ? IndexedSeq : SetSeq).prototype);
+	  }
+
+	  function cacheResultThrough() {
+	    if (this._iter.cacheResult) {
+	      this._iter.cacheResult();
+	      this.size = this._iter.size;
+	      return this;
+	    } else {
+	      return Seq.prototype.cacheResult.call(this);
+	    }
+	  }
+
+	  function defaultComparator(a, b) {
+	    return a > b ? 1 : a < b ? -1 : 0;
+	  }
+
+	  function forceIterator(keyPath) {
+	    var iter = getIterator(keyPath);
+	    if (!iter) {
+	      // Array might not be iterable in this environment, so we need a fallback
+	      // to our wrapped type.
+	      if (!isArrayLike(keyPath)) {
+	        throw new TypeError('Expected iterable or array-like: ' + keyPath);
+	      }
+	      iter = getIterator(Iterable(keyPath));
+	    }
+	    return iter;
+	  }
+
+	  createClass(Record, KeyedCollection);
+
+	  function Record(defaultValues, name) {
+	    var hasInitialized;
+
+	    var RecordType = function Record(values) {
+	      if (values instanceof RecordType) {
+	        return values;
+	      }
+	      if (!(this instanceof RecordType)) {
+	        return new RecordType(values);
+	      }
+	      if (!hasInitialized) {
+	        hasInitialized = true;
+	        var keys = Object.keys(defaultValues);
+	        setProps(RecordTypePrototype, keys);
+	        RecordTypePrototype.size = keys.length;
+	        RecordTypePrototype._name = name;
+	        RecordTypePrototype._keys = keys;
+	        RecordTypePrototype._defaultValues = defaultValues;
+	      }
+	      this._map = Map(values);
+	    };
+
+	    var RecordTypePrototype = RecordType.prototype = Object.create(RecordPrototype);
+	    RecordTypePrototype.constructor = RecordType;
+
+	    return RecordType;
+	  }
+
+	  Record.prototype.toString = function () {
+	    return this.__toString(recordName(this) + ' {', '}');
+	  };
+
+	  // @pragma Access
+
+	  Record.prototype.has = function (k) {
+	    return this._defaultValues.hasOwnProperty(k);
+	  };
+
+	  Record.prototype.get = function (k, notSetValue) {
+	    if (!this.has(k)) {
+	      return notSetValue;
+	    }
+	    var defaultVal = this._defaultValues[k];
+	    return this._map ? this._map.get(k, defaultVal) : defaultVal;
+	  };
+
+	  // @pragma Modification
+
+	  Record.prototype.clear = function () {
+	    if (this.__ownerID) {
+	      this._map && this._map.clear();
+	      return this;
+	    }
+	    var RecordType = this.constructor;
+	    return RecordType._empty || (RecordType._empty = makeRecord(this, emptyMap()));
+	  };
+
+	  Record.prototype.set = function (k, v) {
+	    if (!this.has(k)) {
+	      throw new Error('Cannot set unknown key "' + k + '" on ' + recordName(this));
+	    }
+	    if (this._map && !this._map.has(k)) {
+	      var defaultVal = this._defaultValues[k];
+	      if (v === defaultVal) {
+	        return this;
+	      }
+	    }
+	    var newMap = this._map && this._map.set(k, v);
+	    if (this.__ownerID || newMap === this._map) {
+	      return this;
+	    }
+	    return makeRecord(this, newMap);
+	  };
+
+	  Record.prototype.remove = function (k) {
+	    if (!this.has(k)) {
+	      return this;
+	    }
+	    var newMap = this._map && this._map.remove(k);
+	    if (this.__ownerID || newMap === this._map) {
+	      return this;
+	    }
+	    return makeRecord(this, newMap);
+	  };
+
+	  Record.prototype.wasAltered = function () {
+	    return this._map.wasAltered();
+	  };
+
+	  Record.prototype.__iterator = function (type, reverse) {
+	    var this$0 = this;
+	    return KeyedIterable(this._defaultValues).map(function (_, k) {
+	      return this$0.get(k);
+	    }).__iterator(type, reverse);
+	  };
+
+	  Record.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    return KeyedIterable(this._defaultValues).map(function (_, k) {
+	      return this$0.get(k);
+	    }).__iterate(fn, reverse);
+	  };
+
+	  Record.prototype.__ensureOwner = function (ownerID) {
+	    if (ownerID === this.__ownerID) {
+	      return this;
+	    }
+	    var newMap = this._map && this._map.__ensureOwner(ownerID);
+	    if (!ownerID) {
+	      this.__ownerID = ownerID;
+	      this._map = newMap;
+	      return this;
+	    }
+	    return makeRecord(this, newMap, ownerID);
+	  };
+
+	  var RecordPrototype = Record.prototype;
+	  RecordPrototype[DELETE] = RecordPrototype.remove;
+	  RecordPrototype.deleteIn = RecordPrototype.removeIn = MapPrototype.removeIn;
+	  RecordPrototype.merge = MapPrototype.merge;
+	  RecordPrototype.mergeWith = MapPrototype.mergeWith;
+	  RecordPrototype.mergeIn = MapPrototype.mergeIn;
+	  RecordPrototype.mergeDeep = MapPrototype.mergeDeep;
+	  RecordPrototype.mergeDeepWith = MapPrototype.mergeDeepWith;
+	  RecordPrototype.mergeDeepIn = MapPrototype.mergeDeepIn;
+	  RecordPrototype.setIn = MapPrototype.setIn;
+	  RecordPrototype.update = MapPrototype.update;
+	  RecordPrototype.updateIn = MapPrototype.updateIn;
+	  RecordPrototype.withMutations = MapPrototype.withMutations;
+	  RecordPrototype.asMutable = MapPrototype.asMutable;
+	  RecordPrototype.asImmutable = MapPrototype.asImmutable;
+
+	  function makeRecord(likeRecord, map, ownerID) {
+	    var record = Object.create(Object.getPrototypeOf(likeRecord));
+	    record._map = map;
+	    record.__ownerID = ownerID;
+	    return record;
+	  }
+
+	  function recordName(record) {
+	    return record._name || record.constructor.name || 'Record';
+	  }
+
+	  function setProps(prototype, names) {
+	    try {
+	      names.forEach(setProp.bind(undefined, prototype));
+	    } catch (error) {
+	      // Object.defineProperty failed. Probably IE8.
+	    }
+	  }
+
+	  function setProp(prototype, name) {
+	    Object.defineProperty(prototype, name, {
+	      get: function () {
+	        return this.get(name);
+	      },
+	      set: function (value) {
+	        invariant(this.__ownerID, 'Cannot set on an immutable record.');
+	        this.set(name, value);
+	      }
+	    });
+	  }
+
+	  createClass(Set, SetCollection);
+
+	  // @pragma Construction
+
+	  function Set(value) {
+	    return value === null || value === undefined ? emptySet() : isSet(value) && !isOrdered(value) ? value : emptySet().withMutations(function (set) {
+	      var iter = SetIterable(value);
+	      assertNotInfinite(iter.size);
+	      iter.forEach(function (v) {
+	        return set.add(v);
+	      });
+	    });
+	  }
+
+	  Set.of = function () /*...values*/{
+	    return this(arguments);
+	  };
+
+	  Set.fromKeys = function (value) {
+	    return this(KeyedIterable(value).keySeq());
+	  };
+
+	  Set.prototype.toString = function () {
+	    return this.__toString('Set {', '}');
+	  };
+
+	  // @pragma Access
+
+	  Set.prototype.has = function (value) {
+	    return this._map.has(value);
+	  };
+
+	  // @pragma Modification
+
+	  Set.prototype.add = function (value) {
+	    return updateSet(this, this._map.set(value, true));
+	  };
+
+	  Set.prototype.remove = function (value) {
+	    return updateSet(this, this._map.remove(value));
+	  };
+
+	  Set.prototype.clear = function () {
+	    return updateSet(this, this._map.clear());
+	  };
+
+	  // @pragma Composition
+
+	  Set.prototype.union = function () {
+	    var iters = SLICE$0.call(arguments, 0);
+	    iters = iters.filter(function (x) {
+	      return x.size !== 0;
+	    });
+	    if (iters.length === 0) {
+	      return this;
+	    }
+	    if (this.size === 0 && !this.__ownerID && iters.length === 1) {
+	      return this.constructor(iters[0]);
+	    }
+	    return this.withMutations(function (set) {
+	      for (var ii = 0; ii < iters.length; ii++) {
+	        SetIterable(iters[ii]).forEach(function (value) {
+	          return set.add(value);
+	        });
+	      }
+	    });
+	  };
+
+	  Set.prototype.intersect = function () {
+	    var iters = SLICE$0.call(arguments, 0);
+	    if (iters.length === 0) {
+	      return this;
+	    }
+	    iters = iters.map(function (iter) {
+	      return SetIterable(iter);
+	    });
+	    var originalSet = this;
+	    return this.withMutations(function (set) {
+	      originalSet.forEach(function (value) {
+	        if (!iters.every(function (iter) {
+	          return iter.includes(value);
+	        })) {
+	          set.remove(value);
+	        }
+	      });
+	    });
+	  };
+
+	  Set.prototype.subtract = function () {
+	    var iters = SLICE$0.call(arguments, 0);
+	    if (iters.length === 0) {
+	      return this;
+	    }
+	    iters = iters.map(function (iter) {
+	      return SetIterable(iter);
+	    });
+	    var originalSet = this;
+	    return this.withMutations(function (set) {
+	      originalSet.forEach(function (value) {
+	        if (iters.some(function (iter) {
+	          return iter.includes(value);
+	        })) {
+	          set.remove(value);
+	        }
+	      });
+	    });
+	  };
+
+	  Set.prototype.merge = function () {
+	    return this.union.apply(this, arguments);
+	  };
+
+	  Set.prototype.mergeWith = function (merger) {
+	    var iters = SLICE$0.call(arguments, 1);
+	    return this.union.apply(this, iters);
+	  };
+
+	  Set.prototype.sort = function (comparator) {
+	    // Late binding
+	    return OrderedSet(sortFactory(this, comparator));
+	  };
+
+	  Set.prototype.sortBy = function (mapper, comparator) {
+	    // Late binding
+	    return OrderedSet(sortFactory(this, comparator, mapper));
+	  };
+
+	  Set.prototype.wasAltered = function () {
+	    return this._map.wasAltered();
+	  };
+
+	  Set.prototype.__iterate = function (fn, reverse) {
+	    var this$0 = this;
+	    return this._map.__iterate(function (_, k) {
+	      return fn(k, k, this$0);
+	    }, reverse);
+	  };
+
+	  Set.prototype.__iterator = function (type, reverse) {
+	    return this._map.map(function (_, k) {
+	      return k;
+	    }).__iterator(type, reverse);
+	  };
+
+	  Set.prototype.__ensureOwner = function (ownerID) {
+	    if (ownerID === this.__ownerID) {
+	      return this;
+	    }
+	    var newMap = this._map.__ensureOwner(ownerID);
+	    if (!ownerID) {
+	      this.__ownerID = ownerID;
+	      this._map = newMap;
+	      return this;
+	    }
+	    return this.__make(newMap, ownerID);
+	  };
+
+	  function isSet(maybeSet) {
+	    return !!(maybeSet && maybeSet[IS_SET_SENTINEL]);
+	  }
+
+	  Set.isSet = isSet;
+
+	  var IS_SET_SENTINEL = '@@__IMMUTABLE_SET__@@';
+
+	  var SetPrototype = Set.prototype;
+	  SetPrototype[IS_SET_SENTINEL] = true;
+	  SetPrototype[DELETE] = SetPrototype.remove;
+	  SetPrototype.mergeDeep = SetPrototype.merge;
+	  SetPrototype.mergeDeepWith = SetPrototype.mergeWith;
+	  SetPrototype.withMutations = MapPrototype.withMutations;
+	  SetPrototype.asMutable = MapPrototype.asMutable;
+	  SetPrototype.asImmutable = MapPrototype.asImmutable;
+
+	  SetPrototype.__empty = emptySet;
+	  SetPrototype.__make = makeSet;
+
+	  function updateSet(set, newMap) {
+	    if (set.__ownerID) {
+	      set.size = newMap.size;
+	      set._map = newMap;
+	      return set;
+	    }
+	    return newMap === set._map ? set : newMap.size === 0 ? set.__empty() : set.__make(newMap);
+	  }
+
+	  function makeSet(map, ownerID) {
+	    var set = Object.create(SetPrototype);
+	    set.size = map ? map.size : 0;
+	    set._map = map;
+	    set.__ownerID = ownerID;
+	    return set;
+	  }
+
+	  var EMPTY_SET;
+	  function emptySet() {
+	    return EMPTY_SET || (EMPTY_SET = makeSet(emptyMap()));
+	  }
+
+	  createClass(OrderedSet, Set);
+
+	  // @pragma Construction
+
+	  function OrderedSet(value) {
+	    return value === null || value === undefined ? emptyOrderedSet() : isOrderedSet(value) ? value : emptyOrderedSet().withMutations(function (set) {
+	      var iter = SetIterable(value);
+	      assertNotInfinite(iter.size);
+	      iter.forEach(function (v) {
+	        return set.add(v);
+	      });
+	    });
+	  }
+
+	  OrderedSet.of = function () /*...values*/{
+	    return this(arguments);
+	  };
+
+	  OrderedSet.fromKeys = function (value) {
+	    return this(KeyedIterable(value).keySeq());
+	  };
+
+	  OrderedSet.prototype.toString = function () {
+	    return this.__toString('OrderedSet {', '}');
+	  };
+
+	  function isOrderedSet(maybeOrderedSet) {
+	    return isSet(maybeOrderedSet) && isOrdered(maybeOrderedSet);
+	  }
+
+	  OrderedSet.isOrderedSet = isOrderedSet;
+
+	  var OrderedSetPrototype = OrderedSet.prototype;
+	  OrderedSetPrototype[IS_ORDERED_SENTINEL] = true;
+
+	  OrderedSetPrototype.__empty = emptyOrderedSet;
+	  OrderedSetPrototype.__make = makeOrderedSet;
+
+	  function makeOrderedSet(map, ownerID) {
+	    var set = Object.create(OrderedSetPrototype);
+	    set.size = map ? map.size : 0;
+	    set._map = map;
+	    set.__ownerID = ownerID;
+	    return set;
+	  }
+
+	  var EMPTY_ORDERED_SET;
+	  function emptyOrderedSet() {
+	    return EMPTY_ORDERED_SET || (EMPTY_ORDERED_SET = makeOrderedSet(emptyOrderedMap()));
+	  }
+
+	  createClass(Stack, IndexedCollection);
+
+	  // @pragma Construction
+
+	  function Stack(value) {
+	    return value === null || value === undefined ? emptyStack() : isStack(value) ? value : emptyStack().unshiftAll(value);
+	  }
+
+	  Stack.of = function () /*...values*/{
+	    return this(arguments);
+	  };
+
+	  Stack.prototype.toString = function () {
+	    return this.__toString('Stack [', ']');
+	  };
+
+	  // @pragma Access
+
+	  Stack.prototype.get = function (index, notSetValue) {
+	    var head = this._head;
+	    index = wrapIndex(this, index);
+	    while (head && index--) {
+	      head = head.next;
+	    }
+	    return head ? head.value : notSetValue;
+	  };
+
+	  Stack.prototype.peek = function () {
+	    return this._head && this._head.value;
+	  };
+
+	  // @pragma Modification
+
+	  Stack.prototype.push = function () /*...values*/{
+	    if (arguments.length === 0) {
+	      return this;
+	    }
+	    var newSize = this.size + arguments.length;
+	    var head = this._head;
+	    for (var ii = arguments.length - 1; ii >= 0; ii--) {
+	      head = {
+	        value: arguments[ii],
+	        next: head
+	      };
+	    }
+	    if (this.__ownerID) {
+	      this.size = newSize;
+	      this._head = head;
+	      this.__hash = undefined;
+	      this.__altered = true;
+	      return this;
+	    }
+	    return makeStack(newSize, head);
+	  };
+
+	  Stack.prototype.pushAll = function (iter) {
+	    iter = IndexedIterable(iter);
+	    if (iter.size === 0) {
+	      return this;
+	    }
+	    assertNotInfinite(iter.size);
+	    var newSize = this.size;
+	    var head = this._head;
+	    iter.reverse().forEach(function (value) {
+	      newSize++;
+	      head = {
+	        value: value,
+	        next: head
+	      };
+	    });
+	    if (this.__ownerID) {
+	      this.size = newSize;
+	      this._head = head;
+	      this.__hash = undefined;
+	      this.__altered = true;
+	      return this;
+	    }
+	    return makeStack(newSize, head);
+	  };
+
+	  Stack.prototype.pop = function () {
+	    return this.slice(1);
+	  };
+
+	  Stack.prototype.unshift = function () /*...values*/{
+	    return this.push.apply(this, arguments);
+	  };
+
+	  Stack.prototype.unshiftAll = function (iter) {
+	    return this.pushAll(iter);
+	  };
+
+	  Stack.prototype.shift = function () {
+	    return this.pop.apply(this, arguments);
+	  };
+
+	  Stack.prototype.clear = function () {
+	    if (this.size === 0) {
+	      return this;
+	    }
+	    if (this.__ownerID) {
+	      this.size = 0;
+	      this._head = undefined;
+	      this.__hash = undefined;
+	      this.__altered = true;
+	      return this;
+	    }
+	    return emptyStack();
+	  };
+
+	  Stack.prototype.slice = function (begin, end) {
+	    if (wholeSlice(begin, end, this.size)) {
+	      return this;
+	    }
+	    var resolvedBegin = resolveBegin(begin, this.size);
+	    var resolvedEnd = resolveEnd(end, this.size);
+	    if (resolvedEnd !== this.size) {
+	      // super.slice(begin, end);
+	      return IndexedCollection.prototype.slice.call(this, begin, end);
+	    }
+	    var newSize = this.size - resolvedBegin;
+	    var head = this._head;
+	    while (resolvedBegin--) {
+	      head = head.next;
+	    }
+	    if (this.__ownerID) {
+	      this.size = newSize;
+	      this._head = head;
+	      this.__hash = undefined;
+	      this.__altered = true;
+	      return this;
+	    }
+	    return makeStack(newSize, head);
+	  };
+
+	  // @pragma Mutability
+
+	  Stack.prototype.__ensureOwner = function (ownerID) {
+	    if (ownerID === this.__ownerID) {
+	      return this;
+	    }
+	    if (!ownerID) {
+	      this.__ownerID = ownerID;
+	      this.__altered = false;
+	      return this;
+	    }
+	    return makeStack(this.size, this._head, ownerID, this.__hash);
+	  };
+
+	  // @pragma Iteration
+
+	  Stack.prototype.__iterate = function (fn, reverse) {
+	    if (reverse) {
+	      return this.reverse().__iterate(fn);
+	    }
+	    var iterations = 0;
+	    var node = this._head;
+	    while (node) {
+	      if (fn(node.value, iterations++, this) === false) {
+	        break;
+	      }
+	      node = node.next;
+	    }
+	    return iterations;
+	  };
+
+	  Stack.prototype.__iterator = function (type, reverse) {
+	    if (reverse) {
+	      return this.reverse().__iterator(type);
+	    }
+	    var iterations = 0;
+	    var node = this._head;
+	    return new Iterator(function () {
+	      if (node) {
+	        var value = node.value;
+	        node = node.next;
+	        return iteratorValue(type, iterations++, value);
+	      }
+	      return iteratorDone();
+	    });
+	  };
+
+	  function isStack(maybeStack) {
+	    return !!(maybeStack && maybeStack[IS_STACK_SENTINEL]);
+	  }
+
+	  Stack.isStack = isStack;
+
+	  var IS_STACK_SENTINEL = '@@__IMMUTABLE_STACK__@@';
+
+	  var StackPrototype = Stack.prototype;
+	  StackPrototype[IS_STACK_SENTINEL] = true;
+	  StackPrototype.withMutations = MapPrototype.withMutations;
+	  StackPrototype.asMutable = MapPrototype.asMutable;
+	  StackPrototype.asImmutable = MapPrototype.asImmutable;
+	  StackPrototype.wasAltered = MapPrototype.wasAltered;
+
+	  function makeStack(size, head, ownerID, hash) {
+	    var map = Object.create(StackPrototype);
+	    map.size = size;
+	    map._head = head;
+	    map.__ownerID = ownerID;
+	    map.__hash = hash;
+	    map.__altered = false;
+	    return map;
+	  }
+
+	  var EMPTY_STACK;
+	  function emptyStack() {
+	    return EMPTY_STACK || (EMPTY_STACK = makeStack(0));
+	  }
+
+	  /**
 	   * Contributes additional methods to a constructor
-	   */function mixin(ctor,methods){var keyCopier=function(key){ctor.prototype[key]=methods[key];};Object.keys(methods).forEach(keyCopier);Object.getOwnPropertySymbols&&Object.getOwnPropertySymbols(methods).forEach(keyCopier);return ctor;}Iterable.Iterator=Iterator;mixin(Iterable,{// ### Conversion to other types
-	toArray:function(){assertNotInfinite(this.size);var array=new Array(this.size||0);this.valueSeq().__iterate(function(v,i){array[i]=v;});return array;},toIndexedSeq:function(){return new ToIndexedSequence(this);},toJS:function(){return this.toSeq().map(function(value){return value&&typeof value.toJS==='function'?value.toJS():value;}).__toJS();},toJSON:function(){return this.toSeq().map(function(value){return value&&typeof value.toJSON==='function'?value.toJSON():value;}).__toJS();},toKeyedSeq:function(){return new ToKeyedSequence(this,true);},toMap:function(){// Use Late Binding here to solve the circular dependency.
-	return Map(this.toKeyedSeq());},toObject:function(){assertNotInfinite(this.size);var object={};this.__iterate(function(v,k){object[k]=v;});return object;},toOrderedMap:function(){// Use Late Binding here to solve the circular dependency.
-	return OrderedMap(this.toKeyedSeq());},toOrderedSet:function(){// Use Late Binding here to solve the circular dependency.
-	return OrderedSet(isKeyed(this)?this.valueSeq():this);},toSet:function(){// Use Late Binding here to solve the circular dependency.
-	return Set(isKeyed(this)?this.valueSeq():this);},toSetSeq:function(){return new ToSetSequence(this);},toSeq:function(){return isIndexed(this)?this.toIndexedSeq():isKeyed(this)?this.toKeyedSeq():this.toSetSeq();},toStack:function(){// Use Late Binding here to solve the circular dependency.
-	return Stack(isKeyed(this)?this.valueSeq():this);},toList:function(){// Use Late Binding here to solve the circular dependency.
-	return List(isKeyed(this)?this.valueSeq():this);},// ### Common JavaScript methods and properties
-	toString:function(){return'[Iterable]';},__toString:function(head,tail){if(this.size===0){return head+tail;}return head+' '+this.toSeq().map(this.__toStringMapper).join(', ')+' '+tail;},// ### ES6 Collection methods (ES6 Array and Map)
-	concat:function(){var values=SLICE$0.call(arguments,0);return reify(this,concatFactory(this,values));},includes:function(searchValue){return this.some(function(value){return is(value,searchValue);});},entries:function(){return this.__iterator(ITERATE_ENTRIES);},every:function(predicate,context){assertNotInfinite(this.size);var returnValue=true;this.__iterate(function(v,k,c){if(!predicate.call(context,v,k,c)){returnValue=false;return false;}});return returnValue;},filter:function(predicate,context){return reify(this,filterFactory(this,predicate,context,true));},find:function(predicate,context,notSetValue){var entry=this.findEntry(predicate,context);return entry?entry[1]:notSetValue;},forEach:function(sideEffect,context){assertNotInfinite(this.size);return this.__iterate(context?sideEffect.bind(context):sideEffect);},join:function(separator){assertNotInfinite(this.size);separator=separator!==undefined?''+separator:',';var joined='';var isFirst=true;this.__iterate(function(v){isFirst?isFirst=false:joined+=separator;joined+=v!==null&&v!==undefined?v.toString():'';});return joined;},keys:function(){return this.__iterator(ITERATE_KEYS);},map:function(mapper,context){return reify(this,mapFactory(this,mapper,context));},reduce:function(reducer,initialReduction,context){assertNotInfinite(this.size);var reduction;var useFirst;if(arguments.length<2){useFirst=true;}else{reduction=initialReduction;}this.__iterate(function(v,k,c){if(useFirst){useFirst=false;reduction=v;}else{reduction=reducer.call(context,reduction,v,k,c);}});return reduction;},reduceRight:function(reducer,initialReduction,context){var reversed=this.toKeyedSeq().reverse();return reversed.reduce.apply(reversed,arguments);},reverse:function(){return reify(this,reverseFactory(this,true));},slice:function(begin,end){return reify(this,sliceFactory(this,begin,end,true));},some:function(predicate,context){return!this.every(not(predicate),context);},sort:function(comparator){return reify(this,sortFactory(this,comparator));},values:function(){return this.__iterator(ITERATE_VALUES);},// ### More sequential methods
-	butLast:function(){return this.slice(0,-1);},isEmpty:function(){return this.size!==undefined?this.size===0:!this.some(function(){return true;});},count:function(predicate,context){return ensureSize(predicate?this.toSeq().filter(predicate,context):this);},countBy:function(grouper,context){return countByFactory(this,grouper,context);},equals:function(other){return deepEqual(this,other);},entrySeq:function(){var iterable=this;if(iterable._cache){// We cache as an entries array, so we can just return the cache!
-	return new ArraySeq(iterable._cache);}var entriesSequence=iterable.toSeq().map(entryMapper).toIndexedSeq();entriesSequence.fromEntrySeq=function(){return iterable.toSeq();};return entriesSequence;},filterNot:function(predicate,context){return this.filter(not(predicate),context);},findEntry:function(predicate,context,notSetValue){var found=notSetValue;this.__iterate(function(v,k,c){if(predicate.call(context,v,k,c)){found=[k,v];return false;}});return found;},findKey:function(predicate,context){var entry=this.findEntry(predicate,context);return entry&&entry[0];},findLast:function(predicate,context,notSetValue){return this.toKeyedSeq().reverse().find(predicate,context,notSetValue);},findLastEntry:function(predicate,context,notSetValue){return this.toKeyedSeq().reverse().findEntry(predicate,context,notSetValue);},findLastKey:function(predicate,context){return this.toKeyedSeq().reverse().findKey(predicate,context);},first:function(){return this.find(returnTrue);},flatMap:function(mapper,context){return reify(this,flatMapFactory(this,mapper,context));},flatten:function(depth){return reify(this,flattenFactory(this,depth,true));},fromEntrySeq:function(){return new FromEntriesSequence(this);},get:function(searchKey,notSetValue){return this.find(function(_,key){return is(key,searchKey);},undefined,notSetValue);},getIn:function(searchKeyPath,notSetValue){var nested=this;// Note: in an ES6 environment, we would prefer:
-	// for (var key of searchKeyPath) {
-	var iter=forceIterator(searchKeyPath);var step;while(!(step=iter.next()).done){var key=step.value;nested=nested&&nested.get?nested.get(key,NOT_SET):NOT_SET;if(nested===NOT_SET){return notSetValue;}}return nested;},groupBy:function(grouper,context){return groupByFactory(this,grouper,context);},has:function(searchKey){return this.get(searchKey,NOT_SET)!==NOT_SET;},hasIn:function(searchKeyPath){return this.getIn(searchKeyPath,NOT_SET)!==NOT_SET;},isSubset:function(iter){iter=typeof iter.includes==='function'?iter:Iterable(iter);return this.every(function(value){return iter.includes(value);});},isSuperset:function(iter){iter=typeof iter.isSubset==='function'?iter:Iterable(iter);return iter.isSubset(this);},keyOf:function(searchValue){return this.findKey(function(value){return is(value,searchValue);});},keySeq:function(){return this.toSeq().map(keyMapper).toIndexedSeq();},last:function(){return this.toSeq().reverse().first();},lastKeyOf:function(searchValue){return this.toKeyedSeq().reverse().keyOf(searchValue);},max:function(comparator){return maxFactory(this,comparator);},maxBy:function(mapper,comparator){return maxFactory(this,comparator,mapper);},min:function(comparator){return maxFactory(this,comparator?neg(comparator):defaultNegComparator);},minBy:function(mapper,comparator){return maxFactory(this,comparator?neg(comparator):defaultNegComparator,mapper);},rest:function(){return this.slice(1);},skip:function(amount){return this.slice(Math.max(0,amount));},skipLast:function(amount){return reify(this,this.toSeq().reverse().skip(amount).reverse());},skipWhile:function(predicate,context){return reify(this,skipWhileFactory(this,predicate,context,true));},skipUntil:function(predicate,context){return this.skipWhile(not(predicate),context);},sortBy:function(mapper,comparator){return reify(this,sortFactory(this,comparator,mapper));},take:function(amount){return this.slice(0,Math.max(0,amount));},takeLast:function(amount){return reify(this,this.toSeq().reverse().take(amount).reverse());},takeWhile:function(predicate,context){return reify(this,takeWhileFactory(this,predicate,context));},takeUntil:function(predicate,context){return this.takeWhile(not(predicate),context);},valueSeq:function(){return this.toIndexedSeq();},// ### Hashable Object
-	hashCode:function(){return this.__hash||(this.__hash=hashIterable(this));}// ### Internal
-	// abstract __iterate(fn, reverse)
-	// abstract __iterator(type, reverse)
-	});// var IS_ITERABLE_SENTINEL = '@@__IMMUTABLE_ITERABLE__@@';
-	// var IS_KEYED_SENTINEL = '@@__IMMUTABLE_KEYED__@@';
-	// var IS_INDEXED_SENTINEL = '@@__IMMUTABLE_INDEXED__@@';
-	// var IS_ORDERED_SENTINEL = '@@__IMMUTABLE_ORDERED__@@';
-	var IterablePrototype=Iterable.prototype;IterablePrototype[IS_ITERABLE_SENTINEL]=true;IterablePrototype[ITERATOR_SYMBOL]=IterablePrototype.values;IterablePrototype.__toJS=IterablePrototype.toArray;IterablePrototype.__toStringMapper=quoteString;IterablePrototype.inspect=IterablePrototype.toSource=function(){return this.toString();};IterablePrototype.chain=IterablePrototype.flatMap;IterablePrototype.contains=IterablePrototype.includes;mixin(KeyedIterable,{// ### More sequential methods
-	flip:function(){return reify(this,flipFactory(this));},mapEntries:function(mapper,context){var this$0=this;var iterations=0;return reify(this,this.toSeq().map(function(v,k){return mapper.call(context,[k,v],iterations++,this$0);}).fromEntrySeq());},mapKeys:function(mapper,context){var this$0=this;return reify(this,this.toSeq().flip().map(function(k,v){return mapper.call(context,k,v,this$0);}).flip());}});var KeyedIterablePrototype=KeyedIterable.prototype;KeyedIterablePrototype[IS_KEYED_SENTINEL]=true;KeyedIterablePrototype[ITERATOR_SYMBOL]=IterablePrototype.entries;KeyedIterablePrototype.__toJS=IterablePrototype.toObject;KeyedIterablePrototype.__toStringMapper=function(v,k){return JSON.stringify(k)+': '+quoteString(v);};mixin(IndexedIterable,{// ### Conversion to other types
-	toKeyedSeq:function(){return new ToKeyedSequence(this,false);},// ### ES6 Collection methods (ES6 Array and Map)
-	filter:function(predicate,context){return reify(this,filterFactory(this,predicate,context,false));},findIndex:function(predicate,context){var entry=this.findEntry(predicate,context);return entry?entry[0]:-1;},indexOf:function(searchValue){var key=this.keyOf(searchValue);return key===undefined?-1:key;},lastIndexOf:function(searchValue){var key=this.lastKeyOf(searchValue);return key===undefined?-1:key;},reverse:function(){return reify(this,reverseFactory(this,false));},slice:function(begin,end){return reify(this,sliceFactory(this,begin,end,false));},splice:function(index,removeNum/*, ...values*/){var numArgs=arguments.length;removeNum=Math.max(removeNum|0,0);if(numArgs===0||numArgs===2&&!removeNum){return this;}// If index is negative, it should resolve relative to the size of the
-	// collection. However size may be expensive to compute if not cached, so
-	// only call count() if the number is in fact negative.
-	index=resolveBegin(index,index<0?this.count():this.size);var spliced=this.slice(0,index);return reify(this,numArgs===1?spliced:spliced.concat(arrCopy(arguments,2),this.slice(index+removeNum)));},// ### More collection methods
-	findLastIndex:function(predicate,context){var entry=this.findLastEntry(predicate,context);return entry?entry[0]:-1;},first:function(){return this.get(0);},flatten:function(depth){return reify(this,flattenFactory(this,depth,false));},get:function(index,notSetValue){index=wrapIndex(this,index);return index<0||this.size===Infinity||this.size!==undefined&&index>this.size?notSetValue:this.find(function(_,key){return key===index;},undefined,notSetValue);},has:function(index){index=wrapIndex(this,index);return index>=0&&(this.size!==undefined?this.size===Infinity||index<this.size:this.indexOf(index)!==-1);},interpose:function(separator){return reify(this,interposeFactory(this,separator));},interleave:function()/*...iterables*/{var iterables=[this].concat(arrCopy(arguments));var zipped=zipWithFactory(this.toSeq(),IndexedSeq.of,iterables);var interleaved=zipped.flatten(true);if(zipped.size){interleaved.size=zipped.size*iterables.length;}return reify(this,interleaved);},keySeq:function(){return Range(0,this.size);},last:function(){return this.get(-1);},skipWhile:function(predicate,context){return reify(this,skipWhileFactory(this,predicate,context,false));},zip:function()/*, ...iterables */{var iterables=[this].concat(arrCopy(arguments));return reify(this,zipWithFactory(this,defaultZipper,iterables));},zipWith:function(zipper/*, ...iterables */){var iterables=arrCopy(arguments);iterables[0]=this;return reify(this,zipWithFactory(this,zipper,iterables));}});IndexedIterable.prototype[IS_INDEXED_SENTINEL]=true;IndexedIterable.prototype[IS_ORDERED_SENTINEL]=true;mixin(SetIterable,{// ### ES6 Collection methods (ES6 Array and Map)
-	get:function(value,notSetValue){return this.has(value)?value:notSetValue;},includes:function(value){return this.has(value);},// ### More sequential methods
-	keySeq:function(){return this.valueSeq();}});SetIterable.prototype.has=IterablePrototype.includes;SetIterable.prototype.contains=SetIterable.prototype.includes;// Mixin subclasses
-	mixin(KeyedSeq,KeyedIterable.prototype);mixin(IndexedSeq,IndexedIterable.prototype);mixin(SetSeq,SetIterable.prototype);mixin(KeyedCollection,KeyedIterable.prototype);mixin(IndexedCollection,IndexedIterable.prototype);mixin(SetCollection,SetIterable.prototype);// #pragma Helper functions
-	function keyMapper(v,k){return k;}function entryMapper(v,k){return[k,v];}function not(predicate){return function(){return!predicate.apply(this,arguments);};}function neg(predicate){return function(){return-predicate.apply(this,arguments);};}function quoteString(value){return typeof value==='string'?JSON.stringify(value):String(value);}function defaultZipper(){return arrCopy(arguments);}function defaultNegComparator(a,b){return a<b?1:a>b?-1:0;}function hashIterable(iterable){if(iterable.size===Infinity){return 0;}var ordered=isOrdered(iterable);var keyed=isKeyed(iterable);var h=ordered?1:0;var size=iterable.__iterate(keyed?ordered?function(v,k){h=31*h+hashMerge(hash(v),hash(k))|0;}:function(v,k){h=h+hashMerge(hash(v),hash(k))|0;}:ordered?function(v){h=31*h+hash(v)|0;}:function(v){h=h+hash(v)|0;});return murmurHashOfSize(size,h);}function murmurHashOfSize(size,h){h=imul(h,0xCC9E2D51);h=imul(h<<15|h>>>-15,0x1B873593);h=imul(h<<13|h>>>-13,5);h=(h+0xE6546B64|0)^size;h=imul(h^h>>>16,0x85EBCA6B);h=imul(h^h>>>13,0xC2B2AE35);h=smi(h^h>>>16);return h;}function hashMerge(a,b){return a^b+0x9E3779B9+(a<<6)+(a>>2)|0;// int
-	}var Immutable={Iterable:Iterable,Seq:Seq,Collection:Collection,Map:Map,OrderedMap:OrderedMap,List:List,Stack:Stack,Set:Set,OrderedSet:OrderedSet,Record:Record,Range:Range,Repeat:Repeat,is:is,fromJS:fromJS};return Immutable;});
+	   */
+	  function mixin(ctor, methods) {
+	    var keyCopier = function (key) {
+	      ctor.prototype[key] = methods[key];
+	    };
+	    Object.keys(methods).forEach(keyCopier);
+	    Object.getOwnPropertySymbols && Object.getOwnPropertySymbols(methods).forEach(keyCopier);
+	    return ctor;
+	  }
+
+	  Iterable.Iterator = Iterator;
+
+	  mixin(Iterable, {
+
+	    // ### Conversion to other types
+
+	    toArray: function () {
+	      assertNotInfinite(this.size);
+	      var array = new Array(this.size || 0);
+	      this.valueSeq().__iterate(function (v, i) {
+	        array[i] = v;
+	      });
+	      return array;
+	    },
+
+	    toIndexedSeq: function () {
+	      return new ToIndexedSequence(this);
+	    },
+
+	    toJS: function () {
+	      return this.toSeq().map(function (value) {
+	        return value && typeof value.toJS === 'function' ? value.toJS() : value;
+	      }).__toJS();
+	    },
+
+	    toJSON: function () {
+	      return this.toSeq().map(function (value) {
+	        return value && typeof value.toJSON === 'function' ? value.toJSON() : value;
+	      }).__toJS();
+	    },
+
+	    toKeyedSeq: function () {
+	      return new ToKeyedSequence(this, true);
+	    },
+
+	    toMap: function () {
+	      // Use Late Binding here to solve the circular dependency.
+	      return Map(this.toKeyedSeq());
+	    },
+
+	    toObject: function () {
+	      assertNotInfinite(this.size);
+	      var object = {};
+	      this.__iterate(function (v, k) {
+	        object[k] = v;
+	      });
+	      return object;
+	    },
+
+	    toOrderedMap: function () {
+	      // Use Late Binding here to solve the circular dependency.
+	      return OrderedMap(this.toKeyedSeq());
+	    },
+
+	    toOrderedSet: function () {
+	      // Use Late Binding here to solve the circular dependency.
+	      return OrderedSet(isKeyed(this) ? this.valueSeq() : this);
+	    },
+
+	    toSet: function () {
+	      // Use Late Binding here to solve the circular dependency.
+	      return Set(isKeyed(this) ? this.valueSeq() : this);
+	    },
+
+	    toSetSeq: function () {
+	      return new ToSetSequence(this);
+	    },
+
+	    toSeq: function () {
+	      return isIndexed(this) ? this.toIndexedSeq() : isKeyed(this) ? this.toKeyedSeq() : this.toSetSeq();
+	    },
+
+	    toStack: function () {
+	      // Use Late Binding here to solve the circular dependency.
+	      return Stack(isKeyed(this) ? this.valueSeq() : this);
+	    },
+
+	    toList: function () {
+	      // Use Late Binding here to solve the circular dependency.
+	      return List(isKeyed(this) ? this.valueSeq() : this);
+	    },
+
+	    // ### Common JavaScript methods and properties
+
+	    toString: function () {
+	      return '[Iterable]';
+	    },
+
+	    __toString: function (head, tail) {
+	      if (this.size === 0) {
+	        return head + tail;
+	      }
+	      return head + ' ' + this.toSeq().map(this.__toStringMapper).join(', ') + ' ' + tail;
+	    },
+
+	    // ### ES6 Collection methods (ES6 Array and Map)
+
+	    concat: function () {
+	      var values = SLICE$0.call(arguments, 0);
+	      return reify(this, concatFactory(this, values));
+	    },
+
+	    includes: function (searchValue) {
+	      return this.some(function (value) {
+	        return is(value, searchValue);
+	      });
+	    },
+
+	    entries: function () {
+	      return this.__iterator(ITERATE_ENTRIES);
+	    },
+
+	    every: function (predicate, context) {
+	      assertNotInfinite(this.size);
+	      var returnValue = true;
+	      this.__iterate(function (v, k, c) {
+	        if (!predicate.call(context, v, k, c)) {
+	          returnValue = false;
+	          return false;
+	        }
+	      });
+	      return returnValue;
+	    },
+
+	    filter: function (predicate, context) {
+	      return reify(this, filterFactory(this, predicate, context, true));
+	    },
+
+	    find: function (predicate, context, notSetValue) {
+	      var entry = this.findEntry(predicate, context);
+	      return entry ? entry[1] : notSetValue;
+	    },
+
+	    forEach: function (sideEffect, context) {
+	      assertNotInfinite(this.size);
+	      return this.__iterate(context ? sideEffect.bind(context) : sideEffect);
+	    },
+
+	    join: function (separator) {
+	      assertNotInfinite(this.size);
+	      separator = separator !== undefined ? '' + separator : ',';
+	      var joined = '';
+	      var isFirst = true;
+	      this.__iterate(function (v) {
+	        isFirst ? isFirst = false : joined += separator;
+	        joined += v !== null && v !== undefined ? v.toString() : '';
+	      });
+	      return joined;
+	    },
+
+	    keys: function () {
+	      return this.__iterator(ITERATE_KEYS);
+	    },
+
+	    map: function (mapper, context) {
+	      return reify(this, mapFactory(this, mapper, context));
+	    },
+
+	    reduce: function (reducer, initialReduction, context) {
+	      assertNotInfinite(this.size);
+	      var reduction;
+	      var useFirst;
+	      if (arguments.length < 2) {
+	        useFirst = true;
+	      } else {
+	        reduction = initialReduction;
+	      }
+	      this.__iterate(function (v, k, c) {
+	        if (useFirst) {
+	          useFirst = false;
+	          reduction = v;
+	        } else {
+	          reduction = reducer.call(context, reduction, v, k, c);
+	        }
+	      });
+	      return reduction;
+	    },
+
+	    reduceRight: function (reducer, initialReduction, context) {
+	      var reversed = this.toKeyedSeq().reverse();
+	      return reversed.reduce.apply(reversed, arguments);
+	    },
+
+	    reverse: function () {
+	      return reify(this, reverseFactory(this, true));
+	    },
+
+	    slice: function (begin, end) {
+	      return reify(this, sliceFactory(this, begin, end, true));
+	    },
+
+	    some: function (predicate, context) {
+	      return !this.every(not(predicate), context);
+	    },
+
+	    sort: function (comparator) {
+	      return reify(this, sortFactory(this, comparator));
+	    },
+
+	    values: function () {
+	      return this.__iterator(ITERATE_VALUES);
+	    },
+
+	    // ### More sequential methods
+
+	    butLast: function () {
+	      return this.slice(0, -1);
+	    },
+
+	    isEmpty: function () {
+	      return this.size !== undefined ? this.size === 0 : !this.some(function () {
+	        return true;
+	      });
+	    },
+
+	    count: function (predicate, context) {
+	      return ensureSize(predicate ? this.toSeq().filter(predicate, context) : this);
+	    },
+
+	    countBy: function (grouper, context) {
+	      return countByFactory(this, grouper, context);
+	    },
+
+	    equals: function (other) {
+	      return deepEqual(this, other);
+	    },
+
+	    entrySeq: function () {
+	      var iterable = this;
+	      if (iterable._cache) {
+	        // We cache as an entries array, so we can just return the cache!
+	        return new ArraySeq(iterable._cache);
+	      }
+	      var entriesSequence = iterable.toSeq().map(entryMapper).toIndexedSeq();
+	      entriesSequence.fromEntrySeq = function () {
+	        return iterable.toSeq();
+	      };
+	      return entriesSequence;
+	    },
+
+	    filterNot: function (predicate, context) {
+	      return this.filter(not(predicate), context);
+	    },
+
+	    findEntry: function (predicate, context, notSetValue) {
+	      var found = notSetValue;
+	      this.__iterate(function (v, k, c) {
+	        if (predicate.call(context, v, k, c)) {
+	          found = [k, v];
+	          return false;
+	        }
+	      });
+	      return found;
+	    },
+
+	    findKey: function (predicate, context) {
+	      var entry = this.findEntry(predicate, context);
+	      return entry && entry[0];
+	    },
+
+	    findLast: function (predicate, context, notSetValue) {
+	      return this.toKeyedSeq().reverse().find(predicate, context, notSetValue);
+	    },
+
+	    findLastEntry: function (predicate, context, notSetValue) {
+	      return this.toKeyedSeq().reverse().findEntry(predicate, context, notSetValue);
+	    },
+
+	    findLastKey: function (predicate, context) {
+	      return this.toKeyedSeq().reverse().findKey(predicate, context);
+	    },
+
+	    first: function () {
+	      return this.find(returnTrue);
+	    },
+
+	    flatMap: function (mapper, context) {
+	      return reify(this, flatMapFactory(this, mapper, context));
+	    },
+
+	    flatten: function (depth) {
+	      return reify(this, flattenFactory(this, depth, true));
+	    },
+
+	    fromEntrySeq: function () {
+	      return new FromEntriesSequence(this);
+	    },
+
+	    get: function (searchKey, notSetValue) {
+	      return this.find(function (_, key) {
+	        return is(key, searchKey);
+	      }, undefined, notSetValue);
+	    },
+
+	    getIn: function (searchKeyPath, notSetValue) {
+	      var nested = this;
+	      // Note: in an ES6 environment, we would prefer:
+	      // for (var key of searchKeyPath) {
+	      var iter = forceIterator(searchKeyPath);
+	      var step;
+	      while (!(step = iter.next()).done) {
+	        var key = step.value;
+	        nested = nested && nested.get ? nested.get(key, NOT_SET) : NOT_SET;
+	        if (nested === NOT_SET) {
+	          return notSetValue;
+	        }
+	      }
+	      return nested;
+	    },
+
+	    groupBy: function (grouper, context) {
+	      return groupByFactory(this, grouper, context);
+	    },
+
+	    has: function (searchKey) {
+	      return this.get(searchKey, NOT_SET) !== NOT_SET;
+	    },
+
+	    hasIn: function (searchKeyPath) {
+	      return this.getIn(searchKeyPath, NOT_SET) !== NOT_SET;
+	    },
+
+	    isSubset: function (iter) {
+	      iter = typeof iter.includes === 'function' ? iter : Iterable(iter);
+	      return this.every(function (value) {
+	        return iter.includes(value);
+	      });
+	    },
+
+	    isSuperset: function (iter) {
+	      iter = typeof iter.isSubset === 'function' ? iter : Iterable(iter);
+	      return iter.isSubset(this);
+	    },
+
+	    keyOf: function (searchValue) {
+	      return this.findKey(function (value) {
+	        return is(value, searchValue);
+	      });
+	    },
+
+	    keySeq: function () {
+	      return this.toSeq().map(keyMapper).toIndexedSeq();
+	    },
+
+	    last: function () {
+	      return this.toSeq().reverse().first();
+	    },
+
+	    lastKeyOf: function (searchValue) {
+	      return this.toKeyedSeq().reverse().keyOf(searchValue);
+	    },
+
+	    max: function (comparator) {
+	      return maxFactory(this, comparator);
+	    },
+
+	    maxBy: function (mapper, comparator) {
+	      return maxFactory(this, comparator, mapper);
+	    },
+
+	    min: function (comparator) {
+	      return maxFactory(this, comparator ? neg(comparator) : defaultNegComparator);
+	    },
+
+	    minBy: function (mapper, comparator) {
+	      return maxFactory(this, comparator ? neg(comparator) : defaultNegComparator, mapper);
+	    },
+
+	    rest: function () {
+	      return this.slice(1);
+	    },
+
+	    skip: function (amount) {
+	      return this.slice(Math.max(0, amount));
+	    },
+
+	    skipLast: function (amount) {
+	      return reify(this, this.toSeq().reverse().skip(amount).reverse());
+	    },
+
+	    skipWhile: function (predicate, context) {
+	      return reify(this, skipWhileFactory(this, predicate, context, true));
+	    },
+
+	    skipUntil: function (predicate, context) {
+	      return this.skipWhile(not(predicate), context);
+	    },
+
+	    sortBy: function (mapper, comparator) {
+	      return reify(this, sortFactory(this, comparator, mapper));
+	    },
+
+	    take: function (amount) {
+	      return this.slice(0, Math.max(0, amount));
+	    },
+
+	    takeLast: function (amount) {
+	      return reify(this, this.toSeq().reverse().take(amount).reverse());
+	    },
+
+	    takeWhile: function (predicate, context) {
+	      return reify(this, takeWhileFactory(this, predicate, context));
+	    },
+
+	    takeUntil: function (predicate, context) {
+	      return this.takeWhile(not(predicate), context);
+	    },
+
+	    valueSeq: function () {
+	      return this.toIndexedSeq();
+	    },
+
+	    // ### Hashable Object
+
+	    hashCode: function () {
+	      return this.__hash || (this.__hash = hashIterable(this));
+	    }
+
+	    // ### Internal
+
+	    // abstract __iterate(fn, reverse)
+
+	    // abstract __iterator(type, reverse)
+	  });
+
+	  // var IS_ITERABLE_SENTINEL = '@@__IMMUTABLE_ITERABLE__@@';
+	  // var IS_KEYED_SENTINEL = '@@__IMMUTABLE_KEYED__@@';
+	  // var IS_INDEXED_SENTINEL = '@@__IMMUTABLE_INDEXED__@@';
+	  // var IS_ORDERED_SENTINEL = '@@__IMMUTABLE_ORDERED__@@';
+
+	  var IterablePrototype = Iterable.prototype;
+	  IterablePrototype[IS_ITERABLE_SENTINEL] = true;
+	  IterablePrototype[ITERATOR_SYMBOL] = IterablePrototype.values;
+	  IterablePrototype.__toJS = IterablePrototype.toArray;
+	  IterablePrototype.__toStringMapper = quoteString;
+	  IterablePrototype.inspect = IterablePrototype.toSource = function () {
+	    return this.toString();
+	  };
+	  IterablePrototype.chain = IterablePrototype.flatMap;
+	  IterablePrototype.contains = IterablePrototype.includes;
+
+	  mixin(KeyedIterable, {
+
+	    // ### More sequential methods
+
+	    flip: function () {
+	      return reify(this, flipFactory(this));
+	    },
+
+	    mapEntries: function (mapper, context) {
+	      var this$0 = this;
+	      var iterations = 0;
+	      return reify(this, this.toSeq().map(function (v, k) {
+	        return mapper.call(context, [k, v], iterations++, this$0);
+	      }).fromEntrySeq());
+	    },
+
+	    mapKeys: function (mapper, context) {
+	      var this$0 = this;
+	      return reify(this, this.toSeq().flip().map(function (k, v) {
+	        return mapper.call(context, k, v, this$0);
+	      }).flip());
+	    }
+
+	  });
+
+	  var KeyedIterablePrototype = KeyedIterable.prototype;
+	  KeyedIterablePrototype[IS_KEYED_SENTINEL] = true;
+	  KeyedIterablePrototype[ITERATOR_SYMBOL] = IterablePrototype.entries;
+	  KeyedIterablePrototype.__toJS = IterablePrototype.toObject;
+	  KeyedIterablePrototype.__toStringMapper = function (v, k) {
+	    return JSON.stringify(k) + ': ' + quoteString(v);
+	  };
+
+	  mixin(IndexedIterable, {
+
+	    // ### Conversion to other types
+
+	    toKeyedSeq: function () {
+	      return new ToKeyedSequence(this, false);
+	    },
+
+	    // ### ES6 Collection methods (ES6 Array and Map)
+
+	    filter: function (predicate, context) {
+	      return reify(this, filterFactory(this, predicate, context, false));
+	    },
+
+	    findIndex: function (predicate, context) {
+	      var entry = this.findEntry(predicate, context);
+	      return entry ? entry[0] : -1;
+	    },
+
+	    indexOf: function (searchValue) {
+	      var key = this.keyOf(searchValue);
+	      return key === undefined ? -1 : key;
+	    },
+
+	    lastIndexOf: function (searchValue) {
+	      var key = this.lastKeyOf(searchValue);
+	      return key === undefined ? -1 : key;
+	    },
+
+	    reverse: function () {
+	      return reify(this, reverseFactory(this, false));
+	    },
+
+	    slice: function (begin, end) {
+	      return reify(this, sliceFactory(this, begin, end, false));
+	    },
+
+	    splice: function (index, removeNum /*, ...values*/) {
+	      var numArgs = arguments.length;
+	      removeNum = Math.max(removeNum | 0, 0);
+	      if (numArgs === 0 || numArgs === 2 && !removeNum) {
+	        return this;
+	      }
+	      // If index is negative, it should resolve relative to the size of the
+	      // collection. However size may be expensive to compute if not cached, so
+	      // only call count() if the number is in fact negative.
+	      index = resolveBegin(index, index < 0 ? this.count() : this.size);
+	      var spliced = this.slice(0, index);
+	      return reify(this, numArgs === 1 ? spliced : spliced.concat(arrCopy(arguments, 2), this.slice(index + removeNum)));
+	    },
+
+	    // ### More collection methods
+
+	    findLastIndex: function (predicate, context) {
+	      var entry = this.findLastEntry(predicate, context);
+	      return entry ? entry[0] : -1;
+	    },
+
+	    first: function () {
+	      return this.get(0);
+	    },
+
+	    flatten: function (depth) {
+	      return reify(this, flattenFactory(this, depth, false));
+	    },
+
+	    get: function (index, notSetValue) {
+	      index = wrapIndex(this, index);
+	      return index < 0 || this.size === Infinity || this.size !== undefined && index > this.size ? notSetValue : this.find(function (_, key) {
+	        return key === index;
+	      }, undefined, notSetValue);
+	    },
+
+	    has: function (index) {
+	      index = wrapIndex(this, index);
+	      return index >= 0 && (this.size !== undefined ? this.size === Infinity || index < this.size : this.indexOf(index) !== -1);
+	    },
+
+	    interpose: function (separator) {
+	      return reify(this, interposeFactory(this, separator));
+	    },
+
+	    interleave: function () /*...iterables*/{
+	      var iterables = [this].concat(arrCopy(arguments));
+	      var zipped = zipWithFactory(this.toSeq(), IndexedSeq.of, iterables);
+	      var interleaved = zipped.flatten(true);
+	      if (zipped.size) {
+	        interleaved.size = zipped.size * iterables.length;
+	      }
+	      return reify(this, interleaved);
+	    },
+
+	    keySeq: function () {
+	      return Range(0, this.size);
+	    },
+
+	    last: function () {
+	      return this.get(-1);
+	    },
+
+	    skipWhile: function (predicate, context) {
+	      return reify(this, skipWhileFactory(this, predicate, context, false));
+	    },
+
+	    zip: function () /*, ...iterables */{
+	      var iterables = [this].concat(arrCopy(arguments));
+	      return reify(this, zipWithFactory(this, defaultZipper, iterables));
+	    },
+
+	    zipWith: function (zipper /*, ...iterables */) {
+	      var iterables = arrCopy(arguments);
+	      iterables[0] = this;
+	      return reify(this, zipWithFactory(this, zipper, iterables));
+	    }
+
+	  });
+
+	  IndexedIterable.prototype[IS_INDEXED_SENTINEL] = true;
+	  IndexedIterable.prototype[IS_ORDERED_SENTINEL] = true;
+
+	  mixin(SetIterable, {
+
+	    // ### ES6 Collection methods (ES6 Array and Map)
+
+	    get: function (value, notSetValue) {
+	      return this.has(value) ? value : notSetValue;
+	    },
+
+	    includes: function (value) {
+	      return this.has(value);
+	    },
+
+	    // ### More sequential methods
+
+	    keySeq: function () {
+	      return this.valueSeq();
+	    }
+
+	  });
+
+	  SetIterable.prototype.has = IterablePrototype.includes;
+	  SetIterable.prototype.contains = SetIterable.prototype.includes;
+
+	  // Mixin subclasses
+
+	  mixin(KeyedSeq, KeyedIterable.prototype);
+	  mixin(IndexedSeq, IndexedIterable.prototype);
+	  mixin(SetSeq, SetIterable.prototype);
+
+	  mixin(KeyedCollection, KeyedIterable.prototype);
+	  mixin(IndexedCollection, IndexedIterable.prototype);
+	  mixin(SetCollection, SetIterable.prototype);
+
+	  // #pragma Helper functions
+
+	  function keyMapper(v, k) {
+	    return k;
+	  }
+
+	  function entryMapper(v, k) {
+	    return [k, v];
+	  }
+
+	  function not(predicate) {
+	    return function () {
+	      return !predicate.apply(this, arguments);
+	    };
+	  }
+
+	  function neg(predicate) {
+	    return function () {
+	      return -predicate.apply(this, arguments);
+	    };
+	  }
+
+	  function quoteString(value) {
+	    return typeof value === 'string' ? JSON.stringify(value) : String(value);
+	  }
+
+	  function defaultZipper() {
+	    return arrCopy(arguments);
+	  }
+
+	  function defaultNegComparator(a, b) {
+	    return a < b ? 1 : a > b ? -1 : 0;
+	  }
+
+	  function hashIterable(iterable) {
+	    if (iterable.size === Infinity) {
+	      return 0;
+	    }
+	    var ordered = isOrdered(iterable);
+	    var keyed = isKeyed(iterable);
+	    var h = ordered ? 1 : 0;
+	    var size = iterable.__iterate(keyed ? ordered ? function (v, k) {
+	      h = 31 * h + hashMerge(hash(v), hash(k)) | 0;
+	    } : function (v, k) {
+	      h = h + hashMerge(hash(v), hash(k)) | 0;
+	    } : ordered ? function (v) {
+	      h = 31 * h + hash(v) | 0;
+	    } : function (v) {
+	      h = h + hash(v) | 0;
+	    });
+	    return murmurHashOfSize(size, h);
+	  }
+
+	  function murmurHashOfSize(size, h) {
+	    h = imul(h, 0xCC9E2D51);
+	    h = imul(h << 15 | h >>> -15, 0x1B873593);
+	    h = imul(h << 13 | h >>> -13, 5);
+	    h = (h + 0xE6546B64 | 0) ^ size;
+	    h = imul(h ^ h >>> 16, 0x85EBCA6B);
+	    h = imul(h ^ h >>> 13, 0xC2B2AE35);
+	    h = smi(h ^ h >>> 16);
+	    return h;
+	  }
+
+	  function hashMerge(a, b) {
+	    return a ^ b + 0x9E3779B9 + (a << 6) + (a >> 2) | 0; // int
+	  }
+
+	  var Immutable = {
+
+	    Iterable: Iterable,
+
+	    Seq: Seq,
+	    Collection: Collection,
+	    Map: Map,
+	    OrderedMap: OrderedMap,
+	    List: List,
+	    Stack: Stack,
+	    Set: Set,
+	    OrderedSet: OrderedSet,
+
+	    Record: Record,
+	    Range: Range,
+	    Repeat: Repeat,
+
+	    is: is,
+	    fromJS: fromJS
+
+	  };
+
+	  return Immutable;
+	});
 
 /***/ },
-/* 516 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -13809,15 +18573,15 @@ webpackJsonp([0],[
 	});
 	exports.Dispatcher = exports.ReduceStore = exports.Container = undefined;
 
-	var _FluxContainer = __webpack_require__(517);
+	var _FluxContainer = __webpack_require__(518);
 
 	var _FluxContainer2 = _interopRequireDefault(_FluxContainer);
 
-	var _FluxReduceStore = __webpack_require__(522);
+	var _FluxReduceStore = __webpack_require__(523);
 
 	var _FluxReduceStore2 = _interopRequireDefault(_FluxReduceStore);
 
-	var _Dispatcher2 = __webpack_require__(531);
+	var _Dispatcher2 = __webpack_require__(532);
 
 	var _Dispatcher3 = _interopRequireDefault(_Dispatcher2);
 
@@ -13830,7 +18594,7 @@ webpackJsonp([0],[
 	exports.Dispatcher = _Dispatcher3.default;
 
 /***/ },
-/* 517 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -13869,11 +18633,11 @@ webpackJsonp([0],[
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var FluxContainerSubscriptions = __webpack_require__(518);
+	var FluxContainerSubscriptions = __webpack_require__(519);
 	var React = __webpack_require__(2);
 
-	var invariant = __webpack_require__(520);
-	var shallowEqual = __webpack_require__(521);
+	var invariant = __webpack_require__(521);
+	var shallowEqual = __webpack_require__(522);
 
 	var Component = React.Component;
 
@@ -14119,7 +18883,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 518 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14141,7 +18905,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var FluxStoreGroup = __webpack_require__(519);
+	var FluxStoreGroup = __webpack_require__(520);
 
 	var FluxContainerSubscriptions = function () {
 	  function FluxContainerSubscriptions() {
@@ -14231,7 +18995,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 519 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14254,7 +19018,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var invariant = __webpack_require__(520);
+	var invariant = __webpack_require__(521);
 
 	/**
 	 * FluxStoreGroup allows you to execute a callback on every dispatch after
@@ -14316,9 +19080,9 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 520 */
-9,
 /* 521 */
+9,
+/* 522 */
 /***/ function(module, exports) {
 
 	/**
@@ -14390,7 +19154,7 @@ webpackJsonp([0],[
 	module.exports = shallowEqual;
 
 /***/ },
-/* 522 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14418,10 +19182,10 @@ webpackJsonp([0],[
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var FluxStore = __webpack_require__(523);
+	var FluxStore = __webpack_require__(524);
 
-	var abstractMethod = __webpack_require__(530);
-	var invariant = __webpack_require__(520);
+	var abstractMethod = __webpack_require__(531);
+	var invariant = __webpack_require__(521);
 
 	/**
 	 * This is the basic building block of a Flux application. All of your stores
@@ -14522,7 +19286,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 523 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14544,11 +19308,11 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var _require = __webpack_require__(524);
+	var _require = __webpack_require__(525);
 
 	var EventEmitter = _require.EventEmitter;
 
-	var invariant = __webpack_require__(520);
+	var invariant = __webpack_require__(521);
 
 	/**
 	 * This class represents the most basic functionality for a FluxStore. Do not
@@ -14583,7 +19347,7 @@ webpackJsonp([0],[
 
 	  /**
 	   * This exposes a unique string to identify each store's registered callback.
-	   * This is used with the dispatcher's waitFor method to devlaratively depend
+	   * This is used with the dispatcher's waitFor method to declaratively depend
 	   * on other stores updating themselves first.
 	   */
 
@@ -14640,7 +19404,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 524 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14653,14 +19417,14 @@ webpackJsonp([0],[
 	 */
 
 	var fbemitter = {
-	  EventEmitter: __webpack_require__(525),
-	  EmitterSubscription: __webpack_require__(526)
+	  EventEmitter: __webpack_require__(526),
+	  EmitterSubscription: __webpack_require__(527)
 	};
 
 	module.exports = fbemitter;
 
 /***/ },
-/* 525 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -14683,11 +19447,11 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var EmitterSubscription = __webpack_require__(526);
-	var EventSubscriptionVendor = __webpack_require__(528);
+	var EmitterSubscription = __webpack_require__(527);
+	var EventSubscriptionVendor = __webpack_require__(529);
 
-	var emptyFunction = __webpack_require__(529);
-	var invariant = __webpack_require__(520);
+	var emptyFunction = __webpack_require__(530);
+	var invariant = __webpack_require__(521);
 
 	/**
 	 * @class BaseEventEmitter
@@ -14861,7 +19625,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 526 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -14890,7 +19654,7 @@ webpackJsonp([0],[
 	  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
-	var EventSubscription = __webpack_require__(527);
+	var EventSubscription = __webpack_require__(528);
 
 	/**
 	 * EmitterSubscription represents a subscription with listener and context data.
@@ -14922,7 +19686,7 @@ webpackJsonp([0],[
 	module.exports = EmitterSubscription;
 
 /***/ },
-/* 527 */
+/* 528 */
 /***/ function(module, exports) {
 
 	/**
@@ -14980,7 +19744,7 @@ webpackJsonp([0],[
 	module.exports = EventSubscription;
 
 /***/ },
-/* 528 */
+/* 529 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15003,7 +19767,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var invariant = __webpack_require__(520);
+	var invariant = __webpack_require__(521);
 
 	/**
 	 * EventSubscriptionVendor stores a set of EventSubscriptions that are
@@ -15093,9 +19857,9 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 529 */
-13,
 /* 530 */
+13,
+/* 531 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15112,7 +19876,7 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	var invariant = __webpack_require__(520);
+	var invariant = __webpack_require__(521);
 
 	function abstractMethod(className, methodName) {
 	   true ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Subclasses of %s must override %s() with their own implementation.', className, methodName) : invariant(false) : undefined;
@@ -15122,7 +19886,7 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 531 */
+/* 532 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -15148,7 +19912,7 @@ webpackJsonp([0],[
 	  }
 	}
 
-	var invariant = __webpack_require__(520);
+	var invariant = __webpack_require__(521);
 
 	var _prefix = 'ID_';
 
@@ -15363,7 +20127,170 @@ webpackJsonp([0],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 532 */
+/* 533 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var _isArray = Array.isArray;
+
+	var getObjectValue = function getObjectValue(o, path, defaultValue) {
+	    if (!o || !_isArray(path)) {
+	        return defaultValue;
+	    }
+	    var current = o;
+	    path.every(function (a) {
+	        if (current[a]) {
+	            current = current[a];
+	            return true;
+	        } else {
+	            current = defaultValue;
+	            return false;
+	        }
+	    });
+	    return current;
+	};
+
+	exports.default = getObjectValue;
+	module.exports = exports['default'];
+
+/***/ },
+/* 534 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _getScrollInfo = __webpack_require__(535);
+
+	var isRunning = false;
+
+	var easeInOutCubic = function easeInOutCubic(t, b, c, d) {
+	    if ((t /= d / 2) < 1) {
+	        return c / 2 * t * t * t + b;
+	    }
+	    return c / 2 * ((t -= 2) * t * t + 2) + b;
+	};
+
+	var smoothScrollTo = function smoothScrollTo(to, duration, el, callback) {
+	    if (isRunning) {
+	        return false;
+	    } else {
+	        isRunning = true;
+	    }
+	    el = (0, _getScrollInfo.getScrollNode)(el);
+	    if (!duration) {
+	        duration = 900;
+	    }
+	    var from = el.scrollTop;
+	    var go = to - from;
+	    var beginTimeStamp = void 0;
+	    var scrollTo = function scrollTo(timeStamp) {
+	        beginTimeStamp = beginTimeStamp || timeStamp;
+	        var elapsedTime = timeStamp - beginTimeStamp;
+	        var progress = easeInOutCubic(elapsedTime, from, go, duration);
+	        el.scrollTop = progress;
+	        if (elapsedTime < duration && go) {
+	            requestAnimationFrame(scrollTo);
+	        } else {
+	            isRunning = false;
+	            if ('function' === typeof callback) {
+	                callback();
+	            }
+	        }
+	    };
+	    requestAnimationFrame(scrollTo);
+	};
+
+	exports.default = smoothScrollTo;
+	module.exports = exports['default'];
+
+/***/ },
+/* 535 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var lastScroll = void 0;
+
+	var isWebkit = void 0;
+	var docEl = void 0;
+	if ('undefined' !== typeof document) {
+	    isWebkit = 'undefined' !== typeof document.webkitIsFullScreen;
+	    docEl = document.documentElement;
+	}
+
+	var getScrollNode = function getScrollNode(el) {
+	    if (!el) {
+	        if ('undefined' !== typeof document) {
+	            el = document.body;
+	        }
+	        if ('undefined' === typeof el.scrollLeft) {
+	            el = docEl;
+	        }
+	    }
+	    return el;
+	};
+
+	var getScrollInfo = function getScrollInfo(el, margin) {
+	    el = getScrollNode(el);
+	    if (!margin) {
+	        margin = 50;
+	    }
+	    var h = void 0;
+	    var w = void 0;
+	    var isBody = el.nodeName && 'body' === el.nodeName.toLowerCase();
+	    if (isWebkit && isBody) {
+	        h = window.innerHeight;
+	        w = window.innerWidth;
+	    } else {
+	        h = el.clientHeight;
+	        w = el.clientWidth;
+	    }
+	    var scrollLeft = el.scrollLeft;
+	    var scrollHeight = el.scrollHeight;
+	    var scrollTop = el.scrollTop;
+	    var scrollWidth = el.scrollWidth;
+	    var scrollBottom = scrollTop + h;
+	    var scrollRight = scrollLeft + w;
+
+	    var info = {
+	        atTop: scrollTop < margin,
+	        atRight: scrollRight > scrollWidth - margin,
+	        atBottom: scrollBottom > scrollHeight - margin,
+	        atLeft: scrollLeft < margin,
+
+	        isScrollDown: lastScroll && scrollTop > lastScroll.top,
+	        isScrollLeft: lastScroll && scrollLeft < lastScroll.left,
+	        isScrollRight: lastScroll && scrollLeft > lastScroll.left,
+	        isScrollUp: lastScroll && scrollTop < lastScroll.top,
+
+	        scrollWidth: scrollWidth,
+	        scrollHeight: scrollHeight,
+
+	        top: scrollTop,
+	        right: scrollRight,
+	        bottom: scrollBottom,
+	        left: scrollLeft
+	    };
+	    lastScroll = info;
+	    return info;
+	};
+
+	exports.default = getScrollInfo;
+	exports.getScrollNode = getScrollNode;
+
+/***/ },
+/* 536 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15373,7 +20300,7 @@ webpackJsonp([0],[
 	});
 	exports.ajaxDispatch = undefined;
 
-	var _reduceFlux = __webpack_require__(516);
+	var _reduceFlux = __webpack_require__(517);
 
 	var instance = new _reduceFlux.Dispatcher();
 	exports.default = instance;
@@ -15383,11 +20310,17 @@ webpackJsonp([0],[
 	var ajaxDispatch = exports.ajaxDispatch = instance.dispatch.bind(instance);
 
 /***/ },
-/* 533 */,
-/* 534 */,
-/* 535 */,
-/* 536 */,
-/* 537 */
+/* 537 */,
+/* 538 */,
+/* 539 */,
+/* 540 */,
+/* 541 */,
+/* 542 */,
+/* 543 */,
+/* 544 */,
+/* 545 */,
+/* 546 */,
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15410,11 +20343,15 @@ webpackJsonp([0],[
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ajaxStore = __webpack_require__(514);
+	var _getObjectValue = __webpack_require__(533);
+
+	var _getObjectValue2 = _interopRequireDefault(_getObjectValue);
+
+	var _ajaxStore = __webpack_require__(515);
 
 	var _ajaxStore2 = _interopRequireDefault(_ajaxStore);
 
-	var _ajaxDispatcher = __webpack_require__(532);
+	var _ajaxDispatcher = __webpack_require__(536);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -15438,6 +20375,8 @@ webpackJsonp([0],[
 	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 	}
 
+	var pages = {};
+
 	var AjaxPage = function (_Component) {
 	    _inherits(AjaxPage, _Component);
 
@@ -15456,13 +20395,15 @@ webpackJsonp([0],[
 	    _createClass(AjaxPage, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            var props = this.props;
 	            var updateWithUrl = function updateWithUrl(url) {
 	                var pageState = _ajaxStore2.default.getState();
 	                if (pageState.get('url') !== url) {
 	                    (0, _ajaxDispatcher.ajaxDispatch)({
 	                        type: 'ajaxGet',
 	                        params: {
-	                            url: url
+	                            url: url,
+	                            scrollBack: true
 	                        }
 	                    });
 	                }
@@ -15474,6 +20415,9 @@ webpackJsonp([0],[
 	                        updateWithUrl: updateWithUrl
 	                    }
 	                });
+	                if (window.WebSocket && props.webSocketUrl) {
+	                    _ajaxStore2.default.initWs(props.webSocketUrl);
+	                }
 	            });
 	            window.onpopstate = function (e) {
 	                var pageState = _ajaxStore2.default.getState();
@@ -15507,7 +20451,17 @@ webpackJsonp([0],[
 	                    }
 	                });
 	            });
-	            return themes[thisThemePath];
+	            if (!pages[thisThemePath]) {
+	                var myTheme = themes[thisThemePath];
+	                var build = void 0;
+	                if (_react2.default.isValidElement(myTheme)) {
+	                    build = _react2.default.cloneElement;
+	                } else {
+	                    build = _react2.default.createElement;
+	                }
+	                pages[thisThemePath] = build(myTheme);
+	            }
+	            return pages[thisThemePath];
 	        }
 	    }]);
 
@@ -15522,7 +20476,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 538 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -15551,17 +20505,21 @@ webpackJsonp([0],[
 	    };
 	}();
 
-	var _reactAtomicMolecule = __webpack_require__(436);
+	var _react = __webpack_require__(2);
 
-	var _AjaxBase2 = __webpack_require__(513);
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactAtomicMolecule = __webpack_require__(437);
+
+	var _AjaxBase2 = __webpack_require__(514);
 
 	var _AjaxBase3 = _interopRequireDefault(_AjaxBase2);
 
-	var _ajaxStore = __webpack_require__(514);
+	var _ajaxStore = __webpack_require__(515);
 
 	var _ajaxStore2 = _interopRequireDefault(_ajaxStore);
 
-	var _ajaxDispatcher = __webpack_require__(532);
+	var _ajaxDispatcher = __webpack_require__(536);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -15595,15 +20553,23 @@ webpackJsonp([0],[
 	    _inherits(AjaxForm, _AjaxBase);
 
 	    function AjaxForm() {
+	        var _ref;
+
+	        var _temp, _this, _ret;
+
 	        _classCallCheck(this, AjaxForm);
 
-	        return _possibleConstructorReturn(this, (AjaxForm.__proto__ || Object.getPrototypeOf(AjaxForm)).apply(this, arguments));
-	    }
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
 
-	    _createClass(AjaxForm, [{
-	        key: 'handleOnSubmit',
-	        value: function handleOnSubmit(e) {
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AjaxForm.__proto__ || Object.getPrototypeOf(AjaxForm)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnSubmit = function (e) {
 	            e.preventDefault();
+	            var _this$props = _this.props,
+	                callback = _this$props.callback,
+	                errorCallback = _this$props.errorCallback,
+	                updateUrl = _this$props.updateUrl;
+
 	            var formDom = e.target;
 	            var elements = formDom.elements;
 	            var action = formDom.action;
@@ -15621,8 +20587,8 @@ webpackJsonp([0],[
 	                case 'get':
 	                    type = 'ajaxGet';
 	                    otherParams = {
-	                        disableAjax: !this.isRunAjax(),
-	                        updateUrl: this.props.updateUrl
+	                        disableAjax: !_this.isRunAjax(),
+	                        updateUrl: updateUrl
 	                    };
 	                    break;
 	                case 'post':
@@ -15636,12 +20602,14 @@ webpackJsonp([0],[
 	                params: _extends({
 	                    url: action,
 	                    query: formParams,
-	                    callback: this.props.callback,
-	                    errorCallback: this.props.errorCallback
+	                    callback: callback,
+	                    errorCallback: errorCallback
 	                }, otherParams)
 	            });
-	        }
-	    }, {
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+
+	    _createClass(AjaxForm, [{
 	        key: 'render',
 	        value: function render() {
 	            var _props = this.props,
@@ -15649,17 +20617,18 @@ webpackJsonp([0],[
 	                path = _props.path,
 	                callback = _props.callback,
 	                errorCallback = _props.errorCallback,
-	                rest = _objectWithoutProperties(_props, ['action', 'path', 'callback', 'errorCallback']);
+	                updateUrl = _props.updateUrl,
+	                rest = _objectWithoutProperties(_props, ['action', 'path', 'callback', 'errorCallback', 'updateUrl']);
 
 	            var thisUrl = _ajaxStore2.default.getRawUrl({
 	                url: action,
 	                path: path
 	            });
-	            return React.createElement(_reactAtomicMolecule.Form, _extends({
+	            return _react2.default.createElement(_reactAtomicMolecule.Form, _extends({
 	                atom: 'form',
 	                action: thisUrl
 	            }, rest, {
-	                onSubmit: this.handleOnSubmit.bind(this)
+	                onSubmit: this.handleOnSubmit
 	            }));
 	        }
 	    }]);
@@ -15667,17 +20636,20 @@ webpackJsonp([0],[
 	    return AjaxForm;
 	}(_AjaxBase3.default);
 
+	AjaxForm.defaultProps = {
+	    updateUrl: false
+	};
 	exports.default = AjaxForm;
 	module.exports = exports['default'];
 
 /***/ },
-/* 539 */
+/* 549 */
 /***/ function(module, exports) {
 
 	module.exports = "import React from 'react'; \n\n/**\n * Production please use\n * import CodeExample from 'organism-react-code'\n */\nimport CodeExample from \"../../src/index\"\n\n/**\n * Your source code.\n * npm i raw-loader\n */\nimport code from '!raw!../../../ui/pages/index';\n\nconst Index = (props) => (\n    <CodeExample\n        code={code}\n        header=\"Test Header\"\n        git=\"react-atomic/react-atomic-organism/tree/master/packages/organism-react-code/\"\n        npm=\"organism-react-code\"\n    >\n        <div>Test Demo Area</div>\n    </CodeExample>\n);\n\nexport default Index;\n"
 
 /***/ },
-/* 540 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__, __webpack_module_template_argument_3__, __webpack_module_template_argument_4__, __webpack_module_template_argument_5__, __webpack_module_template_argument_6__, __webpack_module_template_argument_7__, __webpack_module_template_argument_8__, __webpack_module_template_argument_9__, __webpack_module_template_argument_10__, __webpack_module_template_argument_11__, __webpack_module_template_argument_12__, __webpack_module_template_argument_13__, __webpack_module_template_argument_14__, __webpack_module_template_argument_15__, __webpack_module_template_argument_16__, __webpack_module_template_argument_17__, __webpack_module_template_argument_18__, __webpack_module_template_argument_19__, __webpack_module_template_argument_20__, __webpack_module_template_argument_21__, __webpack_module_template_argument_22__, __webpack_module_template_argument_23__, __webpack_module_template_argument_24__, __webpack_module_template_argument_25__, __webpack_module_template_argument_26__, __webpack_module_template_argument_27__, __webpack_module_template_argument_28__, __webpack_module_template_argument_29__, __webpack_module_template_argument_30__, __webpack_module_template_argument_31__, __webpack_module_template_argument_32__, __webpack_module_template_argument_33__, __webpack_module_template_argument_34__, __webpack_module_template_argument_35__) {
 
 	'use strict';
@@ -15896,7 +20868,7 @@ webpackJsonp([0],[
 	// config
 
 /***/ },
-/* 541 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__, __webpack_module_template_argument_3__) {
 
 	'use strict';
@@ -15932,7 +20904,7 @@ webpackJsonp([0],[
 	exports.toggleClass = _toggleClass3.default;
 
 /***/ },
-/* 542 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -15957,7 +20929,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 543 */
+/* 553 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__) {
 
 	'use strict';
@@ -15993,7 +20965,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 544 */
+/* 554 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__) {
 
 	'use strict';
@@ -16024,7 +20996,7 @@ webpackJsonp([0],[
 	};
 
 /***/ },
-/* 545 */
+/* 555 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16064,7 +21036,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 546 */
+/* 556 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16139,7 +21111,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 547 */
+/* 557 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16179,7 +21151,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 548 */
+/* 558 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16219,7 +21191,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 549 */
+/* 559 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16257,7 +21229,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 550 */
+/* 560 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16332,7 +21304,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 551 */
+/* 561 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16373,7 +21345,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 552 */
+/* 562 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16411,7 +21383,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 553 */
+/* 563 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16516,7 +21488,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 554 */
+/* 564 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16571,7 +21543,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 555 */
+/* 565 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16672,7 +21644,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 556 */
+/* 566 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16712,7 +21684,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 557 */
+/* 567 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16766,7 +21738,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 558 */
+/* 568 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16806,7 +21778,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 559 */
+/* 569 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16879,7 +21851,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 560 */
+/* 570 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -16953,7 +21925,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 561 */
+/* 571 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17059,7 +22031,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 562 */
+/* 572 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17142,7 +22114,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 563 */
+/* 573 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17182,7 +22154,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 564 */
+/* 574 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17222,7 +22194,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 565 */
+/* 575 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17302,7 +22274,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 566 */
+/* 576 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17343,7 +22315,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 567 */
+/* 577 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17406,7 +22378,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 568 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17459,7 +22431,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 569 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17496,7 +22468,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 570 */
+/* 580 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__) {
 
 	'use strict';
@@ -17679,7 +22651,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 571 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__, __webpack_module_template_argument_3__, __webpack_module_template_argument_4__, __webpack_module_template_argument_5__, __webpack_module_template_argument_6__, __webpack_module_template_argument_7__, __webpack_module_template_argument_8__, __webpack_module_template_argument_9__, __webpack_module_template_argument_10__, __webpack_module_template_argument_11__, __webpack_module_template_argument_12__, __webpack_module_template_argument_13__, __webpack_module_template_argument_14__, __webpack_module_template_argument_15__, __webpack_module_template_argument_16__, __webpack_module_template_argument_17__, __webpack_module_template_argument_18__, __webpack_module_template_argument_19__, __webpack_module_template_argument_20__, __webpack_module_template_argument_21__, __webpack_module_template_argument_22__, __webpack_module_template_argument_23__, __webpack_module_template_argument_24__, __webpack_module_template_argument_25__, __webpack_module_template_argument_26__) {
 
 	'use strict';
@@ -17830,7 +22802,7 @@ webpackJsonp([0],[
 	exports.Ul = _ul2.default;
 
 /***/ },
-/* 572 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17839,7 +22811,7 @@ webpackJsonp([0],[
 	module.exports = base('a');
 
 /***/ },
-/* 573 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17848,7 +22820,7 @@ webpackJsonp([0],[
 	module.exports = base('button');
 
 /***/ },
-/* 574 */
+/* 584 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17857,7 +22829,7 @@ webpackJsonp([0],[
 	module.exports = base('div');
 
 /***/ },
-/* 575 */
+/* 585 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17866,7 +22838,7 @@ webpackJsonp([0],[
 	module.exports = base('dl');
 
 /***/ },
-/* 576 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17875,7 +22847,7 @@ webpackJsonp([0],[
 	module.exports = base('form');
 
 /***/ },
-/* 577 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17884,7 +22856,7 @@ webpackJsonp([0],[
 	module.exports = base('h1');
 
 /***/ },
-/* 578 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17893,7 +22865,7 @@ webpackJsonp([0],[
 	module.exports = base('h2');
 
 /***/ },
-/* 579 */
+/* 589 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17902,7 +22874,7 @@ webpackJsonp([0],[
 	module.exports = base('h3');
 
 /***/ },
-/* 580 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17911,7 +22883,7 @@ webpackJsonp([0],[
 	module.exports = base('h4');
 
 /***/ },
-/* 581 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17920,7 +22892,7 @@ webpackJsonp([0],[
 	module.exports = base('h5');
 
 /***/ },
-/* 582 */
+/* 592 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17929,7 +22901,7 @@ webpackJsonp([0],[
 	module.exports = base('h6');
 
 /***/ },
-/* 583 */
+/* 593 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17938,7 +22910,7 @@ webpackJsonp([0],[
 	module.exports = base('i');
 
 /***/ },
-/* 584 */
+/* 594 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17947,7 +22919,7 @@ webpackJsonp([0],[
 	module.exports = base('img');
 
 /***/ },
-/* 585 */
+/* 595 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17956,7 +22928,7 @@ webpackJsonp([0],[
 	module.exports = base('input');
 
 /***/ },
-/* 586 */
+/* 596 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17965,7 +22937,7 @@ webpackJsonp([0],[
 	module.exports = base('label');
 
 /***/ },
-/* 587 */
+/* 597 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17974,7 +22946,7 @@ webpackJsonp([0],[
 	module.exports = base('li');
 
 /***/ },
-/* 588 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17983,7 +22955,7 @@ webpackJsonp([0],[
 	module.exports = base('nav');
 
 /***/ },
-/* 589 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -17992,7 +22964,7 @@ webpackJsonp([0],[
 	module.exports = base('ol');
 
 /***/ },
-/* 590 */
+/* 600 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18001,7 +22973,7 @@ webpackJsonp([0],[
 	module.exports = base('path');
 
 /***/ },
-/* 591 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18010,7 +22982,7 @@ webpackJsonp([0],[
 	module.exports = base('section');
 
 /***/ },
-/* 592 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18019,7 +22991,7 @@ webpackJsonp([0],[
 	module.exports = base('span');
 
 /***/ },
-/* 593 */
+/* 603 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18028,7 +23000,7 @@ webpackJsonp([0],[
 	module.exports = base('svg');
 
 /***/ },
-/* 594 */
+/* 604 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18037,7 +23009,7 @@ webpackJsonp([0],[
 	module.exports = base('table');
 
 /***/ },
-/* 595 */
+/* 605 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18046,7 +23018,7 @@ webpackJsonp([0],[
 	module.exports = base('td');
 
 /***/ },
-/* 596 */
+/* 606 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18055,7 +23027,7 @@ webpackJsonp([0],[
 	module.exports = base('textarea');
 
 /***/ },
-/* 597 */
+/* 607 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18064,7 +23036,7 @@ webpackJsonp([0],[
 	module.exports = base('th');
 
 /***/ },
-/* 598 */
+/* 608 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18073,7 +23045,7 @@ webpackJsonp([0],[
 	module.exports = base('ul');
 
 /***/ },
-/* 599 */
+/* 609 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__, __webpack_module_template_argument_2__, __webpack_module_template_argument_3__) {
 
 	'use strict';
@@ -18163,7 +23135,7 @@ webpackJsonp([0],[
 	exports.default = injectStyle;
 
 /***/ },
-/* 600 */
+/* 610 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__) {
 
 	'use strict';
@@ -18280,7 +23252,7 @@ webpackJsonp([0],[
 	module.exports = stylesToCSS;
 
 /***/ },
-/* 601 */
+/* 611 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18320,7 +23292,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 602 */
+/* 612 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18360,7 +23332,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 603 */
+/* 613 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18410,7 +23382,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 604 */
+/* 614 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	'use strict';
@@ -18443,7 +23415,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 605 */
+/* 615 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__, __webpack_module_template_argument_1__) {
 
 	/*jslint browser: true*/
@@ -18520,7 +23492,7 @@ webpackJsonp([0],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 606 */
+/* 616 */
 /***/ function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	/*jslint browser: true*/
