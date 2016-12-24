@@ -10,6 +10,7 @@ import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 const empty = function(){}
 let wsAuth = Map();
 let worker;
+let isWorkerReady;
 let cbIndex = 0;
 let Callbacks = [];
 
@@ -19,6 +20,7 @@ const initWorker = (worker) =>
         const data = get(e, ['data']);
         switch (get(e, ['data','type'])) {
             case 'ready':
+                isWorkerReady = true;
                 break;
             default:
                 ajaxDispatch({
@@ -183,10 +185,10 @@ class AjaxStore extends ReduceStore
     if (!params.disableRandom) {
         params.query.r = ((new Date()).getTime());
     }
-    worker.postMessage({
+    self.worker({
         type: 'ajaxGet',
         url: ajaxUrl,
-        action: this.storeCallback(action)
+        action: self.storeCallback(action)
     });
     return state;
   }
@@ -198,10 +200,10 @@ class AjaxStore extends ReduceStore
     const params = action.params;
     const rawUrl = this.getRawUrl(params);
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-    worker.postMessage({
+    self.worker({
         type: 'ajaxPost',
         url: ajaxUrl,
-        action: this.storeCallback(action)
+        action: self.storeCallback(action)
     });
     return state;
   }
@@ -228,9 +230,23 @@ class AjaxStore extends ReduceStore
     return state;
   }
 
+  worker(data)
+  {
+    if (isWorkerReady) {
+        setTimeout(()=>{
+            worker.postMessage(data);
+        });
+    } else {
+        const self = this;
+        setTimeout(()=>{
+            self.worker(data);
+        }, 50);
+    }
+  }
+
   initWs(url)
   {
-    worker.postMessage({ws: url, type: 'initWs'});
+    this.worker({ws: url, type: 'initWs'});
   }
 
   setWsAuth(action)
