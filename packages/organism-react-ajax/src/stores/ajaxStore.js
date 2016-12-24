@@ -46,6 +46,7 @@ class AjaxStore extends ReduceStore
         require(['../../src/worker'],(workerObject)=>{ 
             worker = workerObject; 
             initWorker(worker);
+            isWorkerReady = true;
         });
     }
       return Map();
