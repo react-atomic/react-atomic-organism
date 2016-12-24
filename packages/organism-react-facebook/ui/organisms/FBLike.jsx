@@ -53,7 +53,8 @@ export default FBLike;
 
 const Styles = {
     container: {
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
     },
     svg: {
         fill: '#3b5998',
