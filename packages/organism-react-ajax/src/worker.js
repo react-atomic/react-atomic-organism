@@ -38,39 +38,35 @@ onmessage = (e) =>
     }
 };
 
-const ajaxGet = ({url, params, callback, action}) =>
+const ajaxGet = ({url, action}) =>
 {
+    const {params} = action;
     require(['superagent'],(req)=>{ 
        req.get(url)
           .query(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
             post({
-                params: { 
-                    err: err,
-                    text: res.text,
-                    action: action
-                },
-                callback: callback
+                ...action,
+                err: err,
+                text: res.text,
             });                 
           });
     });
 }
 
-const ajaxPost = ({url, params, callback, action}) =>
+const ajaxPost = ({url, action}) =>
 {
+    const {params} = action;
     require(['superagent'],(req)=>{ 
        req.post(url)
           .send(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
             post({
-                params: { 
-                    err: err,
-                    text: res.text,
-                    action: action
-                },
-                callback: callback
+                ...action,
+                err: err,
+                text: res.text,
             });                 
           });
     });
@@ -82,7 +78,7 @@ const initWs = (url) =>
     ws.onopen = (e) => { };
     ws.onerror = (e) => { };
     ws.onmessage = (e) => {
-        post({type: 'ws', data: e.data});
+        post({type: 'ws', text: e.data});
     };
 };
 export default {

@@ -2,8 +2,10 @@
 
 import {Map} from 'immutable';
 import {ReduceStore} from 'reduce-flux';
-import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 import get from 'get-object-value';
+import smoothScrollTo from 'smooth-scroll-to';
+
+import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 
 const empty = function(){}
 let wsAuth = Map();
@@ -16,35 +18,14 @@ const initWorker = (worker) =>
         switch (get(e, ['data','type'])) {
             case 'ready':
                 break;
-            case 'ws':
-                ajaxDispatch({
-                    type: 'callback',
-                    params: {
-                        data: e.data.data
-                    }
-                });
-                break;
             default:
-                const cbkey = get(e, ['data', 'callback']);
-                const params = get(e, ['data', 'params']);
-                Callback[cbkey].call(null, params);
+                ajaxDispatch({
+                    ...e.data,
+                    type: 'callback',
+                });
                 break;
         }
     });
-};
-
-const Callback = {
-    ajax: ({err, text, action})=>
-    {
-        ajaxStore.done();
-        const json = ajaxStore.getJson(text);
-        const callback = ajaxStore.getCallback(ajaxStore.getState(), action, json);
-        callback(json, text);
-        const params = get(action, ['params']);
-        if (params.updateUrl || params.scrollBack) {
-            window.scrollTo(0,0);
-        }
-    }
 };
 
 class AjaxStore extends ReduceStore
@@ -190,8 +171,6 @@ class AjaxStore extends ReduceStore
     worker.postMessage({
         type: 'ajaxGet',
         url: ajaxUrl,
-        params: params,
-        callback: 'ajax',
         action: action
     });
     return state;
@@ -207,8 +186,6 @@ class AjaxStore extends ReduceStore
     worker.postMessage({
         type: 'ajaxPost',
         url: ajaxUrl,
-        params: params,
-        callback: 'ajax',
         action: action
     });
     return state;
@@ -216,18 +193,21 @@ class AjaxStore extends ReduceStore
 
   applyCallback(state, action)
   {
-    const data = get(action, ['params', 'data']);
-    const json = this.getJson(data);
+    this.done();
+    const params = get(action, ['params']); 
+    const text = get(action, ['text']);
+    const json = this.getJson(text);
     const callback = this.getCallback(state, action, json);
     switch (get(json,['type'])) {
         case 'auth':
             this.setWsAuth(get(json,['data']));
             break;
         default:
-            if (get(json,['data','constructor'])===Object) {
-                callback(json.data, data);
-            }
+            callback(json, text);
             break;
+    }
+    if (params.updateUrl || params.scrollBack) {
+        smoothScrollTo(0);
     }
     return state;
   }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react'; 
-import smoothScrollTo from 'smooth-scroll-to';
 import get from 'get-object-value';
 
 import ajaxStore from '../../src/stores/ajaxStore';
@@ -30,10 +29,10 @@ class AjaxPage extends Component
                 ajaxDispatch({
                     type: 'ajaxGet',
                     params: {
-                        url: url 
+                        url: url,
+                        scrollBack: true
                     }
                 });
-                smoothScrollTo(0);
             }
         };
         setTimeout(()=>{
