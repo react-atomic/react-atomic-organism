@@ -10,6 +10,8 @@ import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 const empty = function(){}
 let wsAuth = Map();
 let worker;
+let cbIndex = 0;
+let Callbacks = [];
 
 const initWorker = (worker) =>
 {
@@ -102,7 +104,8 @@ class AjaxStore extends ReduceStore
       }
       if (!callback) {
           if (params.callback) {
-            callback = params.callback;
+            callback = Callbacks[params.callback];
+            delete(Callbacks[params.callback]);
           } else {
             callback = state.get('callback');
           } 
@@ -145,6 +148,18 @@ class AjaxStore extends ReduceStore
     });
   }
 
+  storeCallback(action)
+  {
+    let cb = get(action,['params','callback']);
+    if (cb) {
+        const cbKey = 'cb'+cbIndex;
+        Callbacks[cbKey] = cb;
+        action.params.callback = cbKey;
+        cbIndex++;
+    }
+    return action;
+  }
+
   ajaxGet(state, action)
   {
     const self = this;
@@ -171,7 +186,7 @@ class AjaxStore extends ReduceStore
     worker.postMessage({
         type: 'ajaxGet',
         url: ajaxUrl,
-        action: action
+        action: this.storeCallback(action)
     });
     return state;
   }
@@ -186,7 +201,7 @@ class AjaxStore extends ReduceStore
     worker.postMessage({
         type: 'ajaxPost',
         url: ajaxUrl,
-        action: action
+        action: this.storeCallback(action)
     });
     return state;
   }
@@ -196,6 +211,7 @@ class AjaxStore extends ReduceStore
     this.done();
     const params = get(action, ['params'], {}); 
     const text = get(action, ['text']);
+    const response = get(action, ['response']); 
     const json = this.getJson(text);
     const callback = this.getCallback(state, action, json);
     switch (get(json,['type'])) {
@@ -203,7 +219,7 @@ class AjaxStore extends ReduceStore
             this.setWsAuth(get(json,['data']));
             break;
         default:
-            callback(json, text);
+            callback(json, text, response);
             break;
     }
     if (params.updateUrl || params.scrollBack) {

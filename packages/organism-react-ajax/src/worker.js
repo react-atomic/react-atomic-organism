@@ -51,16 +51,17 @@ onmessage = (e) =>
 
 const ajaxGet = ({url, action}) =>
 {
-    const {params} = action;
+    const params = get(action, ['params'], {});
     require(['superagent'],(req)=>{ 
        req.get(url)
           .query(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
+            const {req, xhr, error, ...resetRes} = res;
             post({
                 ...action,
-                err: err,
                 text: res.text,
+                response: resetRes 
             });                 
           });
     });
@@ -68,16 +69,17 @@ const ajaxGet = ({url, action}) =>
 
 const ajaxPost = ({url, action}) =>
 {
-    const {params} = action;
+    const params = get(action, ['params'], {});
     require(['superagent'],(req)=>{ 
        req.post(url)
           .send(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
+            const {req, xhr, error, ...resetRes} = res;
             post({
                 ...action,
-                err: err,
                 text: res.text,
+                response: resetRes 
             });                 
           });
     });
