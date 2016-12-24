@@ -43,32 +43,15 @@ class AjaxPage extends Component
                     updateWithUrl: updateWithUrl
                 }
             });
+            if (window.WebSocket && props.webSocketUrl) {
+                ajaxStore.initWs(props.webSocketUrl);
+            }
         });
         window.onpopstate = (e)=> {
             const pageState = ajaxStore.getState();
             const updateWithUrl = pageState.get('updateWithUrl');
             updateWithUrl(document.URL);
         };
-        if (props.webSocketUrl && window.Worker) {
-            require(['worker-loader!../../src/worker'],(WorkerObject)=>{ 
-                const worker = new WorkerObject();
-                worker.addEventListener('message', (e)=>{
-                    switch (get(e, ['data','type'])) {
-                        case 'ready':
-                            worker.postMessage({ws: props.webSocketUrl, type: 'initWs'});
-                            break;
-                        case 'ws':
-                            ajaxDispatch({
-                                type: 'callback',
-                                params: {
-                                    data: e.data.data
-                                }
-                            });
-                            break;
-                    };
-                });
-            });
-        }
     }
 
     render() {

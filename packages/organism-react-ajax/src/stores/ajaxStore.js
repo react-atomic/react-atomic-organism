@@ -1,18 +1,69 @@
 'use strict';
 
-import Immutable from 'immutable';
+import {Map} from 'immutable';
 import {ReduceStore} from 'reduce-flux';
 import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 import get from 'get-object-value';
 
 const empty = function(){}
+let wsAuth = Map();
+let worker;
+
+const initWorker = (worker) =>
+{
+    worker.addEventListener('message', (e)=>{
+        const data = get(e, ['data']);
+        switch (get(e, ['data','type'])) {
+            case 'ready':
+                break;
+            case 'ws':
+                ajaxDispatch({
+                    type: 'callback',
+                    params: {
+                        data: e.data.data
+                    }
+                });
+                break;
+            default:
+                const cbkey = get(e, ['data', 'callback']);
+                const params = get(e, ['data', 'params']);
+                Callback[cbkey].call(null, params);
+                break;
+        }
+    });
+};
+
+const Callback = {
+    ajax: ({err, text, action})=>
+    {
+        ajaxStore.done();
+        const json = ajaxStore.getJson(text);
+        const callback = ajaxStore.getCallback(ajaxStore.getState(), action, json);
+        callback(json, text);
+        const params = get(action, ['params']);
+        if (params.updateUrl || params.scrollBack) {
+            window.scrollTo(0,0);
+        }
+    }
+};
 
 class AjaxStore extends ReduceStore
 {
 
   getInitialState()
   {
-      return Immutable.Map();
+    if ('undefined' !== typeof window && window.Worker) {
+        require(['worker-loader!../../src/worker'],(workerObject)=>{ 
+            worker = workerObject();
+            initWorker(worker);
+        });
+    } else {
+        require(['../../src/worker'],(workerObject)=>{ 
+            worker = workerObject; 
+            initWorker(worker);
+        });
+    }
+      return Map();
   }
 
   cookAjaxUrl(params, ajaxUrl)
@@ -136,19 +187,12 @@ class AjaxStore extends ReduceStore
     if (!params.disableRandom) {
         params.query.r = ((new Date()).getTime());
     }
-    require(['superagent'],(req)=>{ 
-       req.get(ajaxUrl)
-          .query(params.query)
-          .set('Accept', get(params, ['accept'], 'application/json'))
-          .end((res)=>{
-                self.done();
-                const json = self.getJson(res.text);
-                const callback = self.getCallback(state, action, json);
-                callback(json, res.text, res);
-                if (params.updateUrl || params.scrollBack) {
-                    window.scrollTo(0,0);
-                }
-           });
+    worker.postMessage({
+        type: 'ajaxGet',
+        url: ajaxUrl,
+        params: params,
+        callback: 'ajax',
+        action: action
     });
     return state;
   }
@@ -160,17 +204,12 @@ class AjaxStore extends ReduceStore
     const params = action.params;
     const rawUrl = this.getRawUrl(params);
     const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
-    require(['superagent'],(req)=>{ 
-       req.post(ajaxUrl)
-          .send(params.query)
-          .withCredentials()
-          .set('Accept', 'application/json')
-          .end((res)=>{
-                self.done();
-                const json = self.getJson(res.text);
-                const callback = self.getCallback(state, action, json);
-                callback(json, res.text);
-           });
+    worker.postMessage({
+        type: 'ajaxPost',
+        url: ajaxUrl,
+        params: params,
+        callback: 'ajax',
+        action: action
     });
     return state;
   }
@@ -180,10 +219,32 @@ class AjaxStore extends ReduceStore
     const data = get(action, ['params', 'data']);
     const json = this.getJson(data);
     const callback = this.getCallback(state, action, json);
-    if (get(json,['data','constructor'])===Object) {
-        callback(json.data, data);
+    switch (get(json,['type'])) {
+        case 'auth':
+            this.setWsAuth(get(json,['data']));
+            break;
+        default:
+            if (get(json,['data','constructor'])===Object) {
+                callback(json.data, data);
+            }
+            break;
     }
     return state;
+  }
+
+  initWs(url)
+  {
+    worker.postMessage({ws: url, type: 'initWs'});
+  }
+
+  setWsAuth(action)
+  {
+    wsAuth = wsAuth.merge(action); 
+  }
+
+  getWsAuth()
+  {
+    return wsAuth.toJS();
   }
 
   reduce (state, action)
@@ -206,5 +267,5 @@ class AjaxStore extends ReduceStore
 
 // Export a singleton instance of the store, could do this some other way if
 // you want to avoid singletons.
-const instance = new AjaxStore(dispatcher);
-export default instance;
+const ajaxStore = new AjaxStore(dispatcher);
+export default ajaxStore;
