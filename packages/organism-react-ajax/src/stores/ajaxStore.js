@@ -37,19 +37,21 @@ class AjaxStore extends ReduceStore
 
   getInitialState()
   {
-    if ('undefined' !== typeof window && window.Worker) {
-        require(['worker-loader!../../src/worker'],(workerObject)=>{ 
-            worker = workerObject();
-            initWorker(worker);
-        });
-    } else {
-        require(['../../src/worker'],(workerObject)=>{ 
-            worker = workerObject; 
-            initWorker(worker);
-            isWorkerReady = true;
-        });
+    if ('undefined' !== typeof window) {
+        if (window.Worker) {
+            require(['worker-loader!../../src/worker'],(workerObject)=>{ 
+                worker = workerObject();
+                initWorker(worker);
+            });
+        } else {
+            require(['../../src/worker'],(workerObject)=>{ 
+                worker = workerObject; 
+                initWorker(worker);
+                isWorkerReady = true;
+            });
+        }
     }
-      return Map();
+    return Map();
   }
 
   cookAjaxUrl(params, ajaxUrl)
