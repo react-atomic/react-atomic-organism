@@ -10,6 +10,7 @@ class PageLoadProgressHandle extends Component
     _timerComplete = null;
     _timerReset1 = null;
     _timerReset2 = null;
+    _bar = null;
 
     static defaultProps={
         name: 'processBar',
@@ -39,7 +40,6 @@ class PageLoadProgressHandle extends Component
         this.state = {
             percent: 0,
             opacity: 1,
-            isLoad: 1
         };
     }
 
@@ -125,8 +125,9 @@ class PageLoadProgressHandle extends Component
 
     componentDidUpdate(prevProps, prevState)
     {
-        const {isRunning} = this.state; 
         const self = this;
+        const {isRunning} = self.state;
+        self.setFloat();
         if (self.props.ajax && prevState && prevState.isRunning !== isRunning) {
             if (isRunning) {
                 setTimeout(()=>{
@@ -140,21 +141,31 @@ class PageLoadProgressHandle extends Component
         }
     }
 
-    componentDidMount()
+    componentDidMount() 
     {
-        this.setState({
-            isLoad: 1
-        });
+        this.setFloat();
+    }
+
+    setFloat()
+    {
+        const {isFloat} = this.props;
+        if (isFloat) {
+            setTimeout(()=>{
+                popupDispatch({
+                    type: 'dom/update',
+                    params: {
+                        popup: this._bar 
+                    }
+                });
+            });
+        }
     }
 
     render()
     {
-        const {percent, opacity, isLoad} = this.state;
-        if (!isLoad) {
-            return null;
-        }
+        const {percent, opacity} = this.state;
         const {name, zIndex, isFloat} = this.props;
-        let bar = <Progress
+        this._bar = <Progress
             style={{...Styles.progress,...{
                 opacity: opacity,
                 zIndex: zIndex
@@ -166,17 +177,9 @@ class PageLoadProgressHandle extends Component
             name={name}
         />;
         if (isFloat) {
-            setTimeout(()=>{
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: bar 
-                    }
-                });
-            });
             return null;
         } else {
-            return bar; 
+            return this._bar; 
         }
     }
 }

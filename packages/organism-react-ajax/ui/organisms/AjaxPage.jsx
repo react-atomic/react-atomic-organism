@@ -13,14 +13,6 @@ class AjaxPage extends Component
         themes: {}
     }
 
-    constructor(props) {
-        super(props);
-        ajaxDispatch({
-            type: 'config/set',
-            params: props 
-        });
-    }
-
     componentDidMount() {
         const props = this.props;
         const updateWithUrl = (url)=>{
@@ -39,7 +31,10 @@ class AjaxPage extends Component
             ajaxDispatch({
                 type: 'config/set',
                 params: {
-                    updateWithUrl: updateWithUrl
+                    ...props,
+                    ...{
+                        updateWithUrl: updateWithUrl
+                    }
                 }
             });
             if (window.WebSocket && props.webSocketUrl) {
@@ -53,6 +48,20 @@ class AjaxPage extends Component
         };
     }
 
+    componentDidUpdate(prevProps, prevState)
+    {
+        const {themePath, baseUrl} = this.props;
+        setTimeout(()=>{
+            ajaxDispatch({
+                type: 'config/set',
+                params: {
+                    lastThemePath: themePath,
+                    baseUrl: baseUrl
+                }
+            });
+        });
+    }
+
     render() {
         const {themes, themePath, baseUrl} = this.props;
         let thisThemePath = themePath;
@@ -64,15 +73,6 @@ class AjaxPage extends Component
                 return null;
             }
         }
-        setTimeout(()=>{
-            ajaxDispatch({
-                type: 'config/set',
-                params: {
-                    lastThemePath: themePath,
-                    baseUrl: baseUrl
-                }
-            });
-        });
         if (!pages[thisThemePath]) {
             const myTheme = themes[thisThemePath];
             let build;
