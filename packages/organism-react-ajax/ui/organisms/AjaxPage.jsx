@@ -8,6 +8,8 @@ let pages={};
 
 class AjaxPage extends Component
 {
+    _lastThemePath='';
+    
     static defaultProps = {
         ajax: true,
         themes: {}
@@ -48,31 +50,18 @@ class AjaxPage extends Component
         };
     }
 
-    componentDidUpdate(prevProps, prevState)
-    {
-        const {themePath, baseUrl} = this.props;
-        setTimeout(()=>{
-            ajaxDispatch({
-                type: 'config/set',
-                params: {
-                    lastThemePath: themePath,
-                    baseUrl: baseUrl
-                }
-            });
-        });
-    }
-
     render() {
         const {themes, themePath, baseUrl} = this.props;
         let thisThemePath = themePath;
         if ('undefined' === typeof themes[thisThemePath]) {
             const pageState = ajaxStore.getState();
-            thisThemePath = pageState.get('lastThemePath');
+            thisThemePath = this._lastThemePath;
             if ('undefined' === typeof themes[thisThemePath]) {
                 console.error('can not find themes on ['+themePath+']', themes);
                 return null;
             }
         }
+        this._lastThemePath = thisThemePath;
         if (!pages[thisThemePath]) {
             const myTheme = themes[thisThemePath];
             let build;
