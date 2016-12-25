@@ -38,7 +38,8 @@ class PageLoadProgressHandle extends Component
         super(props);
         this.state = {
             percent: 0,
-            opacity: 1
+            opacity: 1,
+            isLoad: 1
         };
     }
 
@@ -139,10 +140,20 @@ class PageLoadProgressHandle extends Component
         }
     }
 
+    componentDidMount()
+    {
+        this.setState({
+            isLoad: 1
+        });
+    }
+
     render()
     {
+        const {percent, opacity, isLoad} = this.state;
+        if (!isLoad) {
+            return null;
+        }
         const {name, zIndex, isFloat} = this.props;
-        const {percent, opacity} = this.state;
         let bar = <Progress
             style={{...Styles.progress,...{
                 opacity: opacity,
