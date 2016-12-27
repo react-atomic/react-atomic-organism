@@ -65,14 +65,14 @@ class AjaxStore extends ReduceStore
 
   getRawUrl = (params)=>
   {
-     let url = params.url;
+     let {url, path} = params;
      if (!url) {
-         if (params.path) {
+         if (path) {
              let baseUrl = this.getState().get('baseUrl');
              if (!baseUrl) {
                 baseUrl = '';
              }
-             url = baseUrl + params.path; 
+             url = baseUrl + path; 
          } else {
              url = '#';
          }

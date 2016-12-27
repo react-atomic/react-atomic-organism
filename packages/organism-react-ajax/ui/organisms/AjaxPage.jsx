@@ -15,8 +15,9 @@ class AjaxPage extends Component
         themes: {}
     }
 
-    componentDidMount() {
-        const props = this.props;
+    constructor(props)
+    {
+        super(props);
         const updateWithUrl = (url)=>{
             const pageState = ajaxStore.getState();
             if (pageState.get('url')!==url) {
@@ -29,23 +30,25 @@ class AjaxPage extends Component
                 });
             }
         };
+        /*Need put in constructor else AjaxLink will not get baseUrl*/
+        ajaxDispatch({
+            type: 'config/set',
+            params: {
+                ...props,
+                updateWithUrl: updateWithUrl
+            }
+        });
+    }
+
+    componentDidMount() {
+        const props = this.props;
         setTimeout(()=>{
-            ajaxDispatch({
-                type: 'config/set',
-                params: {
-                    ...props,
-                    ...{
-                        updateWithUrl: updateWithUrl
-                    }
-                }
-            });
             if (window.WebSocket && props.webSocketUrl) {
                 ajaxStore.initWs(props.webSocketUrl);
             }
         });
         window.onpopstate = (e)=> {
-            const pageState = ajaxStore.getState();
-            const updateWithUrl = pageState.get('updateWithUrl');
+            const updateWithUrl = ajaxStore.getState().get('updateWithUrl');
             updateWithUrl(document.URL);
         };
     }
