@@ -86,7 +86,8 @@ class AjaxStore extends ReduceStore
       let callback;
       if (json.errors) {
           if (params.errorCallback) {
-              callback = params.errorCallback;
+              callback = Callbacks[params.errorCallback];
+              delete(Callbacks[params.errorCallback]);
           }
       } 
       if (json.debugs) {
@@ -155,11 +156,18 @@ class AjaxStore extends ReduceStore
 
   storeCallback(action)
   {
-    let cb = get(action,['params','callback']);
+    const cb = get(action,['params','callback']);
     if (cb) {
         const cbKey = 'cb'+cbIndex;
         Callbacks[cbKey] = cb;
         action.params.callback = cbKey;
+        cbIndex++;
+    }
+    const err = get(action,['params','errorCallback']);
+    if (err) {
+        const cbKey = 'cb'+cbIndex;
+        Callbacks[cbKey] = cb;
+        action.params.errorCallback = cbKey;
         cbIndex++;
     }
     return action;
