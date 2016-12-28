@@ -12,7 +12,7 @@ class AjaxForm extends AjaxBase
 
     handleOnSubmit = (e) => {
         e.preventDefault();
-        const { callback, errorCallback, updateUrl} = this.props;
+        const { callback, errorCallback, updateUrl, onSubmit} = this.props;
         let formDom = e.target;
         let elements = formDom.elements;
         let action = formDom.action;
@@ -50,6 +50,10 @@ class AjaxForm extends AjaxBase
                 ...otherParams
             }
         });
+
+        if (onSubmit) {
+            onSubmit(e);
+        }
     }
 
 
