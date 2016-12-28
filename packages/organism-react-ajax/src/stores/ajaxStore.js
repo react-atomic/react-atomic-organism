@@ -165,9 +165,9 @@ class AjaxStore extends ReduceStore
     }
     const err = get(action,['params','errorCallback']);
     if (err) {
-        const cbKey = 'cb'+cbIndex;
-        Callbacks[cbKey] = cb;
-        action.params.errorCallback = cbKey;
+        const errCbKey = 'err'+cbIndex;
+        Callbacks[errCbKey] = err;
+        action.params.errorCallback = errCbKey;
         cbIndex++;
     }
     return action;
