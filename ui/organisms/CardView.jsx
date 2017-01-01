@@ -21,9 +21,10 @@ const CardView = (props) =>
         description,
         dimmer,
         content,
+        imageAttr,
+        imageContainer,
         imageSrc,
         imageWrapper,
-        imageContainer,
         href,
         item,
         ...others 
@@ -68,7 +69,8 @@ const CardView = (props) =>
                         transform: ['translate(-50%, -50%)']
                     }, null, false),
                     src: imageSrc,
-                    className: 'rounded'
+                    className: 'rounded',
+                    ...imageAttr
                 }
             )
        );
@@ -98,6 +100,10 @@ const CardView = (props) =>
         </View>
     );
 }
+
+CardView.defaultProps = {
+    imageAttr: {}
+};
 
 export default CardView;
 
