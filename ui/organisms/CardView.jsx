@@ -22,13 +22,12 @@ const CardView = (props) =>
         dimmer,
         content,
         imageSrc,
+        imageWrapper,
         imageContainer,
         href,
         item,
         ...others 
     } = props;
-    let View;
-    let image;
 
     if (header) {
         header=<Header>{header}</Header>;
@@ -39,31 +38,44 @@ const CardView = (props) =>
     if (description) {
         description=<Description>{description}</Description>;
     }
+
+    /*Cook Image*/
+    let image;
     if (imageSrc) {
-       let imgWrapperDom = null;
+       let imgWrapperDom;
        if (href) {
             imgWrapperDom = 'a'; 
        }
+       if (!imageWrapper) {
+            imageWrapper = <SemanticUI />;
+       }
        if (!imageContainer) {
-            imageContainer = <SemanticUI atom={imgWrapperDom} />;
+            imageContainer = <Image />;
        }
        image = React.cloneElement(
-            imageContainer,
+            imageWrapper,
             {
-                style: Styles.imgWrapper,
+                atom: imgWrapperDom,
+                className: 'image-wrapper',
                 href: href,
-                className: 'image-wrapper'
+                style: Styles.imgWrapper,
             },
-            <Image
-                style={Styles.image}
-                styles={reactStyle({
-                    transform: ['translate(-50%, -50%)']
-                }, null, false)}
-                src={imageSrc}
-                className="rounded"
-            />
+            React.cloneElement(
+                imageContainer,
+                {
+                    styles: reactStyle({
+                        ...Styles.image,
+                        transform: ['translate(-50%, -50%)']
+                    }, null, false),
+                    src: imageSrc,
+                    className: 'rounded'
+                }
+            )
        );
     }
+
+    /*Cook View Type*/
+    let View;
     if (item) {
         View = Item;
     } else {
