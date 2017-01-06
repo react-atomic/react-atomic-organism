@@ -181,7 +181,7 @@ class AjaxStore extends ReduceStore
         params.query = {};
     }
     const rawUrl = this.getRawUrl(params);
-    if (params.updateUrl) {
+    if (params.updateUrl && rawUrl !== document.URL) {
         history.pushState('','',rawUrl);
     }
     if (params.disableAjax) {

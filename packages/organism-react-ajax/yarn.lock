@@ -940,8 +940,8 @@ dashdash@^1.12.0:
     assert-plus "^1.0.0"
 
 debug@^2.1.1, debug@^2.2.0:
-  version "2.5.2"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.5.2.tgz#50c295a53dbf1657146e0c1b21307275e90d49cb"
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.0.tgz#bc596bcabe7617f11d9fa15361eded5608b8499b"
   dependencies:
     ms "0.7.2"
 
@@ -1097,8 +1097,8 @@ fs.realpath@^1.0.0:
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
 fsevents@^1.0.0:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.0.15.tgz#fa63f590f3c2ad91275e4972a6cea545fb0aae44"
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.0.17.tgz#8537f3f12272678765b4fd6528c0f1f66f8f4558"
   dependencies:
     nan "^2.3.0"
     node-pre-gyp "^0.6.29"
@@ -1448,8 +1448,8 @@ loader-utils@0.2.x:
     object-assign "^4.0.1"
 
 lodash@^4.2.0:
-  version "4.17.3"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.3.tgz#557ed7d2a9438cac5fd5a43043ca60cb455e01f7"
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
 loose-envify@^1.0.0, loose-envify@^1.1.0:
   version "1.3.0"
@@ -1678,18 +1678,20 @@ rc@~1.1.6:
     strip-json-comments "~1.0.4"
 
 react-atomic-atom@*:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.2.tgz#b13322adf38cad56013e79748755c24c020090b4"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.3.tgz#9c2ff7368b30df839421ff850864373d37cd440b"
 
 react-atomic-molecule@*:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.12.tgz#2f5f409e159568cc7bedc47bf41d9e3ebda80c2f"
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.15.tgz#4b065d388b49a437ae604f030af920e4b6a96207"
   dependencies:
     class-lib "*"
     exenv "1.2.1"
+    get-object-value "*"
     hyphenate-style-name "*"
     object-assign ">=4.0.1"
     react-atomic-atom "*"
+    ucfirst "*"
 
 react@^15.0.1:
   version "15.4.1"
@@ -1977,6 +1979,10 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
 ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
+
+ucfirst@*:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ucfirst/-/ucfirst-1.0.0.tgz#4e105b6448d05e264ecec435e0b919363c5f2f2f"
 
 uid-number@~0.0.6:
   version "0.0.6"
