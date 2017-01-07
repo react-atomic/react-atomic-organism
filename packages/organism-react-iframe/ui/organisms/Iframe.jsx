@@ -29,8 +29,8 @@ class Iframe extends Component
             if (!keys(queueScripts).length) {
                 inlineScripts.forEach((script, key)=>{
                     this.el.contentWindow.window.eval(script);
-                    delete(inlineScripts[key]);
                 });
+                inlineScripts = [];
             }
         };
 
