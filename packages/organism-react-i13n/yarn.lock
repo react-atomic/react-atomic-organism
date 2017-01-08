@@ -1657,6 +1657,13 @@ organism-react-animate@*:
     react-addons-css-transition-group "*"
     react-atomic-molecule "*"
 
+organism-react-iframe@*:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/organism-react-iframe/-/organism-react-iframe-0.0.0.tgz#3f962bfad5351f771d65c7666aeef78b138d2045"
+  dependencies:
+    get-object-value "*"
+    react-atomic-molecule "*"
+
 organism-react-popup@*:
   version "0.0.17"
   resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.0.17.tgz#b630623dbb1449326b589049283170a6721a0767"
