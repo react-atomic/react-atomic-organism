@@ -79,10 +79,11 @@ class I13nElement extends Component
         const self = this;
         const {src} = this.props;
         const {pvid} = this.state;
+        let url = src + document.location.pathname;
         ajaxDispatch({
             type: 'ajaxPost',
             params: {
-               url: src,
+               url: url,
                query: {
                    pvid: pvid,
                },
