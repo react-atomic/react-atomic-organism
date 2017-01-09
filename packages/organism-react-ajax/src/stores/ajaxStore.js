@@ -180,7 +180,7 @@ class AjaxStore extends ReduceStore
     if (!params.query) {
         params.query = {};
     }
-    const rawUrl = this.getRawUrl(params);
+    const rawUrl = self.getRawUrl(params);
     if (params.updateUrl && rawUrl !== document.URL) {
         history.pushState('','',rawUrl);
     }
@@ -191,8 +191,10 @@ class AjaxStore extends ReduceStore
         }
         return state;
     }
-    self.start();
-    const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
+    if (!params.disableProgress) {
+        self.start();
+    }
+    const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
     if (!params.disableRandom) {
         params.query.r = ((new Date()).getTime());
     }
@@ -207,10 +209,12 @@ class AjaxStore extends ReduceStore
   ajaxPost(state, action)
   {
     const self = this;
-    self.start();
     const params = action.params;
-    const rawUrl = this.getRawUrl(params);
-    const ajaxUrl = this.cookAjaxUrl(params, rawUrl);
+    if (!params.disableProgress) {
+        self.start();
+    }
+    const rawUrl = self.getRawUrl(params);
+    const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
     self.worker({
         type: 'ajaxPost',
         url: ajaxUrl,
@@ -221,8 +225,10 @@ class AjaxStore extends ReduceStore
 
   applyCallback(state, action)
   {
-    this.done();
     const params = get(action, ['params'], {}); 
+    if (!params.disableProgress) {
+        this.done();
+    }
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
     const json = this.getJson(text);

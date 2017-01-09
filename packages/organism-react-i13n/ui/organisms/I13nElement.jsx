@@ -79,20 +79,21 @@ class I13nElement extends Component
         const self = this;
         const {src} = this.props;
         const {pvid} = this.state;
-        let url = src + document.location.pathname;
         setTimeout(()=>{
             ajaxDispatch({
                 type: 'ajaxPost',
                 params: {
-                   url: url,
+                   url: src,
                    query: {
                        pvid: pvid,
+                       url: document.URL
                    },
                    callback: (json,text) => {
                         self.setState({
                             iframe: text
                         });
-                   }
+                   },
+                   disableProgress: true 
                 }
             });
         });
