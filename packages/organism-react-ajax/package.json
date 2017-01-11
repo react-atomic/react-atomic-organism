@@ -1,11 +1,12 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.0.55",
-  "description": "React Ajax",
+  "version": "0.0.56",
+  "description": "React Ajax with webworker",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
   "keywords": [
-    "reactjs"
+    "reactjs",
+    "webworker"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
