@@ -53,20 +53,25 @@ class AjaxPage extends Component
         };
     }
 
-    render() {
+    render()
+    {
         const {themes, themePath, baseUrl} = this.props;
         let thisThemePath = themePath;
         if ('undefined' === typeof themes[thisThemePath]) {
             const pageState = ajaxStore.getState();
             thisThemePath = this._lastThemePath;
             if ('undefined' === typeof themes[thisThemePath]) {
-                console.error('can not find themes on ['+themePath+']', themes);
+                console.error('Not find themes on ['+themePath+']', themes);
                 return null;
             }
         }
         this._lastThemePath = thisThemePath;
         if (!pages[thisThemePath]) {
             const myTheme = themes[thisThemePath];
+            if (!myTheme.name) {
+                console.error('Not find valid elemet on ['+themePath+']', themes);
+                return null;
+            }
             let build;
             if (React.isValidElement(myTheme)) {
                 build = React.cloneElement;
