@@ -1,7 +1,6 @@
 'use strict';
 
 let lastScroll;
-
 let isWebkit;
 let docEl;
 if ('undefined' !== typeof document) {
@@ -12,10 +11,11 @@ if ('undefined' !== typeof document) {
 const getScrollNode = (el) => {
     if (!el) {
         if ('undefined' !== typeof document) {
-            el = document.body; 
-        }
-        if ('undefined' === typeof el.scrollLeft) {
-            el = docEl;
+            if (isWebkit) {
+                el = document.body;
+            } else {
+                el = docEl;
+            }
         }
     }
     return el;
