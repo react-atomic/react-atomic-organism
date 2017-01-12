@@ -74,6 +74,9 @@ const CardView = (props) =>
                 }
             )
        );
+       // fixed can't use padding with % in firefox and edge
+       // http://stackoverflow.com/questions/23717953/padding-bottom-top-in-flexbox-layout
+       image = <SemanticUI>{image}</SemanticUI>;
     }
 
     /*Cook View Type*/
@@ -117,6 +120,7 @@ const Styles = {
     imgWrapper: {
         position: 'relative',
         paddingBottom:'100%',
-        overflow:'hidden'
+        overflow:'hidden',
+        display: 'block'
     }
 };
