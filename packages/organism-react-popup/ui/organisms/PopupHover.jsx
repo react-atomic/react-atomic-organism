@@ -25,9 +25,8 @@ class PopupHover extends Component
 
     mouseOver()
     {
-        let dom = ReactDOM.findDOMNode(this.dom); 
         let bodyWidth = document.body.clientWidth;
-        let domOffset = getOffset(dom);
+        let domOffset = getOffset(this.dom);
         let popupClass = 'visible bottom left';
         let popupStyle = {
             //top: domOffset.top+'px', 
@@ -64,7 +63,7 @@ class PopupHover extends Component
     mouseOut()
     {
         popupDispatch({
-        //    type: 'dom/closeAll'
+           type: 'dom/closeAll'
         });
     }
 
@@ -73,7 +72,7 @@ class PopupHover extends Component
         const {popup, ...others} = this.props;
         return (
         <SemanticUI
-           ref={dom=>this.dom=dom}
+           refCb={dom=>this.dom=dom}
            onMouseEnter={this.mouseOver.bind(this)} 
            onMouseLeave={this.mouseOut.bind(this)} 
            style={{position:'relative'}}

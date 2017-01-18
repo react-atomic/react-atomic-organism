@@ -1,6 +1,6 @@
-webpackJsonp([12],{
+webpackJsonp([2],{
 
-/***/ 300:
+/***/ 292:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9,11 +9,13 @@ webpackJsonp([12],{
 	    value: true
 	});
 	var css = {
-	    spin: [[{
-	        transform: ['rotateZ(0deg)']
+	    fadeInUp: [[{
+	        opacity: 0,
+	        transform: ['translate3d(0, 100%, 0)']
 	    }, {
-	        transform: ['rotateZ(360deg)']
-	    }], ['@keyframes spin', '0%', '100%']]
+	        opacity: 1,
+	        transform: ['none']
+	    }], ['@keyframes fadeInUp', 'from', 'to']]
 	};
 	exports.default = css;
 	module.exports = exports['default'];
