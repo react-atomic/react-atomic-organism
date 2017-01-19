@@ -7,6 +7,14 @@ import CarouselList from '../organisms/CarouselList';
 
 class CarouselAnimation extends Component
 {
+    static defaultProps = {
+        infinity: true,
+        animate: {
+            enter: 'fadeIn-500',
+            leave: 'fadeOut-500',
+        }
+    }
+
     backward = null;
     forward = null;
     handleLeft = () =>
@@ -23,28 +31,38 @@ class CarouselAnimation extends Component
         });
     }
 
-    static defaultProps = {
-        infinity: true,
-        animate: {
-            enter: 'fadeIn-500',
-            leave: 'fadeOut-500',
-        }
+    componentWillReceiveProps(props)
+    {
+        this.setState({
+            selected: 0 
+        });
     }
 
     render()
     {
-        const {animate, carouselAttr, children, style, infinity, ...others} = this.props;
+        const {
+            animate,
+            className,
+            carouselAttr,
+            children,
+            style,
+            thumbAttr,
+            infinity,
+            ...others
+        } = this.props;
 
         const selected = get(this.state, ['selected'], 0); 
         let activeEl;
         let total = 0;
-        const thumbAttr = {
+        const thisThumbAttr = {
             ...carouselAttr,
+            ...thumbAttr,
             hoverStyle: Styles.thumbHover,
             className: 'link card',
             style: {
                 ...get(carouselAttr, ['style'], {}),
                 ...Styles.thumb,
+                ...get(thumbAttr, ['style'], {}),
             }
         };
         let thumbChild = React.Children.map(
@@ -67,14 +85,14 @@ class CarouselAnimation extends Component
                 }
                 total++;
                 const newChildAttr = {
-                    ...thumbAttr,
+                    ...thisThumbAttr,
                     onClick: () => {
                         this.setState({
                             selected: i 
                         });
                     },
                     styles: reactStyle({
-                        ...thumbAttr.style,
+                        ...thisThumbAttr.style,
                         ...activeStyle
                     }, false, false)
                 };
@@ -107,7 +125,10 @@ class CarouselAnimation extends Component
         );
 
         return (
-            <SemanticUI style={style}>
+            <SemanticUI
+                style={{...Styles.container, ...style}}
+                className={className}
+            >
                 <CarouselList
                     {...others}
                     onLeft={this.handleLeft}
@@ -124,6 +145,9 @@ class CarouselAnimation extends Component
 export default CarouselAnimation;
 
 const Styles = {
+    container: {
+         position: 'relative',
+    },
     thumbList: {
          position: 'absolute',
          bottom: 30,
