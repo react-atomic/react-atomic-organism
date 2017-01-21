@@ -49,7 +49,9 @@ class CarouselList extends Component
 {
     render()
     {
-        const {children, carouselAttr, style, onLeft, onRight, ...others} = this.props;
+        const {children, carouselAttr, innerContainer, style, onLeft, onRight, ...others} = this.props;
+
+        // <!-- Child
         let thisChildren = children;
         if (carouselAttr) {
             thisChildren = React.Children.map(
@@ -61,13 +63,22 @@ class CarouselList extends Component
                 );
             });
         }
+        if (innerContainer) {
+            thisChildren = React.cloneElement(
+                innerContainer,
+                {},
+                thisChildren
+            );
+        }
+        // Child --> 
+
         let arrowLeft;
         let arrowRight;
         if (onLeft) {
-            arrowLeft = <ArrowIcon onClick={onLeft} iconStyle={Styles.leftIcon} style={Styles.arrowLeft}/>;
+            arrowLeft = <ArrowIcon className="backward" onClick={onLeft} iconStyle={Styles.leftIcon} style={Styles.arrowLeft}/>;
         }
         if (onRight) {
-            arrowRight = <ArrowIcon onClick={onRight} iconStyle={Styles.rightIcon} style={Styles.arrowRight}/>;
+            arrowRight = <ArrowIcon className="forward" onClick={onRight} iconStyle={Styles.rightIcon} style={Styles.arrowRight}/>;
         }
 
         return (
@@ -78,7 +89,7 @@ class CarouselList extends Component
                     ...style,
                 }}
             >
-                { thisChildren }
+                {thisChildren}
                 {arrowLeft} 
                 {arrowRight} 
             </SemanticUI>

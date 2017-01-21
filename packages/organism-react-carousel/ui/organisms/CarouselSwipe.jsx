@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule';
 
-class CarouselInner extends Component
+class CarouselSwipe extends Component
 {
     dragging = false;
     startX = null;
@@ -37,6 +37,8 @@ class CarouselInner extends Component
         const {...others}  = this.props;
         return (
             <SemanticUI 
+                className="carousel-swipe"
+                style={Styles.container}
                 {...others}
                 onMouseDown={this.swipeStart}
                 onMouseMove={this.swipeMove}
@@ -51,4 +53,10 @@ class CarouselInner extends Component
     }
 }
 
-export default CarouselInner;
+export default CarouselSwipe;
+
+const Styles = {
+    container: {
+        display: 'inline-block'
+    }
+};
