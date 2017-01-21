@@ -1,4 +1,4 @@
-import React, {Component} from 'react'; 
+import React, {Component, PropTypes} from 'react';
 import {
     assign,
     mixClass,
@@ -35,6 +35,35 @@ function getTouchProps(touch) {
 
 export default class Tappable extends Component
 {
+    static propTypes = {
+        className:          PropTypes.string,  // optional className
+        classBase:          PropTypes.string,  // base for generated classNames
+        disabled:           PropTypes.bool,    // only applies to buttons
+        
+        moveThreshold:      PropTypes.number,  // pixels to move before cancelling tap
+        pressDelay:         PropTypes.number,  // ms to wait before detecting a press
+        pressMoveThreshold: PropTypes.number,  // pixels to move before cancelling press
+        preventDefault:     PropTypes.bool,    // whether to preventDefault on all events
+        stopPropagation:    PropTypes.bool,    // whether to stopPropagation on all events
+        
+        onTap:              PropTypes.func,    // fires when a tap is detected
+        onPress:            PropTypes.func,    // fires when a press is detected
+        onTouchStart:       PropTypes.func,    // pass-through touch event
+        onTouchMove:        PropTypes.func,    // pass-through touch event
+        onTouchEnd:         PropTypes.func,    // pass-through touch event
+        onMouseDown:        PropTypes.func,    // pass-through mouse event
+        onMouseUp:          PropTypes.func,    // pass-through mouse event
+        onMouseMove:        PropTypes.func,    // pass-through mouse event
+        onMouseOut:         PropTypes.func     // pass-through mouse event
+    };
+
+    static defaultProps = {
+        classBase: 'Tappable',
+        moveThreshold: 100,
+        pressDelay: 1000,
+        pressMoveThreshold: 5
+    };
+
     constructor(props)
     {
         super(props);
@@ -247,31 +276,3 @@ export default class Tappable extends Component
 	}
 	
 }
-Tappable.propTypes ={
-    className: React.PropTypes.string,           // optional className
-    classBase: React.PropTypes.string,           // base for generated classNames
-    disabled: React.PropTypes.bool,              // only applies to buttons
-    
-    moveThreshold: React.PropTypes.number,       // pixels to move before cancelling tap
-    pressDelay: React.PropTypes.number,          // ms to wait before detecting a press
-    pressMoveThreshold: React.PropTypes.number,  // pixels to move before cancelling press
-    preventDefault: React.PropTypes.bool,        // whether to preventDefault on all events
-    stopPropagation: React.PropTypes.bool,       // whether to stopPropagation on all events
-    
-    onTap: React.PropTypes.func,                 // fires when a tap is detected
-    onPress: React.PropTypes.func,               // fires when a press is detected
-    onTouchStart: React.PropTypes.func,          // pass-through touch event
-    onTouchMove: React.PropTypes.func,           // pass-through touch event
-    onTouchEnd: React.PropTypes.func,            // pass-through touch event
-    onMouseDown: React.PropTypes.func,           // pass-through mouse event
-    onMouseUp: React.PropTypes.func,             // pass-through mouse event
-    onMouseMove: React.PropTypes.func,           // pass-through mouse event
-    onMouseOut: React.PropTypes.func             // pass-through mouse event
-};
-
-Tappable.defaultProps = {
-    classBase: 'Tappable',
-    moveThreshold: 100,
-    pressDelay: 1000,
-    pressMoveThreshold: 5
-};
