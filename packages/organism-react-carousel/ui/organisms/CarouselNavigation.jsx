@@ -156,7 +156,8 @@ const Styles = {
          position: 'absolute',
          bottom: 30,
          left: '12%',
-         paddingLeft: 1
+         paddingLeft: 1,
+         fontSize: '1rem'
     },
     thumb: {
         marginRight: 5,

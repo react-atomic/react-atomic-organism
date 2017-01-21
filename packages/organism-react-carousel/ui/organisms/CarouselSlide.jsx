@@ -6,14 +6,36 @@ import CarouselSwipe from '../organisms/CarouselSwipe';
 
 class CarouselSlide extends Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            height: 'auto'
+        };
+    }
+
+    handleHeight = (height)=>
+    {
+        this.setState({
+            height: height
+        });
+    }
+
     render()
     {
         const {...others} = this.props;
         return (
-            <SemanticUI>
+            <SemanticUI style={{
+                ...Styles.container,
+                height: this.state.height
+            }}>
                 <CarouselList
                     {...others}
-                    innerContainer={<CarouselSwipe />}
+                    innerContainer={
+                        <CarouselSwipe 
+                            onHeight={this.handleHeight}
+                        />
+                    }
                 />
             </SemanticUI>
         );
@@ -21,3 +43,9 @@ class CarouselSlide extends Component
 }
 
 export default CarouselSlide;
+
+const Styles = {
+    container: {
+        overflow: 'hidden'
+    }
+};

@@ -101,10 +101,10 @@ export default CarouselList;
 
 const Styles = {
     container: {
-        overflowX: 'hidden',
-        overflowY: 'auto',
+        position: 'relative',
         whiteSpace: 'nowrap',
-        position: 'relative'
+        overflow: 'hidden',
+        fontSize: 0
     },
     arrowContainer: {
         width: '15%',
