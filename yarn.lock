@@ -1460,8 +1460,8 @@ ms@0.7.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
 
 nan@^2.3.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.0.tgz#aa8f1e34531d807e9e27755b234b4a6ec0c152a8"
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.5.1.tgz#d5b01691253326a97a2bbee9e61c55d8d60351e2"
 
 node-fetch@^1.0.1:
   version "1.6.3"
@@ -1620,8 +1620,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.3.tgz#9c2ff7368b30df839421ff850864373d37cd440b"
 
 react-atomic-molecule@*:
-  version "1.1.16"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.16.tgz#abec2ec269889dbf8885c26f15415ff21af0d5c6"
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.17.tgz#d0ecbf66cf0d302dbcf4f01a6c5b9a21ca159439"
   dependencies:
     class-lib "*"
     exenv "1.2.1"

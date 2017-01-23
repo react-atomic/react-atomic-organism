@@ -25,6 +25,7 @@ const CardView = (props) =>
         imageContainer,
         imageSrc,
         imageWrapper,
+        imageWrapperAttr,
         href,
         item,
         ...others 
@@ -60,6 +61,7 @@ const CardView = (props) =>
                 className: 'image-wrapper',
                 href: href,
                 style: Styles.imgWrapper,
+                ...imageWrapperAttr
             },
             React.cloneElement(
                 imageContainer,
