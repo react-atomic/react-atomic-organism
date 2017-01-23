@@ -9,16 +9,27 @@ class Iframe extends Component
 {
     componentDidMount()
     {
-        const iframeD = this.el.contentWindow.document;
         this.root = document.createElement('div');
-        iframeD.body.appendChild(this.root);
+        this.getBody().appendChild(this.root);
         this.renderIframe(this.props);
     } 
 
-    renderIframe(props)
+    appendHtml = (html)=>
     {
-        const {children} = props;
+        let div = document.createElement('div');
+        div.innerHTML = html;
+        this.getBody().appendChild(div);
+        this.handleScript(div);
+    }
 
+    getBody = ()=>
+    {
+        return this.el.contentWindow.document.body;
+    }
+
+    handleScript = (el) =>
+    {
+        // init variable
         let scriptCount = 0;
         let inlineScripts=[];
         let queueScripts=[];
@@ -34,33 +45,42 @@ class Iframe extends Component
             }
         };
 
+        // start to parse
+        const scripts = el.getElementsByTagName('script'); 
+        let i=0;
+        for (let i=0, len=scripts.length; i < len; i++) {
+            const script = scripts[i]; 
+            const src = get(script, ['src']);
+            if (src) {
+                let newScript = document.createElement('script');
+                const key = 'id-'+scriptCount;
+                newScript.src = src;
+                this.root.parentNode.appendChild(newScript);
+                newScript.key = key;
+                newScript.onload = () => {
+                    handleScriptOnload(newScript.key);
+                };
+                queueScripts[key] = true;
+                scriptCount++;
+            } else {
+                inlineScripts.push(script.innerHTML);
+            }
+        }
+        handleScriptOnload();
+    }
+
+    renderIframe(props)
+    {
+        const {children} = props;
+
+
         // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
         setTimeout(()=>{
             ReactDOM.render(
                <SemanticUI>{children}</SemanticUI>,
                this.root,
                () => {
-                    const scripts = this.root.getElementsByTagName('script'); 
-                    let i=0;
-                    for (let i=0, len=scripts.length; i < len; i++) {
-                        const script = scripts[i]; 
-                        const src = get(script, ['src']);
-                        if (src) {
-                            let newScript = document.createElement('script');
-                            const key = 'id-'+scriptCount;
-                            newScript.src = src;
-                            this.root.parentNode.appendChild(newScript);
-                            newScript.key = key;
-                            newScript.onload = () => {
-                                handleScriptOnload(newScript.key);
-                            };
-                            queueScripts[key] = true;
-                            scriptCount++;
-                        } else {
-                            inlineScripts.push(script.innerHTML);
-                        }
-                    }
-                    handleScriptOnload();
+                this.handleScript(this.root);
                }
             );
         });
