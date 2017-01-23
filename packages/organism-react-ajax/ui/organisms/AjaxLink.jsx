@@ -13,11 +13,11 @@ class AjaxLink extends AjaxBase
 
     handleOnClick = (e) => {
         e.preventDefault();
-        const href = e.currentTarget.href;
-        this.go(href);
         if (this.props.onClick) {
             this.props.onClick();
         }
+        const href = e.currentTarget.href;
+        this.go(href);
     }
 
     go(url) {
