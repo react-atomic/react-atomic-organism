@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { 
-    assign,
     mixClass,
     reactStyle,
     Icon,
@@ -33,7 +32,6 @@ class HorizontalToVerticalMenu extends Component
 
     render()
     {
-        const props = this.props;
         const {
             brand,
             component,
@@ -42,7 +40,7 @@ class HorizontalToVerticalMenu extends Component
             style,
             className,
             ...others
-        } = props;
+        } = this.props;
         const classes = mixClass(
             'pure-g',
             className,
@@ -95,20 +93,17 @@ class HorizontalToVerticalMenu extends Component
         }
         return build(
             component,
-            assign(
-                {},
-                others,
-                {
-                    style: style,
-                    styles: reactStyle({
-                        transition: [[
-                            'padding 300ms linear',
-                            'max-height 300ms ease-in-out'
-                        ].join(', ')] 
-                    }, null, false),
-                    className: classes
-                }
-            ),
+            {
+                ...others,
+                style: style,
+                styles: reactStyle({
+                    transition: [[
+                        'padding 300ms linear',
+                        'max-height 300ms ease-in-out'
+                    ].join(', ')] 
+                }, null, false),
+                className: classes
+            },
             thisChildren
         );
     }
