@@ -27,6 +27,9 @@ class MonitorPvid extends Component
 
     updatePvid(pvid)
     {
+        if (!pvid) {
+            return;
+        }
         i13nDispatch({
             type: 'config/set',
             params: {
@@ -38,9 +41,7 @@ class MonitorPvid extends Component
     componentDidMount() 
     {
         const {pvid} = this.state;
-        if (pvid) {
-            this.updatePvid(pvid);
-        }
+        this.updatePvid(pvid);
     }
 
     componentDidUpdate(prevProps, prevState)
@@ -73,7 +74,6 @@ class I13nElement extends Component
         };
     }
 
-
     update()
     {
         const self = this;
@@ -83,7 +83,7 @@ class I13nElement extends Component
             ajaxDispatch({
                 type: 'ajaxPost',
                 params: {
-                   url: src,
+                   url: src+'view',
                    query: {
                        pvid: pvid,
                        url: document.URL
@@ -107,13 +107,25 @@ class I13nElement extends Component
         }
     }
 
+    componentDidMount() 
+    {
+        const {src} = this.props;
+        i13nDispatch({
+            type: 'config/set',
+            params: {
+                src: src,
+                element: this
+            }
+        });
+    }
+
     render()
     {
         const {iframe} = this.state;
         let thisIframe;
         if (iframe) {
             thisIframe = (
-                <Iframe style={Styles.iframe}>
+                <Iframe style={Styles.iframe} ref={el=>this.iframe=el}>
                     <Unsafe>{iframe}</Unsafe>
                 </Iframe>
             );
