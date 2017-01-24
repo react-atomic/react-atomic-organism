@@ -21,11 +21,12 @@ class MonitorPvid extends Component
     {
         const pvid = pageStore.getState().get('pvid');
         return {
-            pvid: pvid
+            pvid: pvid,
+            I13N: pageStore.getMap('I13N')
         };
     }
 
-    updatePvid(pvid)
+    updatePvid(pvid, I13N)
     {
         if (!pvid) {
             return;
@@ -33,22 +34,23 @@ class MonitorPvid extends Component
         i13nDispatch({
             type: 'config/set',
             params: {
-                pvid: pvid
+                pvid: pvid,
+                I13N: I13N
             }
         });
     }
 
     componentDidMount() 
     {
-        const {pvid} = this.state;
-        this.updatePvid(pvid);
+        const {pvid, I13N} = this.state;
+        this.updatePvid(pvid, I13N);
     }
 
     componentDidUpdate(prevProps, prevState)
     {
-        const {pvid} = this.state;
+        const {pvid, I13N} = this.state;
         if (prevState.pvid !== pvid) {
-            this.updatePvid(pvid);
+            this.updatePvid(pvid, I13N);
         }
     }
 
@@ -69,8 +71,14 @@ class I13nElement extends Component
 
     static calculateState(prevState)
     {
+        const state = i13nStore.getState();
+        let I13N = state.get('I13N'); 
+        if (I13N && I13N.toJS) {
+            I13N = I13N.toJS();
+        }
         return {
-            pvid: i13nStore.getState().get('pvid')
+            pvid: state.get('pvid'),
+            I13N: I13N
         };
     }
 
@@ -78,7 +86,7 @@ class I13nElement extends Component
     {
         const self = this;
         const {src} = this.props;
-        const {pvid} = this.state;
+        const {pvid, I13N} = this.state;
         setTimeout(()=>{
             ajaxDispatch({
                 type: 'ajaxPost',
@@ -86,7 +94,8 @@ class I13nElement extends Component
                    url: src+'view',
                    query: {
                        pvid: pvid,
-                       url: document.URL
+                       url: document.URL,
+                       params: I13N
                    },
                    callback: (json,text) => {
                         self.setState({

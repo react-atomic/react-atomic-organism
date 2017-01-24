@@ -11,19 +11,19 @@ class I13nClick extends Component
 
     handleClick = (e) =>
     {
-        const {onClick, i13n} = this.props;
+        const {onClick, I13N} = this.props;
         if (onClick) {
             onClick(e); 
         }
         i13nDispatch({
             type: 'action',
-            params: i13n
+            params: I13N
         });
     }
 
     render()
     {
-        const {component, onClick, i13n, ...others} = this.props;
+        const {component, onClick, I13N, ...others} = this.props;
         let build;
         if (React.isValidElement(component)) {
             build = React.cloneElement;
