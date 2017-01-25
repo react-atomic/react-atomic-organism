@@ -22,7 +22,7 @@ class MonitorPvid extends Component
         const pvid = pageStore.getState().get('pvid');
         return {
             pvid: pvid,
-            I13N: pageStore.getMap('I13N')
+            I13N: get(pageStore.getMap('data'), ['I13N'])
         };
     }
 
