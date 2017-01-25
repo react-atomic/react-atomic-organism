@@ -7,6 +7,8 @@ const keys = Object.keys;
 
 class Iframe extends Component
 {
+    html = null;
+
     componentDidMount()
     {
         this.root = document.createElement('div');
@@ -73,14 +75,17 @@ class Iframe extends Component
     {
         const {children} = props;
 
-
         // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
         setTimeout(()=>{
             ReactDOM.render(
                <SemanticUI>{children}</SemanticUI>,
                this.root,
                () => {
-                this.handleScript(this.root);
+                    const html = this.root.innerHTML;
+                    if (html !== this.html) {
+                        this.handleScript(this.root);
+                        this.html = html;
+                    }
                }
             );
         });
