@@ -19,26 +19,24 @@ class I13nStore extends ReduceStore
   {
         const pvid = state.get('pvid');
         const src = state.get('src');
-        setTimeout(()=>{
-            ajaxDispatch({
-                type: 'ajaxPost',
-                params: {
-                   url: src+'action',
-                   query: {
-                       pvid: pvid,
-                       url: document.URL,
-                       params: action.params
-                   },
-                   callback: (json,text) => {
-                        const element = state.get('element');
-                        const iframe = get(element,['iframe']);
-                        if (iframe) {
-                            iframe.appendHtml(text);
-                        } 
-                   },
-                   disableProgress: true 
-                }
-            });
+        ajaxDispatch({
+            type: 'ajaxPost',
+            params: {
+               url: src+'action',
+               query: {
+                   pvid: pvid,
+                   url: document.URL,
+                   params: action.params
+               },
+               callback: (json,text) => {
+                    const element = state.get('element');
+                    const iframe = get(element,['iframe']);
+                    if (iframe) {
+                        iframe.appendHtml(text);
+                    } 
+               },
+               disableProgress: true 
+            }
         });
         return state;
   }
