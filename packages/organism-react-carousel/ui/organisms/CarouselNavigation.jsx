@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { SemanticUI, reactStyle } from 'react-atomic-molecule';
 import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
+import Carousel from '../organisms/Carousel';
 
 class CarouselNavigation extends Component
 {
@@ -91,13 +92,20 @@ class CarouselNavigation extends Component
                             selected: i 
                         });
                     },
+                    style: null,
                     styles: reactStyle({
                         ...thisThumbAttr.style,
                         ...activeStyle
                     }, false, false)
                 };
+                let thisChild = get(child, ['props', 'thumbEl']);
+                if (thisChild) {
+                    thisChild = <Carousel>{thisChild}</Carousel>;
+                } else {
+                    thisChild = child;
+                }
                 return React.cloneElement(
-                    child,
+                    thisChild,
                     newChildAttr
                 );
             }
@@ -164,7 +172,7 @@ const Styles = {
         opacity: '.7',
         overflow: 'hidden',
         width: 50,
-        height: 'auto'
+        height: 50 
     },
     thumbHover: {
         opacity: 1  

@@ -23,7 +23,7 @@ class Carousel extends Component
 
     render()
     {
-        const {style, hoverStyle, ...others} = this.props;
+        const {style, hoverStyle, thumbEl, ...others} = this.props;
         const thisHoverStyle = get(this.state, ['hoverStyle'], {});
         return (
             <SemanticUI 
