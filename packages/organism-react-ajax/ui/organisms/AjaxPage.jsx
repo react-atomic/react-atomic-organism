@@ -48,8 +48,7 @@ class AjaxPage extends Component
             }
         });
         window.onpopstate = (e)=> {
-            const updateWithUrl = ajaxStore.getState().get('updateWithUrl');
-            updateWithUrl(document.URL);
+            ajaxDispatch({ type: 'updateWithUrl' });
         };
     }
 

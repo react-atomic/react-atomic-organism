@@ -261,37 +261,59 @@ class AjaxStore extends ReduceStore
     }
   }
 
-  initWs(url)
-  {
-    this.worker({ws: url, type: 'initWs'});
-  }
+    initWs(url)
+    {
+        this.worker({ws: url, type: 'initWs'});
+    }
 
-  setWsAuth(action)
-  {
-    wsAuth = wsAuth.merge(action); 
-  }
+    setWsAuth(action)
+    {
+        wsAuth = wsAuth.merge(action); 
+    }
 
-  getWsAuth()
-  {
-    return wsAuth.toJS();
-  }
+    getWsAuth()
+    {
+        return wsAuth.toJS();
+    }
 
-  reduce (state, action)
-  {
+    updateWithUrl(state, action)
+    {
+        const updateWithUrl = state.get('updateWithUrl');
+        const url = get(
+            action, 
+            [
+                'params',
+                'url'
+            ],
+            document.URL
+        );
+        setTimeout(()=>{
+            updateWithUrl(url);
+        },0);
+        return state.set(
+            'currentLocation',
+            url 
+        );
+    }
+
+    reduce (state, action)
+    {
         switch (action.type)
         {
             case 'ajaxGet':
-               return this.ajaxGet(state, action); 
+                return this.ajaxGet(state, action); 
             case 'ajaxPost':
-               return this.ajaxPost(state, action); 
+                return this.ajaxPost(state, action); 
             case 'callback':
                 return this.applyCallback(state, action); 
+            case 'updateWithUrl':
+                return this.updateWithUrl(state, action);
             case 'config/set':
-               return state.merge(action.params);
+                return state.merge(action.params);
             default:
                 return state;
         }
-  }
+    }
 }
 
 // Export a singleton instance of the store, could do this some other way if
