@@ -3,7 +3,7 @@ import { SemanticUI, Unsafe } from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import {reshow, pageStore} from 'reshow';
 import get from 'get-object-value';
-import {ajaxDispatch} from 'organism-react-ajax';
+import {ajaxDispatch, ajaxStore} from 'organism-react-ajax';
 
 import i13nStore from '../../src/stores/i13nStore';
 import {i13nDispatch} from '../../src/actions/i13nDispatcher';
@@ -61,6 +61,45 @@ class MonitorPvid extends Component
 }
 
 const MonitorPvidContainer = reshow(MonitorPvid);
+
+class MonitorBrowserBF extends Component
+{
+    static getStores()
+    {
+        return [ajaxStore];
+    }
+
+    componentDidUpdate(prevProps, prevState)
+    {
+        const {currentLocation} = this.state;
+        if (prevState.currentLocation !== currentLocation) {
+            setTimeout(()=>{
+                i13nDispatch({
+                    type: 'action',
+                    params: {
+                        action: 'bfChange',
+                        before: prevState.currentLocation,
+                        after: currentLocation
+                    }
+                });
+            },0);
+        }
+    }
+
+    static calculateState(prevState)
+    {
+        return {
+            currentLocation: ajaxStore.getState().get('currentLocation')
+        };
+    }
+
+    render()
+    {
+        return null;
+    }
+}
+
+const MonitorBrowserBFContainer = reshow(MonitorBrowserBF);
 
 class I13nElement extends Component
 {
@@ -142,6 +181,7 @@ class I13nElement extends Component
         return (
         <SemanticUI>
             <MonitorPvidContainer />
+            <MonitorBrowserBFContainer />
             {thisIframe}
         </SemanticUI>
         );
