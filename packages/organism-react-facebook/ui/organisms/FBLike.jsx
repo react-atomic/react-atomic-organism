@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import FBIcon from 'ricon/Facebook';
 import {Icon, reactStyle} from 'react-atomic-molecule';
 
+const keys = Object.keys;
+
 class FBLike extends Component
 {
    constructor(props) {
@@ -25,9 +27,22 @@ class FBLike extends Component
        if (!state.load) {
            return null;
        } 
-       const src = '//www.facebook.com/plugins/like.php?href='+
-        page+
-        '&amp;width&amp;layout=standard&amp;action=recommend&amp;show_faces=true&amp;share=true&amp;locale=zh_TW&amp;appId=156535691085';
+       let url = '//www.facebook.com/plugins/like.php';
+       let params = {
+            appId: '1579401905644484',
+            action: 'recommend',
+            href: page,
+            layout: 'standard',
+            share: 'true',
+            show_faces: 'true',
+            locale: 'zh_TW', 
+       };
+       let paramArr = [];
+       const paramKeys = keys(params);
+       paramKeys.forEach((key)=>{
+           paramArr.push(key+'='+encodeURIComponent(params[key])); 
+       });
+       const src= url + '?'+ paramArr.join('&');
        return (
         <div style={Styles.container}>
             <Icon style={Styles.icon}

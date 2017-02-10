@@ -8,7 +8,7 @@ const keys = Object.keys;
 class FBPage extends Component
 {
    static defaultProps = {
-    appId: '156535691085',
+    appId: '1579401905644484',
     width: 340,
     height: 500,
     tabs: 'timeline',
@@ -72,7 +72,6 @@ class FBPage extends Component
            arr.push(key+'='+encodeURIComponent(params[key])); 
        });
        src +='?'+arr.join('&');
-       console.log(src);
 
        return (
             <iframe 
