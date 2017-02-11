@@ -84,7 +84,7 @@ class AjaxStore extends ReduceStore
   {
       const params = get(action, ['params'], {}); 
       let callback;
-      if (json.errors) {
+      if (get(json, ['data', 'errors'])) {
           if (params.errorCallback) {
               callback = Callbacks[params.errorCallback];
               delete(Callbacks[params.errorCallback]);
