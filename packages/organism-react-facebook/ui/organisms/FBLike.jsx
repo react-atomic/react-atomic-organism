@@ -1,3 +1,8 @@
+/**
+ * FB Like Doc
+ * https://developers.facebook.com/docs/plugins/like-button
+ */
+
 import React, {Component} from 'react'; 
 import FBIcon from 'ricon/Facebook';
 import {Icon, reactStyle} from 'react-atomic-molecule';
@@ -23,24 +28,24 @@ class FBLike extends Component
    render()
    {
        let state = this.state;
-       const {page} = this.props;
+       const {page, params} = this.props;
        if (!state.load) {
            return null;
        } 
        let url = '//www.facebook.com/plugins/like.php';
-       let params = {
+       let thisParams = {
             appId: '1579401905644484',
-            action: 'recommend',
+            action: 'like',
             href: page,
             layout: 'standard',
             share: 'true',
             show_faces: 'true',
-            locale: 'zh_TW', 
+            ...params
        };
        let paramArr = [];
-       const paramKeys = keys(params);
+       const paramKeys = keys(thisParams);
        paramKeys.forEach((key)=>{
-           paramArr.push(key+'='+encodeURIComponent(params[key])); 
+           paramArr.push(key+'='+encodeURIComponent(thisParams[key]));
        });
        const src= url + '?'+ paramArr.join('&');
        return (
