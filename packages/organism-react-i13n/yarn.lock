@@ -22,8 +22,8 @@ anymatch@^1.3.0:
     micromatch "^2.1.5"
 
 aproba@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.0.4.tgz#2713680775e7614c8ba186c065d4e2e52d1072c0"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.1.1.tgz#95d3600f07710aa0e9298c726ad5ecf2eacbabab"
 
 are-we-there-yet@~1.1.2:
   version "1.1.2"
@@ -79,8 +79,8 @@ aws-sign2@~0.6.0:
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
 
 aws4@^1.2.1:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.5.0.tgz#0a29ffb79c31c9e712eeb087e8e7a64b4a56d755"
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
 babel-cli@^6.7.5:
   version "6.22.2"
@@ -957,8 +957,8 @@ dashdash@^1.12.0:
     assert-plus "^1.0.0"
 
 debug@^2.1.1, debug@^2.2.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.0.tgz#bc596bcabe7617f11d9fa15361eded5608b8499b"
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.1.tgz#79855090ba2c4e3115cc7d8769491d58f0491351"
   dependencies:
     ms "0.7.2"
 
@@ -1153,8 +1153,8 @@ fstream@^1.0.0, fstream@^1.0.2, fstream@~1.0.10:
     rimraf "2"
 
 gauge@~2.7.1:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/gauge/-/gauge-2.7.2.tgz#15cecc31b02d05345a5d6b0e171cdb3ad2307774"
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/gauge/-/gauge-2.7.3.tgz#1c23855f962f17b3ad3d0dc7443f304542edfe09"
   dependencies:
     aproba "^1.0.3"
     console-control-strings "^1.0.0"
@@ -1163,7 +1163,6 @@ gauge@~2.7.1:
     signal-exit "^3.0.0"
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
-    supports-color "^0.2.0"
     wide-align "^1.1.0"
 
 generate-function@^2.0.0:
@@ -1627,8 +1626,8 @@ once@~1.3.3:
     wrappy "1"
 
 organism-react-ajax@*:
-  version "0.0.59"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.59.tgz#43d264509ef93726c4e0e8d72aed37d203d5168b"
+  version "0.0.60"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.60.tgz#58946fc88202acd42d95c09e8211d9f00e0d4e70"
   dependencies:
     get-object-value "*"
     react-atomic-molecule "*"
@@ -1768,8 +1767,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.3.tgz#9c2ff7368b30df839421ff850864373d37cd440b"
 
 react-atomic-molecule@*, react-atomic-molecule@>=0.0.40:
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.17.tgz#d0ecbf66cf0d302dbcf4f01a6c5b9a21ca159439"
+  version "1.1.18"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.18.tgz#5a2928e65246d8bb880955598afe98c3a0caf837"
   dependencies:
     class-lib "*"
     exenv "1.2.1"
@@ -1853,7 +1852,7 @@ regenerator-transform@0.9.8:
 
 regex-cache@^0.4.2:
   version "0.4.3"
-  resolved "https://registry.yarnpkg.com/regex-cache/-/regex-cache-0.4.3.tgz#9b1a6c35d4d0dfcef5711ae651e8e9d3d7114145"
+  resolved "http://registry.npmjs.org/regex-cache/-/regex-cache-0.4.3.tgz#9b1a6c35d4d0dfcef5711ae651e8e9d3d7114145"
   dependencies:
     is-equal-shallow "^0.1.3"
     is-primitive "^2.0.0"
@@ -1916,8 +1915,8 @@ request@^2.79.0:
     uuid "^3.0.0"
 
 reshow@*:
-  version "0.1.22"
-  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.1.22.tgz#77f9289d72ea0c02aab679d835cb27fd6a321d8f"
+  version "0.1.23"
+  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.1.23.tgz#1f8bb8b38fcff61df9a154b3e8a2859765fd548d"
   dependencies:
     getoffset "*"
     organism-react-ajax "*"
@@ -2031,10 +2030,6 @@ superagent@^3.3.0:
     mime "^1.3.4"
     qs "^6.1.0"
     readable-stream "^2.0.5"
-
-supports-color@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-0.2.0.tgz#d92de2694eb3f67323973d7ae3d8b55b4c22190a"
 
 supports-color@^2.0.0:
   version "2.0.0"

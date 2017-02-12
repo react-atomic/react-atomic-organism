@@ -126,16 +126,20 @@ class I13nElement extends Component
         const self = this;
         const {src} = this.props;
         const {pvid, I13N} = this.state;
+        let query = {
+           pvid: pvid,
+           url: document.URL,
+           params: I13N
+        };
+        if (window.startUpTime) {
+            query.sp = (new Date().getTime()) - window.startUpTime;
+        }
         setTimeout(()=>{
             ajaxDispatch({
                 type: 'ajaxPost',
                 params: {
                    url: src+'view',
-                   query: {
-                       pvid: pvid,
-                       url: document.URL,
-                       params: I13N
-                   },
+                   query: query,
                    callback: (json,text) => {
                         self.setState({
                             iframe: text
