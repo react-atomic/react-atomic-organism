@@ -39,6 +39,7 @@ class HorizontalToVerticalMenu extends Component
             nav,
             style,
             className,
+            children,
             ...others
         } = this.props;
         const classes = mixClass(
@@ -52,16 +53,18 @@ class HorizontalToVerticalMenu extends Component
         let build;
         const clone = React.cloneElement;
         if (React.isValidElement(brand)) {
-            thisChildren.push(clone(
-                brand,
-                {
-                    className: mixClass(
-                        brand.props.className,
-                        'brand pure-u-1'
-                    ),
-                    key: 'brand'
-                }
-            ));
+            thisChildren.push(
+                clone(
+                    brand,
+                    {
+                        className: mixClass(
+                            brand.props.className,
+                            'brand pure-u-1'
+                        ),
+                        key: 'brand'
+                    }
+                )
+            );
         }
         if (React.isValidElement(nav)) {
             thisChildren.push(
@@ -76,6 +79,18 @@ class HorizontalToVerticalMenu extends Component
                         handleOn: this.handleOn
                     }
                 ),
+            );
+        }
+        React.Children.forEach(
+            children,
+            (child, k)=>{
+                thisChildren.push(
+                    child
+                );
+            }
+        );
+        if (React.isValidElement(nav)) {
+            thisChildren.push(
                 <Icon
                     key="hamburger-icon"
                     className="hamburger-icon"
