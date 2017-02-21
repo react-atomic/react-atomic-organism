@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.0.61",
+  "version": "0.0.62",
   "description": "React Ajax with webworker",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",

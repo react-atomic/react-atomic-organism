@@ -12,12 +12,17 @@ class AjaxLink extends AjaxBase
     }
 
     handleOnClick = (e) => {
-        e.preventDefault();
+        const {target} = this.props;
+        if ('_blank' !== target) {
+            e.preventDefault();
+        }
         if (this.props.onClick) {
             this.props.onClick(e);
         }
-        const href = e.currentTarget.href;
-        this.go(href);
+        if ('_blank' !== target) {
+            const href = e.currentTarget.href;
+            this.go(href);
+        }
     }
 
     go(url) {
