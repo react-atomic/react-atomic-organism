@@ -3,6 +3,8 @@ import get from 'get-object-value';
 var ws;
 var callbacks = [];
 var post;
+let isWsConnect;
+let wsUrl;
 
 try {
     post = postMessage;
@@ -87,10 +89,36 @@ const ajaxPost = ({url, action}) =>
 
 const initWs = (url) =>
 {
+    wsUrl = url;
     ws = new WebSocket(url);
     ws.onopen = (e) => { };
     ws.onerror = (e) => { };
     ws.onmessage = (e) => {
-        post({type: 'ws', text: e.data});
+        isWsConnect = true;
+        switch (e.data) {
+            case 'ping': 
+                break;
+            default :
+                post({type: 'ws', text: e.data});
+                break;
+        }
     };
+    ws.onclose = (e) => {
+        isWsConnect = false;
+    };
+    wsPing();
 };
+
+const wsPing = () =>
+{
+    setTimeout(()=>{
+        if (!isWsConnect) {
+            initWs(wsUrl);
+        } else {
+            ws.send(JSON.stringify({type:'ping'})); 
+            wsPing();
+        }
+    },10000);
+}
+
+

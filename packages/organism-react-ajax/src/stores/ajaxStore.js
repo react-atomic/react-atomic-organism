@@ -17,7 +17,6 @@ let Callbacks = [];
 const initWorker = (worker) =>
 {
     worker.addEventListener('message', (e)=>{
-        const data = get(e, ['data']);
         switch (get(e, ['data','type'])) {
             case 'ready':
                 isWorkerReady = true;
@@ -233,9 +232,10 @@ class AjaxStore extends ReduceStore
     const response = get(action, ['response']); 
     const json = this.getJson(text);
     const callback = this.getCallback(state, action, json);
-    switch (get(json,['type'])) {
-        case 'auth':
-            this.setWsAuth(get(json,['data']));
+    const type = get(json,['type']);
+    switch (type) {
+        case 'ws-auth':
+            this.setWsAuth(get(json,['--realTimeData--']));
             break;
         default:
             callback(json, text, response);
@@ -266,9 +266,9 @@ class AjaxStore extends ReduceStore
         this.worker({ws: url, type: 'initWs'});
     }
 
-    setWsAuth(action)
+    setWsAuth(data)
     {
-        wsAuth = wsAuth.merge(action); 
+        wsAuth = wsAuth.merge(data);
     }
 
     getWsAuth()
