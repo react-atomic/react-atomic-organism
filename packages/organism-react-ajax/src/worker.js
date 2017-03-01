@@ -59,10 +59,10 @@ const ajaxGet = ({url, action}) =>
           .query(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
-            const {req, xhr, error, ...resetRes} = res;
+            const {error, req, text, xhr, ...resetRes} = res;
             post({
                 ...action,
-                text: res.text,
+                text: text,
                 response: resetRes 
             });                 
           });
@@ -77,10 +77,10 @@ const ajaxPost = ({url, action}) =>
           .send(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
-            const {req, xhr, error, ...resetRes} = res;
+            const {error, req, text, xhr, ...resetRes} = res;
             post({
                 ...action,
-                text: res.text,
+                text: text,
                 response: resetRes 
             });                 
           });
