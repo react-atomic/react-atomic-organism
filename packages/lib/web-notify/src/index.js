@@ -32,10 +32,13 @@ const request = (grantedCallback, deniedCallback) =>
 
 export {request};
 
-const notify = ( text, params )=>
+const notify = ( text, params, callback )=>
 {
     request(()=>{
         let notification = new Notification(text, params); 
+        if (typeof callback === 'function') {
+            callback(notification);
+        }
     });
 }
 
