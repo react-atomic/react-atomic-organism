@@ -238,7 +238,9 @@ class AjaxStore extends ReduceStore
             this.setWsAuth(get(json,['--realTimeData--']));
             break;
         default:
-            callback(json, text, response);
+            setTimeout(()=>{
+                callback(json, text, response);
+            });
             break;
     }
     if (params.updateUrl || params.scrollBack) {
