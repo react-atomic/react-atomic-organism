@@ -7,7 +7,6 @@ React Ajax
 
 ## Example Usage
 Demo Url:
-https://dl.dropboxusercontent.com/u/3396570/list/index.html
+https://react-atomic-ui.js.org/
 
-Documentation:
 
