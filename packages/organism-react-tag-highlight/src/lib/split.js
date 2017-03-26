@@ -4,6 +4,9 @@ const split = (s, delimiter) => {
     if (!delimiter) {
         delimiter = '*';
     }
+    if (!s) {
+        return [];
+    }
     let raw = s.split(delimiter);
     const len = raw.length - 1;
     let cook = raw.map((item, i)=>{
