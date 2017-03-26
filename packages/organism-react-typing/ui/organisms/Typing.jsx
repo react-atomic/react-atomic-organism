@@ -96,9 +96,11 @@ class Typing extends Component
         );
     }
 
-    componentDidMount()
+    update(props)
     {
-        const props = this.props;
+        if (!props) {
+            props = this.props;
+        }
         const itemLength = props.children.length;
         const height = parseInt(props.height, 10);
         const aniName = 'typingNextLine';
@@ -115,6 +117,16 @@ class Typing extends Component
         this.setState({
             typingItemStyles: typingItemStyles
         });
+    }
+
+    componentDidMount()
+    {
+        this.update();
+    }
+
+    componentWillReceiveProps(nextProps)
+    {
+        this.update(nextProps);
     }
 
     start()
@@ -179,6 +191,7 @@ const Styles = {
         display: "inline-block",
         overflow: "hidden",
         visibility: "hidden",
+        whiteSpace: 'nowrap'
     },
 };
 
