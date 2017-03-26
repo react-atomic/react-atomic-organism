@@ -1,11 +1,11 @@
 'use strict';
 
 const split = (s, delimiter) => {
-    if (!delimiter) {
-        delimiter = '*';
-    }
     if (!s) {
         return [];
+    }
+    if (!delimiter) {
+        delimiter = '*';
     }
     let raw = s.split(delimiter);
     const len = raw.length - 1;

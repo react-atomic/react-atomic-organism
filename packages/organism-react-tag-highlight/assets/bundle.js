@@ -17287,11 +17287,11 @@ webpackJsonp([0],[
 	    value: true
 	});
 	var split = function split(s, delimiter) {
-	    if (!delimiter) {
-	        delimiter = '*';
-	    }
 	    if (!s) {
 	        return [];
+	    }
+	    if (!delimiter) {
+	        delimiter = '*';
 	    }
 	    var raw = s.split(delimiter);
 	    var len = raw.length - 1;
