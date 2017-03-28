@@ -4,7 +4,6 @@ import Animate from "organism-react-scroll-animate";
 
 import {
     mixClass,
-    assign,
     reactStyle,
     injectStyle,
     Content,
@@ -31,19 +30,15 @@ const Time = (props)=>
     </SemanticUI>
 
 const TimeBox = (props)=>
-    <SemanticUI style={assign(
-        {
-            borderLeftColor: props.borderColor
-        },
-        Styles.timebox
-    )}>
+    <SemanticUI style={{
+        borderLeftColor: props.borderColor,
+        ...Styles.timebox
+    }}>
         <Time time={props.from} />
-        <SemanticUI style={assign(
-            {
-                backgroundColor: props.color
-            },
-            Styles.until
-        )}/>
+        <SemanticUI style={{
+            backgroundColor: props.color,
+            ...Styles.until
+        }}/>
         <Time time={props.to} />
     </SemanticUI>
 
@@ -61,15 +56,13 @@ const EventContent = (props)=> {
     return (
     <Content
         className="pure-u-1 pure-u-md-11-24"
-        style={assign(
-            {
+        style={{
                 borderColor: backgroundColor,
                 backgroundColor: lightenColor(backgroundColor, 60, 500),
                 color: color,
-                minHeight: minHeight
-            },
-            Styles.content
-        )}
+                minHeight: minHeight,
+                ...Styles.content
+        }}
     >
         <Header className="summary" style={Styles.summary}>{header}</Header>
         <Description className="extra text">{description}</Description>
@@ -97,27 +90,24 @@ const Event = (props) =>
     } = props;
     let content = <EventContent {...props} />;
     if (animate) {
-        const aniProps = assign(
-            {minHeight: minHeight},
-            animate
-        );
+        const aniProps = {
+            minHeight: minHeight,
+            style: {width: '100%'},
+            ...animate
+        };
         content = <Animate {...aniProps}>{content}</Animate>;
     }
     return (
     <SemanticUI className={classes} style={Styles.container}>
-        <SemanticUI className="line" style={assign(
-            {
-                background: hexToRgba(backgroundColor,'.3') 
-            },
-            Styles.line
-        )} />
-        <Label style={assign(
-            {
+        <SemanticUI className="line" style={{
+                background: hexToRgba(backgroundColor,'.3'), 
+                ...Styles.line
+        }}/>
+        <Label ui={false} style={{
                 borderColor: borderColor,
-                backgroundColor: backgroundColor
-            },
-            Styles.label
-        )}/>
+                backgroundColor: backgroundColor,
+                ...Styles.label
+        }}/>
         {content}
     </SemanticUI>
     );
