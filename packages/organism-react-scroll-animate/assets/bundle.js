@@ -20594,6 +20594,16 @@ webpackJsonp([0],[
 	    }return target;
 	};
 
+	var _createClass = function () {
+	    function defineProperties(target, props) {
+	        for (var i = 0; i < props.length; i++) {
+	            var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
+	        }
+	    }return function (Constructor, protoProps, staticProps) {
+	        if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+	    };
+	}();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -20616,44 +20626,90 @@ webpackJsonp([0],[
 	    }return target;
 	}
 
-	var Content = function Content(props) {
-	    var children = props.children,
-	        enter = props.enter,
-	        leave = props.leave,
-	        once = props.once,
-	        minHeight = props.minHeight,
-	        targetInfo = props.targetInfo,
-	        style = props.style,
-	        refCb = props.refCb,
-	        ref = props.ref,
-	        others = _objectWithoutProperties(props, ['children', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'ref']);
+	function _classCallCheck(instance, Constructor) {
+	    if (!(instance instanceof Constructor)) {
+	        throw new TypeError("Cannot call a class as a function");
+	    }
+	}
 
-	    var show = null;
-	    var thisStyle = {};
-	    var force = false;
-	    if (once && targetInfo.isShown) {
-	        var node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
-	        if (node && !node.props.testScrollTo) {
-	            node.detach();
+	function _possibleConstructorReturn(self, call) {
+	    if (!self) {
+	        throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	    }return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	}
+
+	function _inherits(subClass, superClass) {
+	    if (typeof superClass !== "function" && superClass !== null) {
+	        throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	    }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	}
+
+	var Content = function (_Component) {
+	    _inherits(Content, _Component);
+
+	    function Content() {
+	        _classCallCheck(this, Content);
+
+	        return _possibleConstructorReturn(this, (Content.__proto__ || Object.getPrototypeOf(Content)).apply(this, arguments));
+	    }
+
+	    _createClass(Content, [{
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate(nextProps, nextState) {
+	            var _props = this.props,
+	                once = _props.once,
+	                targetInfo = _props.targetInfo;
+
+	            var bool = void 0;
+	            var node = void 0;
+	            if (once && targetInfo.isShown) {
+	                node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
+	                if (node && !node.props.testScrollTo) {
+	                    node.detach();
+	                }
+	                bool = false;
+	            } else {
+	                bool = true;
+	            }
+	            return bool;
 	        }
-	        force = true;
-	    }
-	    if (targetInfo.isOnScreen || force) {
-	        if ('function' === typeof children) {
-	            show = children();
-	        } else {
-	            show = children;
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _props2 = this.props,
+	                children = _props2.children,
+	                enter = _props2.enter,
+	                leave = _props2.leave,
+	                once = _props2.once,
+	                minHeight = _props2.minHeight,
+	                targetInfo = _props2.targetInfo,
+	                style = _props2.style,
+	                refCb = _props2.refCb,
+	                ref = _props2.ref,
+	                others = _objectWithoutProperties(_props2, ['children', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'ref']);
+
+	            var show = null;
+	            var thisStyle = {};
+	            if (targetInfo.isOnScreen) {
+	                if ('function' === typeof children) {
+	                    show = children();
+	                } else {
+	                    show = children;
+	                }
+	            }
+	            if (!show) {
+	                thisStyle = {
+	                    minHeight: minHeight
+	                };
+	            } else {
+	                show = _react2.default.cloneElement(show, others);
+	            }
+	            return _react2.default.createElement(_organismReactAnimate2.default, { style: _extends({}, thisStyle, style), enter: enter, leave: leave, ref: ref, refCb: refCb }, show);
 	        }
-	    }
-	    if (!show) {
-	        thisStyle = {
-	            minHeight: minHeight
-	        };
-	    } else {
-	        show = _react2.default.cloneElement(show, others);
-	    }
-	    return _react2.default.createElement(_organismReactAnimate2.default, { style: _extends({}, thisStyle, style), enter: enter, leave: leave, ref: ref, refCb: refCb }, show);
-	};
+	    }]);
+
+	    return Content;
+	}(_react.Component);
 
 	var ScrollAnimate = function ScrollAnimate(props) {
 	    var enter = props.enter,

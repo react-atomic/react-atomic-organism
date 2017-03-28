@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {SemanticUI} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import {
@@ -7,52 +7,69 @@ import {
     scrollStore
 } from 'organism-react-scroll-nav'
 
-const Content = (props) => {
-    const {
-        children,
-        enter,
-        leave,
-        once,
-        minHeight,
-        targetInfo,
-        style,
-        refCb,
-        ref,
-        ...others
-    } = props;
-    let show = null;
-    let thisStyle = {};
-    let force = false;
-    if (once && targetInfo.isShown) {
-        const node = scrollStore.getNode(targetInfo.targetId);
-        if (node && !node.props.testScrollTo) {
-            node.detach();
-        }
-        force = true;
-    }
-    if (targetInfo.isOnScreen || force) {
-        if ('function' === typeof children) {
-            show = children();
+class Content extends Component
+{
+    
+    shouldComponentUpdate(nextProps, nextState)
+    {
+        const {
+            once,
+            targetInfo
+        } = this.props; 
+        let bool;
+        let node;
+        if (once && targetInfo.isShown) {
+            node = scrollStore.getNode(targetInfo.targetId);
+            if (node && !node.props.testScrollTo) {
+                node.detach();
+            }
+            bool=false;
         } else {
-            show = children;
+            bool=true;
         }
+        return bool;
     }
-    if (!show) {
-        thisStyle = {
-            minHeight: minHeight 
-        };
-    } else {
-        show = React.cloneElement(
-            show,
-            others
+
+    render()
+    {
+        const {
+            children,
+            enter,
+            leave,
+            once,
+            minHeight,
+            targetInfo,
+            style,
+            refCb,
+            ref,
+            ...others
+        } = this.props;
+        let show = null;
+        let thisStyle = {};
+        if (targetInfo.isOnScreen) {
+            if ('function' === typeof children) {
+                show = children();
+            } else {
+                show = children;
+            }
+        }
+        if (!show) {
+            thisStyle = {
+                minHeight: minHeight 
+            };
+        } else {
+            show = React.cloneElement(
+                show,
+                others
+            );
+        }
+        return (
+            <Animate style={{...thisStyle, ...style}} enter={enter} leave={leave} ref={ref} refCb={refCb}>
+                {show}
+            </Animate>
         );
     }
-    return (
-        <Animate style={{...thisStyle, ...style}} enter={enter} leave={leave} ref={ref} refCb={refCb}>
-            {show}
-        </Animate>
-    );
-};
+}
 
 const ScrollAnimate = (props) => { 
     const {enter, leave, once, minHeight, children, ...others} = props;
