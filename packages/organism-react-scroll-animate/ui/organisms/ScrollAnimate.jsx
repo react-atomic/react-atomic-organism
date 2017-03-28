@@ -1,5 +1,5 @@
 import React from 'react';
-import {assign, SemanticUI} from 'react-atomic-molecule';
+import {SemanticUI} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import {
     ScrollSpy,
@@ -16,6 +16,8 @@ const Content = (props) => {
         minHeight,
         targetInfo,
         style,
+        refCb,
+        ref,
         ...others
     } = props;
     let show = null;
@@ -39,9 +41,14 @@ const Content = (props) => {
         thisStyle = {
             minHeight: minHeight 
         };
+    } else {
+        show = React.cloneElement(
+            show,
+            others
+        );
     }
     return (
-        <Animate style={assign(thisStyle,style)} enter={enter} leave={leave} {...others}>
+        <Animate style={{...thisStyle, ...style}} enter={enter} leave={leave} ref={ref} refCb={refCb}>
             {show}
         </Animate>
     );
