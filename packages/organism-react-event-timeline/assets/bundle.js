@@ -17364,9 +17364,13 @@ webpackJsonp([0],[
 	        }, animate);
 	        content = _react2.default.createElement(_organismReactScrollAnimate2.default, aniProps, content);
 	    }
+	    var containerStyle = Styles.container;
+	    if (handleEventClick) {
+	        containerStyle.cursor = 'pointer';
+	    }
 	    return _jsx(_reactAtomicMolecule.SemanticUI, {
 	        className: classes,
-	        style: Styles.container,
+	        style: containerStyle,
 	        onClick: function onClick(e) {
 	            if (handleEventClick) {
 	                handleEventClick(e, props);

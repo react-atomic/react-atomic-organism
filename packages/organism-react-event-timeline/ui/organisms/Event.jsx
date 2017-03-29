@@ -98,10 +98,14 @@ const Event = (props) =>
         };
         content = <Animate {...aniProps}>{content}</Animate>;
     }
+    let containerStyle = Styles.container;
+    if (handleEventClick) {
+        containerStyle.cursor = 'pointer';
+    }
     return (
     <SemanticUI
         className={classes}
-        style={Styles.container}
+        style={containerStyle}
         onClick={(e)=>{
             if (handleEventClick) {
                 handleEventClick(e, props);
