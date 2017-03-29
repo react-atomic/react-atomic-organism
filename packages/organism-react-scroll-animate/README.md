@@ -12,6 +12,7 @@ http://react-atomic.github.io/react-atomic-organism/packages/organism-react-scro
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-scroll-animate/ui/pages/index.jsx
 
-
+## Props
+monitorScroll: true # tell scrollSpy to handle event
 
 

@@ -20,7 +20,7 @@ class Content extends Component
         let node;
         if (once && targetInfo.isShown) {
             node = scrollStore.getNode(targetInfo.targetId);
-            if (node && !node.props.testScrollTo) {
+            if (node && !node.props.monitorScroll) {
                 node.detach();
             }
             bool=false;
@@ -42,6 +42,8 @@ class Content extends Component
             style,
             refCb,
             ref,
+            id,
+            monitorScroll,
             ...others
         } = this.props;
         let show = null;
@@ -64,7 +66,14 @@ class Content extends Component
             );
         }
         return (
-            <Animate style={{...thisStyle, ...style}} enter={enter} leave={leave} ref={ref} refCb={refCb}>
+            <Animate
+                style={{...thisStyle, ...style}}
+                enter={enter}
+                leave={leave}
+                ref={ref}
+                refCb={refCb}
+                id={id}
+            >
                 {show}
             </Animate>
         );
@@ -89,7 +98,7 @@ const ScrollAnimate = (props) => {
 ScrollAnimate.defaultProps = {
     container: <Content />,
     once: true,
-    testScrollTo: false,
+    monitorScroll: false,
     minHeight: 155, //need great than browser minHeigh 150px
 };
 export default ScrollAnimate;
