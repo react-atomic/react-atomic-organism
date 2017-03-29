@@ -86,7 +86,8 @@ const Event = (props) =>
         animate,
         backgroundColor,
         borderColor,
-        minHeight
+        minHeight,
+        handleEventClick
     } = props;
     let content = <EventContent {...props} />;
     if (animate) {
@@ -98,7 +99,15 @@ const Event = (props) =>
         content = <Animate {...aniProps}>{content}</Animate>;
     }
     return (
-    <SemanticUI className={classes} style={Styles.container}>
+    <SemanticUI
+        className={classes}
+        style={Styles.container}
+        onClick={(e)=>{
+            if (handleEventClick) {
+                handleEventClick(e, props);
+            }
+        }}
+    >
         <SemanticUI className="line" style={{
                 background: hexToRgba(backgroundColor,'.3'), 
                 ...Styles.line

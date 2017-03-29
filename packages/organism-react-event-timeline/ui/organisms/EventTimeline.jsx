@@ -3,7 +3,6 @@ import React from 'react';
 import {
     min,
     mixClass,
-    assign,
     reactStyle,
     lazyInject,
     SemanticUI
@@ -35,10 +34,13 @@ const EventTimeline = (props) =>
     if (props.borderColor) {
         elProps.borderColor = props.borderColor;
     }
+    if (props.handleEventClick) {
+        elProps.handleEventClick = props.handleEventClick;
+    }
     return (
         <SemanticUI className={classes} style={Styles.container}>
             { events.map((item, k)=>{
-                item = assign(item, elProps);
+                item = {...item, ...elProps};
                 if (k%2 && props.evenAnimate) {
                     item.animate = props.evenAnimate;
                 }

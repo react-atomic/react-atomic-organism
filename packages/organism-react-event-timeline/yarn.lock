@@ -1818,16 +1818,16 @@ organism-react-animate@>=0.0.4:
     react-atomic-molecule "*"
 
 organism-react-scroll-animate@*:
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.0.23.tgz#02f6c5d6298286af607c4735cf16f171bb9e7df2"
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.0.24.tgz#53e73f184a4c64cbebfcee373f78b4c3ec24389f"
   dependencies:
     organism-react-animate ">=0.0.4"
     organism-react-scroll-nav ">=0.0.18"
     react-atomic-molecule "*"
 
 organism-react-scroll-nav@>=0.0.18:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.2.6.tgz#088f46c86d30640018f52af7c9d457f1633d5bd0"
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.2.7.tgz#cf3c366081e389a53cb9325705fc6d22a7260627"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"

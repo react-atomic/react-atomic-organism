@@ -4,7 +4,6 @@ webpackJsonp([0],[
 
 	'use strict';
 
-	Object.assign = null;
 	var React = __webpack_require__(1);
 	setTimeout(function () {
 	  var ReactDOM = __webpack_require__(32);
@@ -17354,7 +17353,8 @@ webpackJsonp([0],[
 	    var animate = props.animate,
 	        backgroundColor = props.backgroundColor,
 	        borderColor = props.borderColor,
-	        minHeight = props.minHeight;
+	        minHeight = props.minHeight,
+	        handleEventClick = props.handleEventClick;
 
 	    var content = _react2.default.createElement(EventContent, props);
 	    if (animate) {
@@ -17366,7 +17366,12 @@ webpackJsonp([0],[
 	    }
 	    return _jsx(_reactAtomicMolecule.SemanticUI, {
 	        className: classes,
-	        style: Styles.container
+	        style: Styles.container,
+	        onClick: function onClick(e) {
+	            if (handleEventClick) {
+	                handleEventClick(e, props);
+	            }
+	        }
 	    }, void 0, _jsx(_reactAtomicMolecule.SemanticUI, {
 	        className: 'line',
 	        style: _extends({
@@ -17720,7 +17725,7 @@ webpackJsonp([0],[
 	            var node = void 0;
 	            if (once && targetInfo.isShown) {
 	                node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
-	                if (node && !node.props.testScrollTo) {
+	                if (node && !node.props.monitorScroll) {
 	                    node.detach();
 	                }
 	                bool = false;
@@ -17742,7 +17747,9 @@ webpackJsonp([0],[
 	                style = _props2.style,
 	                refCb = _props2.refCb,
 	                ref = _props2.ref,
-	                others = _objectWithoutProperties(_props2, ['children', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'ref']);
+	                id = _props2.id,
+	                monitorScroll = _props2.monitorScroll,
+	                others = _objectWithoutProperties(_props2, ['children', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'ref', 'id', 'monitorScroll']);
 
 	            var show = null;
 	            var thisStyle = {};
@@ -17760,7 +17767,14 @@ webpackJsonp([0],[
 	            } else {
 	                show = _react2.default.cloneElement(show, others);
 	            }
-	            return _react2.default.createElement(_organismReactAnimate2.default, { style: _extends({}, thisStyle, style), enter: enter, leave: leave, ref: ref, refCb: refCb }, show);
+	            return _react2.default.createElement(_organismReactAnimate2.default, {
+	                style: _extends({}, thisStyle, style),
+	                enter: enter,
+	                leave: leave,
+	                ref: ref,
+	                refCb: refCb,
+	                id: id
+	            }, show);
 	        }
 	    }]);
 
@@ -17785,7 +17799,7 @@ webpackJsonp([0],[
 	ScrollAnimate.defaultProps = {
 	    container: _jsx(Content, {}),
 	    once: true,
-	    testScrollTo: false,
+	    monitorScroll: false,
 	    minHeight: 155 };
 	exports.default = ScrollAnimate;
 	module.exports = exports['default'];
@@ -23728,6 +23742,16 @@ webpackJsonp([0],[
 	    value: true
 	});
 
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
 	var _createClass = function () {
 	    function defineProperties(target, props) {
 	        for (var i = 0; i < props.length; i++) {
@@ -23751,8 +23775,6 @@ webpackJsonp([0],[
 	var _getScrollInfo = __webpack_require__(312);
 
 	var _getScrollInfo2 = _interopRequireDefault(_getScrollInfo);
-
-	var _reactAtomicMolecule = __webpack_require__(187);
 
 	function _interopRequireDefault(obj) {
 	    return obj && obj.__esModule ? obj : { default: obj };
@@ -23832,15 +23854,15 @@ webpackJsonp([0],[
 	            var actives = { mdefault: null };
 	            var offsetCache = {};
 	            var scrollTop = scroll.top + defaultMargin;
-	            var arrTestScrollTo = [];
+	            var arrMonitorScroll = [];
 	            var margin = void 0;
 	            this.spys.forEach(function (node) {
 	                var pos = node.getOffset();
-	                if (node.props.testScrollTo) {
+	                if (node.props.monitorScroll) {
 	                    if (scrollTop >= pos.top && scrollTop < pos.bottom) {
 	                        actives.mdefault = node.id;
 	                    }
-	                    arrTestScrollTo.push(node);
+	                    arrMonitorScroll.push(node);
 	                }
 	                margin = node.scrollMargin ? node.scrollMargin : defaultMargin;
 	                pos.atTop = pos.bottom <= scroll.top + margin;
@@ -23853,7 +23875,7 @@ webpackJsonp([0],[
 	            this.margins.forEach(function (margin) {
 	                scrollTop = scroll.top + margin;
 	                actives['m' + margin] = null;
-	                arrTestScrollTo.every(function (node) {
+	                arrMonitorScroll.every(function (node) {
 	                    var pos = offsetCache[node.id];
 	                    if (scrollTop >= pos.top && scrollTop < pos.bottom) {
 	                        actives['m' + margin] = node.id;
@@ -23863,7 +23885,7 @@ webpackJsonp([0],[
 	                });
 	            });
 	            this.margins = this.margins.clear();
-	            (0, _dispatcher.dispatch)((0, _reactAtomicMolecule.assign)(actives, {
+	            (0, _dispatcher.dispatch)(_extends({}, actives, {
 	                nodes: offsetCache,
 	                scroll: scroll
 	            }));
@@ -30361,6 +30383,16 @@ webpackJsonp([0],[
 	    };
 	}();
 
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
+
 	var _createClass = function () {
 	    function defineProperties(target, props) {
 	        for (var i = 0; i < props.length; i++) {
@@ -30475,11 +30507,14 @@ webpackJsonp([0],[
 	        value: function render() {
 	            var _this2 = this;
 
+	            /**
+	             * monitorScroll use in store, in component just for reset props.
+	             */
 	            var _props = this.props,
-	                testScrollTo = _props.testScrollTo,
+	                monitorScroll = _props.monitorScroll,
 	                children = _props.children,
 	                container = _props.container,
-	                others = _objectWithoutProperties(_props, ['testScrollTo', 'children', 'container']);
+	                others = _objectWithoutProperties(_props, ['monitorScroll', 'children', 'container']);
 
 	            var isScrollReceiver = this.isScrollReceiver(children);
 	            var cookChildren = void 0;
@@ -30487,12 +30522,12 @@ webpackJsonp([0],[
 	            var thisProps = void 0;
 	            if (isScrollReceiver) {
 	                thisContainer = children;
-	                thisProps = (0, _reactAtomicMolecule.assign)({
+	                thisProps = _extends({
 	                    targetId: this.state.id,
 	                    container: container
 	                }, others, children.props);
 	            } else {
-	                thisProps = (0, _reactAtomicMolecule.assign)({
+	                thisProps = _extends({
 	                    children: children
 	                }, others);
 	                if (container) {
@@ -30501,7 +30536,7 @@ webpackJsonp([0],[
 	                    thisContainer = _jsx(_reactAtomicMolecule.SemanticUI, {});
 	                }
 	            }
-	            thisProps = (0, _reactAtomicMolecule.assign)(thisProps, {
+	            thisProps = _extends({}, thisProps, {
 	                refCb: function refCb(el) {
 	                    return _this2.el = el;
 	                }
@@ -30514,7 +30549,7 @@ webpackJsonp([0],[
 	}(_react.Component);
 
 	ScrollSpy.defaultProps = {
-	    testScrollTo: true
+	    monitorScroll: true
 	};
 	exports.default = ScrollSpy;
 	module.exports = exports['default'];
@@ -30557,6 +30592,16 @@ webpackJsonp([0],[
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+
+	var _extends = Object.assign || function (target) {
+	    for (var i = 1; i < arguments.length; i++) {
+	        var source = arguments[i];for (var key in source) {
+	            if (Object.prototype.hasOwnProperty.call(source, key)) {
+	                target[key] = source[key];
+	            }
+	        }
+	    }return target;
+	};
 
 	var _createClass = function () {
 	    function defineProperties(target, props) {
@@ -30640,8 +30685,9 @@ webpackJsonp([0],[
 	                atBottom: state.atBottom,
 	                atLeft: state.atLeft
 	            };
-	            var props = (0, _reactAtomicMolecule.assign)({}, reset, { targetInfo: targetInfo });
-	            return _react2.default.cloneElement(container, props);
+	            return _react2.default.cloneElement(container, _extends({}, reset, {
+	                targetInfo: targetInfo
+	            }));
 	        }
 	    }], [{
 	        key: 'getStores',
@@ -30669,7 +30715,7 @@ webpackJsonp([0],[
 	            if (!isNaN(props.scrollMargin)) {
 	                _index.scrollStore.addMargin(props.scrollMargin);
 	            }
-	            return (0, _reactAtomicMolecule.assign)(pos, {
+	            return _extends({}, pos, {
 	                active: active,
 	                isShown: isShown
 	            });
@@ -30730,8 +30776,6 @@ webpackJsonp([0],[
 	var _getoffset = __webpack_require__(314);
 
 	var _getoffset2 = _interopRequireDefault(_getoffset);
-
-	var _reactAtomicMolecule = __webpack_require__(187);
 
 	var _index = __webpack_require__(295);
 
@@ -30821,7 +30865,7 @@ webpackJsonp([0],[
 	                targetId: targetId
 	            }, others, {
 	                scrollMargin: margin,
-	                style: (0, _reactAtomicMolecule.assign)({}, Styles.link, props.style),
+	                style: _extends({}, Styles.link, props.style),
 	                onClick: function onClick(e) {
 	                    var offset = _index.scrollStore.getOffset(targetId);
 	                    if (offset) {
@@ -30988,11 +31032,14 @@ webpackJsonp([0],[
 	    if (props.borderColor) {
 	        elProps.borderColor = props.borderColor;
 	    }
+	    if (props.handleEventClick) {
+	        elProps.handleEventClick = props.handleEventClick;
+	    }
 	    return _jsx(_reactAtomicMolecule.SemanticUI, {
 	        className: classes,
 	        style: Styles.container
 	    }, void 0, events.map(function (item, k) {
-	        item = (0, _reactAtomicMolecule.assign)(item, elProps);
+	        item = _extends({}, item, elProps);
 	        if (k % 2 && props.evenAnimate) {
 	            item.animate = props.evenAnimate;
 	        }
