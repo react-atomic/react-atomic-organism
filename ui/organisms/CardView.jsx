@@ -1,7 +1,6 @@
 import React, {Component} from 'react'; 
 import {
     reactStyle,
-    assign,
     mixClass,
     Item,
     Image,
@@ -28,6 +27,7 @@ const CardView = (props) =>
         imageWrapperAttr,
         href,
         item,
+        lineAtom,
         ...others 
     } = props;
 
@@ -38,7 +38,7 @@ const CardView = (props) =>
         meta=<Meta>{meta}</Meta>;
     }
     if (description) {
-        description=<Description>{description}</Description>;
+        description=<Description lineAtom={lineAtom}>{description}</Description>;
     }
 
     /*Cook Image*/

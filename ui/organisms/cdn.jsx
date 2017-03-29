@@ -1,6 +1,5 @@
 import React, {Component} from 'react'; 
 import {
-    assign,
     Image
 } from 'react-atomic-molecule';
 import querystring from 'querystring';
@@ -10,8 +9,8 @@ export default class CDN extends Component
 {
     render()
     {
-        let propsKeys = keys(this.props); 
-        let props = assign({}, this.props); 
+        let props = {...this.props}; 
+        let propsKeys = keys(props); 
         let key;
         let cdnProps=[];
         for (let i=0,len=propsKeys.length; i<len; i++)

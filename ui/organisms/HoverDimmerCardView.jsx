@@ -1,6 +1,5 @@
 import React, {Component} from 'react'; 
 import {
-    assign,
     mixClass,
     Dimmer
 } from 'react-atomic-molecule';
@@ -32,7 +31,7 @@ class HoverDimmerCardView extends Component
     {
         const {children, className, style, ...others} = this.props;
         let dimmer;
-        let newStyle = assign({},style);
+        let newStyle = {...style};
         if (this.state.show) {
             dimmer = <Dimmer show={true}>{children}</Dimmer>;
             newStyle.cursor='pointer';

@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {
-    assign,
     mixClass,
     reactStyle,
     Item,

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     Field,
     SemanticUI,
-    assign, 
     reactStyle
 } from 'react-atomic-molecule';
 
@@ -71,8 +70,8 @@ export default class MaterialInput extends Component
                 }}
             >
                 <SemanticUI styles={Styles.cardInputBar}>
-                     <span styles={this.state.barFocus} style={assign({},Styles.inputBarFocus,Styles.inputBarLeft)} />
-                     <span styles={this.state.barFocus} style={assign({},Styles.inputBarFocus,Styles.inputBarRight)} />
+                     <span styles={this.state.barFocus} style={{...Styles.inputBarFocus, ...Styles.inputBarLeft}} />
+                     <span styles={this.state.barFocus} style={{...Styles.inputBarFocus, ...Styles.inputBarRight}} />
                 </SemanticUI>
             </Field>
         )

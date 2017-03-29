@@ -3,7 +3,6 @@ import {
     Field,
     Form,
     SemanticUI,
-    assign,
     mixClass
 } from 'react-atomic-molecule';
 
@@ -13,14 +12,13 @@ export default class FormattedJSON extends Component
     {
         let outputText;
         let outputClass;
-
+        const {atom, indent, children, className, ...others} = this.props;
       try {
-        if (this.props.indent) {
-            let indent = this.props.indent;
+        if (indent) {
             let space = (indent === 'TAB') ? '\t' : parseInt(indent);
-            outputText = this.formatJSON(this.props.children, space);
+            outputText = this.formatJSON(children, space);
         } else {
-            outputText = this.props.children;
+            outputText = children;
         }
         outputClass = 'output-good';
       }
@@ -31,26 +29,23 @@ export default class FormattedJSON extends Component
       }
 
         let classes = mixClass(
-            this.props.className
+            className
             ,outputClass
         );
         let Parent;
-        if ('form' === this.props.atom) {
+        if ('form' === atom) {
             Parent = Form;
         } else {
             Parent = SemanticUI;
         }
-        let props = assign({},this.props);
-        delete props.indent;
       return (
-        <Parent atom={this.props.atom} className="form">
+        <Parent atom={atom} className="form">
         <Field
           readOnly={true}
-          {...props}
+          {...others}
           atom="textarea"
           value={outputText}
           className={classes}
-          children={null}
         />
         </Parent>
       );
