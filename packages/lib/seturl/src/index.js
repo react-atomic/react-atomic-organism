@@ -24,7 +24,7 @@ const seturl = ( key, value, url, KeepRawValue)=>
     return url;
 }
 
-const get = (key, url) =>
+const getUrl = (key, url) =>
 {
     url = resetUrl(url);
     const reg = getKeyReg(key);
@@ -33,5 +33,5 @@ const get = (key, url) =>
         '':
         decodeURIComponent(exec[2]); 
 }
-export {get};
+export {getUrl};
 export default seturl;
