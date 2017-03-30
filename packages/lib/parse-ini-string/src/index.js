@@ -64,11 +64,6 @@ const parse = (s) =>
             if (!isMultiLine(value)) {
                 isEnd = true;
             }
-            switch (value) {
-              case 'true':
-              case 'false':
-              case 'null': value = JSON.parse(value)
-            }
         } else {
             if (trim(line).slice(-1) === '"') {
                 isEnd = true;
@@ -76,8 +71,13 @@ const parse = (s) =>
             value+=line;
         }
         if (isEnd) {
-            if (value.length && isQuoted(value)) {
+            if (isQuoted(value)) {
                 value = stripQuote(value);
+            }
+            switch (value) {
+              case 'true':
+              case 'false':
+              case 'null': value = JSON.parse(value)
             }
             if (isArray(p[key])) {
               p[key].push(value);
