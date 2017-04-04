@@ -163,19 +163,21 @@ const PieChart = ({
     ...props
 }) => {
     let items = pie(data, innerRadius, outerRadius); 
-    let boxSize = items.outerRadius * 2; //use final outerRadius, please don't use props one.
+    let wBoxSize = items.outerRadius * 2; //use final outerRadius, please don't use props one.
+    let hBoxSize = items.outerRadius * 2;
     if (showOuterLabels) {
-        boxSize = items.outerRadius * 4;
+        wBoxSize = items.outerRadius * 4;
+        hBoxSize = items.outerRadius * 3.5;
     }
 
     return (
         <SemanticUI
             {...props}
-            viewBox={`0 0 ${boxSize} ${boxSize}`}
+            viewBox={`0 0 ${wBoxSize} ${hBoxSize}`}
         >
             <SemanticUI
                 atom="g"
-                transform={`translate(${boxSize/2},${boxSize/2})`}
+                transform={`translate(${wBoxSize/2},${hBoxSize/2})`}
             >
             {
                 items.data.map((item, key)=> {
