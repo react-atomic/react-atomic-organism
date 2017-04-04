@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-piechart",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "D3 Piechart",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

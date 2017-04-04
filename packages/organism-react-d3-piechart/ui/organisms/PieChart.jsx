@@ -91,11 +91,11 @@ const Line = ({
 
 class Arc extends Component
 {
-    handleMouseOver = (e) =>
+    handleMouseEnter = (e) =>
     {
         this.setState({
             fill: lightenColor(
-                this.props.fill,
+                this.props.color,
                 20
             )
         });
@@ -104,46 +104,50 @@ class Arc extends Component
     handleMouseLeave = (e) =>
     {
         this.setState({
-            fill: this.props.fill
+            fill: this.props.color
         });
     }
 
     render()
     {
-        const {groupIndex, ...props} = this.props; 
-        let fill = get(
+        const {groupIndex, color, path, sectorBorderColor, ...props} = this.props; 
+        let fill = get (
             this,
             ['state', 'fill'],
-            this.props.fill 
+            color
         );
         return (
-            <SemanticUI 
-                {...props}
-                fill={fill}
-                atom="path"
-                key={groupIndex+'-arc'}
-                onMouseOver={this.handleMouseOver}
+            <SemanticUI atom="g"
+                className="arc"
+                ui={false}
+                onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
-            />
+                key={groupIndex+'-arc'}
+            >
+                <SemanticUI 
+                    d={path}
+                    fill={fill}
+                    atom="path"
+                    stroke={sectorBorderColor}
+                />
+                <ValueLabel {...props} />
+            </SemanticUI>
         );
     }
 }
 
-const elements = ({data, path, color, sectorBorderColor, groupIndex, ...props}) =>
+const elements = ({data, groupIndex, ...props}) =>
 {
     const lineStart = 1;
     const lineLength = 10;
     const textDistance = lineStart+ lineLength+ 3;
     return [
         <Arc
-            d={path}
-            fill={color}
             groupIndex={groupIndex}
-            stroke={sectorBorderColor}
+            {...props}
         />,
         <Line {...props} groupIndex={groupIndex} start={lineStart} length={lineLength} />,
         <NameLabel {...props} groupIndex={groupIndex} label={get(data, ['label'])} distance={textDistance}/>,
-        <ValueLabel {...props} groupIndex={groupIndex} />
     ];
 }
 
