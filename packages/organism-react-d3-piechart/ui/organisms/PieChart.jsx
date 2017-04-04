@@ -52,7 +52,7 @@ const NameLabel = ({
             fill: labelTextFill,
             textAnchor: 'middle',
             shapeRendering: 'crispEdges',
-            fontSize:10
+            fontSize:8
         }}
     >
     {label}
@@ -129,13 +129,18 @@ class Arc extends Component
     }
 }
 
-const elements = ({data, path, color, groupIndex, ...props}) =>
+const elements = ({data, path, color, sectorBorderColor, groupIndex, ...props}) =>
 {
     const lineStart = 1;
-    const lineLength = 15;
-    const textDistance = lineStart+lineLength;
+    const lineLength = 10;
+    const textDistance = lineStart+ lineLength+ 3;
     return [
-        <Arc d={path} fill={color} groupIndex={groupIndex}/>,
+        <Arc
+            d={path}
+            fill={color}
+            groupIndex={groupIndex}
+            stroke={sectorBorderColor}
+        />,
         <Line {...props} groupIndex={groupIndex} start={lineStart} length={lineLength} />,
         <NameLabel {...props} groupIndex={groupIndex} label={get(data, ['label'])} distance={textDistance}/>,
         <ValueLabel {...props} groupIndex={groupIndex} />
@@ -148,6 +153,7 @@ const PieChart = ({
     innerRadius,
     labelTextFill,
     valueTextFill,
+    sectorBorderColor,
     showOuterLabels,
     showInnerLabels,
     ...props
@@ -155,7 +161,7 @@ const PieChart = ({
     let items = pie(data, innerRadius, outerRadius); 
     let boxSize = items.outerRadius * 2; //use final outerRadius, please don't use props one.
     if (showOuterLabels) {
-        boxSize = items.outerRadius * 5;
+        boxSize = items.outerRadius * 4;
     }
 
     return (
@@ -174,7 +180,8 @@ const PieChart = ({
                         groupIndex: key,
                         outerRadius: items.outerRadius,
                         labelTextFill: labelTextFill,
-                        valueTextFill: valueTextFill
+                        valueTextFill: valueTextFill,
+                        sectorBorderColor: sectorBorderColor
                     });
                 })
             }
@@ -192,5 +199,6 @@ PieChart.defaultProps = {
     data: [],
     showInnerLabels: true,
     showOuterLabels: true,
+    sectorBorderColor: '#000'
 };
 export default PieChart;
