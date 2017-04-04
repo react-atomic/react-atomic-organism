@@ -10,7 +10,7 @@ describe('basic', ()=>{
           {value:  50, "name": "Locke"},
           {value:  50, "name": "Reyes"},
         ];
-        let result = pie(data); 
+        let result = pie(data, 100, 10); 
         console.log(result);
     });
     it('colors', ()=>{
