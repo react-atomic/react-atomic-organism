@@ -21,7 +21,7 @@ const ValueLabel = ({value, valueTextFill, centroid, groupIndex, ...props}) =>
           fontSize: 8
         }}
     >
-    {value}%
+    {value}
     </SemanticUI>
     );
 }

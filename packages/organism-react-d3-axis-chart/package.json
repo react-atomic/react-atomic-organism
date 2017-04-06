@@ -1,7 +1,7 @@
 {
-  "name": "organism-react-d3-piechart",
-  "version": "0.0.3",
-  "description": "D3 Piechart",
+  "name": "organism-react-d3-axis-chart",
+  "version": "0.0.0",
+  "description": "D3 Axis Chart",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [
