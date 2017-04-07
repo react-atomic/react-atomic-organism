@@ -6,7 +6,15 @@ import get from 'get-object-value';
 const keys = Object.keys;
 
 // https://github.com/d3/d3-shape/blob/master/README.md#lines
-const line = (data, xValueLocator, yValueLocator, xScale, yScale) =>
+const line = (start, end) =>
+{
+    const l = d3.line().
+        x((d)=>d.x).
+        y((d)=>d.y);
+    return l([start, end]);
+}
+
+const curve = (data, xValueLocator, yValueLocator, xScale, yScale) =>
 {
     const l = d3.line().
         x((d)=>{
@@ -121,25 +129,23 @@ const scaleBand = (
     tickNum
 ) => {
     if (!labelLocator) {
-        labelLocator = (d) => {return d.label;};
+        labelLocator = (d) => d.label;
     }
     let band = d3.scaleBand().
         rangeRound([start, end]).
         paddingInner(0.05).
         align(0.1);
     let a = {};
-    band.domain(data.map((d)=>{
-        let label = labelLocator(d);
-        a[label] = {};
-        return label;
-    })); 
+    band.domain(data.map((d)=>labelLocator(d)));
     let allKeys = keys(a);
     const length = band.bandwidth();
     const halfLength = Math.round(length/2);
     allKeys.forEach((k)=>{
         const start = band(k);  
-        a[k].start = start;
-        a[k].value = start + halfLength;
+        a[k] = {
+            start: start,
+            value: start + halfLength
+        };
     });
     return {
         scaler: band,
@@ -159,7 +165,7 @@ const scaleLinear = (
     min
 ) => {
     if (!labelLocator) {
-        labelLocator =  (d) => {return d.value;};
+        labelLocator =  (d) => d.value;
     }
     let cookData = data.map(labelLocator);
     if (!min && 0 !== min) {
@@ -186,6 +192,7 @@ const scaleLinear = (
 
 export {
     line,
+    curve,
     pie,
     stack,
     colors,

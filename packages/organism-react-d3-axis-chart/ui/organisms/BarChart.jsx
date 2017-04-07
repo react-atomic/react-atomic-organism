@@ -27,7 +27,6 @@ const BarChart = ({
             <SemanticUI atom="g" transform="translate(40, 40)">
                 <XAxis 
                     scale={xScale}
-                    transform={`translate(0, ${scaleW})`}
                     length={scaleW}
                     textRotate={textRotate}
                 />
@@ -60,8 +59,8 @@ BarChart.defaultProps = {
     scaleW: 450,
     scaleH: 450,
     extraViewBox: 1.25,
-    xValueLocator: (d)=>{return d.label;},
-    yValueLocator: (d)=>{return d.value;},
+    xValueLocator: (d)=>{return d.x;},
+    yValueLocator: (d)=>{return d.y;},
     color: '#4682B4',
     textRotate: true
 };

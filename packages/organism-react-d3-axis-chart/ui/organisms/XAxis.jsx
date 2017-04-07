@@ -5,8 +5,12 @@ import {
 
 import Axis from '../organisms/Axis';
 
-const XAxis = ({textRotate, length, ...props}) =>
-{
+const XAxis = ({
+    textRotate,
+    length,
+    transform,
+    ...props
+}) => {
     let params = {
        path: `M0,1V0H${length}V1`,
        y: 0,
@@ -16,6 +20,13 @@ const XAxis = ({textRotate, length, ...props}) =>
        },
        ...props
     };
+    
+    if ('undefined' === typeof transform) {
+        params = {
+            ...params,
+            transform: `translate(0, ${length})` 
+        };
+    }
 
     if (textRotate) {
         params = {
