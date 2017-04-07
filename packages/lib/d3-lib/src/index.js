@@ -5,6 +5,20 @@ import get from 'get-object-value';
 
 const keys = Object.keys;
 
+// https://github.com/d3/d3-shape/blob/master/README.md#lines
+const line = (data, xValueLocator, yValueLocator, xScale, yScale) =>
+{
+    const l = d3.line().
+        x((d)=>{
+            return xScale.scaler(xValueLocator(d));
+        }).
+        y((d)=>{
+            return yScale.scaler(yValueLocator(d));
+        });
+    return l(data);
+}
+
+// https://github.com/d3/d3-shape/blob/master/README.md#pies
 const pie = (data, inner, outer, valueLocator)=>{
     if (!valueLocator) {
         valueLocator = (d) => {
@@ -19,6 +33,7 @@ const pie = (data, inner, outer, valueLocator)=>{
     );
 };
 
+// https://github.com/d3/d3-shape/blob/master/README.md#arcs
 const arc = (data, inner, outer) => {
     const d3Arc = d3.arc();
     if (!inner) {
@@ -170,6 +185,7 @@ const scaleLinear = (
 }
 
 export {
+    line,
     pie,
     stack,
     colors,

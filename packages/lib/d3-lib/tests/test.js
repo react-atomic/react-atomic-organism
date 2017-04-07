@@ -1,6 +1,7 @@
 'use strict';
 
 import {
+    line,
     pie,
     stack,
     colors,
@@ -58,7 +59,26 @@ describe('stack', ()=>{
           { value: 22},
           { value: 33},
         ];
-        let result = scaleLinear(data, 500, 0, 3);
-        console.log(result);
+        let result = scaleLinear(data, 500, 0);
+        //console.log(result);
+    });
+});
+
+
+describe('line', ()=>{
+    it('data', ()=>{
+        let data = [ 
+          { x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 }
+        ];
+        let xLocator = (d)=>{
+            return d.x;
+        };
+        let yLocator = (d)=>{
+            return d.y;
+        };
+        let xScale = scaleBand(data, 0, 500, xLocator);
+        let yScale = scaleLinear(data, 500, 0, yLocator);
+        let result = line(data, xLocator, yLocator, xScale, yScale);
+        expect(result).to.have.string('M');
     });
 });
