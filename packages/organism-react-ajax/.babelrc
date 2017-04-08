@@ -8,8 +8,9 @@
             ],
             "plugins": [
               "add-module-exports",
-              "transform-react-inline-elements",
-              "transform-react-constant-elements"
+              "system-import-transformer",
+              "transform-react-constant-elements",
+              "transform-react-inline-elements"
             ]
         }
     }

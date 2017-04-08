@@ -54,7 +54,7 @@ onmessage = (e) =>
 const ajaxGet = ({url, action}) =>
 {
     const params = get(action, ['params'], {});
-    require(['superagent'],(req)=>{ 
+    System.import('superagent').then((req)=>{
        req.get(url)
           .query(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
@@ -72,7 +72,7 @@ const ajaxGet = ({url, action}) =>
 const ajaxPost = ({url, action}) =>
 {
     const params = get(action, ['params'], {});
-    require(['superagent'],(req)=>{ 
+    System.import('superagent').then((req)=>{
        req.post(url)
           .send(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
