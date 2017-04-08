@@ -126,30 +126,48 @@ const scaleBand = (
     start,
     end,
     labelLocator,
-    tickNum
+    tickNum = 10
 ) => {
     if (!labelLocator) {
         labelLocator = (d) => d.label;
     }
+    let list = {};
+    /**
+     * Use range() could benifit for max width, when you have lot of items.
+     */
     let band = d3.scaleBand().
-        rangeRound([start, end]).
+        range([start, end]).
         paddingInner(0.05).
-        align(0.1);
-    let a = {};
-    band.domain(data.map((d)=>labelLocator(d)));
-    let allKeys = keys(a);
+        align(0.1).
+        domain(data.map((d)=>{
+            const key = labelLocator(d);
+            list[key] = null;
+            return key;
+        }));
     const length = band.bandwidth();
     const halfLength = Math.round(length/2);
-    allKeys.forEach((k)=>{
+    let listKeys = keys(list);
+    if (tickNum && listKeys.length > tickNum) {
+        let newKeys = [];
+        let chunk;
+        let chunkNum = Math.round(listKeys.length / tickNum);
+        for (let i=0,j=listKeys.length; i<j; i+=chunkNum) {
+            chunk = listKeys.slice(i,i+chunkNum);
+            newKeys.push(chunk.pop());
+        }
+        listKeys = newKeys;
+        list = {};
+    }
+    listKeys.forEach((k)=>{
         const start = band(k);  
-        a[k] = {
+        list[k] = {
             start: start,
             value: start + halfLength
         };
     });
     return {
         scaler: band,
-        list: a,
+        list: list,
         length: length
     };
 }

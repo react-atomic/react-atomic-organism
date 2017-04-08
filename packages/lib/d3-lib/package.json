@@ -1,6 +1,6 @@
 {
   "name": "d3-lib",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "D3 Library for data computing.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

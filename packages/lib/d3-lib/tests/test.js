@@ -50,7 +50,9 @@ describe('stack', ()=>{
           { label: 'b'},
         ];
         let result = scaleBand(data, 0, 500);
-        // console.log(result);
+        expect(result.length).to.not.be.empty;
+        expect(result.list).to.not.be.empty;
+        expect(result.scaler).to.be.an('function');
     });
 
     it('scaleLinear', ()=>{
