@@ -1,6 +1,8 @@
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import React, {Component} from 'react'; 
+import PropTypes from 'prop-types';
 import {XIco, Message, reactStyle} from 'react-atomic-molecule';
+
 
 export default class AlertsNotifier extends Component
 {
@@ -64,8 +66,8 @@ export default class AlertsNotifier extends Component
 }
 
 AlertsNotifier.propTypes = {
-    alerts: React.PropTypes.array.isRequired,
-    onDismiss: React.PropTypes.func
+    alerts: PropTypes.array.isRequired,
+    onDismiss: PropTypes.func
 };
 
 const Styles = {
