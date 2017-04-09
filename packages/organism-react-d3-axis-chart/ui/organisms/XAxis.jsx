@@ -36,7 +36,7 @@ const XAxis = ({
                 y: 9,
                 dx: '-.8em',
                 dy: '-.55em',
-                transform: 'rotate(-90)',
+                transform: `rotate(${textRotate})`,
                 style: {
                     textAnchor: 'end' 
                 }
@@ -60,7 +60,7 @@ const XAxis = ({
 }
 
 XAxis.defaultProps = {
-    textRotate: true
+    textRotate: -90 
 };
 
 export default XAxis;

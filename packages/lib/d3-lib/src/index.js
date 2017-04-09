@@ -27,7 +27,8 @@ const curve = (data, xValueLocator, yValueLocator, xScale, yScale) =>
 }
 
 // https://github.com/d3/d3-shape/blob/master/README.md#pies
-const pie = (data, inner, outer, valueLocator)=>{
+const pie = (data, inner, outer, valueLocator) =>
+{
     if (!valueLocator) {
         valueLocator = (d) => {
             return d.value;
@@ -42,7 +43,8 @@ const pie = (data, inner, outer, valueLocator)=>{
 };
 
 // https://github.com/d3/d3-shape/blob/master/README.md#arcs
-const arc = (data, inner, outer) => {
+const arc = (data, inner, outer) =>
+{
     const d3Arc = d3.arc();
     if (!inner) {
         inner = 0;
