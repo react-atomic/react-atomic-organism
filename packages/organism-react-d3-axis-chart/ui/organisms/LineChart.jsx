@@ -89,7 +89,8 @@ class LineChart extends Component
         return (
             <SemanticUI
                 {...props}
-                viewBox={`0 0 ${Math.round(scaleW * thisExtraViewBox)} ${Math.round(scaleH * thisExtraViewBox)}`}>
+                viewBox={`0 0 ${Math.round(scaleW * thisExtraViewBox)} ${Math.round(scaleH * thisExtraViewBox)}`}
+            >
                 <SemanticUI atom="g" transform="translate(40, 10)">
                     {xaxis}
                     {yaxis}

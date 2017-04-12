@@ -4,6 +4,7 @@ import {
     line,
     pie,
     stack,
+    hArea,
     colors,
     scaleBand,
     scaleLinear
@@ -82,5 +83,18 @@ describe('line', ()=>{
         let yScale = scaleLinear(data, 500, 0, yLocator);
         let result = line(data, xLocator, yLocator, xScale, yScale);
         expect(result).to.have.string('M');
+    });
+});
+
+
+describe('area', ()=>{
+    it('hArea', ()=>{
+        let data = [
+            {x:1, y0:3, y1:3},
+            {x:4, y0:5, y1:6},
+        ];
+        let result = hArea(data);
+        expect(result).to.have.string('M');
+        expect(result).to.not.have.string('NaN');
     });
 });

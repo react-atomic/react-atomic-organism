@@ -102,22 +102,22 @@ const stack = (data, keyList) =>
     return series;
 }
 
-const area = (data, xLocator, yLocator) =>
+const hArea = (data, xLocator, y0Locator, y1Locator) =>
 {
     if (!xLocator) {
-        xLocator = (d) => {
-            return d[0];
-        };
+        xLocator = (d) => d.x;
     }
-    if (!yLocator) {
-        yLocator = (d) => {
-            return d[0];
-        };
+    if (!y0Locator) {
+        y0Locator = (d) => d.y0;
+    }
+    if (!y1Locator) {
+        y1Locator = (d) => d.y1;
     }
     let series = d3.
         area().
         x(xLocator).
-        y(yLocator)(data);
+        y0(y0Locator).
+        y1(y1Locator)(data);
     return series;
 }
 
@@ -215,6 +215,7 @@ export {
     curve,
     pie,
     stack,
+    hArea,
     colors,
     scaleBand,
     scaleLinear
