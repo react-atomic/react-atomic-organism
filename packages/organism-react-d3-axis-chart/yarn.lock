@@ -46,8 +46,8 @@ arr-diff@^2.0.0:
     arr-flatten "^1.0.1"
 
 arr-flatten@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/arr-flatten/-/arr-flatten-1.0.1.tgz#e5ffe54d45e19f32f216e91eb99c8ce892bb604b"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/arr-flatten/-/arr-flatten-1.0.2.tgz#1ec1e63439c54f67d6f72bb4299c3d4f73b2d996"
 
 array-unique@^0.2.1:
   version "0.2.1"
@@ -1372,8 +1372,8 @@ gauge@~2.7.1:
     wide-align "^1.1.0"
 
 get-object-value@*:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.4.tgz#38dc187a22e09e576383282d336cd50b6df77093"
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.7.tgz#fbc2a99fcd8726529574ca5f1e4832029b3bf417"
 
 getpass@^0.1.1:
   version "0.1.6"

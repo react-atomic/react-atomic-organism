@@ -6,8 +6,9 @@ import {
 import Axis from '../organisms/Axis';
 
 const XAxis = ({
-    textRotate,
     length,
+    height,
+    textRotate,
     transform,
     ...props
 }) => {
@@ -21,10 +22,10 @@ const XAxis = ({
        ...props
     };
     
-    if ('undefined' === typeof transform) {
+    if ('undefined' === typeof transform && height) {
         params = {
             ...params,
-            transform: `translate(0, ${length})` 
+            transform: `translate(0, ${height})`
         };
     }
 

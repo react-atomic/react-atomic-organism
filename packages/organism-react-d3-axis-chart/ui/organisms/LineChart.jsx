@@ -44,7 +44,7 @@ class LineChart extends Component
             scaleH,
             xValueLocator,
             yValueLocator,
-            textRotate,
+            xAxisRotate,
             hideAxis,
             threshold,
             ...props
@@ -56,10 +56,17 @@ class LineChart extends Component
             xValueLocator
         );
         const yScale = this.scaleLinear(
-            get(yAxisData, null, get(data,[0, 'value'])),
+            get(yAxisData, null, (()=>{
+                let values = get(data,[0, 'value']);
+                let area = get(areas,[0, 'value']);
+                if (area) {
+                    values = values.concat(area);
+                }
+                return values;
+            })()),
             scaleH,
             0,
-            yValueLocator,
+            (d) =>get(d, ['y1'], yValueLocator(d)),
             null,
             null
         );
@@ -72,7 +79,8 @@ class LineChart extends Component
                 <XAxis 
                     scale={xScale}
                     length={scaleW}
-                    textRotate={textRotate}
+                    height={scaleH}
+                    textRotate={xAxisRotate}
                 />
             );
             yaxis = (
