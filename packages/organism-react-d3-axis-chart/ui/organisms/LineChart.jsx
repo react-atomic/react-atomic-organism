@@ -5,6 +5,7 @@ import {
 import get from 'get-object-value';
 
 import Line from '../molecules/Line';
+import Area from '../molecules/Area';
 import XAxis from '../organisms/XAxis';
 import YAxis from '../organisms/YAxis';
 
@@ -12,10 +13,16 @@ class LineChart extends Component
 {
     componentDidMount()
     {
-        System.import('d3-lib').then(({curve, scaleLinear, scaleBand})=>{
+        System.import('d3-lib').then(({
+            curve,
+            scaleLinear,
+            scaleBand,
+            hArea
+        })=>{
             this.curve = curve;
             this.scaleLinear = scaleLinear;
             this.scaleBand = scaleBand;
+            this.hArea = hArea;
             this.setState({
                 isLoad: true
             });        
@@ -28,6 +35,7 @@ class LineChart extends Component
             return null;
         }
         const {
+            areas,
             data,
             xAxisData,
             yAxisData,
@@ -100,6 +108,18 @@ class LineChart extends Component
                             const {value, attr} = line;                     
                             const d = this.curve(value, xValueLocator, yValueLocator, xScale, yScale);
                             return  (<Line d={d} {...attr}/>);
+                        })
+                    }
+                    {
+                        areas.map((area)=>{
+                            const {value, attr} = area; 
+                            const d = this.hArea(
+                                value,
+                                (d)=>xScale.scaler(d.x),
+                                (d)=>yScale.scaler(d.y0),
+                                (d)=>yScale.scaler(d.y1)
+                            );
+                            return  (<Area d={d} {...attr}/>);
                         })
                     }
                 </SemanticUI>
