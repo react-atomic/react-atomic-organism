@@ -3,7 +3,7 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 
-import Axis from '../organisms/Axis';
+import Axis from '../molecules/Axis';
 
 const XAxis = ({
     length,

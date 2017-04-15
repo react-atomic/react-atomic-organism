@@ -962,9 +962,9 @@ cryptiles@2.x.x:
   dependencies:
     boom "2.x.x"
 
-d3-array@1, d3-array@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.1.1.tgz#a01abe63a25ffb91d3423c3c6d051b4d36bc8a09"
+d3-array@1, d3-array@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.2.0.tgz#147d269720e174c4057a7f42be8b0f3f2ba53108"
 
 d3-axis@1.0.6:
   version "1.0.6"
@@ -1027,9 +1027,9 @@ d3-force@1.0.6:
     d3-quadtree "1"
     d3-timer "1"
 
-d3-format@1, d3-format@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.1.1.tgz#26e094e7b0fa925d3615aa6f43b265c5ca82b46e"
+d3-format@1, d3-format@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/d3-format/-/d3-format-1.2.0.tgz#6b480baa886885d4651dc248a8f4ac9da16db07a"
 
 d3-geo@1.6.3:
   version "1.6.3"
@@ -1145,10 +1145,10 @@ d3-zoom@1.1.4:
     d3-transition "1"
 
 d3@*:
-  version "4.7.4"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-4.7.4.tgz#a2f40eb57decc51bc469010d48ae74a20e025772"
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-4.8.0.tgz#1ad8d18997869c90b6ad6114e9b92425cee78460"
   dependencies:
-    d3-array "1.1.1"
+    d3-array "1.2.0"
     d3-axis "1.0.6"
     d3-brush "1.0.4"
     d3-chord "1.0.4"
@@ -1159,7 +1159,7 @@ d3@*:
     d3-dsv "1.0.5"
     d3-ease "1.0.3"
     d3-force "1.0.6"
-    d3-format "1.1.1"
+    d3-format "1.2.0"
     d3-geo "1.6.3"
     d3-hierarchy "1.1.4"
     d3-interpolate "1.1.4"

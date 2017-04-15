@@ -107,7 +107,7 @@ class LineChart extends Component
                 {...props}
                 viewBox={`0 0 ${Math.round(scaleW * thisExtraViewBox)} ${Math.round(scaleH * thisExtraViewBox)}`}
             >
-                <SemanticUI atom="g" transform="translate(40, 10)">
+                <SemanticUI atom="g" transform="translate(42, 10)">
                     {xaxis}
                     {yaxis}
                     {thresholdLine}
