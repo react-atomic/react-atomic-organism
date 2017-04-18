@@ -30,6 +30,9 @@ class BaseChart extends Component
 
     render()
     {
+        if (!get(this, ['state', 'isLoad'])) {
+            return null;
+        }
         const {
             areas,
             data,
@@ -46,9 +49,6 @@ class BaseChart extends Component
             threshold,
             ...props
         } = this.props;
-        if (!get(this, ['state', 'isLoad'])) {
-            return null;
-        }
         let xaxis = null;
         let yaxis = null;
         let thresholdLine = null;
