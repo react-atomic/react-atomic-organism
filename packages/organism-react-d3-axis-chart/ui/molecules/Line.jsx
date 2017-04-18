@@ -1,8 +1,6 @@
 import React from 'react'; 
 
-import {
-    SemanticUI
-} from 'react-atomic-molecule';
+import { SemanticUI } from 'react-atomic-molecule';
 
 import {line} from 'd3-lib';
 

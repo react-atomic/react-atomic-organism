@@ -1,43 +1,31 @@
-import React, {Component} from 'react'; 
-import {
-    SemanticUI
-} from 'react-atomic-molecule';
-import {stack, scaleLinear, scaleBand} from 'd3-lib';
+import React from 'react'; 
+import { SemanticUI } from 'react-atomic-molecule';
 import get from 'get-object-value';
-import {lightenColor} from 'colorlib';
 
-import XAxis from '../organisms/XAxis';
-import YAxis from '../organisms/YAxis';
+import BaseChart from '../molecules/BaseChart';
+import Rect from '../molecules/Rect';
 
-const BarChart = ({
-    data,
-    scaleW,
-    scaleH,
-    xValueLocator,
-    yValueLocator,
-    extraViewBox,
-    color,
-    textRotate,
-    ...props
-}) => {
-    const xScale = scaleBand(data, 5, scaleW, xValueLocator);
-    const yScale = scaleLinear(data, scaleH, 0, yValueLocator, null, null);
+const BarChart = (props) => {
+    const {
+        scaleH,
+        xValueLocator,
+        yValueLocator,
+        data,
+        color
+    } = props; 
     return (
-        <SemanticUI {...props} viewBox={`0 0 ${scaleW * extraViewBox} ${scaleH * extraViewBox}`}>
-            <SemanticUI atom="g" transform="translate(40, 40)">
-                <XAxis 
-                    scale={xScale}
-                    length={scaleW}
-                    textRotate={textRotate}
-                />
-                <YAxis scale={yScale} length={scaleH}/>
+        <BaseChart  {...props} data={[data]}>
+            {(baseChart) => {
+                return (
                 <SemanticUI atom="g" className="data-group">
                 {
-                    data.map((d)=>{
+                    get(data,['value']).map((d)=>{
+                        const {xScale, yScale} = baseChart;
+                        const x = xScale.scaler(xValueLocator(d));
                         const y = yScale.scaler(yValueLocator(d));
                         return (
-                            <SemanticUI atom="rect"
-                                x={xScale.scaler(xValueLocator(d))}
+                            <Rect
+                                x={x}
                                 y={y}
                                 width={xScale.length}
                                 height={scaleH - y}
@@ -47,22 +35,19 @@ const BarChart = ({
                     })
                 }
                 </SemanticUI>
-            </SemanticUI>
-        </SemanticUI>
+                );
+            }}
+        </BaseChart>
     );
 }
 
 BarChart.defaultProps = {
-    atom: 'svg',
-    width: '100%',
     data: [],
+    color: '#4682B4',
     scaleW: 450,
     scaleH: 450,
-    extraViewBox: 1.25,
-    xValueLocator: (d)=>{return d.x;},
-    yValueLocator: (d)=>{return d.y;},
-    color: '#4682B4',
-    textRotate: true
+    xValueLocator: (d)=>d.x,
+    yValueLocator: (d)=>d.y,
 };
 
 export default BarChart;
