@@ -4,7 +4,11 @@ import * as d3 from 'd3';
 import get from 'get-object-value';
 
 const keys = Object.keys;
-let curveType = d3.curveCatmullRom.alpha(0.5);
+
+const getCurveType = () =>
+{
+    return d3.curveCatmullRom.alpha(0.5);
+}
 
 // https://github.com/d3/d3-shape/blob/master/README.md#lines
 const line = (start, end) =>
@@ -18,7 +22,7 @@ const line = (start, end) =>
 const curve = (data, xValueLocator, yValueLocator, xScale, yScale) =>
 {
     const l = d3.line().
-        curve(curveType).
+        curve(getCurveType()).
         x((d)=>{
             return xScale.scaler(xValueLocator(d));
         }).
@@ -117,7 +121,7 @@ const hArea = (data, xLocator, y0Locator, y1Locator) =>
     }
     let series = d3.
         area().
-        curve(curveType).
+        curve(getCurveType()).
         x(xLocator).
         y0(y0Locator).
         y1(y1Locator)(data);
