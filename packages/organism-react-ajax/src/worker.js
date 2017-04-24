@@ -59,12 +59,14 @@ const ajaxGet = ({url, action}) =>
           .query(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
-            const {error, req, text, xhr, ...resetRes} = res;
-            post({
-                ...action,
-                text: text,
-                response: resetRes 
-            });                 
+            if (res) {
+                const {error, req, text, xhr, ...resetRes} = res;
+                post({
+                    ...action,
+                    text: text,
+                    response: resetRes 
+                });
+            }
           });
     });
 }
@@ -77,12 +79,14 @@ const ajaxPost = ({url, action}) =>
           .send(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
-            const {error, req, text, xhr, ...resetRes} = res;
-            post({
-                ...action,
-                text: text,
-                response: resetRes 
-            });                 
+            if (res) {
+                const {error, req, text, xhr, ...resetRes} = res;
+                post({
+                    ...action,
+                    text: text,
+                    response: resetRes 
+                });                 
+            }
           });
     });
 }
@@ -118,7 +122,7 @@ const wsPing = () =>
             ws.send(JSON.stringify({type:'ping'})); 
             wsPing();
         }
-    },10000);
+    },15000);
 }
 
 
