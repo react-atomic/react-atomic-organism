@@ -93,9 +93,10 @@ class AjaxStore extends ReduceStore
         let debugs = json.debugs; 
         let bFail = false;
         require(['../lib/dlog'],(dlog)=>{ 
-            let c = new dlog({ level: 'trace'});
+            const oLog = new dlog({ level: 'trace'});
             debugs.forEach((v)=>{
-                c[v[0]](v[1]);
+                const dump = get(oLog, [v[0]], oLog.info); 
+                dump.call(oLog, v[1]);
             });
         });
         debugs.forEach((v)=>{
