@@ -8,6 +8,16 @@ import YAxis from '../organisms/YAxis';
 
 class BaseChart extends Component
 {
+    handleMouseEnter = (e)=>
+    {
+        //console.log('enter');
+    }
+
+    handleMouseLeave = (e)=>
+    {
+        //console.log('leave');
+    }
+
     componentDidMount()
     {
         System.import('d3-lib').then(({
@@ -90,7 +100,7 @@ class BaseChart extends Component
                 />
             );
         } else {
-            thisExtraViewBox = 1.05;
+            thisExtraViewBox = 50;
         }
         if (threshold) {
             const yThreshold = this.yScale.scaler(threshold);
@@ -105,9 +115,11 @@ class BaseChart extends Component
         return (
             <SemanticUI
                 {...props}
-                viewBox={`0 0 ${Math.round(scaleW * thisExtraViewBox)} ${Math.round(scaleH * thisExtraViewBox)}`}
+                viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(scaleH + thisExtraViewBox)}`}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
             >
-                <SemanticUI atom="g" transform="translate(40, 20)">
+                <SemanticUI atom="g" transform="translate(45, 20)">
                     {children(this)}
                     {xaxis}
                     {yaxis}
@@ -124,10 +136,11 @@ BaseChart.defaultProps = {
     data: [],
     scaleW: 450,
     scaleH: 450,
-    extraViewBox: 1.3,
+    extraViewBox: 100,
     xValueLocator: (d)=>d.x,
     yValueLocator: (d)=>d.y,
     hideAxis: false,
+    preserveAspectRatio: 'xMidYMid meet'
 };
 
 export default BaseChart;
