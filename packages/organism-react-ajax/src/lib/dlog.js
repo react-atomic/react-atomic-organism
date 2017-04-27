@@ -68,7 +68,6 @@ dlog.prototype.log = function(level, data) {
 
 //do each element of arr is a obj ?
 dlog.prototype.isAllObj = function(arr) {
-    var is_all_obj = true;
     for (var i = 0; i < arr.length; i++) {
         if(typeof arr[i] !== 'object')
             return false;
@@ -77,12 +76,21 @@ dlog.prototype.isAllObj = function(arr) {
 };
 
 dlog.prototype.show = function(level, data) {
-    console.log('%c [%s] %c %s %c %s:', this.getCSS(), new Date().toJSON(), this.getCSS('name'), this.name, this.getCSS(level), level.toUpperCase());
+    console.log(
+        '%c [%s] %c %s %c %s:',
+        this.getCSS(),
+        new Date().toJSON(),
+        this.getCSS('name'),
+        this.name,
+        this.getCSS(level),
+        level.toUpperCase()
+    );
 
     if(Array.isArray(data[0]) && this.isAllObj(data[0])) {
         console.table(data[0]);
+    } else {
+        console[level].apply(console, data);
     }
-    console[level].apply(console, data);
 };
 
 dlog.prototype.trace = function() {
