@@ -44,10 +44,6 @@ const BarChart = (props) => {
 BarChart.defaultProps = {
     data: [],
     color: '#4682B4',
-    scaleW: 450,
-    scaleH: 450,
-    xValueLocator: (d)=>d.x,
-    yValueLocator: (d)=>d.y,
 };
 
 export default BarChart;

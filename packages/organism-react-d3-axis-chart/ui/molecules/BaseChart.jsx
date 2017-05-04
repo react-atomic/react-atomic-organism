@@ -57,6 +57,7 @@ class BaseChart extends Component
             hideAxis,
             xAxisRotate,
             threshold,
+            yScaleNum,
             ...props
         } = this.props;
         let xaxis = null;
@@ -81,7 +82,7 @@ class BaseChart extends Component
             scaleH,
             0,
             (d) =>get(d, ['y1'], yValueLocator(d)),
-            null,
+            yScaleNum,
             null
         );
         if (!hideAxis) {
@@ -136,6 +137,7 @@ BaseChart.defaultProps = {
     data: [],
     scaleW: 450,
     scaleH: 450,
+    yScaleNum: null,
     extraViewBox: 100,
     xValueLocator: (d)=>d.x,
     yValueLocator: (d)=>d.y,
