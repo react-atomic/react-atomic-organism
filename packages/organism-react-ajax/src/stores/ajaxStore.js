@@ -244,7 +244,7 @@ class AjaxStore extends ReduceStore
             });
             break;
     }
-    if (params.updateUrl || params.scrollBack) {
+    if ((params.updateUrl && false !== params.scrollBack) || params.scrollBack) {
         smoothScrollTo(0);
     }
     return state;
