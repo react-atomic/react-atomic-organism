@@ -1,4 +1,4 @@
-import React, {Component} from 'react'; 
+import React, {Component, Children, cloneElement} from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule';
 import get from 'get-object-value';
 
@@ -47,17 +47,16 @@ class BaseChart extends Component
             areas,
             data,
             children,
-            xAxisData,
-            yAxisData,
+            xAxisAttr,
+            yAxisAttr,
             xValueLocator,
             yValueLocator,
             extraViewBox,
             scaleW,
             scaleH,
             hideAxis,
-            xAxisRotate,
             threshold,
-            yScaleNum,
+            multiChart,
             ...props
         } = this.props;
         let xaxis = null;
@@ -65,24 +64,24 @@ class BaseChart extends Component
         let thresholdLine = null;
         let thisExtraViewBox = extraViewBox;
         this.xScale = this.scaleBand(
-            get(xAxisData, null, get(data,[0, 'value'])),
+            get(xAxisAttr, ['data'], get(data,[0, 'value'])),
             0,
             scaleW,
             xValueLocator
         );
         this.yScale = this.scaleLinear(
-            get(yAxisData, null, (()=>{
+            get(yAxisAttr, ['data'], ()=>{
                 let values = get(data, [0, 'value']);
                 let area = get(areas, [0, 'value']);
                 if (area) {
                     values = values.concat(area);
                 }
                 return values;
-            })()),
+            }),
             scaleH,
             0,
-            (d) =>get(d, ['y1'], yValueLocator(d)),
-            yScaleNum,
+            (d) => get(d, ['y1'], yValueLocator(d)),
+            get(yAxisAttr, ['num']),
             null
         );
         if (!hideAxis) {
@@ -91,13 +90,15 @@ class BaseChart extends Component
                     scale={this.xScale}
                     length={scaleW}
                     height={scaleH}
-                    textRotate={xAxisRotate}
+                    {...xAxisAttr}
+                    key="xaxis"
                 />
             );
             yaxis = (
                 <YAxis
                     scale={this.yScale}
                     length={scaleH}
+                    key="yaxis"
                 />
             );
         } else {
@@ -110,7 +111,24 @@ class BaseChart extends Component
                     start={{x:0, y:yThreshold}}
                     end={{x:scaleW, y:yThreshold}}
                     stroke="#f00"
+                    key="threshold"
                 />
+            );
+        }
+        const childArr = [
+            children(this),
+            xaxis,
+            yaxis,
+            thresholdLine
+        ];
+        if (multiChart) {
+            return (
+                <SemanticUI 
+                    {...props}
+                    atom="g"
+                >
+                    {childArr}
+                </SemanticUI>
             );
         }
         return (
@@ -120,11 +138,8 @@ class BaseChart extends Component
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
-                <SemanticUI atom="g" transform="translate(45, 20)">
-                    {children(this)}
-                    {xaxis}
-                    {yaxis}
-                    {thresholdLine}
+                <SemanticUI atom="g" transform="translate(50, 20)">
+                    {childArr}
                 </SemanticUI>
             </SemanticUI>
         );
@@ -137,7 +152,6 @@ BaseChart.defaultProps = {
     data: [],
     scaleW: 450,
     scaleH: 450,
-    yScaleNum: null,
     extraViewBox: 100,
     xValueLocator: (d)=>d.x,
     yValueLocator: (d)=>d.y,

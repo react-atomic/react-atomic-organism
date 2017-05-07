@@ -10,6 +10,7 @@ const XAxis = ({
     height,
     textRotate,
     transform,
+    textAttr,
     ...props
 }) => {
     let params = {
@@ -40,7 +41,8 @@ const XAxis = ({
                 transform: `rotate(${textRotate})`,
                 style: {
                     textAnchor: 'end' 
-                }
+                },
+                ...textAttr
             }
         };
     } else {
@@ -50,7 +52,8 @@ const XAxis = ({
                 y: 20,
                 style: {
                     textAnchor: 'middle' 
-                }
+                },
+                ...textAttr
             }
         };
     }

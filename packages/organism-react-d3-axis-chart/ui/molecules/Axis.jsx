@@ -2,6 +2,7 @@ import React from 'react';
 import {
     SemanticUI
 } from 'react-atomic-molecule';
+import get from 'get-object-value';
 
 const keys = Object.keys;
 
@@ -19,6 +20,16 @@ const Label = ({
     } else if ("undefined" === typeof(y)) {
         y = value;
     }
+    let text;
+    if (!get(textAttr, ['hide'])) {
+        delete textAttr.hide;
+        text = (<SemanticUI
+                atom="text"
+                {...textAttr}
+            >
+            {children}
+        </SemanticUI>);
+    }
     return (
         <SemanticUI atom="g"
             transform={`translate(${x}, ${y})`}
@@ -28,17 +39,12 @@ const Label = ({
                 atom="line"
                 {...lineAttr}
             />
-            <SemanticUI
-                atom="text"
-                {...textAttr}
-            >
-            {children}
-            </SemanticUI>
+            {text}
         </SemanticUI>
     );
 }
 
-const Axis = ({scale, path, transform, ...props}) =>
+const Axis = ({data, scale, path, transform, format, ...props}) =>
 {
     const {list, scaler} = scale;
     return (
@@ -56,7 +62,7 @@ const Axis = ({scale, path, transform, ...props}) =>
                         {...list[k]}
                         key={i}
                     >
-                        {k}
+                        {format(k)}
                     </Label>
                )
             }
@@ -65,6 +71,7 @@ const Axis = ({scale, path, transform, ...props}) =>
 }
 
 Axis.defaultProps = {
+    format: (i)=>i
 };
 
 export default Axis;
