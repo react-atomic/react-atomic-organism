@@ -1,4 +1,4 @@
-GetObjectValue (only for 22 line)
+Get object value with paht
 ===============
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/get-object-value 

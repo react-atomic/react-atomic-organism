@@ -2,9 +2,16 @@
 
 const _isArray = Array.isArray;
 
+const getDefaultValue = (v) => {
+    if ('function' === typeof v) {
+        return v();
+    }
+    return v;
+}
+
 const getObjectValue = (o, path, defaultValue) => {
     if (null === o || 'undefined' === typeof o) {
-        return defaultValue;
+        return getDefaultValue(defaultValue);
     }
     if (!_isArray(path)) {
         return o;
@@ -15,7 +22,7 @@ const getObjectValue = (o, path, defaultValue) => {
             current = current[a];
             return true;
         } else {
-            current = defaultValue;
+            current = getDefaultValue(defaultValue);
             return false;
         }
     });
