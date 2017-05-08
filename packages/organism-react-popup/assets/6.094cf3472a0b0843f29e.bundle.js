@@ -1,7 +1,7 @@
 webpackJsonp([6],{
 
-/***/ 305:
-/***/ function(module, exports) {
+/***/ 306:
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -14,6 +14,6 @@ webpackJsonp([6],{
 	exports.default = css;
 	module.exports = exports['default'];
 
-/***/ }
+/***/ })
 
 });

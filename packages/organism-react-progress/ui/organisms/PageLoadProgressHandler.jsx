@@ -1,3 +1,4 @@
+require("setimmediate");
 import React, {Component} from 'react'; 
 import { ajaxStore } from 'organism-react-ajax';
 import { Container } from 'reduce-flux';
@@ -77,19 +78,13 @@ class PageLoadProgressHandle extends Component
         clearTimeout(this._timerComplete);
         clearTimeout(this._timerReset1);
         clearTimeout(this._timerReset2);
-        this._timer = false;
     }
 
     start = (pause, delay)=>
     {
-        if (this._timer) {
-            return false;
-        }
+        clearInterval(this._timer);
         if (!delay) {
             delay = this.props.delay;
-        }
-        if (!pause || pause > 100) {
-            pause = 100;
         }
         this._start(pause);
         this._timer = setInterval(()=>{
@@ -99,6 +94,9 @@ class PageLoadProgressHandle extends Component
 
     _start = (pause) =>
     {
+        if (!pause || pause > 100) {
+            pause = 100;
+        }
         let end = this.state.percent + 5;
         if (end >= pause) {
             end = pause;
@@ -106,10 +104,11 @@ class PageLoadProgressHandle extends Component
         }
         if (end >= 100) {
             return this.complete();
+        } else {
+            this.setState({
+                percent: end
+            });
         }
-        this.setState({
-            percent: end
-        });
     }
     
     componentWillUnmount()
@@ -130,11 +129,11 @@ class PageLoadProgressHandle extends Component
         self.setFloat();
         if (self.props.ajax && prevState && prevState.isRunning !== isRunning) {
             if (isRunning) {
-                setTimeout(()=>{
+                setImmediate(()=>{
                     self.start(self.props.pause);
                 });
             } else {
-                setTimeout(()=>{
+                setImmediate(()=>{
                     self.complete();
                 });
             }
@@ -150,7 +149,7 @@ class PageLoadProgressHandle extends Component
     {
         const {isFloat} = this.props;
         if (isFloat) {
-            setTimeout(()=>{
+            setImmediate(()=>{
                 popupDispatch({
                     type: 'dom/update',
                     params: {
