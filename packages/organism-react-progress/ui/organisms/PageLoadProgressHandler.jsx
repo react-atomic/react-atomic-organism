@@ -64,11 +64,6 @@ class PageLoadProgressHandle extends Component
             this.setState({
                 percent: 0, 
             });
-            this._timerReset2 = setTimeout(()=>{
-                this.setState({
-                    opacity: 1 
-                });
-            },500);
         },500);
     }
 
@@ -77,7 +72,6 @@ class PageLoadProgressHandle extends Component
         clearInterval(this._timer);
         clearTimeout(this._timerComplete);
         clearTimeout(this._timerReset1);
-        clearTimeout(this._timerReset2);
     }
 
     start = (pause, delay)=>
@@ -106,7 +100,8 @@ class PageLoadProgressHandle extends Component
             return this.complete();
         } else {
             this.setState({
-                percent: end
+                percent: end,
+                opacity: 1 
             });
         }
     }
