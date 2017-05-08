@@ -1,3 +1,4 @@
+require("setimmediate");
 import React, {Component} from 'react'; 
 import get from 'get-object-value';
 
@@ -42,7 +43,7 @@ class AjaxPage extends Component
 
     componentDidMount() {
         const props = this.props;
-        setTimeout(()=>{
+        setImmediate(()=>{
             if (window.WebSocket && props.webSocketUrl) {
                 ajaxStore.initWs(props.webSocketUrl);
             }

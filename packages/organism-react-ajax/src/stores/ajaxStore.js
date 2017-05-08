@@ -1,5 +1,6 @@
 'use strict';
 
+require("setimmediate");
 import {Map} from 'immutable';
 import {ReduceStore} from 'reduce-flux';
 import get from 'get-object-value';
@@ -132,7 +133,7 @@ class AjaxStore extends ReduceStore
 
   start()
   {
-    setTimeout(()=>{
+    setImmediate(()=>{
        ajaxDispatch({
         type: 'config/set',
         params: {
@@ -144,7 +145,7 @@ class AjaxStore extends ReduceStore
 
   done()
   {
-    setTimeout(()=>{
+    setImmediate(()=>{
        ajaxDispatch({
         type: 'config/set',
         params: {
@@ -239,7 +240,7 @@ class AjaxStore extends ReduceStore
             this.setWsAuth(get(json,['--realTimeData--']));
             break;
         default:
-            setTimeout(()=>{
+            setImmediate(()=>{
                 callback(json, text, response);
             });
             break;
@@ -253,7 +254,7 @@ class AjaxStore extends ReduceStore
   worker(data)
   {
     if (isWorkerReady) {
-        setTimeout(()=>{
+        setImmediate(()=>{
             worker.postMessage(data);
         });
     } else {
@@ -281,7 +282,6 @@ class AjaxStore extends ReduceStore
 
     updateWithUrl(state, action)
     {
-        const updateWithUrl = state.get('updateWithUrl');
         const url = get(
             action, 
             [
@@ -290,9 +290,10 @@ class AjaxStore extends ReduceStore
             ],
             document.URL
         );
-        setTimeout(()=>{
+        setImmediate(()=>{
+            const updateWithUrl = state.get('updateWithUrl');
             updateWithUrl(url);
-        },0);
+        });
         return state.set(
             'currentLocation',
             url 
