@@ -10,7 +10,12 @@ const Line = ({start, end, ...props}) =>
     if (start && end) {
        params.d = line(start, end); 
     }
-    return <SemanticUI {...props} {...params} />;
+    return (
+    <SemanticUI
+        {...props}
+        {...params}
+    />
+    );
 }
 
 Line.defaultProps = {

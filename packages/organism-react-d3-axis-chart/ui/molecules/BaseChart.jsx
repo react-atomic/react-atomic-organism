@@ -1,21 +1,26 @@
 import React, {Component, Children, cloneElement} from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule';
 import get from 'get-object-value';
+import {mouse} from 'getoffset';
 
 import Line from '../molecules/Line';
+import Rect from '../molecules/Rect';
 import XAxis from '../organisms/XAxis';
 import YAxis from '../organisms/YAxis';
+import Crosshair from '../organisms/Crosshair';
+
+const adjustX = 50;
+const adjustY = 20;
 
 class BaseChart extends Component
 {
-    handleMouseEnter = (e)=>
+    componentWillReceiveProps(nextProps)
     {
-        //console.log('enter');
-    }
-
-    handleMouseLeave = (e)=>
-    {
-        //console.log('leave');
+        const {crosshairX, hideCrosshairY} = nextProps;
+        this.setState({
+            crosshairX: crosshairX,
+            hideCrosshairY: hideCrosshairY
+        });
     }
 
     componentDidMount()
@@ -25,7 +30,7 @@ class BaseChart extends Component
             curve,
             scaleLinear,
             scaleBand,
-            hArea
+            hArea,
         })=>{
             this.stack = stack;
             this.curve = curve;
@@ -38,6 +43,36 @@ class BaseChart extends Component
         });
     }
 
+    handleMouseEnter = (e)=>
+    {
+        const hideY = get(this, ['props', 'hideCrosshairY'], false);
+        this.setState({
+            hideCrosshairX: false, 
+            hideCrosshairY: hideY, 
+        });
+    }
+
+    handleMouseLeave = (e)=>
+    {
+        const hideY = get(this, ['props', 'hideCrosshairY'], true);
+        this.setState({
+            hideCrosshairX: true,
+            hideCrosshairY: hideY, 
+        });
+    }
+
+    handleMouseMove = (e)=>
+    {
+        const point = mouse(e);
+        if (this.props.handleMouseMove) {
+            this.props.handleMouseMove(e, point);
+        }
+        this.setState({
+            crosshairX: point[0],
+            crosshairY: point[1]
+        });
+    }
+
     render()
     {
         if (!get(this, ['state', 'isLoad'])) {
@@ -47,6 +82,7 @@ class BaseChart extends Component
             areas,
             data,
             children,
+            crosshair,
             xAxisAttr,
             yAxisAttr,
             xValueLocator,
@@ -57,11 +93,21 @@ class BaseChart extends Component
             hideAxis,
             threshold,
             multiChart,
+            crosshairX: propsCrosshairX,
+            hideCrosshairY: propsHideCrosshairY,
+            handleMouseMove: propsHandleMouseMove,
             ...props
         } = this.props;
+        const {
+            crosshairX,
+            crosshairY,
+            hideCrosshairX,
+            hideCrosshairY,
+        } = get(this, ['state'], {});
         let xaxis = null;
         let yaxis = null;
         let thresholdLine = null;
+        let thisCrosshair = null;
         let thisExtraViewBox = extraViewBox;
         this.xScale = this.scaleBand(
             get(xAxisAttr, ['data'], get(data,[0, 'value'])),
@@ -115,11 +161,26 @@ class BaseChart extends Component
                 />
             );
         }
+        if (crosshair) {
+            thisCrosshair = (
+                <Crosshair
+                    scaleW={scaleW}
+                    scaleH={scaleH}
+                    x={crosshairX}
+                    y={crosshairY}
+                    hideX={hideCrosshairX}
+                    hideY={hideCrosshairY}
+                    xScale={this.xScale}
+                    yScale={this.yScale}
+                />
+            );
+        }
         const childArr = [
             children(this),
             xaxis,
             yaxis,
-            thresholdLine
+            thresholdLine,
+            thisCrosshair
         ];
         if (multiChart) {
             return (
@@ -128,6 +189,16 @@ class BaseChart extends Component
                     atom="g"
                 >
                     {childArr}
+                    <Rect 
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
+                        onMouseMove={this.handleMouseMove}
+                        x="0"
+                        y="0"
+                        width={scaleW}
+                        height={scaleH}
+                        style={{pointerEvents:'all', fill:"none"}}
+                    />
                 </SemanticUI>
             );
         }
@@ -137,8 +208,9 @@ class BaseChart extends Component
                 viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(scaleH + thisExtraViewBox)}`}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                onMouseMove={this.handleMouseMove}
             >
-                <SemanticUI atom="g" transform="translate(50, 20)">
+                <SemanticUI atom="g" transform={`translate(${adjustX}, ${adjustY}`}>
                     {childArr}
                 </SemanticUI>
             </SemanticUI>
