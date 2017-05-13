@@ -1,6 +1,27 @@
 'use strict';
 
-export default function getOffset(dom) {
+const mouse = (e, dom) => {
+    if (!dom) {
+        dom = e.currentTarget;
+    }
+    const svg = dom.ownerSVGElement || dom;
+    const x = e.clientX;
+    const y = e.clientY;
+    if (svg.createSVGPoint) {
+        let point = svg.createSVGPoint();
+        point.x = x;
+        point.y = y;
+        point = point.matrixTransform(dom.getScreenCTM().inverse());
+        return [point.x, point.y];
+    }
+    const domXY = getOffset(dom);
+    return [
+        x - domXY.left - dom.clientLeft,
+        y - domXY.top - dom.clientTop
+    ];
+}
+
+const getOffset = (dom) => {
     let top = 0;
     let left = 0;
     let el = dom;
@@ -17,3 +38,6 @@ export default function getOffset(dom) {
         bottom: top+ dom.offsetHeight,
     };
 }
+
+export {mouse};
+export default getOffset;
