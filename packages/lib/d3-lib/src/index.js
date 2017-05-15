@@ -155,7 +155,8 @@ const scaleBand = (
         }));
     const length = band.bandwidth();
     const halfLength = Math.round(length/2);
-    let listKeys = keys(list);
+    const allKeys = keys(list);
+    let listKeys = allKeys;
     if (tickNum && listKeys.length > tickNum) {
         let newKeys = [];
         let chunk;
@@ -174,6 +175,15 @@ const scaleBand = (
             value: start + halfLength
         };
     });
+    band.invert = (v) => {
+        const step = band.step();
+        let index = Math.round(v / step);
+        if (index >= allKeys.length) {
+            index = allKeys.length-1;
+        }
+        const result = allKeys[index]; 
+        return result;
+    };
     return {
         scaler: band,
         list: list,
