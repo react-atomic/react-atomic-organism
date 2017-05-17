@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import {
     min,
+    mixClass,
     reactStyle,
     Item,
     Menu
@@ -21,16 +22,19 @@ const BasePage = (props)=>
 {
     const {component, className,  children, style, url} = props;
     let build;
+    let classes;
     if (React.isValidElement(component)) {
+        classes = mixClass(component.props.className, className);
         build = React.cloneElement;
     } else {
         build = React.createElement;
+        classes = className;
     }
     return build(
         component,
         {
             title: getFromTo(props[0], props[1]),
-            className: className,
+            className: classes,
             href: url,
             style: {
                 ...{display:'none', minWidth: '2rem'},
