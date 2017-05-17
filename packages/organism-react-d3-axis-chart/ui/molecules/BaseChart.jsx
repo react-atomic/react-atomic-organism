@@ -1,4 +1,4 @@
-import React, {Component, Children, cloneElement} from 'react'; 
+import React, {Component} from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule';
 import get from 'get-object-value';
 import {mouse} from 'getoffset';
@@ -82,7 +82,6 @@ class BaseChart extends Component
             areas,
             data,
             children,
-            crosshair,
             xAxisAttr,
             yAxisAttr,
             xValueLocator,
@@ -93,9 +92,15 @@ class BaseChart extends Component
             hideAxis,
             threshold,
             multiChart,
+
+            /*crosshair*/
+            crosshair,
             crosshairX: propsCrosshairX,
             hideCrosshairY: propsHideCrosshairY,
             handleMouseMove: propsHandleMouseMove,
+            hideCrosshairXLabel,
+            hideCrosshairYLabel,
+
             ...props
         } = this.props;
         const {
@@ -138,13 +143,20 @@ class BaseChart extends Component
                     height={scaleH}
                     {...xAxisAttr}
                     key="xaxis"
+                    crosshairValue={crosshairX}
+                    hideCrosshair={hideCrosshairY}
+                    hideCrosshairLabel={hideCrosshairXLabel}
                 />
             );
             yaxis = (
                 <YAxis
                     scale={this.yScale}
                     length={scaleH}
+                    {...yAxisAttr}
                     key="yaxis"
+                    crosshairValue={crosshairY}
+                    hideCrosshair={hideCrosshairX}
+                    hideCrosshairLabel={hideCrosshairYLabel}
                 />
             );
         } else {

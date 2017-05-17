@@ -4,6 +4,7 @@ import {
 } from 'react-atomic-molecule';
 
 import Axis from '../molecules/Axis';
+import YAxisLabel from '../organisms/YAxisLabel'; 
 
 const YAxis = ({length, ...props}) =>
 {
@@ -22,6 +23,7 @@ const YAxis = ({length, ...props}) =>
                 x2: -6,
                 y2: 0
             }}
+            crosshairLabel={<YAxisLabel />}
             {...props}
         />
     );

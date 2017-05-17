@@ -5,3 +5,6 @@
 
 ## D3js Graph with X and Y crosshairs, and a threshold line.
 * http://bl.ocks.org/mikehadlow/93b471e569e31af07cd3
+
+## 3D
+* https://bl.ocks.org/syntagmatic/c7d6ea0132c956140cbb

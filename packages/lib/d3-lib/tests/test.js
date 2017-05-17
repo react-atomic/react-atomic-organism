@@ -65,14 +65,24 @@ describe('stack', ()=>{
         let result = scaleLinear(data, 500, 0);
         //console.log(result);
     });
+    it('invert', ()=>{
+        let data = [ 
+          { value: 11},
+          { value: 22},
+          { value: 33},
+        ];
+        let linear = scaleLinear(data, 500, 0);
+        let scaler = linear.scaler;
+        console.log(scaler.invert(11)); 
+    });
 });
 
 
 describe('line', ()=>{
+    const data = [ 
+      { x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 }
+    ];
     it('data', ()=>{
-        let data = [ 
-          { x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 }
-        ];
         let xLocator = (d)=>{
             return d.x;
         };

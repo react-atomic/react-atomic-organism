@@ -4,6 +4,7 @@ import {
 } from 'react-atomic-molecule';
 
 import Axis from '../molecules/Axis';
+import XAxisLabel from '../organisms/XAxisLabel'; 
 
 const XAxis = ({
     length,
@@ -20,6 +21,7 @@ const XAxis = ({
           x2: 0,
           y2: 6
        },
+       crosshairLabel: <XAxisLabel />,
        ...props
     };
     

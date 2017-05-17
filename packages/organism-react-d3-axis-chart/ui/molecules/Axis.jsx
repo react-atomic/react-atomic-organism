@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, {cloneElement} from 'react'; 
 import {
     SemanticUI
 } from 'react-atomic-molecule';
@@ -44,9 +44,36 @@ const Label = ({
     );
 }
 
-const Axis = ({data, scale, path, transform, format, ...props}) =>
+const Axis = ({
+    data,
+    scale,
+    path,
+    transform,
+    format,
+    crosshairLabel,
+    crosshairValue,
+    hideCrosshair,
+    hideCrosshairLabel,
+    ...props
+}) =>
 {
     const {list, scaler} = scale;
+    let thisCrosshairLabel = null; 
+    if ( !hideCrosshairLabel &&
+        !hideCrosshair &&
+        crosshairValue &&
+        crosshairLabel
+    ) 
+    {
+        thisCrosshairLabel = cloneElement(
+            crosshairLabel,
+            {
+                children: format(scaler.invert(crosshairValue)),
+                value: crosshairValue
+            }
+        );
+    }
+
     return (
         <SemanticUI
             atom="g"
@@ -66,6 +93,7 @@ const Axis = ({data, scale, path, transform, format, ...props}) =>
                     </Label>
                )
             }
+            {thisCrosshairLabel}
         </SemanticUI>
     );
 }
