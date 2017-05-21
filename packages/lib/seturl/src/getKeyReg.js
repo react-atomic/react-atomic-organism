@@ -7,7 +7,7 @@ const getKeyReg = (name)=>
 {
     const thisName = name.replace(esc, '\\$&');
     if (!cache[name]) {
-        const reg = '([#?&]'+thisName+'=)([^&#]*)';
+        const reg = '(([#?&])'+thisName+'=)([^&#]*)';
         cache[name] = new RegExp(reg);
     }
     return cache[name];

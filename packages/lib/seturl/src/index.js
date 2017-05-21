@@ -11,7 +11,28 @@ const resetUrl = (url) =>
     }
 }
 
-const seturl = ( key, value, url, KeepRawValue)=>
+const getUrl = (key, url) =>
+{
+    url = resetUrl(url);
+    const reg = getKeyReg(key);
+    const exec = reg.exec(url);
+    return (!exec) ?
+        '':
+        decodeURIComponent(exec[3]); 
+}
+
+const unsetUrl = (key, url) =>
+{
+    const reg = getKeyReg(key);
+    url = resetUrl(url);
+    const exec = reg.exec(url);
+    url = (exec[2]==='?') ? 
+        url.replace(reg,'?'):
+        url.replace(reg,'');
+    return url;
+}
+
+const setUrl = ( key, value, url, KeepRawValue)=>
 {
     const reg = getKeyReg(key);
     if (!KeepRawValue) {
@@ -24,14 +45,5 @@ const seturl = ( key, value, url, KeepRawValue)=>
     return url;
 }
 
-const getUrl = (key, url) =>
-{
-    url = resetUrl(url);
-    const reg = getKeyReg(key);
-    const exec = reg.exec(url);
-    return (!exec) ?
-        '':
-        decodeURIComponent(exec[2]); 
-}
-export {getUrl};
-export default seturl;
+export {getUrl, unsetUrl};
+export default setUrl;
