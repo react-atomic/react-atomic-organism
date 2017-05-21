@@ -79,19 +79,23 @@ class BaseChart extends Component
             return null;
         }
         const {
+            attrLocator,
             areas,
             data,
             children,
-            xAxisAttr,
-            yAxisAttr,
             xValueLocator,
             yValueLocator,
             extraViewBox,
-            scaleW,
-            scaleH,
-            hideAxis,
             threshold,
             multiChart,
+
+            /*axis*/
+            hideAxis,
+            scaleW,
+            scaleH,
+            xAxisAttr,
+            yAxisAttr,
+            xScale,
 
             /*crosshair*/
             crosshair,
@@ -114,12 +118,16 @@ class BaseChart extends Component
         let thresholdLine = null;
         let thisCrosshair = null;
         let thisExtraViewBox = extraViewBox;
-        this.xScale = this.scaleBand(
-            get(xAxisAttr, ['data'], get(data,[0, 'value'])),
-            0,
-            scaleW,
-            xValueLocator
-        );
+        if (xScale) {
+            this.xScale = xScale;
+        } else {
+            this.xScale = this.scaleBand(
+                get(xAxisAttr, ['data'], ()=>get(data,[0, 'value'])),
+                0,
+                scaleW,
+                xValueLocator
+            );
+        }
         this.yScale = this.scaleLinear(
             get(yAxisAttr, ['data'], ()=>{
                 let values = get(data, [0, 'value']);
@@ -131,7 +139,7 @@ class BaseChart extends Component
             }),
             scaleH,
             0,
-            (d) => get(d, ['y1'], yValueLocator(d)),
+            (d) => yValueLocator(d),
             get(yAxisAttr, ['num']),
             null
         );

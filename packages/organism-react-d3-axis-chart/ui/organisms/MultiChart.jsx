@@ -16,7 +16,6 @@ class MultiChart extends Component
 
     handleMouseLeave = (e)=>
     {
-        //console.log('leave', e);
         this.setState({
             hideCrosshairY: true, 
         });
@@ -30,12 +29,31 @@ class MultiChart extends Component
         });
     }
 
+    componentDidMount()
+    {
+        System.import('d3-lib').then(({
+            scaleLinear,
+            scaleBand,
+        })=>{
+            this.scaleLinear = scaleLinear;
+            this.scaleBand = scaleBand;
+            this.setState({
+                isLoad: true
+            });        
+        });
+    }
+
     render()
     {
+        if (!get(this, ['state', 'isLoad'])) {
+            return null;
+        }
         const {
             children,
             scaleW,
             scaleH,
+            xAxisAttr,
+            xValueLocator,
             extraViewBox,
             subChartScaleH,
             ...props
@@ -44,10 +62,16 @@ class MultiChart extends Component
             crosshairX,
             hideCrosshairY
         } = get(this, ['state'], {});
+        this.xScale = this.scaleBand(
+            get(xAxisAttr, ['data']),
+            0,
+            scaleW,
+            xValueLocator
+        );
         let thisExtraViewBox = extraViewBox;
         let subChartCount = 0;
         Children.forEach(children, (child)=>{
-            if ('sub' === child.props.multiChart) {
+            if ('sub' === get(child,['props','multiChart'])) {
                 subChartCount++;
             }
         });
@@ -70,7 +94,8 @@ class MultiChart extends Component
                     scaleW: scaleW,
                     crosshairX: crosshairX,
                     hideCrosshairY: hideCrosshairY,
-                    handleMouseMove: this.handleMouseMove
+                    handleMouseMove: this.handleMouseMove,
+                    xScale: this.xScale 
                 };
                 if ('main' === child.props.multiChart) {
                     high += 20 + mainChartScaleH;

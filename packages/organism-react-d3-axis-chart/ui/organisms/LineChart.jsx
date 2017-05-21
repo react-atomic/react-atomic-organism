@@ -12,6 +12,7 @@ const LineChart = (props)=>{
         data,
         xValueLocator,
         yValueLocator,
+        attrLocator
     } = props;
     return (
         <BaseChart  {...props}>
@@ -19,7 +20,13 @@ const LineChart = (props)=>{
                 const {xScale, yScale} = baseChart; 
                 return [
                     data.map((line)=>{
-                        const {value, attr} = line;                     
+                        const {value} = line;
+                        let attr;
+                        if (attrLocator) {
+                            attr = attrLocator(line);
+                        } else {
+                            attr = get(line, ['attr']);
+                        }
                         const d = baseChart.curve(
                             value,
                             xValueLocator,
@@ -30,7 +37,13 @@ const LineChart = (props)=>{
                         return  (<Line d={d} {...attr}/>);
                     }),
                     get(areas,null,[]).map((area)=>{
-                        const {value, attr} = area; 
+                        const {value} = area; 
+                        let attr;
+                        if (attrLocator) {
+                            attr = attrLocator(area);
+                        } else {
+                            attr = get(area, ['attr']);
+                        }
                         const d = baseChart.hArea(
                             value,
                             (d)=>xScale.scaler(d.x),

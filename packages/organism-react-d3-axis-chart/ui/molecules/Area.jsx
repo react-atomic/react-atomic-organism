@@ -12,7 +12,7 @@ const Area = ({...props}) =>
 Area.defaultProps = {
     atom: 'path',
     fill: 'steelblue',
-    opacity: '0.1',
+    fillOpacity: '0.1',
     stroke: 'none'
 };
 
