@@ -89,14 +89,14 @@ class AjaxStore extends ReduceStore
               callback = Callbacks[params.errorCallback];
               delete(Callbacks[params.errorCallback]);
           }
-      } 
+      }
       if (json.debugs) {
         let debugs = json.debugs; 
         let bFail = false;
-        require(['../lib/dlog'],(dlog)=>{ 
+        System.import('../lib/dlog').then((dlog)=>{ 
             const oLog = new dlog({ level: 'trace'});
             debugs.forEach((v)=>{
-                const dump = get(oLog, [v[0]], oLog.info); 
+                const dump = get(oLog, [v[0]], ()=>oLog.info); 
                 dump.call(oLog, v[1]);
             });
         });
