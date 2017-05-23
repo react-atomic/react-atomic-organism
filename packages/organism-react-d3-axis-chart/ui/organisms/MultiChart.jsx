@@ -75,15 +75,20 @@ class MultiChart extends Component
                 subChartCount++;
             }
         });
+        let thisScaleH = scaleH;
         let mainChartScaleH = 
             scaleH -
             20 -
             ((subChartScaleH+20) * subChartCount);
+        if (mainChartScaleH < subChartScaleH) {
+            mainChartScaleH = subChartScaleH;
+            thisScaleH = (subChartScaleH+20) * (subChartCount+1);
+        }
         let high = 0;
         return (
             <SemanticUI
                 {...props}
-                viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(scaleH + thisExtraViewBox)}`}
+                viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(thisScaleH + thisExtraViewBox)}`}
                 style={{pointerEvents:'bounding-box'}}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
