@@ -1,9 +1,7 @@
-import React, {Component} from 'react'; 
+import React, {Component, cloneElement} from 'react'; 
 import { Container } from 'reduce-flux';
 import { SemanticUI } from 'react-atomic-molecule'; 
-import {
-    popupStore
-} from '../../src/index';
+import { popupStore } from '../../src/index';
 
 const keys = Object.keys;
 
@@ -21,9 +19,9 @@ class PopupElement extends Component
         const allKeys = keys(nodes);
         let pops=[];
         allKeys.forEach((k)=>{
-            nodes[k] = React.cloneElement(
+            nodes[k] = cloneElement (
                 nodes[k],
-                {key: k}
+                {key: k} 
             );
             pops.push(nodes[k]); 
         });

@@ -19,7 +19,7 @@ class PopupOverlay extends Component
         return [popupStore];
     }
 
-   static calculateState(prevState,props)
+   static calculateState(prevState, props)
    {
         const state = popupStore.getState();
         const key = get(props, ['name'], 'default'); 

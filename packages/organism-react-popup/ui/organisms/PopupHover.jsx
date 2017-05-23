@@ -1,7 +1,6 @@
 import React, {Component} from 'react'; 
 import getOffset from 'getoffset';
 import {
-    assign,
     mixClass,
     SemanticUI
 } from 'react-atomic-molecule';

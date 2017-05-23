@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 
 import {
     SemanticUI,
-    assign
 } from 'react-atomic-molecule';
 
 import {
@@ -12,7 +11,7 @@ import {
 
 class PopupClick extends Component
 {
-    handleClick()
+    handleClick = () =>
     {
         const props = this.props;
         let popup;
@@ -23,6 +22,7 @@ class PopupClick extends Component
         } else {
             popup = <PopupOverlay>{props.popup}</PopupOverlay>; 
         }
+
         popupDispatch({
             type: 'dom/update',
             params: {
@@ -40,15 +40,12 @@ class PopupClick extends Component
         if (!React.isValidElement(container)) {
             container = <SemanticUI />
         }
-        let style = assign({}, reset.style, Styles.container); 
-        let props = assign(
-            {},
-            reset,
-            {
-                onClick:this.handleClick.bind(this),
-                style: style
-            }
-        );
+        const style = {...reset.style, ...Styles.container};
+        let props = {
+            ...reset,
+            onClick:this.handleClick,
+            style: style
+        };
         return React.cloneElement(
              container,
              props

@@ -20,8 +20,11 @@ class PopupStore extends ReduceStore
       const key = get(popupNode, ['props', 'name'], 'default'); 
       const node = state.get('node').set(key,true);
       const nodes = state.get('nodes').set(key, popupNode);
-      return state.set('node', node)
-        .set('nodes', nodes);
+
+      return state.set('node', node).
+        //force update
+        set('default', !state.get('default')).
+        set('nodes', nodes);
   }
 
   getKey(action)

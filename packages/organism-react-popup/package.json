@@ -17,7 +17,7 @@
     "immutable": "^3.8.0",
     "organism-react-animate": "*",
     "react-addons-css-transition-group": "*",
-    "react-atomic-molecule": ">=0.0.40",
+    "react-atomic-molecule": "*",
     "reduce-flux": "*"
   },
   "devDependencies": {

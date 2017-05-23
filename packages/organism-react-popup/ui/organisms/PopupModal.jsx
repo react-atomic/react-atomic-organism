@@ -2,7 +2,6 @@ import React from 'react';
 import { Container } from 'reduce-flux';
 import {
     mixClass,
-    assign,
     Dimmer,
     SemanticUI
 } from 'react-atomic-molecule';
@@ -17,8 +16,12 @@ if ('undefined' !== typeof document) {
 
 class PopupModal extends PopupOverlay
 {
-    handleClick()
+    handleClick = () =>
     {
+        /**
+         * if you need trace show: true
+         * it extend from PopupOverlay
+         */
         this.setState({
              show: false 
         });
@@ -57,17 +60,18 @@ class PopupModal extends PopupOverlay
                 document.body.style.overflow = 'hidden';
             }
             if (!closeEl) {
-                containerClick = this.handleClick.bind(this);
+                containerClick = this.handleClick;
             } else {
                 closeEl = React.cloneElement(
                      closeEl,
                      {
-                        onClick: this.handleClick.bind(this),
+                        onClick: this.handleClick,
                         key: 1,
-                        style: assign({},{
+                        style: {
                             zIndex:1001,
                             position: 'fixed',
-                        },closeEl.props.style)
+                            ...closeEl.props.style
+                        }
                      }
                 );
             }
@@ -76,18 +80,17 @@ class PopupModal extends PopupOverlay
                     className="page modals"
                     show={true}
                     center={false}
-                    style={assign({}, Styles.container, props.style)}
+                    style={{ ...Styles.container, ...props.style }}
                     onClick={containerClick}
                     key={0}
                 >
                     <Dimmer 
                         {...props}
                         fullScreen="true" 
-                        style={assign(
-                            {},
-                            Styles.fullScreen,
-                            fullScreenStyle
-                        )}
+                        style={{
+                            ...Styles.fullScreen,
+                            ...fullScreenStyle
+                        }}
                         className={mixClass('scrolling',props.className)}
                     />
                 </Dimmer>
