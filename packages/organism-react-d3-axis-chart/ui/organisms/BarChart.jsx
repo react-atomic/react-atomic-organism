@@ -7,9 +7,6 @@ import Rect from '../molecules/Rect';
 
 const BarChart = (props) => {
     const {
-        scaleH,
-        xValueLocator,
-        yValueLocator,
         data,
         color
     } = props; 
@@ -20,7 +17,13 @@ const BarChart = (props) => {
                 <SemanticUI atom="g" className="data-group">
                 {
                     get(data,['value']).map((d)=>{
-                        const {xScale, yScale} = baseChart;
+                        const {
+                            xScale,
+                            yScale,
+                            xValueLocator,
+                            yValueLocator,
+                            scaleH
+                        } = baseChart;
                         const x = xScale.scaler(xValueLocator(d));
                         const y = yScale.scaler(yValueLocator(d));
                         return (

@@ -107,6 +107,10 @@ class BaseChart extends Component
 
             ...props
         } = this.props;
+        this.scaleW = scaleW;
+        this.scaleH = scaleH;
+        this.xValueLocator = xValueLocator;
+        this.yValueLocator = yValueLocator;
         const {
             crosshairX,
             crosshairY,
@@ -230,7 +234,7 @@ class BaseChart extends Component
                 onMouseLeave={this.handleMouseLeave}
                 onMouseMove={this.handleMouseMove}
             >
-                <SemanticUI atom="g" transform={`translate(${adjustX}, ${adjustY}`}>
+                <SemanticUI atom="g" transform={`translate(${adjustX}, ${adjustY})`}>
                     {childArr}
                 </SemanticUI>
             </SemanticUI>
