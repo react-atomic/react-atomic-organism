@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import {
     reactStyle,
     injectStyle,
@@ -53,14 +53,13 @@ class Animate extends Component
                 animationName: [ani],
                 animationDuration: [timeout+'ms']
             },
-            ...baseStyle, 
+            ...Styles.linear, 
         }, '.'+key);
     }
 
     render()
     {
         const {
-            children,
             appear,
             enter,
             leave,
@@ -99,7 +98,7 @@ class Animate extends Component
             enableLeave = true;
         }
         return (
-            <ReactCSSTransitionGroup
+            <CSSTransitionGroup
                 transitionAppearTimeout={this.appearTimeout}
                 transitionEnterTimeout ={this.enterTimeout}
                 transitionLeaveTimeout ={this.leaveTimeout}
@@ -113,16 +112,16 @@ class Animate extends Component
                 }}
                 style={style}
                 {...others}
-            >
-                {children}
-            </ReactCSSTransitionGroup>
+            />
         );
     }
 }
 
 export default Animate;
 
-const baseStyle = {
-    animationIterationCount: [1],
-    animationTimingFunction: ['linear']
+const Styles = {
+    linear: {
+        animationIterationCount: [1],
+        animationTimingFunction: ['linear']
+    }
 };

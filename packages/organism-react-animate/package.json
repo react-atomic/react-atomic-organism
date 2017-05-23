@@ -1,6 +1,6 @@
 {
   "name": "organism-react-animate",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "React Animate",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -12,8 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "keyframe-css": "*",
-    "react-addons-css-transition-group": "*",
-    "react-atomic-molecule": "*"
+    "react-atomic-molecule": "*",
+    "react-transition-group": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
