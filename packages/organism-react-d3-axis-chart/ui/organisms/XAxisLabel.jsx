@@ -5,10 +5,11 @@ import {
 import Rect from '../molecules/Rect';
 import Text from '../molecules/Text';
 
-const width = 62;
+const textWidth = 7.7;
 
 const XAxisLabel = ({children, value, ...props}) =>
 {
+    let width = textWidth * children.length;
     let halfWidth = width / 2;
     if (value >= halfWidth) {
         value -= halfWidth;
@@ -27,7 +28,7 @@ const XAxisLabel = ({children, value, ...props}) =>
             width={width}
         />
         <Text
-            x="3"
+            x="4"
             y="12"
             fill="#fff"
         >{children}</Text>
