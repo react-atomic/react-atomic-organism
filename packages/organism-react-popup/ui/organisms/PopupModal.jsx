@@ -45,6 +45,7 @@ class PopupModal extends PopupOverlay
     render()
     {
         let {
+            scrolling,
             appear,
             enter,
             leave,
@@ -91,7 +92,7 @@ class PopupModal extends PopupOverlay
                             ...Styles.fullScreen,
                             ...fullScreenStyle
                         }}
-                        className={mixClass('scrolling',props.className)}
+                        className={mixClass({scrolling: scrolling},props.className)}
                     />
                 </Dimmer>
             );
@@ -113,10 +114,15 @@ class PopupModal extends PopupOverlay
     }
 }
 
+PopupModal.defaultProps = {
+    scrolling: false
+};
+
 const PopupModalContainer = Container.create(
     PopupModal,
     { withProps:true }
 );
+
 export default PopupModalContainer;
 
 const Styles = {

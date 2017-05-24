@@ -1708,8 +1708,8 @@ nan@^2.3.0:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.6.2.tgz#e4ff34e6c95fdfb5aecc08de6596f43605a7db45"
 
 node-fetch@^1.0.1:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.6.3.tgz#dc234edd6489982d58e8f0db4f695029abcd8c04"
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.0.tgz#3ff6c56544f9b7fb00682338bb55ee6f54a8a0ef"
   dependencies:
     encoding "^0.1.11"
     is-stream "^1.0.1"
@@ -1965,13 +1965,6 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-addons-css-transition-group@*:
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/react-addons-css-transition-group/-/react-addons-css-transition-group-15.5.2.tgz#ea7e0a9f0e1c27ca426da4efd3559915bd42ead2"
-  dependencies:
-    fbjs "^0.8.4"
-    object-assign "^4.1.0"
-
 react-atomic-atom@*:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.8.tgz#8cc393fc439e7ed44dfad2ba968a58d1ae9d62aa"
@@ -2128,6 +2121,12 @@ request@^2.81.0:
     tough-cookie "~2.3.0"
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
+
+ricon@*:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.14.tgz#21ee26bd2a8a74c0055c16cc2abc516e78f06c6f"
+  dependencies:
+    keyframe-css "*"
 
 right-align@^0.1.1:
   version "0.1.3"

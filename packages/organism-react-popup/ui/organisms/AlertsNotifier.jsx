@@ -1,16 +1,63 @@
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import React, {Component} from 'react'; 
+import Animate from 'organism-react-animate';
+import XIcon from 'ricon/X';
+import React, {PureComponent} from 'react'; 
 import PropTypes from 'prop-types';
-import {XIco, Message, reactStyle} from 'react-atomic-molecule';
+import {Message, reactStyle} from 'react-atomic-molecule';
+import {Set} from 'immutable';
 
-
-export default class AlertsNotifier extends Component
+class XIconEl extends PureComponent
 {
     constructor(props)
     {
         super(props);
         this.state = {
-           dismissedAlerts: []
+           hoverStyle: null 
+        };
+    }
+
+    handleMouseEnter = ()=>
+    {
+        this.setState({
+            hoverStyle: {
+                opacity: '.9'
+            } 
+        });
+    }
+
+    handleMouseLeave = ()=>
+    {
+        this.setState({
+            hoverStyle: null 
+        });
+    }
+
+    render()
+    {
+        const props = this.props;
+        const {hoverStyle} = this.state;
+        return (
+            <XIcon 
+                style={{
+                    ...Styles.xicon,
+                    ...hoverStyle
+                }}
+                weight=".1rem"
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+                {...props}
+            />
+        );
+    }
+}
+
+class AlertsNotifier extends PureComponent
+{
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+           dismissedAlerts: Set() 
         };
     }
 
@@ -19,48 +66,44 @@ export default class AlertsNotifier extends Component
         if (this.props.onDismiss) {
             //if callback specified, call it
             this.props.onDismiss(item);
-        } else {
-            //if no callback for dismissal, just update our state
-            let newData = this.state.dismissedAlerts.slice();
-            newData.push(item);
-            this.setState({ dismissedAlerts: newData });
         }
+        //if no callback for dismissal, just update our state
+        this.setState({ dismissedAlerts: this.state.dismissedAlerts.add(item) });
     }
 
     render()
     {
-        let alerts = [];
-        for (let i = 0, j=this.props.alerts.length; i < j; i++) {
-            let item = this.props.alerts[i];
-            if ( -1===this.state.dismissedAlerts.indexOf(item) ) {
+        const {
+            ani,
+            alerts
+        } = this.props;
+        const {
+            dismissedAlerts
+        } = this.state;
+        let alertArr = [];
+        alerts.forEach((item, key)=>{
+            if ( !dismissedAlerts.has(item) ) {
                 if (["success", "info", "warning", "error"].indexOf(item.type) < 0) {
                         item.type = "info";
                 }
-                alerts.push(item);
-            }
-        }
-        let self = this;
-        return (
-            <ReactCSSTransitionGroup
-                transitionName="alert"
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-                transitionAppear={true}
-                transitionAppearTimeout={500}
-                style={Styles.container}
-                component="div"
-            >
-            {
-                alerts.map((item, i)=>{
-                    return (
-                    <Message key={i} type={item.type} header={item.header}>
+                alertArr.push((
+                    <Message key={key} messageType={item.type} header={item.header}>
                         {item.message}
-                        <XIco onClick={self.dismiss.bind(self, item)} />
+                        <XIconEl 
+                            onClick={this.dismiss.bind(this, item)}
+                        />
                     </Message>
-                    );
-                })
+                ));
             }
-            </ReactCSSTransitionGroup>
+        });
+
+        return (
+            <Animate
+                {...ani}
+                style={Styles.container}
+            >
+                {alertArr}
+            </Animate>
         );
     }
 }
@@ -70,26 +113,27 @@ AlertsNotifier.propTypes = {
     onDismiss: PropTypes.func
 };
 
+AlertsNotifier.defaultProps = {
+    ani: {
+        appear: 'fadeIn',
+        enter: 'fadeIn',
+        leave: 'fadeOut'
+    }
+};
+
+export default AlertsNotifier;
+
 const Styles = {
     container: {
         position: 'fixed',
-        top: '5px',
-        left: '10px',
-        right: '10px',
+        top: 5,
+        left: 10,
+        right: 10,
         zIndex: 9999
     },
-    AnimationEnter: reactStyle({
-        opacity: 0.01
-    },'.alert-enter, .alert-appear'),
-    AnimationEnterActive: reactStyle({
-        opacity: 1,
-        transition: ['opacity 500ms ease-in']
-    },'.alert-enter.alert-enter-active, .alert-appear.alert-appear-active'),
-    AnimationLeave: reactStyle({
-        opacity: 1 
-    },'.alert-leave'),
-    AnimationLeaveActive: reactStyle({
-        opacity: 0.01,
-        transition: ['opacity 300ms ease-in']
-    },'.alert-leave.alert-leave-active')
+    xicon: {
+        top: 25,
+        right: 10,
+        opacity: '.5'
+    }
 };
