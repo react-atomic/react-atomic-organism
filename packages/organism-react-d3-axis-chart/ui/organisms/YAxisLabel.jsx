@@ -5,33 +5,33 @@ import {
 import Rect from '../molecules/Rect';
 import Text from '../molecules/Text';
 
-const width = 32;
+const width = 37;
 const height = 16.5;
 
 const YAxisLabel = ({color, children, value, ...props}) =>
 {
-    value -= 16.5 /2;
+    const yPos = value - height /2;
     return (
     <SemanticUI 
         atom="g"
         className="crosshair-label-y"
-        transform={`translate(-10, ${value})`}
+        transform={`translate(-14, ${yPos})`}
         {...props}
     >
         <Rect
             fill={color}
-            x="-31"
+            x={-width+1}
             height={height}
             width={width}
         />
         <SemanticUI
             atom="polygon"
-          /*  points="-10,8.25 0,0 0,16.5"*/
+          /*points="-10,8.25 0,0 0,16.5"*/
             points="10,8.5 0,16.5 0,0"
             fill={color}
         />
         <Text
-            x="-25"
+            x={-width+2}
             y="12"
             fill="#fff"
         >

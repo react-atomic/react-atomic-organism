@@ -145,7 +145,7 @@ class BaseChart extends Component
             0,
             (d) => yValueLocator(d),
             get(yAxisAttr, ['num']),
-            null
+            threshold
         );
         if (!hideAxis) {
             xaxis = (
@@ -181,7 +181,9 @@ class BaseChart extends Component
                     start={{x:0, y:yThreshold}}
                     end={{x:scaleW, y:yThreshold}}
                     stroke="#f00"
+                    strokeWidth="2"
                     key="threshold"
+                    style={{opacity: '.5'}}
                 />
             );
         }
