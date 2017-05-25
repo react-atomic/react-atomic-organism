@@ -10,9 +10,12 @@ class AjaxForm extends AjaxBase
         updateUrl: false 
     }
 
-    handleOnSubmit = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault();
-        const { callback, errorCallback, updateUrl, onSubmit} = this.props;
+        const { callback, errorCallback, updateUrl, beforeSubmit, afterSubmit} = this.props;
+        if (beforeSubmit) {
+            beforeSubmit(e);
+        }
         let formDom = e.target;
         let elements = formDom.elements;
         let action = formDom.action;
@@ -51,8 +54,8 @@ class AjaxForm extends AjaxBase
             }
         });
 
-        if (onSubmit) {
-            onSubmit(e);
+        if (afterSubmit) {
+            afterSubmit(e);
         }
     }
 
@@ -64,6 +67,8 @@ class AjaxForm extends AjaxBase
             callback,
             errorCallback,
             updateUrl,
+            beforeSubmit,
+            afterSubmit,
             ...rest
         } = this.props;
         const thisUrl = ajaxStore.getRawUrl({
@@ -74,8 +79,8 @@ class AjaxForm extends AjaxBase
             <Form
                 atom="form"
                 action={thisUrl}
+                onSubmit={this.handleSubmit}
                 {...rest}
-                onSubmit={this.handleOnSubmit}
             />
         );  
     }
