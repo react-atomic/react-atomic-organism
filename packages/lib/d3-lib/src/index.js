@@ -205,9 +205,10 @@ const scaleLinear = (
         labelLocator =  (d) => d.value;
     }
     let cookData = data.map(labelLocator);
-    if (!min && 0 !== min) {
-        min = d3.min(cookData);
+    if (min || 0===min) {
+        cookData.push(min);
     }
+    min = d3.min(cookData);
     let linear = d3.scaleLinear().
         rangeRound([start, end]).
         domain([
