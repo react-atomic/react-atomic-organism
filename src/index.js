@@ -2,6 +2,7 @@
 export { default as CDN } from '../ui/organisms/cdn';
 export { default as FormattedJson } from '../ui/organisms/formatted_json';
 export { default as Tappable } from '../ui/organisms/tappable';
+export Checkbox from '../ui/organisms/Checkbox';
 
 // card view
 export { default as CardView } from '../ui/organisms/CardView';
