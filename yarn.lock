@@ -1618,8 +1618,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.8.tgz#8cc393fc439e7ed44dfad2ba968a58d1ae9d62aa"
 
 react-atomic-molecule@*:
-  version "1.1.24"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.24.tgz#bd80238461d49f58b1bc973cba43122e48b7492c"
+  version "1.1.25"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.25.tgz#f13067993ace475c07a3c4841de20b7986a8702d"
   dependencies:
     class-lib "*"
     exenv "1.2.1"
@@ -1746,8 +1746,8 @@ request@^2.81.0:
     uuid "^3.0.0"
 
 ricon@*:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.14.tgz#21ee26bd2a8a74c0055c16cc2abc516e78f06c6f"
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.15.tgz#4d1ae20917242d2deb173bc26f785798195ed8e9"
   dependencies:
     keyframe-css "*"
 

@@ -48,7 +48,7 @@ class Checkbox extends PureComponent
 
     render()
     {
-        const {toggle, slider, type, ...props} = this.props;
+        const {toggle, slider, type, beforeClick, afterClick, ...props} = this.props;
         const {checked: stateChecked} = this.state;
         return (
            <Field
