@@ -21,7 +21,7 @@ class MultiChart extends Component
         });
     }
 
-    handleMouseMove = (e, point)=>
+    handleMouseMove = (point)=>
     {
         this.setState({
             hideCrosshairY: false, 

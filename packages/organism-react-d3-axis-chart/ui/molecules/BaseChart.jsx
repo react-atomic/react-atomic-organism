@@ -64,8 +64,17 @@ class BaseChart extends Component
     handleMouseMove = (e)=>
     {
         const point = mouse(e);
+        const self = this;
+        clearTimeout(self._mouseMoveTimeout);
+        self._mouseMoveTimeout = setTimeout(()=>{
+            self._mouseMove.call(self, point);
+        }, 3);
+    }
+
+    _mouseMove = (point)=>
+    {
         if (this.props.handleMouseMove) {
-            this.props.handleMouseMove(e, point);
+            this.props.handleMouseMove(point);
         }
         this.setState({
             crosshairX: point[0],

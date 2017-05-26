@@ -1902,8 +1902,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.8.tgz#8cc393fc439e7ed44dfad2ba968a58d1ae9d62aa"
 
 react-atomic-molecule@*:
-  version "1.1.22"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.22.tgz#692bd806d93bd1232a06e557cb4378a6878534d4"
+  version "1.1.25"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.1.25.tgz#f13067993ace475c07a3c4841de20b7986a8702d"
   dependencies:
     class-lib "*"
     exenv "1.2.1"

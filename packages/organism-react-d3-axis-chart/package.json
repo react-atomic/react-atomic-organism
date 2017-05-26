@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-axis-chart",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "D3 Axis Chart",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
