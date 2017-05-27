@@ -177,10 +177,7 @@ const scaleBand = (
     });
     band.invert = (v) => {
         const step = band.step();
-        let index = Math.round(v / step);
-        if (index >= allKeys.length) {
-            index = allKeys.length-1;
-        }
+        let index = Math.floor(v / step);
         const result = allKeys[index]; 
         return result;
     };
