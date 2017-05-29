@@ -24,10 +24,18 @@ const curve = (data, xValueLocator, yValueLocator, xScale, yScale) =>
     const l = d3.line().
         curve(getCurveType()).
         x((d)=>{
-            return xScale.scaler(xValueLocator(d));
+            let num = xScale.scaler(xValueLocator(d));
+            if (xScale.length) {
+                num += xScale.length;
+            }
+            return num;
         }).
         y((d)=>{
-            return yScale.scaler(yValueLocator(d));
+            let num = yScale.scaler(yValueLocator(d));
+            if (yScale.length) {
+                num += yScale.length;
+            }
+            return num;
         });
     return l(data);
 }

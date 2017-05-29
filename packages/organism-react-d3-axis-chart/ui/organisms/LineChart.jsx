@@ -46,7 +46,7 @@ const LineChart = (props)=>{
                         }
                         const d = baseChart.hArea(
                             value,
-                            (d)=>xScale.scaler(d.x),
+                            (d)=>xScale.scaler(d.x)+xScale.length,
                             (d)=>yScale.scaler(d.y0),
                             (d)=>yScale.scaler(d.y1)
                         );
