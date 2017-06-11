@@ -1,6 +1,6 @@
 {
   "name": "organism-react-facebook",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React Facebook (Like button, api ...etc)",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

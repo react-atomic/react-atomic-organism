@@ -5,7 +5,7 @@
 
 import React, {Component} from 'react'; 
 import FBIcon from 'ricon/Facebook';
-import {Icon, reactStyle} from 'react-atomic-molecule';
+import {reactStyle, Icon, SemanticUI} from 'react-atomic-molecule';
 
 const keys = Object.keys;
 
@@ -18,20 +18,9 @@ class FBLike extends Component
         };
    }
 
-   componentDidMount()
+   update()
    {
-        this.setState({
-            load:1
-        });
-   }
-
-   render()
-   {
-       let state = this.state;
        const {page, params} = this.props;
-       if (!state.load) {
-           return null;
-       } 
        let url = '//www.facebook.com/plugins/like.php';
        let thisParams = {
             appId: '1579401905644484',
@@ -48,8 +37,53 @@ class FBLike extends Component
            paramArr.push(key+'='+encodeURIComponent(thisParams[key]));
        });
        const src= url + '?'+ paramArr.join('&');
+       if (this.src === src) {
+            return;
+       }
+       let iframe = ( 
+            <SemanticUI 
+                atom="iframe"
+                src={src}
+                refCb={d=>this.iframe=d}
+                style={Styles.iframe}
+                allowTransparency="true"
+                onLoad={()=>{
+                    console.log('fb like load');
+                }}
+            />
+       );
+        this.src = src;
+        this.setState({
+            iframe:null
+        });
+        setTimeout(()=>{
+            this.setState({
+                iframe: iframe
+            });
+        }, 300);
+   }
+
+   componentDidUpdate(prevProps, prevState)
+   {
+        this.update();
+   }
+
+   componentDidMount()
+   {
+        this.setState({
+            load:1
+        });
+   }
+
+   render()
+   {
+       let state = this.state;
+       const {page} = this.props;
+       if (!state.load) {
+           return null;
+       } 
        return (
-        <div style={Styles.container}>
+        <SemanticUI style={Styles.container}>
             <Icon style={Styles.icon}
                 styles={reactStyle({
                     boxShadow: ['5px 0 1em #ddd']
@@ -58,13 +92,8 @@ class FBLike extends Component
                     <FBIcon style={Styles.svg}/>
                 </a>
             </Icon>
-            <iframe 
-                style={Styles.iframe}
-                allowTransparency="true"
-                src={src}
-                onLoad={()=>{console.log('fb like load');}}
-            />
-        </div>
+            {state.iframe}
+        </SemanticUI>
        );
    }
 }
