@@ -1,3 +1,4 @@
+require("setimmediate");
 import React, {Component} from 'react'; 
 import ReactDOM from 'react-dom';
 import get from 'get-object-value';
@@ -74,9 +75,10 @@ class Iframe extends Component
     renderIframe(props)
     {
         const {children} = props;
+        this.html = this.root.innerHTML;
 
         // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
-        setTimeout(()=>{
+        setImmediate(()=>{
             ReactDOM.render(
                <SemanticUI>{children}</SemanticUI>,
                this.root,
@@ -84,7 +86,6 @@ class Iframe extends Component
                     const html = this.root.innerHTML;
                     if (html !== this.html) {
                         this.handleScript(this.root);
-                        this.html = html;
                     }
                }
             );
