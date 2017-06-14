@@ -3,7 +3,7 @@
  * https://developers.facebook.com/docs/plugins/like-button
  */
 
-import React, {Component} from 'react'; 
+import React, {Component, createElement, cloneElement, isValidElement} from 'react'; 
 import FBIcon from 'ricon/Facebook';
 import {reactStyle, Icon, SemanticUI} from 'react-atomic-molecule';
 
@@ -11,6 +11,10 @@ const keys = Object.keys;
 
 class FBLike extends Component
 {
+   static defaultProps = {
+    linkComponent: 'a' 
+   };
+
    constructor(props) {
         super(props);
         this.state = {
@@ -78,19 +82,32 @@ class FBLike extends Component
    render()
    {
        let state = this.state;
-       const {page} = this.props;
+       const {page, linkComponent} = this.props;
        if (!state.load) {
            return null;
        } 
+       let build;
+       let linkParams = {
+            href: page 
+       };
+       if (isValidElement(linkComponent)) {
+            build = cloneElement;
+            linkParams.target = '_blank';
+       } else {
+            build = createElement;
+       }
+       let pageLink = build(
+            linkComponent,
+            linkParams,
+            <FBIcon style={Styles.svg}/>
+       );
        return (
         <SemanticUI style={Styles.container}>
             <Icon style={Styles.icon}
                 styles={reactStyle({
                     boxShadow: ['5px 0 1em #ddd']
                 },null, false)}>
-                <a href={page} target="_blank">
-                    <FBIcon style={Styles.svg}/>
-                </a>
+                {pageLink}
             </Icon>
             {state.iframe}
         </SemanticUI>
