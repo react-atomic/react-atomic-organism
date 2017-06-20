@@ -178,9 +178,6 @@ class AjaxStore extends ReduceStore
   {
     const self = this;
     const params = action.params;
-    if (!params.query) {
-        params.query = {};
-    }
     const rawUrl = self.getRawUrl(params);
     if (params.updateUrl && rawUrl !== document.URL) {
         history.pushState('','',rawUrl);
@@ -195,14 +192,19 @@ class AjaxStore extends ReduceStore
     if (!params.disableProgress) {
         self.start();
     }
-    const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
-    if (!params.disableRandom) {
-        params.query.r = ((new Date()).getTime());
-    }
-    self.worker({
-        type: 'ajaxGet',
-        url: ajaxUrl,
-        action: self.storeCallback(action)
+    setImmediate(()=>{
+        const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
+        if (!params.disableRandom) {
+            if (!params.query) {
+                params.query = {};
+            }
+            params.query.r = ((new Date()).getTime());
+        }
+        self.worker({
+            type: 'ajaxGet',
+            url: ajaxUrl,
+            action: self.storeCallback(action)
+        });
     });
     return state;
   }

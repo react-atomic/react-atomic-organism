@@ -123,15 +123,13 @@ class PageLoadProgressHandle extends Component
         const {isRunning} = self.state;
         self.setFloat();
         if (self.props.ajax && prevState && prevState.isRunning !== isRunning) {
-            if (isRunning) {
-                setImmediate(()=>{
+            setImmediate(()=>{
+                if (isRunning) {
                     self.start(self.props.pause);
-                });
-            } else {
-                setImmediate(()=>{
+                } else {
                     self.complete();
-                });
-            }
+                }
+            });
         }
     }
 
@@ -142,17 +140,18 @@ class PageLoadProgressHandle extends Component
 
     setFloat()
     {
-        const {isFloat} = this.props;
-        if (isFloat) {
-            setImmediate(()=>{
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: this._bar 
-                    }
-                });
+        setImmediate(()=>{
+            const {isFloat} = this.props;
+            if (!isFloat) {
+                return;
+            }
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: this._bar 
+                }
             });
-        }
+        });
     }
 
     render()
