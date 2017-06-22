@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Atomic design in React (organisms)",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organisms",
@@ -12,7 +12,8 @@
   "dependencies": {
     "get-object-value": "*",
     "react-atomic-molecule": "*",
-    "ricon": "*"
+    "ricon": "*",
+    "seturl": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
