@@ -5,7 +5,9 @@
 
 import React, {Component, createElement, cloneElement, isValidElement} from 'react'; 
 import FBIcon from 'ricon/Facebook';
-import {reactStyle, Icon, SemanticUI} from 'react-atomic-molecule';
+import LinkIcon from 'ricon/Link';
+import {lazyInject, Icon, SemanticUI} from 'react-atomic-molecule';
+import get from 'get-object-value';
 
 const keys = Object.keys;
 
@@ -20,6 +22,10 @@ class FBLike extends Component
         this.state = {
             load: 0
         };
+        injects = lazyInject (
+            injects,
+            InjectStyles
+        );
    }
 
    update()
@@ -82,33 +88,39 @@ class FBLike extends Component
    render()
    {
        let state = this.state;
-       const {page, linkComponent} = this.props;
+       const {page, params, linkComponent} = this.props;
        if (!state.load) {
            return null;
        } 
+       const href = get(params, ['href']);
        let build;
-       let linkParams = {
-            href: page 
-       };
        if (isValidElement(linkComponent)) {
             build = cloneElement;
-            linkParams.target = '_blank';
        } else {
             build = createElement;
        }
-       let pageLink = build(
+       let fansLink = build(
             linkComponent,
-            linkParams,
-            <FBIcon style={Styles.svg}/>
+            {
+                target: '_blank',
+                href: page,
+            },
+            <FBIcon style={Styles.fbSvg}/>
        );
+        let pageLink;
+       if (href && page !== href) {
+           pageLink = ( 
+               <Icon styles={injects.icon} style={{left:0}}>
+                   {build( linkComponent, { href: href}, <LinkIcon style={Styles.linkSvg}/>)}
+               </Icon>
+           );
+       }
        return (
         <SemanticUI style={Styles.container}>
-            <Icon style={Styles.icon}
-                styles={reactStyle({
-                    boxShadow: ['5px 0 1em #ddd']
-                },null, false)}>
-                {pageLink}
+            <Icon styles={injects.icon}>
+                {fansLink}
             </Icon>
+            {pageLink}
             {state.iframe}
         </SemanticUI>
        );
@@ -122,24 +134,32 @@ const Styles = {
         position: 'relative',
         overflow: 'hidden'
     },
-    svg: {
+    fbSvg: {
         fill: '#3b5998',
     },
-    icon: {
-        borderRadius: 5,
-        width: 30,
-        height: 30,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        cursor: 'pointer'
+    linkSvg: {
+        fill: '#586069',
     },
     iframe: {
-        paddingLeft: 50,
+        paddingLeft: 70,
         border: 'none',
         overflow: 'hidden',
         width:'100%',
         maxWidth: '100%',
         maxHeight: 60
     }
+};
+
+let injects;
+const InjectStyles = {
+    icon: [{
+        borderRadius: 5,
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        top: 0,
+        left: 30,
+        cursor: 'pointer',
+        boxShadow: ['5px 0 1em #ddd']
+    }],
 };

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-facebook",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "React Facebook (Like button, api ...etc)",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -11,7 +11,9 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "react-atomic-molecule": "*"
+    "get-object-value": "*",
+    "react-atomic-molecule": "*",
+    "ricon": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
