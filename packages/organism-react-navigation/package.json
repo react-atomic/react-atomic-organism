@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "React Navigation",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
