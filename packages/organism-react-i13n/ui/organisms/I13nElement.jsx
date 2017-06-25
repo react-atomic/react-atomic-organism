@@ -132,7 +132,10 @@ class I13nElement extends Component
            params: I13N
         };
         if (window.startUpTime) {
-            query.sp = (new Date().getTime()) - window.startUpTime;
+            query.sp = Math.round(
+                (new Date().getTime()) - 
+                window.startUpTime
+            );
         }
         setTimeout(()=>{
             ajaxDispatch({

@@ -88,7 +88,7 @@ class FBLike extends Component
    render()
    {
        let state = this.state;
-       const {page, params, linkComponent} = this.props;
+       const {page, params, pageTarget, linkComponent} = this.props;
        if (!state.load) {
            return null;
        } 
@@ -111,7 +111,11 @@ class FBLike extends Component
        if (href && page !== href) {
            pageLink = ( 
                <Icon styles={injects.icon} style={{left:0}}>
-                   {build( linkComponent, { href: href}, <LinkIcon style={Styles.linkSvg}/>)}
+                   {build(
+                        linkComponent,
+                        { href: href, target: pageTarget},
+                        <LinkIcon style={Styles.linkSvg}/>
+                    )}
                </Icon>
            );
        }
