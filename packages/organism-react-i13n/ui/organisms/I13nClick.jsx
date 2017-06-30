@@ -17,7 +17,9 @@ class I13nClick extends Component
         }
         i13nDispatch({
             type: 'action',
-            params: I13N
+            params: { 
+                I13N:I13N
+            }
         });
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "React I13N",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

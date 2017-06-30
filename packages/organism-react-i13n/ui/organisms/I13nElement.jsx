@@ -1,3 +1,4 @@
+require("setimmediate");
 import React, {Component} from 'react'; 
 import { SemanticUI, Unsafe } from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
@@ -73,16 +74,18 @@ class MonitorBrowserBF extends Component
     {
         const {currentLocation} = this.state;
         if (prevState.currentLocation !== currentLocation) {
-            setTimeout(()=>{
+            setImmediate(()=>{
                 i13nDispatch({
                     type: 'action',
                     params: {
-                        action: 'bfChange',
-                        before: prevState.currentLocation,
-                        after: currentLocation
+                        I13N: {
+                            action: 'bfChange',
+                            before: prevState.currentLocation,
+                            after: currentLocation
+                        }
                     }
                 });
-            },0);
+            });
         }
     }
 
@@ -124,31 +127,25 @@ class I13nElement extends Component
     update()
     {
         const self = this;
-        const {src} = this.props;
-        const {pvid, I13N} = this.state;
-        let query = {
-           pvid: pvid,
-           url: document.URL,
-           params: I13N
-        };
+        const {I13N} = this.state;
+        let query = {};
         if (window.startUpTime) {
             query.sp = Math.round(
                 (new Date().getTime()) - 
                 window.startUpTime
             );
         }
-        setTimeout(()=>{
-            ajaxDispatch({
-                type: 'ajaxPost',
+        setImmediate(()=>{
+            i13nDispatch({
+                type: 'view',
                 params: {
-                   url: src+'view',
-                   query: query,
-                   callback: (json,text) => {
+                    I13N:I13N,
+                    query: query,
+                    callback: (json,text) => {
                         self.setState({
                             iframe: text
                         });
-                   },
-                   disableProgress: true 
+                    },
                 }
             });
         });
