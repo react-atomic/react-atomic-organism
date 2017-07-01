@@ -4,7 +4,7 @@ import { SemanticUI, Unsafe } from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import {reshow, pageStore} from 'reshow';
 import get from 'get-object-value';
-import {ajaxDispatch, ajaxStore} from 'organism-react-ajax';
+import {ajaxStore} from 'organism-react-ajax';
 
 import i13nStore from '../../src/stores/i13nStore';
 import {i13nDispatch} from '../../src/actions/i13nDispatcher';
