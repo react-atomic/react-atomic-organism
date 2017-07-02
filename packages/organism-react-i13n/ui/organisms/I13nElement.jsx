@@ -81,7 +81,7 @@ class MonitorBrowserBF extends Component
                     params: {
                         I13N: {
                             action: 'bfChange',
-                            before: urlDecode(prevState.currentLocation),
+                            before: urlDecode(get(prevState, ['currentLocation'], '')),
                             after: urlDecode(currentLocation)
                         }
                     }
