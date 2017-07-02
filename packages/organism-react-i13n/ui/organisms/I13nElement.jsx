@@ -10,6 +10,7 @@ import i13nStore from '../../src/stores/i13nStore';
 import {i13nDispatch} from '../../src/actions/i13nDispatcher';
 
 const keys = Object.keys;
+const urlDecode = decodeURIComponent;
 
 class MonitorPvid extends Component
 {
@@ -80,8 +81,8 @@ class MonitorBrowserBF extends Component
                     params: {
                         I13N: {
                             action: 'bfChange',
-                            before: prevState.currentLocation,
-                            after: currentLocation
+                            before: urlDecode(prevState.currentLocation),
+                            after: urlDecode(currentLocation)
                         }
                     }
                 });

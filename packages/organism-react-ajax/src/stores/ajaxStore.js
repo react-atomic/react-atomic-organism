@@ -180,13 +180,10 @@ class AjaxStore extends ReduceStore
     const params = action.params;
     const rawUrl = self.getRawUrl(params);
     if (params.updateUrl && rawUrl !== document.URL) {
-        history.pushState('','',rawUrl);
+        history.pushState('', '', rawUrl);
     }
     if (params.disableAjax) {
-        const updateWithUrl = state.get('updateWithUrl');
-        if (updateWithUrl) {
-            updateWithUrl(rawUrl);
-        }
+        this.handleUpdateNewUrl(state, rawUrl);
         return state;
     }
     if (!params.disableProgress) {
@@ -292,15 +289,26 @@ class AjaxStore extends ReduceStore
             ],
             document.URL
         );
-        setImmediate(()=>{
-            const updateWithUrl = state.get('updateWithUrl');
-            updateWithUrl(url);
-        });
+        this.handleUpdateNewUrl(state, url);
+        /**
+         * Should not update currentLocation in other place.
+         * such as ajaxGet,
+         * Because this state should only trigger when bfchange happened.
+         */
         return state.set(
             'currentLocation',
             url 
         );
     }
+
+    handleUpdateNewUrl(state, url)
+    {
+        setImmediate(()=>{
+            const updateWithUrl = state.get('updateWithUrl');
+            updateWithUrl(url);
+        });
+    }
+
 
     reduce (state, action)
     {
