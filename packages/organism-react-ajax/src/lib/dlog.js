@@ -54,14 +54,18 @@ dlog.prototype.color_map = {
 };
 
 dlog.prototype.getCSS = function(level) {
+    if (!this.color_map[level]) {
+        level = 'info';
+    }
     return level ? 'font-size: ' + this.size + 'px;color: ' + this.color_map[level] : 'font-size: ' + this.size + 'px';
 };
 
 dlog.prototype.log = function(level, data) {
-    if(level === 'silent')
+    if (level === 'silent') {
         return;
+    }
 
-    if(this.level_map[level] >= this.level_no) {
+    if (this.level_map[level] >= this.level_no) {
         this.show(level, data);
     }
 };
@@ -85,7 +89,9 @@ dlog.prototype.show = function(level, data) {
         this.getCSS(level),
         level.toUpperCase()
     );
-
+    if (!console[level]) {
+        level = 'info';
+    }
     if(Array.isArray(data[0]) && this.isAllObj(data[0])) {
         console.table(data[0]);
     } else {

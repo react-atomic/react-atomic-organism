@@ -8,6 +8,10 @@ React Ajax
 ## callback parameters
 callback(json, text, response)
 
+## dlog
+//unpkg.com/organism-react-ajax/build/src/lib/dlog.js
+//cdn.jsdelivr.net/npm/organism-react-ajax/build/src/lib/dlog.min.js
+
 ## Example Usage
 Demo Url:
 https://react-atomic-ui.js.org/
