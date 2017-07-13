@@ -1,12 +1,12 @@
 require("setimmediate");
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 import ReactDOM from 'react-dom';
 import get from 'get-object-value';
 import { SemanticUI } from 'react-atomic-molecule';
 
 const keys = Object.keys;
 
-class Iframe extends Component
+class Iframe extends PureComponent
 {
     html = null;
 
@@ -21,7 +21,7 @@ class Iframe extends Component
     {
         let div = document.createElement('div');
         div.innerHTML = html;
-        this.getBody().appendChild(div);
+        this.root.childNodes[0].childNodes[0].appendChild(div);
         this.handleScript(div);
     }
 

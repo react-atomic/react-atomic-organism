@@ -135,8 +135,9 @@ class I13nElement extends Component
                 (new Date().getTime()) - 
                 window.startUpTime
             );
+            window.startUpTime = false; //only log in page refresh
         }
-        setImmediate(()=>{
+        setTimeout(()=>{
             i13nDispatch({
                 type: 'view',
                 params: {
@@ -149,7 +150,7 @@ class I13nElement extends Component
                     },
                 }
             });
-        });
+        }, 500);
     }
 
     componentDidUpdate(prevProps, prevState)
@@ -170,11 +171,17 @@ class I13nElement extends Component
                 element: this
             }
         });
+        this.setState({
+            isLoad: true
+        });
     }
 
     render()
     {
-        const {iframe} = this.state;
+        const {iframe, isLoad} = this.state;
+        if (!isLoad) {
+            return null;
+        }
         let thisIframe;
         if (iframe) {
             thisIframe = (

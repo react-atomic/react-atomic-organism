@@ -1,5 +1,7 @@
 'use strict';
 
+require('setimmediate');
+
 import {Map} from 'immutable';
 import {ReduceStore} from 'reduce-flux';
 import get from 'get-object-value';
@@ -25,6 +27,7 @@ class I13nStore extends ReduceStore
             params,
             ['callback'],
             () => {
+                // default cb for action
                 return (json, text)=>{
                     const element = state.get('element');
                     const iframe = get(element,['iframe']);
@@ -34,19 +37,21 @@ class I13nStore extends ReduceStore
                 };
             }
         );
-        ajaxDispatch({
-            type: 'ajaxPost',
-            params: {
-               url: src+action.type,
-               query: {
-                   pvid: pvid,
-                   url: document.URL,
-                   params: get(params, ['I13N']),
-                   ...query
-               },
-               callback: callback,
-               disableProgress: true 
-            }
+        setImmediate(()=>{
+            ajaxDispatch({
+                type: 'ajaxPost',
+                params: {
+                   url: src+action.type,
+                   query: {
+                       pvid: pvid,
+                       url: document.URL,
+                       params: get(params, ['I13N']),
+                       ...query
+                   },
+                   callback: callback,
+                   disableProgress: true 
+                }
+            });
         });
         return state;
   }

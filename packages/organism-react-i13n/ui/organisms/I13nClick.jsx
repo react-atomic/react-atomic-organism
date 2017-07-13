@@ -1,3 +1,4 @@
+require('setimmediate');
 import React, {Component} from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule'; 
 
