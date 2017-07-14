@@ -6,7 +6,7 @@ import {pie} from 'd3-lib';
 import get from 'get-object-value';
 import {lightenColor} from 'colorlib';
 
-const ValueLabel = ({value, valueTextFill, centroid, groupIndex, ...props}) =>
+const ValueLabel = ({value, unit, valueTextFill, centroid, groupIndex, ...props}) =>
 {
     return (
     <SemanticUI
@@ -21,7 +21,7 @@ const ValueLabel = ({value, valueTextFill, centroid, groupIndex, ...props}) =>
           fontSize: 8
         }}
     >
-    {value}
+    {value}{unit}
     </SemanticUI>
     );
 }
@@ -160,6 +160,7 @@ const PieChart = ({
     sectorBorderColor,
     showOuterLabels,
     showInnerLabels,
+    unit,
     ...props
 }) => {
     let items = pie(data, innerRadius, outerRadius); 
@@ -187,7 +188,8 @@ const PieChart = ({
                         outerRadius: items.outerRadius,
                         labelTextFill: labelTextFill,
                         valueTextFill: valueTextFill,
-                        sectorBorderColor: sectorBorderColor
+                        sectorBorderColor: sectorBorderColor,
+                        unit: unit
                     });
                 })
             }
@@ -205,6 +207,7 @@ PieChart.defaultProps = {
     data: [],
     showInnerLabels: true,
     showOuterLabels: true,
-    sectorBorderColor: '#000'
+    sectorBorderColor: '#000',
+    unit: '%'
 };
 export default PieChart;
