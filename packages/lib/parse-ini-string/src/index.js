@@ -4,6 +4,7 @@ const commentReg = /^\s*[;]/;
 const kvReg=/^\[([^\]]*)\]$|^([^=]+)(=(.*))?$/i;
 const linesReg=/[\r\n]+/g;
 const trimReg=/(^\s+)|\s+$/g;
+const stripQuoteReg=/\\"/g;
 const isArray = Array.isArray;
 
 const trim = (s) =>
@@ -22,6 +23,7 @@ const isQuoted = (s) =>
 
 const stripQuote = (s) =>
 {
+   s = s.replace(stripQuoteReg, '"');
    return s.substring(1, s.length - 1);
 }
 
@@ -52,7 +54,7 @@ const parse = (s) =>
         if (!key) {
             const match = line.match(kvReg);
             key = match[2];
-            value = value = match[3] ? (match[4] || '') : '';
+            value = match[3] ? (match[4] || '') : '';
             if (key.length > 2 && key.slice(-2) === '[]') {
                   key = key.substring(0, key.length - 2)
                   if (!p[key]) {
