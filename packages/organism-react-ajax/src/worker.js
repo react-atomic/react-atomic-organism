@@ -76,7 +76,7 @@ const ajaxPost = ({url, action}) =>
     const params = get(action, ['params'], {});
     System.import('superagent').then((req)=>{
        req.post(url)
-          .send(params.query)
+          .field(params.query)
           .set('Accept', get(params, ['accept'], 'application/json'))
           .end((err,res)=>{
             if (res) {
