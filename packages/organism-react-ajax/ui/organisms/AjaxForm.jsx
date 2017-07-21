@@ -3,6 +3,7 @@ import { Form } from 'react-atomic-molecule';
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
+import formSerialize from '../../src/lib/formSerialize';
 
 class AjaxForm extends AjaxBase 
 {
@@ -17,16 +18,8 @@ class AjaxForm extends AjaxBase
             beforeSubmit(e);
         }
         let formDom = e.target;
-        let elements = formDom.elements;
         let action = formDom.action;
-        var el;
-        var formParams = {};
-        for (let i=0, j=elements.length; i < j; i++ ) { 
-            el = elements[i];
-            if (el.value) {
-                formParams[el.name] = el.value;
-            }   
-        }
+        const formParams = {};
         let type;
         let otherParams = {};
         switch(formDom.method){

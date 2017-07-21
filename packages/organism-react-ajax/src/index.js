@@ -8,3 +8,6 @@ export { default as  ajaxStore } from './stores/ajaxStore';
 
 // Dispatch
 export { ajaxDispatch } from './actions/ajaxDispatcher';
+
+// Util
+export formSerialize from './lib/formSerialize';
