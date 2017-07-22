@@ -5,6 +5,7 @@ var callbacks = [];
 var post;
 let isWsConnect;
 let wsUrl;
+const keys = Object.keys;
 
 try {
     post = postMessage;
@@ -73,22 +74,36 @@ const ajaxGet = ({url, action}) =>
 
 const ajaxPost = ({url, action}) =>
 {
-    const params = get(action, ['params'], {});
-    System.import('superagent').then((req)=>{
-       req.post(url)
-          .field(params.query)
-          .set('Accept', get(params, ['accept'], 'application/json'))
-          .end((err,res)=>{
-            if (res) {
-                const {error, req, text, xhr, ...resetRes} = res;
-                post({
-                    ...action,
-                    text: text,
-                    response: resetRes 
-                });                 
-            }
-          });
-    });
+     const params = get(action, ['params'], {});
+     System.import('superagent').then((req)=>{
+        const queryKeys = keys(params.query);
+        let isSend = false;
+        queryKeys.every((key)=>{
+             if ('object' !== typeof params.query[key]) {
+                return true;
+             }
+             isSend = true;
+             return false;
+        });
+        let postReq = req.post(url);
+        if (isSend) {
+           postReq = postReq.send(params.query); 
+        } else {
+           postReq = postReq.field(params.query); 
+        }
+        postReq
+           .set('Accept', get(params, ['accept'], 'application/json'))
+           .end((err,res)=>{
+             if (res) {
+                 const {error, req, text, xhr, ...resetRes} = res;
+                 post({
+                     ...action,
+                     text: text,
+                     response: resetRes 
+                 });                 
+             }
+           });
+     });
 }
 
 const initWs = (url) =>
