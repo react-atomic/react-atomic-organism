@@ -8,10 +8,14 @@ import formSerialize from '../../src/lib/formSerialize';
 class AjaxForm extends AjaxBase 
 {
     static defaultProps = {
-        updateUrl: false 
+        updateUrl: false,
+        stop: true
     }
 
     handleSubmit = (e) => {
+        if (!props.stop) {
+            return;
+        }
         e.preventDefault();
         const { callback, errorCallback, updateUrl, beforeSubmit, afterSubmit} = this.props;
         if (beforeSubmit) {
@@ -19,20 +23,22 @@ class AjaxForm extends AjaxBase
         }
         let formDom = e.target;
         let action = formDom.action;
-        const formParams = {};
+        const formParams = formSerializei(formDom);
         let type;
         let otherParams = {};
-        switch(formDom.method){
+        switch(formDom.method.toLowerCase()){
+            case 'post':
+                type = 'ajaxPost';
+                break;
+            // default method
+            // https://www.w3schools.com/tags/att_form_method.asp
+            default:
             case 'get':
                 type = 'ajaxGet'; 
                 otherParams = {
                     disableAjax: !this.isRunAjax(),
                     updateUrl: updateUrl
                 };
-                break;
-            case 'post':
-            default:
-                type = 'ajaxPost';
                 break;
         }
 
@@ -62,6 +68,7 @@ class AjaxForm extends AjaxBase
             updateUrl,
             beforeSubmit,
             afterSubmit,
+            stop,
             ...rest
         } = this.props;
         const thisUrl = ajaxStore.getRawUrl({
