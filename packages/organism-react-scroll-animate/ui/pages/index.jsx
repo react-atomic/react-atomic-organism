@@ -1,5 +1,4 @@
 import React,{Component} from 'react'; 
-import {assign} from 'react-atomic-molecule';
 
 /**
  * Production please use
@@ -10,10 +9,11 @@ import ScrollAnimate from "../../src/index"
 const BlackCircle = (props) => 
     <ScrollAnimate {...props} style={Styles.block}>
         <div 
-            style={assign({},Styles.circle,{
+            style={{
+                ...Styles.circle, 
                 background: '#000',
                 color: '#fff',
-            })}
+            }}
         >
             {props.children}
         </div>
@@ -22,9 +22,10 @@ const BlackCircle = (props) =>
 const WhiteCircle = (props) =>
     <ScrollAnimate {...props} style={Styles.block}>
         <div 
-            style={assign({},Styles.circle,{
+            style={{
+                ...Styles.circle, 
                 border: '1px solid #000'
-            })}
+            }}
         >
             {props.children}
         </div>
