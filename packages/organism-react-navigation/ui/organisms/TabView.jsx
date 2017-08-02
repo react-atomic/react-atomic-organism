@@ -1,6 +1,5 @@
 import React, {Component} from 'react'; 
 import {
-    assign,
     mixClass,
     Item,
     SemanticUI
@@ -43,21 +42,24 @@ export default class TabView extends Component
                     node.props.className,
                     {active: selected}
                   );
-                  node = React.cloneElement(node, assign({}, node.props, {
-                    key: item.props.name,
-                    selected: selected,
-                    className: nodeClasses,
-                    onClickCapture: function(e) { 
-                        if (!disableSwitch) {
-                            if (!node.props.disableSwitch) {
-                                this.setState({selected: item.props.name});
-                            }
-                        }
-                        if (props.onTabItemPress) {
-                            props.onTabItemPress(item.props.name) 
-                        }
-                    }.bind(this)
-                  })); 
+                  node = React.cloneElement(
+                      node,
+                      {
+                          key: item.props.name,
+                          selected: selected,
+                          className: nodeClasses,
+                          onClickCapture: function(e) { 
+                              if (!disableSwitch) {
+                                  if (!node.props.disableSwitch) {
+                                      this.setState({selected: item.props.name});
+                                  }
+                              }
+                              if (props.onTabItemPress) {
+                                  props.onTabItemPress(item.props.name) 
+                              }
+                          }.bind(this)
+                      }
+                  ); 
                   itemList.push(node);
                 } 
             })

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-    assign,
     mixClass,
     reactStyle,
     Icon,
@@ -133,16 +132,9 @@ class SideMenu extends Component
         } else {
             build = React.createElement;
         }
-        let buildProps = assign (
-            {},
-            others
-        );
-        if (!buildProps.id) {
-            delete buildProps.id;
-        }
         const menuElement =  build(
             component,
-            buildProps,
+            others,
             menuItems    
         );
         const classes = mixClass(

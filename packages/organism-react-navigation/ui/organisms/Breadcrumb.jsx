@@ -1,7 +1,6 @@
 import React, {Component} from 'react'; 
 
 import {
-    assign,
     mixClass,
     SemanticUI
 } from 'react-atomic-molecule';
