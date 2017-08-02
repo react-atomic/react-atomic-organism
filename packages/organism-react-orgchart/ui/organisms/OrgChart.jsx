@@ -1,7 +1,6 @@
 import React, {Component} from 'react'; 
 import {
     mixClass,
-    assign,
     reactStyle,
     SemanticUI
 } from 'react-atomic-molecule';
@@ -14,29 +13,29 @@ const branchStyle = {
 };
 
 const Styles = {
-    firstBranch: reactStyle(assign(
-        {},
-        branchStyle,
+    firstBranch: reactStyle(
         {
+            ...branchStyle,
             left: '50%',
             width: 0,
             borderLeft: '1px solid #ccc'
-        }
-    ), '.org-tree ul ul::before'),
+        },
+        '.org-tree ul ul::before'
+    ),
 
     removeFirstTop: reactStyle({
         paddingTop:0
     }, '.org-tree li:only-child'),
 
-    secondBranch: reactStyle(assign(
-        {},
-        branchStyle,
+    secondBranch: reactStyle(
         {
+            ...branchStyle,
             right: '50%',
             width: '50%',
             borderTop: '1px solid #ccc'
-        }
-    ), '.org-tree li::before, .org-tree li::after'),
+        },
+        '.org-tree li::before, .org-tree li::after'
+    ),
 
     secondBranchLeft: reactStyle({
        right: 'auto',
