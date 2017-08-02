@@ -158,17 +158,20 @@ class PageLoadProgressHandle extends Component
     {
         const {percent, opacity} = this.state;
         const {name, zIndex, isFloat} = this.props;
-        this._bar = <Progress
-            style={{...Styles.progress,...{
-                opacity: opacity,
-                zIndex: zIndex
-            }}}
-            barProps={{
-                style: Styles.bar
-            }}
-            percent={percent}
-            name={name}
-        />;
+        this._bar = ( 
+            <Progress
+                style={{
+                    ...Styles.progress,
+                    opacity: opacity,
+                    zIndex: zIndex
+                }}
+                barProps={{
+                    style: Styles.bar
+                }}
+                percent={percent}
+                name={name}
+            />
+        );
         if (isFloat) {
             return null;
         } else {

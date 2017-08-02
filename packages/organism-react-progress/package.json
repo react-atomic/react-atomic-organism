@@ -1,6 +1,6 @@
 {
   "name": "organism-react-progress",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -20,7 +20,6 @@
   "devDependencies": {
     "babel-cli": "^6.7.5",
     "babel-core": "^6.7.5",
-    "babel-loader": "^6.2.5",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",

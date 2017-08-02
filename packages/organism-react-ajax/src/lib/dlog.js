@@ -80,7 +80,7 @@ dlog.prototype.isAllObj = function(arr) {
 };
 
 dlog.prototype.show = function(level, data) {
-    console.log(
+    console.debug(
         '%c [%s] %c %s %c %s:',
         this.getCSS(),
         new Date().toJSON(),
@@ -100,7 +100,7 @@ dlog.prototype.show = function(level, data) {
 };
 
 dlog.prototype.trace = function() {
-    this.log('info', arguments);
+    this.log('debug', arguments);
 };
 
 dlog.prototype.debug = function() {
