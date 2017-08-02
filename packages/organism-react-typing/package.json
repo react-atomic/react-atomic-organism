@@ -1,6 +1,6 @@
 {
   "name": "organism-react-typing",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Typing animations with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
 import {
-    assign,
     lazyInject,
     reactStyle,
     SemanticUI 
@@ -170,11 +169,12 @@ class Typing extends Component
             });
         }
         return (
-            <SemanticUI style={assign(
-                {},
-                Styles.typingContainer,
-                atts
-            )}>
+            <SemanticUI
+                style={{
+                    ...Styles.typingContainer,
+                    ...atts
+                }}
+            >
             {items}
             </SemanticUI>
         );
