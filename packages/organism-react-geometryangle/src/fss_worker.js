@@ -87,11 +87,11 @@ const FSS_Worker = function (opt, element) {
         opt.vertex = opt.vertex || VERTEX;
         opt.line = opt.line || LINE;
 
-        MESH = Object.assign({}, mesh_default, MESH, opt.mesh);
-        VERTEX = Object.assign({}, vertex_default, VERTEX, opt.vertex);
-        LINE = Object.assign({}, line_default, LINE, opt.line);
+        MESH = { ...mesh_default, ...MESH, ...opt.mesh };
+        VERTEX = { ...vertex_default, ...VERTEX, ...opt.vertex };
+        LINE = { ...line_default, ...LINE, ...opt.line };
         for (var i = 0; i < LIGHT.length; i++) {
-            LIGHT[i] = Object.assign({}, light_default, LIGHT[i], opt.lights[i]);
+            LIGHT[i] = { ...light_default, ...LIGHT[i], ...opt.lights[i] };
         }
 
         MESH.columns_auto = (typeof opt.mesh.columns === "undefined");

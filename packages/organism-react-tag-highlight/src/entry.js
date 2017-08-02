@@ -1,4 +1,3 @@
-Object.assign = null;
 const React=require('react');
 setTimeout(()=>{
   const ReactDOM = require('react-dom');
