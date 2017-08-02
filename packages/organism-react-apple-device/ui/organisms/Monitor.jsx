@@ -1,5 +1,4 @@
 import React from 'react';
-import { assign } from 'react-atomic-molecule';
 import {
     Keyboard
 } from "../../src/index"
@@ -45,7 +44,12 @@ const Screen = (props)=>
 
 const Monitor = (props)=>{
     return (
-        <div style={assign({}, Styles.container, props.style)}>
+        <div
+            style={{
+                ...Styles.container,
+                ...props.style
+            }}
+        >
             <Screen>{props.children}</Screen>
             <Base />
             <div style={{
@@ -62,11 +66,10 @@ export default Monitor;
 
 const Styles = {
     container: {
-        position: 'relative',
-        display: 'inline-block',
+        minWidth: 240,
+        position: 'relative'
     },
     screen: {
-        minWidth: 200,
         minHeight: 100,
         background: '#ff6860',
         border: '20px solid #474e5d',

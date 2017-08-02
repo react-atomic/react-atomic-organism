@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { assign } from 'react-atomic-molecule';
-
 const Bar = (props)=> 
     <div style={Styles.bar}>
         <ActionButtons />
@@ -9,12 +7,15 @@ const Bar = (props)=>
     </div>
 
 const Button = (props)=>
-    <div style={assign({
+    <div 
+        style={{
             width:props.size+'px',
             height:props.size+'px',
             borderRadius:props.size+'px',
-            marginLeft:props.size+'px'
-        },Styles.button,props.style)}
+            marginLeft:props.size+'px',
+            ...Styles.button,
+            ...props.style
+        }}
     />
 
 Button.defaultProps = {
@@ -34,7 +35,7 @@ const URL = (props)=>
 const Browser = (props)=> {
     const {children, style, ...others} = props;
     return (
-    <div {...others} style={assign({},Styles.container,style)}>
+    <div {...others} style={{...Styles.container, ...style}}>
         <Bar/>
         <div style={Styles.children}>
             {children}
@@ -47,14 +48,13 @@ export default Browser;
 
 const Styles = {
     container: {
-        minWidth: '240px',
-        minHeight: '180px',
+        minWidth: 240,
+        minHeight: 180,
         background: '#fff',
         border: '2px solid #f1f1f1',
         borderTop: '30px solid #eee',
         borderRadius: '10px',
         position: 'relative',
-        display: 'inline-block',
     },
     children: {
         overflow: 'hidden',

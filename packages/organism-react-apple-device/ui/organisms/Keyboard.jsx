@@ -1,22 +1,30 @@
 import React from 'react';
 
-import { assign } from 'react-atomic-molecule';
-
 const keyColor = '#f4f5f7';
 const keyboardColor = '#e8ebf0';
 const KeyRow = (props) => {
     const height = props.height;
     return (
-        <div style={assign({
+        <div
+            style={{
                 height:height,
-                background: keyColor
-            }, Styles.keyRow, props.style)}>
-            <div style={assign({}, Styles.keyRowFirst, {
-                borderBottom: height+ 'px solid '+ keyColor,
-            })} />
-            <div style={assign({},Styles.keyRowLast,{
-                borderBottom: height+ 'px solid '+ keyColor,
-            })} />
+                background: keyColor,
+                ...Styles.keyRow,
+                ...props.style
+            }}
+        >
+            <div 
+                style={{
+                    ...Styles.keyRowFirst,
+                    borderBottom: height+ 'px solid '+ keyColor,
+                }}
+            />
+            <div 
+                style={{
+                    ...Styles.keyRowLast,
+                    borderBottom: height+ 'px solid '+ keyColor,
+                }}
+            />
         </div>
     );
 };
@@ -41,32 +49,37 @@ const Keyboard = (props) =>{
     const height = props.height;
     const divHeight = Math.floor(height / 8);
     return (
-        <div style={assign(
-            {},
-            Styles.container, 
-            {
+        <div 
+            style={{
+                ...Styles.container, 
                 height: height,
                 background: keyboardColor,
-            },
-            props.style
-        )}>
-            <div className="left" style={assign(
-                {
+                ...props.style
+            }}
+        >
+            <div 
+                className="left"
+                style={{
                     borderBottom: height+ 'px solid '+ keyboardColor,
-                },
-                Styles.left,
-            )} />
-            <div className="btm" style={assign({}, Styles.btm, {
-                height: divHeight+'px',
-                bottom: '-'+ divHeight+ 'px'
-            })} />
+                    ...Styles.left,
+                }}
+            />
+            <div
+                className="btm"
+                style={{
+                    ...Styles.btm,
+                    height: divHeight+ 'px',
+                    bottom: '-'+ divHeight+ 'px',
+                }}
+            />
             <Keys height={divHeight} />
-            <div className="right" style={assign(
-                {
+            <div
+                className="right"
+                style={{
                     borderBottom: height+ 'px solid '+ keyboardColor,
-                },
-                Styles.right,
-            )} />
+                    ...Styles.right,
+                }}
+            />
         </div>
     );
 }
