@@ -21,7 +21,12 @@ class Iframe extends PureComponent
     {
         let div = document.createElement('div');
         div.innerHTML = html;
-        this.root.childNodes[0].childNodes[0].appendChild(div);
+        const root = get(
+            this.root,
+            ['childNodes', 0, 'childNodes', 0],
+            this.root
+        );
+        root.appendChild(div);
         this.handleScript(div);
     }
 
