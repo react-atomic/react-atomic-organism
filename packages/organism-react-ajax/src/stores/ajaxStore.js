@@ -191,11 +191,13 @@ class AjaxStore extends ReduceStore
     }
     setImmediate(()=>{
         const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
+        if (!params.query) {
+            params.query = {};
+        }
         if (!params.disableRandom) {
-            if (!params.query) {
-                params.query = {};
-            }
-            params.query.r = ((new Date()).getTime());
+            params.query.r = ((new Date()).getTime())+''+Math.random();
+        } else {
+            params.query.r = state.get('staticVersion');
         }
         self.worker({
             type: 'ajaxGet',

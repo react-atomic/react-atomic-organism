@@ -55,7 +55,7 @@ class AjaxPage extends Component
 
     render()
     {
-        const {themes, themePath, baseUrl} = this.props;
+        const {themes, themePath} = this.props;
         let thisThemePath = themePath;
         if ('undefined' === typeof themes[thisThemePath]) {
             const pageState = ajaxStore.getState();
