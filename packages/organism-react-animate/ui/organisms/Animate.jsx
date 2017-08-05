@@ -57,6 +57,20 @@ class Animate extends Component
         }, '.'+key);
     }
 
+    parseAniValue(s)
+    {
+        let data = s.split('-');
+        if (!isNaN(data[1])) {
+            data[1] = parseInt(data[1],10);
+        } else {
+            data[1] = 0;
+        }
+        return {
+            name: data[0],
+            timeout: data[1]
+        };
+    }
+
     render()
     {
         const {
@@ -70,31 +84,25 @@ class Animate extends Component
         this.appearTimeout = 500;
         let data;
         if (appear) {
-            data = appear.split('-');
-            this.appear = data[0];
-            if (!isNaN(data[1])) {
-                this.appearTimeout = parseInt(data[1],10);
-            }
+            data = this.parseAniValue(appear);
+            this.appear = data.name;
+            this.appearTimeout = data.timeout;
             enableAppear = true;
         }
         let enableEnter = false;
         this.enterTimeout = 500;
         if (enter) {
-            data = enter.split('-');
-            this.enter = data[0];
-            if (!isNaN(data[1])) {
-                this.enterTimeout = parseInt(data[1],10);
-            }
+            data = this.parseAniValue(enter);
+            this.enter = data.name;
+            this.enterTimeout = data.timeout;
             enableEnter = true;
         }
         let enableLeave = false;
         this.leaveTimeout = 500;
         if (leave) {
-            data = leave.split('-');
-            this.leave = data[0];
-            if (!isNaN(data[1])) {
-                this.leaveTimeout = parseInt(data[1],10);
-            }
+            data = this.parseAniValue(leave);
+            this.leave = data.name;
+            this.leaveTimeout = data.timeout;
             enableLeave = true;
         }
         return (

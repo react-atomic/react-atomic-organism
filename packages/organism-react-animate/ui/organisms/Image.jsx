@@ -13,8 +13,8 @@ class AnimateImage extends Component
 {
     static defaultProps = {
         animate: {
-            enter: 'fadeIn-500',
-            leave: 'fadeOut-500',
+            enter: 'fadeIn-300',
+            leave: 'fadeOut-300',
         }
     };
 
@@ -35,17 +35,20 @@ class AnimateImage extends Component
         }
         const self = this;
         const {animate, src} = props;
-        (new window.Image()).src = src;
-        self.setState({image: null});
-        let delay = 100;
-        if (animate.leave) {
-            delay = self.ani.leaveTimeout+150;
-        }
-        setTimeout(()=>{
-            self.setState({
-                image: image(props)
-            });
-        },delay);
+        const oImg = new window.Image();
+        oImg.onload = () => {
+            self.setState({image: null});
+            let delay = 100;
+            if (animate.leave) {
+                delay = self.ani.leaveTimeout + 100;
+            }
+            setTimeout(()=>{
+                self.setState({
+                    image: image(props)
+                });
+            },delay);
+        };
+        oImg.src = src;
     }
 
     render()
