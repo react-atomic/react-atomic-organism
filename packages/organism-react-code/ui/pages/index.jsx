@@ -10,7 +10,7 @@ import CodeExample from "../../src/index"
  * Your source code.
  * npm i raw-loader
  */
-import code from '!raw!../../../ui/pages/index';
+import code from '!raw-loader!../../../ui/pages/index';
 
 const Index = (props) => (
     <CodeExample

@@ -58,7 +58,7 @@ class CodeExample extends Component
             </Icon>;
         }
         return (
-            <List type="segment" id={id}> 
+            <List type="segments" id={id}> 
                 <Segment className="tertiary">
                     <Header style={Styles.header} className="grey">{header}</Header>
                     <SemanticUI style={Styles.iconBlock}>
