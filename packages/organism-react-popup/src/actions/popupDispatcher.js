@@ -1,5 +1,3 @@
-'use strict';
-
 import {Dispatcher} from 'reduce-flux';
 
 const instance = new Dispatcher();

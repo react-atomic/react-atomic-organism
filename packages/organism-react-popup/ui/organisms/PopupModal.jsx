@@ -8,22 +8,28 @@ import {
 import Animate from 'organism-react-animate';
 
 import { PopupOverlay } from '../organisms/PopupOverlay';
+import {
+    popupDispatch
+} from '../../src/index';
 
 let originBodyStyle;
 if ('undefined' !== typeof document) {
     originBodyStyle = document.body.style.overflow;
 }
 
+/**
+ * if you need trace show: true
+ * it extend from PopupOverlay
+ */
 class PopupModal extends PopupOverlay
 {
     handleClick = () =>
     {
-        /**
-         * if you need trace show: true
-         * it extend from PopupOverlay
-         */
-        this.setState({
-             show: false 
+        popupDispatch({
+            type: 'dom/closeOne',
+            params: {
+                popup: this 
+            }
         });
         if (typeof this.props.closeCallBack === 'function') {
             this.props.closeCallBack();
@@ -115,7 +121,8 @@ class PopupModal extends PopupOverlay
 }
 
 PopupModal.defaultProps = {
-    scrolling: false
+    scrolling: false,
+    name: 'modal'
 };
 
 const PopupModalContainer = Container.create(

@@ -18,7 +18,7 @@ class PopupStore extends ReduceStore
       const params = action.params;
       const popupNode = params.popup;
       const key = get(popupNode, ['props', 'name'], 'default'); 
-      const node = state.get('node').set(key,true);
+      const node = state.get('node').set(key, true);
       const nodes = state.get('nodes').set(key, popupNode);
 
       return state.set('node', node).

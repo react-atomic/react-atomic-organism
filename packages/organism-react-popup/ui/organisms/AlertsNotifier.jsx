@@ -132,7 +132,7 @@ const Styles = {
         zIndex: 9999
     },
     xicon: {
-        top: 25,
+        top: 20,
         right: 10,
         opacity: '.5'
     }
