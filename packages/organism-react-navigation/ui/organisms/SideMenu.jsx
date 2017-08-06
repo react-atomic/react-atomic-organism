@@ -77,7 +77,6 @@ class SideMenu extends Component
         linkComponent: 'a',
         menus: [],
         type: 'array',
-        id: null,
         root: null,
         rootActiveClass: 'side-menu-active'
     };
