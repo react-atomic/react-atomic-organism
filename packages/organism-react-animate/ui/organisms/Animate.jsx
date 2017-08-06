@@ -63,7 +63,7 @@ class Animate extends Component
         if (!isNaN(data[1])) {
             data[1] = parseInt(data[1],10);
         } else {
-            data[1] = 0;
+            data[1] = 500;
         }
         return {
             name: data[0],
@@ -81,7 +81,6 @@ class Animate extends Component
             ...others
         } = this.props;
         let enableAppear = false;
-        this.appearTimeout = 500;
         let data;
         if (appear) {
             data = this.parseAniValue(appear);
@@ -90,7 +89,6 @@ class Animate extends Component
             enableAppear = true;
         }
         let enableEnter = false;
-        this.enterTimeout = 500;
         if (enter) {
             data = this.parseAniValue(enter);
             this.enter = data.name;
@@ -98,7 +96,6 @@ class Animate extends Component
             enableEnter = true;
         }
         let enableLeave = false;
-        this.leaveTimeout = 500;
         if (leave) {
             data = this.parseAniValue(leave);
             this.leave = data.name;
