@@ -56,6 +56,12 @@ class I13nStore extends ReduceStore
         return state;
   }
 
+  processView(state, action)
+  {
+        state = this.sendBeacon(state, action); 
+        return state.set('lastUrl', document.URL);        
+  }
+
   reduce (state, action)
   {
       switch (action.type)
@@ -63,7 +69,7 @@ class I13nStore extends ReduceStore
           case 'action':
               return this.sendBeacon(state, action); 
           case 'view':
-              return this.sendBeacon(state, action); 
+              return this.processView(state, action); 
           case 'config/set':
               return state.merge(action.params);
           default:

@@ -76,13 +76,15 @@ class MonitorBrowserBF extends Component
         const {currentLocation} = this.state;
         if (prevState.currentLocation !== currentLocation) {
             setImmediate(()=>{
+                const i13nState = i13nStore.getState();
                 i13nDispatch({
                     type: 'action',
                     params: {
                         I13N: {
                             action: 'bfChange',
-                            before: urlDecode(get(prevState, ['currentLocation'], '')),
-                            after: urlDecode(currentLocation)
+                            before: urlDecode(i13nState.get('lastUrl')),
+                            after: urlDecode(currentLocation),
+                            last: urlDecode(get(prevState, ['currentLocation'], ''))
                         }
                     }
                 });
