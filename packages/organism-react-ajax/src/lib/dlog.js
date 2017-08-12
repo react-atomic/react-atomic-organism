@@ -92,6 +92,9 @@ dlog.prototype.show = function(level, data) {
     if (!console[level]) {
         level = 'info';
     }
+    if (level==='trace') {
+        level = 'debug'; // consistence trace, debug, name 
+    }
     if(Array.isArray(data[0]) && this.isAllObj(data[0])) {
         console.table(data[0]);
     } else {
@@ -100,7 +103,7 @@ dlog.prototype.show = function(level, data) {
 };
 
 dlog.prototype.trace = function() {
-    this.log('debug', arguments);
+    this.log('trace', arguments);
 };
 
 dlog.prototype.debug = function() {
