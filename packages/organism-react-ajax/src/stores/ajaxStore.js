@@ -9,6 +9,7 @@ import smoothScrollTo from 'smooth-scroll-to';
 import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
 
 const empty = function(){}
+const keys  = Object.keys;
 let wsAuth = Map();
 let worker;
 let isWorkerReady;
@@ -57,9 +58,22 @@ class AjaxStore extends ReduceStore
   cookAjaxUrl(params, ajaxUrl)
   {
       const urls = ajaxUrl.split('#');
+      const query = params.query;
       if (urls[1]) {
-        params.query['--hashState'] = urls[1];
+        query['--hashState'] = urls[1];
       }
+
+      // <!-- Clean key for fixed superagent error
+      if (query) {
+          const queryKeys = keys(query);
+          queryKeys.forEach((key)=>{
+            if ('undefined' === typeof(query[key])) {
+                delete query[key];
+            }
+          });
+      }
+      // -->
+
       return urls[0];
   }
 
