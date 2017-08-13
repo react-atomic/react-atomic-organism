@@ -195,9 +195,9 @@ class AjaxStore extends ReduceStore
             params.query = {};
         }
         if (!params.disableRandom) {
-            params.query.r = ((new Date()).getTime())+''+Math.random();
+            params.query['--r'] = ((new Date()).getTime())+''+Math.random();
         } else {
-            params.query.r = state.get('staticVersion');
+            params.query['--r'] = state.get('staticVersion');
         }
         self.worker({
             type: 'ajaxGet',
