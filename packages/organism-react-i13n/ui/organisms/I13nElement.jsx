@@ -173,6 +173,7 @@ class I13nElement extends Component
                 element: this
             }
         });
+        window.i13nDispatch = i13nDispatch;
         this.setState({
             isLoad: true
         });

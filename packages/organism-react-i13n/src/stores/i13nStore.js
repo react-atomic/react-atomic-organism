@@ -56,10 +56,26 @@ class I13nStore extends ReduceStore
         return state;
   }
 
+  processAction(state, action)
+  {
+        const query = get(
+            action,
+            ['params', 'query'],
+            {} 
+        );
+        query.vpvid = state.get('vpvid');
+        if (!action.params) {
+            action.params = {};
+        }
+        action.params.query = query;
+        state = this.sendBeacon(state, action); 
+        return state;
+  }
+
   processView(state, action)
   {
         state = this.sendBeacon(state, action); 
-        return state.set('lastUrl', document.URL);        
+        return state.set('lastUrl', document.URL);
   }
 
   reduce (state, action)
@@ -67,9 +83,9 @@ class I13nStore extends ReduceStore
       switch (action.type)
       {
           case 'action':
-              return this.sendBeacon(state, action); 
+              return this.processAction(state, action);
           case 'view':
-              return this.processView(state, action); 
+              return this.processView(state, action);
           case 'config/set':
               return state.merge(action.params);
           default:
