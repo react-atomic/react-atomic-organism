@@ -1619,8 +1619,8 @@ once@^1.3.0, once@^1.3.3:
     wrappy "1"
 
 organism-react-ajax@*:
-  version "0.0.88"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.88.tgz#cd501232527b86fa082088efe445eb39a3a6d7fc"
+  version "0.0.91"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.0.91.tgz#948e55217cab5f97b01e42df0e1c0da67b536287"
   dependencies:
     get-object-value "*"
     react-atomic-molecule "*"
