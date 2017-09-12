@@ -12,7 +12,9 @@ const getScrollNode = (el) => {
     if (!el) {
         if ('undefined' !== typeof document) {
             if (isWebkit) {
-                el = document.body;
+                el = document.scrollingElement ?
+                    document.scrollingElement :
+                    document.body;
             } else {
                 el = docEl;
             }
