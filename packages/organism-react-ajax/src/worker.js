@@ -56,9 +56,13 @@ const ajaxGet = ({url, action}) =>
 {
     const params = get(action, ['params'], {});
     System.import('superagent').then((req)=>{
+       const headers = {
+            ...get(params, ['headers'], {}),
+            Accept: get(params, ['accept'], 'application/json')
+       };
        req.get(url)
           .query(params.query)
-          .set('Accept', get(params, ['accept'], 'application/json'))
+          .set(headers)
           .end((err,res)=>{
             if (res) {
                 const {error, req, text, xhr, ...resetRes} = res;
@@ -77,6 +81,10 @@ const ajaxPost = ({url, action}) =>
      const params = get(action, ['params'], {});
      System.import('superagent').then((req)=>{
         const queryKeys = keys(params.query);
+        const headers = {
+            ...get(params, ['headers'], {}),
+            Accept: get(params, ['accept'], 'application/json')
+        };
         let isSend = false;
         queryKeys.every((key)=>{
              if ('object' !== typeof params.query[key]) {
@@ -92,7 +100,7 @@ const ajaxPost = ({url, action}) =>
            postReq = postReq.field(params.query); 
         }
         postReq
-           .set('Accept', get(params, ['accept'], 'application/json'))
+           .set(headers)
            .end((err,res)=>{
              if (res) {
                  const {error, req, text, xhr, ...resetRes} = res;

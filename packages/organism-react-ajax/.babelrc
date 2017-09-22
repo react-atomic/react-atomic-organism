@@ -3,14 +3,13 @@
         "build": {
             "presets": [
               "react",
-              "es2015",
+              "env",
               "stage-0"
             ],
             "plugins": [
               "add-module-exports",
               "system-import-transformer",
-              "transform-react-constant-elements",
-              "transform-react-inline-elements"
+              "transform-react-constant-elements"
             ]
         }
     }
