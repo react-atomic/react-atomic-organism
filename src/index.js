@@ -1,10 +1,11 @@
 // ui
-export { default as CDN } from '../ui/organisms/cdn';
-export { default as FormattedJson } from '../ui/organisms/formatted_json';
-export { default as Tappable } from '../ui/organisms/tappable';
+export CDN from '../ui/organisms/CDN';
+export FormattedJson from '../ui/organisms/FormattedJson';
+export Tappable from '../ui/organisms/Tappable';
 export Checkbox from '../ui/organisms/Checkbox';
 export SortLink from '../ui/organisms/SortLink';
 export Step from '../ui/organisms/Step';
+export SearchBox from '../ui/organisms/SearchBox';
 
 // card view
 export { default as CardView } from '../ui/organisms/CardView';

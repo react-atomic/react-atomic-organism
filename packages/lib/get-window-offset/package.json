@@ -1,0 +1,30 @@
+{
+  "name": "get-window-offset",
+  "version": "0.0.0",
+  "description": "Get dom info in window",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/src/index.js",
+  "keywords": [],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "get-scroll-info": "*",
+    "getoffset": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.x",
+    "babel-core": "^6.x",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-stage-0": "^6.5.0"
+  },
+  "scripts": {
+    "build": "rm -rf build && BABEL_ENV=build babel src -d build/src",
+    "prepublish": "npm run build"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}
