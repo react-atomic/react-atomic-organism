@@ -31,7 +31,7 @@ class MultiChart extends Component
 
     componentDidMount()
     {
-        System.import('d3-lib').then(({
+        import('d3-lib').then(({
             scaleLinear,
             scaleBand,
         })=>{
