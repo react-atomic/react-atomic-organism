@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.0.94",
+  "version": "0.0.95",
   "description": "React Ajax with webworker",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -13,7 +13,7 @@
   "dependencies": {
     "get-object-value": "*",
     "react-atomic-molecule": "*",
-    "reduce-flux": "*",
+    "reshow-flux": "*",
     "setimmediate": "^1.0.5",
     "smooth-scroll-to": "*",
     "superagent": "^3.3.0",

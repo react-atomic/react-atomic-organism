@@ -2,7 +2,7 @@
 
 require("setimmediate");
 import {Map} from 'immutable';
-import {ReduceStore} from 'reduce-flux';
+import {ReduceStore} from 'reshow-flux';
 import get from 'get-object-value';
 import smoothScrollTo from 'smooth-scroll-to';
 
@@ -346,7 +346,4 @@ class AjaxStore extends ReduceStore
     }
 }
 
-// Export a singleton instance of the store, could do this some other way if
-// you want to avoid singletons.
-const ajaxStore = new AjaxStore(dispatcher);
-export default ajaxStore;
+export default new AjaxStore(dispatcher);
