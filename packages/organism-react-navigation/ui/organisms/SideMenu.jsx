@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
     mixClass,
     reactStyle,
@@ -7,7 +7,7 @@ import {
     SemanticUI 
 } from 'react-atomic-molecule';
 import Hamburger from 'ricon/HamburgerToArrow';
-import { Container } from 'reduce-flux';
+import { Container } from 'reshow-flux';
 import get from 'get-object-value';
 import {hasClass,  removeClass} from 'class-lib';
 
@@ -51,7 +51,7 @@ const getMenuByArray = (arr, component, active) =>
     return results;
 }
 
-class SideMenu extends Component 
+class SideMenu extends PureComponent 
 {
    static getStores()
    {
@@ -160,7 +160,7 @@ class SideMenu extends Component
     }
 }
 
-const SideMenuContainer = Container.create(
+const SideMenuContainer = Container(
     SideMenu,
     { withProps:true }    
 );

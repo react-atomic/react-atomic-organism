@@ -2,13 +2,23 @@
     "env": {
         "build": {
             "presets": [
-              "react",
               "env",
+              "react",
               "stage-0"
             ],
             "plugins": [
               "add-module-exports",
-              "system-import-transformer",
+              "transform-react-constant-elements"
+            ]
+        },
+        "es": {
+            "presets": [
+              ["env", {"modules": false}],
+              "react",
+              "stage-0"
+            ],
+            "plugins": [
+              "transform-react-pure-class-to-function",
               "transform-react-constant-elements"
             ]
         }

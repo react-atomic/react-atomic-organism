@@ -10,4 +10,4 @@ export { default as  ajaxStore } from './stores/ajaxStore';
 export { ajaxDispatch } from './actions/ajaxDispatcher';
 
 // Util
-export formSerialize from './lib/formSerialize';
+export { default as  formSerialize } from './lib/formSerialize';

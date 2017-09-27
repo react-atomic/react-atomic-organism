@@ -1,9 +1,10 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.0.16",
+  "version": "0.1.0",
   "description": "React Navigation",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
   "keywords": [
     "react",
     "react-component"
@@ -13,8 +14,9 @@
   "dependencies": {
     "class-lib": "*",
     "get-object-value": "*",
+    "immutable": "*",
     "react-atomic-molecule": "*",
-    "reduce-flux": "*",
+    "reshow-flux": "*",
     "ricon": "*"
   },
   "devDependencies": {
@@ -24,6 +26,7 @@
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
+    "babel-plugin-transform-react-pure-class-to-function": "*",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
@@ -32,7 +35,9 @@
     "webpack": "^1.13.0"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
     "prepublish": "npm run build"
   },
   "files": [

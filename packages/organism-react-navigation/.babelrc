@@ -11,6 +11,17 @@
               "transform-react-constant-elements",
               "transform-object-assign"
             ]
+        },
+        "es": {
+            "presets": [
+              ["env", {"modules": false}],
+              "react",
+              "stage-0"
+            ],
+            "plugins": [
+              "transform-react-pure-class-to-function",
+              "transform-react-constant-elements"
+            ]
         }
     }
 }

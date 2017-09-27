@@ -1,7 +1,7 @@
 'use strict';
 
 import {Map} from 'immutable';
-import {ReduceStore} from 'reduce-flux';
+import {ReduceStore} from 'reshow-flux';
 import dispatcher from '../actions/navigationDispatcher';
 import get from 'get-object-value';
 
@@ -25,7 +25,4 @@ class NavigatioStore extends ReduceStore
   }
 }
 
-// Export a singleton instance of the store, could do this some other way if
-// you want to avoid singletons.
-const instance = new NavigatioStore(dispatcher);
-export default instance;
+export default new NavigatioStore(dispatcher);
