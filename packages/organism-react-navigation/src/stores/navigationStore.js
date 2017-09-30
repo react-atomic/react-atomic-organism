@@ -2,7 +2,7 @@
 
 import {Map} from 'immutable';
 import {ReduceStore} from 'reshow-flux';
-import dispatcher from '../actions/navigationDispatcher';
+import dispatcher from '../navigationDispatcher';
 import get from 'get-object-value';
 
 class NavigatioStore extends ReduceStore

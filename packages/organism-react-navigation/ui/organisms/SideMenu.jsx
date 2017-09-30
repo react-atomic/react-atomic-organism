@@ -7,7 +7,7 @@ import {
     SemanticUI 
 } from 'react-atomic-molecule';
 import Hamburger from 'ricon/HamburgerToArrow';
-import { Container } from 'reshow-flux';
+import { connect } from 'reshow-flux';
 import get from 'get-object-value';
 import {hasClass,  removeClass} from 'class-lib';
 
@@ -160,11 +160,10 @@ class SideMenu extends PureComponent
     }
 }
 
-const SideMenuContainer = Container(
+export default connect(
     SideMenu,
     { withProps:true }    
 );
-export default SideMenuContainer;
 
 const Styles = {
     icon: {

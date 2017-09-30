@@ -947,8 +947,8 @@ camelcase@^1.0.2:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-1.2.1.tgz#9bb5304d2e0b56698b2c758b08a3eaa9daa58a39"
 
 caniuse-lite@^1.0.30000718:
-  version "1.0.30000738"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000738.tgz#1820c3c9adb9a117e311a5bdca1d25bc34288eba"
+  version "1.0.30000740"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000740.tgz#f2c4c04d6564eb812e61006841700ad557f6f973"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1130,8 +1130,8 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
 
 electron-to-chromium@^1.3.18:
-  version "1.3.22"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.22.tgz#4322d52c151406e3eaef74ad02676883e8416418"
+  version "1.3.24"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.24.tgz#9b7b88bb05ceb9fa016a177833cc2dde388f21b6"
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -1168,10 +1168,6 @@ esutils@^2.0.2:
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
-
-exenv@1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.1.tgz#75de1c8dee02e952b102aa17f8875973e0df14f9"
 
 expand-brackets@^0.1.4:
   version "0.1.5"
@@ -1972,11 +1968,10 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.11.tgz#32b8f0621947351e7ecf336e1e025aeb1a142d99"
 
 react-atomic-molecule@*:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.1.tgz#41e90f37c4576c74cd04c9c6270e0ef07efeb713"
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.5.tgz#f6c7c878a8b2e0befbbbcda22df9733af8873bf3"
   dependencies:
     class-lib "*"
-    exenv "1.2.1"
     get-object-value "*"
     hyphenate-style-name "*"
     react-atomic-atom "*"
@@ -2112,8 +2107,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 reshow-flux@*:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.1.tgz#a5ccbf11d1c0b2b9401fe07359a2247446349dcf"
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.6.tgz#c67dd38e3104b0ac20f232f3fa1787cf275d7474"
   dependencies:
     mitt "*"
 
