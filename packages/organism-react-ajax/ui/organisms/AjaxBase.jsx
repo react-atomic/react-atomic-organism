@@ -1,7 +1,7 @@
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 import ajaxStore from '../../src/stores/ajaxStore';
 
-class AjaxBase extends Component
+class AjaxBase extends PureComponent
 {
     isRunAjax()
     {

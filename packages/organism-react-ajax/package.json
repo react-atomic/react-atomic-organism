@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -16,7 +16,6 @@
     "immutable": "*",
     "react-atomic-molecule": "*",
     "reshow-flux": "*",
-    "setimmediate": "^1.0.5",
     "smooth-scroll-to": "*",
     "superagent": "^3.3.0",
     "worker-loader": "*"
@@ -27,7 +26,6 @@
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-plugin-system-import-transformer": "*",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-plugin-transform-react-inline-elements": "^6.8.0",
     "babel-plugin-transform-react-pure-class-to-function": "*",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.5.0",

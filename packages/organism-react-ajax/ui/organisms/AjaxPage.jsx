@@ -1,13 +1,12 @@
-require("setimmediate");
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 import get from 'get-object-value';
 
 import ajaxStore from '../../src/stores/ajaxStore';
-import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
+import {ajaxDispatch} from '../../src/ajaxDispatcher';
 
 let pages={};
 
-class AjaxPage extends Component
+class AjaxPage extends PureComponent
 {
     _lastThemePath='';
     

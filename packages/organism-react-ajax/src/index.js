@@ -7,7 +7,7 @@ export { default as  AjaxForm } from '../ui/organisms/AjaxForm';
 export { default as  ajaxStore } from './stores/ajaxStore';
 
 // Dispatch
-export { ajaxDispatch } from './actions/ajaxDispatcher';
+export { ajaxDispatch } from './ajaxDispatcher';
 
 // Util
 export { default as  formSerialize } from './lib/formSerialize';

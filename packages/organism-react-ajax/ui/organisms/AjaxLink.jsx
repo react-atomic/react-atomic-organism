@@ -2,7 +2,7 @@ import React from 'react';
 import { SemanticUI } from 'react-atomic-molecule';
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
-import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
+import {ajaxDispatch} from '../../src/ajaxDispatcher';
 
 class AjaxLink extends AjaxBase
 {

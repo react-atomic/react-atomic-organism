@@ -1,12 +1,11 @@
 'use strict';
 
-require("setimmediate");
 import {Map} from 'immutable';
 import {ReduceStore} from 'reshow-flux';
 import get from 'get-object-value';
 import smoothScrollTo from 'smooth-scroll-to';
 
-import dispatcher, {ajaxDispatch} from '../actions/ajaxDispatcher';
+import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
 
 const empty = function(){}
 const keys  = Object.keys;

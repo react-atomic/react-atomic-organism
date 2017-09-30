@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-atomic-molecule';
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
-import {ajaxDispatch} from '../../src/actions/ajaxDispatcher';
+import {ajaxDispatch} from '../../src/ajaxDispatcher';
 import formSerialize from '../../src/lib/formSerialize';
 
 class AjaxForm extends AjaxBase 
