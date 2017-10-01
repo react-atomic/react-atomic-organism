@@ -1,5 +1,7 @@
 import React, {Component, cloneElement, createElement} from 'react';
 import { 
+    min,
+    lazyInject,
     mixClass,
     reactStyle,
     Icon,
@@ -7,8 +9,14 @@ import {
 } from 'react-atomic-molecule';
 import HamburgerIcon from 'ricon/HamburgerToX';
 
-const getHorizontalToVerticalMenu = (Styles) =>
+export const getHorizontalToVerticalMenu = (Styles, merge) =>
 {
+    if (merge) {
+        Styles = {
+            ...defaultStyles,
+            ...Styles
+        };
+    }
     class HorizontalToVerticalMenu extends Component
     {
         static defaultProps = {
@@ -30,6 +38,10 @@ const getHorizontalToVerticalMenu = (Styles) =>
             this.state = {
                 on: false
             };
+            injects = lazyInject (
+                injects,
+                InjectStyles
+            );
         }
 
         render()
@@ -46,6 +58,7 @@ const getHorizontalToVerticalMenu = (Styles) =>
             } = this.props;
             const classes = mixClass(
                 'pure-g',
+                'page-header',
                 className,
                 {
                     active: this.state.on
@@ -59,7 +72,7 @@ const getHorizontalToVerticalMenu = (Styles) =>
                         brand,
                         {
                             style: {
-                                ...Styles.brand
+                                ...Styles.brand,
                                 ...brand.props.style
                             },
                             className: mixClass(
@@ -77,7 +90,7 @@ const getHorizontalToVerticalMenu = (Styles) =>
                         nav,
                         {
                             style: {
-                                ...Styles.nav
+                                ...Styles.nav,
                                 ...nav.props.style
                             },
                             className: mixClass(
@@ -136,7 +149,7 @@ const getHorizontalToVerticalMenu = (Styles) =>
     return HorizontalToVerticalMenu;
 }
 
-const Styles = {
+const defaultStyles = {
     hamburgerIcon: {
         position: 'absolute',
         top: 10,
@@ -147,15 +160,45 @@ const Styles = {
         cursor: 'pointer'
     },
     container: {
-       maxHeight: 60,
-       overflow: 'hidden'
+        position: 'relative',
+        maxHeight: 60,
+        overflow: 'hidden',
+        boxSizing: 'border-box',
     },
     brand: {
-
+        height: 60,
     },
     nav: {
-
+        display: 'block'
     }
 };
 
-export default getHorizontalToVerticalMenu(Styles);
+export default getHorizontalToVerticalMenu(
+    defaultStyles
+);
+
+let injects;
+const InjectStyles = {
+    headerActive: [
+        {
+            maxHeight: '1000px !important' 
+        },
+        '.page-header.active'
+    ], 
+    lgHeaderNav: [
+        {
+            display: [
+                'inline-flex !important',
+                '-webkit-inline-box !important',
+                '-ms-inline-flexbox !important'
+            ]
+        },
+        [min.lg, '.page-header nav'] 
+    ], 
+    lgHamburgerIcon: [
+        {
+            display: 'none !important' 
+        },
+        [min.lg, '.page-header .hamburger-icon'] 
+    ]
+};
