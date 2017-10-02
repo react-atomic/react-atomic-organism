@@ -93,11 +93,11 @@ class AjaxStore extends ReduceStore
      return url;
   }
 
-  getCallback(state, action, json)
+  getCallback(state, action, json, response)
   {
       const params = get(action, ['params'], {}); 
       let callback;
-      if (get(json, ['data', 'errors'])) {
+      if ( get(json, ['data', 'errors']) || !get(response, ['ok']) ) {
           if (params.errorCallback) {
               callback = Callbacks[params.errorCallback];
               delete(Callbacks[params.errorCallback]);
@@ -106,7 +106,7 @@ class AjaxStore extends ReduceStore
       if (json.debugs) {
         let debugs = json.debugs; 
         let bFail = false;
-        System.import('../lib/dlog').then((dlog)=>{ 
+        import('../lib/dlog').then((dlog)=>{ 
             const oLog = new dlog({ level: 'trace'});
             debugs.forEach((v)=>{
                 const dump = get(oLog, [v[0]], ()=>oLog.info); 
@@ -247,7 +247,7 @@ class AjaxStore extends ReduceStore
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
     const json = this.getJson(text);
-    const callback = this.getCallback(state, action, json);
+    const callback = this.getCallback(state, action, json, response);
     const type = get(json,['type']);
     switch (type) {
         case 'ws-auth':

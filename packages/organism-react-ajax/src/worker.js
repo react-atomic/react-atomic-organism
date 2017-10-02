@@ -55,7 +55,7 @@ onmessage = (e) =>
 const ajaxGet = ({url, action}) =>
 {
     const params = get(action, ['params'], {});
-    System.import('superagent').then((req)=>{
+    import('superagent').then((req)=>{
        const headers = {
             ...get(params, ['headers'], {}),
             Accept: get(params, ['accept'], 'application/json')
@@ -79,20 +79,24 @@ const ajaxGet = ({url, action}) =>
 const ajaxPost = ({url, action}) =>
 {
      const params = get(action, ['params'], {});
-     System.import('superagent').then((req)=>{
+     import('superagent').then((req)=>{
         const queryKeys = keys(params.query);
         const headers = {
             ...get(params, ['headers'], {}),
             Accept: get(params, ['accept'], 'application/json')
         };
         let isSend = false;
-        queryKeys.every((key)=>{
-             if ('object' !== typeof params.query[key]) {
-                return true;
-             }
-             isSend = true;
-             return false;
-        });
+        if (params.isSendJson) {
+            isSend = params.isSendJson;
+        } else {
+            queryKeys.every((key)=>{
+                 if ('object' !== typeof params.query[key]) {
+                    return true;
+                 }
+                 isSend = true;
+                 return false;
+            });
+        }
         let postReq = req.post(url);
         if (isSend) {
            postReq = postReq.send(params.query); 

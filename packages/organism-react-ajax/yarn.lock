@@ -1720,8 +1720,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.11.tgz#32b8f0621947351e7ecf336e1e025aeb1a142d99"
 
 react-atomic-molecule@*:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.5.tgz#f6c7c878a8b2e0befbbbcda22df9733af8873bf3"
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.8.tgz#1d611c334e9c619f364fea3052b6d9fb6c30f869"
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1850,8 +1850,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 reshow-flux@*:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.6.tgz#c67dd38e3104b0ac20f232f3fa1787cf275d7474"
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.11.tgz#2d73f205855c01dc71f61816263fd918d85798e6"
   dependencies:
     mitt "*"
 
@@ -1960,8 +1960,8 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
 superagent@^3.3.0:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.6.1.tgz#5780e09a5d1a94c62bb13d1f610bef5df6848343"
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.6.2.tgz#af87b454705e6b07ed3967bfe299428241681f33"
   dependencies:
     component-emitter "^1.2.0"
     cookiejar "^2.1.0"

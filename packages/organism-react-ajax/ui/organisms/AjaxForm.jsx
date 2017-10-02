@@ -9,23 +9,32 @@ class AjaxForm extends AjaxBase
 {
     static defaultProps = {
         updateUrl: false,
-        stop: true
+        stop: false
     }
 
     handleSubmit = (e) => {
-        if (!props.stop) {
+        if (this.props.stop) {
             return;
         }
         e.preventDefault();
         const { callback, errorCallback, updateUrl, beforeSubmit, afterSubmit} = this.props;
+        let otherParams = {};
         if (beforeSubmit) {
-            beforeSubmit(e);
+            otherParams = beforeSubmit(e);
+            if (!otherParams) {
+                otherParams = {};
+            }
         }
+
+        if (otherParams.pause) {
+            // pause by beforeSubmit
+            return false;
+        }
+
         let formDom = e.target;
         let action = formDom.action;
-        const formParams = formSerializei(formDom);
+        const formParams = formSerialize(formDom);
         let type;
-        let otherParams = {};
         switch(formDom.method.toLowerCase()){
             case 'post':
                 type = 'ajaxPost';
@@ -36,6 +45,7 @@ class AjaxForm extends AjaxBase
             case 'get':
                 type = 'ajaxGet'; 
                 otherParams = {
+                    ...otherParams,    
                     disableAjax: !this.isRunAjax(),
                     updateUrl: updateUrl
                 };
