@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
     Image
 } from 'react-atomic-molecule';
-import querystring from 'querystring';
 const keys  = Object.keys;
 
 export default class CDN extends Component
@@ -21,7 +20,7 @@ export default class CDN extends Component
                 delete props[key];
             }
         }
-        let query = querystring.stringify(cdnProps);
+        let query = cdnProps.map((k,v)=>k+'='+encodeURIComponent(v)).join('&');
         let link = this.props.src.replace(/^(http)?(s)?(\:)?(\/\/)/gi,'');
         let url = '//i2.wp.com/'+ link;
         let src = url+ '?'+ query;

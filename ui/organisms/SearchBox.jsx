@@ -1,7 +1,9 @@
 import React from 'react'; 
-import {mixClass} from 'class-lib';
-import SemanticUI from '../molecules/SemanticUI';
-import List from '../molecules/List';
+import {
+    mixClass,
+    SemanticUI,
+    List
+} from 'react-atomic-molecule';
 
 const SearchBox = ({results, ...props}) =>
 {

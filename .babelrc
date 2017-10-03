@@ -2,12 +2,23 @@
     "env": {
         "build": {
             "presets": [
-              "react",
               "env",
+              "react",
               "stage-0"
             ],
             "plugins": [
               "add-module-exports",
+              "transform-react-constant-elements",
+              ["transform-react-remove-prop-types", {"mode": "wrap"}]
+            ]
+        },
+        "es": {
+            "presets": [
+              ["env", {"modules": false}],
+              "react",
+              "stage-0"
+            ],
+            "plugins": [
               "transform-react-constant-elements",
               ["transform-react-remove-prop-types", {"mode": "wrap"}]
             ]
