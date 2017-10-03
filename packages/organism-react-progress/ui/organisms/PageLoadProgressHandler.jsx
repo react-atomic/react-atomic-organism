@@ -1,7 +1,7 @@
 require("setimmediate");
 import React, {Component} from 'react'; 
 import { ajaxStore } from 'organism-react-ajax';
-import { Container } from 'reduce-flux';
+import { connect } from 'reshow-flux';
 import { popupDispatch } from 'organism-react-popup';
 import { Progress, SemanticUI } from 'react-atomic-molecule';
 
@@ -180,7 +180,7 @@ class PageLoadProgressHandle extends Component
     }
 }
 
-export default Container.create(PageLoadProgressHandle);
+export default connect(PageLoadProgressHandle);
 
 const Styles = {
     progress: {
