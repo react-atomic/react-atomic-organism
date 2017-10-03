@@ -23,6 +23,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
             component: SemanticUI,
             brand: null,
             nav: null,
+            height: 60,
         };
 
         handleOn = ()=>
@@ -54,6 +55,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                 style,
                 className,
                 children,
+                height,
                 ...others
             } = this.props;
             const classes = mixClass(
@@ -73,7 +75,8 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                         {
                             style: {
                                 ...Styles.brand,
-                                ...brand.props.style
+                                ...brand.props.style,
+                                height: height,
                             },
                             className: mixClass(
                                 brand.props.className,
@@ -135,6 +138,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                     styles: reactStyle({
                         ...Styles.container,
                         ...style,
+                        maxHeight: height,
                         transition: [[
                             'padding 300ms linear',
                             'max-height 300ms ease-in-out'
@@ -166,7 +170,6 @@ const defaultStyles = {
         boxSizing: 'border-box',
     },
     brand: {
-        height: 60,
     },
     nav: {
         display: 'block'
