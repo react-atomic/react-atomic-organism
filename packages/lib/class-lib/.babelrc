@@ -2,11 +2,17 @@
     "env": {
         "build": {
             "presets": [
-              "es2015",
+              "env",
               "stage-0"
             ],
             "plugins": [
               "add-module-exports"
+            ]
+        },
+        "es": {
+            "presets": [
+              ["env", {"modules": false}],
+              "stage-0"
             ]
         }
     }

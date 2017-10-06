@@ -2,12 +2,12 @@
 
 const isArray = Array.isArray;
 const keys = Object.keys;
+const dedup = (arr) => Array.from(new Set(arr));
 
 const mixClass = function() 
 {
     let classes = [];
-    let all = keys(arguments);
-    all.forEach((key)=>
+    keys(arguments).forEach((key)=>
     {
         const arg = arguments[key];
         if (!arg) {
@@ -19,15 +19,14 @@ const mixClass = function()
         } else if (isArray(arg)) {
             classes.push(mixClass.apply(null, arg));
         } else if (argType === 'object') {
-            const argKeys = keys(arg);
-            argKeys.forEach((k)=>{
+            keys(arg).forEach((k)=>{
                 if (arg[k]) {
                     classes.push(k);
                 }
             });
         }
     });
-    return classes.join(' ');
+    return dedup(classes).join(' ');
 }
 
 export default mixClass;
