@@ -2,15 +2,23 @@
     "env": {
         "build": {
             "presets": [
+              "env",
               "react",
-              "es2015",
               "stage-0"
             ],
             "plugins": [
               "add-module-exports",
-              "transform-react-inline-elements",
-              "transform-react-constant-elements",
-              "transform-object-assign"
+              "transform-react-constant-elements"
+            ]
+        },
+        "es": {
+            "presets": [
+              ["env", {"modules": false}],
+              "react",
+              "stage-0"
+            ],
+            "plugins": [
+              "transform-react-constant-elements"
             ]
         }
     }

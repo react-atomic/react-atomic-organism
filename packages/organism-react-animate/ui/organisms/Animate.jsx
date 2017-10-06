@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { CSSTransitionGroup } from 'react-transition-group';
+import AnimateGroup from './AnimateGroup';
 import {
     reactStyle,
     injectStyle,
@@ -77,45 +77,39 @@ class Animate extends Component
             appear,
             enter,
             leave,
-            style,
             ...others
         } = this.props;
-        let enableAppear = false;
         let data;
         if (appear) {
             data = this.parseAniValue(appear);
             this.appear = data.name;
             this.appearTimeout = data.timeout;
-            enableAppear = true;
         }
-        let enableEnter = false;
         if (enter) {
             data = this.parseAniValue(enter);
             this.enter = data.name;
             this.enterTimeout = data.timeout;
-            enableEnter = true;
         }
-        let enableLeave = false;
         if (leave) {
             data = this.parseAniValue(leave);
             this.leave = data.name;
             this.leaveTimeout = data.timeout;
-            enableLeave = true;
         }
         return (
-            <CSSTransitionGroup
-                transitionAppearTimeout={this.appearTimeout}
-                transitionEnterTimeout ={this.enterTimeout}
-                transitionLeaveTimeout ={this.leaveTimeout}
-                transitionAppear={enableAppear}
-                transitionEnter ={enableEnter}
-                transitionLeave ={enableLeave}
-                transitionName={{
-                    enter: enter,
-                    leave: leave,
-                    appear: appear,
+            <AnimateGroup
+                timeout={{
+                    appear: this.appearTimeout,
+                    enter: this.enterTimeout,
+                    exit: this.leaveTimeout
                 }}
-                style={style}
+                classNames={{
+                    appear: appear,
+                    enter: enter,
+                    exit: leave
+                }}
+                appear={!!appear}
+                enter={!!enter}
+                exit={!!leave}
                 {...others}
             />
         );
