@@ -1,8 +1,9 @@
 'use strict';
 
+import dedup from 'array.dedup';
+
 const isArray = Array.isArray;
 const keys = Object.keys;
-const dedup = (arr) => Array.from(new Set(arr));
 
 const mixClass = function() 
 {
