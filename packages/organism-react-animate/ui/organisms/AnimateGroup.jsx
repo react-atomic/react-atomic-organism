@@ -1,14 +1,13 @@
 import React, {PureComponent, createElement, cloneElement}  from 'react';
 import CSSTransition from '../organisms/CSSTransition';
 import getChildMapping from '../../src/getChildMapping';
-import { SemanticUI } from 'react-atomic-molecule';
 import get from 'get-object-value';
 const keys = Object.keys;
 
 class AnimateGroup extends PureComponent
 {
     static defaultProps = {
-        component: SemanticUI,
+        component: 'div',
         in: true
     };
 
