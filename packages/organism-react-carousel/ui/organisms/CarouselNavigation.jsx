@@ -1,4 +1,4 @@
-import React, {Component} from 'react'; 
+import React, {Component, cloneElement} from 'react'; 
 import { SemanticUI, reactStyle } from 'react-atomic-molecule';
 import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
@@ -58,21 +58,21 @@ class CarouselNavigation extends Component
                 ...get(thumbAttr, ['style'], {}),
             }
         };
-        let carouselChildren = null;
+        let activeChildren = null;
         let activeEl = false;
         let thumbChild = React.Children.map(
             children,
             (child, i) => {
                 let activeStyle={};
                 if (i === selected) {
-                    child = React.cloneElement(
+                    child = cloneElement(
                         child,
                         {
                             ...carouselAttr,
                             key: i
                         }
                     );
-                    carouselChildren = onSelected({
+                    activeChildren = onSelected({
                         selectEl: child,
                         children: children
                     });
@@ -104,7 +104,7 @@ class CarouselNavigation extends Component
                 } else {
                     thisChild = child;
                 }
-                return React.cloneElement(
+                return cloneElement(
                     thisChild,
                     newChildAttr
                 );
@@ -125,11 +125,10 @@ class CarouselNavigation extends Component
         thisChildren.push(
             <CarouselList
                 key={0}
-                {...others}
                 onLeft={this.handleLeft}
                 onRight={this.handleRight}
             >
-                {carouselChildren}
+                {cloneElement(activeChildren, others)}
             </CarouselList>
         );
         thisChildren.push( //thumb
@@ -149,7 +148,7 @@ class CarouselNavigation extends Component
         } else {
             thisContainer = <SemanticUI /> 
         }
-        return React.cloneElement(
+        return cloneElement(
             thisContainer,
             null,
             thisChildren
