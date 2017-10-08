@@ -60,7 +60,6 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
             } = this.props;
             const classes = mixClass(
                 'pure-g',
-                'page-header',
                 className,
                 {
                     active: this.state.on
