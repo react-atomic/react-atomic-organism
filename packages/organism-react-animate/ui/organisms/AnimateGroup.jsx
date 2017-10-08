@@ -1,62 +1,150 @@
-import React, {createElement}  from 'react';
+import React, {PureComponent, createElement, cloneElement}  from 'react';
 import CSSTransition from '../organisms/CSSTransition';
+import getChildMapping from '../../src/getChildMapping';
+import { SemanticUI } from 'react-atomic-molecule';
+import get from 'get-object-value';
+const keys = Object.keys;
 
-const AnimateGroup = ({
-    children,
-    component,
-    timeout,
-    classNames,
-    appear,
-    enter,
-    exit,
-    onEnter,
-    onEntering,
-    onEntered,
-    onExit,
-    onExiting,
-    onExited,
-    addEndListener,
-    ...props
-}) =>
+class AnimateGroup extends PureComponent
 {
-    let childrens = [];
-    const aniProps = {
-        addEndListener: addEndListener,
-        onEnter: onEnter,
-        onEntering: onEntering,
-        onEntered: onEntered,
-        onExit: onExit,
-        onExiting: onExiting,
-        onExited: onExited,
-        timeout: timeout,
-        classNames: classNames,
-        appear: appear,
-        enter: enter,
-        exit: exit,
-        in: props.in
+    static defaultProps = {
+        component: SemanticUI,
+        in: true
     };
-    delete props.in;
-    if (!children) {
-        /*do nothing*/
-    } else if (React.Children.only(children)) {
-        childrens.push(createElement(
-            CSSTransition,
-            {...aniProps, ...children.props, key:0},
-            children
-        ));
-    } else {
-        React.Children.forEach(children, (child, i)=>{
-            childrens.push(createElement(
-                CSSTransition,
-                {...aniProps, ...child.props, key:i},
-                child
-            ));
+
+    handleExited = (child, node) =>
+    {
+        if (this.props.onExited) {
+            this.props.onExited(node);
+        }
+        let currentChildMapping = getChildMapping(this.props.children);
+        if (child.key in currentChildMapping) {
+            return;
+        }
+        this.setState((state) => {
+            let children = { ...state.children };
+            delete children[child.key];
+            return { children };
         });
     }
-    return createElement(
-        component,
-        props,
-        childrens
-    ); 
+
+    constructor(props)
+    {
+        super(props);
+        const { children } = props;
+        const aniProps = this.getAniProps(props); 
+        this.state = {
+            children: getChildMapping(
+                children,
+                (child, key) => 
+                    createElement(
+                        CSSTransition,
+                        {
+                            ...aniProps,
+                            ...child.props,
+                            key:key,
+                            onExited: this.handleExited.bind(this, child)
+                        },
+                        child
+                    )
+            )
+        };
+    }
+
+    getAniProps(props)
+    {
+        const {
+            timeout,
+            classNames,
+            appear,
+            enter,
+            exit,
+            addEndListener,
+            onEnter,
+            onEntering,
+            onEntered,
+            onExit,
+            onExiting,
+        } = props;
+        const aniProps = {
+            timeout: timeout,
+            classNames: classNames,
+            appear: appear,
+            enter: enter,
+            exit: exit,
+            addEndListener: addEndListener,
+            onEnter: onEnter,
+            onEntering: onEntering,
+            onEntered: onEntered,
+            onExit: onExit,
+            onExiting: onExiting,
+            in: props.in
+        };
+        return aniProps;
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const prevChildMapping = this.state.children;
+        const nextChildMapping = getChildMapping(nextProps.children);
+        const all = {...prevChildMapping, ...nextChildMapping};
+        const aniProps = this.getAniProps(this.props); 
+        keys(all).forEach((key)=>{
+                const child = all[key];
+                const hasPrev = key in prevChildMapping; 
+                const hasNext = key in nextChildMapping;
+                const prevChild = prevChildMapping[key];
+                const isLeaving = !get(prevChild, ['props','in']);
+                //new
+                if (hasNext && (!hasPrev || isLeaving)) {
+                    all[key] = createElement(
+                        CSSTransition,
+                        {
+                            ...aniProps,
+                            ...child.props,
+                            key:key,
+                            onExited: this.handleExited.bind(this, child),
+                        },
+                        child
+                    );
+                // old
+                } else if (!hasNext && hasPrev && !isLeaving) {
+                    all[key] = cloneElement(child, { in: false }); 
+                // keep
+                } else if (hasNext && hasPrev) {
+                    all[key] = prevChild;
+                }
+        });
+        this.setState({ children: all });
+    }
+
+
+    render ()
+    {
+        const {
+            component,
+            timeout,
+            classNames,
+            appear,
+            enter,
+            exit,
+            onEnter,
+            onEntering,
+            onEntered,
+            onExit,
+            onExiting,
+            onExited,
+            addEndListener,
+            ...props
+        } = this.props;
+        delete props.in;
+        return createElement(
+            component,
+            props,
+            keys(this.state.children).map((key)=>
+                this.state.children[key] 
+            )
+        );
+    }
 }
+
 export default AnimateGroup;
