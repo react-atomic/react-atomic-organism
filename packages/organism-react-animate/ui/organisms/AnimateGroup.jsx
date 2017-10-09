@@ -50,7 +50,7 @@ class AnimateGroup extends PureComponent
         };
     }
 
-    getAniProps(props)
+    getAniProps(props, enterToAppear)
     {
         const {
             timeout,
@@ -65,9 +65,13 @@ class AnimateGroup extends PureComponent
             onExit,
             onExiting,
         } = props;
+        let classes = classNames;
+        if (enterToAppear) {
+            classes.appear = classes.enter;
+        }
         const aniProps = {
             timeout: timeout,
-            classNames: classNames,
+            classNames: classes,
             appear: appear,
             enter: enter,
             exit: exit,
@@ -86,7 +90,7 @@ class AnimateGroup extends PureComponent
         const prevChildMapping = this.state.children;
         const nextChildMapping = getChildMapping(nextProps.children);
         const all = {...prevChildMapping, ...nextChildMapping};
-        const aniProps = this.getAniProps(this.props); 
+        const aniProps = this.getAniProps(this.props, true);
         keys(all).forEach((key)=>{
                 const child = all[key];
                 const hasPrev = key in prevChildMapping; 

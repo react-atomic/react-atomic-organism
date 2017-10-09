@@ -14,10 +14,12 @@ const handleStart = (classList, handler, isExit, node, isAppear) =>
         const thisClass = (isExit) ?
             classList['exit'] :
             getEnterClass(classList, isAppear);
-        node.className = mixClass(
-            node.className,
-            thisClass
-        );
+        if (thisClass) {
+            node.className = mixClass(
+                node.className,
+                thisClass
+            );
+        }
     }
     if (handler) {
         handler(node, isAppear);
@@ -30,10 +32,12 @@ const handleFinish = (classList, handler, isExit, node, isAppear) =>
         const thisClass = (isExit) ?
             classList['exit'] :
             getEnterClass(classList, isAppear);
-        node.className = removeClass(
-            node.className,
-            thisClass
-        );
+        if (thisClass) {
+            node.className = removeClass(
+                node.className,
+                thisClass
+            );
+        }
     }
     if (handler) {
         handler(node, isAppear);
