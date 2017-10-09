@@ -53,7 +53,7 @@ class AnimateGroup extends Component
 
     getAniProps(props, enterToAppear)
     {
-        const {
+        let {
             timeout,
             classNames,
             appear,
@@ -66,13 +66,14 @@ class AnimateGroup extends Component
             onExit,
             onExiting,
         } = props;
-        let classes = classNames;
-        if (enterToAppear && classes && classes.enter) {
-            classes.appear = classes.enter;
+        if (enterToAppear && classNames && classNames.enter) {
+            classNames.appear = classNames.enter;
+            timeout.appear = timeout.enter;
+            appear = true;
         }
         const aniProps = {
             timeout: timeout,
-            classNames: classes,
+            classNames: classNames,
             appear: appear,
             enter: enter,
             exit: exit,
