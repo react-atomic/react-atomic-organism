@@ -34,6 +34,7 @@ class Content extends Component
     {
         const {
             children,
+            appear,
             enter,
             leave,
             once,
@@ -41,7 +42,6 @@ class Content extends Component
             targetInfo,
             style,
             refCb,
-            ref,
             id,
             monitorScroll,
             ...others
@@ -68,9 +68,9 @@ class Content extends Component
         return (
             <Animate
                 style={{...thisStyle, ...style}}
+                appear={appear}
                 enter={enter}
                 leave={leave}
-                ref={ref}
                 refCb={refCb}
                 id={id}
             >
@@ -81,10 +81,11 @@ class Content extends Component
 }
 
 const ScrollAnimate = (props) => { 
-    const {enter, leave, once, minHeight, children, ...others} = props;
+    const {appear, enter, leave, once, minHeight, children, ...others} = props;
     return ( 
         <ScrollSpy {...others}>
             <ScrollReceiver
+                appear={appear}
                 enter={enter}
                 leave={leave}
                 once={once}
