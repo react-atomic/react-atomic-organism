@@ -15,10 +15,10 @@ const Index = (props) => {
             backgroundColor="#fff"
             eventElement={<Event />}
             animate={{
-                appear: 'fadeInLeft'
+                enter: 'fadeInLeft'
             }}
             evenAnimate={{
-                appear: 'fadeInRight'
+                enter: 'fadeInRight'
             }}
             events={[
                 {

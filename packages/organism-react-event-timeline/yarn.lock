@@ -1480,13 +1480,13 @@ error-ex@^1.2.0:
     is-arrayish "^0.2.1"
 
 es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.30"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.30.tgz#7141a16836697dbabfaaaeee41495ce29f52c939"
+  version "0.10.31"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.31.tgz#7bb938c95a7f1b9f728092dc09c41edcc398eefe"
   dependencies:
-    es6-iterator "2"
-    es6-symbol "~3.1"
+    es6-iterator "~2.0.1"
+    es6-symbol "~3.1.1"
 
-es6-iterator@2, es6-iterator@^2.0.1, es6-iterator@~2.0.1:
+es6-iterator@^2.0.1, es6-iterator@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/es6-iterator/-/es6-iterator-2.0.1.tgz#8e319c9f0453bf575d374940a655920e59ca5512"
   dependencies:
@@ -1515,7 +1515,7 @@ es6-set@~0.1.5:
     es6-symbol "3.1.1"
     event-emitter "~0.3.5"
 
-es6-symbol@3.1.1, es6-symbol@^3.1, es6-symbol@^3.1.1, es6-symbol@~3.1, es6-symbol@~3.1.1:
+es6-symbol@3.1.1, es6-symbol@^3.1, es6-symbol@^3.1.1, es6-symbol@~3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/es6-symbol/-/es6-symbol-3.1.1.tgz#bf00ef4fdab6ba1b46ecb7b629b4c7ed5715cc77"
   dependencies:
@@ -2559,23 +2559,23 @@ opener@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"
 
-organism-react-animate@>=0.0.4:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.10.tgz#8e52740d213d11525393c44b5223ebed583df2be"
+organism-react-animate@*:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.14.tgz#aa7c1582bc4386422a7df9b032f45eab454f66a4"
   dependencies:
     keyframe-css "*"
     react-atomic-molecule "*"
     react-transition-group "^2.x"
 
 organism-react-scroll-animate@*:
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.0.24.tgz#53e73f184a4c64cbebfcee373f78b4c3ec24389f"
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/organism-react-scroll-animate/-/organism-react-scroll-animate-0.1.1.tgz#38c9751b691e22eb978bcc04e87442bc0a8d40b2"
   dependencies:
-    organism-react-animate ">=0.0.4"
-    organism-react-scroll-nav ">=0.0.18"
+    organism-react-animate "*"
+    organism-react-scroll-nav "*"
     react-atomic-molecule "*"
 
-organism-react-scroll-nav@>=0.0.18:
+organism-react-scroll-nav@*:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.3.4.tgz#3848d06e64d7800fd671c873115c2286b52026f4"
   dependencies:

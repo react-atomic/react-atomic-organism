@@ -1324,8 +1324,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var keys = Object.keys;
 
-var AnimateGroup = function (_PureComponent) {
-    _inherits(AnimateGroup, _PureComponent);
+var AnimateGroup = function (_Component) {
+    _inherits(AnimateGroup, _Component);
 
     function AnimateGroup(props) {
         _classCallCheck(this, AnimateGroup);
@@ -1350,7 +1350,7 @@ var AnimateGroup = function (_PureComponent) {
 
     _createClass(AnimateGroup, [{
         key: 'getAniProps',
-        value: function getAniProps(props) {
+        value: function getAniProps(props, enterToAppear) {
             var timeout = props.timeout,
                 classNames = props.classNames,
                 appear = props.appear,
@@ -1363,6 +1363,11 @@ var AnimateGroup = function (_PureComponent) {
                 onExit = props.onExit,
                 onExiting = props.onExiting;
 
+            if (enterToAppear && classNames && classNames.enter) {
+                classNames.appear = classNames.enter;
+                timeout.appear = timeout.enter;
+                appear = true;
+            }
             var aniProps = {
                 timeout: timeout,
                 classNames: classNames,
@@ -1387,7 +1392,7 @@ var AnimateGroup = function (_PureComponent) {
             var prevChildMapping = this.state.children;
             var nextChildMapping = Object(__WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__["a" /* default */])(nextProps.children);
             var all = _extends({}, prevChildMapping, nextChildMapping);
-            var aniProps = this.getAniProps(this.props);
+            var aniProps = this.getAniProps(this.props, true);
             keys(all).forEach(function (key) {
                 var child = all[key];
                 var hasPrev = key in prevChildMapping;
@@ -1413,8 +1418,6 @@ var AnimateGroup = function (_PureComponent) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
-
             var _props = this.props,
                 component = _props.component,
                 timeout = _props.timeout,
@@ -1432,14 +1435,18 @@ var AnimateGroup = function (_PureComponent) {
                 props = _objectWithoutProperties(_props, ['component', 'timeout', 'classNames', 'appear', 'enter', 'exit', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'addEndListener']);
 
             delete props.in;
-            return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(component, props, keys(this.state.children).map(function (key) {
-                return _this3.state.children[key];
-            }));
+            delete props.children;
+            var children = this.state.children;
+
+            var thisChildren = keys(children).map(function (key) {
+                return children[key];
+            });
+            return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(component, props, thisChildren);
         }
     }]);
 
     return AnimateGroup;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 AnimateGroup.defaultProps = {
     component: 'div',
@@ -1447,20 +1454,21 @@ AnimateGroup.defaultProps = {
 };
 
 var _initialiseProps = function _initialiseProps() {
-    var _this4 = this;
+    var _this3 = this;
 
     this.handleExited = function (child, node) {
-        if (_this4.props.onExited) {
-            _this4.props.onExited(node);
+        if (_this3.props.onExited) {
+            _this3.props.onExited(node);
         }
-        var currentChildMapping = Object(__WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__["a" /* default */])(_this4.props.children);
+        var currentChildMapping = Object(__WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__["a" /* default */])(_this3.props.children);
         if (child.key in currentChildMapping) {
             return;
         }
-        _this4.setState(function (state) {
+        _this3.setState(function (state) {
             var children = state.children;
 
             delete children[child.key];
+            // Can't use PureComponent here, else will not trigger render
             return { children: children };
         });
     };
@@ -1497,7 +1505,9 @@ var getEnterClass = function getEnterClass(classList, isAppear) {
 var handleStart = function handleStart(classList, handler, isExit, node, isAppear) {
     if (node) {
         var thisClass = isExit ? classList['exit'] : getEnterClass(classList, isAppear);
-        node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["mixClass"])(node.className, thisClass);
+        if (thisClass) {
+            node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["mixClass"])(node.className, thisClass);
+        }
     }
     if (handler) {
         handler(node, isAppear);
@@ -1507,7 +1517,9 @@ var handleStart = function handleStart(classList, handler, isExit, node, isAppea
 var handleFinish = function handleFinish(classList, handler, isExit, node, isAppear) {
     if (node) {
         var thisClass = isExit ? classList['exit'] : getEnterClass(classList, isAppear);
-        node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["removeClass"])(node.className, thisClass);
+        if (thisClass) {
+            node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["removeClass"])(node.className, thisClass);
+        }
     }
     if (handler) {
         handler(node, isAppear);
@@ -2076,10 +2088,10 @@ var Index = function Index(props) {
         backgroundColor: "#fff",
         eventElement: _ref,
         animate: {
-            appear: 'fadeInLeft'
+            enter: 'fadeInLeft'
         },
         evenAnimate: {
-            appear: 'fadeInRight'
+            enter: 'fadeInRight'
         },
         events: [{
             header: 'header',
@@ -2301,8 +2313,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -2344,11 +2354,13 @@ var Content = function (_Component) {
             var _props = this.props,
                 once = _props.once,
                 targetInfo = _props.targetInfo;
+            var isShown = targetInfo.isShown,
+                targetId = targetInfo.targetId;
 
             var bool = void 0;
             var node = void 0;
-            if (once && targetInfo.isShown) {
-                node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
+            if (once && isShown) {
+                node = _organismReactScrollNav.scrollStore.getNode(targetId);
                 if (node && !node.props.monitorScroll) {
                     node.detach();
                 }
@@ -2363,6 +2375,7 @@ var Content = function (_Component) {
         value: function render() {
             var _props2 = this.props,
                 children = _props2.children,
+                appear = _props2.appear,
                 enter = _props2.enter,
                 leave = _props2.leave,
                 once = _props2.once,
@@ -2370,10 +2383,9 @@ var Content = function (_Component) {
                 targetInfo = _props2.targetInfo,
                 style = _props2.style,
                 refCb = _props2.refCb,
-                ref = _props2.ref,
                 id = _props2.id,
                 monitorScroll = _props2.monitorScroll,
-                others = _objectWithoutProperties(_props2, ['children', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'ref', 'id', 'monitorScroll']);
+                others = _objectWithoutProperties(_props2, ['children', 'appear', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'id', 'monitorScroll']);
 
             var show = null;
             var thisStyle = {};
@@ -2395,9 +2407,9 @@ var Content = function (_Component) {
                 _organismReactAnimate2.default,
                 {
                     style: _extends({}, thisStyle, style),
+                    appear: appear,
                     enter: enter,
                     leave: leave,
-                    ref: ref,
                     refCb: refCb,
                     id: id
                 },
@@ -2410,29 +2422,36 @@ var Content = function (_Component) {
 }(_react.Component);
 
 var ScrollAnimate = function ScrollAnimate(props) {
-    var enter = props.enter,
+    var appear = props.appear,
+        enter = props.enter,
         leave = props.leave,
         once = props.once,
         minHeight = props.minHeight,
         children = props.children,
-        others = _objectWithoutProperties(props, ['enter', 'leave', 'once', 'minHeight', 'children']);
+        others = _objectWithoutProperties(props, ['appear', 'enter', 'leave', 'once', 'minHeight', 'children']);
 
     return _react2.default.createElement(
         _organismReactScrollNav.ScrollSpy,
         others,
-        _jsx(_organismReactScrollNav.ScrollReceiver, {
-            enter: enter,
-            leave: leave,
-            once: once,
-            minHeight: minHeight
-        }, void 0, children)
+        _react2.default.createElement(
+            _organismReactScrollNav.ScrollReceiver,
+            {
+                appear: appear,
+                enter: enter,
+                leave: leave,
+                once: once,
+                minHeight: minHeight
+            },
+            children
+        )
     );
 };
 ScrollAnimate.defaultProps = {
-    container: _jsx(Content, {}),
+    container: _react2.default.createElement(Content, null),
     once: true,
     monitorScroll: false,
-    minHeight: 155 };
+    minHeight: 155 //need great than browser minHeigh 150px
+};
 exports.default = ScrollAnimate;
 module.exports = exports['default'];
 
