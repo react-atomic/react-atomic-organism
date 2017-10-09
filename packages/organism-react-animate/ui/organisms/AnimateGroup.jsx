@@ -21,7 +21,7 @@ class AnimateGroup extends PureComponent
             return;
         }
         this.setState((state) => {
-            let children = { ...state.children };
+            let {children} = state;
             delete children[child.key];
             return { children };
         });
