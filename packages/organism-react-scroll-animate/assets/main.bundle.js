@@ -1099,8 +1099,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var keys = Object.keys;
 
-var AnimateGroup = function (_PureComponent) {
-    _inherits(AnimateGroup, _PureComponent);
+var AnimateGroup = function (_Component) {
+    _inherits(AnimateGroup, _Component);
 
     function AnimateGroup(props) {
         _classCallCheck(this, AnimateGroup);
@@ -1125,7 +1125,7 @@ var AnimateGroup = function (_PureComponent) {
 
     _createClass(AnimateGroup, [{
         key: 'getAniProps',
-        value: function getAniProps(props) {
+        value: function getAniProps(props, enterToAppear) {
             var timeout = props.timeout,
                 classNames = props.classNames,
                 appear = props.appear,
@@ -1138,6 +1138,11 @@ var AnimateGroup = function (_PureComponent) {
                 onExit = props.onExit,
                 onExiting = props.onExiting;
 
+            if (enterToAppear && classNames && classNames.enter) {
+                classNames.appear = classNames.enter;
+                timeout.appear = timeout.enter;
+                appear = true;
+            }
             var aniProps = {
                 timeout: timeout,
                 classNames: classNames,
@@ -1162,7 +1167,7 @@ var AnimateGroup = function (_PureComponent) {
             var prevChildMapping = this.state.children;
             var nextChildMapping = Object(__WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__["a" /* default */])(nextProps.children);
             var all = _extends({}, prevChildMapping, nextChildMapping);
-            var aniProps = this.getAniProps(this.props);
+            var aniProps = this.getAniProps(this.props, true);
             keys(all).forEach(function (key) {
                 var child = all[key];
                 var hasPrev = key in prevChildMapping;
@@ -1188,8 +1193,6 @@ var AnimateGroup = function (_PureComponent) {
     }, {
         key: 'render',
         value: function render() {
-            var _this3 = this;
-
             var _props = this.props,
                 component = _props.component,
                 timeout = _props.timeout,
@@ -1207,14 +1210,18 @@ var AnimateGroup = function (_PureComponent) {
                 props = _objectWithoutProperties(_props, ['component', 'timeout', 'classNames', 'appear', 'enter', 'exit', 'onEnter', 'onEntering', 'onEntered', 'onExit', 'onExiting', 'onExited', 'addEndListener']);
 
             delete props.in;
-            return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(component, props, keys(this.state.children).map(function (key) {
-                return _this3.state.children[key];
-            }));
+            delete props.children;
+            var children = this.state.children;
+
+            var thisChildren = keys(children).map(function (key) {
+                return children[key];
+            });
+            return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(component, props, thisChildren);
         }
     }]);
 
     return AnimateGroup;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
 
 AnimateGroup.defaultProps = {
     component: 'div',
@@ -1222,20 +1229,21 @@ AnimateGroup.defaultProps = {
 };
 
 var _initialiseProps = function _initialiseProps() {
-    var _this4 = this;
+    var _this3 = this;
 
     this.handleExited = function (child, node) {
-        if (_this4.props.onExited) {
-            _this4.props.onExited(node);
+        if (_this3.props.onExited) {
+            _this3.props.onExited(node);
         }
-        var currentChildMapping = Object(__WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__["a" /* default */])(_this4.props.children);
+        var currentChildMapping = Object(__WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__["a" /* default */])(_this3.props.children);
         if (child.key in currentChildMapping) {
             return;
         }
-        _this4.setState(function (state) {
+        _this3.setState(function (state) {
             var children = state.children;
 
             delete children[child.key];
+            // Can't use PureComponent here, else will not trigger render
             return { children: children };
         });
     };
@@ -1272,7 +1280,9 @@ var getEnterClass = function getEnterClass(classList, isAppear) {
 var handleStart = function handleStart(classList, handler, isExit, node, isAppear) {
     if (node) {
         var thisClass = isExit ? classList['exit'] : getEnterClass(classList, isAppear);
-        node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["mixClass"])(node.className, thisClass);
+        if (thisClass) {
+            node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["mixClass"])(node.className, thisClass);
+        }
     }
     if (handler) {
         handler(node, isAppear);
@@ -1282,7 +1292,9 @@ var handleStart = function handleStart(classList, handler, isExit, node, isAppea
 var handleFinish = function handleFinish(classList, handler, isExit, node, isAppear) {
     if (node) {
         var thisClass = isExit ? classList['exit'] : getEnterClass(classList, isAppear);
-        node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["removeClass"])(node.className, thisClass);
+        if (thisClass) {
+            node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["removeClass"])(node.className, thisClass);
+        }
     }
     if (handler) {
         handler(node, isAppear);
@@ -1901,23 +1913,23 @@ var WhiteCircle = function WhiteCircle(props) {
     }, props.children));
 };
 
-var _ref = _react2.default.createElement(BlackCircle, { once: false, appear: 'fadeInRight-1000' }, 'Fade in right');
+var _ref = _react2.default.createElement(BlackCircle, { once: false, enter: 'fadeInRight-1000' }, 'Fade in right');
 
-var _ref2 = _react2.default.createElement(WhiteCircle, { once: false, appear: 'fadeInLeft-1000' }, 'Fade in left');
+var _ref2 = _react2.default.createElement(WhiteCircle, { once: false, enter: 'fadeInLeft-1000' }, 'Fade in left');
 
-var _ref3 = _react2.default.createElement(BlackCircle, { once: false, appear: 'fadeInUp-1000' }, 'Fade in up !!!');
+var _ref3 = _react2.default.createElement(BlackCircle, { once: false, enter: 'fadeInUp-1000' }, 'Fade in up !!!');
 
-var _ref4 = _react2.default.createElement(BlackCircle, { once: true, appear: 'fadeInLeft-1000' }, 'Fade in left (once)');
+var _ref4 = _react2.default.createElement(BlackCircle, { once: true, enter: 'fadeInLeft-1000' }, 'Fade in left (once)');
 
-var _ref5 = _react2.default.createElement(WhiteCircle, { once: false, appear: 'fadeInDown-1000' }, 'Fade in down');
+var _ref5 = _react2.default.createElement(WhiteCircle, { once: false, enter: 'fadeInDown-1000' }, 'Fade in down');
 
-var _ref6 = _react2.default.createElement(BlackCircle, { once: true, appear: 'fadeInRight-1000' }, 'Right (once) 2');
+var _ref6 = _react2.default.createElement(BlackCircle, { once: true, enter: 'fadeInRight-1000' }, 'Right (once) 2');
 
-var _ref7 = _react2.default.createElement(BlackCircle, { once: false, appear: 'fadeOutRight-1000' }, 'Fade out right');
+var _ref7 = _react2.default.createElement(BlackCircle, { once: false, enter: 'fadeOutRight-1000' }, 'Fade out right');
 
-var _ref8 = _react2.default.createElement(WhiteCircle, { once: false, appear: 'fadeOutUp-1000' }, 'Fade out up');
+var _ref8 = _react2.default.createElement(WhiteCircle, { once: false, enter: 'fadeOutUp-1000' }, 'Fade out up');
 
-var _ref9 = _react2.default.createElement(BlackCircle, { once: false, appear: 'fadeOutLeft-1000' }, 'Out left 333');
+var _ref9 = _react2.default.createElement(BlackCircle, { once: false, enter: 'fadeOutLeft-1000' }, 'Out left 333');
 
 var Index = function (_Component) {
     _inherits(Index, _Component);
@@ -2082,11 +2094,13 @@ var Content = function (_Component) {
             var _props = this.props,
                 once = _props.once,
                 targetInfo = _props.targetInfo;
+            var isShown = targetInfo.isShown,
+                targetId = targetInfo.targetId;
 
             var bool = void 0;
             var node = void 0;
-            if (once && targetInfo.isShown) {
-                node = _organismReactScrollNav.scrollStore.getNode(targetInfo.targetId);
+            if (once && isShown) {
+                node = _organismReactScrollNav.scrollStore.getNode(targetId);
                 if (node && !node.props.monitorScroll) {
                     node.detach();
                 }

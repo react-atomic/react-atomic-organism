@@ -12,14 +12,12 @@ class Content extends Component
     
     shouldComponentUpdate(nextProps, nextState)
     {
-        const {
-            once,
-            targetInfo
-        } = this.props; 
+        const { once, targetInfo } = this.props;
+        const { isShown, targetId} =  targetInfo;
         let bool;
         let node;
-        if (once && targetInfo.isShown) {
-            node = scrollStore.getNode(targetInfo.targetId);
+        if (once && isShown) {
+            node = scrollStore.getNode(targetId);
             if (node && !node.props.monitorScroll) {
                 node.detach();
             }
