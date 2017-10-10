@@ -1,4 +1,4 @@
-webpackJsonp([12],[
+webpackJsonp([13],[
 /* 0 */,
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -928,7 +928,6 @@ var Header = function Header(props) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AnimateGroup__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_atomic_molecule__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_keyframe_css__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_keyframe_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_keyframe_css__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -952,46 +951,39 @@ var inject = {};
 var Animate = function (_Component) {
     _inherits(Animate, _Component);
 
-    function Animate() {
+    function Animate(props) {
         _classCallCheck(this, Animate);
 
-        return _possibleConstructorReturn(this, (Animate.__proto__ || Object.getPrototypeOf(Animate)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (Animate.__proto__ || Object.getPrototypeOf(Animate)).call(this, props));
+
+        _this.update(props);
+        return _this;
     }
 
     _createClass(Animate, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _props = this.props,
-                appear = _props.appear,
-                enter = _props.enter,
-                leave = _props.leave;
-
-            if (appear) {
-                if (!inject[appear]) {
-                    this.init(appear, this.appear, this.appearTimeout);
-                }
+            this.updateClient(this.props);
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            this.update(nextProps);
+            if ('undefined' !== typeof document) {
+                this.updateClient(nextProps);
             }
-            if (enter) {
-                if (!inject[enter]) {
-                    this.init(enter, this.enter, this.enterTimeout);
-                }
-            }
-            if (leave) {
-                if (!inject[leave]) {
-                    this.init(leave, this.leave, this.leaveTimeout);
-                }
-            }
-            Object(__WEBPACK_IMPORTED_MODULE_2_react_atomic_molecule__["injectStyle"])();
         }
     }, {
         key: 'init',
         value: function init(key, ani, timeout) {
-            __WEBPACK_IMPORTED_MODULE_3_keyframe_css___default()(ani);
-            inject[key] = true;
             Object(__WEBPACK_IMPORTED_MODULE_2_react_atomic_molecule__["reactStyle"])(_extends({
                 animationName: [ani],
                 animationDuration: [timeout + 'ms']
             }, Styles.linear), '.' + key);
+
+            // Need locate after reactStyle, for inject latest style in getKeyframe function
+            Object(__WEBPACK_IMPORTED_MODULE_3_keyframe_css__["a" /* default */])(ani);
+            inject[key] = true;
         }
     }, {
         key: 'parseAniValue',
@@ -1008,30 +1000,64 @@ var Animate = function (_Component) {
             };
         }
     }, {
-        key: 'render',
-        value: function render() {
-            var _props2 = this.props,
-                appear = _props2.appear,
-                enter = _props2.enter,
-                leave = _props2.leave,
-                others = _objectWithoutProperties(_props2, ['appear', 'enter', 'leave']);
+        key: 'update',
+        value: function update(props) {
+            var appear = props.appear,
+                enter = props.enter,
+                leave = props.leave;
 
             var data = void 0;
             if (appear) {
                 data = this.parseAniValue(appear);
                 this.appear = data.name;
                 this.appearTimeout = data.timeout;
+                this.appearClass = appear + ' ' + data.name;
             }
             if (enter) {
                 data = this.parseAniValue(enter);
                 this.enter = data.name;
                 this.enterTimeout = data.timeout;
+                this.enterClass = enter + ' ' + data.name;
             }
             if (leave) {
                 data = this.parseAniValue(leave);
                 this.leave = data.name;
                 this.leaveTimeout = data.timeout;
+                this.leaveClass = leave + ' ' + data.name;
             }
+        }
+    }, {
+        key: 'updateClient',
+        value: function updateClient(props) {
+            var appear = props.appear,
+                enter = props.enter,
+                leave = props.leave;
+
+            if (appear) {
+                if (!inject[appear]) {
+                    this.init(appear, this.appear, this.appearTimeout);
+                }
+            }
+            if (enter) {
+                if (!inject[enter]) {
+                    this.init(enter, this.enter, this.enterTimeout);
+                }
+            }
+            if (leave) {
+                if (!inject[leave]) {
+                    this.init(leave, this.leave, this.leaveTimeout);
+                }
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                appear = _props.appear,
+                enter = _props.enter,
+                leave = _props.leave,
+                others = _objectWithoutProperties(_props, ['appear', 'enter', 'leave']);
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__AnimateGroup__["a" /* default */], _extends({
                 timeout: {
                     appear: this.appearTimeout,
@@ -1039,9 +1065,9 @@ var Animate = function (_Component) {
                     exit: this.leaveTimeout
                 },
                 classNames: {
-                    appear: appear,
-                    enter: enter,
-                    exit: leave
+                    appear: this.appearClass,
+                    enter: this.enterClass,
+                    exit: this.leaveClass
                 },
                 appear: !!appear,
                 enter: !!enter,
@@ -4669,16 +4695,13 @@ var getChildMapping = function getChildMapping(children, mapFn) {
 
 /***/ }),
 /* 139 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react_atomic_molecule__ = __webpack_require__(7);
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 
-var _reactAtomicMolecule = __webpack_require__(7);
 
 var inject = {};
 var c = 0;
@@ -4688,10 +4711,10 @@ var processCss = function processCss(css) {
     if (keys.length) {
         keys.forEach(function (key) {
             css[key].push('keyframe-' + c);
-            _reactAtomicMolecule.reactStyle.apply(null, css[key]);
+            __WEBPACK_IMPORTED_MODULE_0_react_atomic_molecule__["reactStyle"].apply(null, css[key]);
             c++;
         });
-        (0, _reactAtomicMolecule.injectStyle)();
+        Object(__WEBPACK_IMPORTED_MODULE_0_react_atomic_molecule__["injectStyle"])();
     }
 };
 
@@ -4700,71 +4723,76 @@ var getKeyframeCss = function getKeyframeCss(key) {
         return;
     }
     switch (key) {
+        case 'candleInTheWind':
+            __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, 152)).then(function (css) {
+                return processCss(css);
+            });
+            break;
         case 'fadeIn':
-            __webpack_require__.e/* require */(11).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(152)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, 153)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeInUp':
-            __webpack_require__.e/* require */(7).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(153)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, 154)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeInRight':
-            __webpack_require__.e/* require */(8).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(154)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, 155)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeInDown':
-            __webpack_require__.e/* require */(10).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(155)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, 156)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeInLeft':
-            __webpack_require__.e/* require */(9).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(156)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, 157)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeOut':
-            __webpack_require__.e/* require */(6).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(157)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, 158)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeOutUp':
-            __webpack_require__.e/* require */(2).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(158)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, 159)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeOutRight':
-            __webpack_require__.e/* require */(3).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(159)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, 160)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeOutDown':
-            __webpack_require__.e/* require */(5).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(160)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, 161)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'fadeOutLeft':
-            __webpack_require__.e/* require */(4).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(161)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, 162)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'pulsate':
-            __webpack_require__.e/* require */(1).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(162)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(1).then(__webpack_require__.bind(null, 163)).then(function (css) {
+                return processCss(css);
+            });
             break;
         case 'spin':
-            __webpack_require__.e/* require */(0).then(function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(163)]; (function (css) {
-                processCss(css);
-            }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}).catch(__webpack_require__.oe);
+            __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 164)).then(function (css) {
+                return processCss(css);
+            });
             break;
     }
     inject[key] = true;
 };
-exports.default = getKeyframeCss;
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (getKeyframeCss);
+
 
 /***/ }),
 /* 140 */
