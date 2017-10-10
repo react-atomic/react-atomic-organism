@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import AnimateGroup from './AnimateGroup';
 import {
     reactStyle,
-    injectStyle,
     SemanticUI
 } from 'react-atomic-molecule';
 
@@ -19,35 +18,27 @@ class Animate extends Component
         leave: null
     }
 
+    constructor(props)
+    {
+        super(props);
+        this.update(props);
+    }
+
     componentDidMount()
     {
-        const { 
-            appear,
-            enter,
-            leave
-        } = this.props;
-        if (appear) {
-            if (!inject[appear]) {
-                this.init(appear, this.appear, this.appearTimeout);
-            }
+        this.updateClient(this.props);
+    }
+
+    componentWillReceiveProps(nextProps)
+    {
+        this.update(nextProps);
+        if ('undefined' !== typeof document) {
+            this.updateClient(nextProps);
         }
-        if (enter) {
-            if (!inject[enter]) {
-                this.init(enter, this.enter, this.enterTimeout);
-            }
-        }
-        if (leave) {
-            if (!inject[leave]) {
-                this.init(leave, this.leave, this.leaveTimeout);
-            }
-        }
-        injectStyle();
     }
 
     init(key, ani, timeout)
     {
-        getKeyframe(ani);
-        inject[key] = true;
         reactStyle({
             ...{
                 animationName: [ani],
@@ -55,6 +46,10 @@ class Animate extends Component
             },
             ...Styles.linear, 
         }, '.'+key);
+
+        // Need locate after reactStyle, for inject latest style in getKeyframe function
+        getKeyframe(ani);
+        inject[key] = true;
     }
 
     parseAniValue(s)
@@ -71,6 +66,58 @@ class Animate extends Component
         };
     }
 
+    update(props)
+    {
+        const { 
+            appear,
+            enter,
+            leave
+        } = props;
+        let data;
+        if (appear) {
+            data = this.parseAniValue(appear);
+            this.appear = data.name;
+            this.appearTimeout = data.timeout;
+            this.appearClass = appear+ ' '+ data.name;
+        }
+        if (enter) {
+            data = this.parseAniValue(enter);
+            this.enter = data.name;
+            this.enterTimeout = data.timeout;
+            this.enterClass = enter+ ' '+ data.name;
+        }
+        if (leave) {
+            data = this.parseAniValue(leave);
+            this.leave = data.name;
+            this.leaveTimeout = data.timeout;
+            this.leaveClass = leave+ ' '+ data.name;
+        }
+    }
+
+    updateClient(props)
+    {
+        const { 
+            appear,
+            enter,
+            leave
+        } = props;
+        if (appear) {
+            if (!inject[appear]) {
+                this.init(appear, this.appear, this.appearTimeout);
+            }
+        }
+        if (enter) {
+            if (!inject[enter]) {
+                this.init(enter, this.enter, this.enterTimeout);
+            }
+        }
+        if (leave) {
+            if (!inject[leave]) {
+                this.init(leave, this.leave, this.leaveTimeout);
+            }
+        }
+    }
+
     render()
     {
         const {
@@ -79,22 +126,6 @@ class Animate extends Component
             leave,
             ...others
         } = this.props;
-        let data;
-        if (appear) {
-            data = this.parseAniValue(appear);
-            this.appear = data.name;
-            this.appearTimeout = data.timeout;
-        }
-        if (enter) {
-            data = this.parseAniValue(enter);
-            this.enter = data.name;
-            this.enterTimeout = data.timeout;
-        }
-        if (leave) {
-            data = this.parseAniValue(leave);
-            this.leave = data.name;
-            this.leaveTimeout = data.timeout;
-        }
         return (
             <AnimateGroup
                 timeout={{
@@ -103,9 +134,9 @@ class Animate extends Component
                     exit: this.leaveTimeout
                 }}
                 classNames={{
-                    appear: appear,
-                    enter: enter,
-                    exit: leave
+                    appear: this.appearClass,
+                    enter: this.enterClass,
+                    exit: this.leaveClass,
                 }}
                 appear={!!appear}
                 enter={!!enter}
