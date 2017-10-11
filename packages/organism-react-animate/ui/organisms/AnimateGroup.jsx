@@ -95,12 +95,15 @@ class AnimateGroup extends Component
         const aniProps = this.getAniProps(this.props, true);
         keys(all).forEach((key)=>{
                 const child = all[key];
-                const hasPrev = key in prevChildMapping; 
+                const hasPrev = key in prevChildMapping;
                 const hasNext = key in nextChildMapping;
                 const prevChild = prevChildMapping[key];
                 const isLeaving = !get(prevChild, ['props','in']);
-                //new
-                if (hasNext && (!hasPrev || isLeaving)) {
+                if (!hasNext && hasPrev && !isLeaving) {
+                    // Will Exit
+                    all[key] = cloneElement(child, { in: false }); 
+                } else {
+                    // New or Keep
                     all[key] = createElement(
                         CSSTransition,
                         {
@@ -111,12 +114,6 @@ class AnimateGroup extends Component
                         },
                         child
                     );
-                // old
-                } else if (!hasNext && hasPrev && !isLeaving) {
-                    all[key] = cloneElement(child, { in: false }); 
-                // keep
-                } else if (hasNext && hasPrev) {
-                    all[key] = prevChild;
                 }
         });
         this.setState({ children: all });
