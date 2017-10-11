@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {SemanticUI} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import {
@@ -7,25 +7,18 @@ import {
     scrollStore
 } from 'organism-react-scroll-nav'
 
-class Content extends Component
+class Content extends PureComponent
 {
-    
-    shouldComponentUpdate(nextProps, nextState)
+    componentWillReceiveProps(nextProps)
     {
-        const { once, targetInfo } = this.props;
+        const { once, targetInfo } = nextProps;
         const { isShown, targetId} =  targetInfo;
-        let bool;
-        let node;
         if (once && isShown) {
-            node = scrollStore.getNode(targetId);
+            const node = scrollStore.getNode(targetId);
             if (node && !node.props.monitorScroll) {
                 node.detach();
             }
-            bool=false;
-        } else {
-            bool=true;
         }
-        return bool;
     }
 
     render()

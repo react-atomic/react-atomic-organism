@@ -2105,8 +2105,8 @@ function _inherits(subClass, superClass) {
     }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
 }
 
-var Content = function (_Component) {
-    _inherits(Content, _Component);
+var Content = function (_PureComponent) {
+    _inherits(Content, _PureComponent);
 
     function Content() {
         _classCallCheck(this, Content);
@@ -2115,43 +2115,36 @@ var Content = function (_Component) {
     }
 
     _createClass(Content, [{
-        key: 'shouldComponentUpdate',
-        value: function shouldComponentUpdate(nextProps, nextState) {
-            var _props = this.props,
-                once = _props.once,
-                targetInfo = _props.targetInfo;
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var once = nextProps.once,
+                targetInfo = nextProps.targetInfo;
             var isShown = targetInfo.isShown,
                 targetId = targetInfo.targetId;
 
-            var bool = void 0;
-            var node = void 0;
             if (once && isShown) {
-                node = _organismReactScrollNav.scrollStore.getNode(targetId);
+                var node = _organismReactScrollNav.scrollStore.getNode(targetId);
                 if (node && !node.props.monitorScroll) {
                     node.detach();
                 }
-                bool = false;
-            } else {
-                bool = true;
             }
-            return bool;
         }
     }, {
         key: 'render',
         value: function render() {
-            var _props2 = this.props,
-                children = _props2.children,
-                appear = _props2.appear,
-                enter = _props2.enter,
-                leave = _props2.leave,
-                once = _props2.once,
-                minHeight = _props2.minHeight,
-                targetInfo = _props2.targetInfo,
-                style = _props2.style,
-                refCb = _props2.refCb,
-                id = _props2.id,
-                monitorScroll = _props2.monitorScroll,
-                others = _objectWithoutProperties(_props2, ['children', 'appear', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'id', 'monitorScroll']);
+            var _props = this.props,
+                children = _props.children,
+                appear = _props.appear,
+                enter = _props.enter,
+                leave = _props.leave,
+                once = _props.once,
+                minHeight = _props.minHeight,
+                targetInfo = _props.targetInfo,
+                style = _props.style,
+                refCb = _props.refCb,
+                id = _props.id,
+                monitorScroll = _props.monitorScroll,
+                others = _objectWithoutProperties(_props, ['children', 'appear', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'id', 'monitorScroll']);
 
             var show = null;
             var thisStyle = {};
@@ -2181,7 +2174,7 @@ var Content = function (_Component) {
     }]);
 
     return Content;
-}(_react.Component);
+}(_react.PureComponent);
 
 var ScrollAnimate = function ScrollAnimate(props) {
     var appear = props.appear,
