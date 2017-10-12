@@ -54,7 +54,7 @@ Object.defineProperty(exports, 'mixClass', {
   }
 });
 
-var _hasClass = __webpack_require__(17);
+var _hasClass = __webpack_require__(18);
 
 Object.defineProperty(exports, 'hasClass', {
   enumerable: true,
@@ -92,7 +92,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_atomic_atom__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_atomic_atom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_atomic_atom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_get_object_value__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_get_object_value__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_get_object_value___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_get_object_value__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ucfirst__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ucfirst___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ucfirst__);
@@ -320,36 +320,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 9 */,
 /* 10 */,
 /* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getClassReg = __webpack_require__(31);
-
-var _getClassReg2 = _interopRequireDefault(_getClassReg);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var hasClass = function hasClass(classes, name) {
-    return (0, _getClassReg2.default)(name).test(classes);
-};
-
-exports.default = hasClass;
-module.exports = exports['default'];
-
-/***/ }),
-/* 18 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -388,6 +359,35 @@ var getObjectValue = function getObjectValue(o, path, defaultValue) {
 };
 
 exports.default = getObjectValue;
+module.exports = exports['default'];
+
+/***/ }),
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getClassReg = __webpack_require__(31);
+
+var _getClassReg2 = _interopRequireDefault(_getClassReg);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var hasClass = function hasClass(classes, name) {
+    return (0, _getClassReg2.default)(name).test(classes);
+};
+
+exports.default = hasClass;
 module.exports = exports['default'];
 
 /***/ }),
@@ -720,7 +720,7 @@ var _getClassReg = __webpack_require__(31);
 
 var _getClassReg2 = _interopRequireDefault(_getClassReg);
 
-var _hasClass = __webpack_require__(17);
+var _hasClass = __webpack_require__(18);
 
 var _hasClass2 = _interopRequireDefault(_hasClass);
 
@@ -948,8 +948,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var inject = {};
 
-var Animate = function (_Component) {
-    _inherits(Animate, _Component);
+var Animate = function (_PureComponent) {
+    _inherits(Animate, _PureComponent);
 
     function Animate(props) {
         _classCallCheck(this, Animate);
@@ -1077,7 +1077,7 @@ var Animate = function (_Component) {
     }]);
 
     return Animate;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"]);
 
 Animate.defaultProps = {
     component: __WEBPACK_IMPORTED_MODULE_2_react_atomic_molecule__["SemanticUI"],
@@ -1105,7 +1105,7 @@ var Styles = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__organisms_CSSTransition__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_getChildMapping__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_get_object_value__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_get_object_value__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_get_object_value___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_get_object_value__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1125,8 +1125,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var keys = Object.keys;
 
-var AnimateGroup = function (_Component) {
-    _inherits(AnimateGroup, _Component);
+var AnimateGroup = function (_PureComponent) {
+    _inherits(AnimateGroup, _PureComponent);
 
     function AnimateGroup(props) {
         _classCallCheck(this, AnimateGroup);
@@ -1200,18 +1200,15 @@ var AnimateGroup = function (_Component) {
                 var hasNext = key in nextChildMapping;
                 var prevChild = prevChildMapping[key];
                 var isLeaving = !__WEBPACK_IMPORTED_MODULE_3_get_object_value___default()(prevChild, ['props', 'in']);
-                //new
-                if (hasNext && (!hasPrev || isLeaving)) {
+                if (!hasNext && hasPrev && !isLeaving) {
+                    // Will Exit
+                    all[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, { in: false });
+                } else {
+                    // New or Keep
                     all[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_1__organisms_CSSTransition__["a" /* default */], _extends({}, aniProps, child.props, {
                         key: key,
                         onExited: _this2.handleExited.bind(_this2, child)
                     }), child);
-                    // old
-                } else if (!hasNext && hasPrev && !isLeaving) {
-                    all[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, { in: false });
-                    // keep
-                } else if (hasNext && hasPrev) {
-                    all[key] = prevChild;
                 }
             });
             this.setState({ children: all });
@@ -1247,7 +1244,7 @@ var AnimateGroup = function (_Component) {
     }]);
 
     return AnimateGroup;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_0_react__["PureComponent"]);
 
 AnimateGroup.defaultProps = {
     component: 'div',
@@ -1269,8 +1266,8 @@ var _initialiseProps = function _initialiseProps() {
             var children = state.children;
 
             delete children[child.key];
-            // Can't use PureComponent here, else will not trigger render
-            return { children: children };
+            // Hack for let PureComponent force update 
+            return { children: _extends({}, children) };
         });
     };
 };
@@ -1288,11 +1285,14 @@ var _initialiseProps = function _initialiseProps() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_transition_group_Transition___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_transition_group_Transition__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_class_lib__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_class_lib___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_class_lib__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_get_object_value__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_get_object_value___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_get_object_value__);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _this = this;
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 
 
 
@@ -1305,7 +1305,7 @@ var getEnterClass = function getEnterClass(classList, isAppear) {
 
 var handleStart = function handleStart(classList, handler, isExit, node, isAppear) {
     if (node) {
-        var thisClass = isExit ? classList['exit'] : getEnterClass(classList, isAppear);
+        var thisClass = isExit ? __WEBPACK_IMPORTED_MODULE_3_get_object_value___default()(classList, ['exit']) : getEnterClass(classList, isAppear);
         if (thisClass) {
             node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["mixClass"])(node.className, thisClass);
         }
@@ -1317,7 +1317,7 @@ var handleStart = function handleStart(classList, handler, isExit, node, isAppea
 
 var handleFinish = function handleFinish(classList, handler, isExit, node, isAppear) {
     if (node) {
-        var thisClass = isExit ? classList['exit'] : getEnterClass(classList, isAppear);
+        var thisClass = isExit ? __WEBPACK_IMPORTED_MODULE_3_get_object_value___default()(classList, ['exit']) : getEnterClass(classList, isAppear);
         if (thisClass) {
             node.className = Object(__WEBPACK_IMPORTED_MODULE_2_class_lib__["removeClass"])(node.className, thisClass);
         }
@@ -1630,7 +1630,7 @@ module.exports = exports['default'];
 
 __webpack_require__(47);
 var React = __webpack_require__(0);
-var ReactDOM = __webpack_require__(14);
+var ReactDOM = __webpack_require__(15);
 
 var client = function client(app) {
     var myApp = React.createFactory(app);
@@ -2228,7 +2228,7 @@ module.exports = exports['default'];
 "use strict";
 
 
-var _hasClass = __webpack_require__(17);
+var _hasClass = __webpack_require__(18);
 
 var _hasClass2 = _interopRequireDefault(_hasClass);
 
@@ -4051,7 +4051,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 exports.__esModule = true;
 exports.EXITING = exports.ENTERED = exports.ENTERING = exports.EXITED = exports.UNMOUNTED = undefined;
 
-var _propTypes = __webpack_require__(16);
+var _propTypes = __webpack_require__(17);
 
 var PropTypes = _interopRequireWildcard(_propTypes);
 
@@ -4059,7 +4059,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(14);
+var _reactDom = __webpack_require__(15);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -4616,7 +4616,7 @@ exports.__esModule = true;
 exports.classNamesShape = exports.timeoutsShape = undefined;
 exports.transitionTimeout = transitionTimeout;
 
-var _propTypes = __webpack_require__(16);
+var _propTypes = __webpack_require__(17);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -5363,7 +5363,7 @@ var dispatch = instance.dispatch.bind(instance);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_getoffset__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_getoffset___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_getoffset__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_get_object_value__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_get_object_value__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_get_object_value___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_get_object_value__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_react_atomic_molecule__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_index__ = __webpack_require__(8);
