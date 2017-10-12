@@ -1,10 +1,10 @@
-import React, {Component, createElement, cloneElement} from 'react';
+import React, {PureComponent, createElement, cloneElement} from 'react';
 import CSSTransition from '../organisms/CSSTransition';
 import getChildMapping from '../../src/getChildMapping';
 import get from 'get-object-value';
 const keys = Object.keys;
 
-class AnimateGroup extends Component
+class AnimateGroup extends PureComponent
 {
     static defaultProps = {
         component: 'div',
@@ -21,10 +21,10 @@ class AnimateGroup extends Component
             return;
         }
         this.setState((state) => {
-            let {children} = state;
+            const {children} = state;
             delete children[child.key];
-            // Can't use PureComponent here, else will not trigger render
-            return { children };
+            // Hack for let PureComponent force update 
+            return { children: {...children} };
         });
     }
 
@@ -72,17 +72,17 @@ class AnimateGroup extends Component
             appear = true;
         }
         const aniProps = {
-            timeout: timeout,
-            classNames: classNames,
-            appear: appear,
-            enter: enter,
-            exit: exit,
-            addEndListener: addEndListener,
-            onEnter: onEnter,
-            onEntering: onEntering,
-            onEntered: onEntered,
-            onExit: onExit,
-            onExiting: onExiting,
+            timeout,
+            classNames,
+            appear,
+            enter,
+            exit,
+            addEndListener,
+            onEnter,
+            onEntering,
+            onEntered,
+            onExit,
+            onExiting,
             in: props.in
         };
         return aniProps;

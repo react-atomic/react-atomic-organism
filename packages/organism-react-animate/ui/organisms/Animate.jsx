@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import AnimateGroup from './AnimateGroup';
 import {
     reactStyle,
@@ -9,7 +9,7 @@ import getKeyframe from 'keyframe-css';
 
 let inject = {};
 
-class Animate extends Component
+class Animate extends PureComponent
 {
     static defaultProps = {
         component: SemanticUI,

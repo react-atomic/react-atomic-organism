@@ -1,6 +1,7 @@
 import React, {cloneElement}  from 'react';
 import Transition from 'react-transition-group/Transition';
 import {mixClass, removeClass} from 'class-lib';
+import get from 'get-object-value';
 
 const getEnterClass = (classList, isAppear) =>
 {
@@ -12,7 +13,7 @@ const handleStart = (classList, handler, isExit, node, isAppear) =>
 {
     if (node) {
         const thisClass = (isExit) ?
-            classList['exit'] :
+            get(classList, ['exit']) :
             getEnterClass(classList, isAppear);
         if (thisClass) {
             node.className = mixClass(
@@ -30,7 +31,7 @@ const handleFinish = (classList, handler, isExit, node, isAppear) =>
 {
     if (node) {
         const thisClass = (isExit) ?
-            classList['exit'] :
+            get(classList, ['exit']) :
             getEnterClass(classList, isAppear);
         if (thisClass) {
             node.className = removeClass(
