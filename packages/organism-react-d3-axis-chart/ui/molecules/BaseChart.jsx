@@ -199,6 +199,7 @@ class BaseChart extends Component
         if (crosshair) {
             thisCrosshair = (
                 <Crosshair
+                    key="crosshair"
                     scaleW={scaleW}
                     scaleH={scaleH}
                     x={crosshairX}
@@ -225,6 +226,7 @@ class BaseChart extends Component
                 >
                     {childArr}
                     <Rect 
+                        key='container'
                         onMouseEnter={this.handleMouseEnter}
                         onMouseLeave={this.handleMouseLeave}
                         onMouseMove={this.handleMouseMove}

@@ -95,7 +95,7 @@ class MultiChart extends Component
             > 
             {Children.map(children, (child, k)=>{
                 let params = {
-                    k: k,
+                    key: k,
                     scaleW: scaleW,
                     crosshairX: crosshairX,
                     hideCrosshairY: hideCrosshairY,

@@ -14,9 +14,9 @@ const BarChart = (props) => {
         <BaseChart  {...props} data={[data]}>
             {(baseChart) => {
                 return (
-                <SemanticUI atom="g" className="data-group">
+                <SemanticUI key="barchart" atom="g" className="data-group">
                 {
-                    get(data,['value']).map((d)=>{
+                    get(data,['value']).map((d, k)=>{
                         const {
                             xScale,
                             yScale,
@@ -28,6 +28,7 @@ const BarChart = (props) => {
                         const y = yScale.scaler(yValueLocator(d));
                         return (
                             <Rect
+                                key={k}
                                 x={x}
                                 y={y}
                                 width={xScale.length}
