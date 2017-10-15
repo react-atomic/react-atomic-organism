@@ -732,8 +732,8 @@ babel-plugin-transform-react-pure-class-to-function@*:
     babel-helper-is-react-class "^1.0.0"
 
 babel-plugin-transform-react-remove-prop-types@*:
-  version "0.4.9"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.9.tgz#6805ef83d77bda94ded472ff2f2836bacd6ac44c"
+  version "0.4.10"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-react-remove-prop-types/-/babel-plugin-transform-react-remove-prop-types-0.4.10.tgz#3c7f3a03ad8aa6bb8c00e93fd13a433910444545"
 
 babel-plugin-transform-regenerator@^6.22.0:
   version "6.26.0"
@@ -976,8 +976,8 @@ brorand@^1.0.1:
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.0.8.tgz#c8fa3b1b7585bb7ba77c5560b60996ddec6d5309"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/browserify-aes/-/browserify-aes-1.1.0.tgz#1d2ad62a8b479f23f0ab631c1be86a82dbccbe48"
   dependencies:
     buffer-xor "^1.0.3"
     cipher-base "^1.0.0"
@@ -1476,8 +1476,8 @@ error-ex@^1.2.0:
     is-arrayish "^0.2.1"
 
 es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.31"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.31.tgz#7bb938c95a7f1b9f728092dc09c41edcc398eefe"
+  version "0.10.35"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.35.tgz#18ee858ce6a3c45c7d79e91c15fcca9ec568494f"
   dependencies:
     es6-iterator "~2.0.1"
     es6-symbol "~3.1.1"
@@ -2556,8 +2556,8 @@ opener@^1.4.3:
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"
 
 organism-react-animate@*:
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.19.tgz#3da89f3e37467f8ab9f1e1e377a8555e683a372a"
+  version "0.1.25"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.25.tgz#cb0aa9ebd0d5e5119b6f8febf9bd67af736c6bc2"
   dependencies:
     get-object-value "*"
     keyframe-css "*"
@@ -2721,8 +2721,8 @@ preserve@^0.2.0:
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
 private@^0.1.6, private@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/private/-/private-0.1.7.tgz#68ce5e8a1ef0a23bb570cc28537b5332aba63ef1"
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
 
 process-nextick-args@~1.0.6:
   version "1.0.7"
@@ -2841,8 +2841,8 @@ raw-body@2.3.2:
     unpipe "1.0.0"
 
 rc@^1.1.7:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.2.tgz#d8ce9cb57e8d64d9c7badd9876c7c34cbe3c7077"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -3026,8 +3026,8 @@ require-main-filename@^1.0.1:
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
 
 reshow-app@*:
-  version "0.1.56"
-  resolved "https://registry.yarnpkg.com/reshow-app/-/reshow-app-0.1.56.tgz#cf624edf82ccead7b2af1be92093a83e8fc396a3"
+  version "0.1.58"
+  resolved "https://registry.yarnpkg.com/reshow-app/-/reshow-app-0.1.58.tgz#ec8fcc4892fee3eac5fd59e9b00c4358a88f8111"
   dependencies:
     babel-cli "^6.x"
     babel-core "^6.x"
@@ -3046,9 +3046,10 @@ reshow-app@*:
     worker-loader "*"
 
 reshow-flux@*:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.11.tgz#2d73f205855c01dc71f61816263fd918d85798e6"
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.12.tgz#77176b45945b2bca44e003f7011592e69897aae9"
   dependencies:
+    array.dedup "*"
     mitt "*"
 
 right-align@^0.1.1:

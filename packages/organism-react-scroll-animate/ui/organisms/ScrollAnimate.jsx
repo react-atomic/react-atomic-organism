@@ -1,11 +1,10 @@
 import React, {PureComponent} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import {
     ScrollSpy,
     ScrollReceiver,
     scrollStore
-} from 'organism-react-scroll-nav'
+} from 'organism-react-scroll-nav';
 
 class Content extends PureComponent
 {
@@ -71,22 +70,19 @@ class Content extends PureComponent
     }
 }
 
-const ScrollAnimate = (props) => { 
-    const {appear, enter, leave, once, minHeight, children, ...others} = props;
-    return ( 
-        <ScrollSpy {...others}>
-            <ScrollReceiver
-                appear={appear}
-                enter={enter}
-                leave={leave}
-                once={once}
-                minHeight={minHeight}
-            >
-                {children}
-            </ScrollReceiver>
-        </ScrollSpy>
-    );
-};
+const ScrollAnimate = ({appear, enter, leave, once, minHeight, children, ...others}) => 
+<ScrollSpy {...others}>
+    <ScrollReceiver
+        appear={appear}
+        enter={enter}
+        leave={leave}
+        once={once}
+        minHeight={minHeight}
+    >
+        {children}
+    </ScrollReceiver>
+</ScrollSpy>
+
 ScrollAnimate.defaultProps = {
     container: <Content />,
     once: true,
