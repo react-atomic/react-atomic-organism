@@ -2070,17 +2070,15 @@ var Content = function (_PureComponent) {
                 thisStyle = {
                     minHeight: minHeight
                 };
-            } else {
-                show = __WEBPACK_IMPORTED_MODULE_0_react___default.a.cloneElement(show, others);
             }
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_organism_react_animate__["a" /* default */], {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_organism_react_animate__["a" /* default */], _extends({}, others, {
                 style: _extends({}, thisStyle, style),
                 appear: appear,
                 enter: enter,
                 leave: leave,
                 refCb: refCb,
                 id: id
-            }, show);
+            }), show);
         }
     }]);
 

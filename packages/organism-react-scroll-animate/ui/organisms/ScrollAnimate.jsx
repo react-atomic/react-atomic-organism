@@ -49,14 +49,10 @@ class Content extends PureComponent
             thisStyle = {
                 minHeight: minHeight 
             };
-        } else {
-            show = React.cloneElement(
-                show,
-                others
-            );
         }
         return (
             <Animate
+                {...others}
                 style={{...thisStyle, ...style}}
                 appear={appear}
                 enter={enter}
