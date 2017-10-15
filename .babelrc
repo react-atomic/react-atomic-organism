@@ -8,6 +8,7 @@
             ],
             "plugins": [
               "add-module-exports",
+              "system-import-transformer",
               "transform-react-constant-elements",
               ["transform-react-remove-prop-types", {"mode": "wrap"}]
             ]
