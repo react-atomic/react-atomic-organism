@@ -1,8 +1,8 @@
 import React, {PureComponent, createElement, cloneElement} from 'react';
-import CSSTransition from '../organisms/CSSTransition';
 import getChildMapping from '../../src/getChildMapping';
 import get from 'get-object-value';
 const keys = Object.keys;
+let CSSTransition;
 
 class AnimateGroup extends PureComponent
 {
@@ -31,24 +31,34 @@ class AnimateGroup extends PureComponent
     constructor(props)
     {
         super(props);
-        const { children } = props;
-        const aniProps = this.getAniProps(props); 
-        this.state = {
-            children: getChildMapping(
-                children,
-                (child, key) => 
-                    createElement(
-                        CSSTransition,
-                        {
-                            ...aniProps,
-                            ...child.props,
-                            key:key,
-                            onExited: this.handleExited.bind(this, child)
-                        },
-                        child
+        this.state = {children: null};
+    }
+
+    componentDidMount()
+    {
+        const props = this.props;
+        import('../organisms/CSSTransition').then(
+            (cssTransition) => {
+                CSSTransition = cssTransition.default? cssTransition.default: cssTransition;
+                const aniProps = this.getAniProps(props); 
+                this.setState({
+                    children: getChildMapping(
+                        props.children,
+                        (child, key) => 
+                            createElement(
+                                CSSTransition,
+                                {
+                                    ...aniProps,
+                                    ...child.props,
+                                    key:key,
+                                    onExited: this.handleExited.bind(this, child)
+                                },
+                                child
+                            )
                     )
-            )
-        };
+                });
+            }
+        );
     }
 
     getAniProps(props, enterToAppear)
@@ -89,6 +99,9 @@ class AnimateGroup extends PureComponent
     }
 
     componentWillReceiveProps(nextProps) {
+        if (!CSSTransition) {
+            return null;
+        }
         const prevChildMapping = this.state.children;
         const nextChildMapping = getChildMapping(nextProps.children);
         const all = {...prevChildMapping, ...nextChildMapping};
@@ -140,9 +153,12 @@ class AnimateGroup extends PureComponent
         delete props.in;
         delete props.children;
         const {children} = this.state;
-        const thisChildren = keys(children).map( 
-            key => children[key]
-        );
+        let thisChildren = null;
+        if (children) {
+            thisChildren = keys(children).map( 
+                key => children[key]
+            );
+        }
         return createElement(
             component,
             props,
