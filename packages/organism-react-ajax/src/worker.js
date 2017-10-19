@@ -1,3 +1,4 @@
+require('es6-promise/auto');
 import get from 'get-object-value';
 
 var ws;
