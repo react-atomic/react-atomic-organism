@@ -37,19 +37,19 @@ class AnimateGroup extends PureComponent
     componentDidMount()
     {
         const props = this.props;
+        const aniProps = this.getAniProps(props); 
         import('../organisms/CSSTransition').then(
             (cssTransition) => {
                 CSSTransition = cssTransition.default? cssTransition.default: cssTransition;
-                const aniProps = this.getAniProps(props); 
                 this.setState({
                     children: getChildMapping(
                         props.children,
-                        (child, key) => 
+                        (child, key) =>
                             createElement(
                                 CSSTransition,
                                 {
-                                    ...aniProps,
                                     ...child.props,
+                                    ...aniProps,
                                     key:key,
                                     onExited: this.handleExited.bind(this, child)
                                 },
@@ -105,7 +105,7 @@ class AnimateGroup extends PureComponent
         const prevChildMapping = this.state.children;
         const nextChildMapping = getChildMapping(nextProps.children);
         const all = {...prevChildMapping, ...nextChildMapping};
-        const aniProps = this.getAniProps(this.props, true);
+        const aniProps = this.getAniProps(nextProps, true);
         keys(all).forEach((key)=>{
                 const child = all[key];
                 const hasPrev = key in prevChildMapping;
@@ -120,8 +120,8 @@ class AnimateGroup extends PureComponent
                     all[key] = createElement(
                         CSSTransition,
                         {
-                            ...aniProps,
                             ...child.props,
+                            ...aniProps,
                             key:key,
                             onExited: this.handleExited.bind(this, child),
                         },
