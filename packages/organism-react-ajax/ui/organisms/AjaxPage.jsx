@@ -67,17 +67,19 @@ class AjaxPage extends PureComponent
         this._lastThemePath = thisThemePath;
         if (!pages[thisThemePath]) {
             const myTheme = themes[thisThemePath];
-            if (!myTheme.name) {
-                console.error('Not find valid elemet on ['+themePath+']', themes);
-                return null;
-            }
             let build;
             if (React.isValidElement(myTheme)) {
                 build = React.cloneElement;
             } else {
                 build = React.createElement;
             }
-            pages[thisThemePath] = build(myTheme);
+            const builded = build(myTheme);
+            if (!React.isValidElement(builded)) {
+                console.error('Not find valid elemet on ['+themePath+']', themes);
+                return null;
+            } else {
+                pages[thisThemePath] = builded;
+            }
         }
         return pages[thisThemePath];
     }

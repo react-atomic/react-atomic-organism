@@ -63,8 +63,8 @@ array-unique@^0.2.1:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
 
 array.dedup@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.0.tgz#c0bc002077f6f83803092b6255716b8713d34953"
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
 
 asap@~2.0.3:
   version "2.0.6"
@@ -1860,8 +1860,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 reshow-flux@*:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.13.tgz#b594ce26347dd780da91ddde3a57f3cc5b43056a"
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.14.tgz#2695a209c4bd6e20c5c8d183376ac2ba0fc44f2c"
   dependencies:
     array.dedup "*"
     mitt "*"
