@@ -797,12 +797,12 @@ var AnimateGroup = function (_PureComponent) {
             var _this2 = this;
 
             var props = this.props;
+            var aniProps = this.getAniProps(props);
             __webpack_require__.e/* import() */(0).then(__webpack_require__.bind(null, 149)).then(function (cssTransition) {
                 CSSTransition = cssTransition.default ? cssTransition.default : cssTransition;
-                var aniProps = _this2.getAniProps(props);
                 _this2.setState({
                     children: Object(__WEBPACK_IMPORTED_MODULE_1__src_getChildMapping__["a" /* default */])(props.children, function (child, key) {
-                        return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(CSSTransition, _extends({}, aniProps, child.props, {
+                        return Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(CSSTransition, _extends({}, child.props, aniProps, {
                             key: key,
                             onExited: _this2.handleExited.bind(_this2, child)
                         }), child);
@@ -857,7 +857,7 @@ var AnimateGroup = function (_PureComponent) {
             var prevChildMapping = this.state.children;
             var nextChildMapping = Object(__WEBPACK_IMPORTED_MODULE_1__src_getChildMapping__["a" /* default */])(nextProps.children);
             var all = _extends({}, prevChildMapping, nextChildMapping);
-            var aniProps = this.getAniProps(this.props, true);
+            var aniProps = this.getAniProps(nextProps, true);
             keys(all).forEach(function (key) {
                 var child = all[key];
                 var hasPrev = key in prevChildMapping;
@@ -869,7 +869,7 @@ var AnimateGroup = function (_PureComponent) {
                     all[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["cloneElement"])(child, { in: false });
                 } else {
                     // New or Keep
-                    all[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(CSSTransition, _extends({}, aniProps, child.props, {
+                    all[key] = Object(__WEBPACK_IMPORTED_MODULE_0_react__["createElement"])(CSSTransition, _extends({}, child.props, aniProps, {
                         key: key,
                         onExited: _this3.handleExited.bind(_this3, child)
                     }), child);
@@ -982,6 +982,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var dedup = function dedup(array) {
+    if (!array || !array.filter) {
+        return array;
+    }
     return array.filter(function (item, pos, arr) {
         return arr.indexOf(item) === pos;
     });
@@ -1900,7 +1903,7 @@ var _ref5 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(WhiteCir
 
 var _ref6 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BlackCircle, { once: true, enter: 'fadeInRight-1000' }, 'Right (once) 2');
 
-var _ref7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BlackCircle, { once: false, enter: 'fadeOutRight-1000' }, 'Fade out right');
+var _ref7 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(BlackCircle, { once: false, enter: 'fadeOutRight-1000', id: 'last', isKeep: true }, 'Fade out right');
 
 var _ref8 = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(WhiteCircle, { once: false, enter: 'fadeOutUp-1000' }, 'Fade out up');
 
@@ -2049,36 +2052,39 @@ var Content = function (_PureComponent) {
                 enter = _props.enter,
                 leave = _props.leave,
                 once = _props.once,
+                isKeep = _props.isKeep,
                 minHeight = _props.minHeight,
                 targetInfo = _props.targetInfo,
                 style = _props.style,
-                refCb = _props.refCb,
-                id = _props.id,
                 monitorScroll = _props.monitorScroll,
-                others = _objectWithoutProperties(_props, ['children', 'appear', 'enter', 'leave', 'once', 'minHeight', 'targetInfo', 'style', 'refCb', 'id', 'monitorScroll']);
+                others = _objectWithoutProperties(_props, ['children', 'appear', 'enter', 'leave', 'once', 'isKeep', 'minHeight', 'targetInfo', 'style', 'monitorScroll']);
 
-            var show = null;
+            var isShown = targetInfo.isShown,
+                isOnScreen = targetInfo.isOnScreen;
+
+            var el = null;
             var thisStyle = {};
-            if (targetInfo.isOnScreen) {
+            if (isOnScreen || once && isShown || isKeep) {
                 if ('function' === typeof children) {
-                    show = children();
+                    el = children();
                 } else {
-                    show = children;
+                    el = children;
                 }
             }
-            if (!show) {
-                thisStyle = {
-                    minHeight: minHeight
-                };
+            if (!el) {
+                thisStyle.minHeight = minHeight;
+            }
+            var isIn = true;
+            if (el && !isShown || !once && !isOnScreen) {
+                isIn = false;
             }
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_organism_react_animate__["a" /* default */], _extends({}, others, {
                 style: _extends({}, thisStyle, style),
                 appear: appear,
                 enter: enter,
                 leave: leave,
-                refCb: refCb,
-                id: id
-            }), show);
+                'in': isIn
+            }), el);
         }
     }]);
 
@@ -2105,6 +2111,7 @@ var ScrollAnimate = function ScrollAnimate(_ref) {
 
 ScrollAnimate.defaultProps = {
     container: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Content, null),
+    isKeep: false,
     once: true,
     monitorScroll: false,
     minHeight: 155 //need great than browser minHeigh 150px

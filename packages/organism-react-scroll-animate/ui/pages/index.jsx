@@ -49,7 +49,7 @@ class Index extends Component
                     <BlackCircle once={true}  enter="fadeInRight-1000">Right (once) 2</BlackCircle>
                 </div>
                 <div style={Styles.row}>
-                    <BlackCircle once={false} enter="fadeOutRight-1000">Fade out right</BlackCircle>
+                    <BlackCircle once={false} enter="fadeOutRight-1000" id="last" isKeep={true}>Fade out right</BlackCircle>
                     <WhiteCircle once={false} enter="fadeOutUp-1000">Fade out up</WhiteCircle>
                     <BlackCircle once={false} enter="fadeOutLeft-1000">Out left 333</BlackCircle>
                 </div>

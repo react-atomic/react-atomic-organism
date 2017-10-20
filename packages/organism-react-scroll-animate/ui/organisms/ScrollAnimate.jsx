@@ -28,27 +28,34 @@ class Content extends PureComponent
             enter,
             leave,
             once,
+            isKeep,
             minHeight,
             targetInfo,
             style,
-            refCb,
-            id,
             monitorScroll,
             ...others
         } = this.props;
-        let show = null;
+        const { isShown, isOnScreen} =  targetInfo;
+        let el = null;
         let thisStyle = {};
-        if (targetInfo.isOnScreen) {
+        if (isOnScreen ||
+            (once && isShown) ||
+            isKeep
+        ) {
             if ('function' === typeof children) {
-                show = children();
+                el = children();
             } else {
-                show = children;
+                el = children;
             }
         }
-        if (!show) {
-            thisStyle = {
-                minHeight: minHeight 
-            };
+        if (!el) {
+            thisStyle.minHeight= minHeight;
+        }
+        let isIn = true;
+        if ((el && !isShown) ||
+            (!once && !isOnScreen)
+        ) {
+            isIn = false;
         }
         return (
             <Animate
@@ -57,10 +64,9 @@ class Content extends PureComponent
                 appear={appear}
                 enter={enter}
                 leave={leave}
-                refCb={refCb}
-                id={id}
+                in={isIn}
             >
-                {show}
+                {el}
             </Animate>
         );
     }
@@ -81,6 +87,7 @@ const ScrollAnimate = ({appear, enter, leave, once, minHeight, children, ...othe
 
 ScrollAnimate.defaultProps = {
     container: <Content />,
+    isKeep: false,
     once: true,
     monitorScroll: false,
     minHeight: 155, //need great than browser minHeigh 150px
