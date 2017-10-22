@@ -1,5 +1,5 @@
 import React, {Component, cloneElement} from 'react'; 
-import { Container } from 'reduce-flux';
+import { connect } from 'reshow-flux';
 import { SemanticUI } from 'react-atomic-molecule'; 
 import { popupStore } from '../../src/index';
 
@@ -39,4 +39,4 @@ class PopupElement extends Component
        }
    }
 }
-export default Container.create(PopupElement);
+export default connect(PopupElement);

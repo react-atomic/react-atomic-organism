@@ -42,18 +42,23 @@ const alignUI = (targetEl, floatEl, toLoc) =>
     }
     let floatInfo = getOffset(floatEl);
     let loc = getAlignWithLoc(toLoc);
-    let moveXY = alignWith(targetInfo, floatInfo, loc);
+    let move = alignWith(targetInfo, floatInfo, loc);
     if (winInfo && winInfo.locs) {
-        let movePos = getAfterMove(floatInfo, moveXY);
+        let movePos = getAfterMove(floatInfo, move);
         let bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
         if (!bFullOnScreen) {
             toLoc = winInfo.locs[1];
             loc = getAlignWithLoc( toLoc );
-            moveXY = alignWith(targetInfo, floatInfo, loc);
+            move = alignWith(targetInfo, floatInfo, loc);
         }
     }
-    // console.log('loc', loc, 'toLoc', toLoc, 'move',  moveXY);
-    return moveXY;
+    // console.log('loc', loc, 'toLoc', toLoc, 'move',  move);
+    const result = {
+        loc, 
+        toLoc,
+        move
+    };
+    return result;
 };
 
 export default alignUI;

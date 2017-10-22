@@ -7,7 +7,7 @@ React Atomic Organism Popup
 
 ## Example Usage
 Demo Url:
-http://react-atomic.github.io/react-atomic-organism/packages/organism-react-popup/index.html
+https://react-atomic-ui.js.org/#/popup
 
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/pages/index.jsx

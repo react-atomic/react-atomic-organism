@@ -1,5 +1,5 @@
 import React, {Component} from 'react'; 
-import { Container } from 'reduce-flux';
+import { connect } from 'reshow-flux';
 import get from 'get-object-value';
 import {
     mixClass,
@@ -48,19 +48,18 @@ class PopupOverlay extends Component
             return null;
         }
         const {className, show, ...others} = this.props;
-        const classes = mixClass (
-            className,
-            'popup'
-        );
         return (
-            <SemanticUI {...others} className={classes} />
+            <SemanticUI
+                {...others} 
+                className={mixClass(className,'popup visible')}
+            />
         );
     }
 }
 
 export {PopupOverlay};
 
-export default Container.create(
+export default connect(
     PopupOverlay,
     { withProps:true }
 );

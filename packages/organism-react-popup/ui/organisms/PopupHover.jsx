@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
 import getOffset from 'getoffset';
+import {alignUI, getPositionString} from 'get-window-offset';
 import {
     mixClass,
     SemanticUI
@@ -7,7 +8,7 @@ import {
 
 import {
     popupDispatch,
-    PopupOverlay
+    PopupFloatEl
 } from '../../src/index';
 
 class PopupHover extends Component
@@ -15,68 +16,88 @@ class PopupHover extends Component
    constructor(props)
    {
       super(props);
+      const {popup} = this.props;
       this.state = {
-         popup: false,
-         popupStyle: {},
-         popupClass: '' 
+         popup: ( 
+            <PopupFloatEl 
+                refCb={dom=>this.handleMoveTo(dom)}
+                onMouseEnter={this.floatMouseOver} 
+                onMouseLeave={this.floatMouseOut} 
+            >
+                {popup}
+            </PopupFloatEl>
+         ) 
       };
    } 
 
-    mouseOver()
-    {
-        let bodyWidth = document.body.clientWidth;
-        let domOffset = getOffset(this.dom);
-        let popupClass = 'visible bottom left';
-        let popupStyle = {
-            //top: domOffset.top+'px', 
-            top: window.scrollY+10+'px', 
-            left: '5px'
-        };
-        const props = this.props;
-        let popup = props.popup;
-        if (popup) {
-            const classes = mixClass(
-                popupClass,
-                popup.props.className
-            );
-            const popupProps = {
-                className: classes,
-                style: popupStyle
-            };
-            if (React.isValidElement(popup)) {
-              popup = React.cloneElement(popup, popupProps);
-            } else if (typeof popup === 'function') {
-              popup = popup(popupProps);
-            } else {
-              popup = <PopupOverlay {...popupProps}>{popup}</PopupOverlay>; 
-            }
+   handleMoveTo = (el) =>
+   {
+        if (!el) {
+            return;
         }
+        const info = alignUI(this.dom, el);
+        const {move, loc} = info;
+        el.style.left=move[0]+'px';
+        el.style.top=move[1]+'px';
+        const positionStr = getPositionString(loc);
+        el.className += ' '+positionStr;
+   }
+
+    floatMouseOver = ()=>
+    {
+        this.isKeep = true;
+    }
+
+    floatMouseOut = ()=>
+    {
+        this.isKeep = false;
+        this.close(); 
+    }
+
+    mouseOver = ()=>
+    {
+        const {popup} = this.state;
         popupDispatch({
             type: 'dom/update',
             params: {
-                popup: popup 
+                popup: popup
             }
         });
     }
 
-    mouseOut()
+    mouseOut = ()=>
     {
+        setTimeout(()=>{
+            this.close(); 
+        }, 100);
+    }
+
+    close = () =>
+    {
+        const {isKeep} = this.props;
+        if (this.isKeep || isKeep) {
+            return;
+        }
+        const {popup} = this.state;
         popupDispatch({
-           type: 'dom/closeAll'
+           type: 'dom/closeOne',
+           params: {
+                popup: popup
+           }
         });
     }
 
     render()
     {
-        const {popup, ...others} = this.props;
+        const {popup, isKeep, ...others} = this.props;
         return (
-        <SemanticUI
-           refCb={dom=>this.dom=dom}
-           onMouseEnter={this.mouseOver.bind(this)} 
-           onMouseLeave={this.mouseOut.bind(this)} 
-           style={{position:'relative'}}
-           {...others}
-        />
+            <SemanticUI
+               refCb={dom=>this.dom=dom}
+               onMouseEnter={this.mouseOver} 
+               onMouseLeave={this.mouseOut} 
+               style={{position:'relative'}}
+               {...others}
+            />
         );
     }
 }

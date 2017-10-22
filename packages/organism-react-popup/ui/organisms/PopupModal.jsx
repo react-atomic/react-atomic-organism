@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { Container } from 'reduce-flux';
+import { connect } from 'reshow-flux';
 import {
     mixClass,
     Dimmer,
@@ -125,7 +125,7 @@ PopupModal.defaultProps = {
     name: 'modal'
 };
 
-const PopupModalContainer = Container.create(
+const PopupModalContainer = connect(
     PopupModal,
     { withProps:true }
 );

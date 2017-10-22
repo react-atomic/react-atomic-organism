@@ -1,9 +1,9 @@
 'use strict';
 
 import {Map} from 'immutable';
-import {ReduceStore} from 'reduce-flux';
+import {ReduceStore} from 'reshow-flux';
 import get from 'get-object-value';
-import dispatcher from '../actions/popupDispatcher';
+import dispatcher from '../popupDispatcher';
 
 class PopupStore extends ReduceStore
 {
@@ -30,13 +30,18 @@ class PopupStore extends ReduceStore
   getKey(action)
   {
     const popup = get(action, ['params','popup'], 'default');
-    const key = get(popup, ['props', 'name'], popup);
+    let key;
+    if ('object' === typeof popup) {
+        key = get(popup, ['props', 'name'], popup);
+    } else {
+        key = popup;
+    }
     return key;
   }
 
   closeAll(state, action)
   {
-     return state.set('node', Map());
+      return state.set('node', Map());
   }
 
   closeOne(state, action)
