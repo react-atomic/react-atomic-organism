@@ -1,6 +1,7 @@
 import getAlignXY from './getAlignXY';
+import pos from './positions';
 
-const alignTo = (targetInfo, floatElInfo, loc) =>
+const alignWith = (targetInfo, floatElInfo, loc) =>
 {
     const xy = getAlignXY(targetInfo, loc); 
     const width = floatElInfo.right - floatElInfo.left;
@@ -8,51 +9,57 @@ const alignTo = (targetInfo, floatElInfo, loc) =>
     let moveXY;
     switch(loc)
     {
-        case 'tl':
+        case pos.TL:
             moveXY = [
                 xy[0],
                 xy[1] - height
             ];
             break;
-        case 'tr':
+        case pos.TR:
             moveXY = [
                 xy[0] - width,
                 xy[1] - height
             ];
             break;
-        case 'bl':
+        case pos.BL:
             moveXY = [
                 xy[0],
                 xy[1]
             ];
             break;
-        case 'br':
+        case pos.BR:
             moveXY = [
                 xy[0] - width,
                 xy[1]
             ];
             break;
-        case 'tc':
+        case pos.TC:
             moveXY = [
                 xy[0] - Math.floor(width / 2),
                 xy[1] - height
             ];
             break;
-        case 'bc':
+        case pos.RC:
+            moveXY = [
+                xy[0],
+                xy[1] - Math.floor(height / 2)
+            ];
+            break;
+        case pos.BC:
             moveXY = [
                 xy[0] - Math.floor(width / 2),
                 xy[1]
             ];
             break;
-        case 'lc':
+        case pos.LC:
             moveXY = [
                 xy[0] - width,
                 xy[1] - Math.floor(height / 2)
             ];
             break;
-        case 'rc':
+        case pos.CC:
             moveXY = [
-                xy[0],
+                xy[0] - Math.floor(width / 2),
                 xy[1] - Math.floor(height / 2)
             ];
             break;
@@ -63,4 +70,4 @@ const alignTo = (targetInfo, floatElInfo, loc) =>
     return moveXY;
 };
 
-export default alignTo;
+export default alignWith;

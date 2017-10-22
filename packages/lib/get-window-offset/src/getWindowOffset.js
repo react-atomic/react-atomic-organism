@@ -1,5 +1,5 @@
-import getOffset from 'getoffset'; 
 import getScrollInfo from 'get-scroll-info'; 
+import getOffset from 'getoffset'; 
 import isOnScreen from './isOnScreen';
 
 const getWindowOffset = (dom) =>
@@ -15,21 +15,31 @@ const getWindowOffset = (dom) =>
         distance.left = Math.abs(domInfo.left - scrollInfo.left);
     }
     let distanceFlip = {
-        [distance.top]: 'top',
-        [distance.right]: 'right',
-        [distance.bottom]: 'bottom',
-        [distance.left]: 'left',
+        [distance.top]: 't',
+        [distance.right]: 'r',
+        [distance.bottom]: 'b',
+        [distance.left]: 'l',
     };
     const maxDistance = Math.max(distance.top, distance.right, distance.bottom, distance.left);
-    const maxKey = distanceFlip[maxDistance];
-    if (maxKey === 'top' || maxKey === 'bottom') {
-
+    let firstKey = distanceFlip[maxDistance];
+    let secondKey;
+    let locs = [firstKey+'c'];
+    if (firstKey === 't' || firstKey === 'b') {
+        distanceFlip = {
+            [distance.right]: 'r',
+            [distance.left]: 'l'
+        }
+        secondKey = distanceFlip[Math.max(distance.left, distance.right)];
     } else {
-
+        distanceFlip = {
+            [distance.top]: 't',
+            [distance.bottom]: 'b',
+        }
+        secondKey = firstKey;
+        firstKey = distanceFlip[Math.max(distance.top, distance.bottom)];
     }
-    
-    
-    console.log(maxKey);
+    locs.push(firstKey+secondKey);
+    return { domInfo, locs, scrollInfo};
 }
 
 export default getWindowOffset;

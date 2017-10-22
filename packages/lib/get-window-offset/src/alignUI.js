@@ -1,34 +1,59 @@
-import getAlignXY from './getAlignXY';
+import getOffset from 'getoffset'; 
 
-const alignUI = (targetInfo, floatElInfo, loc) =>
+import getAfterMove from './getAfterMove';
+import getWindowOffset from './getWindowOffset'; 
+import alignWith from './alignWith';
+import isFullOnScreen from './isFullOnScreen';
+import pos from './positions';
+
+const getAlignWithLoc = (toLoc) =>
 {
-    const xy = getAlignXY(targetInfo, loc); 
-   const width = floatElInfo.right - floatElInfo.left;
-   const height = floatElInfo.bottom - floatElInfo.top;
-    let moveXY;
-    switch(loc)
-    {
-        case 'tl':
-            moveXY = [
-                xy[0],
-                xy[1] - height
-            ];
+    let loc;
+    switch (toLoc) {
+        case pos.TL:
+            loc = pos.TR;
             break;
-        case 'tr':
-            moveXY = [
-                xy[0] - width,
-                xy[1] - height
-            ];
+        case pos.TR:
+            loc = pos.TL;
             break;
-        case 'bl':
-            moveXY = [
-                xy[0],
-                xy[1] + height
-            ];
+        case pos.BL:
+            loc = pos.BR;
             break;
-        case 'br':
+        case pos.BR:
+            loc = pos.BL;
+            break;
+        default:
+            loc = toLoc;
             break;
     }
+    return loc;
+}
+
+const alignUI = (targetEl, floatEl, toLoc) =>
+{
+    let targetInfo;
+    let winInfo;
+    if (!toLoc) {
+        winInfo = getWindowOffset(targetEl);
+        targetInfo = winInfo.domInfo;
+        toLoc = winInfo.locs[0];
+    } else {
+        targetInfo = getOffset(targetEl);
+    }
+    let floatInfo = getOffset(floatEl);
+    let loc = getAlignWithLoc(toLoc);
+    let moveXY = alignWith(targetInfo, floatInfo, loc);
+    if (winInfo && winInfo.locs) {
+        let movePos = getAfterMove(floatInfo, moveXY);
+        let bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
+        if (!bFullOnScreen) {
+            toLoc = winInfo.locs[1];
+            loc = getAlignWithLoc( toLoc );
+            moveXY = alignWith(targetInfo, floatInfo, loc);
+        }
+    }
+    // console.log('loc', loc, 'toLoc', toLoc, 'move',  moveXY);
+    return moveXY;
 };
 
 export default alignUI;
