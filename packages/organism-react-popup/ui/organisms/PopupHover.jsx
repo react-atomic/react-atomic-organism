@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; 
 import getOffset from 'getoffset';
-import {alignUI, getPositionString} from 'get-window-offset';
+import getWindowOffset, {alignUI, getPositionString} from 'get-window-offset';
 import {
     mixClass,
     SemanticUI
@@ -48,8 +48,8 @@ class PopupHover extends Component
 
    calPos = () =>
    {
-        if (!this.floatEl) {
-            return;
+        if (!this.floatEl || !getWindowOffset(this.dom)) {
+            return false;
         }
         const info = alignUI(this.dom, this.floatEl);
         if (!info) {

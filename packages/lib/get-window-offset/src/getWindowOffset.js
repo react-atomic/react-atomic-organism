@@ -7,7 +7,7 @@ const getWindowOffset = (dom) =>
     if (!dom) {
         console.error('getWindowOffset not assign dom');
         console.trace();
-        return;
+        return false;
     }
     let domInfo = getOffset(dom);
     let scrollInfo = getScrollInfo();
@@ -19,7 +19,7 @@ const getWindowOffset = (dom) =>
         distance.bottom = Math.abs(domInfo.bottom - scrollInfo.bottom);
         distance.left = Math.abs(domInfo.left - scrollInfo.left);
     } else {
-        console.error('Dom is not in screen', { domInfo, scrollInfo });
+        //console.error('Dom is not in screen', { domInfo, scrollInfo });
         return false;
     }
     let distanceFlip = {

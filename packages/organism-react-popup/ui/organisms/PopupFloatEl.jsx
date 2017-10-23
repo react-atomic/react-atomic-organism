@@ -20,7 +20,7 @@ class PopupFloatEl extends PopupOverlay
         });
     }
 
-    componentWillReceiveProps()
+    componentWillReceiveProps(nextProps)
     {
         this.isNeedUpdate = true;
     }
@@ -29,7 +29,9 @@ class PopupFloatEl extends PopupOverlay
     {
         if (this.isNeedUpdate) {
             const params = this.props.refCb();
-            this.update.apply(this, params);
+            if (params) {
+                this.update.apply(this, params);
+            }
             this.isNeedUpdate = false;
         }
     }

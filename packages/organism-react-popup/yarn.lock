@@ -1184,8 +1184,8 @@ get-scroll-info@*:
   resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.0.12.tgz#cb936eb8faba2ab76f123aae3bf384f3b6c47440"
 
 get-window-offset@*:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.10.tgz#8e892a8504c381b13a933276e30add737604b76c"
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.12.tgz#1002d0cca1fe872f94fb98d416696abde52ef08b"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"

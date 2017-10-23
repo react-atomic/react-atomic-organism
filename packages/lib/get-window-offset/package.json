@@ -1,6 +1,6 @@
 {
   "name": "get-window-offset",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Get dom info in window",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
