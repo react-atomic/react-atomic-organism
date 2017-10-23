@@ -4,6 +4,11 @@ import isOnScreen from './isOnScreen';
 
 const getWindowOffset = (dom) =>
 {
+    if (!dom) {
+        console.error('getWindowOffset not assign dom');
+        console.trace();
+        return;
+    }
     let domInfo = getOffset(dom);
     let scrollInfo = getScrollInfo();
     domInfo = isOnScreen(domInfo, scrollInfo);
@@ -22,6 +27,10 @@ const getWindowOffset = (dom) =>
     };
     const maxDistance = Math.max(distance.top, distance.right, distance.bottom, distance.left);
     let firstKey = distanceFlip[maxDistance];
+    if (!firstKey) {
+        console.error('Get maxDistance fail', { maxDistance, distanceFlip, domInfo, scrollInfo });
+        return false;
+    }
     let secondKey;
     let locs = [firstKey+'c'];
     if (firstKey === 't' || firstKey === 'b') {

@@ -31,10 +31,19 @@ const getAlignWithLoc = (toLoc) =>
 
 const alignUI = (targetEl, floatEl, toLoc) =>
 {
+    if (!targetEl) {
+        console.error('targetEl was empty');
+        console.trace();
+        return false;
+    }
     let targetInfo;
     let winInfo;
     if (!toLoc) {
         winInfo = getWindowOffset(targetEl);
+        if (!winInfo) {
+            console.error('get windows offset failed');
+            return false;
+        }
         targetInfo = winInfo.domInfo;
         toLoc = winInfo.locs[0];
     } else {
@@ -52,7 +61,6 @@ const alignUI = (targetEl, floatEl, toLoc) =>
             move = alignWith(targetInfo, floatInfo, loc);
         }
     }
-    // console.log('loc', loc, 'toLoc', toLoc, 'move',  move);
     const result = {
         loc, 
         toLoc,

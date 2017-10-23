@@ -54,7 +54,9 @@ const getAlignXY = (domInfo, loc) => {
             ];
             break;
         default: 
-            console.error('Not support align type.');
+            console.error(
+                'Not support align type. ['+ loc+ ']'
+            );
             break;
    }
    return xy;
