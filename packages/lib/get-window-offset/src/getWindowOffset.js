@@ -18,6 +18,9 @@ const getWindowOffset = (dom) =>
         distance.right = Math.abs(domInfo.right - scrollInfo.right);
         distance.bottom = Math.abs(domInfo.bottom - scrollInfo.bottom);
         distance.left = Math.abs(domInfo.left - scrollInfo.left);
+    } else {
+        console.error('Dom is not in screen', { domInfo, scrollInfo });
+        return false;
     }
     let distanceFlip = {
         [distance.top]: 't',
@@ -27,10 +30,6 @@ const getWindowOffset = (dom) =>
     };
     const maxDistance = Math.max(distance.top, distance.right, distance.bottom, distance.left);
     let firstKey = distanceFlip[maxDistance];
-    if (!firstKey) {
-        console.error('Get maxDistance fail', { maxDistance, distanceFlip, domInfo, scrollInfo });
-        return false;
-    }
     let secondKey;
     let locs = [firstKey+'c'];
     if (firstKey === 't' || firstKey === 'b') {

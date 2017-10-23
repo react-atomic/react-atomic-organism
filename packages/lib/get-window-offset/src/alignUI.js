@@ -29,7 +29,7 @@ const getAlignWithLoc = (toLoc) =>
     return loc;
 }
 
-const alignUI = (targetEl, floatEl, toLoc) =>
+const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
 {
     if (!targetEl) {
         console.error('targetEl was empty');
@@ -38,34 +38,47 @@ const alignUI = (targetEl, floatEl, toLoc) =>
     }
     let targetInfo;
     let winInfo;
-    if (!toLoc) {
+    let locs = [];
+    if (toLoc) {
+        locs.push(toLoc);
+    }
+    if (!disableAutoLoc) {
         winInfo = getWindowOffset(targetEl);
         if (!winInfo) {
             console.error('get windows offset failed');
-            return false;
+        } else {
+            targetInfo = winInfo.domInfo;
+            locs = locs.concat(winInfo.locs);
         }
-        targetInfo = winInfo.domInfo;
-        toLoc = winInfo.locs[0];
-    } else {
+    }
+    if (!targetInfo) {
         targetInfo = getOffset(targetEl);
     }
-    let floatInfo = getOffset(floatEl);
-    let loc = getAlignWithLoc(toLoc);
-    let move = alignWith(targetInfo, floatInfo, loc);
-    if (winInfo && winInfo.locs) {
+    if (!locs.length) {
+        console.error('Not set any locs', toLoc);
+        return;
+    }
+    let loc;
+    let move;
+    const floatInfo = getOffset(floatEl);
+    locs.some((locItem)=>{
+        toLoc = locItem;
+        loc = getAlignWithLoc(toLoc);
+        move = alignWith(targetInfo, floatInfo, loc);
         let movePos = getAfterMove(floatInfo, move);
         let bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
-        if (!bFullOnScreen) {
-            toLoc = winInfo.locs[1];
-            loc = getAlignWithLoc( toLoc );
-            move = alignWith(targetInfo, floatInfo, loc);
+        if (bFullOnScreen) {
+            return true;
+        } else {
+            return false;
         }
-    }
+    });
     const result = {
         loc, 
         toLoc,
         move
     };
+    //console.log(result);
     return result;
 };
 
