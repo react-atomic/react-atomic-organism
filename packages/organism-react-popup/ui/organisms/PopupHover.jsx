@@ -11,16 +11,24 @@ import {
     PopupFloatEl
 } from '../../src/index';
 
+let closeTimer = {};
+
 class PopupHover extends Component
 {
+   static defaultProps = {
+        name: 'hover'
+   };
+
    constructor(props)
    {
       super(props);
-      const {popup} = this.props;
+      const {popup, name} = props;
       this.state = {
          popup: ( 
             <PopupFloatEl 
-                refCb={dom=>this.handleMoveTo(dom)}
+                name={name}
+                refCb={this.setFloatEl}
+                ref={this.handleMoveTo}
                 onMouseEnter={this.floatMouseOver} 
                 onMouseLeave={this.floatMouseOut} 
             >
@@ -30,17 +38,42 @@ class PopupHover extends Component
       };
    } 
 
+   setFloatEl = (el) =>
+   {
+        if (el) {
+            this.floatEl = el;
+        }
+        return this.calPos();
+   }
+
+   calPos = () =>
+   {
+        if (!this.floatEl) {
+            return;
+        }
+        const info = alignUI(this.dom, this.floatEl);
+        if (!info) {
+            console.error('can not get alignUI info');
+            return;
+        }
+        const {move, loc} = info;
+        this.floatLeft=move[0];
+        this.floatTop=move[1];
+        this.floatClassName = getPositionString(loc);
+        const result = [
+            this.floatTop,
+            this.floatLeft,
+            this.floatClassName
+        ];
+        return result;
+   }
+
    handleMoveTo = (el) =>
    {
         if (!el) {
             return;
         }
-        const info = alignUI(this.dom, el);
-        const {move, loc} = info;
-        el.style.left=move[0]+'px';
-        el.style.top=move[1]+'px';
-        const positionStr = getPositionString(loc);
-        el.className += ' '+positionStr;
+        el.update(this.floatTop, this.floatLeft, this.floatClassName);
    }
 
     floatMouseOver = ()=>
@@ -51,23 +84,26 @@ class PopupHover extends Component
     floatMouseOut = ()=>
     {
         this.isKeep = false;
-        this.close(); 
+        this.close();
     }
 
     mouseOver = ()=>
     {
-        const {popup} = this.state;
+        const {name} = this.props;
+        clearTimeout(closeTimer[name]);
         popupDispatch({
             type: 'dom/update',
             params: {
-                popup: popup
+                popup: this.state.popup 
             }
         });
     }
 
     mouseOut = ()=>
     {
-        setTimeout(()=>{
+        const {name} = this.props;
+        clearTimeout(closeTimer[name]);
+        closeTimer[name] = setTimeout(()=>{
             this.close(); 
         }, 100);
     }
@@ -78,11 +114,10 @@ class PopupHover extends Component
         if (this.isKeep || isKeep) {
             return;
         }
-        const {popup} = this.state;
         popupDispatch({
            type: 'dom/closeOne',
            params: {
-                popup: popup
+                popup: this.state.popup
            }
         });
     }

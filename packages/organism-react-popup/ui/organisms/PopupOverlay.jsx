@@ -47,11 +47,22 @@ class PopupOverlay extends Component
         if (!this.state.show) {
             return null;
         }
-        const {className, show, ...others} = this.props;
+        const {className, show, style, ...others} = this.props;
+        const {top, left} = get(this, ['state']);
+        const thisStyle = {
+            ...style,
+            top,
+            left
+        };
         return (
             <SemanticUI
                 {...others} 
-                className={mixClass(className,'popup visible')}
+                className={mixClass(
+                    className,
+                    get(this, ['state', 'className']),
+                    'popup visible')
+                }
+                style={thisStyle}
             />
         );
     }
