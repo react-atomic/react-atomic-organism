@@ -31,9 +31,9 @@ class PopupElement extends Component
    }
 
    render() {
-       const state = this.state;
-       if (state.pops) {
-           return <SemanticUI className="popup" ui={false}>{state.pops}</SemanticUI>;
+       const {pops} = this.state;
+       if (pops.length) {
+           return <SemanticUI className="popup" ui={false}>{pops}</SemanticUI>;
        } else {
            return null;
        }

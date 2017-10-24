@@ -19,24 +19,11 @@ class PopupHover extends Component
         name: 'hover'
    };
 
-   constructor(props)
+   handleResize = () =>
    {
-      super(props);
-      const {popup, name} = props;
-      this.state = {
-         popup: ( 
-            <PopupFloatEl 
-                name={name}
-                refCb={this.setFloatEl}
-                ref={this.handleMoveTo}
-                onMouseEnter={this.floatMouseOver} 
-                onMouseLeave={this.floatMouseOut} 
-            >
-                {popup}
-            </PopupFloatEl>
-         ) 
-      };
-   } 
+        this.calPos();
+        this.handleMoveTo();        
+   }
 
    setFloatEl = (el) =>
    {
@@ -70,10 +57,13 @@ class PopupHover extends Component
 
    handleMoveTo = (el) =>
    {
-        if (!el) {
+        if (!el && !this.floatObj) {
             return;
         }
-        el.update(this.floatTop, this.floatLeft, this.floatClassName);
+        if (el) {
+            this.floatObj = el;
+        }
+        this.floatObj.update(this.floatTop, this.floatLeft, this.floatClassName);
    }
 
     floatMouseOver = ()=>
@@ -116,6 +106,41 @@ class PopupHover extends Component
         }
         popupDispatch({
            type: 'dom/closeOne',
+           params: {
+                popup: this.state.popup
+           }
+        });
+    }
+
+   constructor(props)
+   {
+      super(props);
+      const {popup, name} = props;
+      this.state = {
+         popup: ( 
+            <PopupFloatEl 
+                name={name}
+                refCb={this.setFloatEl}
+                ref={this.handleMoveTo}
+                onMouseEnter={this.floatMouseOver} 
+                onMouseLeave={this.floatMouseOut} 
+            >
+                {popup}
+            </PopupFloatEl>
+         ) 
+      };
+   } 
+
+    componentDidMount()
+    {
+        window.addEventListener('resize', this.handleResize);
+    }
+
+    componentWillUnmount()
+    {
+        window.removeEventListener('resize', this.handleResize);
+        popupDispatch({
+           type: 'dom/cleanOne',
            params: {
                 popup: this.state.popup
            }
