@@ -1,6 +1,6 @@
 import pos from './positions';
 
-const getAlignXY = (domInfo, loc) => {
+const getAlignTargetXY = (domInfo, loc) => {
    let xy;
    const width = domInfo.right - domInfo.left;
    const height = domInfo.bottom - domInfo.top;
@@ -62,4 +62,4 @@ const getAlignXY = (domInfo, loc) => {
    return xy;
 };
 
-export default getAlignXY;
+export default getAlignTargetXY;

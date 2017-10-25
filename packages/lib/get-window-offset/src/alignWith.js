@@ -1,9 +1,9 @@
-import getAlignXY from './getAlignXY';
+import getAlignTargetXY from './getAlignTargetXY';
 import pos from './positions';
 
 const alignWith = (targetInfo, floatElInfo, loc) =>
 {
-    const xy = getAlignXY(targetInfo, loc); 
+    const xy = getAlignTargetXY(targetInfo, loc); 
     const width = floatElInfo.right - floatElInfo.left;
     const height = floatElInfo.bottom - floatElInfo.top;
     let moveXY;
