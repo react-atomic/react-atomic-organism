@@ -35,7 +35,7 @@ class PopupHover extends Component
 
    calPos = () =>
    {
-        if (!this.floatEl || !getWindowOffset(this.dom)) {
+        if (!this.floatEl || !this.dom || !getWindowOffset(this.dom)) {
             return false;
         }
         const info = alignUI(this.dom, this.floatEl);
