@@ -12,6 +12,7 @@ import {
 } from '../../src/index';
 
 let closeTimer = {};
+let popId = 0;
 
 class PopupHover extends Component
 {
@@ -21,8 +22,12 @@ class PopupHover extends Component
 
    handleResize = () =>
    {
-        this.calPos();
-        this.handleMoveTo();        
+        if ( this.floatObj &&
+            this.floatObj.targetId === this.popId 
+        ) {
+            this.calPos();
+            this.handleMoveTo();        
+        }
    }
 
    setFloatEl = (el) =>
@@ -63,6 +68,7 @@ class PopupHover extends Component
         if (el) {
             this.floatObj = el;
         }
+        this.floatObj.targetId = this.popId;
         this.floatObj.update(this.floatTop, this.floatLeft, this.floatClassName);
    }
 
@@ -129,6 +135,8 @@ class PopupHover extends Component
             </PopupFloatEl>
          ) 
       };
+      this.popId = popId;
+      popId++;
    } 
 
     componentDidMount()
