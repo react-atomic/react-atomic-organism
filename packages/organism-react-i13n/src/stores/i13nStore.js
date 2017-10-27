@@ -77,7 +77,7 @@ class I13nStore extends ReduceStore
 
   processView(state, action)
   {
-        state = this.sendBeacon(state, action); 
+        state = this.sendBeacon(state, action);
         return state.set('lastUrl', document.URL);
   }
 
@@ -89,6 +89,9 @@ class I13nStore extends ReduceStore
         }
         const cb = get(action, ['params', 'callback']);
         if (!cb) {
+            if (!action.params) {
+                action.params = {};
+            }
             action.params.callback = getDefaultActionCallback(state);
         }
         return actionHandler(state, action);
