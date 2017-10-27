@@ -1,11 +1,11 @@
 // organism-react-i13n
 
 //UI
-export I13nElement from '../ui/organisms/I13nElement';
-export I13nClick from '../ui/organisms/I13nClick';
+export { default as I13nElement } from '../ui/organisms/I13nElement';
+export { default as I13nClick } from '../ui/organisms/I13nClick';
 
 // Stores
-export i13nStore from './stores/i13nStore';
+export { default as i13nStore} from './stores/i13nStore';
 
 // Dispatch
-export { i13nDispatch } from './actions/i13nDispatcher';
+export { i13nDispatch } from './i13nDispatcher';

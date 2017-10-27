@@ -1,5 +1,5 @@
 require("setimmediate");
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 import { SemanticUI, Unsafe } from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import {reshow, pageStore} from 'reshow';
@@ -7,12 +7,13 @@ import get from 'get-object-value';
 import {ajaxStore} from 'organism-react-ajax';
 
 import i13nStore from '../../src/stores/i13nStore';
-import {i13nDispatch} from '../../src/actions/i13nDispatcher';
+import {i13nDispatch} from '../../src/i13nDispatcher';
 
 const keys = Object.keys;
 const urlDecode = decodeURIComponent;
+let win;
 
-class MonitorPvid extends Component
+class MonitorPvid extends PureComponent
 {
     static getStores()
     {
@@ -64,7 +65,7 @@ class MonitorPvid extends Component
 
 const MonitorPvidContainer = reshow(MonitorPvid);
 
-class MonitorBrowserBF extends Component
+class MonitorBrowserBF extends PureComponent
 {
     static getStores()
     {
@@ -107,7 +108,7 @@ class MonitorBrowserBF extends Component
 
 const MonitorBrowserBFContainer = reshow(MonitorBrowserBF);
 
-class I13nElement extends Component
+class I13nElement extends PureComponent
 {
     static getStores()
     {
@@ -132,12 +133,12 @@ class I13nElement extends Component
         const self = this;
         const {I13N} = this.state;
         let query = {};
-        if (window.startUpTime) {
+        if (win && win.startUpTime) {
             query.sp = Math.round(
                 (new Date().getTime()) - 
-                window.startUpTime
+                win.startUpTime
             );
-            window.startUpTime = false; //only log in page refresh
+            win.startUpTime = false; //only log in page refresh
         }
         setTimeout(()=>{
             i13nDispatch({
@@ -165,6 +166,8 @@ class I13nElement extends Component
 
     componentDidMount() 
     {
+        win = window;
+        win.i13nDispatch = i13nDispatch;
         const {src} = this.props;
         i13nDispatch({
             type: 'config/set',
@@ -173,7 +176,6 @@ class I13nElement extends Component
                 element: this
             }
         });
-        window.i13nDispatch = i13nDispatch;
         this.setState({
             isLoad: true
         });

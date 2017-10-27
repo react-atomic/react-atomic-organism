@@ -3,11 +3,20 @@
 require('setimmediate');
 
 import {Map} from 'immutable';
-import {ReduceStore} from 'reduce-flux';
+import {ReduceStore} from 'reshow';
 import get from 'get-object-value';
 import {ajaxDispatch} from 'organism-react-ajax';
 
-import dispatcher from '../actions/i13nDispatcher';
+import dispatcher from '../i13nDispatcher';
+
+const getDefaultActionCallback = (state) => 
+    (json, text)=>{
+        const element = state.get('element');
+        const iframe = get(element,['iframe']);
+        if (iframe) {
+            iframe.appendHtml(text);
+        } 
+    };
 
 class I13nStore extends ReduceStore
 {
@@ -28,13 +37,7 @@ class I13nStore extends ReduceStore
             ['callback'],
             () => {
                 // default cb for action
-                return (json, text)=>{
-                    const element = state.get('element');
-                    const iframe = get(element,['iframe']);
-                    if (iframe) {
-                        iframe.appendHtml(text);
-                    } 
-                };
+                return getDefaultActionCallback(state);
             }
         );
         setImmediate(()=>{
@@ -78,14 +81,36 @@ class I13nStore extends ReduceStore
         return state.set('lastUrl', document.URL);
   }
 
-  reduce (state, action)
+  handleAction(state, action)
+  {
+        let actionHandler = state.get('actionHandler');
+        if (!actionHandler) {
+            actionHandler = this.processAction;
+        }
+        const cb = get(action, ['params', 'callback']);
+        if (!cb) {
+            action.params.callback = getDefaultActionCallback(state);
+        }
+        return actionHandler(state, action);
+  }
+
+  handleImpression(state, action)
+  {
+        let impressionHandler = state.get('impressionHandler');
+        if (!impressionHandler) {
+            impressionHandler = this.processView;
+        }
+        return impressionHandler(state, action);
+  }
+
+  reduce(state, action)
   {
       switch (action.type)
       {
           case 'action':
-              return this.processAction(state, action);
+              return this.handleAction(state, action);
           case 'view':
-              return this.processView(state, action);
+              return this.handleImpression(state, action);
           case 'config/set':
               return state.merge(action.params);
           default:

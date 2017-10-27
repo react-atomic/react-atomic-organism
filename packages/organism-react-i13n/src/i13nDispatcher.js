@@ -1,6 +1,6 @@
 'use strict';
 
-import {Dispatcher} from 'reduce-flux';
+import {Dispatcher} from 'reshow';
 
 const instance = new Dispatcher();
 export default instance;
