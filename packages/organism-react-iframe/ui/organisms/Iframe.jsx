@@ -80,10 +80,10 @@ class Iframe extends PureComponent
     renderIframe(props)
     {
         const {children} = props;
-        this.html = this.root.innerHTML;
 
         // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
         setImmediate(()=>{
+            this.html = this.root.innerHTML;
             ReactDOM.render(
                <SemanticUI>{children}</SemanticUI>,
                this.root,
