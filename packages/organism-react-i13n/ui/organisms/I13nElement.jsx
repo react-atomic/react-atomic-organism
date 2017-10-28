@@ -184,22 +184,16 @@ class I13nElement extends PureComponent
     render()
     {
         const {iframe, isLoad} = this.state;
-        if (!isLoad) {
+        if (!isLoad || !iframe) {
             return null;
-        }
-        let thisIframe;
-        if (iframe) {
-            thisIframe = (
-                <Iframe style={Styles.iframe} ref={el=>this.iframe=el}>
-                    <Unsafe>{iframe}</Unsafe>
-                </Iframe>
-            );
         }
         return (
         <SemanticUI>
             <MonitorPvidContainer />
             <MonitorBrowserBFContainer />
-            {thisIframe}
+            <Iframe style={Styles.iframe} ref={el=>this.iframe=el}>
+                <Unsafe>{iframe}</Unsafe>
+            </Iframe>
         </SemanticUI>
         );
     }

@@ -5,6 +5,7 @@ require('setimmediate');
 import {Map} from 'immutable';
 import {ReduceStore} from 'reshow';
 import get from 'get-object-value';
+import {replaceValue} from 'object-nested';
 import {ajaxDispatch} from 'organism-react-ajax';
 
 import dispatcher from '../i13nDispatcher';
@@ -85,14 +86,15 @@ class I13nStore extends ReduceStore
   {
         let actionHandler = state.get('actionHandler');
         if (!actionHandler) {
-            actionHandler = this.processAction;
+            actionHandler = this.processAction.bind(this);
         }
         const cb = get(action, ['params', 'callback']);
         if (!cb) {
-            if (!action.params) {
-                action.params = {};
-            }
-            action.params.callback = getDefaultActionCallback(state);
+            replaceValue(
+                action,
+                ['params', 'callback'],
+                getDefaultActionCallback(state)
+            );
         }
         return actionHandler(state, action);
   }
@@ -101,7 +103,7 @@ class I13nStore extends ReduceStore
   {
         let impressionHandler = state.get('impressionHandler');
         if (!impressionHandler) {
-            impressionHandler = this.processView;
+            impressionHandler = this.processView.bind(this);
         }
         return impressionHandler(state, action);
   }
