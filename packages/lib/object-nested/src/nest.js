@@ -1,16 +1,8 @@
 'use strict';
 
-const keys = Object.keys;
+import replaceValue from './replaceValue';
 
-const replaceObjectValue = (obj, arrKey, val) =>
-{
-    let last = arrKey.pop();
-    arrKey.forEach((k)=>{
-        obj[k] = obj[k] || {};
-        obj = obj[k];
-    });
-    obj[last] = val;
-}
+const keys = Object.keys;
 
 const nest = (a, delimiter) =>
 {
@@ -18,14 +10,13 @@ const nest = (a, delimiter) =>
         delimiter = '.';
     }
     let tree = {};
-    const arrKey = keys(a);
-    arrKey.forEach((k)=>{
+    keys(a).forEach((k)=>{
         if (-1===k.indexOf(delimiter)) {
             tree[k] = a[k];
             return;
         }
         let subKeys = k.split(delimiter);
-        replaceObjectValue(
+        replaceValue(
             tree,
             subKeys,
             a[k]
