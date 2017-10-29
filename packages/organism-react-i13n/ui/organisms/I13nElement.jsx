@@ -146,7 +146,7 @@ class I13nElement extends PureComponent
                 params: {
                     I13N:I13N,
                     query: query,
-                    callback: (json,text) => {
+                    callback: (json, text) => {
                         self.setState({
                             iframe: text
                         });
@@ -184,16 +184,22 @@ class I13nElement extends PureComponent
     render()
     {
         const {iframe, isLoad} = this.state;
-        if (!isLoad || !iframe) {
+        if (!isLoad) {
             return null;
+        }
+        let dIframe;
+        if (iframe) {
+            dIframe = (
+                <Iframe style={Styles.iframe} ref={el=>this.iframe=el}>
+                    <Unsafe>{iframe}</Unsafe>
+                </Iframe>
+            );
         }
         return (
         <SemanticUI>
             <MonitorPvidContainer />
             <MonitorBrowserBFContainer />
-            <Iframe style={Styles.iframe} ref={el=>this.iframe=el}>
-                <Unsafe>{iframe}</Unsafe>
-            </Iframe>
+            {dIframe}
         </SemanticUI>
         );
     }

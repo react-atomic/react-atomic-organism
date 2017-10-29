@@ -102,7 +102,7 @@ class AnimateGroup extends PureComponent
         if (!CSSTransition) {
             return null;
         }
-        const prevChildMapping = this.state.children;
+        const prevChildMapping = get(this, ['state', 'children'], {});
         const nextChildMapping = getChildMapping(nextProps.children);
         const all = {...prevChildMapping, ...nextChildMapping};
         const aniProps = this.getAniProps(nextProps, true);
