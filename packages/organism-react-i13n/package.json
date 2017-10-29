@@ -1,6 +1,6 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "React I13N",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -16,8 +16,8 @@
     "organism-react-iframe": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
-    "object-nested": "*",
-    "reshow": "*"
+    "reshow": "*",
+    "set-object-value": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

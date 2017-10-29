@@ -1,6 +1,6 @@
 'use strict';
 
-import replaceValue from './replaceValue';
+import replaceValue from 'set-object-value';
 
 const keys = Object.keys;
 

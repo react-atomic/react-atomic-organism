@@ -1,6 +1,6 @@
 {
   "name": "object-nested",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Translate flattened object to nested",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -8,9 +8,11 @@
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "set-object-value": "*"
+  },
   "devDependencies": {
-    "babel-cli": "^6.7.5"
+    "babel-cli": "*"
   },
   "scripts": {
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",

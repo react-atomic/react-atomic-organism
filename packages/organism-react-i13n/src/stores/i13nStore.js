@@ -5,7 +5,7 @@ require('setimmediate');
 import {Map} from 'immutable';
 import {ReduceStore} from 'reshow';
 import get from 'get-object-value';
-import {replaceValue} from 'object-nested';
+import replaceValue from 'set-object-value';
 import {ajaxDispatch} from 'organism-react-ajax';
 
 import dispatcher from '../i13nDispatcher';
