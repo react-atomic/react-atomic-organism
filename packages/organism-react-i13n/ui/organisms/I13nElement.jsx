@@ -168,11 +168,10 @@ class I13nElement extends PureComponent
     {
         win = window;
         win.i13nDispatch = i13nDispatch;
-        const {src} = this.props;
         i13nDispatch({
             type: 'config/set',
             params: {
-                src: src,
+                ...this.props,
                 element: this
             }
         });
