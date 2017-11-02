@@ -57,22 +57,21 @@ class AjaxStore extends ReduceStore
   cookAjaxUrl(params, ajaxUrl)
   {
       const urls = ajaxUrl.split('#');
-      const query = params.query;
+      const query = get(params, ['query'], {});
       if (urls[1]) {
         query['--hashState'] = urls[1];
       }
 
       // <!-- Clean key for fixed superagent error
       if (query) {
-          const queryKeys = keys(query);
-          queryKeys.forEach((key)=>{
+          keys(query).forEach((key)=>{
             if ('undefined' === typeof(query[key])) {
                 delete query[key];
             }
           });
+          params.query = query;
       }
       // -->
-
       return urls[0];
   }
 
