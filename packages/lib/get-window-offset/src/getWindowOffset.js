@@ -47,7 +47,9 @@ const getWindowOffset = (dom) =>
         firstKey = distanceFlip[Math.max(distance.top, distance.bottom)];
     }
     locs.push(firstKey+secondKey);
-    return { domInfo, locs, scrollInfo};
+    const tb = firstKey;
+    const lr = secondKey;
+    return { domInfo, locs, scrollInfo, tb, lr };
 }
 
 export default getWindowOffset;

@@ -1,7 +1,7 @@
 {
   "name": "get-window-offset",
-  "version": "0.0.13",
-  "description": "Get dom info in window",
+  "version": "0.0.14",
+  "description": "A simple library to tell you where could get best space by a target to put your container.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [],

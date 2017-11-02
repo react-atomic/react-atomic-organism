@@ -1,7 +1,7 @@
-Object nested
+Set or replace object's nested value
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/nested values
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/set-object-value
    * NPM
       * https://npm.im/set-object-value
 
