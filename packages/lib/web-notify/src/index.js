@@ -3,8 +3,20 @@
 const PERMISSION_GRANTED = 'granted';
 const PERMISSION_DENIED = 'denied';
 
+const getChromeVersion = () => {
+    const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+    return raw ? parseInt(raw[2], 10) : false;
+}
+
 const isSupport = () =>
 {
+    if (-1===document.location.protocol.indexOf('https')) {
+        if (getChromeVersion() >= 62) {
+            // https://developers.google.com/web/updates/2017/09/chrome-62-deprecations#remove_usage_of_notifications_from_insecure_iframes
+            console.error('Chrome 62 not allow notification permission at insecure conection.');
+            return false;
+        }
+    }
     if ("Notification" in window) {
         return true;
     } else {
@@ -18,28 +30,33 @@ const request = (grantedCallback, deniedCallback) =>
     if (!isSupport()) {
         return false;
     }
+    if (typeof deniedCallback !== 'function') {
+        deniedCallback = (permission) =>
+        {
+            console.error('Permission denied. ['+permission+']');
+        }
+    }
     window.Notification.requestPermission((permission) => {
         const isGranted = permission === PERMISSION_GRANTED;
         if (isGranted) {
             if (grantedCallback) {
-                grantedCallback();
+                grantedCallback(permission);
             }
         } else {
-            deniedCallback();
+            deniedCallback(permission);
         }
     });
 }
 
-export {request};
-
 const notify = ( text, params, callback )=>
 {
-    request(()=>{
+    request((permission)=>{
         let notification = new Notification(text, params); 
         if (typeof callback === 'function') {
-            callback(notification);
+            callback(notification, permission);
         }
     });
 }
 
 export default notify;
+export {request};
