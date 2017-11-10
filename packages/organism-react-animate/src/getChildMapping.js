@@ -8,6 +8,9 @@ const getChildMapping = (children, mapFn) =>
         // map for auto assign child.key
         Children.map(children, c => c).
             forEach((child) => {
+                if (!child) {
+                    return;
+                }
                 result[child.key] = mapper(
                     child,
                     child.key
