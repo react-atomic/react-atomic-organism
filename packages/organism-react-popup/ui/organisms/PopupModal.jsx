@@ -1,3 +1,4 @@
+require("setimmediate");
 import React from 'react'; 
 import { connect } from 'reshow-flux';
 import {
@@ -6,7 +7,8 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
-import getWindowOffset from 'get-window-offset';
+import getScrollInfo from 'get-scroll-info'; 
+import getOffset from 'getoffset';
 
 import { PopupOverlay } from '../organisms/PopupOverlay';
 import {
@@ -45,12 +47,13 @@ class PopupModal extends PopupOverlay
     resize = () =>
     {
         if (this.el) {
-            const offset = getWindowOffset(this.el);
-            const scrollInfo = offset.scrollInfo;
-            const domInfo = offset.domInfo;
-            const domHalfHeight = (domInfo.bottom - domInfo.top) / 2;
-            if (domInfo.top - domHalfHeight > scrollInfo.top) {
-                this.el.style.marginTop = (1-domHalfHeight)+'px';
+            const scrollInfo = getScrollInfo();
+            const domInfo = getOffset(this.el);
+            if (domInfo) {
+                const domHalfHeight = (domInfo.bottom - domInfo.top) / 2;
+                if (domInfo.top - domHalfHeight > scrollInfo.top) {
+                    this.el.style.marginTop = (1-domHalfHeight)+'px';
+                }
             }
         }
     }
@@ -119,13 +122,16 @@ class PopupModal extends PopupOverlay
                 >
                     <Dimmer 
                         {...props}
-                        fullScreen="true" 
+                        isModal="true" 
                         style={{
                             ...Styles.fullScreen,
                             ...fullScreenStyle,
                         }}
                         className={mixClass({scrolling: scrolling},props.className)}
-                        refCb={ el=>{this.el=el;this.resize();} }
+                        refCb={ el=>{
+                            this.el=el;
+                            setImmediate(()=>this.resize());
+                        }}
                         show={stateShow}
                     />
                 </Dimmer>
