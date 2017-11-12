@@ -6,6 +6,7 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
+import getWindowOffset from 'get-window-offset';
 
 import { PopupOverlay } from '../organisms/PopupOverlay';
 import {
@@ -36,6 +37,19 @@ class PopupModal extends PopupOverlay
         }
     }
 
+    resize = () =>
+    {
+        if (this.el) {
+            const offset = getWindowOffset(this.el);
+            const scrollInfo = offset.scrollInfo;
+            const domInfo = offset.domInfo;
+            const domHalfHeight = (domInfo.bottom - domInfo.top) / 2;
+            if (domInfo.top - domHalfHeight > scrollInfo.top) {
+                this.el.style.marginTop = (1-domHalfHeight)+'px';
+            }
+        }
+    }
+
     detach()
     {
         if ('undefined' !== typeof document) {
@@ -43,9 +57,15 @@ class PopupModal extends PopupOverlay
         }
     }
 
+    componentDidMount()
+    {
+        window.addEventListener('resize', this.resize);
+    }
+
     componentWillUnmount()
     {
         this.detach();
+        window.removeEventListener('resize', this.resize);
     }
 
     render()
@@ -73,7 +93,7 @@ class PopupModal extends PopupOverlay
                      closeEl,
                      {
                         onClick: this.handleClick,
-                        key: 1,
+                        key: 'close',
                         style: {
                             zIndex:1001,
                             position: 'fixed',
@@ -89,16 +109,17 @@ class PopupModal extends PopupOverlay
                     center={false}
                     style={{ ...Styles.container, ...props.style }}
                     onClick={containerClick}
-                    key={0}
+                    key='modals'
                 >
                     <Dimmer 
                         {...props}
                         fullScreen="true" 
                         style={{
                             ...Styles.fullScreen,
-                            ...fullScreenStyle
+                            ...fullScreenStyle,
                         }}
                         className={mixClass({scrolling: scrolling},props.className)}
+                        refCb={ el=>{this.el=el;this.resize();} }
                     />
                 </Dimmer>
             );
@@ -108,13 +129,9 @@ class PopupModal extends PopupOverlay
         }
 
         return (
-            <Animate {...{
-                appear: appear,
-                enter: enter,
-                leave: leave
-            }}>
-            {content}
-            {closeEl}
+            <Animate {...{ appear, enter, leave }}>
+                {content}
+                {closeEl}
             </Animate>
         );
     }
@@ -137,6 +154,8 @@ const Styles = {
         overflow: 'auto'
     },
     fullScreen: {
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        right: 'auto',
+        bottom: 'auto'
     }
 };
