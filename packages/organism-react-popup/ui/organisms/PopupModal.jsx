@@ -24,6 +24,11 @@ if ('undefined' !== typeof document) {
  */
 class PopupModal extends PopupOverlay
 {
+   static defaultProps = {
+    scrolling: false,
+    name: 'modal'
+   };
+
     handleClick = () =>
     {
         popupDispatch({
@@ -82,7 +87,8 @@ class PopupModal extends PopupOverlay
         } = this.props;
         let containerClick = null;
         let content;
-        if (this.state.show) {
+        const stateShow = this.state.show;
+        if (stateShow) {
             if ('undefined' !== typeof document) {
                 document.body.style.overflow = 'hidden';
             }
@@ -105,7 +111,7 @@ class PopupModal extends PopupOverlay
             content = (
                 <Dimmer
                     className="page modals"
-                    show={true}
+                    show={stateShow}
                     center={false}
                     style={{ ...Styles.container, ...props.style }}
                     onClick={containerClick}
@@ -120,6 +126,7 @@ class PopupModal extends PopupOverlay
                         }}
                         className={mixClass({scrolling: scrolling},props.className)}
                         refCb={ el=>{this.el=el;this.resize();} }
+                        show={stateShow}
                     />
                 </Dimmer>
             );
@@ -136,11 +143,6 @@ class PopupModal extends PopupOverlay
         );
     }
 }
-
-PopupModal.defaultProps = {
-    scrolling: false,
-    name: 'modal'
-};
 
 const PopupModalContainer = connect(
     PopupModal,

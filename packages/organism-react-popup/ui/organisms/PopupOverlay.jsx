@@ -12,8 +12,6 @@ import {
 
 class PopupOverlay extends Component
 {
-    static defaultProps = { show: 1 }
-
     static getStores()
     {
         return [popupStore];
@@ -29,14 +27,6 @@ class PopupOverlay extends Component
         }
    }
 
-    constructor(props) 
-    {
-        super(props);
-        this.state = {
-             show: props.show
-        };
-    }
-
     componentWillReceiveProps(newProps)
     {
         this.setState({show: newProps.show});
@@ -44,16 +34,20 @@ class PopupOverlay extends Component
 
     render()
     {
-        if (!this.state.show) {
+        
+        const {top, left, refCb, show: stateShow} = this.state;
+        if (!stateShow) {
             return null;
         }
-        const {className, show, style, ...others} = this.props;
-        const {top, left} = get(this, ['state']);
+        const {targetEl, className, show, style, ...others} = this.props;
         const thisStyle = {
             ...style,
             top,
             left
         };
+        if (refCb) {
+            others.refCb = refCb;
+        }
         return (
             <SemanticUI
                 {...others} 
