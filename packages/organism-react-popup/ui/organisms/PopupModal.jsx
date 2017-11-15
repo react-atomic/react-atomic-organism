@@ -2,6 +2,7 @@ require("setimmediate");
 import React from 'react'; 
 import { connect } from 'reshow-flux';
 import {
+    reactStyle,
     mixClass,
     Dimmer,
     SemanticUI
@@ -83,10 +84,12 @@ class PopupModal extends PopupOverlay
             appear,
             enter,
             leave,
+            style,
             fullScreenStyle,
             closeEl,
             closeCallBack,
-            ...props
+            className,
+            ...others
         } = this.props;
         let containerClick = null;
         let content;
@@ -116,18 +119,18 @@ class PopupModal extends PopupOverlay
                     className="page modals"
                     show={stateShow}
                     center={false}
-                    style={{ ...Styles.container, ...props.style }}
+                    styles={reactStyle({ ...Styles.container, ...style },null, false)}
                     onClick={containerClick}
                     key='modals'
                 >
                     <Dimmer 
-                        {...props}
+                        {...others}
                         isModal="true" 
-                        style={{
+                        styles={reactStyle({
                             ...Styles.fullScreen,
                             ...fullScreenStyle,
-                        }}
-                        className={mixClass({scrolling: scrolling},props.className)}
+                        }, null, false)}
+                        className={mixClass( {scrolling: scrolling}, className )}
                         refCb={ el=>{
                             this.el=el;
                             setImmediate(()=>this.resize());
