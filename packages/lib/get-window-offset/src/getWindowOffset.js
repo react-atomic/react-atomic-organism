@@ -1,27 +1,15 @@
 import getScrollInfo from 'get-scroll-info'; 
 import getOffset from 'getoffset'; 
 import isOnScreen from './isOnScreen';
+import isFixed from './isFixed';
 
-const getWindowOffset = (dom) =>
+const calWindowOffset = (domInfo, scrollInfo) =>
 {
-    if (!dom) {
-        console.error('getWindowOffset not assign dom');
-        console.trace();
-        return false;
-    }
-    let domInfo = getOffset(dom);
-    let scrollInfo = getScrollInfo();
-    domInfo = isOnScreen(domInfo, scrollInfo);
-    let distance = {};
-    if (domInfo.isOnScreen) {
-        distance.top = Math.abs(domInfo.top - scrollInfo.top);
-        distance.right = Math.abs(domInfo.right - scrollInfo.right);
-        distance.bottom = Math.abs(domInfo.bottom - scrollInfo.bottom);
-        distance.left = Math.abs(domInfo.left - scrollInfo.left);
-    } else {
-        //console.error('Dom is not in screen', { domInfo, scrollInfo });
-        return false;
-    }
+    const distance = {};
+    distance.top = Math.abs(domInfo.top - scrollInfo.top);
+    distance.right = Math.abs(domInfo.right - scrollInfo.right);
+    distance.bottom = Math.abs(domInfo.bottom - scrollInfo.bottom);
+    distance.left = Math.abs(domInfo.left - scrollInfo.left);
     let distanceFlip = {
         [distance.top]: 't',
         [distance.right]: 'r',
@@ -49,7 +37,35 @@ const getWindowOffset = (dom) =>
     locs.push(firstKey+secondKey);
     const tb = firstKey;
     const lr = secondKey;
-    return { domInfo, locs, scrollInfo, tb, lr };
+    return {
+        locs,
+        tb,
+        lr
+    };
+}
+
+const getWindowOffset = (dom) =>
+{
+    if (!dom) {
+        console.error('getWindowOffset not assign dom');
+        console.trace();
+        return false;
+    }
+    const scrollInfo = getScrollInfo();
+    const domInfo = isOnScreen(getOffset(dom), scrollInfo);
+    domInfo.isFixed = isFixed(dom);
+    if (!domInfo.isFixed && !domInfo.isOnScreen) {
+        console.warn('Dom is not in screen', { domInfo, scrollInfo });
+        return false;
+    }
+    const cookScrollInfo = {...scrollInfo};
+    if (domInfo.isFixed) {
+        cookScrollInfo.top = 0;
+        cookScrollInfo.right = scrollInfo.scrollNodeWidth;
+        cookScrollInfo.bottom = scrollInfo.scrollNodeHeight;
+        cookScrollInfo.left = 0;
+    }
+    return { domInfo, scrollInfo, ...calWindowOffset(domInfo, cookScrollInfo) };
 }
 
 export default getWindowOffset;

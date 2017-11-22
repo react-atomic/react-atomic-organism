@@ -1,6 +1,6 @@
 {
   "name": "get-window-offset",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "A simple library to tell you where could get best space by a target to put your container.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -10,13 +10,11 @@
   "dependencies": {
     "get-object-value": "*",
     "get-scroll-info": "*",
+    "get-style": "*",
     "getoffset": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.x",
-    "babel-core": "^6.x",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-preset-stage-0": "^6.5.0"
+    "babel-cli": "^6.x"
   },
   "scripts": {
     "build": "rm -rf build && BABEL_ENV=build babel src -d build/src",
