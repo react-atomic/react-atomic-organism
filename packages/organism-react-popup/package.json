@@ -13,6 +13,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "get-object-value": "*",
     "get-window-offset": "*",
     "getoffset": "*",
     "immutable": "^3.8.0",
@@ -20,19 +21,13 @@
     "react-atomic-molecule": "*",
     "reshow-flux": "*",
     "ricon": "*",
+    "set-object-value": "*",
     "setimmediate": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
-    "babel-core": "^6.7.5",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-plugin-transform-react-inline-elements": "^6.8.0",
-    "babel-preset-env": "*",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
+    "preact": "*",
+    "preact-compat": "*",
     "prop-types": "*",
     "react": "^16.x",
     "react-dom": "^16.x"

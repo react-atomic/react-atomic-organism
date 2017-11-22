@@ -89,7 +89,7 @@ aws4@^1.2.1:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.6.0.tgz#83ef5ca860b2b32e4a0deedee8c771b9db57471e"
 
-babel-cli@^6.7.5:
+babel-cli@*:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-cli/-/babel-cli-6.26.0.tgz#502ab54874d7db88ad00b887a06383ce03d002f1"
   dependencies:
@@ -363,6 +363,10 @@ cryptiles@2.x.x:
   resolved "https://registry.yarnpkg.com/cryptiles/-/cryptiles-2.0.5.tgz#3bdfecdc608147c1c67202fa291e7dca59eaa3b8"
   dependencies:
     boom "2.x.x"
+
+css-query-selector@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/css-query-selector/-/css-query-selector-0.0.0.tgz#27eff80e798a3f066bbbdde08c2679d958b5baef"
 
 dashdash@^1.12.0:
   version "1.14.1"
@@ -990,6 +994,19 @@ organism-react-animate@*:
     react-atomic-molecule "*"
     react-transition-group "^2.x"
 
+organism-react-popup@*:
+  version "0.1.18"
+  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.1.18.tgz#88e967229ff108c3aa0cf3672810335402221b7f"
+  dependencies:
+    get-window-offset "*"
+    getoffset "*"
+    immutable "^3.8.0"
+    organism-react-animate "*"
+    react-atomic-molecule "*"
+    reshow-flux "*"
+    ricon "*"
+    setimmediate "*"
+
 os-homedir@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-homedir/-/os-homedir-1.0.2.tgz#ffbc4988336e0e833de0c168c7ef152121aa7fb3"
@@ -1076,7 +1093,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@*, prop-types@^15.5.8, prop-types@^15.6.0:
+prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -1266,10 +1283,6 @@ set-immediate-shim@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
 
-set-object-value@*:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/set-object-value/-/set-object-value-0.0.2.tgz#4cf8d301207eb664038843a3de5ff518e964318d"
-
 setimmediate@*, setimmediate@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
@@ -1372,6 +1385,10 @@ tar@^2.2.1:
 to-fast-properties@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/to-fast-properties/-/to-fast-properties-1.0.3.tgz#b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
+
+topercent@*:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/topercent/-/topercent-0.0.1.tgz#726a69bb313a66346b6dae8ac13974e87c84898f"
 
 tough-cookie@~2.3.0:
   version "2.3.3"

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'; 
+import React, {cloneElement} from 'react'; 
 import { connect } from 'reshow-flux';
 import get from 'get-object-value';
 import {
@@ -6,11 +6,12 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 
+import BasePopup from '../molecules/BasePopup';
 import {
     popupStore
 } from '../../src/index';
 
-class PopupOverlay extends Component
+class PopupOverlay extends BasePopup
 {
     static getStores()
     {
@@ -21,10 +22,10 @@ class PopupOverlay extends Component
    {
         const state = popupStore.getState();
         const key = get(props, ['name'], 'default'); 
-        let show = state.get('node').get(key);
+        const show = state.get('shows').get(key);
         return {
-            show: show 
-        }
+            show 
+        };
    }
 
     componentWillReceiveProps(newProps)
@@ -32,33 +33,38 @@ class PopupOverlay extends Component
         this.setState({show: newProps.show});
     }
 
+    renderOverlay(props)
+    {
+        return <SemanticUI {...props} />;
+    }
+
     render()
     {
-        
-        const {top, left, refCb, show: stateShow} = this.state;
+        const {show: stateShow} = this.state;
         if (!stateShow) {
             return null;
         }
-        const {targetEl, className, show, style, ...others} = this.props;
-        const thisStyle = {
-            ...style,
-            top,
-            left
-        };
+        const {targetEl, className, show, style, group, ...others} = this.props;
+        const top = get(this.state, ['top'], ()=>get(this.props, ['top']));
+        const left = get(this.state, ['left'], ()=>get(this.props, ['left']));
+        const thisStyle = {...style};
+        if (top) {
+            thisStyle.top = top+ 'px';
+        }
+        if (left) {
+            thisStyle.left = left+ 'px';
+        }
+        const refCb = get(this.state, ['refCb'], ()=>get(this.props, ['refCb']));
         if (refCb) {
             others.refCb = refCb;
         }
-        return (
-            <SemanticUI
-                {...others} 
-                className={mixClass(
-                    className,
-                    get(this, ['state', 'className']),
-                    'popup visible')
-                }
-                style={thisStyle}
-            />
+        others.className = mixClass(
+            className,
+            get(this, ['state', 'className']),
+            'popup visible'
         );
+        others.style = thisStyle;
+        return this.renderOverlay(others);
     }
 }
 

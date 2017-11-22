@@ -44,6 +44,7 @@ class PopupFloatEl extends PopupOverlay
    calPos = () =>
    {
         const {targetEl} = this.props;
+        console.log([this.floatEl,targetEl,getWindowOffset(targetEl)]);
         if (!this.floatEl || !targetEl || !getWindowOffset(targetEl)) {
             return false;
         }

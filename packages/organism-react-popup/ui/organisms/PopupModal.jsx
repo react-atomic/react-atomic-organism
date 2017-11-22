@@ -79,20 +79,27 @@ class PopupModal extends PopupOverlay
 
     render()
     {
-        let {
+        const {
             scrolling,
             appear,
             enter,
             leave,
             style,
-            fullScreenStyle,
+            styles,
+            modalStyle,
+            modal,
             closeEl,
             closeCallBack,
             className,
             ...others
         } = this.props;
         let containerClick = null;
-        let content;
+        let thisCloseEl;
+        let thisStyles = [];
+        if (styles) {
+            thisStyles.push(styles);
+        }
+        let content = '';
         const stateShow = this.state.show;
         if (stateShow) {
             if ('undefined' !== typeof document) {
@@ -101,7 +108,7 @@ class PopupModal extends PopupOverlay
             if (!closeEl) {
                 containerClick = this.handleClick;
             } else {
-                closeEl = React.cloneElement(
+                thisCloseEl = React.cloneElement(
                      closeEl,
                      {
                         onClick: this.handleClick,
@@ -114,21 +121,16 @@ class PopupModal extends PopupOverlay
                      }
                 );
             }
-            content = (
-                <Dimmer
-                    className="page modals"
-                    show={stateShow}
-                    center={false}
-                    styles={reactStyle({ ...Styles.container, ...style },null, false)}
-                    onClick={containerClick}
-                    key='modals'
-                >
+            thisStyles.push(reactStyle({ ...Styles.container, ...style },null, false)); 
+            let thisModal = modal;
+            if (!thisModal) {
+                thisModal = (
                     <Dimmer 
                         {...others}
                         isModal="true" 
                         styles={reactStyle({
-                            ...Styles.fullScreen,
-                            ...fullScreenStyle,
+                            ...Styles.modal,
+                            ...modalStyle,
                         }, null, false)}
                         className={mixClass( {scrolling: scrolling}, className )}
                         refCb={ el=>{
@@ -137,18 +139,32 @@ class PopupModal extends PopupOverlay
                         }}
                         show={stateShow}
                     />
+                );
+            }
+            content = (
+                <Dimmer
+                    className="page modals"
+                    show={stateShow}
+                    center={false}
+                    styles={thisStyles}
+                    styleOrder={1}
+                    onClick={containerClick}
+                    key='modals'
+                >
+                {thisModal}
                 </Dimmer>
             );
         } else {
             this.detach();
-            closeEl = null;
         }
 
         return (
-            <Animate {...{ appear, enter, leave }}>
-                {content}
-                {closeEl}
-            </Animate>
+            <SemanticUI>
+                <Animate {...{ appear, enter, leave }}>
+                    {content}
+                </Animate>
+                {thisCloseEl}
+            </SemanticUI>
         );
     }
 }
@@ -161,10 +177,10 @@ const PopupModalContainer = connect(
 export default PopupModalContainer;
 
 const Styles = {
-    container: {
+    background: {
         overflow: 'auto'
     },
-    fullScreen: {
+    modal: {
         boxSizing: 'border-box',
         right: 'auto',
         bottom: 'auto'
