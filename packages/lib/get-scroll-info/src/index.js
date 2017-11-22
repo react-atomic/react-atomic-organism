@@ -58,6 +58,8 @@ const getScrollInfo = (el, margin) => {
 
         scrollWidth : scrollWidth,
         scrollHeight: scrollHeight,
+        scrollNodeWidth: w,
+        scrollNodeHeight: h,
 
         top   : scrollTop,
         right : scrollRight,
