@@ -65,12 +65,16 @@ const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
         toLoc = locItem;
         loc = getAlignWithLoc(toLoc);
         move = alignWith(targetInfo, floatInfo, loc);
-        let movePos = getAfterMove(floatInfo, move);
-        let bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
-        if (bFullOnScreen) {
+        if (!winInfo) {
             return true;
         } else {
-            return false;
+            let movePos = getAfterMove(floatInfo, move);
+            let bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
+            if (bFullOnScreen) {
+                return true;
+            } else {
+                return false;
+            }
         }
     });
     const result = {
