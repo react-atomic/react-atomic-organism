@@ -61,7 +61,7 @@ class PopupOverlay extends BasePopup
         others.className = mixClass(
             className,
             get(this, ['state', 'className']),
-            'popup visible'
+            'visible'
         );
         others.style = thisStyle;
         return this.renderOverlay(others);
