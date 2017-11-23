@@ -8,14 +8,23 @@ class Tooltip extends PureComponent
 {
     render()
     {
-        const {targetEl, modalStyle, children, name, ...props}  = this.props;
+        const {targetEl, isSetFixed, modalStyle, children, name, ...props}  = this.props;
+        let floatClassName;
+        if (isSetFixed) {
+            floatClassName='react-onboarding-fixed';
+        }
         return (
             <div>
                 <PopupModal {...props}
                     name={name}
                     modal={<div />}
                 />
-                <PopupFloatEl name={name} style={{...modalStyle, zIndex:99999}} targetEl={targetEl}>
+                <PopupFloatEl
+                    name={name}
+                    style={{...modalStyle, zIndex:99999}}
+                    targetEl={targetEl}
+                    className={floatClassName}
+                >
                     {children}
                 </PopupFloatEl>
             </div>

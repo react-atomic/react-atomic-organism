@@ -13,6 +13,7 @@ import {
 } from 'organism-react-popup';
 import query from 'css-query-selector';
 import getOffset from 'getoffset';
+import {isFixed} from 'get-window-offset';
 import {removeClass} from 'class-lib';
 import {percent} from 'topercent';
 
@@ -133,6 +134,15 @@ class Step extends PureComponent
                 '.'+classShowEl,
                 classShowEl
             ],
+            progress: [
+                {
+                    position: 'absolute !important',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 2
+                }
+            ]
         };
 	injects = lazyInject (
 	    injects,
@@ -142,7 +152,7 @@ class Step extends PureComponent
 
     setLightBox()
     {
-        const { light } = this.props;
+        const { light, hideLightBox } = this.props;
         if (light) {
             const lightEl = query.one(light);
             const isSetFixed = isFixed(lightEl);
@@ -152,21 +162,29 @@ class Step extends PureComponent
                     lightElStyles = injects.fixed;
                 }
                 addCleanZIndex(lightEl);
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: <LightBox
-                            style={getFloatStyles(lightEl, lightBoxPadding)} 
-                            styles={lightElStyles}
-                        /> 
-                    }
-                });
+                if (!hideLightBox) {
+                    popupDispatch({
+                        type: 'dom/update',
+                        params: {
+                            popup: <LightBox
+                                style={getFloatStyles(lightEl, lightBoxPadding)} 
+                                styles={lightElStyles}
+                            /> 
+                        }
+                    });
+                }
                 this.setHighlights(isSetFixed);
                 this.setNumbers(isSetFixed);
                 setTimeout( () =>{
                     window.scrollTo(0,0);
                 });
-                return lightEl;
+                this._float = cloneElement(
+                    this._float,
+                    {
+                        targetEl: lightEl,
+                        isSetFixed
+                    }
+                );
             }
         }
     }
@@ -241,16 +259,8 @@ class Step extends PureComponent
             if (before) {
                 before.call(this);
             }
-            const targetEl = this.setLightBox();
-            if (targetEl) {
-                this._float = cloneElement(
-                    this._float,
-                    {
-                        targetEl
-                    }
-                );
-            }
-            setImmediate(()=>{
+            this.setLightBox();
+            setImmediate(()=>{ //locate after this.setLightBox()
                 popupDispatch({
                     type: 'dom/update',
                     params: {
@@ -258,7 +268,7 @@ class Step extends PureComponent
                     }
                 });
             });
-        }, 1000); 
+        }, 3000); 
     }
 
     handleFinish()
@@ -295,7 +305,7 @@ class Step extends PureComponent
                 name = GROUP_KEY+'-tooltip';
                 break;
         }
-        const child = [<Progress percent={percent(stepDisplayIndex / total)} className="attached green"/>];
+        const child = [<Progress styles={injects.progress} percent={percent(stepDisplayIndex / total)} className="attached green"/>];
         if (header) {
             child.push(<Header>{header}</Header>);
         }
