@@ -1,9 +1,15 @@
-import PopupOverlay from '../organisms/PopupOverlay';
+import React from 'react'; 
 import { connect } from 'reshow-flux';
+import {
+    mixClass,
+    SemanticUI
+} from 'react-atomic-molecule';
 import getWindowOffset, {
     alignUI,
     getPositionString
 } from 'get-window-offset';
+
+import PopupOverlay from '../organisms/PopupOverlay';
 
 class PopupFloatEl extends PopupOverlay
 {
@@ -12,7 +18,8 @@ class PopupFloatEl extends PopupOverlay
            position: 'absolute',
            right: 'auto'
        },
-       name: 'float'
+       name: 'float',
+       className: 'popup'
    };
 
    /** 
@@ -69,6 +76,14 @@ class PopupFloatEl extends PopupOverlay
        this.handleMoveTo();        
     }
 
+    /**
+     * For extend class
+     */
+    getFloatEl()
+    {
+        return this.floatEl;
+    }
+
     constructor(props)
     {
         super(props);
@@ -99,6 +114,16 @@ class PopupFloatEl extends PopupOverlay
     componentWillUnmount()
     {
         window.removeEventListener('resize', this.handleResize);
+    }
+
+    renderOverlay(props)
+    {
+        const {className, ...others} = props;
+        const classes = mixClass(
+            'popup',
+            className
+        );
+        return <SemanticUI {...others} className={classes}/>;
     }
 }
 
