@@ -1,0 +1,27 @@
+{
+  "name": "get-style",
+  "version": "0.0.0",
+  "description": "Get dom really style. (getComputedStyle cross browsers)",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/src/index.js",
+  "keywords": [],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.x",
+    "chai": "*",
+    "mocha": "*"
+  },
+  "scripts": {
+    "build": "rm -rf build && BABEL_ENV=build babel src -d build/src",
+    "prepublish": "npm run build",
+    "buildTest": "BABEL_ENV=build babel tests -d build/tests",
+    "test": "npm run build && npm run buildTest && mocha 'build/tests/**/*.js'"
+  },
+  "files": [
+    "build/src",
+    "package.json",
+    "README.md"
+  ]
+}
