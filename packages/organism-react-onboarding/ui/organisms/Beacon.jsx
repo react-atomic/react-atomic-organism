@@ -1,0 +1,60 @@
+import React from 'react';
+import {SemanticUI} from 'react-atomic-molecule';
+import {
+   PopupFloatEl 
+} from 'organism-react-popup';
+import {
+    alignUI,
+    getPositionString
+} from 'get-window-offset';
+
+import Icon from 'ricon/Pulse';
+
+
+
+class Beacon extends PopupFloatEl
+{
+    static defaultProps = {
+        className: 'beacon',
+        name: 'beacon',
+    };
+
+    calPos = () =>
+    {
+        const {targetEl} = this.props;
+        const floatEl = this.getFloatEl();
+        const info = alignUI(targetEl, this.floatEl, 'cc', true);
+        const {move} = info;
+        const result = {
+            top: move[1],
+            left: move[0],
+        };
+        return result;
+    }
+
+    renderOverlay(props)
+    {
+        const {style, ...others} = props;
+        let thisStyle = {
+            ...style,
+            ...Styles.container
+        };
+
+        return (
+            <SemanticUI {...others} style={thisStyle}>
+                <Icon animation="breath" />
+            </SemanticUI>
+        );
+    }
+}
+
+export default Beacon;
+
+const Styles = {
+    container: {
+        pointerEvents: 'none',
+        position: 'absolute',
+        display: 'block',
+        zIndex: 99999
+    }
+};

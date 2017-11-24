@@ -17,7 +17,8 @@
     "css-query-selector": "^0.0.0",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
-    "topercent": "*"
+    "topercent": "*",
+    "ricon": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

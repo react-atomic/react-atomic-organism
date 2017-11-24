@@ -17,6 +17,7 @@ import {isFixed} from 'get-window-offset';
 import {removeClass} from 'class-lib';
 import {percent} from 'topercent';
 
+import Beacon from '../organisms/Beacon';
 import Tooltip from '../organisms/Tooltip';
 import LightBox from '../organisms/LightBox';
 import Highlight from '../organisms/Highlight';
@@ -175,6 +176,7 @@ class Step extends PureComponent
                 }
                 this.setHighlights(isSetFixed);
                 this.setNumbers(isSetFixed);
+                this.setBeacons(isSetFixed);
                 setTimeout( () =>{
                     window.scrollTo(0,0);
                 });
@@ -187,6 +189,34 @@ class Step extends PureComponent
                 );
             }
         }
+    }
+
+    setBeacons(isSetFixed)
+    {
+        const { beacons } = this.props;
+        if (!beacons) {
+            return;
+        }
+        let styles;
+        if (isSetFixed) {
+            styles = injects.fixed;
+        }
+        beacons.forEach( (beacon, key) => {
+            const target = query.one(beacon);
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: (
+                        <Beacon
+                            name={'react-onboarding-beacon'+key}
+                            key={key}
+                            targetEl={target}
+                            styles={styles}
+                        />
+                    )
+                }
+            });
+        });
     }
 
     setNumbers(isSetFixed)
@@ -268,7 +298,7 @@ class Step extends PureComponent
                     }
                 });
             });
-        }, 3000); 
+        }, 1500); 
     }
 
     handleFinish()

@@ -73,7 +73,7 @@ class PopupFloatEl extends PopupOverlay
        if (el) {
            this.floatEl = el;
        }
-       this.handleMoveTo();        
+       setTimeout(()=>this.handleMoveTo());        
     }
 
     /**
