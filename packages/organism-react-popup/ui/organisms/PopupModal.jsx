@@ -27,10 +27,13 @@ if ('undefined' !== typeof document) {
  */
 class PopupModal extends PopupOverlay
 {
-   static defaultProps = {
-    scrolling: false,
-    name: 'modal'
-   };
+    static defaultProps = {
+        mask: true, 
+        maskScroll: false,
+        scrolling: false,
+        name: 'modal',
+        disableClose: false,
+    };
 
     handleClick = () =>
     {
@@ -59,6 +62,17 @@ class PopupModal extends PopupOverlay
         }
     }
 
+    lockScreen()
+    {
+        if (this.props.maskScroll) {
+            this.detach();
+        } else {
+            if ('undefined' !== typeof document) {
+                document.body.style.overflow = 'hidden';
+            }
+        }
+    }
+
     detach()
     {
         if ('undefined' !== typeof document) {
@@ -80,6 +94,7 @@ class PopupModal extends PopupOverlay
     render()
     {
         const {
+            disableClose,
             scrolling,
             appear,
             enter,
@@ -88,6 +103,7 @@ class PopupModal extends PopupOverlay
             styles,
             modalStyle,
             modal,
+            mask,
             closeEl,
             closeCallBack,
             className,
@@ -102,11 +118,11 @@ class PopupModal extends PopupOverlay
         let content = '';
         const stateShow = this.state.show;
         if (stateShow) {
-            if ('undefined' !== typeof document) {
-                document.body.style.overflow = 'hidden';
-            }
+            this.lockScreen();
             if (!closeEl) {
-                containerClick = this.handleClick;
+                if (!disableClose) {
+                    containerClick = this.handleClick;
+                }
             } else {
                 thisCloseEl = React.cloneElement(
                      closeEl,
@@ -123,7 +139,7 @@ class PopupModal extends PopupOverlay
             }
             thisStyles.push(reactStyle({ ...Styles.container, ...style },null, false)); 
             let thisModal = modal;
-            if (!thisModal) {
+            if ('undefined' === typeof thisModal) {
                 thisModal = (
                     <Dimmer 
                         {...others}
@@ -141,19 +157,23 @@ class PopupModal extends PopupOverlay
                     />
                 );
             }
-            content = (
-                <Dimmer
-                    className="page modals"
-                    show={stateShow}
-                    center={false}
-                    styles={thisStyles}
-                    styleOrder={1}
-                    onClick={containerClick}
-                    key='modals'
-                >
-                {thisModal}
-                </Dimmer>
-            );
+            if (mask) {
+                content = (
+                    <Dimmer
+                        className="page modals"
+                        show={stateShow}
+                        center={false}
+                        styles={thisStyles}
+                        styleOrder={1}
+                        onClick={containerClick}
+                        key='modals'
+                    >
+                        {thisModal}
+                    </Dimmer>
+                );
+            } else {
+                content = thisModal;
+            }
         } else {
             this.detach();
         }

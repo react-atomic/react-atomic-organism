@@ -32,6 +32,9 @@ class PopupFloatEl extends PopupOverlay
 
    handleMoveTo = () =>
    {
+        if (this.state && !this.state.show) {
+            return;
+        }
         const pos = this.calPos();
         if (!pos) {
             return;
@@ -73,7 +76,7 @@ class PopupFloatEl extends PopupOverlay
        if (el) {
            this.floatEl = el;
        }
-       setTimeout(()=>this.handleMoveTo());        
+       setTimeout(()=>this.handleMoveTo());
     }
 
     /**
@@ -113,6 +116,7 @@ class PopupFloatEl extends PopupOverlay
 
     componentWillUnmount()
     {
+        this.isNeedUpdate = false;
         window.removeEventListener('resize', this.handleResize);
     }
 
