@@ -30,12 +30,15 @@ const getOffset = (dom) => {
         left += el.offsetLeft || 0;
         el = el.offsetParent;
     } while (el);
-
+    const w = dom.offsetWidth;
+    const h = dom.offsetHeight;
     return {
-        top: top,
-        left: left,
-        right: left+ dom.offsetWidth,
-        bottom: top+ dom.offsetHeight,
+        w,
+        h,
+        top,
+        right: left+ w,
+        bottom: top+ h,
+        left,
     };
 }
 
