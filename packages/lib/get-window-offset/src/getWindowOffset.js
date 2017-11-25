@@ -55,7 +55,7 @@ const getWindowOffset = (dom) =>
     const domInfo = isOnScreen(getOffset(dom), scrollInfo);
     domInfo.isFixed = isFixed(dom);
     if (!domInfo.isFixed && !domInfo.isOnScreen) {
-        console.warn('Dom is not in screen', { domInfo, scrollInfo });
+        console.warn('Dom is not in screen', { dom, domInfo, scrollInfo });
         return false;
     }
     const cookScrollInfo = {...scrollInfo};
