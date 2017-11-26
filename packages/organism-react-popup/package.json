@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.1.31",
+  "version": "0.1.32",
   "description": "React Atomic Organism Popup",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -15,6 +15,7 @@
   "dependencies": {
     "get-object-value": "*",
     "get-window-offset": "*",
+    "get-style": "*",
     "getoffset": "*",
     "immutable": "^3.8.0",
     "organism-react-animate": "*",
