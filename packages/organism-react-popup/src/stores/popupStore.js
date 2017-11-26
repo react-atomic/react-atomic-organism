@@ -10,6 +10,7 @@ let groups = {};
 const SHOW_KEY='shows';
 const NODE_KEY='nodes';
 const keys = Object.keys;
+const isArray = Array.isArray;
 
 class PopupStore extends ReduceStore
 {
@@ -23,11 +24,14 @@ class PopupStore extends ReduceStore
   {
       const popupNode = get(action, ['params','popup']);
       const key = get(popupNode, ['props', 'name'], 'default'); 
-      const nodeGroup = get(popupNode, ['props', 'group']); 
       const shows = state.get(SHOW_KEY).set(key, true);
       const nodes = state.get(NODE_KEY).set(key, popupNode);
-      if (nodeGroup) {
-        set(groups, [nodeGroup, key], true);
+      let nodeGroups = get(popupNode, ['props', 'group']); 
+      if (nodeGroups) {
+        if (!isArray(nodeGroups)) {
+            nodeGroups = [nodeGroups];
+        }
+        nodeGroups.forEach(nodegroup => set(groups, [nodegroup, key], true));
       }
       return state.set(SHOW_KEY, shows).
         set(NODE_KEY, nodes).
