@@ -25,11 +25,17 @@ const getOffset = (dom) => {
     let top = 0;
     let left = 0;
     let el = dom;
-    do {
-        top += el.offsetTop  || 0;
-        left += el.offsetLeft || 0;
-        el = el.offsetParent;
-    } while (el);
+    if (el.getBoundingClientRect) {
+        let {top, left} = el.getBoundingClientRect();
+    } else {
+        do {
+            const offsetTop = el.offsetTop || 0;
+            const offsetLeft = el.offsetLeft || 0;
+            top += offsetTop - el.scrollTop;
+            left += offsetLeft - el.scrollLeft;
+            el = el.offsetParent;
+        } while (el);
+    }
     const w = dom.offsetWidth;
     const h = dom.offsetHeight;
     return {
