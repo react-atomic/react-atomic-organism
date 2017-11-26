@@ -5,6 +5,7 @@ import {
     mixClass,
     SemanticUI
 } from 'react-atomic-molecule';
+import getStyle from 'get-style';
 
 import BasePopup from '../molecules/BasePopup';
 import {
@@ -38,22 +39,34 @@ class PopupOverlay extends BasePopup
         return <SemanticUI {...props} />;
     }
 
+    resetStyle(key, thisStyle)
+    {
+        const value = get(this.state, [key], ()=>get(this.props, [key]));
+        if ('undefined' !== typeof value) {
+            thisStyle[key] = value+ 'px';
+        }
+    }
+
     render()
     {
         const {show: stateShow} = this.state;
         if (!stateShow) {
             return null;
         }
-        const {targetEl, className, show, style, group, ...others} = this.props;
-        const top = get(this.state, ['top'], ()=>get(this.props, ['top']));
-        const left = get(this.state, ['left'], ()=>get(this.props, ['left']));
+        const {targetEl, isFollowTransform, className, show, style, group, ...others} = this.props;
+
+        /* <!-- Handle Style */
         const thisStyle = {...style};
-        if (top) {
-            thisStyle.top = top+ 'px';
+        this.resetStyle('top', thisStyle);
+        this.resetStyle('left', thisStyle);
+        this.resetStyle('width', thisStyle);
+        this.resetStyle('height', thisStyle);
+        if (targetEl && isFollowTransform) {
+            thisStyle.transform = getStyle(targetEl, 'transform');
         }
-        if (left) {
-            thisStyle.left = left+ 'px';
-        }
+        others.style = thisStyle;
+        /*  Handle Style --> */
+
         const refCb = get(this.state, ['refCb'], ()=>get(this.props, ['refCb']));
         if (refCb) {
             others.refCb = refCb;
@@ -63,7 +76,6 @@ class PopupOverlay extends BasePopup
             get(this, ['state', 'className']),
             'visible'
         );
-        others.style = thisStyle;
         return this.renderOverlay(others);
     }
 }
