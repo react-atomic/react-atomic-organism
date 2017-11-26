@@ -25,20 +25,16 @@ const getOffset = (dom) => {
     let top = 0;
     let left = 0;
     let el = dom;
-    if (el.getBoundingClientRect) {
-        let {top, left} = el.getBoundingClientRect();
-    } else {
-        do {
-            const offsetTop = el.offsetTop || 0;
-            const offsetLeft = el.offsetLeft || 0;
-            top += offsetTop - el.scrollTop;
-            left += offsetLeft - el.scrollLeft;
-            el = el.offsetParent;
-        } while (el);
-    }
+    do {
+        const offsetTop = el.offsetTop || 0;
+        const offsetLeft = el.offsetLeft || 0;
+        top += offsetTop - el.scrollTop;
+        left += offsetLeft - el.scrollLeft;
+        el = el.offsetParent;
+    } while (el);
     const w = dom.offsetWidth;
     const h = dom.offsetHeight;
-    return {
+    const result =  {
         w,
         h,
         top,
@@ -46,6 +42,7 @@ const getOffset = (dom) => {
         bottom: top+ h,
         left,
     };
+    return result;
 }
 
 export {mouse};
