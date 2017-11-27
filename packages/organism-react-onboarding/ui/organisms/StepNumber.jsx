@@ -1,10 +1,10 @@
 import React from 'react';
-    
+import getOffset from 'getoffset';
 import {mixClass, reactStyle, Circular} from 'react-atomic-molecule';
-import {PopupOverlay} from 'organism-react-popup';
+import {PopupFloatEl} from 'organism-react-popup';
 
 const GROUP_KEY = 'react-onboarding';
-class StepNumber extends PopupOverlay
+class StepNumber extends PopupFloatEl
 {
     static defaultProps = {
         name: GROUP_KEY+'-step-number',
@@ -12,30 +12,38 @@ class StepNumber extends PopupOverlay
         size: 25
     };
 
-    renderOverlay(props)
+    calPos = () =>
     {
-        const {locTop, locLeft, styles, style, size, ...others} = props;
-        const halfSize = size / 2;
-        let top = locTop - halfSize;
-        let left = locLeft - halfSize;
+        const {size, targetEl} = this.props; 
+        const pos = getOffset(targetEl);
+        const locSize = (size / 2) * 1.75;
+        let top = pos.top - locSize;
+        let left = pos.left - locSize;
         if (top < 0) {
             top = 0;
         }
         if (left < 0) {
             left = 0;
         }
-        const myStyle = {
+        const width = size;
+        const height = size;
+        const result = {
             top,
             left,
-            width: size,
-            height: size,
-            lineHeight: size +'px'
+            width,
+            height
         };
+        return result;
+    }
+
+    renderOverlay(props)
+    {
+        const {styles, style, size, ...others} = props;
         const thisStyles = [
             reactStyle({
+                    lineHeight: size +'px',
                     ...Styles.container,
                     ...style,
-                    ...myStyle
             }, null, false),
             styles
         ];
@@ -45,7 +53,7 @@ class StepNumber extends PopupOverlay
         );
         return (
             <Circular
-                {...props}
+                {...others}
                 className={classes}
                 styles={thisStyles}
             />
@@ -56,7 +64,7 @@ class StepNumber extends PopupOverlay
 const Styles = {
     container: {
         position: 'absolute',
-        zIndex: 99999,
+        zIndex: 999999,
         backgroundColor: 'rgba(255,0,0,.9)',
         padding: 0,
         border: '3px solid #fff',

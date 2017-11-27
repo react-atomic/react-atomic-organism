@@ -1,5 +1,5 @@
 import React from 'react';
-import {reactStyle, SemanticUI} from 'react-atomic-molecule';
+import {mixClass, reactStyle, SemanticUI} from 'react-atomic-molecule';
 import {PopupFloatEl} from 'organism-react-popup';
 import getOffset from 'getoffset';
 
@@ -7,7 +7,6 @@ const GROUP_KEY = 'react-onboarding';
 class LightBox extends PopupFloatEl
 {
     static defaultProps = {
-        className: GROUP_KEY+'-light-box',
         name: GROUP_KEY+'-light-box',
         group: GROUP_KEY,
         padding: 5
@@ -31,7 +30,7 @@ class LightBox extends PopupFloatEl
 
     renderOverlay(props)
     {
-        const {styles, style, ...others} = props;
+        const {styles, style, className, ...others} = props;
         const thisStyles = [
             reactStyle({
                 ...Styles.container,
@@ -39,10 +38,15 @@ class LightBox extends PopupFloatEl
             }, null, false),
             styles
         ];
+        const classes = mixClass(
+            props.name,
+            className,
+            GROUP_KEY+'-light-box',
+        ); 
         return (
             <SemanticUI
                 {...others}
-                className={props.name}
+                className={classes}
                 styles={thisStyles}
             />
         );

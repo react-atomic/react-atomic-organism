@@ -29,9 +29,10 @@ import StepNumber from '../organisms/StepNumber';
 
 const keys = Object.keys;
 let injects;
+let nodeId = 0;
 
 const GROUP_KEY = 'react-onboarding';
-const GROUP_FLOATS = 'react-onboarding-floats';
+const GROUP_FLOATS = GROUP_KEY+'-floats';
 const classCleanZIndex = GROUP_KEY+'-clean-zindex';
 const classShowEl = GROUP_KEY+'-show-el';
 const classRelative = GROUP_KEY+'-relative';
@@ -40,13 +41,19 @@ const cleanClass = (className) =>
 {
     const allEl = query.all('.'+className);
     allEl.forEach( el => {
-        el.className = removeClass(
-            el.className,
-            className
-        );
+        if (el instanceof SVGElement) {
+            el.setAttribute('class', removeClass(
+                el.getAttribute('class'),
+                className
+            ));
+        } else {
+            el.className = removeClass(
+                el.className,
+                className
+            );
+        }
     });
 }
-
 
 const addCleanZIndex = (node) =>
 {
@@ -72,6 +79,43 @@ const addCleanZIndex = (node) =>
     }
 }
 
+const setSvgClass = (node, classes) =>
+{
+    const className = node.getAttribute('class') || ''; 
+    node.setAttribute('class', className + ' ' + classes.join(' '));
+}
+
+const addSvgClass = (node, classes) =>
+{
+    setSvgClass(node, classes);
+    let thisParent = node.parentNode;
+    if (!thisParent) {
+        return;
+    }
+    while(thisParent.nodeName != 'BODY') {
+        // svg always in lower case
+        if (thisParent.nodeName.toLowerCase() === 'svg') {
+            setSvgClass(thisParent, classes);
+            break;
+        }
+        thisParent = thisParent.parentNode;
+    }
+}
+
+const showEl = (node) =>
+{
+    const position = getStyle(node, 'position');
+    const classes = [classShowEl];
+    if ('static' === position) {
+        classes.push(classRelative);
+    }
+    if (node && node instanceof SVGElement) {
+        addSvgClass(node, classes);
+    } else {
+        node.className += ' '+classes.join(' ');
+    }
+}
+
 class Step extends PureComponent
 {
     timerFind;
@@ -79,8 +123,41 @@ class Step extends PureComponent
 
     static defaultProps = {
         delay: 100,
-        userScroll: false
+        userScroll: false,
+        scrollTo: true
     };
+
+    addLightBox(node, isHide)
+    {
+        const isSetFixed = isFixed(node);
+        addCleanZIndex(node);
+        let thisStyles;
+        if (isSetFixed) {
+            thisStyles = injects.fixed;
+        } else {
+            // need locate after addCleanZIndex(lightEl)
+            showEl(node);
+        }
+        if (!node.id) {
+            node.id = 'light-el-'+nodeId; 
+            nodeId++;
+        }
+        const nodePos = getOffset(node);
+        if (!isHide) {
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: <LightBox
+                        key={node.id}
+                        name={node.id}
+                        wh={[nodePos.w, nodePos.h]} 
+                        targetEl={node}
+                        styles={thisStyles}
+                    /> 
+                }
+            });
+        }
+    }
 
     setLightBox(callback, lightEl)
     {
@@ -88,31 +165,8 @@ class Step extends PureComponent
         if (before) {
             before.call(this);
         }
+        this.addLightBox(lightEl, hideLightBox);
         const isSetFixed = isFixed(lightEl);
-        addCleanZIndex(lightEl);
-        let lightElStyles;
-        if (isSetFixed) {
-            lightElStyles = injects.fixed;
-        } else {
-            // need locate after addCleanZIndex(lightEl)
-            lightEl.className += ' '+
-                [
-                    classShowEl,
-                    classRelative
-                ].join(' ');
-        }
-        if (!hideLightBox) {
-            popupDispatch({
-                type: 'dom/update',
-                params: {
-                    popup: <LightBox
-                        wh={[lightEl.offsetWidth, lightEl.offsetHeight]} 
-                        targetEl={lightEl}
-                        styles={lightElStyles}
-                    /> 
-                }
-            });
-        }
         this.setHighlights(isSetFixed);
         this.setNumbers(isSetFixed);
         this.setBeacons(isSetFixed);
@@ -141,9 +195,8 @@ class Step extends PureComponent
             const targets = query.all(hl);
             if (targets.length) {
                 targets.forEach( (target, tKey) => {
-                    if (!target.offsetWidth || 
-                        !target.offsetHeight
-                    ) {
+                    const targetPos = getOffset(target);
+                    if (!targetPos.w || !targetPos.h) {
                         return;
                     }
                     const thisKey = 'react-onboarding-highlight-'+key+'-'+tKey;
@@ -151,7 +204,7 @@ class Step extends PureComponent
                         type: 'dom/update',
                         params: {
                             popup: <Highlight
-                                wh={[target.offsetWidth, target.offsetHeight]} 
+                                wh={[targetPos.w, targetPos.h]} 
                                 name={thisKey}
                                 key={thisKey}
                                 targetEl={target}
@@ -176,9 +229,8 @@ class Step extends PureComponent
         }
         beacons.forEach( (beacon, key) => {
             const target = query.one(beacon);
-            if (!target.offsetWidth || 
-                !target.offsetHeight
-            ) {
+            const targetPos = getOffset(target);
+            if (!targetPos.w || !targetPos.h) {
                 return;
             }
             popupDispatch({
@@ -209,14 +261,10 @@ class Step extends PureComponent
         }
         keys(numbers).forEach( key => {
             const target = query.one(numbers[key]);
-            if (!target.offsetWidth || 
-                !target.offsetHeight
-            ) {
+            const targetPos = getOffset(target);
+            if (!targetPos.w || !targetPos.h) {
                 return;
             }
-            const pos = getOffset(target);
-            const top = pos.top;
-            const left = pos.left;
             popupDispatch({
                 type: 'dom/update',
                 params: {
@@ -224,8 +272,7 @@ class Step extends PureComponent
                         <StepNumber
                             name={'react-onboarding-step-number'+key}
                             key={key}
-                            locTop={top}
-                            locLeft={left}
+                            targetEl={target}
                             styles={styles}
                         >
                         {key}
@@ -240,22 +287,29 @@ class Step extends PureComponent
     handleScrollTo(lightEl, callback)
     {
         const { scrollTo } = this.props;
+        const lightElPos = getOffset(lightEl);
         if (!scrollTo) {
             callback.call(this);
             return;
         }
-        const lightElPos = getOffset(lightEl);
         const scrollInfo = getScrollInfo();
-        const halfH = scrollInfo.scrollNodeHeight / 2;
-        scroll(Math.floor(lightElPos.top-halfH), null, null, callback);
+        let halfH;
+        if (scrollInfo.scrollNodeHeight > lightElPos.h) {
+            halfH = (scrollInfo.scrollNodeHeight-lightElPos.h) / 2;
+        } else {
+            halfH = scrollInfo.scrollNodeHeight / 2;
+        }
+        scroll(Math.floor(lightElPos.top-halfH), null, null, ()=>{
+            callback.call(this);
+        });
     }
 
     handleNext = () =>
     {
-        const { after, next, finish } = this.props;
+        const { verify, next, finish } = this.props;
         let isSuccess = true;
-        if (after) {
-            isSuccess = after.call(this);
+        if (verify) {
+            isSuccess = verify.call(this);
         }
         if (!isSuccess) {
             console.warn('Handle finish failed.');
@@ -269,27 +323,26 @@ class Step extends PureComponent
 
     setFloat()
     {
-        const { type, delay, isBack, before, light, onboardingBefore } = this.props;
+        const { type, delay, isBack, before, cook, light, onboardingBefore } = this.props;
         const callback = () =>
         {
             if (onboardingBefore) {
                 onboardingBefore();
             }
+            if (cook) {
+                cook.call(this);
+            }
             setImmediate(()=>{
-                if (type !== 'modal') {
-                    const lightEl = query.one(light); 
-                    if (!lightEl.offsetWidth ||
-                        !lightEl.offsetHeight
-                    ) {
-                        return;
-                    }
+                const lightEl = query.one(light); 
+                const lightElPos = getOffset(lightEl);
+                if (lightElPos.w && lightElPos.h) {
+                    popupDispatch({
+                        type: 'dom/update',
+                        params: {
+                            popup: this._float 
+                        }
+                    });
                 }
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: this._float 
-                    }
-                });
             });
         };
         if (light) {
@@ -315,9 +368,9 @@ class Step extends PureComponent
                         this.setLightBox(callback, lightEl);
                     });
                 }, thisDelay);
-            }, 100);
+            }, 50);
         } else {
-            callback(lightEl);
+            callback.call(this);
         }
     }
 
@@ -361,27 +414,30 @@ class Step extends PureComponent
 
     open()
     {
-        const {type, light}  = this.props;
+        const {type, light, scrollTo}  = this.props;
         const lightEl = query.one(light); 
         if (!lightEl) {
             return;
         }
+        const lightElPos = getOffset(lightEl);
         if (type !== 'modal') {
-            if (!lightEl.offsetWidth ||
-                !lightEl.offsetHeight
+            if (!lightElPos.w ||
+                !lightElPos.h
             ) {
                 this.handleFinish();
                 return;
             }
         }
-        this.setLightBox( ()=>{
-            popupDispatch({
-                type: 'dom/update',
-                params: {
-                    popup: this._float 
-                }
-            });
-        }, lightEl);
+        this.handleScrollTo(lightEl, ()=>{
+            this.setLightBox( ()=>{
+                popupDispatch({
+                    type: 'dom/update',
+                    params: {
+                        popup: this._float 
+                    }
+                });
+            }, lightEl);
+        });
     }
 
     componentDidMount() 
@@ -559,6 +615,6 @@ class Step extends PureComponent
         return null;
     }
 }
-
+export {addCleanZIndex as cleanZIndex, showEl};
 export default Step;
 

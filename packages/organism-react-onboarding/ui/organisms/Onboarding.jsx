@@ -25,9 +25,13 @@ class Onboarding extends PureComponent
             console.error('Step index need between 0 and '+end+'. ['+i+']');
             return;
         }
-        this.setState({
-            stepIndex: i
-        });
+        if (this.state.stepIndex === i) {
+            this.open();
+        } else {
+            this.setState({
+                stepIndex: i
+            });
+        }
     }
 
     next = () =>
@@ -80,6 +84,13 @@ class Onboarding extends PureComponent
     {
         if (this.current) {
             this.current.closeFloats();
+        }
+    }
+
+    addLightBox(node)
+    {
+        if (this.current) {
+            this.current.addLightBox(node);
         }
     }
 

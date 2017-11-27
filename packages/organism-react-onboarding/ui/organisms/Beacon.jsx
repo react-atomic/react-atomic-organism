@@ -16,7 +16,7 @@ const GROUP_KEY = 'react-onboarding';
 class Beacon extends PopupFloatEl
 {
     static defaultProps = {
-        className: GROUP_KEY+'beacon',
+        className: GROUP_KEY+'-beacon',
         group: GROUP_KEY,
         name: GROUP_KEY+'-beacon',
     };

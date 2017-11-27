@@ -13,16 +13,17 @@ class Highlight extends PopupFloatEl
         name: GROUP_KEY+'-highlight',
         group: [GROUP_KEY, GROUP_FLOATS],
         isFollowTransform: true,
+        padding: 5,
     };
 
     calPos = () =>
     {
-        const {targetEl} = this.props;
+        const {targetEl, padding} = this.props;
         const pos = getOffset(targetEl);
-        const width = pos.w;
-        const height = pos.h;
-        const top = pos.top;
-        const left = pos.left;
+        const width = pos.right - pos.left + (padding * 2);
+        const height = pos.bottom - pos.top + (padding * 2);
+        const top = pos.top - padding;
+        const left = pos.left - padding;
         const result = {
             top,
             left,
