@@ -1,4 +1,5 @@
 'use strict';
+import getScrollInfo from 'get-scroll-info'; 
 
 const mouse = (e, dom) => {
     if (!dom) {
@@ -24,16 +25,27 @@ const mouse = (e, dom) => {
 const getOffset = (dom) => {
     let top = 0;
     let left = 0;
-    let el = dom;
-    do {
-        const offsetTop = el.offsetTop || 0;
-        const offsetLeft = el.offsetLeft || 0;
-        top += offsetTop - el.scrollTop;
-        left += offsetLeft - el.scrollLeft;
-        el = el.offsetParent;
-    } while (el);
-    const w = dom.offsetWidth;
-    const h = dom.offsetHeight;
+    let w;
+    let h;
+    if (dom instanceof SVGElement) {
+        const scrollInfo = getScrollInfo();
+        const rect = dom.getBoundingClientRect();
+        top = rect.top + scrollInfo.top;
+        left = rect.left + scrollInfo.left;
+        w = rect.width;
+        h = rect.height;
+    } else {
+        w = dom.offsetWidth;
+        h = dom.offsetHeight;
+        let el = dom;
+        do {
+            const offsetTop = el.offsetTop || 0;
+            const offsetLeft = el.offsetLeft || 0;
+            top += offsetTop - el.scrollTop;
+            left += offsetLeft - el.scrollLeft;
+            el = el.offsetParent;
+        } while (el);
+    }
     const result =  {
         w,
         h,

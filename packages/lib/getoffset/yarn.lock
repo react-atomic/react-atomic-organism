@@ -493,6 +493,10 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+get-scroll-info@*:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.0.13.tgz#24b7abc7d13feef1b3ad60f6fece186aeee276e5"
+
 getpass@^0.1.1:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"

@@ -1,13 +1,15 @@
 {
   "name": "getoffset",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Get dom offset",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "get-scroll-info": "*"
+  },
   "devDependencies": {
     "babel-cli": "^6.7.5"
   },
