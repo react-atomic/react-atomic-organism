@@ -14,23 +14,22 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "css-query-selector": "^0.0.0",
     "class-lib": "*",
-    "organism-react-popup": "*",
-    "react-atomic-molecule": "*",
+    "css-query-selector": "^0.0.0",
     "get-style": "*",
     "get-window-offset": "*",
     "getoffset": "*",
-    "topercent": "*",
+    "organism-react-popup": "*",
+    "react-atomic-molecule": "*",
+    "ricon": "*",
     "smooth-scroll-to": "*",
-    "ricon": "*"
+    "topercent": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
     "preact": "*",
     "preact-compat": "*",
-    "react": "^16.x",
-    "react-dom": "^16.x"
+    "react": "^16.x"
   },
   "scripts": {
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
