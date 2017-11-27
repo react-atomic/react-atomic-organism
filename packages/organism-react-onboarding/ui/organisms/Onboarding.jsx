@@ -9,9 +9,84 @@ class Onboarding extends PureComponent
     static defaultProps = {
         I18N: {
             next: 'Next',
-            done: 'Done'
+            done: 'Done',
+            back: 'Back'
         }
     };
+
+    goTo = (i) =>
+    {
+        if (isNaN(i)) {
+            console.error('Step index need a number. ['+i+']');
+            return;
+        }
+        const end = this.total - 1;
+        if (i > end || i < 0) {
+            console.error('Step index need between 0 and '+end+'. ['+i+']');
+            return;
+        }
+        this.setState({
+            stepIndex: i
+        });
+    }
+
+    next = () =>
+    {
+        this.setState( ({stepIndex}) => {
+                stepIndex++;
+                if (stepIndex >= this.total) {
+                    stepIndex = null;
+                }
+                this.current.handleFinish();
+                return {
+                    stepIndex,
+                    isBack: false
+                };
+            }
+        );
+    }
+
+    back = () =>
+    {
+        this.setState( ({stepIndex}) => {
+                stepIndex--;
+                if (stepIndex < 0) {
+                    stepIndex = 0;
+                }
+                this.current.handleFinish();
+                return {
+                    stepIndex,
+                    isBack: true
+                };
+            }
+        );
+    }
+
+    open()
+    {
+        if (this.current) {
+            this.current.open();
+        }
+    }
+
+    close()
+    {
+        if (this.current) {
+            this.current.handleFinish();
+        }
+    }
+
+    closeFloats()
+    {
+        if (this.current) {
+            this.current.closeFloats();
+        }
+    }
+
+    getStepIndex()
+    {
+        return this.state.stepIndex;
+    }
 
     constructor(props)
     {
@@ -31,39 +106,42 @@ class Onboarding extends PureComponent
         };
     }
 
-    next = (e) =>
+    componentDidMount()
     {
-        this.setState( ({stepIndex}) => {
-                stepIndex++;
-                if (stepIndex >= this.total) {
-                    stepIndex = null;
-                }
-                this.current.handleFinish();
-                return {stepIndex};
-            }
-        );
+        window.ReactOnboarding = this;
     }
 
-    back()
+    componentWillUnmount()
     {
-
+        const { finish } = this.props;
+        if (finish) {
+            finish.call(this);
+        }
     }
 
     render()
     {
-        const {total, next} = this;
-        const {I18N} = this.props;
-        const {stepIndex} = this.state;
+        const {total, next, back} = this;
+        const {I18N, before} = this.props;
+        const {stepIndex, isBack} = this.state;
         if (null === stepIndex) {
             return null;
         }
+        let onboardingBefore;
+        if (0 === stepIndex) {
+            onboardingBefore = before;
+        }
         const currentStep = this.steps[stepIndex];
         return cloneElement(currentStep, {
+            key: stepIndex,
+            onboardingBefore,
+            isBack,
             I18N,
             stepIndex,
             total,
             next,
-            ref: el => this.current = el
+            back,
+            ref: el => {if (el){this.current = el}}
         });
     }
 }

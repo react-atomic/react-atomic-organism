@@ -12,11 +12,13 @@ import Icon from 'ricon/Pulse';
 
 
 
+const GROUP_KEY = 'react-onboarding';
 class Beacon extends PopupFloatEl
 {
     static defaultProps = {
-        className: 'beacon',
-        name: 'beacon',
+        className: GROUP_KEY+'beacon',
+        group: GROUP_KEY,
+        name: GROUP_KEY+'-beacon',
     };
 
     calPos = () =>

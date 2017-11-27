@@ -1,14 +1,33 @@
 import React from 'react';
 import {reactStyle, SemanticUI} from 'react-atomic-molecule';
-import {PopupOverlay} from 'organism-react-popup';
+import {PopupFloatEl} from 'organism-react-popup';
+import getOffset from 'getoffset';
 
 const GROUP_KEY = 'react-onboarding';
-class LightBox extends PopupOverlay
+class LightBox extends PopupFloatEl
 {
     static defaultProps = {
+        className: GROUP_KEY+'-light-box',
         name: GROUP_KEY+'-light-box',
-        group: GROUP_KEY
+        group: GROUP_KEY,
+        padding: 5
     };
+
+    calPos = () =>
+    {
+        const {targetEl, padding} = this.props;
+        const pos = getOffset(targetEl);
+        const width = pos.right - pos.left + (padding * 2);
+        const height = pos.bottom - pos.top + (padding * 2);
+        const top = pos.top - padding;
+        const left = pos.left - padding;
+        return {
+            top,
+            left,
+            width,
+            height
+        };
+    }
 
     renderOverlay(props)
     {
@@ -22,6 +41,7 @@ class LightBox extends PopupOverlay
         ];
         return (
             <SemanticUI
+                {...others}
                 className={props.name}
                 styles={thisStyles}
             />

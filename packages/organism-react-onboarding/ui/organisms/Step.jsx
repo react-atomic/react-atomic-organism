@@ -13,9 +13,12 @@ import {
 } from 'organism-react-popup';
 import query from 'css-query-selector';
 import getOffset from 'getoffset';
+import getStyle from 'get-style';
+import getScrollInfo from 'get-scroll-info';
 import {isFixed} from 'get-window-offset';
 import {removeClass} from 'class-lib';
 import {percent} from 'topercent';
+import scroll from 'smooth-scroll-to';
 
 import Beacon from '../organisms/Beacon';
 import Tooltip from '../organisms/Tooltip';
@@ -27,14 +30,10 @@ const keys = Object.keys;
 let injects;
 
 const GROUP_KEY = 'react-onboarding';
+const GROUP_FLOATS = 'react-onboarding-floats';
 const classCleanZIndex = GROUP_KEY+'-clean-zindex';
 const classShowEl = GROUP_KEY+'-show-el';
-const lightBoxPadding = 5;
-
-const getStyle = (el, key) =>
-{
-    return window.getComputedStyle(el,null).getPropertyValue(key);
-}
+const classRelative = GROUP_KEY+'-relative';
 
 const cleanClass = (className) =>
 {
@@ -50,7 +49,10 @@ const cleanClass = (className) =>
 
 const addCleanZIndex = (node) =>
 {
-    let thisParent = node;
+    let thisParent = node.parentNode;
+    if (!thisParent) {
+        return;
+    }
     let isFindFixedParent;
     while(thisParent.nodeName != 'BODY') {
         const zIndex = getStyle(thisParent, 'z-index');
@@ -69,26 +71,315 @@ const addCleanZIndex = (node) =>
     }
 }
 
-const getFloatStyles = (node, padding) =>
-{
-    if (!padding) {
-       padding = 0;
-    }
-    const pos = getOffset(node);
-    const width = pos.right - pos.left + (padding * 2);
-    const height = pos.bottom - pos.top + (padding * 2);
-    const top = pos.top - padding;
-    const left = pos.left - padding;
-    return {
-        top,
-        left,
-        width,
-        height
-    };
-}
-
 class Step extends PureComponent
 {
+    timerFind;
+    timerExecute;
+
+    static defaultProps = {
+        delay: 100,
+        userScroll: false
+    };
+
+    setLightBox(callback, lightEl)
+    {
+        const { before, hideLightBox } = this.props;
+        if (before) {
+            before.call(this);
+        }
+        const isSetFixed = isFixed(lightEl);
+        addCleanZIndex(lightEl);
+        let lightElStyles;
+        if (isSetFixed) {
+            lightElStyles = injects.fixed;
+        } else {
+            // need locate after addCleanZIndex(lightEl)
+            lightEl.className += ' '+
+                [
+                    classShowEl,
+                    classRelative
+                ].join(' ');
+        }
+        if (!hideLightBox) {
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: <LightBox
+                        targetEl={lightEl}
+                        styles={lightElStyles}
+                    /> 
+                }
+            });
+        }
+        this.setHighlights(isSetFixed);
+        this.setNumbers(isSetFixed);
+        this.setBeacons(isSetFixed);
+        this._float = cloneElement(
+            this._float,
+            {
+                targetEl: lightEl,
+                isSetFixed
+            }
+        );
+        callback.call(this);
+        return true;
+    }
+
+    setBeacons(isSetFixed)
+    {
+        const { beacons } = this.props;
+        if (!beacons) {
+            return;
+        }
+        let styles;
+        if (isSetFixed) {
+            styles = injects.fixed;
+        }
+        beacons.forEach( (beacon, key) => {
+            const target = query.one(beacon);
+            if (!target.offsetWidth || 
+                !target.offsetHeight
+            ) {
+                return;
+            }
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: (
+                        <Beacon
+                            name={'react-onboarding-beacon'+key}
+                            key={key}
+                            targetEl={target}
+                            styles={styles}
+                        />
+                    )
+                }
+            });
+        });
+    }
+
+    setNumbers(isSetFixed)
+    {
+        const { numbers } = this.props;
+        if (!numbers) {
+            return;
+        }
+        let styles;
+        if (isSetFixed) {
+            styles = injects.fixed;
+        }
+        keys(numbers).forEach( key => {
+            const target = query.one(numbers[key]);
+            if (!target.offsetWidth || 
+                !target.offsetHeight
+            ) {
+                return;
+            }
+            const pos = getOffset(target);
+            const top = pos.top;
+            const left = pos.left;
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: (
+                        <StepNumber
+                            name={'react-onboarding-step-number'+key}
+                            key={key}
+                            locTop={top}
+                            locLeft={left}
+                            styles={styles}
+                        >
+                        {key}
+                        </StepNumber>
+                    )
+                }
+            });
+        });
+    }
+
+    setHighlights(isSetFixed)
+    {
+        const { highlights } = this.props;
+        if (!highlights) {
+            return;
+        }
+        let hlElStyles;
+        if (isSetFixed) {
+            hlElStyles = injects.fixed;
+        }
+        highlights.forEach( (hl, key) => {
+            const targets = query.all(hl);
+            if (targets.length) {
+                targets.forEach( (target, tKey) => {
+                    if (!target.offsetWidth || 
+                        !target.offsetHeight
+                    ) {
+                        return;
+                    }
+                    const thisKey = 'react-onboarding-highlight-'+key+'-'+tKey;
+                    popupDispatch({
+                        type: 'dom/update',
+                        params: {
+                            popup: <Highlight
+                                name={thisKey}
+                                key={thisKey}
+                                targetEl={target}
+                                styles={hlElStyles}
+                            /> 
+                        }
+                    });
+                } );
+            }
+        });
+    }
+
+    handleScrollTo(lightEl, callback)
+    {
+        const { scrollTo } = this.props;
+        if (!scrollTo) {
+            callback.call(this);
+            return;
+        }
+        const lightElPos = getOffset(lightEl);
+        const scrollInfo = getScrollInfo();
+        const halfH = scrollInfo.scrollNodeHeight / 2;
+        scroll(Math.floor(lightElPos.top-halfH), null, null, callback);
+    }
+
+    handleNext = () =>
+    {
+        const { after, next, finish } = this.props;
+        let isSuccess = true;
+        if (after) {
+            isSuccess = after.call(this);
+        }
+        if (!isSuccess) {
+            console.warn('Handle finish failed.');
+            return isSuccess;
+        }
+        if (finish) {
+            finish.call(this);
+        }
+        next();
+    }
+
+    handleBack = () =>
+    {
+        const { back, finish } = this.props;
+        if (finish) {
+            isSuccess = finish.call(this);
+        }
+        back();
+    }
+
+    handleFinish()
+    {
+        clearInterval(this.timerFind);
+        clearTimeout(this.timerExecute);
+        const { finish } = this.props;
+        if (finish) {
+            finish.call(this);
+        }
+        popupDispatch({
+            type: 'dom/closeGroup',
+            params: {
+                group: GROUP_KEY
+            }
+        });
+        cleanClass(classCleanZIndex);
+        cleanClass(classShowEl);
+        cleanClass(classRelative);
+    }
+
+    setFloat()
+    {
+        const { type, delay, isBack, before, light, onboardingBefore } = this.props;
+        const callback = () =>
+        {
+            if (onboardingBefore) {
+                onboardingBefore();
+            }
+            setImmediate(()=>{
+                if (type !== 'modal') {
+                    const lightEl = query.one(light); 
+                    if (!lightEl.offsetWidth ||
+                        !lightEl.offsetHeight
+                    ) {
+                        return;
+                    }
+                }
+                popupDispatch({
+                    type: 'dom/update',
+                    params: {
+                        popup: this._float 
+                    }
+                });
+            });
+        };
+        if (light) {
+            let maxTry = 100;
+            let tryTime = 0;
+            this.timerFind = setInterval(()=>{
+                tryTime++;
+                const lightEl = query.one(light); 
+                if (tryTime > maxTry) {
+                    clearInterval(this.timerFind);
+                    console.warn('Can not find light element. ['+light+']');
+                }
+                if (!lightEl) {
+                    return;
+                }
+                clearInterval(this.timerFind);
+                let thisDelay = delay;
+                if (isBack) {
+                    thisDelay = 0;
+                }
+                this.timerExecute = setTimeout(()=>{
+                    this.handleScrollTo(lightEl, ()=>{
+                        this.setLightBox(callback, lightEl);
+                    });
+                }, thisDelay);
+            }, 100);
+        } else {
+            callback(lightEl);
+        }
+    }
+
+    closeFloats()
+    {
+        popupDispatch({
+            type: 'dom/closeGroup',
+            params: {
+                group: GROUP_FLOATS
+            }
+        });
+    }
+
+    open()
+    {
+        const {type, light}  = this.props;
+        const lightEl = query.one(light); 
+        if (!lightEl) {
+            return;
+        }
+        if (type !== 'modal') {
+            if (!lightEl.offsetWidth ||
+                !lightEl.offsetHeight
+            ) {
+                this.handleFinish();
+                return;
+            }
+        }
+        this.setLightBox( ()=>{
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: this._float 
+                }
+            });
+        }, lightEl);
+    }
+
     componentDidMount() 
     {
         this.setFloat();
@@ -128,6 +419,13 @@ class Step extends PureComponent
                 '.'+classCleanZIndex,
                 classCleanZIndex
             ],
+            relative: [
+                {
+                    position: 'relative !important'
+                },
+                '.'+classRelative,
+                classRelative
+            ],
             showEl: [
                 {
                     zIndex: 99999 
@@ -151,176 +449,9 @@ class Step extends PureComponent
 	);
     }
 
-    setLightBox()
-    {
-        const { light, hideLightBox } = this.props;
-        if (light) {
-            const lightEl = query.one(light);
-            const isSetFixed = isFixed(lightEl);
-            if (lightEl) {
-                let lightElStyles;
-                if (isSetFixed) {
-                    lightElStyles = injects.fixed;
-                }
-                addCleanZIndex(lightEl);
-                if (!hideLightBox) {
-                    popupDispatch({
-                        type: 'dom/update',
-                        params: {
-                            popup: <LightBox
-                                style={getFloatStyles(lightEl, lightBoxPadding)} 
-                                styles={lightElStyles}
-                            /> 
-                        }
-                    });
-                }
-                this.setHighlights(isSetFixed);
-                this.setNumbers(isSetFixed);
-                this.setBeacons(isSetFixed);
-                setTimeout( () =>{
-                    window.scrollTo(0,0);
-                });
-                this._float = cloneElement(
-                    this._float,
-                    {
-                        targetEl: lightEl,
-                        isSetFixed
-                    }
-                );
-            }
-        }
-    }
-
-    setBeacons(isSetFixed)
-    {
-        const { beacons } = this.props;
-        if (!beacons) {
-            return;
-        }
-        let styles;
-        if (isSetFixed) {
-            styles = injects.fixed;
-        }
-        beacons.forEach( (beacon, key) => {
-            const target = query.one(beacon);
-            popupDispatch({
-                type: 'dom/update',
-                params: {
-                    popup: (
-                        <Beacon
-                            name={'react-onboarding-beacon'+key}
-                            key={key}
-                            targetEl={target}
-                            styles={styles}
-                        />
-                    )
-                }
-            });
-        });
-    }
-
-    setNumbers(isSetFixed)
-    {
-        const { numbers } = this.props;
-        if (!numbers) {
-            return;
-        }
-        let styles;
-        if (isSetFixed) {
-            styles = injects.fixed;
-        }
-        keys(numbers).forEach( key => {
-            const target = query.one(numbers[key]);
-            const pos = getOffset(target);
-            const top = pos.top;
-            const left = pos.left;
-            popupDispatch({
-                type: 'dom/update',
-                params: {
-                    popup: (
-                        <StepNumber
-                            name={'react-onboarding-step-number'+key}
-                            key={key}
-                            locTop={top}
-                            locLeft={left}
-                            styles={styles}
-                        >
-                        {key}
-                        </StepNumber>
-                    )
-                }
-            });
-        });
-    }
-
-    setHighlights(isSetFixed)
-    {
-        const { highlights } = this.props;
-        if (!highlights) {
-            return;
-        }
-        let hlElStyles;
-        if (isSetFixed) {
-            hlElStyles = injects.fixed;
-        }
-        highlights.forEach( (hl, key) => {
-            const target = query.one(hl);
-            if (target) {
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: <Highlight
-                            name={'react-onboarding-highlight'+key}
-                            key={key}
-                            style={getFloatStyles(target)} 
-                            styles={hlElStyles}
-                        /> 
-                    }
-                });
-            }
-        
-        });
-    }
-
-    setFloat()
-    {
-        const { before } = this.props;
-        setTimeout( ()=>{
-            if (before) {
-                before.call(this);
-            }
-            this.setLightBox();
-            setImmediate(()=>{ //locate after this.setLightBox()
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: this._float 
-                    }
-                });
-            });
-        }, 1500); 
-    }
-
-    handleFinish()
-    {
-        const { finish } = this.props;
-        popupDispatch({
-            type: 'dom/closeGroup',
-            params: {
-                group: GROUP_KEY
-            }
-        });
-        if (finish) {
-            finish.call(this);
-        }
-        cleanClass(classCleanZIndex);
-        cleanClass(classShowEl);
-        console.log('finish');
-    }
-
     render()
     {
-        const { header, content, actions, type, next, style, stepIndex, total, I18N } = this.props;
+        const { maskScroll, closeCallBack, header, content, actions, type, style, stepIndex, total, userScroll, I18N } = this.props;
         const stepDisplayIndex = stepIndex + 1;
         let floatEl;
         let name;
@@ -353,14 +484,20 @@ class Step extends PureComponent
                 } else {
                     switch (thisAction) {
                         case 'next':
-                            onClick = next;
-                            const isLast = stepDisplayIndex >= total;
+                            onClick = this.handleNext;
                             if (!actionText) {
+                                const isLast = stepDisplayIndex >= total;
                                 if (isLast) {
                                     actionText = I18N.done;
                                 } else {
                                     actionText = I18N.next+' '+ stepDisplayIndex+ '/'+ total;
                                 }
+                            }
+                            break;
+                        case 'back':
+                            onClick = this.handleBack;
+                            if (!actionText) {
+                                actionText = I18N.back;
                             }
                             break;
                         default:
@@ -386,7 +523,9 @@ class Step extends PureComponent
         this._float = createElement(
             floatEl,
             {
+                maskScroll,
                 name,
+                closeCallBack,
                 modalStyle: style,
                 className: 'mini',
                 center: false,
@@ -394,7 +533,7 @@ class Step extends PureComponent
                 style: {
                     zIndex: 9999,
                 },
-		styles: injects.modal 
+		styles: injects.modal,
             },
             child
         );

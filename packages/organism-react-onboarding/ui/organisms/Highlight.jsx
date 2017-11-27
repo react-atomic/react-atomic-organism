@@ -1,14 +1,36 @@
 import React from 'react';
+import getOffset from 'getoffset';
 import {reactStyle, SemanticUI} from 'react-atomic-molecule';
-import {PopupOverlay} from 'organism-react-popup';
+import {PopupFloatEl} from 'organism-react-popup';
 
 const GROUP_KEY = 'react-onboarding';
-class Highlight extends PopupOverlay
+const GROUP_FLOATS = 'react-onboarding-floats';
+
+class Highlight extends PopupFloatEl
 {
     static defaultProps = {
+        className: GROUP_KEY+'-highlight',
         name: GROUP_KEY+'-highlight',
-        group: GROUP_KEY
+        group: [GROUP_KEY, GROUP_FLOATS],
+        isFollowTransform: true,
     };
+
+    calPos = () =>
+    {
+        const {targetEl} = this.props;
+        const pos = getOffset(targetEl);
+        const width = pos.w;
+        const height = pos.h;
+        const top = pos.top;
+        const left = pos.left;
+        const result = {
+            top,
+            left,
+            width,
+            height
+        };
+        return result;
+    }
 
     renderOverlay(props)
     {
@@ -22,6 +44,7 @@ class Highlight extends PopupOverlay
         ];
         return (
             <SemanticUI
+                {...others}
                 className={name}
                 styles={thisStyles}
             />

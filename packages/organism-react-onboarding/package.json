@@ -15,9 +15,14 @@
   "license": "MIT",
   "dependencies": {
     "css-query-selector": "^0.0.0",
+    "class-lib": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
+    "get-style": "*",
+    "get-window-offset": "*",
+    "getoffset": "*",
     "topercent": "*",
+    "smooth-scroll-to": "*",
     "ricon": "*"
   },
   "devDependencies": {

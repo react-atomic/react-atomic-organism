@@ -8,7 +8,7 @@ class Tooltip extends PureComponent
 {
     render()
     {
-        const {targetEl, isSetFixed, modalStyle, children, name, ...props}  = this.props;
+        const {maskScroll, targetEl, isSetFixed, modalStyle, children, name, ...props}  = this.props;
         let floatClassName;
         if (isSetFixed) {
             floatClassName='react-onboarding-fixed';
@@ -17,7 +17,8 @@ class Tooltip extends PureComponent
             <div>
                 <PopupModal {...props}
                     name={name}
-                    modal={<div />}
+                    modal={null}
+                    maskScroll={maskScroll}
                 />
                 <PopupFloatEl
                     name={name}
