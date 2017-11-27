@@ -88,6 +88,16 @@ class Onboarding extends PureComponent
         return this.state.stepIndex;
     }
 
+    componentWillReceiveProps(props)
+    {   
+        Children.forEach(
+           props.children,
+           (c, key) => {
+             this.steps[key] = c;
+           }
+        );
+    }
+
     constructor(props)
     {
         super(props);

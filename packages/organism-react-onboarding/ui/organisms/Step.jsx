@@ -6,6 +6,7 @@ import {
     Content,
     Button,
     Progress,
+    SemanticUI
 } from 'react-atomic-molecule';
 import {
     popupDispatch,
@@ -105,6 +106,7 @@ class Step extends PureComponent
                 type: 'dom/update',
                 params: {
                     popup: <LightBox
+                        wh={[lightEl.offsetWidth, lightEl.offsetHeight]} 
                         targetEl={lightEl}
                         styles={lightElStyles}
                     /> 
@@ -123,6 +125,43 @@ class Step extends PureComponent
         );
         callback.call(this);
         return true;
+    }
+
+    setHighlights(isSetFixed)
+    {
+        const { highlights } = this.props;
+        if (!highlights) {
+            return;
+        }
+        let hlElStyles;
+        if (isSetFixed) {
+            hlElStyles = injects.fixed;
+        }
+        highlights.forEach( (hl, key) => {
+            const targets = query.all(hl);
+            if (targets.length) {
+                targets.forEach( (target, tKey) => {
+                    if (!target.offsetWidth || 
+                        !target.offsetHeight
+                    ) {
+                        return;
+                    }
+                    const thisKey = 'react-onboarding-highlight-'+key+'-'+tKey;
+                    popupDispatch({
+                        type: 'dom/update',
+                        params: {
+                            popup: <Highlight
+                                wh={[target.offsetWidth, target.offsetHeight]} 
+                                name={thisKey}
+                                key={thisKey}
+                                targetEl={target}
+                                styles={hlElStyles}
+                            /> 
+                        }
+                    });
+                } );
+            }
+        });
     }
 
     setBeacons(isSetFixed)
@@ -197,41 +236,6 @@ class Step extends PureComponent
         });
     }
 
-    setHighlights(isSetFixed)
-    {
-        const { highlights } = this.props;
-        if (!highlights) {
-            return;
-        }
-        let hlElStyles;
-        if (isSetFixed) {
-            hlElStyles = injects.fixed;
-        }
-        highlights.forEach( (hl, key) => {
-            const targets = query.all(hl);
-            if (targets.length) {
-                targets.forEach( (target, tKey) => {
-                    if (!target.offsetWidth || 
-                        !target.offsetHeight
-                    ) {
-                        return;
-                    }
-                    const thisKey = 'react-onboarding-highlight-'+key+'-'+tKey;
-                    popupDispatch({
-                        type: 'dom/update',
-                        params: {
-                            popup: <Highlight
-                                name={thisKey}
-                                key={thisKey}
-                                targetEl={target}
-                                styles={hlElStyles}
-                            /> 
-                        }
-                    });
-                } );
-            }
-        });
-    }
 
     handleScrollTo(lightEl, callback)
     {
@@ -261,34 +265,6 @@ class Step extends PureComponent
             finish.call(this);
         }
         next();
-    }
-
-    handleBack = () =>
-    {
-        const { back, finish } = this.props;
-        if (finish) {
-            isSuccess = finish.call(this);
-        }
-        back();
-    }
-
-    handleFinish()
-    {
-        clearInterval(this.timerFind);
-        clearTimeout(this.timerExecute);
-        const { finish } = this.props;
-        if (finish) {
-            finish.call(this);
-        }
-        popupDispatch({
-            type: 'dom/closeGroup',
-            params: {
-                group: GROUP_KEY
-            }
-        });
-        cleanClass(classCleanZIndex);
-        cleanClass(classShowEl);
-        cleanClass(classRelative);
     }
 
     setFloat()
@@ -343,6 +319,34 @@ class Step extends PureComponent
         } else {
             callback(lightEl);
         }
+    }
+
+    handleBack = () =>
+    {
+        const { back, finish } = this.props;
+        if (finish) {
+            isSuccess = finish.call(this);
+        }
+        back();
+    }
+
+    handleFinish()
+    {
+        clearInterval(this.timerFind);
+        clearTimeout(this.timerExecute);
+        const { finish } = this.props;
+        if (finish) {
+            finish.call(this);
+        }
+        popupDispatch({
+            type: 'dom/closeGroup',
+            params: {
+                group: GROUP_KEY
+            }
+        });
+        cleanClass(classCleanZIndex);
+        cleanClass(classShowEl);
+        cleanClass(classRelative);
     }
 
     closeFloats()
@@ -441,7 +445,22 @@ class Step extends PureComponent
                     right: 0,
                     zIndex: 2
                 }
-            ]
+            ],
+            header: [
+                {
+                    textAlign: 'left'
+                }
+            ],
+            content: [
+                {
+                    textAlign: 'left'
+                }
+            ],
+            actions: [
+                {
+                    textAlign: 'right'
+                }
+            ],
         };
 	injects = lazyInject (
 	    injects,
@@ -468,10 +487,10 @@ class Step extends PureComponent
         }
         const child = [<Progress styles={injects.progress} percent={percent(stepDisplayIndex / total)} className="attached green"/>];
         if (header) {
-            child.push(<Header>{header}</Header>);
+            child.push(<Header styles={injects.header}>{header}</Header>);
         }
         if (content) {
-            child.push(<Content>{content}</Content>);
+            child.push(<Content styles={injects.content}>{content}</Content>);
         }
         if (actions) {
             const buttons = [];
@@ -517,7 +536,7 @@ class Step extends PureComponent
                     </Button>
                 )); 
             });
-            child.push(<div className="actions">{buttons}</div>);
+            child.push(<SemanticUI className="actions" styles={injects.actions}>{buttons}</SemanticUI>);
 
         }
         this._float = createElement(
