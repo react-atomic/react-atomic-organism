@@ -45,12 +45,16 @@ class PopupFloatEl extends PopupOverlay
         }
         if (pos.top === this.floatTop &&
             pos.left === this.floatLeft &&
+            pos.width === this.floatWidth &&
+            pos.height === this.floatHeight &&
             pos.className === this.floatClassName
         ) {
             return;  
         }
         this.floatLeft = pos.left;
         this.floatTop = pos.top;
+        this.floatWidth = pos.width;
+        this.floatHeight = pos.height;
         this.floatClassName = pos.className;
         this.setState(pos);
    }
