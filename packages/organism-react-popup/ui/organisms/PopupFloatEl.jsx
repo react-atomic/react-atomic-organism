@@ -35,6 +35,10 @@ class PopupFloatEl extends PopupOverlay
         if (this.state && !this.state.show) {
             return;
         }
+        const {targetEl} = this.props;
+        if (!document.body.contains(targetEl)) {
+            return;
+        }
         const pos = this.calPos();
         if (!pos) {
             return;

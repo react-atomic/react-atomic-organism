@@ -563,8 +563,8 @@ get-window-offset@*:
     getoffset "*"
 
 getoffset@*:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.4.tgz#de3c9514422c4c3eeee3d677f2d870a0c0212299"
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.6.tgz#a93f61df8d363a92b65b47bee0b0125df6c98a0f"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -662,8 +662,8 @@ iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 immutability-helper@^2.1.2:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.5.0.tgz#01ea7204334997c645bdfa7eb22e8b84c970946e"
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.5.1.tgz#1d38ba1c47d8d2d50783f917cb7fbeb5737121dd"
   dependencies:
     invariant "^2.2.0"
 
