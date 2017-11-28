@@ -6,10 +6,10 @@ import isFixed from './isFixed';
 const calWindowOffset = (domInfo, scrollInfo) =>
 {
     const distance = {};
-    distance.top = Math.abs(domInfo.top - scrollInfo.top);
-    distance.right = Math.abs(domInfo.right - scrollInfo.right);
-    distance.bottom = Math.abs(domInfo.bottom - scrollInfo.bottom);
-    distance.left = Math.abs(domInfo.left - scrollInfo.left);
+    distance.top = domInfo.top - scrollInfo.top;
+    distance.right = scrollInfo.right - domInfo.right;
+    distance.bottom = scrollInfo.bottom - domInfo.bottom;
+    distance.left = domInfo.left - scrollInfo.left;
     let distanceFlip = {
         [distance.top]: 't',
         [distance.right]: 'r',
