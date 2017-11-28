@@ -67,11 +67,11 @@ const addCleanZIndex = (node) =>
         if (zIndex && 'auto' !== zIndex) {
             const position =  getStyle(thisParent, 'position');
             if ('fixed' !== position) {
-                thisParent.className += ' '+classCleanZIndex;
+                setClass(thisParent, [classCleanZIndex]);
             } else if ('fixed' === position) {
                 if (!isFindFixedParent) {
                     isFindFixedParent = true;
-                    thisParent.className += ' '+classShowEl;
+                    setClass(thisParent, [classShowEl]);
                 }
             }
         }
@@ -79,15 +79,19 @@ const addCleanZIndex = (node) =>
     }
 }
 
-const setSvgClass = (node, classes) =>
+const setClass = (node, classes) =>
 {
-    const className = node.getAttribute('class') || ''; 
-    node.setAttribute('class', className + ' ' + classes.join(' '));
+    if (node instanceof SVGElement) {
+        const className = node.getAttribute('class') || ''; 
+        node.setAttribute('class', className + ' ' + classes.join(' '));
+    } else {
+        node.className += ' '+classes.join(' ');
+    }
 }
 
 const addSvgClass = (node, classes) =>
 {
-    setSvgClass(node, classes);
+    setClass(node, classes);
     let thisParent = node.parentNode;
     if (!thisParent) {
         return;
@@ -95,7 +99,7 @@ const addSvgClass = (node, classes) =>
     while(thisParent.nodeName != 'BODY') {
         // svg always in lower case
         if (thisParent.nodeName.toLowerCase() === 'svg') {
-            setSvgClass(thisParent, classes);
+            setClass(thisParent, classes);
             break;
         }
         thisParent = thisParent.parentNode;
@@ -109,6 +113,7 @@ const showEl = (node) =>
     if ('static' === position) {
         classes.push(classRelative);
     }
+    addSvgClass(node, classes);
     if (node && node instanceof SVGElement) {
         addSvgClass(node, classes);
     } else {
@@ -180,38 +185,47 @@ class Step extends PureComponent
         callback.call(this);
         return true;
     }
+    
+    addHighlight(target)
+    {
+        const targetPos = getOffset(target);
+        if (!targetPos.w || !targetPos.h) {
+            return;
+        }
+        let thisStyles;
+        const isSetFixed = isFixed(target);
+        if (isSetFixed) {
+            thisStyles = injects.fixed;
+        }
+        if (!target.id) {
+            target.id = 'react-onboarding-highlight-'+nodeId; 
+            nodeId++;
+        }
+        popupDispatch({
+            type: 'dom/update',
+            params: {
+                popup: <Highlight
+                    wh={[targetPos.w, targetPos.h]} 
+                    name={'highlight-'+target.id}
+                    key={'highlight-'+target.id}
+                    targetEl={target}
+                    styles={thisStyles}
+                /> 
+            }
+        });
+    }
 
-    setHighlights(isSetFixed)
+    setHighlights()
     {
         const { highlights } = this.props;
         if (!highlights) {
             return;
         }
-        let hlElStyles;
-        if (isSetFixed) {
-            hlElStyles = injects.fixed;
-        }
         highlights.forEach( (hl, key) => {
             const targets = query.all(hl);
             if (targets.length) {
                 targets.forEach( (target, tKey) => {
-                    const targetPos = getOffset(target);
-                    if (!targetPos.w || !targetPos.h) {
-                        return;
-                    }
-                    const thisKey = 'react-onboarding-highlight-'+key+'-'+tKey;
-                    popupDispatch({
-                        type: 'dom/update',
-                        params: {
-                            popup: <Highlight
-                                wh={[targetPos.w, targetPos.h]} 
-                                name={thisKey}
-                                key={thisKey}
-                                targetEl={target}
-                                styles={hlElStyles}
-                            /> 
-                        }
-                    });
+                    this.addHighlight(target);
                 } );
             }
         });
@@ -249,37 +263,46 @@ class Step extends PureComponent
         });
     }
 
+    addNumber(num, node)
+    {
+        if (!node || !num) {
+            return;
+        }
+        const targetPos = getOffset(node);
+        if (!targetPos.w || !targetPos.h) {
+            return;
+        }
+        let thisStyles;
+        const isSetFixed = isFixed(node);
+        if (isSetFixed) {
+            thisStyles = injects.fixed;
+        }
+        popupDispatch({
+            type: 'dom/update',
+            params: {
+                popup: (
+                    <StepNumber
+                        name={'number-'+num}
+                        key={'number-'+num}
+                        targetEl={node}
+                        styles={thisStyles}
+                    >
+                    {num}
+                    </StepNumber>
+                )
+            }
+        });
+    }
+
     setNumbers(isSetFixed)
     {
         const { numbers } = this.props;
         if (!numbers) {
             return;
         }
-        let styles;
-        if (isSetFixed) {
-            styles = injects.fixed;
-        }
         keys(numbers).forEach( key => {
             const target = query.one(numbers[key]);
-            const targetPos = getOffset(target);
-            if (!targetPos.w || !targetPos.h) {
-                return;
-            }
-            popupDispatch({
-                type: 'dom/update',
-                params: {
-                    popup: (
-                        <StepNumber
-                            name={'react-onboarding-step-number'+key}
-                            key={key}
-                            targetEl={target}
-                            styles={styles}
-                        >
-                        {key}
-                        </StepNumber>
-                    )
-                }
-            });
+            this.addNumber(key, target);
         });
     }
 
@@ -488,7 +511,7 @@ class Step extends PureComponent
             ],
             showEl: [
                 {
-                    zIndex: 99999 
+                    zIndex: '99999 !important'
                 },
                 '.'+classShowEl,
                 classShowEl

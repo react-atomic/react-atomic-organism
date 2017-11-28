@@ -94,6 +94,20 @@ class Onboarding extends PureComponent
         }
     }
 
+    addHighlight(node)
+    {
+        if (this.current) {
+            this.current.addHighlight(node);
+        }
+    }
+
+    addNumber(num, node)
+    {
+        if (this.current) {
+            this.current.addNumber(num, node);
+        }
+    }
+
     getStepIndex()
     {
         return this.state.stepIndex;
