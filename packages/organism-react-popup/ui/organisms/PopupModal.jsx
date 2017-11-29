@@ -10,6 +10,7 @@ import {
 import Animate from 'organism-react-animate';
 import getScrollInfo from 'get-scroll-info'; 
 import getOffset from 'getoffset';
+import get from 'get-object-value';
 
 import { PopupOverlay } from '../organisms/PopupOverlay';
 import {
@@ -48,7 +49,7 @@ class PopupModal extends PopupOverlay
         }
     }
 
-    resize = () =>
+    reCalculate = () =>
     {
         if (this.el) {
             const scrollInfo = getScrollInfo();
@@ -56,7 +57,17 @@ class PopupModal extends PopupOverlay
             if (domInfo) {
                 const domHalfHeight = (domInfo.bottom - domInfo.top) / 2;
                 if (domInfo.top - domHalfHeight > scrollInfo.top) {
-                    this.el.style.marginTop = (1-domHalfHeight)+'px';
+                    const marginTop = (1-domHalfHeight)+'px';
+                    if (get(this, ['state', 'modalStyle', 'marginTop'])!==marginTop) {
+                        this.setState(({modalStyle})=>{
+                            return {
+                                modalStyle: {
+                                    ...modalStyle,
+                                    marginTop
+                                }
+                            };
+                        });
+                    }
                 }
             }
         }
@@ -64,8 +75,9 @@ class PopupModal extends PopupOverlay
 
     lockScreen()
     {
+        window.addEventListener('resize', this.reCalculate);
         if (this.props.maskScroll) {
-            this.detach();
+            this.resetBodyStyle();
         } else {
             if ('undefined' !== typeof document) {
                 document.body.style.overflow = 'hidden';
@@ -73,22 +85,22 @@ class PopupModal extends PopupOverlay
         }
     }
 
-    detach()
+    resetBodyStyle()
     {
         if ('undefined' !== typeof document) {
             document.body.style.overflow = originBodyStyle;
         }
     }
 
-    componentDidMount()
+    detach()
     {
-        window.addEventListener('resize', this.resize);
+        this.resetBodyStyle();
+        window.removeEventListener('resize', this.reCalculate);
     }
 
     componentWillUnmount()
     {
         this.detach();
-        window.removeEventListener('resize', this.resize);
     }
 
     render()
@@ -109,6 +121,10 @@ class PopupModal extends PopupOverlay
             className,
             ...others
         } = this.props;
+        const {
+            show: stateShow,
+            modalStyle: stateModalStyle
+        } = this.state;
         let containerClick = null;
         let thisCloseEl;
         let thisStyles = [];
@@ -116,7 +132,6 @@ class PopupModal extends PopupOverlay
             thisStyles.push(styles);
         }
         let content = '';
-        const stateShow = this.state.show;
         if (stateShow) {
             this.lockScreen();
             if (!closeEl) {
@@ -147,11 +162,12 @@ class PopupModal extends PopupOverlay
                         styles={reactStyle({
                             ...Styles.modal,
                             ...modalStyle,
+                            ...stateModalStyle
                         }, null, false)}
                         className={mixClass( {scrolling: scrolling}, className )}
                         refCb={ el=>{
                             this.el=el;
-                            setImmediate(()=>this.resize());
+                            setImmediate(()=>this.reCalculate());
                         }}
                         show={stateShow}
                     />
