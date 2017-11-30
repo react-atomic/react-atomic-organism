@@ -162,6 +162,7 @@ class Onboarding extends PureComponent
 
     componentWillUnmount()
     {
+        delete window.ReactOnboarding;
         const { finish } = this.props;
         if (finish) {
             finish.call(this);
