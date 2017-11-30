@@ -57,7 +57,7 @@ class PopupModal extends PopupOverlay
             if (domInfo) {
                 const domHalfHeight = (domInfo.bottom - domInfo.top) / 2;
                 if (domInfo.top - domHalfHeight > scrollInfo.top) {
-                    const marginTop = (1-domHalfHeight)+'px';
+                    const marginTop = Math.floor((1-domHalfHeight))+'px';
                     if (get(this, ['state', 'modalStyle', 'marginTop'])!==marginTop) {
                         this.setState(({modalStyle})=>{
                             return {
