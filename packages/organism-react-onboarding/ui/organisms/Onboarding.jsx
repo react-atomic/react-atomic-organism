@@ -66,6 +66,20 @@ class Onboarding extends PureComponent
         );
     }
 
+    resetLightBox()
+    {
+        if (this.current) {
+            this.current.resetLightBox();
+        }
+    }
+
+    tryOpen()
+    {
+        if (this.current) {
+            this.current.tryOpen();
+        }
+    }
+
     open()
     {
         if (this.current) {
@@ -168,6 +182,7 @@ class Onboarding extends PureComponent
         }
         const currentStep = this.steps[stepIndex];
         return cloneElement(currentStep, {
+            host: this,
             key: stepIndex,
             onboardingBefore,
             isBack,

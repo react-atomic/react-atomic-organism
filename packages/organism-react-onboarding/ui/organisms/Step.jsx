@@ -16,6 +16,7 @@ import query from 'css-query-selector';
 import getOffset from 'getoffset';
 import getStyle from 'get-style';
 import getScrollInfo from 'get-scroll-info';
+import get from 'get-object-value';
 import {isFixed} from 'get-window-offset';
 import {removeClass} from 'class-lib';
 import {percent} from 'topercent';
@@ -125,6 +126,7 @@ class Step extends PureComponent
 {
     timerFind;
     timerExecute;
+    timerMonitor;
 
     static defaultProps = {
         delay: 100,
@@ -183,32 +185,33 @@ class Step extends PureComponent
             }
         );
         callback.call(this);
+        this.handleMonitor();
         return true;
     }
     
-    addHighlight(target)
+    addHighlight(node)
     {
-        const targetPos = getOffset(target);
-        if (!targetPos.w || !targetPos.h) {
+        const nodePos = getOffset(node);
+        if (!nodePos.w || !nodePos.h) {
             return;
         }
         let thisStyles;
-        const isSetFixed = isFixed(target);
+        const isSetFixed = isFixed(node);
         if (isSetFixed) {
             thisStyles = injects.fixed;
         }
-        if (!target.id) {
-            target.id = 'react-onboarding-highlight-'+nodeId; 
+        if (!node.id) {
+            node.id = 'react-onboarding-highlight-'+nodeId; 
             nodeId++;
         }
         popupDispatch({
             type: 'dom/update',
             params: {
                 popup: <Highlight
-                    wh={[targetPos.w, targetPos.h]} 
-                    name={'highlight-'+target.id}
-                    key={'highlight-'+target.id}
-                    targetEl={target}
+                    wh={[nodePos.w, nodePos.h]} 
+                    name={'highlight-'+node.id}
+                    key={'highlight-'+node.id}
+                    targetEl={node}
                     styles={thisStyles}
                 /> 
             }
@@ -222,10 +225,10 @@ class Step extends PureComponent
             return;
         }
         highlights.forEach( (hl, key) => {
-            const targets = query.all(hl);
-            if (targets.length) {
-                targets.forEach( (target, tKey) => {
-                    this.addHighlight(target);
+            const nodes = query.all(hl);
+            if (nodes.length) {
+                nodes.forEach( (node, tKey) => {
+                    this.addHighlight(node);
                 } );
             }
         });
@@ -242,9 +245,9 @@ class Step extends PureComponent
             styles = injects.fixed;
         }
         beacons.forEach( (beacon, key) => {
-            const target = query.one(beacon);
-            const targetPos = getOffset(target);
-            if (!targetPos.w || !targetPos.h) {
+            const node = query.one(beacon);
+            const nodePos = getOffset(node);
+            if (!nodePos.w || !nodePos.h) {
                 return;
             }
             popupDispatch({
@@ -254,7 +257,7 @@ class Step extends PureComponent
                         <Beacon
                             name={'react-onboarding-beacon'+key}
                             key={key}
-                            targetEl={target}
+                            targetEl={node}
                             styles={styles}
                         />
                     )
@@ -268,8 +271,8 @@ class Step extends PureComponent
         if (!node || !num) {
             return;
         }
-        const targetPos = getOffset(node);
-        if (!targetPos.w || !targetPos.h) {
+        const nodePos = getOffset(node);
+        if (!nodePos.w || !nodePos.h) {
             return;
         }
         let thisStyles;
@@ -301,8 +304,8 @@ class Step extends PureComponent
             return;
         }
         keys(numbers).forEach( key => {
-            const target = query.one(numbers[key]);
-            this.addNumber(key, target);
+            const node = query.one(numbers[key]);
+            this.addNumber(key, node);
         });
     }
 
@@ -346,7 +349,7 @@ class Step extends PureComponent
 
     setFloat()
     {
-        const { type, delay, isBack, before, cook, light, onboardingBefore } = this.props;
+        const { type, delay, isBack, before, cook, target, onboardingBefore } = this.props;
         const callback = () =>
         {
             if (onboardingBefore) {
@@ -356,27 +359,36 @@ class Step extends PureComponent
                 cook.call(this);
             }
             setImmediate(()=>{
-                const lightEl = query.one(light); 
-                const lightElPos = getOffset(lightEl);
-                if (lightElPos.w && lightElPos.h) {
+                if (!target) {
                     popupDispatch({
                         type: 'dom/update',
                         params: {
                             popup: this._float 
                         }
                     });
+                } else {
+                    const lightEl = query.one(target); 
+                    const lightElPos = getOffset(lightEl);
+                    if (lightElPos.w && lightElPos.h) {
+                        popupDispatch({
+                            type: 'dom/update',
+                            params: {
+                                popup: this._float 
+                            }
+                        });
+                    }
                 }
             });
         };
-        if (light) {
+        if (target) {
             let maxTry = 100;
             let tryTime = 0;
             this.timerFind = setInterval(()=>{
                 tryTime++;
-                const lightEl = query.one(light); 
+                const lightEl = query.one(target); 
                 if (tryTime > maxTry) {
                     clearInterval(this.timerFind);
-                    console.warn('Can not find light element. ['+light+']');
+                    console.warn('Can not find light element. ['+target+']');
                 }
                 if (!lightEl) {
                     return;
@@ -401,7 +413,7 @@ class Step extends PureComponent
     {
         const { back, finish } = this.props;
         if (finish) {
-            isSuccess = finish.call(this);
+            finish.call(this);
         }
         back();
     }
@@ -409,6 +421,7 @@ class Step extends PureComponent
     handleFinish()
     {
         clearInterval(this.timerFind);
+        clearInterval(this.timerMonitor);
         clearTimeout(this.timerExecute);
         const { finish } = this.props;
         if (finish) {
@@ -425,6 +438,28 @@ class Step extends PureComponent
         cleanClass(classRelative);
     }
 
+    handleMonitor()
+    {
+        const {monitors, host} = this.props;
+        if (!monitors) {
+            return;
+        }
+        clearInterval(this.timerMonitor);
+        this.timerMonitor = setInterval(()=>{
+            monitors.forEach( sel => {
+                const nodes = query.all(sel);
+                if (nodes.length) {
+                    nodes.forEach( node => {
+                        const pos = getOffset(node);
+                        if (pos.w && pos.h) {
+                            host.next();
+                        }
+                    });
+                }
+            });
+        }, 100);
+    }
+
     closeFloats()
     {
         popupDispatch({
@@ -435,10 +470,20 @@ class Step extends PureComponent
         });
     }
 
+    tryOpen()
+    {
+        const {target, host}  = this.props;
+        if (!target || query.one(target)) {
+            this.open();
+        } else {
+            host.goTo(0);
+        }
+    }
+
     open()
     {
-        const {type, light, scrollTo}  = this.props;
-        const lightEl = query.one(light); 
+        const {type, target, scrollTo}  = this.props;
+        const lightEl = query.one(target); 
         if (!lightEl) {
             return;
         }
@@ -460,6 +505,30 @@ class Step extends PureComponent
                     }
                 });
             }, lightEl);
+        });
+    }
+
+    resetLightBox()
+    {
+        const {target, hideLightBox}  = this.props;
+        const lightEl = query.one(target); 
+        if (!lightEl) {
+            return;
+        }
+        const isSetFixed = isFixed(lightEl);
+        this.addLightBox(lightEl, hideLightBox);
+        this._float = cloneElement(
+            this._float,
+            {
+                targetEl: lightEl,
+                isSetFixed
+            }
+        );
+        popupDispatch({
+            type: 'dom/update',
+            params: {
+                popup: this._float 
+            }
         });
     }
 
@@ -532,12 +601,16 @@ class Step extends PureComponent
             ],
             content: [
                 {
-                    textAlign: 'left'
+                    textAlign: 'left',
+                    padding: '1rem 1rem',
                 }
             ],
             actions: [
                 {
-                    textAlign: 'right'
+                    textAlign: 'right',
+                    paddingTop: '1rem',
+                    background: 'f9fafb',
+                    borderTop: '1px solid rgba(34,36,38,.15)'
                 }
             ],
         };
@@ -575,7 +648,8 @@ class Step extends PureComponent
             const buttons = [];
             actions.forEach( (action, key) => {
                 let onClick;
-                let actionText = action.text;
+                let actionText = get(action, ['text'], '');
+                let actionClassName = get(action, ['className'], '');
                 const thisAction = action.action;
                 if ('function' === typeof thisAction) {
                     onClick = thisAction;
@@ -583,6 +657,7 @@ class Step extends PureComponent
                     switch (thisAction) {
                         case 'next':
                             onClick = this.handleNext;
+                            actionClassName += ' positive';
                             if (!actionText) {
                                 const isLast = stepDisplayIndex >= total;
                                 if (isLast) {
@@ -609,7 +684,7 @@ class Step extends PureComponent
                             e.stopPropagation();
                             onClick(e);
                         }}
-                        className="right positive"
+                        className={actionClassName}
                     >
                         {actionText}
                     </Button>
