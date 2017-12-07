@@ -6,6 +6,8 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 
+let checkboxId = 0;
+
 const InputWrapper = ({toggle, slider, type, checked, ...props}) =>
 {
     const classes = mixClass(
@@ -26,45 +28,74 @@ class Checkbox extends PureComponent
 {
    constructor(props) 
    {
-      super(props);
-      this.state = {
-        checked: props.checked,
-      };
+       super(props);
+       this.state = {
+            checked: props.checked,
+       };
+       this.id = props.id;
+       if (!this.id) {
+           this.id = 'react-checkbox-'+ checkboxId;
+           checkboxId++;
+       }
+   }
+
+   componentWillReceiveProps(nextProps)
+   {
+        const {checked} = nextProps;
+        if (checked !== this.state.checked) {
+            this.setState({checked });
+        }
    }
 
     handleClick = (e) =>
     {
+        if ('INPUT' !== e.target.nodeName) {
+            e.preventDefault();
+        }
         const {beforeClick, afterClick} = this.props;
+        const beforeChecked = this.state.checked;
+        const afterChecked = !this.state.checked;
         if (beforeClick) {
-            beforeClick(e);
+            beforeClick(e, beforeChecked, afterChecked);
         }
         this.setState({
-            checked: !this.state.checked
+            checked: afterChecked
         });
         if (afterClick) {
-            afterClick(e);
+            afterClick(e, beforeChecked, afterChecked);
         }
     }
 
     render()
     {
-        const {toggle, slider, type, beforeClick, afterClick, ...props} = this.props;
+        const {toggle, label, slider, type, style, beforeClick, afterClick, ...props} = this.props;
         const {checked: stateChecked} = this.state;
+        let thisLabel = label;
+        if (!thisLabel) {
+            thisLabel = ' ';
+        }
         return (
            <Field
-                {...props}
-                type={type}
+                {...{
+                    ...props,
+                    type,
+                    id: this.id,
+                    label: thisLabel,
+                    defaultChecked: stateChecked,
+                    checked: stateChecked,
+                    style: {...Styles.checkbox, ...style}
+                }}
                 inputWrapper={
-                    <InputWrapper {...{
-                            toggle: toggle,
-                            slider: slider,
-                            type: type,
+                    <InputWrapper 
+                        {...{
+                            toggle,
+                            slider,
+                            type,
+                            onClick: this.handleClick,
                             checked: stateChecked
                         }}
                     />
                 }
-                checked={stateChecked}
-                onClick={this.handleClick}
             /> 
         );
     }
@@ -77,3 +108,9 @@ Checkbox.defaultProps = {
 };
 
 export default Checkbox;
+
+const Styles = {
+    checkbox: {
+        margin: 0
+    }
+};

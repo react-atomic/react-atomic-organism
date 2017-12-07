@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -26,8 +26,10 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
+    "preact": "*",
+    "preact-compat": "*",
     "prop-types": "*",
-    "react": "^15.x"
+    "react": "^16.x"
   },
   "scripts": {
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
