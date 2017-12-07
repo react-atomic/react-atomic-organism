@@ -331,8 +331,8 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
     delayed-stream "~1.0.0"
 
 commander@^2.11.0:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.1.tgz#468635c4168d06145b9323356d1da84d14ac4a7a"
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -444,9 +444,13 @@ extglob@^0.3.1:
   dependencies:
     is-extglob "^1.0.0"
 
-extsprintf@1.3.0, extsprintf@^1.2.0:
+extsprintf@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
+
+extsprintf@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
 fbjs@^0.8.16:
   version "0.8.16"
@@ -554,8 +558,8 @@ get-style@*:
   resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.0.0.tgz#966e37b08dea60e1994a2652437a8a5e6d7b0224"
 
 get-window-offset@*:
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.17.tgz#cd4b646b1ec8f4547a243e73cafb1366124a657a"
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.20.tgz#ffcb9c848ea5e77d6c38708210659f6f97de8e97"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -563,8 +567,10 @@ get-window-offset@*:
     getoffset "*"
 
 getoffset@*:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.6.tgz#a93f61df8d363a92b65b47bee0b0125df6c98a0f"
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.7.tgz#8a995df8712f52bb2e8edbd2696cabdc207482b4"
+  dependencies:
+    get-scroll-info "*"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -662,8 +668,8 @@ iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 immutability-helper@^2.1.2:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.5.1.tgz#1d38ba1c47d8d2d50783f917cb7fbeb5737121dd"
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.6.0.tgz#3e909d1baf915765a9624545198d04c55a80bdd7"
   dependencies:
     invariant "^2.2.0"
 
@@ -899,8 +905,8 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
 mitt@*:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.2.tgz#380e61480d6a615b660f07abb60d51e0a4e4bed6"
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.3.tgz#528c506238a05dce11cd914a741ea2cc332da9b8"
 
 "mkdirp@>=0.5 0", mkdirp@^0.5.1:
   version "0.5.1"
@@ -1128,8 +1134,8 @@ react-atomic-molecule@*:
     ucfirst "*"
 
 react-dom@^16.x:
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.1.1.tgz#b2e331b6d752faf1a2d31399969399a41d8d45f8"
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -1148,8 +1154,8 @@ react-transition-group@^2.x:
     warning "^3.0.0"
 
 react@^16.x:
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.1.1.tgz#d5c4ef795507e3012282dd51261ff9c0e824fe1f"
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"

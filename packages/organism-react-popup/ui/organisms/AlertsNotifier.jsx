@@ -75,7 +75,8 @@ class AlertsNotifier extends PureComponent
     {
         const {
             ani,
-            alerts
+            alerts,
+            position
         } = this.props;
         const {
             dismissedAlerts
@@ -96,11 +97,16 @@ class AlertsNotifier extends PureComponent
                 ));
             }
         });
-
+        let positionStyle = {};
+        if ('top' === position) {
+            positionStyle.top = 5;
+        } else {
+            positionStyle.bottom = 5;
+        }
         return (
             <Animate
                 {...ani}
-                style={Styles.container}
+                style={{...Styles.container, ...positionStyle}}
             >
                 {alertArr}
             </Animate>
@@ -118,7 +124,8 @@ AlertsNotifier.defaultProps = {
         appear: 'fadeIn',
         enter: 'fadeIn',
         leave: 'fadeOut'
-    }
+    },
+    position: 'top' 
 };
 
 export default AlertsNotifier;
@@ -126,7 +133,6 @@ export default AlertsNotifier;
 const Styles = {
     container: {
         position: 'fixed',
-        top: 5,
         left: 10,
         right: 10,
         zIndex: 9999
