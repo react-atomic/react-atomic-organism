@@ -1,9 +1,11 @@
 // Organisms
+export { default as AlertsNotifier } from '../ui/organisms/AlertsNotifier';
+export { default as DisplayPopupEl } from '../ui/organisms/DisplayPopupEl'; 
+export { default as FullScreen } from '../ui/organisms/FullScreen';
 export { default as PopupElement } from '../ui/organisms/PopupElement';
 export { default as PopupOverlay } from '../ui/organisms/PopupOverlay';
 export { default as PopupFloatEl } from '../ui/organisms/PopupFloatEl';
 export { default as PopupModal } from '../ui/organisms/PopupModal';
-export { default as AlertsNotifier } from '../ui/organisms/AlertsNotifier';
 
 // Molecule
 export { default as BasePopup } from '../ui/molecules/BasePopup'; 

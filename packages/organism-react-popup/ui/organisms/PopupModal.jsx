@@ -75,7 +75,10 @@ class PopupModal extends PopupOverlay
 
     lockScreen()
     {
-        window.addEventListener('resize', this.reCalculate);
+        const {modal} = this.props; 
+        if (!modal) {
+            window.addEventListener('resize', this.reCalculate);
+        }
         if (this.props.maskScroll) {
             this.resetBodyStyle();
         } else {
@@ -94,8 +97,11 @@ class PopupModal extends PopupOverlay
 
     detach()
     {
+        const {modal} = this.props; 
         this.resetBodyStyle();
-        window.removeEventListener('resize', this.reCalculate);
+        if (!modal) {
+            window.removeEventListener('resize', this.reCalculate);
+        }
     }
 
     componentWillUnmount()
@@ -116,6 +122,7 @@ class PopupModal extends PopupOverlay
             modalStyle,
             modal,
             mask,
+            maskScroll,
             closeEl,
             closeCallBack,
             className,
