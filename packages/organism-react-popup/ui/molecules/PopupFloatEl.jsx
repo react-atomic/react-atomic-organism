@@ -9,7 +9,7 @@ import getWindowOffset, {
     getPositionString
 } from 'get-window-offset';
 
-import PopupOverlay from '../organisms/PopupOverlay';
+import PopupOverlay from '../molecules/PopupOverlay';
 
 class PopupFloatEl extends PopupOverlay
 {

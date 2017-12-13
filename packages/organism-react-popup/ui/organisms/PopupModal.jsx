@@ -12,10 +12,8 @@ import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset';
 import get from 'get-object-value';
 
-import { PopupOverlay } from '../organisms/PopupOverlay';
-import {
-    popupDispatch
-} from '../../src/index';
+import { PopupOverlay } from '../molecules/PopupOverlay';
+import { popupDispatch } from '../../src/index';
 
 let originBodyStyle;
 if ('undefined' !== typeof document) {
