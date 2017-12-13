@@ -119,8 +119,9 @@ class PopupModal extends PopupOverlay
             leave,
             style,
             styles,
-            modalStyle,
             modal,
+            modalClassName,
+            modalStyle,
             mask,
             maskScroll,
             closeEl,
@@ -171,7 +172,7 @@ class PopupModal extends PopupOverlay
                             ...modalStyle,
                             ...stateModalStyle
                         }, null, false)}
-                        className={mixClass( {scrolling: scrolling}, className )}
+                        className={mixClass( {scrolling: scrolling}, modalClassName )}
                         refCb={ el=>{
                             this.el=el;
                             setImmediate(()=>this.reCalculate());
@@ -202,7 +203,7 @@ class PopupModal extends PopupOverlay
         }
 
         return (
-            <SemanticUI>
+            <SemanticUI className={className}>
                 <Animate {...{ appear, enter, leave }}>
                     {content}
                 </Animate>

@@ -47,7 +47,7 @@ class FullScreen extends PureComponent
                 <PopupModal
                     appear="fadeIn-500"
                     enter="fadeIn-500"
-                    className="basic"
+                    className="full-screen"
                     scrolling={true}
                     style={Styles.container}
                     modal={children}

@@ -53,7 +53,7 @@ class PopupOverlay extends BasePopup
         if (!stateShow) {
             return null;
         }
-        const {targetEl, isFollowTransform, className, show, style, group, ...others} = this.props;
+        const {targetEl, toPool, isFollowTransform, className, show, style, group, ...others} = this.props;
 
         /* <!-- Handle Style */
         const thisStyle = {...style};
