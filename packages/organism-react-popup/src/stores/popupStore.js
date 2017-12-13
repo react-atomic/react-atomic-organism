@@ -85,15 +85,30 @@ class PopupStore extends ReduceStore
   cleanOne(state, action)
   {
       const key = this.getKey(action);
-      const node = state.get(NODE_KEY).delete(key);
+      const nodes = state.get(NODE_KEY).delete(key);
       const shows = state.get(SHOW_KEY).delete(key);
-      return state.set(SHOW_KEY, shows).
-        set(NODE_KEY, node);
+      return state.
+        set(NODE_KEY, nodes).
+        set(SHOW_KEY, shows);
   }
 
   cleanGroup(state, action)
   {
-
+      const groupKey = get(action, ['params','group']);
+      const group = get(groups, [groupKey]);
+      if (group) {
+          let nodes = state.get(NODE_KEY);
+          let shows = state.get(SHOW_KEY);
+          keys(group).forEach( key => {
+              nodes = nodes.delete(key);  
+              shows = shows.delete(key);  
+          });
+          return state.
+              set(NODE_KEY, nodes).
+              set(SHOW_KEY, shows);
+      } else {
+          return state;
+      }
   }
 
   reduce (state, action)
