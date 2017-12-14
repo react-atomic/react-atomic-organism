@@ -1,4 +1,5 @@
 export {default} from '../ui/organisms/Spotlight';
+export {default as LightBox} from '../ui/molecules/LightBox';
 
 // library
 export { default as cleanClass } from './cleanClass';
