@@ -1,0 +1,45 @@
+{
+  "name": "organism-react-spotlight",
+  "version": "0.0.0",
+  "description": "React spotlight",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
+  "keywords": [
+    "react",
+    "react-component",
+    "organism",
+    "atomic-ui"
+  ],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "array.merge": "*",
+    "class-lib": "*",
+    "css-query-selector": "^0.0.0",
+    "get-style": "*",
+    "get-window-offset": "*",
+    "getoffset": "*",
+    "organism-react-popup": "*",
+    "react-atomic-molecule": "*",
+    "ricon": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "*",
+    "preact": "*",
+    "preact-compat": "*",
+    "react": "^16.x",
+    "react-dom": "^16.x"
+  },
+  "scripts": {
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}
