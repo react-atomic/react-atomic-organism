@@ -14,6 +14,10 @@ describe('test array merge', ()=>{
         const acture = merge(['a']);
         expect(acture).to.deep.equal(['a']);
     });
+    it('should return same, when pass null or undefined', ()=>{
+        const acture = merge(['a'], null, undefined);
+        expect(acture).to.deep.equal(['a']);
+    });
     it('should return array, when merge two arrays', ()=>{
         const acture = merge(['a'], ['b']);
         expect(acture).to.deep.equal(['a', 'b']);

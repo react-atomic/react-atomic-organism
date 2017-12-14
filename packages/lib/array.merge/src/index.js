@@ -10,6 +10,9 @@ const arrayMerge = function()
        arg1 = [arg1]; 
     }
     arg.forEach( a => {
+        if (null === a || 'undefined' === typeof a) {
+            return;
+        }
         if (isArray(a)) {
             arg1 = arg1.concat(a);
         } else {
