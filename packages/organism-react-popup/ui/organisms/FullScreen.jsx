@@ -50,6 +50,8 @@ class FullScreen extends PureComponent
                     className="full-screen"
                     scrolling={true}
                     style={Styles.container}
+                    modalClassName="basic"
+                    modalStyle={Styles.modal}
                     modal={children}
                     closeEl={xico}
                     closeCallBack={()=>{this.xIcoLeave();closeCallBack();}}

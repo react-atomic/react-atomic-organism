@@ -11,6 +11,7 @@ import Animate from 'organism-react-animate';
 import getScrollInfo from 'get-scroll-info'; 
 import getOffset from 'getoffset';
 import get from 'get-object-value';
+import arrayMerge from 'array.merge';
 
 import { PopupOverlay } from '../molecules/PopupOverlay';
 import { popupDispatch } from '../../src/index';
@@ -73,14 +74,14 @@ class PopupModal extends PopupOverlay
 
     lockScreen()
     {
-        const {modal} = this.props; 
+        const {modal, toPool} = this.props; 
         if (!modal) {
             window.addEventListener('resize', this.reCalculate);
         }
         if (this.props.maskScroll) {
             this.resetBodyStyle();
         } else {
-            if ('undefined' !== typeof document) {
+            if (!toPool && 'undefined' !== typeof document) {
                 document.body.style.overflow = 'hidden';
             }
         }
@@ -88,7 +89,8 @@ class PopupModal extends PopupOverlay
 
     resetBodyStyle()
     {
-        if ('undefined' !== typeof document) {
+        const {toPool} = this.props; 
+        if (!toPool && 'undefined' !== typeof document) {
             document.body.style.overflow = originBodyStyle;
         }
     }
@@ -133,10 +135,6 @@ class PopupModal extends PopupOverlay
         } = this.state;
         let containerClick = null;
         let thisCloseEl;
-        let thisStyles = [];
-        if (styles) {
-            thisStyles.push(styles);
-        }
         let content = '';
         if (stateShow) {
             this.lockScreen();
@@ -158,7 +156,10 @@ class PopupModal extends PopupOverlay
                      }
                 );
             }
-            thisStyles.push(reactStyle({ ...Styles.container, ...style },null, false)); 
+            let thisStyles = arrayMerge(
+                reactStyle({ ...Styles.background, ...style }, null, false),
+                styles
+            );
             let thisModal = modal;
             if ('undefined' === typeof thisModal) {
                 thisModal = (

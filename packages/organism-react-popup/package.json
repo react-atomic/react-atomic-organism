@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "React Atomic Organism Popup",
   "main": "./build/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
@@ -13,6 +13,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "array.merge": "*",
     "get-object-value": "*",
     "get-style": "*",
     "get-window-offset": "*",
