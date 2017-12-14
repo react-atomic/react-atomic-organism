@@ -20,6 +20,7 @@
     "get-window-offset": "*",
     "getoffset": "*",
     "organism-react-popup": "*",
+    "organism-react-spotlight": "*",
     "react-atomic-molecule": "*",
     "ricon": "*",
     "smooth-scroll-to": "*",

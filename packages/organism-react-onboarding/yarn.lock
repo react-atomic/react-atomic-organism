@@ -57,6 +57,10 @@ array.dedup@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
 
+array.merge@*:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.1.tgz#00ba6ac335c8e006e04a4c357f0891aa3b6ce6d1"
+
 asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
@@ -331,8 +335,8 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
     delayed-stream "~1.0.0"
 
 commander@^2.11.0:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.1.tgz#468635c4168d06145b9323356d1da84d14ac4a7a"
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.12.2.tgz#0f5946c427ed9ec0d91a46bb9def53e54650e555"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -351,8 +355,8 @@ core-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
 core-js@^2.4.0, core-js@^2.5.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.1.tgz#ae6874dc66937789b80754ff5428df66819ca50b"
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -448,9 +452,13 @@ extglob@^0.3.1:
   dependencies:
     is-extglob "^1.0.0"
 
-extsprintf@1.3.0, extsprintf@^1.2.0:
+extsprintf@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
+
+extsprintf@^1.2.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
 fbjs@^0.8.16:
   version "0.8.16"
@@ -558,8 +566,8 @@ get-style@*:
   resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.0.0.tgz#966e37b08dea60e1994a2652437a8a5e6d7b0224"
 
 get-window-offset@*:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.19.tgz#86007de2fb4cef782888b17eb16655fcc8c7070a"
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.20.tgz#ffcb9c848ea5e77d6c38708210659f6f97de8e97"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -567,8 +575,10 @@ get-window-offset@*:
     getoffset "*"
 
 getoffset@*:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.6.tgz#a93f61df8d363a92b65b47bee0b0125df6c98a0f"
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.7.tgz#8a995df8712f52bb2e8edbd2696cabdc207482b4"
+  dependencies:
+    get-scroll-info "*"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -666,8 +676,8 @@ iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 immutability-helper@^2.1.2:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.5.1.tgz#1d38ba1c47d8d2d50783f917cb7fbeb5737121dd"
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.6.0.tgz#3e909d1baf915765a9624545198d04c55a80bdd7"
   dependencies:
     invariant "^2.2.0"
 
@@ -903,8 +913,8 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
 mitt@*:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.2.tgz#380e61480d6a615b660f07abb60d51e0a4e4bed6"
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.3.tgz#528c506238a05dce11cd914a741ea2cc332da9b8"
 
 "mkdirp@>=0.5 0", mkdirp@^0.5.1:
   version "0.5.1"
@@ -1000,9 +1010,10 @@ organism-react-animate@*:
     react-transition-group "^2.x"
 
 organism-react-popup@*:
-  version "0.1.34"
-  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.1.34.tgz#f1840ff52a35ed48479352bde8dd6b24c13d758c"
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.2.2.tgz#937e45920c461a9f53920b3ecd406fa44ef5a1ec"
   dependencies:
+    array.merge "*"
     get-object-value "*"
     get-style "*"
     get-window-offset "*"
@@ -1014,6 +1025,20 @@ organism-react-popup@*:
     ricon "*"
     set-object-value "*"
     setimmediate "*"
+
+organism-react-spotlight@*:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.0.tgz#576d5adb7fc687b65fec354a16f0021b3ead4bec"
+  dependencies:
+    array.merge "*"
+    class-lib "*"
+    css-query-selector "^0.0.0"
+    get-style "*"
+    get-window-offset "*"
+    getoffset "*"
+    organism-react-popup "*"
+    react-atomic-molecule "*"
+    ricon "*"
 
 os-homedir@^1.0.0:
   version "1.0.2"
@@ -1076,8 +1101,8 @@ preact-transition-group@^1.1.0:
   resolved "https://registry.yarnpkg.com/preact-transition-group/-/preact-transition-group-1.1.1.tgz#f0a49327ea515ece34ea2be864c4a7d29e5d6e10"
 
 preact@*:
-  version "8.2.6"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.6.tgz#0028b426ef98fcca741a3c617ff5b813b9a947c7"
+  version "8.2.7"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.2.7.tgz#316249fb678cd5e93e7cee63cea7bfb62dbd6814"
 
 preserve@^0.2.0:
   version "0.2.0"
@@ -1138,8 +1163,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.11.tgz#32b8f0621947351e7ecf336e1e025aeb1a142d99"
 
 react-atomic-molecule@*:
-  version "1.3.27"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.27.tgz#7b176151c1470f2502337f0eb3e984dc3fcd7b69"
+  version "1.3.28"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.28.tgz#a569ba968faadfb33ed85512091c57290e2a7e46"
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1159,8 +1184,8 @@ react-transition-group@^2.x:
     warning "^3.0.0"
 
 react@^16.x:
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.1.1.tgz#d5c4ef795507e3012282dd51261ff9c0e824fe1f"
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -1193,8 +1218,8 @@ regenerator-runtime@^0.10.5:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.5.tgz#336c3efc1220adcedda2c9fab67b5a7955a33658"
 
 regenerator-runtime@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.0.tgz#7e54fe5b5ccd5d6624ea6255c3473be090b802e1"
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
 
 regex-cache@^0.4.2:
   version "0.4.4"

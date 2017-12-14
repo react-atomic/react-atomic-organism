@@ -12,19 +12,25 @@ import {
     popupDispatch,
     PopupModal,
 } from 'organism-react-popup';
+import {
+    cleanClass,
+    cleanZIndex,
+    setClass,
+    showEl,
+    LightBox
+} from 'organism-react-spotlight';
 import query from 'css-query-selector';
 import getOffset from 'getoffset';
 import getStyle from 'get-style';
 import getScrollInfo from 'get-scroll-info';
 import get from 'get-object-value';
 import {isFixed} from 'get-window-offset';
-import {removeClass} from 'class-lib';
 import {percent} from 'topercent';
 import scroll from 'smooth-scroll-to';
 
+
 import Beacon from '../organisms/Beacon';
 import Tooltip from '../organisms/Tooltip';
-import LightBox from '../organisms/LightBox';
 import Highlight from '../organisms/Highlight';
 import StepNumber from '../organisms/StepNumber';
 
@@ -37,90 +43,6 @@ const GROUP_FLOATS = GROUP_KEY+'-floats';
 const classCleanZIndex = GROUP_KEY+'-clean-zindex';
 const classShowEl = GROUP_KEY+'-show-el';
 const classRelative = GROUP_KEY+'-relative';
-
-const cleanClass = (className) =>
-{
-    const allEl = query.all('.'+className);
-    allEl.forEach( el => {
-        if (el instanceof SVGElement) {
-            el.setAttribute('class', removeClass(
-                el.getAttribute('class'),
-                className
-            ));
-        } else {
-            el.className = removeClass(
-                el.className,
-                className
-            );
-        }
-    });
-}
-
-const addCleanZIndex = (node) =>
-{
-    let thisParent = node.parentNode;
-    if (!thisParent) {
-        return;
-    }
-    let isFindFixedParent;
-    while(thisParent.nodeName != 'BODY') {
-        const zIndex = getStyle(thisParent, 'z-index');
-        if (zIndex && 'auto' !== zIndex) {
-            const position =  getStyle(thisParent, 'position');
-            if ('fixed' !== position) {
-                setClass(thisParent, [classCleanZIndex]);
-            } else if ('fixed' === position) {
-                if (!isFindFixedParent) {
-                    isFindFixedParent = true;
-                    setClass(thisParent, [classShowEl]);
-                }
-            }
-        }
-        thisParent = thisParent.parentNode;
-    }
-}
-
-const setClass = (node, classes) =>
-{
-    if (node instanceof SVGElement) {
-        const className = node.getAttribute('class') || ''; 
-        node.setAttribute('class', className + ' ' + classes.join(' '));
-    } else {
-        node.className += ' '+classes.join(' ');
-    }
-}
-
-const addSvgClass = (node, classes) =>
-{
-    setClass(node, classes);
-    let thisParent = node.parentNode;
-    if (!thisParent) {
-        return;
-    }
-    while(thisParent.nodeName != 'BODY') {
-        // svg always in lower case
-        if (thisParent.nodeName.toLowerCase() === 'svg') {
-            setClass(thisParent, classes);
-            break;
-        }
-        thisParent = thisParent.parentNode;
-    }
-}
-
-const showEl = (node) =>
-{
-    const position = getStyle(node, 'position');
-    const classes = [classShowEl];
-    if ('static' === position) {
-        classes.push(classRelative);
-    }
-    addSvgClass(node, classes);
-    if (node && node instanceof SVGElement) {
-        addSvgClass(node, classes);
-    } else {
-        node.className += ' '+classes.join(' ');
-    }
-}
 
 class Step extends PureComponent
 {
@@ -137,7 +59,7 @@ class Step extends PureComponent
     addLightBox(node, isHide)
     {
         const isSetFixed = isFixed(node);
-        addCleanZIndex(node);
+        cleanZIndex(node, classCleanZIndex, classShowEl);
         let thisStyles;
         if (isSetFixed) {
             thisStyles = injects.fixed;
@@ -713,6 +635,5 @@ class Step extends PureComponent
         return null;
     }
 }
-export {addCleanZIndex as cleanZIndex, showEl};
 export default Step;
 
