@@ -24,6 +24,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
     const from = el.scrollTop;
     const go = to - from;
     if (!go) {
+        isRunning = false;
         if ('function' === typeof callback) {
             callback();
         }
