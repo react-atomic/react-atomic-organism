@@ -61,7 +61,7 @@ const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
     let loc;
     let move;
     const floatInfo = getOffset(floatEl);
-    locs.some((locItem)=>{
+    locs.some( locItem => {
         toLoc = locItem;
         loc = getAlignWithLoc(toLoc);
         move = alignWith(targetInfo, floatInfo, loc);

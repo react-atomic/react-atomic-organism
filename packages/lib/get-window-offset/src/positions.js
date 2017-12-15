@@ -1,13 +1,17 @@
 
 const positions = {
     TL: 'tl',
-    TR: 'tr',
-    BL: 'bl',
-    BR: 'br',
     TC: 'tc',
+    TR: 'tr',
+    RT: 'rt',
     RC: 'rc',
+    RB: 'rb',
+    BL: 'bl',
     BC: 'bc',
+    BR: 'br',
+    LT: 'lt',
     LC: 'lc',
+    LB: 'lb',
     CC: 'cc'
 };
 

@@ -1027,8 +1027,8 @@ organism-react-popup@*:
     setimmediate "*"
 
 organism-react-spotlight@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.0.tgz#576d5adb7fc687b65fec354a16f0021b3ead4bec"
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.2.tgz#3a3e2cc56b823790744501a6e5c0a5629a52c145"
   dependencies:
     array.merge "*"
     class-lib "*"
