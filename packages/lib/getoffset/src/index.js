@@ -41,8 +41,13 @@ const getOffset = (dom) => {
         do {
             const offsetTop = el.offsetTop || 0;
             const offsetLeft = el.offsetLeft || 0;
-            top += offsetTop - el.scrollTop;
-            left += offsetLeft - el.scrollLeft;
+            if ('BODY' === el.nodeName) {
+                top += offsetTop;
+                left += offsetLeft;
+            } else {
+                top += offsetTop - el.scrollTop;
+                left += offsetLeft - el.scrollLeft;
+            }
             el = el.offsetParent;
         } while (el);
     }
