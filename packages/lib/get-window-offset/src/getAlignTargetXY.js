@@ -5,17 +5,9 @@ const getAlignTargetXY = (domInfo, loc) => {
    const width = domInfo.right - domInfo.left;
    const height = domInfo.bottom - domInfo.top;
    switch (loc) {
+        case pos.LT:
         case pos.TL:
             xy = [domInfo.left, domInfo.top];
-            break;
-        case pos.TR:
-            xy = [domInfo.right, domInfo.top];
-            break;
-        case pos.BL:
-            xy = [domInfo.left, domInfo.bottom];
-            break;
-        case pos.BR:
-            xy = [domInfo.right, domInfo.bottom];
             break;
         case pos.TC:
             xy = [
@@ -24,18 +16,30 @@ const getAlignTargetXY = (domInfo, loc) => {
                 domInfo.top
             ];
             break;
-        case pos.RC:
-            xy = [
-                domInfo.right,
-                domInfo.top +
-                    Math.floor(height / 2)
-            ];
+        case pos.RT:
+        case pos.TR:
+            xy = [domInfo.right, domInfo.top];
+            break;
+        case pos.LT:
+        case pos.BL:
+            xy = [domInfo.left, domInfo.bottom];
             break;
         case pos.BC:
             xy = [
                 domInfo.left +  
                     Math.floor(width / 2),
                 domInfo.bottom
+            ];
+            break;
+        case pos.RB:
+        case pos.BR:
+            xy = [domInfo.right, domInfo.bottom];
+            break;
+        case pos.RC:
+            xy = [
+                domInfo.right,
+                domInfo.top +
+                    Math.floor(height / 2)
             ];
             break;
         case pos.LC:

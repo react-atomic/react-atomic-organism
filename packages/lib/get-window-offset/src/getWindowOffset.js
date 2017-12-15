@@ -35,6 +35,7 @@ const calWindowOffset = (domInfo, scrollInfo) =>
         firstKey = distanceFlip[Math.max(distance.top, distance.bottom)];
     }
     locs.push(firstKey+secondKey);
+    locs.push(secondKey+firstKey);
     const tb = firstKey;
     const lr = secondKey;
     return {
