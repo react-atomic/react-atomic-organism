@@ -23,6 +23,12 @@ const smoothScrollTo = (to, duration, el, callback) => {
     }
     const from = el.scrollTop;
     const go = to - from;
+    if (!go) {
+        if ('function' === typeof callback) {
+            callback();
+        }
+        return;
+    }
     let beginTimeStamp;
     const scrollTo = (timeStamp) => {
         beginTimeStamp = beginTimeStamp || timeStamp;
@@ -39,7 +45,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
         } else {
             isRunning = false;
             if ('function' === typeof callback) {
-                setTimeout( callback );
+                callback();
             }
         }
     };
