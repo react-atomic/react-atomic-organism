@@ -30,7 +30,7 @@ const showEl = (node, classShowEl='react-spotlight-show-el', classRelative='reac
     if (node && node instanceof SVGElement) {
         addSvgClass(node, classes);
     } else {
-        node.className += ' '+classes.join(' ');
+        setClass(node, classes);
     }
 }
 

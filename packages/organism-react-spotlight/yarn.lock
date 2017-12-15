@@ -566,8 +566,8 @@ get-style@*:
   resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.0.0.tgz#966e37b08dea60e1994a2652437a8a5e6d7b0224"
 
 get-window-offset@*:
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.20.tgz#ffcb9c848ea5e77d6c38708210659f6f97de8e97"
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.21.tgz#0f43e95a3cb17cf8ec57ad17020c0eca8e5742bf"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -575,8 +575,8 @@ get-window-offset@*:
     getoffset "*"
 
 getoffset@*:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.7.tgz#8a995df8712f52bb2e8edbd2696cabdc207482b4"
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.8.tgz#c4addf59859e30fea177f143cae847e18f551591"
   dependencies:
     get-scroll-info "*"
 
@@ -676,8 +676,8 @@ iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 immutability-helper@^2.1.2:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.6.0.tgz#3e909d1baf915765a9624545198d04c55a80bdd7"
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.6.1.tgz#355805fee7ad52dca52ca74ed5aab172031baf7b"
   dependencies:
     invariant "^2.2.0"
 

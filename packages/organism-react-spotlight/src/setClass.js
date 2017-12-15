@@ -1,11 +1,12 @@
+import {mixClass} from 'class-lib';
 
 const setClass = (node, classes) =>
 {
     if (node instanceof SVGElement) {
-        const className = node.getAttribute('class') || ''; 
-        node.setAttribute('class', className + ' ' + classes.join(' '));
+        const thisClass = mixClass(node.getAttribute('class'), classes); 
+        node.setAttribute('class', thisClass);
     } else {
-        node.className += ' '+classes.join(' ');
+        node.className = mixClass(node.className, classes);
     }
 }
 

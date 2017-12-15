@@ -1,6 +1,6 @@
 {
   "name": "organism-react-spotlight",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "React spotlight",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -21,8 +21,7 @@
     "get-window-offset": "*",
     "getoffset": "*",
     "organism-react-popup": "*",
-    "react-atomic-molecule": "*",
-    "ricon": "*"
+    "react-atomic-molecule": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
