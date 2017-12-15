@@ -11,8 +11,14 @@ const easeInOutCubic = function(t, b, c, d) {
     return c/2*((t-=2)*t*t + 2) + b
 }
 
+/**
+ *  !!Important!! any logic change need take care isRunning
+ */
 const smoothScrollTo = (to, duration, el, callback) => {
     if (isRunning) {
+        if ('function' === typeof callback) {
+            callback();
+        }
         return false;
     } else {
         isRunning = true;
