@@ -39,7 +39,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
         } else {
             isRunning = false;
             if ('function' === typeof callback) {
-                callback();
+                setTimeout( callback );
             }
         }
     };
