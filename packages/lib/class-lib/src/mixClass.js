@@ -7,10 +7,11 @@ const keys = Object.keys;
 
 const mixClass = function() 
 {
-    let classes = [];
-    keys(arguments).forEach((key)=>
+    const classes = [];
+    const args = arguments;
+    keys(args).forEach((key)=>
     {
-        const arg = arguments[key];
+        const arg = args[key];
         if (!arg) {
             return;
         }
@@ -27,7 +28,9 @@ const mixClass = function()
             });
         }
     });
-    return dedup(classes).join(' ');
+    let cookClasses = [];
+    classes.forEach(c => cookClasses = cookClasses.concat(c.split(' ')));
+    return dedup(cookClasses).join(' ');
 }
 
 export default mixClass;
