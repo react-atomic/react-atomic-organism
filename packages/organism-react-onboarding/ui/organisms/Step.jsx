@@ -99,18 +99,20 @@ class Step extends PureComponent
         if (before) {
             before.call(this);
         }
-        this.addLightBox(lightEl, hideLightBox);
-        const isSetFixed = isFixed(lightEl);
-        this.setHighlights(isSetFixed);
-        this.setNumbers(isSetFixed);
-        this.setBeacons(isSetFixed);
-        this._float = cloneElement(
-            this._float,
-            {
-                targetEl: lightEl,
-                isSetFixed
-            }
-        );
+        if (lightEl) {
+            this.addLightBox(lightEl, hideLightBox);
+            const isSetFixed = isFixed(lightEl);
+            this._float = cloneElement(
+                this._float,
+                {
+                    targetEl: lightEl,
+                    isSetFixed
+                }
+            );
+        }
+        this.setHighlights();
+        this.setNumbers();
+        this.setBeacons();
         callback.call(this);
         this.handleMonitor();
         return true;
@@ -161,21 +163,22 @@ class Step extends PureComponent
         });
     }
 
-    setBeacons(isSetFixed)
+    setBeacons()
     {
         const { beacons } = this.props;
         if (!beacons) {
             return;
-        }
-        let styles;
-        if (isSetFixed) {
-            styles = injects.fixed;
         }
         beacons.forEach( (beacon, key) => {
             const node = query.one(beacon);
             const nodePos = getOffset(node);
             if (!nodePos.w || !nodePos.h) {
                 return;
+            }
+            const isSetFixed = isFixed(node);
+            let styles;
+            if (isSetFixed) {
+                styles = injects.fixed;
             }
             popupDispatch({
                 type: 'dom/update',
@@ -224,7 +227,7 @@ class Step extends PureComponent
         });
     }
 
-    setNumbers(isSetFixed)
+    setNumbers()
     {
         const { numbers } = this.props;
         if (!numbers) {
@@ -240,11 +243,11 @@ class Step extends PureComponent
     handleScrollTo(lightEl, callback)
     {
         const { scrollTo } = this.props;
-        const lightElPos = getOffset(lightEl);
-        if (!scrollTo) {
+        if (!scrollTo || !lightEl) {
             callback.call(this);
             return;
         }
+        const lightElPos = getOffset(lightEl);
         const scrollInfo = getScrollInfo();
         let halfH;
         if (scrollInfo.scrollNodeHeight > lightElPos.h) {
@@ -294,9 +297,7 @@ class Step extends PureComponent
                         }
                     });
                 } else {
-                    const lightEl = query.one(target); 
-                    const lightElPos = getOffset(lightEl);
-                    if (lightElPos.w && lightElPos.h) {
+                    if (this.getTargetEl()) {
                         popupDispatch({
                             type: 'dom/update',
                             params: {
@@ -397,10 +398,29 @@ class Step extends PureComponent
         });
     }
 
+    getTargetEl()
+    {
+        const {target}  = this.props;
+        if (!target) {
+            return false;
+        }
+        const targetEl = query.one(target);
+        if (!targetEl) {
+            return false;
+        }
+        const targetElPos = getOffset(targetEl);
+        if (!targetElPos.w ||
+            !targetElPos.h
+        ) {
+            return false;
+        }
+        return targetEl;
+    }
+
     tryOpen()
     {
-        const {target, host}  = this.props;
-        if (!target || query.one(target)) {
+        const {host}  = this.props;
+        if (this.getTargetEl()) {
             this.open();
         } else {
             host.goTo(0);
@@ -410,20 +430,12 @@ class Step extends PureComponent
     open()
     {
         const {type, target, scrollTo}  = this.props;
-        const lightEl = query.one(target); 
-        if (!lightEl) {
+        const targetEl = this.getTargetEl();
+        if (type !== 'modal' && !targetEl) {
+            this.handleFinish();
             return;
         }
-        const lightElPos = getOffset(lightEl);
-        if (type !== 'modal') {
-            if (!lightElPos.w ||
-                !lightElPos.h
-            ) {
-                this.handleFinish();
-                return;
-            }
-        }
-        this.handleScrollTo(lightEl, ()=>{
+        this.handleScrollTo(targetEl, ()=>{
             this.setLightBox( ()=>{
                 popupDispatch({
                     type: 'dom/update',
@@ -431,7 +443,7 @@ class Step extends PureComponent
                         popup: this._float 
                     }
                 });
-            }, lightEl);
+            }, targetEl);
         });
     }
 
