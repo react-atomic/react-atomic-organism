@@ -113,7 +113,9 @@ class Step extends PureComponent
         this.setHighlights();
         this.setNumbers();
         this.setBeacons();
-        callback.call(this);
+        if ('function' === typeof callback) {
+            callback.call(this);
+        }
         this.handleMonitor();
         return true;
     }
@@ -429,9 +431,10 @@ class Step extends PureComponent
 
     open()
     {
-        const {type, target, scrollTo}  = this.props;
+        const {type, scrollTo}  = this.props;
         const targetEl = this.getTargetEl();
         if (type !== 'modal' && !targetEl) {
+            console.warn('target not found.');
             this.handleFinish();
             return;
         }
