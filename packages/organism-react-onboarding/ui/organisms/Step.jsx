@@ -44,6 +44,10 @@ const classCleanZIndex = GROUP_KEY+'-clean-zindex';
 const classShowEl = GROUP_KEY+'-show-el';
 const classRelative = GROUP_KEY+'-relative';
 
+const myShowEl = node => showEl(node, classShowEl, classRelative);
+
+const myCleanZIndex = node => cleanZIndex(node, classCleanZIndex, classShowEl);
+
 class Step extends PureComponent
 {
     timerFind;
@@ -59,13 +63,13 @@ class Step extends PureComponent
     addLightBox(node, isHide)
     {
         const isSetFixed = isFixed(node);
-        cleanZIndex(node, classCleanZIndex, classShowEl);
+        myCleanZIndex(node);
         let thisStyles;
         if (isSetFixed) {
             thisStyles = injects.fixed;
         } else {
             // need locate after addCleanZIndex(lightEl)
-            showEl(node);
+            myShowEl(node);
         }
         if (!node.id) {
             node.id = 'light-el-'+nodeId; 
@@ -79,6 +83,7 @@ class Step extends PureComponent
                     popup: <LightBox
                         key={node.id}
                         name={node.id}
+                        group={GROUP_KEY}
                         wh={[nodePos.w, nodePos.h]} 
                         targetEl={node}
                         styles={thisStyles}
@@ -637,3 +642,7 @@ class Step extends PureComponent
 }
 export default Step;
 
+export {
+    myShowEl as showEl,
+    myCleanZIndex as cleanZIndex
+};

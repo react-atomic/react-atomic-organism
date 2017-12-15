@@ -58,8 +58,8 @@ array.dedup@*:
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
 
 array.merge@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.0.tgz#7d04598636e49bf2f1cd2b7691e41e5069a297d5"
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.1.tgz#00ba6ac335c8e006e04a4c357f0891aa3b6ce6d1"
 
 asap@~2.0.3:
   version "2.0.6"
@@ -1010,9 +1010,10 @@ organism-react-animate@*:
     react-transition-group "^2.x"
 
 organism-react-popup@*:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.2.0.tgz#1a6b34023eec439ba8c1f47df495d0de5e0deaaa"
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.2.2.tgz#937e45920c461a9f53920b3ecd406fa44ef5a1ec"
   dependencies:
+    array.merge "*"
     get-object-value "*"
     get-style "*"
     get-window-offset "*"
