@@ -67,9 +67,6 @@ class Step extends PureComponent
         let thisStyles;
         if (isSetFixed) {
             thisStyles = injects.fixed;
-        } else {
-            // need locate after addCleanZIndex(lightEl)
-            myShowEl(node);
         }
         if (!node.id) {
             node.id = 'light-el-'+nodeId; 
@@ -90,6 +87,10 @@ class Step extends PureComponent
                     /> 
                 }
             });
+        }
+        if (!isSetFixed) {
+            // need locate after myCleanZIndex(node)
+            myShowEl(node);
         }
     }
 
@@ -517,7 +518,8 @@ class Step extends PureComponent
             ],
             showEl: [
                 {
-                    zIndex: '99999 !important'
+                    zIndex: '99999 !important',
+                    transform: 'translate3d(0,0,0)'
                 },
                 '.'+classShowEl,
                 classShowEl
