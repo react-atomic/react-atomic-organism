@@ -291,22 +291,13 @@ class Step extends PureComponent
                 cook.call(this);
             }
             setImmediate(()=>{
-                if (!target) {
+                if (false !== this.getTargetEl() || 'modal' === type) {
                     popupDispatch({
                         type: 'dom/update',
                         params: {
                             popup: this._float 
                         }
                     });
-                } else {
-                    if (this.getTargetEl()) {
-                        popupDispatch({
-                            type: 'dom/update',
-                            params: {
-                                popup: this._float 
-                            }
-                        });
-                    }
                 }
             });
         };
@@ -400,11 +391,15 @@ class Step extends PureComponent
         });
     }
 
+    /**
+     * @return null mean not assign target
+     * @return false mean target not exists
+     */
     getTargetEl()
     {
         const {target}  = this.props;
         if (!target) {
-            return false;
+            return null;
         }
         const targetEl = query.one(target);
         if (!targetEl) {
@@ -422,7 +417,7 @@ class Step extends PureComponent
     tryOpen()
     {
         const {host}  = this.props;
-        if (this.getTargetEl()) {
+        if (false !== this.getTargetEl()) {
             this.open();
         } else {
             host.goTo(0);

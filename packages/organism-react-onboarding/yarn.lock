@@ -311,8 +311,8 @@ chokidar@^1.6.1:
     fsevents "^1.0.0"
 
 class-lib@*:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/class-lib/-/class-lib-0.0.7.tgz#84d1c5c25342d7b8e159ed0598a6a05001db31b6"
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/class-lib/-/class-lib-0.0.9.tgz#f3a8927ba0ffead34199fcaefa62dcba22f76a72"
   dependencies:
     array.dedup "*"
 
@@ -575,8 +575,8 @@ get-window-offset@*:
     getoffset "*"
 
 getoffset@*:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.7.tgz#8a995df8712f52bb2e8edbd2696cabdc207482b4"
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.8.tgz#c4addf59859e30fea177f143cae847e18f551591"
   dependencies:
     get-scroll-info "*"
 
@@ -676,8 +676,8 @@ iconv-lite@~0.4.13:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 immutability-helper@^2.1.2:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.6.0.tgz#3e909d1baf915765a9624545198d04c55a80bdd7"
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.6.2.tgz#0df76cd906518cf81f79caecb4e55d2850a11e2d"
   dependencies:
     invariant "^2.2.0"
 
@@ -1027,8 +1027,8 @@ organism-react-popup@*:
     setimmediate "*"
 
 organism-react-spotlight@*:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.2.tgz#3a3e2cc56b823790744501a6e5c0a5629a52c145"
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.4.tgz#103debd01c90afae14f08ab628095034c03af751"
   dependencies:
     array.merge "*"
     class-lib "*"
@@ -1038,7 +1038,6 @@ organism-react-spotlight@*:
     getoffset "*"
     organism-react-popup "*"
     react-atomic-molecule "*"
-    ricon "*"
 
 os-homedir@^1.0.0:
   version "1.0.2"
@@ -1324,8 +1323,8 @@ slash@^1.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
 smooth-scroll-to@*:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/smooth-scroll-to/-/smooth-scroll-to-0.0.10.tgz#eb74e62a25eef28e547ffe8ea92324606a611877"
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/smooth-scroll-to/-/smooth-scroll-to-0.0.13.tgz#cb59833c926f6669425cc0a6ff858df6d7be01c8"
   dependencies:
     get-scroll-info "*"
 
