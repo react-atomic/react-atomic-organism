@@ -66,6 +66,13 @@ class Onboarding extends PureComponent
         );
     }
 
+    resetFloats(...params)
+    {
+        if (this.current) {
+            this.current.resetFloats(...params);
+        }
+    }
+
     resetLightBox()
     {
         if (this.current) {

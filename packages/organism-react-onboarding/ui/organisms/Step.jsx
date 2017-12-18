@@ -94,7 +94,7 @@ class Step extends PureComponent
         }
     }
 
-    setLightBox(callback, lightEl)
+    _resetFloats(callback, lightEl)
     {
         const { before, hideLightBox } = this.props;
         if (before) {
@@ -119,6 +119,18 @@ class Step extends PureComponent
         }
         this.handleMonitor();
         return true;
+    }
+
+    resetFloats(targetEl)
+    {
+        this._resetFloats( ()=>{
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: this._float 
+                }
+            });
+        }, targetEl);
     }
     
     addHighlight(node)
@@ -174,6 +186,9 @@ class Step extends PureComponent
         }
         beacons.forEach( (beacon, key) => {
             const node = query.one(beacon);
+            if (!node) {
+                return;
+            }
             const nodePos = getOffset(node);
             if (!nodePos.w || !nodePos.h) {
                 return;
@@ -280,7 +295,7 @@ class Step extends PureComponent
         next();
     }
 
-    setFloat()
+    initFloat()
     {
         const { type, delay, isBack, before, cook, target, onboardingBefore } = this.props;
         const callback = () =>
@@ -322,7 +337,7 @@ class Step extends PureComponent
                 }
                 this.timerExecute = setTimeout(()=>{
                     this.handleScrollTo(lightEl, ()=>{
-                        this.setLightBox(callback, lightEl);
+                        this._resetFloats(callback, lightEl);
                     });
                 }, thisDelay);
             }, 50);
@@ -435,14 +450,7 @@ class Step extends PureComponent
             return;
         }
         this.handleScrollTo(targetEl, ()=>{
-            this.setLightBox( ()=>{
-                popupDispatch({
-                    type: 'dom/update',
-                    params: {
-                        popup: this._float 
-                    }
-                });
-            }, targetEl);
+            this.resetFloats(targetEl);
         });
     }
 
@@ -472,12 +480,12 @@ class Step extends PureComponent
 
     componentDidMount() 
     {
-        this.setFloat();
+        this.initFloat();
     }
 
     componentDidUpdate(prevProps, prevState)
     {
-        this.setFloat();
+        this.initFloat();
     }
 
     componentWillUnmount()
