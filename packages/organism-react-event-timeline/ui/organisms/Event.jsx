@@ -98,7 +98,7 @@ const Event = (props) =>
         };
         content = <Animate {...aniProps}>{content}</Animate>;
     }
-    let containerStyle = Styles.container;
+    const containerStyle = {...Styles.container};
     if (handleEventClick) {
         containerStyle.cursor = 'pointer';
     }
