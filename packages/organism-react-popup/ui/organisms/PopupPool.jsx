@@ -16,8 +16,7 @@ class PopupPool extends Component
 
     static calculateState(prevState, props)
     {
-        const state = popupStore.getState();
-        const nodes = state.get('nodes').toJS();
+        const nodes = popupStore.getMap('nodes');
         const {name} = props;
         const pops = [];
         keys(nodes).forEach( key => {

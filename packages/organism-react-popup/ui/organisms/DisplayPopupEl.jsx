@@ -3,11 +3,16 @@ import {
     popupDispatch,
 } from '../../src/index';
 
+const isArray = Array.isArray;
+
 class DisplayPopupEl extends PureComponent
 {
     get floatEl()
     {
-        const {children} = this.props;
+        let {children} = this.props;
+        if (isArray(children)) {
+            children = children[0];
+        }
         return children;
     }
 

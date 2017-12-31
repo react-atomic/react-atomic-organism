@@ -51,22 +51,25 @@ class PopupModal extends PopupOverlay
     reCalculate = () =>
     {
         if (this.el) {
-            const scrollInfo = getScrollInfo();
             const domInfo = getOffset(this.el);
             if (domInfo) {
                 const domHalfHeight = (domInfo.bottom - domInfo.top) / 2;
-                if (domInfo.top - domHalfHeight > scrollInfo.top) {
-                    const marginTop = Math.floor((1-domHalfHeight))+'px';
-                    if (get(this, ['state', 'modalStyle', 'marginTop'])!==marginTop) {
-                        this.setState(({modalStyle})=>{
-                            return {
-                                modalStyle: {
-                                    ...modalStyle,
-                                    marginTop
-                                }
-                            };
-                        });
-                    }
+                let marginTop;
+                if (domInfo.top - domHalfHeight > 0) {
+                    marginTop = Math.floor(1-domHalfHeight);
+                } else {
+                    marginTop = Math.floor(1-domInfo.top + 10);
+                }
+                if (get(this, ['state', 'modalStyle', 'marginTop'])!==marginTop) {
+                    this.setState(({modalStyle})=>{
+                        modalStyle = {
+                            ...modalStyle,
+                            marginTop
+                        };
+                        return {
+                            modalStyle
+                        };
+                    });
                 }
             }
         }
@@ -226,6 +229,7 @@ const Styles = {
     modal: {
         boxSizing: 'border-box',
         right: 'auto',
-        bottom: 'auto'
+        bottom: 'auto',
+        transition: ['all 500ms ease']
     }
 };
