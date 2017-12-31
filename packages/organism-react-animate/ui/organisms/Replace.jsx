@@ -80,6 +80,7 @@ class Replace extends PureComponent
         return (
             <Animate
                 {...props}
+                onExited={this.handleAniEnd}
             >
                 {show}
             </Animate>
