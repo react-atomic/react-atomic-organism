@@ -6,8 +6,8 @@ import {
     SemanticUI 
 } from 'react-atomic-molecule';
 
-const getTypingNextWordAniClassName = (el,sec) => {
-    const width = el.offsetWidth+ 50;
+const getTypingNextWordAniClassName = (el, sec) => {
+    const width = el.offsetWidth+ 70;
     const ssec = ''+sec;
     const aniName ='typingNextWord-'+width+'-'+ssec.replace('.','-'); 
     if (injects[aniName]) {
@@ -19,7 +19,7 @@ const getTypingNextWordAniClassName = (el,sec) => {
                 maxWidth: 0,
             },
             {
-                maxWidth: width+'px'
+                maxWidth: width
             },
         ],
         ['@keyframes '+aniName, '0%', '100%'],
@@ -47,26 +47,32 @@ class TypingItem extends Component
         };
     }
 
-    componentDidMount()
+    handleEl = (el) =>
     {
-        this.setState({
-            classes: getTypingNextWordAniClassName(this.el, this.props.sec)
+        this.setState((classes)=>{
+            const next = getTypingNextWordAniClassName(el, this.props.sec);
+            if (next !== classes) {
+                return {classes: next};
+            } else {
+                return {};
+            }
         });
     }
     
     render()
     {
         const {children, sec, background, ...others} = this.props;
+        const {classes} = this.state;
         return (
            <SemanticUI {...others}> 
                 <div
-                    className={this.state.classes}
-                    ref={el=>this.el=el}
+                    className={classes}
+                    ref={this.handleEl}
                     style={Styles.typingItemText}
                 >
-                    {children}
+                    {children} &nbsp;
                 </div>
-               <SemanticUI styles={injects.typingCursor}> | </SemanticUI>
+                <SemanticUI styles={injects.typingCursor}> | </SemanticUI>
            </SemanticUI>
         );
     }
@@ -75,7 +81,7 @@ class TypingItem extends Component
 class Typing extends Component
 {
     static defaultProps = {
-        height: '80px',
+        height: 80,
         color: '#000',
         background: null,
         sec: 1.5,
@@ -113,9 +119,7 @@ class Typing extends Component
             {top: 0},
             {top: 0 - ( height * itemLength )}
         ],['@keyframes '+styleId, '0%', '100%'], styleId);
-        this.setState({
-            typingItemStyles: typingItemStyles
-        });
+        this.setState({ typingItemStyles });
     }
 
     componentDidMount()
@@ -145,7 +149,7 @@ class Typing extends Component
     render()
     {
         const props = this.props;
-        const state = this.state;
+        const {isRun, typingItemStyles} = this.state;
         let items = [];
         let atts = { 
             height:props.height,
@@ -154,13 +158,13 @@ class Typing extends Component
         if (props.background) {
             atts.background = props.background;
         }
-        if (state.isRun && state.typingItemStyles) { // need calculate offsetWidth
+        if (isRun && typingItemStyles) { // need calculate offsetWidth
             React.Children.map(props.children,(item, key)=>{
                 items.push(
                     <TypingItem
                         key={key}
                         sec={props.sec}
-                        styles={state.typingItemStyles}
+                        styles={typingItemStyles}
                         {...atts}
                     >
                         {item.props.children}
@@ -191,7 +195,9 @@ const Styles = {
         display: "inline-block",
         overflow: "hidden",
         visibility: "hidden",
-        whiteSpace: 'nowrap'
+        whiteSpace: 'nowrap',
+        paddingRight: 1,
+        boxSizing: 'border-box'
     },
 };
 
@@ -200,7 +206,8 @@ const InjectStyles = {
     typingCursor: [{
         display: "inline-block",
         position: "relative",
-        marginLeft: "3px",
+        marginLeft: 5,
+        top: 1,
         verticalAlign: "top",
         animation: ["typingBlink 1s infinite"]
     }],
