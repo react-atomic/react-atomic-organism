@@ -60,7 +60,7 @@ class AjaxPage extends PureComponent
             const pageState = ajaxStore.getState();
             thisThemePath = this._lastThemePath;
             if ('undefined' === typeof themes[thisThemePath]) {
-                console.error('Not find themes on ['+themePath+']', themes);
+                console.error('Not find a theme for name: ['+themePath+']', themes);
                 return null;
             }
         }
@@ -75,7 +75,7 @@ class AjaxPage extends PureComponent
             }
             const builded = build(myTheme);
             if (!React.isValidElement(builded)) {
-                console.error('Not find valid elemet on ['+themePath+']', themes);
+                console.error('Not findi a valid element for name: ['+themePath+']', themes);
                 return null;
             } else {
                 pages[thisThemePath] = builded;
