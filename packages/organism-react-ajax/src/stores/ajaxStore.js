@@ -14,7 +14,7 @@ let worker;
 let fakeWorker;
 let isWorkerReady;
 let cbIndex = 0;
-let Callbacks = [];
+const Callbacks = [];
 
 const initWorker = (worker) =>
 {
@@ -45,7 +45,7 @@ class AjaxStore extends ReduceStore
                 initWorker(worker);
             });
         }
-        import('../../src/worker').then( workerObject => {
+        import('../../src/worker').then( ({default: workerObject}) => {
             fakeWorker = workerObject; 
             initWorker(fakeWorker);
             if (!window.Worker) {
@@ -271,7 +271,15 @@ class AjaxStore extends ReduceStore
   {
     if (isWorkerReady) {
         setImmediate(()=>{
-            worker.postMessage(data);
+            const disableWebWorker = get(data, [
+                'action',
+                'params',
+                'disableWebWorker'
+            ]);
+            const run = disableWebWorker ?
+                fakeWorker :
+                worker;
+            run.postMessage(data);
         });
     } else {
         const self = this;
@@ -325,7 +333,6 @@ class AjaxStore extends ReduceStore
             updateWithUrl(url);
         });
     }
-
 
     reduce (state, action)
     {

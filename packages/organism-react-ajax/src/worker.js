@@ -2,8 +2,8 @@ require('es6-promise/auto');
 import get from 'get-object-value';
 
 var ws;
-var callbacks = [];
 var post;
+const callbacks = [];
 let isWsConnect;
 let wsUrl;
 const keys = Object.keys;
