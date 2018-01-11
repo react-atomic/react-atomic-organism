@@ -11,6 +11,7 @@ const empty = function(){}
 const keys  = Object.keys;
 let wsAuth = Map();
 let worker;
+let fakeWorker;
 let isWorkerReady;
 let cbIndex = 0;
 let Callbacks = [];
@@ -39,17 +40,19 @@ class AjaxStore extends ReduceStore
   {
     if ('undefined' !== typeof window) {
         if (window.Worker) {
-            require(['worker-loader!../../src/worker'],(workerObject)=>{ 
+            import('worker-loader!../../src/worker').then( workerObject => {
                 worker = workerObject();
                 initWorker(worker);
             });
-        } else {
-            require(['../../src/worker'],(workerObject)=>{ 
-                worker = workerObject; 
-                initWorker(worker);
-                isWorkerReady = true;
-            });
         }
+        import('../../src/worker').then( workerObject => {
+            fakeWorker = workerObject; 
+            initWorker(fakeWorker);
+            if (!window.Worker) {
+                worker = fakeWorker;
+                isWorkerReady = true;
+            }
+        });
     }
     return Map();
   }
