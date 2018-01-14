@@ -55,14 +55,18 @@ class Animate extends PureComponent
     parseAniValue(s)
     {
         let data = s.split('-');
+        let timeout = 500;
+        let delay = 0;
         if (!isNaN(data[1])) {
-            data[1] = parseInt(data[1],10);
-        } else {
-            data[1] = 500;
+            timeout = parseInt(data[1],10);
+        }
+        if (!isNaN(data[2])) {
+            delay = parseInt(data[2],10);
         }
         return {
             name: data[0],
-            timeout: data[1]
+            timeout,
+            delay
         };
     }
 
@@ -78,18 +82,21 @@ class Animate extends PureComponent
             data = this.parseAniValue(appear);
             this.appear = data.name;
             this.appearTimeout = data.timeout;
+            this.appearDelay = data.delay;
             this.appearClass = appear+ ' '+ data.name;
         }
         if (enter) {
             data = this.parseAniValue(enter);
             this.enter = data.name;
             this.enterTimeout = data.timeout;
+            this.enterDelay = data.delay;
             this.enterClass = enter+ ' '+ data.name;
         }
         if (leave) {
             data = this.parseAniValue(leave);
             this.leave = data.name;
             this.leaveTimeout = data.timeout;
+            this.leaveDelay = data.delay;
             this.leaveClass = leave+ ' '+ data.name;
         }
     }
@@ -132,6 +139,11 @@ class Animate extends PureComponent
                     appear: this.appearTimeout,
                     enter: this.enterTimeout,
                     exit: this.leaveTimeout
+                }}
+                delay={{
+                    appear: this.appearDelay,
+                    enter: this.enterDelay,
+                    exit: this.leaveDelay
                 }}
                 classNames={{
                     appear: this.appearClass,

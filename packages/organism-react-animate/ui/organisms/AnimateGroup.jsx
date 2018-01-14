@@ -65,6 +65,7 @@ class AnimateGroup extends PureComponent
     {
         let {
             timeout,
+            delay,
             classNames,
             appear,
             enter,
@@ -83,6 +84,7 @@ class AnimateGroup extends PureComponent
         }
         const aniProps = {
             timeout,
+            delay,
             classNames,
             appear,
             enter,
@@ -137,6 +139,7 @@ class AnimateGroup extends PureComponent
         const {
             component,
             timeout,
+            delay,
             classNames,
             appear,
             enter,
