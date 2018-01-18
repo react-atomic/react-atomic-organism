@@ -17,7 +17,8 @@
     "get-scroll-info": "*",
     "getoffset": "*",
     "organism-react-scroll-nav": "*",
-    "react-atomic-molecule": "*"
+    "react-atomic-molecule": "*",
+    "easing-lib": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

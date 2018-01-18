@@ -8,13 +8,7 @@ import {reactStyle, SemanticUI} from 'react-atomic-molecule';
 import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset';
 import get from 'get-object-value';
-
-const easeInOutCubic = function(t, b, e, d) {
-    if ((t/=d/2) < 1) {
-        return e/2*t*t*t + b
-    }
-    return e/2*((t-=2)*t*t + 2) + b
-}
+import easeOutQuint from 'easing-lib/easeOutQuint';
 
 class Content extends Component
 {
@@ -80,17 +74,6 @@ class Content extends Component
         return posY;
     }
 
-    handleScroll = (nextProps) =>
-    {
-        const lastY = this.calOffset(null, nextProps);
-        this.setState(()=>{
-            return {lastY};
-        });
-    }
-
-    
-
-
     handleResize = () =>
     {
         const scrollInfo = getScrollInfo();
@@ -105,10 +88,28 @@ class Content extends Component
         }});
     }
 
+    handleScroll = (nextProps) =>
+    {
+	if (this.scrollTimer) {
+            clearTimeout(this.scrollTimer);
+	}
+        const lastY = this.calOffset(null, nextProps);
+        this.setState((old)=>{
+            if (this.isRun) {
+                this.scrollTimer = setTimeout(()=>{
+                    this.handleScroll(nextProps); 
+                },150); 
+                return {};
+            }
+            return {lastY};
+        });
+    }
+
+
     handleScrollAni = (prevProps, prevState) =>
     {
 	if (this.aniTimer) {
-		clearTimeout(this.aniTimer);
+            clearTimeout(this.aniTimer);
 	}
 	if (this.isRun) {
 	    this.aniTimer = setTimeout(()=>{
@@ -127,7 +128,7 @@ class Content extends Component
 		beginTimeStamp = timeStamp;
 	    }
 	    const elapsedTime = timeStamp - beginTimeStamp;
-	    const progress = easeInOutCubic(
+	    const progress = easeOutQuint(
 		elapsedTime,
 		prevState.lastY,
 		go,
@@ -151,6 +152,12 @@ class Content extends Component
 
     componentWillUnmount()
     {
+	if (this.scrollTimer) {
+            clearTimeout(this.scrollTimer);
+	}
+	if (this.aniTimer) {
+            clearTimeout(this.aniTimer);
+	}
         window.removeEventListener('resize', this.handleResize);
     }
 
