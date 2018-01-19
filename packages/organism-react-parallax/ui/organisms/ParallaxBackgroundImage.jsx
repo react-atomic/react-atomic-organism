@@ -8,6 +8,7 @@ import {reactStyle, SemanticUI} from 'react-atomic-molecule';
 import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset';
 import get from 'get-object-value';
+import merge from 'array.merge';
 import easeOutQuint from 'easing-lib/easeOutQuint';
 
 class Content extends Component
@@ -179,6 +180,8 @@ class Content extends Component
     render()
     {
         const {
+            style,
+            styles,
             children,
             targetInfo,
             backgroundImage,
@@ -195,9 +198,13 @@ class Content extends Component
             <SemanticUI
                 {...others}
                 refCb={ el => {refCb(el);this.el = el;}}
-                styles={reactStyle({
-                    ...Styles.content,
-                }, false, false)}
+                styles={merge(
+                    reactStyle({
+                        ...Styles.content,
+                        ...style,
+                    }, false, false),
+                    styles
+                )}
             >
                 <SemanticUI
                     className="parllax-background"
@@ -205,6 +212,7 @@ class Content extends Component
                         ...Styles.background,
                     }, false, false)}
                 >
+                    {children}
                     <SemanticUI className="parllax-image"
                         styles={reactStyle({
                             ...Styles.backgroundImage,
@@ -237,16 +245,16 @@ export default ParallaxBackgroundImage;
 
 const Styles = {
     content: {
-        minHeight: 300,
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position: 'relative',
+        zIndex: 0,
     },
     background: {
-        position: 'relative',
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 0,
     },
     backgroundImage: {
         backgroundPosition: '50% 50%',
