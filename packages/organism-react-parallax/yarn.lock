@@ -1410,8 +1410,8 @@ duplexify@^3.4.2, duplexify@^3.5.3:
     stream-shift "^1.0.0"
 
 easing-lib@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/easing-lib/-/easing-lib-0.0.0.tgz#32c85274acc6ee530120981a7e89cf620ef94b61"
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/easing-lib/-/easing-lib-0.0.1.tgz#463372e67ab27fcaa7afcce1911e913a4bb6d4c2"
 
 ecc-jsbn@~0.1.1:
   version "0.1.1"
@@ -2585,8 +2585,8 @@ opener@^1.4.3:
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.4.3.tgz#5c6da2c5d7e5831e8ffa3964950f8d6674ac90b8"
 
 organism-react-scroll-nav@*:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.4.0.tgz#f0b0aec09229e03791244dc515e5f5d8c103b4da"
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.4.1.tgz#11d9acd85823723189cb17b9162f8a73c0c25a90"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -3209,9 +3209,10 @@ slash@^1.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
 smooth-scroll-to@*:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/smooth-scroll-to/-/smooth-scroll-to-0.0.13.tgz#cb59833c926f6669425cc0a6ff858df6d7be01c8"
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/smooth-scroll-to/-/smooth-scroll-to-0.0.14.tgz#8d2678b8b62bcbe7c3d434e13bc16e206b927b17"
   dependencies:
+    easing-lib "*"
     get-scroll-info "*"
 
 sntp@1.x.x:
@@ -3267,8 +3268,8 @@ sshpk@^1.7.0:
     tweetnacl "~0.14.0"
 
 ssri@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/ssri/-/ssri-5.0.0.tgz#13c19390b606c821f2a10d02b351c1729b94d8cf"
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/ssri/-/ssri-5.1.0.tgz#2cbf1df36b74d0fc91fcf89640a4b3e1d10b1899"
   dependencies:
     safe-buffer "^5.1.0"
 

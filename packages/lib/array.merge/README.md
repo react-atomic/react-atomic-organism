@@ -1,4 +1,4 @@
-Array deduplication
+Array merge
 ===============
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/array.merge

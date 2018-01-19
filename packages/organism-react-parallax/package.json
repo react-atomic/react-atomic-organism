@@ -1,6 +1,6 @@
 {
   "name": "organism-react-parallax",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React parallax",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,12 +14,12 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "array.merge": "*",
+    "easing-lib": "*",
     "get-scroll-info": "*",
     "getoffset": "*",
     "organism-react-scroll-nav": "*",
-    "react-atomic-molecule": "*",
-    "easing-lib": "*",
-    "array.merge": "*"
+    "react-atomic-molecule": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
