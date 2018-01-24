@@ -44,7 +44,7 @@ export default Hero;
 
 const Styles = {
     hero: {
-        height: '100vh',
+        minHeight: '100vh',
         backgroundClip: 'content-box',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat'
