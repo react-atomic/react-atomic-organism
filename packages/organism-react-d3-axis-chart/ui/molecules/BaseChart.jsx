@@ -243,12 +243,23 @@ class BaseChart extends Component
             <SemanticUI
                 {...props}
                 viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(scaleH + thisExtraViewBox)}`}
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-                onMouseMove={this.handleMouseMove}
             >
-                <SemanticUI atom="g" transform={`translate(${adjustX}, ${adjustY})`}>
+                <SemanticUI
+                    atom="g"
+                    transform={`translate(${adjustX}, ${adjustY})`}
+                >
                     {childArr}
+                    <Rect 
+                        key='container'
+                        onMouseEnter={this.handleMouseEnter}
+                        onMouseLeave={this.handleMouseLeave}
+                        onMouseMove={this.handleMouseMove}
+                        x="0"
+                        y="0"
+                        width={scaleW}
+                        height={scaleH}
+                        style={{pointerEvents:'all', fill:"none"}}
+                    />
                 </SemanticUI>
             </SemanticUI>
         );

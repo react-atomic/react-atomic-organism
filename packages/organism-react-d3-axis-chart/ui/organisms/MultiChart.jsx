@@ -2,7 +2,6 @@ import React, {Component, Children, cloneElement} from 'react';
 import {
     SemanticUI
 } from 'react-atomic-molecule';
-import {mouse} from 'getoffset';
 import get from 'get-object-value';
 
 class MultiChart extends Component

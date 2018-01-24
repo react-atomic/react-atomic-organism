@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-axis-chart",
-  "version": "0.0.24",
+  "version": "0.0.26",
   "description": "D3 Axis Chart",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -18,20 +18,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
-    "babel-core": "^6.7.5",
-    "babel-loader": "*",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "react": "^16.x",
+    "react-dom": "^16.x"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
-    "prepublish": "npm run build"
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build": "npm run clean && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build",

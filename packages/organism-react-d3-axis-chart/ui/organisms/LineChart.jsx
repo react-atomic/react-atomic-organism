@@ -15,7 +15,7 @@ const LineChart = (props)=>{
         attrLocator
     } = props;
     return (
-        <BaseChart  {...props}>
+        <BaseChart {...props} data={data}>
             {(baseChart)=>{
                 const {xScale, yScale} = baseChart; 
                 return [
