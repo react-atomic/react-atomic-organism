@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    scrollDispatch,
     scrollStore,
     ScrollSpy,
     ScrollReceiver,
@@ -9,7 +10,8 @@ import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset';
 import get from 'get-object-value';
 import merge from 'array.merge';
-import easeOutQuint from 'easing-lib/easeOutQuint';
+import easeInOutQuad from 'easing-lib/easeOutQuint';
+scrollDispatch({scrollDelay: 0});
 
 class Content extends Component
 {
@@ -30,12 +32,6 @@ class Content extends Component
             this.scrollInfo = null;
             return false;
         } else {
-	    if (nextState.posY &&
-		nextState.posY === this.state.posY &&
-		nextState.lastY === this.state.lastY
-	    ) {
-		return false;
-	    }
             return true;
         }
     }
@@ -62,17 +58,11 @@ class Content extends Component
         }
         const elViewTop = get(offset, ['top'], 0) - winTop;
         const elH = get(offset, ['h']);
-        let resultH = elH;
-        let scrollDist;
-        if (speed < 0) {
-            scrollDist = speed * Math.max(elH, winH);
-        } else {
-            scrollDist = speed * (elH + winH);
-        }
-        scrollDist /= 2;
+        const scrollDist = (speed * (elH + winH)) / 2;
+        const resultH = elH + Math.abs(winH - elH) * (1 - speed);
         const viewCenter = 1 - 2 * (winH - elViewTop) / (winH + elH);
         const posY = (scrollDist * viewCenter) - elViewTop;
-        return posY;
+        return {posY, resultH};
     }
 
     handleResize = () =>
@@ -81,11 +71,12 @@ class Content extends Component
         this.scrollInfo = scrollInfo;
         const winW = get(scrollInfo, ['scrollNodeWidth'], 0);
         const winH = get(scrollInfo, ['scrollNodeHeight'], 0);
-        const posY = this.calOffset(this.el);
+        const {posY, resultH} = this.calOffset(this.el);
         this.setState(()=>{return {
             winW,
             winH,
-            posY
+            posY,
+            resultH
         }});
     }
 
@@ -94,34 +85,37 @@ class Content extends Component
 	if (this.scrollTimer) {
             clearTimeout(this.scrollTimer);
 	}
-        const lastY = this.calOffset(null, nextProps);
-        this.setState((old)=>{
-            if (this.isRun) {
-                this.scrollTimer = setTimeout(()=>{
-                    this.handleScroll(nextProps); 
-                },150); 
-                return {};
-            }
-            return {lastY};
-        });
+        const {targetInfo} = nextProps;
+        if (!targetInfo.isOnScreen) {
+	    return;
+	}
+        const {posY, resultH} = this.calOffset(null, nextProps);
+        if (this.isRun) {
+            this.scrollTimer = setTimeout(()=>{
+                this.handleScroll(nextProps); 
+            },150); 
+            return;
+        }
+        this.handleScrollAni(posY, this.lastY, resultH);
+        this.lastY = posY;
     }
 
 
-    handleScrollAni = (prevProps, prevState) =>
+    handleScrollAni = (lastY, oldLastY, resultH) =>
     {
 	if (this.aniTimer) {
             clearTimeout(this.aniTimer);
 	}
 	if (this.isRun) {
 	    this.aniTimer = setTimeout(()=>{
-		this.handleScrollAni(prevProps, prevState);
+		this.handleScrollAni(lastY, oldLastY);
 	    }, 150);
 	    return;
 	}
 	let beginTimeStamp = null;
-	const {lastY, posY} = this.state;
-	const go = lastY - prevState.lastY;
-	const duration = 300; 
+        oldLastY = oldLastY || 0;
+	const go = lastY - oldLastY;
+	const duration = 350;
 	const runScrollAni = (timeStamp) =>
 	{
 	    this.isRun = true;
@@ -129,13 +123,13 @@ class Content extends Component
 		beginTimeStamp = timeStamp;
 	    }
 	    const elapsedTime = timeStamp - beginTimeStamp;
-	    const progress = easeOutQuint(
+	    const progress = easeInOutQuad(
 		elapsedTime,
-		prevState.lastY,
+		oldLastY,
 		go,
 		duration
 	    );
-	    this.setState({posY: progress});
+	    this.setState({posY: progress, resultH});
 	    if ( elapsedTime < duration ) {
 	    	requestAnimationFrame(runScrollAni);
 	    } else {
@@ -162,11 +156,6 @@ class Content extends Component
         window.removeEventListener('resize', this.handleResize);
     }
 
-    componentDidUpdate(prevProps, prevState)
-    {
-	this.handleScrollAni(prevProps, prevState);
-    }
-
     componentWillReceiveProps(next)
     {
         const scrollInfo = getScrollInfo();
@@ -191,9 +180,14 @@ class Content extends Component
         } = this.props;
         const {
             posY,
+            resultH,
             winW,
             winH
         } = this.state;
+        let height = resultH;
+        if (!height) {
+            height = winH;
+        }
         return (
             <SemanticUI
                 {...others}
@@ -206,23 +200,30 @@ class Content extends Component
                     styles
                 )}
             >
+                {children}
                 <SemanticUI
                     className="parllax-background"
                     styles={reactStyle({
                         ...Styles.background,
                     }, false, false)}
                 >
-                    {children}
-                    <SemanticUI className="parllax-image"
+                    <SemanticUI className="parllax-layer"
                         styles={reactStyle({
-                            ...Styles.backgroundImage,
-                            backgroundSize: `${winW}px ${winH}px`,
-                            backgroundImage: 'url("'+backgroundImage+'")',
-                            transform: [`translate3d(0px, ${posY}px, 0px)`],
-                            width: winW,
-                            height: winH
-                        }, false, false)}
-                    />
+                            ...Styles.backgroundLayer,
+                            transform: [`translate3d(0%, ${posY}px, 0px)`],
+                        },false,false)}
+                    >
+                        <SemanticUI className="parllax-image"
+                            styles={reactStyle({
+                                ...Styles.backgroundImage,
+                                //backgroundSize: `${winW}px ${height}px`,
+                                backgroundSize: `cover`,
+                                backgroundImage: 'url("'+backgroundImage+'")',
+                                width: winW,
+                                height
+                            }, false, false)}
+                        />
+                    </SemanticUI>
                 </SemanticUI>
             </SemanticUI>
         );
@@ -238,7 +239,7 @@ const ParallaxBackgroundImage = ({children, ...others}) =>
 
 ParallaxBackgroundImage.defaultProps = {
     container: <Content />,
-    speed: 0.5,
+    speed: 0.6,
 };
 
 export default ParallaxBackgroundImage;
@@ -253,16 +254,14 @@ const Styles = {
         position: 'absolute',
         top: 0,
         left: 0,
-        right: 0,
-        bottom: 0,
+    },
+    backgroundLayer: {
+        position: 'relative',
+        zIndex: -1,
+        willChange: 'transform, opacity'
     },
     backgroundImage: {
         backgroundPosition: '50% 50%',
         backgroundRepeat: 'no-repeat',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: -1,
-        willChange: 'transform, opacity'
     }
 };
