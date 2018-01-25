@@ -104,6 +104,9 @@ class SideMenu extends PureComponent
     render()
     {
         const {
+            icon,
+            iconStyle,
+            hamburgerStyle,
             component,
             linkComponent,
             className,
@@ -136,6 +139,28 @@ class SideMenu extends PureComponent
             others,
             menuItems    
         );
+        let thisIcon = icon;
+        if (!thisIcon) {
+            thisIcon = (
+                <Icon
+                    onClick={this.handleOn} 
+                    className="hamburger-icon"
+                    styles={
+                        reactStyle({
+                            ...Styles.icon,
+                            ...iconStyle,
+                        }, false, false)
+                    }
+                >
+                    <Hamburger on={on} styles={
+                        reactStyle({
+                            ...Styles.hamburger,
+                            ...hamburgerStyle,
+                        }, false, false)
+                    } />
+                </Icon>
+            );
+        }
         const classes = mixClass(
               {
                   active: on 
@@ -145,16 +170,7 @@ class SideMenu extends PureComponent
         return (
             <Rail className={classes}>
                 {menuElement}
-                <Icon 
-                    onClick={this.handleOn} 
-                    className="hamburger-icon"
-                    style={Styles.icon}
-                    styles={reactStyle({
-                        transition: ['all 0.2s ease-out']
-                    },null,false)}
-                >
-                    <Hamburger style={Styles.hamburger} on={on}/>
-                </Icon>
+                {thisIcon}
             </Rail>
         );
     }
@@ -174,8 +190,10 @@ const Styles = {
         position: 'fixed',
         top: 0,
         left: 0,
-        zIndex:1,
-        cursor: 'pointer'
+        zIndex: 1,
+        cursor: 'pointer',
+        opacity: '.5',
+        transition: ['all 0.2s ease-out']
     },
     hamburger: {
         fill: "#fff"
