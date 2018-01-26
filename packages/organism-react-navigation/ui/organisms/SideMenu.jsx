@@ -31,8 +31,10 @@ const getMenuByArray = (arr, component, active) =>
     } else {
         build = React.createElement;
     }
-    keys.forEach((key, k)=>{
+    keys.forEach( key => {
+         const {href, text, className, ...others} = arr[key];
          const classes = mixClass(
+              className,
               'item',
               {
                   active: active === key
@@ -41,11 +43,13 @@ const getMenuByArray = (arr, component, active) =>
          results.push(build(
             component,
             {
+                ...others,
+                key,
+                href,
+                name: key,
                 className: classes,
-                key: k,
-                href: arr[key].href
             },
-            arr[key].text
+            text
          ));
     });
     return results;

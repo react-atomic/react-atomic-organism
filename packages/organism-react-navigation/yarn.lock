@@ -2129,8 +2129,8 @@ reshow-flux@*:
     mitt "*"
 
 ricon@*:
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.27.tgz#7f4a39f98d85c658bd613a55a1c00830a2bda6ea"
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.28.tgz#86ea3dbedb2db77af147668df2656278112bf6e1"
   dependencies:
     keyframe-css "*"
 
