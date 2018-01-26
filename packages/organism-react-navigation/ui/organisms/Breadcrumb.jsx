@@ -11,14 +11,13 @@ class Breakcrumb extends Component
 {
     render()
     {
-        const {children, divider, ...reset} = this.props;
-        let itemList = []; 
-        let classes;
-        let myDivider;
+        const {className, children, divider, dividerStyle, ...reset} = this.props;
+        const itemList = []; 
+        let thisDivider;
         if (React.isValidElement(divider)) {
-            myDivider = divider;
+            thisDivider = divider;
         } else {
-            myDivider = <div className="divider"> / </div>;
+            thisDivider = <SemanticUI> / </SemanticUI>;
         }
         React.Children.map(children,(node, k)=>{
             if (!node) {
@@ -26,22 +25,26 @@ class Breakcrumb extends Component
             } else if (!React.isValidElement(node)) {
                 node = <SemanticUI>{node}</SemanticUI>;
             }
-            classes = mixClass(
-                get(node, ['props','className']),
-                'section'
-            );
             node = React.cloneElement(
                 node, 
                 {
                     key: k,
-                    className: classes
+                    className: mixClass(
+                        get(node, ['props','className']),
+                        'section'
+                    )
                 }
             );
             itemList.push(node);  
             node = React.cloneElement(
-                myDivider, 
+                thisDivider, 
                 {
                     key: k+'-div',
+                    className: mixClass(thisDivider.props.className, 'divider'),
+                    style: {
+                        ...thisDivider.props.style,
+                        ...dividerStyle
+                    }
                 }
             );
             itemList.push(node);
@@ -50,7 +53,7 @@ class Breakcrumb extends Component
             itemList.pop();
         }
         return (
-            <SemanticUI {...reset} className="breadcrumb">
+            <SemanticUI {...reset} className={mixClass('breadcrumb', className)}>
                 {itemList}
             </SemanticUI>
         );
