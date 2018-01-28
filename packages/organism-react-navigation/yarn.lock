@@ -1130,8 +1130,8 @@ detect-libc@^1.0.2:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
 
 domain-browser@^1.1.1:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
 
 ecc-jsbn@~0.1.1:
   version "0.1.1"
@@ -2122,15 +2122,15 @@ request@2.81.0:
     uuid "^3.0.0"
 
 reshow-flux@*:
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.20.tgz#0c699ec4e94f9df99f25381c44fa41378ee50ca0"
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.21.tgz#dcf5cca150af5766ee22d2246b6a5f1a641b0adf"
   dependencies:
     array.dedup "*"
     mitt "*"
 
 ricon@*:
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.28.tgz#86ea3dbedb2db77af147668df2656278112bf6e1"
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.31.tgz#a1b91dda61cbf165fa13d2bdc62d3ba8040a0810"
   dependencies:
     keyframe-css "*"
 

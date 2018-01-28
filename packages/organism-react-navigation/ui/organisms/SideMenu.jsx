@@ -1,4 +1,9 @@
-import React, {PureComponent} from 'react';
+import React, {
+    PureComponent,
+    cloneElement,
+    createElement,
+    isValidElement
+} from 'react';
 import {
     mixClass,
     reactStyle,
@@ -9,7 +14,7 @@ import {
 import Hamburger from 'ricon/HamburgerToArrow';
 import { connect } from 'reshow-flux';
 import get from 'get-object-value';
-import {hasClass,  removeClass} from 'class-lib';
+import {hasClass, removeClass} from 'class-lib';
 
 const getKeys = Object.keys;
 
@@ -25,12 +30,10 @@ const getMenuByArray = (arr, component, active) =>
     }
     const keys = getKeys(arr);
     let results = [];
-    let build;
-    if (React.isValidElement(component)) {
-        build = React.cloneElement;
-    } else {
-        build = React.createElement;
-    }
+    const build = (isValidElement(component)) ?
+        cloneElement:
+        createElement
+        ;
     keys.forEach( key => {
          const {href, text, className, ...others} = arr[key];
          const classes = mixClass(
@@ -54,6 +57,25 @@ const getMenuByArray = (arr, component, active) =>
     });
     return results;
 }
+
+const DefaultIcon = ({className, on, right, onClick, iconStyle, hamburgerStyle}) =>
+<Icon
+    onClick={onClick} 
+    className={mixClass(className, 'hamburger-icon')}
+    styles={
+        reactStyle({
+            ...Styles.icon,
+            ...iconStyle,
+        }, false, false)
+    }
+>
+    <Hamburger on={on} right={right} styles={
+        reactStyle({
+            ...Styles.hamburger,
+            ...hamburgerStyle,
+        }, false, false)
+    } />
+</Icon>
 
 class SideMenu extends PureComponent 
 {
@@ -80,41 +102,57 @@ class SideMenu extends PureComponent
         component: SemanticUI,
         linkComponent: 'a',
         menus: [],
-        type: 'array',
         root: null,
-        rootActiveClass: 'side-menu-active'
+        rootActiveClass: 'side-menu-active',
+        rootInactiveClass: 'side-menu-inactive',
     };
 
-    handleOn = ()=>{
-        let on = !this.state.on;
-        navigationDispatch({
-            id: this.props.id,
-            params: {
-                on: on 
-            }
-        });
-        let root = this.props.root;
-        if (!root) {
-            root = document.body;
+    getRoot()
+    {
+        const {root} = this.props;
+        let thisRoot = root;
+        if (!thisRoot) {
+            thisRoot = document.body;
         }
+        return thisRoot;
+    }
+
+    handleOn(stateOn)
+    {
+        const on = !stateOn;
+        const {id, rootActiveClass, rootInactiveClass} = this.props; 
+        navigationDispatch({
+            id,
+            params: { on }
+        });
+        const thisRoot = this.getRoot();
         if (on) {
-            root.className = mixClass(root.className, this.props.rootActiveClass);
+            thisRoot.className = mixClass(thisRoot.className, rootActiveClass);
+            thisRoot.className = removeClass(thisRoot.className, rootInactiveClass);
         } else {
-            root.className = removeClass(root.className, this.props.rootActiveClass);
+            thisRoot.className = mixClass(thisRoot.className, rootInactiveClass);
+            thisRoot.className = removeClass(thisRoot.className, rootActiveClass);
         }
     }
-    
+
+    componentWillUnmount()
+    {
+        const {rootActiveClass, rootInactiveClass} = this.props; 
+        const thisRoot = this.getRoot();
+        thisRoot.className = removeClass(thisRoot.className, rootActiveClass);
+        thisRoot.className = removeClass(thisRoot.className, rootInactiveClass);
+    }
 
     render()
     {
         const {
-            icon,
+            defaultOnIcon,
+            defaultOffIcon,
             iconStyle,
             hamburgerStyle,
             component,
             linkComponent,
             className,
-            type,
             menus,
             root,
             rootActiveClass,
@@ -124,57 +162,67 @@ class SideMenu extends PureComponent
             activeMenu,
             on
         } = this.state;
-        let menuItems;
-        if ('array'===type) {
-            menuItems = getMenuByArray(
-                menus,
-                linkComponent,
-                activeMenu
-            );
-        }
-        let build;
-        if (React.isValidElement(component)) {
-            build = React.cloneElement;
-        } else {
-            build = React.createElement;
-        }
+        const menuItems = getMenuByArray(
+            menus,
+            linkComponent,
+            activeMenu
+        );
+        const build = (isValidElement(component)) ?
+            cloneElement:
+            createElement
+            ;
         const menuElement =  build(
             component,
             others,
             menuItems    
         );
-        let thisIcon = icon;
-        if (!thisIcon) {
-            thisIcon = (
-                <Icon
-                    onClick={this.handleOn} 
-                    className="hamburger-icon"
-                    styles={
-                        reactStyle({
-                            ...Styles.icon,
-                            ...iconStyle,
-                        }, false, false)
-                    }
-                >
-                    <Hamburger on={on} styles={
-                        reactStyle({
-                            ...Styles.hamburger,
-                            ...hamburgerStyle,
-                        }, false, false)
-                    } />
-                </Icon>
-            );
+        let defaultOn = on;
+        let defaultOff = on;
+        if (!on && false !== on) {
+            defaultOn = true;
+            defaultOff = false;
         }
+        let thisDefaultOnIcon = defaultOnIcon;
+        let thisDefaultOffIcon = defaultOffIcon;
+        if (!thisDefaultOnIcon) {
+            thisDefaultOnIcon = <DefaultIcon />;
+        }
+        if (!thisDefaultOffIcon) {
+            thisDefaultOffIcon = <DefaultIcon />;
+        }
+        thisDefaultOnIcon = cloneElement(
+            thisDefaultOnIcon,
+            {
+                on: true,
+                right: !defaultOn,
+                onClick: this.handleOn.bind(this, defaultOn),
+                className: 'default-on',
+                iconStyle,
+                hamburgerStyle
+            }
+        );
+        thisDefaultOffIcon = cloneElement(
+            thisDefaultOffIcon,
+            {
+                on: defaultOff,
+                onClick: this.handleOn.bind(this, defaultOff),
+                className: 'default-off',
+                iconStyle,
+                hamburgerStyle
+            }
+        );
         const classes = mixClass(
               {
-                  active: on 
+                  active: on, 
+                  inactive: on === false, 
               },        
               className, 
         );
         return (
             <Rail className={classes}>
                 {menuElement}
-                {thisIcon}
+                {thisDefaultOnIcon}
+                {thisDefaultOffIcon}
             </Rail>
         );
     }
