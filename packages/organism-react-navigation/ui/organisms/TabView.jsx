@@ -1,24 +1,25 @@
-import React, {Component} from 'react'; 
+import React, {cloneElement, isValidElement, PureComponent, Children} from 'react'; 
 import {
     mixClass,
     Item,
     SemanticUI
 } from 'react-atomic-molecule';
 
-export default class TabView extends Component
+class TabView extends PureComponent
 {
-    
-   constructor(props)
-   {
-      super(props);
-      this.state = {
-         selected: props.selected
-      };
+    static defaultProps = {
+        disableSwitch: false
+    }
 
-   } 
+    constructor(props)
+    {
+        super(props);
+        const {selected} = props;
+        this.state = { selected };
+    } 
 
-   componentWillReceiveProps(newProps) {
-        this.setState({selected: newProps.selected});
+   componentWillReceiveProps({selected}) {
+       this.setState({selected});
    }
 
     render()
@@ -29,35 +30,36 @@ export default class TabView extends Component
         let contentView = null;
         let content = null;
         let tabMenu;
-        React.Children.map(props.children,(item)=>{
+        Children.map(props.children,(item, itemKey)=>{
             let itemProps = item.props;
-            let selected = (itemProps.name && itemProps.name === state.selected);
-            React.Children.map(itemProps.children,(node, index)=>{
+            const nodeKey = itemProps.name || itemKey;
+            let selected = (nodeKey === state.selected);
+            Children.map(itemProps.children,(node, index)=>{
                if (index % 2 === 0) {
                   if (selected) {
                     contentView = node;
                   } 
                 } else {
-                  let nodeClasses = mixClass(
+                  const nodeClasses = mixClass(
                     node.props.className,
                     {active: selected}
                   );
-                  node = React.cloneElement(
+                  node = cloneElement(
                       node,
                       {
-                          key: item.props.name,
-                          selected: selected,
+                          key: nodeKey,
+                          selected,
                           className: nodeClasses,
-                          onClickCapture: function(e) { 
+                          onClickCapture: (e) => { 
                               if (!disableSwitch) {
                                   if (!node.props.disableSwitch) {
-                                      this.setState({selected: item.props.name});
+                                      this.setState({selected: nodeKey});
                                   }
                               }
                               if (props.onTabItemPress) {
-                                  props.onTabItemPress(item.props.name) 
+                                  props.onTabItemPress(nodeKey) 
                               }
-                          }.bind(this)
+                          }
                       }
                   ); 
                   itemList.push(node);
@@ -66,29 +68,29 @@ export default class TabView extends Component
         });
         if (contentView) {
             // Tab Body
-            if (React.isValidElement(body)) {
-              content = React.cloneElement(body, props, contentView);
+            if (isValidElement(body)) {
+              content = cloneElement(body, props, contentView);
             } else if (typeof body === 'function') {
               content = body(props, contentView);
             } else {
               content = (
-                <SemanticUI className="bottom attached tab segment active">
+                <SemanticUI className="bottom attached tab segment active" style={Styles.tabBody}>
                     {contentView}        
                 </SemanticUI>
               );
             }
         }
         // Tab Menu
-        if (React.isValidElement(menu)) {
-          tabMenu = React.cloneElement(menu, props, itemList);
+        if (isValidElement(menu)) {
+            tabMenu = cloneElement(menu, props, itemList);
         } else if (typeof menu === 'function') {
-          tabMenu = menu(props, itemList);
+            tabMenu = menu(props, itemList);
         } else {
-          tabMenu = (
-            <SemanticUI className="top attached tabular menu">
+            tabMenu = (
+                <SemanticUI className="top attached tabular menu">
                 {itemList}
-            </SemanticUI>
-          );
+                </SemanticUI>
+            );
         }
         return (
             <SemanticUI>
@@ -98,4 +100,11 @@ export default class TabView extends Component
         );
     }
 }
-TabView.defaultProps = { disableSwitch: false };
+
+export default TabView;
+
+const Styles = {
+    tabBody: {
+        boxSizing: 'border-box'
+    }
+};
