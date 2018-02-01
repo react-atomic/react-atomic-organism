@@ -1,16 +1,12 @@
 'use strict';
 
-const formSerialize = (formEl) =>
+const formSerialize = formEl =>
 {
-    let formParams = {};
-    let elements = formEl.elements;
-    let el;
-    for (let i=0, j=elements.length; i < j; i++ ) { 
-        el = elements[i];
-        if (el.value) {
-            formParams[el.name] = el.value;
-        }   
-    }
+    const formParams = {};
+    const elements = Array.from(formEl.elements);
+    elements.forEach( ({name, value}) => {
+        formParams[name] = value;
+    });
     return formParams;
 }
 export default formSerialize;

@@ -98,13 +98,21 @@ const ajaxPost = ({url, action}) =>
                  return false;
             });
         }
-        let postReq = req.post(url);
-        if (isSend) {
-           postReq = postReq.send(params.query); 
-        } else {
-           postReq = postReq.field(params.query); 
+        let callReq;
+        switch (params.method) {
+            case 'put':
+                callReq = req.put(url);
+                break;
+            default:
+                callReq = req.post(url);
+                break;
         }
-        postReq
+        if (isSend) {
+           callReq = callReq.send(params.query); 
+        } else {
+           callReq = callReq.field(params.query); 
+        }
+        callReq
            .set(headers)
            .end((err,res)=>{
              if (res) {
