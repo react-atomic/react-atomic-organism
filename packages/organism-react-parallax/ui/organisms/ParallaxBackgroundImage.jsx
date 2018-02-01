@@ -248,16 +248,15 @@ const Styles = {
     content: {
         overflow: 'hidden',
         position: 'relative',
-        zIndex: 0,
     },
     background: {
         position: 'absolute',
         top: 0,
         left: 0,
+        zIndex: -1,
     },
     backgroundLayer: {
         position: 'relative',
-        zIndex: -1,
         willChange: 'transform, opacity'
     },
     backgroundImage: {
