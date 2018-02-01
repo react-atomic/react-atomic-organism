@@ -1,13 +1,13 @@
-'use strict';
+import getSafeReg from 'get-safe-reg';
 
-let cache={};
-const esc = /[|\\{}()[\]^$+*?.]/g;
+const cache={};
 
-const getClassReg = (name)=>
+const getRegString = name => '(?:^|\\s+)'+ getSafeReg(name)+ '(?:\\s+|$)';
+
+const getClassReg = name =>
 {
     if (!cache[name]) {
-        const sReg = '(?:^|\\s+)' + name.replace(esc, '\\$&')+ '(?:\\s+|$)';
-        cache[name] = new RegExp(sReg);
+        cache[name] = new RegExp(getRegString(name));
     }
     return cache[name];
 }
