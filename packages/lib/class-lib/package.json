@@ -1,6 +1,6 @@
 {
   "name": "class-lib",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "ClassName Library",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -9,7 +9,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "array.dedup": "*"
+    "array.dedup": "*",
+    "get-safe-reg": "*"
   },
   "devDependencies": {
     "babel-cli": "*"

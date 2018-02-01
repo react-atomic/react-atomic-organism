@@ -501,6 +501,10 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+get-safe-reg@*:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.0.tgz#4fa5fdfcac3ec7a304fbdc87dce608fddca6de27"
+
 getpass@^0.1.1:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/getpass/-/getpass-0.1.7.tgz#5eff8e3e684d569ae4cb2b1282604e8ba62149fa"
