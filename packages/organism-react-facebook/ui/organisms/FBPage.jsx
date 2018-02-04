@@ -76,7 +76,7 @@ class FBPage extends Component
        return (
             <iframe 
                 style={Styles.iframe}
-                allowTransparency="true"
+                allowtransparency="true"
                 src={src}
                 width={width}
                 height={height}

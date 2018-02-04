@@ -156,6 +156,7 @@ class SideMenu extends PureComponent
             menus,
             root,
             rootActiveClass,
+            rootInactiveClass,
             ...others
         } = this.props;
         const {
