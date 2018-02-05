@@ -56,7 +56,7 @@ class FBLike extends Component
                 src={src}
                 refCb={d=>this.iframe=d}
                 style={Styles.iframe}
-                allowTransparency="true"
+                allowtransparency="true"
                 onLoad={()=>{
                     console.log('fb like load');
                 }}
