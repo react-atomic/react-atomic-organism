@@ -13,7 +13,7 @@ const getValue = (arr, isAppear, isExit) =>
 
 const handleStart = (classList, handler, delay, isExit, node, isAppear) =>
 {
-    if (!node) {
+    if (!node || !node.style) {
         return;
     }
     let thisDelay = getValue(delay, isAppear, isExit);
