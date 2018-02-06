@@ -152,8 +152,8 @@ babel-core@^6.18.0, babel-core@^6.26.0:
     source-map "^0.5.6"
 
 babel-generator@^6.26.0:
-  version "6.26.0"
-  resolved "https://registry.yarnpkg.com/babel-generator/-/babel-generator-6.26.0.tgz#ac1ae20070b79f6e3ca1d3269613053774f20dc5"
+  version "6.26.1"
+  resolved "https://registry.yarnpkg.com/babel-generator/-/babel-generator-6.26.1.tgz#1844408d3b8f0d35a404ea7ac180f087a601bd90"
   dependencies:
     babel-messages "^6.23.0"
     babel-runtime "^6.26.0"
@@ -161,7 +161,7 @@ babel-generator@^6.26.0:
     detect-indent "^4.0.0"
     jsesc "^1.3.0"
     lodash "^4.17.4"
-    source-map "^0.5.6"
+    source-map "^0.5.7"
     trim-right "^1.0.1"
 
 babel-helper-bindify-decorators@^6.24.1:
@@ -885,8 +885,8 @@ browserslist@^2.1.2:
     electron-to-chromium "^1.3.30"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000792"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000792.tgz#d0cea981f8118f3961471afbb43c9a1e5bbf0332"
+  version "1.0.30000802"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000802.tgz#807ead8e2b59a3b90f26702fb0b220623ad9f287"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -918,10 +918,11 @@ chokidar@^1.6.1:
     fsevents "^1.0.0"
 
 class-lib@*:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/class-lib/-/class-lib-0.0.9.tgz#f3a8927ba0ffead34199fcaefa62dcba22f76a72"
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/class-lib/-/class-lib-0.0.11.tgz#d1326364d3b7f5ed2e99495259a0372226e7a291"
   dependencies:
     array.dedup "*"
+    get-safe-reg "*"
 
 co@^4.6.0:
   version "4.6.0"
@@ -938,8 +939,8 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
     delayed-stream "~1.0.0"
 
 commander@^2.11.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
+  version "2.14.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.14.0.tgz#7b25325963e6aace20d3a9285b09379b0c2208b5"
 
 component-emitter@^1.2.0:
   version "1.2.1"
@@ -1209,6 +1210,10 @@ gauge@~2.7.3:
 get-object-value@*:
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.9.tgz#9450cb8e0f61ed430aaa0d016cde098bc988be39"
+
+get-safe-reg@*:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.0.tgz#4fa5fdfcac3ec7a304fbdc87dce608fddca6de27"
 
 get-scroll-info@*:
   version "0.0.13"
@@ -1501,8 +1506,8 @@ loader-utils@^1.0.0:
     json5 "^0.5.0"
 
 lodash@^4.17.4:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+  version "4.17.5"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   version "1.3.1"
@@ -1747,8 +1752,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.11.tgz#32b8f0621947351e7ecf336e1e025aeb1a142d99"
 
 react-atomic-molecule@*:
-  version "1.3.37"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.37.tgz#e374a79dc3e230c11644e96ddb43558dfce03d67"
+  version "1.3.38"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.38.tgz#d12fa5749dc4d37ff3570b5e62d27c7eb69ee442"
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1877,10 +1882,11 @@ request@2.81.0:
     uuid "^3.0.0"
 
 reshow-flux@*:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.21.tgz#dcf5cca150af5766ee22d2246b6a5f1a641b0adf"
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.24.tgz#9c9671cb82e1144014375ff704d69d77e6cff72d"
   dependencies:
     array.dedup "*"
+    immutable "*"
     mitt "*"
 
 rimraf@2, rimraf@^2.5.1, rimraf@^2.6.1:
@@ -1942,7 +1948,7 @@ source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
-source-map@^0.5.6:
+source-map@^0.5.6, source-map@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 

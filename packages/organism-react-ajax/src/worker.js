@@ -136,7 +136,7 @@ const initWs = (url) =>
     ws.onmessage = (e) => {
         isWsConnect = true;
         switch (e.data) {
-            case 'ping': 
+            case 'pong': 
                 break;
             default :
                 post({type: 'ws', text: e.data});
