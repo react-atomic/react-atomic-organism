@@ -1,10 +1,10 @@
 #!/bin/sh
-find ./assets -name "*.js" | xargs rm -rf
 
 conf='{ "assetsRoot": "./assets/" }'
 
 production(){
     echo "Production Mode";
+    npm run build
     CONFIG=$conf NODE_ENV=production webpack -p 
 }
 

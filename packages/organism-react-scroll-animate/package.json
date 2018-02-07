@@ -1,6 +1,6 @@
 {
   "name": "organism-react-scroll-animate",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React Animate When You Scroll",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -25,9 +25,10 @@
     "reshow-app": "*"
   },
   "scripts": {
+    "clean": "find ./build ./assets -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
     "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },
   "files": [
