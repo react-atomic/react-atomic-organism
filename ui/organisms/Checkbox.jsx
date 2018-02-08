@@ -81,7 +81,6 @@ class Checkbox extends PureComponent
                     type,
                     id: this.id,
                     label: thisLabel,
-                    defaultChecked: stateChecked,
                     checked: stateChecked,
                     style: {...Styles.checkbox, ...style}
                 }}
