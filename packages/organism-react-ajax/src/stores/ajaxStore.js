@@ -33,6 +33,18 @@ const initWorker = (worker) =>
     });
 };
 
+const handleUpdateNewUrl = (state, action, url) =>
+{
+    setImmediate(()=>{
+        const params = get(action, ['params'], {});
+        const updateWithUrl = state.get('updateWithUrl');
+        updateWithUrl(url);
+        if (params.disableAjax && false !== params.scrollBack) {
+            smoothScrollTo(0);
+        }
+    });
+}
+
 class AjaxStore extends ReduceStore
 {
 
@@ -198,7 +210,7 @@ class AjaxStore extends ReduceStore
         history.pushState('', '', rawUrl);
     }
     if (params.disableAjax) {
-        this.handleUpdateNewUrl(state, rawUrl);
+        handleUpdateNewUrl(state, action, rawUrl);
         return state;
     }
     if (!params.disableProgress) {
@@ -314,7 +326,7 @@ class AjaxStore extends ReduceStore
             ],
             document.URL
         );
-        this.handleUpdateNewUrl(state, url);
+        handleUpdateNewUrl(state, action, url);
         /**
          * Should not update currentLocation in other place.
          * such as ajaxGet,
@@ -326,13 +338,6 @@ class AjaxStore extends ReduceStore
         );
     }
 
-    handleUpdateNewUrl(state, url)
-    {
-        setImmediate(()=>{
-            const updateWithUrl = state.get('updateWithUrl');
-            updateWithUrl(url);
-        });
-    }
 
     reduce (state, action)
     {
