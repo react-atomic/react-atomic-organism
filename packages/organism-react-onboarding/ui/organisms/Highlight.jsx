@@ -35,7 +35,7 @@ class Highlight extends PopupFloatEl
 
     renderOverlay(props)
     {
-        const {styles, style, name, ...others} = props;
+        const {targetEl, styles, style, name, ...others} = props;
         const thisStyles = [
             reactStyle({
                     ...Styles.container,

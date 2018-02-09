@@ -36,7 +36,7 @@ class Beacon extends PopupFloatEl
 
     renderOverlay(props)
     {
-        const {style, ...others} = props;
+        const {targetEl, style, ...others} = props;
         let thisStyle = {
             ...style,
             ...Styles.container

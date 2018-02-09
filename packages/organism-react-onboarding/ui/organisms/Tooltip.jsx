@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {
     PopupModal,
-    PopupFloatEl 
+    PopupFloatEl
 } from 'organism-react-popup';
 
 class Tooltip extends PureComponent

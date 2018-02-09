@@ -38,7 +38,7 @@ class StepNumber extends PopupFloatEl
 
     renderOverlay(props)
     {
-        const {styles, style, size, ...others} = props;
+        const {targetEl, styles, style, size, ...others} = props;
         const thisStyles = [
             reactStyle({
                     lineHeight: size +'px',

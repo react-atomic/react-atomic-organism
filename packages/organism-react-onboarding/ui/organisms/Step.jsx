@@ -1,5 +1,5 @@
 require("setimmediate");
-import React, {createElement, cloneElement, PureComponent} from 'react';
+import React, {createElement, cloneElement, PureComponent, Children} from 'react';
 import {
     lazyInject,
     Header,
@@ -96,19 +96,23 @@ class Step extends PureComponent
 
     _resetFloats(callback, lightEl)
     {
-        const { before, hideLightBox } = this.props;
+        const { type, before, hideLightBox } = this.props;
         if (before) {
             before.call(this);
         }
         if (lightEl) {
             this.addLightBox(lightEl, hideLightBox);
             const isSetFixed = isFixed(lightEl);
+            let floatProps = {};
+            if (type !== 'modal') {
+                floatProps = {
+                    isSetFixed,
+                    targetEl: lightEl
+                };
+            }
             this._float = cloneElement(
                 this._float,
-                {
-                    targetEl: lightEl,
-                    isSetFixed
-                }
+                floatProps
             );
         }
         this.setHighlights();
@@ -647,7 +651,7 @@ class Step extends PureComponent
                 name,
                 closeCallBack,
                 modalStyle: style,
-                className: 'mini',
+                modalClassName: 'mini',
                 center: false,
                 group: GROUP_KEY,
                 style: {
@@ -655,7 +659,7 @@ class Step extends PureComponent
                 },
 		styles: injects.modal,
             },
-            child
+            Children.map(child, c => c)
         );
         return null;
     }
