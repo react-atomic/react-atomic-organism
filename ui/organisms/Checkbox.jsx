@@ -66,6 +66,8 @@ class Checkbox extends PureComponent
         }
     }
 
+    handleChange = e => {}
+
     render()
     {
         const {toggle, label, slider, type, style, beforeClick, afterClick, ...props} = this.props;
@@ -82,6 +84,7 @@ class Checkbox extends PureComponent
                     id: this.id,
                     label: thisLabel,
                     checked: stateChecked,
+                    onChange: this.handleChange,
                     style: {...Styles.checkbox, ...style}
                 }}
                 inputWrapper={
