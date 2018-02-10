@@ -10,13 +10,13 @@ import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
 const empty = function(){}
 const keys  = Object.keys;
 let wsAuth = Map();
-let worker;
+let gWorker;
 let fakeWorker;
 let isWorkerReady;
 let cbIndex = 0;
 const Callbacks = [];
 
-const initWorker = (worker) =>
+const initWorkerEvent = worker =>
 {
     worker.addEventListener('message', (e)=>{
         switch (get(e, ['data','type'])) {
@@ -29,6 +29,35 @@ const initWorker = (worker) =>
                     type: 'callback',
                 });
                 break;
+        }
+    });
+};
+
+const initWorker = props =>
+{
+    const disableWebWorker = get(
+        props,
+        ['disableWebWorker']
+    );
+    let isSupportWorker;
+    if ('undefined' !== typeof window) {
+        const win = window;
+        if (win.Worker && !disableWebWorker) {
+            isSupportWorker = true;
+            import('worker-loader!../../src/worker').then( workerObject => {
+                if (workerObject) {
+                    gWorker = new workerObject();
+                    initWorkerEvent(gWorker);
+                }
+            });
+        }
+    }
+    import('../../src/worker').then( ({default: workerObject}) => {
+        fakeWorker = workerObject; 
+        initWorkerEvent(fakeWorker);
+        if (!isSupportWorker) {
+            gWorker = fakeWorker;
+            isWorkerReady = true;
         }
     });
 };
@@ -47,28 +76,6 @@ const handleUpdateNewUrl = (state, action, url) =>
 
 class AjaxStore extends ReduceStore
 {
-
-  getInitialState()
-  {
-    if ('undefined' !== typeof window) {
-        if (window.Worker) {
-            import('worker-loader!../../src/worker').then( workerObject => {
-                worker = workerObject();
-                initWorker(worker);
-            });
-        }
-        import('../../src/worker').then( ({default: workerObject}) => {
-            fakeWorker = workerObject; 
-            initWorker(fakeWorker);
-            if (!window.Worker) {
-                worker = fakeWorker;
-                isWorkerReady = true;
-            }
-        });
-    }
-    return Map();
-  }
-
   cookAjaxUrl(params, ajaxUrl)
   {
       const urls = ajaxUrl.split('#');
@@ -290,16 +297,30 @@ class AjaxStore extends ReduceStore
             ]);
             const run = disableWebWorker ?
                 fakeWorker :
-                worker;
+                gWorker;
             run.postMessage(data);
         });
     } else {
         const self = this;
+        if (!gWorker) {
+            initWorker();
+            gWorker = true;
+        }
         setTimeout(()=>{
             self.worker(data);
         }, 50);
     }
   }
+    initWorker(state, action)
+    {
+        const disableWebWorker = get(action, [
+            'params',
+            'disableWebWorker'
+        ]);
+        initWorker({disableWebWorker});
+        gWorker = true;
+        return state;
+    }
 
     initWs(url)
     {
@@ -351,6 +372,8 @@ class AjaxStore extends ReduceStore
                 return this.applyCallback(state, action); 
             case 'updateWithUrl':
                 return this.updateWithUrl(state, action);
+            case 'initWorker':
+                return this.initWorker(state, action);
             case 'config/set':
                 return state.merge(action.params);
             default:
