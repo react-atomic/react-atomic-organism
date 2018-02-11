@@ -25,8 +25,8 @@ class TabView extends PureComponent
     render()
     {
         const {menu, body, disableSwitch, ...props} = this.props;
+        const tabMenuItems = [];
         let state = this.state;
-        let itemList = [];
         let contentView = null;
         let content = null;
         let tabMenu;
@@ -35,11 +35,7 @@ class TabView extends PureComponent
             const nodeKey = itemProps.name || itemKey;
             let selected = (nodeKey === state.selected);
             Children.map(itemProps.children,(node, index)=>{
-               if (index % 2 === 0) {
-                  if (selected) {
-                    contentView = node;
-                  } 
-                } else {
+               if (index % 2 || 1 === Children.count(itemProps.children)) {
                   const nodeClasses = mixClass(
                     node.props.className,
                     {active: selected}
@@ -62,8 +58,12 @@ class TabView extends PureComponent
                           }
                       }
                   ); 
-                  itemList.push(node);
-                } 
+                  tabMenuItems.push(node);
+                } else {
+                    if (selected) {
+                        contentView = node;
+                    } 
+                }
             })
         });
         if (contentView) {
@@ -82,13 +82,13 @@ class TabView extends PureComponent
         }
         // Tab Menu
         if (isValidElement(menu)) {
-            tabMenu = cloneElement(menu, props, itemList);
+            tabMenu = cloneElement(menu, props, tabMenuItems);
         } else if (typeof menu === 'function') {
-            tabMenu = menu(props, itemList);
+            tabMenu = menu(props, tabMenuItems);
         } else {
             tabMenu = (
                 <SemanticUI className="top attached tabular menu">
-                {itemList}
+                {tabMenuItems}
                 </SemanticUI>
             );
         }
