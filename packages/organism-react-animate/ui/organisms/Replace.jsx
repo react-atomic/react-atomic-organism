@@ -7,8 +7,11 @@ class Replace extends PureComponent
         interval: 3000
     };
 
-    handleAniEnd = () =>
+    handleAniEnd = (node) =>
     {
+        if (this.props.onExited) {
+            this.props.onExited(node);
+        }
         this.setState({
             no: this.next 
         });
