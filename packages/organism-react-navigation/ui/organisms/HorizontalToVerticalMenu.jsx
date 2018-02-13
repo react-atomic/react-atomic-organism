@@ -1,4 +1,4 @@
-import React, {PureComponent, cloneElement, createElement} from 'react';
+import React, {cloneElement, createElement, isValidElement, Children, PureComponent} from 'react';
 import { 
     min,
     lazyInject,
@@ -88,7 +88,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
             );
             let thisChildren = [];
             let build;
-            if (React.isValidElement(brand)) {
+            if (isValidElement(brand)) {
                 thisChildren.push(
                     cloneElement(
                         brand,
@@ -107,7 +107,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                     )
                 );
             }
-            if (React.isValidElement(nav)) {
+            if (isValidElement(nav)) {
                 thisChildren.push(
                     cloneElement(
                         nav,
@@ -126,15 +126,15 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                     ),
                 );
             }
-            React.Children.forEach(
+            Children.forEach(
                 children,
-                (child, k)=>{
+                (child, key)=>{
                     thisChildren.push(
-                        child
+                        cloneElement(child, {key})
                     );
                 }
             );
-            if (React.isValidElement(nav)) {
+            if (isValidElement(nav)) {
                 thisChildren.push(
                     <Icon
                         key="hamburger-icon"
@@ -146,7 +146,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                     </Icon>
                 );
             }
-            if (React.isValidElement(component)) {
+            if (isValidElement(component)) {
                 build = cloneElement;
             } else {
                 build = createElement;
