@@ -19,8 +19,10 @@ class Replace extends PureComponent
 
     handleNext = () =>
     {
+        if (this._time) {
+            clearTimeout(this._time);
+        }
         const {interval} = this.props;
-        clearTimeout(this._time);
         this.setState((states)=>{
             let {no} = states;
             if (null !== no) {
@@ -39,6 +41,9 @@ class Replace extends PureComponent
 
     componentDidMount()
     {
+        if (this._time) {
+            clearTimeout(this._time);
+        }
         const {interval} = this.props;
         this._time = setTimeout(this.handleNext, interval);
     }

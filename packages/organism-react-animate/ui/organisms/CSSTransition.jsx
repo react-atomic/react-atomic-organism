@@ -59,7 +59,7 @@ const handleFinish = (classList, handler, isExit, node, isAppear) =>
 const CSSTransition = ({classNames, delay, ...props}) =>
       <Transition
         in={true}
-        unmountOnExit={true}
+        unMountOnExit={true}
         {...props}
         onEnter={handleStart.bind(this, classNames, props.onEnter, delay, false)}
         onEntering={handleStart.bind(this, classNames, props.onEntering, delay, false)}
