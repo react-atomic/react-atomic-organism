@@ -17,4 +17,6 @@ console.log(obj);
 //=> { a: { b: 'c' } }
 ```
 
+## Get Object Value
+https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/get-object-value
 
