@@ -38,6 +38,9 @@ let v1 = get(demoObject, ['a','b','d'], 'c2'); // return c2
 
 ```
 
+## Set Object Value
+   * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/set-object-value
+
 ## Loadash
    * Doc https://lodash.com/docs/4.16.6#get
 
