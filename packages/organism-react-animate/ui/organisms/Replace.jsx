@@ -7,7 +7,7 @@ class Replace extends PureComponent
         interval: 3000
     };
 
-    handleAniEnd = (node) =>
+    handleExited = (node) =>
     {
         if (this.props.onExited) {
             this.props.onExited(node);
@@ -88,7 +88,7 @@ class Replace extends PureComponent
         return (
             <Animate
                 {...props}
-                onExited={this.handleAniEnd}
+                onExited={this.handleExited}
             >
                 {show}
             </Animate>

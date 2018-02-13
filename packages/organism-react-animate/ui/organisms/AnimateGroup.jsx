@@ -67,6 +67,8 @@ class AnimateGroup extends PureComponent
             timeout,
             delay,
             classNames,
+            mountOnEnter,
+            unmountOnExit,
             appear,
             enter,
             exit,
@@ -82,10 +84,13 @@ class AnimateGroup extends PureComponent
             timeout.appear = timeout.enter;
             appear = true;
         }
+        /* not assign onExited, because call at handleExited */
         const aniProps = {
             timeout,
             delay,
             classNames,
+            mountOnEnter,
+            unmountOnExit,
             appear,
             enter,
             exit,
