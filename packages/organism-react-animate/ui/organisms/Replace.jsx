@@ -55,7 +55,8 @@ class Replace extends PureComponent
     }
 
     componentWillReceiveProps(props)
-    {   
+    {
+        this.childs = [];
         Children.forEach(
            props.children,
            (c, key) => this.childs[key] = c
