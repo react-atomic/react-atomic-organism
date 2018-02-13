@@ -1,8 +1,9 @@
-import React, {Component, cloneElement, createElement} from 'react';
+import React, {PureComponent, cloneElement, createElement} from 'react';
 import { 
     min,
     lazyInject,
     mixClass,
+    mergeStyleConfig,
     reactStyle,
     Icon,
     SemanticUI
@@ -11,13 +12,34 @@ import HamburgerIcon from 'ricon/HamburgerToX';
 
 export const getHorizontalToVerticalMenu = (Styles, merge) =>
 {
+    const InjectStyles = {
+        headerActive: [
+            {
+                maxHeight: '1000px !important' 
+            },
+            '.page-header.active'
+        ], 
+        lgHeaderNav: [
+            {
+                display: [
+                    'inline-flex !important',
+                    '-webkit-inline-box !important',
+                    '-ms-inline-flexbox !important'
+                ]
+            },
+            [min.lg, '.page-header nav'] 
+        ], 
+        lgHamburgerIcon: [
+            {
+                display: 'none !important' 
+            },
+            [min.lg, '.page-header .hamburger-icon'] 
+        ]
+    };
     if (merge) {
-        Styles = {
-            ...defaultStyles,
-            ...Styles
-        };
+        mergeStyleConfig(Styles, defaultStyles, InjectStyles);
     }
-    class HorizontalToVerticalMenu extends Component
+    class HorizontalToVerticalMenu extends PureComponent
     {
         static defaultProps = {
             component: SemanticUI,
@@ -59,7 +81,6 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                 ...others
             } = this.props;
             const classes = mixClass(
-                'pure-g',
                 className,
                 {
                     active: this.state.on
@@ -79,7 +100,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                             },
                             className: mixClass(
                                 brand.props.className,
-                                'brand pure-u-1'
+                                'brand'
                             ),
                             key: 'brand'
                         }
@@ -96,7 +117,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                                 ...nav.props.style
                             },
                             className: mixClass(
-                                'nav pure-u-1',
+                                'nav',
                                 nav.props.className
                             ),
                             key: 'nav',
@@ -152,6 +173,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
     return HorizontalToVerticalMenu;
 }
 
+let injects;
 const defaultStyles = {
     hamburgerIcon: {
         position: 'absolute',
@@ -179,28 +201,3 @@ export default getHorizontalToVerticalMenu(
     defaultStyles
 );
 
-let injects;
-const InjectStyles = {
-    headerActive: [
-        {
-            maxHeight: '1000px !important' 
-        },
-        '.page-header.active'
-    ], 
-    lgHeaderNav: [
-        {
-            display: [
-                'inline-flex !important',
-                '-webkit-inline-box !important',
-                '-ms-inline-flexbox !important'
-            ]
-        },
-        [min.lg, '.page-header nav'] 
-    ], 
-    lgHamburgerIcon: [
-        {
-            display: 'none !important' 
-        },
-        [min.lg, '.page-header .hamburger-icon'] 
-    ]
-};
