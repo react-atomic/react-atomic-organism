@@ -50,8 +50,8 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
 
         handleOn = ()=>
         {
-            this.setState({
-                on: !this.state.on
+            this.setState(({on}) => {
+                return {on: !on};
             });
         }
 
@@ -130,7 +130,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                 children,
                 (child, key)=>{
                     thisChildren.push(
-                        cloneElement(child, {key})
+                        cloneElement(child, {key, handleOn: this.handleOn})
                     );
                 }
             );
