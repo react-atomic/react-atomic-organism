@@ -119,21 +119,33 @@ class AnimateGroup extends PureComponent
                 const hasNext = key in nextChildMapping;
                 const prevChild = prevChildMapping[key];
                 const isLeaving = !get(prevChild, ['props','in']);
-                if (!hasNext && hasPrev && !isLeaving) {
+                if (!hasNext && hasPrev) {
                     // Will Exit
-                    all[key] = cloneElement(child, { in: false }); 
+                    if (!isLeaving) {
+                        all[key] = cloneElement(child, { ...aniProps, in: false}); 
+                    } else {
+                        delete all[key];
+                    }
                 } else {
+                    const newProps = {
+                        ...child.props,
+                        ...aniProps,
+                        key,
+                        onExited: this.handleExited.bind(this, child),
+                    };
                     // New or Keep
-                    all[key] = createElement(
-                        CSSTransition,
-                        {
-                            ...child.props,
-                            ...aniProps,
-                            key:key,
-                            onExited: this.handleExited.bind(this, child),
-                        },
-                        child
-                    );
+                    all[key] = (hasPrev) ? 
+                        // Keep
+                        cloneElement(
+                            child,
+                            newProps
+                        ) :
+                        // New
+                        createElement(
+                            CSSTransition,
+                            newProps,
+                            child
+                        );
                 }
         });
         this.setState({ children: all });
