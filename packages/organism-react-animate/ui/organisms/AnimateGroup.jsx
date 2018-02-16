@@ -134,13 +134,11 @@ class AnimateGroup extends PureComponent
                         onExited: this.handleExited.bind(this, child),
                     };
                     // New or Keep
-                    all[key] = (hasPrev) ? 
-                        // Keep
+                    all[key] = (get(child, ['props', 'isCSSTransition'])) ? 
                         cloneElement(
                             child,
                             newProps
                         ) :
-                        // New
                         createElement(
                             CSSTransition,
                             newProps,
