@@ -163,13 +163,9 @@ export default CarouselNavigation;
 
 const Styles = {
     thumbList: {
-         position: 'absolute',
-         top: '100%', 
-         marginTop: -80,
-         left: '12%',
-         right: '12%',
-         paddingLeft: 1,
-         fontSize: '1rem'
+         fontSize: '1rem',
+         width: '77%',
+         margin: '-86px auto 0'
     },
     thumb: {
         marginRight: 5,

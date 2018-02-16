@@ -961,8 +961,8 @@ once@^1.3.0, once@^1.3.3:
     wrappy "1"
 
 organism-react-animate@*:
-  version "0.1.39"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.39.tgz#621f26c3fdca42f6d56e787b18147160675de5dc"
+  version "0.1.40"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.40.tgz#f55e63546cdd3bc487772f078ac603490296e007"
   dependencies:
     get-object-value "*"
     keyframe-css "*"
