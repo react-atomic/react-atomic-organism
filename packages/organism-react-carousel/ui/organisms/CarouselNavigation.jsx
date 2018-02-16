@@ -14,16 +14,17 @@ class CarouselNavigation extends Component
     forward = null;
     handleLeft = () =>
     {
-        this.setState({
-            selected:  this.backward
-        });
+        this.handleChange(this.backward);
     }
 
     handleRight = () =>
     {
-        this.setState({
-            selected:  this.forward
-        });
+        this.handleChange(this.forward);
+    }
+
+    handleChange = selected =>
+    {
+        this.setState({ selected });
     }
 
     componentWillReceiveProps(props)
@@ -73,8 +74,10 @@ class CarouselNavigation extends Component
                         }
                     );
                     activeChildren = onSelected({
+                        selected,
                         selectEl: child,
-                        children: children
+                        children: children,
+                        handleChange: this.handleChange
                     });
                     this.forward = i+1;
                     activeStyle = Styles.thumbActive;
@@ -121,7 +124,7 @@ class CarouselNavigation extends Component
             this.backward = total - 1;
         }
 
-        let thisChildren = [];
+        const thisChildren = [];
         thisChildren.push(
             <CarouselList
                 key={0}
@@ -161,8 +164,10 @@ export default CarouselNavigation;
 const Styles = {
     thumbList: {
          position: 'absolute',
-         bottom: 30,
+         top: '100%', 
+         marginTop: -80,
          left: '12%',
+         right: '12%',
          paddingLeft: 1,
          fontSize: '1rem'
     },

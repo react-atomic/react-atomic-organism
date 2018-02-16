@@ -1,6 +1,6 @@
 {
   "name": "organism-react-carousel",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React Carousel",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -19,14 +19,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
-    "babel-core": "^6.7.5",
-    "babel-loader": "*",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-preset-env": "*",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
     "react": "^16.x",
     "react-dom": "^16.x"
   },

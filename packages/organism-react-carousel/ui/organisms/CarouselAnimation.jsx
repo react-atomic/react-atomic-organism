@@ -9,18 +9,18 @@ class CarouselAnimation extends Component
     static defaultProps = {
         infinity: true,
         animate: {
-            appear: 'fadeIn-500',
-            enter: 'fadeIn-500',
+            appear: 'fadeIn-500-550',
+            enter: 'fadeIn-500-550',
             leave: 'fadeOut-500',
         }
     };
 
-    handleSelected = ({selectEl}) =>
+    handleSelected = ({selectEl, selected, handleChange}) =>
     {
         const { animate } = this.props;
         return ( 
             <Animate {...animate}>
-                {selectEl}
+            {selectEl}
             </Animate>
         );
     };
