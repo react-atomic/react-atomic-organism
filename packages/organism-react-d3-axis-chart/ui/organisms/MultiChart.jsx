@@ -48,6 +48,7 @@ class MultiChart extends Component
             return null;
         }
         const {
+            style,
             children,
             scaleW,
             scaleH,
@@ -88,7 +89,7 @@ class MultiChart extends Component
             <SemanticUI
                 {...props}
                 viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(thisScaleH + thisExtraViewBox)}`}
-                style={{pointerEvents:'bounding-box'}}
+                style={{...style, pointerEvents:'bounding-box'}}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             > 
