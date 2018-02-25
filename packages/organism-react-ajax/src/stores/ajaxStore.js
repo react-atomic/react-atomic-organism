@@ -21,6 +21,8 @@ const initWorkerEvent = worker =>
     worker.addEventListener('message', (e)=>{
         switch (get(e, ['data','type'])) {
             case 'ready':
+                // fakeWorker will not run this
+                gWorker = worker;
                 isWorkerReady = true;
                 break;
             default:
@@ -33,32 +35,13 @@ const initWorkerEvent = worker =>
     });
 };
 
-const initWorker = props =>
+const initWorker =  () =>
 {
-    const disableWebWorker = get(
-        props,
-        ['disableWebWorker']
-    );
-    let isSupportWorker;
-    if ('undefined' !== typeof window) {
-        const win = window;
-        if (win.Worker && !disableWebWorker) {
-            isSupportWorker = true;
-            import('worker-loader!../../src/worker').then( workerObject => {
-                if (workerObject) {
-                    gWorker = new workerObject();
-                    initWorkerEvent(gWorker);
-                }
-            });
-        }
-    }
     import('../../src/worker').then( ({default: workerObject}) => {
         fakeWorker = workerObject; 
         initWorkerEvent(fakeWorker);
-        if (!isSupportWorker) {
-            gWorker = fakeWorker;
-            isWorkerReady = true;
-        }
+        gWorker = fakeWorker;
+        isWorkerReady = true;
     });
 };
 
@@ -286,40 +269,30 @@ class AjaxStore extends ReduceStore
     return state;
   }
 
-  worker(data)
-  {
-    if (isWorkerReady) {
-        setImmediate(()=>{
-            const disableWebWorker = get(data, [
-                'action',
-                'params',
-                'disableWebWorker'
-            ]);
-            const run = disableWebWorker ?
-                fakeWorker :
-                gWorker;
-            run.postMessage(data);
-        });
-    } else {
-        const self = this;
-        if (!gWorker) {
-            initWorker();
-            gWorker = true;
-        }
-        setTimeout(()=>{
-            self.worker(data);
-        }, 50);
-    }
-  }
-    initWorker(state, action)
+    worker(data)
     {
-        const disableWebWorker = get(action, [
-            'params',
-            'disableWebWorker'
-        ]);
-        initWorker({disableWebWorker});
-        gWorker = true;
-        return state;
+      if (isWorkerReady) {
+          setImmediate(()=>{
+              const disableWebWorker = get(data, [
+                  'action',
+                  'params',
+                  'disableWebWorker'
+              ]);
+              const run = disableWebWorker ?
+                  fakeWorker :
+                  gWorker;
+              run.postMessage(data);
+          });
+      } else {
+          const self = this;
+          if (!gWorker) {
+              initWorker();
+              gWorker = true;
+          }
+          setTimeout(()=>{
+              self.worker(data);
+          }, 50);
+      }
     }
 
     initWs(url)
@@ -372,8 +345,6 @@ class AjaxStore extends ReduceStore
                 return this.applyCallback(state, action); 
             case 'updateWithUrl':
                 return this.updateWithUrl(state, action);
-            case 'initWorker':
-                return this.initWorker(state, action);
             case 'config/set':
                 return state.merge(action.params);
             default:
@@ -383,3 +354,4 @@ class AjaxStore extends ReduceStore
 }
 
 export default new AjaxStore(dispatcher);
+export {initWorkerEvent as initAjaxWorkerEvent};
