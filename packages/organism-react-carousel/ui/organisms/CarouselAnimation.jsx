@@ -7,7 +7,6 @@ import CarouselNavigation from '../organisms/CarouselNavigation';
 class CarouselAnimation extends Component
 {
     static defaultProps = {
-        infinity: true,
         animate: {
             appear: 'fadeIn-500-550',
             enter: 'fadeIn-500-550',
@@ -30,8 +29,6 @@ class CarouselAnimation extends Component
         const {
             animate,
             className,
-            style,
-            infinity,
             ...others
         } = this.props;
 
@@ -43,13 +40,8 @@ class CarouselAnimation extends Component
         return (
             <CarouselNavigation
                 {...others}
+                className={classes}
                 onSelected={this.handleSelected}
-                container={
-                    <SemanticUI
-                        style={{...Styles.container, ...style}}
-                        className={classes}
-                    />
-                }
             />
         );
     }
@@ -57,8 +49,3 @@ class CarouselAnimation extends Component
 
 export default CarouselAnimation;
 
-const Styles = {
-    container: {
-         position: 'relative',
-    },
-};

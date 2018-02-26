@@ -37,6 +37,8 @@ class CarouselNavigation extends Component
     render()
     {
         const {
+            style,
+            className,
             carouselAttr,
             container,
             children,
@@ -61,9 +63,13 @@ class CarouselNavigation extends Component
         };
         let activeChildren = null;
         let activeEl = false;
-        let thumbChild = React.Children.map(
+        const thumbChild = [];
+        React.Children.forEach(
             children,
             (child, i) => {
+                if (!child) {
+                    return;
+                }
                 let activeStyle={};
                 if (i === selected) {
                     child = cloneElement(
@@ -101,15 +107,17 @@ class CarouselNavigation extends Component
                         ...activeStyle
                     }, false, false)
                 };
-                let thisChild = get(child, ['props', 'thumbEl']);
+                let thisChild = get(child, ['props', 'thumbContainer']);
                 if (thisChild) {
                     thisChild = <Carousel>{thisChild}</Carousel>;
                 } else {
                     thisChild = child;
                 }
-                return cloneElement(
-                    thisChild,
-                    newChildAttr
+                thumbChild.push(
+                    cloneElement(
+                        thisChild,
+                        newChildAttr
+                    )
                 );
             }
         );
@@ -153,7 +161,13 @@ class CarouselNavigation extends Component
         }
         return cloneElement(
             thisContainer,
-            null,
+            {
+               style: {
+                ...Styles.container,
+                ...style
+               },
+               className
+            },
             thisChildren
         );
     }
@@ -162,10 +176,14 @@ class CarouselNavigation extends Component
 export default CarouselNavigation;
 
 const Styles = {
+    container: {
+         position: 'relative',
+         marginBottom: 35,
+    },
     thumbList: {
          fontSize: '1rem',
          width: '77%',
-         margin: '-86px auto 0'
+         margin: '-85px auto 0'
     },
     thumb: {
         marginRight: 5,

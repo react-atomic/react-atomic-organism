@@ -23,7 +23,7 @@ class Carousel extends Component
 
     render()
     {
-        const {style, hoverStyle, thumbEl, ...others} = this.props;
+        const {style, hoverStyle, thumbContainer, ...others} = this.props;
         const thisHoverStyle = get(this.state, ['hoverStyle'], {});
         return (
             <SemanticUI 
@@ -47,6 +47,8 @@ const Styles = {
         display: 'inline-block',
         maxWidth: '100%',
         maxHeight: '100%',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        width: '100%',
+        textAlign: 'center'
     }
 };

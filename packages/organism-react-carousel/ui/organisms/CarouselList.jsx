@@ -38,7 +38,7 @@ class ArrowIcon extends Component
                         ...iconStyle
                     }, false, false)}
                 >
-                    <ChevronRight />
+                    <ChevronRight style={{cursor: 'pointer'}}/>
                 </Icon>
             </SemanticUI>
         );
@@ -104,7 +104,8 @@ const Styles = {
         position: 'relative',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        fontSize: 0
+        fontSize: 0,
+        minHeight: 100,
     },
     arrowContainer: {
         width: '15%',
@@ -129,7 +130,7 @@ const Styles = {
         position: 'absolute',
         top: '50%',
         transform: ['translateY(-50%)'],
-        fill: '#fff'
+        fill: '#fff',
     },
     leftIcon: {
         transform: ['rotate(180deg) translateY(50%)']
