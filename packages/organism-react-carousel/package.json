@@ -1,6 +1,6 @@
 {
   "name": "organism-react-carousel",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "React Carousel",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

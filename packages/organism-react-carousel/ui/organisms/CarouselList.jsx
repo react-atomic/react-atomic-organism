@@ -118,11 +118,11 @@ const Styles = {
     },
     arrowLeft: {
         left: 0,
-        backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.5) 0, rgba(0,0,0,0.0001) 100%)',
+        backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.3) 0, rgba(0,0,0,0.001) 100%)',
     },
     arrowRight: {
         right: 0,
-        backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.0001) 0, rgba(0,0,0,0.5) 100%)',
+        backgroundImage: 'linear-gradient(to right, rgba(0,0,0,0.001) 0, rgba(0,0,0,0.3) 100%)',
     },
     icon: {
         width: 50,
