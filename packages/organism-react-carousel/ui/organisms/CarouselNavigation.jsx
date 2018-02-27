@@ -191,7 +191,8 @@ const Styles = {
         opacity: '.7',
         overflow: 'hidden',
         width: 50,
-        height: 50 
+        height: 50,
+        verticalAlign: 'bottom'
     },
     thumbHover: {
         opacity: 1  
