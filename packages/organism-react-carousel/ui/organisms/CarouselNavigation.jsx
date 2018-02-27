@@ -64,12 +64,13 @@ class CarouselNavigation extends Component
         let activeChildren = null;
         let activeEl = false;
         const thumbChild = [];
+        const childs = [];
         React.Children.forEach(
             children,
-            (child, i) => {
-                if (!child) {
-                    return;
-                }
+            (child) => {if (child) { childs.push(child); }}
+        );
+
+        childs.forEach( (child, i) => {
                 let activeStyle={};
                 if (i === selected) {
                     child = cloneElement(
