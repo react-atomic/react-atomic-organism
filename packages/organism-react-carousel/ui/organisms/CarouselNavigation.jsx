@@ -1,5 +1,5 @@
 import React, {Component, cloneElement} from 'react'; 
-import { SemanticUI, reactStyle } from 'react-atomic-molecule';
+import {mixClass, reactStyle, SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
 import Carousel from '../organisms/Carousel';
@@ -97,6 +97,12 @@ class CarouselNavigation extends Component
                 const newChildAttr = {
                     key: i,
                     ...thisThumbAttr,
+                    className: mixClass(
+                        thisThumbAttr.className,
+                        {
+                            active: i === selected
+                        }
+                    ),
                     onClick: () => {
                         this.setState({
                             selected: i 
@@ -148,7 +154,7 @@ class CarouselNavigation extends Component
                 key={1}
                 {...others}
                 style={Styles.thumbList}
-                className="cards"
+                className="cards thumbs"
             >
                 {thumbChild}
             </CarouselList>
@@ -167,7 +173,7 @@ class CarouselNavigation extends Component
                 ...Styles.container,
                 ...style
                },
-               className
+               className: mixClass(className, 'carousel-navigation')
             },
             thisChildren
         );
@@ -184,7 +190,9 @@ const Styles = {
     thumbList: {
          fontSize: '1rem',
          width: '77%',
-         margin: '-85px auto 0'
+         margin: '-85px auto 0',
+         minHeight: 50,
+         padding: 5
     },
     thumb: {
         marginRight: 5,
