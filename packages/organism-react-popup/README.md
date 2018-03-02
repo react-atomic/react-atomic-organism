@@ -4,6 +4,8 @@ React Atomic Organism Popup
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-popup 
    * NPM
       * https://npm.im/organism-react-popup
+## toPool
+assign to different pool element.
 
 ## Example Usage
 Demo Url:

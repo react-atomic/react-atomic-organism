@@ -61,6 +61,7 @@ class PopupModal extends PopupOverlay
                     marginTop = Math.floor(1-domInfo.top + 10);
                 }
                 if (get(this, ['state', 'modalStyle', 'marginTop'])!==marginTop) {
+                    let fixScrollStyle = {};
                     this.setState(({modalStyle})=>{
                         modalStyle = {
                             ...modalStyle,
@@ -223,6 +224,11 @@ const PopupModalContainer = connect(
 export default PopupModalContainer;
 
 const Styles = {
+    flexAlignTop: {
+        justifyContent: 'flex-start',
+        webkitBoxPack: 'start',
+        msFlexPack: 'start'
+    },
     background: {
         overflow: 'auto'
     },
