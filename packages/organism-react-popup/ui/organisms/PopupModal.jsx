@@ -60,14 +60,22 @@ class PopupModal extends PopupOverlay
                 } else {
                     marginTop = Math.floor(1-domInfo.top + 10);
                 }
-                if (get(this, ['state', 'modalStyle', 'marginTop'])!==marginTop) {
-                    let fixScrollStyle = {};
+                const scrollInfo = getScrollInfo(); 
+                let maskStyle = {};
+                if (domInfo.h > scrollInfo.scrollNodeHeight) {
+                    maskStyle = Styles.flexAlignTop; 
+                }
+                const {modalStyle: orgModalStyle, maskStyle: orgMaskStyle} = this.state;
+                if (get(orgModalStyle, ['marginTop']) !== marginTop ||
+                    get(orgMaskStyle, ['justifyContent']) !== maskStyle.justifyContent
+                ) {
                     this.setState(({modalStyle})=>{
                         modalStyle = {
                             ...modalStyle,
                             marginTop
                         };
                         return {
+                            maskStyle,
                             modalStyle
                         };
                     });
@@ -135,7 +143,8 @@ class PopupModal extends PopupOverlay
         } = this.props;
         const {
             show: stateShow,
-            modalStyle: stateModalStyle
+            modalStyle: stateModalStyle,
+            maskStyle: stateMaskStyle
         } = this.state;
         let containerClick = null;
         let thisCloseEl;
@@ -161,7 +170,7 @@ class PopupModal extends PopupOverlay
                 );
             }
             let thisStyles = arrayMerge(
-                reactStyle({ ...Styles.background, ...style }, null, false),
+                reactStyle({ ...Styles.background, ...style, ...stateMaskStyle }, null, false),
                 styles
             );
             let thisModal = modal;
@@ -226,8 +235,8 @@ export default PopupModalContainer;
 const Styles = {
     flexAlignTop: {
         justifyContent: 'flex-start',
-        webkitBoxPack: 'start',
-        msFlexPack: 'start'
+        WebkitBoxPack: 'start',
+        MsFlexPack: 'start'
     },
     background: {
         overflow: 'auto'
