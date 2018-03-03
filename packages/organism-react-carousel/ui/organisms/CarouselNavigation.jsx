@@ -1,10 +1,10 @@
-import React, {Component, cloneElement} from 'react'; 
+import React, {PureComponent, cloneElement} from 'react'; 
 import {mixClass, reactStyle, SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
 import Carousel from '../organisms/Carousel';
 
-class CarouselNavigation extends Component
+class CarouselNavigation extends PureComponent
 {
     static defaultProps = {
         infinity: true,
@@ -24,6 +24,10 @@ class CarouselNavigation extends Component
 
     handleChange = selected =>
     {
+        const {onChange} = this.props;
+        if ('function' === typeof onChange) {
+            onChange(selected);
+        }
         this.setState({ selected });
     }
 
@@ -35,8 +39,16 @@ class CarouselNavigation extends Component
             children,
             (child) => {if (child) { childs.push(child); }}
         );
+        let selected = props.selected;
+        if (!selected && childs) {
+            selected = get(
+                childs.slice(0,1)[0],
+                ['props', 'name'],
+                0
+            );
+        }
         return {
-            selected: 0,
+            selected,
             childs
         };
     }
@@ -49,7 +61,7 @@ class CarouselNavigation extends Component
 
     componentWillReceiveProps(props)
     {
-        this.setState(this.update(props));
+        this.setState({...this.update(props)});
     }
 
     render()
@@ -62,6 +74,8 @@ class CarouselNavigation extends Component
             children,
             thumbAttr,
             infinity,
+            selected: propsSelected,
+            onChange,
             onSelected,
             ...others
         } = this.props;
@@ -123,7 +137,12 @@ class CarouselNavigation extends Component
                 ),
                 onClick: () => {
                     this.setState({
-                        selected 
+                        selected: key
+                    });
+                },
+                onMouseOver: () => {
+                    this.setState({
+                        selected: key
                     });
                 },
                 style: null,
