@@ -27,11 +27,29 @@ class CarouselNavigation extends Component
         this.setState({ selected });
     }
 
+    update = props =>
+    {
+        const {children} = props;
+        const childs = [];
+        React.Children.forEach(
+            children,
+            (child) => {if (child) { childs.push(child); }}
+        );
+        return {
+            selected: 0,
+            childs
+        };
+    }
+
+    constructor(props)
+    {
+        super(props);
+        this.state = this.update(props);
+    }
+
     componentWillReceiveProps(props)
     {
-        this.setState({
-            selected: 0 
-        });
+        this.setState(this.update(props));
     }
 
     render()
@@ -48,8 +66,7 @@ class CarouselNavigation extends Component
             ...others
         } = this.props;
 
-        let total = 0;
-        const selected = get(this.state, ['selected'], 0); 
+        const {selected, childs} = this.state;
         const thisThumbAttr = {
             ...carouselAttr,
             ...thumbAttr,
@@ -64,79 +81,75 @@ class CarouselNavigation extends Component
         let activeChildren = null;
         let activeEl = false;
         const thumbChild = [];
-        const childs = [];
-        React.Children.forEach(
-            children,
-            (child) => {if (child) { childs.push(child); }}
-        );
+        this.backward = null;
+        this.forward = null;
 
         childs.forEach( (child, i) => {
-                let activeStyle={};
-                if (i === selected) {
-                    child = cloneElement(
-                        child,
-                        {
-                            ...carouselAttr,
-                            key: i
-                        }
-                    );
-                    activeChildren = onSelected({
-                        selected,
-                        selectEl: child,
-                        children: children,
-                        handleChange: this.handleChange
-                    });
-                    this.forward = i+1;
-                    activeStyle = Styles.thumbActive;
-                    activeEl = child;
+            const key = get(child, ['props','name']) || i; 
+            let activeStyle={}; //need always reset
+            const isSelected = key === selected;
+            childs[i] = child = cloneElement(
+                child,
+                {
+                    ...carouselAttr,
+                    name: key,
+                    key
                 }
-                if (!activeEl) {
-                    this.backward = i;
-                }
-                total++;
-                const newChildAttr = {
-                    key: i,
-                    ...thisThumbAttr,
-                    className: mixClass(
-                        thisThumbAttr.className,
-                        {
-                            active: i === selected
-                        }
-                    ),
-                    onClick: () => {
-                        this.setState({
-                            selected: i 
-                        });
-                    },
-                    style: null,
-                    styles: reactStyle({
-                        ...thisThumbAttr.style,
-                        ...activeStyle
-                    }, false, false)
-                };
-                let thisChild = get(child, ['props', 'thumbContainer']);
-                if (thisChild) {
-                    thisChild = <Carousel>{thisChild}</Carousel>;
-                } else {
-                    thisChild = child;
-                }
-                thumbChild.push(
-                    cloneElement(
-                        thisChild,
-                        newChildAttr
-                    )
-                );
-            }
-        );
-        if (this.forward >= total) {
-            if (infinity) {
-                this.forward = 0;
+            );
+            if (isSelected) {
+                activeStyle = Styles.thumbActive;
+                activeEl = child;
+                activeChildren = onSelected({
+                    selected,
+                    childs,
+                    activeEl,
+                    handleChange: this.handleChange
+                });
             } else {
-                this.forward = total - 1;
+                if (!activeEl) {
+                    this.backward = key;
+                } else {
+                    this.forward = key;
+                }
             }
+            const newChildAttr = {
+                key,
+                ...thisThumbAttr,
+                className: mixClass(
+                    thisThumbAttr.className,
+                    {
+                        active: isSelected
+                    }
+                ),
+                onClick: () => {
+                    this.setState({
+                        selected 
+                    });
+                },
+                style: null,
+                styles: reactStyle({
+                    ...thisThumbAttr.style,
+                    ...activeStyle
+                }, false, false)
+            };
+            let thisChild = get(child, ['props', 'thumbContainer']);
+            if (thisChild) {
+                thisChild = <Carousel>{thisChild}</Carousel>;
+            } else {
+                thisChild = child;
+            }
+            thumbChild.push(
+                cloneElement(
+                    thisChild,
+                    newChildAttr
+                )
+            );
+        });
+        if (null === this.forward && infinity && childs) {
+            this.forward = childs.slice(0,1)[0].props.name;
         }
-        if (infinity && 0 === selected) {
-            this.backward = total - 1;
+        if (null === this.backward && infinity && childs) {
+            this.backward = childs.slice(-1)[0].props.name;
         }
 
         const thisChildren = [];

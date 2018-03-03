@@ -14,12 +14,12 @@ class CarouselAnimation extends Component
         }
     };
 
-    handleSelected = ({selectEl, selected, handleChange}) =>
+    handleSelected = ({activeEl, selected, handleChange}) =>
     {
         const { animate } = this.props;
         return ( 
             <Animate {...animate}>
-            {selectEl}
+            {activeEl}
             </Animate>
         );
     };
