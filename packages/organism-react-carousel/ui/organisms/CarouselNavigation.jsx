@@ -123,7 +123,9 @@ class CarouselNavigation extends PureComponent
                 if (!activeEl) {
                     this.backward = key;
                 } else {
-                    this.forward = key;
+                    if (!this.forward) {
+                        this.forward = key;
+                    }
                 }
             }
             const newChildAttr = {
