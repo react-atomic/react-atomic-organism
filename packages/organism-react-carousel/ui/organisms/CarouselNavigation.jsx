@@ -4,6 +4,8 @@ import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
 import Carousel from '../organisms/Carousel';
 
+let mouseOverTimer;
+
 class CarouselNavigation extends PureComponent
 {
     static defaultProps = {
@@ -142,7 +144,16 @@ class CarouselNavigation extends PureComponent
                         selected: key
                     });
                 },
-                onMouseOver: () => {
+                onMouseOut: (e) => {
+                    this.lastX = e.screenX;
+                    this.lastY = e.screenY;
+                },
+                onMouseOver: (e) => {
+                    const lastX = e.screenX;
+                    const lastY = e.screenY;
+                    if (this.lastX === lastX && this.lastY === lastY) {
+                        return;
+                    }
                     this.setState({
                         selected: key
                     });
