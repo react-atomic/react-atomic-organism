@@ -54,7 +54,8 @@ class Animate extends PureComponent
 
     parseAniValue(s)
     {
-        let data = s.split('-');
+        const data = s.split('-');
+        const name = data[0];
         let timeout = 500;
         let delay = 0;
         if (!isNaN(data[1])) {
@@ -63,8 +64,11 @@ class Animate extends PureComponent
         if (!isNaN(data[2])) {
             delay = parseInt(data[2],10);
         }
+        const key = [name,timeout,delay].join('-');
         return {
-            name: data[0],
+            className: key+ ' '+ name,
+            key,
+            name,
             timeout,
             delay
         };
@@ -81,23 +85,26 @@ class Animate extends PureComponent
         if (appear) {
             data = this.parseAniValue(appear);
             this.appear = data.name;
+            this.appearKey = data.key;
             this.appearTimeout = data.timeout;
             this.appearDelay = data.delay;
-            this.appearClass = appear+ ' '+ data.name;
+            this.appearClass = data.className;
         }
         if (enter) {
             data = this.parseAniValue(enter);
             this.enter = data.name;
+            this.enterKey = data.key;
             this.enterTimeout = data.timeout;
             this.enterDelay = data.delay;
-            this.enterClass = enter+ ' '+ data.name;
+            this.enterClass = data.className;
         }
         if (leave) {
             data = this.parseAniValue(leave);
             this.leave = data.name;
+            this.leaveKey = data.key;
             this.leaveTimeout = data.timeout;
             this.leaveDelay = data.delay;
-            this.leaveClass = leave+ ' '+ data.name;
+            this.leaveClass = data.className;
         }
     }
 
@@ -109,18 +116,18 @@ class Animate extends PureComponent
             leave
         } = props;
         if (appear) {
-            if (!inject[appear]) {
-                this.init(appear, this.appear, this.appearTimeout);
+            if (!inject[this.appearKey]) {
+                this.init(this.appearKey, this.appear, this.appearTimeout);
             }
         }
         if (enter) {
-            if (!inject[enter]) {
-                this.init(enter, this.enter, this.enterTimeout);
+            if (!inject[this.enterKey]) {
+                this.init(this.enterKey, this.enter, this.enterTimeout);
             }
         }
         if (leave) {
-            if (!inject[leave]) {
-                this.init(leave, this.leave, this.leaveTimeout);
+            if (!inject[this.leaveKey]) {
+                this.init(this.leaveKey, this.leave, this.leaveTimeout);
             }
         }
     }
