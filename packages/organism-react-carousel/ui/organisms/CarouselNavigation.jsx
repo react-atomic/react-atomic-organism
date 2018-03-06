@@ -68,6 +68,10 @@ class CarouselNavigation extends PureComponent
 
     render()
     {
+        const {selected, childs} = this.state;
+        if (!childs || !childs.length) {
+            return null;
+        }
         const {
             style,
             className,
@@ -82,7 +86,6 @@ class CarouselNavigation extends PureComponent
             ...others
         } = this.props;
 
-        const {selected, childs} = this.state;
         const thisThumbAttr = {
             ...carouselAttr,
             ...thumbAttr,

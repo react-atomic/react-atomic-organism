@@ -961,8 +961,8 @@ once@^1.3.0, once@^1.3.3:
     wrappy "1"
 
 organism-react-animate@*:
-  version "0.1.40"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.40.tgz#f55e63546cdd3bc487772f078ac603490296e007"
+  version "0.1.41"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.41.tgz#eb047bef09cdbfbfb80941b8f2224227eab444ad"
   dependencies:
     get-object-value "*"
     keyframe-css "*"
@@ -1103,8 +1103,8 @@ react@^16.x:
     prop-types "^15.6.0"
 
 readable-stream@^2.0.2, readable-stream@^2.0.6, readable-stream@^2.1.4:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.4.tgz#c946c3f47fa7d8eabc0b6150f4a12f69a4574071"
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.5.tgz#b4f85003a938cbb6ecbce2a124fb1012bd1a838d"
   dependencies:
     core-util-is "~1.0.0"
     inherits "~2.0.3"
@@ -1183,8 +1183,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 ricon@*:
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.33.tgz#c42e3aec9e21b5a984298999b6278c227884ad8c"
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.35.tgz#101c4e397427fe3f022ec43e782aca568392b5b5"
   dependencies:
     keyframe-css "*"
 
