@@ -11,7 +11,7 @@ const empty = function(){}
 const keys  = Object.keys;
 let wsAuth = Map();
 let gWorker;
-let fakeWorker;
+let fakeWorker = false;
 let isWorkerReady;
 let cbIndex = 0;
 const Callbacks = [];
@@ -35,12 +35,14 @@ const initWorkerEvent = worker =>
     });
 };
 
-const initWorker =  () =>
+const initFakeWorker =  () =>
 {
     import('../../src/worker').then( ({default: workerObject}) => {
         fakeWorker = workerObject; 
         initWorkerEvent(fakeWorker);
-        gWorker = fakeWorker;
+        if (!gWorker) {
+            gWorker = fakeWorker;
+        }
         isWorkerReady = true;
     });
 };
@@ -271,7 +273,7 @@ class AjaxStore extends ReduceStore
 
     worker(data)
     {
-      if (isWorkerReady) {
+      if (isWorkerReady && fakeWorker) {
           setImmediate(()=>{
               const disableWebWorker = get(data, [
                   'action',
@@ -285,13 +287,11 @@ class AjaxStore extends ReduceStore
           });
       } else {
           const self = this;
-          if (!gWorker) {
-              initWorker();
-              gWorker = true;
+          if (false === fakeWorker) {
+              initFakeWorker();
+              fakeWorker = null;
           }
-          setTimeout(()=>{
-              self.worker(data);
-          }, 50);
+          setTimeout(()=>self.worker(data), 50);
       }
     }
 
