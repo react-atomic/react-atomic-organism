@@ -71,6 +71,11 @@ class Dropzone extends PureComponent
         });
     }
 
+    processQueue()
+    {
+        this.dropzone.processQueue();
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -84,8 +89,8 @@ class Dropzone extends PureComponent
      */
     componentDidMount() {
         injects = lazyInject( injects, InjectStyles );
-        const {postUrl, eventHandlers} = this.props;
-        if (!postUrl || !get(eventHandlers, ['drop'])) {
+        const {postUrl} = this.props;
+        if (!postUrl) {
             console.info('Need set dropzone url and drop event handler');
         }
         const options = this.getDjsConfig();
@@ -137,7 +142,7 @@ class Dropzone extends PureComponent
 
     render() {
         const {children, className, showFiletypeIcon, iconFiletypes} = this.props;
-        const {files, value} = this.state;
+        const {files} = this.state;
         const icons = [];
         const classes = mixClass(className, 'filepicker dropzone');
 
@@ -148,7 +153,6 @@ class Dropzone extends PureComponent
         }
         return (
             <SemanticUI refCb={el=>this.el=el} className={classes} style={Styles.container}>
-                <input type="hidden" name={name} value={value} />
                 {icons}
                 {children}
             </SemanticUI>
@@ -181,7 +185,8 @@ const InjectStyles = {
             display: 'inline-block',
             verticalAlign: 'top',
             minHeight: '160px',
-            margin: '16px'
+            margin: 10,
+            overflow: 'hidden'
         },
         '.dz-preview'
     ],
@@ -196,17 +201,17 @@ const InjectStyles = {
         {
             display: 'none',
             pointerEvents: 'none',
-            zIndex: 1000,
             position: 'absolute',
             top: 130,
-            left: -10,
+            left: 0,
             transition: ['opacity 0.3s ease'],
             borderRadius: 8,
-            fontSize: 13,
-            width: 140,
+            fontSize: 10,
+            width: '100%',
             background: 'linear-gradient(to bottom, #be2626, #a92222)',
             padding: '0.5em 1.2em',
-            color: 'white'
+            color: 'white',
+            lineHeight: 1,
         },
         '.dz-error-message'
     ],
@@ -223,29 +228,42 @@ const InjectStyles = {
         },
         '.dz-message'
     ],
+    dropzoneThumbFile: [
+        {
+            width: 120,
+            height: 120,
+            background: 'linear-gradient(to bottom, #eee, #ddd)'
+        },
+        '.dz-preview.dz-file-preview .dz-image'
+    ],
+    dropzoneThumbFileDetail: [
+        {
+            opacity: 1,
+        },
+        '.dz-preview.dz-file-preview .dz-details'
+    ],
     dropzoneImage: [
         {
-            maxWidth:'120px',
-            maxHeight:'120px'
+            maxWidth: 120,
+            maxHeight: 120
         },
         '.dz-preview .dz-image'
     ],
     dropzoneImagePreviewHover: [
         {
-            zIndex: 1000
         },
         '.dz-preview:hover .dz-image'
     ],
     dropzoneDetail: [
         {
-            zIndex: 20,
             position: 'absolute',
             top: 0,
             left: 0,
             opacity: 0,
             fontSize: '13px',
-            minWidth: '100%',
-            maxWidth: '100%',
+            minWidth: 120,
+            maxWidth: 120,
+            maxHeight: 120,
             padding: '2em 1em',
             textAlign: 'center'
         },
@@ -300,11 +318,11 @@ const InjectStyles = {
     ],
     dropzoneMark: [
         {
+            zIndex: 0,
             opacity: 0,
-            zIndex: 500,
             position: 'absolute',
-            display: 'block',
-            top: '50%',
+            display: 'none',
+            top: 0,
             left: '50%',
             animation: ['passing-through 3s cubic-bezier(0.77, 0, 0.175, 1)']
         },
@@ -312,12 +330,16 @@ const InjectStyles = {
     ],
     dropzoneSuccessMark: [
         {
+            display: 'block',
+            opacity: 1,
             animation: ['passing-through 3s cubic-bezier(0.77, 0, 0.175, 1)']
         },
         '.dropzone .dz-preview.dz-success .dz-success-mark'
     ],
     dropzoneErrorMark: [
         {
+            display: 'block',
+            opacity: 1,
             animation: ['slide-in 3s cubic-bezier(0.77, 0, 0.175, 1)']
         },
         '.dropzone .dz-preview.dz-error .dz-error-mark'
@@ -334,6 +356,16 @@ const InjectStyles = {
             animation: ['pulse 6s ease infinite']
         },
         '.dropzone .dz-preview:not(.dz-processing) .dz-progress'
+    ],
+    dropzoneRemoveLink: [
+        {
+            position: 'absolute',
+            width: 120,
+            top: 100,
+            left: 0,
+            zIndex: 999
+        },
+        '.dropzone .dz-remove'
     ],
     passingThrough: [
         [
