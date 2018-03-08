@@ -141,7 +141,7 @@ class Dropzone extends PureComponent
     }
 
     render() {
-        const {children, className, showFiletypeIcon, iconFiletypes} = this.props;
+        const {children, className, style, showFiletypeIcon, iconFiletypes} = this.props;
         const {files} = this.state;
         const icons = [];
         const classes = mixClass(className, 'filepicker dropzone');
@@ -152,7 +152,11 @@ class Dropzone extends PureComponent
             });
         }
         return (
-            <SemanticUI refCb={el=>this.el=el} className={classes} style={Styles.container}>
+            <SemanticUI
+                refCb={el=>this.el=el}
+                className={classes}
+                style={{...Styles.container, ...style}}
+            >
                 {icons}
                 {children}
             </SemanticUI>
@@ -184,7 +188,7 @@ const InjectStyles = {
             position: 'relative',
             display: 'inline-block',
             verticalAlign: 'top',
-            minHeight: '160px',
+            minHeight: 120,
             margin: 10,
             overflow: 'hidden'
         },
@@ -201,9 +205,6 @@ const InjectStyles = {
         {
             display: 'none',
             pointerEvents: 'none',
-            position: 'absolute',
-            top: 130,
-            left: 0,
             transition: ['opacity 0.3s ease'],
             borderRadius: 8,
             fontSize: 10,
@@ -223,7 +224,8 @@ const InjectStyles = {
     ],
     message: [
         {
-            margin: '2em 0',
+            fontSize: '1.875rem',
+            fontWeight: 300,
             textAlign: 'center'
         },
         '.dz-message'
@@ -265,7 +267,8 @@ const InjectStyles = {
             maxWidth: 120,
             maxHeight: 120,
             padding: '2em 1em',
-            textAlign: 'center'
+            textAlign: 'center',
+            lineHeight: 1.5
         },
         '.dz-details'
     ],
@@ -361,7 +364,7 @@ const InjectStyles = {
         {
             position: 'absolute',
             width: 120,
-            top: 100,
+            top: 85,
             left: 0,
             zIndex: 999
         },
