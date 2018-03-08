@@ -9,6 +9,8 @@ import get from 'get-object-value';
 
 const keys = Object.keys;
 
+let lazyDropzone;
+
 const IconComponent = ({filetype}) =>
     <div
         data-filetype={filetype}
@@ -76,11 +78,61 @@ class Dropzone extends PureComponent
         this.dropzone.processQueue();
     }
 
-    constructor(props) {
+    initDropzone(props)
+    {
+        const {postUrl} = props;
+        if (!postUrl) {
+            console.warn('Need set dropzone url and drop event handler');
+        }
+        const options = this.getDjsConfig();
+        this.dropzone = new lazyDropzone(this.el, options);
+        this.setupEvents();
+    }
+
+    destroyDropzone(callback)
+    {
+        if (this.dropzone) {
+            let files = this.dropzone.getActiveFiles();
+
+            if (files.length > 0) {
+                // Well, seems like we still have stuff uploading.
+                // This is dirty, but let's keep trying to get rid
+                // of the dropzone until we're done here.
+                let queueDestroy = true;
+                let destroyInterval = setInterval(() => {
+                    if (!queueDestroy) {
+                        this.dropzone = this.dropzone.destroy();
+                        callback();
+                        return clearInterval(destroyInterval);
+                    }
+                    queueDestroy = false;
+                    files = this.dropzone.getActiveFiles();
+                    if (!files || !files.length) {
+                        this.dropzone = this.dropzone.destroy();
+                        callback();
+                        return clearInterval(destroyInterval);
+                    }
+                }, 500);
+            } else {
+                this.dropzone = this.dropzone.destroy();
+                callback();
+            }
+        }
+    }
+
+    constructor(props)
+    {
         super(props);
         this.state = {
             files: []
         };
+    }
+
+    componentWillReceiveProps(nextProps)
+    {
+        this.destroyDropzone(()=>{
+            this.initDropzone(nextProps); 
+        });    
     }
 
     /**
@@ -89,16 +141,10 @@ class Dropzone extends PureComponent
      */
     componentDidMount() {
         injects = lazyInject( injects, InjectStyles );
-        const {postUrl} = this.props;
-        if (!postUrl) {
-            console.info('Need set dropzone url and drop event handler');
-        }
-        const options = this.getDjsConfig();
-
         import('../../src/dropzone').then((Dropzone)=>{
             Dropzone.autoDiscover = false;
-            this.dropzone = new Dropzone(this.el, options);
-            this.setupEvents();
+            lazyDropzone = Dropzone;
+            this.initDropzone(this.props);
         }); 
     }
 
@@ -106,38 +152,9 @@ class Dropzone extends PureComponent
      * React 'componentWillUnmount'
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
-    componentWillUnmount() {
-        if (this.dropzone) {
-            var files = this.dropzone.getActiveFiles();
-
-            if (files.length > 0) {
-                // Well, seems like we still have stuff uploading.
-                // This is dirty, but let's keep trying to get rid
-                // of the dropzone until we're done here.
-                this.queueDestroy = true;
-
-                var destroyInterval = window.setInterval(function() {
-                    if (this.queueDestroy = false) {
-                        return window.clearInterval(destroyInterval);
-                    }
-
-                    if (this.dropzone.getActiveFiles().length === 0) {
-                        this.dropzone = this.dropzone.destroy();
-                        return window.clearInterval(destroyInterval);
-                    }
-                }.bind(this), 500);
-            } else {
-                this.dropzone = this.dropzone.destroy();
-            }
-        }
-    }
-
-    /**
-     * React 'componentDidUpdate'
-     * If the Dropzone hasn't been created, create it
-     */
-    componentDidUpdate() {
-        this.queueDestroy = false;
+    componentWillUnmount()
+    {
+        this.destroyDropzone(()=>{});    
     }
 
     render() {
@@ -170,7 +187,7 @@ const Styles = {
     container: {
         backgroundColor: '#e1e1e1',
         minHeight: '60px',
-        border: '2px dashed #C7C7C7',
+        border: '2px dashed #c7c7c7',
         cursor: 'pointer'
     },
 };
