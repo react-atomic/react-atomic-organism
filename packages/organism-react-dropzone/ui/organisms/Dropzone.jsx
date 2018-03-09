@@ -25,9 +25,9 @@ class Dropzone extends PureComponent
      * please consult
      * http://www.dropzonejs.com/#configuration
      */
-    getDjsConfig()
+    getDjsConfig(props)
     {
-        const {postUrl, djsConfig} = this.props;
+        const {postUrl, djsConfig} = props;
         const option = {
             url: postUrl,
             ...djsConfig
@@ -84,13 +84,20 @@ class Dropzone extends PureComponent
         if (!postUrl) {
             console.warn('Need set dropzone url and drop event handler');
         }
-        const options = this.getDjsConfig();
+        const options = this.getDjsConfig(props);
         this.dropzone = new lazyDropzone(this.el, options);
         this.setupEvents();
     }
 
     destroyDropzone(callback)
     {
+        const last = () =>
+        {
+            this.dropzone = this.dropzone.destroy();
+            this.el.innerHTML = '';
+            callback();
+        };
+
         if (this.dropzone) {
             let files = this.dropzone.getActiveFiles();
 
@@ -101,21 +108,18 @@ class Dropzone extends PureComponent
                 let queueDestroy = true;
                 let destroyInterval = setInterval(() => {
                     if (!queueDestroy) {
-                        this.dropzone = this.dropzone.destroy();
-                        callback();
+                        last();
                         return clearInterval(destroyInterval);
                     }
                     queueDestroy = false;
                     files = this.dropzone.getActiveFiles();
                     if (!files || !files.length) {
-                        this.dropzone = this.dropzone.destroy();
-                        callback();
+                        last();
                         return clearInterval(destroyInterval);
                     }
                 }, 500);
             } else {
-                this.dropzone = this.dropzone.destroy();
-                callback();
+                last();
             }
         }
     }
@@ -130,9 +134,12 @@ class Dropzone extends PureComponent
 
     componentWillReceiveProps(nextProps)
     {
-        this.destroyDropzone(()=>{
-            this.initDropzone(nextProps); 
-        });    
+        const isChange = JSON.stringify(nextProps) !== JSON.stringify(this.props);
+        if (isChange) {
+            this.destroyDropzone(()=>{
+                this.initDropzone(nextProps); 
+            });    
+        }
     }
 
     /**
@@ -206,6 +213,7 @@ const InjectStyles = {
             display: 'inline-block',
             verticalAlign: 'top',
             minHeight: 120,
+            maxWidth: 120,
             margin: 10,
             overflow: 'hidden'
         },
