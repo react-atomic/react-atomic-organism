@@ -240,11 +240,12 @@ const Styles = {
          width: '77%',
          margin: '-85px auto 0',
          minHeight: 50,
-         padding: 5
+         padding: 5,
+         whiteSpace: 'normal',
     },
     thumb: {
-        marginRight: 5,
-        opacity: '.7',
+        margin: '0 5px 10px 0',
+        opacity: '.5',
         overflow: 'hidden',
         width: 50,
         height: 50,
@@ -253,7 +254,6 @@ const Styles = {
     thumbHover: {
         opacity: 1  
     },
-
     thumbActive: {
         border: '1px solid #fff'
     }

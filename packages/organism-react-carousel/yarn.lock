@@ -332,8 +332,8 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
     delayed-stream "~1.0.0"
 
 commander@^2.11.0:
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
+  version "2.15.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.0.tgz#ad2a23a1c3b036e392469b8012cec6b33b4c1322"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -1183,8 +1183,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 ricon@*:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.35.tgz#101c4e397427fe3f022ec43e782aca568392b5b5"
+  version "0.0.39"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.39.tgz#34175dbc60a5e841d88bb5254aa7a2acc94c1145"
   dependencies:
     keyframe-css "*"
 
