@@ -35,19 +35,31 @@ class CarouselNavigation extends PureComponent
 
     update = props =>
     {
-        const {children} = props;
+        const {children, selected: propsSelected} = props;
         const childs = [];
         React.Children.forEach(
             children,
             (child) => {if (child) { childs.push(child); }}
         );
-        let selected = props.selected;
-        if (!selected && childs) {
-            selected = get(
-                childs.slice(0,1)[0],
-                ['props', 'name'],
-                0
-            );
+        let selected;
+        if (childs) {
+            // check propsSelected is valid.
+            childs.some((child, i)=>{
+                const key = get(child, ['props','name']) || i; 
+                if (key === propsSelected) {
+                    selected = key;
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            if (!selected) {
+                selected = get(
+                    childs.slice(0,1)[0],
+                    ['props', 'name'],
+                    0
+                );
+            }
         }
         return {
             selected,
@@ -143,9 +155,7 @@ class CarouselNavigation extends PureComponent
                     }
                 ),
                 onClick: () => {
-                    this.setState({
-                        selected: key
-                    });
+                    this.handleChange(key);
                 },
                 onMouseOut: (e) => {
                     this.lastX = e.screenX;
@@ -157,9 +167,7 @@ class CarouselNavigation extends PureComponent
                     if (this.lastX === lastX && this.lastY === lastY) {
                         return;
                     }
-                    this.setState({
-                        selected: key
-                    });
+                    this.handleChange(key);
                 },
                 style: null,
                 styles: reactStyle({
