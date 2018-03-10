@@ -4,8 +4,6 @@ import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
 import Carousel from '../organisms/Carousel';
 
-let mouseOverTimer;
-
 class CarouselNavigation extends PureComponent
 {
     static defaultProps = {
@@ -145,7 +143,7 @@ class CarouselNavigation extends PureComponent
                     }
                 }
             }
-            const newChildAttr = {
+            const newThumbChildAttr = {
                 key,
                 ...thisThumbAttr,
                 className: mixClass(
@@ -157,11 +155,11 @@ class CarouselNavigation extends PureComponent
                 onClick: () => {
                     this.handleChange(key);
                 },
-                onMouseOut: (e) => {
+                onMouseLeave: (e) => {
                     this.lastX = e.screenX;
                     this.lastY = e.screenY;
                 },
-                onMouseOver: (e) => {
+                onMouseEnter: (e) => {
                     const lastX = e.screenX;
                     const lastY = e.screenY;
                     if (this.lastX === lastX && this.lastY === lastY) {
@@ -184,7 +182,7 @@ class CarouselNavigation extends PureComponent
             thumbChild.push(
                 cloneElement(
                     thisChild,
-                    newChildAttr
+                    newThumbChildAttr
                 )
             );
         });

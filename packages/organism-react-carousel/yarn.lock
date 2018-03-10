@@ -1183,8 +1183,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 ricon@*:
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.39.tgz#34175dbc60a5e841d88bb5254aa7a2acc94c1145"
+  version "0.0.43"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.43.tgz#5b0d7cb15f2f1f786d083b332940f7782167c87e"
   dependencies:
     keyframe-css "*"
 
