@@ -4,6 +4,10 @@ import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
 import Carousel from '../organisms/Carousel';
 
+let gLastX;
+let gLastY;
+let mouseMoveTimer;
+
 class CarouselNavigation extends PureComponent
 {
     static defaultProps = {
@@ -155,17 +159,26 @@ class CarouselNavigation extends PureComponent
                 onClick: () => {
                     this.handleChange(key);
                 },
-                onMouseLeave: (e) => {
-                    this.lastX = e.screenX;
-                    this.lastY = e.screenY;
-                },
-                onMouseEnter: (e) => {
+                onMouseMove: e => {
+                    if (mouseMoveTimer) {
+                        clearTimeout(mouseMoveTimer);
+                        mouseMoveTimer = null;
+                    }
                     const lastX = e.screenX;
                     const lastY = e.screenY;
-                    if (this.lastX === lastX && this.lastY === lastY) {
+                    mouseMoveTimer = setTimeout(() => {
+                        gLastX = lastX;
+                        gLastY = lastY;
+                    }, 100);
+                },
+                onMouseOver: e => {
+                    const lastX = e.screenX;
+                    const lastY = e.screenY;
+                    if (gLastX === lastX && gLastY === lastY) {
                         return;
+                    } else {
+                        this.handleChange(key);
                     }
-                    this.handleChange(key);
                 },
                 style: null,
                 styles: reactStyle({
