@@ -264,7 +264,7 @@ const Styles = {
     },
     thumb: {
         margin: '0 5px 10px 0',
-        opacity: '.5',
+        opacity: .5,
         overflow: 'hidden',
         width: 50,
         height: 50,
@@ -274,6 +274,7 @@ const Styles = {
         opacity: 1  
     },
     thumbActive: {
+        opacity: 1,
         border: '1px solid #fff'
     }
 };
