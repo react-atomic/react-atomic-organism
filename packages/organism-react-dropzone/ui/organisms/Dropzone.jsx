@@ -9,6 +9,8 @@ import get from 'get-object-value';
 
 const keys = Object.keys;
 
+let lazyDropzone;
+
 const IconComponent = ({filetype}) =>
     <div
         data-filetype={filetype}
@@ -23,9 +25,9 @@ class Dropzone extends PureComponent
      * please consult
      * http://www.dropzonejs.com/#configuration
      */
-    getDjsConfig()
+    getDjsConfig(props)
     {
-        const {postUrl, djsConfig} = this.props;
+        const {postUrl, djsConfig} = props;
         const option = {
             url: postUrl,
             ...djsConfig
@@ -76,11 +78,68 @@ class Dropzone extends PureComponent
         this.dropzone.processQueue();
     }
 
-    constructor(props) {
+    initDropzone(props)
+    {
+        const {postUrl} = props;
+        if (!postUrl) {
+            console.warn('Need set dropzone url and drop event handler');
+        }
+        const options = this.getDjsConfig(props);
+        this.dropzone = new lazyDropzone(this.el, options);
+        this.setupEvents();
+    }
+
+    destroyDropzone(callback)
+    {
+        const last = () =>
+        {
+            this.dropzone = this.dropzone.destroy();
+            this.el.innerHTML = '';
+            callback();
+        };
+
+        if (this.dropzone) {
+            let files = this.dropzone.getActiveFiles();
+
+            if (files.length > 0) {
+                // Well, seems like we still have stuff uploading.
+                // This is dirty, but let's keep trying to get rid
+                // of the dropzone until we're done here.
+                let queueDestroy = true;
+                let destroyInterval = setInterval(() => {
+                    if (!queueDestroy) {
+                        last();
+                        return clearInterval(destroyInterval);
+                    }
+                    queueDestroy = false;
+                    files = this.dropzone.getActiveFiles();
+                    if (!files || !files.length) {
+                        last();
+                        return clearInterval(destroyInterval);
+                    }
+                }, 500);
+            } else {
+                last();
+            }
+        }
+    }
+
+    constructor(props)
+    {
         super(props);
         this.state = {
             files: []
         };
+    }
+
+    componentWillReceiveProps(nextProps)
+    {
+        const isChange = JSON.stringify(nextProps) !== JSON.stringify(this.props);
+        if (isChange) {
+            this.destroyDropzone(()=>{
+                this.initDropzone(nextProps); 
+            });    
+        }
     }
 
     /**
@@ -89,16 +148,10 @@ class Dropzone extends PureComponent
      */
     componentDidMount() {
         injects = lazyInject( injects, InjectStyles );
-        const {postUrl} = this.props;
-        if (!postUrl) {
-            console.info('Need set dropzone url and drop event handler');
-        }
-        const options = this.getDjsConfig();
-
         import('../../src/dropzone').then((Dropzone)=>{
             Dropzone.autoDiscover = false;
-            this.dropzone = new Dropzone(this.el, options);
-            this.setupEvents();
+            lazyDropzone = Dropzone;
+            this.initDropzone(this.props);
         }); 
     }
 
@@ -106,42 +159,13 @@ class Dropzone extends PureComponent
      * React 'componentWillUnmount'
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
-    componentWillUnmount() {
-        if (this.dropzone) {
-            var files = this.dropzone.getActiveFiles();
-
-            if (files.length > 0) {
-                // Well, seems like we still have stuff uploading.
-                // This is dirty, but let's keep trying to get rid
-                // of the dropzone until we're done here.
-                this.queueDestroy = true;
-
-                var destroyInterval = window.setInterval(function() {
-                    if (this.queueDestroy = false) {
-                        return window.clearInterval(destroyInterval);
-                    }
-
-                    if (this.dropzone.getActiveFiles().length === 0) {
-                        this.dropzone = this.dropzone.destroy();
-                        return window.clearInterval(destroyInterval);
-                    }
-                }.bind(this), 500);
-            } else {
-                this.dropzone = this.dropzone.destroy();
-            }
-        }
-    }
-
-    /**
-     * React 'componentDidUpdate'
-     * If the Dropzone hasn't been created, create it
-     */
-    componentDidUpdate() {
-        this.queueDestroy = false;
+    componentWillUnmount()
+    {
+        this.destroyDropzone(()=>{});    
     }
 
     render() {
-        const {children, className, showFiletypeIcon, iconFiletypes} = this.props;
+        const {children, className, style, showFiletypeIcon, iconFiletypes} = this.props;
         const {files} = this.state;
         const icons = [];
         const classes = mixClass(className, 'filepicker dropzone');
@@ -152,7 +176,11 @@ class Dropzone extends PureComponent
             });
         }
         return (
-            <SemanticUI refCb={el=>this.el=el} className={classes} style={Styles.container}>
+            <SemanticUI
+                refCb={el=>this.el=el}
+                className={classes}
+                style={{...Styles.container, ...style}}
+            >
                 {icons}
                 {children}
             </SemanticUI>
@@ -166,7 +194,7 @@ const Styles = {
     container: {
         backgroundColor: '#e1e1e1',
         minHeight: '60px',
-        border: '2px dashed #C7C7C7',
+        border: '2px dashed #c7c7c7',
         cursor: 'pointer'
     },
 };
@@ -184,7 +212,8 @@ const InjectStyles = {
             position: 'relative',
             display: 'inline-block',
             verticalAlign: 'top',
-            minHeight: '160px',
+            minHeight: 120,
+            maxWidth: 120,
             margin: 10,
             overflow: 'hidden'
         },
@@ -201,9 +230,6 @@ const InjectStyles = {
         {
             display: 'none',
             pointerEvents: 'none',
-            position: 'absolute',
-            top: 130,
-            left: 0,
             transition: ['opacity 0.3s ease'],
             borderRadius: 8,
             fontSize: 10,
@@ -223,7 +249,8 @@ const InjectStyles = {
     ],
     message: [
         {
-            margin: '2em 0',
+            fontSize: '1.875rem',
+            fontWeight: 300,
             textAlign: 'center'
         },
         '.dz-message'
@@ -265,7 +292,8 @@ const InjectStyles = {
             maxWidth: 120,
             maxHeight: 120,
             padding: '2em 1em',
-            textAlign: 'center'
+            textAlign: 'center',
+            lineHeight: 1.5
         },
         '.dz-details'
     ],
@@ -361,7 +389,7 @@ const InjectStyles = {
         {
             position: 'absolute',
             width: 120,
-            top: 100,
+            top: 85,
             left: 0,
             zIndex: 999
         },

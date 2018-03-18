@@ -7,7 +7,7 @@ const isArray = Array.isArray;
 
 class DisplayPopupEl extends PureComponent
 {
-    get floatEl()
+    getChildren()
     {
         let {children} = this.props;
         if (isArray(children)) {
@@ -18,12 +18,14 @@ class DisplayPopupEl extends PureComponent
 
     setFloat()
     {
-        popupDispatch({
-            type: 'dom/update',
-            params: {
-                popup: this.floatEl 
-            }
-        });
+        setTimeout(()=>
+            popupDispatch({
+                type: 'dom/update',
+                params: {
+                    popup: this.getChildren() 
+                }
+            })
+        );
     }
 
     componentDidMount() 
@@ -41,7 +43,7 @@ class DisplayPopupEl extends PureComponent
         popupDispatch({
             type: 'dom/cleanOne',
             params: {
-                popup: this.floatEl 
+                popup: this.getChildren() 
             }
         });
     }

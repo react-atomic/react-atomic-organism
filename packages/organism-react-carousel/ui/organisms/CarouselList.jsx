@@ -104,7 +104,6 @@ const Styles = {
         position: 'relative',
         whiteSpace: 'nowrap',
         overflow: 'hidden',
-        fontSize: 0,
         minHeight: 100,
     },
     arrowContainer: {

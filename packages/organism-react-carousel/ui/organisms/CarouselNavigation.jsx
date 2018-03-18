@@ -4,7 +4,9 @@ import get from 'get-object-value';
 import CarouselList from '../organisms/CarouselList';
 import Carousel from '../organisms/Carousel';
 
-let mouseOverTimer;
+let gLastX;
+let gLastY;
+let mouseMoveTimer;
 
 class CarouselNavigation extends PureComponent
 {
@@ -35,19 +37,31 @@ class CarouselNavigation extends PureComponent
 
     update = props =>
     {
-        const {children} = props;
+        const {children, selected: propsSelected} = props;
         const childs = [];
         React.Children.forEach(
             children,
             (child) => {if (child) { childs.push(child); }}
         );
-        let selected = props.selected;
-        if (!selected && childs) {
-            selected = get(
-                childs.slice(0,1)[0],
-                ['props', 'name'],
-                0
-            );
+        let selected;
+        if (childs) {
+            // check propsSelected is valid.
+            childs.some((child, i)=>{
+                const key = get(child, ['props','name']) || i; 
+                if (key === propsSelected) {
+                    selected = key;
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            if (!selected) {
+                selected = get(
+                    childs.slice(0,1)[0],
+                    ['props', 'name'],
+                    0
+                );
+            }
         }
         return {
             selected,
@@ -133,7 +147,7 @@ class CarouselNavigation extends PureComponent
                     }
                 }
             }
-            const newChildAttr = {
+            const newThumbChildAttr = {
                 key,
                 ...thisThumbAttr,
                 className: mixClass(
@@ -143,23 +157,28 @@ class CarouselNavigation extends PureComponent
                     }
                 ),
                 onClick: () => {
-                    this.setState({
-                        selected: key
-                    });
+                    this.handleChange(key);
                 },
-                onMouseOut: (e) => {
-                    this.lastX = e.screenX;
-                    this.lastY = e.screenY;
-                },
-                onMouseOver: (e) => {
+                onMouseMove: e => {
+                    if (mouseMoveTimer) {
+                        clearTimeout(mouseMoveTimer);
+                        mouseMoveTimer = null;
+                    }
                     const lastX = e.screenX;
                     const lastY = e.screenY;
-                    if (this.lastX === lastX && this.lastY === lastY) {
+                    mouseMoveTimer = setTimeout(() => {
+                        gLastX = lastX;
+                        gLastY = lastY;
+                    }, 100);
+                },
+                onMouseOver: e => {
+                    const lastX = e.screenX;
+                    const lastY = e.screenY;
+                    if (gLastX === lastX && gLastY === lastY) {
                         return;
+                    } else {
+                        this.handleChange(key);
                     }
-                    this.setState({
-                        selected: key
-                    });
                 },
                 style: null,
                 styles: reactStyle({
@@ -176,7 +195,7 @@ class CarouselNavigation extends PureComponent
             thumbChild.push(
                 cloneElement(
                     thisChild,
-                    newChildAttr
+                    newThumbChildAttr
                 )
             );
         });
@@ -240,11 +259,12 @@ const Styles = {
          width: '77%',
          margin: '-85px auto 0',
          minHeight: 50,
-         padding: 5
+         padding: 5,
+         whiteSpace: 'normal',
     },
     thumb: {
-        marginRight: 5,
-        opacity: '.7',
+        margin: '0 5px 10px 0',
+        opacity: .5,
         overflow: 'hidden',
         width: 50,
         height: 50,
@@ -253,8 +273,8 @@ const Styles = {
     thumbHover: {
         opacity: 1  
     },
-
     thumbActive: {
+        opacity: 1,
         border: '1px solid #fff'
     }
 };

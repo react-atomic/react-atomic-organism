@@ -95,6 +95,16 @@ class PopupFloatEl extends PopupOverlay
         return this.floatEl;
     }
 
+    renderOverlay(props)
+    {
+        const {className, ...others} = props;
+        const classes = mixClass(
+            'popup',
+            className
+        );
+        return <SemanticUI {...others} className={classes}/>;
+    }
+
     constructor(props)
     {
         super(props);
@@ -128,15 +138,6 @@ class PopupFloatEl extends PopupOverlay
         window.removeEventListener('resize', this.handleResize);
     }
 
-    renderOverlay(props)
-    {
-        const {className, ...others} = props;
-        const classes = mixClass(
-            'popup',
-            className
-        );
-        return <SemanticUI {...others} className={classes}/>;
-    }
 }
 
 export default connect(

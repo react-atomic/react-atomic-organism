@@ -1,6 +1,6 @@
 {
   "name": "organism-react-dropzone",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "React dropzone",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
