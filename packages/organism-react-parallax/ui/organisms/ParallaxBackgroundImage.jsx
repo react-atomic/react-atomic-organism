@@ -230,11 +230,9 @@ class Content extends Component
     }
 }
 
-const ParallaxBackgroundImage = ({children, ...others}) =>
-<ScrollSpy {...others}>
-    <ScrollReceiver>
-        {children}
-    </ScrollReceiver>
+const ParallaxBackgroundImage = props =>
+<ScrollSpy {...props}>
+    <ScrollReceiver />
 </ScrollSpy>
 
 ParallaxBackgroundImage.defaultProps = {
