@@ -47,7 +47,7 @@ class AjaxForm extends AjaxBase
                 otherParams = {
                     ...otherParams,    
                     disableAjax: !this.isRunAjax(),
-                    updateUrl: updateUrl
+                    updateUrl
                 };
                 break;
         }
@@ -57,8 +57,8 @@ class AjaxForm extends AjaxBase
             params: {
                 url: action,
                 query: formParams,
-                callback: callback,
-                errorCallback: errorCallback,
+                callback,
+                errorCallback,
                 ...otherParams
             }
         });

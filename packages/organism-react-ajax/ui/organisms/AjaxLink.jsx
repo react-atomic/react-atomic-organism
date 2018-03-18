@@ -26,19 +26,20 @@ class AjaxLink extends AjaxBase
     }
 
     go(url) {
+        const { callback, errorCallback, updateUrl, disableRandom} = this.props;
         ajaxDispatch({
             type: 'ajaxGet',
             params: {
-                url: url,
                 disableAjax: !this.isRunAjax(),
-                updateUrl: this.props.updateUrl,
-                disableRandom: this.props.disableRandom
+                url,
+                updateUrl,
+                disableRandom
             }
         });
     }
 
     render() {
-        const { path, href, updateUrl, disableRandom, ...rest } = this.props;
+        const { callback, errorCallback, path, href, updateUrl, disableRandom, ...rest } = this.props;
         const thisHref = ajaxStore.getRawUrl({
             path: path,
             url: href
