@@ -1,13 +1,13 @@
-import React, {cloneElement} from 'react'; 
+import React, {cloneElement, isValidElement} from 'react'; 
 import get from 'get-object-value';
 import {
     Icon,
     Menu,
     Item
 } from 'react-atomic-molecule';
-import DropDownIcon from 'ricon/DropDown';
+import DropdownIcon from 'ricon/Dropdown';
 
-const DropDown = ({list, children, ...props}) =>
+const Dropdown = ({list, icon, children, ...props}) =>
 {
     const listStyle = get(list, ['props', 'style']);
     list = cloneElement(
@@ -19,26 +19,33 @@ const DropDown = ({list, children, ...props}) =>
             }
         }
     );
+    if (icon && !isValidElement) {
+        icon = <Icon style={Styles.icon}><DropdownIcon /></Icon>;
+    } else {
+        icon = null;
+    }
     return (
         <Menu style={Styles.container} className="compact">
-            <Item style={Styles.tip} className="simple dropdown">
+            <Item className="simple dropdown">
                 {children} 
-                <Icon style={Styles.icon}><DropDownIcon /></Icon>
+                {icon}
                 {list}
             </Item>
         </Menu>
     );
 }
-export default DropDown;
+
+Dropdown.defaultProps = {
+    icon: true
+};
+
+export default Dropdown;
 
 const Styles = {
     container: {
         border:'none',
         boxShadow: 'none',
         minHeight: 'auto'
-    },
-    tip: {
-        padding: 5 
     },
     icon: {
         width: 24,

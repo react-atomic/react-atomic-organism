@@ -1,5 +1,5 @@
 // Default
-export {default as DropDown} from '../ui/organisms/DropDown';
+export {default as Dropdown} from '../ui/organisms/Dropdown';
 export {default as SideMenu} from '../ui/organisms/SideMenu';
 export {
     default as HorizontalToVerticalMenu,
