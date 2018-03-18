@@ -58,6 +58,7 @@ const ajaxGet = ({url, action}) =>
     const params = get(action, ['params'], {});
     import('superagent').then((req)=>{
        const headers = {
+            ...get(params, ['globalHeaders'], {}),
             ...get(params, ['headers'], {}),
             Accept: get(params, ['accept'], 'application/json')
        };
@@ -83,12 +84,13 @@ const ajaxPost = ({url, action}) =>
      import('superagent').then((req)=>{
         const queryKeys = keys(params.query);
         const headers = {
+            ...get(params, ['globalHeaders'], {}),
             ...get(params, ['headers'], {}),
             Accept: get(params, ['accept'], 'application/json')
         };
         let isSend = false;
         if (params.isSendJson) {
-            isSend = params.isSendJson;
+            isSend = true;
         } else {
             queryKeys.every((key)=>{
                  if ('object' !== typeof params.query[key]) {

@@ -61,8 +61,15 @@ const handleUpdateNewUrl = (state, action, url) =>
 
 class AjaxStore extends ReduceStore
 {
-  cookAjaxUrl(params, ajaxUrl)
+  cookAjaxUrl(params, ajaxUrl, globalHeaders) 
   {
+      if (globalHeaders && !get(params, ['ignoreGlobalHeaders'])) { 
+        if (globalHeaders.toJS) {
+            params.globalHeaders = globalHeaders.toJS();
+        } else {
+            console.error('Global headers should be a map.', globalHeaders);
+        }
+      }
       const urls = ajaxUrl.split('#');
       const query = get(params, ['query'], {});
       if (urls[1]) {
@@ -79,6 +86,7 @@ class AjaxStore extends ReduceStore
           params.query = query;
       }
       // -->
+
       return urls[0];
   }
 
@@ -209,7 +217,7 @@ class AjaxStore extends ReduceStore
         self.start();
     }
     setImmediate(()=>{
-        const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
+        const ajaxUrl = self.cookAjaxUrl(params, rawUrl, state.get('globalHeaders'));
         if (!params.query) {
             params.query = {};
         }
@@ -235,7 +243,7 @@ class AjaxStore extends ReduceStore
         self.start();
     }
     const rawUrl = self.getRawUrl(params);
-    const ajaxUrl = self.cookAjaxUrl(params, rawUrl);
+    const ajaxUrl = self.cookAjaxUrl(params, rawUrl, state.get('globalHeaders'));
     self.worker({
         type: 'ajaxPost',
         url: ajaxUrl,
