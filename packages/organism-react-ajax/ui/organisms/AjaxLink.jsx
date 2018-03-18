@@ -33,7 +33,9 @@ class AjaxLink extends AjaxBase
                 disableAjax: !this.isRunAjax(),
                 url,
                 updateUrl,
-                disableRandom
+                disableRandom,
+                callback,
+                errorCallback,
             }
         });
     }
