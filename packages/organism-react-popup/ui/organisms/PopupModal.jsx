@@ -1,5 +1,5 @@
 require("setimmediate");
-import React from 'react'; 
+import React, {isValidElement, cloneElement} from 'react'; 
 import { connect } from 'reshow-flux';
 import {
     reactStyle,
@@ -191,6 +191,20 @@ class PopupModal extends PopupOverlay
                         }}
                         show={stateShow}
                     />
+                );
+            }
+            if (isValidElement(thisModal)) {
+                const orgModalOnClick = get(thisModal, ['props', 'onClick']);
+                thisModal = cloneElement(
+                    thisModal,
+                    {
+                        onClick: (e, ...params) => {
+                            e.stopPropagation();
+                            if ('function' === typeof orgModalOnClick) {
+                                orgModalOnClick(e, ...params);
+                            }
+                        }
+                    }
                 );
             }
             if (mask) {
