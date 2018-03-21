@@ -145,6 +145,18 @@ class Content extends Component
             ...others
         } = this.props;
         const { posY } = this.state;
+        let thisBackgroundImage = null;
+        if (backgroundImage) {
+            thisBackgroundImage = (
+                <SemanticUI
+                    className="parllax-image"
+                    style={{
+                        ...Styles.backgroundImage,
+                        backgroundImage: 'url("'+backgroundImage+'")',
+                    }}
+                />
+            );
+        }
         return (
             <SemanticUI
                 {...others}
@@ -162,18 +174,14 @@ class Content extends Component
                     className="parllax-background"
                     style={Styles.background}
                 >
-                    <SemanticUI className="parllax-layer"
+                    <SemanticUI
+                        className="parllax-layer"
                         styles={reactStyle({
                             ...Styles.backgroundLayer,
                             transform: [`translate3d(0%, ${posY}px, 0px)`],
                         },false,false)}
                     >
-                        <SemanticUI className="parllax-image"
-                            style={{
-                                ...Styles.backgroundImage,
-                                backgroundImage: 'url("'+backgroundImage+'")',
-                            }}
-                        />
+                        {thisBackgroundImage}
                     </SemanticUI>
                 </SemanticUI>
             </SemanticUI>
@@ -211,6 +219,7 @@ const Styles = {
         backgroundPosition: '50% 50%',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        backgroundAttachment: 'fixed',
         width: '100vw',
         height: '100vh',
         willChange: 'scroll-position',
