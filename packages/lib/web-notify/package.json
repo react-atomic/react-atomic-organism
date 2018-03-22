@@ -1,6 +1,6 @@
 {
   "name": "web-notify",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Simple Web Notification",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

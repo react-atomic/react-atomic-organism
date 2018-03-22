@@ -2,6 +2,7 @@
 
 const PERMISSION_GRANTED = 'granted';
 const PERMISSION_DENIED = 'denied';
+let win;
 
 const getChromeVersion = () => {
     const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
@@ -17,7 +18,7 @@ const isSupport = () =>
             return false;
         }
     }
-    if ("Notification" in window) {
+    if ('Notification' in win) {
         return true;
     } else {
         console.log('Not support Notification!');
@@ -36,7 +37,7 @@ const request = (grantedCallback, deniedCallback) =>
             console.error('Permission denied. ['+permission+']');
         }
     }
-    window.Notification.requestPermission((permission) => {
+    Notification.requestPermission((permission) => {
         const isGranted = permission === PERMISSION_GRANTED;
         if (isGranted) {
             if (grantedCallback) {
@@ -50,12 +51,17 @@ const request = (grantedCallback, deniedCallback) =>
 
 const notify = ( text, params, callback )=>
 {
-    request((permission)=>{
-        let notification = new Notification(text, params); 
+    request( permission => {
+        const notification = new Notification(text, params); 
         if (typeof callback === 'function') {
             callback(notification, permission);
         }
     });
+}
+
+if ('undefined' !== typeof window) {
+    win = window;
+    win.webNotify = notify;
 }
 
 export default notify;
