@@ -17,7 +17,7 @@ class AnimateImage extends Component
             leave: 'fadeOut-300',
         },
         leaveStyle: {
-            opacity: '.3'
+            opacity: '.1'
         }
     };
 
