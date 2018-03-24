@@ -28,39 +28,6 @@ class AnimateGroup extends PureComponent
         });
     }
 
-    constructor(props)
-    {
-        super(props);
-        this.state = {children: null};
-    }
-
-    componentDidMount()
-    {
-        const props = this.props;
-        const aniProps = this.getAniProps(props); 
-        import('../organisms/CSSTransition').then(
-            (cssTransition) => {
-                CSSTransition = cssTransition.default? cssTransition.default: cssTransition;
-                this.setState({
-                    children: getChildMapping(
-                        props.children,
-                        (child, key) =>
-                            createElement(
-                                CSSTransition,
-                                {
-                                    ...child.props,
-                                    ...aniProps,
-                                    key:key,
-                                    onExited: this.handleExited.bind(this, child)
-                                },
-                                child
-                            )
-                    )
-                });
-            }
-        );
-    }
-
     getAniProps(props, enterToAppear)
     {
         let {
@@ -104,6 +71,49 @@ class AnimateGroup extends PureComponent
         };
         return aniProps;
     }
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {children: null};
+    }
+
+    componentDidMount()
+    {
+        this._mounted = true;
+        const props = this.props;
+        const aniProps = this.getAniProps(props); 
+        import('../organisms/CSSTransition').then(
+            cssTransition => {
+                if (!this._mounted) {
+                    return;
+                }
+                CSSTransition = cssTransition.default? cssTransition.default: cssTransition;
+                this.setState({
+                    children: getChildMapping(
+                        props.children,
+                        (child, key) =>
+                            createElement(
+                                CSSTransition,
+                                {
+                                    ...child.props,
+                                    ...aniProps,
+                                    key:key,
+                                    onExited: this.handleExited.bind(this, child)
+                                },
+                                child
+                            )
+                    )
+                });
+            }
+        );
+    }
+
+    componentWillUnmount()
+    {
+        this._mounted = false;
+    }
+
 
     componentWillReceiveProps(nextProps) {
         if (!CSSTransition) {
