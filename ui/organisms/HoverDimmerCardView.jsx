@@ -1,4 +1,4 @@
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 import {
     mixClass,
     Dimmer
@@ -7,7 +7,7 @@ import {
     CardView
 } from '../../src/index';
 
-class HoverDimmerCardView extends Component
+class HoverDimmerCardView extends PureComponent
 {
     constructor(props)
     {
@@ -30,16 +30,17 @@ class HoverDimmerCardView extends Component
     render()
     {
         const {children, className, style, ...others} = this.props;
+        const {show} = this.state;
         let dimmer;
-        let newStyle = {...style};
-        if (this.state.show) {
+        const newStyle = {...style};
+        if (show) {
             dimmer = <Dimmer show={true}>{children}</Dimmer>;
             newStyle.cursor='pointer';
         }
-        let classes = mixClass(
+        const classes = mixClass(
             className,
             {
-                'blurring dimmable dimmed': this.state.show
+                'blurring dimmable dimmed': show
             }
         );
         return (
