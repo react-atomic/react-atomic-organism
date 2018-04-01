@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Image } from 'react-atomic-molecule';
+import get from 'get-object-value';
 
 import Animate from '../organisms/Animate';
 
@@ -44,7 +45,7 @@ class AnimateImage extends Component
             self.setState({image: null});
             let delay = 100;
             if (animate.leave) {
-                delay = self.ani.leaveTimeout + 100;
+                delay += get(self, ['aniEl', 'leaveTimeout'], 0);
             }
             setTimeout(()=>{
                 self.setState({
@@ -61,7 +62,7 @@ class AnimateImage extends Component
         const {animate} = this.props;
         const {image, style} = this.state;
         return (
-            <Animate {...animate} style={style} ref={o=>this.ani=o}>
+            <Animate {...animate} style={style} ref={o=>this.aniEl=o}>
             {image}
             </Animate>
         );
