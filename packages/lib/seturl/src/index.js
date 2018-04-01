@@ -26,9 +26,11 @@ const unsetUrl = (key, url) =>
     const reg = getKeyReg(key);
     url = resetUrl(url);
     const exec = reg.exec(url);
-    url = (exec[2]==='?') ? 
-        url.replace(reg,'?'):
-        url.replace(reg,'');
+    if (exec) {
+        url = (exec[2]==='?') ? 
+            url.replace(reg,'?'):
+            url.replace(reg,'');
+    }
     return url;
 }
 

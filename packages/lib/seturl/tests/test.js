@@ -30,4 +30,8 @@ describe('test clean url', ()=>{
         document.URL='http://xxx?abc=def&foo=bar';
         expect(unsetUrl('foo')).to.equal('http://xxx?abc=def');
     });
+    it('key not exists', ()=>{
+        document.URL='http://xxx?abc=def&foo=bar';
+        expect(unsetUrl('bar')).to.equal('http://xxx?abc=def&foo=bar');
+    });
 });
