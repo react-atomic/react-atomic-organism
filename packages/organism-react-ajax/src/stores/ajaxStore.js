@@ -260,7 +260,7 @@ class AjaxStore extends ReduceStore
     }
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
-    const json = this.getJson(text);
+    const json = get(action, ['json'], this.getJson(text));
     const callback = this.getCallback(state, action, json, response);
     const type = get(json,['type']);
     switch (type) {
