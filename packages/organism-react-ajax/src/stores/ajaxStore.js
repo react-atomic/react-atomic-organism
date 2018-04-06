@@ -2,7 +2,7 @@
 
 import {Map} from 'immutable';
 import {ReduceStore} from 'reshow-flux';
-import get from 'get-object-value';
+import get, {getDefault} from 'get-object-value';
 import smoothScrollTo from 'smooth-scroll-to';
 
 import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
@@ -37,8 +37,8 @@ const initWorkerEvent = worker =>
 
 const initFakeWorker =  () =>
 {
-    import('../../src/worker').then( ({default: workerObject}) => {
-        fakeWorker = workerObject; 
+    import('../../src/worker').then( workerObject => {
+        fakeWorker = getDefault(workerObject);
         initWorkerEvent(fakeWorker);
         if (!gWorker) {
             gWorker = fakeWorker;
@@ -120,7 +120,8 @@ class AjaxStore extends ReduceStore
       if (json.debugs) {
         let debugs = json.debugs; 
         let bFail = false;
-        import('../lib/dlog').then((dlog)=>{ 
+        import('../lib/dlog').then( dlog => { 
+            dlog = getDefault(dlog);
             const oLog = new dlog({ level: 'trace'});
             debugs.forEach((v)=>{
                 const dump = get(oLog, [v[0]], ()=>oLog.info); 
@@ -260,7 +261,7 @@ class AjaxStore extends ReduceStore
     }
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
-    const json = get(action, ['json'], this.getJson(text));
+    const json = get(action, ['json'], () => this.getJson(text));
     const callback = this.getCallback(state, action, json, response);
     const type = get(json,['type']);
     switch (type) {

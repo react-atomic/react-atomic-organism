@@ -1,5 +1,5 @@
 require('es6-promise/auto');
-import get from 'get-object-value';
+import get, {getDefault} from 'get-object-value';
 
 var ws;
 var post;
@@ -56,7 +56,8 @@ onmessage = (e) =>
 const ajaxGet = ({url, action}) =>
 {
     const params = get(action, ['params'], {});
-    import('superagent').then((req)=>{
+    import('superagent').then( req => {
+       req = getDefault(req);
        const headers = {
             ...get(params, ['globalHeaders'], {}),
             ...get(params, ['headers'], {}),
@@ -81,7 +82,8 @@ const ajaxGet = ({url, action}) =>
 const ajaxPost = ({url, action}) =>
 {
      const params = get(action, ['params'], {});
-     import('superagent').then((req)=>{
+     import('superagent').then( req => {
+        req = getDefault(req);
         const queryKeys = keys(params.query);
         const headers = {
             ...get(params, ['globalHeaders'], {}),
