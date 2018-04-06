@@ -18,12 +18,12 @@ class AnimateGroup extends PureComponent
 
     handleExited = (child, node) =>
     {
-        if (this.props.onExited) {
-            this.props.onExited(node);
-        }
-        let currentChildMapping = getChildMapping(this.props.children);
+        const currentChildMapping = getChildMapping(this.props.children);
         if (child.key in currentChildMapping) {
             return;
+        }
+        if (this.props.onExited) {
+            this.props.onExited(node);
         }
         this.setState(({children}) => {
             delete children[child.key];
@@ -146,29 +146,15 @@ class AnimateGroup extends PureComponent
     {
         const {
             component,
-            timeout,
-            delay,
-            classNames,
-            appear,
-            enter,
-            exit,
-            mountOnEnter,
-            unmountOnExit,
-            onEnter,
-            onEntering,
-            onEntered,
-            onExit,
-            onExiting,
             onExited,
-            addEndListener,
+            children: propsChildren,
             ...props
         } = this.props;
-        delete props.in;
-        delete props.children;
         const {children} = this.state;
+        const aniProps = this.getAniProps(this.props, true); 
+        keys(aniProps).forEach(key => delete props[key]);
         let thisChildren = null;
         if (children) {
-            const aniProps = this.getAniProps(this.props, true); 
             thisChildren = keys(children).map( key => {
                 let child = get(children, [key]); 
                 const childProps = get(child, ['props']);

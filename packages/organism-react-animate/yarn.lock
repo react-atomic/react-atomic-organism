@@ -887,8 +887,8 @@ get-func-name@^2.0.0:
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
 
 get-object-value@*:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.10.tgz#f4fcd0bdac219d307c898bf1e75223078a8db3f0"
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.12.tgz#b6431147036627c374c98b2dd629573a1a3c72d6"
 
 get-safe-reg@*:
   version "0.0.0"
