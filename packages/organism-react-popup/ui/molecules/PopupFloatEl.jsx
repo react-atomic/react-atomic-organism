@@ -119,22 +119,24 @@ class PopupFloatEl extends PopupOverlay
         window.addEventListener('resize', this.handleResize);
     }
 
-    componentWillReceiveProps(nextProps)
+    static getDerivedStateFromProps(nextProps, prevState)
     {
-        this.isNeedUpdate = true;
+        return {
+            isNeedUpdate: true 
+        };
     }
 
-    componentDidUpdate()
+    componentDidUpdate(prevProps, prevState, snapshot)
     {
-        if (this.isNeedUpdate) {
+        if (this.state.isNeedUpdate) {
             this.handleMoveTo();
-            this.isNeedUpdate = false;
+            this.state.isNeedUpdate = false;
         }
     }
 
     componentWillUnmount()
     {
-        this.isNeedUpdate = false;
+        this.state.isNeedUpdate = false;
         window.removeEventListener('resize', this.handleResize);
     }
 

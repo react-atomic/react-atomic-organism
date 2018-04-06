@@ -33,7 +33,7 @@ class DisplayPopupEl extends PureComponent
         this.setFloat();
     }
 
-    componentDidUpdate(prevProps, prevState)
+    componentDidUpdate(prevProps, prevState, snapshot)
     {
         this.setFloat();
     }

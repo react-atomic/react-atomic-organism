@@ -317,10 +317,6 @@ class-lib@*:
     array.dedup "*"
     get-safe-reg "*"
 
-classnames@^2.2.5:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
-
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -356,8 +352,8 @@ core-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
 core-js@^2.4.0, core-js@^2.5.0:
-  version "2.5.3"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.4.tgz#f2c8bf181f2a80b92f360121429ce63a2f0aeae0"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -551,8 +547,8 @@ gauge@~2.7.3:
     wide-align "^1.1.0"
 
 get-object-value@*:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.9.tgz#9450cb8e0f61ed430aaa0d016cde098bc988be39"
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.12.tgz#b6431147036627c374c98b2dd629573a1a3c72d6"
 
 get-safe-reg@*:
   version "0.0.0"
@@ -1002,8 +998,8 @@ once@^1.3.0, once@^1.3.3:
     wrappy "1"
 
 organism-react-animate@*:
-  version "0.1.41"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.1.41.tgz#eb047bef09cdbfbfb80941b8f2224227eab444ad"
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.2.4.tgz#02de481a1c2497c879ed9ae55248403d0d9b4f68"
   dependencies:
     get-object-value "*"
     keyframe-css "*"
@@ -1129,12 +1125,12 @@ rc@^1.1.7:
     strip-json-comments "~2.0.1"
 
 react-atomic-atom@*:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.11.tgz#32b8f0621947351e7ecf336e1e025aeb1a142d99"
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.13.tgz#a9151c01d112849479e53dca3c08de38d062ed59"
 
 react-atomic-molecule@*:
-  version "1.3.40"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.40.tgz#b3cf462a1fef4562dea5e0d31a7cb3dbd6e60943"
+  version "1.3.45"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.45.tgz#850c5cb4ccda91e3e4d54167724ece226c705269"
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1143,8 +1139,8 @@ react-atomic-molecule@*:
     ucfirst "*"
 
 react-dom@^16.x:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.3.1.tgz#6a3c90a4fb62f915bdbcf6204422d93a7d4ca573"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -1152,19 +1148,18 @@ react-dom@^16.x:
     prop-types "^15.6.0"
 
 react-transition-group@^2.x:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.2.1.tgz#e9fb677b79e6455fd391b03823afe84849df4a10"
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.3.0.tgz#8dd1af58f6af284b19fd057f512e74f20438ad31"
   dependencies:
     chain-function "^1.0.0"
-    classnames "^2.2.5"
     dom-helpers "^3.2.0"
     loose-envify "^1.3.1"
     prop-types "^15.5.8"
     warning "^3.0.0"
 
 react@^16.x:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -1172,15 +1167,15 @@ react@^16.x:
     prop-types "^15.6.0"
 
 readable-stream@^2.0.2, readable-stream@^2.0.6, readable-stream@^2.1.4:
-  version "2.3.5"
-  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.5.tgz#b4f85003a938cbb6ecbce2a124fb1012bd1a838d"
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
   dependencies:
     core-util-is "~1.0.0"
     inherits "~2.0.3"
     isarray "~1.0.0"
     process-nextick-args "~2.0.0"
     safe-buffer "~5.1.1"
-    string_decoder "~1.0.3"
+    string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
 readdirp@^2.0.0:
@@ -1252,8 +1247,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 reshow-flux@*:
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.28.tgz#33df057689e62fff886d8610d36e59f3f66836d2"
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.1.0.tgz#cc0fed149a0cd23e7139b68e8f5ed15f15aeb594"
   dependencies:
     array.dedup "*"
     immutable "*"
@@ -1345,9 +1340,9 @@ string-width@^1.0.1, string-width@^1.0.2:
     is-fullwidth-code-point "^1.0.0"
     strip-ansi "^3.0.0"
 
-string_decoder@~1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
+string_decoder@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-1.1.1.tgz#9cf1611ba62685d7030ae9e4ba34149c3af03fc8"
   dependencies:
     safe-buffer "~5.1.0"
 
@@ -1459,8 +1454,8 @@ warning@^3.0.0:
     loose-envify "^1.0.0"
 
 whatwg-fetch@>=0.10.0:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.3.tgz#9c84ec2dcf68187ff00bc64e1274b442176e1c84"
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/whatwg-fetch/-/whatwg-fetch-2.0.4.tgz#dde6a5df315f9d39991aa17621853d720b85566f"
 
 wide-align@^1.1.0:
   version "1.1.2"

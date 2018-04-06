@@ -19,19 +19,21 @@ class PopupOverlay extends BasePopup
         return [popupStore];
     }
 
-   static calculateState(prevState, props)
-   {
+    static calculateState(prevState, props)
+    {
         const state = popupStore.getState();
         const key = get(props, ['name'], 'default'); 
         const show = state.get('shows').get(key);
         return {
             show 
         };
-   }
+    }
 
-    componentWillReceiveProps(newProps)
+    static getDerivedStateFromProps(nextProps, prevState)
     {
-        this.setState({show: newProps.show});
+        return {
+            show: nextProps.show 
+        };
     }
 
     renderOverlay(props)
