@@ -29,4 +29,8 @@ const getObjectValue = (o, path, defaultValue) => {
     return current;
 };
 
+const getDefault = o => getObjectValue(o, ['default'], o);
+
 export default getObjectValue;
+
+export {getDefault};

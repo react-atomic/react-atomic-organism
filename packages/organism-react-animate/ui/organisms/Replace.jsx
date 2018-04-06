@@ -4,7 +4,7 @@ import Animate from '../organisms/Animate';
 class Replace extends PureComponent
 {
     static defaultProps = {
-        interval: 3000
+        interval: 5000,
     };
 
     handleExited = (node) =>
@@ -12,9 +12,9 @@ class Replace extends PureComponent
         if (this.props.onExited) {
             this.props.onExited(node);
         }
-        this.setState({
-            no: this.next 
-        });
+        setTimeout(()=>
+            this.setState({ no: this.next })
+        );
     }
 
     handleNext = () =>
@@ -23,11 +23,10 @@ class Replace extends PureComponent
             clearTimeout(this._time);
         }
         const {interval} = this.props;
-        this.setState((states)=>{
-            let {no} = states;
+        this.setState(({no, childs})=>{
             if (null !== no) {
                 no++;
-                if (no >= this.childs.length) {
+                if (no >= childs.length) {
                     no = 0;
                 }
                 this.next = no;
@@ -37,6 +36,20 @@ class Replace extends PureComponent
             }
         });
         this._time = setTimeout(this.handleNext, interval); 
+    }
+
+    constructor(props)
+    {
+        super(props);
+        const childs = [];
+        Children.forEach(
+           props.children,
+           (c, key) => childs[key] = c
+        );
+        this.state = {
+            no: 0,
+            childs
+        };
     }
 
     componentDidMount()
@@ -54,35 +67,23 @@ class Replace extends PureComponent
         this._time = null;
     }
 
-    componentWillReceiveProps(props)
+    static getDerivedStateFromProps(nextProps, prevState)
     {
-        this.childs = [];
-        Children.forEach(
-           props.children,
-           (c, key) => this.childs[key] = c
+        const childs = [];
+        const {children} = nextProps;
+        Children.map(children, c => c).forEach(
+            (child, key) => childs[key] = child
         );
-    }
-
-    constructor(props)
-    {
-        super(props);
-        this.childs = [];
-        this.state = {
-            no: 0
-        };
-        Children.forEach(
-           props.children,
-           (c, key) => this.childs[key] = c
-        );
+        return {childs};
     }
 
     render()
     {
         const {interval, ...props} = this.props;
-        const {no} = this.state;
+        const {no, childs} = this.state;
         let show;
-        if (this.childs[no]) {
-            show = this.childs[no];
+        if (no !== null && childs[no]) {
+            show = childs[no];
         } else {
             show = null;
         }

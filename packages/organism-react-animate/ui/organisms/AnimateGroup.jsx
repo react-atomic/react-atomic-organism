@@ -48,6 +48,7 @@ class AnimateGroup extends PureComponent
         } = props;
         if (enterToAppear && classNames && classNames.enter) {
             classNames.appear = classNames.enter;
+            delay.appear = delay.enter;
             timeout.appear = timeout.enter;
             appear = true;
         }
@@ -92,17 +93,17 @@ class AnimateGroup extends PureComponent
                 this.setState({
                     children: getChildMapping(
                         props.children,
-                        (child, key) =>
-                            createElement(
-                                CSSTransition,
-                                {
-                                    ...child.props,
-                                    ...aniProps,
-                                    key:key,
-                                    onExited: this.handleExited.bind(this, child)
-                                },
-                                child
-                            )
+                        (child, key) => createElement(
+                            CSSTransition,
+                            {
+                                ...child.props,
+                                ...aniProps,
+                                key,
+                                onExited: this.handleExited.bind(this, child),
+                                isCompiled: 1
+                            },
+                            child
+                        )
                     )
                 });
             }
@@ -114,49 +115,33 @@ class AnimateGroup extends PureComponent
         this._mounted = false;
     }
 
-
-    componentWillReceiveProps(nextProps) {
+    static getDerivedStateFromProps(nextProps, prevState)
+    {
         if (!CSSTransition) {
             return null;
         }
-        const prevChildMapping = get(this, ['state', 'children'], {});
-        const nextChildMapping = getChildMapping(nextProps.children);
+        const props = nextProps;
+        const prevChildMapping = get(prevState, ['children'], {});
+        const nextChildMapping = getChildMapping(props.children);
         const all = {...prevChildMapping, ...nextChildMapping};
-        const aniProps = this.getAniProps(nextProps, true);
-        keys(all).forEach((key)=>{
-                const child = all[key];
-                const hasPrev = key in prevChildMapping;
-                const hasNext = key in nextChildMapping;
-                const prevChild = prevChildMapping[key];
-                const isLeaving = !get(prevChild, ['props','in']);
-                if (!hasNext && hasPrev) {
-                    // Will Exit
-                    if (!isLeaving) {
-                        all[key] = cloneElement(child, { ...aniProps, in: false}); 
-                    } else {
-                        delete all[key];
-                    }
+        keys(all).forEach( key => {
+            const child = all[key];
+            const hasPrev = key in prevChildMapping;
+            const hasNext = key in nextChildMapping;
+            const prevChild = prevChildMapping[key];
+            const isLeaving = !get(prevChild, ['props','in']);
+            if (!hasNext && hasPrev) {
+                // Will Exit
+                if (!isLeaving) {
+                    all[key] = cloneElement(child, {in: false}); 
                 } else {
-                    const newProps = {
-                        ...child.props,
-                        ...aniProps,
-                        key,
-                        onExited: this.handleExited.bind(this, child),
-                    };
-                    // New or Keep
-                    all[key] = (get(child, ['props', 'isCSSTransition'])) ? 
-                        cloneElement(
-                            child,
-                            newProps
-                        ) :
-                        createElement(
-                            CSSTransition,
-                            newProps,
-                            child
-                        );
+                    delete all[key];
                 }
+            }
         });
-        this.setState({ children: all });
+        return {
+            children: all
+        };
     }
 
     render ()
@@ -169,6 +154,8 @@ class AnimateGroup extends PureComponent
             appear,
             enter,
             exit,
+            mountOnEnter,
+            unmountOnExit,
             onEnter,
             onEntering,
             onEntered,
@@ -183,9 +170,35 @@ class AnimateGroup extends PureComponent
         const {children} = this.state;
         let thisChildren = null;
         if (children) {
-            thisChildren = keys(children).map( 
-                key => children[key]
-            );
+            const aniProps = this.getAniProps(this.props, true); 
+            thisChildren = keys(children).map( key => {
+                let child = get(children, [key]); 
+                const childProps = get(child, ['props']);
+                const isCSSTransition = childProps.isCSSTransition;
+                if (!isCSSTransition ||
+                    (isCSSTransition && !childProps.isCompiled)
+                ) {
+                    const newProps = {
+                        ...childProps,
+                        ...aniProps,
+                        key,
+                        isCompiled: true,
+                        onExited: this.handleExited.bind(this, child),
+                    };
+                    child = isCSSTransition ?  
+                        cloneElement(
+                            child,
+                            newProps
+                        ) : 
+                        createElement(
+                            CSSTransition,
+                            newProps,
+                            child
+                        );
+                }
+                return child;
+            });
+            this.state.children = thisChildren;
         }
         return createElement(
             component,
