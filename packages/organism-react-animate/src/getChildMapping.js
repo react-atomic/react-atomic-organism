@@ -2,12 +2,14 @@ import { Children } from 'react';
 
 const getChildMapping = (children, mapFn) =>
 {
-    const mapper = (child, key) => mapFn ? mapFn(child, key) : child;
-    let result = {};
+    const mapper = (child, key) => mapFn ?
+        mapFn(child, key) :
+        child;
+    const result = {};
     if (children) {
         // map for auto assign child.key
         Children.map(children, c => c).
-            forEach((child) => {
+            forEach( child => {
                 if (!child) {
                     return;
                 }

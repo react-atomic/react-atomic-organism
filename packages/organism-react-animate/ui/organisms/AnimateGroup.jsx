@@ -180,9 +180,10 @@ class AnimateGroup extends PureComponent
                             child
                         );
                 }
+                children[key] = child;
                 return child;
             });
-            this.state.children = thisChildren;
+            this.state.children = children;
         }
         return createElement(
             component,
