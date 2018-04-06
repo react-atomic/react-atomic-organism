@@ -9,7 +9,7 @@ const getDefaultValue = (v) => {
     return v;
 }
 
-const getObjectValue = (o, path, defaultValue) => {
+const get = (o, path, defaultValue) => {
     if (null === o || 'undefined' === typeof o) {
         return getDefaultValue(defaultValue);
     }
@@ -29,8 +29,8 @@ const getObjectValue = (o, path, defaultValue) => {
     return current;
 };
 
-const getDefault = o => getObjectValue(o, ['default'], o);
+const getWebpack4Default = o => get(o, ['default', 'default'], () => get(o, ['default'], o) );
 
-export default getObjectValue;
+export default get;
 
-export {getDefault};
+export {getWebpack4Default as getDefault};
