@@ -28,9 +28,6 @@ class SpotlightEl extends PureComponent
     render()
     {
         const {name, targetEl, ...props} = this.props;
-        if (!targetEl) {
-            return null;
-        }
         cleanZIndex(targetEl);
         let thisStyles = [injects.lightBox];
         const isFixedNode = isFixed(targetEl);
@@ -71,6 +68,10 @@ class Spotlight extends PureComponent
     render()
     {
         const {targetEl, ...props} = this.props;
+        if (!targetEl) {
+            console.warn(['Need assign targetEl', targetEl]);
+            return null;
+        }
         if (!targetEl.id) {
             targetEl.id = 'spotlight-el-'+nodeId; 
             nodeId++;
