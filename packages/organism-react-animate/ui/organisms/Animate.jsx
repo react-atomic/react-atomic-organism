@@ -121,7 +121,7 @@ class Animate extends PureComponent
         super(props);
         this.update(props);
         this.state = {
-            receive: 0
+            receive: false 
         };
     }
 
@@ -132,7 +132,7 @@ class Animate extends PureComponent
 
     static getDerivedStateFromProps(nextProps, prevState)
     {
-        const receive = prevState.receive + 1;
+        const receive = !prevState.receive;
         return {
             receive
         };

@@ -12,6 +12,10 @@ class AnimateGroup extends PureComponent
         in: true
     };
 
+    state =  {
+        children: null
+    };
+
     handleExited = (child, node) =>
     {
         if (this.props.onExited) {
@@ -71,12 +75,6 @@ class AnimateGroup extends PureComponent
             in: props.in
         };
         return aniProps;
-    }
-
-    constructor(props)
-    {
-        super(props);
-        this.state = {children: null};
     }
 
     componentDidMount()

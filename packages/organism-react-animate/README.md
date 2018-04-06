@@ -3,7 +3,7 @@ React Animate
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-animate 
    * NPM
-      * https://npm.im/organism-react-animate
+      * https://www.npmjs.com/package/organism-react-animate
 
 ## Example Usage
 Demo Url:
