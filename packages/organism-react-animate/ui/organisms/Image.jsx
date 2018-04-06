@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import { Image } from 'react-atomic-molecule';
 import get from 'get-object-value';
 
@@ -10,7 +10,7 @@ const image = (props) =>
     return <Image {...others}/>;
 }
 
-class AnimateImage extends Component
+class AnimateImage extends PureComponent
 {
     static defaultProps = {
         animate: {
@@ -30,15 +30,15 @@ class AnimateImage extends Component
         };
     }
 
-    componentWillReceiveProps(props)
+    componentDidUpdate(prevProps, prevState, snapshot)
     {
-        if ( this.props.src === props.src
-           || 'undefined' === typeof window 
+        const {animate, src, leaveStyle} = this.props;
+        if ( src === prevProps.src ||
+            'undefined' === typeof window
         ) {
             return;
         }
         const self = this;
-        const {animate, src, leaveStyle} = props;
         const oImg = new window.Image();
         self.setState({style: leaveStyle});
         oImg.onload = () => {

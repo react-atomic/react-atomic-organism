@@ -18,25 +18,6 @@ class Animate extends PureComponent
         leave: null
     }
 
-    constructor(props)
-    {
-        super(props);
-        this.update(props);
-    }
-
-    componentDidMount()
-    {
-        this.updateClient(this.props);
-    }
-
-    componentWillReceiveProps(nextProps)
-    {
-        this.update(nextProps);
-        if ('undefined' !== typeof document) {
-            this.updateClient(nextProps);
-        }
-    }
-
     init(key, ani, timeout)
     {
         reactStyle({
@@ -110,6 +91,9 @@ class Animate extends PureComponent
 
     updateClient(props)
     {
+        if ('undefined' === typeof document) {
+           return; 
+        }
         const { 
             appear,
             enter,
@@ -132,14 +116,43 @@ class Animate extends PureComponent
         }
     }
 
+    constructor(props)
+    {
+        super(props);
+        this.update(props);
+        this.state = {
+            receive: 0
+        };
+    }
+
+    componentDidMount()
+    {
+        this.updateClient(this.props);
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState)
+    {
+        const receive = prevState.receive + 1;
+        return {
+            receive
+        };
+    }
+
     render()
     {
+        const props = this.props;
         const {
             appear,
             enter,
             leave,
             ...others
-        } = this.props;
+        } = props;
+        const {receive} = this.state;
+        if (receive !== this.receive) {
+            this.update(props);
+            this.updateClient(props);
+            this.receive = receive;
+        }
         return (
             <AnimateGroup
                 timeout={{

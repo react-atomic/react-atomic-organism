@@ -1,6 +1,6 @@
 import React, {PureComponent, createElement, cloneElement} from 'react';
 import getChildMapping from '../../src/getChildMapping';
-import get from 'get-object-value';
+import get, {getDefault} from 'get-object-value';
 const keys = Object.keys;
 let CSSTransition;
 
@@ -8,6 +8,7 @@ class AnimateGroup extends PureComponent
 {
     static defaultProps = {
         component: 'div',
+        unmountOnExit: true,
         in: true
     };
 
@@ -20,8 +21,7 @@ class AnimateGroup extends PureComponent
         if (child.key in currentChildMapping) {
             return;
         }
-        this.setState((state) => {
-            const {children} = state;
+        this.setState(({children}) => {
             delete children[child.key];
             // Hack for let PureComponent force update 
             return { children: {...children} };
@@ -89,7 +89,7 @@ class AnimateGroup extends PureComponent
                 if (!this._mounted) {
                     return;
                 }
-                CSSTransition = cssTransition.default? cssTransition.default: cssTransition;
+                CSSTransition = getDefault(cssTransition);
                 this.setState({
                     children: getChildMapping(
                         props.children,

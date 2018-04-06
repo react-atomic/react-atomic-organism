@@ -58,7 +58,6 @@ const handleFinish = (classList, handler, isExit, node, isAppear) =>
 
 const CSSTransition = ({classNames, delay, isCompiled, isCSSTransition, ...props}) =>
   <Transition
-    in={true}
     {...props}
     onEnter={handleStart.bind(this, classNames, props.onEnter, delay, false)}
     onEntering={handleStart.bind(this, classNames, props.onEntering, delay, false)}
@@ -69,6 +68,7 @@ const CSSTransition = ({classNames, delay, isCompiled, isCSSTransition, ...props
   />
 CSSTransition.defaultProps = {
     isCSSTransition: true,
-    isCompiled: false
+    isCompiled: false,
+    in: true
 };
 export default CSSTransition;
