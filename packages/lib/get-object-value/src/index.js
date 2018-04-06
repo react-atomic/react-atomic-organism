@@ -29,7 +29,7 @@ const get = (o, path, defaultValue) => {
     return current;
 };
 
-const getWebpack4Default = o => get(o, ['default', 'default'], () => get(o, ['default'], o) );
+const getWebpack4Default = o => get(o, ['default', 'default'], () => get(o, ['default'], ()=>o) );
 
 export default get;
 
