@@ -9,16 +9,20 @@ class FullScreen extends PureComponent
 {
     xIcoEnter = () =>
     {
-        this.setState({
-            xIcoHoverStyle: Styles.xIcoHover
+        setTimeout(()=>{
+            if (!this._mounted) {
+                return null;
+            }
+            this.setState({xIcoHoverStyle: Styles.xIcoHover}); 
         });
     }
 
     xIcoLeave = () =>
     {
-        this.setState({
-            xIcoHoverStyle: null 
-        });
+        if (!this._mounted) {
+            return null;
+        }
+        this.setState({xIcoHoverStyle: null}); 
     }
 
     getDefaultXIcon()
@@ -38,6 +42,16 @@ class FullScreen extends PureComponent
         );
     }
 
+    componentDidMount()
+    {
+        this._mounted = true;
+    }
+
+    componentWillUnmount()
+    {
+        this._mounted = false;
+    }
+
     render()
     {
         const {children, closeCallBack} = this.props;
@@ -54,7 +68,7 @@ class FullScreen extends PureComponent
                     modalStyle={Styles.modal}
                     modal={children}
                     closeEl={xico}
-                    closeCallBack={()=>{this.xIcoLeave();closeCallBack();}}
+                    closeCallBack={()=>{this._mounted=false;closeCallBack();}}
                 />
             </DisplayPopupEl>
         );
