@@ -11,16 +11,17 @@ class TabView extends PureComponent
         disableSwitch: false
     }
 
+    static getDerivedStateFromProps({selected}, prevState)
+    {
+        return {selected};
+    }
+
     constructor(props)
     {
         super(props);
         const {selected} = props;
         this.state = { selected };
     } 
-
-   componentWillReceiveProps({selected}) {
-       this.setState({selected});
-   }
 
     render()
     {
