@@ -3,36 +3,34 @@ import Transition from 'react-transition-group/Transition';
 import {mixClass, removeClass} from 'class-lib';
 import get from 'get-object-value';
 
-const getValue = (arr, isAppear, isExit) =>
+const getValue = (arr, isAppear, isExit, defaultValue) =>
 {
-    const index = (isExit) ? 'exit' : (
-        (isAppear) ? 'appear' : 'enter'
-    )
-    return get(arr, [index]);
+    const index = (isExit) ?
+        'exit' :
+        ( (isAppear) ? 'appear' : 'enter' )
+        ;
+    return get(arr, [index], defaultValue);
 }
 
-const handleStart = (classList, handler, delay, isExit, node, isAppear) =>
+const handleStart = (classList, handler, delay, isExit, ing, node, isAppear) =>
 {
     if (!node || !node.style) {
         return;
     }
-    let thisDelay = getValue(delay, isAppear, isExit);
-    if (!thisDelay) {
-        thisDelay = 0;
-    }
-    if (!isExit) {
+    if (!isExit && !ing) {
         node.style.visibility='hidden';
     }
+    const thisDelay = getValue(delay, isAppear, isExit, 0);
     setTimeout( () => {
-        if (!isExit) {
+        if (!ing) {
             node.style.visibility='inherit';
-        }
-        const thisClass = getValue(classList, isAppear, isExit);
-        if (thisClass) {
-            node.className = mixClass(
-                node.className,
-                thisClass
-            );
+            const thisClass = getValue(classList, isAppear, isExit);
+            if (thisClass) {
+                node.className = mixClass(
+                    node.className,
+                    thisClass
+                );
+            }
         }
         if (handler) {
             handler(node, isAppear);
@@ -43,11 +41,16 @@ const handleStart = (classList, handler, delay, isExit, node, isAppear) =>
 const handleFinish = (classList, handler, isExit, node, isAppear) =>
 {
     if (node) {
+        if (isExit) {
+            node.style.visibility='hidden';
+        }
         const thisClass = getValue(classList, isAppear, isExit);
         if (thisClass) {
-            node.className = removeClass(
-                node.className,
-                thisClass
+            setTimeout(()=>
+                node.className = removeClass(
+                    node.className,
+                    thisClass
+                ),
             );
         }
     }
@@ -56,15 +59,19 @@ const handleFinish = (classList, handler, isExit, node, isAppear) =>
     }
 }
 
-const CSSTransition = ({classNames, delay, isCompiled, isCSSTransition, ...props}) =>
+const CSSTransition = ({
+    classNames, delay, isCompiled, isCSSTransition,
+    onEnter, onEntering, onEntered, onExit, onExiting, onExited,
+    ...props
+}) =>
   <Transition
     {...props}
-    onEnter={handleStart.bind(this, classNames, props.onEnter, delay, false)}
-    onEntering={handleStart.bind(this, classNames, props.onEntering, delay, false)}
-    onEntered={handleFinish.bind(this, classNames, props.onEntered, false)}
-    onExit={handleStart.bind(this, classNames, props.onExit, delay, true)}
-    onExiting={handleStart.bind(this, classNames, props.onExiting, delay, true)}
-    onExited={handleFinish.bind(this, classNames, props.onExited, true)}
+    onEnter={handleStart.bind(this, classNames, onEnter, delay, false, false)}
+    onEntering={handleStart.bind(this, classNames, onEntering, delay, false, true)}
+    onEntered={handleFinish.bind(this, classNames, onEntered, false)}
+    onExit={handleStart.bind(this, classNames, onExit, delay, true, false)}
+    onExiting={handleStart.bind(this, classNames, onExiting, delay, true, true)}
+    onExited={handleFinish.bind(this, classNames, onExited, true)}
   />
 CSSTransition.defaultProps = {
     isCSSTransition: true,
