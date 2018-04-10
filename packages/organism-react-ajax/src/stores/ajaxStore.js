@@ -18,8 +18,9 @@ const Callbacks = [];
 
 const initWorkerEvent = worker =>
 {
-    worker.addEventListener('message', (e)=>{
-        switch (get(e, ['data','type'])) {
+    worker.addEventListener('message', e =>{
+        const sourceType = get(e, ['data','type']);
+        switch (sourceType) {
             case 'ready':
                 // fakeWorker will not run this
                 gWorker = worker;
@@ -28,6 +29,7 @@ const initWorkerEvent = worker =>
             default:
                 ajaxDispatch({
                     ...e.data,
+                    sourceType,
                     type: 'callback',
                 });
                 break;
@@ -259,16 +261,20 @@ class AjaxStore extends ReduceStore
     if (!params.disableProgress) {
         this.done();
     }
+    const sourceType = get(action, ['sourceType']);
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
-    const json = get(action, ['json'], () => this.getJson(text));
+    let json = get(action, ['json'], () => this.getJson(text));
     const callback = this.getCallback(state, action, json, response);
     const type = get(json,['type']);
     switch (type) {
         case 'ws-auth':
-            this.setWsAuth(get(json,['--realTimeData--']));
+            this.setWsAuth(get(json,['auth']));
             break;
         default:
+            if ('ws' === sourceType) {
+                json = {'--realTimeData--': json};
+            }
             setImmediate(()=>{
                 callback(json, text, response);
             });
