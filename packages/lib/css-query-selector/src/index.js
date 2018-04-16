@@ -32,3 +32,5 @@ export default {
     el: queryEl,
     one: queryOne
 };
+
+export {queryAll, queryAncestor, queryEl, queryOne};
