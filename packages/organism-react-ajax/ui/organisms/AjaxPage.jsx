@@ -54,8 +54,8 @@ class AjaxPage extends PureComponent
 
     render()
     {
-        const {themes, themePath} = this.props;
-        let thisThemePath = themePath;
+        const {themes, themePath, defaultThemePath} = this.props;
+        let thisThemePath = themePath || defaultThemePath;
         if ('undefined' === typeof themes[thisThemePath]) {
             const pageState = ajaxStore.getState();
             thisThemePath = this._lastThemePath;
