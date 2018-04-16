@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Navigation",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -21,18 +21,8 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.0",
-    "babel-loader": "^6.2.5",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-plugin-transform-react-pure-class-to-function": "*",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "webpack": "^1.13.0"
+    "react": "^16.x",
+    "react-dom": "^16.x"
   },
   "scripts": {
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
