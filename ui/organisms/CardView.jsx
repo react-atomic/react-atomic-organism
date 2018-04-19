@@ -20,6 +20,7 @@ const CardView = (props) =>
         description,
         dimmer,
         content,
+        image,
         imageAttr,
         imageContainer,
         imageSrc,
@@ -42,7 +43,6 @@ const CardView = (props) =>
     }
 
     /*Cook Image*/
-    let image;
     if (imageSrc) {
        let imgWrapperDom;
        if (href) {

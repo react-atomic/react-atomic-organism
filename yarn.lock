@@ -866,8 +866,8 @@ browserslist@^2.1.2:
     electron-to-chromium "^1.3.30"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000827"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000827.tgz#2dad2354e4810c3c9bb1cfc57f655c270c25fa52"
+  version "1.0.30000830"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000830.tgz#cb96b8a2dd3cbfe04acea2af3c4e894249095328"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -899,8 +899,8 @@ chokidar@^1.6.1:
     fsevents "^1.0.0"
 
 class-lib@*:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/class-lib/-/class-lib-0.0.11.tgz#d1326364d3b7f5ed2e99495259a0372226e7a291"
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/class-lib/-/class-lib-0.0.12.tgz#bb51f0742e08b3809682685ab9782c56cf2cb73f"
   dependencies:
     array.dedup "*"
     get-safe-reg "*"
@@ -1139,8 +1139,8 @@ get-object-value@*:
   resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.0.12.tgz#b6431147036627c374c98b2dd629573a1a3c72d6"
 
 get-safe-reg@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.0.tgz#4fa5fdfcac3ec7a304fbdc87dce608fddca6de27"
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.1.tgz#101da6fbf510c3b73e6db04f07f7674ee0c4e25f"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -1693,8 +1693,8 @@ react-atomic-molecule@*:
     ucfirst "*"
 
 react@^16.x:
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.3.2.tgz#fdc8420398533a1e58872f59091b272ce2f91ea9"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -1812,8 +1812,8 @@ request@2.81.0:
     uuid "^3.0.0"
 
 ricon@*:
-  version "0.0.43"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.43.tgz#5b0d7cb15f2f1f786d083b332940f7782167c87e"
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.45.tgz#75c45d0f6b3d25d55d9aef7b83393d7b160feb22"
   dependencies:
     keyframe-css "*"
 
@@ -1848,8 +1848,10 @@ setimmediate@^1.0.5:
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
 
 seturl@*:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/seturl/-/seturl-0.0.6.tgz#f1bf6c33b0c83d22ba19f2890e5cabe92412a73d"
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/seturl/-/seturl-0.0.7.tgz#f26383251ff2a117bed44ba7bb30619993ac5578"
+  dependencies:
+    get-safe-reg "*"
 
 signal-exit@^3.0.0:
   version "3.0.2"
