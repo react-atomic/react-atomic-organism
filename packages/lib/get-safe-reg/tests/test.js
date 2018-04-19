@@ -2,7 +2,7 @@
 
 import {expect} from 'chai';
 
-import getSafeReg from '../src/index.js';
+import getSafeReg,{cacheReg} from '../src/index.js';
 
 describe('test get safe reg', ()=>{
     let n;
@@ -14,5 +14,18 @@ describe('test get safe reg', ()=>{
         const patt = new RegExp(n);
         const res = patt.test('/[|\\{}()[\]^$+*?.]/g');
         expect(res).to.be.true;
+    });
+});
+
+
+describe('test cache reg', ()=>{
+    const cache = {};
+    const getRegString = name => '(([#?&])'+getSafeReg(name)+'=)([^&#]*)';
+    const getCache = name => cacheReg(cache)(getRegString)(name);
+    it('get cache back', ()=>{
+        const reg = getCache('foo');  
+        const exec = reg.exec('?foo=bar');
+        expect(exec[3]).to.equal('bar');
+        expect(cache['foo']).to.not.be.null;
     });
 });

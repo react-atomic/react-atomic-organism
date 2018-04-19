@@ -1,16 +1,10 @@
 'use strict';
 
-let cache={};
-const esc = /[|\\{}()[\]^$+*?.]/g;
+import getSafeReg,{cacheReg} from 'get-safe-reg';
 
-const getKeyReg = (name)=>
-{
-    const thisName = name.replace(esc, '\\$&');
-    if (!cache[name]) {
-        const reg = '(([#?&])'+thisName+'=)([^&#]*)';
-        cache[name] = new RegExp(reg);
-    }
-    return cache[name];
-}
+const cache={};
 
-export default getKeyReg;
+const getRegString = name => 
+    '(([#?&])'+getSafeReg(name)+'=)([^&#]*)';
+
+export default name => cacheReg(cache)(getRegString)(name);
