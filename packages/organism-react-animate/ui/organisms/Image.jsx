@@ -32,7 +32,8 @@ class AnimateImage extends PureComponent
 
     componentDidUpdate(prevProps, prevState, snapshot)
     {
-        const {animate, src, leaveStyle} = this.props;
+        const props = this.props;
+        const {animate, src, leaveStyle} = props;
         if ( src === prevProps.src ||
             'undefined' === typeof window
         ) {
