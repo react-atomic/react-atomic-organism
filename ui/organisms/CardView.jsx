@@ -66,10 +66,11 @@ const CardView = (props) =>
             React.cloneElement(
                 imageContainer,
                 {
-                    styles: reactStyle({
-                        ...Styles.image,
-                        transform: ['translate(-50%, -50%)']
-                    }, null, false),
+                    styles: reactStyle(
+                        Styles.image,
+                        null,
+                        false
+                    ),
                     src: imageSrc,
                     className: 'rounded',
                     ...imageAttr
@@ -117,7 +118,8 @@ const Styles = {
         maxWidth:'100%',
         position: 'absolute',
         top: '50%',
-        left: '50%'
+        left: '50%',
+        transform: ['translate(-50%, -50%)']
     },
     imgWrapper: {
         position: 'relative',
