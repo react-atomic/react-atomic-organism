@@ -1,15 +1,15 @@
 import React, {cloneElement, isValidElement} from 'react'; 
 import get from 'get-object-value';
 import {
+    mixClass,
     Icon,
     Menu,
     Item
 } from 'react-atomic-molecule';
 import DropdownIcon from 'ricon/Dropdown';
 
-const Dropdown = ({list, icon, children, ...props}) =>
+const Dropdown = ({list, listStyle, titleStyle, icon, children, style, className, ...props}) =>
 {
-    const listStyle = get(list, ['props', 'style']);
     list = cloneElement(
         list,
         {
@@ -19,14 +19,17 @@ const Dropdown = ({list, icon, children, ...props}) =>
             }
         }
     );
-    if (icon && !isValidElement) {
-        icon = <Icon style={Styles.icon}><DropdownIcon /></Icon>;
+    if (icon) {
+        if (!isValidElement(icon)) {
+            icon = <Icon style={Styles.icon}><DropdownIcon /></Icon>;
+        }
     } else {
         icon = null;
     }
+    const classes = mixClass(className, 'compact');
     return (
-        <Menu style={Styles.container} className="compact">
-            <Item className="simple dropdown">
+        <Menu {...props} style={{...Styles.container, ...style}} className={classes}>
+            <Item className="simple dropdown" style={titleStyle}>
                 {children} 
                 {icon}
                 {list}
