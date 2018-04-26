@@ -29,7 +29,7 @@ const Dropdown = ({list, listStyle, titleStyle, icon, children, style, className
     const classes = mixClass(className, 'compact');
     return (
         <Menu {...props} style={{...Styles.container, ...style}} className={classes}>
-            <Item className="simple dropdown" style={titleStyle}>
+            <Item className="simple dropdown" style={{...Styles.title, titleStyle}}>
                 {children} 
                 {icon}
                 {list}
@@ -48,7 +48,11 @@ const Styles = {
     container: {
         border:'none',
         boxShadow: 'none',
-        minHeight: 'auto'
+        minHeight: 'auto',
+        background: 'none',
+    },
+    title: {
+        padding: 0
     },
     icon: {
         width: 24,
