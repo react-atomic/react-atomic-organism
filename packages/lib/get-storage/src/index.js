@@ -9,7 +9,7 @@ const storage = storageType => key => value =>
     }
     const win = window;
     const store = get(win, [storageType]);
-    if ('undefined' === value) {
+    if ('undefined' === typeof value) {
         return store.getItem(key);
     } else {
         return store.setItem(key, value);
