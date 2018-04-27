@@ -18,13 +18,13 @@ class AjaxPage extends PureComponent
     constructor(props)
     {
         super(props);
-        const updateWithUrl = (url)=>{
+        const updateWithUrl = url => {
             const pageState = ajaxStore.getState();
             if (pageState.get('url')!==url) {
                 ajaxDispatch({
                     type: 'ajaxGet',
                     params: {
-                        url: url,
+                        url,
                         scrollBack: true
                     }
                 });
@@ -35,21 +35,20 @@ class AjaxPage extends PureComponent
             type: 'config/set',
             params: {
                 ...props,
-                updateWithUrl: updateWithUrl
+                updateWithUrl
             }
         });
     }
 
     componentDidMount() {
         const props = this.props;
+        const win = window;
         setImmediate(()=>{
-            if (window.WebSocket && props.webSocketUrl) {
+            if (win.WebSocket && props.webSocketUrl) {
                 ajaxStore.initWs(props.webSocketUrl);
             }
         });
-        window.onpopstate = (e)=> {
-            ajaxDispatch({ type: 'updateWithUrl' });
-        };
+        win.onpopstate = e => ajaxDispatch('updateWithUrl');
     }
 
     render()
