@@ -17,7 +17,7 @@ class YoutubeRWD extends PureComponent
     };
 
     static defaultProps = {
-        videoParams: {
+        defaultVideoParams: {
             autoplay: 1,
             loop: 1,
             showinfo: 0,
@@ -26,8 +26,10 @@ class YoutubeRWD extends PureComponent
             mute: 1,
             modestbranding: 1 
         },
+        videoParams: { },
         showControllBar: false,
-        mask: true 
+        mask: true,
+        corp: 120,
     };
 
     state = {
@@ -47,16 +49,20 @@ class YoutubeRWD extends PureComponent
        if (!load) {
            return null;
        } 
-       const {videoId, videoParams, showControllBar, mask} = this.props;
+       const {corp, defaultVideoParams, videoId, videoParams, showControllBar, mask} = this.props;
        const aParams = [];
-       keys(videoParams).forEach(
+       const thisVideoParams = {
+        ...defaultVideoParams,
+        ...videoParams
+       };
+       keys(thisVideoParams).forEach(
         key =>
         aParams.push(
             key+
             '='+
-            encodeURIComponent(videoParams[key])
+            encodeURIComponent(thisVideoParams[key])
        ));
-       if (videoParams['loop']) {
+       if (thisVideoParams['loop'] && !thisVideoParams['playlist']) {
         aParams.push('playlist='+videoId);
        }
        const src = 'https://www.youtube.com/embed/'+
@@ -66,7 +72,9 @@ class YoutubeRWD extends PureComponent
 
        const showControllBarStyle = {};
        if (showControllBar) {
-            showControllBarStyle['marginBottom'] = -120;
+            showControllBarStyle['marginBottom'] = -corp;
+       } else {
+            showControllBarStyle['marginBottom'] = -(corp*2);
        }
 
        let thisMask = null;
@@ -78,7 +86,7 @@ class YoutubeRWD extends PureComponent
         <SemanticUI className="youtube-player" style={Styles.container}>
             <SemanticUI className="youtube-player-inner" style={{...Styles.inner, ...showControllBarStyle}}>
                 <iframe
-                    style={Styles.iframe}
+                    style={{...Styles.iframe, margin:`-${corp}px 0`}}
                     width="560"
                     height="315"
                     allow="autoplay"
@@ -106,7 +114,6 @@ const Styles = {
         padding: '0 0 100%',
         height: 0,
         overflow: 'hidden',
-        marginBottom: -160,
         zIndex: 0,
     },
     iframe: {
@@ -115,7 +122,6 @@ const Styles = {
         left: 0, 
         width: '100%',
         height: '100%',
-        margin: '-120px 0',
     },
     mask: {
         zIndex: 1,
