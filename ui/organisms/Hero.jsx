@@ -4,6 +4,7 @@ import React, {
     createElement
 } from 'react';
 import {
+   mixClass,
    SemanticUI 
 } from 'react-atomic-molecule';
 
@@ -15,7 +16,7 @@ class Hero extends PureComponent
 
     render()
     {
-	const {component, backgroundImage, style, ...others} = this.props;
+	const {className, component, backgroundImage, style, ...others} = this.props;
         let build;
         if (React.isValidElement(component)) {
             build = React.cloneElement;
@@ -26,6 +27,10 @@ class Hero extends PureComponent
         if (backgroundImage) {
             thisStyle.backgroundImage = 'url('+backgroundImage+')';
         }
+        const classes = mixClass(
+          className,
+          'hero-component'
+        );
         return build(
 	    component,
 	    {
@@ -34,6 +39,7 @@ class Hero extends PureComponent
 		    ...style,
                     ...thisStyle,
 		},
+                className: classes,
 		...others
 	    } 
         );
