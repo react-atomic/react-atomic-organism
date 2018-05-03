@@ -8,13 +8,13 @@ if ('undefined' !== typeof document) {
     docEl = document.documentElement;
 }
 
-const getScrollNode = (el) => {
+const getScrollNode = el => {
     if (!el) {
         if ('undefined' !== typeof document) {
-            if (isWebkit) {
-                el = document.scrollingElement ?
-                    document.scrollingElement :
-                    document.body;
+            if (document.scrollingElement) {
+                el = document.scrollingElement;
+            } else if (isWebkit) {
+                el = document.body;
             } else {
                 el = docEl;
             }
