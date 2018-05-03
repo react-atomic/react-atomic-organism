@@ -23,7 +23,8 @@ import {
     navigationDispatch
 } from '../../src/index';
 
-const getMenuByArray = (arr, component, active) =>
+const getMenuByArray = onClick => 
+(arr, component, active) =>
 {
     if (!arr) {
         return null;
@@ -51,6 +52,7 @@ const getMenuByArray = (arr, component, active) =>
                 href,
                 name: key,
                 className: classes,
+                onClick,
             },
             text
          ));
@@ -119,7 +121,7 @@ class SideMenu extends PureComponent
 
     handleOn(stateOn)
     {
-        const on = !stateOn;
+        const on = !(('undefined' !== typeof stateOn) ? stateOn : this.state.on);
         const {id, rootActiveClass, rootInactiveClass} = this.props; 
         navigationDispatch({
             id,
@@ -163,7 +165,7 @@ class SideMenu extends PureComponent
             activeMenu,
             on
         } = this.state;
-        const menuItems = getMenuByArray(
+        const menuItems = getMenuByArray(this.handleOn.bind(this))(
             menus,
             linkComponent,
             activeMenu
