@@ -1,9 +1,16 @@
 import React, {PureComponent} from 'react'; 
 import PropTypes from 'prop-types';
-
+import get from 'get-object-value';
 import {SemanticUI} from 'react-atomic-molecule';
 
 const keys = Object.keys;
+
+const message = (func, args) => 
+  JSON.stringify({
+    event: 'command',
+    func,
+    args
+ });
 
 /**
  * YouTube Embedded Players
@@ -24,7 +31,9 @@ class YoutubeRWD extends PureComponent
             controls: 0,
             rel: 0,
             mute: 1,
-            modestbranding: 1 
+            modestbranding: 1,
+            iv_load_policy: 3,
+            enablejsapi: 1,
         },
         videoParams: { },
         showControllBar: false,
@@ -36,16 +45,48 @@ class YoutubeRWD extends PureComponent
         load: 0
     };
 
+    iframe = null;
+
+    exec(cmd, args=[])
+    {
+        if (!this.iframe) {
+            return null;
+        }
+        const thisCmd = message(cmd, args);
+        this.iframe.contentWindow.postMessage(
+            thisCmd,
+            '*'
+        );
+    }
+
+    handleEl = el =>
+    {
+        this.iframe = el;
+        this.restart();
+    }
+
+    restart()
+    {
+        this.exec('playVideo');
+    }
+
+    handleLoad = () =>
+    {
+        this.restart();
+    }
+
     componentDidMount()
     {
+        const loc = get(document, ['location']);
         this.setState({
-            load:1
+            load:1,
+            hostname: loc.protocol+'//'+loc.hostname
         });
     }
 
     render()
     {
-       const {load} = this.state;
+       const {load, hostname} = this.state;
        if (!load) {
            return null;
        } 
@@ -55,9 +96,12 @@ class YoutubeRWD extends PureComponent
         ...defaultVideoParams,
         ...videoParams
        };
+       if (thisVideoParams['enablejsapi']) {
+         thisVideoParams['origin'] = hostname;
+       }
        keys(thisVideoParams).forEach(
-        key =>
-        aParams.push(
+         key =>
+         aParams.push(
             key+
             '='+
             encodeURIComponent(thisVideoParams[key])
@@ -79,7 +123,13 @@ class YoutubeRWD extends PureComponent
 
        let thisMask = null;
        if (mask) {
-            thisMask = <SemanticUI style={Styles.mask} />; 
+            thisMask = <SemanticUI
+                className="play-mask"
+                style={Styles.mask}
+                onTouchStart={e=>this.restart()}
+                onTouchEnd={e=>this.restart()}
+                onClick={e=>this.restart()}
+            />; 
        }
        
        return (
@@ -89,10 +139,10 @@ class YoutubeRWD extends PureComponent
                     style={{...Styles.iframe, margin:`-${corp}px 0`}}
                     width="560"
                     height="315"
-                    allow="autoplay"
-                    allow="encrypted-media"
+                    allow="autoplay; fullscreen; encrypted-media"
                     src={src}
-                    onClick={e => {e.preventDefault(); console.log(e);}}
+                    ref={this.handleEl}
+                    onLoad={this.handleLoad}
                 />
             </SemanticUI>
             {thisMask} 
@@ -126,9 +176,9 @@ const Styles = {
     mask: {
         zIndex: 1,
         position: 'absolute', 
-        top: 0,
-        left: 0, 
-        right: 0,
-        bottom: 0
+        top: -10,
+        left: -10, 
+        right: -10,
+        bottom: -10
     }
 };
