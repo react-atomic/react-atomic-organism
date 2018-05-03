@@ -38,7 +38,7 @@ class YoutubeRWD extends PureComponent
         videoParams: { },
         showControllBar: false,
         mask: true,
-        corp: 90,
+        corp: 23,
     };
 
     state = {
@@ -50,7 +50,7 @@ class YoutubeRWD extends PureComponent
     exec(cmd, args=[])
     {
         if (!this.iframe) {
-            return null;
+            return;
         }
         const thisCmd = message(cmd, args);
         this.iframe.contentWindow.postMessage(
@@ -116,9 +116,9 @@ class YoutubeRWD extends PureComponent
 
        const showControllBarStyle = {};
        if (showControllBar) {
-            showControllBarStyle['marginBottom'] = -corp;
+            showControllBarStyle['marginBottom'] = -corp+'vw';
        } else {
-            showControllBarStyle['marginBottom'] = -(corp*2);
+            showControllBarStyle['marginBottom'] = -(corp*2)+'vw';
        }
 
        let thisMask = null;
@@ -136,7 +136,7 @@ class YoutubeRWD extends PureComponent
         <SemanticUI className="youtube-player" style={Styles.container}>
             <SemanticUI className="youtube-player-inner" style={{...Styles.inner, ...showControllBarStyle}}>
                 <iframe
-                    style={{...Styles.iframe, margin:`-${corp}px 0`}}
+                    style={{...Styles.iframe, margin:`-${corp}vw 0`}}
                     width="560"
                     height="315"
                     allow="autoplay; fullscreen; encrypted-media"
