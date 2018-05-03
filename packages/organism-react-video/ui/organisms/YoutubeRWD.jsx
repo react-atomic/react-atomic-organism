@@ -38,7 +38,7 @@ class YoutubeRWD extends PureComponent
         videoParams: { },
         showControllBar: false,
         mask: true,
-        corp: 120,
+        corp: 90,
     };
 
     state = {
