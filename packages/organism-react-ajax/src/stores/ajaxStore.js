@@ -265,6 +265,10 @@ class AjaxStore extends ReduceStore
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
     let json = get(action, ['json'], () => this.getJson(text));
+    const loc = get(json,['locationReplace']);
+    if (loc) {
+        location.replace(loc);
+    }
     const callback = this.getCallback(state, action, json, response);
     const type = get(json,['type']);
     switch (type) {
