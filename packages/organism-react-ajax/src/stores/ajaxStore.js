@@ -265,12 +265,9 @@ class AjaxStore extends ReduceStore
     const text = get(action, ['text']);
     const response = get(action, ['response']); 
     let json = get(action, ['json'], () => this.getJson(text));
-    const loc = get(json,['locationReplace']);
-    if (loc) {
-        location.replace(loc);
-    }
     const callback = this.getCallback(state, action, json, response);
     const type = get(json,['type']);
+    let isRedirect = null;
     switch (type) {
         case 'ws-auth':
             this.setWsAuth(get(json,['auth']));
@@ -279,10 +276,21 @@ class AjaxStore extends ReduceStore
             if ('ws' === sourceType) {
                 json = {'--realTimeData--': json};
             }
-            setImmediate(()=>{
-                callback(json, text, response);
-            });
+            setImmediate(()=>isRedirect = callback(json, text, response));
             break;
+    }
+    if (false !== isRedirect) {
+        const loc = get(json,['clientLocationTo']);
+        if (loc) {
+            switch (get(json,['clientLocationType'])) {
+                case 'href':
+                    location.href = loc;
+                    break;
+                default:
+                    location.replace(loc);
+                    break;
+            }
+        }
     }
     if ((params.updateUrl && false !== params.scrollBack) || params.scrollBack) {
         smoothScrollTo(0);
