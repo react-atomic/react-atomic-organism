@@ -15,7 +15,9 @@ class AjaxLink extends AjaxBase
 
     handleClickCapture = e => {
         const {onClickCapture} = this.props;
-        onClickCapture(e);
+        if ('function' === typeof onClickCapture) {
+            onClickCapture(e);
+        }
         this.clickMe = true;
     }
 
