@@ -6,34 +6,18 @@ import {ajaxDispatch} from '../../src/ajaxDispatcher';
 
 class AjaxLink extends AjaxBase
 {
-    clickMe = false;
-
     static defaultProps = {
         updateUrl: true,
         disableRandom: false
     }
 
-    handleClickCapture = e => {
-        const {onClickCapture} = this.props;
-        if ('function' === typeof onClickCapture) {
-            onClickCapture(e);
-        }
-        this.clickMe = true;
-    }
-
     handleClick = e => {
-        const {target} = this.props;
+        const {target, onClick} = this.props;
         if ('_blank' !== target) {
             e.preventDefault();
         }
-        if (!this.clickMe) {
-            e.preventDefault(); 
-            return false;
-        } else {
-            this.clickMe = false;
-        }
-        if (this.props.onClick) {
-            this.props.onClick(e);
+        if ('function' === typeof onClick) {
+            onClick(e);
         }
         if ('_blank' !== target) {
             const href = e.currentTarget.href;
@@ -56,11 +40,6 @@ class AjaxLink extends AjaxBase
         });
     }
 
-    componentWillUnmount()
-    {
-        this.clickMe = false;
-    }
-
     render() {
         const { callback, errorCallback, path, href, updateUrl, disableRandom, ...rest } = this.props;
         const thisHref = ajaxStore.getRawUrl({
@@ -72,7 +51,6 @@ class AjaxLink extends AjaxBase
                 atom="a"
                 href={thisHref}
                 {...rest}
-                onClickCapture={this.handleClickCapture}
                 onClick={this.handleClick}
             />
         );  
