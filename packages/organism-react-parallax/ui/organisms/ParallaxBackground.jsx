@@ -35,7 +35,7 @@ class Content extends Component
         const elH = get(offset, ['h']);
         const scrollDist = (speed * (elH + winH)) / 2;
         const viewCenter = 1 - 2 * (winH - elViewTop) / (winH + elH);
-        const posY = -Math.round((scrollDist * viewCenter) - elViewTop);
+        const posY = Math.abs(Math.round((scrollDist * viewCenter) - elViewTop));
         return {posY};
     }
 
