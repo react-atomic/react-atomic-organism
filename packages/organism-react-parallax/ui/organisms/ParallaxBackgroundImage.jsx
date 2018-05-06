@@ -37,7 +37,7 @@ const Styles = {
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed',
         width: '100vw',
-        height: '100vh',
+        height: '200vh',
         willChange: 'scroll-position',
     }
 };

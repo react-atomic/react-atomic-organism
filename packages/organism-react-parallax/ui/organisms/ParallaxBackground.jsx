@@ -19,9 +19,6 @@ class Content extends Component
             props = this.props;
         }
         const {speed, targetInfo} = props; 
-        const scrollInfo = this.scrollInfo; 
-        const winH = get(scrollInfo, ['scrollNodeHeight'], 0);
-        const winTop = get(scrollInfo, ['top'], 0);
         let offset;
         if (el) {
             offset = getOffset(el);
@@ -31,11 +28,14 @@ class Content extends Component
         if (!offset) {
             return;
         }
+        const scrollInfo = this.scrollInfo; 
+        const winH = get(scrollInfo, ['scrollNodeHeight'], 0);
+        const winTop = get(scrollInfo, ['top'], 0);
         const elViewTop = get(offset, ['top'], 0) - winTop;
         const elH = get(offset, ['h']);
         const scrollDist = (speed * (elH + winH)) / 2;
         const viewCenter = 1 - 2 * (winH - elViewTop) / (winH + elH);
-        const posY = Math.round((scrollDist * viewCenter) - elViewTop);
+        const posY = -Math.round((scrollDist * viewCenter) - elViewTop);
         return {posY};
     }
 
@@ -82,8 +82,7 @@ class Content extends Component
     handleResize = () =>
     {
         this.scrollInfo = getScrollInfo();
-        const {posY} = this.calOffset(this.el);
-        this.setState(()=>{return { posY }});
+        this.setState(this.calOffset(this.el));
     }
 
     shouldComponentUpdate(nextProps, nextState)
@@ -167,7 +166,7 @@ class Content extends Component
                         className="parllax-layer"
                         styles={reactStyle({
                             ...Styles.backgroundLayer,
-                            transform: [`translate3d(0%, ${posY}px, 0px)`],
+                            transform: [`translate3d(0, ${posY}px, 0)`],
                         },false,false)}
                     >
                         {background}
@@ -196,7 +195,7 @@ const Styles = {
     },
     background: {
         position: 'absolute',
-        top: 0,
+        top: '-60%',
         left: 0,
         zIndex: -1,
         willChange: 'scroll-position',

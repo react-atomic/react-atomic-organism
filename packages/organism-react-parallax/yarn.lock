@@ -1138,8 +1138,8 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000832"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000832.tgz#22a277f1d623774cc9aea2f7c1a65cb1603c63b8"
+  version "1.0.30000835"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000835.tgz#517c4d3807a8527b0cbce1d84c85d4487f877268"
 
 center-align@^0.1.1:
   version "0.1.3"
@@ -1553,9 +1553,9 @@ duplexer@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"
 
-duplexify@^3.4.2, duplexify@^3.5.3:
-  version "3.5.4"
-  resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.5.4.tgz#4bb46c1796eabebeec4ca9a2e66b808cb7a3d8b4"
+duplexify@^3.4.2, duplexify@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.6.0.tgz#592903f5d80b38d037220541264d69a198fb3410"
   dependencies:
     end-of-stream "^1.0.0"
     inherits "^2.0.1"
@@ -1571,12 +1571,12 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
 ejs@^2.5.7:
-  version "2.5.9"
-  resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.5.9.tgz#7ba254582a560d267437109a68354112475b0ce5"
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
 
 electron-to-chromium@^1.3.30:
-  version "1.3.44"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.44.tgz#ef6b150a60d523082388cadad88085ecd2fd4684"
+  version "1.3.45"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.45.tgz#458ac1b1c5c760ce8811a16d2bfbd97ec30bafb8"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -2027,8 +2027,8 @@ get-safe-reg@*:
   resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.1.tgz#101da6fbf510c3b73e6db04f07f7674ee0c4e25f"
 
 get-scroll-info@*:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.0.13.tgz#24b7abc7d13feef1b3ad60f6fece186aeee276e5"
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.0.14.tgz#4dc7dfee6846e665757ce02f137abefd36ecb808"
 
 get-stream@^3.0.0:
   version "3.0.0"
@@ -2212,10 +2212,10 @@ iconv-lite@0.4.19:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 iconv-lite@^0.4.4, iconv-lite@~0.4.13:
-  version "0.4.21"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.21.tgz#c47f8733d02171189ebc4a400f3218d348094798"
+  version "0.4.22"
+  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.22.tgz#c6b16b9d05bc6c307dc9303a820412995d2eea95"
   dependencies:
-    safer-buffer "^2.1.0"
+    safer-buffer ">= 2.1.2 < 3"
 
 ieee754@^1.1.4:
   version "1.1.11"
@@ -2983,8 +2983,8 @@ ora@2.0.0:
     wcwidth "^1.0.1"
 
 organism-react-ajax@*:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.3.1.tgz#f340a359e6820b33a2d176b9304cb30d47371623"
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.3.5.tgz#220a822328708a3ee4ea9c68913f900a893e2d1e"
   dependencies:
     es6-promise "*"
     get-object-value "*"
@@ -3232,10 +3232,10 @@ pump@^2.0.0, pump@^2.0.1:
     once "^1.3.1"
 
 pumpify@^1.3.3:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/pumpify/-/pumpify-1.4.0.tgz#80b7c5df7e24153d03f0e7ac8a05a5d068bd07fb"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/pumpify/-/pumpify-1.5.0.tgz#30c905a26c88fa0074927af07256672b474b1c15"
   dependencies:
-    duplexify "^3.5.3"
+    duplexify "^3.6.0"
     inherits "^2.0.3"
     pump "^2.0.0"
 
@@ -3251,9 +3251,13 @@ punycode@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
 
-qs@6.5.1, qs@^6.5.1:
+qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
+
+qs@^6.5.1:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
 querystring-es3@^0.2.0:
   version "0.2.1"
@@ -3545,7 +3549,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-safer-buffer@^2.1.0:
+"safer-buffer@>= 2.1.2 < 3":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
@@ -3966,8 +3970,8 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 ua-parser-js@^0.7.9:
-  version "0.7.17"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.18.tgz#a7bfd92f56edfb117083b69e31d2aa8882d4b1ed"
 
 ucfirst@*:
   version "1.0.0"
