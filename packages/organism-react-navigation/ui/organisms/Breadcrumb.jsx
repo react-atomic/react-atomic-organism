@@ -11,7 +11,7 @@ class Breakcrumb extends Component
 {
     render()
     {
-        const {className, children, divider, dividerStyle, ...reset} = this.props;
+        const {className, children, divider, dividerStyle, style, ...reset} = this.props;
         const itemList = []; 
         let thisDivider;
         if (React.isValidElement(divider)) {
@@ -53,10 +53,16 @@ class Breakcrumb extends Component
             itemList.pop();
         }
         return (
-            <SemanticUI {...reset} className={mixClass('breadcrumb', className)}>
+            <SemanticUI {...reset} style={{...Styles.container, ...style}} className={mixClass('breadcrumb', className)}>
                 {itemList}
             </SemanticUI>
         );
     }
 }
 export default Breakcrumb;
+
+const Styles = {
+    container: {
+        lineHeight: 1.8
+    }
+};
