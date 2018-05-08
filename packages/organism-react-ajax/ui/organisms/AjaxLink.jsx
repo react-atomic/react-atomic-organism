@@ -6,15 +6,26 @@ import {ajaxDispatch} from '../../src/ajaxDispatcher';
 
 class AjaxLink extends AjaxBase
 {
+    isAlreadyTouchStart = false;
+
     static defaultProps = {
         updateUrl: true,
         disableRandom: false
     }
 
-    handleClick = e => {
-        const {target, onClick} = this.props;
+    handleClick = onClick => type => e =>
+    {
+        const {target} = this.props;
         if ('_blank' !== target) {
             e.preventDefault();
+        }
+        if ('touchStart' === type) {
+            this.isAlreadyTouchStart = true;
+        } else {
+            if (this.isAlreadyTouchStart) {
+                this.isAlreadyTouchStart = false;
+                return;
+            }
         }
         if ('function' === typeof onClick) {
             onClick(e);
@@ -42,6 +53,10 @@ class AjaxLink extends AjaxBase
 
     render() {
         const { callback, errorCallback, path, href, updateUrl, disableRandom, ...rest } = this.props;
+        let {onClick, onTouchStart} = this.props;
+        if (true === onTouchStart) {
+            onTouchStart = this.handleClick(onTouchStart)('touchStart'); 
+        }
         const thisHref = ajaxStore.getRawUrl({
             path: path,
             url: href
@@ -51,7 +66,8 @@ class AjaxLink extends AjaxBase
                 atom="a"
                 href={thisHref}
                 {...rest}
-                onClick={this.handleClick}
+                onTouchStart={onTouchStart}
+                onClick={this.handleClick(onClick)('click')}
             />
         );  
     }
