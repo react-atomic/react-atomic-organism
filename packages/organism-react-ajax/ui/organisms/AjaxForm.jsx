@@ -1,5 +1,4 @@
-import React from 'react'; 
-import { Form } from 'react-atomic-molecule';
+import React, {cloneElement, createElement, isValidElement} from 'react'; 
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/ajaxDispatcher';
@@ -9,10 +8,11 @@ class AjaxForm extends AjaxBase
 {
     static defaultProps = {
         updateUrl: false,
-        stop: false
+        stop: false,
+        component: 'form',
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         if (this.props.stop) {
             return;
         }
@@ -79,20 +79,25 @@ class AjaxForm extends AjaxBase
             beforeSubmit,
             afterSubmit,
             stop,
+            component,
             ...rest
         } = this.props;
         const thisUrl = ajaxStore.getRawUrl({
             url: action,
             path: path
         });
-        return (
-            <Form
-                atom="form"
-                action={thisUrl}
-                onSubmit={this.handleSubmit}
-                {...rest}
-            />
-        );  
+        const build = (isValidElement(component)) ?
+            cloneElement:
+            createElement
+            ;
+        return build(
+           component,
+           {
+                action: thisUrl,
+                onSubmit: this.handleSubmit,
+                ...rest
+            }
+        );
     }
 }
 

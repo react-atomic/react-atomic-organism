@@ -1,5 +1,4 @@
-import React from 'react'; 
-import { SemanticUI } from 'react-atomic-molecule';
+import React, {cloneElement, createElement, isValidElement} from 'react'; 
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/ajaxDispatcher';
@@ -10,7 +9,8 @@ class AjaxLink extends AjaxBase
 
     static defaultProps = {
         updateUrl: true,
-        disableRandom: false
+        disableRandom: false,
+        component: 'a',
     }
 
     handleClick = onClick => type => e =>
@@ -61,15 +61,19 @@ class AjaxLink extends AjaxBase
             path: path,
             url: href
         });
-        return (
-            <SemanticUI
-                atom="a"
-                href={thisHref}
-                {...rest}
-                onTouchStart={onTouchStart}
-                onClick={this.handleClick(onClick)('click')}
-            />
-        );  
+        const build = (isValidElement(component)) ?
+            cloneElement:
+            createElement
+            ;
+        return build(
+           component,
+           {
+                ...rest,
+                href: thisHref,
+                onTouchStart,
+                onClick: this.handleClick(onClick)('click')
+           }
+        );
     }
 }
 
