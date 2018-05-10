@@ -18,15 +18,21 @@ class Animate extends PureComponent
         leave: null
     }
 
+    state = {
+        receive: false
+    }
+
     init(key, ani, timeout)
     {
-        reactStyle({
-            ...{
+        reactStyle(
+            {
                 animationName: [ani],
-                animationDuration: [timeout+'ms']
+                animationDuration: [timeout+'ms'],
+                ...Styles.linear, 
             },
-            ...Styles.linear, 
-        }, '.'+key);
+            '.'+key,
+            key
+        );
 
         // Need locate after reactStyle, for inject latest style in getKeyframe function
         getKeyframe(ani);
@@ -120,9 +126,26 @@ class Animate extends PureComponent
     {
         super(props);
         this.update(props);
-        this.state = {
-            receive: false 
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState)
+    {
+        return {
+            receive: !prevState.receive
         };
+    }
+
+    shouldComponentUpdate(nextProps, nextState)
+    {
+        const {receive} = this.state;
+        if (receive !== this.receive) {
+            this.update(props);
+            this.updateClient(props);
+            this.receive = receive;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     componentDidMount()
@@ -130,29 +153,14 @@ class Animate extends PureComponent
         this.updateClient(this.props);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState)
-    {
-        const receive = !prevState.receive;
-        return {
-            receive
-        };
-    }
-
     render()
     {
-        const props = this.props;
         const {
             appear,
             enter,
             leave,
             ...others
-        } = props;
-        const {receive} = this.state;
-        if (receive !== this.receive) {
-            this.update(props);
-            this.updateClient(props);
-            this.receive = receive;
-        }
+        } = this.props;
         return (
             <AnimateGroup
                 timeout={{
