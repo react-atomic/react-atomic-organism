@@ -1,6 +1,6 @@
 {
   "name": "organism-react-code",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "React Code Example",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -14,15 +14,15 @@
     "highlight.js": "*",
     "marked": "*",
     "organism-react-ajax": "*",
+    "organism-react-popup": "*",
     "react-atomic-molecule": "*",
     "ricon": "*"
   },
   "devDependencies": {
     "babel-cli": "*",
     "raw-loader": "*",
-    "react": "^15.x",
-    "react-dom": "^15.x",
-    "reshow-app": "*"
+    "react": "^16.x",
+    "react-dom": "^16.x"
   },
   "scripts": {
     "build": "rm -rf build && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
