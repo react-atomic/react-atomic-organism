@@ -1,6 +1,6 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.0.33",
+  "version": "0.1.0",
   "description": "React I13N",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,7 +14,6 @@
   "dependencies": {
     "organism-react-ajax": "*",
     "organism-react-iframe": "*",
-    "organism-react-popup": "*",
     "react-atomic-molecule": "*",
     "reshow": "*",
     "set-object-value": "*"

@@ -4,7 +4,7 @@ React I13N
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-13n 
    * NPM
-      * https://npm.im/organism-react-i13n
+      * https://www.npmjs.com/package/organism-react-i13n 
 
 ## Example Usage
 Demo Url:
