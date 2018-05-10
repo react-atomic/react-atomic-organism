@@ -13,14 +13,14 @@ class PopupClick extends Component
 {
     handleClick = () =>
     {
-        const props = this.props;
+        const {popup: propsPopup, callback} = this.props;
         let popup;
-        if (React.isValidElement(props.popup)) {
-            popup = props.popup;
-        } else if (typeof props.popup === 'function') {
-            popup = props.popup();
+        if (React.isValidElement(propsPopup)) {
+            popup = propsPopup;
+        } else if (typeof propsPopup === 'function') {
+            popup = propsPopup();
         } else {
-            popup = <PopupOverlay>{props.popup}</PopupOverlay>; 
+            popup = <PopupOverlay>{propsPopup}</PopupOverlay>; 
         }
 
         popupDispatch({
@@ -29,22 +29,22 @@ class PopupClick extends Component
                 popup: popup 
             }
         });
-        if (typeof props.callBack === 'function') {
-            props.callBack(popup); 
+        if (typeof callback === 'function') {
+            callback(popup); 
         }
     }
 
     render()
     {
-        let {container, popup, callBack, ...reset} = this.props;
+        let {style, container, popup, callback, ...reset} = this.props;
         if (!React.isValidElement(container)) {
-            container = <SemanticUI />
+            container = <SemanticUI />;
         }
-        const style = {...reset.style, ...Styles.container};
-        let props = {
+        style = {...style, ...Styles.container};
+        const props = {
             ...reset,
             onClick:this.handleClick,
-            style: style
+            style
         };
         return React.cloneElement(
              container,

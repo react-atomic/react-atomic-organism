@@ -37,8 +37,8 @@ class PopupModal extends PopupOverlay
 
     handleClick = () =>
     {
-        if (typeof this.props.closeCallBack === 'function') {
-            this.props.closeCallBack();
+        if (typeof this.props.closeCallback === 'function') {
+            this.props.closeCallback();
         }
         popupDispatch({
             type: 'dom/closeOne',
@@ -137,7 +137,7 @@ class PopupModal extends PopupOverlay
             mask,
             maskScroll,
             closeEl,
-            closeCallBack,
+            closeCallback,
             className,
             ...others
         } = this.props;

@@ -54,7 +54,7 @@ class FullScreen extends PureComponent
 
     render()
     {
-        const {children, closeCallBack} = this.props;
+        const {children, closeCallback} = this.props;
         const xico = this.getDefaultXIcon();
         return (
             <DisplayPopupEl>
@@ -68,7 +68,7 @@ class FullScreen extends PureComponent
                     modalStyle={Styles.modal}
                     modal={children}
                     closeEl={xico}
-                    closeCallBack={()=>{this._mounted=false;closeCallBack();}}
+                    closeCallback={()=>{this._mounted=false;closeCallback();}}
                 />
             </DisplayPopupEl>
         );
