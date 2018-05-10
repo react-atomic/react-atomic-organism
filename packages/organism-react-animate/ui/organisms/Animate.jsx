@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import AnimateGroup from './AnimateGroup';
 import {
     reactStyle,
@@ -9,7 +9,7 @@ import getKeyframe from 'keyframe-css';
 
 let inject = {};
 
-class Animate extends PureComponent
+class Animate extends Component
 {
     static defaultProps = {
         component: SemanticUI,
@@ -137,11 +137,10 @@ class Animate extends PureComponent
 
     shouldComponentUpdate(nextProps, nextState)
     {
-        const {receive} = this.state;
-        if (receive !== this.receive) {
-            this.update(props);
-            this.updateClient(props);
-            this.receive = receive;
+        const {receive} = nextState;
+        if (receive !== this.state.receive) {
+            this.update(nextProps);
+            this.updateClient(nextProps);
             return true;
         } else {
             return false;
