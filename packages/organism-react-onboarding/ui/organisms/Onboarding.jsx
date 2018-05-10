@@ -134,8 +134,9 @@ class Onboarding extends PureComponent
         return this.state.stepIndex;
     }
 
-    componentWillReceiveProps(props)
+    componentDidUpdate(prevProps, prevState, snapshot)
     {   
+        const props = this.props;
         Children.forEach(
            props.children,
            (c, key) => {

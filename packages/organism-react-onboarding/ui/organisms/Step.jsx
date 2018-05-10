@@ -573,7 +573,7 @@ class Step extends PureComponent
 
     render()
     {
-        const { maskScroll, closeCallBack, header, content, actions, type, style, stepIndex, total, userScroll, I18N } = this.props;
+        const { maskScroll, closeCallback, header, content, actions, type, style, stepIndex, total, userScroll, I18N } = this.props;
         const stepDisplayIndex = stepIndex + 1;
         let floatEl;
         let name;
@@ -649,7 +649,7 @@ class Step extends PureComponent
             {
                 maskScroll,
                 name,
-                closeCallBack,
+                closeCallback,
                 modalStyle: style,
                 modalClassName: 'mini',
                 center: false,

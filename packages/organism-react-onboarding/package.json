@@ -1,6 +1,6 @@
 {
   "name": "organism-react-onboarding",
-  "version": "0.0.12",
+  "version": "0.1.0",
   "description": "Create guided tours with react.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
