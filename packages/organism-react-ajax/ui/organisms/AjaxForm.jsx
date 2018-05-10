@@ -72,14 +72,14 @@ class AjaxForm extends AjaxBase
     render() {
         const {
             action,
-            path,
-            callback,
-            errorCallback,
-            updateUrl,
-            beforeSubmit,
             afterSubmit,
-            stop,
+            beforeSubmit,
+            callback,
             component,
+            errorCallback,
+            path,
+            stop,
+            updateUrl,
             ...rest
         } = this.props;
         const thisUrl = ajaxStore.getRawUrl({

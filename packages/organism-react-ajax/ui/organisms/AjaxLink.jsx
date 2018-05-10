@@ -52,7 +52,7 @@ class AjaxLink extends AjaxBase
     }
 
     render() {
-        const { callback, errorCallback, path, href, updateUrl, disableRandom, ...rest } = this.props;
+        const { component, callback, errorCallback, path, href, updateUrl, disableRandom, ...rest } = this.props;
         let {onClick, onTouchStart} = this.props;
         if (true === onTouchStart) {
             onTouchStart = this.handleClick(onTouchStart)('touchStart'); 
