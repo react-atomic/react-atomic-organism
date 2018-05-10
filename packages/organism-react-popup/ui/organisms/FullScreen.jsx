@@ -25,6 +25,15 @@ class FullScreen extends PureComponent
         this.setState({xIcoHoverStyle: null}); 
     }
 
+    handleCloseCallback = () =>
+    {
+        const {closeCallback} = this.props;
+        this._mounted=false;
+        if ('function' === typeof closeCallback) {
+            closeCallback();
+        }
+    }
+
     getDefaultXIcon()
     {
         const {xIcoHoverStyle} = get(this, ['state'], {});
@@ -68,7 +77,7 @@ class FullScreen extends PureComponent
                     modalStyle={Styles.modal}
                     modal={children}
                     closeEl={xico}
-                    closeCallback={()=>{this._mounted=false;closeCallback();}}
+                    closeCallback={this.handleCloseCallback}
                 />
             </DisplayPopupEl>
         );
