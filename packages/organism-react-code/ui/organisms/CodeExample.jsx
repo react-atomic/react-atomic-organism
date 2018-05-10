@@ -52,7 +52,7 @@ class CodeExample extends Component
             </Icon>;
         }
         if (npm) {
-            let npmUrl = 'https://npm.im/'+npm;
+            const npmUrl = 'https://www.npmjs.com/package/'+npm;
             thisNpm = <Icon atom="a" target="_blank" href={npmUrl} style={Styles.icon}>
                 <NpmIcon />
             </Icon>;
