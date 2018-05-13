@@ -9,6 +9,10 @@ const storage = storageType => key => value =>
     }
     const win = window;
     const store = get(win, [storageType]);
+    if ('undefined' === typeof store) {
+        console.warn('window not support. ['+storageType+']');
+        return;
+    }
     if ('undefined' === typeof value) {
         return store.getItem(key);
     } else {
