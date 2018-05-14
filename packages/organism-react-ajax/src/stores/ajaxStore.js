@@ -270,7 +270,7 @@ class AjaxStore extends ReduceStore
     let isRedirect = null;
     switch (type) {
         case 'ws-auth':
-            this.setWsAuth(get(json,['auth']));
+            this.setWsAuth(get(json,['url']), get(json,['auth']));
             break;
         default:
             if ('ws' === sourceType) {
@@ -327,14 +327,18 @@ class AjaxStore extends ReduceStore
         this.worker({ws: url, type: 'initWs'});
     }
 
-    setWsAuth(data)
+    setWsAuth(key, data)
     {
-        wsAuth = wsAuth.merge(data);
+        wsAuth = wsAuth.set(key, data);
     }
 
-    getWsAuth()
+    getWsAuth(key)
     {
-        return wsAuth.toJS();
+        if (!key) {
+            return wsAuth.toJS();
+        } else {
+            return wsAuth.get(key).toJS();
+        }
     }
 
     updateWithUrl(state, action)

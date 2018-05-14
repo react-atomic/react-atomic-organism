@@ -1,12 +1,10 @@
 require('es6-promise/auto');
 import get, {getDefault} from 'get-object-value';
 
-var ws;
 var post;
 const callbacks = [];
-let isWsConnect;
-let wsUrl;
 const keys = Object.keys;
+const arrWs = {};
 
 try {
     post = postMessage;
@@ -131,38 +129,48 @@ const ajaxPost = ({url, action}) =>
      });
 }
 
-const initWs = (url) =>
+const initWs = url =>
 {
-    wsUrl = url;
-    ws = new WebSocket(url);
-    ws.onopen = (e) => { };
-    ws.onerror = (e) => { };
-    ws.onmessage = (e) => {
-        isWsConnect = true;
-        switch (e.data) {
-            case 'pong': 
-                break;
-            default :
-                post({type: 'ws', text: e.data});
-                break;
-        }
+    let ws;
+    let isWsConnect;
+    const create = url =>
+    {
+        ws = new WebSocket(url);
+        ws.onopen = e => {
+            arrWs[url] = ws;
+        };
+        ws.onerror = e => { };
+        ws.onmessage = e => {
+            isWsConnect = true;
+            switch (e.data) {
+                case 'pong': 
+                    break;
+                default :
+                    post({
+                        type: 'ws',
+                        text: e.data,
+                        url
+                    });
+                    break;
+            }
+        };
+        ws.onclose = e => {
+            isWsConnect = false;
+        };
     };
-    ws.onclose = (e) => {
-        isWsConnect = false;
+    create(url);
+
+    const ping = () =>
+    {
+        setTimeout(()=>{
+            if (!isWsConnect) {
+                create(url);
+            } else {
+                ws.send(JSON.stringify({type:'ping'})); 
+            }
+            ping();
+        },15000);
     };
-    wsPing();
+    ping();
 };
-
-const wsPing = () =>
-{
-    setTimeout(()=>{
-        if (!isWsConnect) {
-            initWs(wsUrl);
-        } else {
-            ws.send(JSON.stringify({type:'ping'})); 
-            wsPing();
-        }
-    },15000);
-}
-
 
