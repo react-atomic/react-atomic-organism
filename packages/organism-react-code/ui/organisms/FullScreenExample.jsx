@@ -5,6 +5,16 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 
+const getLastHash = () =>
+{
+    const urls = document.URL.split('#');
+    const lastIndex = urls.length-1;
+    const last = urls[lastIndex];
+    return last;
+}
+
+const updateUrl = url => history.pushState('','',url);
+
 class FullScreenExample extends PureComponent
 {
     state = {
@@ -13,6 +23,11 @@ class FullScreenExample extends PureComponent
 
     handleClick = () =>
     {
+        const {id} = this.props;
+        const last = getLastHash();
+        if (id && id !== last) {
+           updateUrl(document.URL+'#'+id); 
+        }
         this.setState({
             showFullScreen: true 
         });
@@ -20,7 +35,12 @@ class FullScreenExample extends PureComponent
 
     handleCloseCallback = () =>
     {
-        const {closeCallback} = this.props;
+        const {id, closeCallback} = this.props;
+        const url = document.URL;
+        const idIndex = url.lastIndexOf('#'+id);
+        if (-1 !== idIndex) {
+            updateUrl(url.substring(0,idIndex));
+        }
         if ('function' === typeof closeCallback) {
           closeCallback();
         }
@@ -30,9 +50,7 @@ class FullScreenExample extends PureComponent
     componentDidMount()
     {
         const {id} = this.props;
-        const urls = document.URL.split('#');
-        const lastIndex = urls.length-1;
-        const last = urls[lastIndex];
+        const last = getLastHash();
         if (id === last) {
             this.setState({
                 showFullScreen: true 
