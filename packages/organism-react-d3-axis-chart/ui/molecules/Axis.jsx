@@ -4,6 +4,9 @@ import {
 } from 'react-atomic-molecule';
 import get from 'get-object-value';
 
+import Text from '../molecules/Text';
+import Group from '../molecules/Group';
+
 const keys = Object.keys;
 
 const Label = ({
@@ -23,15 +26,14 @@ const Label = ({
     let text;
     if (!get(textAttr, ['hide'])) {
         delete textAttr.hide;
-        text = (<SemanticUI
-                atom="text"
-                {...textAttr}
-            >
-            {children}
-        </SemanticUI>);
+        text = (
+            <Text {...textAttr}>
+                {children}
+            </Text>
+        );
     }
     return (
-        <SemanticUI atom="g"
+        <Group
             transform={`translate(${x}, ${y})`}
         >
             <SemanticUI
@@ -40,7 +42,7 @@ const Label = ({
                 {...lineAttr}
             />
             {text}
-        </SemanticUI>
+        </Group>
     );
 }
 
@@ -75,8 +77,7 @@ const Axis = ({
     }
 
     return (
-        <SemanticUI
-            atom="g"
+        <Group
             transform={transform}
             style={{fontSize:12}}
             className="axis"
@@ -94,7 +95,7 @@ const Axis = ({
                )
             }
             {thisCrosshairLabel}
-        </SemanticUI>
+        </Group>
     );
 }
 

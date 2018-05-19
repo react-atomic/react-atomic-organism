@@ -1,7 +1,6 @@
 import React from 'react'; 
-import {
-    SemanticUI
-} from 'react-atomic-molecule';
+
+import Group from '../molecules/Group';
 import Rect from '../molecules/Rect';
 import Text from '../molecules/Text';
 import get from 'get-object-value';
@@ -16,8 +15,7 @@ const XAxisLabel = ({children, value, ...props}) =>
         value -= halfWidth;
     }
     return (
-    <SemanticUI 
-        atom="g"
+    <Group 
         className="crosshair-label-x"
         transform={`translate(${value}, 0)`}
         {...props}
@@ -32,8 +30,10 @@ const XAxisLabel = ({children, value, ...props}) =>
             x="4"
             y="12"
             fill="#fff"
-        >{children}</Text>
-    </SemanticUI>
+        >
+            {children}
+        </Text>
+    </Group>
     );
 };
 

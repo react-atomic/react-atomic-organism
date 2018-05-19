@@ -1,66 +1,53 @@
-import React from 'react'; 
-import { SemanticUI } from 'react-atomic-molecule';
+import React, {cloneElement, Children} from 'react'; 
 import get from 'get-object-value';
 
-import Line from '../molecules/Line';
-import Area from '../molecules/Area';
+import MultiLine from '../molecules/MultiLine';
 import BaseChart from '../molecules/BaseChart';
 
-const LineChart = (props)=>{
-    const {
-        areas,
-        data,
-        xValueLocator,
-        yValueLocator,
-        attrLocator
-    } = props;
-    return (
-        <BaseChart {...props} data={data}>
-            {(baseChart)=>{
-                const {xScale, yScale} = baseChart; 
-                return [
-                    data.map((line)=>{
-                        const {value} = line;
-                        let attr;
-                        if (attrLocator) {
-                            attr = attrLocator(line);
-                        } else {
-                            attr = get(line, ['attr']);
-                        }
-                        const d = baseChart.curve(
-                            value,
-                            xValueLocator,
-                            yValueLocator,
-                            xScale,
-                            yScale
-                        );
-                        return  (<Line d={d} {...attr}/>);
-                    }),
-                    get(areas,null,[]).map((area)=>{
-                        const {value} = area; 
-                        let attr;
-                        if (attrLocator) {
-                            attr = attrLocator(area);
-                        } else {
-                            attr = get(area, ['attr']);
-                        }
-                        const d = baseChart.hArea(
-                            value,
-                            (d)=>xScale.scaler(d.x)+xScale.length,
-                            (d)=>yScale.scaler(d.y0),
-                            (d)=>yScale.scaler(d.y1)
-                        );
-                        return  (<Area d={d} {...attr}/>);
-                    })
-                ];
-            }}
-        </BaseChart>
-    );
-}
+const LineChart = ({
+    children,
+    data,
+    valuesLocator,
+    xValueLocator,
+    yValueLocator,
+    attrsLocator,
+    ...others
+}) =>
+(!data) ? null : 
+<BaseChart
+    {...others}
+    data={data}
+    valuesLocator={valuesLocator}
+    xValueLocator={xValueLocator}
+    yValueLocator={yValueLocator}
+>
+    {baseChart => {
+        return [
+            <MultiLine
+                {...{
+                    ...baseChart,
+                    attrsLocator,
+                    valuesLocator,
+                    xValueLocator,
+                    yValueLocator,
+                    data,
+                }}
+            />,
+            Children.map(
+                children,
+                c => cloneElement(c, {
+                    ...baseChart
+                }) 
+            )
+        ];
+    }}
+</BaseChart>
 
 LineChart.defaultProps = {
-    xValueLocator: (d)=>d.x,
-    yValueLocator: (d)=>d.y,
+    xValueLocator: d => d.x,
+    yValueLocator: d => d.y,
+    valuesLocator: d => d.values,
+    attrsLocator: d => d.attrs
 };
 
 export default LineChart;

@@ -1,7 +1,4 @@
 import React from 'react'; 
-import {
-    SemanticUI
-} from 'react-atomic-molecule';
 
 import Axis from '../molecules/Axis';
 import YAxisLabel from '../organisms/YAxisLabel'; 

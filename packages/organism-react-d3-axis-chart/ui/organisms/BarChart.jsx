@@ -1,53 +1,59 @@
-import React from 'react'; 
-import { SemanticUI } from 'react-atomic-molecule';
+import React, {cloneElement, Children} from 'react'; 
 import get from 'get-object-value';
 
+import MultiRect from '../molecules/MultiRect';
 import BaseChart from '../molecules/BaseChart';
-import Rect from '../molecules/Rect';
 
-const BarChart = (props) => {
-    const {
-        data,
-        color
-    } = props; 
-    return (
-        <BaseChart  {...props} data={[data]}>
-            {(baseChart) => {
-                return (
-                <SemanticUI key="barchart" atom="g" className="data-group">
+const BarChart = ({
+    children,
+    data,
+    attrsLocator,
+    valuesLocator,
+    xValueLocator,
+    yValueLocator,
+    ...others
+}) => 
+(!valuesLocator(data)) ?  null :
+<BaseChart
+    {...others}
+    data={[data]}
+    valuesLocator={valuesLocator}
+    xValueLocator={xValueLocator}
+    yValueLocator={yValueLocator}
+>
+{ baseChart =>
+    [
+        <MultiRect
+            {...{
+                ...baseChart,
+                attrsLocator,
+                valuesLocator,
+                xValueLocator,
+                yValueLocator,
+                data,
+                heightCallback: (d, x, y)=>
                 {
-                    get(data,['value']).map((d, k)=>{
-                        const {
-                            xScale,
-                            yScale,
-                            xValueLocator,
-                            yValueLocator,
-                            scaleH
-                        } = baseChart;
-                        const x = xScale.scaler(xValueLocator(d));
-                        const y = yScale.scaler(yValueLocator(d));
-                        return (
-                            <Rect
-                                key={k}
-                                x={x}
-                                y={y}
-                                width={xScale.length}
-                                height={scaleH - y}
-                                fill={color}
-                            />
-                        );
-                    })
+                    const {scaleH} = baseChart;
+                    return scaleH - y;
                 }
-                </SemanticUI>
-                );
             }}
-        </BaseChart>
-    );
+        />,
+        Children.map(
+            children,
+            c => cloneElement(c, {
+                ...baseChart
+            }) 
+        )
+    ]
 }
+</BaseChart>
 
 BarChart.defaultProps = {
     data: [],
-    color: '#4682B4',
+    xValueLocator: d => d.x,
+    yValueLocator: d => d.y,
+    valuesLocator: d => d.values,
+    attrsLocator: d => ({fill: '#4682B4'})
 };
 
 export default BarChart;

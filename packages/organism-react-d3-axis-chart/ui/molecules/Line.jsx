@@ -20,8 +20,6 @@ const Line = ({start, end, ...props}) =>
 
 Line.defaultProps = {
     atom: 'path',
-    strokeWidth: 3,
-    strokeDasharray: '5,5',
     fill: 'none',
     stroke: '#3182bd'
 };

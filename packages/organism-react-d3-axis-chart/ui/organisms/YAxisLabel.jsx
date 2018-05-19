@@ -1,9 +1,9 @@
 import React from 'react'; 
-import {
-    SemanticUI
-} from 'react-atomic-molecule';
+
+import Group from '../molecules/Group';
 import Rect from '../molecules/Rect';
 import Text from '../molecules/Text';
+import ArrowShape from '../molecules/ArrowShape';
 
 const width = 37;
 const height = 16.5;
@@ -12,8 +12,7 @@ const YAxisLabel = ({color, children, value, ...props}) =>
 {
     const yPos = value - height /2;
     return (
-    <SemanticUI 
-        atom="g"
+    <Group 
         className="crosshair-label-y"
         transform={`translate(-14, ${yPos})`}
         {...props}
@@ -24,10 +23,7 @@ const YAxisLabel = ({color, children, value, ...props}) =>
             height={height}
             width={width}
         />
-        <SemanticUI
-            atom="polygon"
-          /*points="-10,8.25 0,0 0,16.5"*/
-            points="10,8.5 0,16.5 0,0"
+        <ArrowShape
             fill={color}
         />
         <Text
@@ -37,7 +33,7 @@ const YAxisLabel = ({color, children, value, ...props}) =>
         >
             {children}
         </Text>
-    </SemanticUI>
+    </Group>
     );
 }
 

@@ -6,6 +6,10 @@ import get from 'get-object-value';
 
 class MultiChart extends Component
 {
+    d3 = {};
+    state = {isLoad: false};
+    xScale = false;
+
     handleMouseEnter = (e)=>
     {
         this.setState({
@@ -31,11 +35,9 @@ class MultiChart extends Component
     componentDidMount()
     {
         import('d3-lib').then(({
-            scaleLinear,
             scaleBand,
         })=>{
-            this.scaleLinear = scaleLinear;
-            this.scaleBand = scaleBand;
+            this.d3 = {scaleBand};
             this.setState({
                 isLoad: true
             });        
@@ -44,30 +46,36 @@ class MultiChart extends Component
 
     render()
     {
-        if (!get(this, ['state', 'isLoad'])) {
+        const {
+            isLoad,
+            crosshairX,
+            hideCrosshairY
+        } = this.state;
+        if (!isLoad) {
             return null;
         }
         const {
             style,
+            data,
             children,
             scaleW,
             scaleH,
             xAxisAttr,
             xValueLocator,
+            valuesLocator,
             extraViewBox,
             subChartScaleH,
             ...props
         } = this.props; 
-        const {
-            crosshairX,
-            hideCrosshairY
-        } = get(this, ['state'], {});
-        this.xScale = this.scaleBand(
-            get(xAxisAttr, ['data']),
-            0,
-            scaleW,
-            xValueLocator
-        );
+        const xAxisData = get( xAxisAttr, ['data'], ()=>valuesLocator(get(data,[0])) );
+        if (xAxisData) {
+            this.xScale = this.d3.scaleBand(
+                xAxisData,
+                0,
+                scaleW,
+                xValueLocator
+            );
+        }
         let thisExtraViewBox = extraViewBox;
         let subChartCount = 0;
         Children.forEach(children, (child)=>{
@@ -93,13 +101,13 @@ class MultiChart extends Component
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             > 
-            {Children.map(children, (child, k)=>{
-                let params = {
-                    key: k,
-                    scaleW: scaleW,
-                    crosshairX: crosshairX,
-                    hideCrosshairY: hideCrosshairY,
-                    handleMouseMove: this.handleMouseMove,
+            {Children.map(children, (child, key)=>{
+                const params = {
+                    key,
+                    scaleW,
+                    crosshairX,
+                    hideCrosshairY,
+                    onMouseMove: this.handleMouseMove,
                     xScale: this.xScale 
                 };
                 if ('main' === child.props.multiChart) {
@@ -132,8 +140,8 @@ class MultiChart extends Component
 MultiChart.defaultProps = {
     atom: 'svg',
     preserveAspectRatio: 'xMidYMid meet',
-    scaleW: 450,
-    scaleH: 450,
+    scaleW: 500,
+    scaleH: 500,
     extraViewBox: 100,
     subChartScaleH: 68
 }
