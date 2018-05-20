@@ -19,6 +19,7 @@ const XAxis = ({
           y2: 6
        },
        crosshairLabel: <XAxisLabel />,
+       className: 'x-axis',
        ...props
     };
     

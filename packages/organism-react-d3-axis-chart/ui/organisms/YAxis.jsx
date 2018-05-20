@@ -7,6 +7,7 @@ const YAxis = ({length, ...props}) =>
 {
     return (
         <Axis
+            className="y-axis"
             path={`M-1,0H0V${length}H-1`}
             x="0"
             textAttr={{
