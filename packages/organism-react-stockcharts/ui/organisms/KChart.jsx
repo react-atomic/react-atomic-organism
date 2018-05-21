@@ -49,6 +49,7 @@ return (
         data={areasLocator(data)}
     />
    }
+   {children}
 </LineChart>
 );
 }

@@ -128,8 +128,6 @@ class BaseChart extends PureComponent
         } = this.props;
         this.scaleW = scaleW;
         this.scaleH = scaleH;
-        this.xValueLocator = xValueLocator;
-        this.yValueLocator = yValueLocator;
         let xaxis = null;
         let yaxis = null;
         let thresholdLine = null;

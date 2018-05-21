@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {LineChart, BarChart, MultiChart} from 'organism-react-d3-axis-chart';
+import {LineChart, BarChart, MultiChart, MultiCandlestick} from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
 import {indicatorMovingAverage, indicatorBollingerBands} from 'd3fc-technical-indicator';
 
@@ -149,7 +149,17 @@ class StockChart extends Component
                 areasValuesLocator={d=>d.values}
                 areaY0Locator={d=>d.upper}
                 areaY1Locator={d=>d.lower}
-           /> 
+           > 
+            <MultiCandlestick
+                data={data}
+                xValueLocator={tradeDateLocator}
+                valuesLocator={tradeRowsLocator}
+                tradeHighLocator={tradeHighLocator}
+                tradeLowLocator={tradeLowLocator}
+                tradeOpenLocator={tradeOpenLocator}
+                tradeCloseLocator={tradeCloseLocator}
+            />
+           </KChart>
            <VolumeChart
                 data={tradeRowsLocator(data)}
                 xValueLocator={tradeDateLocator} 
