@@ -39,8 +39,10 @@ class AjaxForm extends AjaxBase
             case 'post':
                 type = 'ajaxPost';
                 break;
-            // default method
-            // https://www.w3schools.com/tags/att_form_method.asp
+            /**
+             * Default method
+             * https://www.w3schools.com/tags/att_form_method.asp
+             */
             default:
             case 'get':
                 type = 'ajaxGet'; 

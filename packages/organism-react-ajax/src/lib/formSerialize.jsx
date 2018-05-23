@@ -5,7 +5,9 @@ const formSerialize = formEl =>
     const formParams = {};
     const elements = Array.from(formEl.elements);
     elements.forEach( ({name, value}) => {
-        formParams[name] = value;
+        if (name) {
+            formParams[name] = value;
+        }
     });
     return formParams;
 }
