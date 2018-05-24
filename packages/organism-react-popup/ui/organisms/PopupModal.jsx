@@ -50,7 +50,7 @@ class PopupModal extends PopupOverlay {
         }
         const scrollInfo = getScrollInfo()
         let maskStyle = {}
-        if (domInfo.h > scrollInfo.scrollNodeHeight) {
+        if ((domInfo.h+100) > scrollInfo.scrollNodeHeight) {
           maskStyle = Styles.flexAlignTop
         }
         const {
@@ -94,7 +94,7 @@ class PopupModal extends PopupOverlay {
   resetBodyClassName() {
     const { toPool } = this.props
     if (!toPool && "undefined" !== typeof document) {
-      bodyClass = document.body.className
+      let bodyClass = document.body.className
       bodyClass = removeClass(bodyClass, "dimmable")
       bodyClass = removeClass(bodyClass, "scrolling")
       bodyClass = removeClass(bodyClass, "dimmed")
