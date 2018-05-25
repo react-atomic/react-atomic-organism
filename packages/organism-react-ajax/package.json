@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -17,7 +17,7 @@
     "immutable": "*",
     "reshow-flux": "*",
     "smooth-scroll-to": "*",
-    "superagent": "^3.3.0"
+    "superagent": "3.8.3"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
