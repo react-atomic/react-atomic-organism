@@ -66,11 +66,11 @@ const ajaxGet = ({url, action}) =>
           .set(headers)
           .end((err,res)=>{
             if (res) {
-                const {error, req, text, xhr, ...resetRes} = res;
+                const {error, req, text, xhr, ...response} = res;
                 post({
                     ...action,
-                    text: text,
-                    response: resetRes 
+                    text,
+                    response 
                 });
             }
           });
@@ -92,7 +92,7 @@ const ajaxPost = ({url, action}) =>
         if (params.isSendJson) {
             isSend = true;
         } else {
-            queryKeys.every((key)=>{
+            queryKeys.every( key => {
                  if ('object' !== typeof params.query[key]) {
                     return true;
                  }
@@ -109,20 +109,19 @@ const ajaxPost = ({url, action}) =>
                 callReq = req.post(url);
                 break;
         }
-        if (isSend) {
-           callReq = callReq.send(params.query); 
-        } else {
-           callReq = callReq.field(params.query); 
+        if (!isSend) {
+            callReq = callReq.type('form');
         }
         callReq
+           .send(params.query)
            .set(headers)
            .end((err,res)=>{
              if (res) {
-                 const {error, req, text, xhr, ...resetRes} = res;
+                 const {error, req, text, xhr, ...response} = res;
                  post({
                      ...action,
-                     text: text,
-                     response: resetRes 
+                     text,
+                     response
                  });                 
              }
            });

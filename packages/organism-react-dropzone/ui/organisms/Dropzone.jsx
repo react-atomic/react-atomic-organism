@@ -132,13 +132,16 @@ class Dropzone extends PureComponent
         };
     }
 
-    componentWillReceiveProps(nextProps)
+    shouldComponentUpdate(nextProps, nextState)
     {
         const isChange = JSON.stringify(nextProps) !== JSON.stringify(this.props);
         if (isChange) {
             this.destroyDropzone(()=>{
                 this.initDropzone(nextProps); 
-            });    
+            });
+            return true;
+        } else {
+            return false;
         }
     }
 

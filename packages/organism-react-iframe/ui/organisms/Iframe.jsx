@@ -10,13 +10,6 @@ class Iframe extends PureComponent
 {
     html = null;
 
-    componentDidMount()
-    {
-        this.root = document.createElement('div');
-        this.getBody().appendChild(this.root);
-        this.renderIframe(this.props);
-    } 
-
     appendHtml = (html)=>
     {
         let div = document.createElement('div');
@@ -97,9 +90,16 @@ class Iframe extends PureComponent
         });
     }
 
-    componentWillReceiveProps(props)
+    componentDidMount()
     {
-        this.renderIframe(props);
+        this.root = document.createElement('div');
+        this.getBody().appendChild(this.root);
+        this.renderIframe(this.props);
+    } 
+
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        this.renderIframe(this.props);
     }
     
     componentWillUnmount()
