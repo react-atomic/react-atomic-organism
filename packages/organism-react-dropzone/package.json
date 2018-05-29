@@ -14,7 +14,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "react-atomic-molecule": "*"
+    "react-atomic-molecule": "*",
+    "ricon": "*"
   },
   "devDependencies": {
     "babel-cli": "*",

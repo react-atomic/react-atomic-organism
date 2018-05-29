@@ -1,4 +1,4 @@
 // Default
 export default from '../ui/organisms/Dropzone';
 
-export {default as Dropzone} from './dropzone';
+export {default as dropzone} from './dropzone';
