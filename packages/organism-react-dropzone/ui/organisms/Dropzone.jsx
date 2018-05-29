@@ -5,7 +5,7 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 
-import get from 'get-object-value';
+import get, {getDefault} from 'get-object-value';
 
 const keys = Object.keys;
 
@@ -148,9 +148,10 @@ class Dropzone extends PureComponent
      */
     componentDidMount() {
         injects = lazyInject( injects, InjectStyles );
-        import('../../src/dropzone').then((Dropzone)=>{
-            Dropzone.autoDiscover = false;
-            lazyDropzone = Dropzone;
+        import('../../src/dropzone').then( dropzone => {
+            dropzone = getDefault(dropzone);
+            dropzone.autoDiscover = false;
+            lazyDropzone = dropzone;
             this.initDropzone(this.props);
         }); 
     }
