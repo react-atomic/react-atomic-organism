@@ -1,35 +1,35 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {
     lazyInject,
     mixClass,
+    Icon,
     SemanticUI
 } from 'react-atomic-molecule';
 
 import get, {getDefault} from 'get-object-value';
 
+import FileIcon from 'ricon/File';
+
 const keys = Object.keys;
 
 let lazyDropzone;
 
-const IconComponent = ({filetype}) =>
-    <div
-        data-filetype={filetype}
-        className="filepicker-file-icon"
-    >
-        {filetype}
-    </div>
-
-class Dropzone extends PureComponent
+class Dropzone extends Component
 {
+    state = {
+        files: []   
+    }
+
     /**
      * please consult
      * http://www.dropzonejs.com/#configuration
      */
     getDjsConfig(props)
     {
-        const {postUrl, djsConfig} = props;
+        const {postUrl, acceptedFiles, djsConfig} = props;
         const option = {
             url: postUrl,
+            acceptedFiles,
             ...djsConfig
         };
         return option;
@@ -42,19 +42,21 @@ class Dropzone extends PureComponent
     setupEvents() {
         const {eventHandlers} = this.props; 
 
-        if (!this.dropzone || !eventHandlers) {
+        if (!this.dropzone) {
             return;
         }
 
-        keys(eventHandlers).forEach( handlerKey => {
-             this.dropzone.on( handlerKey, eventHandlers[handlerKey]);
-        }); 
+        if (eventHandlers) {
+            keys(eventHandlers).forEach( handlerKey => {
+                 this.dropzone.on( handlerKey, eventHandlers[handlerKey]);
+            }); 
+        }
 
         this.dropzone.on('addedfile', file =>  {
             if (file) {
                 this.setState( ({files}) => {
-                    files.push(file);
-                    return {files};
+                    const nextFiles = files.concat([file]);
+                    return {files: nextFiles};
                 });
             }
         });
@@ -62,12 +64,8 @@ class Dropzone extends PureComponent
         this.dropzone.on('removedfile', file => {
             if (file) {
                 this.setState( ({files}) => {
-                    files.forEach((f, fileIndex) => {
-                        if (f.name === file.name && f.size === file.size) {
-                            files.splice(fileIndex, 1);
-                        }
-                    });
-                    return {files};
+                    const nextFiles = this.dropzone.files;
+                    return {files: nextFiles};
                 });
             }
         });
@@ -82,7 +80,7 @@ class Dropzone extends PureComponent
     {
         const {postUrl} = props;
         if (!postUrl) {
-            console.warn('Need set dropzone url and drop event handler');
+            console.warn('Need set dropzone url.');
         }
         const options = this.getDjsConfig(props);
         this.dropzone = new lazyDropzone(this.el, options);
@@ -124,14 +122,6 @@ class Dropzone extends PureComponent
         }
     }
 
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-            files: []
-        };
-    }
-
     shouldComponentUpdate(nextProps, nextState)
     {
         const isChange = JSON.stringify(nextProps) !== JSON.stringify(this.props);
@@ -141,7 +131,11 @@ class Dropzone extends PureComponent
             });
             return true;
         } else {
-            return false;
+            if (nextState.files.length !== this.state.files.length) {
+                return true
+            } else {
+                return false
+            }
         }
     }
 
@@ -169,15 +163,19 @@ class Dropzone extends PureComponent
     }
 
     render() {
-        const {children, className, style, showFiletypeIcon, iconFiletypes} = this.props;
+        const {children, className, style, showFiletypeIcon, acceptedFiles} = this.props;
         const {files} = this.state;
-        const icons = [];
-        const classes = mixClass(className, 'filepicker dropzone');
-
-        if ( showFiletypeIcon && iconFiletypes && get(files, ['length'], 0) ) {
+        const classes = mixClass(className, 'dropzone');
+        let thisIcon = null;
+        if ( showFiletypeIcon && acceptedFiles && !get(files, ['length'], 0) ) {
+            const iconFiletypes = acceptedFiles.split(',');
+            const icons = [];
             iconFiletypes.forEach( (fileType, key) => {
-                icons.push(<IconComponent {...{key, fileType}} />);
+                icons.push(<Icon style={Styles.icon} key={key}><FileIcon>{fileType.trim()}</FileIcon></Icon>);
             });
+            if (icons.length) {
+                thisIcon = <SemanticUI style={Styles.icons} className="file-icons">{icons}</SemanticUI>;
+            }
         }
         return (
             <SemanticUI
@@ -185,7 +183,7 @@ class Dropzone extends PureComponent
                 className={classes}
                 style={{...Styles.container, ...style}}
             >
-                {icons}
+                {thisIcon}
                 {children}
             </SemanticUI>
         );
@@ -196,11 +194,18 @@ export default Dropzone;
 
 const Styles = {
     container: {
-        backgroundColor: '#e1e1e1',
-        minHeight: '60px',
+        backgroundColor: '#eee',
         border: '2px dashed #c7c7c7',
         cursor: 'pointer'
     },
+    icon: {
+        width: 35,
+        marginRight: 10,
+    },
+    icons: {
+        textAlign: 'center',
+        pointerEvents: 'none'
+    }
 };
 
 let injects;
