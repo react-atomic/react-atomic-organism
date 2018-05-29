@@ -8,3 +8,8 @@ React Dropzone
 ## Dropzone source
 https://gitlab.com/meno/dropzone/blob/master/src/dropzone.js
 
+## Dropzone options
+http://www.dropzonejs.com/#configuration-options
+
+## Dropzone events
+http://www.dropzonejs.com/#events
