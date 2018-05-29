@@ -7,4 +7,5 @@ export MultiChart from '../ui/organisms/MultiChart';
 // molecules
 export MultiLine from '../ui/molecules/MultiLine';
 export MultiHArea from '../ui/molecules/MultiHArea';
+export MultiCandlestick from '../ui/molecules/MultiCandlestick';
 

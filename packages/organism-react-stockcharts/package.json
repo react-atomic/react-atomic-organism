@@ -1,0 +1,40 @@
+{
+  "name": "organism-react-stockcharts",
+  "version": "0.0.0",
+  "description": "React stockcharts",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
+  "keywords": [
+    "react",
+    "react-component",
+    "organism",
+    "atomic-ui"
+  ],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "d3fc-technical-indicator": "6.1.1",
+    "get-object-value": "*",
+    "organism-react-d3-axis-chart": "*",
+    "react-atomic-molecule": "*",
+    "topercent": "*"
+  },
+  "devDependencies": {
+    "babel-cli": "*",
+    "react": "^16.x",
+    "react-dom": "^16.x",
+    "reshow-app": "*"
+  },
+  "scripts": {
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}

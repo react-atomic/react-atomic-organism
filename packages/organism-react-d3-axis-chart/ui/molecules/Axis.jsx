@@ -1,5 +1,6 @@
 import React, {cloneElement} from 'react'; 
 import {
+    mixClass,
     SemanticUI
 } from 'react-atomic-molecule';
 import get from 'get-object-value';
@@ -47,6 +48,7 @@ const Label = ({
 }
 
 const Axis = ({
+    className,
     data,
     scale,
     path,
@@ -80,7 +82,7 @@ const Axis = ({
         <Group
             transform={transform}
             style={{fontSize:12}}
-            className="axis"
+            className={mixClass('axis', className)}
         >
             <SemanticUI atom="path" d={path} />
             {
@@ -100,7 +102,7 @@ const Axis = ({
 }
 
 Axis.defaultProps = {
-    format: (i)=>i
+    format: i=>i
 };
 
 export default Axis;

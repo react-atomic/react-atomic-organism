@@ -4,11 +4,21 @@ import { SemanticUI } from 'react-atomic-molecule';
 
 import {line} from 'd3-lib';
 
-const Line = ({start, end, ...props}) =>
+const Line = ({start, end, svgLine, ...props}) =>
 {
-    let params = {};
+    const params = {};
     if (start && end) {
-       params.d = line(start, end); 
+       if (svgLine) {
+         params.x1 = start.x;
+         params.y1 = start.y;
+         params.x2 = end.x;
+         params.y2 = end.y;
+       } else {
+         params.d = line(start, end); 
+       }
+    }
+    if (svgLine) {
+        params.atom = 'line';
     }
     return (
     <SemanticUI

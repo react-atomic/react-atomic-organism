@@ -3,6 +3,7 @@ import {
     SemanticUI
 } from 'react-atomic-molecule';
 import get from 'get-object-value';
+import getoffset from 'getoffset';
 
 class MultiChart extends Component
 {
@@ -32,6 +33,32 @@ class MultiChart extends Component
         });
     }
 
+    getParentWH()
+    {
+        const parentEl = this.el.parentNode;
+        const {w, h} = getoffset(parentEl);
+        return {w, h};
+    }
+
+    resize = () => {
+        const {w, h} = this.getParentWH(); 
+        this.setState({
+            scaleW: w,
+            scaleH: h,
+        });
+    }
+
+    handleEl = el => {
+        const {autoScale} = this.props;
+        if (!this.el) {
+            this.el = el;
+            if (autoScale) {
+                window.addEventListener("resize", this.resize);
+                this.resize();
+            }
+        }
+    }
+
     componentDidMount()
     {
         import('d3-lib').then(({
@@ -40,8 +67,13 @@ class MultiChart extends Component
             this.d3 = {scaleBand};
             this.setState({
                 isLoad: true
-            });        
+            });
         });
+    }
+
+    componentWillUnmount()
+    {
+        window.removeEventListener("resize", this.resize);
     }
 
     render()
@@ -49,7 +81,9 @@ class MultiChart extends Component
         const {
             isLoad,
             crosshairX,
-            hideCrosshairY
+            hideCrosshairY,
+            scaleW: stateScaleW,
+            scaleH: stateScaleH,
         } = this.state;
         if (!isLoad) {
             return null;
@@ -58,6 +92,7 @@ class MultiChart extends Component
             style,
             data,
             children,
+            autoScale,
             scaleW,
             scaleH,
             xAxisAttr,
@@ -67,12 +102,20 @@ class MultiChart extends Component
             subChartScaleH,
             ...props
         } = this.props; 
-        const xAxisData = get( xAxisAttr, ['data'], ()=>valuesLocator(get(data,[0])) );
+        let thisScaleW = scaleW;
+        let thisScaleH = scaleH;
+        if (autoScale) {
+            if (stateScaleW && stateScaleH) {
+                thisScaleH = stateScaleH;
+                thisScaleW = stateScaleW;
+            }
+        }
+        const xAxisData = get( xAxisAttr, ['data'], ()=>valuesLocator(data) );
         if (xAxisData) {
             this.xScale = this.d3.scaleBand(
                 xAxisData,
                 0,
-                scaleW,
+                thisScaleW,
                 xValueLocator
             );
         }
@@ -83,9 +126,8 @@ class MultiChart extends Component
                 subChartCount++;
             }
         });
-        let thisScaleH = scaleH;
         let mainChartScaleH = 
-            scaleH -
+            thisScaleH -
             20 -
             ((subChartScaleH+20) * subChartCount);
         if (mainChartScaleH < subChartScaleH) {
@@ -96,15 +138,16 @@ class MultiChart extends Component
         return (
             <SemanticUI
                 {...props}
-                viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(thisScaleH + thisExtraViewBox)}`}
+                viewBox={`0 0 ${Math.round(thisScaleW + thisExtraViewBox)} ${Math.round(thisScaleH + thisExtraViewBox)}`}
                 style={{...style, pointerEvents:'bounding-box'}}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                refCb={this.handleEl}
             > 
             {Children.map(children, (child, key)=>{
                 const params = {
                     key,
-                    scaleW,
+                    scaleW: thisScaleW,
                     crosshairX,
                     hideCrosshairY,
                     onMouseMove: this.handleMouseMove,
@@ -142,6 +185,7 @@ MultiChart.defaultProps = {
     preserveAspectRatio: 'xMidYMid meet',
     scaleW: 500,
     scaleH: 500,
+    autoScale: true,
     extraViewBox: 100,
     subChartScaleH: 68
 }
