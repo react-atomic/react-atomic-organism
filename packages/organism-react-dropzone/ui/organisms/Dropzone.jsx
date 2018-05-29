@@ -71,6 +71,11 @@ class Dropzone extends Component
         });
     }
 
+    openDialog()
+    {
+        this.dropzone.hiddenFileInput.click();
+    }
+
     processQueue()
     {
         this.dropzone.processQueue();
