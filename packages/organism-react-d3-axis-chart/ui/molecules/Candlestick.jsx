@@ -13,12 +13,16 @@ import Line from '../molecules/Line';
  * width
  */
 const Candlestick = ({
-    y0, y1, y2, y3, x, width
+    y0, y1, y2, y3,
+    x,
+    width,
+    className,
 }) =>
 {
     const center = x + Math.floor(width / 2);
     return [
         <Line
+            className={className}
             key={x+'-line'}
             start={{
                 x: center,
@@ -31,6 +35,7 @@ const Candlestick = ({
             svgLine={true}
         />,
         <Rect 
+            className={className}
             key={x+'-rect'}
             x={x}
             y={y1}

@@ -1,4 +1,5 @@
 import React from 'react'; 
+import {mixClass} from 'react-atomic-molecule';
 
 import Candlestick from '../molecules/Candlestick';
 import Group from '../molecules/Group';
@@ -16,10 +17,9 @@ const MultiCandlestick = ({
     yScale,
     d3
 }) => 
-<Group className="data-group barchart">
+<Group className="data-group candle-stick-chart">
 {
     valuesLocator(data).map((d, key)=>{
-        console.log(d, xValueLocator);
         const x = xScale.scaler(xValueLocator(d));
         const yOpen = yScale.scaler(tradeOpenLocator(d));
         const yClose = yScale.scaler(tradeCloseLocator(d));
@@ -30,6 +30,10 @@ const MultiCandlestick = ({
             yClose
         ];
         arrY.sort((a, b)=> b - a);
+        const classes = mixClass({
+            positive: yClose > yOpen,
+            negative: yClose < yOpen,
+        });
         return (
             <Candlestick
                 x={x}
@@ -39,6 +43,7 @@ const MultiCandlestick = ({
                 y3={arrY[3]}
                 width={xScale.length}
                 key={key}
+                className={classes}
             />
         );
     })
