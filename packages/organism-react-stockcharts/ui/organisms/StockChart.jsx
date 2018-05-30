@@ -1,31 +1,12 @@
-import React, {Component} from 'react';
-import {LineChart, BarChart, MultiChart, MultiCandlestick} from 'organism-react-d3-axis-chart';
+import React, {PureComponent} from 'react';
+import { MultiChart, MultiCandlestick} from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
-import {indicatorMovingAverage, indicatorBollingerBands} from 'd3fc-technical-indicator';
+import {lazyInject} from 'react-atomic-molecule';
 
 import KChart from '../organisms/KChart';
 import VolumeChart from '../organisms/VolumeChart';
 
-const keys = Object.keys;
-
-const bindX = raws => xLocator => isset => callback => values =>
-{
-    const result = [];
-    raws.forEach((raw, key) => {
-        const v = values[key];
-        if (!isset(v)) {
-            return;
-        }
-        const cbValue = callback(v);
-        result.push({
-            x: xLocator(raw),
-            ...cbValue
-        });
-    });
-    return result;
-}
-
-class StockChart extends Component
+class StockChart extends PureComponent
 {
     state = {};
     static defaultProps = { 
@@ -38,9 +19,8 @@ class StockChart extends Component
         tradeCloseLocator: d => d.c,
         tradeVolumeLocator: d => d.v,
         tradeDateLocator: d => d.t,
-        short: 5,
-        long: 13,
-        quarter: 34,
+        kChartLinesLocator: d => d.lines,
+        kChartAreasLocator: d => d.areas,
         defaultAttrs: {
             close: {
                 stroke: '#9ecae1',
@@ -62,51 +42,10 @@ class StockChart extends Component
         }
     };
 
-    static getDerivedStateFromProps(nextProps, prevState)
+    constructor(props)
     {
-        const {
-            data,
-            defaultAttrs,
-            tradeRowsLocator,
-            tradeDateLocator,
-            tradeCloseLocator
-        } = nextProps;
-        const rows = tradeRowsLocator(data);
-        const allClose = [];
-        rows.forEach( row => {
-           allClose.push(tradeCloseLocator(row)); 
-        } );
-        const avgKeys = ['short', 'long', 'quarter'];
-        const thisBindX = bindX(rows)(tradeDateLocator);
-        const avgBindX = thisBindX(v=>!!v)(v=>({y: v}));
-        const avgs = [{values: avgBindX(allClose), attrs: defaultAttrs.close}];
-        const avgValues = {};
-        avgKeys.forEach( key => {
-            const indicator = indicatorMovingAverage().period(nextProps[key]); 
-            avgValues[key] = indicator(allClose);
-            avgs.push(
-                {
-                    values: avgBindX(avgValues[key]),
-                    attrs: defaultAttrs[key]
-                }
-            );
-        });
-        const bbandsBindX = thisBindX(v=>!!v['upper'])(v=>({...v}));
-        const bbands2 = indicatorBollingerBands().period(nextProps['long']);
-        const bbands1 = indicatorBollingerBands().period(nextProps['long']).multiplier(1);
-        const bbands = [
-            {
-                values: bbandsBindX(bbands1(allClose)),
-                attrs: defaultAttrs['bbands1']
-            },
-            {
-                values: bbandsBindX(bbands2(allClose)),
-                attrs: defaultAttrs['bbands2']
-            }
-        ];
-        return {
-            avgs, bbands
-        };
+        super(props);
+        injects = lazyInject( injects, InjectStyles );
     }
 
     render()
@@ -124,13 +63,15 @@ class StockChart extends Component
             tradeCloseLocator,
             tradeVolumeLocator,
             tradeDateLocator,
+            kChartLinesLocator,
+            kChartAreasLocator,
             ...props
         } = this.props;
-        const {avgs, bbands} = this.state;
         return (
         <MultiChart
             scaleW={scaleW}
             scaleH={scaleH}
+            className="stock-chart"
             //  Init XAxis
             data={tradeRowsLocator(data)}
             valuesLocator={d => d}
@@ -138,8 +79,8 @@ class StockChart extends Component
         >
            <KChart 
                 data={{
-                    lines: avgs,
-                    areas: bbands
+                    lines: kChartLinesLocator(data),
+                    areas: kChartAreasLocator(data)
                 }}
                 linesLocator={d=>d.lines}
                 linesValuesLocator={d=>d.values}
@@ -172,3 +113,31 @@ class StockChart extends Component
 }
 
 export default StockChart;
+
+let injects;
+const InjectStyles = {
+    negativeRect: [
+        {
+            fill: '#a3c293'
+        },
+        '.stock-chart rect.negative'
+    ],
+    negativeLine: [
+        {
+            stroke: '#a3c293'
+        },
+        '.stock-chart line.negative'
+    ],
+    positiveRect: [ 
+        {
+            fill: '#9f3a38'
+        },
+        '.stock-chart rect.positive'
+    ],
+    positiveLine: [ 
+        {
+            stroke: '#9f3a38'
+        },
+        '.stock-chart line.positive'
+    ]
+};
