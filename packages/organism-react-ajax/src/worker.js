@@ -102,6 +102,15 @@ const ajaxPost = ({url, action}) =>
         }
         let callReq;
         switch (params.method) {
+            case 'delete':
+                callReq = req.del(url);
+                break;
+            case 'head':
+                callReq = req.head(url);
+                break;
+            case 'patch':
+                callReq = req.patch(url);
+                break;
             case 'put':
                 callReq = req.put(url);
                 break;
