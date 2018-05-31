@@ -39,14 +39,12 @@ class BaseChart extends PureComponent
     handleMouseMove = (e)=>
     {
         const point = mouse(e);
-        const self = this;
-        clearTimeout(self._mouseMoveTimeout);
-        self._mouseMoveTimeout = setTimeout(()=>{
-            self._mouseMove.call(self, point);
-        });
+        requestAnimationFrame(()=>
+            this._mouseMove(point)
+        );
     }
 
-    _mouseMove = (point)=>
+    _mouseMove = point =>
     {
         if (this.props.onMouseMove) {
             this.props.onMouseMove(point);

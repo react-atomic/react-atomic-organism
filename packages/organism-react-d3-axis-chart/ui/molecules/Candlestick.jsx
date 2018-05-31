@@ -40,7 +40,7 @@ const Candlestick = ({
             x={x}
             y={y1}
             width={width}
-            height={y1-y2+1}
+            height={y2-y1+1}
         />,
     ];
 }
