@@ -1,4 +1,4 @@
-D3 Pie Chart
+D3 Axis Chart
 ===============
 <!--hidden-->
    * GIT
