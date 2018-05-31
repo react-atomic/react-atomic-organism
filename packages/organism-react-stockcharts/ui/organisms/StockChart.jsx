@@ -1,10 +1,22 @@
 import React, {PureComponent} from 'react';
 import { MultiChart, MultiCandlestick} from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
-import {lazyInject} from 'react-atomic-molecule';
+import {mixClass, lazyInject} from 'react-atomic-molecule';
 
 import KChart from '../organisms/KChart';
 import VolumeChart from '../organisms/VolumeChart';
+
+const VolumesAttrsLocator = openLocator => closeLocator => d =>
+{
+    const open = openLocator(d);
+    const close = closeLocator(d);
+    const className = mixClass({
+       positive: close > open, 
+       negative: close < open, 
+       neutral: close === open
+    });
+    return {className};
+}
 
 class StockChart extends PureComponent
 {
@@ -106,6 +118,7 @@ class StockChart extends PureComponent
                 xValueLocator={tradeDateLocator} 
                 yValueLocator={tradeVolumeLocator}
                 valuesLocator={d => d}
+                attrsLocator={VolumesAttrsLocator(tradeOpenLocator)(tradeCloseLocator)}
            />
         </MultiChart>
         );
@@ -132,12 +145,12 @@ const InjectStyles = {
         {
             fill: '#9f3a38'
         },
-        '.stock-chart rect.positive'
+        '.stock-chart rect.positive, .stock-chart rect.neutral'
     ],
     positiveLine: [ 
         {
             stroke: '#9f3a38'
         },
-        '.stock-chart line.positive'
+        '.stock-chart line.positive, .stock-chart line.neutral'
     ]
 };
