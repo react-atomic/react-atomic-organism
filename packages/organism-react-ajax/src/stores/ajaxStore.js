@@ -59,6 +59,24 @@ const handleUpdateNewUrl = (state, action, url) => {
 }
 
 class AjaxStore extends ReduceStore {
+
+    getInitialState()
+    {
+        const updateWithUrl = url => {
+            const state = this.getState();
+            if (state.get('currentLocation') !== url) {
+                ajaxDispatch({
+                    type: 'ajaxGet',
+                    params: {
+                        url,
+                        scrollBack: true
+                    }
+                });
+            }
+        }; 
+        return Map({updateWithUrl});
+    }
+
   cookAjaxUrl(params, ajaxUrl, globalHeaders) {
     if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
       if (globalHeaders.toJS) {

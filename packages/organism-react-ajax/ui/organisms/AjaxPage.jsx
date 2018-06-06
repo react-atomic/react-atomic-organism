@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react'; 
 import get from 'get-object-value';
 
-import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/ajaxDispatcher';
 
 let pages={};
@@ -18,25 +17,10 @@ class AjaxPage extends PureComponent
     constructor(props)
     {
         super(props);
-        const updateWithUrl = url => {
-            const pageState = ajaxStore.getState();
-            if (pageState.get('currentLocation') !== url) {
-                ajaxDispatch({
-                    type: 'ajaxGet',
-                    params: {
-                        url,
-                        scrollBack: true
-                    }
-                });
-            }
-        };
         /*Need put in constructor else AjaxLink will not get baseUrl*/
         ajaxDispatch({
             type: 'config/set',
-            params: {
-                ...props,
-                updateWithUrl
-            }
+            params: props
         });
     }
 
