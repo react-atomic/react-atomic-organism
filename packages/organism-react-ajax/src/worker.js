@@ -42,6 +42,9 @@ onmessage = (e) =>
         case 'initWs':
             initWs(data.ws);
             break;
+        case 'closeWs':
+            closeWs(data.ws);
+            break;
         case 'ajaxGet':
             ajaxGet(data);
             break;
@@ -137,6 +140,12 @@ const ajaxPost = ({url, action}) =>
      });
 }
 
+const closeWs = url =>
+{
+    arrWs[url].close();
+    delete arrWs[url];
+}
+
 const initWs = url =>
 {
     let ws;
@@ -145,11 +154,11 @@ const initWs = url =>
     {
         ws = new WebSocket(url);
         ws.onopen = e => {
+            isWsConnect = true;
             arrWs[url] = ws;
         };
         ws.onerror = e => { };
         ws.onmessage = e => {
-            isWsConnect = true;
             switch (e.data) {
                 case 'pong': 
                     break;
@@ -171,6 +180,9 @@ const initWs = url =>
     const ping = () =>
     {
         setTimeout(()=>{
+            if (!arrWs[url]) {
+                return;
+            }
             if (!isWsConnect) {
                 create(url);
             } else {

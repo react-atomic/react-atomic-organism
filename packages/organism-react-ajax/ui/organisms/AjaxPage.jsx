@@ -20,7 +20,7 @@ class AjaxPage extends PureComponent
         super(props);
         const updateWithUrl = url => {
             const pageState = ajaxStore.getState();
-            if (pageState.get('url')!==url) {
+            if (pageState.get('currentLocation') !== url) {
                 ajaxDispatch({
                     type: 'ajaxGet',
                     params: {
@@ -45,7 +45,12 @@ class AjaxPage extends PureComponent
         const win = window;
         setImmediate(()=>{
             if (win.WebSocket && props.webSocketUrl) {
-                ajaxStore.initWs(props.webSocketUrl);
+                ajaxDispatch({
+                    type: 'ws/init',
+                    params: {
+                        url: props.webSocketUrl
+                    }
+                });
             }
         });
         win.onpopstate = e => ajaxDispatch('updateWithUrl');
@@ -56,7 +61,6 @@ class AjaxPage extends PureComponent
         const {themes, themePath, defaultThemePath} = this.props;
         let thisThemePath = themePath || defaultThemePath;
         if ('undefined' === typeof themes[thisThemePath]) {
-            const pageState = ajaxStore.getState();
             thisThemePath = this._lastThemePath;
             if ('undefined' === typeof themes[thisThemePath]) {
                 console.error('Not find a theme for name: ['+themePath+']', themes);
