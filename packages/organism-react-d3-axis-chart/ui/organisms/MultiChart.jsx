@@ -110,7 +110,7 @@ class MultiChart extends Component
                 thisScaleW = stateScaleW;
             }
         }
-        const xAxisData = get( xAxisAttr, ['data'], ()=>valuesLocator(data) );
+        const xAxisData = get( xAxisAttr, ['data'], ()=> data ? valuesLocator(data) : null );
         if (xAxisData) {
             this.xScale = this.d3.scaleBand(
                 xAxisData,
