@@ -51,4 +51,9 @@ const MultiCandlestick = ({
 }
 </Group>
 
+MultiCandlestick.defaultProps = {
+    valuesLocator: d => d.values,
+    attrsLocator: d => d.attrs
+};
+
 export default MultiCandlestick;

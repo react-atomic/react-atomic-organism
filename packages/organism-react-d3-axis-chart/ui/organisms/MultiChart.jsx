@@ -181,6 +181,7 @@ class MultiChart extends Component
 }
 
 MultiChart.defaultProps = {
+    valuesLocator: d => d.values,
     atom: 'svg',
     preserveAspectRatio: 'xMidYMid meet',
     scaleW: 500,

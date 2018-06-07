@@ -267,7 +267,7 @@ BaseChart.defaultProps = {
     scaleW: 500,
     scaleH: 500,
     extraViewBox: 100,
-    valuesLocator: d => d.value,
+    valuesLocator: d => d.values,
     xValueLocator: d => d.x,
     yValueLocator: d => d.y,
     hideAxis: false,

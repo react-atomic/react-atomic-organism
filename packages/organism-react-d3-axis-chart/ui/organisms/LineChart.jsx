@@ -43,11 +43,4 @@ const LineChart = ({
     }}
 </BaseChart>
 
-LineChart.defaultProps = {
-    xValueLocator: d => d.x,
-    yValueLocator: d => d.y,
-    valuesLocator: d => d.values,
-    attrsLocator: d => d.attrs
-};
-
 export default LineChart;

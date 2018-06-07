@@ -25,6 +25,8 @@ data.map( (line, key) =>{
 });
 
 MultiLine.defaultProps = {
+    xValueLocator: d => d.x,
+    yValueLocator: d => d.y,
     valuesLocator: d => d.values,
     attrsLocator: d => d.attrs
 };
