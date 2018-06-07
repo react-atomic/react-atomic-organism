@@ -245,7 +245,7 @@ class AjaxStore extends ReduceStore {
   }
 
   initWs(state, action) {
-    const url = this.getRawUrl(get(action, ["params"]));
+    const url = get(action, ["params", "url"]);
     if (url) {
       this.worker({ ws: url, type: "initWs" })
     }
@@ -253,7 +253,7 @@ class AjaxStore extends ReduceStore {
   }
 
   closeWs(state, action) {
-    const url = this.getRawUrl(get(action, ["params"]));
+    const url = get(action, ["params", "url"]);
     if (url) {
       this.worker({ ws: url, type: "closeWs" })
     }
