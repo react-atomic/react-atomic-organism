@@ -245,9 +245,10 @@ class AjaxStore extends ReduceStore {
   }
 
   initWs(state, action) {
-    const url = get(action, ["params", "url"]);
+    const params = get(action, ["params"], {});
+    const {url} = params;
     if (url) {
-      this.worker({ ws: url, type: "initWs" })
+      this.worker({ params, ws: url, type: "initWs" })
     }
     return state
   }

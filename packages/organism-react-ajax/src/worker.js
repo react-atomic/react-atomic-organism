@@ -40,7 +40,7 @@ onmessage = (e) =>
     switch (data.type) 
     {
         case 'initWs':
-            initWs(data.ws);
+            initWs(data.ws)(data.params);
             break;
         case 'closeWs':
             closeWs(data.ws);
@@ -146,7 +146,7 @@ const closeWs = url =>
     delete arrWs[url];
 }
 
-const initWs = url =>
+const initWs = url => params =>
 {
     let ws;
     let isWsConnect;
@@ -156,6 +156,10 @@ const initWs = url =>
         ws.onopen = e => {
             isWsConnect = true;
             arrWs[url] = ws;
+            const {messages} = params;
+            if (get(messages,['length'])) {
+                messages.forEach( m => ws.send(JSON.stringify(m)) );
+            }
         };
         ws.onerror = e => { };
         ws.onmessage = e => {
