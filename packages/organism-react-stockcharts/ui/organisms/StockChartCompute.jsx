@@ -69,6 +69,9 @@ class StockChartCompute extends PureComponent
         } = nextProps;
         const rows = tradeRowsLocator(data);
         const allClose = [];
+        if (!rows) {
+            return null;
+        }
         rows.forEach( row => {
            allClose.push(tradeCloseLocator(row)); 
         } );

@@ -320,7 +320,8 @@ class AjaxStore extends ReduceStore {
     }
     const sourceType = get(action, ["sourceType"])
     const response = get(action, ["response"])
-    let json = get(action, ["json"], () => this.getJson(get(action, ["text"])) )
+    const text = get(action, ["text"])
+    let json = get(action, ["json"], () => this.getJson(text) )
     const callback = this.getCallback(state, action, json, response)
     const type = get(json, ["type"])
     let isRedirect = null
