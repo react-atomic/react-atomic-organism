@@ -6,7 +6,7 @@ const MultiHArea = ({
     data,
     valuesLocator,
     attrsLocator,
-    areaXLocator,
+    xValueLocator,
     areaY0Locator,
     areaY1Locator,
     xScale,
@@ -17,7 +17,7 @@ data.map((area, key)=>{
     const attr = attrsLocator(area); 
     const d = d3.hArea(
         valuesLocator(area),
-        d => xScale.scaler(areaXLocator(d))+xScale.length,
+        d => xScale.scaler(xValueLocator(d))+xScale.length,
         d => yScale.scaler(areaY0Locator(d)),
         d => yScale.scaler(areaY1Locator(d))
     );
@@ -25,7 +25,7 @@ data.map((area, key)=>{
 })
 
 MultiHArea.defaultProps = {
-    areaXLocator: d => d.x,
+    xValueLocator: d => d.x,
     areaY0Locator: d => d.y0,
     areaY1Locator: d => d.y1,
     valuesLocator: d => d.values,
