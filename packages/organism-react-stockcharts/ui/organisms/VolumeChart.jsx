@@ -2,7 +2,23 @@ import React from 'react';
 import {BarChart} from 'organism-react-d3-axis-chart';
 import yFormat from '../../src/yFormat';
 
-const VolumeChart = props =>
+const VolumesAttrsLocator = openLocator => closeLocator => d =>
+{
+    const open = openLocator(d);
+    const close = closeLocator(d);
+    const className = mixClass({
+       positive: close > open, 
+       negative: close < open, 
+       neutral: close === open
+    });
+    return {className};
+}
+
+const VolumeChart = ({
+    tradeOpenLocator,
+    tradeCloseLocator,
+    ...props
+}) =>
     <BarChart
         {...props}
         xAxisAttr={{
@@ -15,6 +31,7 @@ const VolumeChart = props =>
         multiChart="sub"
         crosshair={true}
         hideCrosshairXLabel={true}
+        attrsLocator={VolumesAttrsLocator(tradeOpenLocator)(tradeCloseLocator)}
     />
 
 VolumeChart.defaultProps = {

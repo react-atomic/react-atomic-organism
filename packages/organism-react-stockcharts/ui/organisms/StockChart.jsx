@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, createElement} from 'react';
 import { MultiChart } from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
 import {mixClass, lazyInject} from 'react-atomic-molecule';
@@ -6,17 +6,7 @@ import {mixClass, lazyInject} from 'react-atomic-molecule';
 import KChart from '../organisms/KChart';
 import VolumeChart from '../organisms/VolumeChart';
 
-const VolumesAttrsLocator = openLocator => closeLocator => d =>
-{
-    const open = openLocator(d);
-    const close = closeLocator(d);
-    const className = mixClass({
-       positive: close > open, 
-       negative: close < open, 
-       neutral: close === open
-    });
-    return {className};
-}
+
 
 class StockChart extends PureComponent
 {
@@ -104,13 +94,15 @@ class StockChart extends PureComponent
                 tradeLowLocator={tradeLowLocator}
                 tradeOpenLocator={tradeOpenLocator}
                 tradeCloseLocator={tradeCloseLocator}
-           /> 
+                tradeDateLocator={tradeDateLocator}
+           />
            <VolumeChart
                 data={tradeRowsLocator(data)}
                 xValueLocator={tradeDateLocator} 
                 yValueLocator={tradeVolumeLocator}
                 valuesLocator={d => d}
-                attrsLocator={VolumesAttrsLocator(tradeOpenLocator)(tradeCloseLocator)}
+                tradeOpenLocator={tradeOpenLocator}
+                tradeCloseLocator={tradeCloseLocator}
            />
         </MultiChart>
         );

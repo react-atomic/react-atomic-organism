@@ -40,9 +40,10 @@ const BarChart = ({
         />,
         Children.map(
             children,
-            c => cloneElement(c, {
-                ...baseChart
-            }) 
+            c => !c ? null:
+                cloneElement(c, {
+                    ...baseChart
+                }) 
         )
     ]
 }

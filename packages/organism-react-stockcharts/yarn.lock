@@ -1163,8 +1163,8 @@ chalk@^2.0.1, chalk@^2.3.0, chalk@^2.3.1:
     supports-color "^5.3.0"
 
 check-types@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/check-types/-/check-types-7.3.0.tgz#468f571a4435c24248f5fd0cb0e8d87c3c341e7d"
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/check-types/-/check-types-7.4.0.tgz#0378ec1b9616ec71f774931a3c6516fad8c152f4"
 
 chokidar@^1.6.1:
   version "1.7.0"
@@ -1291,9 +1291,9 @@ commander@2, commander@^2.11.0, commander@^2.13.0:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
-commander@~2.13.0:
-  version "2.13.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
+commander@~2.14.1:
+  version "2.14.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -3208,8 +3208,8 @@ ora@2.0.0:
     wcwidth "^1.0.1"
 
 organism-react-ajax@*:
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.4.8.tgz#ab2ab3dfb8bcaef86a6059fd77393136f459cd1b"
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.4.9.tgz#7cdbb26fb78d5f268b8b4adc4d57c6ed6aa6556e"
   dependencies:
     es6-promise "*"
     get-object-value "*"
@@ -3219,8 +3219,8 @@ organism-react-ajax@*:
     superagent "3.8.3"
 
 organism-react-d3-axis-chart@*:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/organism-react-d3-axis-chart/-/organism-react-d3-axis-chart-0.1.8.tgz#eae3fc2aaabf4fab4fd891f59b595b07f0d123e3"
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/organism-react-d3-axis-chart/-/organism-react-d3-axis-chart-0.1.10.tgz#ea2d08e5edce2d1e16adbd7baa6cc423ac4a7a65"
   dependencies:
     colorlib "*"
     d3-lib "*"
@@ -4207,10 +4207,10 @@ ucfirst@*:
   resolved "https://registry.yarnpkg.com/ucfirst/-/ucfirst-1.0.0.tgz#4e105b6448d05e264ecec435e0b919363c5f2f2f"
 
 uglify-es@^3.3.4:
-  version "3.3.9"
-  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.10.tgz#8b0b7992cebe20edc26de1bf325cef797b8f3fa5"
   dependencies:
-    commander "~2.13.0"
+    commander "~2.14.1"
     source-map "~0.6.1"
 
 uglify-js@^2.8.29:
