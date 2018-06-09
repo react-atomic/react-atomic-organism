@@ -115,8 +115,8 @@ class StockChartCompute extends PureComponent
             ...props
         } = this.props;
         const {avgs, bbands} = this.state;
-        data.lines = avgs;
-        data.areas = bbands;
+        data.avgs = avgs;
+        data.bbands = bbands;
         return (
             <StockChart data={data} {...props} />
         );

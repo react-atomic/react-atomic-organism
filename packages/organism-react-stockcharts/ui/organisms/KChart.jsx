@@ -1,23 +1,63 @@
-import React from 'react';
-import {LineChart, MultiHArea} from 'organism-react-d3-axis-chart';
+import React, {createElement} from 'react';
+import {LineChart, MultiHArea, MultiCandlestick} from 'organism-react-d3-axis-chart';
 import yFormat from '../../src/yFormat';
 import get from 'get-object-value';
 
-const KChart = ({
-    children,
-    xValueLocator,
-    yValueLocator,
-    linesLocator,
-    linesValuesLocator,
-    areasLocator,
+const keys = Object.keys;
+
+const AreasOverLay = ({
     areasValuesLocator,
+    xValueLocator,
     areaY0Locator,
     areaY1Locator,
+    data
+}) =>
+(!areasValuesLocator(data)) ? null :
+    <MultiHArea
+        valuesLocator={areasValuesLocator}
+        xValueLocator={xValueLocator}
+        areaY0Locator={areaY0Locator}
+        areaY1Locator={areaY1Locator}
+        data={data}
+    />
+
+const CandlestickOverlay = ({
+    data,
+    xValueLocator,
+    tradeRowsLocator,
+    tradeHighLocator,
+    tradeLowLocator,
+    tradeOpenLocator,
+    tradeCloseLocator
+}) =>
+(!tradeRowsLocator(data)) ? null :
+    <MultiCandlestick
+        data={data}
+        xValueLocator={xValueLocator}
+        valuesLocator={tradeRowsLocator}
+        tradeHighLocator={tradeHighLocator}
+        tradeLowLocator={tradeLowLocator}
+        tradeOpenLocator={tradeOpenLocator}
+        tradeCloseLocator={tradeCloseLocator}
+    />
+
+const overlays = {
+    areas: AreasOverLay,
+    candlesticks: CandlestickOverlay
+};
+
+const KChart = props => {
+const {
+    children,
+    kChartOverlays,
+    xValueLocator,
+    yValueLocator,
+    linesValuesLocator,
     threshold,
     data,
     hideAxis,
     ...others,
-}) => {
+} = props;
 return (
 <LineChart
     {...others}
@@ -25,7 +65,7 @@ return (
     yValueLocator={yValueLocator}
     valuesLocator={linesValuesLocator}
     threshold={threshold}
-    data={linesLocator(data)} 
+    data={data} 
     hideAxis={hideAxis}
     xAxisAttr={{
         textAttr: {
@@ -39,15 +79,16 @@ return (
     crosshair={true}
 >
    {
-    (!areasLocator(data)) ? 
-    null :
-    <MultiHArea
-        valuesLocator={areasValuesLocator}
-        areaXLocator={xValueLocator}
-        areaY0Locator={areaY0Locator}
-        areaY1Locator={areaY1Locator}
-        data={areasLocator(data)}
-    />
+    keys(kChartOverlays).map(key=>
+       createElement(
+        overlays[key],
+        {
+            key,
+            ...props,
+            ...kChartOverlays[key]
+        }
+       ) 
+    )
    }
    {children}
 </LineChart>
@@ -56,9 +97,13 @@ return (
 
 KChart.defaultProps = {
    hideAxis: false, 
-   areasLocator: d => d.areas,
-   linesLocator: d => d.lines,
-   multiChart: 'main'
+   areasValuesLocator: d => get(d, ['areas', 'values']),
+   linesValuesLocator: d => get(d, ['lines', 'values']),
+   multiChart: 'main',
+   kChartOverlays: {
+        areas: {},
+        candlesticks: {},
+   }  
 };
 
 export default KChart;
