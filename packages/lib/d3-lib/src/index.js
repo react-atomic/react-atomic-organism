@@ -2,6 +2,7 @@
 
 import * as d3 from 'd3';
 import get from 'get-object-value';
+import minMaxHelper from './minMaxHelper';
 
 const keys = Object.keys;
 const isArray = Array.isArray;
@@ -209,20 +210,13 @@ const scaleLinear = (
     more 
 ) => {
     let cookData;
-    if (labelLocator) {
-        cookData = data.map(labelLocator)
-    } else {
-        cookData = data;
-    }
-    if (isArray(more)) {
-        cookData = cookData.concat(more);
-    }
+    const oMinMax = new minMaxHelper();
+    oMinMax.process(labelLocator)(data);
+    oMinMax.process()(more);
     const scaler = d3.scaleLinear().
         rangeRound([start, end]).
-        domain([
-            d3.min(cookData),
-            d3.max(cookData)
-        ]).nice(); 
+        domain(oMinMax.toArray()).
+        nice();
     const ticks = scaler.ticks(tickNum);
     const list = {};
     ticks.forEach( k =>
@@ -234,6 +228,7 @@ const scaleLinear = (
     };
 }
 
+
 export {
     line,
     curve,
@@ -242,6 +237,7 @@ export {
     hArea,
     colors,
     scaleBand,
-    scaleLinear
+    scaleLinear,
+    minMaxHelper
 };
 

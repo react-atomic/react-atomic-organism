@@ -13,7 +13,6 @@ import {
 import {expect} from 'chai';
 import get from 'get-object-value';
 
-global.document = {};
 describe('basic', ()=>{
     it('colors', ()=>{
         expect(colors()(3)).to.equals(
@@ -66,14 +65,17 @@ describe('stack', ()=>{
         //console.log(result);
     });
     it('invert', ()=>{
-        let data = [ 
-          { value: 11},
+        const data = [ 
+          { value: 10},
           { value: 22},
           { value: 33},
         ];
-        let linear = scaleLinear(data, 500, 0);
-        let scaler = linear.scaler;
-        console.log(scaler.invert(11)); 
+        const linear = scaleLinear(
+            data, 500, 0, d => d.value
+        );
+        const scaler = linear.scaler;
+        const number = scaler(10);
+        expect(scaler.invert(number)).to.equal(10);
     });
 });
 
