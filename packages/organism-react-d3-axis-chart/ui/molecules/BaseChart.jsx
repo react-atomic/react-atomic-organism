@@ -142,12 +142,14 @@ class BaseChart extends PureComponent
             );
         }
         this.yScale = this.d3.scaleLinear(
-            get(yAxisAttr, ['data'], ()=>valuesLocator(get(data,[0])) ),
+            get(yAxisAttr, ['data'], () => 
+                valuesLocator(get(data,[0])).map( d => yValueLocator(d) )
+            ),
             scaleH,
             0,
-            (d) => yValueLocator(d),
+            null,
             get(yAxisAttr, ['num']),
-            threshold
+            [threshold]
         );
         if (!hideAxis) {
             xaxis = (

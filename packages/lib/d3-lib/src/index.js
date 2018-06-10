@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import get from 'get-object-value';
 
 const keys = Object.keys;
+const isArray = Array.isArray;
 
 const getCurveType = () =>
 {
@@ -204,32 +205,31 @@ const scaleLinear = (
     end,
     labelLocator,
     tickNum,
-    min
+    more 
 ) => {
-    if (!labelLocator) {
-        labelLocator =  (d) => d.value;
+    let cookData;
+    if (labelLocator) {
+        cookData = data.map(labelLocator)
+    } else {
+        cookData = data;
     }
-    let cookData = data.map(labelLocator);
-    if (min || 0===min) {
-        cookData.push(min);
+    if (isArray(more)) {
+        cookData = cookData.concat(more);
     }
-    min = d3.min(cookData);
-    let linear = d3.scaleLinear().
+    const scaler = d3.scaleLinear().
         rangeRound([start, end]).
         domain([
-            min,
+            d3.min(cookData),
             d3.max(cookData)
         ]).nice(); 
-    const ticks = linear.ticks(tickNum);
-    let a = {};
-    ticks.forEach((k)=>{
-        a[k] = {
-            value: linear(k)
-        };
-    });
+    const ticks = scaler.ticks(tickNum);
+    const list = {};
+    ticks.forEach( k =>
+        list[k] = { value: scaler(k) }
+    );
     return {
-        scaler: linear,
-        list: a 
+        scaler,
+        list 
     };
 }
 

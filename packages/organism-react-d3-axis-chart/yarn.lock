@@ -398,8 +398,8 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.15.tgz#a1cc5f62b30a8c30c3109942ef37045e4fbb56ae"
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.16.tgz#0cb2bc44f998a96865820596a38bae25e97749d6"
   dependencies:
     d3 "*"
     get-object-value "*"
