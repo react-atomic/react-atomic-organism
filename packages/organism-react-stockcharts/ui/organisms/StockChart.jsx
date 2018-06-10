@@ -1,16 +1,22 @@
-import React, {PureComponent, createElement} from 'react';
+import React, {
+    PureComponent, 
+    createElement
+} from 'react';
 import { MultiChart } from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
-import {mixClass, lazyInject} from 'react-atomic-molecule';
+import {lazyInject} from 'react-atomic-molecule';
 
 import KChart from '../organisms/KChart';
 import VolumeChart from '../organisms/VolumeChart';
+import BBandsWidthChart from '../organisms/BBandsWidthChart';
 
-
+const keys = Object.keys;
+const charts = {
+    bbandsWidthChart: BBandsWidthChart
+};
 
 class StockChart extends PureComponent
 {
-    state = {};
     static defaultProps = { 
         scaleW: 500,
         scaleH: 500,
@@ -23,25 +29,8 @@ class StockChart extends PureComponent
         tradeDateLocator: d => d.t,
         avgsLocator: d => d.avgs,
         bbandsLocator: d => d.bbands,
-        defaultAttrs: {
-            close: {
-                stroke: '#9ecae1',
-            },
-            short: {
-                stroke: '#1947a3',
-            },
-            long: {
-                stroke: '#f56f0a',
-            },
-            quarter: {
-                stroke: '#ce6dbd',
-            },
-            bbands1: {
-                fill: '#f06292'
-            },
-            bbands2: {
-            },
-        }
+        kChart: {},
+        subCharts: {},
     };
 
     constructor(props)
@@ -58,6 +47,9 @@ class StockChart extends PureComponent
             scaleH,
             threshold,
             hideAxis,
+            kChart,
+            kChartOverlays,
+            subCharts,
             tradeRowsLocator,
             tradeHighLocator,
             tradeLowLocator,
@@ -67,10 +59,14 @@ class StockChart extends PureComponent
             tradeDateLocator,
             avgsLocator,
             bbandsLocator,
+            autoScale,
+            onClick,
             ...props
         } = this.props;
         return (
         <MultiChart
+            autoScale={autoScale}
+            onClick={onClick}
             scaleW={scaleW}
             scaleH={scaleH}
             className="stock-chart"
@@ -85,17 +81,29 @@ class StockChart extends PureComponent
                     lines: avgsLocator(data),
                     areas: bbandsLocator(data)
                 }}
-                xValueLocator={d=>d.x}
-                yValueLocator={d=>d.y}
-                areaY0Locator={d=>d.upper}
-                areaY1Locator={d=>d.lower}
                 tradeRowsLocator={tradeRowsLocator}
                 tradeHighLocator={tradeHighLocator}
                 tradeLowLocator={tradeLowLocator}
                 tradeOpenLocator={tradeOpenLocator}
                 tradeCloseLocator={tradeCloseLocator}
                 tradeDateLocator={tradeDateLocator}
+                kChartOverlays={kChartOverlays}
+                {...kChart}
            />
+           {
+            keys(subCharts).map( key => {
+                return (
+                   createElement(
+                    charts[key],
+                    {
+                        key,
+                        ...this.props,
+                        ...subCharts[key],
+                    }
+                   ) 
+               );
+            })
+           }
            <VolumeChart
                 data={tradeRowsLocator(data)}
                 xValueLocator={tradeDateLocator} 

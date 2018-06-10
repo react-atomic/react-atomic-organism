@@ -1,5 +1,7 @@
 import React from 'react';
 import {BarChart} from 'organism-react-d3-axis-chart';
+import {mixClass} from 'react-atomic-molecule';
+
 import yFormat from '../../src/yFormat';
 
 const VolumesAttrsLocator = openLocator => closeLocator => d =>

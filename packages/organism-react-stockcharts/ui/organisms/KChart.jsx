@@ -31,7 +31,6 @@ const {
     areasLocator,
     ...others,
 } = props;
-
 return (
 <LineChart
     {...others}
@@ -73,6 +72,8 @@ return (
 
 KChart.defaultProps = {
    hideAxis: false, 
+   xValueLocator: d => d.x,
+   yValueLocator: d => d.y,
    areasValuesLocator: d => d.values,
    linesValuesLocator: d => d.values,
    linesLocator: d => d.lines,

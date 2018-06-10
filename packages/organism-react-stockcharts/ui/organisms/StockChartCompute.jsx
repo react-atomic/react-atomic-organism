@@ -112,13 +112,22 @@ class StockChartCompute extends PureComponent
     {
         const {
             data,
+            kChart,
             ...props
         } = this.props;
         const {avgs, bbands} = this.state;
         data.avgs = avgs;
         data.bbands = bbands;
         return (
-            <StockChart data={data} {...props} />
+            <StockChart
+                data={data}
+                kChart={{
+                   areaY0Locator: d => d.upper,
+                   areaY1Locator: d => d.lower,
+                   ...kChart
+                }}
+                {...props}
+            />
         );
     }
 }
