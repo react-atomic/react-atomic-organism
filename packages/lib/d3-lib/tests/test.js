@@ -11,6 +11,7 @@ import {
 } from '../src/index.js';
 
 import {expect} from 'chai';
+import get from 'get-object-value';
 
 global.document = {};
 describe('basic', ()=>{
@@ -28,8 +29,7 @@ describe('pie', ()=>{
           {value:  50, "name": "Reyes"},
         ];
         let result = pie(data, 10, 100); 
-        expect(result).to.have.deep.property(
-            'data.[0].value',
+        expect(get(result, ['data', 0, 'value'])).to.equal(
             50
         );
     });
@@ -50,9 +50,9 @@ describe('stack', ()=>{
           { label: 'a'},
           { label: 'b'},
         ];
-        let result = scaleBand(data, 0, 500);
-        expect(result.length).to.not.be.empty;
-        expect(result.list).to.not.be.empty;
+        const result = scaleBand(data, 0, 500);
+        expect(result.length).to.be.above(243);
+        expect(result.list).to.have.deep.property('a', { start: 0, value: 122 });
         expect(result.scaler).to.be.an('function');
     });
 

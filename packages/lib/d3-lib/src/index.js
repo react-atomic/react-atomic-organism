@@ -93,10 +93,11 @@ const arc = (data, inner, outer) =>
 };
 
 // scheme
-// https://github.com/d3/d3-scale/blob/master/README.md#category-scales 
+// https://github.com/d3/d3-scale/blob/master/README.md#scaleOrdinal
+// https://github.com/d3/d3-scale-chromatic
 const colors = (scheme) =>
 {
-    const defaultScheme = 'schemeCategory20';
+    const defaultScheme = 'schemeCategory10';
     if (!scheme) {
         scheme = defaultScheme;
     }
