@@ -186,12 +186,12 @@ const scaleBand = (
             value: start + halfLength
         };
     });
-    band.invert = (v) => {
+    band.invertIndex = v => {
         const step = band.step();
-        let index = Math.floor(v / step);
-        const result = allKeys[index]; 
-        return result;
+        const index = Math.floor(v / step); 
+        return index;
     };
+    band.invert = v => allKeys[band.invertIndex(v)]
     return {
         scaler: band,
         list: list,
