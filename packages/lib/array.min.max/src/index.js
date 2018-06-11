@@ -12,12 +12,13 @@ class minMaxHelper {
         if ('function' !== typeof locater) {
             locater = d => d;
         }
+        const thisData = data.concat([]);
         if (!this.max && !this.min) {
-            const firstItem = locater(data.shift());
+            const firstItem = locater(thisData.shift());
             this.max = firstItem;
             this.min = firstItem;
         }
-        data.forEach(d => {
+        thisData.forEach(d => {
             d = locater(d);
             if (d > this.max) {
                 this.max = d;

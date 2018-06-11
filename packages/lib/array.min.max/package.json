@@ -1,6 +1,6 @@
 {
   "name": "array.min.max",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Find min and max in Array",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

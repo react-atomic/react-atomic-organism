@@ -7,6 +7,7 @@ describe('test get Min and Max', ()=>{
         const oMinMax = new minMaxHelper();
         oMinMax.process()(data);
         expect(oMinMax.toArray()).to.deep.equal([0, 1]);
+        expect(data).to.deep.equal([1, 0]);
     })
 
     it('complex array', () => {
