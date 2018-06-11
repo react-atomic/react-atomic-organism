@@ -15,6 +15,7 @@ const MultiCandlestick = ({
     xValueLocator,
     xScale,
     yScale,
+    children,
     d3
 }) => 
 <Group className="data-group candle-stick-chart">
@@ -49,6 +50,7 @@ const MultiCandlestick = ({
         );
     })
 }
+{children}
 </Group>
 
 MultiCandlestick.defaultProps = {

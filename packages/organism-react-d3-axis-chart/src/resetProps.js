@@ -11,6 +11,7 @@ const resetProps = ({
     yValueLocator,
     valuesLocator,
     xScale,
+    onMouseMove,
 }) =>
 ({
     scaleH,
@@ -24,6 +25,7 @@ const resetProps = ({
     yValueLocator,
     valuesLocator,
     xScale,
+    onMouseMove,
 })
 
 export default resetProps;

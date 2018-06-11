@@ -402,8 +402,8 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.19.tgz#d9b2655b8d578d3106b524068a8f3459a1fd470a"
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.20.tgz#cd2495226ee3d96676a7e2346e563e3274aebe33"
   dependencies:
     array.min.max "*"
     d3 "*"
@@ -1106,8 +1106,8 @@ rc@^1.1.7:
     strip-json-comments "~2.0.1"
 
 react-atomic-atom@*:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.13.tgz#a9151c01d112849479e53dca3c08de38d062ed59"
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.14.tgz#a60d4173e181b1f5f27d7558d0708bcc868835de"
 
 react-atomic-molecule@*:
   version "1.3.48"
