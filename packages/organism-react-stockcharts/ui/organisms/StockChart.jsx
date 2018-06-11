@@ -50,6 +50,7 @@ class StockChart extends PureComponent
             kChart,
             kChartOverlays,
             subCharts,
+            thresholds,
             tradeRowsLocator,
             tradeHighLocator,
             tradeLowLocator,
@@ -91,6 +92,7 @@ class StockChart extends PureComponent
                 tradeCloseLocator={tradeCloseLocator}
                 tradeDateLocator={tradeDateLocator}
                 kChartOverlays={kChartOverlays}
+                thresholds={thresholds}
                 {...kChart}
            />
            {

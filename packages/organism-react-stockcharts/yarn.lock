@@ -3224,8 +3224,8 @@ organism-react-ajax@*:
     superagent "3.8.3"
 
 organism-react-d3-axis-chart@*:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/organism-react-d3-axis-chart/-/organism-react-d3-axis-chart-0.1.11.tgz#6c8b1808686c3f8b22bb09d40bea475cb3dad3d7"
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/organism-react-d3-axis-chart/-/organism-react-d3-axis-chart-0.1.14.tgz#aafb41bd8c912b45abd66ff17e3f5e16879a7202"
   dependencies:
     colorlib "*"
     d3-lib "*"

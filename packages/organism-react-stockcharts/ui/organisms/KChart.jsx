@@ -25,7 +25,7 @@ const {
     areaY0Locator,
     areaY1Locator,
 
-    threshold,
+    thresholds,
     data,
     hideAxis,
     kChartOverlays,
@@ -65,7 +65,7 @@ return (
     xValueLocator={xValueLocator}
     yValueLocator={yValueLocator}
     valuesLocator={linesValuesLocator}
-    threshold={threshold}
+    thresholds={thresholds}
     data={linesLocator(data)} 
     hideAxis={hideAxis}
     xAxisAttr={{
