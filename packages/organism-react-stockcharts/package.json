@@ -1,6 +1,6 @@
 {
   "name": "organism-react-stockcharts",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React stockcharts",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,6 +14,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "array.min.max": "*",
     "d3fc-technical-indicator": "6.1.1",
     "get-object-value": "*",
     "organism-react-d3-axis-chart": "*",

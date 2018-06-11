@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineChart } from 'organism-react-d3-axis-chart';
+import { LineChart, resetProps } from 'organism-react-d3-axis-chart';
 import yFormat from '../../src/yFormat';
 
 const BBandsWidthChart = ({
@@ -8,23 +8,13 @@ const BBandsWidthChart = ({
     bbandsWidthLocator,
     attrsLocator,
     bbandsLocator,
-    scaleH,
-    scaleW,
-    transform,
-    crosshairX,
-    hideCrosshairY,
+    ...others
 }) =>
     <LineChart
-        hideCrosshairY={hideCrosshairY}
-        crosshairX={crosshairX} 
-        scaleW={scaleW}
-        scaleH={scaleH}
-        transform={transform}
+        {...resetProps(others)}
         data={bbandsLocator(data)} 
         xValueLocator={xValueLocator}
         yValueLocator={bbandsWidthLocator}
-        multiChart="sub"
-        crosshair={true}
         xAxisAttr={{
             textAttr: {
                 hide: true

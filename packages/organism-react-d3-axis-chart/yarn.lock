@@ -54,6 +54,10 @@ array.dedup@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
 
+array.min.max@*:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/array.min.max/-/array.min.max-0.0.1.tgz#52d281e2a9c5a5061f5850bca603a23c772dd067"
+
 asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
@@ -398,9 +402,10 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.16.tgz#0cb2bc44f998a96865820596a38bae25e97749d6"
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.19.tgz#d9b2655b8d578d3106b524068a8f3459a1fd470a"
   dependencies:
+    array.min.max "*"
     d3 "*"
     get-object-value "*"
 

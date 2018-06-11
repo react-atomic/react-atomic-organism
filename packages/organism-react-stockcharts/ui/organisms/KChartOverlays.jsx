@@ -8,7 +8,7 @@ import {
 const AreasOverLay = ({
     areasLocator,
     areasValuesLocator,
-    xValueLocator,
+    areaXLocator,
     areaY0Locator,
     areaY1Locator,
     data,
@@ -18,7 +18,7 @@ const AreasOverLay = ({
     <MultiHArea
         {...others}
         valuesLocator={areasValuesLocator}
-        xValueLocator={xValueLocator}
+        xValueLocator={areaXLocator}
         areaY0Locator={areaY0Locator}
         areaY1Locator={areaY1Locator}
         data={areasLocator(data)}

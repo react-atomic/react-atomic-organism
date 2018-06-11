@@ -32,12 +32,12 @@ ajv-keywords@^3.1.0:
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
 
 ajv@^6.1.0:
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.0.tgz#4c8affdf80887d8f132c9c52ab8a2dc4d0b7b24c"
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.1.tgz#88ebc1263c7133937d108b80c5572e64e1d9322d"
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.3.0"
+    json-schema-traverse "^0.4.1"
     uri-js "^4.2.1"
 
 align-text@^0.1.1, align-text@^0.1.3:
@@ -128,6 +128,10 @@ array-unique@^0.3.2:
 array.dedup@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
+
+array.min.max@*:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/array.min.max/-/array.min.max-0.0.1.tgz#52d281e2a9c5a5061f5850bca603a23c772dd067"
 
 asap@~2.0.3:
   version "2.0.6"
@@ -1535,9 +1539,10 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.0.15"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.15.tgz#a1cc5f62b30a8c30c3109942ef37045e4fbb56ae"
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.19.tgz#d9b2655b8d578d3106b524068a8f3459a1fd470a"
   dependencies:
+    array.min.max "*"
     d3 "*"
     get-object-value "*"
 
@@ -2439,8 +2444,8 @@ iconv-lite@0.4.19:
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
 ieee754@^1.1.4:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.11.tgz#c16384ffe00f5b7835824e67b6f2bd44a5229455"
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.12.tgz#50bf24e5b9c8bb98af4964c941cdb0918da7b60b"
 
 iferr@^0.1.5:
   version "0.1.5"
@@ -2708,9 +2713,9 @@ json-loader@^0.5.4:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/json-loader/-/json-loader-0.5.7.tgz#dca14a70235ff82f0ac9a3abeb60d337a365185d"
 
-json-schema-traverse@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.3.1.tgz#349a6d44c53a51de89b40805c5d5e59b417d3340"
+json-schema-traverse@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
 
 json5@^0.5.0, json5@^0.5.1:
   version "0.5.1"
@@ -3219,8 +3224,8 @@ organism-react-ajax@*:
     superagent "3.8.3"
 
 organism-react-d3-axis-chart@*:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/organism-react-d3-axis-chart/-/organism-react-d3-axis-chart-0.1.10.tgz#ea2d08e5edce2d1e16adbd7baa6cc423ac4a7a65"
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/organism-react-d3-axis-chart/-/organism-react-d3-axis-chart-0.1.11.tgz#6c8b1808686c3f8b22bb09d40bea475cb3dad3d7"
   dependencies:
     colorlib "*"
     d3-lib "*"

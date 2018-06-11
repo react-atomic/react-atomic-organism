@@ -61,14 +61,17 @@ class StockChart extends PureComponent
             bbandsLocator,
             autoScale,
             onClick,
+            transform,
             ...props
         } = this.props;
         return (
         <MultiChart
             autoScale={autoScale}
+            crosshair={true}
             onClick={onClick}
             scaleW={scaleW}
             scaleH={scaleH}
+            transform={transform}
             className="stock-chart"
             //  Init XAxis
             data={tradeRowsLocator(data)}
@@ -97,6 +100,7 @@ class StockChart extends PureComponent
                     charts[key],
                     {
                         key,
+                        multiChart: "sub",
                         ...this.props,
                         ...subCharts[key],
                     }

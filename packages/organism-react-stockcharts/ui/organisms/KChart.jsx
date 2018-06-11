@@ -1,6 +1,7 @@
 import React, {createElement} from 'react';
 import {LineChart} from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
+import arrayMinMax from 'array.min.max';
 
 import overlays from '../organisms/KChartOverlays';
 import yFormat from '../../src/yFormat';
@@ -10,13 +11,20 @@ const KChart = props => {
 
 /*For easy copy porps to other overlay*/
 const {
-    areaY0Locator,
-    areaY1Locator,
     children,
+
+    // lines
+    linesLocator,
+    linesValuesLocator,
     xValueLocator,
     yValueLocator,
-    linesValuesLocator,
-    linesLocator,
+
+    // areas
+    areasLocator,
+    areasValuesLocator,
+    areaY0Locator,
+    areaY1Locator,
+
     threshold,
     data,
     hideAxis,
@@ -27,10 +35,30 @@ const {
     tradeOpenLocator,
     tradeCloseLocator,
     tradeDateLocator,
-    areasValuesLocator,
-    areasLocator,
     ...others,
 } = props;
+let {areaXLocator} = props;
+
+if (!areaXLocator) {
+    areaXLocator = xValueLocator;
+}
+
+const oMinMax = new arrayMinMax();
+const lines = linesLocator(data);
+if (lines && lines.length) {
+    lines.forEach( line =>
+        oMinMax.process(yValueLocator)(linesValuesLocator(line))
+    );
+}
+const areas = areasLocator(data);
+if (areas && areas.length) {
+    areas.forEach( area => {
+        const areasValues = areasValuesLocator(area);
+        oMinMax.process(areaY0Locator)(areasValues)
+        oMinMax.process(areaY1Locator)(areasValues)
+    });
+}
+
 return (
 <LineChart
     {...others}
@@ -46,10 +74,10 @@ return (
         }
     }}
     yAxisAttr={{
-        format:yFormat 
+        format:yFormat,
+        data: oMinMax.toArray()
     }}
     multiChart="main"
-    crosshair={true}
 >
    {
     keys(kChartOverlays).map( key => {
@@ -58,6 +86,7 @@ return (
             overlays[key],
             {
                 key,
+                areaXLocator,
                 ...props,
                 ...kChartOverlays[key],
             }

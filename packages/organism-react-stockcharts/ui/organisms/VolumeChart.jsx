@@ -1,5 +1,5 @@
 import React from 'react';
-import {BarChart} from 'organism-react-d3-axis-chart';
+import {BarChart, resetProps} from 'organism-react-d3-axis-chart';
 import {mixClass} from 'react-atomic-molecule';
 
 import yFormat from '../../src/yFormat';
@@ -19,10 +19,13 @@ const VolumesAttrsLocator = openLocator => closeLocator => d =>
 const VolumeChart = ({
     tradeOpenLocator,
     tradeCloseLocator,
+    data,
     ...props
-}) =>
+}) => {
+return ( 
     <BarChart
-        {...props}
+        {...resetProps(props)}
+        data={data}
         xAxisAttr={{
             textRotate: -45
         }}
@@ -30,11 +33,11 @@ const VolumeChart = ({
             num: 3,
             format:yFormat 
         }}
-        multiChart="sub"
-        crosshair={true}
         hideCrosshairXLabel={true}
         attrsLocator={VolumesAttrsLocator(tradeOpenLocator)(tradeCloseLocator)}
     />
+)
+}
 
 VolumeChart.defaultProps = {
     multiChart: 'sub'
