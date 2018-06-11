@@ -100,6 +100,7 @@ class MultiChart extends Component
             valuesLocator,
             extraViewBox,
             subChartScaleH,
+            crosshair,
             ...props
         } = this.props; 
         let thisScaleW = scaleW;
@@ -121,7 +122,7 @@ class MultiChart extends Component
         }
         let thisExtraViewBox = extraViewBox;
         let subChartCount = 0;
-        Children.forEach(children, (child)=>{
+        Children.forEach(children, child => {
             if ('sub' === get(child,['props','multiChart'])) {
                 subChartCount++;
             }
@@ -148,6 +149,7 @@ class MultiChart extends Component
                 const params = {
                     key,
                     scaleW: thisScaleW,
+                    crosshair,
                     crosshairX,
                     hideCrosshairY,
                     onMouseMove: this.handleMouseMove,

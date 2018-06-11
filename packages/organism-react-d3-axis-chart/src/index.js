@@ -1,11 +1,13 @@
 
 // UI
-export BarChart from '../ui/organisms/BarChart';
-export LineChart from '../ui/organisms/LineChart';
-export MultiChart from '../ui/organisms/MultiChart';
+export { default as BarChart } from '../ui/organisms/BarChart';
+export { default as LineChart } from '../ui/organisms/LineChart';
+export { default as MultiChart } from '../ui/organisms/MultiChart';
 
 // molecules
-export MultiLine from '../ui/molecules/MultiLine';
-export MultiHArea from '../ui/molecules/MultiHArea';
-export MultiCandlestick from '../ui/molecules/MultiCandlestick';
+export { default as MultiLine } from '../ui/molecules/MultiLine';
+export { default as MultiHArea } from '../ui/molecules/MultiHArea';
+export { default as MultiCandlestick } from '../ui/molecules/MultiCandlestick';
+
+export { default as resetProps } from './resetProps';
 
