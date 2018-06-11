@@ -103,7 +103,7 @@ class BaseChart extends PureComponent
             xValueLocator,
             yValueLocator,
             extraViewBox,
-            threshold,
+            thresholds,
             multiChart,
 
             /*axis*/
@@ -124,11 +124,11 @@ class BaseChart extends PureComponent
 
             ...props
         } = this.props;
+        const thresholdLines = [];
         this.scaleW = scaleW;
         this.scaleH = scaleH;
         let xaxis = null;
         let yaxis = null;
-        let thresholdLine = null;
         let thisCrosshair = null;
         let thisExtraViewBox = extraViewBox;
         if (xScale) {
@@ -149,7 +149,7 @@ class BaseChart extends PureComponent
             0,
             null,
             get(yAxisAttr, ['num']),
-            [threshold]
+            thresholds
         );
         if (!hideAxis) {
             xaxis = (
@@ -178,19 +178,21 @@ class BaseChart extends PureComponent
         } else {
             thisExtraViewBox = 50;
         }
-        if (threshold) {
-            const yThreshold = this.yScale.scaler(threshold);
-            thresholdLine = (
-                <Line
-                    start={{x:0, y:yThreshold}}
-                    end={{x:scaleW, y:yThreshold}}
-                    stroke="#f00"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                    key="threshold"
-                    style={{opacity: '.5'}}
-                />
-            );
+        if (thresholds) {
+            thresholds.forEach( (threshold, key) => {
+                const yThreshold = this.yScale.scaler(threshold);
+                thresholdLines.push(
+                    <Line
+                        start={{x:0, y:yThreshold}}
+                        end={{x:scaleW, y:yThreshold}}
+                        stroke="#f00"
+                        strokeWidth="2"
+                        strokeDasharray="5,5"
+                        key={"threshold"+key}
+                        style={{opacity: '.5'}}
+                    />
+                );
+            }); 
         }
         if (crosshair) {
             thisCrosshair = (
@@ -215,7 +217,7 @@ class BaseChart extends PureComponent
             childEl,
             xaxis,
             yaxis,
-            thresholdLine,
+            thresholdLines,
             thisCrosshair
         ];
         if (multiChart) {
