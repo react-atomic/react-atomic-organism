@@ -1,4 +1,7 @@
+'use strict';
+
 const isArray = Array.isArray;
+
 class minMaxHelper {
     max = null
     min = null

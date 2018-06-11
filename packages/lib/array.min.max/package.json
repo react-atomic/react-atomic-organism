@@ -1,19 +1,15 @@
 {
-  "name": "d3-lib",
-  "version": "0.0.19",
-  "description": "D3 Library for data computing.",
+  "name": "array.min.max",
+  "version": "0.0.0",
+  "description": "Find min and max in Array",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
-  "dependencies": {
-    "array.min.max": "*",
-    "d3": "*",
-    "get-object-value": "*"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.x",
+    "babel-cli": "*",
     "chai": "*",
     "mocha": "*"
   },

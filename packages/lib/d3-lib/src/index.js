@@ -2,7 +2,7 @@
 
 import * as d3 from 'd3';
 import get from 'get-object-value';
-import minMaxHelper from './minMaxHelper';
+import arrayMinMax from 'array.min.max';
 
 const keys = Object.keys;
 const isArray = Array.isArray;
@@ -210,7 +210,7 @@ const scaleLinear = (
     more 
 ) => {
     let cookData;
-    const oMinMax = new minMaxHelper();
+    const oMinMax = new arrayMinMax();
     oMinMax.process(labelLocator)(data);
     oMinMax.process()(more);
     const scaler = d3.scaleLinear().
@@ -238,6 +238,5 @@ export {
     colors,
     scaleBand,
     scaleLinear,
-    minMaxHelper
 };
 
