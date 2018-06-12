@@ -4,6 +4,7 @@ import get from 'get-object-value';
 import arrayMinMax from 'array.min.max';
 
 import overlays from '../organisms/KChartOverlays';
+import KChartText from '../organisms/KChartText';
 import yFormat from '../../src/yFormat';
 
 const keys = Object.keys;
@@ -30,11 +31,12 @@ const {
     hideAxis,
     kChartOverlays,
     tradeRowsLocator,
+    tradeDateLocator,
+    tradeOpenLocator,
     tradeHighLocator,
     tradeLowLocator,
-    tradeOpenLocator,
     tradeCloseLocator,
-    tradeDateLocator,
+    tradeVolumeLocator,
     ...others,
 } = props;
 let {areaXLocator} = props;
@@ -94,6 +96,7 @@ return (
        );
     })
    }
+   <KChartText {...props} />
    {children}
 </LineChart>
 );
