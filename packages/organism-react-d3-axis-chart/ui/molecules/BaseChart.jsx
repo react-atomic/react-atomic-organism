@@ -39,9 +39,7 @@ class BaseChart extends PureComponent
     handleMouseMove = (e)=>
     {
         const point = mouse(e);
-        requestAnimationFrame(()=>
-            this._mouseMove(point)
-        );
+        this._mouseMove(point)
     }
 
     _mouseMove = point =>
@@ -180,6 +178,9 @@ class BaseChart extends PureComponent
         }
         if (thresholds) {
             thresholds.forEach( (threshold, key) => {
+                if (isNaN(threshold)) {
+                    return
+                }
                 const yThreshold = this.yScale.scaler(threshold);
                 thresholdLines.push(
                     <Line
