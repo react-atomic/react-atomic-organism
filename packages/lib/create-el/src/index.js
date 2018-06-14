@@ -52,9 +52,12 @@ const create = tag => callback => attrs =>
     return dNode;
 }
 
-const js = (base, isStart) => callback => url =>
+const js = (base, isStart) => callback => (url, attrs) =>
 {
-    const dNode = create('script')(callback)({type: 'text/javascript'});
+    const dNode = create('script')(callback)({
+        type: 'text/javascript',
+        ...attrs
+    })
     if (base) {
         inject(base, isStart)(dNode);
     }
@@ -68,7 +71,7 @@ const css = (base, isStart) => callback => (url, attrs) =>
         rel: 'stylesheet',
         type: 'text/css',
         ...attrs
-    });
+    })
     if (base) {
         inject(base, isStart)(dNode);
     }
