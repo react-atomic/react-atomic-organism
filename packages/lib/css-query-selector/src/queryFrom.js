@@ -38,4 +38,4 @@ const queryFrom = base =>
     }
 }
 
-export default queryForm;
+export default queryFrom;
