@@ -1,30 +1,6 @@
-'use strict';
+import queryFrom from './queryFrom';
 
-const doc = () => document;
-
-const queryOne = sel => doc().querySelector(sel);
-
-const queryAll = sel => Array.from(doc().querySelectorAll(sel));
-
-const queryEl = el => ('string' === typeof el) ? queryOne(el) : el;
-
-const queryAncestor = (el, ancestor) =>
-{
-    el = queryEl(el);
-    let hit = false;
-
-    queryAll(ancestor).some(
-        p => {
-            if (p.contains(el)) {
-                hit = p;
-                return true;
-            } else {
-                return false;
-            }   
-        }   
-    );  
-    return hit;
-}
+const {queryAll, queryAncestor, queryEl, queryOne} = queryFrom(()=>document);
 
 export default {
     all: queryAll,
@@ -33,4 +9,4 @@ export default {
     one: queryOne
 };
 
-export {queryAll, queryAncestor, queryEl, queryOne};
+export {queryAll, queryAncestor, queryEl, queryOne, queryFrom};
