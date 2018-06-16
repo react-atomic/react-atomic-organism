@@ -37,14 +37,12 @@ class Dropdown extends PureComponent
     {
         if (this.menu) {
             const doc = document;
-            if (this.menu.contains(doc.activeElement)) {
-                this.setState({
-                    hideList: true 
-                });
-                setTimeout(()=>this.setState({
-                    hideList: false 
-                }));
-            }
+            this.setState({
+                hideList: true 
+            });
+            setTimeout(()=>this.setState({
+                hideList: false 
+            }));
         }
     }
 
@@ -60,7 +58,7 @@ class Dropdown extends PureComponent
         const {list, listStyle, titleStyle, icon, children, style, className, ...props} = this.props;
         const {listStyle: stateListStyle, hideList} = this.state; 
         let thisList = null;
-        if (!hideList) {
+        if (!hideList && list) {
          thisList = cloneElement(
             list,
             {
@@ -69,6 +67,7 @@ class Dropdown extends PureComponent
                     ...stateListStyle,
                     marginTop: -1, //aviod not expected hover out
                 },
+                onClick: this.handleMenuClick
             }
          );
         }
