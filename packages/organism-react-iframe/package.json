@@ -1,6 +1,6 @@
 {
   "name": "organism-react-iframe",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Rendering to iFrames in React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -11,6 +11,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "create-el": "*",
     "get-object-value": "*",
     "react-atomic-molecule": "*",
     "setimmediate": "^1.0.5"

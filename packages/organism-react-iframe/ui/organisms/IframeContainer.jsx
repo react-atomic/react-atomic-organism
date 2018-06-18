@@ -30,16 +30,17 @@ class IframeContainer extends PureComponent {
 
   render() {
     const { iframeH } = this.state
-    const { src } = this.props
+    const { src, refCb, style, ...others } = this.props
     return (
       <SemanticUI
+        {...others}
         style={{
           ...Styles.iframe,
           height: iframeH,
+          ...style,
         }}
         atom="iframe"
-        refCb={el => (this.iframe = el)}
-        onLoad={this.handleLoad}
+        refCb={el => {this.iframe = el; refCb(el)}}
         src={src}
       />
     )

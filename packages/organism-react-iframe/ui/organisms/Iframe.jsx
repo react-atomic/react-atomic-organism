@@ -3,6 +3,9 @@ import React, {PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import get from 'get-object-value';
 import { SemanticUI } from 'react-atomic-molecule';
+import {js} from 'create-el';
+
+import IframeContainer from '../organisms/IframeContainer';
 
 const keys = Object.keys;
 
@@ -53,14 +56,8 @@ class Iframe extends PureComponent
             const script = scripts[i]; 
             const src = get(script, ['src']);
             if (src) {
-                let newScript = document.createElement('script');
                 const key = 'id-'+scriptCount;
-                newScript.src = src;
-                this.root.parentNode.appendChild(newScript);
-                newScript.key = key;
-                newScript.onload = () => {
-                    handleScriptOnload(newScript.key);
-                };
+                const dScript = js(this.root.parentNode)(()=>handleScriptOnload(key))(src, {key});
                 queueScripts[key] = true;
                 scriptCount++;
             } else {
@@ -112,9 +109,8 @@ class Iframe extends PureComponent
     {
         const {children, ...others} = this.props;
         return (
-            <SemanticUI
+            <IframeContainer
                 {...others}
-                atom="iframe"
                 refCb={el=>this.el=el}
             />
         ); 
