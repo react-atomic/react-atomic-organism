@@ -17,6 +17,8 @@ const updateUrl = url => history.pushState('','',url);
 
 class FullScreenExample extends PureComponent
 {
+    static defaultProps = { button: 'Open full screen'}
+
     state = {
         showFullScreen: false 
     };
