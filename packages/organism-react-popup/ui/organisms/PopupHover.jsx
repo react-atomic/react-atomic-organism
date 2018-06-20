@@ -71,9 +71,10 @@ class PopupHover extends PureComponent
    constructor(props)
    {
       super(props);
-      const {popup, name} = props;
+      const {popup, name, toPool} = props;
       this.popup = ( 
-            <PopupFloatEl 
+            <PopupFloatEl
+                toPool={toPool}
                 name={name}
                 onMouseEnter={this.floatMouseOver} 
                 onMouseLeave={this.floatMouseOut} 
@@ -96,7 +97,7 @@ class PopupHover extends PureComponent
 
     render()
     {
-        const {popup, isKeep, ...others} = this.props;
+        const {popup, isKeep, toPool, ...others} = this.props;
         return (
             <SemanticUI
                refCb={dom=>this.dom=dom}
