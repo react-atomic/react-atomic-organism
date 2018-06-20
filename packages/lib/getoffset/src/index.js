@@ -1,7 +1,7 @@
 'use strict';
 import getScrollInfo from 'get-scroll-info'; 
 
-const mouse = (e, dom) => {
+const mouse = (e, dom, scrollNode) => {
     if (!dom) {
         dom = e.currentTarget;
     }
@@ -15,20 +15,20 @@ const mouse = (e, dom) => {
         point = point.matrixTransform(dom.getScreenCTM().inverse());
         return [point.x, point.y];
     }
-    const domXY = getOffset(dom);
+    const domXY = getOffset(dom, scrollNode);
     return [
         x - domXY.left - dom.clientLeft,
         y - domXY.top - dom.clientTop
     ];
 }
 
-const getOffset = (dom) => {
+const getOffset = (dom, scrollNode) => {
     let top = 0;
     let left = 0;
     let w;
     let h;
     if (dom instanceof SVGElement) {
-        const scrollInfo = getScrollInfo();
+        const scrollInfo = getScrollInfo(scrollNode);
         const rect = dom.getBoundingClientRect();
         top = rect.top + scrollInfo.top;
         left = rect.left + scrollInfo.left;
