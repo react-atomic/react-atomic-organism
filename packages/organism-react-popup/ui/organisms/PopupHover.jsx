@@ -1,4 +1,4 @@
-import React, {PureComponent, cloneElement} from 'react'; 
+import React, {PureComponent, cloneElement, createElement, isValidElement} from 'react'; 
 import {
     SemanticUI
 } from 'react-atomic-molecule';
@@ -12,9 +12,12 @@ let closeTimer = {};
 
 class PopupHover extends PureComponent
 {
-   static defaultProps = {
-        name: 'hover'
-   };
+    popup = null
+
+    static defaultProps = {
+      name: 'hover',
+      component: SemanticUI
+    }
 
     floatMouseOver = ()=>
     {
@@ -68,22 +71,21 @@ class PopupHover extends PureComponent
         });
     }
 
-   constructor(props)
-   {
-      super(props);
-      const {popup, name, toPool} = props;
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+      const {popup, name, toPool, alignParams} = this.props;
       this.popup = ( 
             <PopupFloatEl
                 toPool={toPool}
                 name={name}
+                alignParams={alignParams}
                 onMouseEnter={this.floatMouseOver} 
                 onMouseLeave={this.floatMouseOut} 
             >
                 {popup}
             </PopupFloatEl>
       ); 
-   } 
-
+    }
 
     componentWillUnmount()
     {
@@ -97,16 +99,20 @@ class PopupHover extends PureComponent
 
     render()
     {
-        const {popup, isKeep, toPool, ...others} = this.props;
-        return (
-            <SemanticUI
-               refCb={dom=>this.dom=dom}
-               onMouseEnter={this.mouseOver} 
-               onMouseLeave={this.mouseOut} 
-               style={{position:'relative'}}
-               {...others}
-            />
-        );
+        const {popup, isKeep, toPool, alignParams, component, ...others} = this.props;
+        const build = (isValidElement(component)) ?
+            cloneElement:
+            createElement
+            ;
+	return build(
+	    component,
+	    {
+		refCb: dom=>this.dom=dom,
+		onMouseEnter: this.mouseOver,
+		onMouseLeave: this.mouseOut,
+		...others
+	    }
+	)
     }
 }
 

@@ -61,11 +61,11 @@ class PopupFloatEl extends PopupOverlay
 
    calPos = () =>
    {
-        const {targetEl} = this.props;
+        const {targetEl, alignParams} = this.props;
         if (!this.floatEl || !targetEl || !getWindowOffset(targetEl)) {
             return false;
         }
-        const info = alignUI(targetEl, this.floatEl);
+        const info = alignUI(targetEl, this.floatEl, alignParams);
         if (!info) {
             console.error('can not get alignUI info');
             return;

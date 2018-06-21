@@ -1,5 +1,6 @@
 import getOffset from 'getoffset'; 
 import getScrollInfo from 'get-scroll-info'; 
+import get from 'get-object-value'
 
 import getAfterMove from './getAfterMove';
 import getWindowOffset from './getWindowOffset'; 
@@ -37,8 +38,9 @@ const fixedNode = scrollInfo => move =>
     move[1] + scrollInfo.top
 ]
 
-const alignUI = (targetEl, floatEl, {toLoc, disableAutoLoc, scrollNode}) =>
+const alignUI = (targetEl, floatEl, alignParams) =>
 {
+    let {toLoc, disableAutoLoc, scrollNode} = get(alignParams, null, {})
     if (!targetEl) {
         console.error('targetEl was empty');
         console.trace();
