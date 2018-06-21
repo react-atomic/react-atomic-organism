@@ -71,9 +71,9 @@ class PopupHover extends PureComponent
         });
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot)
+    update(props)
     {
-      const {popup, name, toPool, alignParams} = this.props;
+      const {popup, name, toPool, alignParams} = props;
       this.popup = ( 
             <PopupFloatEl
                 toPool={toPool}
@@ -85,6 +85,16 @@ class PopupHover extends PureComponent
                 {popup}
             </PopupFloatEl>
       ); 
+    }
+
+    componentDidMount()
+    {
+        this.update(this.props)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        this.update(this.props)
     }
 
     componentWillUnmount()
