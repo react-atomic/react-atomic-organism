@@ -37,7 +37,7 @@ const fixedNode = scrollInfo => move =>
     move[1] + scrollInfo.top
 ]
 
-const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
+const alignUI = (targetEl, floatEl, {toLoc, disableAutoLoc, scrollNode}) =>
 {
     if (!targetEl) {
         console.error('targetEl was empty');
@@ -69,7 +69,9 @@ const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
     }
     const floatInfo = getOffset(floatEl);
     let adjustFixed;
-    if (targetInfo.isFixed) {
+    if (scrollNode) {
+        adjustFixed = fixedNode(getScrollInfo(scrollNode))
+    } else if (targetInfo.isFixed) {
         if (targetInfo.isFixed.contains(floatEl)) {
             adjustFixed = fixedNode(getScrollInfo(targetInfo.isFixed))
         } else {
