@@ -13,6 +13,7 @@ import PopupOverlay from '../molecules/PopupOverlay';
 
 class PopupFloatEl extends PopupOverlay
 {
+   _mount = false
    static defaultProps = {
        style: {
            position: 'absolute',
@@ -56,7 +57,9 @@ class PopupFloatEl extends PopupOverlay
         this.floatWidth = pos.width;
         this.floatHeight = pos.height;
         this.floatClassName = pos.className;
-        this.setState(pos);
+        if (this._mount) {
+            this.setState(pos);
+        }
    }
 
    calPos = () =>
@@ -116,6 +119,7 @@ class PopupFloatEl extends PopupOverlay
 
     componentDidMount()
     {
+        this._mount = true;
         window.addEventListener('resize', this.handleResize);
     }
 
@@ -136,7 +140,7 @@ class PopupFloatEl extends PopupOverlay
 
     componentWillUnmount()
     {
-        this.state.isNeedUpdate = false;
+        this._mount = false;
         window.removeEventListener('resize', this.handleResize);
     }
 
