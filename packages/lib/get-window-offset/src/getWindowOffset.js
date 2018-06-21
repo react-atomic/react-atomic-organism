@@ -52,21 +52,24 @@ const getWindowOffset = (dom) =>
         console.trace();
         return false;
     }
+    const fixedNode = isFixed(dom)
     const scrollInfo = getScrollInfo();
-    const domInfo = isOnScreen(getOffset(dom), scrollInfo);
-    domInfo.isFixed = isFixed(dom);
+    const domInfo = isOnScreen(getOffset(dom, fixedNode), scrollInfo);
+    domInfo.isFixed = fixedNode;
     if (!domInfo.isFixed && !domInfo.isOnScreen) {
         console.warn('Dom is not in screen', { dom, domInfo, scrollInfo });
         return false;
     }
     const cookScrollInfo = {...scrollInfo};
     if (domInfo.isFixed) {
-        cookScrollInfo.top = 0;
+        const fixedScrollInfo = getScrollInfo(domInfo.isFixed);
+        cookScrollInfo.top = fixedScrollInfo.top;
         cookScrollInfo.right = scrollInfo.scrollNodeWidth;
         cookScrollInfo.bottom = scrollInfo.scrollNodeHeight;
-        cookScrollInfo.left = 0;
+        cookScrollInfo.left = fixedScrollInfo.left;
     }
-    return { domInfo, scrollInfo, ...calWindowOffset(domInfo, cookScrollInfo) };
+    const result = { domInfo, scrollInfo, ...calWindowOffset(domInfo, cookScrollInfo) }
+    return result;
 }
 
 export default getWindowOffset;

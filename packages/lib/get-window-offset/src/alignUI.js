@@ -1,9 +1,11 @@
 import getOffset from 'getoffset'; 
+import getScrollInfo from 'get-scroll-info'; 
 
 import getAfterMove from './getAfterMove';
 import getWindowOffset from './getWindowOffset'; 
 import alignWith from './alignWith';
 import isFullOnScreen from './isFullOnScreen';
+import isFixed from './isFixed';
 import pos from './positions';
 
 const getAlignWithLoc = (toLoc) =>
@@ -29,6 +31,12 @@ const getAlignWithLoc = (toLoc) =>
     return loc;
 }
 
+const fixedNode = scrollInfo => move =>
+[
+    move[0] + scrollInfo.left,
+    move[1] + scrollInfo.top
+]
+
 const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
 {
     if (!targetEl) {
@@ -51,25 +59,41 @@ const alignUI = (targetEl, floatEl, toLoc, disableAutoLoc) =>
             locs = locs.concat(winInfo.locs);
         }
     }
-    if (!targetInfo) {
-        targetInfo = getOffset(targetEl);
-    }
     if (!locs.length) {
         console.error('Not set any locs', toLoc);
         return;
     }
+    if (!targetInfo) {
+        targetInfo = getOffset(targetEl);
+        targetInfo.isFixed = isFixed(targetEl);
+    }
+    const floatInfo = getOffset(floatEl);
+    let adjustFixed;
+    if (targetInfo.isFixed) {
+        if (targetInfo.isFixed.contains(floatEl)) {
+            adjustFixed = fixedNode(getScrollInfo(targetInfo.isFixed))
+        } else {
+            if (winInfo) {
+                adjustFixed = fixedNode(winInfo.scrollInfo)
+            } else {
+                adjustFixed = fixedNode(getScrollInfo())
+            }
+        }
+    }
     let loc;
     let move;
-    const floatInfo = getOffset(floatEl);
     locs.some( locItem => {
         toLoc = locItem;
         loc = getAlignWithLoc(toLoc);
         move = alignWith(targetInfo, floatInfo, loc);
+        if (adjustFixed) {
+            move = adjustFixed(move)
+        }
         if (!winInfo) {
             return true;
         } else {
-            let movePos = getAfterMove(floatInfo, move);
-            let bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
+            const movePos = getAfterMove(floatInfo, move);
+            const bFullOnScreen = isFullOnScreen(movePos, winInfo.scrollInfo);
             if (bFullOnScreen) {
                 return true;
             } else {

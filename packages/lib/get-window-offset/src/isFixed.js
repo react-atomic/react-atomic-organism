@@ -10,7 +10,7 @@ const isFixed = (node) =>
     while(thisParent.nodeName != 'BODY') {
         const position =  getStyle(thisParent, 'position');
         if ('fixed' === position) {
-            return true;
+            return thisParent;
         }
         thisParent = thisParent.parentNode;
     }
