@@ -2,6 +2,7 @@ import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset'; 
 import isOnScreen from './isOnScreen';
 import isFixed from './isFixed';
+import isSetOverflow from './isSetOverflow';
 
 const calWindowOffset = (domInfo, scrollInfo) =>
 {
@@ -53,20 +54,28 @@ const getWindowOffset = (dom) =>
         return false;
     }
     const fixedNode = isFixed(dom)
+    const scrollNode = isSetOverflow(dom)
     const scrollInfo = getScrollInfo();
-    const domInfo = isOnScreen(getOffset(dom, fixedNode), scrollInfo);
-    domInfo.isFixed = fixedNode;
-    if (!domInfo.isFixed && !domInfo.isOnScreen) {
-        console.warn('Dom is not in screen', { dom, domInfo, scrollInfo });
-        return false;
-    }
     const cookScrollInfo = {...scrollInfo};
-    if (domInfo.isFixed) {
-        const fixedScrollInfo = getScrollInfo(domInfo.isFixed);
+    if (fixedNode) {
+        const fixedScrollInfo = getScrollInfo(fixedNode);
         cookScrollInfo.top = fixedScrollInfo.top;
         cookScrollInfo.right = scrollInfo.scrollNodeWidth;
         cookScrollInfo.bottom = scrollInfo.scrollNodeHeight;
         cookScrollInfo.left = fixedScrollInfo.left;
+    } else if (scrollNode) {
+        const scrollNodeScrollInfo = getScrollInfo(scrollNode);
+        cookScrollInfo.top += scrollNodeScrollInfo.top
+        cookScrollInfo.right += scrollNodeScrollInfo.left
+        cookScrollInfo.bottom += scrollNodeScrollInfo.top
+        cookScrollInfo.left += scrollNodeScrollInfo.left
+    }
+    const domInfo = isOnScreen(getOffset(dom, fixedNode), cookScrollInfo);
+    domInfo.fixedNode = fixedNode
+    domInfo.scrollNode = scrollNode
+    if (!domInfo.isOnScreen) {
+        console.warn('Dom is not in screen', { dom, domInfo, scrollInfo, cookScrollInfo });
+        return false;
     }
     const result = { domInfo, scrollInfo, ...calWindowOffset(domInfo, cookScrollInfo) }
     return result;

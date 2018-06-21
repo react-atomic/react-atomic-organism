@@ -6,6 +6,7 @@ import getAfterMove from './getAfterMove';
 import getWindowOffset from './getWindowOffset'; 
 import alignWith from './alignWith';
 import isFullOnScreen from './isFullOnScreen';
+import isSetOverflow from './isSetOverflow';
 import isFixed from './isFixed';
 import pos from './positions';
 
@@ -32,15 +33,21 @@ const getAlignWithLoc = (toLoc) =>
     return loc;
 }
 
-const fixedNode = scrollInfo => move =>
+const fixFixedNode = scrollInfo => move =>
 [
     move[0] + scrollInfo.left,
     move[1] + scrollInfo.top
 ]
 
+const fixScrollNode = scrollInfo => move =>
+[
+    move[0] - scrollInfo.left,
+    move[1] - scrollInfo.top
+]
+
 const alignUI = (targetEl, floatEl, alignParams) =>
 {
-    let {toLoc, disableAutoLoc, scrollNode} = get(alignParams, null, {})
+    let {toLoc, disableAutoLoc} = get(alignParams, null, {})
     if (!targetEl) {
         console.error('targetEl was empty');
         console.trace();
@@ -67,22 +74,26 @@ const alignUI = (targetEl, floatEl, alignParams) =>
     }
     if (!targetInfo) {
         targetInfo = getOffset(targetEl);
-        targetInfo.isFixed = isFixed(targetEl);
+        targetInfo.scrollNode = isSetOverflow(targetEl)
+        targetInfo.fixedNode = isFixed(targetEl)
     }
+    
     const floatInfo = getOffset(floatEl);
-    let adjustFixed;
-    if (scrollNode) {
-        adjustFixed = fixedNode(getScrollInfo(scrollNode))
-    } else if (targetInfo.isFixed) {
-        if (targetInfo.isFixed.contains(floatEl)) {
-            adjustFixed = fixedNode(getScrollInfo(targetInfo.isFixed))
+    let adjustMove;
+    const scrollNode = targetInfo.scrollNode
+    const fixedNode = targetInfo.fixedNode
+    if (fixedNode) {
+        if (fixedNode.contains(floatEl)) {
+            adjustMove = fixFixedNode(getScrollInfo(fixedNode))
         } else {
             if (winInfo) {
-                adjustFixed = fixedNode(winInfo.scrollInfo)
+                adjustMove = fixFixedNode(winInfo.scrollInfo)
             } else {
-                adjustFixed = fixedNode(getScrollInfo())
+                adjustMove = fixFixedNode(getScrollInfo())
             }
         }
+    } else if (scrollNode) {
+        adjustMove = fixScrollNode(getScrollInfo(scrollNode))
     }
     let loc;
     let move;
@@ -90,8 +101,8 @@ const alignUI = (targetEl, floatEl, alignParams) =>
         toLoc = locItem;
         loc = getAlignWithLoc(toLoc);
         move = alignWith(targetInfo, floatInfo, loc);
-        if (adjustFixed) {
-            move = adjustFixed(move)
+        if (adjustMove) {
+            move = adjustMove(move)
         }
         if (!winInfo) {
             return true;
