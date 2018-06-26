@@ -56,17 +56,20 @@ class Checkbox extends PureComponent
         const beforeChecked = this.state.checked;
         const afterChecked = !this.state.checked;
         if (beforeClick) {
-            beforeClick(e, beforeChecked, afterChecked);
+            beforeClick(e, beforeChecked, afterChecked, this)
         }
         this.setState({
             checked: afterChecked
         });
         if (afterClick) {
-            afterClick(e, beforeChecked, afterChecked);
+            afterClick(e, beforeChecked, afterChecked, this)
         }
     }
 
-    handleChange = e => {}
+    handleChange = e => {
+        const {onChange} = this.props
+        onChange(e, this)
+    }
 
     render()
     {
