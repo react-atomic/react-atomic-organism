@@ -1,7 +1,7 @@
 import React, {cloneElement, isValidElement, PureComponent} from 'react'; 
 import get from 'get-object-value';
 import {
-    reactStyle,
+    lazyInject,
     mixClass,
     SemanticUI,
     Icon,
@@ -14,14 +14,14 @@ class Dropdown extends PureComponent
 {
     static defaultProps = {
         icon: true
-    };
+    }
 
     timer = null;
 
     state = {
         listStyle: {},
-        hideList: false
-    };
+        hideList: false,
+    }
 
     handleClick = () =>
     {
@@ -44,6 +44,12 @@ class Dropdown extends PureComponent
                 hideList: false 
             }));
         }
+    }
+
+    constructor(props)
+    {
+        super(props)
+        injects = lazyInject( injects, InjectStyles )
     }
 
     componentWillUnmount()
@@ -74,13 +80,6 @@ class Dropdown extends PureComponent
         let thisIcon = null;
         if (icon) {
             if (!isValidElement(icon)) {
-                reactStyle(
-                    {
-                        transform: ['rotate(180deg)']
-                    },
-                    '.ui.simple.dropdown:hover .dropdown-default-icon',
-                    'dropdown-default-icon'
-                );
                 thisIcon = (
                     <Icon 
                         className="dropdown-default-icon"
@@ -139,3 +138,27 @@ const Styles = {
     }
 };
 
+let injects;
+const InjectStyles = {
+    defaultIcon: [
+        {
+            transform: ['rotate(180deg)']
+        },
+        '.ui.simple.dropdown:hover .dropdown-default-icon',
+    ],
+    initMenu: [
+        {
+            display: 'none !important'
+        },
+        '.ui.simple.dropdown .menu'
+    ],
+    hoverMenu: [
+        {
+            display: 'block !important'
+        },
+        [
+            '.ui.simple.active.dropdown>.menu',
+            '.ui.simple.dropdown:hover>.menu'
+        ].join(',')
+    ]
+}
