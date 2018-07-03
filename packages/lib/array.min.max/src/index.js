@@ -6,7 +6,7 @@ class minMaxHelper {
     max = null
     min = null
     process = locater => data => {
-        if (!isArray(data)) {
+        if (!isArray(data) || !data.length) {
             return;
         }
         if ('function' !== typeof locater) {

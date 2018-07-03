@@ -24,6 +24,13 @@ describe('test get Min and Max', ()=>{
         expect(oMinMax.toArray()).to.deep.equal([1, 1]);
     })
 
+    it('empty array', () => {
+        const data = [] 
+        const oMinMax = new minMaxHelper();
+        oMinMax.process()(data);
+        expect(oMinMax.toArray()).to.deep.equal([null, null]);
+    })
+
     it('with locator', ()=>{
         const data = [{value: 10}, {value: 20}, {value: 21}];
         const oMinMax = new minMaxHelper();
