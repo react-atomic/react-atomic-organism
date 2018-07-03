@@ -60,6 +60,15 @@ if (areas && areas.length) {
         oMinMax.process(areaY1Locator)(areasValues)
     });
 }
+const trades = tradeRowsLocator(data)
+if (trades && trades.length) {
+    trades.forEach( trade => {
+        oMinMax.process()([
+            tradeHighLocator(trade),
+            tradeLowLocator(trade)
+        ])
+    })
+}
 
 return (
 <LineChart
