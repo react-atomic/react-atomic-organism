@@ -133,16 +133,20 @@ class BaseChart extends PureComponent
             this.xScale = xScale;
         } else {
             this.xScale = this.d3.scaleBand(
-                get(xAxisAttr, ['data'], ()=>valuesLocator(get(data,[0])) ),
+                get( xAxisAttr, ['data'], ()=>valuesLocator(get(data,[0], {})) ),
                 0,
                 scaleW,
                 xValueLocator
             );
         }
+        const yScaleData = get(yAxisAttr, ['data'],
+            () => valuesLocator(get(data,[0],{})).map( d => yValueLocator(d) )
+        );
+        if (!yScaleData) {
+            return false
+        }
         this.yScale = this.d3.scaleLinear(
-            get(yAxisAttr, ['data'], () => 
-                valuesLocator(get(data,[0])).map( d => yValueLocator(d) )
-            ),
+            yScaleData,
             scaleH,
             0,
             null,
