@@ -20,6 +20,9 @@ class minMaxHelper {
         }
         thisData.forEach(d => {
             d = locater(d);
+            if (isNaN(d)) {
+                return
+            }
             if (d > this.max) {
                 this.max = d;
             } else if (d < this.min) {
@@ -27,7 +30,7 @@ class minMaxHelper {
             }
         });
     }
-    toArray = () => [this.min, this.max]
+    toArray = () => [this.min, this.max].filter(n => null !== n)
 }
 
 export default minMaxHelper;
