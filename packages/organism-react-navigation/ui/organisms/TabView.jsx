@@ -25,7 +25,7 @@ class TabView extends PureComponent
 
     render()
     {
-        const {style, menuStyle, menu, body, disableSwitch, ...props} = this.props;
+        const {id, style, menuStyle, menu, body, disableSwitch, ...props} = this.props;
         const tabMenuItems = [];
         let state = this.state;
         let contentView = null;
@@ -94,7 +94,7 @@ class TabView extends PureComponent
             );
         }
         return (
-            <SemanticUI style={style}>
+            <SemanticUI style={style} id={id}>
                 {tabMenu}
                 {content}
             </SemanticUI>
