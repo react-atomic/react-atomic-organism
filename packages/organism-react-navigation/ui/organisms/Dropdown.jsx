@@ -103,7 +103,7 @@ class Dropdown extends PureComponent
             >
                 <Item
                     className="simple dropdown"
-                    style={{...Styles.title, titleStyle}}
+                    style={{...Styles.title, ...titleStyle}}
                 >
                     <SemanticUI style={Styles.label} onClick={this.handleClick}>
                         {children}
