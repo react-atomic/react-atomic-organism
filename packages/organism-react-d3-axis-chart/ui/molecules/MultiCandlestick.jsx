@@ -3,6 +3,7 @@ import {mixClass} from 'react-atomic-molecule';
 
 import Candlestick from '../molecules/Candlestick';
 import Group from '../molecules/Group';
+import get from 'get-object-value'
 
 const MultiCandlestick = ({
     tradeHighLocator,
@@ -17,10 +18,12 @@ const MultiCandlestick = ({
     yScale,
     children,
     d3
-}) => 
+}) => { 
+
+return (
 <Group className="data-group candle-stick-chart">
 {
-    valuesLocator(data).map((d, key)=>{
+    get(valuesLocator(data), null, []).map((d, key)=>{
         const x = xScale.scaler(xValueLocator(d));
         const open = tradeOpenLocator(d);
         const close = tradeCloseLocator(d);
@@ -52,6 +55,7 @@ const MultiCandlestick = ({
 }
 {children}
 </Group>
+)}
 
 MultiCandlestick.defaultProps = {
     valuesLocator: d => d.values,

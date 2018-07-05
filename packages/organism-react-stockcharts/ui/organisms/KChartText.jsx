@@ -29,9 +29,12 @@ const KChartText = ({
 {
 const index = xScale.scaler.invertIndex(crosshairX);
 if (isNaN(index) || index < 0 ) {
-    return null;
+    return null
 }
 const indexData = get( tradeRowsLocator(data), [index]);
+if (!indexData) {
+    return null
+}
 return (
 <Text>
     <Label>{i18nDate}</Label>

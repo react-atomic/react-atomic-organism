@@ -116,17 +116,21 @@ class StockChartCompute extends PureComponent
             ...props
         } = this.props;
         const {avgs, bbands} = this.state;
-        data.avgs = avgs;
-        data.bbands = bbands;
+        const chartData = {
+            avgs,
+            bbands,
+            raw: data
+        }
         return (
             <StockChart
-                data={data}
+                {...props}
+                data={chartData}
+                tradeRowsLocator={d => d.raw}
                 kChart={{
                    areaY0Locator: d => d.upper,
                    areaY1Locator: d => d.lower,
                    ...kChart
                 }}
-                {...props}
             />
         );
     }
