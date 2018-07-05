@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "React Navigation",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
