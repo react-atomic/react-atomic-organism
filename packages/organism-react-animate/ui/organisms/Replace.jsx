@@ -7,6 +7,11 @@ class Replace extends PureComponent
         interval: 5000,
     };
 
+    state = {
+        no: 0,
+        childs: {}
+    }
+
     handleExited = (node) =>
     {
         if (this.props.onExited) {
@@ -38,20 +43,6 @@ class Replace extends PureComponent
         this._time = setTimeout(this.handleNext, interval); 
     }
 
-    constructor(props)
-    {
-        super(props);
-        const childs = [];
-        Children.forEach(
-           props.children,
-           (c, key) => childs[key] = c
-        );
-        this.state = {
-            no: 0,
-            childs
-        };
-    }
-
     componentDidMount()
     {
         if (this._time) {
@@ -69,12 +60,20 @@ class Replace extends PureComponent
 
     static getDerivedStateFromProps(nextProps, prevState)
     {
-        const childs = [];
-        const {children} = nextProps;
+        const {children} = nextProps
+
+        if (children === prevState.prevChildren) {
+            return null
+        }
+
+        const childs = []
         Children.map(children, c => c).forEach(
             (child, key) => childs[key] = child
-        );
-        return {childs};
+        )
+        return {
+            childs,
+            prevChildren: children
+        }
     }
 
     render()
