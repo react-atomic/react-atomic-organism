@@ -1,31 +1,34 @@
 import React, {cloneElement, isValidElement, PureComponent, Children} from 'react'; 
 import {
     mixClass,
-    Item,
     SemanticUI
 } from 'react-atomic-molecule';
 
 class TabView extends PureComponent
 {
+    state = {}
+
     static defaultProps = {
-        disableSwitch: false
+        disableSwitch: false,
+        stackable: true,
+        selected: 0
     }
 
-    static getDerivedStateFromProps({selected}, prevState)
+    static getDerivedStateFromProps({selected}, {lastPropsSelected})
     {
-        return {selected};
+        if (lastPropsSelected !== selected) {
+            return {
+                lastPropsSelected: selected,
+                selected
+            }
+        } else {
+            return null
+        }
     }
-
-    constructor(props)
-    {
-        super(props);
-        const {selected} = props;
-        this.state = { selected };
-    } 
 
     render()
     {
-        const {style, menuStyle, menu, body, disableSwitch, ...props} = this.props;
+        const {style, menuStyle, menu, body, disableSwitch, stackable, rightMenu, ...props} = this.props;
         const tabMenuItems = [];
         let state = this.state;
         let contentView = null;
@@ -37,19 +40,22 @@ class TabView extends PureComponent
             let selected = (nodeKey === state.selected);
             Children.map(itemProps.children,(node, index)=>{
                if (index % 2 || 1 === Children.count(itemProps.children)) {
+                  const nodeProps = node.props
                   const nodeClasses = mixClass(
-                    node.props.className,
+                    nodeProps.className,
+                    'item',
                     {active: selected}
-                  );
+                  )
                   node = cloneElement(
                       node,
                       {
                           key: nodeKey,
                           selected,
                           className: nodeClasses,
+                          style: {...Styles.tabItem, ...nodeProps.style},
                           onClickCapture: (e) => { 
                               if (!disableSwitch) {
-                                  if (!node.props.disableSwitch) {
+                                  if (!nodeProps.disableSwitch) {
                                       this.setState({selected: nodeKey});
                                   }
                               }
@@ -87,9 +93,16 @@ class TabView extends PureComponent
         } else if (typeof menu === 'function') {
             tabMenu = menu(props, tabMenuItems);
         } else {
+            const menuClasses = mixClass(
+                'top attached tabular menu',
+                {
+                   stackable: stackable 
+                }
+            )
             tabMenu = (
-                <SemanticUI style={menuStyle} className="top attached tabular menu">
+                <SemanticUI style={menuStyle} className={menuClasses}>
                 {tabMenuItems}
+                {rightMenu}
                 </SemanticUI>
             );
         }
@@ -107,5 +120,9 @@ export default TabView;
 const Styles = {
     tabBody: {
         boxSizing: 'border-box'
+    },
+    tabItem: {
+        boxSizing: 'border-box',
+        cursor: 'pointer'
     }
 };
