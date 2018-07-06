@@ -11,7 +11,7 @@ class TabView extends PureComponent
     static defaultProps = {
         disableSwitch: false,
         stackable: true,
-        selected: 0
+        selected: true 
     }
 
     static getDerivedStateFromProps({selected}, {lastPropsSelected})
@@ -30,14 +30,20 @@ class TabView extends PureComponent
     {
         const {id, style, menuStyle, menu, body, disableSwitch, stackable, rightMenu, ...props} = this.props;
         const tabMenuItems = [];
-        let state = this.state;
+        let stateSelected = this.state.selected;
         let contentView = null;
         let content = null;
         let tabMenu;
         Children.map(props.children,(item, itemKey)=>{
-            let itemProps = item.props;
+            const itemProps = item.props;
+
+            // detect selected
             const nodeKey = itemProps.name || itemKey;
-            let selected = (nodeKey === state.selected);
+            if (true === stateSelected) {
+                stateSelected = nodeKey
+            }
+            const selected = (nodeKey === stateSelected);
+
             Children.map(itemProps.children,(node, index)=>{
                if (index % 2 || 1 === Children.count(itemProps.children)) {
                   const nodeProps = node.props
