@@ -12,6 +12,7 @@ import {
 
 describe('Test Handle New Url', ()=>{ 
    let uGlobal
+   let global 
    before( () => uGlobal = jsdom(null, {url: 'http://localhost'}))
    after( () => uGlobal() )
    class FakeComponent extends PureComponent 
