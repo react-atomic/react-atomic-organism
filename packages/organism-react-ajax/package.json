@@ -12,7 +12,6 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "es6-promise": "*",
     "get-object-value": "*",
     "immutable": "*",
     "reshow-flux": "*",
