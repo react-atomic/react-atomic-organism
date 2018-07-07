@@ -11,13 +11,17 @@ class AjaxPage extends PureComponent
     
     static defaultProps = {
         ajax: true,
-        themes: {}
+        themes: {},
+        win: null
     }
 
     constructor(props)
     {
         super(props);
-        /*Need put in constructor else AjaxLink will not get baseUrl*/
+        /** 
+         * Need put in constructor before render,
+         * else AjaxLink will not get baseUrl
+         */
         ajaxDispatch({
             type: 'config/set',
             params: props
@@ -25,19 +29,20 @@ class AjaxPage extends PureComponent
     }
 
     componentDidMount() {
-        const props = this.props;
-        const win = window;
         setImmediate(()=>{
-            if (win.WebSocket && props.webSocketUrl) {
+            const props = this.props
+            const win = get(props.win, null, () => window)
+            const webSocketUrl = props.webSocketUrl
+            if (win.WebSocket && webSocketUrl) {
                 ajaxDispatch({
                     type: 'ws/init',
                     params: {
-                        url: props.webSocketUrl
+                        url: webSocketUrl
                     }
                 });
             }
-        });
-        win.onpopstate = e => ajaxDispatch('updateWithUrl');
+            win.onpopstate = e => ajaxDispatch('updateWithUrl')
+        })
     }
 
     render()

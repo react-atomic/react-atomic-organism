@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -21,21 +21,24 @@
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.0",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-system-import-transformer": "*",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-plugin-transform-react-pure-class-to-function": "*",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "react": "^15.0.1"
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
+    "react": "^16.x",
+    "react-dom": "^16.x",
+    "react-test-renderer": "*"
   },
   "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
     "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublish": "npm run build"
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests",
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
     "build",
