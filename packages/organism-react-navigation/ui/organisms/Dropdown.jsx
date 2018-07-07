@@ -16,21 +16,22 @@ class Dropdown extends PureComponent
         icon: true
     }
 
-    timer = null;
+    menuTimer = null
+    titleTimer = null
 
     state = {
         listStyle: {},
         hideList: false,
     }
 
-    handleClick = () =>
+    handleTitleClick = () =>
     {
         this.setState({
             listStyle: {visibility: 'hidden'}
         });
-        this.timer = setTimeout(()=>this.setState({
+        this.titleTimer = setTimeout(()=>this.setState({
             listStyle: {visibility: 'inherit'}
-        }), 500);
+        }), 350);
     }
 
     handleMenuClick = () =>
@@ -40,9 +41,9 @@ class Dropdown extends PureComponent
             this.setState({
                 hideList: true 
             });
-            setTimeout(()=>this.setState({
+            this.menuTimer = setTimeout(()=>this.setState({
                 hideList: false 
-            }));
+            }), 300)
         }
     }
 
@@ -54,8 +55,11 @@ class Dropdown extends PureComponent
 
     componentWillUnmount()
     {
-        if (this.timer) { 
-            clearTimeout(this.timer);
+        if (this.titleTimer) {
+            clearTimeout(this.titleTimer);
+        }
+        if (this.menuTimer) {
+            clearTimeout(this.menuTimer);
         }
     }
 
@@ -105,7 +109,7 @@ class Dropdown extends PureComponent
                     className="simple dropdown"
                     style={{...Styles.title, ...titleStyle}}
                 >
-                    <SemanticUI style={Styles.label} onClick={this.handleClick}>
+                    <SemanticUI style={Styles.label} onClick={this.handleTitleClick}>
                         {children}
                         {thisIcon}
                     </SemanticUI>

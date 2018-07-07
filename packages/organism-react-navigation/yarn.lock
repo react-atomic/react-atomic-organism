@@ -879,8 +879,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.17.tgz#e40c47fd25516854c845a3537c0066e479286da4"
 
 react-atomic-molecule@*:
-  version "1.3.49"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.49.tgz#1deca33550145816149912bc59d78b6754a0f6a3"
+  version "1.3.50"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.50.tgz#dc8db92277bb05979d6b63136c47951ce94684c8"
   dependencies:
     class-lib "*"
     get-object-value "*"
