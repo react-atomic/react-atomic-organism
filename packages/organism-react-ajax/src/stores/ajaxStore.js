@@ -48,10 +48,13 @@ const initFakeWorker = () => {
 }
 
 const handleUpdateNewUrl = (state, action, url) => {
+  const prevUrl = state.get('currentLocation') 
   setImmediate(() => {
     const params = get(action, ["params"], {})
     const updateWithUrl = state.get("updateWithUrl")
-    updateWithUrl(url)
+    if (prevUrl !== url) {
+        updateWithUrl(url)
+    }
     if (params.disableAjax && false !== params.scrollBack) {
       smoothScrollTo(0)
     }
@@ -63,16 +66,13 @@ class AjaxStore extends ReduceStore {
     getInitialState()
     {
         const updateWithUrl = url => {
-            const state = this.getState();
-            if (state.get('currentLocation') !== url) {
-                ajaxDispatch({
-                    type: 'ajaxGet',
-                    params: {
-                        url,
-                        scrollBack: true
-                    }
-                });
-            }
+            ajaxDispatch({
+                type: 'ajaxGet',
+                params: {
+                    url,
+                    scrollBack: true
+                }
+            });
         }; 
         return Map({updateWithUrl});
     }
@@ -364,7 +364,7 @@ class AjaxStore extends ReduceStore {
     const url = get(action, ["params", "url"], document.URL)
     handleUpdateNewUrl(state, action, url)
     /**
-     * Should not update currentLocation in other place.
+     * "Do not change" currentLocation in other place.
      * such as ajaxGet,
      * Because this state should only trigger with bfchange.
      */
