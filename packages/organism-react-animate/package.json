@@ -1,6 +1,6 @@
 {
   "name": "organism-react-animate",
-  "version": "0.2.11",
+  "version": "0.2.13",
   "description": "React Animate",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -34,9 +34,9 @@
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
     "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build",
     "buildTest": "BABEL_ENV=build babel tests -d build/tests",
-    "test": "npm run build && npm run buildTest && mocha 'build/tests/**/*.js' -r jsdom-global/register"
+    "test": "npm run build && npm run buildTest && mocha 'build/tests/**/*.js' -r jsdom-global/register",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
     "build",

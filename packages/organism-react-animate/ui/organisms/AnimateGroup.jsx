@@ -96,7 +96,7 @@ class AnimateGroup extends PureComponent
                             {
                                 ...child.props,
                                 ...aniProps,
-                                key,
+                                key: get(child, ['props', 'name'], key),
                                 onExited: this.handleExited.bind(this, child),
                                 isCompiled: 1
                             },
@@ -115,12 +115,16 @@ class AnimateGroup extends PureComponent
 
     static getDerivedStateFromProps(nextProps, prevState)
     {
-        if (!CSSTransition) {
-            return null;
+        const stateChildren = prevState.children
+        if (!CSSTransition || !stateChildren) {
+            return null
         }
-        const props = nextProps;
-        const prevChildMapping = get(prevState, ['children'], {});
-        const nextChildMapping = getChildMapping(props.children);
+        const {children} = nextProps
+        if (children === prevState.prevChildren) {
+            return null
+        }
+        const prevChildMapping = get(stateChildren, null, {});
+        const nextChildMapping = getChildMapping(children);
         const all = {...prevChildMapping, ...nextChildMapping};
         keys(all).forEach( key => {
             const child = all[key];
@@ -138,7 +142,8 @@ class AnimateGroup extends PureComponent
             }
         });
         return {
-            children: all
+            children: all,
+            prevChildren: children
         };
     }
 
@@ -165,7 +170,7 @@ class AnimateGroup extends PureComponent
                     const newProps = {
                         ...childProps,
                         ...aniProps,
-                        key,
+                        key: get(child, ['props', 'name'], key),
                         isCompiled: true,
                         onExited: this.handleExited.bind(this, child),
                     };

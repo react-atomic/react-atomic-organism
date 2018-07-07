@@ -32,7 +32,7 @@ const handleStart = (classList, handler, delay, isExit, ing, node, isAppear) =>
                 );
             }
         }
-        if (handler) {
+        if ('function' === typeof handler) {
             handler(node, isAppear);
         }
     }, thisDelay);
@@ -54,7 +54,7 @@ const handleFinish = (classList, handler, isExit, node, isAppear) =>
             );
         }
     }
-    if (handler) {
+    if ('function' === typeof handler) {
         handler(node, isAppear);
     }
 }
