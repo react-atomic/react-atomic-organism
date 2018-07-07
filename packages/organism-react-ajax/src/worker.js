@@ -1,4 +1,4 @@
-require('es6-promise/auto');
+require('es6-promise/auto')
 import get, {getDefault} from 'get-object-value';
 
 var post;
