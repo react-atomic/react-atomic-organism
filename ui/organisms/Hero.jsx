@@ -50,6 +50,7 @@ export default Hero;
 
 const Styles = {
     hero: {
+        display: 'block',
         minHeight: '100vh',
         backgroundClip: 'content-box',
         backgroundSize: 'cover',
