@@ -20,7 +20,7 @@ const getFromTo = (from, to) =>
 
 const BasePage = (props)=>
 {
-    const {component, className,  children, style, url} = props;
+    const {component, className,  children, style, url, rel} = props;
     let build;
     let classes;
     if (React.isValidElement(component)) {
@@ -33,6 +33,7 @@ const BasePage = (props)=>
     return build(
         component,
         {
+            rel,
             title: getFromTo(props[0], props[1]),
             className: classes,
             href: url,
@@ -49,12 +50,24 @@ const Page = (props)=>(
     <BasePage {...props}>{props.currentPage}</BasePage>
 );
 
-const Forward = (props)=>(
-    <BasePage style={{display:'inline'}} {...props}>{'> '+ props.txtMore}</BasePage>
+const Forward = props => (
+    <BasePage 
+        {...props}
+        style={{display:'inline'}}
+        rel="next"
+    >
+        {'> '+ props.txtMore}
+    </BasePage>
 );
 
-const Backward = (props)=>(
-    <BasePage style={{display:'inline'}} {...props}>{'<'}</BasePage>
+const Backward = props => (
+    <BasePage
+        {...props}
+        style={{display:'inline'}}
+        rel="prev"
+    >
+        {'<'}
+    </BasePage>
 );
 
 const Current = (props)=>(
