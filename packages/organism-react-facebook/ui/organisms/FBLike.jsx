@@ -106,18 +106,20 @@ class FBLike extends Component
             },
             <FBIcon style={Styles.fbSvg}/>
        );
-        let pageLink;
+
+       let pageLink;
        if (href && page !== href) {
            pageLink = ( 
                <Icon styles={injects.icon} style={{left:0}}>
                    {build(
                         linkComponent,
-                        { href: href, target: pageTarget},
+                        { href: href, target: pageTarget, rel: 'bookmark'},
                         <LinkIcon style={Styles.linkSvg}/>
                     )}
                </Icon>
            );
        }
+
        return (
         <SemanticUI style={Styles.container}>
             <Icon styles={injects.icon}>
