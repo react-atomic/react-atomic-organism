@@ -117,8 +117,11 @@ const ajaxPost = ({url, action}) =>
 
 const closeWs = url =>
 {
-    arrWs[url].close();
-    delete arrWs[url];
+    if (arrWs[url]) {
+        arrWs[url].close();
+        delete arrWs[url];
+    }
+    return !arrWs[url]
 }
 
 const initWs = url => params =>
