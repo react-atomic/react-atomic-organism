@@ -1,28 +1,40 @@
-const callbacks = []
+class NonWorker 
+{
+    callbacks = []
 
-const input = {
-    postMessage: data =>
+    constructor()
     {
-        const e = {
-            data: data
+        let post
+        try {
+            post = postMessage;
+            post({ type: "ready" })
+        } catch (e) {
+            post = data =>
+            {
+                const e = { data }
+                this.callbacks.forEach( c => c(e) )
+            }
         }
-        onmessage(e)
-    },
-    addEventListener:
-        (type, callback) => callbacks.push(callback)
-}
+        this.post = post
+    }
 
-try {
-    post = postMessage;
-    post({ type: "ready" })
-} catch (e) {
-    post = data =>
+    onMessage = callback =>
     {
-        const e = {
-            data: data
+        this.onmessage = callback
+        if ('undefined' === typeof window) {
+            onmessage = callback
         }
-        callbacks.forEach( c => c(e) )
+        return this
+    }
+
+    addEventListener = (type, callback) =>
+        this.callbacks.push(callback)
+
+    postMessage = data =>
+    {
+        const e = { data }
+        this.onmessage(e)
     }
 }
 
-export {input, post}
+export default NonWorker  
