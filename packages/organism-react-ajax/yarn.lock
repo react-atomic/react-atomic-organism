@@ -1368,6 +1368,10 @@ nomnom@~1.6.2:
     colors "0.5.x"
     underscore "~1.4.4"
 
+non-worker@*:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/non-worker/-/non-worker-0.0.0.tgz#4d647057ac65c3cbcd78d827985fd7400f4ec60c"
+
 nopt@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/nopt/-/nopt-4.0.1.tgz#d0d4685afd5415193c8c7505602d0d17cd64474d"
