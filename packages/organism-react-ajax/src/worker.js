@@ -1,40 +1,11 @@
 require('es6-promise/auto')
 import get, {getDefault} from 'get-object-value';
+import nonWorker from 'non-worker'
 
-var post;
-const callbacks = [];
 const keys = Object.keys;
 const arrWs = {};
 
-try {
-    post = postMessage;
-    post({ type: "ready" });
-} catch (e) {
-    post = (data) =>
-    {
-        const e = {
-            data: data
-        };
-        callbacks.forEach((c)=>{
-            c(e); 
-        });
-    };
-}
-export default {
-    postMessage: (data) =>
-    {
-        const e = {
-            data: data
-        };
-        onmessage(e);      
-    },
-    addEventListener: (type, callback) =>
-    {
-        callbacks.push(callback);        
-    }
-};
-
-onmessage = (e) =>
+const handleMessage = e =>
 {
     const data = get(e, ['data']);
     switch (data.type) 
@@ -52,7 +23,11 @@ onmessage = (e) =>
             ajaxPost(data);
             break;
     }
-};
+}
+
+const oNonWorker = new nonWorker().onMessage(handleMessage)
+const post = oNonWorker.post
+export default oNonWorker
 
 const ajaxGet = ({url, action}) =>
 {

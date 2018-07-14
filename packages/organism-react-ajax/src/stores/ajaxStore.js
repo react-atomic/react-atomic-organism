@@ -1,5 +1,4 @@
-"use strict"
-
+require("setimmediate")
 import { Map } from "immutable"
 import { ReduceStore } from "reshow-flux"
 import get, { getDefault } from "get-object-value"

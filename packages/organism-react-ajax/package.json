@@ -14,6 +14,7 @@
   "dependencies": {
     "es6-promise": "4.2.4",
     "get-object-value": "*",
+    "non-worker": "*",
     "immutable": "*",
     "reshow-flux": "*",
     "smooth-scroll-to": "*",
