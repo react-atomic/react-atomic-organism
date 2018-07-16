@@ -7,10 +7,13 @@ import get from 'get-object-value';
 
 import Text from '../molecules/Text';
 import Group from '../molecules/Group';
+import Line from '../molecules/Line';
 
 const keys = Object.keys;
 
 const Label = ({
+    color,
+    invertedColor,
     children,
     value,
     x,
@@ -28,7 +31,7 @@ const Label = ({
     if (!get(textAttr, ['hide'])) {
         delete textAttr.hide;
         text = (
-            <Text {...textAttr}>
+            <Text {...textAttr} fill={color}>
                 {children}
             </Text>
         );
@@ -37,9 +40,8 @@ const Label = ({
         <Group
             transform={`translate(${x}, ${y})`}
         >
-            <SemanticUI
-                stroke="#000"
-                atom="line"
+            <Line
+                stroke={color}
                 {...lineAttr}
             />
             {text}
@@ -48,6 +50,8 @@ const Label = ({
 }
 
 const Axis = ({
+    color,
+    invertedColor,
     className,
     data,
     scale,
@@ -59,8 +63,7 @@ const Axis = ({
     hideCrosshair,
     hideCrosshairLabel,
     ...props
-}) =>
-{
+}) => {
     const {list, scaler} = scale;
     let thisCrosshairLabel = null; 
     if ( !hideCrosshairLabel &&
@@ -72,27 +75,34 @@ const Axis = ({
         thisCrosshairLabel = cloneElement(
             crosshairLabel,
             {
-                children: format(scaler.invert(crosshairValue)),
-                value: crosshairValue
-            }
-        );
+                value: crosshairValue,
+                color,
+                invertedColor,
+            },
+            format(scaler.invert(crosshairValue))
+        )
     }
-
     return (
         <Group
             transform={transform}
             style={{fontSize:12}}
             className={mixClass('axis', className)}
         >
-            <SemanticUI atom="path" d={path} />
+            <SemanticUI
+                atom="path"
+                d={path}
+                fill={color}
+            />
             {
-               list && keys(list).map( (k, i) =>
+               list && keys(list).map( key =>
                     <Label
+                        key={key}
+                        color={color}
+                        invertedColor={invertedColor}
                         {...props}
-                        {...list[k]}
-                        key={i}
+                        {...list[key]}
                     >
-                        {format(k)}
+                        {format(key)}
                     </Label>
                )
             }
@@ -102,7 +112,9 @@ const Axis = ({
 }
 
 Axis.defaultProps = {
-    format: i=>i
+    format: i=>i,
+    color: '#454545',
+    invertedColor: '#fff'
 };
 
 export default Axis;

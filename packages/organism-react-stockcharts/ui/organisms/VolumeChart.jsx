@@ -19,19 +19,21 @@ const VolumesAttrsLocator = openLocator => closeLocator => d =>
 const VolumeChart = ({
     tradeOpenLocator,
     tradeCloseLocator,
-    data,
+    xAxisAttr,
+    yAxisAttr,
     ...props
 }) => {
 return ( 
     <BarChart
         {...resetProps(props)}
-        data={data}
         xAxisAttr={{
-            textRotate: -45
+            textRotate: -45,
+            ...xAxisAttr
         }}
         yAxisAttr={{
             num: 3,
-            format:yFormat 
+            format:yFormat,
+            ...yAxisAttr
         }}
         hideCrosshairXLabel={true}
         attrsLocator={VolumesAttrsLocator(tradeOpenLocator)(tradeCloseLocator)}

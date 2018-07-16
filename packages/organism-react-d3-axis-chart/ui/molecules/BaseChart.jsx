@@ -110,6 +110,8 @@ class BaseChart extends PureComponent
             scaleH,
             xAxisAttr,
             yAxisAttr,
+            color,
+            invertedColor,
             xScale,
 
             /*crosshair*/
@@ -159,6 +161,8 @@ class BaseChart extends PureComponent
                     scale={this.xScale}
                     length={scaleW}
                     height={scaleH}
+                    color={color}
+                    invertedColor={invertedColor}
                     {...xAxisAttr}
                     key="xaxis"
                     crosshairValue={crosshairX}
@@ -170,6 +174,8 @@ class BaseChart extends PureComponent
                 <YAxis
                     scale={this.yScale}
                     length={scaleH}
+                    color={color}
+                    invertedColor={invertedColor}
                     {...yAxisAttr}
                     key="yaxis"
                     crosshairValue={crosshairY}

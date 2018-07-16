@@ -18,8 +18,9 @@ const YAxis = ({length, ...props}) =>
                 }
             }}
             lineAttr={{
-                x2: -6,
-                y2: 0
+              svgLine: true,
+              start: {x: 0, y: 0},
+              end: {x:-6, y:0}
             }}
             crosshairLabel={<YAxisLabel />}
             {...props}

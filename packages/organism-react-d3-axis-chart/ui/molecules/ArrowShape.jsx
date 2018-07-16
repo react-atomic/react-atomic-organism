@@ -9,6 +9,7 @@ const ArrowShape = ({color, ...props}) =>
       /*points="-10,8.25 0,0 0,16.5"*/
         points="10,8.5 0,16.5 0,0"
         fill={color}
+        stroke={color}
     />
 
 export default ArrowShape;

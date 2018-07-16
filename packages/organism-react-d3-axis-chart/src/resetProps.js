@@ -12,6 +12,11 @@ const resetProps = ({
     valuesLocator,
     xScale,
     onMouseMove,
+    xAxisAttr,
+    yAxisAttr,
+    data,
+    color,
+    invertedColor,
 }) =>
 ({
     scaleH,
@@ -26,6 +31,10 @@ const resetProps = ({
     valuesLocator,
     xScale,
     onMouseMove,
+    xAxisAttr,
+    yAxisAttr,
+    data,
+    color,
+    invertedColor,
 })
-
-export default resetProps;
+export default resetProps

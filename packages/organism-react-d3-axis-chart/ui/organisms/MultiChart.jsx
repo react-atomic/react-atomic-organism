@@ -41,11 +41,13 @@ class MultiChart extends Component
     }
 
     resize = () => {
-        const {w, h} = this.getParentWH(); 
-        this.setState({
-            scaleW: w,
-            scaleH: h,
-        });
+        setTimeout(()=>{
+            const {w, h} = this.getParentWH()
+            this.setState({
+                scaleW: w,
+                scaleH: h,
+            })
+        })
     }
 
     handleEl = el => {

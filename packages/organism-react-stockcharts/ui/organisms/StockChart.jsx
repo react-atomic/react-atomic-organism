@@ -63,6 +63,10 @@ class StockChart extends PureComponent
             autoScale,
             onClick,
             transform,
+            xAxisAttr,
+            yAxisAttr,
+            color,
+            invertedColor,
             ...props
         } = this.props;
         return (
@@ -74,6 +78,7 @@ class StockChart extends PureComponent
             scaleH={scaleH}
             transform={transform}
             className="stock-chart"
+
             //  Init XAxis
             data={tradeRowsLocator(data)}
             valuesLocator={d => d}
@@ -94,6 +99,10 @@ class StockChart extends PureComponent
                 tradeVolumeLocator={tradeVolumeLocator}
                 kChartOverlays={kChartOverlays}
                 thresholds={thresholds}
+                xAxisAttr={xAxisAttr}
+                yAxisAttr={yAxisAttr}
+                color={color}
+                invertedColor={invertedColor}
                 {...kChart}
            />
            {
@@ -104,6 +113,10 @@ class StockChart extends PureComponent
                     {
                         key,
                         multiChart: "sub",
+                        color,
+                        invertedColor,
+                        xAxisAttr,
+                        yAxisAttr,
                         ...this.props,
                         ...subCharts[key],
                     }
@@ -118,6 +131,10 @@ class StockChart extends PureComponent
                 valuesLocator={d => d}
                 tradeOpenLocator={tradeOpenLocator}
                 tradeCloseLocator={tradeCloseLocator}
+                xAxisAttr={xAxisAttr}
+                yAxisAttr={yAxisAttr}
+                color={color}
+                invertedColor={invertedColor}
            />
         </MultiChart>
         );

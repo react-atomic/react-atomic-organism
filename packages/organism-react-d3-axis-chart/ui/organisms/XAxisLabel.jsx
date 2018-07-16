@@ -5,12 +5,12 @@ import Rect from '../molecules/Rect';
 import Text from '../molecules/Text';
 import get from 'get-object-value';
 
-const textWidth = 7.7;
+const textWidth = 7.2;
 
-const XAxisLabel = ({children, value, ...props}) =>
+const XAxisLabel = ({color, invertedColor, children, value, ...props}) =>
 {
-    let width = textWidth * get(children,['length'],0);
-    let halfWidth = width / 2;
+    const width = textWidth * get(children,['length'],0);
+    const halfWidth = width / 2;
     if (value >= halfWidth) {
         value -= halfWidth;
     }
@@ -21,15 +21,17 @@ const XAxisLabel = ({children, value, ...props}) =>
         {...props}
     >
         <Rect
-            fill="#454545"
+            fill={color}
             x="0"
-            height="16.5"
+            height="16"
             width={width}
         />
         <Text
-            x="4"
-            y="12"
-            fill="#fff"
+            x={halfWidth}
+            y="8"
+            fill={invertedColor}
+            textAnchor="middle"
+            alignmentBaseline="central"
         >
             {children}
         </Text>

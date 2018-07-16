@@ -37,6 +37,9 @@ const {
     tradeLowLocator,
     tradeCloseLocator,
     tradeVolumeLocator,
+    xAxisAttr,
+    yAxisAttr,
+    color,
     ...others,
 } = props;
 let {areaXLocator} = props;
@@ -80,15 +83,19 @@ return (
     data={linesLocator(data)} 
     hideAxis={hideAxis}
     xAxisAttr={{
+        ...xAxisAttr,
         textAttr: {
+            ...get(xAxisAttr, ['textAttr'], {}),
             hide: true
         }
     }}
     yAxisAttr={{
+        ...yAxisAttr,
         format:yFormat,
         data: oMinMax.toArray()
     }}
     multiChart="main"
+    color={color}
 >
    {
     keys(kChartOverlays).map( key => {
@@ -96,6 +103,7 @@ return (
            createElement(
             overlays[key],
             {
+                color,
                 key,
                 areaXLocator,
                 ...props,
@@ -105,7 +113,7 @@ return (
        );
     })
    }
-   <KChartText {...props} />
+   <KChartText color={color} {...props} />
    {children}
 </LineChart>
 );

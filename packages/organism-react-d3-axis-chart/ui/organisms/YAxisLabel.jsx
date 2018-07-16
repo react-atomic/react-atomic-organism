@@ -8,7 +8,7 @@ import ArrowShape from '../molecules/ArrowShape';
 const width = 37;
 const height = 16.5;
 
-const YAxisLabel = ({color, children, value, ...props}) =>
+const YAxisLabel = ({color, invertedColor, children, value, ...props}) =>
 {
     const yPos = value - height /2;
     return (
@@ -24,12 +24,12 @@ const YAxisLabel = ({color, children, value, ...props}) =>
             width={width}
         />
         <ArrowShape
-            fill={color}
+            color={color}
         />
         <Text
             x={-width+2}
             y="12"
-            fill="#fff"
+            fill={invertedColor}
         >
             {children}
         </Text>
@@ -39,6 +39,6 @@ const YAxisLabel = ({color, children, value, ...props}) =>
 
 YAxisLabel.defaultProps = {
     color: '#454545'
-};
+}
 
-export default YAxisLabel;
+export default YAxisLabel

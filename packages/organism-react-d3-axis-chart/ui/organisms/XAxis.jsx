@@ -9,14 +9,18 @@ const XAxis = ({
     textRotate,
     transform,
     textAttr,
+    lineAttr,
     ...props
 }) => {
-    let params = {
+    
+    const params = {
        path: `M0,1V0H${length}V1`,
        y: 0,
        lineAttr: {
-          x2: 0,
-          y2: 6
+          svgLine: true,
+          start: {x: 0, y: 0},
+          end: {x:0, y:6},
+          ...lineAttr
        },
        crosshairLabel: <XAxisLabel />,
        className: 'x-axis',
@@ -24,39 +28,32 @@ const XAxis = ({
     };
     
     if ('undefined' === typeof transform && height) {
-        params = {
-            ...params,
-            transform: `translate(0, ${height})`
-        };
+        params.transform = `translate(0, ${height})`
     }
 
+    let thisTextAttr;
     if (textRotate) {
-        params = {
-            ...params,
-            textAttr: {
-                x: 0,
-                y: 9,
-                dx: '-.8em',
-                dy: '-.55em',
-                transform: `rotate(${textRotate})`,
-                style: {
-                    textAnchor: 'end' 
-                },
-                ...textAttr
-            }
+        thisTextAttr = {
+            x: 0,
+            y: 9,
+            dx: '-.8em',
+            dy: '-.55em',
+            transform: `rotate(${textRotate})`,
+            style: {
+                textAnchor: 'end' 
+            },
+            ...textAttr
         };
     } else {
-        params = {
-            ...params,
-            textAttr: {
-                y: 20,
-                style: {
-                    textAnchor: 'middle' 
-                },
-                ...textAttr
-            }
+        thisTextAttr = {
+            y: 20,
+            style: {
+                textAnchor: 'middle' 
+            },
+            ...textAttr
         };
     }
+    params.textAttr = thisTextAttr
     return createElement(
         Axis,
         params
