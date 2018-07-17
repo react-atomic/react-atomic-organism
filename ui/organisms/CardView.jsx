@@ -44,12 +44,12 @@ const CardView = (props) =>
 
     /*Cook Image*/
     if (imageSrc) {
-       let imgWrapperDom;
-       if (href) {
-            imgWrapperDom = 'a'; 
-       }
        if (!imageWrapper) {
-            imageWrapper = <SemanticUI />;
+           let imgWrapperAtom;
+           if (href) {
+                imgWrapperAtom = 'a'; 
+           }
+           imageWrapper = <SemanticUI atom={imgWrapperAtom} />;
        }
        if (!imageContainer) {
             imageContainer = <Image />;
@@ -57,7 +57,6 @@ const CardView = (props) =>
        image = React.cloneElement(
             imageWrapper,
             {
-                atom: imgWrapperDom,
                 className: 'image-wrapper',
                 href: href,
                 style: Styles.imgWrapper,
