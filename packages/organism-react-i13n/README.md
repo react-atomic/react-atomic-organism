@@ -2,7 +2,7 @@ React I13N
 ===============
 <!--hidden-->
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-13n 
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-i13n 
    * NPM
       * https://www.npmjs.com/package/organism-react-i13n 
 
