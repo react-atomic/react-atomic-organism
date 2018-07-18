@@ -140,7 +140,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                     <Icon
                         key="hamburger-icon"
                         className="hamburger-icon"
-                        style={{...Styles.hamburgerIcon, ...iconStyle}}
+                        style={Styles.hamburgerIcon}
                         onClick={this.handleOn}
                     >
                         <HamburgerIcon on={this.state.on} />
