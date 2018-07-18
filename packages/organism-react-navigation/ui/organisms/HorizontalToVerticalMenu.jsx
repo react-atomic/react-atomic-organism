@@ -74,7 +74,6 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                 brand,
                 component,
                 nav,
-                iconStyle,
                 style,
                 className,
                 children,
