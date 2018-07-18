@@ -41,6 +41,10 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
     }
     class HorizontalToVerticalMenu extends PureComponent
     {
+        state = {
+            on: false
+        }
+
         static defaultProps = {
             component: SemanticUI,
             brand: null,
@@ -57,14 +61,11 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
 
         constructor(props) 
         {
-            super(props);
-            this.state = {
-                on: false
-            };
+            super(props)
             injects = lazyInject (
                 injects,
                 InjectStyles
-            );
+            )
         }
 
         render()
@@ -72,8 +73,8 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
             const {
                 brand,
                 component,
-                getStyle,
                 nav,
+                iconStyle,
                 style,
                 className,
                 children,
@@ -139,7 +140,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
                     <Icon
                         key="hamburger-icon"
                         className="hamburger-icon"
-                        style={Styles.hamburgerIcon}
+                        style={{...Styles.hamburgerIcon, ...iconStyle}}
                         onClick={this.handleOn}
                     >
                         <HamburgerIcon on={this.state.on} />
