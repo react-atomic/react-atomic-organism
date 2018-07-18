@@ -10,7 +10,7 @@ import XAxis from '../organisms/XAxis';
 import YAxis from '../organisms/YAxis';
 import Crosshair from '../organisms/Crosshair';
 
-const adjustX = 50;
+const adjustX = 60;
 const adjustY = 20;
 
 class BaseChart extends PureComponent
@@ -184,7 +184,7 @@ class BaseChart extends PureComponent
                 />
             );
         } else {
-            thisExtraViewBox = 50;
+            thisExtraViewBox = adjustX
         }
         if (thresholds) {
             thresholds.forEach( (threshold, key) => {

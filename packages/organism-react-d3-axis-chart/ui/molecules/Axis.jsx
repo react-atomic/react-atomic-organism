@@ -22,9 +22,9 @@ const Label = ({
     textAttr,
     ...props
 }) => {
-    if ("undefined" === typeof(x)) {
+    if ("undefined" === typeof x) {
         x = value;
-    } else if ("undefined" === typeof(y)) {
+    } else if ("undefined" === typeof y) {
         y = value;
     }
     let text;

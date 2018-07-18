@@ -40,6 +40,8 @@ const {
     xAxisAttr,
     yAxisAttr,
     color,
+    invertedColor,
+    kChartText,
     ...others,
 } = props;
 let {areaXLocator} = props;
@@ -90,12 +92,13 @@ return (
         }
     }}
     yAxisAttr={{
-        ...yAxisAttr,
         format:yFormat,
+        ...yAxisAttr,
         data: oMinMax.toArray()
     }}
     multiChart="main"
     color={color}
+    invertedColor={invertedColor}
 >
    {
     keys(kChartOverlays).map( key => {
@@ -104,6 +107,7 @@ return (
             overlays[key],
             {
                 color,
+                invertedColor,
                 key,
                 areaXLocator,
                 ...props,
@@ -113,7 +117,12 @@ return (
        );
     })
    }
-   <KChartText color={color} {...props} />
+   <KChartText
+     color={color}
+     invertedColor={invertedColor}
+     {...props}
+     {...kChartText}
+   />
    {children}
 </LineChart>
 );

@@ -1,9 +1,9 @@
 import React from 'react'; 
+import get from 'get-object-value';
 
 import Group from '../molecules/Group';
 import Rect from '../molecules/Rect';
 import Text from '../molecules/Text';
-import get from 'get-object-value';
 
 const textWidth = 7.2;
 

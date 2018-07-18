@@ -5,13 +5,29 @@ import {
 } from 'organism-react-d3-axis-chart';
 import get from 'get-object-value';
 
-const Label = props => <Span fill="#4682b4" dx="10" {...props} />
-const Item = props => <Span {...props} />
+const Item = ({dx, dy, x, labelColor, color, header, text}) => 
+([
+    <Span 
+        key="header"
+        fill={labelColor}
+        x={x}
+        dx={dx}
+        dy={dy}
+    >
+        {header}
+    </Span>,
+    <Span key="text" fill={color}>
+        {text}
+    </Span>
+])
 
 const KChartText = ({
     data,
     xScale,
     crosshairX,
+    labelColor,
+    color,
+    vertical,
     tradeRowsLocator,
     tradeDateLocator,
     tradeOpenLocator,
@@ -25,6 +41,7 @@ const KChartText = ({
     i18nLow,
     i18nClose,
     i18nVolume,
+    style,
 }) =>
 {
 const index = xScale.scaler.invertIndex(crosshairX);
@@ -35,20 +52,50 @@ const indexData = get( tradeRowsLocator(data), [index]);
 if (!indexData) {
     return null
 }
+const itemProps = {
+    labelColor,
+    color,
+    dx: 10
+}
+const newLineProps = {}
+if (vertical) {
+    newLineProps.dy = 20 
+    newLineProps.x = 0 
+}
+
 return (
-<Text>
-    <Label>{i18nDate}</Label>
-    <Item>{tradeDateLocator(indexData)}</Item>
-    <Label>{i18nOpen}</Label>
-    <Item>{tradeOpenLocator(indexData)}</Item>
-    <Label>{i18nHigh}</Label>
-    <Item>{tradeHighLocator(indexData)}</Item>
-    <Label>{i18nLow}</Label>
-    <Item>{tradeLowLocator(indexData)}</Item>
-    <Label>{i18nClose}</Label>
-    <Item>{tradeCloseLocator(indexData)}</Item>
-    <Label>{i18nVolume}</Label>
-    <Item>{tradeVolumeLocator(indexData)}</Item>
+<Text style={style} className="kchart-text">
+    <Item
+        {...itemProps}
+        header={i18nDate}
+        text={tradeDateLocator(indexData)}
+    />
+    <Item
+        {...itemProps}
+        header={i18nOpen}
+        text={tradeOpenLocator(indexData)}
+    />
+    <Item
+        {...itemProps}
+        header={i18nHigh}
+        text={tradeHighLocator(indexData)}
+    />
+    <Item
+        {...itemProps}
+        header={i18nLow}
+        text={tradeLowLocator(indexData)}
+    />
+    <Item
+        {...itemProps}
+        {...newLineProps}
+        header={i18nClose}
+        text={tradeCloseLocator(indexData)}
+    />
+    <Item
+        {...itemProps}
+        header={i18nVolume}
+        text={tradeVolumeLocator(indexData)}
+    />
 </Text>
 );
 }
@@ -60,6 +107,10 @@ KChartText.defaultProps = {
     i18nLow: 'L:',
     i18nClose: 'C:',
     i18nVolume: 'V:',
+    vertical: false,
+    labelColor: '#4682b4',
+    color: '#000',
+    style: {fontSize: 12}
 };
 
 export default KChartText;
