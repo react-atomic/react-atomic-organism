@@ -19,6 +19,12 @@ export const getHorizontalToVerticalMenu = (Styles, merge) =>
             },
             '.page-header.active'
         ], 
+        navActive: [
+            {
+                display: 'block !important'
+            },
+            '.page-header.active nav'
+        ],
         lgHeaderNav: [
             {
                 display: [
@@ -190,10 +196,8 @@ const defaultStyles = {
         overflow: 'hidden',
         boxSizing: 'border-box',
     },
-    brand: {
-    },
     nav: {
-        display: 'block'
+        display: 'none'
     }
 };
 
