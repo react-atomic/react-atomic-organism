@@ -156,8 +156,7 @@ const initWs = url => params =>
         ws.onclose = e => {
             isWsConnect = false;
         };
-    };
-    create(url);
+    }
 
     const ping = () =>
     {
@@ -172,7 +171,14 @@ const initWs = url => params =>
             }
             ping();
         },15000);
-    };
-    ping();
+    }
+
+    if (!arrWs[url]) {
+        ping()
+        create(url)
+    } else {
+        arrWs[url].close()
+        create(url)
+    }
 };
 
