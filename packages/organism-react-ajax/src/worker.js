@@ -124,22 +124,41 @@ const closeWs = url =>
     return !arrWs[url]
 }
 
-const initWs = url => params =>
-{
-    let ws;
-    let isWsConnect;
-    const create = url =>
+class WebSocketHelper {
+    ws
+    isWsConnect = false
+    pingTimeout
+    url
+    params
+
+    constructor(url, params)
     {
-        ws = new WebSocket(url);
+       this.url = url
+       this.params = params
+       this.open() 
+    }
+
+    open()
+    {
+        if (this.isWsConnect )
+        {
+            return
+        }
+        const url = this.url
+        const params = this.params
+        const ws = new WebSocket(url)
+        this.ws = ws
         ws.onopen = e => {
-            isWsConnect = true;
-            arrWs[url] = ws;
-            const {messages} = params;
+            this.isWsConnect = true
+            this.ping()
+            const {messages} = params
             if (get(messages,['length'])) {
-                messages.forEach( m => ws.send(JSON.stringify(m)) );
+                messages.forEach( m => ws.send(JSON.stringify(m)) )
             }
-        };
-        ws.onerror = e => { };
+        }
+        ws.onerror = e => {
+            this.isWsConnect = false
+        }
         ws.onmessage = e => {
             switch (e.data) {
                 case 'pong': 
@@ -152,33 +171,42 @@ const initWs = url => params =>
                     });
                     break;
             }
-        };
+        }
         ws.onclose = e => {
-            isWsConnect = false;
-        };
+            this.isWsConnect = false
+            console.warn('WS close', url)
+        }
     }
 
-    const ping = () =>
+    close()
     {
-        setTimeout(()=>{
-            if (!arrWs[url]) {
-                return;
-            }
-            if (!isWsConnect) {
-                create(url);
+        this.ws.close()
+        clearTimeout(this.pingTimeout)
+    }
+
+    ping = ()=>
+    {
+        this.pingTimeout = setTimeout(()=>{
+            if (!this.isWsConnect) {
+                console.warn(this.url, 'ajaxws-restore')
+                this.open()
             } else {
-                ws.send(JSON.stringify({type:'ping'})); 
+                this.ws.send(JSON.stringify({type:'ping'}))
             }
-            ping();
-        },15000);
+            this.ping()
+        },15000)
+    }
+}
+
+const initWs = url => params =>
+{
+    const create = () =>
+    {
+        arrWs[url] = new WebSocketHelper(url, params)
     }
 
     if (!arrWs[url]) {
-        ping()
-        create(url)
-    } else {
-        arrWs[url].close()
         create(url)
     }
-};
+}
 
