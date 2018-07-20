@@ -5,6 +5,8 @@ import {
 import get from 'get-object-value';
 import getoffset from 'getoffset';
 
+const adjustX = 60;
+
 class MultiChart extends Component
 {
     d3 = {};
@@ -164,7 +166,7 @@ class MultiChart extends Component
                         {
                             ...params,
                             scaleH: mainChartScaleH,
-                            transform: `translate(50, ${high - mainChartScaleH})`,
+                            transform: `translate(adjustX, ${high - mainChartScaleH})`,
                         }
                     );
                 } else {
@@ -174,7 +176,7 @@ class MultiChart extends Component
                         {
                             ...params,
                             scaleH: subChartScaleH,
-                            transform: `translate(50, ${high - subChartScaleH})`,
+                            transform: `translate(adjustX, ${high - subChartScaleH})`,
                         }
                     );
                 }
