@@ -166,7 +166,7 @@ class MultiChart extends Component
                         {
                             ...params,
                             scaleH: mainChartScaleH,
-                            transform: `translate(adjustX, ${high - mainChartScaleH})`,
+                            transform: `translate(${adjustX}, ${high - mainChartScaleH})`,
                         }
                     );
                 } else {
@@ -176,7 +176,7 @@ class MultiChart extends Component
                         {
                             ...params,
                             scaleH: subChartScaleH,
-                            transform: `translate(adjustX, ${high - subChartScaleH})`,
+                            transform: `translate(${adjustX}, ${high - subChartScaleH})`,
                         }
                     );
                 }
