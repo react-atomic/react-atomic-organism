@@ -37,15 +37,19 @@ class Iframe extends PureComponent
     {
        const {keepTargetInIframe} = this.props
        const body = this.getBody()
-       const {queryOne} = queryFrom(()=>body)
+       const {queryOne, queryAncestor} = queryFrom(()=>body)
        body.addEventListener('click',  e =>{
-          const target = e.target
-          if ('_blank' === target.target.toLowerCase()) {
+          const evTarget = e.target
+          const link = (evTarget.nodeName === 'A') ? evTarget : queryAncestor(evTarget, 'a')
+          if (!link) {
               return
           }
-          if (target.hash) { 
+          if (link.target && '_blank' === link.target.toLowerCase()) {
+              return
+          }
+          if (link.hash) { 
               e.preventDefault()
-              const tarDom = queryOne(target.hash)
+              const tarDom = queryOne(link.hash)
               if (tarDom) {
                   smoothScrollTo(getOffset(tarDom).top)
                   return
@@ -55,8 +59,8 @@ class Iframe extends PureComponent
             return
           } else {
              e.preventDefault()
-             if (target.href) {
-                  location.href = target.href
+             if (link.href) {
+                  location.href = link.href
              }
           }
        })

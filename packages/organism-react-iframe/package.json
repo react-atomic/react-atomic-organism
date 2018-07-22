@@ -1,6 +1,6 @@
 {
   "name": "organism-react-iframe",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Rendering to iFrames in React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
