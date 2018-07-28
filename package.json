@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -11,6 +11,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "array.merge": "*",
     "get-object-value": "*",
     "react-atomic-molecule": "*",
     "ricon": "*",

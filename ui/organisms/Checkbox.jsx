@@ -1,10 +1,13 @@
-import React, {PureComponent} from 'react'; 
+import React, {PureComponent} from 'react'
+
+import arrayMerge from 'array.merge'
 
 import {
+    lazyInject,
     mixClass,
     Field,
     SemanticUI
-} from 'react-atomic-molecule';
+} from 'react-atomic-molecule'
 
 let checkboxId = 0;
 
@@ -26,25 +29,31 @@ const InputWrapper = ({toggle, slider, type, checked, ...props}) =>
 
 class Checkbox extends PureComponent
 {
+   state = {}
    constructor(props) 
    {
        super(props);
-       this.state = {
-            checked: props.checked,
-       };
-       this.id = props.id;
-       if (!this.id) {
-           this.id = 'react-checkbox-'+ checkboxId;
-           checkboxId++;
-       }
+       injects = lazyInject( injects, InjectStyles )
    }
 
-   componentWillReceiveProps(nextProps)
+   static getDerivedStateFromProps(nextProps, prevState)
    {
-        const {checked} = nextProps;
-        if (checked !== this.state.checked) {
-            this.setState({checked });
+        const {checked} = nextProps
+        let {id} = nextProps
+        const nextState = {}
+        if (checked !== prevState.checked) {
+            nextState.checked = checked
         }
+        if (!id) {
+            if (!prevState.id) {
+                id = 'react-checkbox-'+ checkboxId
+                checkboxId++
+            }
+        }
+        if (id) {
+            nextState.id = id
+        }
+        return nextState
    }
 
     handleClick = (e) =>
@@ -75,22 +84,25 @@ class Checkbox extends PureComponent
 
     render()
     {
-        const {toggle, label, slider, type, style, beforeClick, afterClick, ...props} = this.props;
-        const {checked: stateChecked} = this.state;
-        let thisLabel = label;
-        if (!thisLabel) {
-            thisLabel = ' ';
+        const {toggle, label, slider, type, fieldStyles, beforeClick, afterClick, ...props} = this.props;
+        const {checked: stateChecked, id} = this.state;
+        let thisLabel = ' '
+        if (label) {
+            thisLabel = label
         }
         return (
            <Field
                 {...{
                     ...props,
                     type,
-                    id: this.id,
+                    id,
                     label: thisLabel,
                     checked: stateChecked,
                     onChange: this.handleChange,
-                    style: {...Styles.checkbox, ...style}
+                    fieldStyles: arrayMerge(
+                        injects.checkbox,
+                        fieldStyles    
+                    )
                 }}
                 inputWrapper={
                     <InputWrapper 
@@ -116,8 +128,11 @@ Checkbox.defaultProps = {
 
 export default Checkbox;
 
-const Styles = {
-    checkbox: {
-        margin: 0
-    }
-};
+let injects
+const InjectStyles = {
+    checkbox: [
+        {
+            margin: 0
+        }
+    ]
+}

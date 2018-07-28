@@ -1,13 +1,16 @@
-require("setimmediate");
-import React, {PureComponent} from 'react'; 
-import ReactDOM from 'react-dom';
-import get from 'get-object-value';
-import { SemanticUI } from 'react-atomic-molecule';
-import {js} from 'create-el';
+require("setimmediate")
+import React, {PureComponent} from 'react'
+import ReactDOM from 'react-dom'
+import get from 'get-object-value'
+import getOffset from 'getoffset'
+import smoothScrollTo from 'smooth-scroll-to'
+import { SemanticUI } from 'react-atomic-molecule'
+import { js } from 'create-el'
+import { queryFrom } from 'css-query-selector'
 
-import IframeContainer from '../organisms/IframeContainer';
+import IframeContainer from '../organisms/IframeContainer'
 
-const keys = Object.keys;
+const keys = Object.keys
 
 class Iframe extends PureComponent
 {
@@ -26,9 +29,41 @@ class Iframe extends PureComponent
         this.handleScript(div);
     }
 
-    getBody = ()=>
+    getBody = ()=> this.el.contentWindow.document.body
+
+    getWindow = ()=> this.el.contentWindow.window
+
+    handleClickLink()
     {
-        return this.el.contentWindow.document.body;
+       const {keepTargetInIframe} = this.props
+       const body = this.getBody()
+       const {queryOne, queryAncestor} = queryFrom(()=>body)
+       body.addEventListener('click',  e =>{
+          const evTarget = e.target
+          const link = (evTarget.nodeName === 'A') ? evTarget : queryAncestor(evTarget, 'a')
+          if (!link) {
+              return
+          }
+          if (link.target && '_blank' === link.target.toLowerCase()) {
+              return
+          }
+          if (link.hash) { 
+              e.preventDefault()
+              const tarDom = queryOne(link.hash)
+              if (tarDom) {
+                  smoothScrollTo(getOffset(tarDom).top)
+                  return
+              }
+          }
+          if (keepTargetInIframe) {
+            return
+          } else {
+             e.preventDefault()
+             if (link.href) {
+                  location.href = link.href
+             }
+          }
+       })
     }
 
     handleScript = (el) =>
@@ -43,7 +78,7 @@ class Iframe extends PureComponent
             }
             if (!keys(queueScripts).length) {
                 inlineScripts.forEach((script, key)=>{
-                    this.el.contentWindow.window.eval(script);
+                    this.getWindow().eval(script);
                 });
                 inlineScripts = [];
             }
@@ -80,7 +115,8 @@ class Iframe extends PureComponent
                () => {
                     const html = this.root.innerHTML;
                     if (html !== this.html) {
-                        this.handleScript(this.root);
+                        this.handleScript(this.root)
+                        this.handleClickLink()
                     }
                }
             );
@@ -107,7 +143,7 @@ class Iframe extends PureComponent
 
     render()
     {
-        const {children, ...others} = this.props;
+        const {children, keepTargetInIframe, ...others} = this.props;
         return (
             <IframeContainer
                 {...others}
@@ -115,6 +151,10 @@ class Iframe extends PureComponent
             />
         ); 
     }
+}
+
+Iframe.defaultProps = {
+    keepTargetInIframe: false 
 }
 
 export default Iframe;

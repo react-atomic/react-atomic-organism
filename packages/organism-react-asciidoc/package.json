@@ -1,23 +1,21 @@
 {
-  "name": "organism-react-d3-axis-chart",
-  "version": "0.1.21",
-  "description": "D3 Axis Chart",
+  "name": "organism-react-asciidoc",
+  "version": "0.0.1",
+  "description": "Rendering asciidoc to iFrames with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [
-    "react",
-    "react-component"
+    "react"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "colorlib": "*",
-    "d3-lib": "*",
-    "getoffset": "*",
+    "organism-react-iframe": "*",
+    "get-object-value": "*",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "babel-cli": "^6.x",
     "react": "^16.x",
     "react-dom": "^16.x"
   },

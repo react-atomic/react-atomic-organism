@@ -300,6 +300,10 @@ create-el@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/create-el/-/create-el-0.0.1.tgz#c63e50e5dbca5eda1feaa8cd0a0a724897b6a5af"
 
+css-query-selector@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/css-query-selector/-/css-query-selector-0.0.4.tgz#420806b38cd04f2190d40b6a4da8cd88f5b35abb"
+
 debug@^2.1.2, debug@^2.6.8, debug@^2.6.9:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -323,6 +327,10 @@ detect-indent@^4.0.0:
 detect-libc@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
+
+easing-lib@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/easing-lib/-/easing-lib-0.0.4.tgz#dde31723eee24545f203776cb26a1c142e79df01"
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -433,6 +441,16 @@ get-object-value@*:
 get-safe-reg@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.1.tgz#101da6fbf510c3b73e6db04f07f7674ee0c4e25f"
+
+get-scroll-info@*:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.0.14.tgz#4dc7dfee6846e665757ce02f137abefd36ecb808"
+
+getoffset@*:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.9.tgz#680e7c8767a55e0f19a8b0c010d4bd63c5c1c2fb"
+  dependencies:
+    get-scroll-info "*"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -993,6 +1011,13 @@ signal-exit@^3.0.0:
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
+
+smooth-scroll-to@*:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/smooth-scroll-to/-/smooth-scroll-to-0.0.14.tgz#8d2678b8b62bcbe7c3d434e13bc16e206b927b17"
+  dependencies:
+    easing-lib "*"
+    get-scroll-info "*"
 
 source-map-support@^0.4.15:
   version "0.4.18"

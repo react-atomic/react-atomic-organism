@@ -73,9 +73,9 @@ class Dropdown extends PureComponent
             list,
             {
                 style: {
+                    ...Styles.list,
                     ...listStyle,
                     ...stateListStyle,
-                    marginTop: -1, //aviod not expected hover out
                 },
                 onClick: this.handleMenuClick
             }
@@ -139,6 +139,11 @@ const Styles = {
         width: 24,
         height: 24,
         marginTop: -5
+    },
+    list: {
+        marginTop: -1, //aviod not expected hover out
+        maxHeight: '50vh',
+        overflow: 'auto'
     }
 };
 
