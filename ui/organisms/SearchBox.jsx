@@ -5,7 +5,7 @@ import {
     List
 } from 'react-atomic-molecule';
 
-const SearchBox = ({results, ...props}) =>
+const SearchBox = ({results, resultsStyle, ...props}) =>
 {
     const classes = mixClass (
         props.className,
@@ -13,9 +13,9 @@ const SearchBox = ({results, ...props}) =>
     );
     if (results) {
         results = (
-            <List type="results">
-                {results.map((item)=>
-                    <SemanticUI className="result">{item}</SemanticUI>
+            <List type="results" style={{...Styles.results, ...resultsStyle}}>
+                {results.map( (item, key) =>
+                    <SemanticUI className="result" key={key}>{item}</SemanticUI>
                 )}
             </List>
         );
@@ -31,3 +31,9 @@ const SearchBox = ({results, ...props}) =>
 }
 
 export default SearchBox;
+
+const Styles = {
+    results: {
+        display: 'block'
+    }
+}
