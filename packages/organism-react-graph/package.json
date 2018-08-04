@@ -1,7 +1,7 @@
 {
-  "name": "organism-react-d3-uml",
+  "name": "organism-react-graph",
   "version": "0.0.0",
-  "description": "React D3 UML",
+  "description": "React Graph",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
   "keywords": [

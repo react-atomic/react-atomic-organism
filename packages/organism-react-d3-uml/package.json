@@ -11,8 +11,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "colorlib": "*",
     "d3-lib": "*",
+    "organism-react-graph": "*",
     "getoffset": "*",
     "react-atomic-molecule": "*"
   },
