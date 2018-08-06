@@ -228,6 +228,33 @@ const scaleLinear = (
     };
 }
 
+/**
+ * Events, DnD, Zoom
+ */ 
+const d3DnD = ({el, start, end, drag, subject}) =>
+{
+    let dd = d3.
+        drag().
+        container(el)
+    if (start) {
+        dd = dd.on('start', start)
+    }
+    if (end) {
+        dd = dd.on('end', end)
+    }
+    if (drag) {
+        dd = dd.on('drag', drag)
+    }
+    if (subject) {
+        dd = dd.subject(subject)
+    }
+    d3Select(el).call(dd)
+}
+
+const d3Event = () => d3.event
+
+const d3Select = el => d3.select(el)
+
 
 export {
     line,
@@ -238,5 +265,8 @@ export {
     colors,
     scaleBand,
     scaleLinear,
+    d3DnD,
+    d3Event,
+    d3Select,
 };
 
