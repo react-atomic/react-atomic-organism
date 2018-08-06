@@ -21,10 +21,10 @@ const SearchBox = ({results, resultsStyle, ...props}) =>
         );
     }
     return (
-      <SemanticUI {...props}
+      <SemanticUI 
         className={classes}
       >
-        <SemanticUI atom="input" className="prompt" type="text" />
+        <SemanticUI atom="input" className="prompt" type="text" {...props} />
         {results}
       </SemanticUI>
     );
