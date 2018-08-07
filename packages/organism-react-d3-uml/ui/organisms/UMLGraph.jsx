@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react'
 import {Graph, Rect} from 'organism-react-graph'
-import DragAndDrop from './DragAndDrop'
+
+import BoxGroup from './BoxGroup'
+import Box from './Box'
 
 class UMLGraph extends PureComponent
 {
@@ -8,9 +10,14 @@ class UMLGraph extends PureComponent
     {
         return (
             <Graph>
-                <DragAndDrop>
-                    <Rect width="100" height="100" />
-                </DragAndDrop>
+                <BoxGroup>
+                    <Box>col1</Box>
+                    <Box>col2</Box>
+                </BoxGroup>
+                <BoxGroup>
+                    <Box>col1</Box>
+                    <Box>col2</Box>
+                </BoxGroup>
             </Graph> 
         )
     }
