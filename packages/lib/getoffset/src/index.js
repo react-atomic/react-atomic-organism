@@ -1,25 +1,37 @@
 'use strict';
 import getScrollInfo from 'get-scroll-info'; 
 
-const mouse = (e, dom, scrollNode) => {
+const mouse = (e, dom, scrollNode) => 
+{
     if (!dom) {
         dom = e.currentTarget;
     }
-    const svg = dom.ownerSVGElement || dom;
     const x = e.clientX;
     const y = e.clientY;
+    const svgXY = toSvgXY(dom)(x, y)
+    if (false !== svgXY) {
+        return svgXY
+    } else {
+        const domXY = getOffset(dom, scrollNode)
+        return [
+            x - domXY.left - dom.clientLeft,
+            y - domXY.top - dom.clientTop
+        ]
+    }
+}
+
+const toSvgXY = dom => (x, y) => 
+{
+    const svg = dom.ownerSVGElement || dom;
     if (svg.createSVGPoint) {
         let point = svg.createSVGPoint();
         point.x = x;
         point.y = y;
         point = point.matrixTransform(dom.getScreenCTM().inverse());
         return [point.x, point.y];
+    } else {
+        return false
     }
-    const domXY = getOffset(dom, scrollNode);
-    return [
-        x - domXY.left - dom.clientLeft,
-        y - domXY.top - dom.clientTop
-    ];
 }
 
 const getOffset = (dom, scrollNode) => {
@@ -62,5 +74,5 @@ const getOffset = (dom, scrollNode) => {
     return result;
 }
 
-export {mouse};
-export default getOffset;
+export {mouse, toSvgXY}
+export default getOffset
