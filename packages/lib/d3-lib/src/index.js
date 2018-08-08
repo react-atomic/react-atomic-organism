@@ -9,15 +9,18 @@ const isArray = Array.isArray;
 
 const getCurveType = () =>
 {
-    return d3.curveCatmullRom.alpha(0.5);
+    return d3.curveCatmullRom.alpha(0.5)
 }
 
 // https://github.com/d3/d3-shape/blob/master/README.md#lines
-const line = (start, end) =>
+const line = (start, end, curve) =>
 {
-    const l = d3.line().
+    let l = d3.line().
         x((d)=>d.x).
         y((d)=>d.y);
+    if (curve) {
+        l = l.curve(d3.curveCatmullRomClosed.alpha(0.5))
+    }
     return l([start, end]);
 }
 
