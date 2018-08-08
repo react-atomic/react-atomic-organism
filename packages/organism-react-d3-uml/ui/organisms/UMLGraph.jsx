@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent, cloneElement} from 'react'
 import {Graph, Rect, Circle} from 'organism-react-graph'
 import get from 'get-object-value'
 
@@ -8,6 +8,7 @@ import Line from '../organisms/Line'
 
 let lineCounts = 0
 const keys = Object.keys
+let lazeTimer;
 
 class UMLGraph extends PureComponent
 {
@@ -15,32 +16,46 @@ class UMLGraph extends PureComponent
         lines: {}    
     }
 
+    startPoint = null
+    endPoint = null
+
     addLine()
     {
         const name = 'line-'+lineCounts
         lineCounts++
-        const lineEl = <Line key={name} name={name} />
         this.setState(({lines})=>{
-            lines[name] = lineEl
-            return lines
+            lines[name] = {} 
+            return {lines}
         })
         return name
     }
 
     updateLine(name, start, end)
     {
-        const lineEl = <Line key={name} name={name} start={start} end={end} />
-        this.setState(({lines})=>{
-            lines[name] = lineEl
-            return lines
+        if (lazeTimer) {
+            clearTimeout(lazeTimer)
+            lazeTimer = false
+        }
+        lazeTimer = setTimeout(()=>{
+            this.setState(({lines})=>{
+                lines[name] = {
+                    start,
+                    end
+                } 
+                return {lines: {...lines}}
+            })
         })
     }
 
     deleteLine(name)
     {
+        if (lazeTimer) {
+            clearTimeout(lazeTimer)
+            lazeTimer = false
+        }
         this.setState(({lines})=>{
             delete lines[name]
-            return lines
+            return {lines: {...lines}}
         })
     }
 
@@ -49,12 +64,41 @@ class UMLGraph extends PureComponent
         return this.el
     }
 
+    setConnectStartPoint(el)
+    {
+        this.startPoint = el
+        return this.startPoint
+    }
+
+    getConnectStartPoint()
+    {
+        return this.startPoint
+    }
+
+    setConnectEndPoint(el)
+    {
+        this.endPoint = el
+    }
+
+    getConnectEndPoint(el)
+    {
+        return this.endPoint
+    }
+
+    componentWillUnmount() 
+    {
+        if (lazeTimer) {
+            clearTimeout(lazeTimer)
+            lazeTimer = false
+        }
+    }
+
     render()
     {
-        const {data} = this.props
+        const {data, ...props} = this.props
         const {lines} = this.state
         return (
-            <Graph refCb={el => this.el = el}>
+            <Graph refCb={el => this.el = el} {...props}>
                 {
                     get(data, ['tables'], []).map(
                         (item, tbKey) => 
@@ -78,7 +122,7 @@ class UMLGraph extends PureComponent
                 }
                 {
                     keys(lines).map(
-                        key => lines[key] 
+                        key => <Line {...lines[key]} name={key} key={key}/> 
                     )
                 }
             </Graph> 

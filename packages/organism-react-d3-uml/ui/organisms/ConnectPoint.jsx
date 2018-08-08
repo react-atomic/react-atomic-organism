@@ -28,6 +28,7 @@ class ConnectPoint extends PureComponent
         start.center = this.getCenter()
         start.lineId = lineId
         this.start = {...start} 
+        host.setConnectStartPoint(this)
     }
 
     handleDrag = e =>
@@ -42,6 +43,34 @@ class ConnectPoint extends PureComponent
         })
     }
 
+    handleDragEnd = e =>
+    {
+        const {onShow, host} = this.props
+        const endPoint = host.getConnectEndPoint(this)
+        const {lineId} = this.start 
+        if (endPoint) {
+
+        } else {
+            host.setConnectStartPoint(null)
+            host.deleteLine(lineId)
+            onShow(false)
+        }
+    }
+
+    handleMouseEnter = e =>
+    {
+        const {host} = this.props
+        const startPoint = host.getConnectStartPoint()
+        if (startPoint) {
+            host.setConnectEndPoint(this)
+        }
+    }
+
+    handleMouseLeave = e =>
+    {
+        const {host} = this.props
+        host.setConnectEndPoint(null)
+    }
 
     getCenter()
     {
@@ -69,8 +98,10 @@ class ConnectPoint extends PureComponent
                 absY={absY}
                 onAbsXY={this.handleAbsXY}
                 onDragStart={this.handleDragStart}
-                onDragEnd={()=>onShow(false)}
+                onDragEnd={this.handleDragEnd}
                 onDrag={this.handleDrag}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
                 component={(
                     <Circle 
                         fill="#3c5d9b"
