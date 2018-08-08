@@ -28,7 +28,7 @@ class Box extends PureComponent
 
     render()
     {
-        const {children, refCb, x, y, width, height} = this.props 
+        const {children, host, refCb, x, y, width, height} = this.props 
         const {showConnectPoint} = this.state
         const translate = `translate(${x}, ${y})` 
         const cy = -(height / 2 - 5)
@@ -38,6 +38,7 @@ class Box extends PureComponent
         }
         const connectPoints = [
             <ConnectPoint
+                host={host}
                 key="left"
                 cy={cy}
                 cx={-12}
@@ -45,6 +46,7 @@ class Box extends PureComponent
                 style={connectPointStyle}
             />,
             <ConnectPoint 
+                host={host}
                 key="right"
                 cx={width+12}
                 cy={cy}

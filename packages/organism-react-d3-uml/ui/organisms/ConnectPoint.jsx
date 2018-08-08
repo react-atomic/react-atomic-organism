@@ -1,43 +1,73 @@
 import React, {PureComponent} from 'react'
 import {Circle} from 'organism-react-graph'
+import getOffset, {mouse, toSvgXY} from 'getoffset'
+import getStyle from 'get-style'
+import {d3Select} from 'd3-lib'
 
 import DragAndDrop from './DragAndDrop'
 
 class ConnectPoint extends PureComponent
 {
     state = {
-        x: 0,
-        y: 0
+        absX: 0,
+        absY: 0
     }
 
-    handleXY = (x, y) =>
+    start = {}
+
+    handleAbsXY = (absX, absY) =>
     {
-        this.setState({x, y})
+        this.setState({absX, absY})
     }
 
     handleDragStart = start =>
     {
-        const {onShow} = this.props
+        const {onShow, host} = this.props
         onShow(true)
-        console.log(start)
+        const lineId = host.addLine()
+        start.center = this.getCenter()
+        start.lineId = lineId
+        this.start = {...start} 
     }
 
-    handleDrag = () =>
+    handleDrag = e =>
     {
-        const {x, y} = this.state        
+        const {host} = this.props
+        const {lineId, center} = this.start
+        const el = host.getEl()
+        const end = mouse(e, el)
+        host.updateLine(lineId, center, {
+            x: end[0],
+            y: end[1]
+        })
+    }
+
+
+    getCenter()
+    {
+        const el = this.dnd.getEl()
+        const bbox = el.getBBox()
+        const ctm = el.getCTM() 
+        const region = el.getBoundingClientRect() 
+        const {left, top, width, height} = region
+
+        const x = Math.floor(bbox.x + ctm.e + width / 2)
+        const y = Math.floor(bbox.y + ctm.f + height / 2)
+        return {x, y} 
     }
 
     render()
     {
-        const {onShow, style, ...props} = this.props
-        const {x, y} = this.state        
+        const {host, onShow, style, ...props} = this.props
+        const {absX, absY} = this.state        
         return (
             <DragAndDrop
                 {...props}
+                ref={el => this.dnd = el}
                 style={{...style}}
-                x={x}
-                y={y}
-                onXY={this.handleXY}
+                absX={absX}
+                absY={absY}
+                onAbsXY={this.handleAbsXY}
                 onDragStart={this.handleDragStart}
                 onDragEnd={()=>onShow(false)}
                 onDrag={this.handleDrag}

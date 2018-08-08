@@ -1,12 +1,12 @@
 import React, {PureComponent, cloneElement, createElement, isValidElement} from 'react'
-import {d3DnD, d3Event, d3Select} from 'd3-lib'
+import {d3DnD, d3Event} from 'd3-lib'
 import getOffset from 'getoffset'
 
 class DragAndDrop extends PureComponent
 {
     static defaultProps = {
-        x: 0,
-        y: 0
+        absX: 0,
+        absY: 0
     }
 
     start = {}
@@ -21,8 +21,8 @@ class DragAndDrop extends PureComponent
         this.start = {
             x,
             y,
-            absX: (pageX - offset.left) * 2,
-            absY: (pageY - offset.top) * 2,
+            elAbsX: (pageX - offset.left) * 2,
+            elAbsY: (pageY - offset.top) * 2,
         }
         if ('function' === typeof onDragStart) {
             onDragStart(this.start)
@@ -31,17 +31,16 @@ class DragAndDrop extends PureComponent
 
     handleDrag = () =>
     {
-        const {onDrag} = this.props
-        if ('function' === typeof onDrag) {
-            onDrag()
-        }
         const e = d3Event()
         const {x: moveX, y: moveY} = e
-        const {x: startX, y: startY, absX, absY} = this.start
-        let {x, y, onXY} = this.props
-        x += startX + moveX - absX
-        y += startY + moveY - absY
-        onXY(x, y)
+        const {x: startX, y: startY, elAbsX, elAbsY} = this.start
+        let {absX, absY, onAbsXY, onDrag} = this.props
+        absX += startX + moveX - elAbsX
+        absY += startY + moveY - elAbsY
+        onAbsXY(absX, absY)
+        if ('function' === typeof onDrag) {
+            onDrag(e.sourceEvent)
+        }
     }
 
     handleEnd = () =>
@@ -69,8 +68,7 @@ class DragAndDrop extends PureComponent
 
     render()
     {
-        const {component, style, onXY, x, y, onDragStart, onDrag, onDragEnd, ...props} = this.props
-        const translate = `translate(${x}, ${y})`
+        const {component, style, onAbsXY, absX, absY, onDragStart, onDrag, onDragEnd, ...props} = this.props
         const build = (isValidElement(component)) ?
             cloneElement :
             createElement
