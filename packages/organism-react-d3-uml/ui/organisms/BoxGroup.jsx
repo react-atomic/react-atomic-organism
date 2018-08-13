@@ -93,6 +93,7 @@ class BoxGroup extends PureComponent
                 <BoxGroupHeader width={rectW}>{get(data, ['name'])}</BoxGroupHeader>
                 {Children.map(children, (c, ck) => cloneElement(c, {
                     key: ck,
+                    pos: translate,
                     host,
                     x: 5,
                     y: get(boxsPos, [ck, 'y'], 0),

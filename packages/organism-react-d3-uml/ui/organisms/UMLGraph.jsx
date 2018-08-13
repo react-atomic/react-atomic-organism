@@ -18,6 +18,7 @@ class UMLGraph extends PureComponent
 
     startPoint = null
     endPoint = null
+    updateQueue = {}
 
     addLine()
     {
@@ -32,17 +33,24 @@ class UMLGraph extends PureComponent
 
     updateLine(name, start, end)
     {
+        const {lines} = this.state
+        this.updateQueue[name] = {
+            start: get(start, null, ()=>
+                get(lines, [name, 'start'], 0)
+            ),
+            end: get(end, null, ()=>
+                get(lines, [name, 'end'], 0)
+            ),
+        } 
         if (lazeTimer) {
             clearTimeout(lazeTimer)
             lazeTimer = false
         }
         lazeTimer = setTimeout(()=>{
             this.setState(({lines})=>{
-                lines[name] = {
-                    start,
-                    end
-                } 
-                return {lines: {...lines}}
+                lines = {...lines, ...this.updateQueue}
+                this.updateQueue = {}
+                return {lines}
             })
         })
     }

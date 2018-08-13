@@ -28,30 +28,28 @@ class Box extends PureComponent
 
     render()
     {
-        const {children, host, refCb, x, y, width, height} = this.props 
+        const {pos, children, host, refCb, x, y, width, height} = this.props 
         const {showConnectPoint} = this.state
         const translate = `translate(${x}, ${y})` 
         const cy = -(height / 2 - 5)
-        let connectPointStyle = Styles.invisible
-        if (showConnectPoint) {
-            connectPointStyle = {}
-        }
         const connectPoints = [
             <ConnectPoint
+                show={showConnectPoint}
+                pos={pos}
                 host={host}
                 key="left"
                 cy={cy}
                 cx={-12}
                 onShow={this.setIsConnectPointDrag}
-                style={connectPointStyle}
             />,
-            <ConnectPoint 
+            <ConnectPoint
+                show={showConnectPoint}
+                pos={pos}
                 host={host}
                 key="right"
                 cx={width+12}
                 cy={cy}
                 onShow={this.setIsConnectPointDrag}
-                style={connectPointStyle}
             />
         ]
         return (
@@ -72,8 +70,3 @@ class Box extends PureComponent
 
 export default Box
 
-const Styles = {
-    invisible: {
-        visibility: 'hidden'
-    }
-}

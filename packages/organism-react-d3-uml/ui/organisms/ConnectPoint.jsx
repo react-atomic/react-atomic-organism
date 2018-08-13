@@ -6,6 +6,8 @@ import {d3Select} from 'd3-lib'
 
 import DragAndDrop from './DragAndDrop'
 
+const keys = Object.keys
+
 class ConnectPoint extends PureComponent
 {
     state = {
@@ -13,7 +15,9 @@ class ConnectPoint extends PureComponent
         absY: 0
     }
 
-    start = {}
+    start = false 
+
+    lines = {}
 
     handleAbsXY = (absX, absY) =>
     {
@@ -35,12 +39,16 @@ class ConnectPoint extends PureComponent
     {
         const {host} = this.props
         const {lineId, center} = this.start
-        const el = host.getEl()
-        const end = mouse(e, el)
-        host.updateLine(lineId, center, {
-            x: end[0],
-            y: end[1]
-        })
+        const elEnd = host.getConnectEndPoint()
+        let endXY
+        if (elEnd) { 
+            endXY = elEnd.getCenter() 
+        } else {
+            const el = host.getEl()
+            const end = mouse(e, el)
+            endXY = { x: end[0], y: end[1] }
+        }
+        host.updateLine(lineId, center, endXY)
     }
 
     handleDragEnd = e =>
@@ -49,12 +57,14 @@ class ConnectPoint extends PureComponent
         const endPoint = host.getConnectEndPoint(this)
         const {lineId} = this.start 
         if (endPoint) {
-
+            this.setLine(lineId, 'from')
+            endPoint.setLine(lineId, 'to')
         } else {
             host.setConnectStartPoint(null)
             host.deleteLine(lineId)
             onShow(false)
         }
+        this.start = false 
     }
 
     handleMouseEnter = e =>
@@ -72,6 +82,11 @@ class ConnectPoint extends PureComponent
         host.setConnectEndPoint(null)
     }
 
+    setLine(id, type)
+    {
+        this.lines[id] = type
+    }
+
     getCenter()
     {
         const el = this.dnd.getEl()
@@ -85,15 +100,53 @@ class ConnectPoint extends PureComponent
         return {x, y} 
     }
 
+    isShow()
+    {
+        let {show} = this.props
+        if (this.start) {
+            show = true 
+        }
+        const linesLen = keys(this.lines).length
+        if (linesLen) {
+            show = true 
+        }
+        return show
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot)
+    {
+        const {pos} = this.props
+        if (pos === prevProps.pos) {
+            return
+        }
+        const lineKeys = keys(this.lines)
+        if (lineKeys.length) {
+            const {host} = this.props
+            const center = this.getCenter()
+            lineKeys.forEach( lineId => {
+                const lineType = this.lines[lineId]
+                if ('from' === lineType) {
+                    host.updateLine(lineId, center)
+                } else {
+                    host.updateLine(lineId, null, center)
+                }
+            })
+        }
+    }
+
     render()
     {
-        const {host, onShow, style, ...props} = this.props
+        const {pos, host, onShow, style, show, ...props} = this.props
         const {absX, absY} = this.state        
+        let thisStyle = { ...Styles.container, ...style }
+        if (this.isShow()) {
+            thisStyle = {...Styles.visible}
+        }
         return (
             <DragAndDrop
                 {...props}
                 ref={el => this.dnd = el}
-                style={{...style}}
+                style={thisStyle}
                 absX={absX}
                 absY={absY}
                 onAbsXY={this.handleAbsXY}
@@ -115,3 +168,12 @@ class ConnectPoint extends PureComponent
 }
 
 export default ConnectPoint
+
+const Styles = {
+    container: {
+        visibility: 'hidden'
+    },
+    visible: {
+        visibility: 'visible'
+    }
+}
