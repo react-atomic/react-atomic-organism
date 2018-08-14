@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import {Group, Text} from 'organism-react-graph'
+import {Group, Text, Rect} from 'organism-react-graph'
 import ConnectPoint from '../organisms/ConnectPoint'
 
 class Box extends PureComponent

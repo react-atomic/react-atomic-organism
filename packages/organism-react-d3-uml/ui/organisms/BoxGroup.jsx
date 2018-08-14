@@ -20,7 +20,7 @@ class BoxGroupHeader extends PureComponent
                 style={Styles.boxGroupHeader}
             >
                 <Rect x="0" y="-20" rx="5" width={width} height="20" fill="#aaa"></Rect>
-                <Text x="10" y="-5" fill="#fff">{children}</Text>
+                <Text y="-5" alignCenter parentWidth={width} fill="#fff">{children}</Text>
             </Group>
         )
     }

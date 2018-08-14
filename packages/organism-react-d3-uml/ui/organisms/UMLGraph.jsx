@@ -26,7 +26,7 @@ class UMLGraph extends PureComponent
         lineCounts++
         this.setState(({lines})=>{
             lines[name] = {} 
-            return {lines}
+            return {lines: {...lines}}
         })
         return name
     }
@@ -48,9 +48,18 @@ class UMLGraph extends PureComponent
         }
         lazeTimer = setTimeout(()=>{
             this.setState(({lines})=>{
-                lines = {...lines, ...this.updateQueue}
+                keys(this.updateQueue).forEach(
+                    name => {
+                        if (get(lines, [name])) {
+                            lines[name] = {
+                                ...lines[name],
+                                ...this.updateQueue[name]
+                            }
+                        }
+                    }
+                )
                 this.updateQueue = {}
-                return {lines}
+                return {lines: {...lines}}
             })
         })
     }

@@ -62,8 +62,8 @@ class ConnectPoint extends PureComponent
         } else {
             host.setConnectStartPoint(null)
             host.deleteLine(lineId)
-            onShow(false)
         }
+        onShow(false)
         this.start = false 
     }
 
