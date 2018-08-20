@@ -134,8 +134,13 @@ class BaseChart extends PureComponent
         if (xScale) {
             this.xScale = xScale;
         } else {
+            const xScaleData = get( xAxisAttr, ['data'], ()=>valuesLocator(get(data,[0], {})) )
+            if (!xScaleData.map) {
+                console.warn(['Assign wrong xScaleData', xScaleData])
+                return null
+            }
             this.xScale = this.d3.scaleBand(
-                get( xAxisAttr, ['data'], ()=>valuesLocator(get(data,[0], {})) ),
+                xScaleData,
                 0,
                 scaleW,
                 xValueLocator

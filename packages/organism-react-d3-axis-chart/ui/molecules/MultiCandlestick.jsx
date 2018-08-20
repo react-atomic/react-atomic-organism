@@ -19,11 +19,15 @@ const MultiCandlestick = ({
     children,
     d3
 }) => { 
-
+    const thisData = get(valuesLocator(data), null, [])
+    if (!thisData.map) {
+        console.warn(['Assign wrong MultiCandlestick.', thisData])
+        return null
+    }
 return (
 <Group className="data-group candle-stick-chart">
 {
-    get(valuesLocator(data), null, []).map((d, key)=>{
+    thisData.map((d, key)=>{
         const x = xScale.scaler(xValueLocator(d));
         const open = tradeOpenLocator(d);
         const close = tradeCloseLocator(d);

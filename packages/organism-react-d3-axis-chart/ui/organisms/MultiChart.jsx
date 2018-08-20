@@ -117,12 +117,16 @@ class MultiChart extends Component
         }
         const xAxisData = get( xAxisAttr, ['data'], ()=> data ? valuesLocator(data) : null );
         if (xAxisData) {
-            this.xScale = this.d3.scaleBand(
-                xAxisData,
-                0,
-                thisScaleW,
-                xValueLocator
-            );
+            if (xAxisData.map) {
+                this.xScale = this.d3.scaleBand(
+                    xAxisData,
+                    0,
+                    thisScaleW,
+                    xValueLocator
+                )
+            } else {
+                console.warn(['Assign wrong xAxisData', xAxisData])
+            }
         }
         let thisExtraViewBox = extraViewBox;
         let subChartCount = 0;
