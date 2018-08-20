@@ -1,4 +1,5 @@
 // organisms
+export { default as Area } from '../ui/organisms/Area'
 export { default as Circle } from '../ui/organisms/Circle'
 export { default as Graph } from '../ui/organisms/Graph'
 export { default as Group } from '../ui/organisms/Group'
