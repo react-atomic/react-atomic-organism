@@ -125,7 +125,7 @@ class StockChartCompute extends PureComponent
             <StockChart
                 {...props}
                 data={chartData}
-                tradeRowsLocator={d => d.raw}
+                tradeRowsLocator={d => get(d, ['raw', 'trades'])}
                 kChart={{
                    areaY0Locator: d => d.upper,
                    areaY1Locator: d => d.lower,
