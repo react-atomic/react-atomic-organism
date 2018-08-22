@@ -26,15 +26,21 @@ class PopupModal extends PopupOverlay {
   }
 
   handleClick = () => {
-    if (typeof this.props.closeCallback === "function") {
-      this.props.closeCallback()
-    }
-    popupDispatch({
-      type: "dom/closeOne",
-      params: {
-        popup: this,
-      },
-    })
+    this.close()
+  }
+
+  close()
+  {
+     const {closeCallback} = this.props
+     if (typeof closeCallback === "function") {
+       closeCallback()
+     }
+     popupDispatch({
+       type: "dom/closeOne",
+       params: {
+         popup: this,
+       },
+     })
   }
 
   reCalculate = () => {
