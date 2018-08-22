@@ -24,6 +24,13 @@ class PopupStore extends ReduceStore
   {
       const popupNode = get(action, ['params','popup']);
       const key = get(popupNode, ['props', 'name'], 'default'); 
+      if (key !== get(popupNode, ['props', 'name'])) {
+        console.warn( {
+            Error: 'Popup Key not consistence',
+            PopUpKey: get(popupNode, ['props', 'name']),
+            ActualKey: key
+        } )
+      }
       const shows = state.get(SHOW_KEY).set(key, true);
       const nodes = state.get(NODE_KEY).set(key, popupNode);
       let nodeGroups = get(popupNode, ['props', 'group']); 
@@ -33,10 +40,9 @@ class PopupStore extends ReduceStore
         }
         nodeGroups.forEach(nodegroup => set(groups, [nodegroup, key], true));
       }
-      return state.set(SHOW_KEY, shows).
-        set(NODE_KEY, nodes).
-        //force update
-        set('default', !state.get('default'));
+      return state.
+        set(SHOW_KEY, shows).
+        set(NODE_KEY, nodes)
   }
 
   getKey(action)
