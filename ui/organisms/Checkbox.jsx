@@ -41,7 +41,8 @@ class Checkbox extends PureComponent
         const {checked} = nextProps
         let {id} = nextProps
         const nextState = {}
-        if (checked !== prevState.checked) {
+        if (checked !== prevState.prePropsChecked) {
+            nextState.prePropsChecked = checked
             nextState.checked = checked
         }
         if (!id) {
@@ -56,14 +57,29 @@ class Checkbox extends PureComponent
         return nextState
    }
 
-    handleClick = (e) =>
+   getValue()
+   {
+        return this.el.value
+   }
+
+   getName()
+   {
+        return this.el.name
+   }
+
+   getInput()
+   {
+        return this.el
+   }
+
+    handleClick = e =>
     {
         if ('INPUT' !== e.target.nodeName) {
             e.preventDefault();
         }
         const {beforeClick, afterClick} = this.props;
         const beforeChecked = this.state.checked;
-        const afterChecked = !this.state.checked;
+        let afterChecked = !this.state.checked;
         if ('function' === typeof beforeClick) {
             beforeClick(e, beforeChecked, afterChecked, this)
         }
@@ -75,7 +91,9 @@ class Checkbox extends PureComponent
         }
     }
 
-    handleChange = e => {
+    handleChange = e =>
+    {
+        console.log(e.target, this.el)
         const {onChange} = this.props
         if ('function' === typeof onChange) {
             onChange(e, this)
@@ -84,7 +102,7 @@ class Checkbox extends PureComponent
 
     render()
     {
-        const {toggle, label, slider, type, fieldStyles, beforeClick, afterClick, ...props} = this.props;
+        const {refCb, toggle, label, slider, type, fieldStyles, beforeClick, afterClick, ...props} = this.props;
         const {checked: stateChecked, id} = this.state;
         let thisLabel = ' '
         if (label) {
@@ -96,6 +114,12 @@ class Checkbox extends PureComponent
                     ...props,
                     type,
                     id,
+                    refCb: el => {
+                        this.el = el 
+                        if ('function' === typeof refCb) {
+                            refCb(el)
+                        }
+                    },
                     label: thisLabel,
                     checked: stateChecked,
                     onChange: this.handleChange,
