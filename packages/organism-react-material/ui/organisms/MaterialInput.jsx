@@ -1,22 +1,23 @@
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 import {
     Field,
     SemanticUI,
     reactStyle
 } from 'react-atomic-molecule';
 
-
-export default class MaterialInput extends Component
+export default class MaterialInput extends PureComponent
 {
+   static defaultProps = {
+        value: '',
+        type: "text",
+        required: "required"
+   }
+
    constructor(props)
    {
        super(props);
-       let value = this.props.value;
-       if (!value) {
-           value = '';
-       }
        this.state = {
-           labelStyle: this.getLabelBlurStyle(value),
+           labelStyle: this.getLabelBlurStyle(props.value),
            barFocus: [],
            value: value
        };
@@ -33,8 +34,9 @@ export default class MaterialInput extends Component
 
     getLabelFocusStyle()
     {
-        let focusStyles = (this.props.labelFocusStyles) ? 
-            this.props.labelFocusStyles:
+        const {labelFocusStyles} = this.props
+        const focusStyles = (labelFocusStyles) ? 
+            labelFocusStyles:
             Styles.labelFocus; 
         return [Styles.cardInputLabel, focusStyles];
     }
@@ -77,10 +79,6 @@ export default class MaterialInput extends Component
         )
     }
 }
-MaterialInput.defaultProps = {
-    type: "text",
-    required: "required"
-};
 
 const Styles = {
     cardFieldContainer: reactStyle({

@@ -25,7 +25,8 @@ class RadioGroup extends PureComponent
     state = {value: null}
 
     static propTypes = {
-        options: PropTypes.array
+        options: PropTypes.array.isRequired,
+        name: PropTypes.string.isRequired,
     }
 
     handleClick = (e, before, after, ref) =>
@@ -35,10 +36,16 @@ class RadioGroup extends PureComponent
         if (ref) {
             value = ref.getValue()
         }
-        this.setState({ value })
-        if ('function' === typeof onChange) {
-            onChange(e, value)
-        }
+        this.setState({ value }, () => {
+            if ('function' === typeof onChange) {
+                onChange(e, value)
+            }
+        })
+    }
+
+    getValue()
+    {
+        return this.state.value
     }
 
     static getDerivedStateFromProps(nextProps, prevState)
@@ -65,7 +72,7 @@ class RadioGroup extends PureComponent
             }
         )
         return (
-            <Field>
+            <Field fieldClassName={classes}>
                 <Label>{label}</Label>
                 {
                     options.map( item =>
@@ -75,7 +82,8 @@ class RadioGroup extends PureComponent
                             label={item.label}
                             value={item.value}
                             key={item.value}
-                            checked={value === item.value}
+                            afterClick={this.handleClick}
+                            checked={stateValue === item.value}
                         />
                     )
                 }

@@ -93,7 +93,6 @@ class Checkbox extends PureComponent
 
     handleChange = e =>
     {
-        console.log(e.target, this.el)
         const {onChange} = this.props
         if ('function' === typeof onChange) {
             onChange(e, this)
