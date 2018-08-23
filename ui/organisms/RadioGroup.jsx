@@ -1,0 +1,87 @@
+import React, {PureComponent} from 'react'
+import PropTypes from 'prop-types'
+import Radio from '../organisms/Checkbox'
+
+import {
+    mixClass,
+    Field,
+    SemanticUI
+} from 'react-atomic-molecule'
+
+const Label = ({children, ...props})  => {
+    if (!children) {
+        return null
+    } else {
+        return (
+        <SemanticUI {...props} atom="label">
+        {children}
+        </SemanticUI>
+        )
+    }
+}
+
+class RadioGroup extends PureComponent
+{
+    state = {value: null}
+
+    static propTypes = {
+        options: PropTypes.array
+    }
+
+    handleClick = (e, before, after, ref) =>
+    {
+        const {onChange} = this.props
+        let value = null
+        if (ref) {
+            value = ref.getValue()
+        }
+        this.setState({ value })
+        if ('function' === typeof onChange) {
+            onChange(e, value)
+        }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState)
+    {
+        const {value} = nextProps
+        if (value !== prevState.prePropsValue) {
+            return {
+                value,
+                prePropsValue: value
+            }
+        } else {
+            return null
+        }
+    }
+
+    render()
+    {
+        const {inline, label, options, name, value, onChange} = this.props
+        const {value: stateValue} = this.state
+        const classes = mixClass(
+            {
+                inline: inline,
+                grouped: !inline
+            }
+        )
+        return (
+            <Field>
+                <Label>{label}</Label>
+                {
+                    options.map( item =>
+                        <Radio
+                            type="radio" 
+                            name={name}
+                            label={item.label}
+                            value={item.value}
+                            key={item.value}
+                            checked={value === item.value}
+                        />
+                    )
+                }
+            </Field>
+        )
+    }
+}
+
+export default RadioGroup
