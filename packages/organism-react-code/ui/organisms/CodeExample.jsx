@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import {lazyInject, List, Header, Segment, SemanticUI, Icon} from 'react-atomic-molecule';
-import CodeIcon from 'ricon/Code';
-import GitIcon from 'ricon/Git';
-import NpmIcon from 'ricon/Npm';
-import CodeBlock from '../organisms/CodeBlock';
-import CodeReadme from '../organisms/CodeReadme';
+import React, {PureComponent} from 'react'
+import {lazyInject, List, Header, Segment, SemanticUI, Icon} from 'react-atomic-molecule'
+import CodeIcon from 'ricon/Code'
+import GitIcon from 'ricon/Git'
+import NpmIcon from 'ricon/Npm'
+import EditIcon from 'ricon/Edit'
+import CodeBlock from '../organisms/CodeBlock'
+import CodeReadme from '../organisms/CodeReadme'
 
-class CodeExample extends Component
+class CodeExample extends PureComponent
 {
     constructor(props)
     {
@@ -29,13 +30,14 @@ class CodeExample extends Component
 
     render()
     {
-        const {header, children, code, git, npm, id} = this.props
+        const {header, children, code, git, npm, edit, id} = this.props
         const state = this.state;
         let codeStyle = {};
-        let thisCode;
-        let thisReadme;
-        let thisGit;
-        let thisNpm;
+        let thisCode
+        let thisReadme
+        let thisGit
+        let thisNpm
+        let thisEdit
         if (!state.on) {
             codeStyle = Styles.hidden;
         } else {
@@ -57,11 +59,19 @@ class CodeExample extends Component
                 <NpmIcon />
             </Icon>;
         }
+        if (edit) {
+            thisEdit = (
+                <Icon atom="a" target="_blank" href={edit} style={Styles.icon}>
+                <EditIcon />
+                </Icon>
+            )
+        }
         return (
             <List type="segments" id={id}> 
                 <Segment className="tertiary">
                     <Header style={Styles.header} className="grey">{header}</Header>
                     <SemanticUI style={Styles.iconBlock}>
+                        {thisEdit}
                         {thisNpm}
                         {thisGit}
                         <Icon onClick={this.handleClick} style={Styles.icon}><CodeIcon /></Icon>
