@@ -924,8 +924,8 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
 minipass@^2.2.1, minipass@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.3.3.tgz#a7dcc8b7b833f5d368759cce544dccb55f50f233"
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/minipass/-/minipass-2.3.4.tgz#4768d7605ed6194d6d576169b9e12ef71e9d9957"
   dependencies:
     safe-buffer "^5.1.2"
     yallist "^3.0.0"
@@ -951,8 +951,8 @@ nan@^2.9.2:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
 needle@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.1.tgz#b5e325bd3aae8c2678902fa296f729455d1d3a7d"
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.2.tgz#1120ca4c41f2fcc6976fd28a8968afe239929418"
   dependencies:
     debug "^2.1.2"
     iconv-lite "^0.4.4"
@@ -994,8 +994,8 @@ normalize-path@^2.0.0, normalize-path@^2.0.1:
     remove-trailing-separator "^1.0.1"
 
 npm-bundled@^1.0.1:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.3.tgz#7e71703d973af3370a9591bafe3a63aca0be2308"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/npm-bundled/-/npm-bundled-1.0.5.tgz#3c1732b7ba936b3a10325aef616467c0ccbcc979"
 
 npm-packlist@^1.1.6:
   version "1.1.11"
@@ -1035,11 +1035,12 @@ once@^1.3.0:
     wrappy "1"
 
 organism-react-graph@*:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.0.1.tgz#1ca5f0162ea1367ef1fb84de191cf6133cd9c5da"
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.0.3.tgz#223351cbcb0814348e78fb4949acb80f4f918cd5"
   dependencies:
     colorlib "*"
     d3-lib "*"
+    get-object-value "*"
     getoffset "*"
     react-atomic-molecule "*"
 
@@ -1105,8 +1106,8 @@ prop-types@^15.6.0:
     object-assign "^4.1.1"
 
 randomatic@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.0.0.tgz#d35490030eb4f7578de292ce6dfb04a91a128923"
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.0.tgz#36f2ca708e9e567f5ed2ec01949026d50aa10116"
   dependencies:
     is-number "^4.0.0"
     kind-of "^6.0.0"
@@ -1126,8 +1127,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.18.tgz#2f6508427ace11615c20dd272d3df6accbea2a77"
 
 react-atomic-molecule@*:
-  version "1.3.53"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.53.tgz#3c94ab933399d94130f3c3f2cd21d1244f774698"
+  version "1.3.54"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.54.tgz#f389092ba10b763ce0a4b493b4590fa2f31f742d"
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1193,8 +1194,8 @@ remove-trailing-separator@^1.0.1:
   resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.1.0.tgz#c24bce2a283adad5bc3f58e0d48249b92379d8ef"
 
 repeat-element@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.2.tgz#ef089a178d1483baae4d93eb98b4f9e4e11d990a"
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/repeat-element/-/repeat-element-1.1.3.tgz#782e0d825c0c5a3bb39731f84efee6b742e6b1ce"
 
 repeat-string@^1.5.2:
   version "1.6.1"
@@ -1229,8 +1230,8 @@ sax@^1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
 semver@^5.3.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
 
 set-blocking@~2.0.0:
   version "2.0.0"
