@@ -32,15 +32,12 @@ class MonitorPvid extends PureComponent
     updatePvid(pvid, I13N)
     {
         if (!pvid) {
-            return;
+            return
         }
-        i13nDispatch({
-            type: 'config/set',
-            params: {
-                pvid: pvid,
-                I13N: I13N
-            }
-        });
+        i13nDispatch(
+            'config/set',
+            { pvid, I13N }
+        )
     }
 
     componentDidMount() 
@@ -78,9 +75,9 @@ class MonitorBrowserBF extends PureComponent
         if (prevState.currentLocation !== currentLocation) {
             setImmediate(()=>{
                 const i13nState = i13nStore.getState();
-                i13nDispatch({
-                    type: 'action',
-                    params: {
+                i13nDispatch(
+                    'action',
+                    {
                         I13N: {
                             action: 'bfChange',
                             before: urlDecode(i13nState.get('lastUrl')),
@@ -88,8 +85,8 @@ class MonitorBrowserBF extends PureComponent
                             last: urlDecode(get(prevState, ['currentLocation'], ''))
                         }
                     }
-                });
-            });
+                )
+            })
         }
     }
 
@@ -118,13 +115,9 @@ class I13nElement extends PureComponent
     static calculateState(prevState)
     {
         const state = i13nStore.getState();
-        let I13N = state.get('I13N'); 
-        if (I13N && I13N.toJS) {
-            I13N = I13N.toJS();
-        }
         return {
             pvid: state.get('pvid'),
-            I13N: I13N
+            I13N: state.get('I13N')
         };
     }
 
@@ -141,18 +134,22 @@ class I13nElement extends PureComponent
             win.startUpTime = false; //only log in page refresh
         }
         setTimeout(()=>{
-            i13nDispatch({
-                type: 'view',
-                params: {
-                    I13N:I13N,
-                    query: query,
+            let i13n = I13N
+            if (i13n && i13n.toJS) {
+                i13n = i13n.toJS()
+            }
+            i13nDispatch( 
+                'view',
+                {
+                    query,
+                    I13N: i13n,
                     callback: (json, text) => {
                         self.setState({
                             iframe: text
                         });
                     },
                 }
-            });
+            )
         }, 500);
     }
 
@@ -168,16 +165,16 @@ class I13nElement extends PureComponent
     {
         win = window;
         win.i13nDispatch = i13nDispatch;
-        i13nDispatch({
-            type: 'config/set',
-            params: {
+        i13nDispatch(
+            'config/set',
+            {
                 ...this.props,
                 element: this
             }
-        });
+        )
         this.setState({
             isLoad: true
-        });
+        })
     }
 
     render()
@@ -213,5 +210,5 @@ const Styles = {
         position: 'absolute',
         top: -999
     }
-};
+}
 
