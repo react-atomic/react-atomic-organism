@@ -1,5 +1,3 @@
-'use strict';
-
 require('setimmediate');
 
 import {Map} from 'immutable';
@@ -99,13 +97,36 @@ class I13nStore extends ReduceStore
         return actionHandler(state, action);
   }
 
+  handleInit(state, action)
+  {
+        const initHandler = state.get('initHandler')
+        if ('function' === typeof initHandler) {
+            return initHandler(state, action)
+        } else {
+            return
+        }
+  }
+
   handleImpression(state, action)
   {
-        let impressionHandler = state.get('impressionHandler');
-        if (!impressionHandler) {
-            impressionHandler = this.processView.bind(this);
+        const run = state => {
+            let impressionHandler = state.get('impressionHandler')
+            if (!impressionHandler) {
+                impressionHandler = this.processView.bind(this)
+            }
+            return impressionHandler(state, action)
         }
-        return impressionHandler(state, action);
+        const init = state.get('init')
+        if (!init) {
+            const initCallback = this.handleInit(state, action)
+            if ('function' === typeof initCallback) {
+                initCallback(()=>run(state.set('init', true)))
+            } else {
+                run(state.set('init', true))
+            }
+        } else {
+            return run(state)
+        }
   }
 
   reduce(state, action)
