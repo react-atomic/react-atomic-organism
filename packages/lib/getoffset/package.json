@@ -1,6 +1,6 @@
 {
   "name": "getoffset",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Get dom offset",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -8,6 +8,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "get-object-value": "*",
     "get-scroll-info": "*"
   },
   "devDependencies": {

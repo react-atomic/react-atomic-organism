@@ -1,11 +1,22 @@
 'use strict';
-import getScrollInfo from 'get-scroll-info'; 
+import getScrollInfo from 'get-scroll-info'
+import get from 'get-object-value'
+
+const unifyTouch  = e =>
+{
+    if (!e.changedTouches) {
+        return e
+    } else {
+        return get(e, ['changedTouches', 0])
+    }
+}
 
 const mouse = (e, dom, scrollNode) => 
 {
     if (!dom) {
-        dom = e.currentTarget;
+        dom = e.currentTarget
     }
+    e = unifyTouch(e)
     const x = e.clientX;
     const y = e.clientY;
     const svgXY = toSvgXY(dom)(x, y)
@@ -74,5 +85,5 @@ const getOffset = (dom, scrollNode) => {
     return result;
 }
 
-export {mouse, toSvgXY}
+export {mouse, toSvgXY, unifyTouch}
 export default getOffset
