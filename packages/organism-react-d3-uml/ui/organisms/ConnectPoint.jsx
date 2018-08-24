@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react'
 import {Circle} from 'organism-react-graph'
-import getOffset, {mouse, toSvgXY} from 'getoffset'
+import getOffset, {mouse, unifyTouch} from 'getoffset'
 import getStyle from 'get-style'
-import {d3Select} from 'd3-lib'
 
 import DragAndDrop from './DragAndDrop'
 
@@ -48,7 +47,9 @@ class ConnectPoint extends PureComponent
             const end = mouse(e, el)
             endXY = { x: end[0], y: end[1] }
         }
-        host.updateLine(lineId, center, endXY)
+        e = unifyTouch(e) 
+        console.log(document.elementFromPoint(e.clientX, e.clientY))
+        host.updateLine(lineId, { start: center, end: endXY })
     }
 
     handleDragEnd = e =>
@@ -59,6 +60,7 @@ class ConnectPoint extends PureComponent
         if (endPoint) {
             this.setLine(lineId, 'from')
             endPoint.setLine(lineId, 'to')
+            host.updateLine(lineId, {from: this, to: endPoint})
         } else {
             host.setConnectStartPoint(null)
             host.deleteLine(lineId)
@@ -126,9 +128,9 @@ class ConnectPoint extends PureComponent
             lineKeys.forEach( lineId => {
                 const lineType = this.lines[lineId]
                 if ('from' === lineType) {
-                    host.updateLine(lineId, center)
+                    host.updateLine(lineId, {start: center})
                 } else {
-                    host.updateLine(lineId, null, center)
+                    host.updateLine(lineId, {end: center})
                 }
             })
         }

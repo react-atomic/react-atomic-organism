@@ -1,6 +1,6 @@
 import React, {PureComponent, cloneElement, createElement, isValidElement} from 'react'
 import {d3DnD, d3Event} from 'd3-lib'
-import getOffset from 'getoffset'
+import getOffset, {unifyTouch} from 'getoffset'
 
 class DragAndDrop extends PureComponent
 {
@@ -16,7 +16,7 @@ class DragAndDrop extends PureComponent
         const {onDragStart} = this.props
         const e = d3Event()
         const {x, y, sourceEvent} = e
-        const {pageX, pageY} = sourceEvent
+        const {pageX, pageY} = unifyTouch(sourceEvent)
         const offset = getOffset(this.el)
         this.start = {
             x,

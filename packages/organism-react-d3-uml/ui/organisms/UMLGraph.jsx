@@ -31,16 +31,12 @@ class UMLGraph extends PureComponent
         return name
     }
 
-    updateLine(name, start, end)
+    updateLine(name, params)
     {
         const {lines} = this.state
         this.updateQueue[name] = {
-            start: get(start, null, ()=>
-                get(lines, [name, 'start'], 0)
-            ),
-            end: get(end, null, ()=>
-                get(lines, [name, 'end'], 0)
-            ),
+            ...this.updateQueue[name],
+            ...params
         } 
         if (lazeTimer) {
             clearTimeout(lazeTimer)
