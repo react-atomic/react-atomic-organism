@@ -24,7 +24,7 @@ class MonitorPvid extends PureComponent
     {
         const pvid = pageStore.getState().get('pvid');
         return {
-            pvid: pvid,
+            pvid,
             I13N: get(pageStore.getMap('data'), ['I13N'])
         };
     }

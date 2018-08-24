@@ -15,7 +15,7 @@ const getDefaultActionCallback = (state) =>
         if (iframe) {
             iframe.appendHtml(text);
         } 
-    };
+    }
 
 class I13nStore extends ReduceStore
 {
@@ -120,9 +120,9 @@ class I13nStore extends ReduceStore
         if (!init) {
             const initCallback = this.handleInit(state, action)
             if ('function' === typeof initCallback) {
-                initCallback(()=>run(state.set('init', true)))
+                return initCallback(()=>run(state.set('init', true)))
             } else {
-                run(state.set('init', true))
+                return run(state.set('init', true))
             }
         } else {
             return run(state)
