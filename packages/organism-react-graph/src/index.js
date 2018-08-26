@@ -7,3 +7,6 @@ export { default as Line } from '../ui/organisms/Line'
 export { default as Rect } from '../ui/organisms/Rect'
 export { default as Text } from '../ui/organisms/Text'
 export { default as Span } from '../ui/organisms/Span'
+
+// util
+export { default as getDistance } from './getDistance'
