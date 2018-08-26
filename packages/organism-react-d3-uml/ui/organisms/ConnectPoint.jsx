@@ -38,17 +38,25 @@ class ConnectPoint extends PureComponent
     {
         const {host} = this.props
         const {lineId, center} = this.start
-        const elEnd = host.getConnectEndPoint()
         let endXY
-        if (elEnd) { 
-            endXY = elEnd.getCenter() 
-        } else {
+        e = unifyTouch(e)
+        const target = document.elementFromPoint(e.clientX, e.clientY)
+        if (target) {
+            const targetId = target.getAttribute('data-id')
+            const targetGroup = target.getAttribute('data-group')
+            if (targetId && targetGroup) {
+                const targetBox = host.getBox(targetId, targetGroup)
+                const targetPoint = targetBox.getRecentPoint(center)
+                endXY = targetPoint.xy
+                host.setConnectEndPoint(targetPoint.obj)
+            }
+        }
+        if (!endXY) {
+            host.setConnectEndPoint(null)
             const el = host.getEl()
             const end = mouse(e, el)
             endXY = { x: end[0], y: end[1] }
         }
-        e = unifyTouch(e) 
-        console.log(document.elementFromPoint(e.clientX, e.clientY))
         host.updateLine(lineId, { start: center, end: endXY })
     }
 
@@ -69,21 +77,6 @@ class ConnectPoint extends PureComponent
         this.start = false 
     }
 
-    handleMouseEnter = e =>
-    {
-        const {host} = this.props
-        const startPoint = host.getConnectStartPoint()
-        if (startPoint) {
-            host.setConnectEndPoint(this)
-        }
-    }
-
-    handleMouseLeave = e =>
-    {
-        const {host} = this.props
-        host.setConnectEndPoint(null)
-    }
-
     setLine(id, type)
     {
         this.lines[id] = type
@@ -100,6 +93,11 @@ class ConnectPoint extends PureComponent
         const x = Math.floor(bbox.x + ctm.e + width / 2)
         const y = Math.floor(bbox.y + ctm.f + height / 2)
         return {x, y} 
+    }
+
+    getBoxId()
+    {
+        return this.props.boxId
     }
 
     isShow()
@@ -138,7 +136,7 @@ class ConnectPoint extends PureComponent
 
     render()
     {
-        const {pos, host, onShow, style, show, ...props} = this.props
+        const {pos, host, onShow, style, show, boxId, ...props} = this.props
         const {absX, absY} = this.state        
         let thisStyle = { ...Styles.container, ...style }
         if (this.isShow()) {
@@ -155,8 +153,6 @@ class ConnectPoint extends PureComponent
                 onDragStart={this.handleDragStart}
                 onDragEnd={this.handleDragEnd}
                 onDrag={this.handleDrag}
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
                 component={(
                     <Circle 
                         fill="#3c5d9b"

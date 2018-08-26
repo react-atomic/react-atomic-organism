@@ -13,7 +13,8 @@ let lazeTimer;
 class UMLGraph extends PureComponent
 {
     state = {
-        lines: {}    
+        lines: {},
+        boxMap: {}
     }
 
     startPoint = null
@@ -96,6 +97,27 @@ class UMLGraph extends PureComponent
     getConnectEndPoint(el)
     {
         return this.endPoint
+    }
+
+    addBoxGroup(id, obj)
+    {
+       this.setState(({boxMap})=>{
+            boxMap[id] = {obj, boxs: {}}
+            return {boxMap}
+       })
+    }
+
+    addBox(id, obj, groupId)
+    {
+       this.setState(({boxMap})=>{
+            boxMap[groupId].boxs[id] = obj
+            return {boxMap}
+       })
+    }
+
+    getBox(id, groupId)
+    {
+        return get(this, ['state', 'boxMap', groupId, 'boxs', id])
     }
 
     componentWillUnmount() 

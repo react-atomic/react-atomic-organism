@@ -7,6 +7,7 @@ import get from 'get-object-value'
 import DragAndDrop from './DragAndDrop'
 
 const keys = Object.keys
+let boxGroupId = 1 
 
 class BoxGroupHeader extends PureComponent
 {
@@ -41,6 +42,15 @@ class BoxGroup extends PureComponent
     handleAbsXY = (absX, absY) =>
     {
         this.setState({absX, absY})
+    }
+
+    constructor(props)
+    {
+        super(props)
+        const {host} = props
+        this.id = boxGroupId
+        boxGroupId++
+        host.addBoxGroup(this.id, this)
     }
 
     componentDidMount()
@@ -92,6 +102,7 @@ class BoxGroup extends PureComponent
                 />
                 <BoxGroupHeader width={rectW}>{get(data, ['name'])}</BoxGroupHeader>
                 {Children.map(children, (c, ck) => cloneElement(c, {
+                    boxGroupId: this.id,
                     key: ck,
                     pos: translate,
                     host,

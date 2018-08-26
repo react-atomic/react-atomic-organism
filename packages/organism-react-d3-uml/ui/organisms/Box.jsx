@@ -1,10 +1,14 @@
 import React, {PureComponent} from 'react'
-import {Group, Text, Rect} from 'organism-react-graph'
+import {Group, Text, Rect, getDistance} from 'organism-react-graph'
+
 import ConnectPoint from '../organisms/ConnectPoint'
+
+let boxId = 1 
 
 class Box extends PureComponent
 {
     isConnectPointDrag = false
+    points = []
 
     state = {
         showConnectPoint: false
@@ -26,14 +30,43 @@ class Box extends PureComponent
         this.isConnectPointDrag = bool
     }
 
+    getRecentPoint(center)
+    {
+        const points = [] 
+        const distance = []
+        const distanceMap = {}
+        this.points.forEach( (p, key) => {
+            points[key] = p.getCenter() 
+            let pointDistance = getDistance(center, points[key])
+            distance[key] = pointDistance
+            distanceMap[pointDistance] = {
+                xy: points[key],
+                obj: p
+            } 
+        });
+        const max = Math.min(...distance) 
+        return distanceMap[max]
+    }
+
+    constructor(props)
+    {
+        super(props)
+        const {host, boxGroupId} = props
+        this.id = boxId
+        boxId++
+        host.addBox(this.id, this, boxGroupId)
+    }
+
     render()
     {
-        const {pos, children, host, refCb, x, y, width, height} = this.props 
+        const {pos, children, host, refCb, x, y, width, height, boxGroupId} = this.props 
         const {showConnectPoint} = this.state
         const translate = `translate(${x}, ${y})` 
         const cy = -(height / 2 - 5)
         const connectPoints = [
             <ConnectPoint
+                boxId={this.id}
+                ref={el=>this.points[0]=el}
                 show={showConnectPoint}
                 pos={pos}
                 host={host}
@@ -43,6 +76,8 @@ class Box extends PureComponent
                 onShow={this.setIsConnectPointDrag}
             />,
             <ConnectPoint
+                boxId={this.id}
+                ref={el=>this.points[1]=el}
                 show={showConnectPoint}
                 pos={pos}
                 host={host}
@@ -59,7 +94,7 @@ class Box extends PureComponent
                 refCb={refCb}
                 transform={translate}
             >
-                <Text>
+                <Text data-id={this.id} data-group={boxGroupId}>
                     {children}
                 </Text>
                 {connectPoints}
