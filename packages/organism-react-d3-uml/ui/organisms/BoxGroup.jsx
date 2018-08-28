@@ -40,7 +40,7 @@ class BoxGroup extends PureComponent
     boxNameInvertMap = {}
     childrenEl = {}
 
-    handleAbsXY = (absX, absY) =>
+    move = (absX, absY) =>
     {
         this.setState({absX, absY})
     }
@@ -106,7 +106,7 @@ class BoxGroup extends PureComponent
                 <DragAndDrop
                     absX={absX}
                     absY={absY}
-                    onAbsXY={this.handleAbsXY}
+                    onAbsXY={this.move}
                     style={Styles.rect}
                     component={(
                         <Rect

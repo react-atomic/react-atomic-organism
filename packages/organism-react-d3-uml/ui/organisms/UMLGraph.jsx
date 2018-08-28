@@ -208,6 +208,12 @@ class UMLGraph extends PureComponent
         if (!conns || !conns.length) {
             return
         }
+        const groupConn = {} 
+        const addGroupConn = (from, to) =>
+        {
+            const a = [from, to].sort()
+            groupConn[a[0]+'-'+a[1]] = a
+        }
         conns.forEach( conn => {
             const fromBoxGroupName = connFromBoxGroupLocator(conn)
             const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName)
@@ -218,18 +224,28 @@ class UMLGraph extends PureComponent
             const toBoxName = connToBoxLocator(conn)
             const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName) 
             const lineId = this.addLine()
+            addGroupConn(fromBoxGroupId, toBoxGroupId)
             this.addConnected(
                 lineId,
                 this.getBox(fromBoxId, fromBoxGroupId).getPoint(1), 
                 this.getBox(toBoxId, toBoxGroupId).getPoint(0) 
             )
         })
+        return groupConn
     }
 
     componentDidMount()
     {
-        this.syncPropConnects()
-        dagreAutoLayout({...this.boxMap})
+        setTimeout(()=>{
+            const groupConn = this.syncPropConnects()
+            const newXY = dagreAutoLayout({...this.boxMap}, groupConn)
+            get(keys(newXY), null, []).forEach(
+                key => {
+                    const oBoxGroup = this.getBoxGroup(key) 
+                    oBoxGroup.move(newXY[key].x, newXY[key].y)
+                }
+            )
+        })
     }
 
     componentWillUnmount() 
