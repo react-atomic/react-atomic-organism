@@ -254,6 +254,17 @@ const d3DnD = ({el, start, end, drag, subject}) =>
     d3Select(el).call(dd)
 }
 
+const d3Zoom = ({el, scaleExtent, callback}) =>
+{
+    const dSelect = d3Select(el)
+    const zoom = d3.
+        zoom().
+        scaleExtent(scaleExtent).
+        on('zoom', () => callback(d3Event().transform) )
+    dSelect.call(zoom)
+    console.log(dSelect,el)
+}
+
 const d3Event = () => d3.event
 
 const d3Select = el => d3.select(el)
@@ -269,6 +280,7 @@ export {
     scaleBand,
     scaleLinear,
     d3DnD,
+    d3Zoom,
     d3Event,
     d3Select,
 };
