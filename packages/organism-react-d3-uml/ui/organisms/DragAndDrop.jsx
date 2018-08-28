@@ -18,11 +18,13 @@ class DragAndDrop extends PureComponent
         const {x, y, sourceEvent} = e
         const {pageX, pageY} = unifyTouch(sourceEvent)
         const offset = getOffset(this.el)
+        const elAbsX = (pageX - offset.left) * 2
+        const elAbsY = (pageY - offset.top) * 2
         this.start = {
             x,
             y,
-            elAbsX: (pageX - offset.left) * 2,
-            elAbsY: (pageY - offset.top) * 2,
+            elAbsX,
+            elAbsY,
         }
         if ('function' === typeof onDragStart) {
             onDragStart(this.start)
