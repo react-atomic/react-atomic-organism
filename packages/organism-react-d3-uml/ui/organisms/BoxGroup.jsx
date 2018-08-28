@@ -61,6 +61,17 @@ class BoxGroup extends PureComponent
         return {width, height}
     }
 
+    getName()
+    {
+        const {name} = this.props
+        return name
+    }
+
+    getId()
+    {
+        return this.id
+    }
+
     constructor(props)
     {
         super(props)

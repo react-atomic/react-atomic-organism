@@ -4,7 +4,7 @@ import dedup from 'array.dedup'
 
 const keys = Object.keys
 
-const dagreAutoLayout = (nodes, conns) =>
+const dagreAutoLayout = (nodes, conns = {}) =>
 {
     const graph = new dagre.
         graphlib.
@@ -16,7 +16,7 @@ const dagreAutoLayout = (nodes, conns) =>
         console.warn('[Dagre] empty node')
     }
     let nodeConns = []
-    get(keys(conns), null, []).forEach(
+    get(keys(conns), null, {}).forEach(
         key => {
             graph.setEdge(...conns[key]) 
             nodeConns.push(...conns[key])

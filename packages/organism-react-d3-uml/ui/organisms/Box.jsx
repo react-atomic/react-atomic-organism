@@ -53,6 +53,23 @@ class Box extends PureComponent
         return this.points[key]
     }
 
+    getBoxGroup()
+    {
+        const {host, boxGroupId} = this.props
+        return host.getBoxGroup(boxGroupId)
+    }
+
+    getName()
+    {
+        const {name} = this.props
+        return name
+    }
+
+    getId()
+    {
+        return this.id
+    }
+
     constructor(props)
     {
         super(props)
@@ -60,7 +77,7 @@ class Box extends PureComponent
         this.id = boxId
         boxId++
         host.addBox(this.id, this, boxGroupId)
-        host.getBoxGroup(boxGroupId).setBoxNameInvertMap(this.id, name)
+        this.getBoxGroup().setBoxNameInvertMap(this.id, name)
     }
 
     render()
@@ -71,7 +88,7 @@ class Box extends PureComponent
         const cy = -(height / 2 - 5)
         const connectPoints = [
             <ConnectPoint
-                boxId={this.id}
+                box={this}
                 ref={el=>this.points[0]=el}
                 show={showConnectPoint}
                 pos={pos}
@@ -82,7 +99,7 @@ class Box extends PureComponent
                 onShow={this.setIsConnectPointDrag}
             />,
             <ConnectPoint
-                boxId={this.id}
+                box={this}
                 ref={el=>this.points[1]=el}
                 show={showConnectPoint}
                 pos={pos}
