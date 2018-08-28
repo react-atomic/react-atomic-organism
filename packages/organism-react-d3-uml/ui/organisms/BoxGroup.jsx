@@ -34,9 +34,10 @@ class BoxGroup extends PureComponent
         rectH: 0,
         absX: 0, 
         absY: 0,
-        boxsPos: {} 
+        boxsPos: {},
     }
 
+    boxNameInvertMap = {}
     childrenEl = {}
 
     handleAbsXY = (absX, absY) =>
@@ -44,13 +45,29 @@ class BoxGroup extends PureComponent
         this.setState({absX, absY})
     }
 
+    getBoxIdByName(name)
+    {
+        return get(this, ['boxNameInvertMap', name])
+    }
+
+    setBoxNameInvertMap(id, name)
+    {
+        this.boxNameInvertMap[name] = id  
+    }
+
+    getWH()
+    {
+        const {rectW: width, rectH: height} = this.state
+        return {width, height}
+    }
+
     constructor(props)
     {
         super(props)
-        const {host} = props
+        const {host, name} = props
         this.id = boxGroupId
         boxGroupId++
-        host.addBoxGroup(this.id, this)
+        host.addBoxGroup(this.id, this, name)
     }
 
     componentDidMount()
@@ -81,7 +98,7 @@ class BoxGroup extends PureComponent
 
     render()
     {
-        const {children, host, data} = this.props
+        const {name, children, host, data} = this.props
         const {rectW, rectH, boxsPos, absX, absY} = this.state
         const translate = `translate(${absX}, ${absY})`
         return (
@@ -100,7 +117,7 @@ class BoxGroup extends PureComponent
                         />
                     )}
                 />
-                <BoxGroupHeader width={rectW}>{get(data, ['name'])}</BoxGroupHeader>
+                <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
                 {Children.map(children, (c, ck) => cloneElement(c, {
                     boxGroupId: this.id,
                     key: ck,

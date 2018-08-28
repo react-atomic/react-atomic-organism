@@ -48,18 +48,24 @@ class Box extends PureComponent
         return distanceMap[max]
     }
 
+    getPoint(key)
+    {
+        return this.points[key]
+    }
+
     constructor(props)
     {
         super(props)
-        const {host, boxGroupId} = props
+        const {host, boxGroupId, name} = props
         this.id = boxId
         boxId++
         host.addBox(this.id, this, boxGroupId)
+        host.getBoxGroup(boxGroupId).setBoxNameInvertMap(this.id, name)
     }
 
     render()
     {
-        const {pos, children, host, refCb, x, y, width, height, boxGroupId} = this.props 
+        const {pos, name, host, refCb, x, y, width, height, boxGroupId} = this.props 
         const {showConnectPoint} = this.state
         const translate = `translate(${x}, ${y})` 
         const cy = -(height / 2 - 5)
@@ -95,7 +101,7 @@ class Box extends PureComponent
                 transform={translate}
             >
                 <Text data-id={this.id} data-group={boxGroupId}>
-                    {children}
+                    {name}
                 </Text>
                 {connectPoints}
             </Group>

@@ -65,14 +65,15 @@ class ConnectPoint extends PureComponent
         const {onShow, host} = this.props
         const endPoint = host.getConnectEndPoint(this)
         const {lineId} = this.start 
+        let isAddConnected = false
         if (endPoint) {
-            this.setLine(lineId, 'from')
-            endPoint.setLine(lineId, 'to')
-            host.updateLine(lineId, {from: this, to: endPoint})
-        } else {
+            isAddConnected = host.addConnected(lineId, this, endPoint)
+        }
+        if (!endPoint || !isAddConnected) {
             host.setConnectStartPoint(null)
             host.deleteLine(lineId)
         }
+
         onShow(false)
         this.start = false 
     }
@@ -80,6 +81,11 @@ class ConnectPoint extends PureComponent
     setLine(id, type)
     {
         this.lines[id] = type
+    }
+
+    delLine(id)
+    {
+        delete(this.lines[id])
     }
 
     getCenter()

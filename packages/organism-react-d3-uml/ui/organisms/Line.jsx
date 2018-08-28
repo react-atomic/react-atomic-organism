@@ -25,12 +25,13 @@ class Line extends PureComponent
 
     handleClickCancelBtn = e =>
     {
-        console.log('click')
+        const {host, name} = this.props
+        host.deleteLine(name)
     }
 
     render()
     {
-        const {start, end, from, to, ...props} = this.props
+        const {start, end, from, to, host, ...props} = this.props
         const {isHover} = this.state
         const areaSize = 1
         let area = null
