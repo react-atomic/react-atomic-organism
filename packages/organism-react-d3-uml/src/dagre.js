@@ -3,7 +3,7 @@ import get from 'get-object-value'
 
 const keys = Object.keys
 
-const dagreAutoLayout = (nodes, conns) =>
+const dagreAutoLayout = (nodes, conns = {}) =>
 {
     const graph = new dagre.
         graphlib.
@@ -19,7 +19,7 @@ const dagreAutoLayout = (nodes, conns) =>
         label: key,
         ...nodes[key].obj.getWH()
     })})
-    get(keys(conns), null, []).forEach(
+    get(keys(conns), null, {}).forEach(
         key => graph.setEdge(conns[key][0], conns[key][1]) 
     )
     dagre.layout(graph)

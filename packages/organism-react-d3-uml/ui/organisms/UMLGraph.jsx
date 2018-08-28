@@ -107,16 +107,54 @@ class UMLGraph extends PureComponent
 
     getConnectIds(from, to)
     {
-        const fromBoxId = from.getBoxId()
-        const toBoxId = to.getBoxId()
+        const fromBoxId = from.getBox().getId()
+        const toBoxId = to.getBox().getId()
         const mergeId = `${fromBoxId}-${toBoxId}`
         const invertMergeId = `${toBoxId}-${fromBoxId}`
         return {
             fromBoxId,
             toBoxId,
             mergeId,
-            invertMergeId
+            invertMergeId,
         }
+    }
+
+    getConnectNames(from, to)
+    {
+        const ids = this.getConnectIds(from, to)
+        const fromBox = from.getBox()
+        const toBox = to.getBox()
+        const fromBoxGroup = fromBox.getBoxGroup() 
+        const toBoxGroup = toBox.getBoxGroup()
+        const fromBoxName = fromBox.getName()
+        const fromBoxGroupName = fromBoxGroup.getName()
+        const toBoxName = toBox.getName()
+        const toBoxGroupName = toBoxGroup.getName()
+        return {
+            ...ids,
+            fromBoxName,
+            toBoxName,
+            fromBoxGroupName,
+            toBoxGroupName
+        }
+    }
+
+    getConnects()
+    {
+        const conns = this.connects 
+        const {lines} = this.state
+        const results = []
+        keys(conns).forEach( key => {
+            const lineId = conns[key]
+            const {from, to} = lines[lineId]
+            if (!from || !to) {
+                return
+            }
+            results.push(
+                this.getConnectNames(from, to)
+            )
+        })
+        return results
     }
 
     addConnected(lineId, from, to)

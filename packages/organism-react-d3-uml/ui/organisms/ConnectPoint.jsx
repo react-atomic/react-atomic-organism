@@ -101,9 +101,9 @@ class ConnectPoint extends PureComponent
         return {x, y} 
     }
 
-    getBoxId()
+    getBox()
     {
-        return this.props.boxId
+        return this.props.box
     }
 
     isShow()
@@ -142,7 +142,7 @@ class ConnectPoint extends PureComponent
 
     render()
     {
-        const {pos, host, onShow, style, show, boxId, ...props} = this.props
+        const {pos, host, onShow, style, show, box, ...props} = this.props
         const {absX, absY} = this.state        
         let thisStyle = { ...Styles.container, ...style }
         if (this.isShow()) {

@@ -51,8 +51,8 @@ array-unique@^0.2.1:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
 
 array.dedup@*:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.2.tgz#24c82d0b8297f17211d56bb97a8ab14773043f9c"
 
 array.min.max@*:
   version "0.0.3"
