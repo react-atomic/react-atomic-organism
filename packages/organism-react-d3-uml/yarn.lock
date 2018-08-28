@@ -402,8 +402,8 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.22.tgz#436df9c9769357777b72c6fcc913cdbd18948b81"
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.23.tgz#f89237dd94f75a2fc78c96aa3547eca5da5bcec3"
   dependencies:
     array.min.max "*"
     d3 "*"
@@ -678,8 +678,8 @@ get-style@^0.0.0:
   resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.0.0.tgz#966e37b08dea60e1994a2652437a8a5e6d7b0224"
 
 getoffset@*:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.12.tgz#8038603939581287eaaac6f62b68093683a0f5f0"
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.13.tgz#f35dfe2eb6eba038fe6444528608ef90012da248"
   dependencies:
     get-object-value "*"
     get-scroll-info "*"

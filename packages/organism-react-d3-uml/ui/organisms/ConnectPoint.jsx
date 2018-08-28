@@ -55,7 +55,8 @@ class ConnectPoint extends PureComponent
             host.setConnectEndPoint(null)
             const el = host.getEl()
             const end = mouse(e, el)
-            endXY = { x: end[0], y: end[1] }
+            const {x: endX, y: endY} = host.applyXY(el)(end[0], end[1])
+            endXY = { x: endX, y: endY }
         }
         host.updateLine(lineId, { start: center, end: endXY })
     }
