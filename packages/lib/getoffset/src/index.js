@@ -45,6 +45,17 @@ const toSvgXY = dom => (x, y) =>
     }
 }
 
+const toSvgMatrixXY = dom => (x, y) =>
+{
+    const svg = dom.ownerSVGElement
+    const offset = svg.getBoundingClientRect()
+    const matrix = dom.getScreenCTM()
+    return {
+      x: (matrix.a * x) + (matrix.c * y) + matrix.e - offset.left,
+      y: (matrix.b * x) + (matrix.d * y) + matrix.f - offset.top
+    }  
+}
+
 const getOffset = (dom, scrollNode) => {
     let top = 0;
     let left = 0;
@@ -85,5 +96,5 @@ const getOffset = (dom, scrollNode) => {
     return result;
 }
 
-export {mouse, toSvgXY, unifyTouch}
+export {mouse, toSvgXY, toSvgMatrixXY, unifyTouch}
 export default getOffset
