@@ -1,6 +1,6 @@
 {
   "name": "array.dedup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple array dedup, support from ie9",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
