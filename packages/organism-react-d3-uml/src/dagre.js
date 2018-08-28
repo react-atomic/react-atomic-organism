@@ -1,5 +1,6 @@
 import * as dagre from "dagre"
 import get from 'get-object-value'
+import dedup from 'array.dedup'
 
 const keys = Object.keys
 
@@ -14,13 +15,19 @@ const dagreAutoLayout = (nodes, conns) =>
     if (!nodeKeys || !nodeKeys.length) {
         console.warn('[Dagre] empty node')
     }
-    nodeKeys.forEach( key => {
-    graph.setNode(key, {
-        label: key,
-        ...nodes[key].obj.getWH()
-    })})
+    let nodeConns = []
     get(keys(conns), null, []).forEach(
-        key => graph.setEdge(conns[key][0], conns[key][1]) 
+        key => {
+            graph.setEdge(...conns[key]) 
+            nodeConns.push(...conns[key])
+        }
+    )
+    nodeConns = dedup(nodeConns)
+    nodeKeys.forEach( key => 
+        graph.setNode(key, {
+            label: key,
+            ...nodes[key].obj.getWH()
+        })
     )
     dagre.layout(graph)
     const newWH = {}
