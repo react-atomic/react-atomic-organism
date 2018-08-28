@@ -33,13 +33,13 @@ const mouse = (e, dom, scrollNode) =>
 
 const toSvgXY = dom => (x, y) => 
 {
-    const svg = dom.ownerSVGElement || dom;
+    const svg = dom.ownerSVGElement || dom
     if (svg.createSVGPoint) {
-        let point = svg.createSVGPoint();
-        point.x = x;
-        point.y = y;
-        point = point.matrixTransform(dom.getScreenCTM().inverse());
-        return [point.x, point.y];
+        let point = svg.createSVGPoint()
+        point.x = x
+        point.y = y
+        point = point.matrixTransform(dom.getScreenCTM().inverse())
+        return [point.x, point.y]
     } else {
         return false
     }
@@ -47,7 +47,7 @@ const toSvgXY = dom => (x, y) =>
 
 const toSvgMatrixXY = dom => (x, y) =>
 {
-    const svg = dom.ownerSVGElement
+    const svg = dom.ownerSVGElement || dom
     const offset = svg.getBoundingClientRect()
     const matrix = dom.getScreenCTM()
     return {
