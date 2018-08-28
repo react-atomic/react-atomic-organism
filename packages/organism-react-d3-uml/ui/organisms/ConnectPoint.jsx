@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {Circle} from 'organism-react-graph'
 import getOffset, {mouse, unifyTouch} from 'getoffset'
-import getStyle from 'get-style'
+import get from 'get-object-value'
 
 import DragAndDrop from './DragAndDrop'
 
@@ -90,15 +90,14 @@ class ConnectPoint extends PureComponent
 
     getCenter()
     {
+        const {host} = this.props
         const el = this.dnd.getEl()
         const bbox = el.getBBox()
-        const ctm = el.getCTM() 
         const region = el.getBoundingClientRect() 
         const {left, top, width, height} = region
-
-        const x = Math.floor(bbox.x + ctm.e + width / 2)
-        const y = Math.floor(bbox.y + ctm.f + height / 2)
-        return {x, y} 
+        const x = bbox.x + width / 2 
+        const y = bbox.y + height / 2
+        return host.applyXY(el)(x, y) 
     }
 
     getBox()

@@ -4,6 +4,8 @@ import dedup from 'array.dedup'
 
 const keys = Object.keys
 
+const toInt = d => parseInt(d, 10)
+
 const dagreAutoLayout = (nodes, conns = {}) =>
 {
     const graph = new dagre.
@@ -23,15 +25,27 @@ const dagreAutoLayout = (nodes, conns = {}) =>
         }
     )
     nodeConns = dedup(nodeConns)
-    nodeKeys.forEach( key => 
-        graph.setNode(key, {
-            label: key,
-            ...nodes[key].obj.getWH()
-        })
-    )
+    const nodeNoConns = []
+    nodeKeys.forEach( key => { 
+        if (-1 !== nodeConns.indexOf(toInt(key))) {
+            graph.setNode(key, {
+                label: key,
+                ...nodes[key].obj.getWH()
+            })
+        } else {
+            nodeNoConns.push(key)
+        }
+    })
     dagre.layout(graph)
     const newWH = {}
-    graph.nodes().forEach(v =>newWH[v]= graph.node(v))
+    graph.nodes().forEach(key =>newWH[key]= graph.node(key))
+    if (nodeNoConns.length) {
+        let noConnStart = 0 
+        nodeNoConns.forEach(key => {
+            newWH[key] = {x: 10, y: noConnStart*20}
+            noConnStart++
+        })
+    }
     return newWH
 }
 

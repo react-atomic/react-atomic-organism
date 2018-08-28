@@ -1,11 +1,13 @@
 import React, {PureComponent, cloneElement} from 'react'
-import {Graph, Rect, Circle} from 'organism-react-graph'
+import {Graph} from 'organism-react-graph'
 import get from 'get-object-value'
+import {toSvgMatrixXY} from 'getoffset'
 
-import dagreAutoLayout from '../../src/dagre' 
+import Zoom from '../organisms/Zoom'
 import BoxGroup from '../organisms/BoxGroup'
 import Box from '../organisms/Box'
 import Line from '../organisms/Line'
+import dagreAutoLayout from '../../src/dagre' 
 
 let lineCounts = 0
 const keys = Object.keys
@@ -231,6 +233,24 @@ class UMLGraph extends PureComponent
     {
         return get(this, ['boxMap', id, 'obj'])
     }
+
+    getTransform()
+    {
+        const t = this.zoom.getTransform()
+        return t
+    }
+    
+    applyXY = dom => (pX, pY) =>
+    {
+        const zoom = this.getTransform()
+        const zoomX = get(zoom, ['x'], 0)
+        const zoomY = get(zoom, ['y'], 0)
+        const zoomK = get(zoom, ['k'], 1)
+        let{x, y} = toSvgMatrixXY(dom)(pX, pY)
+        x = (x - zoomX) / zoomK 
+        y = (y - zoomY) / zoomK
+        return {x, y}
+    }
     
     syncPropConnects()
     {
@@ -312,6 +332,7 @@ class UMLGraph extends PureComponent
         const {lines} = this.state
         return (
             <Graph refCb={el => this.el = el} {...props}>
+                <Zoom el={()=>this.getEl()} ref={el=>this.zoom = el}>
                 {
                     boxGroupsLocator(data).map(
                         (item, tbKey) => 
@@ -340,6 +361,7 @@ class UMLGraph extends PureComponent
                         key => <Line {...lines[key]} name={key} key={key} host={this} /> 
                     )
                 }
+                </Zoom>
             </Graph> 
         )
     }
