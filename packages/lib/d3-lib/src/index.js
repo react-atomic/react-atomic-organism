@@ -262,7 +262,6 @@ const d3Zoom = ({el, scaleExtent, callback}) =>
         scaleExtent(scaleExtent).
         on('zoom', () => callback(d3Event().transform) )
     dSelect.call(zoom)
-    console.log(dSelect,el)
 }
 
 const d3Event = () => d3.event
