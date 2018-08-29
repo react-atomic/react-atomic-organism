@@ -51,8 +51,8 @@ array-unique@^0.2.1:
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
 
 array.dedup@*:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.2.tgz#24c82d0b8297f17211d56bb97a8ab14773043f9c"
 
 array.merge@*:
   version "0.0.2"
@@ -825,12 +825,12 @@ browserslist@^3.2.6:
     electron-to-chromium "^1.3.47"
 
 caniuse-lite@^1.0.30000844:
-  version "1.0.30000878"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000878.tgz#c644c39588dd42d3498e952234c372e5a40a4123"
+  version "1.0.30000882"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000882.tgz#0d5066847a11a5af0e50ffce6c062ef0665f68ea"
 
 chalk@^1.1.3:
   version "1.1.3"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
+  resolved "http://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
   dependencies:
     ansi-styles "^2.2.1"
     escape-string-regexp "^1.0.2"
@@ -921,8 +921,8 @@ detect-libc@^1.0.2:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
 
 electron-to-chromium@^1.3.47:
-  version "1.3.61"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.61.tgz#a8ac295b28d0f03d85e37326fd16b6b6b17a1795"
+  version "1.3.62"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.62.tgz#2e8e2dc070c800ec8ce23ff9dfcceb585d6f9ed8"
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -1054,8 +1054,8 @@ glob-parent@^2.0.0:
     is-glob "^2.0.0"
 
 glob@^7.0.5, glob@^7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
@@ -1327,7 +1327,7 @@ minizlib@^1.1.0:
 
 mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
+  resolved "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
 
@@ -1336,8 +1336,8 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
 nan@^2.9.2:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.11.0.tgz#574e360e4d954ab16966ec102c0c049fd961a099"
 
 needle@^2.2.1:
   version "2.2.2"
@@ -1641,8 +1641,8 @@ repeating@^2.0.0:
     is-finite "^1.0.0"
 
 ricon@*:
-  version "0.0.57"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.57.tgz#dd7341c3c56ce373a3f87c1d021554fa2c6534f5"
+  version "0.0.58"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.0.58.tgz#a897417e7105275c8dfc7f649a70f242686df226"
   dependencies:
     keyframe-css "*"
 

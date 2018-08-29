@@ -11,15 +11,16 @@ import {
 
 let checkboxId = 0;
 
-const InputWrapper = ({toggle, slider, type, checked, ...props}) =>
+const InputWrapper = ({toggle, slider, type, checked, disabled, ...props}) =>
 {
     const classes = mixClass(
         'checkbox',
         {
            radio: type==='radio', 
-           toggle: toggle,
-           slider: slider,
-           checked: checked
+           toggle,
+           slider,
+           checked,
+           disabled,
         }
     );
     return (
@@ -77,15 +78,15 @@ class Checkbox extends PureComponent
         if ('INPUT' !== e.target.nodeName) {
             e.preventDefault();
         }
-        const {beforeClick, afterClick} = this.props;
+        const {beforeClick, afterClick, disabled} = this.props;
         const beforeChecked = this.state.checked;
         let afterChecked = !this.state.checked;
         if ('function' === typeof beforeClick) {
             beforeClick(e, beforeChecked, afterChecked, this)
         }
-        this.setState({
-            checked: afterChecked
-        });
+        if (!disabled) {
+            this.setState({ checked: afterChecked })
+        }
         if ('function' === typeof afterClick) {
             afterClick(e, beforeChecked, afterChecked, this)
         }
@@ -101,7 +102,7 @@ class Checkbox extends PureComponent
 
     render()
     {
-        const {refCb, toggle, label, slider, type, fieldStyles, beforeClick, afterClick, ...props} = this.props;
+        const {disabled, refCb, toggle, label, slider, type, fieldStyles, beforeClick, afterClick, ...props} = this.props;
         const {checked: stateChecked, id} = this.state;
         let thisLabel = ' '
         if (label) {
@@ -111,6 +112,7 @@ class Checkbox extends PureComponent
            <Field
                 {...{
                     ...props,
+                    disabled,
                     type,
                     id,
                     refCb: el => {
@@ -133,6 +135,7 @@ class Checkbox extends PureComponent
                             toggle,
                             slider,
                             type,
+                            disabled,
                             onClick: this.handleClick,
                             checked: stateChecked
                         }}
