@@ -270,16 +270,26 @@ class UMLGraph extends PureComponent
         const addGroupConn = (from, to) =>
         {
             const a = [from, to].sort()
-            groupConn[a[0]+'-'+a[1]] = a
+            groupConn[a[0]+'-'+a[1]] = [from, to] 
         }
         conns.forEach( conn => {
             const fromBoxGroupName = connFromBoxGroupLocator(conn)
-            const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName)
-            const toBoxGroupName = connToBoxGroupLocator(conn)
-            const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName)
             const fromBoxName = connFromBoxLocator(conn)
-            const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(fromBoxName) 
+            const toBoxGroupName = connToBoxGroupLocator(conn)
             const toBoxName = connToBoxLocator(conn)
+            if (!fromBoxGroupName || !fromBoxName || !toBoxGroupName || !toBoxName) {
+                console.warn('Sync props conns failed', [
+                    fromBoxGroupName,
+                    fromBoxName,
+                    toBoxGroupName,
+                    toBoxName,
+                    conn
+                ])
+                return
+            }
+            const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName)
+            const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName)
+            const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(fromBoxName) 
             const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName) 
             const lineId = this.addLine()
             addGroupConn(fromBoxGroupId, toBoxGroupId)
