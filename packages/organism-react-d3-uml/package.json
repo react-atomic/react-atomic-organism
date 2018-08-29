@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",

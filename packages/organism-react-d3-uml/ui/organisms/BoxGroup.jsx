@@ -119,6 +119,7 @@ class BoxGroup extends PureComponent
                     absY={absY}
                     onAbsXY={this.move}
                     style={Styles.rect}
+                    zoom={host.getTransform}
                     component={(
                         <Rect
                             rx="5"

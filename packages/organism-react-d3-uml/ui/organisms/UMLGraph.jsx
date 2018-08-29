@@ -234,7 +234,7 @@ class UMLGraph extends PureComponent
         return get(this, ['boxMap', id, 'obj'])
     }
 
-    getTransform()
+    getTransform = () =>
     {
         const t = this.zoom.getTransform()
         return t

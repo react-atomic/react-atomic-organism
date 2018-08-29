@@ -1,6 +1,7 @@
 import React, {PureComponent, cloneElement, createElement, isValidElement} from 'react'
 import {d3DnD, d3Event} from 'd3-lib'
 import getOffset, {unifyTouch} from 'getoffset'
+import get from 'get-object-value'
 
 class DragAndDrop extends PureComponent
 {
@@ -13,13 +14,17 @@ class DragAndDrop extends PureComponent
 
     handleStart = () =>
     {
-        const {onDragStart} = this.props
+        const {onDragStart, zoom} = this.props
+        let zoomK = 1
+        if ('function' === typeof zoom) {
+            zoomK = get(zoom(), ['k'], 1)
+        }
         const e = d3Event()
         const {x, y, sourceEvent} = e
         const {pageX, pageY} = unifyTouch(sourceEvent)
         const offset = getOffset(this.el)
-        const elAbsX = (pageX - offset.left) * 2
-        const elAbsY = (pageY - offset.top) * 2
+        const elAbsX = (pageX - offset.left) * 2 / zoomK
+        const elAbsY = (pageY - offset.top) * 2 / zoomK
         this.start = {
             x,
             y,
@@ -70,7 +75,7 @@ class DragAndDrop extends PureComponent
 
     render()
     {
-        const {component, style, onAbsXY, absX, absY, onDragStart, onDrag, onDragEnd, ...props} = this.props
+        const {component, style, onAbsXY, absX, absY, zoom, onDragStart, onDrag, onDragEnd, ...props} = this.props
         const build = (isValidElement(component)) ?
             cloneElement :
             createElement
