@@ -34,6 +34,9 @@ class RadioGroup extends PureComponent
         const {onChange} = this.props
         let value = null
         if (ref) {
+            if (ref.props.disabled) {
+                return
+            }
             value = ref.getValue()
         }
         this.setState({ value }, () => {
@@ -79,6 +82,7 @@ class RadioGroup extends PureComponent
                         <Radio
                             type="radio" 
                             name={name}
+                            {...item.props}
                             label={item.label}
                             value={item.value}
                             key={item.value}

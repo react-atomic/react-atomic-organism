@@ -149,7 +149,8 @@ class Checkbox extends PureComponent
 Checkbox.defaultProps = {
     atom: 'input',
     type: 'checkbox',
-    checked: false 
+    checked: false, 
+    disabled: false
 };
 
 export default Checkbox;
