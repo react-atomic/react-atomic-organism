@@ -1,5 +1,5 @@
 require("setimmediate");
-import React, {PureComponent} from 'react'; 
+import React, {PureComponent, Component} from 'react'; 
 import { SemanticUI, Unsafe } from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import {reshow, pageStore} from 'reshow';
@@ -13,7 +13,7 @@ const keys = Object.keys;
 const urlDecode = decodeURIComponent;
 let win;
 
-class MonitorPvid extends PureComponent
+class MonitorPvid extends Component
 {
     static getStores()
     {
@@ -46,48 +46,28 @@ class MonitorPvid extends PureComponent
         this.updatePvid(pvid, I13N);
     }
 
-    componentDidUpdate(prevProps, prevState)
+    shouldComponentUpdate(nextProps, nextState)
     {
-        const {pvid, I13N} = this.state;
-        if (prevState.pvid !== pvid) {
+        const {pvid, I13N} = nextState;
+        if (this.state.pvid !== pvid) {
             this.updatePvid(pvid, I13N);
         }
+        return false
     }
 
     render()
     {
-        return null;
+        return null
     }
 }
 
 const MonitorPvidContainer = reshow(MonitorPvid);
 
-class MonitorBrowserBF extends PureComponent
+class MonitorBrowserBF extends Component
 {
     static getStores()
     {
         return [ajaxStore];
-    }
-
-    componentDidUpdate(prevProps, prevState)
-    {
-        const {currentLocation} = this.state;
-        if (prevState.currentLocation !== currentLocation) {
-            setImmediate(()=>{
-                const i13nState = i13nStore.getState();
-                i13nDispatch(
-                    'action',
-                    {
-                        I13N: {
-                            action: 'bfChange',
-                            before: urlDecode(i13nState.get('lastUrl')),
-                            after: urlDecode(currentLocation),
-                            last: urlDecode(get(prevState, ['currentLocation'], ''))
-                        }
-                    }
-                )
-            })
-        }
     }
 
     static calculateState(prevState)
@@ -97,9 +77,32 @@ class MonitorBrowserBF extends PureComponent
         };
     }
 
+    shouldComponentUpdate(nextProps, nextState)
+    {
+        const {currentLocation} = this.state;
+        const {currentLocation: nextLocation} = nextState
+        if (currentLocation !== nextLocation) {
+            setImmediate(()=>{
+                const i13nState = i13nStore.getState();
+                i13nDispatch(
+                    'action',
+                    {
+                        I13N: {
+                            action: 'bfChange',
+                            before: urlDecode(get(i13nState.get('lastUrl'), null, '')),
+                            after: urlDecode(nextLocation),
+                            last: urlDecode(get(currentLocation, null, ''))
+                        }
+                    }
+                )
+            })
+        }
+        return false
+    }
+
     render()
     {
-        return null;
+        return null
     }
 }
 
@@ -201,14 +204,13 @@ class I13nElement extends PureComponent
     }
 }
 
-export default reshow(I13nElement);
+export default reshow(I13nElement)
 
 const Styles = {
     iframe: {
         width: 1,
         height: 1,
         position: 'absolute',
-        top: -999
+        top: -99999
     }
 }
-
