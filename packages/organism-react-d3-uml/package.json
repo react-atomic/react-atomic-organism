@@ -1,9 +1,10 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
     "react-component"
@@ -25,7 +26,9 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build": "npm run clean && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },
   "files": [
