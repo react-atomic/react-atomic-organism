@@ -1,13 +1,12 @@
 import React, {PureComponent, cloneElement} from 'react'
 import {Graph} from 'organism-react-graph'
-import get from 'get-object-value'
+import get, {getDefault} from 'get-object-value'
 import {toSvgMatrixXY} from 'getoffset'
 
 import Zoom from '../organisms/Zoom'
 import BoxGroup from '../organisms/BoxGroup'
 import Box from '../organisms/Box'
 import Line from '../organisms/Line'
-import dagreAutoLayout from '../../src/dagre' 
 
 let lineCounts = 0
 const keys = Object.keys
@@ -306,13 +305,16 @@ class UMLGraph extends PureComponent
     {
         setTimeout(()=>{
             const groupConn = this.syncPropConnects()
-            const newXY = dagreAutoLayout({...this.boxMap}, groupConn)
-            get(keys(newXY), null, []).forEach(
-                key => {
-                    const oBoxGroup = this.getBoxGroup(key) 
-                    oBoxGroup.move(newXY[key].x, newXY[key].y)
-                }
-            )
+            import('../../src/dagre').then( dagreAutoLayout => {
+                dagreAutoLayout = getDefault(dagreAutoLayout)
+                const newXY = dagreAutoLayout({...this.boxMap}, groupConn)
+                get(keys(newXY), null, []).forEach(
+                    key => {
+                        const oBoxGroup = this.getBoxGroup(key) 
+                        oBoxGroup.move(newXY[key].x, newXY[key].y)
+                    }
+                )
+            })
         })
     }
 
