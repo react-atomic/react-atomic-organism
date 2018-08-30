@@ -109,6 +109,7 @@ class I13nStore extends ReduceStore
 
   handleImpression(state, action)
   {
+        state = state.set('lastUrl', document.URL)
         const run = state => {
             let impressionHandler = state.get('impressionHandler')
             if (!impressionHandler) {
