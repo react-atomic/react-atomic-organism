@@ -9,15 +9,17 @@ let isRunning = false;
  *  !!Important!! any logic change need take care isRunning
  */
 const smoothScrollTo = (to, duration, el, callback) => {
+    el = getScrollNode(el)
     if (isRunning) {
-        if ('function' === typeof callback) {
-            callback();
-        }
+        isRunning = false
+        setTimeout(() => {
+            el.scrollTop = to
+            if ('function' === typeof callback) {
+                callback()
+            }
+        })
         return false;
-    } else {
-        isRunning = true;
     }
-    el = getScrollNode(el);
     if (!duration) {
         duration = 900;
     }
@@ -33,15 +35,15 @@ const smoothScrollTo = (to, duration, el, callback) => {
     let beginTimeStamp;
     const scrollTo = (timeStamp) => {
         beginTimeStamp = beginTimeStamp || timeStamp;
-        let elapsedTime = timeStamp - beginTimeStamp;
-        let progress = easeInOutCubic(
+        const elapsedTime = timeStamp - beginTimeStamp;
+        const progress = easeInOutCubic(
             elapsedTime,
             from,
             go,
             duration
         );
         el.scrollTop = progress;
-        if ( elapsedTime < duration && go) { 
+        if ( elapsedTime < duration && go && isRunning) { 
             requestAnimationFrame(scrollTo);
         } else {
             isRunning = false;
@@ -49,7 +51,8 @@ const smoothScrollTo = (to, duration, el, callback) => {
                 callback();
             }
         }
-    };
+    }
+    isRunning = true
     requestAnimationFrame(scrollTo);
 };
 
