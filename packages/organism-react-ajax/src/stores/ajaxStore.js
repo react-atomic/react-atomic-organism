@@ -13,7 +13,6 @@ let gWorker
 let fakeWorker = false
 let isWorkerReady
 let cbIndex = 0
-let preNewUrl = null
 const Callbacks = []
 
 const initWorkerEvent = worker => {
@@ -49,21 +48,22 @@ const initFakeWorker = () => {
 
 const handleUpdateNewUrl = (state, action, url) => {
   setImmediate(() => {
-    if (preNewUrl !== url) {
-        /**
-         * Who not use state.get("currentLocation")
-         * Because currentLocation only use in bfchange,
-         * handelUpdateNewUrl possible use in other place, such as ajax.get
-         */
+    const preUrl = state.get("currentLocation")
+    if (preUrl !== url) {
         const updateWithUrl = state.get("updateWithUrl")
         updateWithUrl(url)
-        preNewUrl = url
     }
     const params = get(action, ["params"], {})
     if (params.disableAjax && false !== params.scrollBack) {
       smoothScrollTo(0)
     }
   })
+    /**
+     * "Do not change" currentLocation in other place.
+     * such as ajaxGet,
+     * Because this state should only trigger with bfchange.
+     */
+  return state.set("currentLocation", url)
 }
 
 class AjaxStore extends ReduceStore {
@@ -274,7 +274,7 @@ class AjaxStore extends ReduceStore {
       history.pushState("", "", rawUrl)
     }
     if (params.disableAjax) {
-      handleUpdateNewUrl(state, action, rawUrl)
+      state = handleUpdateNewUrl(state, action, rawUrl)
       return state
     }
     if (!params.disableProgress) {
@@ -367,13 +367,8 @@ class AjaxStore extends ReduceStore {
 
   updateWithUrl(state, action) {
     const url = get(action, ["params", "url"], document.URL)
-    handleUpdateNewUrl(state, action, url)
-    /**
-     * "Do not change" currentLocation in other place.
-     * such as ajaxGet,
-     * Because this state should only trigger with bfchange.
-     */
-    return state.set("currentLocation", url)
+    state = handleUpdateNewUrl(state, action, url)
+    return state 
   }
 
   reduce(state, action) {
