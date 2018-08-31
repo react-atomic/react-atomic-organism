@@ -13,6 +13,7 @@ let gWorker
 let fakeWorker = false
 let isWorkerReady
 let cbIndex = 0
+let preNewUrl = null
 const Callbacks = []
 
 const initWorkerEvent = worker => {
@@ -47,13 +48,18 @@ const initFakeWorker = () => {
 }
 
 const handleUpdateNewUrl = (state, action, url) => {
-  const prevUrl = state.get('currentLocation') 
   setImmediate(() => {
-    const params = get(action, ["params"], {})
-    const updateWithUrl = state.get("updateWithUrl")
-    if (prevUrl !== url) {
+    if (preNewUrl !== url) {
+        /**
+         * Who not use state.get("currentLocation")
+         * Because currentLocation only use in bfchange,
+         * handelUpdateNewUrl possible use in other place, such as ajax.get
+         */
+        const updateWithUrl = state.get("updateWithUrl")
         updateWithUrl(url)
+        preNewUrl = url
     }
+    const params = get(action, ["params"], {})
     if (params.disableAjax && false !== params.scrollBack) {
       smoothScrollTo(0)
     }
