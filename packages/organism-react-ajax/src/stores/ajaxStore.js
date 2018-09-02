@@ -58,11 +58,6 @@ const handleUpdateNewUrl = (state, action, url) => {
       smoothScrollTo(0)
     }
   })
-    /**
-     * "Do not change" currentLocation in other place.
-     * such as ajaxGet,
-     * Because this state should only trigger with bfchange.
-     */
   return state.set("currentLocation", url)
 }
 
@@ -368,7 +363,14 @@ class AjaxStore extends ReduceStore {
   updateWithUrl(state, action) {
     const url = get(action, ["params", "url"], document.URL)
     state = handleUpdateNewUrl(state, action, url)
-    return state 
+    /**
+     * "Do not change" toggleBfChange and bfApplyUrl
+     * in other place, such as ajaxGet.
+     * Because this state should only trigger with bfchange.
+     */
+    return state.
+        set("toggleBfChange", !state.get("toggleBfChange")).
+        set("bfApplyUrl", url)
   }
 
   reduce(state, action) {
