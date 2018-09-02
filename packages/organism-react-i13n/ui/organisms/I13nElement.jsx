@@ -72,16 +72,18 @@ class MonitorBrowserBF extends Component
 
     static calculateState(prevState)
     {
+        const ajaxState = ajaxStore.getState()
         return {
-            currentLocation: ajaxStore.getState().get('currentLocation')
+            bfApplyUrl: ajaxState.get('bfApplyUrl'),
+            toggleBfChange: ajaxState.get('toggleBfChange'),
         };
     }
 
     shouldComponentUpdate(nextProps, nextState)
     {
-        const {currentLocation} = this.state;
-        const {currentLocation: nextLocation} = nextState
-        if (currentLocation !== nextLocation) {
+        const {bfApplyUrl, toggleBfChange} = this.state;
+        const {bfApplyUrl: nextBfApplyUrl, toggleBfChange: nextToggleBfChange} = nextState
+        if (toggleBfChange !== nextToggleBfChange) {
             setImmediate(()=>{
                 const i13nState = i13nStore.getState();
                 i13nDispatch(
@@ -90,8 +92,8 @@ class MonitorBrowserBF extends Component
                         I13N: {
                             action: 'bfChange',
                             before: urlDecode(get(i13nState.get('lastUrl'), null, '')),
-                            after: urlDecode(nextLocation),
-                            last: urlDecode(get(currentLocation, null, ''))
+                            after: urlDecode(nextBfApplyUrl),
+                            last: urlDecode(get(bfApplyUrl, null, ''))
                         }
                     }
                 )
