@@ -7,6 +7,7 @@ import Zoom from '../organisms/Zoom'
 import BoxGroup from '../organisms/BoxGroup'
 import Box from '../organisms/Box'
 import Line from '../organisms/Line'
+import ArrowHead from '../molecules/ArrowHead'
 
 let lineCounts = 0
 const keys = Object.keys
@@ -374,6 +375,7 @@ class UMLGraph extends PureComponent
                     )
                 }
                 </Zoom>
+                <ArrowHead />
             </Graph> 
         )
     }

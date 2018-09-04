@@ -5,6 +5,10 @@ import CancelButton from '../organisms/CancelButton'
 
 class Line extends PureComponent
 {
+    static defaultProps = {
+      markerEnd: 'url(#marker-arrow-head)'
+    }
+
     state={
         isHover: false,
     }
