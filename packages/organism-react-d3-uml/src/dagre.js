@@ -1,6 +1,6 @@
-import * as dagre from "dagre"
 import get from 'get-object-value'
 import dedup from 'array.dedup'
+import * as dagre from "./lib/dagre"
 
 const keys = Object.keys
 

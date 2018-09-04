@@ -1,5 +1,4 @@
 import React, {PureComponent, Children, cloneElement} from 'react'
-import getStyle from 'get-style'
 import getOffset from 'getoffset'
 import {Group, Rect, Text} from 'organism-react-graph'
 import get from 'get-object-value'
