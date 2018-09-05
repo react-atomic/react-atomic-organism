@@ -15,12 +15,9 @@ class NavigatioStore extends ReduceStore
 
   reduce (state, action)
   {
-      let id = get(action,['id'],'default');
-      let settings = state.get(id);
-      if (!settings) {
-        settings = Map();
-      }
-      settings = settings.merge(action.params);
+      const id = get(action,['id'],'default');
+      const settings = get(state.get(id), null, ()=>Map()).
+        merge(action.params)
       return state.set(id, settings);
   }
 }

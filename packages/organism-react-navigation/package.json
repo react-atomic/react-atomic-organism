@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.2.22",
+  "version": "0.2.23",
   "description": "React Navigation",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -13,7 +13,9 @@
   "license": "MIT",
   "dependencies": {
     "class-lib": "*",
+    "css-query-selector": "*",
     "get-object-value": "*",
+    "getoffset": "*",
     "immutable": "*",
     "react-atomic-molecule": "*",
     "reshow-flux": "*",
