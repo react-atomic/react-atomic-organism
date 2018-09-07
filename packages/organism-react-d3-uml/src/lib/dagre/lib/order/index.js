@@ -6,11 +6,10 @@ import addSubgraphConstraints from './add-subgraph-constraints'
 import initOrder from './init-order'
 import crossCount from './cross-count'
 import {range, rangeStep} from '../lodash-lite'
+import * as util from '../util'
+import {Graph} from '../graphlib'
 
 const keys = Object.keys
-
-    var Graph = require("../graphlib").Graph,
-    util = require("../util");
 
 export default order
 
@@ -30,9 +29,9 @@ export default order
  *       algorithm.
  */
 function order(g) {
-  var maxRank = util.maxRank(g),
-      downLayerGraphs = buildLayerGraphs(g, range(maxRank + 1).slice(1), "inEdges"),
-      upLayerGraphs = buildLayerGraphs(g, rangeStep(maxRank - 1, -1, -1), "outEdges");
+  var maxRank = util.maxRank(g);
+  var downLayerGraphs = buildLayerGraphs(g, range(maxRank + 1).slice(1), "inEdges");
+  var upLayerGraphs = buildLayerGraphs(g, rangeStep(maxRank - 1, -1, -1), "outEdges");
 
   var layering = initOrder(g);
   assignOrder(g, layering);

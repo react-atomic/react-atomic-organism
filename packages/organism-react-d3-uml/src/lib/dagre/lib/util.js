@@ -192,13 +192,20 @@ function addBorderNode(g, prefix, rank, order) {
   return addDummyNode(g, "border", node, prefix);
 }
 
-function maxRank(g) {
-  return Math.max(...g.nodes().map( function(v) {
-    var rank = g.node(v).rank;
-    if ('undefined' !== rank) {
+function maxRank(g, nodes) {
+  if (!nodes) {
+    nodes = g.nodes()
+  }
+  const arr = nodes.map( function(v) {
+    const rank = g.node(v).rank;
+    if ('undefined' !== typeof rank) {
       return rank;
     }
-  }));
+  })
+  if (!arr.length) {
+    return 0
+  }
+  return Math.max(...arr)
 }
 
 /*
