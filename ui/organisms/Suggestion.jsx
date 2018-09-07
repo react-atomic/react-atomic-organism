@@ -39,10 +39,11 @@ class Suggestion extends PureComponent
 
   setValue(value, e)
   {
+    const input = this.input
     let nextState = {value}
     if ('undefined' === typeof value) {
       nextState = {
-        value: this.input.value,
+        value: input.value,
         isOpen: true
       }
     }
@@ -50,7 +51,7 @@ class Suggestion extends PureComponent
     this.setState(nextState, ()=>{
       const {onChange} = this.props
       if ('function' === typeof onChange) {
-        onChange(e, this.state.value)
+        onChange(e, this.state.value, input.name)
       }
     })
   }
