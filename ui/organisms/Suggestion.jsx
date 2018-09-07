@@ -46,6 +46,7 @@ class Suggestion extends PureComponent
         isOpen: true
       }
     }
+    e.persist()
     this.setState(nextState, ()=>{
       const {onChange} = this.props
       if ('function' === typeof onChange) {
@@ -57,7 +58,7 @@ class Suggestion extends PureComponent
   handleClose = e => {
     const target = e.target
     const sbox = this.searchbox
-    if (sbox.contains(target) || sbox.isSameNode(target)) {
+    if (sbox.contains(target)) {
       return
     }
     this.close()
