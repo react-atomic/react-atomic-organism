@@ -33,10 +33,11 @@
     "react": "^16.x"
   },
   "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
     "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublish": "npm run build"
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build",
