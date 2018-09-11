@@ -1,10 +1,10 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.2.3",
+  "version": "0.2.6",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "repository": "react-atomic/react-atomic-organisms",
+  "repository": "react-atomic/react-atomic-organism",
   "keywords": [
     "reactjs"
   ],
@@ -33,10 +33,11 @@
     "react": "^16.x"
   },
   "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
     "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublish": "npm run build"
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build",

@@ -3,6 +3,12 @@
 # react-atomic-organism
 Atomic design in React (organisms)
 
+## NPM
+https://www.npmjs.com/package/react-atomic-organism
+
+## GIT
+https://github.com/react-atomic/react-atomic-organism
+
 ## Library
 * [getoffset](http://npm.im/getoffset)
    * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/getoffset

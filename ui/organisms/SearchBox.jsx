@@ -5,7 +5,7 @@ import {
     List
 } from 'react-atomic-molecule';
 
-const SearchBox = ({wrapRefCb, results, itemOnClick, resultsStyle, ...props}) =>
+const SearchBox = ({wrapRefCb, wrapStyle, results, itemOnClick, resultsStyle, ...props}) =>
 {
     const classes = mixClass (
         props.className,
@@ -29,8 +29,8 @@ const SearchBox = ({wrapRefCb, results, itemOnClick, resultsStyle, ...props}) =>
     return (
       <SemanticUI 
         className={classes}
+        style={wrapStyle}
         refCb={wrapRefCb}
-        style={Styles.container}
       >
         <SemanticUI atom="input" className="prompt" type="text" {...props} />
         {results}
@@ -41,11 +41,10 @@ const SearchBox = ({wrapRefCb, results, itemOnClick, resultsStyle, ...props}) =>
 export default SearchBox;
 
 const Styles = {
-    container: {
-      display: 'inline-block'
-    },
     results: {
-        display: 'block'
+        display: 'block',
+        maxHeight: '60vh',
+        overflowY: 'auto'
     },
 }
 

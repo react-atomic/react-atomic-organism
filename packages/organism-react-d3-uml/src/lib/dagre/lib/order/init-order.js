@@ -1,6 +1,7 @@
 "use strict";
 
 import {range} from '../lodash-lite'
+import {maxRank as getMaxRank} from '../util'
 
 
 export default initOrder
@@ -21,9 +22,9 @@ function initOrder(g) {
   var visited = {},
       simpleNodes = g.nodes().filter( function(v) {
         return !g.children(v).length;
-      }),
-      maxRank = Math.max(...simpleNodes.map( function(v) { return g.node(v).rank; })),
-      layers = range(maxRank + 1).map( function() { return []; });
+      });
+    const maxRank = getMaxRank(g, simpleNodes) 
+    const layers = range(maxRank + 1).map( function() { return []; });
 
   function dfs(v) {
     if (visited[v]) return;
