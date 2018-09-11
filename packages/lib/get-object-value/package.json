@@ -1,9 +1,10 @@
 {
   "name": "get-object-value",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Get Object Value",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -16,8 +17,10 @@
     "babel-preset-stage-0": "^6.x"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel src -d build/src",
-    "prepublish": "npm run build"
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build",
