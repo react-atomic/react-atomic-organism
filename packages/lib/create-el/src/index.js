@@ -80,6 +80,6 @@ const css = (base, isStart) => callback => (url, attrs) =>
 }
 
 export {
-    js, css
+    js, css, inject, create
 };
 
