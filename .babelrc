@@ -10,6 +10,12 @@
               "add-module-exports",
               "system-import-transformer",
               "transform-react-constant-elements",
+              ["transform-runtime", {
+                "moduleName": "reshow-runtime",
+                "polyfill": false,
+                "regenerator": false
+                }
+              ],
               ["transform-react-remove-prop-types", {"mode": "wrap"}]
             ]
         },
@@ -21,6 +27,12 @@
             ],
             "plugins": [
               "transform-react-constant-elements",
+              ["transform-runtime", {
+                "moduleName": "reshow-runtime/es",
+                "polyfill": false,
+                "regenerator": false
+                }
+              ],
               ["transform-react-remove-prop-types", {"mode": "wrap"}]
             ]
         }
