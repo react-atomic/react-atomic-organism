@@ -1,29 +1,28 @@
 {
-  "name": "create-el",
-  "version": "0.0.4",
-  "description": "create css or js",
+  "name": "exec-script",
+  "version": "0.0.0",
+  "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
-  "module": "./build/es/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "reshow-runtime": "*"
+    "create-el": "*"
   },
   "devDependencies": {
-    "babel-cli": "*",
+    "babel-cli": "^6.x",
     "chai": "*",
     "jsdom": "*",
     "jsdom-global": "*",
     "mocha": "*"
   },
   "scripts": {
-    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "clean": "rm -rf build",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "build:cjs": "BABEL_ENV=build babel src -d build/src",
-    "build:es": "BABEL_ENV=es babel src -d build/es",
-    "prepublishOnly": "npm run test && npm run build",
+    "prepublishOnly": "npm run build",
     "build:test": "BABEL_ENV=build babel tests -d build/tests",
     "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
   },

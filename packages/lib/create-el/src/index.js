@@ -43,9 +43,11 @@ const create = tag => callback => attrs =>
 {
     const d = doc();
     const dNode = d.createElement(tag);
-    keys(attrs).forEach(
-        key => dNode[key] = attrs[key]
-    );
+    if (attrs) {
+      keys(attrs).forEach(
+          key => dNode[key] = attrs[key]
+      );
+    }
     if (callback) {
         dNode.onload = callback;
     }

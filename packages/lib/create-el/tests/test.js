@@ -1,5 +1,13 @@
-import {js, css} from '../src/index'; 
+import {js, css, create} from '../src/index'; 
 import {expect} from 'chai';
+
+
+describe('Test create', ()=>{
+  it('create empty div', () => {
+    const div = create('div')()()
+    expect(typeof div).to.equal('object')
+  })
+});
 
 describe('Test JS', ()=>{
     it('get JS', () => {

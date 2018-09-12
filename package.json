@@ -11,6 +11,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "reshow-runtime": "*",
     "array.merge": "*",
     "get-object-value": "*",
     "react-atomic-molecule": "*",
