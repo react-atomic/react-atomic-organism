@@ -18,7 +18,7 @@ const inject = (base, isStart) => dNode => {
     } else {
         const d = doc();
         if (!base) {
-            base = d.currentScript;
+            base = d.currentScript ? d.currentScript : d.body;
         }
         const parentNode = base.parentNode;
         if (parentNode) {
