@@ -1,10 +1,10 @@
 {
   "name": "exec-script",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
-  "module": "./build/es/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
