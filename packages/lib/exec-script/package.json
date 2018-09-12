@@ -1,9 +1,10 @@
 {
   "name": "exec-script",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
+  "module": "./build/es/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -27,7 +28,7 @@
     "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
   },
   "files": [
-    "build/src",
+    "build",
     "package.json",
     "README.md"
   ]
