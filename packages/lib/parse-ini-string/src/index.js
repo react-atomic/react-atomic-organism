@@ -7,10 +7,7 @@ const trimReg=/(^\s+)|\s+$/g;
 const stripQuoteReg=/\\"/g;
 const isArray = Array.isArray;
 
-const trim = (s) =>
-{
-    return s.replace(trimReg, '');
-}
+const trim = s => s.replace(trimReg, '')
 
 const isQuoted = (s) =>
 {
@@ -21,11 +18,7 @@ const isQuoted = (s) =>
     (s.charAt(0) === "'" && s.slice(-1) === "'")
 }
 
-const stripQuote = (s) =>
-{
-   s = s.replace(stripQuoteReg, '"');
-   return s.substring(1, s.length - 1);
-}
+const stripQuote = s => s.replace(stripQuoteReg, '"').substring(1, s.length - 1)
 
 const isMultiLine = (s) =>
 {
