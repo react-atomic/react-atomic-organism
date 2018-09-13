@@ -1,4 +1,4 @@
-import {js} from 'create-el';
+import {js, create} from 'create-el';
 
 let scriptCount = 0;
 let inlineScripts = [];
@@ -12,7 +12,7 @@ const handleScriptOnload = win => i => {
   }
   if (!keys(queueScripts).length) {
     inlineScripts.forEach((script, key) =>
-      win.eval(script)
+      win.eval('(function(){ '+script+' }())')
     );
     inlineScripts = [];
   }
@@ -25,8 +25,11 @@ const execScript = (el, win, jsBase) => {
   if (!jsBase) {
     jsBase = document.body;
   }
+  const thisEl = ('string' === typeof el) ?
+    create('div')()({innerHTML:el+''}) :
+    el
   const onLoad = handleScriptOnload(win);
-  const scripts = el.getElementsByTagName('script');
+  const scripts = thisEl.getElementsByTagName('script');
   for (let i = 0, len = scripts.length; i < len; i++) {
     const script = scripts[i];
     if (script.src) {
