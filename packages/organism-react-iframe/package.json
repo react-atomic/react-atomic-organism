@@ -1,9 +1,10 @@
 {
   "name": "organism-react-iframe",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "Rendering to iFrames in React",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
     "react-component"
@@ -11,13 +12,14 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "css-query-selector": "*",
-    "getoffset": "*",
-    "smooth-scroll-to": "*",
     "create-el": "*",
+    "css-query-selector": "*",
+    "exec-script": "*",
     "get-object-value": "*",
+    "getoffset": "*",
     "react-atomic-molecule": "*",
-    "setimmediate": "^1.0.5"
+    "setimmediate": "^1.0.5",
+    "smooth-scroll-to": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -25,8 +27,11 @@
     "react-dom": "^16.x"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
-    "prepublish": "npm run build"
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build",

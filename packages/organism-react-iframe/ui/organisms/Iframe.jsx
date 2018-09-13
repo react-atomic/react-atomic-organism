@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import get from 'get-object-value'
 import getOffset from 'getoffset'
 import smoothScrollTo from 'smooth-scroll-to'
+import exec from 'exec-script'
 import { SemanticUI } from 'react-atomic-molecule'
 import { js } from 'create-el'
 import { queryFrom } from 'css-query-selector'
@@ -66,40 +67,9 @@ class Iframe extends PureComponent
        })
     }
 
-    handleScript = (el) =>
+    handleScript = el =>
     {
-        // init variable
-        let scriptCount = 0;
-        let inlineScripts=[];
-        let queueScripts=[];
-        let handleScriptOnload = (i) => {
-            if (i) {
-                delete(queueScripts[i]);
-            }
-            if (!keys(queueScripts).length) {
-                inlineScripts.forEach((script, key)=>{
-                    this.getWindow().eval(script);
-                });
-                inlineScripts = [];
-            }
-        };
-
-        // start to parse
-        const scripts = el.getElementsByTagName('script'); 
-        let i=0;
-        for (let i=0, len=scripts.length; i < len; i++) {
-            const script = scripts[i]; 
-            const src = get(script, ['src']);
-            if (src) {
-                const key = 'id-'+scriptCount;
-                const dScript = js(this.root.parentNode)(()=>handleScriptOnload(key))(src, {key});
-                queueScripts[key] = true;
-                scriptCount++;
-            } else {
-                inlineScripts.push(script.innerHTML);
-            }
-        }
-        handleScriptOnload();
+        exec(el, this.getWindow(), this.root.parentNode)
     }
 
     renderIframe(props)
