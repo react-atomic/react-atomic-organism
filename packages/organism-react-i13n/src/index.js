@@ -8,4 +8,4 @@ export { default as I13nClick } from '../ui/organisms/I13nClick';
 export { default as i13nStore} from './stores/i13nStore';
 
 // Dispatch
-export { i13nDispatch } from './i13nDispatcher';
+export { i13nDispatch } from 'i13n';

@@ -2,7 +2,7 @@ require('setimmediate');
 import React, {Component} from 'react'; 
 import { SemanticUI } from 'react-atomic-molecule'; 
 
-import {i13nDispatch} from '../../src/i13nDispatcher';
+import {i13nDispatch} from '../../src/index';
 
 class I13nClick extends Component
 {

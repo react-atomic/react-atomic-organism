@@ -7,7 +7,7 @@ import get from 'get-object-value';
 import {ajaxStore} from 'organism-react-ajax';
 
 import i13nStore from '../../src/stores/i13nStore';
-import {i13nDispatch} from '../../src/i13nDispatcher';
+import {i13nDispatch} from '../../src/index';
 
 const keys = Object.keys;
 const urlDecode = decodeURIComponent;

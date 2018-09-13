@@ -1,12 +1,10 @@
 require('setimmediate');
 
 import {Map} from 'immutable';
-import {ReduceStore} from 'reshow';
 import get from 'get-object-value';
-import replaceValue from 'set-object-value';
 import {ajaxDispatch} from 'organism-react-ajax';
 
-import dispatcher from '../i13nDispatcher';
+import {i13nDispatcher, BaseI13nStore} from 'i13n';
 
 const getDefaultActionCallback = (state) => 
     (json, text)=>{
@@ -17,7 +15,7 @@ const getDefaultActionCallback = (state) =>
         } 
     }
 
-class I13nStore extends ReduceStore
+class I13nStore extends BaseI13nStore
 {
 
   getInitialState()
@@ -57,96 +55,9 @@ class I13nStore extends ReduceStore
         });
         return state;
   }
-
-  processAction(state, action)
-  {
-        const query = get(
-            action,
-            ['params', 'query'],
-            {} 
-        );
-        query.vpvid = state.get('vpvid');
-        if (!action.params) {
-            action.params = {};
-        }
-        action.params.query = query;
-        state = this.sendBeacon(state, action); 
-        return state;
-  }
-
-  processView(state, action)
-  {
-        state = this.sendBeacon(state, action);
-        return state.set('lastUrl', document.URL);
-  }
-
-  handleAction(state, action)
-  {
-        let actionHandler = state.get('actionHandler');
-        if (!actionHandler) {
-            actionHandler = this.processAction.bind(this);
-        }
-        const cb = get(action, ['params', 'callback']);
-        if (!cb) {
-            replaceValue(
-                action,
-                ['params', 'callback'],
-                getDefaultActionCallback(state)
-            );
-        }
-        return actionHandler(state, action);
-  }
-
-  handleInit(state, action)
-  {
-        const initHandler = state.get('initHandler')
-        if ('function' === typeof initHandler) {
-            return initHandler(state, action)
-        } else {
-            return
-        }
-  }
-
-  handleImpression(state, action)
-  {
-        state = state.set('lastUrl', document.URL)
-        const run = state => {
-            let impressionHandler = state.get('impressionHandler')
-            if (!impressionHandler) {
-                impressionHandler = this.processView.bind(this)
-            }
-            return impressionHandler(state, action)
-        }
-        const init = state.get('init')
-        if (!init) {
-            const initCallback = this.handleInit(state, action)
-            if ('function' === typeof initCallback) {
-                return initCallback(()=>run(state.set('init', true)))
-            } else {
-                return run(state.set('init', true))
-            }
-        } else {
-            return run(state)
-        }
-  }
-
-  reduce(state, action)
-  {
-      switch (action.type)
-      {
-          case 'action':
-              return this.handleAction(state, action);
-          case 'view':
-              return this.handleImpression(state, action);
-          case 'config/set':
-              return state.merge(action.params);
-          default:
-              return state;
-      }
-  }
 }
 
 // Export a singleton instance of the store, could do this some other way if
 // you want to avoid singletons.
-const instance = new I13nStore(dispatcher);
+const instance = new I13nStore(i13nDispatcher);
 export default instance;
