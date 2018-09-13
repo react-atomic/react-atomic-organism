@@ -78,26 +78,25 @@ class AlertsNotifier extends PureComponent {
   render() {
     const {ani, alerts, position} = this.props;
     const {dismissedAlerts} = this.state;
-    if (!alerts.length) {
-      return null
-    }
     const alertArr = [];
-    alerts.forEach((item, key) => {
-      const thisItem = ('string' === typeof item) ?
-        {message: item} :
-        item;
-      if (!dismissedAlerts.has(item)) {
-        if (-1 === messageTypes.indexOf(thisItem.type)) {
-          thisItem.type = 'info';
+    if (alerts.length) {
+      alerts.forEach((item, key) => {
+        const thisItem = ('string' === typeof item) ?
+          {message: item} :
+          item;
+        if (!dismissedAlerts.has(item)) {
+          if (-1 === messageTypes.indexOf(thisItem.type)) {
+            thisItem.type = 'info';
+          }
+          alertArr.push(
+            <Message key={key} messageType={thisItem.type} header={thisItem.header}>
+              {thisItem.message}
+              <XIconEl onClick={this.dismiss.bind(this, item)} />
+            </Message>
+          );
         }
-        alertArr.push(
-          <Message key={key} messageType={thisItem.type} header={thisItem.header}>
-            {thisItem.message}
-            <XIconEl onClick={this.dismiss.bind(this, item)} />
-          </Message>
-        );
-      }
-    });
+      });
+    }
     const positionStyle = {};
     if ('top' === position) {
       positionStyle.top = 5;
