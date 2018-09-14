@@ -4,8 +4,9 @@ import {Set} from 'immutable';
 import Animate from 'organism-react-animate';
 import XIcon from 'ricon/X';
 import {Message, reactStyle} from 'react-atomic-molecule';
+import BasePopup from '../molecules/BasePopup'
 
-const messageTypes = ['success', 'info', 'warning', 'error']
+const messageTypes = ['success', 'info', 'warning', 'error'];
 
 class XIconEl extends PureComponent {
   state = {
@@ -44,35 +45,49 @@ class XIconEl extends PureComponent {
   }
 }
 
-class AlertsNotifier extends PureComponent {
+class AlertsNotifier extends BasePopup {
   state = {
-      dismissedAlerts: Set(),
-  }
+    dismissedAlerts: Set(),
+  };
 
-  static getDerivedStateFromProps(nextProps, prevState)
-  {
-    const {alerts} = nextProps
+  static propTypes = {
+    alerts: PropTypes.array,
+    onDismiss: PropTypes.func,
+  };
+
+  static defaultProps = {
+    ani: {
+      appear: 'fadeIn',
+      enter: 'fadeIn',
+      leave: 'fadeOut',
+    },
+    position: 'top',
+    name: 'alerts'
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {alerts} = nextProps;
     if (alerts !== prevState.prevPropsAlerts) {
       return {
         prevPropsAlerts: alerts,
-        dismissedAlerts: Set()
-      }
+        dismissedAlerts: Set(),
+      };
     } else {
-      return null
+      return null;
     }
   }
 
   dismiss(item) {
-    const {onDismiss} = this.props
+    const {onDismiss} = this.props;
     if ('function' === typeof onDismiss) {
       onDismiss(item);
     }
     //if no callback for dismissal, just update our state
-    this.setState(({dismissedAlerts})=>{
+    this.setState(({dismissedAlerts}) => {
       return {
-        dismissedAlerts: dismissedAlerts.add(item)
-      }
-    })
+        dismissedAlerts: dismissedAlerts.add(item),
+      };
+    });
   }
 
   render() {
@@ -81,18 +96,19 @@ class AlertsNotifier extends PureComponent {
     const alertArr = [];
     if (alerts.length) {
       alerts.forEach((item, key) => {
-        const thisItem = ('string' === typeof item) ?
-          {message: item} :
-          item;
+        const thisItem = 'string' === typeof item ? {message: item} : item;
         if (!dismissedAlerts.has(item)) {
           if (-1 === messageTypes.indexOf(thisItem.type)) {
             thisItem.type = 'info';
           }
           alertArr.push(
-            <Message key={key} messageType={thisItem.type} header={thisItem.header}>
+            <Message
+              key={key}
+              messageType={thisItem.type}
+              header={thisItem.header}>
               {thisItem.message}
               <XIconEl onClick={this.dismiss.bind(this, item)} />
-            </Message>
+            </Message>,
           );
         }
       });
@@ -110,20 +126,6 @@ class AlertsNotifier extends PureComponent {
     );
   }
 }
-
-AlertsNotifier.propTypes = {
-  alerts: PropTypes.array,
-  onDismiss: PropTypes.func,
-};
-
-AlertsNotifier.defaultProps = {
-  ani: {
-    appear: 'fadeIn',
-    enter: 'fadeIn',
-    leave: 'fadeOut',
-  },
-  position: 'top',
-};
 
 export default AlertsNotifier;
 

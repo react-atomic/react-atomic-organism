@@ -1257,13 +1257,14 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.18.tgz#2f6508427ace11615c20dd272d3df6accbea2a77"
 
 react-atomic-molecule@*:
-  version "1.3.55"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.3.55.tgz#2fbaa2dbd8ddbd7f71d797f2ec9a880f19bd3589"
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.4.4.tgz#c2db383f23fd47d6b37d7f8e2d4834970cc19f65"
   dependencies:
     class-lib "*"
     get-object-value "*"
     hyphenate-style-name "*"
     react-atomic-atom "*"
+    reshow-runtime "*"
     ucfirst "*"
 
 react-dom@^16.x:
@@ -1372,8 +1373,8 @@ reshow-flux@*:
     reshow-flux-base "*"
 
 reshow-runtime@*:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.0.10.tgz#baf013f5d910b7a647b02c5e5eef7b9854d6092c"
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.0.11.tgz#f675a029a5ddbbf5d8779512f3c42ea442ac9327"
 
 resolve-url@^0.2.1:
   version "0.2.1"

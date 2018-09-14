@@ -13,10 +13,15 @@ import { PopupOverlay } from "../molecules/PopupOverlay"
 import { popupDispatch } from "../../src/index"
 
 /**
- * if you need trace show: true
+ * 1. if you need trace show: true
  * it extend from PopupOverlay
+ *
+ * 2. if you don't auto append Content component
+ * you could pass center or content to equla false
  */
 class PopupModal extends PopupOverlay {
+
+
   static defaultProps = {
     mask: true,
     maskScroll: false,
@@ -199,7 +204,7 @@ class PopupModal extends PopupOverlay {
         const thisStyles = arrayMerge(
           reactStyle(
             { ...Styles.background, ...style, ...stateMaskStyle },
-            null,
+            false,
             false
           ),
           styles
@@ -245,6 +250,7 @@ const Styles = {
   },
   background: {
     overflow: "auto",
+    boxSizing: "border-box",
   },
   modal: {
     boxSizing: "border-box",

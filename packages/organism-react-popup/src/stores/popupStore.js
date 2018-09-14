@@ -26,7 +26,7 @@ class PopupStore extends ReduceStore
       const key = get(popupNode, ['props', 'name'], 'default'); 
       if (key !== get(popupNode, ['props', 'name'])) {
         console.warn( {
-            Error: 'Popup Key not consistence',
+            Warn: 'Popup Key not consistence, You use a default key.',
             PopUpKey: get(popupNode, ['props', 'name']),
             ActualKey: key
         } )

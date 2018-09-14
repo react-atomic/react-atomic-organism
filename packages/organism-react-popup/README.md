@@ -4,6 +4,7 @@ React Atomic Organism Popup
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-popup 
    * NPM
       * https://www.npmjs.com/package/organism-react-popup 
+
 ## toPool
 assign to different pool element.
 
@@ -18,3 +19,7 @@ https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organ
    * [Monitor by State](https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/organisms/PopupMonitor.jsx)
    * [Click](https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/organisms/PopupClick.jsx)
    * [Hover](https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/organisms/PopupHover.jsx)
+
+## Popup not show
+   * check the name props
+   * Name should pass to child popup element
