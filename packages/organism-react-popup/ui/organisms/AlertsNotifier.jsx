@@ -4,7 +4,6 @@ import {Set} from 'immutable';
 import Animate from 'organism-react-animate';
 import XIcon from 'ricon/X';
 import {Message, reactStyle} from 'react-atomic-molecule';
-import BasePopup from '../molecules/BasePopup'
 
 const messageTypes = ['success', 'info', 'warning', 'error'];
 
@@ -45,7 +44,7 @@ class XIconEl extends PureComponent {
   }
 }
 
-class AlertsNotifier extends BasePopup {
+class AlertsNotifier extends PureComponent {
   state = {
     dismissedAlerts: Set(),
   };
