@@ -94,7 +94,7 @@ class AlertsNotifier extends BasePopup {
     const {ani, alerts, position} = this.props;
     const {dismissedAlerts} = this.state;
     const alertArr = [];
-    if (alerts.length) {
+    if (alerts && alerts.length) {
       alerts.forEach((item, key) => {
         const thisItem = 'string' === typeof item ? {message: item} : item;
         if (!dismissedAlerts.has(item)) {
