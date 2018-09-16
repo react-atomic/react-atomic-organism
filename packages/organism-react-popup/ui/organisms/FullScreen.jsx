@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import XIco from 'ricon/X';
 import get from 'get-object-value';
 
-import PopupModal from '../organisms/PopupModal';
+import PopupModal from '../molecules/PopupModal';
 import DisplayPopupEl from '../organisms/DisplayPopupEl';
 
 class FullScreen extends PureComponent

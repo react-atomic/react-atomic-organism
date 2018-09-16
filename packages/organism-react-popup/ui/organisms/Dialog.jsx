@@ -8,7 +8,7 @@ import {
   Button
 } from 'react-atomic-molecule'
 
-import PopupModal from '../organisms/PopupModal'
+import PopupModal from '../molecules/PopupModal'
 import BasePopup from '../molecules/BasePopup'
 
 const isArray = Array.isArray

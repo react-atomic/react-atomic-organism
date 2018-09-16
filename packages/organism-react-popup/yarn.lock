@@ -315,8 +315,8 @@ chokidar@^1.6.1:
     fsevents "^1.0.0"
 
 chownr@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.0.1.tgz#e2a75042a9551908bebd25b8523d5f9769d79181"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.1.tgz#54726b8b8fff4df053c42187e801fb4412df1494"
 
 class-lib@*:
   version "0.0.12"
@@ -1358,19 +1358,20 @@ repeating@^2.0.0:
     is-finite "^1.0.0"
 
 reshow-flux-base@*:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.0.9.tgz#d1b1a83658bd8163b72484021a97f5aa3ea25c74"
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.0.11.tgz#cab8e1485fd79bea2ac1d5a777a352b6aee0fb64"
   dependencies:
     mitt "*"
     reshow-runtime "*"
 
 reshow-flux@*:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.2.6.tgz#630c669048fde8c90cad94d3c32bcc0d2449d46e"
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.2.7.tgz#672f1e547ce3b4298bf61fdd2418ad69ac78f9d0"
   dependencies:
     array.dedup "*"
     immutable "*"
     reshow-flux-base "*"
+    reshow-runtime "*"
 
 reshow-runtime@*:
   version "0.0.11"

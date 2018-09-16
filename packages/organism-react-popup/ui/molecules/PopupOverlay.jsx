@@ -71,6 +71,7 @@ class PopupOverlay extends BasePopup {
     if (refCb) {
       others.refCb = refCb;
     }
+
     others.className = mixClass(
       className,
       get(this, ['state', 'className']),

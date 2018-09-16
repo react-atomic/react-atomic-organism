@@ -7,9 +7,6 @@ import PopupOverlay from '../molecules/PopupOverlay';
 
 class PopupFloatEl extends PopupOverlay {
   _mount = false;
-  state = {
-    refCb: this.setFloatEl,
-  };
 
   static defaultProps = {
     style: {
@@ -48,8 +45,8 @@ class PopupFloatEl extends PopupOverlay {
     ) {
       return;
     }
-    this.floatLeft = pos.left;
     this.floatTop = pos.top;
+    this.floatLeft = pos.left;
     this.floatWidth = pos.width;
     this.floatHeight = pos.height;
     this.floatClassName = pos.className;
@@ -97,15 +94,14 @@ class PopupFloatEl extends PopupOverlay {
     return <SemanticUI {...others} className={classes} />;
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps !== prevState.prevProps) {
-      return {
-        isNeedUpdate: true,
-        prevProps: nextProps
+  constructor(props)
+  {
+      super(props);
+      // Need exted state form parent class (PopupOverlay)
+      this.state = {
+        ...this.state,
+        refCb: this.setFloatEl,
       };
-    } else {
-      return null;
-    }
   }
 
   componentDidMount() {
@@ -114,10 +110,7 @@ class PopupFloatEl extends PopupOverlay {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.state.isNeedUpdate) {
-      this.handleMoveTo();
-      this.state.isNeedUpdate = false;
-    }
+    this.handleMoveTo();
   }
 
   componentWillUnmount() {
