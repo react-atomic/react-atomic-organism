@@ -1,76 +1,79 @@
-import React, {cloneElement} from "react"
+import React, {cloneElement} from 'react';
 
-import {
-  mixClass,
-  Header,
-  Content,
-  List,
-  Button
-} from 'react-atomic-molecule'
+import {mixClass, Header, Content, List, Button} from 'react-atomic-molecule';
 
-import PopupModal from '../molecules/PopupModal'
-import BasePopup from '../molecules/BasePopup'
+import PopupModal from '../molecules/PopupModal';
+import BasePopup from '../molecules/BasePopup';
 
-const isArray = Array.isArray
+const isArray = Array.isArray;
 
-class Dialog extends BasePopup 
-{
+class Dialog extends BasePopup {
   static defaultProps = {
-    name: "dialog",
+    name: 'dialog',
     i18nNegativeBtn: 'No',
     i18nPositiveBtn: 'Yes',
-    size: 'mini'
-  }
+    size: 'mini',
+    disableClose: true,
+  };
 
-  handleClick(button, e)
-  {
-    const {onClick} = this.props
-    this.popup.close()
+  handleClick(button, e) {
+    const {onClick} = this.props;
     if ('function' === typeof onClick) {
-      onClick(e, button)
+      // Locate befor this.popup.close()
+      // because need trigger befor closeCallback
+      onClick(e, button);
     }
+    this.popup.close();
   }
 
-  render()
-  {
-    const {size, className, name, buttons, header, children, i18nNegativeBtn, i18nPositiveBtn} = this.props
-    let thisHeader = null
-    let thisButtons = buttons
+  render() {
+    const {
+      size,
+      className,
+      name,
+      buttons,
+      header,
+      children,
+      i18nNegativeBtn,
+      i18nPositiveBtn,
+      onClick,
+      ...props
+    } = this.props;
+    let thisHeader = null;
+    let thisButtons = buttons;
     if (header) {
-      thisHeader = <Header>{header}</Header>
+      thisHeader = <Header>{header}</Header>;
     }
     if (!isArray(thisButtons) || !thisButtons.length) {
       thisButtons = [
-        (
-        <Button value={false} className="negative" key='b-negative'>
+        <Button value={false} className="negative" key="b-negative">
           {i18nNegativeBtn}
-        </Button>
-        ),
-        (
-        <Button value={true} className="positive" key='b-positive'>
+        </Button>,
+        <Button value={true} className="positive" key="b-positive">
           {i18nPositiveBtn}
-        </Button>
-        )
-      ]
+        </Button>,
+      ];
     }
-    thisButtons = thisButtons.map(
-      button => cloneElement(button, {
-        onClick: this.handleClick.bind(this, button)
-      })
-    )
-    const classes = mixClass(
-      className,
-      'dialog',
-      size
-    )
+    thisButtons = thisButtons.map(button =>
+      cloneElement(button, {
+        onClick: this.handleClick.bind(this, button),
+      }),
+    );
+    const classes = mixClass(className, 'dialog', size);
     return (
-      <PopupModal modalClassName={classes} name={name} content={false} ref={el=>this.popup=el}>
-        {thisHeader} 
+      <PopupModal
+        modalClassName={classes}
+        name={name}
+        content={false}
+        ref={el => (this.popup = el)}
+        {...props}
+      >
+        {thisHeader}
         <Content>{children}</Content>
         <List type="actions">{thisButtons}</List>
       </PopupModal>
-    )
+    );
   }
 }
 
-export default Dialog
+export default Dialog;
