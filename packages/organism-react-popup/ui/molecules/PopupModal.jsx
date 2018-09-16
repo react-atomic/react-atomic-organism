@@ -50,7 +50,7 @@ class PopupModal extends PopupOverlay {
       if (this.el) {
         const domInfo = getOffset(this.el);
         if (domInfo) {
-          const domHalfHeight = domInfo.w / 2;
+          const domHalfHeight = domInfo.h / 2;
           let marginTop = Math.floor(1 - domHalfHeight);
           const scrollInfo = getScrollInfo();
           let maskStyle = {};
