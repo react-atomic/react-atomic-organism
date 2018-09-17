@@ -74,6 +74,19 @@ class Suggestion extends PureComponent
     this.open(e)
   }
 
+  static getDerivedStateFromProps(nextProps, prevState)
+  {
+    const {value} = nextProps
+    if (value !== prevState.prevPropsValue) {
+      return {
+        value,
+        prevPropsValue: value
+      }
+    } else {
+      return null
+    }
+  }
+
   componentWillUnmount()
   {
     this.close()
