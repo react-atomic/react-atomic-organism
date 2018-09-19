@@ -72,7 +72,10 @@ class Iframe extends PureComponent
 
     handleScript = el =>
     {
-        exec(el, this.getWindow(), this.root.parentNode)
+        const win = this.getWindow()
+        if (win) {
+          exec(el, win, this.root.parentNode)
+        }
     }
 
     renderIframe(props)
