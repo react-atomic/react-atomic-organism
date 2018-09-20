@@ -1,6 +1,6 @@
 'use strict';
 
-import set, {getUrl, unsetUrl} from '../src/index.js';
+import set, {getUrl, unsetUrl} from '../cjs/src/index.js';
 import {expect} from 'chai';
 
 global.document = {};
