@@ -2,7 +2,7 @@
 
 import {expect} from 'chai';
 
-import getSafeReg,{cacheReg} from '../src/index.js';
+import getSafeReg,{cacheReg} from '../cjs/src/index.js';
 
 describe('test get safe reg', ()=>{
     let n;
