@@ -1,9 +1,10 @@
 {
   "name": "get-storage",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Easy to set and get web storage",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -17,13 +18,15 @@
   },
   "scripts": {
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
-    "build": "rm -rf build && npm run build:cjs",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build",
-    "buildTest": "BABEL_ENV=build babel tests -d build/tests",
-    "test": "npm run build && npm run buildTest && mocha 'build/tests/**/*.js'"
+    "build:test": "BABEL_ENV=build babel tests -d build/tests",
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
   },
   "files": [
-    "build",
+    "build/cjs",
+    "build/es",
     "package.json",
     "README.md"
   ]
