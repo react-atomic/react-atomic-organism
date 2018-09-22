@@ -5,4 +5,5 @@ Get Cookie
    * NPM
       * https://npm.im/get-cookie
 
-
+## Use encodeURIComponent and decodeURIComponent
+https://github.com/carhartl/jquery-cookie/issues/3#issuecomment-24578115
