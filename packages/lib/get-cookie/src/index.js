@@ -1,15 +1,10 @@
-import getSafeReg from 'get-safe-reg';
-const cache = {};
+import getSafeReg, {cacheReg} from 'get-safe-reg';
 
-const getCookieRegString = name => getSafeReg(name) + '=([^;]+)';
+const getRegString = name => getSafeReg(name) + '=([^;]+)';
 
-const getCookieReg = name =>
-{
-    if (!cache[name]) {
-        cache[name] = new RegExp(getCookieRegString(name));
-    }
-    return cache[name];
-}
+const cache = cacheReg({})(getRegString);
+
+const getCookieReg = name => cache(name);
 
 const getCookie = (name, cookie) => {
    if (!cookie) {
@@ -17,8 +12,8 @@ const getCookie = (name, cookie) => {
    }
    const re = getCookieReg(name);
    const value = re.exec(cookie);
-   return (value != null) ? unescape(value[1]) : null;
+   return (value !== null) ? unescape(value[1]) : null;
 }
 
 export default getCookie;
-export {getCookieRegString, getCookieReg};
+export {getRegString as getCookieRegString, getCookieReg};
