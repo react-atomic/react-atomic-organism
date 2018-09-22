@@ -1,10 +1,7 @@
-'use strict';
+import getSafeReg, {cacheReg} from 'get-safe-reg';
 
-import getSafeReg,{cacheReg} from 'get-safe-reg';
+const getRegString = name => '(([#?&])' + getSafeReg(name) + '=)([^&#]*)';
 
-const cache={};
+const cache = cacheReg({})(getRegString);
 
-const getRegString = name => 
-    '(([#?&])'+getSafeReg(name)+'=)([^&#]*)';
-
-export default name => cacheReg(cache)(getRegString)(name);
+export default name => cache(name);
