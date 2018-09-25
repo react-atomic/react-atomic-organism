@@ -147,19 +147,20 @@ class UMLGraph extends PureComponent
         const {lines} = this.state
         const results = []
         keys(conns).forEach( key => {
-            const lineId = conns[key]
-            const {from, to} = lines[lineId]
+            const lineName = conns[key]
+            const {from, to} = lines[lineName]
             if (!from || !to) {
                 return
+            } else {
+              const connData = this.getConnectNames(from, to) 
+              connData.name = lineName
+              results.push(connData)
             }
-            results.push(
-                this.getConnectNames(from, to)
-            )
         })
         return results
     }
 
-    addConnected(lineId, from, to)
+    addConnected(lineName, from, to)
     {
         const {
             fromBoxId,
@@ -171,10 +172,10 @@ class UMLGraph extends PureComponent
         if (!get(connects, [mergeId]) &&
             !get(connects, [invertMergeId])
         ) {
-            connects[mergeId] = lineId
-            from.setLine(lineId, 'from')
-            to.setLine(lineId, 'to')
-            this.updateLine(lineId, {from, to, start:from.getCenter(), end:to.getCenter()})
+            connects[mergeId] = lineName
+            from.setLine(lineName, 'from')
+            to.setLine(lineName, 'to')
+            this.updateLine(lineName, {from, to, start:from.getCenter(), end:to.getCenter()})
             return true
         } else {
             return false
@@ -291,10 +292,10 @@ class UMLGraph extends PureComponent
             const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName)
             const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(fromBoxName) 
             const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName) 
-            const lineId = this.addLine()
+            const lineName = this.addLine()
             addGroupConn(fromBoxGroupId, toBoxGroupId)
             this.addConnected(
-                lineId,
+                lineName,
                 this.getBox(fromBoxId, fromBoxGroupId).getPoint(1), 
                 this.getBox(toBoxId, toBoxGroupId).getPoint(0) 
             )
@@ -340,6 +341,7 @@ class UMLGraph extends PureComponent
             connToBoxGroupLocator,
             connFromBoxLocator,
             connToBoxLocator,
+            onLinkClick,
             ...props
         } = this.props
         const {lines} = this.state
@@ -371,7 +373,7 @@ class UMLGraph extends PureComponent
                 }
                 {
                     keys(lines).map(
-                        key => <Line {...lines[key]} name={key} key={key} host={this} /> 
+                        key => <Line onClick={onLinkClick} {...lines[key]} name={key} key={key} host={this} /> 
                     )
                 }
                 </Zoom>

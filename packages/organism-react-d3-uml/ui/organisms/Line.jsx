@@ -33,9 +33,22 @@ class Line extends PureComponent
         host.deleteLine(name)
     }
 
+    handleClick = e =>
+    {
+      const {onClick} = this.props
+      if ('function' === typeof onClick) {
+        onClick(e, this)
+      }
+    }
+
+    getName()
+    {
+      return this.props.name
+    }
+
     render()
     {
-        const {start, end, from, to, host, ...props} = this.props
+        const {start, end, from, to, host, onClick, ...props} = this.props
         const {isHover} = this.state
         const areaSize = 1
         let area = null
@@ -77,6 +90,7 @@ class Line extends PureComponent
                 <Group
                     onMouseEnter={this.handleMouseEnter}
                     onMouseLeave={this.handleMouseLeave}
+                    onClick={this.handleClick}
                 >
                     {area}
                     {cancelButton}

@@ -1,9 +1,6 @@
-    var Graph = require("./graph");
+import Graph from './graph'
 
-module.exports = {
-  write: write,
-  read: read
-};
+export {write, read};
 
 function write(g) {
   var json = {

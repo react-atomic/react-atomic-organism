@@ -1,9 +1,6 @@
-    var util = require("./util");
+import * as util from './util';
 
-module.exports = {
-  run: run,
-  cleanup: cleanup
-};
+export {run, cleanup};
 
 const keys = Object.keys
 
