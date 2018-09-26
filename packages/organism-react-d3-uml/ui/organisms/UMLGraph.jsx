@@ -263,6 +263,7 @@ class UMLGraph extends PureComponent
             connFromBoxLocator,
             connToBoxLocator,
         } = this.props
+        let {onConnAdd} = this.props 
         const conns = connsLocator(data)
         if (!conns || !conns.length) {
             return
@@ -272,6 +273,9 @@ class UMLGraph extends PureComponent
         {
             const a = [from, to].sort()
             groupConn[a[0]+'-'+a[1]] = [from, to] 
+        }
+        if ('function' !== typeof onConnAdd) {
+           onConnAdd = () => {} 
         }
         conns.forEach( conn => {
             const fromBoxGroupName = connFromBoxGroupLocator(conn)
@@ -299,6 +303,7 @@ class UMLGraph extends PureComponent
                 this.getBox(fromBoxId, fromBoxGroupId).getPoint(1), 
                 this.getBox(toBoxId, toBoxGroupId).getPoint(0) 
             )
+            onConnAdd(lineName, conn);
         })
         return groupConn
     }
@@ -342,6 +347,7 @@ class UMLGraph extends PureComponent
             connFromBoxLocator,
             connToBoxLocator,
             onLinkClick,
+            onConnAdd,
             ...props
         } = this.props
         const {lines} = this.state
