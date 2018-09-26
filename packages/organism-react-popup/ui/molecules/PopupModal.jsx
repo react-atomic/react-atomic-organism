@@ -54,7 +54,7 @@ class PopupModal extends PopupOverlay {
           let marginTop = Math.floor(1 - domHalfHeight);
           const scrollInfo = getScrollInfo();
           let maskStyle = {};
-          if (domInfo.h + 100 > scrollInfo.scrollNodeHeight) {
+          if (domInfo.h + 30 + Math.abs(marginTop)*2 > scrollInfo.scrollNodeHeight) {
             marginTop = 0;
             maskStyle = Styles.flexAlignTop;
           }
