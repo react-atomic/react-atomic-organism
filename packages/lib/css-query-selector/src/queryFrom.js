@@ -1,3 +1,5 @@
+const arrayFrom = a => [...a];
+
 const queryFrom = base => {
   if ('function' !== typeof base) {
     console.error('query base should pass with function');
@@ -7,7 +9,7 @@ const queryFrom = base => {
 
   const queryOne = sel => doc().querySelector(sel);
 
-  const queryAll = sel => Array.from(doc().querySelectorAll(sel));
+  const queryAll = sel => arrayFrom(doc().querySelectorAll(sel));
 
   const queryEl = el => ('string' === typeof el ? queryOne(el) : el);
 
@@ -33,7 +35,7 @@ const queryFrom = base => {
       lastHit = hit;
       all = hit.querySelectorAll(ancestor);
       if (all) {
-        hit = findHit(Array.from(all));
+        hit = findHit(arrayFrom(all));
       } else {
         break;
       }
