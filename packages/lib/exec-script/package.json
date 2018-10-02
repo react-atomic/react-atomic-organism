@@ -1,6 +1,6 @@
 {
   "name": "exec-script",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -23,7 +23,7 @@
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
     "build:es": "BABEL_ENV=es babel src -d build/es/src",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run test && npm run build",
     "build:test": "BABEL_ENV=build babel tests -d build/tests",
     "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
   },
