@@ -49,7 +49,14 @@ const create = tag => callback => attrs =>
       );
     }
     if (callback) {
-        dNode.onload = callback;
+        dNode.onreadystatechange =
+        dNode.onload = () => {
+          if (!this.readyState ||
+              -1 !== '|loaded|complete|'.indexOf('|'+this.readyState+'|')
+          ) {
+            setTimeout(callback);
+          }
+        }
     }
     return dNode;
 }
