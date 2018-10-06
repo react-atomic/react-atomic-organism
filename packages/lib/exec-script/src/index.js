@@ -10,16 +10,16 @@ const handleScriptOnload = (win, errCb) => i => {
   if (i) {
     delete queueScripts[i];
   }
-  if ('function' !== typeof errCb) {
-    errCb = console.error; 
-  }
-
   if (!keys(queueScripts).length) {
     inlineScripts.forEach((script, key) => {
       try {
         win.eval('(function(){ ' + script + ' }())');
       } catch (e) {
-        errCb(e, script);
+        if ('function' !== typeof errCb) {
+          throw e;
+        } else {
+          errCb(e, script);
+        }
       }
     });
     inlineScripts = [];
@@ -33,8 +33,7 @@ const execScript = (el, win, jsBase, errCb) => {
   if (!jsBase) {
     jsBase = document.body;
   }
-  const thisEl =
-    'string' === typeof el ? create('div')()({innerHTML: el}) : el;
+  const thisEl = 'string' === typeof el ? create('div')()({innerHTML: el}) : el;
   const onLoad = handleScriptOnload(win, errCb);
   const scripts = thisEl.getElementsByTagName('script');
   for (let i = 0, len = scripts.length; i < len; i++) {
