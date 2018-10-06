@@ -16,7 +16,7 @@ const stripQuote = s =>
   s.replace(stripQuoteReg, '"').substring(1, s.length - 1);
 
 const isMultiLine = s => {
-  let n = s.trim();
+  const n = s.trim();
   if (isQuoted(n)) {
     return false;
   }
@@ -45,7 +45,7 @@ const parse = s => {
         key = key.substring(0, key.length - 2);
         if (!p[key]) {
           p[key] = [];
-        } else if (!Array.isArray(p[key])) {
+        } else if (!isArray(p[key])) {
           p[key] = [p[key]];
         }
       }
@@ -62,7 +62,7 @@ const parse = s => {
       if (isQuoted(value)) {
         value = stripQuote(value);
       }
-      switch (value) {
+      switch (value.toLowerCase()) {
         case 'true':
         case 'false':
         case 'null':
