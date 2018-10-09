@@ -3,8 +3,11 @@ import {js, create} from 'create-el';
 let scriptCount = 0;
 let inlineScripts = [];
 let queueScripts = {};
+let lastKey;
 
 const keys = Object.keys;
+
+const getLastScript = () => inlineScripts[lastKey];
 
 const handleScriptOnload = (win, errCb) => i => {
   if (i) {
@@ -13,6 +16,7 @@ const handleScriptOnload = (win, errCb) => i => {
   if (!keys(queueScripts).length) {
     inlineScripts.forEach((script, key) => {
       try {
+        lastKey = key;
         win.eval('(function(){ ' + script + ' }())');
       } catch (e) {
         if ('function' !== typeof errCb) {
@@ -51,3 +55,4 @@ const execScript = (el, win, jsBase, errCb) => {
 };
 
 export default execScript;
+export {getLastScript};
