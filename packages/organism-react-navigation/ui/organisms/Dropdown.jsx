@@ -24,27 +24,28 @@ class Dropdown extends PureComponent
         hideList: false,
     }
 
-    handleTitleClick = () =>
+    handleTitleClick = e =>
     {
         this.setState({
             listStyle: {visibility: 'hidden'}
         });
         this.titleTimer = setTimeout(()=>this.setState({
             listStyle: {visibility: 'inherit'}
-        }), 350);
+        }), 300);
     }
 
     handleMenuClick = () =>
     {
-        if (this.menu) {
-            const doc = document;
-            this.setState({
-                hideList: true 
-            });
-            this.menuTimer = setTimeout(()=>this.setState({
-                hideList: false 
-            }), 300)
-        }
+        setTimeout(()=>{
+          if ('hidden' !== get(this, ['state', 'listStyle', 'visibility'])) {
+              this.setState({
+                  hideList: true 
+              });
+              this.menuTimer = setTimeout(()=>this.setState({
+                  hideList: false 
+              }), 300)
+          }
+        });
     }
 
     constructor(props)
