@@ -47,8 +47,8 @@ class AjaxPage extends PureComponent
 
     render()
     {
-        const {themes, themePath, defaultThemePath} = this.props;
-        let thisThemePath = themePath || defaultThemePath;
+        const {themes, themePath} = this.props;
+        let thisThemePath = themePath;
         if ('undefined' === typeof themes[thisThemePath]) {
             thisThemePath = this._lastThemePath;
             if ('undefined' === typeof themes[thisThemePath]) {
