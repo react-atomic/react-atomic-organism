@@ -52,10 +52,12 @@ class PopupModal extends PopupOverlay {
         if (domInfo) {
           const domHalfHeight = domInfo.h / 2;
           let marginTop = Math.floor(1 - domHalfHeight);
-          const scrollInfo = getScrollInfo();
+          const {scrollNodeHeight} = getScrollInfo();
           let maskStyle = {};
-          if (domInfo.h + 30 + Math.abs(marginTop)*2 > scrollInfo.scrollNodeHeight) {
+          if (domInfo.h * 3  > scrollNodeHeight) {
             marginTop = 0;
+          }
+          if (domInfo.h + 30 > scrollNodeHeight) {
             maskStyle = Styles.flexAlignTop;
           }
           const {
@@ -86,6 +88,7 @@ class PopupModal extends PopupOverlay {
     const {modal, toPool} = this.props;
     window.addEventListener('resize', this.reCalculate);
     const addBodyClass = mixClass(
+      document.body.className,
       {
         scrolling: this.props.maskScroll,
       },

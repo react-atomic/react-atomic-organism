@@ -1,6 +1,6 @@
 {
   "name": "get-storage",
-  "version": "0.0.4",
+  "version": "0.1.2",
   "description": "Easy to set and get web storage",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,16 +13,16 @@
     "get-object-value": "*"
   },
   "devDependencies": {
-    "babel-cli": "*",
+    "@babel/cli": "^7.x",
     "chai": "*",
     "mocha": "*"
   },
   "scripts": {
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "rm -rf build && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build",
-    "build:test": "BABEL_ENV=build babel tests -d build/tests",
     "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
   },
   "files": [

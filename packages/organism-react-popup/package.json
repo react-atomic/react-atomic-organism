@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.5.9",
+  "version": "0.6.3",
   "description": "React Atomic Organism Popup",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -29,7 +29,7 @@
     "setimmediate": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "@babel/cli": "^7.x",
     "preact": "*",
     "preact-compat": "*",
     "prop-types": "*",
@@ -38,8 +38,8 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },

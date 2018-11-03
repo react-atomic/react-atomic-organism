@@ -1,14 +1,20 @@
-'use strict';
-
-const formSerialize = formEl =>
-{
-    const formParams = {};
-    const elements = Array.from(formEl.elements);
-    elements.forEach( ({name, value}) => {
-        if (name) {
+const formSerialize = formEl => {
+  const formParams = {};
+  const elements = [...formEl.elements];
+  elements.forEach(({name, value, type, checked}) => {
+    if (name) {
+      switch (type.toLowerCase()) {
+        case 'radio':
+          if (checked) {
             formParams[name] = value;
-        }
-    });
-    return formParams;
-}
+          }
+          break;
+        default: 
+          formParams[name] = value;
+          break;
+      }
+    }
+  });
+  return formParams;
+};
 export default formSerialize;

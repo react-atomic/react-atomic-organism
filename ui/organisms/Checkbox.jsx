@@ -78,9 +78,9 @@ class Checkbox extends PureComponent
         if ('INPUT' !== e.target.nodeName) {
             e.preventDefault();
         }
-        const {beforeClick, afterClick, disabled} = this.props;
+        const {beforeClick, afterClick, disabled, type} = this.props;
         const beforeChecked = this.state.checked;
-        let afterChecked = !this.state.checked;
+        let afterChecked = (type==='radio') ? true : !this.state.checked;
         if ('function' === typeof beforeClick) {
             beforeClick(e, beforeChecked, afterChecked, this)
         }
@@ -159,7 +159,8 @@ let injects
 const InjectStyles = {
     checkbox: [
         {
-            margin: 0
+            margin: 0,
+            overflow: 'hidden'
         }
     ]
 }
