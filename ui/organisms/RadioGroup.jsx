@@ -66,16 +66,16 @@ class RadioGroup extends PureComponent
 
     render()
     {
-        const {inline, label, options, name, value, onChange} = this.props
+        const {inline, fieldClassName, label, options, name, value, onChange, ...others} = this.props
         const {value: stateValue} = this.state
         const classes = mixClass(
+            fieldClassName,
             {
-                inline: inline,
                 grouped: !inline
             }
         )
         return (
-            <Field fieldClassName={classes}>
+            <Field inline={inline} fieldClassName={classes} {...others}>
                 <Label>{label}</Label>
                 {
                     options.map( item =>

@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -28,6 +28,7 @@
     "@babel/plugin-transform-react-constant-elements": "*",
     "@babel/preset-env": "*",
     "@babel/preset-react": "*",
+    "babel-plugin-add-module-exports": "*",
     "babel-plugin-reshow-transform-runtime": "*",
     "babel-plugin-transform-react-pure-class-to-function": "*",
     "babel-plugin-transform-react-remove-prop-types": "*",

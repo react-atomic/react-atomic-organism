@@ -13,6 +13,7 @@ module.exports = function(api) {
           '@babel/preset-react',
         ],
         plugins: [
+          'add-module-exports',
           'dynamic-import-node',
           'transform-react-pure-class-to-function',
           ['transform-react-remove-prop-types', {mode: 'wrap'}],

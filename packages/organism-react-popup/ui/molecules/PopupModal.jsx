@@ -132,6 +132,7 @@ class PopupModal extends PopupOverlay {
       modal,
       modalClassName,
       modalStyle,
+      contentStyle,
       mask,
       maskScroll,
       closeEl,
@@ -172,6 +173,7 @@ class PopupModal extends PopupOverlay {
             isModal="true"
             className={mixClass({scrolling: scrolling}, modalClassName)}
             show={stateShow}
+            contentStyle={contentStyle}
           />
         );
       }
