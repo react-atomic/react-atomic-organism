@@ -2,9 +2,10 @@
 
 const isArray = Array.isArray;
 
+// don't use arrow function here for extaact arguments
 const arrayMerge = function() 
 {
-    const arg = Array.from(arguments);
+    const arg = [...arguments];
     let arg1 = arg.shift(); 
     if (!isArray(arg1)) {
        arg1 = [arg1]; 

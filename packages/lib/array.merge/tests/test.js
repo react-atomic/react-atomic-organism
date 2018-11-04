@@ -2,7 +2,7 @@
 
 import {expect} from 'chai';
 
-import merge from '../src/index.js';
+import merge from '../cjs/src/index.js';
 
 
 describe('test array merge', ()=>{
