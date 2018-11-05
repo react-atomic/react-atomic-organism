@@ -678,8 +678,10 @@ array.dedup@*:
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.2.tgz#24c82d0b8297f17211d56bb97a8ab14773043f9c"
 
 array.merge@*:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.2.tgz#6a0a0939fe30d4c0963d35ab0540ae74acb01b03"
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.3.tgz#f46e8dd46cd03899a6a852343e8aa05c5d1ab111"
+  dependencies:
+    reshow-runtime "*"
 
 assign-symbols@^1.0.0:
   version "1.0.0"
@@ -790,8 +792,8 @@ cache-base@^1.0.1:
     unset-value "^1.0.0"
 
 caniuse-lite@^1.0.30000899:
-  version "1.0.30000904"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000904.tgz#4445d00da859a0e0ae6dbb2876c545f3324f6c74"
+  version "1.0.30000905"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000905.tgz#8f731ecf5b8553c7154a691c3df3a635a1a3fda5"
 
 chalk@^2.0.0:
   version "2.4.1"
@@ -1086,8 +1088,8 @@ globals@^11.1.0:
   resolved "https://registry.yarnpkg.com/globals/-/globals-11.8.0.tgz#c1ef45ee9bed6badf0663c5cb90e8d1adec1321d"
 
 graceful-fs@^4.1.11:
-  version "4.1.14"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.14.tgz#1b6e8362ef8c5ecb5da799901f39297e3054773a"
+  version "4.1.15"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
 
 has-flag@^3.0.0:
   version "3.0.0"
@@ -1654,8 +1656,8 @@ react-atomic-atom@*:
   resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.18.tgz#2f6508427ace11615c20dd272d3df6accbea2a77"
 
 react-atomic-molecule@*:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.4.6.tgz#22227cb8cfc86994d5dd601fda225826b2408a1a"
+  version "1.4.11"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.4.11.tgz#3bb9e2f9baa89603867438009fe7a914610ac3da"
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1750,8 +1752,8 @@ repeat-string@^1.6.1:
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
 
 reshow-runtime@*:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.3.tgz#430439481e0885bf792919fa7c3acd825fa2781e"
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.4.tgz#8174eb8990c9dc4603989ffa0b73b93bb9628a40"
 
 resolve-url@^0.2.1:
   version "0.2.1"
