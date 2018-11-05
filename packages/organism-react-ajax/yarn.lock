@@ -42,8 +42,8 @@ acorn-walk@^6.0.1:
   resolved "https://registry.yarnpkg.com/acorn-walk/-/acorn-walk-6.1.0.tgz#c957f4a1460da46af4a0388ce28b4c99355b0cbc"
 
 acorn@^6.0.1, acorn@^6.0.2:
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.0.3.tgz#52adffeb02757f06420085a0ed0f7c0baf55fdf4"
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-6.0.4.tgz#77377e7353b72ec5104550aa2d2097a2fd40b754"
 
 ajv@^5.3.0:
   version "5.5.2"
@@ -819,8 +819,8 @@ glob@^7.0.0, glob@^7.0.5:
     path-is-absolute "^1.0.0"
 
 graceful-fs@^4.1.11:
-  version "4.1.14"
-  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.14.tgz#1b6e8362ef8c5ecb5da799901f39297e3054773a"
+  version "4.1.15"
+  resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.15.tgz#ffb703e1066e8a0eeaa4c8b80ba9253eeefbfb00"
 
 growl@1.10.5:
   version "1.10.5"
@@ -1406,8 +1406,10 @@ nomnom@~1.6.2:
     underscore "~1.4.4"
 
 non-worker@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/non-worker/-/non-worker-0.0.0.tgz#4d647057ac65c3cbcd78d827985fd7400f4ec60c"
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/non-worker/-/non-worker-0.0.2.tgz#58bee3e3b86ae1c82783452697ac204263e0e49b"
+  dependencies:
+    reshow-runtime "*"
 
 nopt@^4.0.1:
   version "4.0.1"
@@ -1792,8 +1794,8 @@ reshow-flux@*:
     reshow-runtime "*"
 
 reshow-runtime@*:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.3.tgz#430439481e0885bf792919fa7c3acd825fa2781e"
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.4.tgz#8174eb8990c9dc4603989ffa0b73b93bb9628a40"
 
 resolve-url@^0.2.1:
   version "0.2.1"
@@ -1854,6 +1856,10 @@ semver@^5.3.0, semver@^5.4.1:
 set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
+
+set-object-value@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/set-object-value/-/set-object-value-0.0.4.tgz#0c32309268e9280492ea891a331dd66a354025f6"
 
 set-value@^0.4.3:
   version "0.4.3"
