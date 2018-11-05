@@ -1,6 +1,6 @@
 {
   "name": "non-worker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Make any web worker.js could run as normal function in main thread.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -8,7 +8,9 @@
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "reshow-runtime": "*"
+  },
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
