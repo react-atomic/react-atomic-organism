@@ -1,40 +1,37 @@
-class NonWorker 
-{
-    callbacks = []
+class NonWorker {
+  callbacks = [];
 
-    constructor()
-    {
-        let post
-        try {
-            post = postMessage;
-            post({ type: "ready" })
-        } catch (e) {
-            post = data =>
-            {
-                const e = { data }
-                this.callbacks.forEach( c => c(e) )
-            }
-        }
-        this.post = post
+  constructor() {
+    this.post = data => {
+      const e = {data};
+      this.callbacks.forEach(c => c(e));
+    };
+
+    if ('undefined' === typeof window) {
+      try {
+        const post = postMessage;
+        post({type: 'ready'});
+        this.post = post;
+      } catch (e) {
+        console.error(e);
+      }
     }
+  }
 
-    onMessage = callback =>
-    {
-        this.onmessage = callback
-        if ('undefined' === typeof window) {
-            onmessage = callback
-        }
-        return this
+  onMessage = callback => {
+    this.onmessage = callback;
+    if ('undefined' === typeof window) {
+      onmessage = callback;
     }
+    return this;
+  };
 
-    addEventListener = (type, callback) =>
-        this.callbacks.push(callback)
+  addEventListener = (type, callback) => this.callbacks.push(callback);
 
-    postMessage = data =>
-    {
-        const e = { data }
-        this.onmessage(e)
-    }
+  postMessage = data => {
+    const e = {data};
+    this.onmessage(e);
+  };
 }
 
-export default NonWorker  
+export default NonWorker;
