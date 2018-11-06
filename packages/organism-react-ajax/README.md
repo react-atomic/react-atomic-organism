@@ -17,15 +17,9 @@ Demo Url:
 https://react-atomic-ui.js.org/
 
 ## IE11 support
-```
-<script src="//cdn.jsdelivr.net/npm/babel-polyfill@6.26.0/dist/polyfill.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-```
-
 * Worker
 ```
-require('es6-promise/auto')
+import 'es6-promise/auto';
 ```
 You can not just use external script for es6-promise/auto in IE11,
 because webworker will have js error (Promise not defined),

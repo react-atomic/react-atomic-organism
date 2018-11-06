@@ -1,4 +1,4 @@
-require('es6-promise/auto'); // Need keep if worker use "new Promise"
+import 'es6-promise/auto'; // Need keep if worker use "new Promise"
 import get, {getDefault} from 'get-object-value';
 import nonWorker from 'non-worker';
 import req from 'superagent';
