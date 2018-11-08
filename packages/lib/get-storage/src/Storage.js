@@ -1,3 +1,5 @@
+import {toJS} from 'get-object-value';
+
 const keys = Object.keys;
 const toInt = d => parseInt(d, 10);
 
@@ -7,7 +9,7 @@ class Storage {
   }
 
   set(k, v) {
-    const _v = JSON.stringify(v);
+    const _v = JSON.stringify(toJS(v));
     const vLen = _v.length;
     const s = vLen + ',' + _v;
     this._storage(k)(s);

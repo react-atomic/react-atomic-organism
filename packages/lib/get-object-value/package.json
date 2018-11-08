@@ -1,6 +1,6 @@
 {
   "name": "get-object-value",
-  "version": "0.0.14",
+  "version": "0.1.0",
   "description": "Get Object Value",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,15 +10,11 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.x",
-    "babel-core": "^6.x",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-preset-es2015": "^6.x",
-    "babel-preset-stage-0": "^6.x"
+    "@babel/cli": "^7.x"
   },
   "scripts": {
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "rm -rf build && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },
