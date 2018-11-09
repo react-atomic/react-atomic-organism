@@ -37,5 +37,5 @@ const setUrl = (key, value, url, KeepRawValue) => {
   return url;
 };
 
-export {getUrl, unsetUrl};
+export {getUrl, getPath, unsetUrl};
 export default setUrl;

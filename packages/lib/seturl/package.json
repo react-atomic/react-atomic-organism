@@ -1,6 +1,6 @@
 {
   "name": "seturl",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Use regularexpression to replace url query.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
