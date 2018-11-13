@@ -2,7 +2,7 @@ const arrayFrom = a => [...a];
 
 const queryFrom = base => {
   if ('function' !== typeof base) {
-    console.error('query base should pass with function');
+    console.error('Query base should pass with function');
   }
 
   const doc = base;
@@ -18,7 +18,7 @@ const queryFrom = base => {
     const findHit = all => {
       let hit = false;
       all.some(p => {
-        if (p.contains(el)) {
+        if (p.contains(el) && !p.isSameNode(el)) {
           hit = p;
           return true;
         } else {
