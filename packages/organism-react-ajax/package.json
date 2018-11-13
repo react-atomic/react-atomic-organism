@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -14,10 +14,11 @@
   "dependencies": {
     "es6-promise": "4.2.5",
     "get-object-value": "*",
+    "get-random-id": "*",
     "immutable": "*",
-    "non-worker": "^0.0.2",
+    "non-worker": "*",
     "reshow-flux": "*",
-    "reshow-runtime": "^0.1.4",
+    "reshow-runtime": "*",
     "set-object-value": "*",
     "setimmediate": "*",
     "smooth-scroll-to": "*",

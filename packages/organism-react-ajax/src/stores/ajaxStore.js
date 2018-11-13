@@ -1,353 +1,356 @@
-require("setimmediate")
-import { Map } from "immutable"
-import { ReduceStore } from "reshow-flux"
-import get, { getDefault } from "get-object-value"
-import smoothScrollTo from "smooth-scroll-to"
+import 'setimmediate';
+import {Map} from 'immutable';
+import {ReduceStore} from 'reshow-flux';
+import get, {getDefault} from 'get-object-value';
+import smoothScrollTo from 'smooth-scroll-to';
+import getRandomId from 'get-random-id';
 
-import dispatcher, { ajaxDispatch } from "../ajaxDispatcher"
+import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
 
-const empty = function() {}
-const keys = Object.keys
-let wsAuth = Map()
-let gWorker
-let fakeWorker = false
-let isWorkerReady
-let cbIndex = 0
-const Callbacks = []
+const empty = function() {};
+const keys = Object.keys;
+let wsAuth = Map();
+let gWorker;
+let fakeWorker = false;
+let isWorkerReady;
+let cbIndex = 0;
+const Callbacks = [];
 
 const initWorkerEvent = worker => {
-  worker.addEventListener("message", e => {
-    const sourceType = get(e, ["data", "type"])
+  worker.addEventListener('message', e => {
+    const sourceType = get(e, ['data', 'type']);
     switch (sourceType) {
-      case "ready":
+      case 'ready':
         // fakeWorker will not run this
-        gWorker = worker
-        isWorkerReady = true
-        break
+        gWorker = worker;
+        isWorkerReady = true;
+        break;
       default:
         ajaxDispatch({
           ...e.data,
           sourceType,
-          type: "callback",
-        })
-        break
+          type: 'callback',
+        });
+        break;
     }
-  })
-}
+  });
+};
 
 const initFakeWorker = () => {
-  import("../../src/worker").then(workerObject => {
-    fakeWorker = getDefault(workerObject)
-    initWorkerEvent(fakeWorker)
+  import('../../src/worker').then(workerObject => {
+    fakeWorker = getDefault(workerObject);
+    initWorkerEvent(fakeWorker);
     if (!gWorker) {
-      gWorker = fakeWorker
+      gWorker = fakeWorker;
     }
-    isWorkerReady = true
-  })
-}
+    isWorkerReady = true;
+  });
+};
 
 const handleUpdateNewUrl = (state, action, url) => {
   setImmediate(() => {
-    const preUrl = state.get("currentLocation")
+    const preUrl = state.get('currentLocation');
     if (preUrl !== url) {
-        const updateWithUrl = state.get("updateWithUrl")
-        updateWithUrl(url)
+      const updateWithUrl = state.get('updateWithUrl');
+      updateWithUrl(url);
     }
-    const params = get(action, ["params"], {})
+    const params = get(action, ['params'], {});
     if (params.disableAjax && false !== params.scrollBack) {
-      smoothScrollTo(0)
+      smoothScrollTo(0);
     }
-  })
-  return state.set("currentLocation", url)
-}
+  });
+  return state.set('currentLocation', url);
+};
 
 class AjaxStore extends ReduceStore {
-
-    getInitialState()
-    {
-        const updateWithUrl = url => {
-            ajaxDispatch({
-                type: 'ajaxGet',
-                params: {
-                    url,
-                    scrollBack: true
-                }
-            });
-        }; 
-        return Map({updateWithUrl});
-    }
+  getInitialState() {
+    const updateWithUrl = url => {
+      ajaxDispatch({
+        type: 'ajaxGet',
+        params: {
+          url,
+          scrollBack: true,
+        },
+      });
+    };
+    return Map({updateWithUrl});
+  }
 
   cookAjaxUrl(params, ajaxUrl, globalHeaders) {
-    if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
+    if (globalHeaders && !get(params, ['ignoreGlobalHeaders'])) {
       if (globalHeaders.toJS) {
-        params.globalHeaders = globalHeaders.toJS()
+        params.globalHeaders = globalHeaders.toJS();
       } else {
-        console.error("Global headers should be a map.", globalHeaders)
+        console.error('Global headers should be a map.', globalHeaders);
       }
     }
-    const urls = ajaxUrl.split("#")
-    const query = get(params, ["query"], {})
+    const urls = ajaxUrl.split('#');
+    const query = get(params, ['query'], {});
     if (urls[1]) {
-      query["--hashState"] = urls[1]
+      query['--hashState'] = urls[1];
     }
 
     // <!-- Clean key for fixed superagent error
     if (query) {
       keys(query).forEach(key => {
-        if ("undefined" === typeof query[key]) {
-          delete query[key]
+        if ('undefined' === typeof query[key]) {
+          delete query[key];
         }
-      })
-      params.query = query
+      });
+      params.query = query;
     }
     // -->
 
-    return urls[0]
+    return urls[0];
   }
 
   getRawUrl = params => {
-    let { url, path } = get(params, null, {});
+    let {url, path} = get(params, null, {});
     if (!url) {
       if (path) {
-        let baseUrl = this.getState().get("baseUrl")
+        let baseUrl = this.getState().get('baseUrl');
         if (!baseUrl) {
-          baseUrl = ""
+          baseUrl = '';
         }
-        url = baseUrl + path
+        url = baseUrl + path;
       } else {
-        url = "#"
+        url = '#';
       }
     }
-    return url
-  }
+    return url;
+  };
 
   getCallback(state, action, json, response) {
-    const params = get(action, ["params"], {})
-    let callback
-    if (get(json, ["data", "errors"]) || !get(response, ["ok"])) {
+    const params = get(action, ['params'], {});
+    let callback;
+    if (get(json, ['data', 'errors']) || !get(response, ['ok'])) {
       if (params.errorCallback) {
-        callback = Callbacks[params.errorCallback]
-        delete Callbacks[params.errorCallback]
+        callback = Callbacks[params.errorCallback];
+        delete Callbacks[params.errorCallback];
       }
     }
     if (json.debugs) {
-      let debugs = json.debugs
-      let bFail = false
-      import("../lib/dlog").then(dlog => {
-        dlog = getDefault(dlog)
-        const oLog = new dlog({ level: "trace" })
+      let debugs = json.debugs;
+      let bFail = false;
+      import('../lib/dlog').then(dlog => {
+        dlog = getDefault(dlog);
+        const oLog = new dlog({level: 'trace'});
         debugs.forEach(v => {
-          const dump = get(oLog, [v[0]], () => oLog.info)
-          dump.call(oLog, v[1])
-        })
-      })
+          const dump = get(oLog, [v[0]], () => oLog.info);
+          dump.call(oLog, v[1]);
+        });
+      });
       debugs.forEach(v => {
-        if ("error" === v[1]) {
-          bFail = true
+        if ('error' === v[1]) {
+          bFail = true;
         }
-      })
+      });
       if (bFail) {
-        return empty
+        return empty;
       }
     }
     if (!callback) {
       if (params.callback) {
-        callback = Callbacks[params.callback]
-        delete Callbacks[params.callback]
+        callback = Callbacks[params.callback];
+        delete Callbacks[params.callback];
       } else {
-        callback = state.get("callback")
+        callback = state.get('callback');
       }
     }
-    return callback
+    return callback;
   }
 
   getJson(text) {
-    let json
+    let json;
     try {
-      json = JSON.parse(text)
+      json = JSON.parse(text);
     } catch (e) {
-      json = {}
+      json = {};
     }
-    return json
+    return json;
   }
 
   start() {
     setImmediate(() => {
       ajaxDispatch({
-        type: "config/set",
+        type: 'config/set',
         params: {
           isRunning: 1,
         },
-      })
-    })
+      });
+    });
   }
 
   done() {
     setImmediate(() => {
       ajaxDispatch({
-        type: "config/set",
+        type: 'config/set',
         params: {
           isRunning: 0,
         },
-      })
-    })
+      });
+    });
   }
 
   storeCallback(action) {
-    const cb = get(action, ["params", "callback"])
+    const cb = get(action, ['params', 'callback']);
     if (cb) {
-      const cbKey = "cb" + cbIndex
-      Callbacks[cbKey] = cb
-      action.params.callback = cbKey
-      cbIndex++
+      const cbKey = 'cb' + cbIndex;
+      Callbacks[cbKey] = cb;
+      action.params.callback = cbKey;
+      cbIndex++;
     }
-    const err = get(action, ["params", "errorCallback"])
+    const err = get(action, ['params', 'errorCallback']);
     if (err) {
-      const errCbKey = "err" + cbIndex
-      Callbacks[errCbKey] = err
-      action.params.errorCallback = errCbKey
-      cbIndex++
+      const errCbKey = 'err' + cbIndex;
+      Callbacks[errCbKey] = err;
+      action.params.errorCallback = errCbKey;
+      cbIndex++;
     }
-    return action
+    return action;
   }
 
   worker(data) {
     if (isWorkerReady && fakeWorker) {
       setImmediate(() => {
         const disableWebWorker = get(data, [
-          "action",
-          "params",
-          "disableWebWorker",
-        ])
-        const run = disableWebWorker ? fakeWorker : gWorker
-        run.postMessage(data)
-      })
+          'action',
+          'params',
+          'disableWebWorker',
+        ]);
+        const run = disableWebWorker ? fakeWorker : gWorker;
+        run.postMessage(data);
+      });
     } else {
-      const self = this
+      const self = this;
       if (false === fakeWorker) {
-        initFakeWorker()
-        fakeWorker = null
+        initFakeWorker();
+        fakeWorker = null;
       }
-      setTimeout(() => self.worker(data), 50)
+      setTimeout(() => self.worker(data), 50);
     }
   }
 
   setWsAuth(key, data) {
-    wsAuth = wsAuth.set(key, data)
+    wsAuth = wsAuth.set(key, data);
   }
 
   getWsAuth(key) {
     if (!key) {
-      return wsAuth.toJS()
+      return wsAuth.toJS();
     } else {
-      return wsAuth.get(key).toJS()
+      return wsAuth.get(key).toJS();
     }
   }
 
   initWs(state, action) {
-    const params = get(action, ["params"], {});
+    const params = get(action, ['params'], {});
     const {url} = params;
     if (url) {
-      this.worker({ params, ws: url, type: "initWs" })
+      this.worker({params, ws: url, type: 'initWs'});
     }
-    return state
+    return state;
   }
 
   closeWs(state, action) {
-    const url = get(action, ["params", "url"]);
+    const url = get(action, ['params', 'url']);
     if (url) {
-      this.worker({ ws: url, type: "closeWs" })
+      this.worker({ws: url, type: 'closeWs'});
     }
-    return state
+    return state;
   }
 
   ajaxGet(state, action) {
-    const self = this
-    const params = action.params
-    const rawUrl = self.getRawUrl(params)
+    const self = this;
+    const params = action.params;
+    const rawUrl = self.getRawUrl(params);
     if (params.updateUrl && rawUrl !== document.URL) {
-      history.pushState("", "", rawUrl)
+      history.pushState('', '', rawUrl);
     }
     if (params.disableAjax) {
-      state = handleUpdateNewUrl(state, action, rawUrl)
-      return state
+      state = handleUpdateNewUrl(state, action, rawUrl);
+      return state;
     }
     if (!params.disableProgress) {
-      self.start()
+      self.start();
     }
     setImmediate(() => {
       const ajaxUrl = self.cookAjaxUrl(
         params,
         rawUrl,
-        state.get("globalHeaders")
-      )
+        state.get('globalHeaders'),
+      );
       if (!params.query) {
-        params.query = {}
+        params.query = {};
       }
       if (!params.disableRandom) {
-        params.query["--r"] = new Date().getTime() + "" + Math.random()
+        params.query['--r'] = getRandomId();
       } else {
-        params.query["--r"] = state.get("staticVersion")
+        params.query['--r'] = state.get('staticVersion');
       }
       self.worker({
-        type: "ajaxGet",
+        type: 'ajaxGet',
         url: ajaxUrl,
         action: self.storeCallback(action),
-      })
-    })
-    return state
+      });
+    });
+    return state;
   }
 
   ajaxPost(state, action) {
-    const self = this
-    const params = action.params
+    const self = this;
+    const params = action.params;
     if (!params.disableProgress) {
-      self.start()
+      self.start();
     }
-    const rawUrl = self.getRawUrl(params)
-    const ajaxUrl = self.cookAjaxUrl(params, rawUrl, state.get("globalHeaders"))
+    const rawUrl = self.getRawUrl(params);
+    const ajaxUrl = self.cookAjaxUrl(
+      params,
+      rawUrl,
+      state.get('globalHeaders'),
+    );
     self.worker({
-      type: "ajaxPost",
+      type: 'ajaxPost',
       url: ajaxUrl,
       action: self.storeCallback(action),
-    })
-    return state
+    });
+    return state;
   }
 
   applyCallback(state, action) {
-    const params = get(action, ["params"], {})
+    const params = get(action, ['params'], {});
     if (!params.disableProgress) {
-      this.done()
+      this.done();
     }
-    const sourceType = get(action, ["sourceType"])
-    const response = get(action, ["response"])
-    const text = get(action, ["text"])
-    let json = get(action, ["json"], () => this.getJson(text) )
-    const callback = this.getCallback(state, action, json, response)
-    const type = get(json, ["type"])
-    let isRedirect = null
-    const url = get(action, ["url"])
+    const sourceType = get(action, ['sourceType']);
+    const response = get(action, ['response']);
+    const text = get(action, ['text']);
+    let json = get(action, ['json'], () => this.getJson(text));
+    const callback = this.getCallback(state, action, json, response);
+    const type = get(json, ['type']);
+    let isRedirect = null;
+    const url = get(action, ['url']);
     switch (type) {
-      case "ws-auth":
-        this.setWsAuth(url, json)
-        break
+      case 'ws-auth':
+        this.setWsAuth(url, json);
+        break;
       default:
-        if ("ws" === sourceType) {
-          json = { "--realTimeData--": json, "--realTimeUrl--": url }
+        if ('ws' === sourceType) {
+          json = {'--realTimeData--': json, '--realTimeUrl--': url};
         }
-        setImmediate(() => (isRedirect = callback(json, text, response)))
-        break
+        setImmediate(() => (isRedirect = callback(json, text, response)));
+        break;
     }
     if (false !== isRedirect) {
-      const loc = get(json, ["clientLocationTo"])
+      const loc = get(json, ['clientLocationTo']);
       if (loc) {
-        switch (get(json, ["clientLocationType"])) {
-          case "href":
-            location.href = loc
-            break
+        switch (get(json, ['clientLocationType'])) {
+          case 'href':
+            location.href = loc;
+            break;
           default:
-            location.replace(loc)
-            break
+            location.replace(loc);
+            break;
         }
       }
     }
@@ -355,45 +358,45 @@ class AjaxStore extends ReduceStore {
       (params.updateUrl && false !== params.scrollBack) ||
       params.scrollBack
     ) {
-      smoothScrollTo(0)
+      smoothScrollTo(0);
     }
-    return state
+    return state;
   }
 
   updateWithUrl(state, action) {
-    const url = get(action, ["params", "url"], document.URL)
-    state = handleUpdateNewUrl(state, action, url)
+    const url = get(action, ['params', 'url'], document.URL);
+    state = handleUpdateNewUrl(state, action, url);
     /**
      * "Do not change" toggleBfChange and bfApplyUrl
      * in other place, such as ajaxGet.
      * Because this state should only trigger with bfchange.
      */
-    return state.
-        set("toggleBfChange", !state.get("toggleBfChange")).
-        set("bfApplyUrl", url)
+    return state
+      .set('toggleBfChange', !state.get('toggleBfChange'))
+      .set('bfApplyUrl', url);
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case "ws/init":
-        return this.initWs(state, action)
-      case "ws/close":
-        return this.closeWs(state, action)
-      case "ajaxGet":
-        return this.ajaxGet(state, action)
-      case "ajaxPost":
-        return this.ajaxPost(state, action)
-      case "callback":
-        return this.applyCallback(state, action)
-      case "updateWithUrl":
-        return this.updateWithUrl(state, action)
-      case "config/set":
-        return state.merge(action.params)
+      case 'ws/init':
+        return this.initWs(state, action);
+      case 'ws/close':
+        return this.closeWs(state, action);
+      case 'ajaxGet':
+        return this.ajaxGet(state, action);
+      case 'ajaxPost':
+        return this.ajaxPost(state, action);
+      case 'callback':
+        return this.applyCallback(state, action);
+      case 'updateWithUrl':
+        return this.updateWithUrl(state, action);
+      case 'config/set':
+        return state.merge(action.params);
       default:
-        return state
+        return state;
     }
   }
 }
 
-export default new AjaxStore(dispatcher)
-export { initWorkerEvent as initAjaxWorkerEvent }
+export default new AjaxStore(dispatcher);
+export {initWorkerEvent as initAjaxWorkerEvent};
