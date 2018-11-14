@@ -1,11 +1,16 @@
 const arrayFrom = a => [...a];
 
-const queryFrom = base => {
-  if ('function' !== typeof base) {
-    console.error('Query base should pass with function');
-  }
 
-  const doc = base;
+const queryFrom = base => {
+  let doc;
+  switch (typeof base) {
+    case 'function':
+      doc = base;
+      break;
+    default:
+      doc = () => defaultQuery.el(base); 
+      break;
+  }
 
   const queryOne = sel => doc().querySelector(sel);
 
@@ -50,4 +55,7 @@ const queryFrom = base => {
   };
 };
 
+const defaultQuery = queryFrom(() => document);
+
 export default queryFrom;
+export {defaultQuery};

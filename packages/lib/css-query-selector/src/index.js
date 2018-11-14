@@ -1,13 +1,12 @@
-import queryFrom from './queryFrom';
+import queryFrom, {defaultQuery} from './queryFrom';
 
-const {all, ancestor, el, one} = queryFrom(() => document);
+export default defaultQuery;
 
-export default {all, ancestor, el, one};
+const {
+  all: queryAll,
+  ancestor: queryAncestor,
+  el: queryEl,
+  one: queryOne,
+} = defaultQuery;
 
-export {
-  all as queryAll,
-  ancestor as queryAncestor,
-  el as queryEl,
-  one as queryOne,
-  queryFrom,
-};
+export {queryAll, queryAncestor, queryEl, queryOne, queryFrom};
