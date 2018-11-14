@@ -43,10 +43,10 @@ const queryFrom = base => {
     return lastHit;
   };
   return {
-    queryOne,
-    queryAll,
-    queryEl,
-    queryAncestor,
+    all: queryAll,
+    ancestor: queryAncestor,
+    el: queryEl,
+    one: queryOne,
   };
 };
 

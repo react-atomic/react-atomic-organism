@@ -26,6 +26,7 @@
     "@babel/plugin-syntax-dynamic-import": "*",
     "@babel/plugin-transform-object-assign": "*",
     "@babel/plugin-transform-react-constant-elements": "*",
+    "@babel/plugin-proposal-export-default-from": "*",
     "@babel/preset-env": "*",
     "@babel/preset-react": "*",
     "babel-plugin-add-module-exports": "*",
