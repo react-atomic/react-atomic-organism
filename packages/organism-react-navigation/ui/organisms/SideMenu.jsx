@@ -13,10 +13,10 @@ import {
 } from 'react-atomic-molecule';
 import Hamburger from 'ricon/HamburgerToArrow';
 import {connect} from 'reshow-flux';
-import get from 'get-object-value';
+import get, {toJS} from 'get-object-value';
 import {hasClass, removeClass} from 'class-lib';
-import { queryOne } from 'css-query-selector'
-import getOffset from 'getoffset'
+import {queryOne} from 'css-query-selector';
+import getOffset from 'getoffset';
 
 const getKeys = Object.keys;
 
@@ -87,7 +87,6 @@ const DefaultIcon = ({
 );
 
 class SideMenu extends PureComponent {
-
   static getStores() {
     return [navigationStore];
   }
@@ -99,33 +98,30 @@ class SideMenu extends PureComponent {
     root: null,
     rootActiveClass: 'side-menu-active',
     rootInactiveClass: 'side-menu-inactive',
-  }
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {on} = nextProps
+    const {on} = nextProps;
     if (on !== prevState.prePropsOn) {
       return {
         on,
-        prePropsOn: on
-      }
+        prePropsOn: on,
+      };
     } else {
-      return null
+      return null;
     }
   }
 
   static calculateState(prevState, props) {
     let id = get(props, ['id'], 'default');
     const state = navigationStore.getState();
-    let settings = state.get(id);
-    if (settings) {
-      settings = settings.toJS();
-    }
-    const storeOn = get(settings, ['on'])
-    let on
+    const settings = state.get(id);
+    const storeOn = get(settings, ['on']);
+    let on;
     if ('undefined' === typeof storeOn) {
-      on = prevState.on
+      on = prevState.on;
     } else {
-      on = storeOn
+      on = storeOn;
     }
     return {
       on,
@@ -142,9 +138,8 @@ class SideMenu extends PureComponent {
     return thisRoot;
   }
 
-  updateRoot(on)
-  {
-    const {rootActiveClass, rootInactiveClass} = this.props
+  updateRoot(on) {
+    const {rootActiveClass, rootInactiveClass} = this.props;
     const thisRoot = this.getRoot();
     if (on) {
       thisRoot.className = mixClass(thisRoot.className, rootActiveClass);
@@ -156,11 +151,11 @@ class SideMenu extends PureComponent {
   }
 
   handleOn(stateOn, e) {
-    const isValidStateOn = 'boolean' === typeof stateOn
+    const isValidStateOn = 'boolean' === typeof stateOn;
     const on = !(isValidStateOn ? stateOn : this.state.on);
-    const {id, onSwitch} = this.props
-    const defaultOff = getOffset(queryOne('.sidebar .default-off'))
-    const isSet = isValidStateOn || (defaultOff.w && defaultOff.h)
+    const {id, onSwitch} = this.props;
+    const defaultOff = getOffset(queryOne('.sidebar .default-off'));
+    const isSet = isValidStateOn || (defaultOff.w && defaultOff.h);
     if (isSet) {
       navigationDispatch({
         id,
@@ -168,23 +163,21 @@ class SideMenu extends PureComponent {
       });
     }
     if ('function' === typeof onSwitch) {
-      onSwitch(e, on, isSet)
+      onSwitch(e, on, isSet);
     }
   }
 
-  componentDidMount()
-  {
-    const {on} = this.state 
+  componentDidMount() {
+    const {on} = this.state;
     if ('undefined' !== typeof on) {
-      this.updateRoot(on)
+      this.updateRoot(on);
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot)
-  {
-    const {on} = this.state 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {on} = this.state;
     if (on !== prevState.on) {
-      this.updateRoot(on)
+      this.updateRoot(on);
     }
   }
 
@@ -213,7 +206,7 @@ class SideMenu extends PureComponent {
     } = this.props;
     const {activeMenu, on} = this.state;
     const menuItems = getMenuByArray(this.handleOn.bind(this, null))(
-      menus,
+      toJS(menus),
       linkComponent,
       activeMenu,
     );
