@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
-
+import get from 'get-object-value';
 import arrayMerge from 'array.merge';
-
 import {lazyInject, mixClass, Field, SemanticUI} from 'react-atomic-molecule';
 
 let checkboxId = 0;
@@ -45,7 +44,7 @@ class Checkbox extends PureComponent {
   }
 
   getValue() {
-    return this.props.value;
+    return get(this, ['props', 'value']);
   }
 
   getName() {
@@ -54,6 +53,13 @@ class Checkbox extends PureComponent {
 
   getInput() {
     return this.el;
+  }
+
+  getChecked() {
+    return {
+      input: this.getInput().checked,
+      state: get(this, ['state', 'checked']),
+    };
   }
 
   handleClick = e => {
@@ -67,19 +73,27 @@ class Checkbox extends PureComponent {
       beforeClick(e, beforeChecked, afterChecked, this);
     }
     if (!disabled) {
-      this.setState({checked: afterChecked});
+      this.processChange(afterChecked);
     }
     if ('function' === typeof afterClick) {
       afterClick(e, beforeChecked, afterChecked, this);
     }
   };
 
-  handleChange = e => {
+  processChange(checked) {
     const {onChange} = this.props;
-    if ('function' === typeof onChange) {
-      onChange(e, this);
-    }
-  };
+    this.setState({checked}, () => {
+      if ('function' === typeof onChange) {
+        onChange({
+          type: 'change',
+          target: this.getInput(),
+          currentTarget: this.getInput(),
+        }, this);
+      }
+    });
+  }
+
+  handleChange = e => { };
 
   render() {
     const {
@@ -100,7 +114,7 @@ class Checkbox extends PureComponent {
     if (label) {
       thisLabel = label;
     }
-    const thisValue = ('object' === typeof value) ? null: value;
+    const thisValue = 'object' === typeof value ? '' : value;
     return (
       <Field
         {...{
@@ -130,7 +144,7 @@ class Checkbox extends PureComponent {
                 checked: stateChecked,
               }}
             />
-          )
+          ),
         }}
       />
     );

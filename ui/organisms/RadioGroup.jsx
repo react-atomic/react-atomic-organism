@@ -1,8 +1,10 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {mixClass, Field, SemanticUI} from 'react-atomic-molecule';
+import get from 'get-object-value';
+
 import Radio from '../organisms/Checkbox';
 
-import {mixClass, Field, SemanticUI} from 'react-atomic-molecule';
 
 const Label = ({children, ...props}) => {
   if (!children) {
@@ -26,22 +28,23 @@ class RadioGroup extends PureComponent {
 
   handleClick = (e, before, after, ref) => {
     const {onChange} = this.props;
-    let value = null;
+    let current = null;
     if (ref) {
       if (ref.props.disabled) {
         return;
       }
-      value = ref.getValue();
+      current = ref;
     }
-    this.setState({value}, () => {
+    this.setState({current}, () => {
       if ('function' === typeof onChange) {
-        onChange(e, value);
+        onChange(e, current.getValue(), current);
       }
     });
   };
 
   getValue() {
-    return this.state.value;
+    const current = get(this, ['state', 'current']);
+    return current ? current.getValue() : null;
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -58,6 +61,8 @@ class RadioGroup extends PureComponent {
 
   render() {
     const {
+      radioFieldStyle,
+      radioFieldStyles,
       inline,
       fieldClassName,
       label,
@@ -68,27 +73,29 @@ class RadioGroup extends PureComponent {
       checkedCallback,
       ...others
     } = this.props;
-    const {value: stateValue} = this.state;
+    const {current} = this.state;
     const classes = mixClass(fieldClassName, {
       grouped: !inline,
     });
     let thisCheckedCallback = checkedCallback;
     if ('function' !== typeof thisCheckedCallback) {
-      thisCheckedCallback = (item, currentValue) => currentValue === item.value;
+      thisCheckedCallback = (item, current) => current.getValue() === item.value;
     }
     return (
       <Field inline={inline} fieldClassName={classes} {...others}>
         <Label>{label}</Label>
-        {options.map(item => (
+        {options.map( (item, key) => (
           <Radio
             type="radio"
+            fieldStyle={radioFieldStyle}
+            fieldStyles={radioFieldStyles}
             name={name}
+            key={key}
             {...item.props}
             label={item.label}
             value={item.value}
-            key={item.value}
             afterClick={this.handleClick}
-            checked={thisCheckedCallback(item, stateValue)}
+            checked={thisCheckedCallback(item, current)}
           />
         ))}
       </Field>
