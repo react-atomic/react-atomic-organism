@@ -5,7 +5,6 @@ import get from 'get-object-value';
 
 import Radio from '../organisms/Checkbox';
 
-
 const Label = ({children, ...props}) => {
   if (!children) {
     return null;
@@ -79,12 +78,13 @@ class RadioGroup extends PureComponent {
     });
     let thisCheckedCallback = checkedCallback;
     if ('function' !== typeof thisCheckedCallback) {
-      thisCheckedCallback = (item, current) => current.getValue() === item.value;
+      thisCheckedCallback = (item, current) =>
+        current ? current.getValue() === item.value : false;
     }
     return (
       <Field inline={inline} fieldClassName={classes} {...others}>
         <Label>{label}</Label>
-        {options.map( (item, key) => (
+        {options.map((item, key) => (
           <Radio
             type="radio"
             fieldStyle={radioFieldStyle}
