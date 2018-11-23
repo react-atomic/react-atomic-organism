@@ -94,7 +94,7 @@ class SortLink extends PureComponent {
         <SortIcon style={{...Styles.sortIcon, ...iconStyle}} />
       );
       child = (
-        <SemanticUI>
+        <SemanticUI style={Styles.inner}>
           {children}
           <Icon style={Styles.icon}>{thisIcon}</Icon>
         </SemanticUI>
@@ -120,5 +120,8 @@ const Styles = {
   },
   icon: {
     width: 12,
+  },
+  inner: {
+    whiteSpace: 'nowrap'
   }
 };

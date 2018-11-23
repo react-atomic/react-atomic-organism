@@ -6,6 +6,8 @@ const percent = num => round(num * 100);
 
 const round = (f, precision = 2) => toNum(f).toFixed(precision);
 
+const toRoundNum = (f, precision = 2) => toNum(round(f, precision));
+
 const toNum = num =>
   -1 === numTypes.indexOf('|' + typeof num + '|') || !num
     ? Number(num)
@@ -13,8 +15,8 @@ const toNum = num =>
       ? parseInt(num, 10)
       : parseFloat(num);
 
-const toInt = num => round(num, 0);
+const toInt = num => toNum(round(num, 0));
 
-export {round, percent, toNum, toInt};
+export {round, toRoundNum, percent, toNum, toInt};
 
 export default toPercent;

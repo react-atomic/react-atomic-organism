@@ -1,6 +1,6 @@
 'use strict';
 
-import toPercent, {percent, round, toNum} from '../cjs/src/index.js';
+import toPercent, {percent, round, toNum, toInt} from '../cjs/src/index.js';
 import {expect} from 'chai';
 
 describe('Test percent', ()=>{
@@ -47,5 +47,19 @@ describe('to num', ()=>{
   });
   it('Test 100.01f', ()=>{
     expect(toNum('100.01f')).to.equal(100.01);
+  });
+});
+
+describe('to Int', ()=>{
+  it('Test from string', ()=>{
+    expect(toInt('1')).to.equal(1);
+  });
+  it('Test from float', ()=>{
+    expect(toInt(1.1)).to.equal(1);
+    expect(toInt(1.5)).to.equal(2);
+  });
+  it('Test from float string', ()=>{
+    expect(toInt('1.1')).to.equal(1);
+    expect(toInt('1.5')).to.equal(2);
   });
 });

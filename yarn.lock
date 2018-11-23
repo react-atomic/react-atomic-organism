@@ -2039,9 +2039,9 @@ repeat-string@^1.6.1:
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
 
 reshow-runtime@*:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.4.tgz#8174eb8990c9dc4603989ffa0b73b93bb9628a40"
-  integrity sha512-UdYkNVXI+y5f2cskOb7AQobCE0ADqbB2V8GSWfk2UnY+E7PTWS2+MH78Qmc0CGEvs7bUpxzGCu75D7649v64xQ==
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.5.tgz#91f65a01f583c4c5a7bc52b82dd167eddd0264c0"
+  integrity sha512-yfHDN4HHCr7QoxcDpsakuVLwfG8NNEO+k+0Jf5hypbbqTuGf+vo+zpTdSdVpAr7oFMjq9dSXgU7WsvQNfEtAYA==
 
 resolve-url@^0.2.1:
   version "0.2.1"
