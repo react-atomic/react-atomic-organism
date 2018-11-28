@@ -52,19 +52,18 @@ const ajaxGet = ({url, action}) => {
 };
 
 const ajaxPost = ({url, action}) => {
-  const params = get(action, ['params'], {});
-  const queryKeys = keys(params.query);
+  const {query, method, isSendJson, ...params} = get(action, ['params'], {});
   const headers = {
     ...get(params, ['globalHeaders'], {}),
     ...get(params, ['headers'], {}),
     Accept: get(params, ['accept'], 'application/json'),
   };
   let isSend = false;
-  if (params.isSendJson) {
+  if (isSendJson) {
     isSend = true;
   } else {
-    queryKeys.every(key => {
-      if ('object' !== typeof params.query[key]) {
+    keys(query).every(key => {
+      if ('object' !== typeof query[key]) {
         return true;
       }
       isSend = true;
@@ -72,7 +71,7 @@ const ajaxPost = ({url, action}) => {
     });
   }
   let callReq;
-  switch (params.method) {
+  switch (method) {
     case 'delete':
       callReq = req.del(url);
       break;
@@ -93,7 +92,7 @@ const ajaxPost = ({url, action}) => {
     callReq = callReq.type('form');
   }
   callReq
-    .send(params.query)
+    .send(query)
     .set(headers)
     .end((err, res) => {
       if (res) {
