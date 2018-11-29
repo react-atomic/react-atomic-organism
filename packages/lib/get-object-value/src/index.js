@@ -7,6 +7,8 @@ const toJS = v => (v && v.toJS ? v.toJS() : v);
 
 const toMap = a => get(toJS(a), null, {});
 
+const initMap = o => (k, v) => o[k] || (o[k] = getDefaultValue(v));
+
 const getDefaultValue = v => ('function' === typeof v ? v() : v);
 
 const get = (o, path, defaultValue) => {
@@ -30,4 +32,4 @@ const get = (o, path, defaultValue) => {
 };
 
 export default get;
-export {getWebpack4Default as getDefault, toJS, toMap};
+export {getWebpack4Default as getDefault, toJS, toMap, initMap};
