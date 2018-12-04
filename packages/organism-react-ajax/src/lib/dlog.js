@@ -122,6 +122,4 @@ dlog.prototype.error = function() {
     this.log('error', arguments);
 };
 
-if(typeof module !== 'undefined' && module.exports) {
-    module.exports = dlog;
-}
+export default dlog;
