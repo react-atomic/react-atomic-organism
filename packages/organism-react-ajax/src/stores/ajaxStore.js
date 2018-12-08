@@ -342,12 +342,13 @@ class AjaxStore extends ReduceStore {
         break;
     }
     if (false !== isRedirect) {
-      const loc = get(json, ['clientLocationTo']);
+      const loc = get(json, ['clientRedirectTo']);
       if (loc) {
-        switch (get(json, ['clientLocationType'])) {
+        switch (get(json, ['clientRedirectType'])) {
           case 'href':
             location.href = loc;
             break;
+          case 'replace':
           default:
             location.replace(loc);
             break;

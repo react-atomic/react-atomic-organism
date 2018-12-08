@@ -9,7 +9,6 @@ React Ajax
 callback(json, text, response)
 
 ## dlog
-   * https://unpkg.com/organism-react-ajax/build/src/lib/dlog.js
    * https://cdn.jsdelivr.net/npm/organism-react-ajax/build/src/lib/dlog.min.js
 
 ## Example Usage
@@ -17,7 +16,7 @@ Demo Url:
 https://react-atomic-ui.js.org/
 
 ## IE11 support
-* Worker
+   * Worker
 ```
 import 'es6-promise/auto';
 ```
