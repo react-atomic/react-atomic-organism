@@ -1,6 +1,6 @@
 {
   "name": "create-el",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "create css or js",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
