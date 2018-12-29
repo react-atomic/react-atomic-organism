@@ -42,9 +42,11 @@ const execScript = (el, win, jsBase, errCb) => {
   const scripts = thisEl.getElementsByTagName('script');
   for (let i = 0, len = scripts.length; i < len; i++) {
     const script = scripts[i];
-    if (script.src) {
-      const key = 'id-' + scriptCount;
-      const dScript = js(jsBase)(() => onLoad(key))(script.src, {key});
+    const src = script.src;
+    if (src) {
+      const attrs = script.attributes;
+      attrs.key = 'id-' + scriptCount;
+      const dScript = js(jsBase)(() => onLoad(key))(src, {key});
       queueScripts[key] = dScript;
       scriptCount++;
     } else {

@@ -1,6 +1,6 @@
 {
   "name": "exec-script",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -12,19 +12,19 @@
     "create-el": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.x",
+    "@babel/cli": "^7.x",
     "chai": "*",
     "jsdom": "*",
     "jsdom-global": "*",
     "mocha": "*"
   },
   "scripts": {
-    "clean": "rm -rf build",
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src",
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "prepublishOnly": "npm run test && npm run build",
-    "build:test": "BABEL_ENV=build babel tests -d build/tests",
     "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
   },
   "files": [
