@@ -1,12 +1,11 @@
-'use strict';
-
+import {doc} from 'win-doc';
 import getKeyReg from './getKeyReg';
 
 const uriReg = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
 const getPath = url => uriReg.exec(url)[2]
 
-const resetUrl = url => (url ? url : document.URL);
+const resetUrl = url => (url ? url : doc().URL);
 
 const getUrl = (key, url) => {
   url = resetUrl(url);

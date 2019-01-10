@@ -1,7 +1,7 @@
 {
-  "name": "seturl",
-  "version": "0.0.12",
-  "description": "Use regularexpression to replace url query.",
+  "name": "win-doc",
+  "version": "0.0.0",
+  "description": "Simple to avoid global not found error",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -9,25 +9,26 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "get-safe-reg": "*",
-    "win-doc": "*"
+    "reshow-runtime": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
     "mocha": "*"
   },
   "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run test && npm run build",
-    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
   },
   "files": [
-    "build/cjs",
-    "build/es",
+    "build",
     "package.json",
     "README.md"
   ]
