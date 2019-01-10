@@ -1,5 +1,5 @@
-const doc = () => ('undefined' !== typeof document ? document : null);
+const doc = () => ('undefined' !== typeof document ? document : {});
 
-const win = () => ('undefined' !== typeof window ? window : null);
+const win = () => ('undefined' !== typeof window ? window : {});
 
 export {doc, win};
