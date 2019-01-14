@@ -39,6 +39,10 @@ const parse = s => {
     }
     if (!key) {
       const match = line.match(kvReg);
+      if (!match) {
+        console.error('Ini Parse Fail: '+line);
+        return;
+      }
       key = match[2];
       value = match[3] ? match[4] || '' : '';
       if (key.length > 2 && key.slice(-2) === '[]') {
