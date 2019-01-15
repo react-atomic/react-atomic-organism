@@ -14,7 +14,12 @@ const getStorage = storageType => key => value => {
   if ('undefined' === typeof value) {
     return store.getItem(key);
   } else {
-    return store.setItem(key, value);
+    try {
+      return store.setItem(key, value);
+    } catch(err) {
+      store.clear();
+      return store.setItem(key, value);
+    }
   }
 };
 
