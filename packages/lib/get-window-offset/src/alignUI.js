@@ -73,9 +73,10 @@ const alignUI = (targetEl, floatEl, alignParams) =>
         return;
     }
     if (!targetInfo) {
-        targetInfo = getOffset(targetEl);
+        const targetFixedNode = isFixed(targetEl);
+        targetInfo = getOffset(targetEl, targetFixedNode);
         targetInfo.scrollNode = isSetOverflow(targetEl)
-        targetInfo.fixedNode = isFixed(targetEl)
+        targetInfo.fixedNode = targetFixedNode;
     }
     
     const floatInfo = getOffset(floatEl);
