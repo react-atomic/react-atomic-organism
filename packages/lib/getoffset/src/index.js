@@ -82,12 +82,16 @@ const getOffset = (dom, scrollNode) => {
   } else {
     w = dom.offsetWidth;
     h = dom.offsetHeight;
-    let el = dom;
-    const rect = el.getBoundingClientRect
-      ? el.getBoundingClientRect()
-      : getRectWithElOffset(el);
-    top = rect.top + scrollInfo.top;
-    left = rect.left + scrollInfo.left;
+    let rect;
+    if (dom.getBoundingClientRect) {
+      rect = dom.getBoundingClientRect();
+      top = rect.top + scrollInfo.top;
+      left = rect.left + scrollInfo.left;
+    } else {
+      rect = getRectWithElOffset(dom);
+      top = rect.top;
+      left = rect.left;
+    }
   }
   const result = {
     w,
