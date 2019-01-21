@@ -72,8 +72,8 @@ const getOffset = (dom, scrollNode) => {
   let left = 0;
   let w;
   let h;
+  const scrollInfo = getScrollInfo(scrollNode);
   if (dom instanceof SVGElement) {
-    const scrollInfo = getScrollInfo(scrollNode);
     const rect = dom.getBoundingClientRect();
     top = rect.top + scrollInfo.top;
     left = rect.left + scrollInfo.left;
@@ -86,8 +86,8 @@ const getOffset = (dom, scrollNode) => {
     const rect = el.getBoundingClientRect
       ? el.getBoundingClientRect()
       : getRectWithElOffset(el);
-    top = rect.top;
-    left = rect.left;
+    top = rect.top + scrollInfo.top;
+    left = rect.left + scrollInfo.left;
   }
   const result = {
     w,
