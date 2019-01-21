@@ -1,9 +1,10 @@
 {
   "name": "getoffset",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "description": "Get dom offset",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -12,11 +13,14 @@
     "get-scroll-info": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5"
+    "@babel/cli": "^7.x"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel src -d build/src",
-    "prepublish": "npm run build"
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run build"
   },
   "files": [
     "build",
