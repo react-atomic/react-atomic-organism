@@ -49,8 +49,8 @@ const toSvgMatrixXY = dom => (x, y) => {
 };
 
 const getRectWithElOffset = dom => {
-  let top;
-  let left;
+  let top = 0;
+  let left = 0;
   let el = dom;
   do {
     const offsetTop = el.offsetTop || 0;
@@ -82,15 +82,14 @@ const getOffset = (dom, scrollNode) => {
   } else {
     w = dom.offsetWidth;
     h = dom.offsetHeight;
-    let rect;
     if (dom.getBoundingClientRect) {
-      rect = dom.getBoundingClientRect();
-      top = rect.top + scrollInfo.top;
-      left = rect.left + scrollInfo.left;
+      const rect = dom.getBoundingClientRect();
+      top = parseInt(rect.top + scrollInfo.top, 10);
+      left = parseInt(rect.left + scrollInfo.left, 10);
     } else {
-      rect = getRectWithElOffset(dom);
-      top = rect.top;
-      left = rect.left;
+      const rectOffset = getRectWithElOffset(dom);
+      top = rectOffset.top;
+      left = rectOffset.left;
     }
   }
   const result = {
