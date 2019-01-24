@@ -42,7 +42,7 @@ const fixScrollNode = scrollInfo => move => [
   move[1] - scrollInfo.top,
 ];
 
-const alignUI = (targetEl, floatEl, alignParams) => {
+const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   let {toLoc, disableAutoLoc} = get(alignParams, null, {});
   if (!targetEl) {
     console.error('targetEl was empty');
@@ -50,17 +50,15 @@ const alignUI = (targetEl, floatEl, alignParams) => {
     return false;
   }
   let targetInfo;
-  let winInfo;
   let locs = [];
   if (toLoc) {
     locs.push(toLoc);
   }
   if (!disableAutoLoc) {
-    winInfo = getWindowOffset(targetEl);
+    winInfo = winInfo || getWindowOffset(targetEl);
     if (!winInfo) {
       console.error('get windows offset failed');
     } else {
-      targetInfo = winInfo.domInfo;
       locs = locs.concat(winInfo.locs);
     }
   }
@@ -69,10 +67,14 @@ const alignUI = (targetEl, floatEl, alignParams) => {
     return;
   }
   if (!targetInfo) {
-    const targetFixedNode = isFixed(targetEl);
-    targetInfo = getOffset(targetEl, targetFixedNode);
-    targetInfo.scrollNode = isSetOverflow(targetEl);
-    targetInfo.fixedNode = targetFixedNode;
+    if (winInfo) {
+      targetInfo = winInfo.domInfo;
+    } else {
+      const targetFixedNode = isFixed(targetEl);
+      targetInfo = getOffset(targetEl, targetFixedNode);
+      targetInfo.scrollNode = isSetOverflow(targetEl);
+      targetInfo.fixedNode = targetFixedNode;
+    }
   }
 
   const floatInfo = getOffset(floatEl);
