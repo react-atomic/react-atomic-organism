@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'reshow-flux';
 import {mixClass, SemanticUI} from 'react-atomic-molecule';
 import getWindowOffset, {alignUI, getPositionString} from 'get-window-offset';
+import {toInt} from 'topercent';
 
 import PopupOverlay from '../molecules/PopupOverlay';
 
@@ -36,9 +37,11 @@ class PopupFloatEl extends PopupOverlay {
     if (!pos) {
       return;
     }
+    const diffTop = Math.abs(pos.top - toInt(this.floatTop));
+    const diffLeft = Math.abs(pos.left - toInt(this.floatLeft));
     if (
-      pos.top === this.floatTop &&
-      pos.left === this.floatLeft &&
+      1 >= diffTop &&
+      1 >= diffLeft &&
       pos.width === this.floatWidth &&
       pos.height === this.floatHeight &&
       pos.className === this.floatClassName
@@ -57,10 +60,11 @@ class PopupFloatEl extends PopupOverlay {
 
   calPos = () => {
     const {targetEl, alignParams} = this.props;
-    if (!this.floatEl || !targetEl || !getWindowOffset(targetEl)) {
+    const winInfo = getWindowOffset(targetEl);
+    if (!this.floatEl || !targetEl || !winInfo) {
       return false;
     }
-    const info = alignUI(targetEl, this.floatEl, alignParams);
+    const info = alignUI(targetEl, this.floatEl, alignParams, winInfo);
     if (!info) {
       console.error('can not get alignUI info');
       return;
