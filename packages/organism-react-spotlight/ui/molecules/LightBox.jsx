@@ -2,6 +2,7 @@ import React from 'react';
 import {mixClass, reactStyle, SemanticUI} from 'react-atomic-molecule';
 import {PopupFloatEl} from 'organism-react-popup';
 import getOffset from 'getoffset';
+import {isFixed} from 'get-window-offset';
 import arrayMerge from 'array.merge';
 
 class LightBox extends PopupFloatEl
@@ -13,7 +14,7 @@ class LightBox extends PopupFloatEl
     calPos = () =>
     {
         const {targetEl, padding} = this.props;
-        const pos = getOffset(targetEl);
+        const pos = getOffset(targetEl, isFixed(targetEl));
         const width = pos.right - pos.left + (padding * 2);
         const height = pos.bottom - pos.top + (padding * 2);
         const top = pos.top - padding;
