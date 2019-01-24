@@ -1,5 +1,3 @@
-'use strict';
-
 const getStyle = (el, styleKey) => {
     if ('undefined' === typeof document) {
         return;
