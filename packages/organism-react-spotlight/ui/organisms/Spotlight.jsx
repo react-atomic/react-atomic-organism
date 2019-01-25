@@ -35,7 +35,7 @@ class SpotlightEl extends PureComponent
         if (isFixedNode) {
            thisStyles.push(injects.fixed);
         }
-        const nodePos = getOffset(targetEl);
+        const nodePos = getOffset(targetEl, isFixedNode);
         return (
             <SemanticUI {...{key:name, name}}>
                 <PopupModal {...props}
