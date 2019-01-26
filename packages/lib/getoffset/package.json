@@ -1,6 +1,6 @@
 {
   "name": "getoffset",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Get dom offset",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,14 +13,20 @@
     "get-scroll-info": "*"
   },
   "devDependencies": {
-    "@babel/cli": "^7.x"
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
   },
   "files": [
     "build",

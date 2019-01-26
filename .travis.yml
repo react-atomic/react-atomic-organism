@@ -4,4 +4,5 @@ node_js:
 env:
   - TEST_DIR=packages/organism-react-ajax
   - TEST_DIR=packages/lib/topercent
+  - TEST_DIR=packages/lib/getoffset
 script: cd $TEST_DIR && yarn install && npm test

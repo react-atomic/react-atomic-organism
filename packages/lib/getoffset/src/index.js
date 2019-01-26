@@ -1,6 +1,8 @@
 import getScrollInfo from 'get-scroll-info';
 import get from 'get-object-value';
 
+const UNDEFINED = 'undefined';
+
 const unifyTouch = e => {
   if (!e.changedTouches) {
     return e;
@@ -72,8 +74,11 @@ const getOffset = (dom, scrollNode) => {
   let left = 0;
   let w;
   let h;
-  const scrollInfo = getScrollInfo(scrollNode);
-  if (dom instanceof SVGElement) {
+  const scrollInfo =
+    UNDEFINED !== typeof scrollNode && !scrollNode
+      ? {top: 0, left: 0}
+      : getScrollInfo(scrollNode);
+  if (UNDEFINED !== typeof SVGElement && dom instanceof SVGElement) {
     const rect = dom.getBoundingClientRect();
     top = rect.top + scrollInfo.top;
     left = rect.left + scrollInfo.left;
