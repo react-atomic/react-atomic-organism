@@ -3,18 +3,24 @@ import easeInOutCubic from 'easing-lib/easeInOutCubic';
 
 let isRunning = false;
 
-const call = func => ('function' === typeof func ? func : () => {});
+const _call = (func, scrollNode) => () => {
+  if ('function' !== typeof func) {
+    return;
+  }
+  func(scrollNode);
+};
 
 /**
  *  !!Important!! any logic change need take care isRunning
  */
 const smoothScrollTo = (to, duration, el, callback) => {
   const scrollNode = getScrollNode(el);
+  const cb = _call(callback, scrollNode);
   if (isRunning) {
     isRunning = false;
     setTimeout(() => {
       scrollNode.scrollTop = to;
-      call(callback)(scrollNode);
+      cb();
     });
     return false;
   }
@@ -25,7 +31,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
   const go = to - from;
   if (!go) {
     isRunning = false;
-    call(callback)(scrollNode);
+    cb();
     return;
   }
   let beginTimeStamp;
@@ -38,7 +44,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
       requestAnimationFrame(scrollTo);
     } else {
       isRunning = false;
-      call(callback)(scrollNode);
+      cb();
     }
   };
   isRunning = true;
