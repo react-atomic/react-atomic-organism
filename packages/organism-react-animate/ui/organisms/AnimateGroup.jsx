@@ -16,20 +16,22 @@ class AnimateGroup extends PureComponent
         children: null
     };
 
-    handleExited = (child, node) =>
+    handleExited(child, node)
     {
-        const currentChildMapping = getChildMapping(this.props.children);
+        const {children: propsChildren, onExited} = this.props;
+        const currentChildMapping = getChildMapping(propsChildren);
         if (child.key in currentChildMapping) {
             return;
         }
-        if (this.props.onExited) {
-            this.props.onExited(node);
+        if ('function' === typeof onExited) {
+            onExited(node);
         }
+        setTimeout(()=>
         this.setState(({children}) => {
             delete children[child.key];
             // Hack for let PureComponent force update 
             return { children: {...children} };
-        });
+        }));
     }
 
     getAniProps(props, enterToAppear)

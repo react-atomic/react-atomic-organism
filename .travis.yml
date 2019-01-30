@@ -3,6 +3,7 @@ node_js:
   - 8
 env:
   - TEST_DIR=packages/organism-react-ajax
+  - TEST_DIR=packages/organism-react-animate
   - TEST_DIR=packages/lib/topercent
   - TEST_DIR=packages/lib/getoffset
   - TEST_DIR=packages/lib/array.merge

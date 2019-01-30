@@ -1,6 +1,6 @@
 {
   "name": "organism-react-animate",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "React Animate",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -17,7 +17,7 @@
     "react-transition-group": "^2.x"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "@babel/cli": "^7.x",
     "chai": "*",
     "enzyme": "*",
     "enzyme-adapter-react-16": "*",
@@ -31,11 +31,11 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "buildTest": "BABEL_ENV=build babel tests -d build/tests",
-    "test": "npm run build && npm run buildTest && mocha 'build/tests/**/*.js' -r jsdom-global/register",
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
