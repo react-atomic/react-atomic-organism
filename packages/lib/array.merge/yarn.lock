@@ -450,6 +450,11 @@ get-func-name@^2.0.0:
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
   integrity sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=
 
+get-object-value@*:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.1.2.tgz#2687bb69d549ebe73b3ec1b69f8545de2f8a7505"
+  integrity sha512-iy2jq/JZEvgQqdwNWmtWyadVFZiUENukUiTtq85boVegm7WMT4VjjXlnuKNMyrEw3i3q8KAtVhdu9o/dqgfQUw==
+
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
@@ -1087,11 +1092,6 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
-
-reshow-runtime@*:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.6.tgz#371fda9e21939a0692bee4c03c4f0180031acd69"
-  integrity sha512-gsrsDgobaTfiryRkjQENR7BmeEI4HNppZW0W0R6NyKnFL9jS4Ka0EJvut5D1xxRPFgO9PJCBTNDGaYuKMIoAgA==
 
 resolve-url@^0.2.1:
   version "0.2.1"
