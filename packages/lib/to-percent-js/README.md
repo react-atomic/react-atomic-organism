@@ -1,8 +1,8 @@
-To Percent
+To Percent (to-percent-js)
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/topercent
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/to-percent-js
    * NPM
-      * https://npm.im/topercent
+      * https://www.npmjs.com/package/to-percent-js 
 
 
