@@ -1,6 +1,6 @@
 'use strict';
 
-import toPercent, {percent, round, toNum, toInt} from '../cjs/src/index.js';
+import toPercent, {percent, round, toNum, getNum, toInt} from '../cjs/src/index.js';
 import {expect} from 'chai';
 
 describe('Test to percent', () => {
@@ -71,7 +71,7 @@ describe('to num', () => {
   });
 });
 
-describe('to Int', () => {
+describe('To Int', () => {
   it('Test from string', () => {
     expect(toInt('1')).to.equal(1);
   });
@@ -82,5 +82,33 @@ describe('to Int', () => {
   it('Test from float string', () => {
     expect(toInt('1.1')).to.equal(1);
     expect(toInt('1.5')).to.equal(2);
+  });
+});
+
+
+describe('Get Num', () => {
+  it('Test get int', () => {
+    const s = 'cd2';
+    expect(getNum(s)).to.equal(2);
+  });
+  it('Test get multi int', () => {
+    const s = 'cd22';
+    expect(getNum(s)).to.equal(22);
+  });
+  it('Test get float', () => {
+    const s = 'cd2.1';
+    expect(getNum(s)).to.equal(2.1);
+  });
+  it('Test get multi float', () => {
+    const s = 'cd20.13';
+    expect(getNum(s)).to.equal(20.13);
+  });
+  it('Test get multi float and end with zero', () => {
+    const s = 'cd20.10';
+    expect(getNum(s)).to.equal(20.1);
+  });
+  it('Test negative number', () => {
+    const s = 'cd-2.1';
+    expect(getNum(s)).to.equal(-2.1);
   });
 });

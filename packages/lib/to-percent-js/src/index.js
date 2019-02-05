@@ -26,6 +26,19 @@ const toNum = num => {
 
 const toInt = num => toNum(round(num, 0));
 
-export {round, toRoundNum, percent, toNum, toInt};
+const numReg = /(\-)?(\d+)(\.)?(\d+)?/g;
+const getNum = s => {
+  const match = s
+    .replace(',', '')
+    .match(numReg);
+  if (!match) {
+    console.warn('Get number fail', s);
+    return 0;
+  } else {
+    return toNum(match[0]);
+  }
+};
+
+export {round, toRoundNum, percent, toNum, getNum, toInt};
 
 export default toPercent;
