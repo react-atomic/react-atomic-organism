@@ -13,7 +13,7 @@ import get from 'get-object-value';
 class SortLink extends PureComponent {
   static defaultProps = {component: 'a', icon: true};
 
-  state = {};
+  state = {urlSort: ''};
 
   handleClick = e => {
     const {onClick} = this.props;
@@ -38,14 +38,6 @@ class SortLink extends PureComponent {
     this.setState({href: url});
   };
 
-  getSorted() {
-    let {sort} = this.props;
-    if (!sort) {
-      sort = getUrl('sort');
-    }
-    return sort;
-  }
-
   getNextDesc() {
     let {desc} = this.props;
     if ('undefined' === typeof desc) {
@@ -61,10 +53,31 @@ class SortLink extends PureComponent {
     return nextDesc;
   }
 
+  getSorted() {
+    const {sort} = this.props;
+    const {urlSort} = this.state;
+    return sort || urlSort;
+  }
+
   isSorted() {
     const nextSort = get(this, ['props', 'data-sort']);
     const sorted = this.getSorted();
     return nextSort === sorted;
+  }
+
+  updateSorted() {
+    const {sort} = this.props;
+    if (!sort) {
+      this.setState({urlSort: getUrl('sort')});
+    }
+  }
+
+  componentDidMount() {
+    this.updateSorted();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.updateSorted();
   }
 
   render() {
@@ -81,7 +94,7 @@ class SortLink extends PureComponent {
 
     if (!href) {
       const thisSort = get(props, ['data-sort'], '');
-      href ='#' + thisSort;
+      href = '#' + thisSort;
     }
 
     const build = isValidElement(component) ? cloneElement : createElement;
@@ -123,6 +136,6 @@ const Styles = {
     height: 12,
   },
   inner: {
-    whiteSpace: 'nowrap'
-  }
+    whiteSpace: 'nowrap',
+  },
 };
