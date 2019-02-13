@@ -9,22 +9,27 @@ import SortIcon from 'ricon/Sort';
 import Dropdown from 'ricon/Dropdown';
 import {SemanticUI, Icon} from 'react-atomic-molecule';
 import get from 'get-object-value';
+import {doc} from 'win-doc';
 
 class SortLink extends PureComponent {
-  static defaultProps = {component: 'a', icon: true};
+  static defaultProps = {
+    component: 'a',
+    icon: true,
+    sortKeyName: 'sort'
+  };
 
-  state = {urlSort: ''};
+  state = {};
 
   handleClick = e => {
-    const {onClick} = this.props;
+    const {onClick, sortKeyName} = this.props;
     const target = e.currentTarget;
     const nextSort = target.getAttribute('data-sort');
     const nextDesc = this.getNextDesc();
     const sort2 = target.getAttribute('data-sort2');
     const slice = target.getAttribute('data-slice');
-    let url = target.getAttribute('data-url') || document.URL;
+    let url = target.getAttribute('data-url') || doc().URL;
     if (nextSort) {
-      url = seturl('sort', nextSort, url);
+      url = seturl(sortKeyName, nextSort, url);
       url = seturl('desc', nextDesc, url);
     }
     if (sort2) {
@@ -53,31 +58,10 @@ class SortLink extends PureComponent {
     return nextDesc;
   }
 
-  getSorted() {
-    const {sort} = this.props;
-    const {urlSort} = this.state;
-    return sort || urlSort;
-  }
-
   isSorted() {
-    const nextSort = get(this, ['props', 'data-sort']);
-    const sorted = this.getSorted();
-    return nextSort === sorted;
-  }
-
-  updateSorted() {
-    const {sort} = this.props;
-    if (!sort) {
-      this.setState({urlSort: getUrl('sort')});
-    }
-  }
-
-  componentDidMount() {
-    this.updateSorted();
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    this.updateSorted();
+    const props = this.props;
+    const nextSort = get(props, ['data-sort']);
+    return nextSort === props.sort;
   }
 
   render() {
@@ -86,6 +70,7 @@ class SortLink extends PureComponent {
       iconStyle,
       component,
       children,
+      sortKeyName,
       sort,
       desc,
       ...props

@@ -1,9 +1,10 @@
 import React, {PureComponent, cloneElement, createElement, isValidElement} from 'react'
 import get from 'get-object-value'
+import {doc} from 'win-doc'
 
 import SearchBox from '../organisms/SearchBox'
 
-const body = () => document.body
+const body = () => doc().body
 
 class Suggestion extends PureComponent
 {

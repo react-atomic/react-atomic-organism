@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.3.11",
+  "version": "0.3.14",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -16,7 +16,8 @@
     "react-atomic-molecule": "*",
     "reshow-runtime": "*",
     "ricon": "*",
-    "seturl": "*"
+    "seturl": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
