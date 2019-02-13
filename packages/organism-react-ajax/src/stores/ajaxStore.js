@@ -6,6 +6,7 @@ import smoothScrollTo from 'smooth-scroll-to';
 import getRandomId from 'get-random-id';
 
 import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
+import {urlDispatch} from '../urlDispatcher';
 
 const empty = function() {};
 const keys = Object.keys;
@@ -265,7 +266,7 @@ class AjaxStore extends ReduceStore {
     const params = action.params;
     const rawUrl = self.getRawUrl(params);
     if (params.updateUrl && rawUrl !== document.URL) {
-      history.pushState('', '', rawUrl);
+      urlDispatch({type: 'url', url: rawUrl});
     }
     if (params.disableAjax) {
       state = handleUpdateNewUrl(state, action, rawUrl);
