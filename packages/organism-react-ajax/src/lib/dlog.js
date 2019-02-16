@@ -82,7 +82,7 @@ dlog.prototype.isAllObj = function(arr) {
 };
 
 dlog.prototype.show = function(level, data) {
-  console.debug(
+  console.info(
     '%c [%s] %c %s %c %s:',
     this.getCSS(),
     new Date().toJSON(),
