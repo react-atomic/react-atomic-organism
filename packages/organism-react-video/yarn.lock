@@ -1424,6 +1424,13 @@ wide-align@^1.1.0:
   dependencies:
     string-width "^1.0.2 || 2"
 
+win-doc@*:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.0.1.tgz#00d8684e7c17fbcdb2d2f164cab68dde3a8e35de"
+  integrity sha512-vpDbiIVWcpHARGonS2tJCX8Xrb9RsTfSC8qPX25rvMTEjNmGCeooZrRs4q4hjp9L/qNju7KchnBW9byrDCkeWw==
+  dependencies:
+    reshow-runtime "*"
+
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"

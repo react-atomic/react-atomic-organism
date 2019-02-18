@@ -1,6 +1,6 @@
 {
   "name": "organism-react-video",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React video player",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "organism-react-iframe": "*",
+    "win-doc": "*",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
