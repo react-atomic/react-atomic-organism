@@ -106,8 +106,12 @@ class Iframe extends PureComponent {
   }
 
   render() {
-    const {children, keepTargetInIframe, ...others} = this.props;
-    return <IframeContainer {...others} refCb={el => (this.el = el)} />;
+    const {children, keepTargetInIframe, refCb, ...others} = this.props;
+    return (
+      <IframeContainer {...others} 
+        refCb={el => { this.el = el; refCb(el); }}
+      />
+    );
   }
 }
 
