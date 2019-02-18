@@ -1,6 +1,6 @@
 {
   "name": "organism-react-video",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React video player",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,19 +14,20 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "organism-react-iframe": "*",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
-    "babel-cli": "*",
+    "@babel/cli": "^7.x",
     "prop-types": "*",
     "react": "^16.x",
-    "react-dom": "^16.x",
-    "reshow-app": "*"
+    "react-dom": "^16.x"
   },
   "scripts": {
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },
   "files": [

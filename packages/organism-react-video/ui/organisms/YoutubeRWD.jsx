@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import get from 'get-object-value';
 import {SemanticUI} from 'react-atomic-molecule';
+import {IframeContainer} from 'organism-react-iframe';
 
 const keys = Object.keys;
 
@@ -135,13 +136,11 @@ class YoutubeRWD extends PureComponent
        return (
         <SemanticUI className="youtube-player" style={Styles.container}>
             <SemanticUI className="youtube-player-inner" style={{...Styles.inner, ...showControllBarStyle}}>
-                <iframe
+                <IframeContainer
                     style={{...Styles.iframe, margin:`-${corp}vw 0`}}
-                    width="560"
-                    height="315"
                     allow="autoplay; fullscreen; encrypted-media"
                     src={src}
-                    ref={this.handleEl}
+                    refCb={this.handleEl}
                     onLoad={this.handleLoad}
                 />
             </SemanticUI>
