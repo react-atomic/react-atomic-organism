@@ -13,7 +13,14 @@ import IframeContainer from '../organisms/IframeContainer';
 
 const keys = Object.keys;
 
+let iframeCount = 0;
+
 class Iframe extends PureComponent {
+  static defaultProps = {
+    keepTargetInIframe: false,
+    messageKey: 'iframeH',
+  };
+
   html = null;
 
   appendHtml = html => {
@@ -24,9 +31,21 @@ class Iframe extends PureComponent {
     this.handleScript(div);
   };
 
-  getBody = () => get(this, ['el', 'contentWindow', 'document', 'body']);
+  getBody = () => get(this.contentWindow, ['document', 'body']);
 
-  getWindow = () => get(this, ['el', 'contentWindow', 'window']);
+  getWindow = () => get(this.contentWindow, ['window']);
+
+  postHeight = () => {
+    setTimeout(() => {
+      this.getWindow().parent.window.postMessage(
+        {
+          type: this.messageKey,
+          h: this.getBody().offsetHeight,
+        },
+        '*',
+      );
+    });
+  };
 
   handleClickLink() {
     const {keepTargetInIframe} = this.props;
@@ -87,6 +106,13 @@ class Iframe extends PureComponent {
     });
   }
 
+  constructor(props) {
+    super(props);
+    const {messageKey} = props;
+    this.messageKey = messageKey+'-'+iframeCount;
+    iframeCount++;
+  }
+
   componentDidMount() {
     this.root = document.createElement('div');
     const body = this.getBody();
@@ -112,17 +138,15 @@ class Iframe extends PureComponent {
         {...others}
         refCb={el => {
           this.el = el;
+          this.contentWindow = el.contentWindow;
           if ('function' === typeof refCb) {
             refCb(el);
           }
         }}
+        messageKey={this.messageKey}
       />
     );
   }
 }
-
-Iframe.defaultProps = {
-  keepTargetInIframe: false,
-};
 
 export default Iframe;
