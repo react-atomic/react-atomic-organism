@@ -3,16 +3,19 @@ import {SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
 
 const ResponsiveVideo = props => {
-  const {mask, children, corp, showControllBar} = props;
+  const {mask, children, corp, showControllBar, restart} = props;
+  const thisRestart = ('function' === typeof restart) ?
+    restart :
+    () => {};
   let thisMask = null;
   if (mask) {
     thisMask = (
       <SemanticUI
         className="play-mask"
         style={Styles.mask}
-        onTouchStart={e => this.restart()}
-        onTouchEnd={e => this.restart()}
-        onClick={e => this.restart()}
+        onTouchStart={thisRestart}
+        onTouchEnd={thisRestart}
+        onClick={thisRestart}
       />
     );
   }

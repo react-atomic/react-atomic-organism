@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {IframeContainer} from 'organism-react-iframe';
 import {doc} from 'win-doc';
 
-import ResponsiveVideo from './ResponsiveVideo';
+import ResponsiveVideo from '../organisms/ResponsiveVideo';
 
 const keys = Object.keys;
 
@@ -58,7 +58,7 @@ class YoutubeRWD extends PureComponent {
     this.restart();
   };
 
-  restart() {
+  restart = () => {
     this.exec('playVideo');
   }
 
@@ -98,7 +98,7 @@ class YoutubeRWD extends PureComponent {
       'https://www.youtube.com/embed/' + videoId + '?' + aParams.join('&');
 
     return (
-      <ResponsiveVideo {...others}>
+      <ResponsiveVideo {...others} restart={this.restart}>
         <IframeContainer
           allow="autoplay; fullscreen; encrypted-media"
           src={src}
