@@ -158,9 +158,9 @@ cache-base@^1.0.1:
     unset-value "^1.0.0"
 
 chokidar@^2.0.3:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.1.tgz#adc39ad55a2adf26548bd2afa048f611091f9184"
-  integrity sha512-gfw3p2oQV2wEt+8VuMlNsPjCxDxvvgnm/kz+uATu805mWVF8IJN7uz9DN7iBz+RMJISmiVbCOBFs9qBGMjtPfQ==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.2.tgz#9c23ea40b01638439e0513864d362aeacc5ad058"
+  integrity sha512-IwXUx0FXc5ibYmPC2XeEj5mpXoV66sR+t3jqu2NS2GYwCktt3KF1/Qqjws/NkegajBA4RbZ5+DDwlOiJsxDHEg==
   dependencies:
     anymatch "^2.0.0"
     async-each "^1.0.1"
@@ -950,9 +950,9 @@ once@^1.3.0:
     wrappy "1"
 
 organism-react-iframe@*:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/organism-react-iframe/-/organism-react-iframe-0.2.3.tgz#d9995c0f95436bf400c2878240068587563f03ad"
-  integrity sha512-br4tkKtM9xj0n35iijzlniiwj9DiN5gIrk/BBJzQbTp4iasSpnsaX33+Dp+vVd+bC4NXGKCPDntWoBt920zVzg==
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/organism-react-iframe/-/organism-react-iframe-0.2.5.tgz#113bec82500f77dd0a915ed33c2212fa564500f0"
+  integrity sha512-4maWAiBn95GNfhV5S7PlbwryCK70spBBj+bdjMXUat2hy4s98ExVzWIfWi6wuzqa9Em8ECp9+gXV1BVlKq4Eeg==
   dependencies:
     create-el "*"
     css-query-selector "*"
@@ -1036,9 +1036,11 @@ rc@^1.2.7:
     strip-json-comments "~2.0.1"
 
 react-atomic-atom@*:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-1.0.18.tgz#2f6508427ace11615c20dd272d3df6accbea2a77"
-  integrity sha512-Qs/Flb2hOj3Iq42V4Zmmo9j2bNWNvFb1IGNhbQKSVynalJBm5wkVWcvncqmmIkVGvcuyV2QrD4PfA0JxnWvl2Q==
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-atomic-atom/-/react-atomic-atom-2.0.0.tgz#bbc08eb1063abbb857bf6f3da6631a5f7bf411af"
+  integrity sha512-tHqa6OdeyCXj3A9Gm++tVgM7fVYzLcLF37juC3oSW4cQ0escsw326dMBaE/o6OWvTQi9M8/SRkT35NzLgNlwnw==
+  dependencies:
+    reshow-runtime "*"
 
 react-atomic-molecule@*:
   version "1.4.11"

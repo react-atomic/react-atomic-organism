@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import {SemanticUI} from 'react-atomic-molecule';
 
 const keys = Object.keys;
 
@@ -15,15 +16,15 @@ class VideoFile extends PureComponent {
       thisOtherSources = keys(otherSources).map( key => {
         const sSrc = otherSources[key];
         return (
-          <source src={sSrc} type={key} key={key} />
+          <SemanticUI atom="source" src={sSrc} type={key} key={key} />
         );
       });
     }
     return (
-      <video controls {...others}>
-        <source src={src} type={sourceType} />
+      <SemanticUI atom="video" controls {...others}>
+        <SemanticUI atom="source" src={src} type={sourceType} />
         {thisOtherSources}
-      </video>
+      </SemanticUI>
     );
   }
 }
