@@ -31,9 +31,9 @@ class Iframe extends PureComponent {
     this.handleScript(div);
   };
 
-  getBody = () => get(this.contentWindow, ['document', 'body']);
+  getBody = () => get(this, ['el', 'contentWindow', 'document', 'body']);
 
-  getWindow = () => get(this.contentWindow, ['window']);
+  getWindow = () => get(this, ['el', 'contentWindow', 'window']);
 
   postHeight = () => {
     setTimeout(() => {
@@ -138,7 +138,6 @@ class Iframe extends PureComponent {
         {...others}
         refCb={el => {
           this.el = el;
-          this.contentWindow = el.contentWindow;
           if ('function' === typeof refCb) {
             refCb(el);
           }
