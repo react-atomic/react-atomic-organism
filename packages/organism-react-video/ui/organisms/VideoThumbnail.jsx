@@ -2,7 +2,7 @@ import React from 'react';
 import {reactStyle, Icon, Image, SemanticUI} from 'react-atomic-molecule';
 import PlayIcon from 'ricon/Play';
 
-const VideoThumbnail = ({onClick, src}) =>
+const VideoThumbnail = ({onClick, playBgColor, playFgColor, src}) =>
   <SemanticUI
     onTouchStart={onClick}
     onTouchEnd={onClick}
@@ -12,7 +12,7 @@ const VideoThumbnail = ({onClick, src}) =>
       src={src}
     />
     <Icon styles={reactStyle(Styles.play, false, false)}>
-      <PlayIcon />
+      <PlayIcon bgColor={playBgColor} fgColor={playFgColor} />
     </Icon>
   </SemanticUI>
 
@@ -26,7 +26,6 @@ const Styles = {
     transform: ['translateY(-50%)'],
   },
   play: {
-    fill: '#fff',
     top: '50%',
     left: '50%',
     position: 'absolute',
