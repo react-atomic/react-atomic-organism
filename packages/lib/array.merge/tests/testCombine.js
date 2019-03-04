@@ -17,6 +17,19 @@ describe('Test array combine', ()=>{
     ];
     expect(acture).to.deep.equal(expected);
   });
+  it('test combine with object key', () => {
+    const arr = {
+      foo: ['a', 'b', 'c'],
+      bar: ['d', 'e', 'f']
+    };
+    const acture = combine(arr, 'foo');
+    const expected = { 
+      a: {foo: 'a', bar: 'd'},
+      b: {foo: 'b', bar: 'e'},
+      c: {foo: 'c', bar: 'f'},
+    };
+    expect(acture).to.deep.equal(expected);
+  });
 });
 
 
