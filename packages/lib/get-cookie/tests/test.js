@@ -3,7 +3,8 @@ import {expect} from 'chai';
 
 import getCookie, {
     getCookieRegString,
-    getCookieReg
+    getCookieReg,
+    setCookie
 } from '../cjs/src/index.js';
 
 describe('test get cookie', ()=>{
@@ -31,4 +32,11 @@ describe('test get cookie', ()=>{
       const result = getCookie('foo', cookie);
       expect(result).to.equal(null)
     });
+});
+
+describe('test set cookie', ()=>{
+  it('simple test', ()=>{
+    setCookie('foo-set', 'bar-set');  
+    expect(getCookie('foo-set')).to.equal('bar-set');
+  });
 });
