@@ -1,6 +1,9 @@
 const keys = Object.keys;
 
 const removeEmpty = (arr, undefinedOnly, exclude) => {
+  if (!arr) {
+    return arr;
+  }
   const result = {};
   keys(arr).forEach(key => {
     const value = arr[key];

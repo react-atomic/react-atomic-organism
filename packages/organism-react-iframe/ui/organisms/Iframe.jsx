@@ -5,7 +5,7 @@ import get from 'get-object-value';
 import getOffset from 'getoffset';
 import smoothScrollTo from 'smooth-scroll-to';
 import exec from 'exec-script';
-import {SemanticUI} from 'react-atomic-molecule';
+import {SemanticUI, Unsafe} from 'react-atomic-molecule';
 import {js} from 'create-el';
 import {queryFrom} from 'css-query-selector';
 
@@ -90,26 +90,33 @@ class Iframe extends PureComponent {
     }
   };
 
-  renderIframe(props) {
+  renderIframe(props, root) {
     const {children} = props;
 
     // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
     setImmediate(() => {
-      this.html = this.root.innerHTML;
-      ReactDOM.render(<SemanticUI>{children}</SemanticUI>, this.root, () => {
-        const html = this.root.innerHTML;
-        if (html !== this.html) {
-          this.handleScript(this.root);
-          this.handleClickLink();
-        }
-      });
+      this.html = root.innerHTML;
+      ReactDOM.render(
+        <SemanticUI>
+          <Unsafe atom="style">{() => 'body {padding:0; margin:0;}'}</Unsafe>
+          {children}
+        </SemanticUI>,
+        root,
+        () => {
+          const html = root.innerHTML;
+          if (html !== this.html) {
+            this.handleScript(root);
+            this.handleClickLink();
+          }
+        },
+      );
     });
   }
 
   constructor(props) {
     super(props);
     const {messageKey} = props;
-    this.messageKey = messageKey+'-'+iframeCount;
+    this.messageKey = messageKey + '-' + iframeCount;
     iframeCount++;
   }
 
@@ -119,11 +126,11 @@ class Iframe extends PureComponent {
     if (body) {
       body.appendChild(this.root);
     }
-    this.renderIframe(this.props);
+    this.renderIframe(this.props, this.root);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.renderIframe(this.props);
+    this.renderIframe(this.props, this.root);
   }
 
   componentWillUnmount() {

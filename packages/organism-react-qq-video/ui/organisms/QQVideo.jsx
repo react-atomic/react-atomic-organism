@@ -48,12 +48,14 @@ class Body extends PureComponent {
 
   render() {
     const {src, isPlay} = this.state;
-    const {videoId, thumbTpl} = this.props;
+    const {videoId, thumbTpl, playBgColor, playFgColor} = this.props;
     if (!isPlay || !src) {
       return (
         <VideoThumbnail
           onClick={this.handleClick}
           src={thumbTpl.replace('[VIDEO_ID]', videoId)} 
+          playBgColor={playBgColor}
+          playFgColor={playFgColor}
         />
       );
     }
@@ -70,15 +72,19 @@ class Body extends PureComponent {
 }
 
 class QQVideo extends PureComponent {
+  static defaultProps = {
+    mask: false
+  };
+
   state = {iframe: null};
 
   render() {
-    const props = this.props;
+    const {showControllBar, mask, corp, ...others} = this.props;
     const {iframe} = this.state;
     return (
-      <ResponsiveVideo mask={false}>
+      <ResponsiveVideo {...{showControllBar, mask, corp}}>
         <Iframe ref={o => this.setState({iframe: o})}>
-          <Body iframe={iframe} {...props} />
+          <Body iframe={iframe} {...others} />
         </Iframe>
       </ResponsiveVideo>
     );

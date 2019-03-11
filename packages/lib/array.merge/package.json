@@ -1,6 +1,6 @@
 {
   "name": "array.merge",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Array Merge",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
