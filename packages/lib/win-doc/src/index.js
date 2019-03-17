@@ -1,7 +1,10 @@
-import {UNDEFINED} from 'reshow-constant';
+/**
+ * !!Important!! do not use reshow-constant here
+ * Bable will transpile it to double undefined
+ */
 
-const doc = () => (UNDEFINED !== typeof document ? document : {});
+const doc = () => ('undefined' !== typeof document ? document : {});
 
-const win = () => (UNDEFINED !== typeof window ? window : {});
+const win = () => ('undefined' !== typeof window ? window : {});
 
 export {doc, win};
