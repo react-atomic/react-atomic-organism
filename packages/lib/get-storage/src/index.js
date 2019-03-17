@@ -1,22 +1,24 @@
 import get from 'get-object-value';
 import Storage from './Storage';
+import {win} from 'win-doc';
+import {UNDEFINED} from 'reshow-constant';
 
 const getStorage = storageType => key => value => {
-  if ('undefined' === typeof window) {
+  const oWin = win();
+  if (!oWin) {
     return;
   }
-  const win = window;
-  const store = get(win, [storageType]);
-  if ('undefined' === typeof store) {
-    console.warn('window not support. [' + storageType + ']');
+  const store = get(oWin, [storageType]);
+  if (UNDEFINED === typeof store) {
+    console.warn('Not support. [' + storageType + ']');
     return;
   }
-  if ('undefined' === typeof value) {
+  if (UNDEFINED === typeof value) {
     return store.getItem(key);
   } else {
     try {
       return store.setItem(key, value);
-    } catch(err) {
+    } catch (err) {
       store.clear();
       return store.setItem(key, value);
     }

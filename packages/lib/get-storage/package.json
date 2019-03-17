@@ -1,6 +1,6 @@
 {
   "name": "get-storage",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Easy to set and get web storage",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,7 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "get-object-value": "*",
-    "reshow-runtime": "*"
+    "reshow-constant": "*",
+    "reshow-runtime": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

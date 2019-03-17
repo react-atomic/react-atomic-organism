@@ -1,4 +1,5 @@
 import {toJS} from 'get-object-value';
+import {OBJECT} from 'reshow-constant';
 
 const keys = Object.keys;
 const toInt = d => parseInt(d, 10);
@@ -17,7 +18,7 @@ class Storage {
   }
 
   merge(arr) {
-    if (!arr || 'object' !== typeof arr) {
+    if (!arr || OBJECT !== typeof arr) {
       return this;
     }
     const pKeys = keys(arr);
@@ -31,16 +32,12 @@ class Storage {
   get(k) {
     const s = this._storage(k)();
     if (!s) {
-      return undefined;
+      return;
     }
     const iStar = s.indexOf(',');
     const vLen = toInt(s.substring(0, iStar));
     const value = s.substr(iStar + 1);
-    if (vLen === value.length) {
-      return JSON.parse(value);
-    } else {
-      return undefined;
-    }
+    return vLen === value.length ? JSON.parse(value) : null;
   }
 }
 
