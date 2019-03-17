@@ -18,8 +18,9 @@ describe('Test call func', () => {
     const a = p => {
       check = p;
     }
-    callfunc(a, ['foo']);
+    const result = callfunc(a, ['foo']);
     expect(check).to.equal('foo');
+    expect(result).to.equal(undefined);
   });
 
   it('test call with scope', () => {
@@ -43,4 +44,8 @@ describe('Test call func', () => {
     const func = (...p) => p; 
     expect(callfunc(func, ['foo', 'bar'])).to.deep.equal(['foo', 'bar']);
   });
+
+  it('test return with non-func', ()=>{
+    expect(callfunc(null)).to.be.undefined;
+  }); 
 });
