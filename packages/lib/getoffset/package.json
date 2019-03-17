@@ -1,6 +1,6 @@
 {
   "name": "getoffset",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Get dom offset",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "get-object-value": "*",
-    "get-scroll-info": "*"
+    "get-scroll-info": "*",
+    "reshow-constant": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
