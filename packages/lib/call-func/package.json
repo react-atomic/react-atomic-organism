@@ -1,0 +1,32 @@
+{
+  "name": "call-func",
+  "version": "0.0.0",
+  "description": "call function",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
+  "keywords": [],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "reshow-constant": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "mocha": "*"
+  },
+  "scripts": {
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "prepublishOnly": "npm run test && npm run build",
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}
