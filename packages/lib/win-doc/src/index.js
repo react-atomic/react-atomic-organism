@@ -1,5 +1,7 @@
-const doc = () => ('undefined' !== typeof document ? document : {});
+import {UNDEFINED} from 'reshow-constant';
 
-const win = () => ('undefined' !== typeof window ? window : {});
+const doc = () => (UNDEFINED !== typeof document ? document : {});
+
+const win = () => (UNDEFINED !== typeof window ? window : {});
 
 export {doc, win};

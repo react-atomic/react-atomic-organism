@@ -1553,6 +1553,11 @@ request@^2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
+reshow-constant@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.0.4.tgz#2f99298ce239b46a51281c2a1ddeb3e8a633befe"
+  integrity sha512-/AgRbzAI8xfdIj+/u9P+dmQGbiDBhaSkI08D4UXPHiiEN7/dzqI+wsTDzkFIZOhb+Ylj6lGXePUelmILK4DTTA==
+
 reshow-runtime@*:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.6.tgz#371fda9e21939a0692bee4c03c4f0180031acd69"
