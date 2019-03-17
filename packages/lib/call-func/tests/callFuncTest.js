@@ -38,4 +38,9 @@ describe('Test call func', () => {
     callfunc(o.a, ['foo', true], {});
     callfunc(o.a, ['foo', false]);
   });
+
+  it('test with return', ()=>{
+    const func = (...p) => p; 
+    expect(callfunc(func, ['foo', 'bar'])).to.deep.equal(['foo', 'bar']);
+  });
 });
