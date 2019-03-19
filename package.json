@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "array.merge": "*",
+    "call-func": "*",
     "get-object-value": "*",
     "react-atomic-molecule": "*",
     "reshow-runtime": "*",
