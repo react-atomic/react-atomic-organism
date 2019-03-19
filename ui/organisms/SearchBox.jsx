@@ -48,6 +48,9 @@ const SearchBox = ({
 };
 
 export default SearchBox;
+SearchBox.defaultProps = {
+  autoComplete: 'off'
+};
 
 const Styles = {
   results: {
