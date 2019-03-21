@@ -1,10 +1,12 @@
-const arrayFrom = a => [...a];
+import {doc} from 'win-doc';
+import {FUNCTION, STRING} from 'reshow-constant';
 
+const arrayFrom = a => [...a];
 
 const queryFrom = base => {
   let doc;
   switch (typeof base) {
-    case 'function':
+    case FUNCTION:
       doc = base;
       break;
     default:
@@ -16,7 +18,7 @@ const queryFrom = base => {
 
   const queryAll = sel => arrayFrom(doc().querySelectorAll(sel));
 
-  const queryEl = el => ('string' === typeof el ? queryOne(el) : el);
+  const queryEl = el => (STRING === typeof el ? queryOne(el) : el);
 
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
@@ -55,7 +57,7 @@ const queryFrom = base => {
   };
 };
 
-const defaultQuery = queryFrom(() => document);
+const defaultQuery = queryFrom(doc);
 
 export default queryFrom;
 export {defaultQuery};
