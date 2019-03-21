@@ -46,6 +46,6 @@ describe('Test call func', () => {
   });
 
   it('test return with non-func', ()=>{
-    expect(callfunc(null)).to.be.undefined;
+    expect(callfunc(undefined)).to.be.undefined;
   }); 
 });

@@ -1,11 +1,10 @@
-const doc = () => document;
+import {doc} from 'win-doc';
+import callfunc from 'call-func';
 
 const keys = Object.keys;
 
 const inject = (base, isStart) => dNode => {
-  if ('function' === typeof base) {
-    base = base();
-  }
+  base = callfunc(base);
   if (base && (base.nodeName === 'BODY' || base.nodeName === 'HEAD')) {
     if (isStart && base.firstChild) {
       base.insertBefore(dNode, base.firstChild);
@@ -59,10 +58,7 @@ const create = tag => callback => attrs => {
 };
 
 const js = (base, isStart) => callback => (url, attrs) => {
-  const dNode = create('script')(callback)({
-    type: 'text/javascript',
-    ...attrs,
-  });
+  const dNode = create('script')(callback)(attrs);
   if (base) {
     inject(base, isStart)(dNode);
   }
