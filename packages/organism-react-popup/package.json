@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.6.5",
+  "version": "0.6.7",
   "description": "React Atomic Organism Popup",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -19,7 +19,6 @@
     "get-style": "*",
     "get-window-offset": "*",
     "getoffset": "*",
-    "immutable": "^3.8.0",
     "organism-react-animate": "*",
     "react-atomic-molecule": "*",
     "reshow-flux": "*",
@@ -27,7 +26,7 @@
     "ricon": "*",
     "set-object-value": "*",
     "setimmediate": "*",
-    "topercent": "*"
+    "to-percent-js": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

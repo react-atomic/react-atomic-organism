@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'reshow-flux';
 import {mixClass, SemanticUI} from 'react-atomic-molecule';
 import getWindowOffset, {alignUI, getPositionString} from 'get-window-offset';
-import {toInt} from 'topercent';
+import {toInt} from 'to-percent-js';
 
 import PopupOverlay from '../molecules/PopupOverlay';
 
