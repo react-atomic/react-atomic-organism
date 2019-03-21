@@ -1,6 +1,6 @@
 {
   "name": "organism-react-animate",
-  "version": "0.2.14",
+  "version": "0.2.16",
   "description": "React Animate",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,8 +13,7 @@
   "dependencies": {
     "get-object-value": "*",
     "keyframe-css": "*",
-    "react-atomic-molecule": "*",
-    "react-transition-group": "^2.x"
+    "react-atomic-molecule": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

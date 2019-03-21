@@ -6,16 +6,16 @@ React Animate
       * https://www.npmjs.com/package/organism-react-animate
 
 ## Example Usage
-Demo Url:
-https://react-atomic-ui.js.org/#/animation
+* Demo Url:
+   * https://react-atomic-ui.js.org/#/animation
 
 ## explain appear or enter
 * appear -> the react key not exists in parent node.
-* enter -> parent has exits key.
+* enter -> parent has react key.
 
 ## Other usage
 * [Scroll Animation](https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-scroll-animate)
 * [Event Timeline](https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-event-timeline)
 
-## react-transition-group (base)
+## Inspire 
 https://github.com/reactjs/react-transition-group
