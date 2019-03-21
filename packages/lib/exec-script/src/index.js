@@ -1,4 +1,6 @@
 import {js, create} from 'create-el';
+import {win, doc} from 'win-doc';
+import {FUNCTION, STRING, SCRIPT} from 'reshow-constant';
 
 let scriptCount = 0;
 let inlineScripts = [];
@@ -17,9 +19,9 @@ const handleScriptOnload = (win, errCb) => i => {
     inlineScripts.forEach((script, key) => {
       try {
         lastScript = script;
-        win.eval('(function(){ ' + script + ' }())');
+        win.eval('(' + FUNCTION + '(){' + script + '}())');
       } catch (e) {
-        if ('function' !== typeof errCb) {
+        if (FUNCTION !== typeof errCb) {
           throw e;
         } else {
           errCb(e, script);
@@ -30,16 +32,12 @@ const handleScriptOnload = (win, errCb) => i => {
   }
 };
 
-const execScript = (el, win, jsBase, errCb) => {
-  if (!win) {
-    win = window;
-  }
-  if (!jsBase) {
-    jsBase = document.body;
-  }
-  const thisEl = 'string' === typeof el ? create('div')()({innerHTML: el}) : el;
-  const onLoad = handleScriptOnload(win, errCb);
-  const scripts = thisEl.getElementsByTagName('script');
+const execScript = (el, oWin, jsBase, errCb) => {
+  oWin = oWin || win();
+  jsBase = jsBase || doc().body;
+  const thisEl = STRING === typeof el ? create('div')()({innerHTML: el}) : el;
+  const onLoad = handleScriptOnload(oWin, errCb);
+  const scripts = thisEl.getElementsByTagName(SCRIPT);
   for (let i = 0, len = scripts.length; i < len; i++) {
     const script = scripts[i];
     const src = script.src;

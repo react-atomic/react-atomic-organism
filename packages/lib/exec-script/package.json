@@ -1,6 +1,6 @@
 {
   "name": "exec-script",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -9,7 +9,9 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "create-el": "*"
+    "create-el": "*",
+    "reshow-constant": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
