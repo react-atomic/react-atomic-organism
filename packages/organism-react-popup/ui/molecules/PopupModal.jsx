@@ -8,6 +8,8 @@ import getOffset from 'getoffset';
 import get from 'get-object-value';
 import arrayMerge from 'array.merge';
 import {removeClass, mixClass} from 'class-lib';
+import callfunc from 'call-func';
+import {win, doc} from 'win-doc';
 
 import {PopupOverlay} from '../molecules/PopupOverlay';
 import {popupDispatch} from '../../src/index';
@@ -40,9 +42,7 @@ class PopupModal extends PopupOverlay {
       },
     });
     const {closeCallback} = this.props;
-    if (typeof closeCallback === 'function') {
-      closeCallback();
-    }
+    callfunc(closeCallback);
   }
 
   reCalculate = () => {
@@ -54,7 +54,7 @@ class PopupModal extends PopupOverlay {
           let marginTop = Math.floor(1 - domHalfHeight);
           const {scrollNodeHeight} = getScrollInfo();
           let maskStyle = {};
-          if (domInfo.h * 3  > scrollNodeHeight) {
+          if (domInfo.h * 3 > scrollNodeHeight) {
             marginTop = 0;
           }
           if (domInfo.h + 30 > scrollNodeHeight) {
@@ -86,34 +86,37 @@ class PopupModal extends PopupOverlay {
 
   lockScreen() {
     const {modal, toPool} = this.props;
-    window.addEventListener('resize', this.reCalculate);
+    const oDoc = doc();
+    win().addEventListener('resize', this.reCalculate);
+    const body = oDoc.body;
     const addBodyClass = mixClass(
-      document.body.className,
+      body.className,
       {
         scrolling: this.props.maskScroll,
       },
       'dimmable',
       'dimmed',
     );
-    if (!toPool && 'undefined' !== typeof document) {
-      document.body.className = addBodyClass;
+    if (!toPool) {
+      body.className = addBodyClass;
     }
   }
 
   resetBodyClassName() {
     const {toPool} = this.props;
-    if (!toPool && 'undefined' !== typeof document) {
-      let bodyClass = document.body.className;
+    const body = doc().body;
+    if (!toPool && body) {
+      let bodyClass = body.className;
       bodyClass = removeClass(bodyClass, 'dimmable');
       bodyClass = removeClass(bodyClass, 'scrolling');
       bodyClass = removeClass(bodyClass, 'dimmed');
-      document.body.className = bodyClass;
+      body.className = bodyClass;
     }
   }
 
   detach() {
     this.resetBodyClassName();
-    window.removeEventListener('resize', this.reCalculate);
+    win().removeEventListener('resize', this.reCalculate);
   }
 
   componentWillUnmount() {

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.6.7",
+  "version": "0.6.9",
   "description": "React Atomic Organism Popup",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -26,6 +26,7 @@
     "ricon": "*",
     "set-object-value": "*",
     "setimmediate": "*",
+    "win-doc": "*",
     "to-percent-js": "*"
   },
   "devDependencies": {

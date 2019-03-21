@@ -22,9 +22,14 @@ class PopupOverlay extends BasePopup {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return {
-      show: nextProps.show,
-    };
+    const prevShow = get(prevState, ['props', 'show']);
+    const {show} = nextProps || {};
+    if (show !== prevShow) {
+      return {
+        props: nextProps,
+        show: nextProps.show,
+      };
+    }
   }
 
   renderOverlay(props) {

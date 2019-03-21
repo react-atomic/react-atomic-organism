@@ -1,57 +1,54 @@
-import React, {PureComponent} from 'react'; 
-import {
-    popupDispatch,
-} from '../../src/index';
+import React, {PureComponent} from 'react';
+import {popupDispatch} from '../../src/index';
 
 const isArray = Array.isArray;
 
-class DisplayPopupEl extends PureComponent
-{
-    getChildren()
-    {
-        let {children} = this.props;
-        if (isArray(children)) {
-            children = children[0];
-        }
-        return children;
-    }
+class DisplayPopupEl extends PureComponent {
+  _mount = false;
 
-    setFloat()
-    {
-        setTimeout(()=>
-            popupDispatch({
-                type: 'dom/update',
-                params: {
-                    popup: this.getChildren() 
-                }
-            })
-        );
+  getChildren() {
+    let {children} = this.props;
+    if (isArray(children)) {
+      children = children[0];
     }
+    return children;
+  }
 
-    componentDidMount() 
-    {
-        this.setFloat();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot)
-    {
-        this.setFloat();
-    }
-
-    componentWillUnmount()
-    {
+  setFloat() {
+    setTimeout(() => {
+      if (this._mount) {
         popupDispatch({
-            type: 'dom/cleanOne',
-            params: {
-                popup: this.getChildren() 
-            }
+          type: 'dom/update',
+          params: {
+            popup: this.getChildren(),
+          },
         });
-    }
+      }
+    });
+  }
 
-    render()
-    {
-        return null;
-    }
+  componentDidMount() {
+    this._mount = true;
+    this.setFloat();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.setFloat();
+  }
+
+  componentWillUnmount() {
+    this._mount = false;
+    popupDispatch({
+      type: 'dom/cleanOne',
+      params: {
+        popup: this.getChildren(),
+      },
+    });
+  }
+
+  render() {
+    return null;
+  }
 }
 
 export default DisplayPopupEl;

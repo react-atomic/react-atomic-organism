@@ -1,10 +1,10 @@
-import React, {Component} from 'react'; 
+import React, {PureComponent} from 'react'; 
 
 import {
     popupDispatch
 } from '../../src/index';
 
-class PopupMonitor extends Component
+class PopupMonitor extends PureComponent
 {
    static calculateState(prevState, props)
    {
