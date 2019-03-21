@@ -42,8 +42,8 @@ const execScript = (el, oWin, jsBase, errCb) => {
     const script = scripts[i];
     const src = script.src;
     if (src) {
-      const attrs = script.attributes;
-      attrs.key = 'id-' + scriptCount;
+      const key = 'id-' + scriptCount;
+      script.attributes.key = key;
       const dScript = js(jsBase)(() => onLoad(key))(src, {key});
       queueScripts[key] = dScript;
       scriptCount++;
