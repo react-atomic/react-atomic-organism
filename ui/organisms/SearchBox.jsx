@@ -1,5 +1,6 @@
 import React, {isValidElement, cloneElement} from 'react';
 import {mixClass, SemanticUI, List} from 'react-atomic-molecule';
+import {win} from 'win-doc';
 
 const SearchBox = ({
   wrapRefCb,
@@ -47,10 +48,11 @@ const SearchBox = ({
   );
 };
 
-export default SearchBox;
 SearchBox.defaultProps = {
-  autoComplete: 'off'
+  autoComplete: (win().chrome) ? 'none' : 'off'
 };
+
+export default SearchBox;
 
 const Styles = {
   results: {

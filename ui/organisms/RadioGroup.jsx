@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {mixClass, Field, SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
+import callfunc from 'call-func';
 
 import Radio from '../organisms/Checkbox';
 
@@ -23,6 +24,10 @@ class RadioGroup extends PureComponent {
   static propTypes = {
     options: PropTypes.array.isRequired,
     name: PropTypes.string.isRequired,
+  };
+
+  static defaultProps = {
+    checkedCallback: (item, nextValue, current) => nextValue === item.value,
   };
 
   handleClick = (e, before, after, ref) => {
@@ -76,11 +81,7 @@ class RadioGroup extends PureComponent {
     const classes = mixClass(fieldClassName, {
       grouped: !inline,
     });
-    let thisCheckedCallback = checkedCallback;
-    if ('function' !== typeof thisCheckedCallback) {
-      thisCheckedCallback = (item, current) =>
-        current ? current.getValue() === item.value : false;
-    }
+
     return (
       <Field inline={inline} fieldClassName={classes} {...others}>
         <Label>{label}</Label>
@@ -95,7 +96,7 @@ class RadioGroup extends PureComponent {
             label={item.label}
             value={item.value}
             afterClick={this.handleClick}
-            checked={thisCheckedCallback(item, current)}
+            checked={callfunc(checkedCallback, [item, value, current])}
           />
         ))}
       </Field>

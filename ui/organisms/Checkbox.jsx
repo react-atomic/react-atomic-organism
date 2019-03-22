@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import get from 'get-object-value';
 import arrayMerge from 'array.merge';
 import {lazyInject, mixClass, Field, SemanticUI} from 'react-atomic-molecule';
+import callfunc from 'call-func';
 
 let checkboxId = 0;
 
@@ -68,32 +69,30 @@ class Checkbox extends PureComponent {
     }
     const {beforeClick, afterClick, disabled, type} = this.props;
     const beforeChecked = this.state.checked;
-    let afterChecked = type === 'radio' ? true : !this.state.checked;
-    if ('function' === typeof beforeClick) {
-      beforeClick(e, beforeChecked, afterChecked, this);
-    }
+    const afterChecked = type === 'radio' ? true : !this.state.checked;
+    const callbackParams = [e, beforeChecked, afterChecked, this];
+    callfunc(beforeClick, callbackParams);
     if (!disabled) {
       this.processChange(afterChecked);
     }
-    if ('function' === typeof afterClick) {
-      afterClick(e, beforeChecked, afterChecked, this);
-    }
+    callfunc(afterClick, callbackParams);
   };
 
   processChange(checked) {
     const {onChange} = this.props;
-    this.setState({checked}, () => {
-      if ('function' === typeof onChange) {
-        onChange({
+    this.setState({checked}, () =>
+      callfunc(onChange, [
+        {
           type: 'change',
           target: this.getInput(),
           currentTarget: this.getInput(),
-        }, this);
-      }
-    });
+        },
+        this,
+      ]),
+    );
   }
 
-  handleChange = e => { };
+  handleChange = e => {};
 
   render() {
     const {
@@ -124,9 +123,7 @@ class Checkbox extends PureComponent {
           id,
           refCb: el => {
             this.el = el;
-            if ('function' === typeof refCb) {
-              refCb(el);
-            }
+            callfunc(refCb, [el]);
           },
           label: thisLabel,
           checked: stateChecked,
@@ -165,7 +162,6 @@ const InjectStyles = {
   checkbox: [
     {
       margin: 0,
-      overflow: 'hidden',
     },
   ],
 };
