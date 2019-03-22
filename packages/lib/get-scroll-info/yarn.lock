@@ -1472,6 +1472,11 @@ require-main-filename@^1.0.1:
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-1.0.1.tgz#97f717b69d48784f5f526a6c5aa8ffdda055a4d1"
   integrity sha1-l/cXtp1IeE9fUmpsWqj/3aBVpNE=
 
+reshow-constant@*:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.0.5.tgz#fbc9ba458b57befba0a275893d2f016d0821b00a"
+  integrity sha512-PRwvxfln60W897Z8puaZhWhY4wrP6Mb+c8Wu+9n1yBgn+//6GP8AhW/xMdsy+MyM2HcTJ8d1iTmvr/G4Pm2NyA==
+
 resolve-dir@^1.0.0, resolve-dir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-dir/-/resolve-dir-1.0.1.tgz#79a40644c362be82f26effe739c9bb5382046f43"
@@ -1801,6 +1806,11 @@ wide-align@^1.1.0:
   resolved "https://registry.yarnpkg.com/wide-align/-/wide-align-1.1.2.tgz#571e0f1b0604636ebc0dfc21b0339bbe31341710"
   dependencies:
     string-width "^1.0.2"
+
+win-doc@*:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.0.3.tgz#db9120caff7c22eb110286e1da4e1e1c49a5d72b"
+  integrity sha512-1NBd0aTNvN+nRYo8q+GFQQXPZiR1HRKIUEPswk1xKQ3vhmQB10YfXCZrjxB5rWpdaXTt1hhg5jOg6IZFrUn6Vg==
 
 wrap-ansi@^2.0.0:
   version "2.1.0"

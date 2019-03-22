@@ -1,6 +1,6 @@
 {
   "name": "get-scroll-info",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Get Scroll Information",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -9,6 +9,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "win-doc": "*",
+    "reshow-constant": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
