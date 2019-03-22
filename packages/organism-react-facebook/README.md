@@ -7,8 +7,8 @@ React Facebook
       * https://npm.im/organism-react-facebook
 
 ## Example Usage
-Demo Url:
-https://react-atomic-ui.js.org/#/organisms
+* Demo Url:
+   * https://react-atomic-ui.js.org/#/organisms#organism-react-facebook
 <!--/hidden-->
 
 
