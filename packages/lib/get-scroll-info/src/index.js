@@ -1,74 +1,89 @@
-'use strict';
+import {doc, win} from 'win-doc';
+import {UNDEFINED} from 'reshow-constant';
 
-let lastScroll;
+const lastScrollStore = {};
+let oDoc;
+let oWin;
 let isWebkit;
 let docEl;
-if ('undefined' !== typeof document) {
-    isWebkit = 'undefined' !== typeof document.webkitIsFullScreen;
-    docEl = document.documentElement;
-}
+let domCount = 0;
+
+const initDoc = () => {
+  oDoc = doc();
+  oWin = win();
+  isWebkit = UNDEFINED !== typeof oDoc.webkitIsFullScreen;
+  docEl = oDoc.documentElement;
+};
 
 const getScrollNode = el => {
-    if (!el) {
-        if ('undefined' !== typeof document) {
-            if (document.scrollingElement) {
-                el = document.scrollingElement;
-            } else if (isWebkit) {
-                el = document.body;
-            } else {
-                el = docEl;
-            }
-        }
+  if (!oDoc) {
+    initDoc();
+  }
+  if (!el && oDoc) {
+    if (oDoc.scrollingElement) {
+      el = oDoc.scrollingElement;
+    } else if (isWebkit) {
+      el = oDoc.body;
+    } else {
+      el = docEl;
     }
-    return el;
-}
+  }
+  if (!el.id) {
+    el.id = 'scroll-info-' + domCount;
+    domCount++;
+  }
+  return el;
+};
 
 const getScrollInfo = (el, margin) => {
-    el = getScrollNode(el);
-    if (!margin) {
-        margin = 50;
-    }
-    let h;
-    let w;
-    const isBody = el.nodeName && 'body' === el.nodeName.toLowerCase();
-    if (isWebkit && isBody) {
-        h = window.innerHeight;
-        w = window.innerWidth;
-    } else {
-        h = el.clientHeight;
-        w = el.clientWidth;
-    }
-    const scrollLeft = el.scrollLeft;
-    const scrollHeight = el.scrollHeight;
-    const scrollTop = el.scrollTop;
-    const scrollWidth = el.scrollWidth;
-    const scrollBottom = scrollTop + h;
-    const scrollRight = scrollLeft + w;
+  el = getScrollNode(el);
+  if (!margin) {
+    margin = 50;
+  }
+  let w;
+  let h;
+  const nodeName = (el.nodeName || '').toLowerCase();
+  const isRoot = 'body' === nodeName || 'html' === nodeName;
+  if (isRoot) {
+    w = Math.max(docEl.clientWidth || 0, oWin.innerWidth || 0);
+    h = Math.max(docEl.clientHeight || 0, oWin.innerHeight || 0);
+  } else {
+    w = el.clientWidth;
+    h = el.clientHeight;
+  }
+  const scrollLeft = el.scrollLeft;
+  const scrollHeight = el.scrollHeight;
+  const scrollTop = el.scrollTop;
+  const scrollWidth = el.scrollWidth;
+  const scrollBottom = scrollTop + h;
+  const scrollRight = scrollLeft + w;
+  const elId = el.id;
+  const lastScroll = lastScrollStore[elId];
 
-    const info = {
-        atTop   : scrollTop < margin,
-        atRight : scrollRight > (scrollWidth - margin),
-        atBottom: scrollBottom > (scrollHeight - margin),
-        atLeft  : scrollLeft < margin,
+  const info = {
+    atTop: scrollTop < margin,
+    atRight: scrollRight > scrollWidth - margin,
+    atBottom: scrollBottom > scrollHeight - margin,
+    atLeft: scrollLeft < margin,
 
-        isScrollDown : lastScroll && scrollTop > lastScroll.top,
-        isScrollLeft : lastScroll && scrollLeft < lastScroll.left,
-        isScrollRight: lastScroll && scrollLeft > lastScroll.left,
-        isScrollUp   : lastScroll && scrollTop < lastScroll.top,
+    isScrollDown: lastScroll && scrollTop > lastScroll.top,
+    isScrollLeft: lastScroll && scrollLeft < lastScroll.left,
+    isScrollRight: lastScroll && scrollLeft > lastScroll.left,
+    isScrollUp: lastScroll && scrollTop < lastScroll.top,
 
-        scrollWidth : scrollWidth,
-        scrollHeight: scrollHeight,
-        scrollNodeWidth: w,
-        scrollNodeHeight: h,
+    scrollWidth: scrollWidth,
+    scrollHeight: scrollHeight,
+    scrollNodeWidth: w,
+    scrollNodeHeight: h,
 
-        top   : scrollTop,
-        right : scrollRight,
-        bottom: scrollBottom,
-        left  : scrollLeft,
-    };
-    lastScroll = info;
-    return info;
+    top: scrollTop,
+    right: scrollRight,
+    bottom: scrollBottom,
+    left: scrollLeft,
+  };
+  lastScrollStore[elId] = info;
+  return info;
 };
 
 export default getScrollInfo;
-export { getScrollNode };
+export {getScrollNode};
