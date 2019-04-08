@@ -17,8 +17,9 @@
     "d3-lib": "*",
     "get-object-value": "*",
     "getoffset": "*",
+    "react-atomic-molecule": "*",
     "reshow-constant": "*",
-    "react-atomic-molecule": "*"
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
