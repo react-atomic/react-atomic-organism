@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {d3Zoom} from 'd3-lib'
+import Group from '../organisms/Group';
 
-import {Group} from 'organism-react-graph'
 class Zoom extends PureComponent
 {
     state = {

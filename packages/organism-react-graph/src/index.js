@@ -8,5 +8,9 @@ export { default as Rect } from '../ui/organisms/Rect'
 export { default as Text } from '../ui/organisms/Text'
 export { default as Span } from '../ui/organisms/Span'
 
+// molecules
+export { default as DragAndDrop } from '../ui/molecules/DragAndDrop'
+export { default as Zoom } from '../ui/molecules/Zoom'
+
 // util
 export { default as getDistance } from './getDistance'

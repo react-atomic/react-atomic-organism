@@ -1,9 +1,8 @@
 import React, {PureComponent, cloneElement} from 'react'
-import {Graph} from 'organism-react-graph'
+import {Graph, Zoom} from 'organism-react-graph'
 import get, {getDefault} from 'get-object-value'
 import {toSvgMatrixXY} from 'getoffset'
 
-import Zoom from '../organisms/Zoom'
 import BoxGroup from '../organisms/BoxGroup'
 import Box from '../organisms/Box'
 import Line from '../organisms/Line'
@@ -20,9 +19,9 @@ class UMLGraph extends PureComponent
     }
 
     static defaultProps = {
-        boxGroupsLocator: d => d.tables,
-        boxsLocator: d => d.cols,
-        boxGroupNameLocator: d => d.name,
+        boxGroupsLocator: d => (d || {}).tables,
+        boxsLocator: d => (d || {}).cols,
+        boxGroupNameLocator: d => (d || {}).name,
         boxNameLocator: d => d,
         connsLocator: d => d,
         connFromBoxGroupLocator: d => d,
@@ -355,7 +354,7 @@ class UMLGraph extends PureComponent
             <Graph refCb={el => this.el = el} {...props}>
                 <Zoom el={()=>this.getEl()} ref={el=>this.zoom = el}>
                 {
-                    boxGroupsLocator(data).map(
+                    (boxGroupsLocator(data) || []).map(
                         (item, tbKey) => 
                         <BoxGroup 
                             host={this}

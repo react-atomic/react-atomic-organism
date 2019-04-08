@@ -30,14 +30,14 @@
 
 
 import * as lib from './lib'
+import * as alg from './lib/alg'
 const Graph = lib.Graph
 const version = lib.version
 
 export {
-   Graph, version
+   Graph, version, alg
 }
 export {default as json} from './lib/json'
-export * as alg from './lib/alg'
 
 
 

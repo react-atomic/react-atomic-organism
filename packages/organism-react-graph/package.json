@@ -1,9 +1,10 @@
 {
   "name": "organism-react-graph",
-  "version": "0.0.4",
+  "version": "0.1.0-beta",
   "description": "React Graph",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
     "react-component"
@@ -11,20 +12,26 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "colorlib": "*",
     "d3-lib": "*",
-    "getoffset": "*",
     "get-object-value": "*",
+    "getoffset": "*",
+    "reshow-constant": "*",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "@babel/cli": "^7.x",
     "react": "^16.x",
     "react-dom": "^16.x"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build": "npm run clean && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run build"
   },
   "files": [

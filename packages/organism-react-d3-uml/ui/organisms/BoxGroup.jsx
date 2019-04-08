@@ -1,9 +1,8 @@
 import React, {PureComponent, Children, cloneElement} from 'react'
 import getOffset from 'getoffset'
-import {Group, Rect, Text} from 'organism-react-graph'
+import {Group, Rect, Text, DragAndDrop} from 'organism-react-graph'
 import get from 'get-object-value'
 
-import DragAndDrop from './DragAndDrop'
 
 const keys = Object.keys
 let boxGroupId = 1 
