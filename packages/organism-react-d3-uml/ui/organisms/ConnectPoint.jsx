@@ -17,11 +17,6 @@ class ConnectPoint extends PureComponent
 
     lines = {}
 
-    handleAbsXY = (absX, absY) =>
-    {
-        this.setState({absX, absY})
-    }
-
     handleDragStart = e =>
     {
         const {start} = e;
@@ -36,6 +31,8 @@ class ConnectPoint extends PureComponent
 
     handleDrag = e =>
     {
+        const {absX, absY, sourceEvent} = e;
+        this.setState({absX, absY})
         const {host} = this.props
         const {lineId, center} = this.start
         let endXY
@@ -53,7 +50,7 @@ class ConnectPoint extends PureComponent
         if (!endXY) {
             host.setConnectEndPoint(null)
             const el = host.getEl()
-            const end = mouse(e.sourceEvent, el)
+            const end = mouse(sourceEvent, el)
             const {x: endX, y: endY} = host.applyXY(el)(end[0], end[1])
             endXY = { x: endX, y: endY }
         }
@@ -154,7 +151,6 @@ class ConnectPoint extends PureComponent
                 style={thisStyle}
                 absX={absX}
                 absY={absY}
-                onAbsXY={this.handleAbsXY}
                 onDragStart={this.handleDragStart}
                 onDragEnd={this.handleDragEnd}
                 onDrag={this.handleDrag}

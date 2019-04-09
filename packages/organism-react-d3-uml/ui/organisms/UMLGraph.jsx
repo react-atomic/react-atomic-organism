@@ -1,391 +1,401 @@
-import React, {PureComponent, cloneElement} from 'react'
-import {Graph, Zoom} from 'organism-react-graph'
-import get, {getDefault} from 'get-object-value'
-import {toSvgMatrixXY} from 'getoffset'
+import React, {PureComponent, cloneElement} from 'react';
+import {Graph, Zoom} from 'organism-react-graph';
+import get, {getDefault} from 'get-object-value';
+import {toSvgMatrixXY} from 'getoffset';
+import callfunc from 'call-func';
 
-import BoxGroup from '../organisms/BoxGroup'
-import Box from '../organisms/Box'
-import Line from '../organisms/Line'
-import ArrowHead from '../molecules/ArrowHead'
+import ArrowHead from '../molecules/ArrowHead';
+import BoxGroup from '../organisms/BoxGroup';
+import Box from '../organisms/Box';
+import Line from '../organisms/Line';
+import BoxGroupDefaultLayout from '../organisms/BoxGroupDefaultLayout';
 
-let lineCounts = 0
-const keys = Object.keys
+let lineCounts = 0;
+const keys = Object.keys;
 let lazeTimer;
 
-class UMLGraph extends PureComponent
-{
-    state = {
-        lines: {},
-    }
+class UMLGraph extends PureComponent {
+  state = {
+    lines: {},
+  };
 
-    static defaultProps = {
-        boxGroupsLocator: d => (d || {}).tables,
-        boxsLocator: d => (d || {}).cols,
-        boxGroupNameLocator: d => (d || {}).name,
-        boxNameLocator: d => d,
-        connsLocator: d => d,
-        connFromBoxGroupLocator: d => d,
-        connToBoxGroupLocator: d => d,
-        connFromBoxLocator: d => d,
-        connToBoxLocator: d => d,
-    }
+  static defaultProps = {
+    boxGroupsLocator: d => (d || {}).tables,
+    boxsLocator: d => (d || {}).cols,
+    boxGroupNameLocator: d => (d || {}).name,
+    boxNameLocator: d => d,
+    connsLocator: d => d,
+    connFromBoxGroupLocator: d => d,
+    connToBoxGroupLocator: d => d,
+    connFromBoxLocator: d => d,
+    connToBoxLocator: d => d,
+  };
 
-    boxGroupNameInvertMap = {}
-    boxMap = {}
-    startPoint = null
-    endPoint = null
-    updateQueue = {}
-    connects = {}
+  itemTimer = null;
+  lineTimer = null;
+  boxGroupNameInvertMap = {};
+  boxMap = {};
+  startPoint = null;
+  endPoint = null;
+  updateQueue = {};
+  connects = {};
 
-    addLine()
-    {
-        const name = 'line-'+lineCounts
-        lineCounts++
-        this.setState(({lines})=>{
-            lines[name] = {} 
-            return {lines: {...lines}}
-        })
-        return name
-    }
+  addLine() {
+    const name = 'line-' + lineCounts;
+    lineCounts++;
+    this.setState(({lines}) => {
+      lines[name] = {};
+      return {lines: {...lines}};
+    });
+    return name;
+  }
 
-    updateLine(name, params)
-    {
-        const {lines} = this.state
-        this.updateQueue[name] = {
-            ...this.updateQueue[name],
-            ...params
-        } 
-        if (lazeTimer) {
-            clearTimeout(lazeTimer)
-            lazeTimer = false
-        }
-        lazeTimer = setTimeout(()=>{
-            this.setState(({lines})=>{
-                keys(this.updateQueue).forEach(
-                    name => {
-                        if (get(lines, [name])) {
-                            lines[name] = {
-                                ...lines[name],
-                                ...this.updateQueue[name]
-                            }
-                        }
-                    }
-                )
-                this.updateQueue = {}
-                return {lines: {...lines}}
-            })
-        })
+  updateLine(name, params) {
+    const {lines} = this.state;
+    this.updateQueue[name] = {
+      ...this.updateQueue[name],
+      ...params,
+    };
+    if (this.lineTimer) {
+      clearTimeout(this.lineTimer);
+      this.lineTimer = false;
     }
+    this.lineTimer = setTimeout(() => {
+      this.setState(({lines}) => {
+        keys(this.updateQueue).forEach(name => {
+          if (get(lines, [name])) {
+            lines[name] = {
+              ...lines[name],
+              ...this.updateQueue[name],
+            };
+          }
+        });
+        this.updateQueue = {};
+        return {lines: {...lines}};
+      });
+    });
+  }
 
-    deleteLine(name)
-    {
-        if (lazeTimer) {
-            clearTimeout(lazeTimer)
-            lazeTimer = false
-        }
-        this.setState(({lines})=>{
-            const line = lines[name]
-            const from = line.from
-            const to = line.to
-            if (from) {
-                from.delLine(name)
-            }
-            if (to) {
-                to.delLine(name)
-            }
-            if (from && to) {
-                const {
-                    mergeId,
-                    invertMergeId
-                } = this.getConnectIds(from, to)
-                delete this.connects[mergeId]
-                delete this.connects[invertMergeId]
-            }
-            delete lines[name]
-            return {lines: {...lines}}
-        })
+  deleteLine(name) {
+    if (this.lineTimer) {
+      clearTimeout(this.lineTimer);
+      this.lineTimer = false;
     }
+    this.setState(({lines}) => {
+      const line = lines[name];
+      const from = line.from;
+      const to = line.to;
+      if (from) {
+        from.delLine(name);
+      }
+      if (to) {
+        to.delLine(name);
+      }
+      if (from && to) {
+        const {mergeId, invertMergeId} = this.getConnectIds(from, to);
+        delete this.connects[mergeId];
+        delete this.connects[invertMergeId];
+      }
+      delete lines[name];
+      return {lines: {...lines}};
+    });
+  }
 
-    getConnectIds(from, to)
-    {
-        const fromBoxId = from.getBox().getId()
-        const toBoxId = to.getBox().getId()
-        const mergeId = `${fromBoxId}-${toBoxId}`
-        const invertMergeId = `${toBoxId}-${fromBoxId}`
-        return {
-            fromBoxId,
-            toBoxId,
-            mergeId,
-            invertMergeId,
-        }
-    }
+  getConnectIds(from, to) {
+    const fromBoxId = from.getBox().getId();
+    const toBoxId = to.getBox().getId();
+    const mergeId = `${fromBoxId}-${toBoxId}`;
+    const invertMergeId = `${toBoxId}-${fromBoxId}`;
+    return {
+      fromBoxId,
+      toBoxId,
+      mergeId,
+      invertMergeId,
+    };
+  }
 
-    getConnectNames(from, to)
-    {
-        const ids = this.getConnectIds(from, to)
-        const fromBox = from.getBox()
-        const toBox = to.getBox()
-        const fromBoxGroup = fromBox.getBoxGroup() 
-        const toBoxGroup = toBox.getBoxGroup()
-        const fromBoxName = fromBox.getName()
-        const fromBoxGroupName = fromBoxGroup.getName()
-        const toBoxName = toBox.getName()
-        const toBoxGroupName = toBoxGroup.getName()
-        return {
-            ...ids,
-            fromBoxName,
-            toBoxName,
-            fromBoxGroupName,
-            toBoxGroupName
-        }
-    }
+  getConnectNames(from, to) {
+    const ids = this.getConnectIds(from, to);
+    const fromBox = from.getBox();
+    const toBox = to.getBox();
+    const fromBoxGroup = fromBox.getBoxGroup();
+    const toBoxGroup = toBox.getBoxGroup();
+    const fromBoxName = fromBox.getName();
+    const fromBoxGroupName = fromBoxGroup.getName();
+    const toBoxName = toBox.getName();
+    const toBoxGroupName = toBoxGroup.getName();
+    return {
+      ...ids,
+      fromBoxName,
+      toBoxName,
+      fromBoxGroupName,
+      toBoxGroupName,
+    };
+  }
 
-    getConnects()
-    {
-        const conns = this.connects 
-        const {lines} = this.state
-        const results = []
-        keys(conns).forEach( key => {
-            const lineName = conns[key]
-            const {from, to} = lines[lineName]
-            if (!from || !to) {
-                return
-            } else {
-              const connData = this.getConnectNames(from, to) 
-              connData.name = lineName
-              results.push(connData)
-            }
-        })
-        return results
-    }
+  getConnects() {
+    const conns = this.connects;
+    const {lines} = this.state;
+    const results = [];
+    keys(conns).forEach(key => {
+      const lineName = conns[key];
+      const {from, to} = lines[lineName];
+      if (!from || !to) {
+        return;
+      } else {
+        const connData = this.getConnectNames(from, to);
+        connData.name = lineName;
+        results.push(connData);
+      }
+    });
+    return results;
+  }
 
-    addConnected(lineName, from, to)
-    {
-        const {
-            fromBoxId,
-            toBoxId,
-            mergeId,
-            invertMergeId
-        } = this.getConnectIds(from, to)
-        const connects = this.connects 
-        if (!get(connects, [mergeId]) &&
-            !get(connects, [invertMergeId])
-        ) {
-            connects[mergeId] = lineName
-            from.setLine(lineName, 'from')
-            to.setLine(lineName, 'to')
-            this.updateLine(lineName, {from, to, start:from.getCenter(), end:to.getCenter()})
-            return true
-        } else {
-            return false
-        }
+  addConnected(lineName, from, to) {
+    const {fromBoxId, toBoxId, mergeId, invertMergeId} = this.getConnectIds(
+      from,
+      to,
+    );
+    const connects = this.connects;
+    if (!get(connects, [mergeId]) && !get(connects, [invertMergeId])) {
+      connects[mergeId] = lineName;
+      from.setLine(lineName, 'from');
+      to.setLine(lineName, 'to');
+      this.updateLine(lineName, {
+        from,
+        to,
+        start: from.getCenter(),
+        end: to.getCenter(),
+      });
+      return true;
+    } else {
+      return false;
     }
+  }
 
-    getEl()
-    {
-        return this.el
-    }
+  getEl() {
+    return this.el;
+  }
 
-    setConnectStartPoint(el)
-    {
-        this.startPoint = el
-        return this.startPoint
-    }
+  setConnectStartPoint(el) {
+    this.startPoint = el;
+    return this.startPoint;
+  }
 
-    getConnectStartPoint()
-    {
-        return this.startPoint
-    }
+  getConnectStartPoint() {
+    return this.startPoint;
+  }
 
-    setConnectEndPoint(el)
-    {
-        this.endPoint = el
-    }
+  setConnectEndPoint(el) {
+    this.endPoint = el;
+  }
 
-    getConnectEndPoint(el)
-    {
-        return this.endPoint
-    }
+  getConnectEndPoint(el) {
+    return this.endPoint;
+  }
 
-    getBoxGroupIdByName(name)
-    {
-        const id = get(this, ['boxGroupNameInvertMap', name])
-        return id
-    }
+  getBoxGroupIdByName(name) {
+    return get(this, ['boxGroupNameInvertMap', name]);
+  }
 
-    addBoxGroup(id, obj, name)
-    {
-       this.boxGroupNameInvertMap[name] = id
-       this.boxMap[id] = {obj, boxs: {}}
-    }
+  add(payload) {
+    const {onAdd} = this.props;
+    callfunc(onAdd, [payload]);
+  }
 
-    addBox(id, obj, groupId)
-    {
-       this.boxMap[groupId].boxs[id] = obj
-    }
+  change(name, payload) {
+    const {onChange} = this.props;
+    callfunc(onChange, [name, payload]);
+  }
 
-    getBox(id, groupId)
-    {
-        return get(this, ['boxMap', groupId, 'boxs', id])
-    }
+  del(name) {
+    const {onDel} = this.props;
+    callfunc(onDel);
+  }
 
-    getBoxGroup(id)
-    {
-        return get(this, ['boxMap', id, 'obj'])
+  addObj(obj) {
+    if (!obj) {
+      return;
     }
+    const id = obj.getId();
+    const name = obj.getName();
+    this.boxGroupNameInvertMap[name] = id;
+    this.boxMap[id] = obj;
+  }
 
-    getTransform = () =>
-    {
-        const t = this.zoom.getTransform()
-        return t
+  addBox(obj) {
+    if (!obj) {
+      return;
     }
-    
-    applyXY = dom => (pX, pY) =>
-    {
-        const zoom = this.getTransform()
-        const zoomX = get(zoom, ['x'], 0)
-        const zoomY = get(zoom, ['y'], 0)
-        const zoomK = get(zoom, ['k'], 1)
-        let{x, y} = toSvgMatrixXY(dom)(pX, pY)
-        x = (x - zoomX) / zoomK 
-        y = (y - zoomY) / zoomK
-        return {x, y}
+    const group = obj.getBoxGroup();
+    if (!group) {
+      return;
     }
-    
-    syncPropConnects()
-    {
-        const {
-            data,
-            connsLocator,
-            connFromBoxGroupLocator,
-            connToBoxGroupLocator,
-            connFromBoxLocator,
-            connToBoxLocator,
-        } = this.props
-        let {onConnAdd} = this.props 
-        const conns = connsLocator(data)
-        if (!conns || !conns.length) {
-            return
-        }
-        const groupConn = {} 
-        const addGroupConn = (from, to) =>
-        {
-            const a = [from, to].sort()
-            groupConn[a[0]+'-'+a[1]] = [from, to] 
-        }
-        if ('function' !== typeof onConnAdd) {
-           onConnAdd = () => {} 
-        }
-        conns.forEach( conn => {
-            const fromBoxGroupName = connFromBoxGroupLocator(conn)
-            const fromBoxName = connFromBoxLocator(conn)
-            const toBoxGroupName = connToBoxGroupLocator(conn)
-            const toBoxName = connToBoxLocator(conn)
-            if (!fromBoxGroupName || !fromBoxName || !toBoxGroupName || !toBoxName) {
-                console.warn('Sync props conns failed', [
-                    fromBoxGroupName,
-                    fromBoxName,
-                    toBoxGroupName,
-                    toBoxName,
-                    conn
-                ])
-                return
-            }
-            const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName)
-            const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName)
-            const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(fromBoxName) 
-            const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName) 
-            const lineName = this.addLine()
-            addGroupConn(fromBoxGroupId, toBoxGroupId)
-            this.addConnected(
-                lineName,
-                this.getBox(fromBoxId, fromBoxGroupId).getPoint(1), 
-                this.getBox(toBoxId, toBoxGroupId).getPoint(0) 
-            )
-            onConnAdd(lineName, conn);
-        })
-        return groupConn
-    }
+    group.addBox(obj);
+    group.setBoxNameInvertMap(obj.getId(), obj.getName());
+  }
 
-    componentDidMount()
-    {
-        setTimeout(()=>{
-            const groupConn = this.syncPropConnects()
-            import('../../src/dagre').then( dagreAutoLayout => {
-                dagreAutoLayout = getDefault(dagreAutoLayout)
-                const newXY = dagreAutoLayout({...this.boxMap}, groupConn)
-                get(keys(newXY), null, []).forEach(
-                    key => {
-                        const oBoxGroup = this.getBoxGroup(key) 
-                        oBoxGroup.move(newXY[key].x, newXY[key].y)
-                    }
-                )
-            })
-        })
+  getBox(id, groupId) {
+    const group = get(this, ['boxMap', groupId]);
+    if (group) {
+      return group.getBox(id);
     }
+  }
 
-    componentWillUnmount() 
-    {
-        if (lazeTimer) {
-            clearTimeout(lazeTimer)
-            lazeTimer = false
-        }
-    }
+  getBoxGroup(id) {
+    console.log(id, this.boxMap);
+    return get(this, ['boxMap', id]);
+  }
 
-    render()
-    {
-        const {
-            data,
-            boxGroupNameLocator,
-            boxNameLocator,
-            boxsLocator,
-            boxGroupsLocator,
-            connsLocator,
-            connFromBoxGroupLocator,
-            connToBoxGroupLocator,
-            connFromBoxLocator,
-            connToBoxLocator,
-            onLinkClick,
-            onConnAdd,
-            ...props
-        } = this.props
-        const {lines} = this.state
-        return (
-            <Graph refCb={el => this.el = el} {...props}>
-                <Zoom el={()=>this.getEl()} ref={el=>this.zoom = el}>
-                {
-                    (boxGroupsLocator(data) || []).map(
-                        (item, tbKey) => 
-                        <BoxGroup 
-                            host={this}
-                            data={item}
-                            name={boxGroupNameLocator(item)}
-                            key={'box-group-'+tbKey}
-                        > 
-                        {
-                            boxsLocator(item).map(
-                                (colItem, colKey) =>{ 
-                                return (
-                                <Box
-                                    key={'box-'+colKey} 
-                                    name={boxNameLocator(colItem)}
-                                />
-                                )}
-                            )
-                        }
-                        </BoxGroup>
-                    )
-                }
-                {
-                    keys(lines).map(
-                        key => <Line onClick={onLinkClick} {...lines[key]} name={key} key={key} host={this} /> 
-                    )
-                }
-                </Zoom>
-                <ArrowHead />
-            </Graph> 
-        )
+  getBoxGroupComponent(name)
+  {
+    const {onGetBoxGroupComponent} = this.props;
+    const component = callfunc(
+      onGetBoxGroupComponent,
+      [name]
+    );
+    return component || BoxGroupDefaultLayout;
+  }
+
+
+  getTransform = () => {
+    const t = this.zoom.getTransform();
+    return t;
+  };
+
+  applyXY = dom => (pX, pY) => {
+    const zoom = this.getTransform();
+    const zoomX = get(zoom, ['x'], 0);
+    const zoomY = get(zoom, ['y'], 0);
+    const zoomK = get(zoom, ['k'], 1);
+    let {x, y} = toSvgMatrixXY(dom)(pX, pY);
+    x = (x - zoomX) / zoomK;
+    y = (y - zoomY) / zoomK;
+    return {x, y};
+  };
+
+  syncPropConnects() {
+    const {
+      data,
+      connsLocator,
+      connFromBoxGroupLocator,
+      connToBoxGroupLocator,
+      connFromBoxLocator,
+      connToBoxLocator,
+      boxGroupsLocator,
+      onConnAdd,
+    } = this.props;
+
+    const conns = connsLocator(data);
+    if (!conns || !conns.length) {
+      return;
     }
+    const groupConn = {};
+    const addGroupConn = (from, to) => {
+      const a = [from, to].sort();
+      groupConn[a[0] + '-' + a[1]] = [from, to];
+    };
+    conns.forEach(conn => {
+      const fromBoxGroupName = connFromBoxGroupLocator(conn);
+      const fromBoxName = connFromBoxLocator(conn);
+      const toBoxGroupName = connToBoxGroupLocator(conn);
+      const toBoxName = connToBoxLocator(conn);
+      if (!fromBoxGroupName || !fromBoxName || !toBoxGroupName || !toBoxName) {
+        console.warn('Sync props conns failed', [
+          fromBoxGroupName,
+          fromBoxName,
+          toBoxGroupName,
+          toBoxName,
+          conn,
+        ]);
+        return;
+      }
+      const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName);
+      const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName);
+      const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(
+        fromBoxName,
+      );
+      const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName);
+      const lineName = this.addLine();
+      addGroupConn(fromBoxGroupId, toBoxGroupId);
+      this.addConnected(
+        lineName,
+        this.getBox(fromBoxId, fromBoxGroupId).getPoint(1),
+        this.getBox(toBoxId, toBoxGroupId).getPoint(0),
+      );
+      callfunc(onConnAdd, [lineName, conn]);
+    });
+    return groupConn;
+  }
+
+
+  componentDidMount() {
+    setTimeout(() => {
+      const groupConn = this.syncPropConnects();
+      import('../../src/dagre').then(dagreAutoLayout => {
+        dagreAutoLayout = getDefault(dagreAutoLayout);
+        const newXY = dagreAutoLayout({...this.boxMap}, groupConn);
+        get(keys(newXY), null, []).forEach(key => {
+          const oBoxGroup = this.getBoxGroup(key);
+          oBoxGroup.move(newXY[key].x, newXY[key].y);
+        });
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    if (this.lineTimer) {
+      clearTimeout(this.lineTimer);
+      this.lineTimer = false;
+    }
+  }
+
+  render() {
+    const {
+      data,
+      boxGroupNameLocator,
+      boxNameLocator,
+      boxsLocator,
+      boxGroupsLocator,
+      connsLocator,
+      connFromBoxGroupLocator,
+      connToBoxGroupLocator,
+      connFromBoxLocator,
+      connToBoxLocator,
+      onLinkClick,
+      onConnAdd,
+      ...props
+    } = this.props;
+    const {lines} = this.state;
+    return (
+      <Graph refCb={el => (this.el = el)} {...props}>
+        <Zoom el={() => this.getEl()} ref={el => (this.zoom = el)}>
+          {(boxGroupsLocator(data) || []).map((item, tbKey) => (
+            <BoxGroup
+              host={this}
+              data={data}
+              ref={o => this.addObj(o)}
+              name={boxGroupNameLocator(item)}
+              key={'box-group-' + tbKey}>
+              {boxsLocator(item).map((colItem, colKey) => (
+                <Box ref={o => this.addBox(o)} key={'box-' + colKey} name={boxNameLocator(colItem)} />
+              ))}
+            </BoxGroup>
+          ))}
+          {keys(lines).map(key => (
+            <Line
+              onClick={onLinkClick}
+              {...lines[key]}
+              name={key}
+              key={key}
+              host={this}
+            />
+          ))}
+        </Zoom>
+        <ArrowHead />
+      </Graph>
+    );
+  }
 }
 
-export default UMLGraph
+export default UMLGraph;

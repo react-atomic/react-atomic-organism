@@ -70,14 +70,10 @@ class Box extends PureComponent
         return this.id
     }
 
-    constructor(props)
+    componentDidMount()
     {
-        super(props)
-        const {host, boxGroupId, name} = props
         this.id = boxId
         boxId++
-        host.addBox(this.id, this, boxGroupId)
-        this.getBoxGroup().setBoxNameInvertMap(this.id, name)
     }
 
     render()
