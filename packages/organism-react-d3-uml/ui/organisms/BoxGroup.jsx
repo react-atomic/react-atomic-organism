@@ -3,9 +3,11 @@ import React, {
   cloneElement,
   createElement,
   isValidElement,
+  Children,
 } from 'react';
 import {DragAndDrop} from 'organism-react-graph';
 import get from 'get-object-value';
+import getOffset from 'getoffset';
 
 const keys = Object.keys;
 let boxGroupId = 1;
@@ -37,6 +39,12 @@ class BoxGroup extends PureComponent {
     }
   }
 
+  getWH() {
+    const offset = getOffset(this.handleGetEl());
+    const {w, h} = offset;
+    return {width: w, height: h};
+  }
+
   getBox(id) {
     return get(this.boxs, [id]);
   }
@@ -53,10 +61,9 @@ class BoxGroup extends PureComponent {
   handleGetEl = () => {
     return this.el.getEl();
   };
-
+  
   constructor(props) {
     super(props);
-    const {host, name} = props;
     this.id = boxGroupId;
     boxGroupId++;
   }

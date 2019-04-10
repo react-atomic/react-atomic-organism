@@ -1,9 +1,9 @@
 import React, {PureComponent} from 'react';
 
-class BaseBoxGroup extends PureComponent {
+class BaseBoxComponent extends PureComponent {
   getEl() {
     console.error('You need implement getEl()');
   }
 }
 
-export default BaseBoxGroup;
+export default BaseBoxComponent;

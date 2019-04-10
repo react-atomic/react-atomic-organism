@@ -1,126 +1,110 @@
-import React, {PureComponent} from 'react'
-import {Group, Text, Rect, getDistance} from 'organism-react-graph'
+import React, {
+  PureComponent,
+  cloneElement,
+  createElement,
+  isValidElement,
+} from 'react';
+import {getDistance} from 'organism-react-graph';
 
-import ConnectPoint from '../organisms/ConnectPoint'
+let boxId = 1;
+const keys = Object.keys;
 
-let boxId = 1 
+class Box extends PureComponent {
+  isConnectPointDrag = false;
+  points = [];
 
-class Box extends PureComponent
-{
-    isConnectPointDrag = false
-    points = []
+  state = {
+    showConnectPoint: false,
+  };
 
-    state = {
-        showConnectPoint: false
+  handleMouseEnter = () => {
+    this.setState({showConnectPoint: true});
+  };
+
+  handleMouseLeave = () => {
+    setTimeout(() => {
+      if (!this.isConnectPointDrag) {
+        this.setState({showConnectPoint: false});
+      }
+    }, 1000);
+  };
+
+  setIsConnectPointDrag = bool => {
+    this.isConnectPointDrag = bool;
+  };
+
+  getRecentPoint(center) {
+    const distance = [];
+    const distanceMap = {};
+    keys(this.points).forEach( key => {
+      const p = this.points[key];
+      const point = p.getCenter();
+      let pointDistance = getDistance(center, point);
+      distance.push(pointDistance);
+      distanceMap[pointDistance] = {
+        xy: point,
+        obj: p,
+      };
+    });
+    const min = Math.min(...distance);
+    return distanceMap[min];
+  }
+
+  getPoint(key) {
+    return this.points[key];
+  }
+
+  addPoint(obj) {
+    if (obj) {
+      this.points[obj.getId()] = obj;
     }
+  }
 
-    handleMouseEnter = () => {
-        this.setState({showConnectPoint: true})
-    }
+  getBoxGroup() {
+    const {host, boxGroupId} = this.props;
+    return host.getBoxGroup(boxGroupId);
+  }
 
-    handleMouseLeave = () => {
-        setTimeout(()=> {
-            if (!this.isConnectPointDrag) {
-                this.setState({showConnectPoint: false})
-            }
-        }, 1000)
-    }
+  getName() {
+    const {name} = this.props;
+    return name;
+  }
 
-    setIsConnectPointDrag = bool => {
-        this.isConnectPointDrag = bool
-    }
+  getId() {
+    return this.id;
+  }
 
-    getRecentPoint(center)
-    {
-        const points = [] 
-        const distance = []
-        const distanceMap = {}
-        this.points.forEach( (p, key) => {
-            points[key] = p.getCenter() 
-            let pointDistance = getDistance(center, points[key])
-            distance[key] = pointDistance
-            distanceMap[pointDistance] = {
-                xy: points[key],
-                obj: p
-            } 
-        });
-        const max = Math.min(...distance) 
-        return distanceMap[max]
-    }
+  getEl() {
+    return this.el.getEl();
+  }
 
-    getPoint(key)
-    {
-        return this.points[key]
-    }
+  componentDidMount() {
+    this.id = boxId;
+    boxId++;
+    const {host} = this.props;
+    host.addBoxQueue(this);
+  }
 
-    getBoxGroup()
-    {
-        const {host, boxGroupId} = this.props
-        return host.getBoxGroup(boxGroupId)
-    }
-
-    getName()
-    {
-        const {name} = this.props
-        return name
-    }
-
-    getId()
-    {
-        return this.id
-    }
-
-    componentDidMount()
-    {
-        this.id = boxId
-        boxId++
-    }
-
-    render()
-    {
-        const {pos, name, host, refCb, x, y, width, height, boxGroupId} = this.props 
-        const {showConnectPoint} = this.state
-        const translate = `translate(${x}, ${y})` 
-        const cy = -(height / 2 - 5)
-        const connectPoints = [
-            <ConnectPoint
-                box={this}
-                ref={el=>this.points[0]=el}
-                show={showConnectPoint}
-                pos={pos}
-                host={host}
-                key="left"
-                cy={cy}
-                cx={-12}
-                onShow={this.setIsConnectPointDrag}
-            />,
-            <ConnectPoint
-                box={this}
-                ref={el=>this.points[1]=el}
-                show={showConnectPoint}
-                pos={pos}
-                host={host}
-                key="right"
-                cx={width+12}
-                cy={cy}
-                onShow={this.setIsConnectPointDrag}
-            />
-        ]
-        return (
-            <Group 
-                onMouseEnter={this.handleMouseEnter}
-                onMouseLeave={this.handleMouseLeave}
-                refCb={refCb}
-                transform={translate}
-            >
-                <Text data-id={this.id} data-group={boxGroupId}>
-                    {name}
-                </Text>
-                {connectPoints}
-            </Group>
-        )
-    }
+  render() {
+    const {
+      name,
+      host,
+      boxGroupId,
+    } = this.props;
+    const {showConnectPoint} = this.state;
+    const component = host.getBoxComponent(name, boxGroupId);
+    const build = isValidElement(component) ? cloneElement : createElement;
+    return build(component, {
+      ...this.props,
+      ref: el => this.el = el,
+      onMouseEnter: this.handleMouseEnter,
+      onMouseLeave: this.handleMouseLeave,
+      'data-id': this.id,
+      'data-group': boxGroupId,
+      showConnectPoint,
+      box: this
+    });
+  }
 }
 
-export default Box
-
+export default Box;

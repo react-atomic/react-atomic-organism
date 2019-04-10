@@ -30,7 +30,7 @@ const dagreAutoLayout = (nodes, conns = {}) =>
         if (-1 !== nodeConns.indexOf(toInt(key))) {
             graph.setNode(key, {
                 label: key,
-                ...nodes[key].obj.getWH()
+                ...nodes[key].getWH()
             })
         } else {
             nodeNoConns.push(key)

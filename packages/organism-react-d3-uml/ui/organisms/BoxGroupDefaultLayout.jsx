@@ -3,7 +3,7 @@ import getOffset from 'getoffset';
 import get from 'get-object-value';
 import {Group, Rect, Text} from 'organism-react-graph';
 
-import BaseBoxGroup from '../organisms/BaseBoxGroup';
+import BaseBoxComponent from '../organisms/BaseBoxComponent';
 const keys = Object.keys;
 
 const BoxGroupHeader = ({children, x, y, width}) => (
@@ -15,7 +15,7 @@ const BoxGroupHeader = ({children, x, y, width}) => (
   </Group>
 );
 
-class BoxGroupDefaultLayout extends BaseBoxGroup {
+class BoxGroupDefaultLayout extends BaseBoxComponent {
   state = {
     rectW: 0,
     rectH: 0,
@@ -23,10 +23,6 @@ class BoxGroupDefaultLayout extends BaseBoxGroup {
   };
   childrenEl = {};
 
-  getWH() {
-    const {rectW: width, rectH: height} = this.state;
-    return {width, height};
-  }
 
   getEl() {
     return this.rect;
@@ -39,7 +35,7 @@ class BoxGroupDefaultLayout extends BaseBoxGroup {
     let startY = 20;
     const boxsPos = {};
     keys(this.childrenEl).forEach(cKey => {
-      const cEl = this.childrenEl[cKey];
+      const cEl = this.childrenEl[cKey].getEl();
       const cElOffset = getOffset(cEl);
       startY += cElOffset.h;
       boxsPos[cKey] = {
@@ -56,12 +52,32 @@ class BoxGroupDefaultLayout extends BaseBoxGroup {
   }
 
   render() {
-    const {name, children, boxGroupId, host, data, absX, absY} = this.props;
+    const {
+      onMouseEnter,
+      onMouseLeave,
+      showConnectPoint,
+      name,
+      children,
+      boxGroupId,
+      host,
+      data,
+      absX,
+      absY,
+    } = this.props;
     const {rectW, rectH, boxsPos} = this.state;
     const translate = `translate(${absX}, ${absY})`;
     return (
       <Group transform={translate} refCb={el => (this.el = el)}>
-        <Rect style={Styles.rect} rx="5" ry="5" width={rectW} height={rectH} refCb={el => this.rect=el}/>
+        <Rect
+          style={Styles.rect}
+          rx="5"
+          ry="5"
+          width={rectW}
+          height={rectH}
+          refCb={el => (this.rect = el)}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+        />
         <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
         {Children.map(children, (c, ck) =>
           cloneElement(c, {
@@ -73,7 +89,7 @@ class BoxGroupDefaultLayout extends BaseBoxGroup {
             y: get(boxsPos, [ck, 'y'], 0),
             width: get(boxsPos, [ck, 'w'], 0),
             height: get(boxsPos, [ck, 'h'], 0),
-            refCb: el => (this.childrenEl[ck] = el),
+            ref: el => (this.childrenEl[ck] = el),
           }),
         )}
       </Group>

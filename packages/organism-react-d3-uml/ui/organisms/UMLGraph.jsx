@@ -9,6 +9,7 @@ import BoxGroup from '../organisms/BoxGroup';
 import Box from '../organisms/Box';
 import Line from '../organisms/Line';
 import BoxGroupDefaultLayout from '../organisms/BoxGroupDefaultLayout';
+import BoxDefaultLayout from '../organisms/BoxDefaultLayout';
 
 let lineCounts = 0;
 const keys = Object.keys;
@@ -34,7 +35,8 @@ class UMLGraph extends PureComponent {
   itemTimer = null;
   lineTimer = null;
   boxGroupNameInvertMap = {};
-  boxMap = {};
+  boxGroupMap = {};
+  boxQueue = {};
   startPoint = null;
   endPoint = null;
   updateQueue = {};
@@ -213,14 +215,31 @@ class UMLGraph extends PureComponent {
     callfunc(onDel);
   }
 
-  addObj(obj) {
+  addBoxGroup(obj) {
     if (!obj) {
       return;
     }
     const id = obj.getId();
     const name = obj.getName();
     this.boxGroupNameInvertMap[name] = id;
-    this.boxMap[id] = obj;
+    this.boxGroupMap[id] = obj;
+    keys(get(this.boxQueue, null, {})).forEach(
+      key => {
+        const boxObj = this.boxQueue[key];
+        const isAdd = this.addBox(boxObj);
+        if (isAdd) {
+          delete this.boxQueue[key];
+        }
+      }
+    );
+  }
+
+  addBoxQueue(obj) {
+    if (!obj) {
+      return;
+    }
+    const id = obj.getId();
+    this.boxQueue[id] = obj;
   }
 
   addBox(obj) {
@@ -233,30 +252,31 @@ class UMLGraph extends PureComponent {
     }
     group.addBox(obj);
     group.setBoxNameInvertMap(obj.getId(), obj.getName());
+    return true;
   }
 
   getBox(id, groupId) {
-    const group = get(this, ['boxMap', groupId]);
+    const group = get(this.boxGroupMap, [groupId]);
     if (group) {
       return group.getBox(id);
     }
   }
 
   getBoxGroup(id) {
-    console.log(id, this.boxMap);
-    return get(this, ['boxMap', id]);
+    return get(this.boxGroupMap, [id]);
   }
 
-  getBoxGroupComponent(name)
-  {
+  getBoxComponent(name, groupId) {
+    const {onGetBoxComponent} = this.props;
+    const component = callfunc(onGetBoxComponent, [name, groupId]);
+    return component || BoxDefaultLayout;
+  }
+
+  getBoxGroupComponent(name) {
     const {onGetBoxGroupComponent} = this.props;
-    const component = callfunc(
-      onGetBoxGroupComponent,
-      [name]
-    );
+    const component = callfunc(onGetBoxGroupComponent, [name]);
     return component || BoxGroupDefaultLayout;
   }
-
 
   getTransform = () => {
     const t = this.zoom.getTransform();
@@ -328,13 +348,12 @@ class UMLGraph extends PureComponent {
     return groupConn;
   }
 
-
   componentDidMount() {
     setTimeout(() => {
       const groupConn = this.syncPropConnects();
       import('../../src/dagre').then(dagreAutoLayout => {
         dagreAutoLayout = getDefault(dagreAutoLayout);
-        const newXY = dagreAutoLayout({...this.boxMap}, groupConn);
+        const newXY = dagreAutoLayout({...this.boxGroupMap}, groupConn);
         get(keys(newXY), null, []).forEach(key => {
           const oBoxGroup = this.getBoxGroup(key);
           oBoxGroup.move(newXY[key].x, newXY[key].y);
@@ -364,6 +383,8 @@ class UMLGraph extends PureComponent {
       connToBoxLocator,
       onLinkClick,
       onConnAdd,
+      onGetBoxGroupComponent,
+      onGetBoxComponent,
       ...props
     } = this.props;
     const {lines} = this.state;
@@ -372,13 +393,13 @@ class UMLGraph extends PureComponent {
         <Zoom el={() => this.getEl()} ref={el => (this.zoom = el)}>
           {(boxGroupsLocator(data) || []).map((item, tbKey) => (
             <BoxGroup
+              ref={el => this.addBoxGroup(el)}
               host={this}
               data={data}
-              ref={o => this.addObj(o)}
               name={boxGroupNameLocator(item)}
               key={'box-group-' + tbKey}>
               {boxsLocator(item).map((colItem, colKey) => (
-                <Box ref={o => this.addBox(o)} key={'box-' + colKey} name={boxNameLocator(colItem)} />
+                <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
               ))}
             </BoxGroup>
           ))}
