@@ -1489,6 +1489,18 @@ require-main-filename@^2.0.0:
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
 
+reshow-constant@*:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.0.5.tgz#fbc9ba458b57befba0a275893d2f016d0821b00a"
+  integrity sha512-PRwvxfln60W897Z8puaZhWhY4wrP6Mb+c8Wu+9n1yBgn+//6GP8AhW/xMdsy+MyM2HcTJ8d1iTmvr/G4Pm2NyA==
+
+reshow-runtime@*:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.10.tgz#af8cd1eaa79091bbd76a5a0a3dd591683729ae6e"
+  integrity sha512-ho4EUPxsf/1wfdWyVyjE3BGTNROAYo+/rPmgda6/Y/7nxwTGr6mbr93G+9gLZCDTsidGUaxft9yw6DN1bhu07g==
+  dependencies:
+    reshow-constant "*"
+
 resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"

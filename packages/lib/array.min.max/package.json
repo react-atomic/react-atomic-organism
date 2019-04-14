@@ -1,6 +1,6 @@
 {
   "name": "array.min.max",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Find min and max in Array",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -8,7 +8,9 @@
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "reshow-runtime": "*"
+  },
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
