@@ -10,6 +10,7 @@ import {
   colors,
   scaleBand,
   scaleLinear,
+  d3Event,
 } from '../cjs/src/index.js';
 
 import {expect} from 'chai';
@@ -97,7 +98,7 @@ describe('line', () => {
   });
   it('test get line', () => {
     const thisLine = line(data[0], data[1], true);
-    const expected = 'M0,0C0,0,10.000000000000002,10.000000000000002,10,10C10,10,5,5,5,5';
+    const expected = 'M0,0C1.6666666666666665,-0.8333333333333334,3.333333333333333,-1.6666666666666667,5,0C6.666666666666667,1.6666666666666667,8.333333333333334,5.833333333333333,10,10';
     expect(thisLine).to.equal(expected);
   });
 });
@@ -108,5 +109,11 @@ describe('area', () => {
     let result = hArea(data);
     expect(result).to.have.string('M');
     expect(result).to.not.have.string('NaN');
+  });
+});
+
+describe('event', () => {
+  it('hArea', () => {
+    d3Event(); 
   });
 });

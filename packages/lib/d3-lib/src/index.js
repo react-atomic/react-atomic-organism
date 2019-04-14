@@ -1,22 +1,21 @@
 // https://github.com/d3/d3/blob/master/index.js
-import {
-  curveCatmullRom as d3_curveCatmullRom,
-  line as d3_line,
-  pie as d3_pie,
-  arc as d3_arc,
-  area as d3_area,
-  stack as d3_stack,
-  scaleLinear as d3_scaleLinear,
-  scaleBand as d3_scaleBand,
-  scaleOrdinal as d3_scaleOrdinal,
-  stackOrderNone as d3_stackOrderNone,
-  stackOffsetNone as d3_stackOffsetNone,
-  drag as d3_drag,
-  event as d3_event,
-  select as d3_select,
-} from 'd3';
-
-import * as d3_scale_chromatic from 'd3-scale-chromatic';
+import * as d3 from 'd3';
+const {
+  curveCatmullRom: d3_curveCatmullRom,
+  curveNatural: d3_curveNatural,
+  line: d3_line,
+  pie: d3_pie,
+  arc: d3_arc,
+  area: d3_area,
+  stack: d3_stack,
+  scaleLinear: d3_scaleLinear,
+  scaleBand: d3_scaleBand,
+  scaleOrdinal: d3_scaleOrdinal,
+  stackOrderNone: d3_stackOrderNone,
+  stackOffsetNone: d3_stackOffsetNone,
+  drag: d3_drag,
+  select: d3_select,
+} = d3;
 import get from 'get-object-value';
 import arrayMinMax from 'array.min.max';
 
@@ -34,8 +33,8 @@ const getPointsCenter = (points, xLocator, yLocator) => {
   const xCal = new arrayMinMax().process(xLocator)(points);
   const yCal = new arrayMinMax().process(yLocator)(points);
   return {
-    x: (xCal.max - xCal.min) / 2,
-    y: (yCal.max - yCal.min) / 2,
+    x: (xCal.max - xCal.min) / 2 + xCal.min,
+    y: (yCal.max - yCal.min) / 2 + yCal.min,
   };
 };
 
@@ -43,13 +42,14 @@ const getPointsCenter = (points, xLocator, yLocator) => {
 const line = (start, end, curve, xLocator, yLocator) => {
   xLocator = xLocator || defaultXLocator;
   yLocator = yLocator || defaultYLocator;
-  const points = [start, end];
-  const l = d3_line()
+  let points = [start, end];
+  let l = d3_line()
     .x(xLocator)
     .y(yLocator);
   if (curve) {
-    l.curve(getCurveType());
-    points.push(getPointsCenter(points, xLocator, yLocator));
+    l = l.curve(d3_curveNatural);
+    const c = getPointsCenter(points, xLocator, yLocator);
+    points = [start, {x: c.x, y: start.y}, end];
   }
   return l(points);
 };
@@ -129,7 +129,7 @@ const colors = scheme => {
   if (!scheme) {
     scheme = defaultScheme;
   }
-  return d3_scaleOrdinal(get(d3_scale_chromatic, [scheme], defaultScheme));
+  return d3_scaleOrdinal(get(d3, [scheme], defaultScheme));
 };
 
 // https://github.com/d3/d3-shape/blob/master/README.md#stacks
@@ -268,7 +268,7 @@ const d3Zoom = ({el, scaleExtent, callback}) => {
   dSelect.call(zoom);
 };
 
-const d3Event = () => d3_event;
+const d3Event = () => d3.event;
 
 const d3Select = el => d3_select(el);
 
