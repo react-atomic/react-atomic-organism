@@ -81,9 +81,11 @@ array.dedup@*:
   integrity sha512-f3wen2zEsoH0HzvpFXkORzLCyNzmeXuyrVqbqphh0ORMqF7x1cyunY4R2IGViMqr7cP/z2Fkf9Y+NWXnhwNX1g==
 
 array.min.max@*:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/array.min.max/-/array.min.max-0.0.3.tgz#7cd4c2a5906b67236f95a03b54087a110debe2e1"
-  integrity sha512-R4XNmQKnb9dLPkZOn+VSXJOeRm4n4an9mL/AJ8bLDc3wwYzPCfKZ0gL+55LUDG24z5hOj2gQhRuVn7jzvSxVog==
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/array.min.max/-/array.min.max-0.1.1.tgz#7ca5d44044213950bcfde5f328498bb4568fe4b5"
+  integrity sha512-GoTIn+irJXrqrcdXjtkRcV//7R5RPf5K0D7T9A5k5tNoXyAhnfTA9PgOD7HKplzjFJ4+zttXFc7BuwqMhqcovg==
+  dependencies:
+    reshow-runtime "*"
 
 assign-symbols@^1.0.0:
   version "1.0.0"
@@ -163,9 +165,9 @@ cache-base@^1.0.1:
     unset-value "^1.0.0"
 
 call-func@*:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.0.3.tgz#9ceb4e40a7d7054fdd23fd7bae4d4bcd661557f5"
-  integrity sha512-n3RS3UsU5a+3sC6pTSOvKFjhOV+xHkliV75+QKV98Fcna2S3VnOwrprY1admnoCPoTLSD817izW/1vGtb0UP9w==
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.0.4.tgz#3c70ae685575be63eeb085ba0cd7f8d93cbb89a4"
+  integrity sha512-r2Q9o9pCplNi3jsmNizZDno10ESQ7YqFLrWb0ENH3y5W/wDdls4Aq7jzPt7Gf7zQqsTqvo0hfL/CEi4nrDXpMg==
   dependencies:
     reshow-constant "*"
 
@@ -381,13 +383,15 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.0.23.tgz#f89237dd94f75a2fc78c96aa3547eca5da5bcec3"
-  integrity sha512-wMLKw89ul6v0N7REjMu4mpGaaAiq7GPm/iOWpUOVCUtVNTWA3riIvWQu/l0G9kcpLg41kPuPEiAY7f22s2Bzgg==
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.1.0.tgz#7b8764fedf4fee0ef2f1e38f4ca74705517b6076"
+  integrity sha512-Qp01vURHUcuBbkLsj90NjUvYTnDvD4eSYK2vbwTyD6lhK2KDiBBRiDjm97MS/kdxvY6xGK5evCN6qUfysIyy7A==
   dependencies:
     array.min.max "*"
     d3 "*"
+    d3-scale-chromatic "*"
     get-object-value "*"
+    reshow-runtime "*"
 
 d3-path@1:
   version "1.0.7"
@@ -409,7 +413,7 @@ d3-random@1:
   resolved "https://registry.yarnpkg.com/d3-random/-/d3-random-1.1.2.tgz#2833be7c124360bf9e2d3fd4f33847cfe6cab291"
   integrity sha512-6AK5BNpIFqP+cx/sreKzNjWbwZQCSUatxq+pPRmFIQaWuoD+NrbVWw7YWpHiXpCQ/NanKdtGDuB+VQcZDaEmYQ==
 
-d3-scale-chromatic@1:
+d3-scale-chromatic@*, d3-scale-chromatic@1:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/d3-scale-chromatic/-/d3-scale-chromatic-1.3.3.tgz#dad4366f0edcb288f490128979c3c793583ed3c0"
   integrity sha512-BWTipif1CimXcYfT02LKjAyItX5gKiwxuPRgr4xM58JwlLocWbjPLI7aMEjkcoOQXMkYsmNsvv3d2yl/OKuHHw==
@@ -523,12 +527,19 @@ d3@*:
     d3-voronoi "1"
     d3-zoom "1"
 
-debug@^2.1.2, debug@^2.2.0, debug@^2.3.3:
+debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
   integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
   dependencies:
     ms "2.0.0"
+
+debug@^4.1.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
+  integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+  dependencies:
+    ms "^2.1.1"
 
 decode-uri-component@^0.2.0:
   version "0.2.0"
@@ -1074,6 +1085,11 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
+ms@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
+  integrity sha512-tgp+dl5cGk28utYktBsrFqA7HKgrhgPsg6Z/EfhWI4gl1Hwq8B/GmY/0oXZ6nF8hDVesS/FpnYaD/kOWhYQvyg==
+
 nan@^2.9.2:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.13.2.tgz#f51dc7ae66ba7d5d55e1e6d4d8092e802c9aefe7"
@@ -1097,11 +1113,11 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 needle@^2.2.1:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.4.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"
-  integrity sha512-HyoqEb4wr/rsoaIDfTH2aVL9nWtQqba2/HvMv+++m8u0dz808MaagKILxtfeSN7QU7nvbQ79zk3vYOJp9zsNEA==
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.3.0.tgz#ce3fea21197267bacb310705a7bbe24f2a3a3492"
+  integrity sha512-QBZu7aAFR0522EyaXZM0FZ9GLpq6lvQ3uq8gteiDUp7wKdy0lSd2hPlgFwVuW1CBkfEs9PfDQsQzZghLs/psdg==
   dependencies:
-    debug "^2.1.2"
+    debug "^4.1.0"
     iconv-lite "^0.4.4"
     sax "^1.2.4"
 
@@ -1597,6 +1613,13 @@ to-object-path@^0.3.0:
   integrity sha1-KXWIt7Dn4KwI4E5nL4XB9JmeF68=
   dependencies:
     kind-of "^3.0.2"
+
+to-percent-js@*:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/to-percent-js/-/to-percent-js-0.1.1.tgz#30ca4d3822b4de152ade77d1774120de28efac68"
+  integrity sha512-k/vnJHjwMdZsEwjfXDKtardFoOgYeP6o+SNTvjXTbQr3aFLk6dhw2J/KKMseKrSjKYmQKrga2vm9p9Jq5lspiA==
+  dependencies:
+    reshow-runtime "*"
 
 to-regex-range@^2.1.0:
   version "2.1.1"

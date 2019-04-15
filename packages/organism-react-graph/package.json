@@ -1,6 +1,6 @@
 {
   "name": "organism-react-graph",
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.3",
   "description": "React Graph",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -19,6 +19,7 @@
     "getoffset": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
+    "to-percent-js": "*",
     "win-doc": "*"
   },
   "devDependencies": {
