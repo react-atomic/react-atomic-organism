@@ -11,7 +11,8 @@
   "dependencies": {
     "get-object-value": "*",
     "get-scroll-info": "*",
-    "reshow-constant": "*"
+    "reshow-constant": "*",
+    "reshow-runtime": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
