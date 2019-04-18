@@ -6,30 +6,34 @@ import Group from '../organisms/Group';
 
 class Zoom extends PureComponent {
   static defaultProps = {
-    withTransform: true
+    withTransform: true,
   };
 
   state = {
-    transform: '',
+    transform: null,
   };
 
-  componentDidMount() {
-    const {onGetEl, onZoom} = this.props;
-    setTimeout(() => {
-      d3Zoom({
-        el: callfunc(onGetEl),
-        scaleExtent: [-1, 8],
-        callback: transform => {
-          this.setState({transform});
-          callfunc(onZoom, [transform]); 
-        },
-      });
-    });
-  }
+  oD3Zoom = null;
 
   getTransform() {
     const {transform} = this.state;
     return transform;
+  }
+
+  getD3Zoom = () => this.oD3Zoom;
+
+  componentDidMount() {
+    const {onGetEl, onZoom} = this.props;
+    setTimeout(() => {
+      this.oD3Zoom = d3Zoom({
+        el: callfunc(onGetEl),
+        scaleExtent: [-1, 8],
+        callback: e => {
+          const {transform} = e;
+          this.setState({transform}, () => callfunc(onZoom, [e]));
+        },
+      });
+    });
   }
 
   render() {
@@ -37,8 +41,7 @@ class Zoom extends PureComponent {
     const {transform} = this.state;
     // disabe state transform, if props has will use props one
     if (withTransform) {
-      const thisTransform = transform + '';
-      props.transform = thisTransform;
+      props.transform = transform.toString();
     }
     return <Group name="zoom" {...props} />;
   }
