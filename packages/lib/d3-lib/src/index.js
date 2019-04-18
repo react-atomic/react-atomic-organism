@@ -262,11 +262,11 @@ const d3DnD = ({el, start, end, drag, subject}) => {
 };
 
 const d3Zoom = ({el, scaleExtent, callback}) => {
-  const dSelect = d3Select(el);
   const zoom = d3_zoom()
     .scaleExtent(scaleExtent)
-    .on('zoom', () => callback(d3Event().transform));
-  dSelect.call(zoom);
+    .on('zoom', () => callback(d3Event()));
+  d3Select(el).call(zoom);
+  return zoom;
 };
 
 const d3Event = () => d3.event;
