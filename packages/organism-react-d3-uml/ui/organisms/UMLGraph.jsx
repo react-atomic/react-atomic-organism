@@ -407,19 +407,6 @@ class UMLGraph extends PureComponent {
             ref={el => (this.zoom = el)}
             onZoom={this.handleZoom}
           >
-            {(boxGroupsLocator(data) || []).map((item, tbKey) => (
-              <BoxGroup
-                ref={el => this.addBoxGroup(el)}
-                host={this}
-                svg
-                data={data}
-                name={boxGroupNameLocator(item)}
-                key={'box-group-' + tbKey}>
-                {boxsLocator(item).map((colItem, colKey) => (
-                  <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
-                ))}
-              </BoxGroup>
-            ))}
             {keys(lines).map(key => (
               <Line
                 onClick={onLinkClick}

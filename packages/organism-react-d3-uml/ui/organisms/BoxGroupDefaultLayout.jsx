@@ -28,23 +28,23 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
   }
 
   componentDidMount() {
-    const el = this.el;
-    const offset = getOffset(el);
-    const {w, h} = offset;
     let startY = 20;
     const boxsPos = {};
+    const arrW = [];
     keys(this.childrenEl).forEach(cKey => {
       const cEl = this.childrenEl[cKey].getEl();
-      const cElOffset = getOffset(cEl);
-      startY += cElOffset.h;
+      const {w, h} = getOffset(cEl);
+      startY += h;
+      arrW.push(w);
       boxsPos[cKey] = {
         y: startY,
-        w: cElOffset.w,
-        h: cElOffset.h,
+        w,
+        h,
       };
     });
+    const maxW = Math.max(...arrW);
     this.setState({
-      rectW: w + 10,
+      rectW: maxW + 10,
       rectH: startY + 5,
       boxsPos,
     });
@@ -68,7 +68,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
     const {rectW, rectH, boxsPos} = this.state;
     const translate = `translate(${absX}px, ${absY}px)`;
     const graphStyle = {...Styles.container};
-    const groupStyle = {};
+    const groupStyle = {...Styles.group};
     if (host.insideVector(this.el)) {
       groupStyle.transform = translate;
     } else {
@@ -116,10 +116,14 @@ export default BoxGroupDefaultLayout;
 
 const Styles = {
   container: {
-    width: 100,
+    width: 1,
+    height: 1,
     position: 'absolute',
-    pointerEvents: 'all',
     overflow: 'visible',
+    pointerEvents: 'none',
+  },
+  group: {
+    pointerEvents: 'all',
   },
   rect: {
     stroke: '#999',
