@@ -1,15 +1,8 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 import {SemanticUI} from 'react-atomic-molecule'
 
-class Graph extends PureComponent
-{
-    render()
-    {
-       const props = this.props
-       return (
-            <SemanticUI atom="svg" {...props} />
-       )
-    }
-}
+const Graph = props => <SemanticUI {...props} />
+
+Graph.defaultProps = {atom: 'svg'};
 
 export default Graph

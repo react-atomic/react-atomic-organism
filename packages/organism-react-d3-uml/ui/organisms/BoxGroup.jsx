@@ -40,7 +40,7 @@ class BoxGroup extends PureComponent {
   }
 
   getWH() {
-    const offset = getOffset(this.handleGetEl());
+    const offset = getOffset(this.getEl());
     const {w, h} = offset;
     return {width: w, height: h};
   }
@@ -58,10 +58,10 @@ class BoxGroup extends PureComponent {
     return this.id;
   }
 
-  handleGetEl = () => {
+  getEl = () => {
     return this.el.getEl();
   };
-  
+
   constructor(props) {
     super(props);
     this.id = boxGroupId;
@@ -69,7 +69,7 @@ class BoxGroup extends PureComponent {
   }
 
   render() {
-    const {name, children, host, data} = this.props;
+    const {name, host} = this.props;
     const {rectW, rectH, boxsPos, absX, absY} = this.state;
     const component = host.getBoxGroupComponent(name);
     const build = isValidElement(component) ? cloneElement : createElement;
@@ -79,20 +79,14 @@ class BoxGroup extends PureComponent {
         absY={absY}
         onDrag={this.move}
         zoom={host.getTransform}
-        onGetEl={this.handleGetEl}
-        component={build(
-          component,
-          {
-            ref: el => (this.el = el),
-            boxGroupId: this.id,
-            absX,
-            absY,
-            name,
-            host,
-            data,
-          },
-          children,
-        )}
+        onGetEl={this.getEl}
+        component={build(component, {
+          ...this.props,
+          ref: el => (this.el = el),
+          boxGroupId: this.id,
+          absX,
+          absY,
+        })}
       />
     );
   }

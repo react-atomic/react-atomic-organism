@@ -5,14 +5,20 @@ import React, {
   isValidElement,
 } from 'react';
 import {DragAndDrop} from 'organism-react-graph';
-import getOffset, {mouse} from 'getoffset';
+import getOffset, {mouse, toSvgXY} from 'getoffset';
 import get from 'get-object-value';
 import callfunc from 'call-func';
+import ConnectPointDefaultLayout from '../organisms/ConnectPointDefaultLayout';
 
 let connPointId = 1;
 const keys = Object.keys;
 
 class ConnectPoint extends PureComponent {
+
+  static defaultProps = {
+    component: ConnectPointDefaultLayout
+  };
+
   state = {
     absX: 0,
     absY: 0,
@@ -21,6 +27,8 @@ class ConnectPoint extends PureComponent {
   start = false;
   dnd = null;
   lines = {};
+
+  getEl = () => callfunc(this.dnd.getEl, null, this.dnd);
 
   handleDragStart = e => {
     const {start} = e;
@@ -46,24 +54,17 @@ class ConnectPoint extends PureComponent {
       if (targetId && targetGroup) {
         const targetBox = host.getBox(targetId, targetGroup);
         const targetPoint = targetBox.getRecentPoint(center);
-        endXY = targetPoint.xy;
-        host.setConnectEndPoint(targetPoint.obj);
+        endXY = targetPoint.getCenter();
+        host.setConnectEndPoint(targetPoint);
       }
     }
     if (!endXY) {
       host.setConnectEndPoint(null);
-      const el = host.getEl();
-      const end = mouse(sourceEvent, el);
-      const {x: endX, y: endY} = host.applyXY(el)(end[0], end[1]);
-      endXY = {x: endX, y: endY};
+      const hostEl = host.getEl();
+      const end = mouse(sourceEvent, hostEl);
+      endXY = host.applyXY(hostEl)(end[0], end[1]);
     }
     host.updateLine(lineId, {start: center, end: endXY});
-  };
-
-  handleGetEl = () => {
-    if (this.dnd) {
-      return this.dnd.getEl();
-    }
   };
 
   handleDragEnd = e => {
@@ -91,15 +92,32 @@ class ConnectPoint extends PureComponent {
     delete this.lines[id];
   }
 
-  getCenter() {
-    const {host} = this.props;
-    const el = this.handleGetEl();
+  getVectorCenter(el, host) {
     const bbox = el.getBBox();
-    const region = el.getBoundingClientRect();
-    const {left, top, width, height} = region;
+    const {left, top, width, height} = el.getBoundingClientRect();
     const x = bbox.x + width / 2;
     const y = bbox.y + height / 2;
     return host.applyXY(el)(x, y);
+  }
+
+  getHtmlCenter(el, host) {
+    const bbox = el.getBBox();
+    const {left, top, width, height} = getOffset(el) || {left:0, top:0, width:0, height:0};
+    const x = bbox.x + (width / 2) + left;
+    const y = bbox.y + (height / 2) + top;
+    const hostEl = host.getEl();
+    const sXY = toSvgXY(hostEl)(x, y);
+    return host.applyXY(hostEl)(sXY.x, sXY.y);
+  }
+
+  getCenter() {
+    const {host} = this.props;
+    const el = this.getEl();
+    if (host.insideVector(el)) {
+      return this.getVectorCenter(el, host);
+    } else {
+      return this.getHtmlCenter(el, host);
+    }
   }
 
   getBox() {
@@ -158,7 +176,7 @@ class ConnectPoint extends PureComponent {
         absX={absX}
         absY={absY}
         isShow={this.isShow()}
-        onGetEl={this.handleGetEl}
+        onGetEl={this.getEl}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
         onDrag={this.handleDrag}
@@ -171,4 +189,3 @@ class ConnectPoint extends PureComponent {
 }
 
 export default ConnectPoint;
-

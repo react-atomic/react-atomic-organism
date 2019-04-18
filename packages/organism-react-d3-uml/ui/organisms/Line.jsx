@@ -105,7 +105,8 @@ export default Line
 const Styles = {
     line: {
         stroke: '#333',
-        strokeWidth: 1.5
+        strokeWidth: 1.5,
+        fill: 'none',
     },
     area: {
         strokeLinejoin: 'round',

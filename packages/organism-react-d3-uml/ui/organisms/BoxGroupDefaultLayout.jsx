@@ -1,7 +1,7 @@
 import React, {Children, cloneElement} from 'react';
 import getOffset from 'getoffset';
 import get from 'get-object-value';
-import {Group, Rect, Text} from 'organism-react-graph';
+import {Graph, Group, Rect, Text} from 'organism-react-graph';
 
 import BaseBoxComponent from '../organisms/BaseBoxComponent';
 const keys = Object.keys;
@@ -22,7 +22,6 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
     boxsPos: {},
   };
   childrenEl = {};
-
 
   getEl() {
     return this.rect;
@@ -53,6 +52,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
 
   render() {
     const {
+      svg,
       onMouseEnter,
       onMouseLeave,
       showConnectPoint,
@@ -65,34 +65,47 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
       absY,
     } = this.props;
     const {rectW, rectH, boxsPos} = this.state;
-    const translate = `translate(${absX}, ${absY})`;
+    const translate = `translate(${absX}px, ${absY}px)`;
+    const graphStyle = {...Styles.container};
+    const groupStyle = {};
+    if (host.insideVector(this.el)) {
+      groupStyle.transform = translate;
+    } else {
+      graphStyle.transform = translate;
+    }
+    const atom = svg ? 'g' : 'svg';
     return (
-      <Group transform={translate} refCb={el => (this.el = el)}>
-        <Rect
-          style={Styles.rect}
-          rx="5"
-          ry="5"
-          width={rectW}
-          height={rectH}
-          refCb={el => (this.rect = el)}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
-        />
-        <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
-        {Children.map(children, (c, ck) =>
-          cloneElement(c, {
-            boxGroupId,
-            key: ck,
-            pos: translate,
-            host,
-            x: 5,
-            y: get(boxsPos, [ck, 'y'], 0),
-            width: get(boxsPos, [ck, 'w'], 0),
-            height: get(boxsPos, [ck, 'h'], 0),
-            ref: el => (this.childrenEl[ck] = el),
-          }),
-        )}
-      </Group>
+      <Graph
+        atom={atom}
+        style={graphStyle}
+        refCb={el => (this.el = el)}>
+        <Group style={groupStyle}>
+          <Rect
+            style={Styles.rect}
+            rx="5"
+            ry="5"
+            width={rectW}
+            height={rectH}
+            refCb={el => (this.rect = el)}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+          />
+          <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
+          {Children.map(children, (c, ck) =>
+            cloneElement(c, {
+              boxGroupId,
+              key: ck,
+              pos: translate,
+              host,
+              x: 5,
+              y: get(boxsPos, [ck, 'y'], 0),
+              width: get(boxsPos, [ck, 'w'], 0),
+              height: get(boxsPos, [ck, 'h'], 0),
+              ref: el => (this.childrenEl[ck] = el),
+            }),
+          )}
+        </Group>
+      </Graph>
     );
   }
 }
@@ -100,6 +113,11 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
 export default BoxGroupDefaultLayout;
 
 const Styles = {
+  container: {
+    width: 100,
+    position: 'absolute',
+    pointerEvents: 'all',
+  },
   rect: {
     stroke: '#999',
     fill: '#fff',

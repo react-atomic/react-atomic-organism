@@ -35,6 +35,7 @@ class Zoom extends PureComponent {
   render() {
     const {onGetEl, onZoom, withTransform, ...props} = this.props;
     const {transform} = this.state;
+    // disabe state transform, if props has will use props one
     if (withTransform) {
       const thisTransform = transform + '';
       props.transform = thisTransform;

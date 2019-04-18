@@ -3,7 +3,6 @@ import {Group, Text, Rect} from 'organism-react-graph';
 
 import BaseBoxComponent from '../organisms/BaseBoxComponent';
 import ConnectPoint from '../organisms/ConnectPoint';
-import ConnectPointDefaultLayout from '../organisms/ConnectPointDefaultLayout';
 
 class BoxDefaultLayout extends BaseBoxComponent {
   getEl() {
@@ -33,7 +32,6 @@ class BoxDefaultLayout extends BaseBoxComponent {
         key="left"
         cy={cy}
         cx={-12}
-        component={ConnectPointDefaultLayout}
         onShow={box.setIsConnectPointDrag}
       />,
       <ConnectPoint
@@ -44,7 +42,6 @@ class BoxDefaultLayout extends BaseBoxComponent {
         key="right"
         cx={width + 12}
         cy={cy}
-        component={ConnectPointDefaultLayout}
         onShow={box.setIsConnectPointDrag}
       />,
     ];

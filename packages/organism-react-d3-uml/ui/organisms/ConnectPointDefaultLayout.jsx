@@ -4,7 +4,9 @@ import BaseBoxComponent from '../organisms/BaseBoxComponent';
 
 class ConnectPointDefaultLayout extends BaseBoxComponent {
   getEl() {
-    return this.el;
+    if (this.el) {
+      return this.el;
+    }
   }
   render() {
     const {isShow, style, ...props} = this.props;

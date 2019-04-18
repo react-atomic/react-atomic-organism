@@ -41,10 +41,7 @@ class Box extends PureComponent {
       const point = p.getCenter();
       let pointDistance = getDistance(center, point);
       distance.push(pointDistance);
-      distanceMap[pointDistance] = {
-        xy: point,
-        obj: p,
-      };
+      distanceMap[pointDistance] = p;
     });
     const min = Math.min(...distance);
     return distanceMap[min];

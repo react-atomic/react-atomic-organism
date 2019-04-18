@@ -1,6 +1,6 @@
 {
   "name": "getoffset",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Get dom offset",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

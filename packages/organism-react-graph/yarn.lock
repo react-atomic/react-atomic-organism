@@ -237,9 +237,9 @@ commander@2, commander@^2.8.1:
   integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
 
 component-emitter@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.2.1.tgz#137918d6d78283f7df7a6b7c5a63e140e69425e6"
-  integrity sha1-E3kY1teCg/ffemt8WmPhQOaUJeY=
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/component-emitter/-/component-emitter-1.3.0.tgz#16e4070fba8ae29b679f2215853ee181ab2eabc0"
+  integrity sha512-Rd3se6QB+sO1TwqZjscQrurpEPIfO0/yYnSin6Q/rD3mOutHvUrCAhJub3r90uNb+SESBuE0QYoB90YdfatsRg==
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -383,9 +383,9 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.1.0.tgz#7b8764fedf4fee0ef2f1e38f4ca74705517b6076"
-  integrity sha512-Qp01vURHUcuBbkLsj90NjUvYTnDvD4eSYK2vbwTyD6lhK2KDiBBRiDjm97MS/kdxvY6xGK5evCN6qUfysIyy7A==
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.1.1.tgz#a3d8b0ecafbb54f0f42df8b5f40aecc5b245da15"
+  integrity sha512-D9W37cwUqiTrmq3trQPRO68o0HHMfMzXmcU9W4qEpbqvgyjGF4COos1pqu/zBB318trXdjLTsU0AN4tGh7pJzw==
   dependencies:
     array.min.max "*"
     d3 "*"
@@ -1299,9 +1299,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.2.tgz#7aeeed55a8f139a0453068103c0fba2dae654b04"
-  integrity sha512-GDkP0wQ4GMHdWALpbomqXloymQ7YCR1ZYORMmxF9Pf52q5WH9DqHmwjMgHVg5M1v/7kBWsorNpWPMK6ZJ/MQxg==
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.3.tgz#e7d60be37d0256072b4eb8654e1ca3e885b1e0ff"
+  integrity sha512-c8eFOqfFihO4YSZJwildaswwqmmL6pvcMdkJWPqGo7v3VciJKy53a4irEiN8GTLP+1utwXGANPYHdB59JuELhQ==
   dependencies:
     class-lib "*"
     get-object-value "*"

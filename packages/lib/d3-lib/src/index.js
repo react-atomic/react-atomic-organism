@@ -15,6 +15,7 @@ const {
   stackOffsetNone: d3_stackOffsetNone,
   drag: d3_drag,
   select: d3_select,
+  zoom: d3_zoom,
 } = d3;
 import get from 'get-object-value';
 import arrayMinMax from 'array.min.max';
@@ -22,6 +23,7 @@ import arrayMinMax from 'array.min.max';
 const keys = Object.keys;
 const isArray = Array.isArray;
 
+// https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
 const getCurveType = () => d3_curveCatmullRom.alpha(0.5);
 
 const defaultXLocator = d => d.x;
@@ -261,8 +263,7 @@ const d3DnD = ({el, start, end, drag, subject}) => {
 
 const d3Zoom = ({el, scaleExtent, callback}) => {
   const dSelect = d3Select(el);
-  const zoom = d3
-    .zoom()
+  const zoom = d3_zoom()
     .scaleExtent(scaleExtent)
     .on('zoom', () => callback(d3Event().transform));
   dSelect.call(zoom);

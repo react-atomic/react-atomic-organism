@@ -1,8 +1,10 @@
 import React, {PureComponent, cloneElement} from 'react';
-import {Graph, Zoom} from 'organism-react-graph';
+import {SemanticUI} from 'react-atomic-molecule';
+import {Graph, Group, Zoom} from 'organism-react-graph';
 import get, {getDefault} from 'get-object-value';
-import {toSvgMatrixXY} from 'getoffset';
+import {getSvgMatrixXY} from 'getoffset';
 import callfunc from 'call-func';
+import {toInt} from 'to-percent-js';
 
 import ArrowHead from '../molecules/ArrowHead';
 import BoxGroup from '../organisms/BoxGroup';
@@ -14,6 +16,13 @@ import BoxDefaultLayout from '../organisms/BoxDefaultLayout';
 let lineCounts = 0;
 const keys = Object.keys;
 let lazeTimer;
+
+class HTMLGraph extends PureComponent {
+  render() {
+    const props = this.props;
+    return <SemanticUI {...props} />;
+  }
+}
 
 class UMLGraph extends PureComponent {
   state = {
@@ -32,7 +41,6 @@ class UMLGraph extends PureComponent {
     connToBoxLocator: d => d,
   };
 
-  itemTimer = null;
   lineTimer = null;
   boxGroupNameInvertMap = {};
   boxGroupMap = {};
@@ -176,7 +184,7 @@ class UMLGraph extends PureComponent {
   }
 
   getEl() {
-    return this.el;
+    return this.vector;
   }
 
   setConnectStartPoint(el) {
@@ -223,15 +231,13 @@ class UMLGraph extends PureComponent {
     const name = obj.getName();
     this.boxGroupNameInvertMap[name] = id;
     this.boxGroupMap[id] = obj;
-    keys(get(this.boxQueue, null, {})).forEach(
-      key => {
-        const boxObj = this.boxQueue[key];
-        const isAdd = this.addBox(boxObj);
-        if (isAdd) {
-          delete this.boxQueue[key];
-        }
+    keys(get(this.boxQueue, null, {})).forEach(key => {
+      const boxObj = this.boxQueue[key];
+      const isAdd = this.addBox(boxObj);
+      if (isAdd) {
+        delete this.boxQueue[key];
       }
-    );
+    });
   }
 
   addBoxQueue(obj) {
@@ -254,6 +260,9 @@ class UMLGraph extends PureComponent {
     group.setBoxNameInvertMap(obj.getId(), obj.getName());
     return true;
   }
+
+  insideHtml = el => this.html.contains(el);
+  insideVector = el => this.vector.contains(el);
 
   getBox(id, groupId) {
     const group = get(this.boxGroupMap, [groupId]);
@@ -285,12 +294,7 @@ class UMLGraph extends PureComponent {
 
   applyXY = dom => (pX, pY) => {
     const zoom = this.getTransform();
-    const zoomX = get(zoom, ['x'], 0);
-    const zoomY = get(zoom, ['y'], 0);
-    const zoomK = get(zoom, ['k'], 1);
-    let {x, y} = toSvgMatrixXY(dom)(pX, pY);
-    x = (x - zoomX) / zoomK;
-    y = (y - zoomY) / zoomK;
+    let {x, y} = getSvgMatrixXY(dom, zoom)(pX, pY);
     return {x, y};
   };
 
@@ -348,6 +352,10 @@ class UMLGraph extends PureComponent {
     return groupConn;
   }
 
+  handleZoom = oTransform => {
+    this.setState({oTransform});
+  };
+
   componentDidMount() {
     setTimeout(() => {
       const groupConn = this.syncPropConnects();
@@ -387,10 +395,45 @@ class UMLGraph extends PureComponent {
       onGetBoxComponent,
       ...props
     } = this.props;
-    const {lines} = this.state;
+    const {lines, oTransform} = this.state;
+    const {k, x, y} = oTransform || {};
+    const transform = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
     return (
-      <Graph refCb={el => (this.el = el)} {...props}>
-        <Zoom el={() => this.getEl()} ref={el => (this.zoom = el)}>
+      <SemanticUI style={Styles.container} refCb={el => this.zoomEl = el}>
+        <Zoom
+          atom="null"
+          onGetEl={() => this.zoomEl}
+          ref={el => (this.zoom = el)}
+          onZoom={this.handleZoom}
+        />
+        <Graph refCb={el => this.vector = el} {...props} style={{...Styles.svg, transform}}>
+          <Group>
+            {(boxGroupsLocator(data) || []).map((item, tbKey) => (
+              <BoxGroup
+                ref={el => this.addBoxGroup(el)}
+                host={this}
+                svg
+                data={data}
+                name={boxGroupNameLocator(item)}
+                key={'box-group-' + tbKey}>
+                {boxsLocator(item).map((colItem, colKey) => (
+                  <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
+                ))}
+              </BoxGroup>
+            ))}
+            {keys(lines).map(key => (
+              <Line
+                onClick={onLinkClick}
+                {...lines[key]}
+                name={key}
+                key={key}
+                host={this}
+              />
+            ))}
+          <ArrowHead />
+          </Group>
+        </Graph>
+        <HTMLGraph style={{...Styles.htmlGraph, transform}} refCb={el => this.html = el}>
           {(boxGroupsLocator(data) || []).map((item, tbKey) => (
             <BoxGroup
               ref={el => this.addBoxGroup(el)}
@@ -403,20 +446,35 @@ class UMLGraph extends PureComponent {
               ))}
             </BoxGroup>
           ))}
-          {keys(lines).map(key => (
-            <Line
-              onClick={onLinkClick}
-              {...lines[key]}
-              name={key}
-              key={key}
-              host={this}
-            />
-          ))}
-        </Zoom>
-        <ArrowHead />
-      </Graph>
+        </HTMLGraph>
+      </SemanticUI>
     );
   }
 }
 
 export default UMLGraph;
+
+const Styles = {
+  container: {
+    overflow: 'hidden',
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+  },
+  svg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    overflow: 'visible',
+  },
+  htmlGraph: {
+    pointerEvents: 'none',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+};
