@@ -270,7 +270,7 @@ const d3Zoom = ({el, scaleExtent, callback}) => {
   return zoom;
 };
 
-const getTransform = el => d3_zoomTransform(d3Select(el));
+const getZoom = el => d3_zoomTransform(d3Select(el).node());
 
 const d3Event = () => d3.event;
 
@@ -278,7 +278,7 @@ const d3Select = el => d3_select(el);
 
 export {
   getPointsCenter,
-  getTransform,
+  getZoom,
   line,
   curve,
   pie,
