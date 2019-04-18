@@ -16,6 +16,7 @@ const {
   drag: d3_drag,
   select: d3_select,
   zoom: d3_zoom,
+  zoomTransform: d3_zoomTransform,
 } = d3;
 import get from 'get-object-value';
 import arrayMinMax from 'array.min.max';
@@ -269,12 +270,15 @@ const d3Zoom = ({el, scaleExtent, callback}) => {
   return zoom;
 };
 
+const getTransform = el => d3_zoomTransform(d3Select(el));
+
 const d3Event = () => d3.event;
 
 const d3Select = el => d3_select(el);
 
 export {
   getPointsCenter,
+  getTransform,
   line,
   curve,
   pie,
