@@ -40,8 +40,8 @@ class Zoom extends PureComponent {
     const {onGetEl, onZoom, withTransform, ...props} = this.props;
     const {transform} = this.state;
     // disabe state transform, if props has will use props one
-    if (withTransform) {
-      props.transform = transform.toString();
+    if (withTransform && transform) {
+      props.transform = transform+'';
     }
     return <Group name="zoom" {...props} />;
   }
