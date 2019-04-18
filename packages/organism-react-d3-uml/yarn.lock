@@ -383,9 +383,9 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.1.2.tgz#44b91085fd4d2ace156ea3d6abe2a4f665ee60b2"
-  integrity sha512-7leWWGvGbmYBJyeE5ITo9qPx5ESCFd1pIPE85LSVDNZQj65ykqzNljw3DM8AhirNgOGT85RLECWhRA21ak5pKg==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.2.2.tgz#2bc18c2c607aa62716ece2be79c4356ae526d170"
+  integrity sha512-BsRsICgyww3ycXsLz97gmOmKwNMOthJ+RPN8IlhmocxxHpVrhCMRRArnSo89SRnjiwm04pOK+SeEJNZPicRngQ==
   dependencies:
     array.min.max "*"
     d3 "*"
@@ -713,9 +713,9 @@ get-value@^2.0.3, get-value@^2.0.6:
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
 getoffset@*:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.2.0.tgz#a3dfb8e37eb2a44d710f65d9de10f988a640d99f"
-  integrity sha512-7H/c+MQRNyH2x6VSUCLLUnbqQks+SYfabJWVA6vA7jQtHMGDIL+mY8jgP5QukU9TwVdAKxL3+MvuALJGzTUjFg==
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.2.1.tgz#3fc84e5eb84072c1029c0447644781ced4aea3b5"
+  integrity sha512-oR3z6zQqDsXjPNnloYeLdTTG7agCcp/vn9nescZPc/aj7mCmQzEq2epjOMdEKrT0IO13LpyXdPgWZSLMyaIGbw==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -1222,9 +1222,9 @@ once@^1.3.0:
     wrappy "1"
 
 organism-react-graph@^0.1.0-beta:
-  version "0.1.0-beta.2"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.2.tgz#f005ce294364f1827cb7a22bf4b4461601c26bfe"
-  integrity sha512-04IfhoAtw4ewOvEQIVgd7xXTHNmfwscQgtlgNHVVt1YFpUVN/+3jVoVIy3wuOTj92ZqNKkNQuBAI64G6KEm36w==
+  version "0.1.0-beta.3"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.3.tgz#cfae99dea0246dcd606538d0638cae18a2749285"
+  integrity sha512-oE5mjZJtDfT5CmoLQBAESSZenk+lPPLSutVQlsNVXu+hFB4eo3EWbXLsPrkbIfzx7GpYTH7LkDB0X/zfT5WNhg==
   dependencies:
     call-func "*"
     colorlib "*"
@@ -1233,6 +1233,7 @@ organism-react-graph@^0.1.0-beta:
     getoffset "*"
     react-atomic-molecule "*"
     reshow-constant "*"
+    to-percent-js "*"
     win-doc "*"
 
 os-homedir@^1.0.0:

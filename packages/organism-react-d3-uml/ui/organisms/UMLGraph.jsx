@@ -352,7 +352,8 @@ class UMLGraph extends PureComponent {
     return groupConn;
   }
 
-  handleZoom = oTransform => {
+  handleZoom = e => {
+    const {transform: oTransform} = e;
     this.setState({oTransform});
   };
 
@@ -400,14 +401,12 @@ class UMLGraph extends PureComponent {
     const transform = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
     return (
       <SemanticUI style={Styles.container} refCb={el => this.zoomEl = el}>
-        <Zoom
-          atom="null"
-          onGetEl={() => this.zoomEl}
-          ref={el => (this.zoom = el)}
-          onZoom={this.handleZoom}
-        />
-        <Graph refCb={el => this.vector = el} {...props} style={{...Styles.svg, transform}}>
-          <Group>
+        <Graph refCb={el => this.vector = el} {...props} style={Styles.svg}>
+          <Zoom
+            onGetEl={() => this.zoomEl}
+            ref={el => (this.zoom = el)}
+            onZoom={this.handleZoom}
+          >
             {(boxGroupsLocator(data) || []).map((item, tbKey) => (
               <BoxGroup
                 ref={el => this.addBoxGroup(el)}
@@ -431,7 +430,7 @@ class UMLGraph extends PureComponent {
               />
             ))}
           <ArrowHead />
-          </Group>
+          </Zoom>
         </Graph>
         <HTMLGraph style={{...Styles.htmlGraph, transform}} refCb={el => this.html = el}>
           {(boxGroupsLocator(data) || []).map((item, tbKey) => (
@@ -471,9 +470,7 @@ const Styles = {
   },
   htmlGraph: {
     pointerEvents: 'none',
-    position: 'absolute',
-    top: 0,
-    left: 0,
+    transformOrigin: '0 0',
     width: '100%',
     height: '100%',
   },

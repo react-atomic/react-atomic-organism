@@ -53,6 +53,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
   render() {
     const {
       svg,
+      className,
       onMouseEnter,
       onMouseLeave,
       showConnectPoint,
@@ -76,6 +77,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
     const atom = svg ? 'g' : 'svg';
     return (
       <Graph
+        className={className}
         atom={atom}
         style={graphStyle}
         refCb={el => (this.el = el)}>
@@ -117,6 +119,7 @@ const Styles = {
     width: 100,
     position: 'absolute',
     pointerEvents: 'all',
+    overflow: 'visible',
   },
   rect: {
     stroke: '#999',

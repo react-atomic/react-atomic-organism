@@ -82,6 +82,7 @@ class BoxGroup extends PureComponent {
         onGetEl={this.getEl}
         component={build(component, {
           ...this.props,
+          className: 'box-group',
           ref: el => (this.el = el),
           boxGroupId: this.id,
           absX,

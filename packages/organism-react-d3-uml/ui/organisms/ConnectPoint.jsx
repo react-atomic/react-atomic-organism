@@ -101,10 +101,9 @@ class ConnectPoint extends PureComponent {
   }
 
   getHtmlCenter(el, host) {
-    const bbox = el.getBBox();
     const {left, top, width, height} = getOffset(el) || {left:0, top:0, width:0, height:0};
-    const x = bbox.x + (width / 2) + left;
-    const y = bbox.y + (height / 2) + top;
+    const x = (width / 2) + left;
+    const y = (height / 2) + top;
     const hostEl = host.getEl();
     const sXY = toSvgXY(hostEl)(x, y);
     return host.applyXY(hostEl)(sXY.x, sXY.y);
