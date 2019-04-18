@@ -37,11 +37,13 @@ const toSvgXY = (dom, zoom) => (x, y) => {
 
 const getSvgMatrixXY = (dom, zoom) => (x, y) => {
   const svg = dom.ownerSVGElement || dom;
-  const offset = svg.getBoundingClientRect();
-  const matrix = dom.getScreenCTM();
-  const svgX = matrix.a * x + matrix.c * y + matrix.e - offset.left;
-  const svgY = matrix.b * x + matrix.d * y + matrix.f - offset.top;
-  return getZoomXY(zoom)(svgX, svgY);
+  if (svg.getScreenCTM) {
+    const {a, b, c, d, e, f} = dom.getScreenCTM();
+    const {left, top} = svg.getBoundingClientRect();
+    const svgX = a * x + c * y + e - left;
+    const svgY = b * x + d * y + f - top;
+    return getZoomXY(zoom)(svgX, svgY);
+  }
 };
 
 const getZoomXY = zoom => (x, y) => {
