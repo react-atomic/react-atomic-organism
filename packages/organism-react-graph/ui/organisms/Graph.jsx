@@ -1,8 +1,6 @@
 import React from 'react'
-import {SemanticUI} from 'react-atomic-molecule'
+import Svg from '../organisms/Svg';
 
-const Graph = props => <SemanticUI {...props} />
-
-Graph.defaultProps = {atom: 'svg'};
+const Graph = props => <Svg {...props} />
 
 export default Graph
