@@ -1,32 +1,31 @@
 import React, {PureComponent} from 'react';
-import get from 'get-object-value';
 
 class BaseString extends PureComponent {
   state = {};
 
   resetProps(thisProps, thisState) {
-    const {parentWidth, alignCenter, x, y, ...props} = thisProps;
-    let {x: stateX, y: stateY} = thisState;
+    const {parentWidth, alignCenter, x, ...props} = thisProps;
+    const {x: stateX} = thisState;
     let thisX = x;
-    let thisY = y;
     if (alignCenter) {
+      props.textAnchor = 'middle';
       thisX = stateX;
     }
     if (thisX) {
       props.x = thisX;
     }
-    if (thisY) {
-      props.y = thisY;
-    }
     return props;
   }
 
+  getEl() {
+    return this.el;
+  }
+
   update(props, prevProps) {
-    prevProps = get(prevProps, null, {});
-    const el = this.el;
+    const {parentWidth: prevParentWidth} = prevProps || {};
     const {parentWidth, alignCenter} = props;
     if (alignCenter && parentWidth !== prevProps.parentWidth) {
-      const {width} = el.getBBox();
+      const {width} = this.getEl().getBBox();
       const x = (parentWidth - width) / 2;
       this.setState({x});
     }
