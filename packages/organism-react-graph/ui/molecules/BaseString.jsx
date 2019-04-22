@@ -1,18 +1,30 @@
 import React, {PureComponent} from 'react';
 
+const keys = Object.keys;
+
 class BaseString extends PureComponent {
   state = {};
 
   resetProps(thisProps, thisState) {
-    const {parentWidth, alignCenter, x, ...props} = thisProps;
-    const {x: stateX} = thisState;
+    const {parentWidth, alignCenter, x, y, ...props} = thisProps;
+    const {x: stateX, y: stateY} = thisState;
     let thisX = x;
+    let thisY = y;
     if (alignCenter) {
-      props.textAnchor = 'middle';
-      thisX = stateX;
+      if (stateX) {
+        thisX = stateX;
+        props.textAnchor = 'middle';
+      }
+      if (stateY) {
+        thisY = stateY;
+        props.alignmentBaseline = 'central';
+      }
     }
     if (thisX) {
       props.x = thisX;
+    }
+    if (thisY) {
+      props.y = thisY;
     }
     return props;
   }
@@ -22,12 +34,19 @@ class BaseString extends PureComponent {
   }
 
   update(props, prevProps) {
-    const {parentWidth: prevParentWidth} = prevProps || {};
-    const {parentWidth, alignCenter} = props;
-    if (alignCenter && parentWidth !== prevProps.parentWidth) {
-      const {width} = this.getEl().getBBox();
-      const x = (parentWidth - width) / 2;
-      this.setState({x});
+    const {parentWidth: prevParentWidth, parentHeight: prevParentHeight} = prevProps || {};
+    const {parentWidth, parentHeight, alignCenter} = props;
+    if (alignCenter) {
+      const nextState = {};
+      if (parentWidth && parentWidth !== prevParentWidth) {
+        nextState.x = parentWidth / 2;
+      }
+      if (parentHeight && parentHeight !== prevParentHeight) {
+        nextState.y = parentHeight / 2;
+      }
+      if (keys(nextState).length) {
+        this.setState(nextState);
+      }
     }
   }
 

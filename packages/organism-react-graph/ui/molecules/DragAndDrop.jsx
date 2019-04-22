@@ -99,6 +99,7 @@ class DragAndDrop extends PureComponent {
       onDragStart,
       onDrag,
       onDragEnd,
+      refCb,
       ...props
     } = this.props;
     const build = isValidElement(component) ? cloneElement : createElement;
@@ -108,7 +109,7 @@ class DragAndDrop extends PureComponent {
       ...get(component, ['props', 'style']),
     };
     if (!onGetEl) {
-      props.refCb = el => (this.el = el);
+      props.refCb = el => {this.el = el; callfunc(refCb, [el]);};
     }
     return build(component, props);
   }
