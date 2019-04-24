@@ -60,9 +60,9 @@ class ConnectPoint extends PureComponent {
     }
     if (!endXY) {
       host.setConnectEndPoint(null);
-      const hostEl = host.getEl();
+      const hostEl = host.getVectorEl();
       const end = mouse(sourceEvent, hostEl);
-      endXY = host.applyXY(hostEl)(end[0], end[1]);
+      endXY = host.applyXY(end[0], end[1]);
     }
     host.updateLine(lineId, {start: center, end: endXY});
   };
@@ -97,16 +97,16 @@ class ConnectPoint extends PureComponent {
     const {left, top, width, height} = el.getBoundingClientRect();
     const x = bbox.x + width / 2;
     const y = bbox.y + height / 2;
-    return host.applyXY(el)(x, y);
+    return host.applyXY(x, y);
   }
 
   getHtmlCenter(el, host) {
     const {left, top, width, height} = getOffset(el) || {left:0, top:0, width:0, height:0};
     const x = (width / 2) + left;
     const y = (height / 2) + top;
-    const hostEl = host.getEl();
+    const hostEl = host.getVectorEl();
     const sXY = toSvgXY(hostEl)(x, y);
-    return host.applyXY(hostEl)(sXY.x, sXY.y);
+    return host.applyXY(sXY.x, sXY.y);
   }
 
   getCenter() {

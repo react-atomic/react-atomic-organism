@@ -1,8 +1,8 @@
 import React, {PureComponent, cloneElement} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
+import {SemanticUI, build} from 'react-atomic-molecule';
 import {Graph, Group, Zoom} from 'organism-react-graph';
 import get, {getDefault} from 'get-object-value';
-import {getSvgMatrixXY} from 'getoffset';
+import getOffset, {mouse, getSvgMatrixXY} from 'getoffset';
 import callfunc from 'call-func';
 import {toInt} from 'to-percent-js';
 
@@ -39,6 +39,7 @@ class UMLGraph extends PureComponent {
     connToBoxGroupLocator: d => d,
     connFromBoxLocator: d => d,
     connToBoxLocator: d => d,
+    arrowHeadComponent: ArrowHead,
   };
 
   lineTimer = null;
@@ -49,6 +50,7 @@ class UMLGraph extends PureComponent {
   endPoint = null;
   updateQueue = {};
   connects = {};
+  lazyMove = {};
 
   addLine() {
     const name = 'line-' + lineCounts;
@@ -183,7 +185,7 @@ class UMLGraph extends PureComponent {
     }
   }
 
-  getEl() {
+  getVectorEl() {
     return this.vector;
   }
 
@@ -211,6 +213,24 @@ class UMLGraph extends PureComponent {
   add(payload) {
     const {onAdd} = this.props;
     callfunc(onAdd, [payload]);
+  }
+
+  addLazyMoveWithMouseEvent(boxGroupName, e) {
+    const mouseXY = mouse(e, this.getVectorEl());
+    const {x, y} = this.applyXY(mouseXY[0], mouseXY[1]);
+    this.addLazyMove(boxGroupName, x, y);
+  }
+
+  addLazyMove(boxGroupName, x, y) {
+    this.lazyMove[boxGroupName] = {x, y};
+  }
+
+  getLazyMoveByName(boxGroupName) {
+    const xy = {...this.lazyMove[boxGroupName]}; 
+    if (xy) {
+      delete this.lazyMove[boxGroupName];
+      return xy;
+    } 
   }
 
   change(name, payload) {
@@ -264,6 +284,16 @@ class UMLGraph extends PureComponent {
   insideHtml = el => this.html.contains(el);
   insideVector = el => this.vector.contains(el);
 
+  isOnGraph = el => {
+    const umlRect = getOffset(this.zoomEl);
+    const elRect = getOffset(el);
+    const atTop = elRect.bottom <= umlRect.top;
+    const atRight = elRect.left >= umlRect.right;
+    const atBottom = elRect.top >= umlRect.bottom;
+    const atLeft = elRect.right <= umlRect.left;
+    return !(atTop || atRight || atBottom || atLeft);
+  };
+
   getBox(id, groupId) {
     const group = get(this.boxGroupMap, [groupId]);
     if (group) {
@@ -292,9 +322,10 @@ class UMLGraph extends PureComponent {
     return t;
   };
 
-  applyXY = dom => (pX, pY) => {
+  applyXY = (pX, pY) => {
+    const dom = this.getVectorEl();
     const zoom = this.getTransform();
-    let {x, y} = getSvgMatrixXY(dom, zoom)(pX, pY);
+    const {x, y} = getSvgMatrixXY(dom, zoom)(pX, pY);
     return {x, y};
   };
 
@@ -380,6 +411,7 @@ class UMLGraph extends PureComponent {
 
   render() {
     const {
+      arrowHeadComponent,
       data,
       boxGroupNameLocator,
       boxNameLocator,
@@ -400,13 +432,12 @@ class UMLGraph extends PureComponent {
     const {k, x, y} = oTransform || {};
     const transform = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
     return (
-      <SemanticUI style={Styles.container} refCb={el => this.zoomEl = el}>
-        <Graph refCb={el => this.vector = el} {...props} style={Styles.svg}>
+      <SemanticUI style={Styles.container} refCb={el => (this.zoomEl = el)}>
+        <Graph refCb={el => (this.vector = el)} {...props} style={Styles.svg}>
           <Zoom
             onGetEl={() => this.zoomEl}
             ref={el => (this.zoom = el)}
-            onZoom={this.handleZoom}
-          >
+            onZoom={this.handleZoom}>
             {keys(lines).map(key => (
               <Line
                 onClick={onLinkClick}
@@ -416,10 +447,12 @@ class UMLGraph extends PureComponent {
                 host={this}
               />
             ))}
-          <ArrowHead />
+            {build(arrowHeadComponent)()}
           </Zoom>
         </Graph>
-        <HTMLGraph style={{...Styles.htmlGraph, transform}} refCb={el => this.html = el}>
+        <HTMLGraph
+          style={{...Styles.htmlGraph, transform}}
+          refCb={el => (this.html = el)}>
           {(boxGroupsLocator(data) || []).map((item, tbKey) => (
             <BoxGroup
               ref={el => this.addBoxGroup(el)}

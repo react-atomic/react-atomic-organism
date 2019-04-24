@@ -21,9 +21,11 @@ class BoxGroup extends PureComponent {
   boxNameInvertMap = {};
   boxs = {};
 
-  move = ({absX, absY}) => {
-    this.setState({absX, absY});
+  move = (x, y) => {
+    this.setState({absX: x, absY: y});
   };
+
+  handleDrag = ({absX, absY}) => this.move(absX, absY);
 
   getBoxIdByName(name) {
     return get(this, ['boxNameInvertMap', name]);
@@ -68,6 +70,14 @@ class BoxGroup extends PureComponent {
     boxGroupId++;
   }
 
+  componentDidMount() {
+    const {name, host} = this.props;
+    const {x, y} = host.getLazyMoveByName(name) || {};
+    if (x || y) {
+      this.move(x, y);
+    }
+  }
+
   render() {
     const {name, host} = this.props;
     const {rectW, rectH, boxsPos, absX, absY} = this.state;
@@ -77,7 +87,7 @@ class BoxGroup extends PureComponent {
       <DragAndDrop
         absX={absX}
         absY={absY}
-        onDrag={this.move}
+        onDrag={this.handleDrag}
         zoom={host.getTransform}
         onGetEl={this.getEl}
         component={build(component, {

@@ -1,9 +1,5 @@
-import React, {
-  PureComponent,
-  cloneElement,
-  createElement,
-  isValidElement,
-} from 'react';
+import React, { PureComponent } from 'react';
+import {build} from 'react-atomic-molecule';
 import {d3DnD, d3Event} from 'd3-lib';
 import getOffset, {unifyTouch} from 'getoffset';
 import get from 'get-object-value';
@@ -102,16 +98,16 @@ class DragAndDrop extends PureComponent {
       refCb,
       ...props
     } = this.props;
-    const build = isValidElement(component) ? cloneElement : createElement;
+    const {style: compStyle, refCb: compRefcb} = get(component, ['props'], {});
     props.style = {
       ...style,
       ...Styles.container,
-      ...get(component, ['props', 'style']),
+      ...compStyle,
     };
     if (!onGetEl) {
-      props.refCb = el => {this.el = el; callfunc(refCb, [el]);};
+      props.refCb = el => {this.el = el; callfunc(refCb, [el]); callfunc(compRefcb, [el]);};
     }
-    return build(component, props);
+    return build(component)(props);
   }
 }
 

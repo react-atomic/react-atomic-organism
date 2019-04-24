@@ -1222,9 +1222,9 @@ once@^1.3.0:
     wrappy "1"
 
 organism-react-graph@^0.1.0-beta:
-  version "0.1.0-beta.3"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.3.tgz#cfae99dea0246dcd606538d0638cae18a2749285"
-  integrity sha512-oE5mjZJtDfT5CmoLQBAESSZenk+lPPLSutVQlsNVXu+hFB4eo3EWbXLsPrkbIfzx7GpYTH7LkDB0X/zfT5WNhg==
+  version "0.1.0-beta.7"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.7.tgz#dda5b28fed29e6f2092e8801c70f209119cc8e5a"
+  integrity sha512-OgK4ivGGn1OWuBMSGGcZ5O6lLyggseEZvrBnRNVWUNY1FPf3bhQnxOHPy11T8GYhP1bXMHQiuZo511YDP2wXNA==
   dependencies:
     call-func "*"
     colorlib "*"
@@ -1315,9 +1315,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.3.tgz#e7d60be37d0256072b4eb8654e1ca3e885b1e0ff"
-  integrity sha512-c8eFOqfFihO4YSZJwildaswwqmmL6pvcMdkJWPqGo7v3VciJKy53a4irEiN8GTLP+1utwXGANPYHdB59JuELhQ==
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.5.tgz#12c365c39f57f511d3ccf160bed1fe1da37c8264"
+  integrity sha512-LIFupoBu7QGAu92Ji8twt3xjGjCldAtHYEc0Vbl7VXd53wqxHvoIpWDC0wqUdJ0EXPf57Y2FTNEwu3GmPPrrwA==
   dependencies:
     class-lib "*"
     get-object-value "*"
