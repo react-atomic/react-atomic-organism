@@ -16,6 +16,7 @@
     "getoffset": "*",
     "organism-react-graph": "^0.1.0-beta",
     "react-atomic-molecule": "*",
+    "reshow-constant": "*",
     "to-percent-js": "*"
   },
   "devDependencies": {

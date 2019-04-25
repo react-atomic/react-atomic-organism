@@ -1114,9 +1114,9 @@ nanomatch@^1.2.9:
     to-regex "^3.0.1"
 
 needle@^2.2.1:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.3.0.tgz#ce3fea21197267bacb310705a7bbe24f2a3a3492"
-  integrity sha512-QBZu7aAFR0522EyaXZM0FZ9GLpq6lvQ3uq8gteiDUp7wKdy0lSd2hPlgFwVuW1CBkfEs9PfDQsQzZghLs/psdg==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.3.1.tgz#d272f2f4034afb9c4c9ab1379aabc17fc85c9388"
+  integrity sha512-CaLXV3W8Vnbps8ZANqDGz7j4x7Yj1LW4TWF/TQuDfj7Cfx4nAPTvw98qgTevtto1oHDrh3pQkaODbqupXlsWTg==
   dependencies:
     debug "^4.1.0"
     iconv-lite "^0.4.4"
@@ -1222,9 +1222,9 @@ once@^1.3.0:
     wrappy "1"
 
 organism-react-graph@^0.1.0-beta:
-  version "0.1.0-beta.7"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.7.tgz#dda5b28fed29e6f2092e8801c70f209119cc8e5a"
-  integrity sha512-OgK4ivGGn1OWuBMSGGcZ5O6lLyggseEZvrBnRNVWUNY1FPf3bhQnxOHPy11T8GYhP1bXMHQiuZo511YDP2wXNA==
+  version "0.1.0-beta.8"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.8.tgz#b0aad3dd5467c7681043dfaf0b6d10c92724f8bc"
+  integrity sha512-q6SQGnTPFxpzB3XWUIDjnubYcxvOc1fzqnrOBTBYoRNhrPk76DfXtn4XzRzIgMdohzSLrptT7TweAoyDVmObkA==
   dependencies:
     call-func "*"
     colorlib "*"

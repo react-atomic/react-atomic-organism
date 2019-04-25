@@ -47,26 +47,37 @@ class ConnectController {
 
   deleteLine(name) {
     this.clearTimeout();
-    this.host.setState(({lines}) => {
-      const line = lines[name];
-      if (line) {
-        const from = line.from;
-        const to = line.to;
-        if (from) {
-          from.delLine(name);
+    const payload = {};
+    this.host.setState(
+      ({lines}) => {
+        const line = lines[name];
+        if (line) {
+          const from = line.from;
+          const to = line.to;
+          if (from) {
+            from.delLine(name);
+            payload.from = from.getBoxGroupName();
+          }
+          if (to) {
+            to.delLine(name);
+            payload.to = to.getBoxGroupName();
+          }
+          if (from && to) {
+            const {mergeId, invertMergeId} = this.getConnectIds(from, to);
+            delete this.connects[mergeId];
+            delete this.connects[invertMergeId];
+          }
+          delete lines[name];
         }
-        if (to) {
-          to.delLine(name);
+        return {lines: {...lines}};
+      },
+      () => {
+        const {from, to} = payload;
+        if (from || to) {
+          this.host.handleLineDel(payload);
         }
-        if (from && to) {
-          const {mergeId, invertMergeId} = this.getConnectIds(from, to);
-          delete this.connects[mergeId];
-          delete this.connects[invertMergeId];
-        }
-        delete lines[name];
-      }
-      return {lines: {...lines}};
-    });
+      },
+    );
   }
 
   getConnectIds(from, to) {
@@ -126,18 +137,22 @@ class ConnectController {
     );
     const connects = this.connects;
     if (!get(connects, [mergeId]) && !get(connects, [invertMergeId])) {
-      connects[mergeId] = lineName;
-      from.setLine(lineName, 'from');
-      to.setLine(lineName, 'to');
+      const host = this.host;
       const payload = {
         from,
         to,
         start: from.getCenter(),
         end: to.getCenter(),
       };
-      this.updateLine(lineName, payload);
-      this.host.handleConnAdd(lineName, payload);
-      return true;
+      const isContinue = host.handleConnWillAdd({...payload, lineName});
+      if (isContinue) {
+        connects[mergeId] = lineName;
+        from.setLine(lineName, 'from');
+        to.setLine(lineName, 'to');
+        this.updateLine(lineName, payload);
+        host.handleConnAdd({...payload, lineName});
+      }
+      return isContinue;
     } else {
       return false;
     }

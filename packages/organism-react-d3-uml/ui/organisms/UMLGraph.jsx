@@ -5,6 +5,7 @@ import get, {getDefault} from 'get-object-value';
 import getOffset, {mouse, getSvgMatrixXY} from 'getoffset';
 import callfunc from 'call-func';
 import {toInt} from 'to-percent-js';
+import {UNDEFINED} from 'reshow-constant';
 
 import ArrowHead from '../molecules/ArrowHead';
 import BoxGroup from '../organisms/BoxGroup';
@@ -221,7 +222,7 @@ class UMLGraph extends PureComponent {
       const toBoxGroupName = connToBoxGroupLocator(conn);
       const toBoxName = connToBoxLocator(conn);
       if (!fromBoxGroupName || !fromBoxName || !toBoxGroupName || !toBoxName) {
-        console.warn('Sync props conns failed', [
+        console.error('Sync props conns failed', [
           fromBoxGroupName,
           fromBoxName,
           toBoxGroupName,
@@ -252,14 +253,33 @@ class UMLGraph extends PureComponent {
     this.setState({oTransform});
   };
 
-  handleLineEdit = (e, lineObj) => {
+  handleLineEdit = payload => {
     const {onLineEdit} = this.props;
-    callfunc(onLineEdit, [e, lineObj]);
+    callfunc(onLineEdit, [payload]);
   };
 
-  handleConnAdd = (lineName, payload) => {
+  handleLineDel = payload => {
+    const {onLineDel} = this.props;
+    callfunc(onLineDel, [payload]);
+  };
+
+  handleConnAdd = payload => {
     const {onConnAdd} = this.props;
-    callfunc(onConnAdd, [lineName, payload]);
+    callfunc(onConnAdd, [payload]);
+  };
+
+  handleConnWillAdd = payload => {
+    const {onConnWillAdd} = this.props;
+    let isContinue = true;
+    if (onConnWillAdd) {
+      const result = callfunc(onConnWillAdd, [payload]);
+      if (UNDEFINED === typeof result) {
+        console.error('onConnWillAdd should not return undefined.');
+      } else {
+        isContinue = result;
+      }
+    }
+    return isContinue;
   };
 
   componentDidMount() {
@@ -297,7 +317,9 @@ class UMLGraph extends PureComponent {
       onEdit,
       onDel,
       onConnAdd,
+      onConnWillAdd,
       onLineEdit,
+      onLineDel,
       onGetBoxGroupComponent,
       onGetBoxComponent,
       ...props
