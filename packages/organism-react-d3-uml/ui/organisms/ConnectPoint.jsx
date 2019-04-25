@@ -14,9 +14,8 @@ let connPointId = 1;
 const keys = Object.keys;
 
 class ConnectPoint extends PureComponent {
-
   static defaultProps = {
-    component: ConnectPointDefaultLayout
+    component: ConnectPointDefaultLayout,
   };
 
   state = {
@@ -28,13 +27,17 @@ class ConnectPoint extends PureComponent {
   dnd = null;
   lines = {};
 
-  getEl = () => callfunc(this.dnd.getEl, null, this.dnd);
+  getEl = () => {
+    if (this.dnd) {
+      return callfunc(this.dnd.getEl, null, this.dnd);
+    }
+  };
 
   handleDragStart = e => {
     const {start} = e;
     const {onShow, host} = this.props;
     callfunc(onShow, [true]);
-    const lineId = host.addLine();
+    const lineId = host.oConn.addLine();
     start.center = this.getCenter();
     start.lineId = lineId;
     this.start = {...start};
@@ -64,7 +67,7 @@ class ConnectPoint extends PureComponent {
       const end = mouse(sourceEvent, hostEl);
       endXY = host.applyXY(end[0], end[1]);
     }
-    host.updateLine(lineId, {start: center, end: endXY});
+    host.oConn.updateLine(lineId, {start: center, end: endXY});
   };
 
   handleDragEnd = e => {
@@ -73,11 +76,11 @@ class ConnectPoint extends PureComponent {
     const {lineId} = this.start;
     let isAddConnected = false;
     if (endPoint) {
-      isAddConnected = host.addConnected(lineId, this, endPoint);
+      isAddConnected = host.oConn.addConnected(lineId, this, endPoint);
     }
     if (!endPoint || !isAddConnected) {
       host.setConnectStartPoint(null);
-      host.deleteLine(lineId);
+      host.oConn.deleteLine(lineId);
     }
 
     callfunc(onShow, [false]);
@@ -101,9 +104,14 @@ class ConnectPoint extends PureComponent {
   }
 
   getHtmlCenter(el, host) {
-    const {left, top, width, height} = getOffset(el) || {left:0, top:0, width:0, height:0};
-    const x = (width / 2) + left;
-    const y = (height / 2) + top;
+    const {left, top, width, height} = getOffset(el) || {
+      left: 0,
+      top: 0,
+      width: 0,
+      height: 0,
+    };
+    const x = width / 2 + left;
+    const y = height / 2 + top;
     const hostEl = host.getVectorEl();
     const sXY = toSvgXY(hostEl)(x, y);
     return host.applyXY(sXY.x, sXY.y);
@@ -115,7 +123,9 @@ class ConnectPoint extends PureComponent {
     if (host.insideVector(el)) {
       return this.getVectorCenter(el, host);
     } else {
-      return this.getHtmlCenter(el, host);
+      if (host.insideHtml(el)) {
+        return this.getHtmlCenter(el, host);
+      }
     }
   }
 
@@ -151,9 +161,9 @@ class ConnectPoint extends PureComponent {
       lineKeys.forEach(lineId => {
         const lineType = this.lines[lineId];
         if ('from' === lineType) {
-          host.updateLine(lineId, {start: center});
+          host.oConn.updateLine(lineId, {start: center});
         } else {
-          host.updateLine(lineId, {end: center});
+          host.oConn.updateLine(lineId, {end: center});
         }
       });
     }
@@ -163,6 +173,14 @@ class ConnectPoint extends PureComponent {
     this.id = connPointId;
     connPointId++;
     this.getBox().addPoint(this);
+  }
+
+  componentWillUnmount() {
+    const lineKeys = keys(this.lines);
+    if (lineKeys.length) {
+      const {host} = this.props;
+      lineKeys.forEach(lineId =>host.oConn.deleteLine(lineId)); 
+    }
   }
 
   render() {
@@ -180,7 +198,7 @@ class ConnectPoint extends PureComponent {
         onDragEnd={this.handleDragEnd}
         onDrag={this.handleDrag}
         component={build(component, {
-          ref: el => this.dnd = el
+          ref: el => (this.dnd = el),
         })}
       />
     );

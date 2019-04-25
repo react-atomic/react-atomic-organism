@@ -12,10 +12,9 @@ import Box from '../organisms/Box';
 import Line from '../organisms/Line';
 import BoxGroupDefaultLayout from '../organisms/BoxGroupDefaultLayout';
 import BoxDefaultLayout from '../organisms/BoxDefaultLayout';
+import ConnectController from '../../src/ConnectController';
 
-let lineCounts = 0;
 const keys = Object.keys;
-let lazeTimer;
 
 class HTMLGraph extends PureComponent {
   render() {
@@ -25,14 +24,10 @@ class HTMLGraph extends PureComponent {
 }
 
 class UMLGraph extends PureComponent {
-  state = {
-    lines: {},
-  };
-
   static defaultProps = {
     boxGroupsLocator: d => (d || {}).tables,
     boxsLocator: d => (d || {}).cols,
-    boxGroupNameLocator: d => (d || {}).name,
+    uniqueBoxGroupNameLocator: d => (d || {}).name,
     boxNameLocator: d => d,
     connsLocator: d => d,
     connFromBoxGroupLocator: d => d,
@@ -42,151 +37,20 @@ class UMLGraph extends PureComponent {
     arrowHeadComponent: ArrowHead,
   };
 
-  lineTimer = null;
+  state = {
+    lines: {},
+  };
+
   boxGroupNameInvertMap = {};
   boxGroupMap = {};
   boxQueue = {};
   startPoint = null;
   endPoint = null;
-  updateQueue = {};
-  connects = {};
   lazyMove = {};
+  oConn;
 
   getVectorEl() {
     return this.vector;
-  }
-
-  addLine() {
-    const name = 'line-' + lineCounts;
-    lineCounts++;
-    this.setState(({lines}) => {
-      lines[name] = {};
-      return {lines: {...lines}};
-    });
-    return name;
-  }
-
-  updateLine(name, params) {
-    const {lines} = this.state;
-    this.updateQueue[name] = {
-      ...this.updateQueue[name],
-      ...params,
-    };
-    if (this.lineTimer) {
-      clearTimeout(this.lineTimer);
-      this.lineTimer = false;
-    }
-    this.lineTimer = setTimeout(() => {
-      this.setState(({lines}) => {
-        keys(this.updateQueue).forEach(name => {
-          if (get(lines, [name])) {
-            lines[name] = {
-              ...lines[name],
-              ...this.updateQueue[name],
-            };
-          }
-        });
-        this.updateQueue = {};
-        return {lines: {...lines}};
-      });
-    });
-  }
-
-  deleteLine(name) {
-    if (this.lineTimer) {
-      clearTimeout(this.lineTimer);
-      this.lineTimer = false;
-    }
-    this.setState(({lines}) => {
-      const line = lines[name];
-      const from = line.from;
-      const to = line.to;
-      if (from) {
-        from.delLine(name);
-      }
-      if (to) {
-        to.delLine(name);
-      }
-      if (from && to) {
-        const {mergeId, invertMergeId} = this.getConnectIds(from, to);
-        delete this.connects[mergeId];
-        delete this.connects[invertMergeId];
-      }
-      delete lines[name];
-      return {lines: {...lines}};
-    });
-  }
-
-  getConnectIds(from, to) {
-    const fromBoxId = from.getBox().getId();
-    const toBoxId = to.getBox().getId();
-    const mergeId = `${fromBoxId}-${toBoxId}`;
-    const invertMergeId = `${toBoxId}-${fromBoxId}`;
-    return {
-      fromBoxId,
-      toBoxId,
-      mergeId,
-      invertMergeId,
-    };
-  }
-
-  getConnectNames(from, to) {
-    const ids = this.getConnectIds(from, to);
-    const fromBox = from.getBox();
-    const toBox = to.getBox();
-    const fromBoxGroup = fromBox.getBoxGroup();
-    const toBoxGroup = toBox.getBoxGroup();
-    const fromBoxName = fromBox.getName();
-    const fromBoxGroupName = fromBoxGroup.getName();
-    const toBoxName = toBox.getName();
-    const toBoxGroupName = toBoxGroup.getName();
-    return {
-      ...ids,
-      fromBoxName,
-      toBoxName,
-      fromBoxGroupName,
-      toBoxGroupName,
-    };
-  }
-
-  getConnects() {
-    const conns = this.connects;
-    const {lines} = this.state;
-    const results = [];
-    keys(conns).forEach(key => {
-      const lineName = conns[key];
-      const {from, to} = lines[lineName];
-      if (!from || !to) {
-        return;
-      } else {
-        const connData = this.getConnectNames(from, to);
-        connData.name = lineName;
-        results.push(connData);
-      }
-    });
-    return results;
-  }
-
-  addConnected(lineName, from, to) {
-    const {fromBoxId, toBoxId, mergeId, invertMergeId} = this.getConnectIds(
-      from,
-      to,
-    );
-    const connects = this.connects;
-    if (!get(connects, [mergeId]) && !get(connects, [invertMergeId])) {
-      connects[mergeId] = lineName;
-      from.setLine(lineName, 'from');
-      to.setLine(lineName, 'to');
-      this.updateLine(lineName, {
-        from,
-        to,
-        start: from.getCenter(),
-        end: to.getCenter(),
-      });
-      return true;
-    } else {
-      return false;
-    }
   }
 
   setConnectStartPoint(el) {
@@ -240,7 +104,6 @@ class UMLGraph extends PureComponent {
 
   del = name => {
     const {onDel} = this.props;
-    console.log(name);
     callfunc(onDel, [name]);
   };
 
@@ -331,6 +194,7 @@ class UMLGraph extends PureComponent {
   };
 
   syncPropConnects() {
+    this.oConn = new ConnectController({host: this});
     const {
       data,
       connsLocator,
@@ -372,9 +236,9 @@ class UMLGraph extends PureComponent {
         fromBoxName,
       );
       const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName);
-      const lineName = this.addLine();
+      const lineName = this.oConn.addLine();
       addGroupConn(fromBoxGroupId, toBoxGroupId);
-      this.addConnected(
+      this.oConn.addConnected(
         lineName,
         this.getBox(fromBoxId, fromBoxGroupId).getPoint(1),
         this.getBox(toBoxId, toBoxGroupId).getPoint(0),
@@ -404,17 +268,14 @@ class UMLGraph extends PureComponent {
   }
 
   componentWillUnmount() {
-    if (this.lineTimer) {
-      clearTimeout(this.lineTimer);
-      this.lineTimer = false;
-    }
+    this.oConn.clearTimeout();
   }
 
   render() {
     const {
       arrowHeadComponent,
       data,
-      boxGroupNameLocator,
+      uniqueBoxGroupNameLocator,
       boxNameLocator,
       boxsLocator,
       boxGroupsLocator,
@@ -442,32 +303,30 @@ class UMLGraph extends PureComponent {
             onGetEl={() => this.zoomEl}
             ref={el => (this.zoom = el)}
             onZoom={this.handleZoom}>
-            {keys(lines).map(key => {
-              return (
-                <Line
-                  onClick={onLinkClick}
-                  {...lines[key]}
-                  name={key}
-                  key={key}
-                  host={this}
-                />
-              );
-            })}
+            {keys(lines).map(key => (
+              <Line
+                onClick={onLinkClick}
+                {...lines[key]}
+                name={key}
+                key={key}
+                host={this}
+              />
+            ))}
             {build(arrowHeadComponent)()}
           </Zoom>
         </Graph>
         <HTMLGraph
           style={{...Styles.htmlGraph, transform}}
           refCb={el => (this.html = el)}>
-          {(boxGroupsLocator(data) || []).map((item, tbKey) => {
-            const bgName = boxGroupNameLocator(item);
+          {(boxGroupsLocator(data) || []).map( item => {
+            const bgName = uniqueBoxGroupNameLocator(item);
             return (
               <BoxGroup
                 ref={el => this.addBoxGroup(el)}
                 host={this}
                 data={data}
                 name={bgName}
-                key={'box-group-' + tbKey + bgName}
+                key={'box-group-' + bgName}
                 onChange={(name, payload) => this.change(name, payload)}
                 onDel={name => this.del(name)}>
                 {boxsLocator(item).map((colItem, colKey) => (

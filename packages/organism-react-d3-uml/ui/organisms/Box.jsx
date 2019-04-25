@@ -12,6 +12,7 @@ const keys = Object.keys;
 class Box extends PureComponent {
   isConnectPointDrag = false;
   points = [];
+  hoverTimer = false;
 
   state = {
     showConnectPoint: false,
@@ -22,7 +23,7 @@ class Box extends PureComponent {
   };
 
   handleMouseLeave = () => {
-    setTimeout(() => {
+    this.hoverTimer = setTimeout(() => {
       if (!this.isConnectPointDrag) {
         this.setState({showConnectPoint: false});
       }
@@ -80,6 +81,13 @@ class Box extends PureComponent {
     boxId++;
     const {host} = this.props;
     host.addBoxQueue(this);
+  }
+
+  componentWillUnmount() {
+    if (this.hoverTimer) {
+      clearTimeout(this.hoverTimer);
+      this.hoverTimer = false;
+    }
   }
 
   render() {

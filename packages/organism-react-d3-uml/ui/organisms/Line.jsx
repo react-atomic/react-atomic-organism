@@ -30,7 +30,7 @@ class Line extends PureComponent
     handleClickCancelBtn = e =>
     {
         const {host, name} = this.props
-        host.deleteLine(name)
+        host.oConn.deleteLine(name)
     }
 
     handleClick = e =>
