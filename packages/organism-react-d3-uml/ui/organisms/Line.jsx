@@ -54,18 +54,18 @@ class Line extends PureComponent
         let area = null
         let cancelButton = null
         let areaStyle = Styles.area
-        let cancelStyle = Styles.cancel
+        let isShowedCancel = false
         if (from && to) {
             if (isHover) {
                 areaStyle = {...areaStyle, ...Styles.hover}
-                cancelStyle = null
+                isShowedCancel = true    
             }
             cancelButton = (
                 <CancelButton 
                     x={start.x}
                     y={start.y}
                     onClick={this.handleClickCancelBtn}
-                    style={cancelStyle}
+                    show={isShowedCancel}
                 />
             )
             area = (
@@ -118,7 +118,4 @@ const Styles = {
     hover: {
         strokeOpacity: '.1',
     },
-    cancel: {
-        opacity: 0 
-    }
 }

@@ -1,10 +1,8 @@
 import React, {
   PureComponent,
-  cloneElement,
-  createElement,
-  isValidElement,
   Children,
 } from 'react';
+import {build} from 'react-atomic-molecule';
 import {DragAndDrop} from 'organism-react-graph';
 import get from 'get-object-value';
 import getOffset from 'getoffset';
@@ -81,8 +79,7 @@ class BoxGroup extends PureComponent {
   render() {
     const {name, host} = this.props;
     const {rectW, rectH, boxsPos, absX, absY} = this.state;
-    const component = host.getBoxGroupComponent(name);
-    const build = isValidElement(component) ? cloneElement : createElement;
+    const component = build(host.getBoxGroupComponent(name));
     return (
       <DragAndDrop
         absX={absX}
@@ -90,7 +87,7 @@ class BoxGroup extends PureComponent {
         onDrag={this.handleDrag}
         zoom={host.getTransform}
         onGetEl={this.getEl}
-        component={build(component, {
+        component={component({
           ...this.props,
           className: 'box-group',
           ref: el => (this.el = el),

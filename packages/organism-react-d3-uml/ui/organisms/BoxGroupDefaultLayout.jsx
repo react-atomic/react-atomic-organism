@@ -3,6 +3,7 @@ import getOffset from 'getoffset';
 import get from 'get-object-value';
 import {Graph, Group, Rect, Text} from 'organism-react-graph';
 
+import CancelButton from '../organisms/CancelButton'
 import BaseBoxComponent from '../organisms/BaseBoxComponent';
 const keys = Object.keys;
 
@@ -56,6 +57,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
       className,
       onMouseEnter,
       onMouseLeave,
+      onDel,
       showConnectPoint,
       name,
       children,
@@ -69,6 +71,13 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
     const translate = `translate(${absX}px, ${absY}px)`;
     const graphStyle = {...Styles.container};
     const groupStyle = {...Styles.group};
+    let cancelButton = (
+        <CancelButton 
+            x={-10}
+            y={-10}
+            onClick={()=>onDel(name)}
+        />
+    );
     if (host.insideVector(this.el)) {
       groupStyle.transform = translate;
     } else {
@@ -93,6 +102,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
             onMouseLeave={onMouseLeave}
           />
           <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
+          {cancelButton}
           {Children.map(children, (c, ck) =>
             cloneElement(c, {
               boxGroupId,

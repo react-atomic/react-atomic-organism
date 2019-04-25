@@ -52,6 +52,10 @@ class UMLGraph extends PureComponent {
   connects = {};
   lazyMove = {};
 
+  getVectorEl() {
+    return this.vector;
+  }
+
   addLine() {
     const name = 'line-' + lineCounts;
     lineCounts++;
@@ -185,10 +189,6 @@ class UMLGraph extends PureComponent {
     }
   }
 
-  getVectorEl() {
-    return this.vector;
-  }
-
   setConnectStartPoint(el) {
     this.startPoint = el;
     return this.startPoint;
@@ -202,17 +202,12 @@ class UMLGraph extends PureComponent {
     this.endPoint = el;
   }
 
-  getConnectEndPoint(el) {
+  getConnectEndPoint() {
     return this.endPoint;
   }
 
   getBoxGroupIdByName(name) {
     return get(this, ['boxGroupNameInvertMap', name]);
-  }
-
-  add(payload) {
-    const {onAdd} = this.props;
-    callfunc(onAdd, [payload]);
   }
 
   addLazyMoveWithMouseEvent(boxGroupName, e) {
@@ -226,22 +221,28 @@ class UMLGraph extends PureComponent {
   }
 
   getLazyMoveByName(boxGroupName) {
-    const xy = {...this.lazyMove[boxGroupName]}; 
+    const xy = {...this.lazyMove[boxGroupName]};
     if (xy) {
       delete this.lazyMove[boxGroupName];
       return xy;
-    } 
+    }
   }
 
-  change(name, payload) {
+  add(payload) {
+    const {onAdd} = this.props;
+    callfunc(onAdd, [payload]);
+  }
+
+  change = (name, payload) => {
     const {onChange} = this.props;
     callfunc(onChange, [name, payload]);
-  }
+  };
 
-  del(name) {
+  del = name => {
     const {onDel} = this.props;
-    callfunc(onDel);
-  }
+    console.log(name);
+    callfunc(onDel, [name]);
+  };
 
   addBoxGroup(obj) {
     if (!obj) {
@@ -424,6 +425,9 @@ class UMLGraph extends PureComponent {
       connToBoxLocator,
       onLinkClick,
       onConnAdd,
+      onAdd,
+      onChange,
+      onDel,
       onGetBoxGroupComponent,
       onGetBoxComponent,
       ...props
@@ -438,33 +442,40 @@ class UMLGraph extends PureComponent {
             onGetEl={() => this.zoomEl}
             ref={el => (this.zoom = el)}
             onZoom={this.handleZoom}>
-            {keys(lines).map(key => (
-              <Line
-                onClick={onLinkClick}
-                {...lines[key]}
-                name={key}
-                key={key}
-                host={this}
-              />
-            ))}
+            {keys(lines).map(key => {
+              return (
+                <Line
+                  onClick={onLinkClick}
+                  {...lines[key]}
+                  name={key}
+                  key={key}
+                  host={this}
+                />
+              );
+            })}
             {build(arrowHeadComponent)()}
           </Zoom>
         </Graph>
         <HTMLGraph
           style={{...Styles.htmlGraph, transform}}
           refCb={el => (this.html = el)}>
-          {(boxGroupsLocator(data) || []).map((item, tbKey) => (
-            <BoxGroup
-              ref={el => this.addBoxGroup(el)}
-              host={this}
-              data={data}
-              name={boxGroupNameLocator(item)}
-              key={'box-group-' + tbKey}>
-              {boxsLocator(item).map((colItem, colKey) => (
-                <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
-              ))}
-            </BoxGroup>
-          ))}
+          {(boxGroupsLocator(data) || []).map((item, tbKey) => {
+            const bgName = boxGroupNameLocator(item);
+            return (
+              <BoxGroup
+                ref={el => this.addBoxGroup(el)}
+                host={this}
+                data={data}
+                name={bgName}
+                key={'box-group-' + tbKey + bgName}
+                onChange={(name, payload) => this.change(name, payload)}
+                onDel={name => this.del(name)}>
+                {boxsLocator(item).map((colItem, colKey) => (
+                  <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
+                ))}
+              </BoxGroup>
+            );
+          })}
         </HTMLGraph>
       </SemanticUI>
     );
