@@ -44,6 +44,12 @@ class Line extends PureComponent
       return this.props.name
     }
 
+    getFromTo()
+    {
+      const {from, to} = this.props;
+      return {from, to};
+    }
+
     render()
     {
         const {start, end, from, to, host, onClick, ...props} = this.props

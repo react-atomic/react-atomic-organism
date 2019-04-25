@@ -133,6 +133,10 @@ class ConnectPoint extends PureComponent {
     return this.props.box;
   }
 
+  getBoxGroupName() {
+    return this.getBox().getBoxGroup().getName();
+  }
+
   getId() {
     return this.id;
   }
