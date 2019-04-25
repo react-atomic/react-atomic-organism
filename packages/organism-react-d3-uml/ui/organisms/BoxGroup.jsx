@@ -77,7 +77,7 @@ class BoxGroup extends PureComponent {
   }
 
   render() {
-    const {name, host} = this.props;
+    const {name, text, host} = this.props;
     const {rectW, rectH, boxsPos, absX, absY} = this.state;
     const component = build(host.getBoxGroupComponent(name));
     return (
@@ -92,8 +92,9 @@ class BoxGroup extends PureComponent {
           className: 'box-group',
           ref: el => (this.el = el),
           boxGroupId: this.id,
-          absX,
-          absY,
+          boxGroupAbsX: absX,
+          boxGroupAbsY: absY,
+          text: text || name
         })}
       />
     );

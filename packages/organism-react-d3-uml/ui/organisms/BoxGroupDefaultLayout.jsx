@@ -61,15 +61,16 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
       onEdit,
       showConnectPoint,
       name,
+      text,
       children,
       boxGroupId,
       host,
       data,
-      absX,
-      absY,
+      boxGroupAbsX,
+      boxGroupAbsY,
     } = this.props;
     const {rectW, rectH, boxsPos} = this.state;
-    const translate = `translate(${absX}px, ${absY}px)`;
+    const translate = `translate(${boxGroupAbsX}px, ${boxGroupAbsY}px)`;
     const graphStyle = {...Styles.container};
     const groupStyle = {...Styles.group};
     let cancelButton = (
@@ -109,13 +110,14 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
               onEdit(name, this);
             }}
           />
-          <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
+          <BoxGroupHeader width={rectW}>{text}</BoxGroupHeader>
           {cancelButton}
           {Children.map(children, (c, ck) =>
             cloneElement(c, {
               boxGroupId,
+              boxGroupAbsX,
+              boxGroupAbsY,
               key: ck,
-              pos: translate,
               host,
               x: 5,
               y: get(boxsPos, [ck, 'y'], 0),

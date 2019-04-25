@@ -1,9 +1,5 @@
-import React, {
-  PureComponent,
-  cloneElement,
-  createElement,
-  isValidElement,
-} from 'react';
+import React, {PureComponent} from 'react';
+import {build} from 'react-atomic-molecule';
 import {getDistance} from 'organism-react-graph';
 
 let boxId = 1;
@@ -30,14 +26,14 @@ class Box extends PureComponent {
     }, 1000);
   };
 
-  setIsConnectPointDrag = bool => {
+  handlePointDrag = bool => {
     this.isConnectPointDrag = bool;
   };
 
   getRecentPoint(center) {
     const distance = [];
     const distanceMap = {};
-    keys(this.points).forEach( key => {
+    keys(this.points).forEach(key => {
       const p = this.points[key];
       const point = p.getCenter();
       let pointDistance = getDistance(center, point);
@@ -52,7 +48,7 @@ class Box extends PureComponent {
     return this.points[key];
   }
 
-  addPoint(obj) {
+  addPoint = obj => {
     if (obj) {
       this.points[obj.getId()] = obj;
     }
@@ -76,9 +72,13 @@ class Box extends PureComponent {
     return this.el.getEl();
   }
 
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     this.id = boxId;
     boxId++;
+  }
+
+  componentDidMount() {
     const {host} = this.props;
     host.addBoxQueue(this);
   }
@@ -91,23 +91,22 @@ class Box extends PureComponent {
   }
 
   render() {
-    const {
-      name,
-      host,
-      boxGroupId,
-    } = this.props;
+    const {name, text, host, boxGroupId} = this.props;
     const {showConnectPoint} = this.state;
-    const component = host.getBoxComponent(name, boxGroupId);
-    const build = isValidElement(component) ? cloneElement : createElement;
-    return build(component, {
+    const component = build(host.getBoxComponent(name, boxGroupId));
+    return component({
       ...this.props,
-      ref: el => this.el = el,
+      ref: el => (this.el = el),
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
+      onPointDragStart: this.handlePointDrag,
+      onPointMount: this.addPoint, 
       'data-id': this.id,
       'data-group': boxGroupId,
+      id: this.id,
+      boxGroupId,
       showConnectPoint,
-      box: this
+      text: text || name
     });
   }
 }

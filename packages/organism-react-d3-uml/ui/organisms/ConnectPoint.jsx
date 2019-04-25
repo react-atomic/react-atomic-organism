@@ -1,13 +1,11 @@
-import React, {
-  PureComponent,
-  cloneElement,
-  createElement,
-  isValidElement,
-} from 'react';
+import React, {PureComponent} from 'react';
+import {build} from 'react-atomic-molecule';
 import {DragAndDrop} from 'organism-react-graph';
 import getOffset, {mouse, toSvgXY} from 'getoffset';
 import get from 'get-object-value';
 import callfunc from 'call-func';
+
+// files
 import ConnectPointDefaultLayout from '../organisms/ConnectPointDefaultLayout';
 
 let connPointId = 1;
@@ -35,8 +33,8 @@ class ConnectPoint extends PureComponent {
 
   handleDragStart = e => {
     const {start} = e;
-    const {onShow, host} = this.props;
-    callfunc(onShow, [true]);
+    const {onDragStart, host} = this.props;
+    callfunc(onDragStart, [true]);
     const lineId = host.oConn.addLine();
     start.center = this.getCenter();
     start.lineId = lineId;
@@ -71,7 +69,7 @@ class ConnectPoint extends PureComponent {
   };
 
   handleDragEnd = e => {
-    const {onShow, host} = this.props;
+    const {onDragStart, host} = this.props;
     const oConn = host.oConn;
     const endPoint = host.getConnectEndPoint(this);
     const {lineId} = this.start;
@@ -84,7 +82,7 @@ class ConnectPoint extends PureComponent {
       oConn.deleteLine(lineId);
     }
 
-    callfunc(onShow, [false]);
+    callfunc(onDragStart, [false]);
     this.start = false;
   };
 
@@ -131,11 +129,14 @@ class ConnectPoint extends PureComponent {
   }
 
   getBox() {
-    return this.props.box;
+    const {host, boxId, boxGroupId} = this.props;
+    return host.getBox(boxId, boxGroupId);
   }
 
   getBoxGroupName() {
-    return this.getBox().getBoxGroup().getName();
+    return this.getBox()
+      .getBoxGroup()
+      .getName();
   }
 
   getId() {
@@ -154,9 +155,29 @@ class ConnectPoint extends PureComponent {
     return show;
   }
 
+  constructor(props) {
+    super(props);
+    this.id = connPointId;
+    connPointId++;
+  }
+
+  componentDidMount() {
+    const {onMount} = this.props;
+    onMount(this);
+  }
+
+  componentWillUnmount() {
+    const lineKeys = keys(this.lines);
+    if (lineKeys.length) {
+      const {host} = this.props;
+      lineKeys.forEach(lineId => host.oConn.deleteLine(lineId));
+    }
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {pos} = this.props;
-    if (pos === prevProps.pos) {
+    const {boxGroupAbsX, boxGroupAbsY} = this.props;
+    const {prevBoxGroupAbsX, prevBoxGroupAbsY} = prevProps || {};
+    if (boxGroupAbsX === prevBoxGroupAbsX && boxGroupAbsY === prevBoxGroupAbsY) {
       return;
     }
     const lineKeys = keys(this.lines);
@@ -174,24 +195,20 @@ class ConnectPoint extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    this.id = connPointId;
-    connPointId++;
-    this.getBox().addPoint(this);
-  }
-
-  componentWillUnmount() {
-    const lineKeys = keys(this.lines);
-    if (lineKeys.length) {
-      const {host} = this.props;
-      lineKeys.forEach(lineId =>host.oConn.deleteLine(lineId)); 
-    }
-  }
-
   render() {
-    const {pos, host, onShow, show, box, component, ...props} = this.props;
+    const {
+      host,
+      boxId,
+      boxGroupId,
+      boxGroupAbsX,
+      boxGroupAbsY,
+      onDragStart,
+      onMount,
+      show,
+      component,
+      ...props
+    } = this.props;
     const {absX, absY} = this.state;
-    const build = isValidElement(component) ? cloneElement : createElement;
     return (
       <DragAndDrop
         {...props}
@@ -202,7 +219,7 @@ class ConnectPoint extends PureComponent {
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
         onDrag={this.handleDrag}
-        component={build(component, {
+        component={build(component)({
           ref: el => (this.dnd = el),
         })}
       />

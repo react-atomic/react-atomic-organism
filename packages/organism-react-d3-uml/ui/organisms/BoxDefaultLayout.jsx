@@ -10,39 +10,48 @@ class BoxDefaultLayout extends BaseBoxComponent {
   }
   render() {
     const {
-      box,
-      pos,
-      name,
+      id,
+      boxGroupId,
+      boxGroupAbsX,
+      boxGroupAbsY,
+      text,
       host,
       x,
       y,
       width,
       height,
-      boxGroupId,
+      onPointDragStart,
+      onPointMount,
       showConnectPoint,
       ...props
     } = this.props;
     const cy = -(height / 2 - 5);
     const connectPoints = [
       <ConnectPoint
-        box={box}
+        boxId={id}
+        boxGroupId={boxGroupId}
+        boxGroupAbsX={boxGroupAbsX}
+        boxGroupAbsY={boxGroupAbsY}
         show={showConnectPoint}
-        pos={pos}
         host={host}
         key="left"
         cy={cy}
         cx={-12}
-        onShow={box.setIsConnectPointDrag}
+        onDragStart={onPointDragStart}
+        onMount={onPointMount}
       />,
       <ConnectPoint
-        box={box}
+        boxId={id}
+        boxGroupId={boxGroupId}
+        boxGroupAbsX={boxGroupAbsX}
+        boxGroupAbsY={boxGroupAbsY}
         show={showConnectPoint}
-        pos={pos}
         host={host}
         key="right"
         cx={width + 12}
         cy={cy}
-        onShow={box.setIsConnectPointDrag}
+        onDragStart={onPointDragStart}
+        onMount={onPointMount}
       />,
     ];
     const translate = `translate(${x}, ${y})`;
@@ -50,7 +59,7 @@ class BoxDefaultLayout extends BaseBoxComponent {
       <Group
         refCb={el => this.el = el}
         transform={translate}>
-        <Text {...props}>{name}</Text>
+        <Text {...props}>{text}</Text>
         {connectPoints}
       </Group>
     );
