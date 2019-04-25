@@ -97,9 +97,9 @@ class UMLGraph extends PureComponent {
     callfunc(onAdd, [payload]);
   }
 
-  change = (name, payload) => {
-    const {onChange} = this.props;
-    callfunc(onChange, [name, payload]);
+  edit = (name, payload) => {
+    const {onEdit} = this.props;
+    callfunc(onEdit, [name, payload]);
   };
 
   del = name => {
@@ -243,7 +243,6 @@ class UMLGraph extends PureComponent {
         this.getBox(fromBoxId, fromBoxGroupId).getPoint(1),
         this.getBox(toBoxId, toBoxGroupId).getPoint(0),
       );
-      callfunc(onConnAdd, [lineName, conn]);
     });
     return groupConn;
   }
@@ -251,6 +250,16 @@ class UMLGraph extends PureComponent {
   handleZoom = e => {
     const {transform: oTransform} = e;
     this.setState({oTransform});
+  };
+
+  handleLineEdit = (e, lineObj) => {
+    const {onLineEdit} = this.props;
+    callfunc(onLineEdit, [e, lineObj]);
+  };
+
+  handleConnAdd = (lineName, payload) => {
+    const {onConnAdd} = this.props;
+    callfunc(onConnAdd, [lineName, payload]);
   };
 
   componentDidMount() {
@@ -284,11 +293,11 @@ class UMLGraph extends PureComponent {
       connToBoxGroupLocator,
       connFromBoxLocator,
       connToBoxLocator,
-      onLinkClick,
-      onConnAdd,
       onAdd,
-      onChange,
+      onEdit,
       onDel,
+      onConnAdd,
+      onLineEdit,
       onGetBoxGroupComponent,
       onGetBoxComponent,
       ...props
@@ -305,7 +314,7 @@ class UMLGraph extends PureComponent {
             onZoom={this.handleZoom}>
             {keys(lines).map(key => (
               <Line
-                onClick={onLinkClick}
+                onClick={this.handleLineEdit}
                 {...lines[key]}
                 name={key}
                 key={key}
@@ -318,7 +327,7 @@ class UMLGraph extends PureComponent {
         <HTMLGraph
           style={{...Styles.htmlGraph, transform}}
           refCb={el => (this.html = el)}>
-          {(boxGroupsLocator(data) || []).map( item => {
+          {(boxGroupsLocator(data) || []).map(item => {
             const bgName = uniqueBoxGroupNameLocator(item);
             return (
               <BoxGroup
@@ -327,8 +336,8 @@ class UMLGraph extends PureComponent {
                 data={data}
                 name={bgName}
                 key={'box-group-' + bgName}
-                onChange={(name, payload) => this.change(name, payload)}
-                onDel={name => this.del(name)}>
+                onEdit={this.edit}
+                onDel={this.del}>
                 {boxsLocator(item).map((colItem, colKey) => (
                   <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
                 ))}

@@ -129,12 +129,14 @@ class ConnectController {
       connects[mergeId] = lineName;
       from.setLine(lineName, 'from');
       to.setLine(lineName, 'to');
-      this.updateLine(lineName, {
+      const payload = {
         from,
         to,
         start: from.getCenter(),
         end: to.getCenter(),
-      });
+      };
+      this.updateLine(lineName, payload);
+      this.host.handleConnAdd(lineName, payload);
       return true;
     } else {
       return false;

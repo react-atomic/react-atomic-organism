@@ -36,9 +36,7 @@ class Line extends PureComponent
     handleClick = e =>
     {
       const {onClick} = this.props
-      if ('function' === typeof onClick) {
-        onClick(e, this)
-      }
+      onClick(e, this)
     }
 
     getName()

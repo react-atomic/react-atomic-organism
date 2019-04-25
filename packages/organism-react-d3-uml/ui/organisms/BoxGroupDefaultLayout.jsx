@@ -58,7 +58,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
       onMouseEnter,
       onMouseLeave,
       onDel,
-      onChange,
+      onEdit,
       showConnectPoint,
       name,
       children,
@@ -106,7 +106,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
             onMouseLeave={onMouseLeave}
             onClick={e => {
               e.preventDefault();
-              onChange(name, this);
+              onEdit(name, this);
             }}
           />
           <BoxGroupHeader width={rectW}>{name}</BoxGroupHeader>
