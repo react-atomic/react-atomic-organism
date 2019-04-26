@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {build} from 'react-atomic-molecule';
 import {getDistance} from 'organism-react-graph';
+import getOffset from 'getoffset';
 
 let boxId = 1;
 const keys = Object.keys;
@@ -73,6 +74,13 @@ class Box extends PureComponent {
 
   getEl() {
     return this.el.getEl();
+  }
+
+  getEdge() {
+    const {host} = this.props;
+    const el = this.getEl();
+    const offset = getOffset(el);
+    return host.applyXY(offset.right, offset.bottom);
   }
 
   constructor(props) {

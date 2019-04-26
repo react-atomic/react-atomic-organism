@@ -13,11 +13,11 @@ class ConnectController {
     this.host = props.host;
   }
 
-  addLine() {
+  addLine(props) {
     const name = 'line-' + lineCounts;
     lineCounts++;
     this.host.setState(({lines}) => {
-      lines[name] = {};
+      lines[name] = {props};
       return {lines: {...lines}};
     });
     return name;
@@ -52,6 +52,7 @@ class ConnectController {
       ({lines}) => {
         const line = lines[name];
         if (line) {
+          payload.line = line;
           const from = line.from;
           const to = line.to;
           if (from) {

@@ -237,13 +237,17 @@ class UMLGraph extends PureComponent {
         fromBoxName,
       );
       const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName);
-      const lineName = this.oConn.addLine();
+      const lineName = this.oConn.addLine(conn);
       addGroupConn(fromBoxGroupId, toBoxGroupId);
-      this.oConn.addConnected(
-        lineName,
-        this.getBox(fromBoxId, fromBoxGroupId).getPoint(1),
-        this.getBox(toBoxId, toBoxGroupId).getPoint(0),
-      );
+      const fromBox = this.getBox(fromBoxId, fromBoxGroupId);
+      const toBox = this.getBox(toBoxId, toBoxGroupId);
+      if (fromBox && toBox) {
+        this.oConn.addConnected(
+          lineName,
+          fromBox.getRecentPoint(fromBox.getEdge()),
+          toBox.getRecentPoint({x:0, y:0}),
+        );
+      }
     });
     return groupConn;
   }
@@ -289,10 +293,9 @@ class UMLGraph extends PureComponent {
 
   componentDidMount() {
     setTimeout(() => {
-      const groupConn = this.syncPropConnects();
       import('../../src/dagre').then(dagreAutoLayout => {
         dagreAutoLayout = getDefault(dagreAutoLayout);
-        const newXY = dagreAutoLayout({...this.boxGroupMap}, groupConn);
+        const newXY = dagreAutoLayout({...this.boxGroupMap}, this.syncPropConnects());
         get(keys(newXY), null, []).forEach(key => {
           const oBoxGroup = this.getBoxGroup(key);
           oBoxGroup.move(newXY[key].x, newXY[key].y);
