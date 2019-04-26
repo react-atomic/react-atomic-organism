@@ -40,7 +40,7 @@ const dagreAutoLayout = (nodes, conns = {}) =>
     const newWH = {}
     graph.nodes().forEach(key =>newWH[key]= graph.node(key))
     if (nodeNoConns.length) {
-        let noConnStart = 0 
+        let noConnStart = 1 
         nodeNoConns.forEach(key => {
             newWH[key] = {x: 10, y: noConnStart*20}
             noConnStart++

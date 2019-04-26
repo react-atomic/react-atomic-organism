@@ -60,7 +60,10 @@ class Box extends PureComponent {
   }
 
   getName() {
-    const {name} = this.props;
+    let {name} = this.props;
+    if (name !== 0 && !name) {
+      name = this.getId();
+    }
     return name;
   }
 
@@ -91,7 +94,8 @@ class Box extends PureComponent {
   }
 
   render() {
-    const {name, text, host, boxGroupId} = this.props;
+    const props = {...this.props, name: this.getName()};
+    const {name, text, host, boxGroupId} = props;
     const {showConnectPoint} = this.state;
     const component = build(host.getBoxComponent(name, boxGroupId));
     return component({

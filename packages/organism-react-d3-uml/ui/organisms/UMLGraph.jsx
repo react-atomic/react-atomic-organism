@@ -26,9 +26,9 @@ class HTMLGraph extends PureComponent {
 
 class UMLGraph extends PureComponent {
   static defaultProps = {
-    boxGroupsLocator: d => (d || {}).tables,
-    boxsLocator: d => (d || {}).cols,
-    uniqueBoxGroupNameLocator: d => (d || {}).name,
+    boxGroupsLocator: d => (d || {}).tables || [],
+    boxsLocator: d => (d || {}).cols || [],
+    uniqueBoxGroupNameLocator: d => d,
     boxNameLocator: d => d,
     connsLocator: d => d,
     connFromBoxGroupLocator: d => d,
@@ -146,8 +146,8 @@ class UMLGraph extends PureComponent {
     return true;
   }
 
-  insideHtml = el => this.html.contains(el);
-  insideVector = el => this.vector.contains(el);
+  insideHtml = el => this.html && this.html.contains(el);
+  insideVector = el => this.vector && this.vector.contains(el);
 
   isOnGraph = el => {
     const umlRect = getOffset(this.zoomEl);
@@ -265,6 +265,11 @@ class UMLGraph extends PureComponent {
 
   handleConnAdd = payload => {
     const {onConnAdd} = this.props;
+    const from = get(payload, ['from']).getBoxGroupName();
+    const to = get(payload, ['to']).getBoxGroupName();
+    if (from && to) {
+      payload.fromTo = {from, to};
+    }
     callfunc(onConnAdd, [payload]);
   };
 
@@ -351,17 +356,18 @@ class UMLGraph extends PureComponent {
           refCb={el => (this.html = el)}>
           {(boxGroupsLocator(data) || []).map(item => {
             const bgName = uniqueBoxGroupNameLocator(item);
-            return (
+            return !bgName.name ? null : (
               <BoxGroup
                 ref={el => this.addBoxGroup(el)}
                 host={this}
                 data={data}
-                name={bgName}
-                key={'box-group-' + bgName}
+                key={'box-group-' + bgName.name}
                 onEdit={this.edit}
-                onDel={this.del}>
+                onDel={this.del}
+                {...bgName}
+              >
                 {boxsLocator(item).map((colItem, colKey) => (
-                  <Box key={'box-' + colKey} name={boxNameLocator(colItem)} />
+                  <Box key={'box-' + colKey} {...boxNameLocator(colItem)} />
                 ))}
               </BoxGroup>
             );
