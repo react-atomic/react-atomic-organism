@@ -33,14 +33,15 @@ function twoLayerCrossCount(g, northLayer, southLayer) {
   // their head in the south layer.
   var southPos = zipObject(southLayer,
                              southLayer.map( function (v, i) { return i; }));
-  var southEntries = flattenDownDepth(northLayer.map( function(v) {
+  var sortNorthLayer = northLayer.map( function(v) {
     return g.outEdges(v)
-            .map(function(e) {
-              return { pos: southPos[e.w], weight: g.edge(e).weight };
-            })
-            .sort(d => d.pos)
-            .map(d => d);
-  }), [], 1);
+      .map(function(e) {
+        return { pos: southPos[e.w], weight: g.edge(e).weight };
+      })
+      .sort(d => d.pos)
+      .map(d => d);
+  });
+  var southEntries = flattenDownDepth(sortNorthLayer, [], 1);
 
   // Build the accumulator tree
   var firstIndex = 1;

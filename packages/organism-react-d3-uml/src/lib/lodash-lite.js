@@ -4,8 +4,10 @@ import {win} from 'win-doc';
 import dedup from 'array.dedup';
 
 const keys = Object.keys;
+
 const isArray = Array.isArray;
-const isEmptyArray = arr => isArray(arr) && arr.length;
+const isNotEmptyArray = arr => isArray(arr) && arr.length;
+const isEmptyArray = arr => isArray(arr) && !arr.length;
 
 const isEmptyObj = obj => !obj || !keys(obj).length;
 
@@ -30,11 +32,12 @@ const flattenDownDepth = (array, result, depth) => {
 
   for (let i = 0, j = array.length; i < j; i++) {
     const value = array[i];
-
-    if (depth > -1 && isEmptyArray(value)) {
-      flattenDownDepth(value, result, depth);
-    } else {
-      result.push(value);
+    if (value) {
+      if (depth > -1 && isNotEmptyArray(value)) {
+        flattenDownDepth(value, result, depth);
+      } else {
+        result.push(value);
+      }
     }
   }
 
@@ -116,10 +119,10 @@ const now = () => win().Date.now();
 const values = obj => obj && keys(obj).map(key => obj[key]);
 
 const max = (p1, ...other) =>
-  isEmptyArray(p1) ? Math.max(...p1) : Math.max(p1, ...other);
+  isNotEmptyArray(p1) ? Math.max(...p1) : Math.max(p1, ...other);
 
 const min = (p1, ...other) =>
-  isEmptyArray(p1) ? Math.min(...p1) : Math.min(p1, ...other);
+  isNotEmptyArray(p1) ? Math.min(...p1) : Math.min(p1, ...other);
 
 const has = (obj, key) => {
   return obj && obj.hasOwnProperty(key);
