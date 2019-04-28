@@ -56,7 +56,7 @@ const minBy = (obj, func) => {
   const thisMin = min(values(arrMin));
   let result = null;
   oKeys.some(key => {
-    if (arrMin[key] && thisMin === arrMin[key]) {
+    if (thisMin === arrMin[key]) {
       result = obj[key];
       return true;
     } else {

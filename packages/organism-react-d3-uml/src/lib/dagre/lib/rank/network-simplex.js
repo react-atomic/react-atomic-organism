@@ -190,8 +190,9 @@ function enterEdge(t, g, edge) {
     return flip === isDescendant(t, t.node(edge.v), tailLabel) &&
            flip !== isDescendant(t, t.node(edge.w), tailLabel);
   });
-
-  return minBy(candidates, edge => slack(g, edge)) 
+  
+  const minEnterEdge = minBy(candidates, edge => slack(g, edge)); 
+  return minEnterEdge;
 }
 
 function exchangeEdges(t, g, e, f) {
