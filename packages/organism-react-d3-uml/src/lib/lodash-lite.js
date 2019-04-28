@@ -44,11 +44,16 @@ const flattenDownDepth = (array, result, depth) => {
 const minBy = (obj, func) => {
   const arrMin = {};
   const oKeys = keys(obj);
-  oKeys.forEach(key => (arrMin[key] = func(obj[key], key)));
-  const thisMin = min(values(obj));
+  oKeys.forEach(key => {
+    const v = func(obj[key], key);
+    if (!isNaN(v)) {
+      arrMin[key] = v;
+    }
+  });
+  const thisMin = min(values(arrMin));
   let result = null;
   oKeys.some(key => {
-    if (thisMin === arrMin[key]) {
+    if (arrMin[key] && thisMin === arrMin[key]) {
       result = obj[key];
       return true;
     } else {
