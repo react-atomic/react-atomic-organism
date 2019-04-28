@@ -1,6 +1,5 @@
-    var util = require("./util");
-
-module.exports = addBorderSegments;
+import * as util from './util';
+export default addBorderSegments;
 
 function addBorderSegments(g) {
   function dfs(v) {

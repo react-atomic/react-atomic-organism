@@ -1,7 +1,6 @@
 import dfs from './dfs'
+export default preorder
 
-const preorder = (g, vs) => {
+function preorder(g, vs) {
   return dfs(g, vs, "pre");
 }
-
-export default preorder

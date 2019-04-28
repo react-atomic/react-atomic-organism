@@ -1,9 +1,6 @@
-"use strict";
 import networkSimplex from './network-simplex'
-
-var rankUtil = require("./util"),
-    longestPath = rankUtil.longestPath,
-    feasibleTree = require("./feasible-tree");
+import {longestPath} from './util';
+import feasibleTree from './feasible-tree';
 
 export default rank
 
@@ -28,10 +25,10 @@ export default rank
  */
 function rank(g) {
   switch(g.graph().ranker) {
-    case "network-simplex": networkSimplexRanker(g); break;
     case "tight-tree": tightTreeRanker(g); break;
     case "longest-path": longestPathRanker(g); break;
-    default: networkSimplexRanker(g);
+    case "network-simplex":
+    default: networkSimplexRanker(g); break;
   }
 }
 

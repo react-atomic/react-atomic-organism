@@ -1,10 +1,4 @@
-"use strict";
-
-
-module.exports = {
-  adjust: adjust,
-  undo: undo
-};
+export {adjust, undo};
 
 function adjust(g) {
   var rankDir = g.graph().rankdir.toLowerCase();

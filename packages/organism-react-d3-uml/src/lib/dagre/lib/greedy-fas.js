@@ -1,4 +1,4 @@
-import {range, flattenDownDepth} from './lodash-lite'
+import {range, flattenDownDepth} from '../../lodash-lite'
 import {Graph} from './graphlib'
 import List from './data/list'
 

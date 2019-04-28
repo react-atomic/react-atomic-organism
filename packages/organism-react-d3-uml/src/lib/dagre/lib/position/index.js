@@ -1,9 +1,8 @@
-"use strict";
+import * as util from '../util';
+import {positionX} from './bk';
+import {max} from '../../../lodash-lite'
 
-var util = require("../util"),
-    positionX = require("./bk").positionX;
-
-module.exports = position;
+export default position;
 const keys = Object.keys
 
 function position(g) {
@@ -17,14 +16,14 @@ function position(g) {
 }
 
 function positionY(g) {
-  var layering = util.buildLayerMatrix(g),
-      rankSep = g.graph().ranksep,
-      prevY = 0;
-  layering.forEach( function(layer) {
-    var maxHeight = Math.max(layer.map( function(v) { return g.node(v).height; }));
-    layer.forEach( function(v) {
-      g.node(v).y = prevY + maxHeight / 2;
-    });
+  const layering = util.buildLayerMatrix(g);
+  const rankSep = g.graph().ranksep; 
+  let prevY = 0;
+  layering.forEach( layer => {
+    const maxHeight = max(layer.map(v => g.node(v).height));
+    layer.forEach( v =>
+      g.node(v).y = prevY + maxHeight / 2
+    );
     prevY += maxHeight + rankSep;
   });
 }

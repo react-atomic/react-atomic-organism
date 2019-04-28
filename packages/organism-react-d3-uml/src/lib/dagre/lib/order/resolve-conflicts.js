@@ -1,6 +1,4 @@
-"use strict";
-
-import {pick} from '../lodash-lite'
+import {pick} from '../../../lodash-lite'
 
 export default resolveConflicts
 

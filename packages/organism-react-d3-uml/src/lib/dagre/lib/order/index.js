@@ -1,11 +1,9 @@
-"use strict";
-
 import buildLayerGraph from './build-layer-graph'
 import sortSubgraph from './sort-subgraph'
 import addSubgraphConstraints from './add-subgraph-constraints'
 import initOrder from './init-order'
 import crossCount from './cross-count'
-import {range, rangeStep} from '../lodash-lite'
+import {range, rangeStep} from '../../../lodash-lite'
 import * as util from '../util'
 import {Graph} from '../graphlib'
 

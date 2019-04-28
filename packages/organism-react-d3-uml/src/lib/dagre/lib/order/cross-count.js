@@ -1,6 +1,4 @@
-"use strict";
-
-import {range, zipObject, flattenDownDepth} from '../lodash-lite'
+import {range, zipObject, flattenDownDepth} from '../../../lodash-lite'
 
 export default crossCount
 

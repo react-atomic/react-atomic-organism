@@ -17,12 +17,20 @@
     "organism-react-graph": "^0.1.0-beta",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
-    "to-percent-js": "*"
+    "to-percent-js": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
     "react": "^16.x",
-    "react-dom": "^16.x"
+    "react-dom": "^16.x",
+    "react-test-renderer": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

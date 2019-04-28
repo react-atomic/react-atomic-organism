@@ -1,15 +1,19 @@
+import {has, size} from '../../../lodash-lite'
+export default topsort;
+
+topsort.CycleException = CycleException;
 
 function topsort(g) {
-  var visited = {},
-      stack = {},
-      results = [];
+  var visited = {};
+  var stack = {};
+  var results = [];
 
   function visit(node) {
-    if ('undefined' !== typeof stack[node]) {
+    if (has(stack, node)) {
       throw new CycleException();
     }
 
-    if ('undefined' === typeof visited[node]) {
+    if (!has(visited, node)) {
       stack[node] = true;
       visited[node] = true;
       g.predecessors(node).forEach(visit);
@@ -20,7 +24,7 @@ function topsort(g) {
 
   g.sinks().forEach(visit);
 
-  if (keys(visited).length !== g.nodeCount()) {
+  if (size(visited) !== g.nodeCount()) {
     throw new CycleException();
   }
 
@@ -29,6 +33,3 @@ function topsort(g) {
 
 function CycleException() {}
 CycleException.prototype = new Error(); // must be an instance of Error to pass testing
-topsort.CycleException = CycleException;
-
-export default topsort

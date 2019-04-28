@@ -1,7 +1,5 @@
-"use strict";
-import {uniqueId} from './lodash-lite'
-
-    var greedyFAS = require("./greedy-fas");
+import {uniqueId} from '../../lodash-lite'
+import greedyFAS from './greedy-fas';
 
 export {run, undo}
 

@@ -151,12 +151,16 @@ class UMLGraph extends PureComponent {
 
   isOnGraph = el => {
     const umlRect = getOffset(this.zoomEl);
-    const elRect = getOffset(el);
-    const atTop = elRect.bottom <= umlRect.top;
-    const atRight = elRect.left >= umlRect.right;
-    const atBottom = elRect.top >= umlRect.bottom;
-    const atLeft = elRect.right <= umlRect.left;
-    return !(atTop || atRight || atBottom || atLeft);
+    if (el) {
+      const elRect = getOffset(el);
+      const atTop = elRect.bottom <= umlRect.top;
+      const atRight = elRect.left >= umlRect.right;
+      const atBottom = elRect.top >= umlRect.bottom;
+      const atLeft = elRect.right <= umlRect.left;
+      return !(atTop || atRight || atBottom || atLeft);
+    } else {
+      return false;
+    }
   };
 
   getBox(id, groupId) {
@@ -245,7 +249,7 @@ class UMLGraph extends PureComponent {
         this.oConn.addConnected(
           lineName,
           fromBox.getRecentPoint(fromBox.getEdge()),
-          toBox.getRecentPoint({x:0, y:0}),
+          toBox.getRecentPoint({x: 0, y: 0}),
         );
       }
     });
@@ -295,7 +299,11 @@ class UMLGraph extends PureComponent {
     setTimeout(() => {
       import('../../src/dagre').then(dagreAutoLayout => {
         dagreAutoLayout = getDefault(dagreAutoLayout);
-        const newXY = dagreAutoLayout({...this.boxGroupMap}, this.syncPropConnects());
+        const conns = this.syncPropConnects(); 
+        const newXY = dagreAutoLayout(
+          {...this.boxGroupMap},
+          conns,
+        );
         get(keys(newXY), null, []).forEach(key => {
           const oBoxGroup = this.getBoxGroup(key);
           oBoxGroup.move(newXY[key].x, newXY[key].y);
@@ -367,8 +375,7 @@ class UMLGraph extends PureComponent {
                 key={'box-group-' + bgName.name}
                 onEdit={this.edit}
                 onDel={this.del}
-                {...bgName}
-              >
+                {...bgName}>
                 {boxsLocator(item).map((colItem, colKey) => (
                   <Box key={'box-' + colKey} {...boxNameLocator(colItem)} />
                 ))}

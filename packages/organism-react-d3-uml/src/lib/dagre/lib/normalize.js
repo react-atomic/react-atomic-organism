@@ -1,11 +1,5 @@
-"use strict";
-
-    var util = require("./util");
-
-module.exports = {
-  run: run,
-  undo: undo
-};
+import * as util from './util';
+export {run, undo};
 
 /*
  * Breaks any long edges in the graph into short segments that span 1 layer

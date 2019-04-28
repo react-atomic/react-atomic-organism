@@ -1,4 +1,5 @@
 import * as util from './util';
+import {max, values} from '../../lodash-lite'
 
 export {run, cleanup};
 
@@ -30,7 +31,7 @@ const keys = Object.keys
 function run(g) {
   var root = util.addDummyNode(g, "root", {}, "_root");
   var depths = treeDepths(g);
-  var height = Math.max(...(keys(depths).map(key=>depths[key]))) - 1; // Note: depths is an Object not an array
+  var height = max(values(depths)) - 1; // Note: depths is an Object not an array
   var nodeSep = 2 * height + 1;
 
   g.graph().nestingRoot = root;

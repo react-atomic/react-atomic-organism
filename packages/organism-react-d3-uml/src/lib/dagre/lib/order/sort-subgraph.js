@@ -1,8 +1,7 @@
-import {flattenDownDepth} from '../lodash-lite' 
+import {flattenDownDepth} from '../../../lodash-lite' 
 import resolveConflicts from './resolve-conflicts'
 import sort from './sort' 
-
-    var barycenter = require("./barycenter");
+import barycenter from './barycenter';
 
 export default sortSubgraph
 

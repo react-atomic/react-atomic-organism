@@ -1,6 +1,6 @@
 "use strict";
 
-import {range} from '../lodash-lite'
+import {range} from '../../../lodash-lite'
 import {maxRank as getMaxRank} from '../util'
 
 

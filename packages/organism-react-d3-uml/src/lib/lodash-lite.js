@@ -1,8 +1,17 @@
 import get from 'get-object-value';
+import {UNDEFINED, FUNCTION} from 'reshow-constant';
+import {win} from 'win-doc';
+import dedup from 'array.dedup';
 
 const keys = Object.keys;
+const isArray = Array.isArray;
+const isEmptyArray = arr => isArray(arr) && arr.length;
 
-const range = n => Array.from(Array(n).keys());
+const isEmptyObj = obj => !obj || !keys(obj).length;
+
+const isEmpty = v => !v || isEmptyArray(v) || isEmptyObj(v) 
+
+const range = n => [...Array(n).keys()];
 
 const rangeStep = (start, end, step, fromRight) => {
   let index = -1;
@@ -19,10 +28,10 @@ const rangeStep = (start, end, step, fromRight) => {
 const flattenDownDepth = (array, result, depth) => {
   depth--;
 
-  for (var i = 0; i < array.length; i++) {
-    var value = array[i];
+  for (let i = 0, j = array.length; i < j; i++) {
+    const value = array[i];
 
-    if (depth > -1 && Array.isArray(value)) {
+    if (depth > -1 && isEmptyArray(value)) {
       flattenDownDepth(value, result, depth);
     } else {
       result.push(value);
@@ -36,10 +45,10 @@ const minBy = (obj, func) => {
   const arrMin = {};
   const oKeys = keys(obj);
   oKeys.forEach(key => (arrMin[key] = func(obj[key], key)));
-  const min = Math.min(oKeys.map(key => arrMin[key]));
+  const thisMin = min(values(obj));
   let result = null;
   oKeys.some(key => {
-    if (min === arrMin[key]) {
+    if (thisMin === arrMin[key]) {
       result = obj[key];
       return true;
     } else {
@@ -69,7 +78,7 @@ const pick = (obj, arr) => {
     return results;
   }
   arr.forEach(key => {
-    if ('undefined' !== typeof obj[key]) {
+    if (has(obj, key)) {
       results[key] = obj[key];
     }
   });
@@ -97,9 +106,58 @@ const zipObject = (a1, a2) => {
   return result;
 };
 
-const now = () => window.Date.now();
+const now = () => win().Date.now();
+
+const values = obj => obj && keys(obj).map(key => obj[key]);
+
+const max = (p1, ...other) =>
+  isEmptyArray(p1) ? Math.max(...p1) : Math.max(p1, ...other);
+
+const min = (p1, ...other) =>
+  isEmptyArray(p1) ? Math.min(...p1) : Math.min(p1, ...other);
+
+const has = (obj, key) => {
+  return obj && obj.hasOwnProperty(key);
+};
+
+const isFunction = func => FUNCTION === typeof func;
+
+const isUndefined = val => UNDEFINED === typeof val;
+
+const constant = v => () => v;
+
+const union = (...arr) => {
+  let newArr = [];
+  arr.forEach(a => {
+    newArr = [...newArr, ...a];
+  });
+  return dedup(newArr);
+};
+
+const transform = (obj, callback, result) => {
+  keys(obj).forEach(key=>{
+    const v = obj[key]; 
+    callback(result, v);
+  });
+  return result;
+};
+
+const size = obj => obj ? keys(obj).length : 0
 
 export {
+  size,
+  constant,
+  union,
+  isEmptyObj,
+  isEmpty,
+  isUndefined,
+  isFunction,
+  isArray,
+  transform,
+  has,
+  values,
+  max,
+  min,
   range,
   rangeStep,
   flattenDownDepth,

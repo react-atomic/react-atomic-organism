@@ -1,15 +1,9 @@
-import dijkstra from './dijkstra'
+import dijkstra from './dijkstra';
+import {transform} from '../../../lodash-lite'
+export default dijkstraAll;
 
-const keys = Object.keys
-
-const dijkstraAll = (g, weightFunc, edgeFunc) => {
-  const result = {}
-  const nodes = g.nodes()
-  keys(nodes).forEach(key => {
-    const value = nodes[key]
-    result[value] = dijkstra(g, value, weightFunc, edgeFunc)
-  }) 
-  return result
+function dijkstraAll(g, weightFunc, edgeFunc) {
+  return transform(g.nodes(), function(acc, v) {
+    acc[v] = dijkstra(g, v, weightFunc, edgeFunc);
+  }, {});
 }
-
-export default dijkstraAll

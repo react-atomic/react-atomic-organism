@@ -31,8 +31,7 @@
 
 import * as lib from './lib'
 import * as alg from './lib/alg'
-const Graph = lib.Graph
-const version = lib.version
+const {Graph, version} = lib;
 
 export {
    Graph, version, alg

@@ -1,5 +1,4 @@
-
-module.exports = parentDummyChains;
+export default parentDummyChains; 
 
 function parentDummyChains(g) {
   var postorderNums = postorder(g);

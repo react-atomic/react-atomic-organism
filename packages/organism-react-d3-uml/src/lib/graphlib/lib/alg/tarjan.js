@@ -1,10 +1,11 @@
+import {has} from '../../../lodash-lite'
+export default tarjan;
 
-
-const tarjan = g=> {
-  var index = 0,
-      stack = [],
-      visited = {}, // node id -> { onStack, lowlink, index }
-      results = [];
+function tarjan(g) {
+  var index = 0;
+  var stack = [];
+  var visited = {}; // node id -> { onStack, lowlink, index }
+  var results = [];
 
   function dfs(v) {
     var entry = visited[v] = {
@@ -15,7 +16,7 @@ const tarjan = g=> {
     stack.push(v);
 
     g.successors(v).forEach(function(w) {
-      if ('undefined' === typeof visited[w]) {
+      if (!has(visited, w)) {
         dfs(w);
         entry.lowlink = Math.min(entry.lowlink, visited[w].lowlink);
       } else if (visited[w].onStack) {
@@ -24,8 +25,8 @@ const tarjan = g=> {
     });
 
     if (entry.lowlink === entry.index) {
-      var cmpt = [],
-          w;
+      var cmpt = [];
+      var w;
       do {
         w = stack.pop();
         visited[w].onStack = false;
@@ -36,12 +37,10 @@ const tarjan = g=> {
   }
 
   g.nodes().forEach(function(v) {
-    if (!_.has(visited, v)) {
+    if (!has(visited, v)) {
       dfs(v);
     }
   });
 
   return results;
 }
-
-export default tarjan

@@ -1,9 +1,8 @@
-"use strict";
+import {minBy} from '../../../lodash-lite'
+import {Graph} from '../graphlib';
+import {slack} from './util';
 
-var    Graph = require("../graphlib").Graph,
-    slack = require("./util").slack;
-
-module.exports = feasibleTree;
+export default feasibleTree;
 
 /*
  * Constructs a spanning tree with tight edges and adjusted the input node's
@@ -39,6 +38,7 @@ function feasibleTree(g) {
   t.setNode(start, {});
 
   var edge, delta;
+
   while (tightTree(t, g) < size) {
     edge = findMinSlackEdge(t, g);
     delta = t.hasNode(edge.v) ? slack(g, edge) : -slack(g, edge);
@@ -74,12 +74,12 @@ function tightTree(t, g) {
  * it.
  */
 function findMinSlackEdge(t, g) {
-  var a = g.edges().map( e => {
+  const minSlackEdge = minBy(g.edges(), e => {
     if (t.hasNode(e.v) !== t.hasNode(e.w)) {
       return slack(g, e);
     }
-  }).filter(e => 'undefined' !== typeof e)
-  return Math.min(a)
+  });
+  return minSlackEdge;
 }
 
 function shiftRanks(t, g, delta) {

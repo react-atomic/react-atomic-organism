@@ -1,20 +1,21 @@
+import {has} from '../../../lodash-lite'
 
-const  components = g => {
-  var visited = {},
-      cmpts = [],
-      cmpt;
+export default components
+
+function components(g) {
+  var visited = {};
+  var cmpts = [];
+  var cmpt;
 
   function dfs(v) {
-    if ('undefined' !== typeof visited[v]) {
-      return
-    }
+    if (has(visited, v)) return;
     visited[v] = true;
     cmpt.push(v);
     g.successors(v).forEach(dfs);
     g.predecessors(v).forEach(dfs);
   }
 
-  g.nodes().forEach( function(v) {
+  g.nodes().forEach(function(v) {
     cmpt = [];
     dfs(v);
     if (cmpt.length) {
@@ -24,5 +25,3 @@ const  components = g => {
 
   return cmpts;
 }
-
-export default components
