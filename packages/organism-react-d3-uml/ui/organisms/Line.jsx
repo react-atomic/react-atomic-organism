@@ -32,8 +32,12 @@ class Line extends PureComponent {
 
   handleClick = e => {
     e.preventDefault();
-    const {onClick} = this.props;
-    onClick(this);
+    const {onClick, host, name: lineName} = this.props;
+    onClick({
+      ref: this,
+      lineName,
+      lineData: host.oConn.getLine(lineName)
+    });
   };
 
   getName() {

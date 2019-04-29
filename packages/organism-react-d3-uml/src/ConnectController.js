@@ -13,6 +13,10 @@ class ConnectController {
     this.host = props.host;
   }
 
+  getLine(name) {
+    return get(this, ['host','state', 'lines', name]);
+  }
+
   addLine(props) {
     const name = 'line-' + lineCounts;
     lineCounts++;
