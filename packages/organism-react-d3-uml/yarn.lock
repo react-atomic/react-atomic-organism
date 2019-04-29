@@ -168,6 +168,13 @@ array.dedup@*:
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.2.tgz#24c82d0b8297f17211d56bb97a8ab14773043f9c"
   integrity sha512-f3wen2zEsoH0HzvpFXkORzLCyNzmeXuyrVqbqphh0ORMqF7x1cyunY4R2IGViMqr7cP/z2Fkf9Y+NWXnhwNX1g==
 
+array.merge@*:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.6.tgz#929f4ca8e7f4f20fc1f67f193a7b61cb2ab96200"
+  integrity sha512-NxKt6f8R3Xb6FuHz8h4feoCYXN7ETZ18apS3aDSgJNeBA1H0gG2wkTspNtoOixh1EIzfjbtfXtmlQveYrAL3VA==
+  dependencies:
+    get-object-value "*"
+
 array.min.max@*:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/array.min.max/-/array.min.max-0.1.1.tgz#7ca5d44044213950bcfde5f328498bb4568fe4b5"
@@ -1254,9 +1261,9 @@ fs.realpath@^1.0.0:
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
 fsevents@^1.2.7:
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.8.tgz#57ea5320f762cd4696e5e8e87120eccc8b11cacf"
-  integrity sha512-tPvHgPGB7m40CZ68xqFGkKuzN+RnpGmSV+hgeKxhRpbxdqKXUFJGC3yonBOLzQBcJyGpdZFDfCsdOC2KFsXzeA==
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.2.9.tgz#3f5ed66583ccd6f400b5a00db6f7e861363e388f"
+  integrity sha512-oeyj2H3EjjonWcFjD5NvZNE9Rqe4UW+nQBU2HNeKw0koVLEFIhtyETyAakeAM3de7Z/SW5kcA+fZUait9EApnw==
   dependencies:
     nan "^2.12.1"
     node-pre-gyp "^0.12.0"

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.2.0-beta.11",
+  "version": "0.2.0-beta.12",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -12,6 +12,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "array.merge": "*",
     "d3-lib": "*",
     "getoffset": "*",
     "organism-react-graph": "^0.1.0-beta",
@@ -39,7 +40,7 @@
     "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
     "build",

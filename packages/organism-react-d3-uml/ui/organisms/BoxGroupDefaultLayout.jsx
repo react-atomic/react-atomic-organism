@@ -28,6 +28,12 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
     return this.rect;
   }
 
+  handleEdit = e => {
+    e.preventDefault();
+    const {onEdit, name} = this.props;
+    onEdit(name, this);
+  };
+
   componentDidMount() {
     let startY = 20;
     const boxsPos = {};
@@ -105,10 +111,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
             refCb={el => (this.rect = el)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            onClick={e => {
-              e.preventDefault();
-              onEdit(name, this);
-            }}
+            onClick={this.handleEdit}
           />
           <BoxGroupHeader width={rectW}>{text}</BoxGroupHeader>
           {cancelButton}
@@ -124,6 +127,7 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
               width: get(boxsPos, [ck, 'w'], 0),
               height: get(boxsPos, [ck, 'h'], 0),
               ref: el => (this.childrenEl[ck] = el),
+              onClick: this.handleEdit,
             }),
           )}
         </Group>
@@ -140,7 +144,6 @@ const Styles = {
     height: 1,
     position: 'absolute',
     overflow: 'visible',
-    pointerEvents: 'none',
   },
   group: {
     pointerEvents: 'all',

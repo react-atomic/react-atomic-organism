@@ -1,4 +1,5 @@
 import get from 'get-object-value';
+import {removeEmpty} from 'array.merge';
 
 let lineCounts = 0;
 const keys = Object.keys;
@@ -143,13 +144,13 @@ class ConnectController {
     const connects = this.connects;
     if (!get(connects, [mergeId]) && !get(connects, [invertMergeId])) {
       const host = this.host;
-      const payload = {
+      const payload = removeEmpty({
         from,
         to,
         init,
         start: from.getCenter(),
         end: to.getCenter(),
-      };
+      });
       const isContinue = host.handleConnWillAdd({...payload, lineName});
       if (isContinue) {
         connects[mergeId] = lineName;
