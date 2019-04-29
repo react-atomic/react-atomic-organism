@@ -135,7 +135,7 @@ class ConnectController {
     return results;
   }
 
-  addConnected(lineName, from, to) {
+  addConnected(lineName, from, to, init) {
     const {fromBoxId, toBoxId, mergeId, invertMergeId} = this.getConnectIds(
       from,
       to,
@@ -146,6 +146,7 @@ class ConnectController {
       const payload = {
         from,
         to,
+        init,
         start: from.getCenter(),
         end: to.getCenter(),
       };

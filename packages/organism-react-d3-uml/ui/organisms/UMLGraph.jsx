@@ -250,6 +250,7 @@ class UMLGraph extends PureComponent {
           lineName,
           fromBox.getRecentPoint(fromBox.getEdge()),
           toBox.getRecentPoint({x: 0, y: 0}),
+          true
         );
       }
     });

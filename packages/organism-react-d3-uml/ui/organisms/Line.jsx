@@ -50,7 +50,7 @@ class Line extends PureComponent {
   }
 
   render() {
-    const {start, end, from, to, host, onClick, ...props} = this.props;
+    const {start, end, from, to, init, host, onClick, ...props} = this.props;
     const {isHover} = this.state;
     const areaSize = 1;
     let area = null;
