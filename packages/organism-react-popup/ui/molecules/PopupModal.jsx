@@ -41,8 +41,11 @@ class PopupModal extends PopupOverlay {
         popup: this,
       },
     });
-    const {closeCallback} = this.props;
-    callfunc(closeCallback);
+    /**
+     * closeCallback will deprecate
+     */
+    const {closeCallback, onClose} = this.props;
+    callfunc(onClose || closeCallback);
   }
 
   reCalculate = () => {
@@ -139,7 +142,11 @@ class PopupModal extends PopupOverlay {
       mask,
       maskScroll,
       closeEl,
+      /**
+       * closeCallback will deprecate
+       */
       closeCallback,
+      onClose,
       className,
       ...others
     } = this.props;
