@@ -82,9 +82,7 @@ const curve = (data, xLocator, yLocator, xScale, yScale) => {
 // https://github.com/d3/d3-shape/blob/master/README.md#pies
 const pie = (data, inner, outer, valueLocator) => {
   if (!valueLocator) {
-    valueLocator = d => {
-      return d.value;
-    };
+    valueLocator = d => d.value;
   }
   let p = d3_pie().value(valueLocator)(data);
   return arc(p, inner, outer);
@@ -156,11 +154,13 @@ const hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
     y1Locator = d => d.y1;
   }
   let series = d3_area()
-    .curve(getCurveType(curve))
     .x(xLocator)
     .y0(y0Locator)
-    .y1(y1Locator)(data);
-  return series;
+    .y1(y1Locator);
+  if (curve) {
+    series = series.curve(getCurveType(curve));
+  }
+  return series(data);
 };
 
 // text label
