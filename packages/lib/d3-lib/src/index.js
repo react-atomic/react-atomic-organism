@@ -27,8 +27,8 @@ const isArray = Array.isArray;
 // https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
 const getCurveType = (curve, def) => curve && curve.type ? curve.type : def || d3_curveCatmullRom.alpha(0.5);
 
-const defaultXLocator = d => d.x;
-const defaultYLocator = d => d.y;
+const defaultXLocator = d => (d || {}).x;
+const defaultYLocator = d => (d || {}).y;
 
 const getPointsCenter = (points, xLocator, yLocator) => {
   xLocator = xLocator || defaultXLocator;
@@ -148,9 +148,7 @@ const stack = (data, keyList) => {
 };
 
 const hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
-  if (!xLocator) {
-    xLocator = d => d.x;
-  }
+  xLocator = xLocator || defaultXLocator;
   if (!y0Locator) {
     y0Locator = d => d.y0;
   }
@@ -277,6 +275,7 @@ const d3Event = () => d3.event;
 const d3Select = el => d3_select(el);
 
 export {
+  d3_curveNatural,
   getPointsCenter,
   getZoom,
   line,
