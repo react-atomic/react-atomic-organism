@@ -15,7 +15,7 @@ class ConnectController {
   }
 
   getLine(name) {
-    return get(this, ['host','state', 'lines', name]);
+    return get(this, ['host', 'state', 'lines', name]);
   }
 
   addLine(props) {
@@ -142,7 +142,11 @@ class ConnectController {
       to,
     );
     const connects = this.connects;
-    if (!get(connects, [mergeId]) && !get(connects, [invertMergeId])) {
+    if (
+      !get(connects, [mergeId]) &&
+      !get(connects, [invertMergeId]) &&
+      fromBoxId !== toBoxId
+    ) {
       const host = this.host;
       const payload = removeEmpty({
         from,

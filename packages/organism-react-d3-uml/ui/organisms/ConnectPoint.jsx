@@ -17,6 +17,7 @@ class ConnectPoint extends PureComponent {
   };
 
   state = {
+    start: null,
     absX: 0,
     absY: 0,
   };
@@ -38,7 +39,7 @@ class ConnectPoint extends PureComponent {
     const lineId = host.oConn.addLine();
     start.center = this.getCenter();
     start.lineId = lineId;
-    this.start = {...start};
+    this.setState({start});
     host.setConnectStartPoint(this);
   };
 
@@ -46,7 +47,7 @@ class ConnectPoint extends PureComponent {
     const {absX, absY, sourceEvent} = e;
     this.setState({absX, absY});
     const {host} = this.props;
-    const {lineId, center} = this.start;
+    const {lineId, center} = this.state.start;
     let endXY;
     const target = e.destTarget;
     if (target) {
@@ -71,8 +72,8 @@ class ConnectPoint extends PureComponent {
   handleDragEnd = e => {
     const {onDragStart, host} = this.props;
     const oConn = host.oConn;
-    const endPoint = host.getConnectEndPoint(this);
-    const {lineId} = this.start;
+    const endPoint = host.getConnectEndPoint();
+    const {lineId} = this.state.start;
     let isAddConnected = false;
     if (endPoint) {
       isAddConnected = oConn.addConnected(lineId, this, endPoint);
@@ -83,7 +84,7 @@ class ConnectPoint extends PureComponent {
     }
 
     callfunc(onDragStart, [false]);
-    this.start = false;
+    this.setState({start: null});
   };
 
   setLine(id, type) {
@@ -145,7 +146,7 @@ class ConnectPoint extends PureComponent {
 
   isShow() {
     let {show} = this.props;
-    if (this.start) {
+    if (this.state.start) {
       show = true;
     }
     const linesLen = keys(this.lines).length;

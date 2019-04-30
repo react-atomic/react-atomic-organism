@@ -15,16 +15,29 @@ class Box extends PureComponent {
     showConnectPoint: false,
   };
 
+  getConnectFromBoxId() {
+    const {host} = this.props;
+    const point = host.getConnectStartPoint();
+    if (point) {
+      return point.getBox().getId();
+    }
+  }
+
   handleMouseEnter = () => {
     this.setState({showConnectPoint: true});
   };
 
   handleMouseLeave = () => {
-    this.hoverTimer = setTimeout(() => {
+    const formBoxId = this.getConnectFromBoxId();
+    if (formBoxId && this.getId() !== formBoxId) {
+      this.setState({showConnectPoint: false});
+    } else {
       if (!this.isConnectPointDrag) {
-        this.setState({showConnectPoint: false});
+        this.hoverTimer = setTimeout(() => {
+          this.setState({showConnectPoint: false});
+        }, 1000);
       }
-    }, 1000);
+    }
   };
 
   handlePointDrag = bool => {
@@ -53,7 +66,7 @@ class Box extends PureComponent {
     if (obj) {
       this.points[obj.getId()] = obj;
     }
-  }
+  };
 
   getBoxGroup() {
     const {host, boxGroupId} = this.props;
@@ -112,13 +125,13 @@ class Box extends PureComponent {
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
       onPointDragStart: this.handlePointDrag,
-      onPointMount: this.addPoint, 
+      onPointMount: this.addPoint,
       'data-id': this.id,
       'data-group': boxGroupId,
       id: this.id,
       boxGroupId,
       showConnectPoint,
-      text: text || name
+      text: text || name,
     });
   }
 }

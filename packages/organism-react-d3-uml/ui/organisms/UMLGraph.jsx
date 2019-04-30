@@ -54,21 +54,21 @@ class UMLGraph extends PureComponent {
     return this.vector;
   }
 
+  getConnectStartPoint() {
+    return this.startPoint;
+  }
+
   setConnectStartPoint(el) {
     this.startPoint = el;
     return this.startPoint;
   }
 
-  getConnectStartPoint() {
-    return this.startPoint;
+  getConnectEndPoint() {
+    return this.endPoint;
   }
 
   setConnectEndPoint(el) {
     this.endPoint = el;
-  }
-
-  getConnectEndPoint() {
-    return this.endPoint;
   }
 
   getBoxGroupIdByName(name) {
