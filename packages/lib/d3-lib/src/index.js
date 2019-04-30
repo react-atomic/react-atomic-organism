@@ -25,7 +25,7 @@ const keys = Object.keys;
 const isArray = Array.isArray;
 
 // https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
-const getCurveType = () => d3_curveCatmullRom.alpha(0.5);
+const getCurveType = (curve, def) => curve && curve.type ? curve.type : def || d3_curveCatmullRom.alpha(0.5);
 
 const defaultXLocator = d => d.x;
 const defaultYLocator = d => d.y;
@@ -50,8 +50,8 @@ const line = (start, end, curve, xLocator, yLocator) => {
     .x(xLocator)
     .y(yLocator);
   if (curve) {
-    l = l.curve(d3_curveNatural);
-    const c = getPointsCenter(points, xLocator, yLocator);
+    l = l.curve(getCurveType(curve, d3_curveNatural));
+    const c = curve.center || getPointsCenter(points, xLocator, yLocator);
     points = [start, {x: c.x, y: start.y}, end];
   }
   return l(points);
@@ -147,7 +147,7 @@ const stack = (data, keyList) => {
   return series;
 };
 
-const hArea = (data, xLocator, y0Locator, y1Locator) => {
+const hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
   if (!xLocator) {
     xLocator = d => d.x;
   }
@@ -158,7 +158,7 @@ const hArea = (data, xLocator, y0Locator, y1Locator) => {
     y1Locator = d => d.y1;
   }
   let series = d3_area()
-    .curve(getCurveType())
+    .curve(getCurveType(curve))
     .x(xLocator)
     .y0(y0Locator)
     .y1(y1Locator)(data);
