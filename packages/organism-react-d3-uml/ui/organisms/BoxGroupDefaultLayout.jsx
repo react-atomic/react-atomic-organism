@@ -94,6 +94,9 @@ class BoxGroupDefaultLayout extends BaseBoxComponent {
     } else {
       graphStyle.transform = translate;
     }
+    if (onEdit) {
+      graphStyle.cursor = 'pointer';
+    }
     const atom = svg ? 'g' : 'svg';
     return (
       <Graph

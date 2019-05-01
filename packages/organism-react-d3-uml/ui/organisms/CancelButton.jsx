@@ -3,7 +3,6 @@ import {Group, Circle} from 'organism-react-graph';
 import CancelIcon from '../molecules/CancelIcon';
 
 class CancelButton extends PureComponent {
-
   static defaultProps = {show: true};
 
   state = {r: 0};
@@ -26,7 +25,7 @@ class CancelButton extends PureComponent {
         <Circle r={r + 1} cx={r + 2} cy={r + 2} fill="transparent" />
       );
     }
-    let thisStyle = {...style};
+    let thisStyle = {...Styles.container, ...style};
     if (!show) {
       thisStyle = {
         ...thisStyle,
@@ -50,6 +49,9 @@ class CancelButton extends PureComponent {
 export default CancelButton;
 
 const Styles = {
+  container: {
+    cursor: 'pointer',
+  },
   cancel: {
     fill: '#f00',
   },

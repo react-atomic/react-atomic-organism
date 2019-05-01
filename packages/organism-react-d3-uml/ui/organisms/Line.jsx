@@ -14,15 +14,23 @@ class Line extends PureComponent {
   };
 
   handleMouseEnter = e => {
-    this.setState({
-      isHover: true,
-    });
+    const {host, name} = this.props;
+    this.setState(
+      {
+        isHover: true,
+      },
+      () => host.oConn.updateLine(name, {hover: true}),
+    );
   };
 
   handleMouseLeave = e => {
-    this.setState({
-      isHover: false,
-    });
+    const {host, name} = this.props;
+    this.setState(
+      {
+        isHover: false,
+      },
+      () => host.oConn.updateLine(name, {hover: false}),
+    );
   };
 
   handleClickCancelBtn = e => {

@@ -250,7 +250,7 @@ class UMLGraph extends PureComponent {
           lineName,
           fromBox.getRecentPoint(fromBox.getEdge()),
           toBox.getRecentPoint({x: 0, y: 0}),
-          true
+          true,
         );
       }
     });
@@ -300,11 +300,8 @@ class UMLGraph extends PureComponent {
     setTimeout(() => {
       import('../../src/dagre').then(dagreAutoLayout => {
         dagreAutoLayout = getDefault(dagreAutoLayout);
-        const conns = this.syncPropConnects(); 
-        const newXY = dagreAutoLayout(
-          {...this.boxGroupMap},
-          conns,
-        );
+        const conns = this.syncPropConnects();
+        const newXY = dagreAutoLayout({...this.boxGroupMap}, conns);
         get(keys(newXY), null, []).forEach(key => {
           const oBoxGroup = this.getBoxGroup(key);
           oBoxGroup.move(newXY[key].x, newXY[key].y);
@@ -351,16 +348,32 @@ class UMLGraph extends PureComponent {
             onGetEl={() => this.zoomEl}
             ref={el => (this.zoom = el)}
             onZoom={this.handleZoom}>
-            {keys(lines).map(key => (
-              <Line
-                onClick={this.handleLineEdit}
-                {...lines[key]}
-                name={key}
-                key={key}
-                host={this}
-              />
-            ))}
             {build(arrowHeadComponent)()}
+            {(() => {
+              const arrLineEl = [];
+              let hoverLineEl;
+              keys(lines).forEach(key => {
+                const {hover, ...lineProps} = lines[key];
+                const lineEl = (
+                  <Line
+                    onClick={this.handleLineEdit}
+                    {...lineProps}
+                    name={key}
+                    key={key}
+                    host={this}
+                  />
+                );
+                if (hover) {
+                  hoverLineEl = lineEl;
+                } else {
+                  arrLineEl.push(lineEl);
+                }
+              });
+              if (hoverLineEl) {
+                arrLineEl.push(hoverLineEl);
+              }
+              return arrLineEl;
+            })()}
           </Zoom>
         </Graph>
         <HTMLGraph
