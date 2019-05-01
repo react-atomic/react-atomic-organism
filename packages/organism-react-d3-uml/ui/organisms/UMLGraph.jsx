@@ -8,11 +8,11 @@ import {toInt} from 'to-percent-js';
 import {UNDEFINED} from 'reshow-constant';
 
 import ArrowHead from '../molecules/ArrowHead';
+import BoxGroupDefaultLayout from '../molecules/BoxGroupDefaultLayout';
+import BoxDefaultLayout from '../molecules/BoxDefaultLayout';
 import BoxGroup from '../organisms/BoxGroup';
 import Box from '../organisms/Box';
 import Line from '../organisms/Line';
-import BoxGroupDefaultLayout from '../organisms/BoxGroupDefaultLayout';
-import BoxDefaultLayout from '../organisms/BoxDefaultLayout';
 import ConnectController from '../../src/ConnectController';
 
 const keys = Object.keys;

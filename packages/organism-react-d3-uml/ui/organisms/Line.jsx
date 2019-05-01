@@ -1,12 +1,11 @@
 import React, {PureComponent} from 'react';
 import {build} from 'react-atomic-molecule';
-import {Line as LineGraph, Group} from 'organism-react-graph';
 
-import CancelButton from '../organisms/CancelButton';
+import LineDefaultLayout from '../molecules/LineDefaultLayout';
 
 class Line extends PureComponent {
   static defaultProps = {
-    markerEnd: 'url(#marker-arrow-head)',
+    component: LineDefaultLayout,
   };
 
   state = {
@@ -33,7 +32,7 @@ class Line extends PureComponent {
     );
   };
 
-  handleClickCancelBtn = e => {
+  handleCancelButtonClick = e => {
     e.preventDefault();
     const {host, name} = this.props;
     host.oConn.deleteLine(name);
@@ -59,77 +58,17 @@ class Line extends PureComponent {
   }
 
   render() {
-    const {
-      props,
-      name,
-      start,
-      center,
-      end,
-      from,
-      to,
-      init,
-      host,
-      onClick,
-      ...other
-    } = this.props;
+    const {props, init, host, onClick, component, ...other} = this.props;
     const {isHover} = this.state;
-    const areaSize = 1;
-    let area = null;
-    let cancelButton = null;
-    let areaStyle = Styles.area;
-    let isShowedCancel = false;
-    const compLine = build(<LineGraph start={start} end={end} curve={true} />);
-    if (from && to) {
-      if (isHover) {
-        areaStyle = {...areaStyle, ...Styles.hover};
-        isShowedCancel = true;
-      }
-      cancelButton = (
-        <CancelButton
-          x={start.x}
-          y={start.y}
-          onClick={this.handleClickCancelBtn}
-          show={isShowedCancel}
-        />
-      );
-      area = compLine({
-        style: areaStyle,
-        onClick: this.handleClick,
-        className: 'area',
-      });
-    }
-    return (
-      <Group name={name} onMouseEnter={this.handleMouseEnter}>
-        {compLine({
-          ...other,
-          className: 'line',
-          style: Styles.line,
-        })}
-        <Group onMouseLeave={this.handleMouseLeave}>
-          {area}
-          {cancelButton}
-        </Group>
-      </Group>
-    );
+    return build(component)({
+      ...other,
+      isHover,
+      onClick: this.handleClick,
+      onCancelButtonClick: this.handleCancelButtonClick,
+      onMouseEnter: this.handleMouseEnter,
+      onMouseLeave: this.handleMouseLeave,
+    });
   }
 }
 
 export default Line;
-
-const Styles = {
-  line: {
-    stroke: '#333',
-    strokeWidth: 1.5,
-    fill: 'none',
-  },
-  area: {
-    strokeLinecap: 'round',
-    stroke: '#333',
-    strokeWidth: 15,
-    strokeOpacity: 0,
-    fill: 'none',
-  },
-  hover: {
-    strokeOpacity: '.1',
-  },
-};

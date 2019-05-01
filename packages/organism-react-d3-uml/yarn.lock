@@ -668,9 +668,9 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.3.0.tgz#9349fe5073874b7da40864330cafb424fc53a973"
-  integrity sha512-0Q+oPV+Vb4J1CVgkCW2uNL/Bef+5LIsPo1fxLyBOZF0A0OrREIZ0yB/I3Mmybwjxu3yVmofnyP4yZWxcxkrTyg==
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.3.3.tgz#46da4c7d8a87f19444142562279bc3ec2203de7a"
+  integrity sha512-7fkcCLUoFaqOQkvKOR5VQyYM+B1bj8JdLGpq2wlQ8fnM5OOBULbBLQZnhut2/8dKWhR19+XQ8nyDNRN7A9pqRQ==
   dependencies:
     array.min.max "*"
     d3 "*"
@@ -2566,14 +2566,15 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.5.tgz#12c365c39f57f511d3ccf160bed1fe1da37c8264"
-  integrity sha512-LIFupoBu7QGAu92Ji8twt3xjGjCldAtHYEc0Vbl7VXd53wqxHvoIpWDC0wqUdJ0EXPf57Y2FTNEwu3GmPPrrwA==
+  version "1.5.7"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.7.tgz#e4e2483368c6129ce4fce5744b4d5e4fe9fdc3d5"
+  integrity sha512-LskD1pbCBbDdmoSeZua06rs4MTQgqow/x3Ro0DUhJFnYz02/p6DPqrR7JovnH17MPWPTjsdYKXb/oXcmJapTtQ==
   dependencies:
     class-lib "*"
     get-object-value "*"
     hyphenate-style-name "*"
     react-atomic-atom "*"
+    reshow-constant "*"
     reshow-runtime "*"
     ucfirst "*"
     win-doc "*"

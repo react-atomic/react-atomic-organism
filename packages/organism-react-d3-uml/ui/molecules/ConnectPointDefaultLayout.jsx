@@ -1,8 +1,8 @@
 import React from 'react';
 import {Circle} from 'organism-react-graph';
-import BaseBoxComponent from '../organisms/BaseBoxComponent';
+import BaseLayout from '../molecules/BaseLayout';
 
-class ConnectPointDefaultLayout extends BaseBoxComponent {
+class ConnectPointDefaultLayout extends BaseLayout {
   getEl() {
     if (this.el) {
       return this.el;

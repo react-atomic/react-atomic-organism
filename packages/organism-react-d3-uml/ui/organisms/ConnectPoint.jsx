@@ -6,7 +6,7 @@ import get from 'get-object-value';
 import callfunc from 'call-func';
 
 // files
-import ConnectPointDefaultLayout from '../organisms/ConnectPointDefaultLayout';
+import ConnectPointDefaultLayout from '../molecules/ConnectPointDefaultLayout';
 
 let connPointId = 1;
 const keys = Object.keys;

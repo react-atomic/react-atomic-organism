@@ -29,11 +29,11 @@ class ConnectController {
   }
 
   updateLine(name, params) {
+    this.clearTimeout();
     this.updateQueue[name] = {
       ...this.updateQueue[name],
       ...params,
     };
-    this.clearTimeout();
     this.lineTimer = setTimeout(() => {
       this.host.setState(({lines}) => {
         keys(this.updateQueue).forEach(name => {
@@ -47,7 +47,7 @@ class ConnectController {
         this.updateQueue = {};
         return {lines: {...lines}};
       });
-    }, 5);
+    }, 1);
   }
 
   deleteLine(name) {

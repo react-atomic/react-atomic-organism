@@ -3,8 +3,8 @@ import getOffset from 'getoffset';
 import get from 'get-object-value';
 import {Graph, Group, Rect, Text} from 'organism-react-graph';
 
-import CancelButton from '../organisms/CancelButton';
-import BaseBoxComponent from '../organisms/BaseBoxComponent';
+import CancelButton from '../molecules/CancelButton';
+import BaseLayout from '../molecules/BaseLayout';
 const keys = Object.keys;
 
 const BoxGroupHeader = ({children, x, y, width}) => (
@@ -16,7 +16,7 @@ const BoxGroupHeader = ({children, x, y, width}) => (
   </Group>
 );
 
-class BoxGroupDefaultLayout extends BaseBoxComponent {
+class BoxGroupDefaultLayout extends BaseLayout {
   state = {
     rectW: 0,
     rectH: 0,

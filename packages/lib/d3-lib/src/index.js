@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 const {
   curveCatmullRom: d3_curveCatmullRom,
-  curveNatural: d3_curveNatural,
+  curveBasis: d3_curveBasis,
   line: d3_line,
   pie: d3_pie,
   arc: d3_arc,
@@ -26,7 +26,8 @@ const keys = Object.keys;
 const isArray = Array.isArray;
 
 // https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
-const getCurveType = (curve, def) => curve && curve.type ? curve.type : def || d3_curveCatmullRom.alpha(0.5);
+const getCurveType = (curve, def) =>
+  curve && curve.type ? curve.type : def || d3_curveCatmullRom.alpha(0.5);
 
 const defaultXLocator = d => (d || {}).x;
 const defaultYLocator = d => (d || {}).y;
@@ -51,8 +52,11 @@ const _line = (start, end, curve, xLocator, yLocator) => {
     .x(xLocator)
     .y(yLocator);
   if (curve) {
-    l = l.curve(getCurveType(curve, d3_curveNatural));
-    const c = curve.center || {x: getPointsCenter(points, xLocator, yLocator).x, y: start.y};
+    l = l.curve(getCurveType(curve, d3_curveBasis));
+    const c = curve.center || {
+      x: getPointsCenter(points, xLocator, yLocator).x,
+      y: start.y,
+    };
     points = [start, c, end];
   }
   return l(points);
@@ -142,7 +146,6 @@ const arc = (data, inner, outer) => {
     ...radius,
   };
 };
-
 
 // https://github.com/d3/d3-shape/blob/master/README.md#stacks
 const stack = (data, keyList) => {
@@ -291,6 +294,5 @@ export {
   getZoom,
   d3Event,
   d3Select,
-  d3_curveNatural,
   getPointsCenter,
 };

@@ -3,6 +3,8 @@ import {build} from 'react-atomic-molecule';
 import {getDistance} from 'organism-react-graph';
 import getOffset from 'getoffset';
 
+import ConnectPoint from '../organisms/ConnectPoint';
+
 let boxId = 1;
 const keys = Object.keys;
 
@@ -120,22 +122,37 @@ class Box extends PureComponent {
   }
 
   render() {
-    const props = {...this.props, name: this.getName()};
-    const {name, text, host, boxGroupId} = props;
+    const {
+      host,
+      boxGroupAbsX,
+      boxGroupAbsY,
+      boxGroupId,
+      text,
+      ...props
+    } = this.props;
+    const name = this.getName();
     const {showConnectPoint} = this.state;
+    const connectPointComponent = build(
+      <ConnectPoint
+        boxId={this.id}
+        boxGroupId={boxGroupId}
+        boxGroupAbsX={boxGroupAbsX}
+        boxGroupAbsY={boxGroupAbsY}
+        show={showConnectPoint}
+        host={host}
+        onDragStart={this.handlePointDrag}
+        onMount={this.addPoint}
+      />,
+    );
     const component = build(host.getBoxComponent(name, boxGroupId));
     return component({
-      ...this.props,
+      ...props,
+      connectPointComponent,
       ref: el => (this.el = el),
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
-      onPointDragStart: this.handlePointDrag,
-      onPointMount: this.addPoint,
       'data-id': this.id,
       'data-group': boxGroupId,
-      id: this.id,
-      boxGroupId,
-      showConnectPoint,
       text: text || name,
     });
   }
