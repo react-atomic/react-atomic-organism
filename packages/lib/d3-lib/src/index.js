@@ -52,8 +52,8 @@ const _line = (start, end, curve, xLocator, yLocator) => {
     .y(yLocator);
   if (curve) {
     l = l.curve(getCurveType(curve, d3_curveNatural));
-    const c = curve.center || getPointsCenter(points, xLocator, yLocator);
-    points = [start, {x: c.x, y: start.y}, end];
+    const c = curve.center || {x: getPointsCenter(points, xLocator, yLocator).x, y: start.y};
+    points = [start, c, end];
   }
   return l(points);
 };
