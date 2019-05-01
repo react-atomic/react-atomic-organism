@@ -668,14 +668,15 @@ d3-interpolate@1:
     d3-color "1"
 
 d3-lib@*:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.2.5.tgz#0947b576262dca31eb9ca282631231d6b3664816"
-  integrity sha512-VVtm0PIiXiCr5Poc5K7dgKYM5/SgWCBaANNxRVlnI+gtVUPxvsS0xxuUWZ+sG/xcu91tND21Ur3AGlwniBWRuw==
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.3.0.tgz#9349fe5073874b7da40864330cafb424fc53a973"
+  integrity sha512-0Q+oPV+Vb4J1CVgkCW2uNL/Bef+5LIsPo1fxLyBOZF0A0OrREIZ0yB/I3Mmybwjxu3yVmofnyP4yZWxcxkrTyg==
   dependencies:
     array.min.max "*"
     d3 "*"
     d3-scale-chromatic "*"
     get-object-value "*"
+    memoize-one "*"
     reshow-runtime "*"
 
 d3-path@1:
@@ -1943,6 +1944,11 @@ mem@^4.0.0:
     map-age-cleaner "^0.1.1"
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
+
+memoize-one@*:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-5.0.4.tgz#005928aced5c43d890a4dfab18ca908b0ec92cbc"
+  integrity sha512-P0z5IeAH6qHHGkJIXWw0xC2HNEgkx/9uWWBQw64FJj3/ol14VYdfVGWWr0fXfjhhv3TKVIqUq65os6O4GUNksA==
 
 micromatch@^3.1.10, micromatch@^3.1.4:
   version "3.1.10"
