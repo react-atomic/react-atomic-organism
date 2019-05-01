@@ -70,21 +70,22 @@ class ConnectPoint extends PureComponent {
   };
 
   handleDragEnd = e => {
+    const {lineId} = this.state.start;
     const {onDragStart, host} = this.props;
     const oConn = host.oConn;
     const endPoint = host.getConnectEndPoint();
-    const {lineId} = this.state.start;
     let isAddConnected = false;
     if (endPoint) {
       isAddConnected = oConn.addConnected(lineId, this, endPoint);
     }
+
+    // after connected
+    this.setState({start: null});
     if (!endPoint || !isAddConnected) {
       host.setConnectStartPoint(null);
       oConn.deleteLine(lineId);
     }
-
     callfunc(onDragStart, [false]);
-    this.setState({start: null});
   };
 
   setLine(id, type) {

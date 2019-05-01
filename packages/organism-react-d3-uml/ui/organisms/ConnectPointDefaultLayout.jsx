@@ -12,7 +12,7 @@ class ConnectPointDefaultLayout extends BaseBoxComponent {
     const {isShow, style, ...props} = this.props;
     let thisStyle = {...Styles.container, ...style};
     if (isShow) {
-      thisStyle = {...Styles.visible};
+      thisStyle = {...thisStyle, ...Styles.visible};
     }
     return (
       <Circle 
@@ -31,6 +31,7 @@ export default ConnectPointDefaultLayout;
 const Styles = {
   container: {
     visibility: 'hidden',
+    cursor: 'move',
   },
   visible: {
     visibility: 'visible',

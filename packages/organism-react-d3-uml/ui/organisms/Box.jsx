@@ -24,6 +24,7 @@ class Box extends PureComponent {
   }
 
   handleMouseEnter = () => {
+    this.clearHoverTimer();
     this.setState({showConnectPoint: true});
   };
 
@@ -96,6 +97,13 @@ class Box extends PureComponent {
     return host.applyXY(offset.right, offset.bottom);
   }
 
+  clearHoverTimer() {
+    if (this.hoverTimer) {
+      clearTimeout(this.hoverTimer);
+      this.hoverTimer = false;
+    }
+  }
+
   constructor(props) {
     super(props);
     this.id = boxId;
@@ -108,10 +116,7 @@ class Box extends PureComponent {
   }
 
   componentWillUnmount() {
-    if (this.hoverTimer) {
-      clearTimeout(this.hoverTimer);
-      this.hoverTimer = false;
-    }
+    this.clearHoverTimer();
   }
 
   render() {

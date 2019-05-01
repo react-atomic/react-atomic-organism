@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
-import {Line as LineGraph, Area, Group} from 'organism-react-graph';
+import {build} from 'react-atomic-molecule';
+import {Line as LineGraph, Group} from 'organism-react-graph';
 
 import CancelButton from '../organisms/CancelButton';
 
@@ -36,7 +37,7 @@ class Line extends PureComponent {
     onClick({
       ref: this,
       lineName,
-      lineData: host.oConn.getLine(lineName)
+      lineData: host.oConn.getLine(lineName),
     });
   };
 
@@ -50,13 +51,26 @@ class Line extends PureComponent {
   }
 
   render() {
-    const {start, end, from, to, init, host, onClick, ...props} = this.props;
+    const {
+      props,
+      name,
+      start,
+      center,
+      end,
+      from,
+      to,
+      init,
+      host,
+      onClick,
+      ...other
+    } = this.props;
     const {isHover} = this.state;
     const areaSize = 1;
     let area = null;
     let cancelButton = null;
     let areaStyle = Styles.area;
     let isShowedCancel = false;
+    const compLine = build(<LineGraph start={start} end={end} curve={true} />);
     if (from && to) {
       if (isHover) {
         areaStyle = {...areaStyle, ...Styles.hover};
@@ -70,30 +84,20 @@ class Line extends PureComponent {
           show={isShowedCancel}
         />
       );
-      area = (
-        <Area
-          data={[{x: start.x + 15, y: start.y}, {x: end.x - 15, y: end.y}]}
-          xLocator={d => d.x}
-          y0Locator={d => d.y + areaSize}
-          y1Locator={d => d.y - areaSize}
-          style={areaStyle}
-          onClick={this.handleClick}
-        />
-      );
+      area = compLine({
+        style: areaStyle,
+        onClick: this.handleClick,
+        className: 'area',
+      });
     }
     return (
-      <Group>
-        <LineGraph
-          {...props}
-          start={start}
-          end={end}
-          curve={true}
-          style={Styles.line}
-        />
-        <Group
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        >
+      <Group name={name} onMouseEnter={this.handleMouseEnter}>
+        {compLine({
+          ...other,
+          className: 'line',
+          style: Styles.line,
+        })}
+        <Group onMouseLeave={this.handleMouseLeave}>
           {area}
           {cancelButton}
         </Group>
@@ -111,8 +115,8 @@ const Styles = {
     fill: 'none',
   },
   area: {
-    strokeLinejoin: 'round',
-    stroke: '#000',
+    strokeLinecap: 'round',
+    stroke: '#333',
     strokeWidth: 15,
     strokeOpacity: 0,
     fill: 'none',

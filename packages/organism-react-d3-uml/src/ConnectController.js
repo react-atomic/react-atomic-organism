@@ -47,7 +47,7 @@ class ConnectController {
         this.updateQueue = {};
         return {lines: {...lines}};
       });
-    });
+    }, 5);
   }
 
   deleteLine(name) {
