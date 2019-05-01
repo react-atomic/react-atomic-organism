@@ -1,6 +1,6 @@
 {
   "name": "d3-lib",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "D3 Library for data computing.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -9,6 +9,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "memoize-one": "*",
     "array.min.max": "*",
     "d3": "*",
     "d3-scale-chromatic": "*",

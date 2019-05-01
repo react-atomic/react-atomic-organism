@@ -18,6 +18,7 @@ const {
   zoom: d3_zoom,
   zoomTransform: d3_zoomTransform,
 } = d3;
+import memoizeOne from 'memoize-one';
 import get from 'get-object-value';
 import arrayMinMax from 'array.min.max';
 
@@ -42,7 +43,7 @@ const getPointsCenter = (points, xLocator, yLocator) => {
 };
 
 // https://github.com/d3/d3-shape/blob/master/README.md#lines
-const line = (start, end, curve, xLocator, yLocator) => {
+const _line = (start, end, curve, xLocator, yLocator) => {
   xLocator = xLocator || defaultXLocator;
   yLocator = yLocator || defaultYLocator;
   let points = [start, end];
@@ -56,6 +57,7 @@ const line = (start, end, curve, xLocator, yLocator) => {
   }
   return l(points);
 };
+const line = memoizeOne(_line);
 
 const curve = (data, xLocator, yLocator, xScale, yScale) => {
   xLocator = xLocator || defaultXLocator;
@@ -78,6 +80,25 @@ const curve = (data, xLocator, yLocator, xScale, yScale) => {
     });
   return l(data);
 };
+
+const _hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
+  xLocator = xLocator || defaultXLocator;
+  if (!y0Locator) {
+    y0Locator = d => d.y0;
+  }
+  if (!y1Locator) {
+    y1Locator = d => d.y1;
+  }
+  let series = d3_area()
+    .x(xLocator)
+    .y0(y0Locator)
+    .y1(y1Locator);
+  if (curve) {
+    series = series.curve(getCurveType(curve));
+  }
+  return series(data);
+};
+const hArea = memoizeOne(_hArea);
 
 // https://github.com/d3/d3-shape/blob/master/README.md#pies
 const pie = (data, inner, outer, valueLocator) => {
@@ -122,16 +143,6 @@ const arc = (data, inner, outer) => {
   };
 };
 
-// scheme
-// https://github.com/d3/d3-scale/blob/master/README.md#scaleOrdinal
-// https://github.com/d3/d3-scale-chromatic
-const colors = scheme => {
-  const defaultScheme = 'schemeCategory10';
-  if (!scheme) {
-    scheme = defaultScheme;
-  }
-  return d3_scaleOrdinal(get(d3, [scheme], defaultScheme));
-};
 
 // https://github.com/d3/d3-shape/blob/master/README.md#stacks
 const stack = (data, keyList) => {
@@ -145,22 +156,15 @@ const stack = (data, keyList) => {
   return series;
 };
 
-const hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
-  xLocator = xLocator || defaultXLocator;
-  if (!y0Locator) {
-    y0Locator = d => d.y0;
+// scheme
+// https://github.com/d3/d3-scale/blob/master/README.md#scaleOrdinal
+// https://github.com/d3/d3-scale-chromatic
+const colors = scheme => {
+  const defaultScheme = 'schemeCategory10';
+  if (!scheme) {
+    scheme = defaultScheme;
   }
-  if (!y1Locator) {
-    y1Locator = d => d.y1;
-  }
-  let series = d3_area()
-    .x(xLocator)
-    .y0(y0Locator)
-    .y1(y1Locator);
-  if (curve) {
-    series = series.curve(getCurveType(curve));
-  }
-  return series(data);
+  return d3_scaleOrdinal(get(d3, [scheme], defaultScheme));
 };
 
 // text label
@@ -242,7 +246,6 @@ const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
 /**
  * Events, DnD, Zoom
  */
-
 const d3DnD = ({el, start, end, drag, subject}) => {
   let dd = d3_drag().container(el);
   if (start) {
@@ -275,19 +278,19 @@ const d3Event = () => d3.event;
 const d3Select = el => d3_select(el);
 
 export {
-  d3_curveNatural,
-  getPointsCenter,
-  getZoom,
   line,
   curve,
+  hArea,
   pie,
   stack,
-  hArea,
   colors,
   scaleBand,
   scaleLinear,
   d3DnD,
   d3Zoom,
+  getZoom,
   d3Event,
   d3Select,
+  d3_curveNatural,
+  getPointsCenter,
 };
