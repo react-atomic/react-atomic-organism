@@ -241,13 +241,13 @@ class UMLGraph extends PureComponent {
         fromBoxName,
       );
       const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName);
-      const lineName = this.oConn.addLine(conn);
+      const lineId = this.oConn.addLine(conn);
       addGroupConn(fromBoxGroupId, toBoxGroupId);
       const fromBox = this.getBox(fromBoxId, fromBoxGroupId);
       const toBox = this.getBox(toBoxId, toBoxGroupId);
       if (fromBox && toBox) {
         this.oConn.addConnected(
-          lineName,
+          lineId,
           fromBox.getRecentPoint(fromBox.getEdge()),
           toBox.getRecentPoint({x: 0, y: 0}),
           true,
@@ -358,7 +358,7 @@ class UMLGraph extends PureComponent {
                   <Line
                     onClick={this.handleLineEdit}
                     {...lineProps}
-                    name={key}
+                    id={key}
                     key={key}
                     host={this}
                   />
@@ -391,7 +391,11 @@ class UMLGraph extends PureComponent {
                 onDel={this.del}
                 {...bgName}>
                 {boxsLocator(item).map((colItem, colKey) => (
-                  <Box key={'box-' + colKey} {...boxNameLocator(colItem)} />
+                  <Box 
+                    host={this}
+                    key={'box-' + colKey}
+                    {...boxNameLocator(colItem)}
+                  />
                 ))}
               </BoxGroup>
             );

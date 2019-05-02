@@ -1,7 +1,4 @@
-import React, {
-  PureComponent,
-  Children,
-} from 'react';
+import React, {PureComponent, Children, cloneElement} from 'react';
 import {build} from 'react-atomic-molecule';
 import {DragAndDrop} from 'organism-react-graph';
 import get from 'get-object-value';
@@ -25,6 +22,17 @@ class BoxGroup extends PureComponent {
 
   handleDrag = ({absX, absY}) => this.move(absX, absY);
 
+  handleEdit = e => {
+    e.preventDefault();
+    const {onEdit, name} = this.props;
+    onEdit(name, this);
+  };
+
+  handleDel = e => {
+    const {onDel, name} = this.props;
+    onDel(name);
+  };
+
   getBoxIdByName(name) {
     return get(this, ['boxNameInvertMap', name]);
   }
@@ -39,19 +47,18 @@ class BoxGroup extends PureComponent {
     }
   }
 
+  getBox(id) {
+    return get(this.boxs, [id]);
+  }
+
   getWH() {
     const offset = getOffset(this.getEl());
     const {w, h} = offset;
     return {width: w, height: h};
   }
 
-  getBox(id) {
-    return get(this.boxs, [id]);
-  }
-
   getName() {
-    const {name} = this.props;
-    return name;
+    return this.props.name;
   }
 
   getId() {
@@ -77,9 +84,16 @@ class BoxGroup extends PureComponent {
   }
 
   render() {
-    const {name, text, host} = this.props;
+    const {name, text, host, data, onEdit, onDel, children, ...props} = this.props;
     const {rectW, rectH, boxsPos, absX, absY} = this.state;
     const component = build(host.getBoxGroupComponent(name));
+    const thisChildren = Children.map(children, c =>
+      cloneElement(c, {
+          boxGroupId: this.id,
+          boxGroupAbsX: absX,
+          boxGroupAbsY: absY,
+      })    
+    );
     return (
       <DragAndDrop
         absX={absX}
@@ -88,14 +102,16 @@ class BoxGroup extends PureComponent {
         zoom={host.getTransform}
         onGetEl={this.getEl}
         component={component({
-          ...this.props,
+          ...props,
+          isInsideVector: host.insideVector,
+          onEdit: this.handleEdit,
+          onDel: this.handleDel,
           className: 'box-group',
-          ref: el => (this.el = el),
-          boxGroupId: this.id,
           boxGroupAbsX: absX,
           boxGroupAbsY: absY,
-          text: text || name
-        })}
+          ref: el => (this.el = el),
+          text: text || name,
+        }, thisChildren)}
       />
     );
   }

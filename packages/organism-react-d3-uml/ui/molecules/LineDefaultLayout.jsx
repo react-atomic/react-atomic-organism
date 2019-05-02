@@ -16,7 +16,7 @@ class LineDefaultLayout extends BaseLayout {
 
   render() {
     const {
-      name,
+      id,
       start,
       end,
       from,
@@ -54,7 +54,7 @@ class LineDefaultLayout extends BaseLayout {
     }
     return (
       <Group
-        name={name}
+        name={id}
         onMouseEnter={onMouseEnter}
         refCb={el => (this.el = el)}>
         {compLine({

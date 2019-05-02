@@ -14,33 +14,33 @@ class ConnectController {
     this.host = props.host;
   }
 
-  getLine(name) {
-    return get(this, ['host', 'state', 'lines', name]);
+  getLine(id) {
+    return get(this, ['host', 'state', 'lines', id]);
   }
 
   addLine(props) {
-    const name = 'line-' + lineCounts;
+    const id = 'line-' + lineCounts;
     lineCounts++;
     this.host.setState(({lines}) => {
-      lines[name] = {props};
+      lines[id] = {props};
       return {lines: {...lines}};
     });
-    return name;
+    return id;
   }
 
-  updateLine(name, params) {
+  updateLine(id, params) {
     this.clearTimeout();
-    this.updateQueue[name] = {
-      ...this.updateQueue[name],
+    this.updateQueue[id] = {
+      ...this.updateQueue[id],
       ...params,
     };
     this.lineTimer = setTimeout(() => {
       this.host.setState(({lines}) => {
-        keys(this.updateQueue).forEach(name => {
-          if (get(lines, [name])) {
-            lines[name] = {
-              ...lines[name],
-              ...this.updateQueue[name],
+        keys(this.updateQueue).forEach(lineId => {
+          if (get(lines, [lineId])) {
+            lines[lineId] = {
+              ...lines[lineId],
+              ...this.updateQueue[lineId],
             };
           }
         });
@@ -50,22 +50,22 @@ class ConnectController {
     }, 1);
   }
 
-  deleteLine(name) {
+  deleteLine(id) {
     this.clearTimeout();
     const payload = {};
     this.host.setState(
       ({lines}) => {
-        const line = lines[name];
+        const line = lines[id];
         if (line) {
           payload.line = line;
           const from = line.from;
           const to = line.to;
           if (from) {
-            from.delLine(name);
+            from.delLine(id);
             payload.from = from.getBoxGroupName();
           }
           if (to) {
-            to.delLine(name);
+            to.delLine(id);
             payload.to = to.getBoxGroupName();
           }
           if (from && to) {
@@ -73,7 +73,7 @@ class ConnectController {
             delete this.connects[mergeId];
             delete this.connects[invertMergeId];
           }
-          delete lines[name];
+          delete lines[id];
         }
         return {lines: {...lines}};
       },
@@ -123,20 +123,20 @@ class ConnectController {
     const {lines} = this.host.state;
     const results = [];
     keys(conns).forEach(key => {
-      const lineName = conns[key];
-      const {from, to} = lines[lineName];
+      const lineId = conns[key];
+      const {from, to} = lines[lineId];
       if (!from || !to) {
         return;
       } else {
         const connData = this.getConnectNames(from, to);
-        connData.name = lineName;
+        connData.id = lineId;
         results.push(connData);
       }
     });
     return results;
   }
 
-  addConnected(lineName, from, to, init) {
+  addConnected(lineId, from, to, init) {
     const {fromBoxId, toBoxId, mergeId, invertMergeId} = this.getConnectIds(
       from,
       to,
@@ -155,13 +155,13 @@ class ConnectController {
         start: from.getCenter(),
         end: to.getCenter(),
       });
-      const isContinue = host.handleConnWillAdd({...payload, lineName});
+      const isContinue = host.handleConnWillAdd({...payload, lineId});
       if (isContinue) {
-        connects[mergeId] = lineName;
-        from.setLine(lineName, 'from');
-        to.setLine(lineName, 'to');
-        this.updateLine(lineName, payload);
-        host.handleConnAdd({...payload, lineName});
+        connects[mergeId] = lineId;
+        from.setLine(lineId, 'from');
+        to.setLine(lineId, 'to');
+        this.updateLine(lineId, payload);
+        host.handleConnAdd({...payload, lineId});
       }
       return isContinue;
     } else {

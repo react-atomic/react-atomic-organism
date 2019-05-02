@@ -22,17 +22,12 @@ class BoxGroupDefaultLayout extends BaseLayout {
     rectH: 0,
     boxsPos: {},
   };
+
   childrenEl = {};
 
   getEl() {
     return this.rect;
   }
-
-  handleEdit = e => {
-    e.preventDefault();
-    const {onEdit, name} = this.props;
-    onEdit(name, this);
-  };
 
   componentDidMount() {
     let startY = 20;
@@ -61,19 +56,16 @@ class BoxGroupDefaultLayout extends BaseLayout {
     const {
       svg,
       className,
+      showConnectPoint,
+      text,
+      children,
+      isInsideVector,
+      boxGroupAbsX,
+      boxGroupAbsY,
       onMouseEnter,
       onMouseLeave,
       onDel,
       onEdit,
-      showConnectPoint,
-      name,
-      text,
-      children,
-      boxGroupId,
-      host,
-      data,
-      boxGroupAbsX,
-      boxGroupAbsY,
     } = this.props;
     const {rectW, rectH, boxsPos} = this.state;
     const translate = `translate(${boxGroupAbsX}px, ${boxGroupAbsY}px)`;
@@ -85,11 +77,11 @@ class BoxGroupDefaultLayout extends BaseLayout {
         y={-10}
         onClick={e => {
           e.preventDefault();
-          onDel(name);
+          onDel(e);
         }}
       />
     );
-    if (host.insideVector(this.el)) {
+    if (isInsideVector(this.el)) {
       groupStyle.transform = translate;
     } else {
       graphStyle.transform = translate;
@@ -114,23 +106,19 @@ class BoxGroupDefaultLayout extends BaseLayout {
             refCb={el => (this.rect = el)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            onClick={this.handleEdit}
+            onClick={onEdit}
           />
           <BoxGroupHeader width={rectW}>{text}</BoxGroupHeader>
           {cancelButton}
           {Children.map(children, (c, ck) =>
             cloneElement(c, {
-              boxGroupId,
-              boxGroupAbsX,
-              boxGroupAbsY,
               key: ck,
-              host,
               x: 5,
               y: get(boxsPos, [ck, 'y'], 0),
               width: get(boxsPos, [ck, 'w'], 0),
               height: get(boxsPos, [ck, 'h'], 0),
               ref: el => (this.childrenEl[ck] = el),
-              onClick: this.handleEdit,
+              onClick: onEdit,
             }),
           )}
         </Group>

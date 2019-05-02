@@ -13,43 +13,47 @@ class Line extends PureComponent {
   };
 
   handleMouseEnter = e => {
-    const {host, name} = this.props;
-    this.setState(
-      {
-        isHover: true,
-      },
-      () => host.oConn.updateLine(name, {hover: true}),
-    );
+    const {host, id} = this.props;
+    if (!host.getConnectStartPoint()) {
+      this.setState(
+        {
+          isHover: true,
+        },
+        () => host.oConn.updateLine(id, {hover: true}),
+      );
+    }
   };
 
   handleMouseLeave = e => {
-    const {host, name} = this.props;
-    this.setState(
-      {
-        isHover: false,
-      },
-      () => host.oConn.updateLine(name, {hover: false}),
-    );
+    const {host, id} = this.props;
+    if (!host.getConnectStartPoint()) {
+      this.setState(
+        {
+          isHover: false,
+        },
+        () => host.oConn.updateLine(id, {hover: false}),
+      );
+    }
   };
 
   handleCancelButtonClick = e => {
     e.preventDefault();
-    const {host, name} = this.props;
-    host.oConn.deleteLine(name);
+    const {host, id} = this.props;
+    host.oConn.deleteLine(id);
   };
 
   handleClick = e => {
     e.preventDefault();
-    const {onClick, host, name: lineName} = this.props;
+    const {onClick, host, id: lineId} = this.props;
     onClick({
       ref: this,
-      lineName,
-      lineData: host.oConn.getLine(lineName),
+      lineId,
+      lineData: host.oConn.getLine(lineId),
     });
   };
 
-  getName() {
-    return this.props.name;
+  getId() {
+    return this.props.id;
   }
 
   getFromTo() {
