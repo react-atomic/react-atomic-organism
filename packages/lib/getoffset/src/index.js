@@ -7,7 +7,7 @@ const unifyTouch = e =>
 
 const mouse = (e, dom, scrollNode) => {
   if (!dom) {
-    dom = e.currentTarget;
+    dom = e.currentTarget || e.target;
   }
   e = unifyTouch(e);
   const x = e.clientX;
