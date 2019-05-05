@@ -156,6 +156,8 @@ const Styles = {
     pointerEvents: 'all',
   },
   group: {
+    width: 1,
+    height: 1,
     overflow: 'visible',
   },
   rect: {
