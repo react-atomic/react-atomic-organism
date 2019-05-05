@@ -20,9 +20,9 @@
     chokidar "^2.0.4"
 
 "@types/node@*":
-  version "11.13.8"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
-  integrity sha512-szA3x/3miL90ZJxUCzx9haNbK5/zmPieGraZEe4WI+3srN0eGLiT22NXeMHmyhNEopn+IrxqMc7wdVwvPl8meg==
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.0.tgz#d11813b9c0ff8aaca29f04cbc12817f4c7d656e5"
+  integrity sha512-Jrb/x3HT4PTJp6a4avhmJCDEVrPdqLfl3e8GGMbpkGGdwAV5UGlIs4vVEfsHHfylZVOKZWpOqmqFH8CbfOZ6kg==
 
 abab@^2.0.0:
   version "2.0.0"
@@ -1346,9 +1346,9 @@ get-value@^2.0.3, get-value@^2.0.6:
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
 getoffset@*:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.2.1.tgz#3fc84e5eb84072c1029c0447644781ced4aea3b5"
-  integrity sha512-oR3z6zQqDsXjPNnloYeLdTTG7agCcp/vn9nescZPc/aj7mCmQzEq2epjOMdEKrT0IO13LpyXdPgWZSLMyaIGbw==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.2.2.tgz#1365357a9fb86484ba8d3716fa45cf2c41660b00"
+  integrity sha512-ZTciEKtbyNEij8AOtBx+ng5cCKnyv3CkIN5R2sZkFFNEz7kN+buCDaFhAEVebCJmBSNA5GcWVw1PlRSqF7YYaw==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -2331,9 +2331,9 @@ optionator@^0.8.1:
     wordwrap "~1.0.0"
 
 organism-react-graph@^0.1.0-beta:
-  version "0.1.0-beta.10"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.10.tgz#d1ec8b030129816f19c23b36eb321bfc3950a01e"
-  integrity sha512-JBfqXRk8iV/x/jV1HzAUvyB+aA7f3PNgujpFPDEuMC+09VRvxNLZh2hF/roVGxqA8GXRofLJ/dKaBiyiT1pRzQ==
+  version "0.1.0-beta.11"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.1.0-beta.11.tgz#9193ef14b113f0ecf7e083c95f80555ca80f7d0a"
+  integrity sha512-tvqlfaasWQE5dg/RfZ/zi63xmxFng7gsImxfBEagTEDNhzPUNKdjRfLY8woooTyDULKvlhmzIfLgDq2YE+xpUQ==
   dependencies:
     call-func "*"
     colorlib "*"
@@ -2736,9 +2736,9 @@ reshow-constant@*:
   integrity sha512-PRwvxfln60W897Z8puaZhWhY4wrP6Mb+c8Wu+9n1yBgn+//6GP8AhW/xMdsy+MyM2HcTJ8d1iTmvr/G4Pm2NyA==
 
 reshow-runtime@*:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.10.tgz#af8cd1eaa79091bbd76a5a0a3dd591683729ae6e"
-  integrity sha512-ho4EUPxsf/1wfdWyVyjE3BGTNROAYo+/rPmgda6/Y/7nxwTGr6mbr93G+9gLZCDTsidGUaxft9yw6DN1bhu07g==
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.11.tgz#331f47ae6cd370d7103df74e9497019fe039d077"
+  integrity sha512-/bIrsZB81GSa2XLgWH3iSAP/fDdIe/b5+hn6yU8HcJn/aZ8dx8wuI1s73ZXtEBC6GYEPiCrNxlldHGCD5pZh0w==
   dependencies:
     reshow-constant "*"
 
@@ -2818,6 +2818,11 @@ set-blocking@^2.0.0, set-blocking@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
   integrity sha1-BF+XgtARrppoA93TgrJDkrPYkPc=
+
+set-object-value@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/set-object-value/-/set-object-value-0.0.4.tgz#0c32309268e9280492ea891a331dd66a354025f6"
+  integrity sha512-eKZqflM+W6dsd5rjJj3Cfsu358Wa8/+FO4vxH5Jd8oOxi9zoXzy4EWQQEnAanRcRu+NZD5X5vPBJDG+ceBBi9g==
 
 set-value@^0.4.3:
   version "0.4.3"

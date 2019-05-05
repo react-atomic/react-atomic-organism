@@ -81,8 +81,8 @@ class ConnectPoint extends PureComponent {
 
     // after connected
     this.setState({start: null});
+    host.setConnectStartPoint(null);
     if (!endPoint || !isAddConnected) {
-      host.setConnectStartPoint(null);
       oConn.deleteLine(lineId);
     }
     callfunc(onDragStart, [false]);
@@ -99,9 +99,9 @@ class ConnectPoint extends PureComponent {
   getVectorCenter(el, host) {
     const bbox = el.getBBox();
     const {left, top, width, height} = el.getBoundingClientRect();
-    const x = bbox.x + width / 2;
-    const y = bbox.y + height / 2;
-    return host.applyXY(x, y);
+    const x = width / 2 + bbox.x;
+    const y = height / 2 + bbox.y;
+    return host.applyXY(x, y, el);
   }
 
   getHtmlCenter(el, host) {
@@ -121,13 +121,15 @@ class ConnectPoint extends PureComponent {
   getCenter() {
     const {host} = this.props;
     const el = this.getEl();
+    let center;
     if (host.insideVector(el)) {
-      return this.getVectorCenter(el, host);
+      center = this.getVectorCenter(el, host);
     } else {
       if (host.insideHtml(el)) {
-        return this.getHtmlCenter(el, host);
+        center = this.getHtmlCenter(el, host);
       }
     }
+    return center;
   }
 
   getBox() {
@@ -155,6 +157,12 @@ class ConnectPoint extends PureComponent {
       show = true;
     }
     return show;
+  }
+
+  handleEl = el => {
+    if (el) {
+      this.dnd = el
+    }
   }
 
   constructor(props) {
@@ -214,16 +222,15 @@ class ConnectPoint extends PureComponent {
     return (
       <DragAndDrop
         {...props}
+        data-id={this.id}
         absX={absX}
         absY={absY}
         isShow={this.isShow()}
-        onGetEl={this.getEl}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
         onDrag={this.handleDrag}
-        component={build(component)({
-          ref: el => (this.dnd = el),
-        })}
+        ref={this.handleEl}
+        component={component}
       />
     );
   }

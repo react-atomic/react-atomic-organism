@@ -34,7 +34,8 @@ class BoxGroup extends PureComponent {
   };
 
   getBoxIdByName(name) {
-    return get(this, ['boxNameInvertMap', name]);
+    const boxId = get(this.boxNameInvertMap, [name]);
+    return boxId;
   }
 
   setBoxNameInvertMap(id, name) {
@@ -96,6 +97,7 @@ class BoxGroup extends PureComponent {
     );
     return (
       <DragAndDrop
+        ref={el => this.el = el}
         absX={absX}
         absY={absY}
         onDrag={this.handleDrag}
@@ -103,13 +105,13 @@ class BoxGroup extends PureComponent {
         onGetEl={this.getEl}
         component={component({
           ...props,
+          id: this.id,
           isInsideVector: host.insideVector,
           onEdit: this.handleEdit,
           onDel: this.handleDel,
           className: 'box-group',
           boxGroupAbsX: absX,
           boxGroupAbsY: absY,
-          ref: el => (this.el = el),
           text: text || name,
         }, thisChildren)}
       />

@@ -1,10 +1,9 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {build} from 'react-atomic-molecule';
 import {d3DnD, d3Event} from 'd3-lib';
 import getOffset, {unifyTouch} from 'getoffset';
 import get from 'get-object-value';
 import callfunc from 'call-func';
-import {FUNCTION} from 'reshow-constant';
 import {doc} from 'win-doc';
 
 class DragAndDrop extends PureComponent {
@@ -19,35 +18,25 @@ class DragAndDrop extends PureComponent {
 
   handleStart = () => {
     const {onDragStart, zoom} = this.props;
-    let zoomK = 1;
-    if (FUNCTION === typeof zoom) {
-      zoomK = get(zoom(), ['k'], 1);
-    }
-    const e = d3Event();
-    const {x, y, sourceEvent} = e;
+    const zoomK = get(callfunc(zoom), ['k'], 1);
+    const {x: fromX, y: fromY, sourceEvent} = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
-    const {pageX, pageY} = thisEvent;
-    const offset = getOffset(this.getEl());
-    const elAbsX = ((pageX - offset.left) * 2) / zoomK;
-    const elAbsY = ((pageY - offset.top) * 2) / zoomK;
     this.start = {
-      x,
-      y,
-      elAbsX,
-      elAbsY,
+      fromX,
+      fromY,
+      zoomK,
     };
     thisEvent.start = this.start;
     callfunc(onDragStart, [thisEvent]);
   };
 
   handleDrag = () => {
-    const e = d3Event();
-    const {x: moveX, y: moveY, sourceEvent} = e;
-    const {x: startX, y: startY, elAbsX, elAbsY} = this.start;
-    let {absX, absY, onDrag} = this.props;
-    absX += startX + moveX - elAbsX;
-    absY += startY + moveY - elAbsY;
+    const {x, y, dx, dy, sourceEvent} = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
+    const {fromX, fromY} = this.start;
+    const {absX, absY, onDrag} = this.props;
+    const nextAbsX = absX + x - fromX;
+    const nextAbsY = absY + y - fromY;
     const destTarget = callfunc(
       doc().elementFromPoint,
       [thisEvent.clientX, thisEvent.clientY],
@@ -55,8 +44,8 @@ class DragAndDrop extends PureComponent {
     );
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.destTarget = destTarget;
-    thisEvent.absX = absX;
-    thisEvent.absY = absY;
+    thisEvent.absX = nextAbsX;
+    thisEvent.absY = nextAbsY;
     this.last = thisEvent;
     callfunc(onDrag, [thisEvent]);
   };
@@ -72,17 +61,21 @@ class DragAndDrop extends PureComponent {
   };
 
   getEl() {
-    return this.el || callfunc(this.props.onGetEl);
+    return this.el;
   }
 
-  componentDidMount() {
-    d3DnD({
-      el: this.getEl(),
-      start: this.handleStart,
-      drag: this.handleDrag,
-      end: this.handleEnd,
-    });
-  }
+  handleElChange = el => {
+    if (el) {
+      this.el = el;
+      d3DnD({
+        el,
+        start: this.handleStart,
+        drag: this.handleDrag,
+        end: this.handleEnd,
+      });
+    }
+    return this.el;
+  };
 
   render() {
     const {
@@ -91,11 +84,10 @@ class DragAndDrop extends PureComponent {
       absX,
       absY,
       zoom,
-      onGetEl,
+      refCb,
       onDragStart,
       onDrag,
       onDragEnd,
-      refCb,
       ...props
     } = this.props;
     const {style: compStyle, refCb: compRefcb} = get(component, ['props'], {});
@@ -104,9 +96,16 @@ class DragAndDrop extends PureComponent {
       ...Styles.container,
       ...compStyle,
     };
-    if (!onGetEl) {
-      props.refCb = el => {this.el = el; callfunc(refCb, [el]); callfunc(compRefcb, [el]);};
+    if (refCb || compRefcb) {
+      props.refCb = el => {
+        this.handleElChange(el);
+        callfunc(refCb, [el]);
+        callfunc(compRefcb, [el]);
+      };
+    } else {
+      props.onGetEl = this.handleElChange;
     }
+
     return build(component)(props);
   }
 }

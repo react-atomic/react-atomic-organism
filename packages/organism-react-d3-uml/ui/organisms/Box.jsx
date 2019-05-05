@@ -10,7 +10,7 @@ const keys = Object.keys;
 
 class Box extends PureComponent {
   isConnectPointDrag = false;
-  points = [];
+  points = {};
   hoverTimer = false;
 
   state = {
@@ -53,9 +53,11 @@ class Box extends PureComponent {
     keys(this.points).forEach(key => {
       const p = this.points[key];
       const point = p.getCenter();
-      let pointDistance = getDistance(center, point);
-      distance.push(pointDistance);
-      distanceMap[pointDistance] = p;
+      if (point) {
+        const pointDistance = getDistance(center, point);
+        distance.push(pointDistance);
+        distanceMap[pointDistance] = p;
+      }
     });
     const min = Math.min(...distance);
     return distanceMap[min];
@@ -74,6 +76,10 @@ class Box extends PureComponent {
   getBoxGroup() {
     const {host, boxGroupId} = this.props;
     return host.getBoxGroup(boxGroupId);
+  }
+
+  getBoxGroupId() {
+    return this.props.boxGroupId;
   }
 
   getName() {
@@ -106,6 +112,12 @@ class Box extends PureComponent {
     }
   }
 
+  handleEl = el => {
+    if (el) {
+      this.el = el;
+    }
+  }
+
   constructor(props) {
     super(props);
     this.id = boxId;
@@ -114,7 +126,7 @@ class Box extends PureComponent {
 
   componentDidMount() {
     const {host} = this.props;
-    host.addBoxQueue(this);
+    host.addBox(this);
   }
 
   componentWillUnmount() {
@@ -148,7 +160,7 @@ class Box extends PureComponent {
     return component({
       ...props,
       connectPointComponent,
-      ref: el => (this.el = el),
+      ref: this.handleEl, 
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
       'data-id': this.id,

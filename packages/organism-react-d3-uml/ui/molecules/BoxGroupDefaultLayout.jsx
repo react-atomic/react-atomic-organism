@@ -26,13 +26,13 @@ class BoxGroupDefaultLayout extends BaseLayout {
   childrenEl = {};
 
   getEl() {
-    return this.rect;
+    return this.el;
   }
 
-  componentDidMount() {
+  update(prevState) {
     let startY = 20;
     const boxsPos = {};
-    const arrW = [];
+    const arrW = [0];
     keys(this.childrenEl).forEach(cKey => {
       const cEl = this.childrenEl[cKey].getEl();
       const {w, h} = getOffset(cEl);
@@ -45,16 +45,27 @@ class BoxGroupDefaultLayout extends BaseLayout {
       };
     });
     const maxW = Math.max(...arrW);
-    this.setState({
-      rectW: maxW + 10,
-      rectH: startY + 5,
-      boxsPos,
-    });
+    if (maxW > 0 && !prevState.maxW) {
+      this.setState({
+        maxW,
+        rectW: maxW + 10,
+        rectH: startY + 5,
+        boxsPos,
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.update({});
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.update(prevState);
   }
 
   render() {
     const {
-      svg,
+      id,
       className,
       showConnectPoint,
       text,
@@ -62,16 +73,30 @@ class BoxGroupDefaultLayout extends BaseLayout {
       isInsideVector,
       boxGroupAbsX,
       boxGroupAbsY,
+      onGetEl,
       onMouseEnter,
       onMouseLeave,
       onDel,
       onEdit,
     } = this.props;
     const {rectW, rectH, boxsPos} = this.state;
-    const translate = `translate(${boxGroupAbsX}px, ${boxGroupAbsY}px)`;
     const graphStyle = {...Styles.container};
-    const groupStyle = {...Styles.group};
-    let cancelButton = (
+    const graphProps = {};
+    let atom;
+    let gAtom;
+    let translate;
+    if (isInsideVector(this.el)) {
+      atom = 'g';
+      gAtom = 'g';
+      graphProps.transform = `translate(${boxGroupAbsX}, ${boxGroupAbsY})`;
+    } else {
+      atom = 'i';
+      gAtom = 'svg';
+      graphStyle.transform = `translate(${boxGroupAbsX}px, ${boxGroupAbsY}px)`;
+      graphStyle.width = rectW + 10;
+      graphStyle.height = rectH + 10;
+    }
+    const cancelButton = (
       <CancelButton
         x={-10}
         y={-10}
@@ -81,29 +106,24 @@ class BoxGroupDefaultLayout extends BaseLayout {
         }}
       />
     );
-    if (isInsideVector(this.el)) {
-      groupStyle.transform = translate;
-    } else {
-      graphStyle.transform = translate;
-    }
     if (onEdit) {
       graphStyle.cursor = 'pointer';
     }
-    const atom = svg ? 'g' : 'svg';
     return (
       <Graph
+        {...graphProps}
         className={className}
         atom={atom}
         style={graphStyle}
-        refCb={el => (this.el = el)}>
-        <Group style={groupStyle}>
+        data-id={id}
+        refCb={el => (this.el = onGetEl(el))}>
+        <Group atom={gAtom} style={Styles.group}>
           <Rect
             style={Styles.rect}
             rx="5"
             ry="5"
             width={rectW}
             height={rectH}
-            refCb={el => (this.rect = el)}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
             onClick={onEdit}
@@ -131,13 +151,12 @@ export default BoxGroupDefaultLayout;
 
 const Styles = {
   container: {
-    width: 1,
-    height: 1,
     position: 'absolute',
     overflow: 'visible',
+    pointerEvents: 'all',
   },
   group: {
-    pointerEvents: 'all',
+    overflow: 'visible',
   },
   rect: {
     stroke: '#999',

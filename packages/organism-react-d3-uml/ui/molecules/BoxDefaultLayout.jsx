@@ -7,6 +7,13 @@ class BoxDefaultLayout extends BaseLayout {
   getEl() {
     return this.el;
   }
+
+  handleEl = el => {
+    if (el) {
+      this.el = el;
+    }
+  };
+
   render() {
     const {
       connectPointComponent,
@@ -20,22 +27,20 @@ class BoxDefaultLayout extends BaseLayout {
     const cy = -(height / 2 - 5);
     const connectPoints = [
       connectPointComponent({
-        key: 'left', 
+        key: 'left',
         cy,
         cx: -12,
       }),
       connectPointComponent({
-        key: 'right', 
+        key: 'right',
         cy,
         cx: width + 12,
       }),
     ];
     const translate = `translate(${x}, ${y})`;
     return (
-      <Group
-        refCb={el => this.el = el}
-        transform={translate}>
-        <Text {...props}>{text}</Text>
+      <Group transform={translate}>
+        <Text {...props} refCb={this.handleEl}>{text}</Text>
         {connectPoints}
       </Group>
     );

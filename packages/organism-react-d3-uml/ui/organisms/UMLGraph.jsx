@@ -1,7 +1,8 @@
-import React, {PureComponent, cloneElement} from 'react';
+import React, {PureComponent, memo, cloneElement} from 'react';
 import {SemanticUI, build} from 'react-atomic-molecule';
 import {Graph, Group, Zoom} from 'organism-react-graph';
 import get, {getDefault} from 'get-object-value';
+import set from 'set-object-value';
 import getOffset, {mouse, getSvgMatrixXY} from 'getoffset';
 import callfunc from 'call-func';
 import {toInt} from 'to-percent-js';
@@ -17,12 +18,9 @@ import ConnectController from '../../src/ConnectController';
 
 const keys = Object.keys;
 
-class HTMLGraph extends PureComponent {
-  render() {
-    const props = this.props;
-    return <SemanticUI {...props} />;
-  }
-}
+const HTMLGraph = memo(props => (
+  <SemanticUI {...props} className="html-graph" />
+));
 
 class UMLGraph extends PureComponent {
   static defaultProps = {
@@ -75,10 +73,25 @@ class UMLGraph extends PureComponent {
     return get(this, ['boxGroupNameInvertMap', name]);
   }
 
-  addLazyMoveWithMouseEvent(boxGroupName, e) {
-    const mouseXY = mouse(e, this.getVectorEl());
-    const {x, y} = this.applyXY(mouseXY[0], mouseXY[1]);
-    this.addLazyMove(boxGroupName, x, y);
+  addLazyMoveWithMouseEvent(boxGroupName, e, dnd) {
+    const vectorEl = this.getVectorEl();
+    if (vectorEl) {
+      const mouseXY = mouse(e, vectorEl);
+      let {x, y} = this.applyXY(mouseXY[0], mouseXY[1]);
+      if (dnd) {
+        const zoomK = this.getZoomK() || 1;
+        let {fromX, fromY} = get(dnd, ['start'], {});
+        if (fromX) {
+          fromX = fromX * zoomK; 
+        }
+        if (fromY) {
+          fromY = fromY * zoomK; 
+        }
+        x -= fromX;
+        y -= fromY;
+      }
+      this.addLazyMove(boxGroupName, x, y);
+    }
   }
 
   addLazyMove(boxGroupName, x, y) {
@@ -116,12 +129,9 @@ class UMLGraph extends PureComponent {
     const name = obj.getName();
     this.boxGroupNameInvertMap[name] = id;
     this.boxGroupMap[id] = obj;
-    keys(get(this.boxQueue, null, {})).forEach(key => {
-      const boxObj = this.boxQueue[key];
+    keys(get(this.boxQueue[id], null, {})).forEach(boxName => {
+      const boxObj = this.boxQueue[id][boxName];
       const isAdd = this.addBox(boxObj);
-      if (isAdd) {
-        delete this.boxQueue[key];
-      }
     });
   }
 
@@ -129,8 +139,9 @@ class UMLGraph extends PureComponent {
     if (!obj) {
       return;
     }
-    const id = obj.getId();
-    this.boxQueue[id] = obj;
+    const name = obj.getName();
+    const boxGroupId = obj.getBoxGroupId();
+    set(this.boxQueue, [boxGroupId, name], obj);
   }
 
   addBox(obj) {
@@ -139,10 +150,17 @@ class UMLGraph extends PureComponent {
     }
     const group = obj.getBoxGroup();
     if (!group) {
+      this.addBoxQueue(obj);
       return;
     }
     group.addBox(obj);
-    group.setBoxNameInvertMap(obj.getId(), obj.getName());
+    const groupId = group.getId();
+    const boxName = obj.getName();
+    const boxId = obj.getId();
+    group.setBoxNameInvertMap(boxId, boxName);
+    if (get(this.boxQueue, [groupId, boxName])) {
+      delete this.boxQueue[groupId][boxName];
+    }
     return true;
   }
 
@@ -187,12 +205,21 @@ class UMLGraph extends PureComponent {
   }
 
   getTransform = () => {
-    const t = this.zoom.getTransform();
-    return t;
+    if (this.zoom) {
+      const t = this.zoom.getTransform();
+      return t;
+    }
   };
 
-  applyXY = (pX, pY) => {
-    const dom = this.getVectorEl();
+  getZoomK = () => {
+    const {k} = this.getTransform();
+    return k;
+  }
+
+  applyXY = (pX, pY, dom) => {
+    if (!dom) {
+      dom = this.getVectorEl();
+    }
     const zoom = this.getTransform();
     const {x, y} = getSvgMatrixXY(dom, zoom)(pX, pY);
     return {x, y};
@@ -237,11 +264,11 @@ class UMLGraph extends PureComponent {
       }
       const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName);
       const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName);
+      const lineId = this.oConn.addLine(conn); //add line will trigger box render need put before getBoxIdByName
       const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(
         fromBoxName,
       );
       const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName);
-      const lineId = this.oConn.addLine(conn);
       addGroupConn(fromBoxGroupId, toBoxGroupId);
       const fromBox = this.getBox(fromBoxId, fromBoxGroupId);
       const toBox = this.getBox(toBoxId, toBoxGroupId);
@@ -298,9 +325,9 @@ class UMLGraph extends PureComponent {
 
   componentDidMount() {
     setTimeout(() => {
+      const conns = this.syncPropConnects();
       import('../../src/dagre').then(dagreAutoLayout => {
         dagreAutoLayout = getDefault(dagreAutoLayout);
-        const conns = this.syncPropConnects();
         const newXY = dagreAutoLayout({...this.boxGroupMap}, conns);
         get(keys(newXY), null, []).forEach(key => {
           const oBoxGroup = this.getBoxGroup(key);
@@ -391,7 +418,7 @@ class UMLGraph extends PureComponent {
                 onDel={this.del}
                 {...bgName}>
                 {boxsLocator(item).map((colItem, colKey) => (
-                  <Box 
+                  <Box
                     host={this}
                     key={'box-' + colKey}
                     {...boxNameLocator(colItem)}

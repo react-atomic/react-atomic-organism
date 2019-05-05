@@ -8,16 +8,26 @@ class ConnectPointDefaultLayout extends BaseLayout {
       return this.el;
     }
   }
+
+  handleEl = el => {
+    const {onGetEl} = this.props;
+    if (el) {
+      onGetEl(el);
+      this.el = el;
+    }
+  }
+
   render() {
-    const {isShow, style, ...props} = this.props;
+    const {isShow, style, onGetEl, ...props} = this.props;
     let thisStyle = {...Styles.container, ...style};
     if (isShow) {
       thisStyle = {...thisStyle, ...Styles.visible};
     }
+
     return (
       <Circle 
       {...props}
-      refCb={el => this.el = el}
+      refCb={this.handleEl}
       style={thisStyle}
       fill="#3c5d9b" 
       fillOpacity="0.4"
