@@ -79,7 +79,7 @@ class UMLGraph extends PureComponent {
       const mouseXY = mouse(e, vectorEl);
       let {x, y} = this.applyXY(mouseXY[0], mouseXY[1]);
       if (dnd) {
-        const zoomK = this.getZoomK() || 1;
+        const zoomK = this.getZoomK();
         let {fromX, fromY} = get(dnd, ['start'], {});
         if (fromX) {
           fromX = fromX * zoomK; 
@@ -204,6 +204,17 @@ class UMLGraph extends PureComponent {
     return component || BoxGroupDefaultLayout;
   }
 
+  handleZoomRef = o => {
+    if (o) {
+      this.zoom = o;
+    }
+  }
+
+  handleZoom = e => {
+    const {transform: oTransform} = e;
+    this.setState({oTransform});
+  };
+
   getTransform = () => {
     if (this.zoom) {
       const t = this.zoom.getTransform();
@@ -212,8 +223,8 @@ class UMLGraph extends PureComponent {
   };
 
   getZoomK = () => {
-    const {k} = this.getTransform();
-    return k;
+    const {k} = this.getTransform() || {};
+    return k || 1;
   }
 
   applyXY = (pX, pY, dom) => {
@@ -283,11 +294,6 @@ class UMLGraph extends PureComponent {
     });
     return groupConn;
   }
-
-  handleZoom = e => {
-    const {transform: oTransform} = e;
-    this.setState({oTransform});
-  };
 
   handleLineEdit = payload => {
     const {onLineEdit} = this.props;
@@ -373,7 +379,7 @@ class UMLGraph extends PureComponent {
         <Graph refCb={el => (this.vector = el)} {...props} style={Styles.svg}>
           <Zoom
             onGetEl={() => this.zoomEl}
-            ref={el => (this.zoom = el)}
+            ref={this.handleZoomRef}
             onZoom={this.handleZoom}>
             {build(arrowHeadComponent)()}
             {(() => {
