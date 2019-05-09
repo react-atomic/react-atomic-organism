@@ -40,7 +40,8 @@ class Suggestion extends PureComponent {
   }
 
   open(e) {
-    if (this.state.isOpen) {
+    const {isOpen, disabled} = this.state;
+    if (isOpen || disabled) {
       return;
     }
     body().addEventListener('click', this.handleClose);
