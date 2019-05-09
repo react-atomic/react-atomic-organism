@@ -1,37 +1,41 @@
 import React, {isValidElement, cloneElement} from 'react';
 import {mixClass, SemanticUI, List} from 'react-atomic-molecule';
 import {win} from 'win-doc';
+import callfunc from 'call-func';
+import get from 'get-object-value';
 
 const SearchBox = ({
+  className,
+  compHd,
   wrapRefCb,
   wrapStyle,
+  wrapOnClick,
   results,
   itemOnClick,
+  itemLocator,
+  itemsLocator,
   resultsStyle,
+  selIndex,
   ...props
 }) => {
-  const classes = mixClass(props.className, 'search');
+  const classes = mixClass(className, 'search');
   if (results && results.length) {
     results = (
       <List type="results" style={{...Styles.results, ...resultsStyle}}>
-        {results.map((item, key) => {
-          const itemNextProps = {};
+        {itemsLocator(results).map((itemData, key) => {
+          const item = itemLocator(itemData);
+          const itemClasses = mixClass(get(item, ['props', 'className']), 'result', {
+            active: selIndex -1 === key
+          });
+          const itemNextProps = {className: itemClasses, key};
           if ('function' === typeof itemOnClick) {
-            itemNextProps.onClick = e => itemOnClick(e, item);
+            itemNextProps.onClick = e => itemOnClick(e, itemData);
           }
           if (isValidElement(item)) {
-            itemNextProps.className = mixClass(item.props.className, 'result');
-            return cloneElement(
-              item,
-              itemNextProps
-            );
+            return cloneElement(item, itemNextProps);
           } else {
             return (
-              <SemanticUI
-                className="result"
-                key={key}
-                {...itemNextProps}
-              >
+              <SemanticUI {...itemNextProps}>
                 {item}
               </SemanticUI>
             );
@@ -41,7 +45,13 @@ const SearchBox = ({
     );
   }
   return (
-    <SemanticUI className={classes} style={wrapStyle} refCb={wrapRefCb}>
+    <SemanticUI
+      className={classes}
+      style={wrapStyle}
+      refCb={wrapRefCb}
+      onClick={e => callfunc(wrapOnClick, [e])}>
+      {compHd}
+      {/*className: prompt is for semantic-ui. https://semantic-ui.com/modules/search.html*/}
       <SemanticUI atom="input" className="prompt" type="text" {...props} />
       {results}
     </SemanticUI>
@@ -49,7 +59,7 @@ const SearchBox = ({
 };
 
 SearchBox.defaultProps = {
-  autoComplete: (win().chrome) ? 'none' : 'off'
+  autoComplete: win().chrome ? 'none' : 'off',
 };
 
 export default SearchBox;
