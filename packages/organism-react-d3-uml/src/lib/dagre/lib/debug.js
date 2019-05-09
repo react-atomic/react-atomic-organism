@@ -1,9 +1,8 @@
-var util = require("./util"),
-    Graph = require("./graphlib").Graph;
+import * as util from './util';
+import {Graph} from './graphlib';
 
-module.exports = {
-  debugOrdering: debugOrdering
-};
+export {debugOrdering};
+
 
 /* istanbul ignore next */
 function debugOrdering(g) {

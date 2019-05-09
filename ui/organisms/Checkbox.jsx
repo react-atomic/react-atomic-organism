@@ -86,6 +86,7 @@ class Checkbox extends PureComponent {
           type: 'change',
           target: this.getInput(),
           currentTarget: this.getInput(),
+          checked,
         },
         this,
       ]),
@@ -96,6 +97,7 @@ class Checkbox extends PureComponent {
 
   render() {
     const {
+      className,
       value,
       disabled,
       refCb,
@@ -125,6 +127,7 @@ class Checkbox extends PureComponent {
             this.el = el;
             callfunc(refCb, [el]);
           },
+          className: mixClass(className, 'hidden'),
           label: thisLabel,
           checked: stateChecked,
           onChange: this.handleChange,

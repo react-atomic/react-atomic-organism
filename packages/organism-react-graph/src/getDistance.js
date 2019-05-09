@@ -1,5 +1,4 @@
-
-const toInt = d => parseInt(d, 10)
+import {toInt} from 'to-percent-js'
 
 const getDistance = (p1, p2) =>
 Math.sqrt(

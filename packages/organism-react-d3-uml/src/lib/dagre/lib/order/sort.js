@@ -1,6 +1,6 @@
-import {flattenDownDepth} from '../lodash-lite'
+import {flattenDownDepth} from '../../../lodash-lite';
+import * as util from '../util';
 
-var util = require("../util");
 
 export default sort
 

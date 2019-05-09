@@ -1,5 +1,6 @@
+import {has} from '../../../lodash-lite';
 
-module.exports = PriorityQueue;
+export default PriorityQueue;
 
 /**
  * A min-priority queue data structure. This algorithm is derived from Cormen,
@@ -31,7 +32,7 @@ PriorityQueue.prototype.keys = function() {
  * Returns `true` if **key** is in the queue and `false` if not.
  */
 PriorityQueue.prototype.has = function(key) {
-  return 'undefined' !== this._keyIndices[key]
+  return has(this._keyIndices, key);
 };
 
 /**
@@ -67,11 +68,12 @@ PriorityQueue.prototype.min = function() {
  * @param {Number} priority the initial priority for the key
  */
 PriorityQueue.prototype.add = function(key, priority) {
+  var keyIndices = this._keyIndices;
   key = String(key);
-  if (!this.has(key)) {
+  if (!has(keyIndices, key)) {
     var arr = this._arr;
     var index = arr.length;
-    this._keyIndices[key] = index;
+    keyIndices[key] = index;
     arr.push({key: key, priority: priority});
     this._decrease(index);
     return true;
@@ -109,9 +111,9 @@ PriorityQueue.prototype.decrease = function(key, priority) {
 
 PriorityQueue.prototype._heapify = function(i) {
   var arr = this._arr;
-  var l = 2 * i,
-      r = l + 1,
-      largest = i;
+  var l = 2 * i;
+  var r = l + 1;
+  var largest = i;
   if (l < arr.length) {
     largest = arr[l].priority < arr[largest].priority ? l : largest;
     if (r < arr.length) {

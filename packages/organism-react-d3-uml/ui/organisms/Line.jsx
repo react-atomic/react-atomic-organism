@@ -1,123 +1,78 @@
-import React, {PureComponent} from 'react'
-import {Line as LineGraph, Area, Group} from 'organism-react-graph'
+import React, {PureComponent} from 'react';
+import {build} from 'react-atomic-molecule';
 
-import CancelButton from '../organisms/CancelButton'
+import LineDefaultLayout from '../molecules/LineDefaultLayout';
 
-class Line extends PureComponent
-{
-    static defaultProps = {
-      markerEnd: 'url(#marker-arrow-head)'
+class Line extends PureComponent {
+  static defaultProps = {
+    component: LineDefaultLayout,
+  };
+
+  state = {
+    isHover: false,
+  };
+
+  handleMouseEnter = e => {
+    const {host, id} = this.props;
+    if (!host.getConnectStartPoint()) {
+      this.setState(
+        {
+          isHover: true,
+        },
+        () => host.oConn.updateLine(id, {hover: true}),
+      );
     }
+  };
 
-    state={
-        isHover: false,
+  handleMouseLeave = e => {
+    const {host, id} = this.props;
+    if (!host.getConnectStartPoint()) {
+      this.setState(
+        {
+          isHover: false,
+        },
+        () => host.oConn.updateLine(id, {hover: false}),
+      );
     }
+  };
 
-    handleMouseEnter = e =>
-    {
-        this.setState({
-            isHover: true
-        })
-    }
+  handleCancelButtonClick = e => {
+    e.preventDefault();
+    const {host, id} = this.props;
+    host.oConn.deleteLine(id);
+  };
 
-    handleMouseLeave = e =>
-    {
-        this.setState({
-            isHover: false
-        })
-    }
+  handleClick = e => {
+    e.preventDefault();
+    const {onClick, host, id: lineId} = this.props;
+    onClick({
+      ref: this,
+      lineId,
+      lineData: host.oConn.getLine(lineId),
+    });
+  };
 
-    handleClickCancelBtn = e =>
-    {
-        const {host, name} = this.props
-        host.deleteLine(name)
-    }
+  getId() {
+    return this.props.id;
+  }
 
-    handleClick = e =>
-    {
-      const {onClick} = this.props
-      if ('function' === typeof onClick) {
-        onClick(e, this)
-      }
-    }
+  getFromTo() {
+    const {from, to} = this.props;
+    return {from, to};
+  }
 
-    getName()
-    {
-      return this.props.name
-    }
-
-    render()
-    {
-        const {start, end, from, to, host, onClick, ...props} = this.props
-        const {isHover} = this.state
-        const areaSize = 1
-        let area = null
-        let cancelButton = null
-        let areaStyle = Styles.area
-        let cancelStyle = Styles.cancel
-        if (from && to) {
-            if (isHover) {
-                areaStyle = {...areaStyle, ...Styles.hover}
-                cancelStyle = null
-            }
-            cancelButton = (
-                <CancelButton 
-                    x={start.x}
-                    y={start.y}
-                    onClick={this.handleClickCancelBtn}
-                    style={cancelStyle}
-                />
-            )
-            area = (
-                <Area
-                    data={[{x: start.x+15, y: start.y}, {x: end.x-15, y: end.y}]}
-                    xLocator={d=>d.x}
-                    y0Locator={d=>d.y+areaSize}
-                    y1Locator={d=>d.y-areaSize}
-                    style={areaStyle}
-                />
-            )
-        }
-        return (
-            <Group>
-                <LineGraph
-                    {...props}
-                    start={start}
-                    end={end}
-                    curve={true}
-                    style={Styles.line}
-                />
-                <Group
-                    onMouseEnter={this.handleMouseEnter}
-                    onMouseLeave={this.handleMouseLeave}
-                    onClick={this.handleClick}
-                >
-                    {area}
-                    {cancelButton}
-                </Group>
-            </Group>
-        )
-    }
+  render() {
+    const {props, init, host, onClick, component, ...other} = this.props;
+    const {isHover} = this.state;
+    return build(component)({
+      ...other,
+      isHover,
+      onClick: this.handleClick,
+      onCancelButtonClick: this.handleCancelButtonClick,
+      onMouseEnter: this.handleMouseEnter,
+      onMouseLeave: this.handleMouseLeave,
+    });
+  }
 }
 
-export default Line
-
-const Styles = {
-    line: {
-        stroke: '#333',
-        strokeWidth: 1.5
-    },
-    area: {
-        strokeLinejoin: 'round',
-        stroke: '#000',
-        strokeWidth: 15,
-        strokeOpacity: 0, 
-        fill: 'none'
-    },
-    hover: {
-        strokeOpacity: '.1',
-    },
-    cancel: {
-        opacity: 0 
-    }
-}
+export default Line;

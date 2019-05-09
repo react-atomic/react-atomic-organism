@@ -1,15 +1,18 @@
+import {has} from '../../../lodash-lite'
 import Graph from '../graph'
 import PriorityQueue from '../data/priority-queue'
+export default prim;
 
-const prim = (g, weightFunc) => {
-  var result = new Graph(),
-      parents = {},
-      pq = new PriorityQueue(),
-      v;
+
+function prim(g, weightFunc) {
+  var result = new Graph();
+  var parents = {};
+  var pq = new PriorityQueue();
+  var v;
 
   function updateNeighbors(edge) {
-    var w = edge.v === v ? edge.w : edge.v,
-        pri = pq.priority(w);
+    var w = edge.v === v ? edge.w : edge.v;
+    var pri = pq.priority(w);
     if (pri !== undefined) {
       var edgeWeight = weightFunc(edge);
       if (edgeWeight < pri) {
@@ -23,7 +26,7 @@ const prim = (g, weightFunc) => {
     return result;
   }
 
-  g.nodes().forEach( function(v) {
+  g.nodes().forEach(function(v) {
     pq.add(v, Number.POSITIVE_INFINITY);
     result.setNode(v);
   });
@@ -34,7 +37,7 @@ const prim = (g, weightFunc) => {
   var init = false;
   while (pq.size() > 0) {
     v = pq.removeMin();
-    if ('undefined' !== typeof parents[v]) {
+    if (has(parents, v)) {
       result.setEdge(v, parents[v]);
     } else if (init) {
       throw new Error("Input graph is not connected: " + g);
@@ -47,5 +50,3 @@ const prim = (g, weightFunc) => {
 
   return result;
 }
-
-export default prim 

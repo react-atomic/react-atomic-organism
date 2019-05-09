@@ -1,9 +1,8 @@
-"use strict";
-import {range} from '../lodash-lite'
 import get from 'get-object-value'
 
-var Graph = require("../graphlib").Graph,
-    util = require("../util");
+import {range, values, max, min} from '../../../lodash-lite'
+import * as util from '../util';
+import {Graph} from '../graphlib';
 
 const keys = Object.keys
 
@@ -312,7 +311,7 @@ function findSmallestWidthAlignment(g, xss) {
     })
     return max - min;
   })
-  return Math.min(arr)
+  return min(arr)
 }
 
 /*
@@ -323,9 +322,9 @@ function findSmallestWidthAlignment(g, xss) {
  * coordinate of the smallest width alignment.
  */
 function alignCoordinates(xss, alignTo) {
-  var alignToVals = keys(alignTo).map(key => alignTo[key]),
-      alignToMin = Math.min(alignToVals),
-      alignToMax = Math.max(alignToVals);
+  const alignToVals = values(alignTo);
+  const alignToMin = min(alignToVals);
+  const alignToMax = max(alignToVals); 
 
   ["u", "d"].forEach( function(vert) {
     ["l", "r"].forEach( function(horiz) {
@@ -334,8 +333,8 @@ function alignCoordinates(xss, alignTo) {
           delta;
       if (xs === alignTo) return;
 
-      var xsVals = keys(xs).map(key=>xs[key]);
-      delta = horiz === "l" ? alignToMin - Math.min(xsVals) : alignToMax - Math.max(xsVals);
+      var xsVals = values(xs);
+      delta = horiz === "l" ? alignToMin - min(xsVals) : alignToMax - max(xsVals);
 
       if (delta) {
         xss[alignment] = keys(xs).map(key => xs[key]).map(x => x + delta) 

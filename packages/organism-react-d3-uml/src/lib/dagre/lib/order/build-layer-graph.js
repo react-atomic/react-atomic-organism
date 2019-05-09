@@ -1,6 +1,5 @@
-import {uniqueId} from '../lodash-lite'
-
-    var Graph = require("../graphlib").Graph;
+import {uniqueId} from '../../../lodash-lite'
+import {Graph} from '../graphlib';
 
 export default buildLayerGraph
 

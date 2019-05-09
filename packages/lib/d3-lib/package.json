@@ -1,30 +1,37 @@
 {
   "name": "d3-lib",
-  "version": "0.0.23",
+  "version": "0.3.3",
   "description": "D3 Library for data computing.",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "memoize-one": "*",
     "array.min.max": "*",
     "d3": "*",
-    "get-object-value": "*"
+    "d3-scale-chromatic": "*",
+    "get-object-value": "*",
+    "reshow-runtime": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.x",
+    "@babel/cli": "^7.x",
     "chai": "*",
     "mocha": "*"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel src -d build/src",
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "prepublishOnly": "npm run test && npm run build",
-    "buildTest": "BABEL_ENV=build babel tests -d build/tests",
-    "test": "npm run build && npm run buildTest && mocha 'build/tests/**/*.js'"
+    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
   },
   "files": [
-    "build/src",
+    "build",
     "package.json",
     "README.md"
   ]

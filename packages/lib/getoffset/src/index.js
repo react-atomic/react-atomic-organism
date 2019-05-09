@@ -2,51 +2,60 @@ import getScrollInfo from 'get-scroll-info';
 import get from 'get-object-value';
 import {UNDEFINED} from 'reshow-constant';
 
-const unifyTouch = e => {
-  if (!e.changedTouches) {
-    return e;
-  } else {
-    return get(e, ['changedTouches', 0]);
-  }
-};
+const unifyTouch = e =>
+  e && e.changedTouches ? get(e, ['changedTouches', 0]) : e;
 
 const mouse = (e, dom, scrollNode) => {
   if (!dom) {
-    dom = e.currentTarget;
+    dom = e.currentTarget || e.target;
   }
   e = unifyTouch(e);
   const x = e.clientX;
   const y = e.clientY;
   const svgXY = toSvgXY(dom)(x, y);
   if (false !== svgXY) {
-    return svgXY;
+    const {x: svgX, y: svgY} = svgXY;
+    return [svgX, svgY];
   } else {
     const domXY = getOffset(dom, scrollNode);
     return [x - domXY.left - dom.clientLeft, y - domXY.top - dom.clientTop];
   }
 };
 
-const toSvgXY = dom => (x, y) => {
+const toSvgXY = (dom, zoom) => (x, y) => {
   const svg = dom.ownerSVGElement || dom;
   if (svg.createSVGPoint) {
     let point = svg.createSVGPoint();
     point.x = x;
     point.y = y;
     point = point.matrixTransform(dom.getScreenCTM().inverse());
-    return [point.x, point.y];
+    return getZoomXY(zoom)(point.x, point.y);
   } else {
     return false;
   }
 };
 
-const toSvgMatrixXY = dom => (x, y) => {
+const getSvgMatrixXY = (dom, zoom) => (x, y) => {
   const svg = dom.ownerSVGElement || dom;
-  const offset = svg.getBoundingClientRect();
-  const matrix = dom.getScreenCTM();
-  return {
-    x: matrix.a * x + matrix.c * y + matrix.e - offset.left,
-    y: matrix.b * x + matrix.d * y + matrix.f - offset.top,
-  };
+  if (svg.getScreenCTM) {
+    const {a, b, c, d, e, f} = dom.getScreenCTM();
+    const {left, top} = svg.getBoundingClientRect();
+    const svgX = a * x + c * y + e - left;
+    const svgY = b * x + d * y + f - top;
+    return getZoomXY(zoom)(svgX, svgY);
+  }
+};
+
+const getZoomXY = zoom => (x, y) => {
+  if (!zoom) {
+    return {x, y};
+  }
+  const zoomK = get(zoom, ['k'], 1);
+  const zoomX = get(zoom, ['x'], 0);
+  const zoomY = get(zoom, ['y'], 0);
+  const zx = (x - zoomX) / zoomK;
+  const zy = (y - zoomY) / zoomK;
+  return {x: zx, y: zy};
 };
 
 const getRectWithElOffset = dom => {
@@ -97,6 +106,8 @@ const getOffset = (dom, scrollNode) => {
   const result = {
     w,
     h,
+    width: w,
+    height: h,
     top,
     right: left + w,
     bottom: top + h,
@@ -105,5 +116,5 @@ const getOffset = (dom, scrollNode) => {
   return result;
 };
 
-export {mouse, toSvgXY, toSvgMatrixXY, unifyTouch};
+export {mouse, toSvgXY, getSvgMatrixXY, unifyTouch};
 export default getOffset;

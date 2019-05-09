@@ -1,5 +1,5 @@
 
-module.exports = barycenter;
+export default barycenter;
 
 function barycenter(g, movable) {
   return movable.map( function(v) {

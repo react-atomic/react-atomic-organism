@@ -1,18 +1,17 @@
-
-
-const DEFAULT_WEIGHT_FUNC = ()=>1;
-
-const floydWarshall = (g, weightFn, edgeFn) => {
-  return runFloydWarshall(g,
-                          weightFn || DEFAULT_WEIGHT_FUNC,
-                          edgeFn || function(v) { return g.outEdges(v); });
-}
-
+import {constant} from '../../../lodash-lite'
 export default floydWarshall
 
-const runFloydWarshall = (g, weightFn, edgeFn) => {
-  var results = {},
-      nodes = g.nodes();
+var DEFAULT_WEIGHT_FUNC = constant(1);
+
+function floydWarshall(g, weightFn, edgeFn) {
+  return runFloydWarshall(g,
+    weightFn || DEFAULT_WEIGHT_FUNC,
+    edgeFn || function(v) { return g.outEdges(v); });
+}
+
+function runFloydWarshall(g, weightFn, edgeFn) {
+  var results = {};
+  var nodes = g.nodes();
 
   nodes.forEach(function(v) {
     results[v] = {};
@@ -23,8 +22,8 @@ const runFloydWarshall = (g, weightFn, edgeFn) => {
       }
     });
     edgeFn(v).forEach(function(edge) {
-      var w = edge.v === v ? edge.w : edge.v,
-          d = weightFn(edge);
+      var w = edge.v === v ? edge.w : edge.v;
+      var d = weightFn(edge);
       results[v][w] = { distance: d, predecessor: v };
     });
   });

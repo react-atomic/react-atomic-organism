@@ -1,183 +1,239 @@
-import React, {PureComponent} from 'react'
-import {Circle} from 'organism-react-graph'
-import getOffset, {mouse, unifyTouch} from 'getoffset'
-import get from 'get-object-value'
+import React, {PureComponent} from 'react';
+import {build} from 'react-atomic-molecule';
+import {DragAndDrop} from 'organism-react-graph';
+import getOffset, {mouse, toSvgXY} from 'getoffset';
+import get from 'get-object-value';
+import callfunc from 'call-func';
 
-import DragAndDrop from './DragAndDrop'
+// files
+import ConnectPointDefaultLayout from '../molecules/ConnectPointDefaultLayout';
 
-const keys = Object.keys
+let connPointId = 1;
+const keys = Object.keys;
 
-class ConnectPoint extends PureComponent
-{
-    state = {
-        absX: 0,
-        absY: 0
+class ConnectPoint extends PureComponent {
+  static defaultProps = {
+    component: ConnectPointDefaultLayout,
+  };
+
+  state = {
+    start: null,
+    absX: 0,
+    absY: 0,
+  };
+
+  start = false;
+  dnd = null;
+  lines = {};
+
+  getEl = () => {
+    if (this.dnd) {
+      return callfunc(this.dnd.getEl, null, this.dnd);
+    }
+  };
+
+  handleDragStart = e => {
+    const {start} = e;
+    const {onDragStart, host} = this.props;
+    callfunc(onDragStart, [true]);
+    const lineId = host.oConn.addLine();
+    start.center = this.getCenter();
+    start.lineId = lineId;
+    this.setState({start});
+    host.setConnectStartPoint(this);
+  };
+
+  handleDrag = e => {
+    const {absX, absY, sourceEvent} = e;
+    this.setState({absX, absY});
+    const {host} = this.props;
+    const {lineId, center} = this.state.start;
+    let endXY;
+    const target = e.destTarget;
+    if (target) {
+      const targetId = target.getAttribute('data-id');
+      const targetGroup = target.getAttribute('data-group');
+      if (targetId && targetGroup) {
+        const targetBox = host.getBox(targetId, targetGroup);
+        const targetPoint = targetBox.getRecentPoint(center);
+        endXY = targetPoint.getCenter();
+        host.setConnectEndPoint(targetPoint);
+      }
+    }
+    if (!endXY) {
+      host.setConnectEndPoint(null);
+      const hostEl = host.getVectorEl();
+      const end = mouse(sourceEvent, hostEl);
+      endXY = host.applyXY(end[0], end[1]);
+    }
+    host.oConn.updateLine(lineId, {start: center, end: endXY});
+  };
+
+  handleDragEnd = e => {
+    const {lineId} = this.state.start;
+    const {onDragStart, host} = this.props;
+    const oConn = host.oConn;
+    const endPoint = host.getConnectEndPoint();
+    let isAddConnected = false;
+    if (endPoint) {
+      isAddConnected = oConn.addConnected(lineId, this, endPoint);
     }
 
-    start = false 
-
-    lines = {}
-
-    handleAbsXY = (absX, absY) =>
-    {
-        this.setState({absX, absY})
+    // after connected
+    this.setState({start: null});
+    host.setConnectStartPoint(null);
+    if (!endPoint || !isAddConnected) {
+      oConn.deleteLine(lineId);
     }
+    callfunc(onDragStart, [false]);
+  };
 
-    handleDragStart = start =>
-    {
-        const {onShow, host} = this.props
-        onShow(true)
-        const lineId = host.addLine()
-        start.center = this.getCenter()
-        start.lineId = lineId
-        this.start = {...start} 
-        host.setConnectStartPoint(this)
+  setLine(id, type) {
+    this.lines[id] = type;
+  }
+
+  delLine(id) {
+    delete this.lines[id];
+  }
+
+  getVectorCenter(el, host) {
+    const bbox = el.getBBox();
+    const {left, top, width, height} = el.getBoundingClientRect();
+    const x = width / 2 + bbox.x;
+    const y = height / 2 + bbox.y;
+    return host.applyXY(x, y, el);
+  }
+
+  getHtmlCenter(el, host) {
+    const {left, top, width, height} = getOffset(el) || {
+      left: 0,
+      top: 0,
+      width: 0,
+      height: 0,
+    };
+    const x = width / 2 + left;
+    const y = height / 2 + top;
+    const hostEl = host.getVectorEl();
+    const sXY = toSvgXY(hostEl)(x, y);
+    return host.applyXY(sXY.x, sXY.y);
+  }
+
+  getCenter() {
+    const {host} = this.props;
+    const el = this.getEl();
+    let center;
+    if (host.insideVector(el)) {
+      center = this.getVectorCenter(el, host);
+    } else {
+      if (host.insideHtml(el)) {
+        center = this.getHtmlCenter(el, host);
+      }
     }
+    return center;
+  }
 
-    handleDrag = e =>
-    {
-        const {host} = this.props
-        const {lineId, center} = this.start
-        let endXY
-        e = unifyTouch(e)
-        const target = document.elementFromPoint(e.clientX, e.clientY)
-        if (target) {
-            const targetId = target.getAttribute('data-id')
-            const targetGroup = target.getAttribute('data-group')
-            if (targetId && targetGroup) {
-                const targetBox = host.getBox(targetId, targetGroup)
-                const targetPoint = targetBox.getRecentPoint(center)
-                endXY = targetPoint.xy
-                host.setConnectEndPoint(targetPoint.obj)
-            }
+  getBox() {
+    const {host, boxId, boxGroupId} = this.props;
+    return host.getBox(boxId, boxGroupId);
+  }
+
+  getBoxGroupName() {
+    return this.getBox()
+      .getBoxGroup()
+      .getName();
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  isShow() {
+    let {show} = this.props;
+    if (this.state.start) {
+      show = true;
+    }
+    const linesLen = keys(this.lines).length;
+    if (linesLen) {
+      show = true;
+    }
+    return show;
+  }
+
+  handleEl = el => {
+    if (el) {
+      this.dnd = el
+    }
+  }
+
+  constructor(props) {
+    super(props);
+    this.id = connPointId;
+    connPointId++;
+  }
+
+  componentDidMount() {
+    const {onMount} = this.props;
+    onMount(this);
+  }
+
+  componentWillUnmount() {
+    const lineKeys = keys(this.lines);
+    if (lineKeys.length) {
+      const {host} = this.props;
+      lineKeys.forEach(lineId => host.oConn.deleteLine(lineId));
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {boxGroupAbsX, boxGroupAbsY} = this.props;
+    const {prevBoxGroupAbsX, prevBoxGroupAbsY} = prevProps || {};
+    if (boxGroupAbsX === prevBoxGroupAbsX && boxGroupAbsY === prevBoxGroupAbsY) {
+      return;
+    }
+    const lineKeys = keys(this.lines);
+    if (lineKeys.length) {
+      const {host} = this.props;
+      const center = this.getCenter();
+      lineKeys.forEach(lineId => {
+        const lineType = this.lines[lineId];
+        if ('from' === lineType) {
+          host.oConn.updateLine(lineId, {start: center});
+        } else {
+          host.oConn.updateLine(lineId, {end: center});
         }
-        if (!endXY) {
-            host.setConnectEndPoint(null)
-            const el = host.getEl()
-            const end = mouse(e, el)
-            const {x: endX, y: endY} = host.applyXY(el)(end[0], end[1])
-            endXY = { x: endX, y: endY }
-        }
-        host.updateLine(lineId, { start: center, end: endXY })
+      });
     }
+  }
 
-    handleDragEnd = e =>
-    {
-        const {onShow, host} = this.props
-        const endPoint = host.getConnectEndPoint(this)
-        const {lineId} = this.start 
-        let isAddConnected = false
-        if (endPoint) {
-            isAddConnected = host.addConnected(lineId, this, endPoint)
-        }
-        if (!endPoint || !isAddConnected) {
-            host.setConnectStartPoint(null)
-            host.deleteLine(lineId)
-        }
-
-        onShow(false)
-        this.start = false 
-    }
-
-    setLine(id, type)
-    {
-        this.lines[id] = type
-    }
-
-    delLine(id)
-    {
-        delete(this.lines[id])
-    }
-
-    getCenter()
-    {
-        const {host} = this.props
-        const el = this.dnd.getEl()
-        const bbox = el.getBBox()
-        const region = el.getBoundingClientRect() 
-        const {left, top, width, height} = region
-        const x = bbox.x + width / 2 
-        const y = bbox.y + height / 2
-        return host.applyXY(el)(x, y) 
-    }
-
-    getBox()
-    {
-        return this.props.box
-    }
-
-    isShow()
-    {
-        let {show} = this.props
-        if (this.start) {
-            show = true 
-        }
-        const linesLen = keys(this.lines).length
-        if (linesLen) {
-            show = true 
-        }
-        return show
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot)
-    {
-        const {pos} = this.props
-        if (pos === prevProps.pos) {
-            return
-        }
-        const lineKeys = keys(this.lines)
-        if (lineKeys.length) {
-            const {host} = this.props
-            const center = this.getCenter()
-            lineKeys.forEach( lineId => {
-                const lineType = this.lines[lineId]
-                if ('from' === lineType) {
-                    host.updateLine(lineId, {start: center})
-                } else {
-                    host.updateLine(lineId, {end: center})
-                }
-            })
-        }
-    }
-
-    render()
-    {
-        const {pos, host, onShow, style, show, box, ...props} = this.props
-        const {absX, absY} = this.state        
-        let thisStyle = { ...Styles.container, ...style }
-        if (this.isShow()) {
-            thisStyle = {...Styles.visible}
-        }
-        return (
-            <DragAndDrop
-                {...props}
-                ref={el => this.dnd = el}
-                style={thisStyle}
-                absX={absX}
-                absY={absY}
-                onAbsXY={this.handleAbsXY}
-                onDragStart={this.handleDragStart}
-                onDragEnd={this.handleDragEnd}
-                onDrag={this.handleDrag}
-                component={(
-                    <Circle 
-                        fill="#3c5d9b"
-                        fillOpacity="0.4"
-                        r="5"
-                    />
-                )}
-            />
-        )
-    }
+  render() {
+    const {
+      host,
+      boxId,
+      boxGroupId,
+      boxGroupAbsX,
+      boxGroupAbsY,
+      onDragStart,
+      onMount,
+      show,
+      component,
+      ...props
+    } = this.props;
+    const {absX, absY} = this.state;
+    return (
+      <DragAndDrop
+        {...props}
+        data-id={this.id}
+        absX={absX}
+        absY={absY}
+        isShow={this.isShow()}
+        onDragStart={this.handleDragStart}
+        onDragEnd={this.handleDragEnd}
+        onDrag={this.handleDrag}
+        ref={this.handleEl}
+        component={component}
+      />
+    );
+  }
 }
 
-export default ConnectPoint
-
-const Styles = {
-    container: {
-        visibility: 'hidden'
-    },
-    visible: {
-        visibility: 'visible'
-    }
-}
+export default ConnectPoint;

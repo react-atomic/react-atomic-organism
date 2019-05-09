@@ -1,11 +1,9 @@
-"use strict";
-
 import buildLayerGraph from './build-layer-graph'
 import sortSubgraph from './sort-subgraph'
 import addSubgraphConstraints from './add-subgraph-constraints'
 import initOrder from './init-order'
 import crossCount from './cross-count'
-import {range, rangeStep} from '../lodash-lite'
+import {range, rangeStep} from '../../../lodash-lite'
 import * as util from '../util'
 import {Graph} from '../graphlib'
 
@@ -73,7 +71,7 @@ function sweepLayerGraphs(layerGraphs, biasRight) {
 }
 
 function assignOrder(g, layering) {
-  keys(layering).forEach( key => {
+  keys(layering || {}).forEach( key => {
     layering[key].forEach( (v, i) => 
       g.node(v).order = i
     )

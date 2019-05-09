@@ -1,9 +1,7 @@
-"use strict";
-
-
-module.exports = {
-  longestPath: longestPath,
-  slack: slack
+import {min} from '../../../lodash-lite'
+export {
+  longestPath,
+  slack,
 };
 
 /*
@@ -37,7 +35,7 @@ function longestPath(g) {
     }
     visited[v] = true;
 
-    var rank = Math.min(g.outEdges(v).map(function(e) {
+    var rank = min(g.outEdges(v).map(function(e) {
       return dfs(e.w) - g.edge(e).minlen;
     }));
 

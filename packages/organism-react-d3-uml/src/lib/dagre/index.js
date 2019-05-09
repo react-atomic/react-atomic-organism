@@ -20,7 +20,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-export * as graphlib from "./lib/graphlib"
+import * as graphlib from "./lib/graphlib"
+const {Graph} = graphlib;
+export {graphlib, Graph};
 export {default as layout} from "./lib/layout"
 export {default as debug} from "./lib/debug"
 export {time, notime} from "./lib/util"

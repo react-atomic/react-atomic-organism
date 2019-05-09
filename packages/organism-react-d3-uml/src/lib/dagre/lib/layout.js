@@ -1,21 +1,18 @@
-"use strict";
+import * as acyclic from './acyclic';
+import * as nestingGraph from './nesting-graph';
+import * as coordinateSystem from './coordinate-system';
+import * as normalize from "./normalize";
+import * as util from './util';
 import rank from './rank'
 import order from './order'
-import {pick, mapValues} from './lodash-lite'
+import {pick, mapValues} from '../../lodash-lite'
+const {normalizeRanks, removeEmptyRanks} = util;
+import parentDummyChains from './parent-dummy-chains';
+import addBorderSegments from './add-border-segments';
+import position from './position'; 
+import {Graph} from './graphlib';
+
 const keys = Object.keys
-
-    var acyclic = require("./acyclic"),
-    normalize = require("./normalize"),
-    normalizeRanks = require("./util").normalizeRanks,
-    parentDummyChains = require("./parent-dummy-chains"),
-    removeEmptyRanks = require("./util").removeEmptyRanks,
-    nestingGraph = require("./nesting-graph"),
-    addBorderSegments = require("./add-border-segments"),
-    coordinateSystem = require("./coordinate-system"),
-    position = require("./position"),
-    util = require("./util"),
-    Graph = require("./graphlib").Graph;
-
 export default layout
 
 function layout(g, opts) {
@@ -123,12 +120,12 @@ function buildLayoutGraph(inputGraph) {
     ...pick(graph, graphAttrs)
   });
 
-
   inputGraph.nodes().forEach( function(v) {
     var node = canonicalize(inputGraph.node(v));
     g.setNode(v, {...nodeDefaults, ...selectNumberAttrs(node, nodeNumAttrs)});
     g.setParent(v, inputGraph.parent(v));
   });
+
   inputGraph.edges().forEach( function(e) {
     var edge = canonicalize(inputGraph.edge(e));
     g.setEdge(e, { 
@@ -216,17 +213,20 @@ function translateGraph(g) {
       marginY = graphLabel.marginy || 0;
 
   function getExtremes(attrs) {
-    var x = attrs.x,
-        y = attrs.y,
-        w = attrs.width,
-        h = attrs.height;
+    const x = attrs.x;
+    const y = attrs.y;
+    const w = attrs.width;
+    const h = attrs.height;
     minX = Math.min(minX, x - w / 2);
     maxX = Math.max(maxX, x + w / 2);
     minY = Math.min(minY, y - h / 2);
     maxY = Math.max(maxY, y + h / 2);
   }
 
-  g.nodes().forEach( function(v) { getExtremes(g.node(v)); });
+  g.nodes().forEach( v => {
+    getExtremes(g.node(v)); 
+  });
+
   g.edges().forEach( function(e) {
     var edge = g.edge(e);
     if (edge && edge.x) {
@@ -258,11 +258,12 @@ function translateGraph(g) {
 }
 
 function assignNodeIntersects(g) {
-  g.edges().forEach( function(e) {
-    var edge = g.edge(e),
-        nodeV = g.node(e.v),
-        nodeW = g.node(e.w),
-        p1, p2;
+  g.edges().forEach( e => {
+    const edge = g.edge(e); 
+    const nodeV = g.node(e.v);
+    const nodeW = g.node(e.w);
+    let p1;
+    let p2;
     if (!edge.points) {
       edge.points = [];
       p1 = nodeW;

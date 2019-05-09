@@ -1,18 +1,13 @@
-"use strict";
+import {minBy, find} from '../../../lodash-lite';
+import {alg} from '../graphlib';
+import feasibleTree from './feasible-tree';
+import {slack, longestPath as initRank} from './util';
+import {simplify} from '../util';
 
-import {minBy, find} from '../lodash-lite'
-import {alg} from '../graphlib'
-
-    var feasibleTree = require("./feasible-tree"),
-    slack = require("./util").slack,
-    initRank = require("./util").longestPath,
-    preorder = alg.preorder,
-    postorder = alg.postorder,
-    simplify = require("../util").simplify;
-
+const {preorder, postorder} = alg;
 const keys = Object.keys
 
-export default networkSimplex
+export default networkSimplex;
 export {
     initLowLimValues,
     initCutValues,
@@ -158,16 +153,13 @@ function dfsAssignLowLim(tree, visited, nextLim, v, parent) {
 }
 
 function leaveEdge(tree) {
-    let result = null
-    tree.edges().some( e => {
-        if (tree.edge(e).cutvalue < 0) {
-            result = e
-            return true
-        } else {
-            return false
-        }
-    })
-    return result
+  const result = find(
+    tree.edges(),
+    e => {
+      return tree.edge(e).cutvalue < 0
+    }
+  );
+  return result;
 }
 
 function enterEdge(t, g, edge) {
@@ -198,8 +190,9 @@ function enterEdge(t, g, edge) {
     return flip === isDescendant(t, t.node(edge.v), tailLabel) &&
            flip !== isDescendant(t, t.node(edge.w), tailLabel);
   });
-
-  return minBy(candidates, edge =>  slack(g, edge)) 
+  
+  const minEnterEdge = minBy(candidates, edge => slack(g, edge)); 
+  return minEnterEdge;
 }
 
 function exchangeEdges(t, g, e, f) {

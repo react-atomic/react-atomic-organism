@@ -1,7 +1,6 @@
-import dfs from './dfs'
+import dfs from './dfs';
+export default postorder;
 
-const postorder = (g, vs) => {
+function postorder(g, vs) {
   return dfs(g, vs, "post");
 }
-
-export default postorder
