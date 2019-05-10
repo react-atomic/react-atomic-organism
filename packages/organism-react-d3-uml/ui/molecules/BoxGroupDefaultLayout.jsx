@@ -117,7 +117,7 @@ class BoxGroupDefaultLayout extends BaseLayout {
         style={graphStyle}
         data-id={id}
         refCb={el => (this.el = onGetEl(el))}>
-        <Group atom={gAtom} style={Styles.group}>
+        <Group atom={gAtom} width="1" height="1" style={Styles.group}>
           <Rect
             style={Styles.rect}
             rx="5"
@@ -152,12 +152,9 @@ export default BoxGroupDefaultLayout;
 const Styles = {
   container: {
     position: 'absolute',
-    overflow: 'visible',
     pointerEvents: 'all',
   },
   group: {
-    width: 1,
-    height: 1,
     overflow: 'visible',
   },
   rect: {
