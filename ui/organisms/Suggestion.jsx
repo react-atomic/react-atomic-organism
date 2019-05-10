@@ -17,6 +17,7 @@ class Suggestion extends PureComponent {
     itemLocator: d => d || '',
     itemFilter: (d, value) => value && d && -1 !== d.indexOf(value),
     filter: false,
+    preview: false,
   };
 
   state = {
@@ -32,8 +33,8 @@ class Suggestion extends PureComponent {
       bool = true;
     }
     if (bool !== this.state.disabled) {
-      this.setState({disabled: bool}, ()=>{
-        this.close(); 
+      this.setState({disabled: bool}, () => {
+        this.close();
         this.input.blur();
       });
     }
@@ -45,7 +46,7 @@ class Suggestion extends PureComponent {
       return;
     }
     body().addEventListener('click', this.handleClose);
-    this.setValue(undefined, e);
+    this.setValue(undefined, e, true);
   }
 
   close() {
@@ -65,17 +66,19 @@ class Suggestion extends PureComponent {
     return this.state.selIndex;
   }
 
-  setValue(value, e) {
+  setValue(value, e, isOpen) {
     const input = this.input;
-    let nextState = {value, isOpen: true, selIndex: 0};
+    let nextState = {value, selIndex: 0};
     if ('undefined' === typeof value) {
       nextState = {
         value: input.value,
-        isOpen: true,
       };
     }
     if (e) {
       e.persist();
+    }
+    if (isOpen) {
+      nextState.isOpen = isOpen;
     }
     this.setState(nextState, () => {
       const {onChange} = this.props;
@@ -93,25 +96,43 @@ class Suggestion extends PureComponent {
   };
 
   handleInput = e => {
+    const {isOpen} = this.state;
     const value = get(e, ['target', 'value'], '');
     this.setValue(value, e);
+    if (!isOpen) {
+      this.open(e);
+    }
   };
 
   handleFocus = e => {
     this.open(e);
+    this.focus();
   };
 
   handleWrapClick = e => {
-    this.focus();
+    this.handleFocus();
     callfunc(this.props.wrapOnClick);
   };
 
-  handleFilter(results) {
-    const {filter, itemsLocator, itemLocator, itemFilter} = this.props;
+  handlePreview(results) {
     const {value} = this.state;
-    return filter
-      ? itemsLocator(results).filter(d => itemFilter(itemLocator(d), value))
-      : results;
+    const {preview, itemsLocator, itemLocator, itemFilter} = this.props;
+    let arr = itemsLocator(results);
+    if (!arr || !arr.length) {
+      return [];
+    }
+    if (!value && preview) {
+      const previewNum = 'number' !== typeof preview ? 5 : preview;
+      arr = arr.slice(0, previewNum);
+    } else {
+      arr = arr.filter(d => itemFilter(itemLocator(d), value));
+    }
+    return arr;
+  }
+
+  handleFilter(results) {
+    const {filter} = this.props;
+    return filter ? this.handlePreview(results) : results;
   }
 
   handleKeyUp = e => {
@@ -139,7 +160,7 @@ class Suggestion extends PureComponent {
         case 13:
           e.preventDefault();
           if (selIndex && this.results) {
-            itemOnClick(e, get(this.results, [selIndex-1], {}));
+            itemOnClick(e, get(this.results, [selIndex - 1], {}));
           }
       }
       return {selIndex};
@@ -176,6 +197,7 @@ class Suggestion extends PureComponent {
       itemsLocator,
       itemLocator,
       itemFilter,
+      preview,
       filter,
       ...props
     } = this.props;
@@ -193,7 +215,7 @@ class Suggestion extends PureComponent {
       };
     }
     const classes = mixClass(className, {
-      disabled
+      disabled,
     });
     return build(component)({
       ...props,

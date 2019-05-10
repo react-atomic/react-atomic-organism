@@ -96,9 +96,14 @@ class TagsField extends PureComponent {
   };
 
   handleItemFilter = (d, value) => {
-    const {tags} = this.state;
-    return value && d && -1 !== d.indexOf(value) && -1 === tags.indexOf(d);
+    return value && d && -1 !== d.indexOf(value);
   };
+
+  handleItems = d => {
+    const {tags} = this.state;
+    const {itemsLocator, itemLocator} = this.props;
+    return itemsLocator(d).filter(item => -1 === tags.indexOf(itemLocator(item)));
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {tagData, tagsLocator, tagLocator} = nextProps;
@@ -113,7 +118,6 @@ class TagsField extends PureComponent {
             tags.push(t);
           }
         });
-        console.log({compare}, prevState, ['before update']);
         return {
           tags,
           prevTagData: compare,
@@ -129,6 +133,7 @@ class TagsField extends PureComponent {
 
   render() {
     const {
+      itemsLocator,
       tagData,
       tagsLocator,
       tagLocator,
@@ -170,6 +175,7 @@ class TagsField extends PureComponent {
         wrapStyle={Styles.wrap}
         itemOnClick={this.handleItemClick}
         itemFilter={this.handleItemFilter}
+        itemsLocator={this.handleItems}
         onKeyDown={this.handleKey}
       />
     );
