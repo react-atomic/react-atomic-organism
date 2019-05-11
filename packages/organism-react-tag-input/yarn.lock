@@ -1022,9 +1022,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "1.5.9"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.9.tgz#2fc7bf41ae4c63b65ab865fd53d2d5cee908c017"
-  integrity sha512-yhtgWfWUtDot56Ng2f9kReQMoeATVFAVOvahzu10mIViNuuyBxwjp3CQqOBgUxhEKGfufO0x64hg8E0NaBxCOg==
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-1.5.10.tgz#fa86cdd47531a165ac2a1034b854d6c1b3d37de2"
+  integrity sha512-yAlKbDhEt2oTvxdSs6Kv+eepmFKkrpxAEIRJjRFKkIQCzNKCTgHzZH64g1rV92e0jZ10gpJPPgFQ72DeEo/30Q==
   dependencies:
     class-lib "*"
     get-object-value "*"
@@ -1036,9 +1036,9 @@ react-atomic-molecule@*:
     win-doc "*"
 
 react-atomic-organism@*:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.5.0.tgz#2f351aacd8472751040d5f2df5c3327870b9f23e"
-  integrity sha512-QNLftKHEYk2WxVGxyUKgA5gajUhEwT0GI6IQIsWlzsBAJCj1UmF2JKcRZmbG0nhGoS+d6P2blbO/CbXJdP6VDA==
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.5.2.tgz#3b800abdae2ae99e6c2f0ea4db329b55b4d751df"
+  integrity sha512-6YgXb+J9U0We4XuKG0aXbYqbq67YNgbmUUtbLlM2dL67oq3aWPMK+ScY79VBnu0LV9aN/DeXIJ0yXOuBYg28jQ==
   dependencies:
     array.merge "*"
     call-func "*"
@@ -1143,9 +1143,9 @@ ret@~0.1.10:
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
 
 ricon@*:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.1.0.tgz#b0d2cfeea7c898d40a0c08f0ebaf163485bbf56e"
-  integrity sha512-I3riMbo64Rw/H1bEBMn/w72vUY3vjOABbpZG2+N26UJ0TLg20rge6gel6ND9zvQ3YZMBnT84l6eoXnEvlsGF/g==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.2.0.tgz#58193e30cfbe66f77a6eef9a6f6aef49c87a826f"
+  integrity sha512-h3zRANivUcP5TFf8JEbElWyLz43ydy75WizdtqphXfSLdVBLDdXUtDIxN4T2XEIPTTCnhnQ636b/znPvVWM1PA==
   dependencies:
     keyframe-css "*"
     react-atomic-molecule "*"
