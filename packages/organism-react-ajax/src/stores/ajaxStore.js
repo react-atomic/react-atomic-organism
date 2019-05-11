@@ -1,3 +1,4 @@
+import 'es6-promise/auto'; // [RESHOW] Need keep if use "new Promise"
 import 'setimmediate';
 import {Map} from 'immutable';
 import {ReduceStore} from 'reshow-flux';
