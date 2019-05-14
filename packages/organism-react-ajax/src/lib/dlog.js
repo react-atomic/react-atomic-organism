@@ -95,7 +95,9 @@ dlog.prototype.show = function(level, data) {
     level = 'info';
   }
   if (level === 'trace') {
-    level = 'info'; // tricky for hidden trace in browser console
+    level = 'debug'; // tricky for hidden trace in browser console.
+  } else if (level === 'debug') {
+    level = 'log'; // avoid message hidden when chrome verbose not checked.
   }
   if (Array.isArray(data[0]) && this.isAllObj(data[0])) {
     console.table(data[0]);
