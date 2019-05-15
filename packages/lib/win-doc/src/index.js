@@ -3,7 +3,10 @@
  * Bable will transpile it to double undefined
  */
 
-const doc = () => ('undefined' !== typeof document ? document : {});
+const doc = w => {
+  w = w || win();
+  return 'undefined' !== typeof w.document ? w.document : {};
+}
 
 const win = () => ('undefined' !== typeof window ? window : {});
 
