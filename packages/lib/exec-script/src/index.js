@@ -48,12 +48,12 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   jsBase = jsBase || doc(oWin).body;
   const onLoad = handleScriptOnload(oWin, errCb, cb);
   getScript = origScript => {
-    const key = origScript.attributes.key;
+    const {key, asyncKey} = origScript.attributes;
     let callback = null;
     if (key) {
       callback = () => onLoad(key, origScript);
     }
-    const loadScript = js(jsBase)(callback)(origScript.src, {key});
+    const loadScript = js(jsBase)(callback)(origScript.src, {key: key || asyncKey});
     callfunc(getScriptCb, [{loadScript, origScript, inlineScripts, queueScripts, lastScripts}]);
     return loadScript;
   };
@@ -75,6 +75,7 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
         script.attributes.asyncKey = key;
         getScript(script);
       } else if (defer) {
+        script.attributes.asyncKey = key;
         lastScripts.push(script);
       } else {
         key = getNewKey();
