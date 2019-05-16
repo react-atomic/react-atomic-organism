@@ -1,6 +1,6 @@
 {
   "name": "parse-ini-string",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "PHP like parse-ini-string, support multi line",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

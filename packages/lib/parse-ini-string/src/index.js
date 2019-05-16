@@ -40,7 +40,7 @@ const parse = s => {
     if (!key) {
       const match = line.match(kvReg);
       if (!match) {
-        console.error('Ini Parse Fail: '+line);
+        console.error('Ini Parse Fail: ' + line);
         return;
       }
       key = match[2];
@@ -65,17 +65,22 @@ const parse = s => {
     if (isEnd) {
       if (isQuoted(value)) {
         value = stripQuote(value);
-      }
-      switch (value.toLowerCase()) {
-        case 'true':
-        case 'false':
-        case 'null':
-          value = JSON.parse(value);
-      }
-      if (isArray(p[key])) {
-        p[key].push(value);
       } else {
-        p[key] = value;
+        switch (value.toLowerCase()) {
+          case 'true':
+          case 'false':
+          case 'null':
+            value = JSON.parse(value.toLowerCase());
+            break;
+        }
+      }
+      key = key.trim();
+      if (key) {
+        if (isArray(p[key])) {
+          p[key].push(value);
+        } else {
+          p[key] = value;
+        }
       }
       key = '';
       value = '';
