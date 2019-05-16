@@ -24,10 +24,10 @@ const combine = (arr, objKey) => {
   return nextArr;
 };
 
-const combineSub = (arr, subArr, key) => {
+const combineSub = (arr, subArr, key, subObjKey) => {
   arr.forEach(a => {
     const thisSub = get(subArr, [a[key]]);
-    a[key] = (thisSub) ? combine(thisSub) : null;
+    a[key] = (thisSub) ? combine(thisSub, subObjKey) : null;
   });
   return arr;
 };
