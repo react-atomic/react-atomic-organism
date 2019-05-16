@@ -3,9 +3,9 @@ import {win, doc} from 'win-doc';
 import {FUNCTION, STRING, SCRIPT} from 'reshow-constant';
 import callfunc from 'call-func';
 
+const inlineScripts = {};
+const queueScripts = [];
 let scriptCount = 0;
-let inlineScripts = {};
-let queueScripts = [];
 let getScript;
 let lastScript;
 let lastScripts = [];
@@ -40,6 +40,7 @@ const handleScriptOnload = (win, errCb, cb) => (i, origScript) => {
     getScript(queueScripts.shift());
   } else if (lastScripts.length) {
     lastScripts.forEach(script => getScript(script));
+    lastScripts = [];
   }
 };
 
@@ -53,8 +54,12 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     if (key) {
       callback = () => onLoad(key, origScript);
     }
-    const loadScript = js(jsBase)(callback)(origScript.src, {key: key || asyncKey});
-    callfunc(getScriptCb, [{loadScript, origScript, inlineScripts, queueScripts, lastScripts}]);
+    const loadScript = js(jsBase)(callback)(origScript.src, {
+      key: key || asyncKey,
+    });
+    callfunc(getScriptCb, [
+      {loadScript, origScript, inlineScripts, queueScripts, lastScripts},
+    ]);
     return loadScript;
   };
   const thisEl = STRING === typeof el ? create('div')()({innerHTML: el}) : el;
