@@ -4,12 +4,13 @@ const keys = Object.keys;
 
 const combine = (arr, objKey) => {
   const nextArr = objKey ? {} : [];
-  const thisKeys = keys(arr);
-  arr[thisKeys[0]].forEach((val, key) => {
+  const thisArr = get(arr);
+  const thisKeys = keys(thisArr);
+  thisArr[thisKeys[0]].forEach((val, key) => {
     const next = {};
     let thisObjKey = key;
     thisKeys.forEach(k => {
-      next[k] = get(arr, [k, key]);
+      next[k] = get(thisArr, [k, key]);
       if (objKey && objKey === k) {
         thisObjKey = next[k];
       }
