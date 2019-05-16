@@ -1,6 +1,6 @@
 {
   "name": "organism-react-iframe",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "description": "Rendering to iFrames in React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,7 +14,7 @@
   "dependencies": {
     "create-el": "*",
     "css-query-selector": "*",
-    "exec-script": "*",
+    "exec-script": "^0.2.x",
     "get-object-value": "*",
     "getoffset": "*",
     "react-atomic-molecule": "*",

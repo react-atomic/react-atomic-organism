@@ -157,6 +157,13 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
+call-func@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.0.4.tgz#3c70ae685575be63eeb085ba0cd7f8d93cbb89a4"
+  integrity sha512-r2Q9o9pCplNi3jsmNizZDno10ESQ7YqFLrWb0ENH3y5W/wDdls4Aq7jzPt7Gf7zQqsTqvo0hfL/CEi4nrDXpMg==
+  dependencies:
+    reshow-constant "*"
+
 chokidar@^2.0.3:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.2.tgz#9c23ea40b01638439e0513864d362aeacc5ad058"
@@ -317,12 +324,15 @@ easing-lib@*:
   resolved "https://registry.yarnpkg.com/easing-lib/-/easing-lib-0.0.4.tgz#dde31723eee24545f203776cb26a1c142e79df01"
   integrity sha512-Ae2GrpNkJ50ZJnEJXr1aaKDpYSsgTcd4WFKMT6zFHktbosx9w/IOFcakZtOFzKsu9QPz4YBXb/GO/pqLsEzqbw==
 
-exec-script@*:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/exec-script/-/exec-script-0.0.9.tgz#ebed9d2cd49aec35cc7c14f51b2e28b9bf649a8b"
-  integrity sha512-5771fAvTfrLHsGw9WqMWYZ/5GvgpvqZ5GWWur6VBRKpzApR6hS1+DAPMeQ7G/zRdiGIx99K3+aerGC887qLezg==
+exec-script@^0.2.x:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/exec-script/-/exec-script-0.2.1.tgz#dad812c458e10a2c61357ef1d58309188b5b6431"
+  integrity sha512-ZMvwShCT8ay2dw+TFqC9Lm241T3ap2OIiHxSHzug3U/q4Jj/eUGF6zjkXf9MC1qeV7+TyDwalhYSFYDqiBNxEg==
   dependencies:
+    call-func "*"
     create-el "*"
+    reshow-constant "*"
+    win-doc "*"
 
 expand-brackets@^2.1.4:
   version "2.1.4"
@@ -1109,6 +1119,11 @@ repeat-string@^1.6.1:
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
 
+reshow-constant@*:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.0.5.tgz#fbc9ba458b57befba0a275893d2f016d0821b00a"
+  integrity sha512-PRwvxfln60W897Z8puaZhWhY4wrP6Mb+c8Wu+9n1yBgn+//6GP8AhW/xMdsy+MyM2HcTJ8d1iTmvr/G4Pm2NyA==
+
 reshow-runtime@*:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.6.tgz#371fda9e21939a0692bee4c03c4f0180031acd69"
@@ -1410,6 +1425,11 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+win-doc@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.0.4.tgz#852b71186e40edf26d719cbeb7ba7adc640d1b52"
+  integrity sha512-NrmyroMkRpS4cmscBEH0qOddhQsFfLifNJr+bwFcZQX0TuZn8G4JVyS82DMp6HsY+2msXeTJUK46keYwBX5Akg==
 
 wrappy@1:
   version "1.0.2"
