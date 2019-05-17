@@ -37,6 +37,9 @@ class IframeContainer extends PureComponent {
   render() {
     const {iframeH} = this.state;
     const {src, refCb, style, messageKey, ...others} = this.props;
+    if (src) {
+      others.src = src;
+    }
     return (
       <SemanticUI
         {...others}
@@ -52,7 +55,6 @@ class IframeContainer extends PureComponent {
             refCb(el);
           }
         }}
-        src={src}
       />
     );
   }
