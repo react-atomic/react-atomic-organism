@@ -14,12 +14,9 @@ import IframeContainer from '../organisms/IframeContainer';
 
 const keys = Object.keys;
 
-let iframeCount = 0;
-
 class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
-    messageKey: 'iframeH',
     initialContent: '',
   };
 
@@ -33,23 +30,13 @@ class Iframe extends PureComponent {
     this.handleScript(div);
   };
 
+  postHeight = win => this.iframe.postHeight(this.getWindow());
+
   getBody = () => get(this.getDoc(), ['body']);
 
   getDoc = () => get(this.getWindow(), ['document']);
 
   getWindow = () => get(this.el, ['contentWindow', 'window']);
-
-  postHeight = () => {
-    setTimeout(() => {
-      this.getWindow().parent.window.postMessage(
-        {
-          type: this.messageKey,
-          h: this.getBody().offsetHeight,
-        },
-        '*',
-      );
-    });
-  };
 
   handleClickLink() {
     const {keepTargetInIframe} = this.props;
@@ -117,20 +104,15 @@ class Iframe extends PureComponent {
     });
   }
 
-  constructor(props) {
-    super(props);
-    const {messageKey} = props;
-    this.messageKey = messageKey + '-' + iframeCount;
-    iframeCount++;
-  }
-
   componentDidMount() {
     this.root = document.createElement('div');
     const doc = this.getDoc();
     if (doc) {
+      // fixed firfox innerHTML suddenly disappear.
       doc.open('text/html', 'replace');
       doc.write(this.props.initialContent);
       doc.close();
+
       const body = this.getBody();
       body.appendChild(this.root);
     }
@@ -147,17 +129,23 @@ class Iframe extends PureComponent {
   }
 
   render() {
-    const {initialContent, children, keepTargetInIframe, refCb, ...others} = this.props;
+    const {
+      initialContent,
+      children,
+      keepTargetInIframe,
+      refCb,
+      ...others
+    } = this.props;
     return (
       <IframeContainer
         {...others}
+        ref={el => (this.iframe = el)}
         refCb={el => {
           if (el) {
             this.el = el;
             callfunc(refCb, [el]);
           }
         }}
-        messageKey={this.messageKey}
       />
     );
   }

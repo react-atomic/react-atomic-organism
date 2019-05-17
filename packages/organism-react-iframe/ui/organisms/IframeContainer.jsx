@@ -1,14 +1,27 @@
 import React, {PureComponent} from 'react';
 import get from 'get-object-value';
 import {SemanticUI} from 'react-atomic-molecule';
+import callfunc from 'call-func';
+
+let iframeCount = 0;
 
 class IframeContainer extends PureComponent {
-  
   static defaultProps = {
-    messageKey: 'iframeH'
+    messageKey: 'iframeH',
   };
 
   state = {iframeH: 'auto'};
+
+  postHeight = win =>
+    setTimeout(() => {
+      win.parent.window.postMessage(
+        {
+          type: this.messageKey,
+          h: win.document.body.offsetHeight,
+        },
+        '*',
+      );
+    });
 
   handleMessage = e => {
     let data = e.data;
@@ -18,13 +31,19 @@ class IframeContainer extends PureComponent {
       } catch (ex) {}
     }
     const {type, h} = data;
-    const {messageKey} = this.props;
-    if (-1 !== `|${type}|`.indexOf(`|${messageKey}|`)) {
+    if (-1 !== `|${type}|`.indexOf(`|${this.messageKey}|`)) {
       this.setState({
         iframeH: h + 50,
       });
     }
   };
+
+  constructor(props) {
+    super(props);
+    const {messageKey} = props;
+    this.messageKey = messageKey + '-' + iframeCount;
+    iframeCount++;
+  }
 
   componentDidMount() {
     window.addEventListener('message', this.handleMessage, false);
@@ -50,9 +69,9 @@ class IframeContainer extends PureComponent {
         }}
         atom="iframe"
         refCb={el => {
-          this.iframe = el;
-          if ('function' === typeof refCb) {
-            refCb(el);
+          if (el) {
+            this.iframe = el;
+            callfunc(refCb, [el]);
           }
         }}
       />
