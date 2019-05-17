@@ -8,6 +8,7 @@ import exec from 'exec-script';
 import {SemanticUI, Unsafe} from 'react-atomic-molecule';
 import {js} from 'create-el';
 import {queryFrom} from 'css-query-selector';
+import callfunc from 'call-func';
 
 import IframeContainer from '../organisms/IframeContainer';
 
@@ -19,6 +20,7 @@ class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
     messageKey: 'iframeH',
+    initialContent: '',
   };
 
   html = null;
@@ -31,9 +33,11 @@ class Iframe extends PureComponent {
     this.handleScript(div);
   };
 
-  getBody = () => get(this, ['el', 'contentWindow', 'document', 'body']);
+  getBody = () => get(this.getDoc(), ['body']);
 
-  getWindow = () => get(this, ['el', 'contentWindow', 'window']);
+  getDoc = () => get(this.getWindow(), ['document']);
+
+  getWindow = () => get(this.el, ['contentWindow', 'window']);
 
   postHeight = () => {
     setTimeout(() => {
@@ -122,8 +126,12 @@ class Iframe extends PureComponent {
 
   componentDidMount() {
     this.root = document.createElement('div');
-    const body = this.getBody();
-    if (body) {
+    const doc = this.getDoc();
+    if (doc) {
+      doc.open('text/html', 'replace');
+      doc.write(this.props.initialContent);
+      doc.close();
+      const body = this.getBody();
       body.appendChild(this.root);
     }
     this.renderIframe(this.props, this.root);
@@ -139,14 +147,14 @@ class Iframe extends PureComponent {
   }
 
   render() {
-    const {children, keepTargetInIframe, refCb, ...others} = this.props;
+    const {initialContent, children, keepTargetInIframe, refCb, ...others} = this.props;
     return (
       <IframeContainer
         {...others}
         refCb={el => {
-          this.el = el;
-          if ('function' === typeof refCb) {
-            refCb(el);
+          if (el) {
+            this.el = el;
+            callfunc(refCb, [el]);
           }
         }}
         messageKey={this.messageKey}
