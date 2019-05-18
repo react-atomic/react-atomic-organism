@@ -5,6 +5,7 @@ import React, {
   isValidElement,
 } from 'react';
 import {
+  build,
   mixClass,
   reactStyle,
   Icon,
@@ -17,6 +18,7 @@ import get, {toJS} from 'get-object-value';
 import {hasClass, removeClass} from 'class-lib';
 import {queryOne} from 'css-query-selector';
 import getOffset from 'getoffset';
+import callfunc from 'call-func';
 
 const getKeys = Object.keys;
 
@@ -28,15 +30,13 @@ const getMenuByArray = onClick => (arr, component, active) => {
   }
   const keys = getKeys(arr);
   let results = [];
-  const build = isValidElement(component) ? cloneElement : createElement;
   keys.forEach(key => {
     const {href, text, className, ...others} = arr[key];
     const classes = mixClass(className, 'item', {
       active: active === key,
     });
     results.push(
-      build(
-        component,
+      build(component)(
         {
           ...others,
           key,
@@ -141,6 +141,10 @@ class SideMenu extends PureComponent {
   updateRoot(on) {
     const {rootActiveClass, rootInactiveClass} = this.props;
     const thisRoot = this.getRoot();
+    if (!thisRoot) {
+      console.wanr('root not found');
+      return;
+    }
     if (on) {
       thisRoot.className = mixClass(thisRoot.className, rootActiveClass);
       thisRoot.className = removeClass(thisRoot.className, rootInactiveClass);
@@ -150,10 +154,10 @@ class SideMenu extends PureComponent {
     }
   }
 
-  handleOn(stateOn, e) {
+  handleSwitch(stateOn, e) {
+    const {id, onSwitch} = this.props;
     const isValidStateOn = 'boolean' === typeof stateOn;
     const on = !(isValidStateOn ? stateOn : this.state.on);
-    const {id, onSwitch} = this.props;
     const defaultOff = getOffset(queryOne('.sidebar .default-off'));
     const isSet = isValidStateOn || (defaultOff.w && defaultOff.h);
     if (isSet) {
@@ -162,9 +166,7 @@ class SideMenu extends PureComponent {
         params: {on},
       });
     }
-    if ('function' === typeof onSwitch) {
-      onSwitch(e, on, isSet);
-    }
+    callfunc(onSwitch, [e, on, isSet]);
   }
 
   componentDidMount() {
@@ -191,6 +193,7 @@ class SideMenu extends PureComponent {
   render() {
     const {
       onSwitch,
+      fixedMini,
       defaultOnIcon,
       defaultOffIcon,
       iconStyle,
@@ -205,42 +208,41 @@ class SideMenu extends PureComponent {
       ...others
     } = this.props;
     const {activeMenu, on} = this.state;
-    const menuItems = getMenuByArray(this.handleOn.bind(this, null))(
+    const isInit = !on && false !== on;
+    const menuItems = getMenuByArray(this.handleSwitch.bind(this, null))(
       toJS(menus),
       linkComponent,
       activeMenu,
     );
-    const build = isValidElement(component) ? cloneElement : createElement;
-    const menuElement = build(component, others, menuItems);
-    let defaultOn = on;
-    let defaultOff = on;
-    if (!on && false !== on) {
-      defaultOn = true;
-      defaultOff = false;
-    }
-    let thisDefaultOnIcon = defaultOnIcon;
+    const menuElement = build(component)(others, menuItems);
+    let thisDefaultOnIcon = null;
     let thisDefaultOffIcon = defaultOffIcon;
-    if (!thisDefaultOnIcon) {
-      thisDefaultOnIcon = <DefaultIcon />;
-    }
+    let defaultOff = (isInit) ? false : on;
     if (!thisDefaultOffIcon) {
       thisDefaultOffIcon = <DefaultIcon />;
     }
-    thisDefaultOnIcon = cloneElement(thisDefaultOnIcon, {
-      on: true,
-      right: !defaultOn,
-      onClick: this.handleOn.bind(this, defaultOn),
-      className: 'default-on',
-      iconStyle,
-      hamburgerStyle,
-    });
     thisDefaultOffIcon = cloneElement(thisDefaultOffIcon, {
       on: defaultOff,
-      onClick: this.handleOn.bind(this, defaultOff),
+      onClick: this.handleSwitch.bind(this, defaultOff),
       className: 'default-off',
       iconStyle,
       hamburgerStyle,
     });
+    if (!fixedMini) {
+      let defaultOn = (isInit) ? true : on;
+      thisDefaultOnIcon = defaultOnIcon;
+      if (!thisDefaultOnIcon) {
+        thisDefaultOnIcon = <DefaultIcon />;
+      }
+      thisDefaultOnIcon = cloneElement(thisDefaultOnIcon, {
+        on: true,
+        right: !defaultOn,
+        onClick: this.handleSwitch.bind(this, defaultOn),
+        className: 'default-on',
+        iconStyle,
+        hamburgerStyle,
+      });
+    }
     const classes = mixClass(
       {
         active: on,

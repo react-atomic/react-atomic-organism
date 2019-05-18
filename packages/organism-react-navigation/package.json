@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.2.27",
+  "version": "0.3.0",
   "description": "React Navigation",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -12,6 +12,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "class-lib": "*",
     "css-query-selector": "*",
     "get-object-value": "*",
