@@ -9,6 +9,9 @@ import {
   Item,
 } from 'react-atomic-molecule';
 import DropdownIcon from 'ricon/Dropdown';
+import {doc} from 'win-doc';
+
+const body = () => doc().body;
 
 class Dropdown extends PureComponent {
   static defaultProps = {
@@ -25,34 +28,69 @@ class Dropdown extends PureComponent {
   };
 
   handleTitleClick = e => {
-    this.setState({
-      listStyle: {visibility: 'hidden'},
-    });
-    this.titleTimer = setTimeout(
-      () =>
-        this.setState({
-          listStyle: {visibility: 'inherit'},
-        }),
-      300,
-    );
+    const {listStyle} = this.state;
+    if (listStyle.display === 'block') {
+      this.close();
+    } else {
+      this.open();
+    }
   };
 
   handleMenuClick = () => {
-    setTimeout(() => {
-      if ('hidden' !== get(this, ['state', 'listStyle', 'visibility'])) {
-        this.setState({
-          hideList: true,
-        });
-        this.menuTimer = setTimeout(
-          () =>
-            this.setState({
-              hideList: false,
-            }),
-          300,
-        );
-      }
-    });
+    const {simple} = this.props;
+    if (simple) {
+      setTimeout(() => {
+        if ('hidden' !== get(this, ['state', 'listStyle', 'visibility'])) {
+          this.setState({
+            hideList: true,
+          });
+          this.menuTimer = setTimeout(
+            () =>
+              this.setState({
+                hideList: false,
+              }),
+            300,
+          );
+        }
+      });
+    } else {
+      this.close();
+    }
   };
+
+  handleClose = e => {
+    const target = e.target;
+    if (this.menu.contains(target)) {
+      return;
+    }
+    this.close();
+  };
+
+  open() {
+    const {simple} = this.props;
+    const listStyle = {};
+    if (simple) {
+      listStyle.visibility = 'hidden';
+      this.titleTimer = setTimeout(() => {
+        listStyle.visibility = 'inherit';
+        this.setState({
+          listStyle,
+        });
+      }, 300);
+    } else {
+      body().addEventListener('click', this.handleClose);
+      listStyle.display = 'block';
+    }
+    this.setState({listStyle});
+  }
+
+  close() {
+    const {simple} = this.props;
+    if (!simple) {
+      body().removeEventListener('click', this.handleClose);
+    }
+    this.setState({listStyle: {}});
+  }
 
   constructor(props) {
     super(props);
@@ -65,6 +103,10 @@ class Dropdown extends PureComponent {
     }
     if (this.menuTimer) {
       clearTimeout(this.menuTimer);
+    }
+    const {simple} = this.props;
+    if (!simple) {
+      body().removeEventListener('click', this.handleClose);
     }
   }
 
@@ -97,7 +139,9 @@ class Dropdown extends PureComponent {
     if (icon) {
       if (!isValidElement(icon)) {
         thisIcon = (
-          <Icon className="dropdown-default-icon" style={{...Styles.icon, ...iconStyle}}>
+          <Icon
+            className="dropdown-default-icon"
+            style={{...Styles.icon, ...iconStyle}}>
             <DropdownIcon />
           </Icon>
         );
@@ -112,12 +156,11 @@ class Dropdown extends PureComponent {
         {...props}
         style={{...Styles.container, ...style}}
         className={classes}
-        onClick={this.handleMenuClick}
-        refCb={el => (this.menu = el)}>
-        <Item
-          className={titleClasses}
-          style={{...Styles.title, ...titleStyle}}>
-          <SemanticUI style={Styles.label} onClick={this.handleTitleClick}>
+        refCb={el => (this.menu = el)}
+        onClick={this.handleTitleClick}
+      >
+        <Item className={titleClasses} style={{...Styles.title, ...titleStyle}}>
+          <SemanticUI style={Styles.label} >
             {children}
             {thisIcon}
           </SemanticUI>
