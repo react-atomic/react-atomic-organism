@@ -116,7 +116,7 @@ class Box extends PureComponent {
     if (el) {
       this.el = el;
     }
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -160,7 +160,7 @@ class Box extends PureComponent {
     return component({
       ...props,
       connectPointComponent,
-      ref: this.handleEl, 
+      ref: this.handleEl,
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
       'data-id': this.id,

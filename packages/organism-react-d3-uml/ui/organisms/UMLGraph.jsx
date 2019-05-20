@@ -82,13 +82,11 @@ class UMLGraph extends PureComponent {
         const zoomK = this.getZoomK();
         let {fromX, fromY} = get(dnd, ['start'], {});
         if (fromX) {
-          fromX = fromX * zoomK; 
+          x = x - fromX / zoomK;
         }
         if (fromY) {
-          fromY = fromY * zoomK; 
+          y = y - fromY / zoomK;
         }
-        x -= fromX;
-        y -= fromY;
       }
       this.addLazyMove(boxGroupName, x, y);
     }
@@ -208,7 +206,7 @@ class UMLGraph extends PureComponent {
     if (o) {
       this.zoom = o;
     }
-  }
+  };
 
   handleZoom = e => {
     const {transform: oTransform} = e;
@@ -225,7 +223,7 @@ class UMLGraph extends PureComponent {
   getZoomK = () => {
     const {k} = this.getTransform() || {};
     return k || 1;
-  }
+  };
 
   applyXY = (pX, pY, dom) => {
     if (!dom) {

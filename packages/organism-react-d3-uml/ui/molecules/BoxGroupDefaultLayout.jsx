@@ -30,13 +30,14 @@ class BoxGroupDefaultLayout extends BaseLayout {
   }
 
   update(prevState) {
-    let startY = 20;
+    let startY = 15;
     const boxsPos = {};
     const arrW = [0];
+    const {zoomK} = this.props;
     keys(this.childrenEl).forEach(cKey => {
       const cEl = this.childrenEl[cKey].getEl();
       const {w, h} = getOffset(cEl);
-      startY += h;
+      startY += h / zoomK;
       arrW.push(w);
       boxsPos[cKey] = {
         y: startY,
@@ -48,7 +49,7 @@ class BoxGroupDefaultLayout extends BaseLayout {
     if (maxW > 0 && !prevState.maxW) {
       this.setState({
         maxW,
-        rectW: maxW + 10,
+        rectW: (maxW / zoomK) + 10,
         rectH: startY + 5,
         boxsPos,
       });
@@ -78,10 +79,12 @@ class BoxGroupDefaultLayout extends BaseLayout {
       onMouseLeave,
       onDel,
       onEdit,
+      zoomK,
     } = this.props;
     const {rectW, rectH, boxsPos} = this.state;
     const graphStyle = {...Styles.container};
     const graphProps = {};
+    const groupProps = {};
     let atom;
     let gAtom;
     let translate;
@@ -95,6 +98,9 @@ class BoxGroupDefaultLayout extends BaseLayout {
       graphStyle.transform = `translate(${boxGroupAbsX}px, ${boxGroupAbsY}px)`;
       graphStyle.width = rectW + 10;
       graphStyle.height = rectH + 10;
+      groupProps.width = rectW;
+      groupProps.height = rectH;
+      groupProps.viewBox = `0 0 ${rectW} ${rectH}`;
     }
     const cancelButton = (
       <CancelButton
@@ -117,7 +123,7 @@ class BoxGroupDefaultLayout extends BaseLayout {
         style={graphStyle}
         data-id={id}
         refCb={el => (this.el = onGetEl(el))}>
-        <Group atom={gAtom} width="1" height="1" style={Styles.group}>
+        <Group atom={gAtom} {...groupProps} style={Styles.group}>
           <Rect
             style={Styles.rect}
             rx="5"
@@ -132,11 +138,12 @@ class BoxGroupDefaultLayout extends BaseLayout {
           {cancelButton}
           {Children.map(children, (c, ck) =>
             cloneElement(c, {
+              zoomK,
               key: ck,
               x: 5,
               y: get(boxsPos, [ck, 'y'], 0),
-              width: get(boxsPos, [ck, 'w'], 0),
-              height: get(boxsPos, [ck, 'h'], 0),
+              width: rectW,
+              height: get(boxsPos, [ck, 'h'], 1) / zoomK,
               ref: el => (this.childrenEl[ck] = el),
               onClick: onEdit,
             }),

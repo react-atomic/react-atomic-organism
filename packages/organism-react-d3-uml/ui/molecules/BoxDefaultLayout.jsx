@@ -22,9 +22,10 @@ class BoxDefaultLayout extends BaseLayout {
       y,
       width,
       height,
+      zoomK,
       ...props
     } = this.props;
-    const cy = -(height / 2 - 5);
+    const cy = -5;
     const connectPoints = [
       connectPointComponent({
         key: 'left',
@@ -34,7 +35,7 @@ class BoxDefaultLayout extends BaseLayout {
       connectPointComponent({
         key: 'right',
         cy,
-        cx: width + 12,
+        cx: width + 2,
       }),
     ];
     const translate = `translate(${x}, ${y})`;

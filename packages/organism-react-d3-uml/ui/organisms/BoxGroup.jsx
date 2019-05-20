@@ -112,6 +112,7 @@ class BoxGroup extends PureComponent {
           className: 'box-group',
           boxGroupAbsX: absX,
           boxGroupAbsY: absY,
+          zoomK: host.getZoomK(),
           text: text || name,
         }, thisChildren)}
       />
