@@ -1,11 +1,12 @@
 import React, {PureComponent} from 'react';
 import {Field, Menu, Item, SemanticUI} from 'react-atomic-molecule';
+import callfunc from 'call-func';
 
 import Dropdown from '../organisms/Dropdown';
 
 class Select extends PureComponent {
   static defaultProps = {
-    textLocator: d => d.text,
+    labelLocator: d => d.label,
     valueLocator: d => d.value,
     simple: false,
   };
@@ -13,10 +14,14 @@ class Select extends PureComponent {
   state = {value: null};
 
   handleSelect = item => e => {
-    const {textLocator, valueLocator} = this.props;
+    const {labelLocator, valueLocator, onChange} = this.props;
+    const value = valueLocator(item);
+    const selected = labelLocator(item);
     this.setState({
-      value: valueLocator(item),
-      selected: textLocator(item),
+      value,
+      selected,
+    }, () => {
+      callfunc(onChange, [{value, selected, item}]);
     });
   };
 
@@ -34,11 +39,12 @@ class Select extends PureComponent {
 
   render() {
     const {
-      textLocator,
+      labelLocator,
       valueLocator,
       placeholder,
-      list,
+      options,
       name,
+      onChange,
       ...props
     } = this.props;
     const {value, selected} = this.state;
@@ -53,24 +59,24 @@ class Select extends PureComponent {
       );
     }
     if (null !== value && !selected) {
-      list.some(l => {
+      options.some(l => {
         if (value === valueLocator(l)) {
-          thisSelected = textLocator(l);
+          thisSelected = labelLocator(l);
           return true;
         }
         return false;
       });
     }
     const title = thisSelected || thisPlaceholder;
-    if (list) {
+    if (options) {
       thisList = (
         <Menu>
-          {list.map((l, key) => (
+          {options.map((l, key) => (
             <Item
               onClick={this.handleSelect(l)}
               data-v={valueLocator(l)}
               key={key}>
-              {textLocator(l)}
+              {labelLocator(l)}
             </Item>
           ))}
         </Menu>

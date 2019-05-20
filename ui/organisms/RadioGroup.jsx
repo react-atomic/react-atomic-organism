@@ -39,10 +39,9 @@ class RadioGroup extends PureComponent {
       }
       current = ref;
     }
-    this.setState({current}, () => {
-      if ('function' === typeof onChange) {
-        onChange(e, current.getValue(), current);
-      }
+    const value = current.getValue();
+    this.setState({current, value}, () => {
+      callfunc(onChange, [value, current]);
     });
   };
 
@@ -72,12 +71,12 @@ class RadioGroup extends PureComponent {
       label,
       options,
       name,
-      value,
+      value: propsValue,
       onChange,
       checkedCallback,
       ...others
     } = this.props;
-    const {current} = this.state;
+    const {current, value} = this.state;
     const classes = mixClass(fieldClassName, {
       grouped: !inline,
     });
