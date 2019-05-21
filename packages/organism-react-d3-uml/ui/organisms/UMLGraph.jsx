@@ -76,18 +76,16 @@ class UMLGraph extends PureComponent {
   addLazyMoveWithMouseEvent(boxGroupName, e, dnd) {
     const vectorEl = this.getVectorEl();
     if (vectorEl) {
-      const mouseXY = mouse(e, vectorEl);
-      let {x, y} = this.applyXY(mouseXY[0], mouseXY[1]);
+      let {0: mouseX, 1: mouseY} = mouse(e, vectorEl);
       if (dnd) {
         const zoomK = this.getZoomK();
-        let {fromX, fromY} = get(dnd, ['start'], {});
-        if (fromX) {
-          x = x - fromX / zoomK;
-        }
-        if (fromY) {
-          y = y - fromY / zoomK;
+        const {fromX, fromY} = get(dnd, ['start'], {});
+        if (fromX && fromY) {
+          mouseX -= fromX * zoomK;
+          mouseY -= fromY * zoomK;
         }
       }
+      const {x, y} = this.applyXY(mouseX, mouseY);
       this.addLazyMove(boxGroupName, x, y);
     }
   }
