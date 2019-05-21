@@ -74,7 +74,7 @@ class Dropdown extends PureComponent {
       this.titleTimer = setTimeout(() => {
         listStyle.visibility = 'inherit';
         this.setState({
-          listStyle,
+          listStyle: {...listStyle},
         });
       }, 300);
     } else {
