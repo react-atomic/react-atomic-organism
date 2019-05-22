@@ -18,8 +18,9 @@ const BoxGroupHeader = ({children, x, y, width}) => (
 
 class BoxGroupDefaultLayout extends BaseLayout {
   state = {
-    rectW: 0,
-    rectH: 0,
+    /*firefox need a default value to expand content*/
+    rectW: 100,
+    rectH: 100,
     boxsPos: {},
   };
 
