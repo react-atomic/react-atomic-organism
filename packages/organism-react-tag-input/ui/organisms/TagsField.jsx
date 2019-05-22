@@ -112,7 +112,12 @@ class TagsField extends PureComponent {
       const compare = JSON.stringify(tagData);
       if (compare !== prevTagData) {
         const tags = [];
-        tagsLocator(tagData).forEach(tag => {
+        const preTags = tagsLocator(tagData);
+        if (!preTags.forEach) {
+          console.error('tagsLocator not return array.');
+          return null;
+        }
+        preTags.forEach(tag => {
           const t = tagLocator(tag);
           if (t) {
             tags.push(t);
