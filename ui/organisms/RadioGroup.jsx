@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {mixClass, Field, SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import callfunc from 'call-func';
+import {FUNCTION} from 'reshow-constant';
 
 import Radio from '../organisms/Checkbox';
 
@@ -27,8 +28,20 @@ class RadioGroup extends PureComponent {
   };
 
   static defaultProps = {
-    checkedCallback: (item, nextValue, current) => nextValue === item.value,
+    labelLocator: d => d.label,
+    valueLocator: d => d.value,
+    // not an event base so naming it with callback
+    checkedCallback: null,
   };
+
+  getChecked(item, nextValue, current) {
+    const {checkedCallback, valueLocator} = this.props;
+    if (FUNCTION === typeof checkedCallback) {
+      return checkedCallback(item, nextValue, current);
+    } else {
+      return nextValue === valueLocator(item); 
+    }
+  }
 
   handleClick = (e, before, after, ref) => {
     const {onChange} = this.props;
@@ -51,15 +64,15 @@ class RadioGroup extends PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {value} = nextProps;
-    if (value !== prevState.prePropsValue) {
-      return {
-        value,
-        prePropsValue: value,
-      };
-    } else {
-      return null;
+    const {value, options} = nextProps;
+    const nextState = {};
+    if (options !== prevState.options) {
+
+    } else if (value !== prevState.prePropsValue) {
+      nextState.value = value; 
+      nextState.propsValue = value;
     }
+    return nextState;
   }
 
   render() {
@@ -73,6 +86,8 @@ class RadioGroup extends PureComponent {
       name,
       value: propsValue,
       onChange,
+      valueLocator,
+      labelLocator,
       checkedCallback,
       ...others
     } = this.props;
@@ -92,10 +107,10 @@ class RadioGroup extends PureComponent {
             name={name}
             key={key}
             {...item.props}
-            label={item.label}
-            value={item.value}
+            label={labelLocator(item)}
+            value={valueLocator(item)}
             afterClick={this.handleClick}
-            checked={callfunc(checkedCallback, [item, value, current])}
+            checked={this.getChecked(item, value, current)}
           />
         ))}
       </Field>
