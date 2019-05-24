@@ -27,7 +27,7 @@ class UMLGraph extends PureComponent {
     boxGroupsLocator: d => (d || {}).tables || [],
     boxsLocator: d => (d || {}).cols || [],
     uniqueBoxGroupNameLocator: d => d,
-    boxNameLocator: d => d,
+    boxNameLocator: d => ({name: d}),
     connsLocator: d => d,
     connFromBoxGroupLocator: d => d,
     connToBoxGroupLocator: d => d,
@@ -442,6 +442,7 @@ const Styles = {
     overflow: 'hidden',
     width: '100%',
     height: '100%',
+    minHeight: 100,
     position: 'relative',
   },
   svg: {

@@ -105,7 +105,7 @@ class ConnectPoint extends PureComponent {
   }
 
   getHtmlCenter(el, host) {
-    const {left, top, width, height} = getOffset(el) || {
+    const {left, top, width, height} = (el && el.getBoundingClientRect) ? el.getBoundingClientRect() : {
       left: 0,
       top: 0,
       width: 0,
