@@ -1,6 +1,6 @@
 {
   "name": "organism-react-spotlight",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React spotlight",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -16,7 +16,7 @@
   "dependencies": {
     "array.merge": "*",
     "class-lib": "*",
-    "css-query-selector": "^0.0.0",
+    "css-query-selector": "*",
     "get-style": "*",
     "get-window-offset": "*",
     "getoffset": "*",
