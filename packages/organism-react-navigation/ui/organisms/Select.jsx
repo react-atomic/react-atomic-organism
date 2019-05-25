@@ -21,7 +21,7 @@ class Select extends PureComponent {
       value,
       selected,
     }, () => {
-      callfunc(onChange, [{value, selected, item}]);
+      callfunc(onChange, [value, {selected, item}]);
     });
   };
 
