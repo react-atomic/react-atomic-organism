@@ -52,7 +52,7 @@ const formSerialize = (formEl, arrayMode) => {
           });
           break;
         default:
-          formParams[name] = value;
+          maybeArray(formParams, {name, value, arrayMode});
           break;
       }
     }

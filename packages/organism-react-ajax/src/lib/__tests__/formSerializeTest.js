@@ -23,6 +23,7 @@ describe('Test formSerialize arrayMode', () => {
   let uGlobal;
   beforeEach(() => (uGlobal = jsdom()));
   afterEach(() => uGlobal());
+
   it('auto', ()=>{
     const body = document.body;
     body.innerHTML = `
@@ -33,6 +34,29 @@ describe('Test formSerialize arrayMode', () => {
     `;
     const fm = document.getElementsByTagName('form')[0];
     expect(formSerialize(fm)).to.deep.equal({foo: ['bar1', 'bar2']});
+  });
+
+  it('[] in auto mode with two items', ()=>{
+    const body = document.body;
+    body.innerHTML = `
+      <form>
+        <input type="checkbox" checked name="foo[]" value="bar1">
+        <input type="checkbox" checked name="foo[]" value="bar2">
+      </form>
+    `;
+    const fm = document.getElementsByTagName('form')[0];
+    expect(formSerialize(fm)).to.deep.equal({'foo[]': ['bar1', 'bar2']});
+  });
+
+  it('[] in auto mode with one items', ()=>{
+    const body = document.body;
+    body.innerHTML = `
+      <form>
+        <input type="checkbox" checked name="foo[]" value="bar1">
+      </form>
+    `;
+    const fm = document.getElementsByTagName('form')[0];
+    expect(formSerialize(fm)).to.deep.equal({'foo[]': 'bar1'});
   });
 
   it('arrayKey with one item', ()=>{
@@ -80,6 +104,30 @@ describe('Test formSerialize arrayMode', () => {
     `;
     const fm = document.getElementsByTagName('form')[0];
     expect(formSerialize(fm, false)).to.deep.equal({'foo[]': 'bar2'});
+  });
+
+  it('input with same key', ()=>{
+    const body = document.body;
+    body.innerHTML = `
+      <form>
+        <input type="text" checked name="foo" value="bar1">
+        <input type="text" checked name="foo" value="bar2">
+      </form>
+    `;
+    const fm = document.getElementsByTagName('form')[0];
+    expect(formSerialize(fm)).to.deep.equal({'foo': ['bar1', 'bar2']});
+  });
+
+  it('input with []', ()=>{
+    const body = document.body;
+    body.innerHTML = `
+      <form>
+        <input type="text" checked name="foo[]" value="bar1">
+        <input type="text" checked name="foo[]" value="bar2">
+      </form>
+    `;
+    const fm = document.getElementsByTagName('form')[0];
+    expect(formSerialize(fm)).to.deep.equal({'foo[]': ['bar1', 'bar2']});
   });
 
 });
