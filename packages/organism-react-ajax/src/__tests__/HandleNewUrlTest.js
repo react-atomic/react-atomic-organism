@@ -8,7 +8,7 @@ configure({ adapter: new Adapter() });
 import {
     AjaxPage,
     ajaxDispatch
-} from './../cjs/src/index'
+} from '../index'
 
 describe('Test Handle New Url', ()=>{ 
    let uGlobal
