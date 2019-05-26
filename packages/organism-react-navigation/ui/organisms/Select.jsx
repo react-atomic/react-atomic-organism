@@ -17,21 +17,24 @@ class Select extends PureComponent {
     const {labelLocator, valueLocator, onChange} = this.props;
     const value = valueLocator(item);
     const selected = labelLocator(item);
-    this.setState({
-      value,
-      selected,
-    }, () => {
-      callfunc(onChange, [value, {selected, item}]);
-    });
+    this.setState(
+      {
+        value,
+      },
+      () => {
+        callfunc(onChange, [value, {selected, item}]);
+      },
+    );
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {defaultValue} = nextProps;
-    const {prevDefaultValue} = prevState;
-    if (defaultValue !== prevDefaultValue) {
+    const {value, defaultValue} = nextProps;
+    const {prevValue} = prevState;
+    let thisValue = value || defaultValue;
+    if (thisValue !== prevValue) {
       return {
-        value: defaultValue,
-        prevDefaultValue: defaultValue,
+        value: thisValue,
+        prevValue: thisValue,
       };
     }
     return null;
@@ -39,6 +42,8 @@ class Select extends PureComponent {
 
   render() {
     const {
+      defaultValue,
+      value: propsValue,
       labelLocator,
       valueLocator,
       placeholder,
@@ -47,10 +52,10 @@ class Select extends PureComponent {
       onChange,
       ...props
     } = this.props;
-    const {value, selected} = this.state;
+    const {value} = this.state;
     let thisList = null;
     let thisPlaceholder = null;
-    let thisSelected = selected;
+    let thisSelected = value;
     if (placeholder) {
       thisPlaceholder = (
         <SemanticUI style={Styles.dropdownPlaceholder}>
@@ -58,7 +63,7 @@ class Select extends PureComponent {
         </SemanticUI>
       );
     }
-    if (null !== value && !selected) {
+    if (null != value) {
       options.some(l => {
         if (value === valueLocator(l)) {
           thisSelected = labelLocator(l);
@@ -83,10 +88,7 @@ class Select extends PureComponent {
       );
     }
     return (
-      <Dropdown
-        {...props}
-        list={thisList}
-      >
+      <Dropdown {...props} list={thisList}>
         <input type="hidden" name={name} value={value || ''} />
         {title}
       </Dropdown>
@@ -94,15 +96,18 @@ class Select extends PureComponent {
   }
 }
 
-const SelectField = props => 
-  <Field {...props} inputComponent={
-    <Select
-      titleStyle={Styles.dropdownTitle}
-      style={Styles.dropdown}
-      iconStyle={Styles.dropdownIcon}
-    />
-  }
-  />;
+const SelectField = props => (
+  <Field
+    {...props}
+    inputComponent={
+      <Select
+        titleStyle={Styles.dropdownTitle}
+        style={Styles.dropdown}
+        iconStyle={Styles.dropdownIcon}
+      />
+    }
+  />
+);
 
 export default Select;
 export {SelectField};
