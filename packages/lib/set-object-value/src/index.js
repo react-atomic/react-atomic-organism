@@ -5,7 +5,11 @@ const replaceValue = (obj, arrKey, val, isAppend) => {
     obj = obj[k];
   });
   if (isAppend && (!obj[last] || !obj[last].push)) {
-    obj[last] = [val];
+    if (!obj[last]) {
+      obj[last] = [val];
+    } else {
+      obj[last] = [obj[last], val];
+    }
   } else if (isAppend && obj[last].push) {
     obj[last].push(val);
   } else {
