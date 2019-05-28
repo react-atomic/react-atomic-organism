@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import {combine, combineSub} from '../cjs/src/index.js';
+import {combine, combineSub} from '../index.js';
 
 
 describe('Test array combine', ()=>{
@@ -29,6 +29,10 @@ describe('Test array combine', ()=>{
       c: {foo: 'c', bar: 'f'},
     };
     expect(acture).to.deep.equal(expected);
+  });
+  it('not array', ()=>{
+    const acture = combine(null);
+    expect(acture).to.be.undefined;
   });
 });
 

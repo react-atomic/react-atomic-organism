@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import merge from '../cjs/src/index.js';
+import merge from '../index.js';
 
 
 describe('test array merge', ()=>{

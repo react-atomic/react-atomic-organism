@@ -4,8 +4,12 @@ const keys = Object.keys;
 
 const combine = (arr, objKey) => {
   const nextArr = objKey ? {} : [];
-  const thisArr = get(arr);
+  const thisArr = get(arr, null, {});
   const thisKeys = keys(thisArr);
+  if (!thisArr[thisKeys[0]] || !thisArr[thisKeys[0]].forEach) {
+    console.warn('Not array.', {thisArr, thisKeys}, thisKeys[0]);
+    return;
+  }
   thisArr[thisKeys[0]].forEach((val, key) => {
     const next = {};
     let thisObjKey = key;
