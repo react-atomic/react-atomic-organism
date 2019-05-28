@@ -63,30 +63,32 @@ class Select extends PureComponent {
         </SemanticUI>
       );
     }
-    if (null != value) {
-      options.some(l => {
-        if (value === valueLocator(l)) {
-          thisSelected = labelLocator(l);
-          return true;
-        }
-        return false;
-      });
-    }
-    const title = thisSelected || thisPlaceholder;
     if (options) {
       thisList = (
         <Menu>
-          {options.map((l, key) => (
-            <Item
-              onClick={this.handleSelect(l)}
-              data-v={valueLocator(l)}
-              key={key}>
-              {labelLocator(l)}
-            </Item>
-          ))}
+          {options.map((l, key) => {
+            const optionValue = valueLocator(l);
+            const optionText = labelLocator(l);
+            let optionClasses = null;
+            if (value === optionValue) {
+              thisSelected = optionText;
+              optionClasses = 'active';
+            }
+            return (
+              <Item
+                onClick={this.handleSelect(l)}
+                data-v={optionValue}
+                key={key}
+                className={optionClasses}
+              >
+                {optionText}
+              </Item>
+            );
+          })}
         </Menu>
       );
     }
+    const title = thisSelected || thisPlaceholder;
     return (
       <Dropdown {...props} list={thisList}>
         <input type="hidden" name={name} value={value || ''} />
