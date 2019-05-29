@@ -1,8 +1,8 @@
-To Percent
+get-random-id
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/topercent
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/get-random-id
    * NPM
-      * https://npm.im/topercent
+      * https://www.npmjs.com/package/get-random-id 
 
 

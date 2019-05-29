@@ -1,6 +1,6 @@
 'use strict';
 
-import randKey from '../cjs/src/index.js';
+import randKey from '../index.js';
 import {expect} from 'chai';
 
 describe('Test rand key', () => {
