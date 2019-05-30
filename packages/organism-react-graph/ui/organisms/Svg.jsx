@@ -4,6 +4,7 @@ import {SemanticUI} from 'react-atomic-molecule';
 const Svg = props => <SemanticUI {...props} />;
 
 Svg.defaultProps = {
+  ui: false,
   atom: 'svg',
   width: '100%'
 };
