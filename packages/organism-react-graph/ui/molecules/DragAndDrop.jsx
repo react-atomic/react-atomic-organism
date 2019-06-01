@@ -93,8 +93,8 @@ class DragAndDrop extends PureComponent {
     } = this.props;
     const {style: compStyle, refCb: compRefcb} = get(component, ['props'], {});
     props.style = {
-      ...style,
       ...Styles.container,
+      ...style,
       ...compStyle,
     };
     if (refCb || compRefcb) {
@@ -115,7 +115,7 @@ export default DragAndDrop;
 
 const Styles = {
   container: {
-    cursor: 'move',
+    cursor: 'grab',
     pointerEvents: 'all',
   },
 };
