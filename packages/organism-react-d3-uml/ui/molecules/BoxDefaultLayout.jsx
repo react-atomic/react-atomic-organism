@@ -21,8 +21,6 @@ class BoxDefaultLayout extends BaseLayout {
       x,
       y,
       width,
-      height,
-      zoomK,
       ...props
     } = this.props;
     const cy = -5;

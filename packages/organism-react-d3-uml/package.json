@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.2.0-beta.23",
+  "version": "0.2.0-beta.24",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "array.merge": "*",
+    "css-query-selector": "*",
     "d3-lib": "*",
     "get-object-value": "*",
     "getoffset": "*",

@@ -139,12 +139,10 @@ class BoxGroupDefaultLayout extends BaseLayout {
           {cancelButton}
           {Children.map(children, (c, ck) =>
             cloneElement(c, {
-              zoomK,
               key: ck,
               x: 5,
               y: get(boxsPos, [ck, 'y'], 0),
               width: rectW,
-              height: get(boxsPos, [ck, 'h'], 1) / zoomK,
               ref: el => (this.childrenEl[ck] = el),
               onClick: onEdit,
             }),

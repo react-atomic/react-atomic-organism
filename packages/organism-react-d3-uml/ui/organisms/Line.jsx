@@ -38,14 +38,18 @@ class Line extends PureComponent {
 
   handleCancelButtonClick = e => {
     e.preventDefault();
-    const {host, id} = this.props;
-    host.oConn.deleteLine(id);
+    const {host, id: lineId} = this.props;
+    host.handleLineDel({
+      ref: this,
+      lineId,
+      lineData: host.oConn.getLine(lineId),
+    });
   };
 
   handleClick = e => {
     e.preventDefault();
-    const {onClick, host, id: lineId} = this.props;
-    onClick({
+    const {host, id: lineId} = this.props;
+    host.handleLineEdit({
       ref: this,
       lineId,
       lineData: host.oConn.getLine(lineId),
@@ -62,10 +66,14 @@ class Line extends PureComponent {
   }
 
   render() {
-    const {props, init, host, onClick, component, ...other} = this.props;
+    const {start, props, init, host, component, ...other} = this.props;
     const {isHover} = this.state;
+    if (!start) {
+      return null;
+    }
     return build(component)({
       ...other,
+      start,
       isHover,
       onClick: this.handleClick,
       onCancelButtonClick: this.handleCancelButtonClick,

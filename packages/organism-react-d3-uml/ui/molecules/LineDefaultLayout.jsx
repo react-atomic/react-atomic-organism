@@ -40,7 +40,7 @@ class LineDefaultLayout extends BaseLayout {
       }
       cancelButton = (
         <CancelButton
-          x={start.x}
+          x={start.x+30}
           y={start.y}
           onClick={onCancelButtonClick}
           show={isShowedCancel}
@@ -75,13 +75,13 @@ export default LineDefaultLayout;
 
 const Styles = {
   line: {
-    stroke: '#333',
+    stroke: '#bbb',
     strokeWidth: 1.5,
     fill: 'none',
   },
   area: {
     strokeLinecap: 'round',
-    stroke: '#333',
+    stroke: '#999',
     strokeWidth: 15,
     strokeOpacity: 0,
     fill: 'none',

@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react';
 import {build} from 'react-atomic-molecule';
 import {getDistance} from 'organism-react-graph';
-import getOffset from 'getoffset';
 
 import ConnectPoint from '../organisms/ConnectPoint';
 
@@ -17,61 +16,13 @@ class Box extends PureComponent {
     showConnectPoint: false,
   };
 
-  getConnectFromBoxId() {
+  getFromBoxId() {
     const {host} = this.props;
     const point = host.getConnectStartPoint();
     if (point) {
       return point.getBox().getId();
     }
   }
-
-  handleMouseEnter = () => {
-    this.clearHoverTimer();
-    this.setState({showConnectPoint: true});
-  };
-
-  handleMouseLeave = () => {
-    const formBoxId = this.getConnectFromBoxId();
-    if (formBoxId && this.getId() !== formBoxId) {
-      this.setState({showConnectPoint: false});
-    } else {
-      if (!this.isConnectPointDrag) {
-        this.hoverTimer = setTimeout(() => {
-          this.setState({showConnectPoint: false});
-        }, 1000);
-      }
-    }
-  };
-
-  handlePointDrag = bool => {
-    this.isConnectPointDrag = bool;
-  };
-
-  getRecentPoint(center) {
-    const distance = [];
-    const distanceMap = {};
-    keys(this.points).forEach(key => {
-      const p = this.points[key];
-      const point = p.getCenter();
-      if (point) {
-        const pointDistance = getDistance(center, point);
-        distance.push(pointDistance);
-        distanceMap[pointDistance] = p;
-      }
-    });
-    const min = Math.min(...distance);
-    return distanceMap[min];
-  }
-
-  getPoint(key) {
-    return this.points[key];
-  }
-
-  addPoint = obj => {
-    if (obj) {
-      this.points[obj.getId()] = obj;
-    }
-  };
 
   getBoxGroup() {
     const {host, boxGroupId} = this.props;
@@ -101,9 +52,68 @@ class Box extends PureComponent {
   getEdge() {
     const {host} = this.props;
     const el = this.getEl();
-    const offset = getOffset(el);
-    return host.applyXY(offset.right, offset.bottom);
+    const {right, bottom} =
+      el && el.getBoundingClientRect
+        ? el.getBoundingClientRect()
+        : {
+            right: 0,
+            bottom: 0,
+          };
+    return host.applyXY(right, bottom);
   }
+
+  getRecentPoint(center) {
+    const distance = [];
+    const distanceMap = {};
+    keys(this.points).forEach(key => {
+      const p = this.points[key];
+      const point = p.getCenter();
+      if (point) {
+        const pointDistance = getDistance(center, point);
+        distance.push(pointDistance);
+        distanceMap[pointDistance] = p;
+      }
+    });
+    const min = Math.min(...distance);
+    return distanceMap[min];
+  }
+
+  getConnectPoint(center) {
+    const el = this.getEl();
+    if (el && el.getConnectPoint) {
+      return el.getConnectPoint(center);
+    } else {
+      return this.getRecentPoint(center);
+    }
+  }
+
+  getFromPoint() {
+    const el = this.getEl();
+    if (el && el.getFromPoint) {
+      return el.getFromPoint();
+    } else {
+      return this.getRecentPoint(this.getEdge());
+    }
+  }
+
+  getToPoint() {
+    const el = this.getEl();
+    if (el && el.getToPoint) {
+      return el.getToPoint();
+    } else {
+      return this.getRecentPoint({x: 0, y: 0});
+    }
+  }
+
+  getPoint(key) {
+    return this.points[key];
+  }
+
+  addPoint = obj => {
+    if (obj) {
+      this.points[obj.getId()] = obj;
+    }
+  };
 
   clearHoverTimer() {
     if (this.hoverTimer) {
@@ -111,6 +121,28 @@ class Box extends PureComponent {
       this.hoverTimer = false;
     }
   }
+
+  handleMouseEnter = () => {
+    this.clearHoverTimer();
+    this.setState({showConnectPoint: true});
+  };
+
+  handleMouseLeave = () => {
+    const fromBoxId = this.getFromBoxId();
+    if (fromBoxId && this.getId() !== fromBoxId) {
+      this.setState({showConnectPoint: false});
+    } else {
+      if (!this.isConnectPointDrag) {
+        this.hoverTimer = setTimeout(() => {
+          this.setState({showConnectPoint: false});
+        }, 1000);
+      }
+    }
+  };
+
+  handlePointDrag = bool => {
+    this.isConnectPointDrag = bool;
+  };
 
   handleEl = el => {
     if (el) {
@@ -139,6 +171,7 @@ class Box extends PureComponent {
       boxGroupAbsX,
       boxGroupAbsY,
       boxGroupId,
+      boxGroupName,
       text,
       ...props
     } = this.props;
@@ -156,7 +189,7 @@ class Box extends PureComponent {
         onMount={this.addPoint}
       />,
     );
-    const component = build(host.getBoxComponent(name, boxGroupId));
+    const component = build(host.getBoxComponent(name, boxGroupName));
     return component({
       ...props,
       connectPointComponent,

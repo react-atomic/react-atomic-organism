@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react';
 import {build} from 'react-atomic-molecule';
 import {DragAndDrop} from 'organism-react-graph';
-import getOffset, {mouse, toSvgXY} from 'getoffset';
+import {mouse, toSvgXY} from 'getoffset';
 import get from 'get-object-value';
 import callfunc from 'call-func';
+import {queryAncestor} from 'css-query-selector';
 
 // files
 import ConnectPointDefaultLayout from '../molecules/ConnectPointDefaultLayout';
@@ -51,11 +52,18 @@ class ConnectPoint extends PureComponent {
     let endXY;
     const target = e.destTarget;
     if (target) {
-      const targetId = target.getAttribute('data-id');
-      const targetGroup = target.getAttribute('data-group');
+      let targetId = target.getAttribute('data-id');
+      let targetGroup = target.getAttribute('data-group');
+      if (!targetId && !targetGroup) {
+        const pDom = queryAncestor(target, '[data-id]');
+        if (pDom) {
+          targetId = pDom.getAttribute('data-id');
+          targetGroup = pDom.getAttribute('data-group');
+        }
+      }
       if (targetId && targetGroup) {
         const targetBox = host.getBox(targetId, targetGroup);
-        const targetPoint = targetBox.getRecentPoint(center);
+        const targetPoint = targetBox.getConnectPoint(center);
         endXY = targetPoint.getCenter();
         host.setConnectEndPoint(targetPoint);
       }
@@ -105,12 +113,15 @@ class ConnectPoint extends PureComponent {
   }
 
   getHtmlCenter(el, host) {
-    const {left, top, width, height} = (el && el.getBoundingClientRect) ? el.getBoundingClientRect() : {
-      left: 0,
-      top: 0,
-      width: 0,
-      height: 0,
-    };
+    const {left, top, width, height} =
+      el && el.getBoundingClientRect
+        ? el.getBoundingClientRect()
+        : {
+            left: 0,
+            top: 0,
+            width: 0,
+            height: 0,
+          };
     const x = width / 2 + left;
     const y = height / 2 + top;
     const hostEl = host.getVectorEl();
@@ -161,9 +172,9 @@ class ConnectPoint extends PureComponent {
 
   handleEl = el => {
     if (el) {
-      this.dnd = el
+      this.dnd = el;
     }
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -186,8 +197,11 @@ class ConnectPoint extends PureComponent {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {boxGroupAbsX, boxGroupAbsY} = this.props;
-    const {prevBoxGroupAbsX, prevBoxGroupAbsY} = prevProps || {};
-    if (boxGroupAbsX === prevBoxGroupAbsX && boxGroupAbsY === prevBoxGroupAbsY) {
+    const {boxGroupAbsX: prevBoxGroupAbsX, boxGroupAbsY: prevBoxGroupAbsY} = prevProps || {};
+    if (
+      boxGroupAbsX === prevBoxGroupAbsX &&
+      boxGroupAbsY === prevBoxGroupAbsY
+    ) {
       return;
     }
     const lineKeys = keys(this.lines);
@@ -225,7 +239,7 @@ class ConnectPoint extends PureComponent {
         data-id={this.id}
         absX={absX}
         absY={absY}
-        isShow={this.isShow()}
+        data-is-show={this.isShow()}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
         onDrag={this.handleDrag}

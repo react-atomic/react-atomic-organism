@@ -48,6 +48,33 @@ class UMLGraph extends PureComponent {
   lazyMove = {};
   oConn;
 
+  getLines() {
+    return this.state.lines;
+  }
+
+  getBox(id, groupId) {
+    const group = get(this.boxGroupMap, [groupId]);
+    if (group) {
+      return group.getBox(id);
+    }
+  }
+
+  getBoxGroup(id) {
+    return get(this.boxGroupMap, [id]);
+  }
+
+  getBoxComponent(name, groupName) {
+    const {onGetBoxComponent} = this.props;
+    const component = callfunc(onGetBoxComponent, [name, groupName]);
+    return component || BoxDefaultLayout;
+  }
+
+  getBoxGroupComponent(name) {
+    const {onGetBoxGroupComponent} = this.props;
+    const component = callfunc(onGetBoxGroupComponent, [name]);
+    return component || BoxGroupDefaultLayout;
+  }
+
   getVectorEl() {
     return this.vector;
   }
@@ -56,21 +83,21 @@ class UMLGraph extends PureComponent {
     return this.startPoint;
   }
 
+  getConnectEndPoint() {
+    return this.endPoint;
+  }
+
+  getBoxGroupIdByName(name) {
+    return get(this, ['boxGroupNameInvertMap', name]);
+  }
+
   setConnectStartPoint(el) {
     this.startPoint = el;
     return this.startPoint;
   }
 
-  getConnectEndPoint() {
-    return this.endPoint;
-  }
-
   setConnectEndPoint(el) {
     this.endPoint = el;
-  }
-
-  getBoxGroupIdByName(name) {
-    return get(this, ['boxGroupNameInvertMap', name]);
   }
 
   addLazyMoveWithMouseEvent(boxGroupName, e, dnd) {
@@ -177,29 +204,6 @@ class UMLGraph extends PureComponent {
     }
   };
 
-  getBox(id, groupId) {
-    const group = get(this.boxGroupMap, [groupId]);
-    if (group) {
-      return group.getBox(id);
-    }
-  }
-
-  getBoxGroup(id) {
-    return get(this.boxGroupMap, [id]);
-  }
-
-  getBoxComponent(name, groupId) {
-    const {onGetBoxComponent} = this.props;
-    const component = callfunc(onGetBoxComponent, [name, groupId]);
-    return component || BoxDefaultLayout;
-  }
-
-  getBoxGroupComponent(name) {
-    const {onGetBoxGroupComponent} = this.props;
-    const component = callfunc(onGetBoxGroupComponent, [name]);
-    return component || BoxGroupDefaultLayout;
-  }
-
   handleZoomRef = o => {
     if (o) {
       this.zoom = o;
@@ -233,7 +237,7 @@ class UMLGraph extends PureComponent {
   };
 
   syncPropConnects() {
-    this.oConn = new ConnectController({host: this});
+    const oConn = new ConnectController({host: this});
     const {
       data,
       connsLocator,
@@ -271,7 +275,7 @@ class UMLGraph extends PureComponent {
       }
       const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName);
       const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName);
-      const lineId = this.oConn.addLine(conn); //add line will trigger box render need put before getBoxIdByName
+      const lineId = oConn.addLine(conn); //add line will trigger box render need put before getBoxIdByName
       const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(
         fromBoxName,
       );
@@ -280,25 +284,26 @@ class UMLGraph extends PureComponent {
       const fromBox = this.getBox(fromBoxId, fromBoxGroupId);
       const toBox = this.getBox(toBoxId, toBoxGroupId);
       if (fromBox && toBox) {
-        this.oConn.addConnected(
+        oConn.addConnected(
           lineId,
-          fromBox.getRecentPoint(fromBox.getEdge()),
-          toBox.getRecentPoint({x: 0, y: 0}),
+          fromBox.getFromPoint(),
+          toBox.getToPoint(),
           true,
         );
       }
     });
+    this.oConn = oConn;
+    oConn.setState();
     return groupConn;
   }
 
   handleLineEdit = payload => {
-    const {onLineEdit} = this.props;
-    callfunc(onLineEdit, [payload]);
+    callfunc(this.props.onLineEdit, [payload]);
   };
 
   handleLineDel = payload => {
-    const {onLineDel} = this.props;
-    callfunc(onLineDel, [payload]);
+    this.oConn.deleteLine(payload.lineId);
+    callfunc(this.props.onLineDel, [payload]);
   };
 
   handleConnAdd = payload => {
@@ -385,7 +390,6 @@ class UMLGraph extends PureComponent {
                 const {hover, ...lineProps} = lines[key];
                 const lineEl = (
                   <Line
-                    onClick={this.handleLineEdit}
                     {...lineProps}
                     id={key}
                     key={key}
@@ -423,6 +427,7 @@ class UMLGraph extends PureComponent {
                   <Box
                     host={this}
                     key={'box-' + colKey}
+                    boxGroupName={bgName.name}
                     {...boxNameLocator(colItem)}
                   />
                 ))}
@@ -446,6 +451,7 @@ const Styles = {
     position: 'relative',
   },
   svg: {
+    cursor: 'grabbing', 
     position: 'absolute',
     top: 0,
     left: 0,

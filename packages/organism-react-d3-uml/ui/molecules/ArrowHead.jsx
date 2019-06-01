@@ -28,6 +28,7 @@ ArrowHead.defaultProps = {
   markerWidth: 8,
   markerHeight: 6,
   orient: 'auto',
+  fill: '#bbb'
 };
 
 export default ArrowHead;

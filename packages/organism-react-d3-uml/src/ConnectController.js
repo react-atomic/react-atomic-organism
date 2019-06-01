@@ -1,13 +1,14 @@
 import get from 'get-object-value';
 import {removeEmpty} from 'array.merge';
 
-let lineCounts = 0;
+let lineCounts = 1;
 const keys = Object.keys;
 
 class ConnectController {
   lineTimer = null;
   connects = {};
-  updateQueue = {};
+  queue = null;
+  updateCbQueue = [];
   host = null;
 
   constructor(props) {
@@ -21,40 +22,27 @@ class ConnectController {
   addLine(props) {
     const id = 'line-' + lineCounts;
     lineCounts++;
-    this.host.setState(({lines}) => {
+    this.setState(lines => {
       lines[id] = {props};
-      return {lines: {...lines}};
+      return lines;
     });
     return id;
   }
 
   updateLine(id, params) {
-    this.clearTimeout();
-    this.updateQueue[id] = {
-      ...this.updateQueue[id],
-      ...params,
-    };
-    this.lineTimer = setTimeout(() => {
-      this.host.setState(({lines}) => {
-        keys(this.updateQueue).forEach(lineId => {
-          if (get(lines, [lineId])) {
-            lines[lineId] = {
-              ...lines[lineId],
-              ...this.updateQueue[lineId],
-            };
-          }
-        });
-        this.updateQueue = {};
-        return {lines: {...lines}};
-      });
-    }, 1);
+    this.setState(lines => {
+      lines[id] = {
+        ...lines[id],
+        ...params,
+      };
+      return lines;
+    });
   }
 
   deleteLine(id) {
-    this.clearTimeout();
     const payload = {};
-    this.host.setState(
-      ({lines}) => {
+    this.setState(
+      lines => {
         const line = lines[id];
         if (line) {
           payload.line = line;
@@ -75,7 +63,7 @@ class ConnectController {
           }
           delete lines[id];
         }
-        return {lines: {...lines}};
+        return lines;
       },
       () => {
         const {from, to} = payload;
@@ -174,6 +162,33 @@ class ConnectController {
       clearTimeout(this.lineTimer);
       this.lineTimer = false;
     }
+  }
+
+  setState(callback, updateCb, delay) {
+    this.clearTimeout();
+    if (!delay) {
+      delay = 1;
+    }
+    if (!this.queue) {
+      this.queue = this.host.getLines();
+    }
+    if (callback) {
+      this.queue = callback(this.queue);
+    }
+    if (updateCb) {
+      this.updateCbQueue.push(updateCb);
+    }
+    if (!this.host.oConn) {
+      return;
+    }
+    this.lineTimer = setTimeout(() => {
+      this.host.setState({lines: {...this.queue}}, () => {
+        this.queue = null;
+      }, ()=>{
+        this.updateCbQueue.forEach(cb => cb());  
+        this.updateCbQueue=[];
+      });
+    }, delay);
   }
 }
 
