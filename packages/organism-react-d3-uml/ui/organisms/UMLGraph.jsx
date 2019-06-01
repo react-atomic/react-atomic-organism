@@ -251,6 +251,7 @@ class UMLGraph extends PureComponent {
 
     const conns = connsLocator(data);
     if (!conns || !conns.length) {
+      this.oConn = oConn;
       return;
     }
     const groupConn = {};
