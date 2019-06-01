@@ -25,16 +25,16 @@ class BoxGroup extends PureComponent {
   handleDrag = ({absX, absY}) => this.move(absX, absY);
 
   handleEdit = e => {
-    if (e.preventDefault) {
-      e.preventDefault();
+    if (e.stopPropagation) {
+      e.stopPropagation();
     }
     const {onEdit, name} = this.props;
     onEdit(name, this);
   };
 
   handleDel = e => {
-    if (e.preventDefault) {
-      e.preventDefault();
+    if (e.stopPropagation) {
+      e.stopPropagation();
     }
     const {onDel, name} = this.props;
     onDel(name);
