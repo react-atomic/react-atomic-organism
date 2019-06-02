@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Path from 'ricon/Path';
 
 const keys = Object.keys;
@@ -31,7 +31,7 @@ ArrowHead.defaultProps = {
   fill: '#bbb'
 };
 
-export default ArrowHead;
+export default memo(ArrowHead);
 
 const Styles = {
   path: {

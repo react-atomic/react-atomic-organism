@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {build} from 'react-atomic-molecule';
 
 import LineDefaultLayout from '../molecules/LineDefaultLayout';
 
-class Line extends PureComponent {
+class Line extends Component {
   static defaultProps = {
     component: LineDefaultLayout,
   };

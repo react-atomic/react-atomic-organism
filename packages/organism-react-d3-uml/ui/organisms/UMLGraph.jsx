@@ -1,4 +1,4 @@
-import React, {PureComponent, memo, cloneElement} from 'react';
+import React, {Component} from 'react';
 import {SemanticUI, build} from 'react-atomic-molecule';
 import {Graph, Group, Zoom} from 'organism-react-graph';
 import get, {getDefault} from 'get-object-value';
@@ -18,11 +18,9 @@ import ConnectController from '../../src/ConnectController';
 
 const keys = Object.keys;
 
-const HTMLGraph = memo(props => (
-  <SemanticUI {...props} className="html-graph" />
-));
+const HTMLGraph = props => <SemanticUI {...props} className="html-graph" />
 
-class UMLGraph extends PureComponent {
+class UMLGraph extends Component {
   static defaultProps = {
     boxGroupsLocator: d => (d || {}).tables || [],
     boxsLocator: d => (d || {}).cols || [],
@@ -419,7 +417,6 @@ class UMLGraph extends PureComponent {
               <BoxGroup
                 ref={el => this.addBoxGroup(el)}
                 host={this}
-                data={data}
                 key={'box-group-' + bgName.name}
                 onEdit={this.edit}
                 onDel={this.del}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Path from 'ricon/Path';
 
 const d =
@@ -6,4 +6,4 @@ const d =
 
 const CancelIcon = props => <Path {...props} d={d} />;
 
-export default CancelIcon;
+export default memo(CancelIcon);

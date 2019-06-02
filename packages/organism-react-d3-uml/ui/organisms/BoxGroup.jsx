@@ -1,4 +1,4 @@
-import React, {PureComponent, Children, cloneElement} from 'react';
+import React, {Component, Children, cloneElement} from 'react';
 import {build} from 'react-atomic-molecule';
 import {DragAndDrop} from 'organism-react-graph';
 import get from 'get-object-value';
@@ -7,7 +7,7 @@ import getOffset from 'getoffset';
 const keys = Object.keys;
 let boxGroupId = 1;
 
-class BoxGroup extends PureComponent {
+class BoxGroup extends Component {
   state = {
     absX: 0,
     absY: 0,
@@ -108,7 +108,6 @@ class BoxGroup extends PureComponent {
       name,
       text,
       host,
-      data,
       onEdit,
       onDel,
       children,

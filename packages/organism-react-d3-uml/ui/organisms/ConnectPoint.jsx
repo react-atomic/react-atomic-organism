@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {build} from 'react-atomic-molecule';
 import {DragAndDrop} from 'organism-react-graph';
 import {mouse, toSvgXY} from 'getoffset';
@@ -12,7 +12,7 @@ import ConnectPointDefaultLayout from '../molecules/ConnectPointDefaultLayout';
 let connPointId = 1;
 const keys = Object.keys;
 
-class ConnectPoint extends PureComponent {
+class ConnectPoint extends Component {
   static defaultProps = {
     component: ConnectPointDefaultLayout,
   };

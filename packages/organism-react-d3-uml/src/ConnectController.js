@@ -184,7 +184,6 @@ class ConnectController {
     this.lineTimer = setTimeout(() => {
       this.host.setState({lines: {...this.queue}}, () => {
         this.queue = null;
-      }, ()=>{
         this.updateCbQueue.forEach(cb => cb());  
         this.updateCbQueue=[];
       });

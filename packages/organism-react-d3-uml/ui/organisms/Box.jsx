@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {build} from 'react-atomic-molecule';
 import {getDistance} from 'organism-react-graph';
 
@@ -7,7 +7,7 @@ import ConnectPoint from '../organisms/ConnectPoint';
 let boxId = 1;
 const keys = Object.keys;
 
-class Box extends PureComponent {
+class Box extends Component {
   isConnectPointDrag = false;
   points = {};
   hoverTimer = false;
