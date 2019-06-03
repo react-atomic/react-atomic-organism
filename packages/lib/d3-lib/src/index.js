@@ -47,6 +47,7 @@ const getPointsCenter = (points, xLocator, yLocator) => {
 const _line = (start, end, curve, xLocator, yLocator) => {
   xLocator = xLocator || defaultXLocator;
   yLocator = yLocator || defaultYLocator;
+  const result = {};
   let points = [start, end];
   let l = d3_line()
     .x(xLocator)
@@ -58,8 +59,10 @@ const _line = (start, end, curve, xLocator, yLocator) => {
       y: start.y,
     };
     points = [start, c, end];
+    result.center = c;
   }
-  return l(points);
+  result.d = l(points);
+  return result;
 };
 const line = memoizeOne(_line);
 
