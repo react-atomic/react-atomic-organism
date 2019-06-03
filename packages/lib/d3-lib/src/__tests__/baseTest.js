@@ -101,6 +101,13 @@ describe('line', () => {
     expect(thisLine.d).to.equal(expected);
     expect(thisLine.center).to.deep.equal({ x: 5, y: 0 });
   });
+  it('test no curve', ()=>{
+    const thisLine = line(data[0], data[1]);
+    const expected = 'M0,0L10,10';
+    expect(thisLine.d).to.equal(expected);
+    expect(thisLine.center).to.deep.equal({ x: 5, y: 5 });
+  });
+
 });
 
 describe('area', () => {
