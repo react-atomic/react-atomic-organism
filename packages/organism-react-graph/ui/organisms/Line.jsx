@@ -3,6 +3,11 @@ import {SemanticUI} from 'react-atomic-molecule';
 import {line} from 'd3-lib';
 
 class Line extends PureComponent {
+
+  getCenter() {
+    return this.center;
+  }
+
   render() {
     const {start, end, svgLine, curve, ...props} = this.props;
     const params = {};
@@ -13,7 +18,9 @@ class Line extends PureComponent {
         params.x2 = end.x;
         params.y2 = end.y;
       } else {
-        params.d = line(start, end, curve);
+        const {center, d} = line(start, end, curve);
+        params.d = d;
+        this.center = center;
       }
     }
     params.atom = svgLine ? 'line' : 'path';
