@@ -76,6 +76,8 @@ class Suggestion extends PureComponent {
     }
     if (e) {
       e.persist();
+    } else {
+      e = {target: input, currentTarget: input}
     }
     if (isOpen) {
       nextState.isOpen = isOpen;
