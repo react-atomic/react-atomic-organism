@@ -14,6 +14,24 @@ class LineDefaultLayout extends BaseLayout {
     return this.el;
   }
 
+  getLinePoint(len, maxPercent) {
+    const lEl = this.lineEl;
+    if (lEl) {
+      const totalLen = lEl.getTotalLength();
+      const pcntLen = Math.floor((maxPercent * totalLen) / 100);
+      const thisLen = (len > pcntLen) ? pcntLen : len;
+      return this.lineEl.getPointAtLength(thisLen);
+    }
+  }
+
+  handleEl = el => {
+    this.el = el;
+  };
+
+  handleLineEl = el => {
+    this.lineEl = el;
+  };
+
   render() {
     const {
       id,
@@ -32,6 +50,7 @@ class LineDefaultLayout extends BaseLayout {
     let cancelButton = null;
     let areaStyle = Styles.area;
     let isShowedCancel = false;
+    const {x: centerX, y: centerY} = this.getLinePoint(50, 50) || start;
     const compLine = build(<LineGraph start={start} end={end} curve={true} />);
     if (from && to) {
       if (isHover) {
@@ -40,8 +59,8 @@ class LineDefaultLayout extends BaseLayout {
       }
       cancelButton = (
         <CancelButton
-          x={start.x+30}
-          y={start.y}
+          x={centerX}
+          y={centerY}
           onClick={onCancelButtonClick}
           show={isShowedCancel}
         />
@@ -53,19 +72,15 @@ class LineDefaultLayout extends BaseLayout {
       });
     }
     return (
-      <Group
-        name={id}
-        onMouseEnter={onMouseEnter}
-        refCb={el => (this.el = el)}>
+      <Group name={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} refCb={this.handleEl}>
         {compLine({
           ...other,
+          refCb: this.handleLineEl,
           className: 'line',
           style: Styles.line,
         })}
-        <Group onMouseLeave={onMouseLeave}>
-          {area}
-          {cancelButton}
-        </Group>
+        {area}
+        {cancelButton}
       </Group>
     );
   }
@@ -85,6 +100,7 @@ const Styles = {
     strokeWidth: 15,
     strokeOpacity: 0,
     fill: 'none',
+    cursor: 'default',
   },
   hover: {
     strokeOpacity: '.1',

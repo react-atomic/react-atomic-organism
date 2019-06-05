@@ -7,6 +7,8 @@ class CancelButton extends PureComponent {
 
   state = {r: 0};
 
+  handleEl = el => (this.el = el);
+
   componentDidMount() {
     const el = this.el;
     const bbox = el.getBBox();
@@ -32,10 +34,11 @@ class CancelButton extends PureComponent {
         ...Styles.hide,
       };
     }
-    const translate = `translate(${x}, ${y})`;
+    const translate = `translate(${x - r}, ${y - r})`;
     return (
       <Group
-        refCb={el => (this.el = el)}
+        className="cance-button"
+        refCb={this.handleEl}
         style={thisStyle}
         transform={translate}
         onClick={onClick}>
