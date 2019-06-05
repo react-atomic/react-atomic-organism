@@ -3,6 +3,7 @@ import * as d3 from 'd3';
 const {
   curveCatmullRom: d3_curveCatmullRom,
   curveBasis: d3_curveBasis,
+  curveMonotoneX: d3_curveMonotoneX,
   line: d3_line,
   pie: d3_pie,
   arc: d3_arc,
@@ -105,7 +106,7 @@ const _hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
     .y0(y0Locator)
     .y1(y1Locator);
   if (curve) {
-    series = series.curve(getCurveType(curve));
+    series = series.curve(getCurveType(curve, d3_curveMonotoneX));
   }
   return series(data);
 };
