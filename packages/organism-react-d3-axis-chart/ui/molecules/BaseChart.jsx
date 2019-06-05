@@ -17,6 +17,18 @@ class BaseChart extends Component {
   d3 = {};
   state = {isLoad: false};
 
+  getXScale() {
+    return this.xScale;
+  }
+
+  getYScale() {
+    return this.yScale;
+  }
+
+  getCrosshairX() {
+    return get(this.state, ['crosshairX']);
+  }
+
   handleMouseEnter = e => {
     const hideY = get(this, ['props', 'hideCrosshairY'], false);
     this.setState({
@@ -50,7 +62,16 @@ class BaseChart extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {crosshairX, hideCrosshairY} = nextProps;
-    return {crosshairX, hideCrosshairY};
+    const nextState = {};
+    if (crosshairX !== prevState.porpsCrosshairX) {
+      nextState.crosshairX = crosshairX;
+      nextState.porpsCrosshairX = crosshairX;
+    }
+    if (hideCrosshairY !== prevState.porpsHideCrosshairY) {
+      nextState.hideCrosshairY = hideCrosshairY;
+      nextState.porpsHideCrosshairY = hideCrosshairY;
+    }
+    return nextState;
   }
 
   componentDidMount() {

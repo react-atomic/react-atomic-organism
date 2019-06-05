@@ -1,58 +1,50 @@
-import React, {cloneElement, Children} from 'react';
+import React from 'react';
 
 import MultiHArea from '../molecules/MultiHArea';
-import BaseChart from '../molecules/BaseChart';
+import BaseChartClass from '../molecules/BaseChartClass';
 
 const yScaleMore = [0];
 
-const AreaChart = ({
-  xValueLocator,
-  yValueLocator,
-  areaY0Locator,
-  areaY1Locator,
-  children,
-  data,
-  valuesLocator,
-  attrsLocator,
-  ...others
-}) =>
-  !data ? null : (
-    <BaseChart
-      {...others}
-      data={data}
-      yScaleMore={yScaleMore}
-      valuesLocator={valuesLocator}
-      xValueLocator={xValueLocator}
-      yValueLocator={yValueLocator || areaY0Locator}>
-      {baseChart => {
-        return [
-          <MultiHArea
-            {...{
-              ...baseChart,
-              xValueLocator,
-              areaY0Locator: yValueLocator || areaY0Locator,
-              areaY1Locator,
-              data,
-              valuesLocator,
-              attrsLocator,
-              curve: true,
-            }}
-          />,
-          Children.map(children, c =>
-            !c
-              ? null
-              : cloneElement(c, {
-                  ...baseChart,
-                }),
-          ),
-        ];
-      }}
-    </BaseChart>
-  );
+class AreaChart extends BaseChartClass {
+  static defaultProps = {
+    areaY1Locator: () => 0,
+    yValueLocator: d => d.y,
+  };
 
-AreaChart.defaultProps = {
-  areaY1Locator: () => 0,
-  yValueLocator: d => d.y,
-};
+  baseChartProps() {
+    return {
+      yScaleMore,
+    };
+  }
+
+  renderChart(baseChart) {
+    const {
+      areaY1Locator,
+
+      /*base props*/
+      xValueLocator,
+      yValueLocator,
+      children,
+      data,
+      valuesLocator,
+      attrsLocator,
+      ...others
+    } = this.props;
+    return (
+      <MultiHArea
+        {...{
+          ...baseChart,
+          xValueLocator,
+          areaY0Locator: yValueLocator,
+          areaY1Locator,
+          data,
+          valuesLocator,
+          attrsLocator,
+          curve: true,
+        }}
+      />
+    );
+  }
+}
 
 export default AreaChart;
