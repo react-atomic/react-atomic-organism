@@ -30,17 +30,19 @@ class BaseChart extends Component {
   }
 
   handleMouseEnter = e => {
-    const hideY = get(this, ['props', 'hideCrosshairY'], false);
+    const hideX = get(this.props, ['hideCrosshairX'], false);
+    const hideY = get(this.props, ['hideCrosshairY'], false);
     this.setState({
-      hideCrosshairX: false,
+      hideCrosshairX: hideX,
       hideCrosshairY: hideY,
     });
   };
 
   handleMouseLeave = e => {
-    const hideY = get(this, ['props', 'hideCrosshairY'], true);
+    const hideX = get(this.props, ['hideCrosshairX'], true);
+    const hideY = get(this.props, ['hideCrosshairY'], true);
     this.setState({
-      hideCrosshairX: true,
+      hideCrosshairX: hideX,
       hideCrosshairY: hideY,
     });
   };
@@ -126,6 +128,7 @@ class BaseChart extends Component {
       crosshair,
       onMouseMove,
       crosshairX: propsCrosshairX,
+      hideCrosshairX: propsHideCrosshairX,
       hideCrosshairY: propsHideCrosshairY,
       hideCrosshairXLabel,
       hideCrosshairYLabel,
