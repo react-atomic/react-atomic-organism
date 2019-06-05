@@ -2,6 +2,7 @@
 // UI
 export { default as BarChart } from '../ui/organisms/BarChart';
 export { default as LineChart } from '../ui/organisms/LineChart';
+export { default as AreaChart } from '../ui/organisms/AreaChart';
 export { default as MultiChart } from '../ui/organisms/MultiChart';
 
 // molecules

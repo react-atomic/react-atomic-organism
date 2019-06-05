@@ -1,9 +1,10 @@
 {
   "name": "organism-react-d3-axis-chart",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "D3 Axis Chart",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
     "react-component"
@@ -14,16 +15,27 @@
     "colorlib": "*",
     "d3-lib": "*",
     "getoffset": "*",
+    "organism-react-graph": "^0.1.0-beta",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
     "react": "^16.x",
-    "react-dom": "^16.x"
+    "react-dom": "^16.x",
+    "react-test-renderer": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build": "npm run clean && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run build"
   },
   "files": [

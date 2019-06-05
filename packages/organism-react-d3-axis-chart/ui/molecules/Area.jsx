@@ -1,19 +1,14 @@
-import React from 'react'; 
+import React, {memo} from 'react';
 
-import {
-    SemanticUI
-} from 'react-atomic-molecule';
+import {SemanticUI} from 'react-atomic-molecule';
 
-const Area = ({...props}) =>
-{
-    return <SemanticUI {...props} />;
-}
+const Area = props => <SemanticUI {...props} />;
 
 Area.defaultProps = {
-    atom: 'path',
-    fill: 'steelblue',
-    fillOpacity: '0.1',
-    stroke: 'none'
+  atom: 'path',
+  fill: 'steelblue',
+  fillOpacity: '0.1',
+  stroke: 'none',
 };
 
-export default Area;
+export default memo(Area);
