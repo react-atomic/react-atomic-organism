@@ -63,6 +63,12 @@ class ConnectPoint extends Component {
       }
       if (targetId && targetGroup) {
         const targetBox = host.getBox(targetId, targetGroup);
+        if (!targetBox) {
+          return console.error('[ConnectPoint] target-box not found', {
+            targetId,
+            targetGroup,
+          });
+        }
         const targetPoint = targetBox.getConnectPoint(center);
         endXY = targetPoint.getCenter();
         host.setConnectEndPoint(targetPoint);
@@ -197,7 +203,8 @@ class ConnectPoint extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {boxGroupAbsX, boxGroupAbsY} = this.props;
-    const {boxGroupAbsX: prevBoxGroupAbsX, boxGroupAbsY: prevBoxGroupAbsY} = prevProps || {};
+    const {boxGroupAbsX: prevBoxGroupAbsX, boxGroupAbsY: prevBoxGroupAbsY} =
+      prevProps || {};
     if (
       boxGroupAbsX === prevBoxGroupAbsX &&
       boxGroupAbsY === prevBoxGroupAbsY
