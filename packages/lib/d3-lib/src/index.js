@@ -122,8 +122,8 @@ const pie = (data, inner, outer, valueLocator) => {
 };
 
 // https://github.com/d3/d3-shape/blob/master/README.md#arcs
-const arc = (data, inner, outer) => {
-  const d3Arc = d3_arc();
+const arc = (data, inner, outer, cornerRadius) => {
+  let d3Arc = d3_arc();
   if (!inner) {
     inner = 0;
   }
@@ -131,7 +131,7 @@ const arc = (data, inner, outer) => {
     if (inner) {
       outer = inner * 2;
     } else {
-      outer = 0;
+      outer = 50;
     }
   }
   const color = colors();
@@ -140,17 +140,20 @@ const arc = (data, inner, outer) => {
     innerRadius: inner,
   };
   data.map(item => {
-    let params = {
+    const params = {
       ...item,
       ...radius,
     };
+    if (cornerRadius) {
+      d3Arc = d3Arc.cornerRadius(cornerRadius);
+    }
     item.path = d3Arc(params);
     item.centroid = d3Arc.centroid(params);
     item.color = color(item.index);
     return item;
   });
   return {
-    data: data,
+    data,
     ...radius,
   };
 };
@@ -293,6 +296,7 @@ export {
   curve,
   hArea,
   pie,
+  arc,
   stack,
   colors,
   scaleBand,

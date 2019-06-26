@@ -3,14 +3,13 @@ import {
   getPointsCenter,
   line,
   curve,
-  pie,
   stack,
   hArea,
   colors,
   scaleBand,
   scaleLinear,
   d3Event,
-} from '../index.js';
+} from '../index';
 
 import {expect} from 'chai';
 import get from 'get-object-value';
@@ -21,13 +20,6 @@ describe('basic', () => {
   });
 });
 
-describe('pie', () => {
-  it('data', () => {
-    let data = [{value: 50, name: 'Locke'}, {value: 50, name: 'Reyes'}];
-    let result = pie(data, 10, 100);
-    expect(get(result, ['data', 0, 'value'])).to.equal(50);
-  });
-});
 
 describe('stack', () => {
   it('data', () => {
@@ -120,7 +112,7 @@ describe('area', () => {
 });
 
 describe('event', () => {
-  it('hArea', () => {
+  it('simple test', () => {
     d3Event(); 
   });
 });
