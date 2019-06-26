@@ -65,7 +65,7 @@ const _line = (start, end, curve, xLocator, yLocator) => {
   }
   const result = {
     center: c,
-    d: l(points)
+    d: l(points),
   };
   return result;
 };
@@ -139,7 +139,7 @@ const arc = (data, inner, outer, cornerRadius) => {
     outerRadius: outer,
     innerRadius: inner,
   };
-  data.map(item => {
+  const items = data.map(item => {
     const params = {
       ...item,
       ...radius,
@@ -153,7 +153,7 @@ const arc = (data, inner, outer, cornerRadius) => {
     return item;
   });
   return {
-    data,
+    items,
     ...radius,
   };
 };
