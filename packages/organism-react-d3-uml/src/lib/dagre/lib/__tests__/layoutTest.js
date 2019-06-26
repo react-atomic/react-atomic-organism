@@ -1,8 +1,8 @@
 import {expect} from 'chai';
 
-import layout from '../../../../../cjs/src/lib/dagre/lib/layout';
-import {Graph} from '../../../../../cjs/src/lib/dagre';
-import {zipObject, pick} from '../../../../../cjs/src/lib/lodash-lite';
+import layout from '../layout';
+import {Graph} from '../../../dagre';
+import {zipObject, pick} from '../../../lodash-lite';
 
 const extractCoordinates = g => {
   const nodes = g.nodes();

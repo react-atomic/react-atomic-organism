@@ -176,6 +176,7 @@ class Box extends Component {
       boxGroupAbsY,
       boxGroupId,
       boxGroupName,
+      boxComponent,
       text,
       ...props
     } = this.props;
@@ -193,7 +194,9 @@ class Box extends Component {
         onMount={this.addPoint}
       />,
     );
-    const component = build(host.getBoxComponent(name, boxGroupName));
+    const component = build(
+      boxComponent ? boxComponent : host.getBoxComponent(name, boxGroupName),
+    );
     return component({
       ...props,
       connectPointComponent,

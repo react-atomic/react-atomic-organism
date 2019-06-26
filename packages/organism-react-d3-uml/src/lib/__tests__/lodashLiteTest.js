@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 
 
-import * as _ from '../../../cjs/src/lib/lodash-lite';
+import * as _ from '../lodash-lite';
 
 describe('Test min', () => {
   it('min with array', ()=>{

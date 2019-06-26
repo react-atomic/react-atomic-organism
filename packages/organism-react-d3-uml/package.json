@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.2.0-beta.30",
+  "version": "0.2.0-beta.31",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -40,9 +40,8 @@
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
-    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
