@@ -13,19 +13,17 @@ class Arc extends PureComponent {
       cornerRadius,
       startAngle,
       endAngle,
-      angles,
       children,
       groupProps,
       ...props
     } = this.props;
 
-    const angleData = angles ? angles : [{startAngle, endAngle}];
-
+    const angleData = [{startAngle, endAngle}];
     const data = arc(angleData, innerRadius, outerRadius, cornerRadius);
-    const d = get(data, ['items', 0, 'path']); 
+    const d = get(data, ['items', 0, 'path']);
 
     return (
-      <Group className="arc" {...groupProps} >
+      <Group className="arc" {...groupProps}>
         <Path {...props} d={d} />
         {children}
       </Group>
