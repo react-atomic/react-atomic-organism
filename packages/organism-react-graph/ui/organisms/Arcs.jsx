@@ -5,7 +5,7 @@ import get from 'get-object-value';
 import Group from '../molecules/Group';
 import Path from '../molecules/Path';
 
-class Arc extends PureComponent {
+class Arcs extends PureComponent {
 
   render() {
     const {
@@ -14,27 +14,33 @@ class Arc extends PureComponent {
       cornerRadius,
       startAngle,
       endAngle,
+      angles,
       children,
       groupProps,
       ...props
     } = this.props;
 
+
+    const angleData = angles ? angles : [{startAngle, endAngle}];
+
     const data = arc(
-      [{startAngle, endAngle}],
+      angleData,
       innerRadius,
       outerRadius,
       cornerRadius,
     );
 
-    const d = get(data, ['items', 0, 'path']);
-
     return (
-      <Group className="arc" {...groupProps}>
-        <Path {...props} d={d} />
-        {children}
+      <Group className="arcs">
+      {data.items.map((item, key) => 
+        <Group className="arc" {...groupProps} key={key}>
+          <Path {...props} d={item.path} />
+          {children}
+        </Group>
+      )}
       </Group>
     );
   }
 }
 
-export default Arc;
+export default Arcs;
