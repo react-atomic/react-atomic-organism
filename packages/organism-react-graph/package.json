@@ -1,13 +1,14 @@
 {
   "name": "organism-react-graph",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Graph",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "keywords": [
     "react",
-    "react-component"
+    "graph",
+    "d3"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",

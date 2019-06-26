@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {d3Zoom} from 'd3-lib';
 import callfunc from 'call-func';
 
-import Group from '../organisms/Group';
+import Group from '../molecules/Group';
 
 class Zoom extends PureComponent {
   static defaultProps = {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Svg from '../organisms/Svg';
+import Svg from '../molecules/Svg';
 
 const Graph = props => <Svg {...props} />
 
