@@ -70,6 +70,12 @@ class ConnectPoint extends Component {
           });
         }
         const targetPoint = targetBox.getConnectPoint(center);
+        if (!targetPoint) {
+          return console.error('[ConnectPoint] connect point not found', {
+            targetBox,
+            center,
+          });
+        }
         endXY = targetPoint.getCenter();
         host.setConnectEndPoint(targetPoint);
       }

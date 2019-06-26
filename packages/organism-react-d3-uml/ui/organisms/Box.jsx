@@ -45,8 +45,12 @@ class Box extends Component {
     return this.id;
   }
 
+  getRef() {
+    return this.elRef;
+  }
+
   getEl() {
-    return this.el.getEl();
+    return this.getRef().getEl();
   }
 
   getEdge() {
@@ -79,27 +83,27 @@ class Box extends Component {
   }
 
   getConnectPoint(center) {
-    const el = this.getEl();
-    if (el && el.getConnectPoint) {
-      return el.getConnectPoint(center);
+    const elRef = this.getRef();
+    if (elRef && elRef.getConnectPoint) {
+      return elRef.getConnectPoint(center);
     } else {
       return this.getRecentPoint(center);
     }
   }
 
   getFromPoint() {
-    const el = this.getEl();
-    if (el && el.getFromPoint) {
-      return el.getFromPoint();
+    const elRef = this.getRef();
+    if (elRef && elRef.getFromPoint) {
+      return elRef.getFromPoint();
     } else {
       return this.getRecentPoint(this.getEdge());
     }
   }
 
   getToPoint() {
-    const el = this.getEl();
-    if (el && el.getToPoint) {
-      return el.getToPoint();
+    const elRef = this.getRef();
+    if (elRef && elRef.getToPoint) {
+      return elRef.getToPoint();
     } else {
       return this.getRecentPoint({x: 0, y: 0});
     }
@@ -146,7 +150,7 @@ class Box extends Component {
 
   handleEl = el => {
     if (el) {
-      this.el = el;
+      this.elRef = el;
     }
   };
 
