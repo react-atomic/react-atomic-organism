@@ -1,4 +1,5 @@
 // organisms
+export {default as Arc} from '../ui/organisms/Arc';
 export {default as Area} from '../ui/organisms/Area';
 export {default as Circle} from '../ui/organisms/Circle';
 export {default as Graph} from '../ui/organisms/Graph';
