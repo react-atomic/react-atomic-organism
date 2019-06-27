@@ -67,8 +67,9 @@ class RadioGroup extends PureComponent {
     const {value, options} = nextProps;
     const nextState = {};
     if (options !== prevState.options) {
-
-    } else if (value !== prevState.prePropsValue) {
+      nextState.options = options;
+    } 
+    if (value !== prevState.prePropsValue) {
       nextState.value = value; 
       nextState.propsValue = value;
     }
