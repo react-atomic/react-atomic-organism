@@ -67,9 +67,14 @@ class Checkbox extends PureComponent {
     if ('INPUT' !== e.target.nodeName) {
       e.preventDefault();
     }
+    const stateChecked = this.state.checked;
     const {beforeClick, afterClick, disabled, type} = this.props;
-    const beforeChecked = this.state.checked;
-    const afterChecked = type === 'radio' ? true : !this.state.checked;
+    const beforeChecked = stateChecked;
+    const afterChecked = disabled
+      ? stateChecked
+      : type === 'radio'
+      ? true
+      : !stateChecked;
     const callbackParams = [e, beforeChecked, afterChecked, this];
     callfunc(beforeClick, callbackParams);
     if (!disabled) {
