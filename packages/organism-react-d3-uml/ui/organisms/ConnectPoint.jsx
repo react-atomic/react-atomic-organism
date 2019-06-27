@@ -172,12 +172,14 @@ class ConnectPoint extends Component {
 
   isShow() {
     let {show} = this.props;
-    if (this.state.start) {
-      show = true;
-    }
-    const linesLen = keys(this.lines).length;
-    if (linesLen) {
-      show = true;
+    if (null == show) {
+      if (this.state.start) {
+        show = true;
+      }
+      const linesLen = keys(this.lines).length;
+      if (linesLen) {
+        show = true;
+      }
     }
     return show;
   }
