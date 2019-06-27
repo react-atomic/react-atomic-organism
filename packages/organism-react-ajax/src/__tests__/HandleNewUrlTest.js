@@ -38,6 +38,6 @@ describe('Test Handle New Url', ()=>{
        const uFake  = mount(vDom).instance();
        window.history.pushState(null, "title", "http://localhost/bbb");
        window.history.pushState(null, "title", "http://localhost/ccc");
-       window.history.back();
+       setTimeout(()=>window.history.back());
     })
 })
