@@ -160,6 +160,10 @@ class ConnectPoint extends Component {
     return host.getBox(boxId, boxGroupId);
   }
 
+  getBoxName() {
+    return this.getBox().getName();
+  }
+
   getBoxGroupName() {
     return this.getBox()
       .getBoxGroup()
