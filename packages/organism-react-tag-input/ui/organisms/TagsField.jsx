@@ -13,6 +13,7 @@ class TagsField extends PureComponent {
   static defaultProps = {
     fluid: true,
     couldCreate: true,
+    createOnBlur: true,
     itemsLocator: d => get(d, null, []),
     tagsLocator: d => d || [],
     tagLocator: d => d,
@@ -74,18 +75,31 @@ class TagsField extends PureComponent {
         break;
       case 13:
         e.preventDefault();
-        if (value && !this.sugg.getSelIndex()) {
-          let isContinue = true;
-          if (!couldCreate) {
-            isContinue = !!itemsLocator(results).some(
-              item => itemLocator(item) === value,
-            );
-          }
-          if (isContinue) {
-            this.handleAdd(value);
-          }
-        }
+        this.maybeCreate();
         break;
+    }
+  };
+
+  maybeCreate() {
+    const {couldCreate, itemsLocator, itemLocator, results} = this.props;
+    const value = this.sugg.getValue();
+    if (value && !this.sugg.getSelIndex()) {
+      let isContinue = true;
+      if (!couldCreate) {
+        isContinue = !!itemsLocator(results).some(
+          item => itemLocator(item) === value,
+        );
+      }
+      if (isContinue) {
+        this.handleAdd(value);
+      }
+    }
+  }
+
+  handleBlur = e => {
+    const {createOnBlur} = this.props;
+    if (createOnBlur) {
+        this.maybeCreate();
     }
   };
 
@@ -102,8 +116,10 @@ class TagsField extends PureComponent {
   handleItems = d => {
     const {tags} = this.state;
     const {itemsLocator, itemLocator} = this.props;
-    return itemsLocator(d).filter(item => -1 === tags.indexOf(itemLocator(item)));
-  }
+    return itemsLocator(d).filter(
+      item => -1 === tags.indexOf(itemLocator(item)),
+    );
+  };
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {tagData, tagsLocator, tagLocator} = nextProps;
@@ -144,6 +160,7 @@ class TagsField extends PureComponent {
       tagLocator,
       fluid,
       couldCreate,
+      createOnBlur,
       maxTags,
       onAdd,
       onDel,
@@ -182,6 +199,7 @@ class TagsField extends PureComponent {
         itemFilter={this.handleItemFilter}
         itemsLocator={this.handleItems}
         onKeyDown={this.handleKey}
+        onBlur={this.handleBlur}
       />
     );
     return <Field {...otherProps} inputComponent={input} />;
