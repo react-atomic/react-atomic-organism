@@ -36,7 +36,10 @@ const formSerialize = (formEl, arrayMode) => {
       switch (type.toLowerCase()) {
         case 'checkbox':
           if (checked) {
-            maybeArray(formParams, {name, value, arrayMode});
+            const checkedToValue = el.getAttribute('data-checked-to-value')
+              ? checked
+              : value;
+            maybeArray(formParams, {name, value: checkedToValue, arrayMode});
           }
           break;
         case 'radio':

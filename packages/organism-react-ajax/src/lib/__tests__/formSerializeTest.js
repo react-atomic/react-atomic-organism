@@ -24,7 +24,7 @@ describe('Test formSerialize arrayMode', () => {
   beforeEach(() => (uGlobal = jsdom()));
   afterEach(() => uGlobal());
 
-  it('auto', ()=>{
+  it('auto', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -36,7 +36,7 @@ describe('Test formSerialize arrayMode', () => {
     expect(formSerialize(fm)).to.deep.equal({foo: ['bar1', 'bar2']});
   });
 
-  it('[] in auto mode with two items', ()=>{
+  it('[] in auto mode with two items', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -48,7 +48,7 @@ describe('Test formSerialize arrayMode', () => {
     expect(formSerialize(fm)).to.deep.equal({'foo[]': ['bar1', 'bar2']});
   });
 
-  it('[] in auto mode with one items', ()=>{
+  it('[] in auto mode with one items', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -59,7 +59,7 @@ describe('Test formSerialize arrayMode', () => {
     expect(formSerialize(fm)).to.deep.equal({'foo[]': 'bar1'});
   });
 
-  it('arrayKey with one item', ()=>{
+  it('arrayKey with one item', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -70,7 +70,7 @@ describe('Test formSerialize arrayMode', () => {
     expect(formSerialize(fm, 'arrayKey')).to.deep.equal({foo: ['bar1']});
   });
 
-  it('arrayKey with two items', ()=>{
+  it('arrayKey with two items', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -79,10 +79,12 @@ describe('Test formSerialize arrayMode', () => {
       </form>
     `;
     const fm = document.getElementsByTagName('form')[0];
-    expect(formSerialize(fm, 'arrayKey')).to.deep.equal({foo: ['bar1', 'bar2']});
+    expect(formSerialize(fm, 'arrayKey')).to.deep.equal({
+      foo: ['bar1', 'bar2'],
+    });
   });
 
-  it('arrayKeyKeep with two items', ()=>{
+  it('arrayKeyKeep with two items', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -91,10 +93,12 @@ describe('Test formSerialize arrayMode', () => {
       </form>
     `;
     const fm = document.getElementsByTagName('form')[0];
-    expect(formSerialize(fm, 'arrayKeyKeep')).to.deep.equal({'foo[]': ['bar1', 'bar2']});
+    expect(formSerialize(fm, 'arrayKeyKeep')).to.deep.equal({
+      'foo[]': ['bar1', 'bar2'],
+    });
   });
 
-  it('none array mode', ()=>{
+  it('none array mode', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -106,7 +110,7 @@ describe('Test formSerialize arrayMode', () => {
     expect(formSerialize(fm, false)).to.deep.equal({'foo[]': 'bar2'});
   });
 
-  it('input with same key', ()=>{
+  it('input with same key', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -115,10 +119,10 @@ describe('Test formSerialize arrayMode', () => {
       </form>
     `;
     const fm = document.getElementsByTagName('form')[0];
-    expect(formSerialize(fm)).to.deep.equal({'foo': ['bar1', 'bar2']});
+    expect(formSerialize(fm)).to.deep.equal({foo: ['bar1', 'bar2']});
   });
 
-  it('input with []', ()=>{
+  it('input with []', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -129,14 +133,13 @@ describe('Test formSerialize arrayMode', () => {
     const fm = document.getElementsByTagName('form')[0];
     expect(formSerialize(fm)).to.deep.equal({'foo[]': ['bar1', 'bar2']});
   });
-
 });
 
 describe('Test formSerialize with multi select', () => {
   let uGlobal;
   beforeEach(() => (uGlobal = jsdom()));
   afterEach(() => uGlobal());
-  it('with simple', ()=>{
+  it('with simple', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -151,7 +154,7 @@ describe('Test formSerialize with multi select', () => {
     expect(formSerialize(fm)).to.deep.equal({foo: ['bar1', 'bar2']});
   });
 
-  it('text only', ()=>{
+  it('text only', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -166,7 +169,7 @@ describe('Test formSerialize with multi select', () => {
     expect(formSerialize(fm)).to.deep.equal({foo: ['bar1', 'bar2']});
   });
 
-  it('one item with arrayKey', ()=>{
+  it('one item with arrayKey', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -179,7 +182,7 @@ describe('Test formSerialize with multi select', () => {
     expect(formSerialize(fm)).to.deep.equal({foo: 'bar1'});
   });
 
-  it('one item', ()=>{
+  it('one item', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -192,7 +195,7 @@ describe('Test formSerialize with multi select', () => {
     expect(formSerialize(fm, 'arrayKey')).to.deep.equal({foo: ['bar1']});
   });
 
-  it('arrayKeyKeep', ()=>{
+  it('arrayKeyKeep', () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -202,6 +205,34 @@ describe('Test formSerialize with multi select', () => {
       </form>
     `;
     const fm = document.getElementsByTagName('form')[0];
-    expect(formSerialize(fm, 'arrayKeyKeep')).to.deep.equal({'foo[]': ['bar1']});
+    expect(formSerialize(fm, 'arrayKeyKeep')).to.deep.equal({
+      'foo[]': ['bar1'],
+    });
+  });
+});
+
+describe('Test formSerialize with checkbox', () => {
+  let uGlobal;
+  beforeEach(() => (uGlobal = jsdom()));
+  afterEach(() => uGlobal());
+  it('data-checked-to-value', () => {
+    const body = document.body;
+    body.innerHTML = `
+      <form>
+        <input type="checkbox" checked name="foo" value="">
+        <input type="checkbox" checked name="foo1" >
+        <input type="checkbox" checked name="foo2" data-checked-to-value="1">
+        <input type="checkbox" checked name="foo3" data-checked-to-value="1" value="1">
+        <input type="checkbox" checked name="foo4" value="1">
+      </form>
+    `;
+    const fm = document.getElementsByTagName('form')[0];
+    expect(formSerialize(fm)).to.deep.equal({
+      foo: '',
+      foo1: 'on',
+      foo2: true,
+      foo3: true,
+      foo4: '1',
+    });
   });
 });
