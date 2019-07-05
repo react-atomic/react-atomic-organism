@@ -221,18 +221,26 @@ describe('Test formSerialize with checkbox', () => {
       <form>
         <input type="checkbox" checked name="foo" value="">
         <input type="checkbox" checked name="foo1" >
-        <input type="checkbox" checked name="foo2" data-boolean="true">
-        <input type="checkbox" checked name="foo3" data-boolean="true" value="1">
-        <input type="checkbox" checked name="foo4" value="1">
+        <input type="checkbox" checked name="foo2" value="1">
+        <input type="checkbox" checked name="foo3" data-boolean="true">
+        <input type="checkbox" checked name="foo4" data-boolean="true" value="1">
+        <input type="checkbox" checked name="foo5" data-boolean="true" value="true">
+        <input type="checkbox" checked name="foo6" data-boolean="true" value="false">
+        <input type="checkbox" checked name="foo7" data-boolean="true" value="null">
+        <input type="checkbox" checked name="foo8" data-boolean="true" value="0">
       </form>
     `;
     const fm = document.getElementsByTagName('form')[0];
     expect(formSerialize(fm)).to.deep.equal({
       foo: '',
       foo1: 'on',
-      foo2: true,
+      foo2: '1',
       foo3: true,
-      foo4: '1',
+      foo4: true,
+      foo5: true,
+      foo6: false,
+      foo7: false,
+      foo8: false,
     });
   });
 });

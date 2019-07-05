@@ -32,7 +32,11 @@ const formSerialize = (formEl, arrayMode) => {
   const elements = [...formEl.elements];
   elements.forEach(el => {
     const {name, value, type, checked} = el;
-    const booleanValue = el.getAttribute('data-boolean') ? !!value : value;
+    const booleanValue = el.getAttribute('data-boolean')
+      ? !!(-1 !== '|0|null|true|false|'.indexOf('|' + value.toLowerCase() + '|')
+          ? JSON.parse(value.toLowerCase())
+          : value)
+      : value;
     if (name) {
       switch (type.toLowerCase()) {
         case 'checkbox':
