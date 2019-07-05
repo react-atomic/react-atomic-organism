@@ -1,20 +1,29 @@
+import {FUNCTION, UNDEFINED} from 'reshow-constant';
 const keys = Object.keys;
+const isArray = Array.isArray;
 
-const removeEmpty = (arr, undefinedOnly, exclude) => {
+const removeEmpty = (arr, undefinedOnly, excludeKey) => {
   if (!arr) {
     return arr;
+  }
+  if (undefinedOnly && FUNCTION !== typeof undefinedOnly) {
+    undefinedOnly = value => UNDEFINED !== typeof value;
   }
   const result = {};
   keys(arr).forEach(key => {
     const value = arr[key];
-    if (exclude && exclude.length && -1 !== exclude.indexOf(key)) {
+    if (excludeKey && excludeKey.length && -1 !== excludeKey.indexOf(key)) {
       return;
     }
-    if (value || (undefinedOnly && 'undefined' !== typeof value)) {
+    if (value || (undefinedOnly && undefinedOnly(value))) {
       result[key] = value;
     }
   });
-  return result;
+  if (isArray(arr)) {
+    return keys(result).map(key => result[key]);
+  } else {
+    return result;
+  }
 };
 
 export default removeEmpty;

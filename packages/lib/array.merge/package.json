@@ -1,15 +1,18 @@
 {
   "name": "array.merge",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Array Merge",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["merge"],
+  "keywords": [
+    "merge"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "get-object-value": "*"
+    "get-object-value": "*",
+    "reshow-constant": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
