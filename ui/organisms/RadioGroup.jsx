@@ -64,14 +64,15 @@ class RadioGroup extends PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {value, options} = nextProps;
+    const {value, defaultValue, options} = nextProps;
+    const thisValue = value || defaultValue;
     const nextState = {};
     if (options !== prevState.options) {
       nextState.options = options;
     } 
-    if (value !== prevState.prePropsValue) {
-      nextState.value = value; 
-      nextState.propsValue = value;
+    if (thisValue !== prevState.prePropsValue) {
+      nextState.value = thisValue; 
+      nextState.prePropsValue = thisValue;
     }
     return nextState;
   }
