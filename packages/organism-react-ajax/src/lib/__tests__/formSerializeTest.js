@@ -221,8 +221,8 @@ describe('Test formSerialize with checkbox', () => {
       <form>
         <input type="checkbox" checked name="foo" value="">
         <input type="checkbox" checked name="foo1" >
-        <input type="checkbox" checked name="foo2" data-checked-to-value="1">
-        <input type="checkbox" checked name="foo3" data-checked-to-value="1" value="1">
+        <input type="checkbox" checked name="foo2" data-boolean="true">
+        <input type="checkbox" checked name="foo3" data-boolean="true" value="1">
         <input type="checkbox" checked name="foo4" value="1">
       </form>
     `;

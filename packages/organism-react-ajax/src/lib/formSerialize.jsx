@@ -32,19 +32,17 @@ const formSerialize = (formEl, arrayMode) => {
   const elements = [...formEl.elements];
   elements.forEach(el => {
     const {name, value, type, checked} = el;
+    const booleanValue = el.getAttribute('data-boolean') ? !!value : value;
     if (name) {
       switch (type.toLowerCase()) {
         case 'checkbox':
           if (checked) {
-            const checkedToValue = el.getAttribute('data-checked-to-value')
-              ? checked
-              : value;
-            maybeArray(formParams, {name, value: checkedToValue, arrayMode});
+            maybeArray(formParams, {name, value: booleanValue, arrayMode});
           }
           break;
         case 'radio':
           if (checked) {
-            formParams[name] = value;
+            formParams[name] = booleanValue;
           }
           break;
         case 'select-multiple':
