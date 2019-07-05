@@ -80,6 +80,7 @@ class RadioGroup extends PureComponent {
     const {
       radioFieldStyle,
       radioFieldStyles,
+      radioProps,
       inline,
       fieldClassName,
       label,
@@ -103,10 +104,11 @@ class RadioGroup extends PureComponent {
         {options.map((item, key) => (
           <Radio
             type="radio"
+            key={key}
+            {...radioProps}
             fieldStyle={radioFieldStyle}
             fieldStyles={radioFieldStyles}
             name={name}
-            key={key}
             {...item.props}
             label={labelLocator(item)}
             value={valueLocator(item)}
