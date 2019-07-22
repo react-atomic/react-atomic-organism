@@ -41,7 +41,7 @@ class UrlStore extends ReduceStore {
     let loc = {};
     setTimeout(() => {
       const oDoc = doc();
-      if (oDoc) {
+      if (oDoc.URL) {
         urlDispatch({type: 'url', url: oDoc.URL});
         this.registerEvent(win());
       }
@@ -50,7 +50,7 @@ class UrlStore extends ReduceStore {
   }
 
   registerEvent(win) {
-    if (win) {
+    if (win && win.document) {
       win.addEventListener(
         'popstate',
         () => {
@@ -63,7 +63,7 @@ class UrlStore extends ReduceStore {
 
   reduce(state, action) {
     const oDoc = doc();
-    if (!oDoc) {
+    if (!oDoc.URL) {
       return state;
     }
     let url;
