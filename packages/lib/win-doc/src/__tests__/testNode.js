@@ -15,7 +15,7 @@ describe('Test doc in node', () => {
 
   it('test doc', () => {
     const d = doc();
-    expect(d.null).to.be.true;
+    expect(d.__null).to.be.true;
   });
 });
 
@@ -31,6 +31,6 @@ describe('Test win in node', () => {
   after(() => cleanup());
   it('test win', () => {
     const w = win();
-    expect(w.null).to.be.true;
+    expect(w.__null).to.be.true;
   });
 });
