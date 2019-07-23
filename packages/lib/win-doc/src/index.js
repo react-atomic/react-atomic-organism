@@ -5,9 +5,9 @@
 
 const doc = w => {
   w = w || win();
-  return 'undefined' !== typeof w.document ? w.document : {};
+  return 'undefined' !== typeof w.document ? w.document : {null: true};
 }
 
-const win = () => ('undefined' !== typeof window ? window : {});
+const win = () => ('undefined' !== typeof window ? window : {null: true});
 
 export {doc, win};
