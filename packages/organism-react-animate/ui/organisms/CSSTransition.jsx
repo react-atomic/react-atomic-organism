@@ -30,7 +30,7 @@ const handleStart = (
     if (!ing) {
       node.style.visibility = 'inherit';
       const thisClass = getValue(classList, isAppear, isExit);
-      if (thisClass) {
+      if (thisClass && !ing) {
         node.className = mixClass(node.className, thisClass);
       }
     }
@@ -47,9 +47,7 @@ const handleFinish = (classList, handler, isExit, node, isAppear) => {
     }
     const thisClass = getValue(classList, isAppear, isExit);
     if (thisClass) {
-      setTimeout(
-        () => (node.className = removeClass(node.className, thisClass)),
-      );
+      node.className = removeClass(node.className, thisClass);
     }
   }
   if (FUNCTION === typeof handler) {

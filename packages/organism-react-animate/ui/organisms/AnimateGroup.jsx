@@ -1,10 +1,10 @@
-import React, {PureComponent, createElement, cloneElement} from 'react';
+import React, {Component, createElement, cloneElement} from 'react';
 import getChildMapping from '../../src/getChildMapping';
 import get, {getDefault} from 'get-object-value';
 const keys = Object.keys;
 let CSSTransition;
 
-class AnimateGroup extends PureComponent {
+class AnimateGroup extends Component {
   static defaultProps = {
     component: 'div',
     unmountOnExit: true,
