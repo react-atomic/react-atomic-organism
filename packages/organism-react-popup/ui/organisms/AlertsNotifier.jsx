@@ -33,7 +33,9 @@ class Alert extends Component {
 
   componentDidMount() {
     const {duration, onClick} = this.props;
-    setTimeout(()=>onClick(), duration);
+    if (duration*1 > 0) {
+      setTimeout(()=>onClick(), duration);
+    }
   }
 
   render() {
