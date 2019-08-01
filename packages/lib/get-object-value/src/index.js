@@ -1,4 +1,4 @@
-import {DEFAULT, FUNCTION, UNDEFINED} from 'reshow-constant';
+import {DEFAULT, FUNCTION} from 'reshow-constant';
 
 const isArray = Array.isArray;
 
@@ -14,7 +14,7 @@ const initMap = o => (k, v) => o[k] || (o[k] = getDefaultValue(v));
 const getDefaultValue = v => (FUNCTION === typeof v ? v() : v);
 
 const get = (o, path, defaultValue) => {
-  if (null === o || UNDEFINED === typeof o) {
+  if (null == o) {
     return getDefaultValue(defaultValue);
   }
   let current = toJS(o);
@@ -22,7 +22,7 @@ const get = (o, path, defaultValue) => {
     return current;
   }
   path.every(a => {
-    if (null !== current[a] && UNDEFINED !== typeof current[a]) {
+    if (null != current[a]) {
       current = current[a];
       return true;
     } else {

@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 
-import get from '../cjs/src/index.js';
+import get from '../index.js';
 
 describe('Test Get Object Value', () => {
   it('test get', () => {
