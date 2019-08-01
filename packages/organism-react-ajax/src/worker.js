@@ -61,13 +61,15 @@ const ajaxPost = ({url, action}) => {
   if (isSendJson) {
     isSend = true;
   } else {
-    keys(query).every(key => {
-      if ('object' !== typeof query[key]) {
-        return true;
-      }
-      isSend = true;
-      return false;
-    });
+    if (null == isSendJson) {
+      keys(query).every(key => {
+        if ('object' !== typeof query[key]) {
+          return true;
+        }
+        isSend = true;
+        return false;
+      });
+    }
   }
   let callReq;
   switch (method) {

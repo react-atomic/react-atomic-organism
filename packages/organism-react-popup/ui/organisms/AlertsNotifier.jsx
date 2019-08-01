@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, Component} from 'react';
 import PropTypes from 'prop-types';
 import {Set} from 'immutable';
 import Animate from 'organism-react-animate';
@@ -7,7 +7,7 @@ import {Message, reactStyle} from 'react-atomic-molecule';
 
 const messageTypes = ['success', 'info', 'warning', 'error'];
 
-class XIconEl extends PureComponent {
+class Alert extends Component {
   state = {
     hoverStyle: null,
   };
@@ -26,20 +26,35 @@ class XIconEl extends PureComponent {
     });
   };
 
+  handleClick = () => {
+    const {onClick} = this.props;
+    onClick();
+  };
+
+  componentDidMount() {
+    const {duration, onClick} = this.props;
+    if (duration*1 > 0) {
+      setTimeout(()=>onClick(), duration);
+    }
+  }
+
   render() {
-    const props = this.props;
+    const {messageType, header, message, onClick} = this.props;
     const {hoverStyle} = this.state;
     return (
-      <XIcon
-        style={{
-          ...Styles.xicon,
-          ...hoverStyle,
-        }}
-        weight=".1rem"
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        {...props}
-      />
+      <Message messageType={messageType} header={header}>
+        {message}
+        <XIcon
+          style={{
+            ...Styles.xicon,
+            ...hoverStyle,
+          }}
+          weight=".1rem"
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          onClick={this.handleClick}
+        />
+      </Message>
     );
   }
 }
@@ -61,7 +76,8 @@ class AlertsNotifier extends PureComponent {
       leave: 'fadeOut',
     },
     position: 'top',
-    name: 'alerts'
+    name: 'alerts',
+    duration: 3000,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -90,7 +106,7 @@ class AlertsNotifier extends PureComponent {
   }
 
   render() {
-    const {ani, alerts, position} = this.props;
+    const {ani, alerts, position, duration} = this.props;
     const {dismissedAlerts} = this.state;
     const alertArr = [];
     if (alerts && alerts.length) {
@@ -100,15 +116,17 @@ class AlertsNotifier extends PureComponent {
           if (-1 === messageTypes.indexOf(thisItem.type)) {
             thisItem.type = 'info';
           }
-          alertArr.push(
-            <Message
+          const oAlert = (
+            <Alert
               key={key}
+              duration={duration}
               messageType={thisItem.type}
-              header={thisItem.header}>
-              {thisItem.message}
-              <XIconEl onClick={this.dismiss.bind(this, item)} />
-            </Message>,
+              message={thisItem.message}
+              header={thisItem.header}
+              onClick={this.dismiss.bind(this, item)}
+            />
           );
+          alertArr.push(oAlert);
         }
       });
     }
