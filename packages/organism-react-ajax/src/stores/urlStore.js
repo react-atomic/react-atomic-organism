@@ -6,7 +6,7 @@ import {win, doc} from 'win-doc';
 
 const keys = Object.keys;
 
-const updateUrl = url => history.pushState('', '', url);
+const updateUrl = url => history.pushState && history.pushState('', '', url);
 
 class URL {
   loc = {};
