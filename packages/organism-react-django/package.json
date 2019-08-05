@@ -1,0 +1,43 @@
+{
+  "name": "organism-react-django",
+  "version": "0.0.0",
+  "description": "React django form parser",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
+  "keywords": [
+    "react"
+  ],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "get-object-value": "*",
+    "react-atomic-molecule": "*",
+    "react-atomic-organism": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
+    "react": "^16.x",
+    "react-dom": "^16.x",
+    "react-test-renderer": "*"
+  },
+  "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}
