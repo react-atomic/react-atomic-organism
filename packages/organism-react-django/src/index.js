@@ -1,1 +1,3 @@
-export {default as TagsField} from '../ui/organisms/TagsField';
+export {default as DjangoForm} from '../ui/organisms/DjangoForm';
+
+export {default as djangoFormParser} from './djangoFormParser';

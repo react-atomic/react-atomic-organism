@@ -1,6 +1,6 @@
 {
   "name": "organism-react-django",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React django form parser",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
