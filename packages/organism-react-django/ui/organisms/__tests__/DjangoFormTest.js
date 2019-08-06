@@ -14,8 +14,8 @@ const form = `
       <li><label for="id_password2">Password confirmation:</label> <input type="password" name="password2" required id="id_password2"> <span class="helptext">Enter the same password as before, for verification.</span></li>
 `;
 
-describe('Test Checkbox Component', () => {
-  it('test disabled', () => {
+describe('Test DjangoForm Component', () => {
+  it('simple test', () => {
     const data = djangoFormParser({form});
     const wrapper = shallow(<DjangoForm {...data.form}/>);
     expect(wrapper.html()).to.have.string('<form method="post" class="form ui">');
