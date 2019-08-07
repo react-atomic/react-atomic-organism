@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,10 +11,11 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "get-object-value": "*",
     "call-func": "*",
-    "react-atomic-molecule": "*",
-    "organism-react-iframe": "*"
+    "get-object-value": "*",
+    "get-storage": "*",
+    "organism-react-iframe": "*",
+    "react-atomic-molecule": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

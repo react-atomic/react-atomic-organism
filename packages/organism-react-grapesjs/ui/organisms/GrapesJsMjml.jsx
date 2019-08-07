@@ -3,16 +3,35 @@ import {Unsafe} from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get from 'get-object-value';
+import {localStorage} from 'get-storage';
 
 class GrapesJsMjml extends Component {
   getAsset(fileName) {
-    const {assetPath} = this.props; 
+    const {assetPath} = this.props;
     if (assetPath) {
-      return assetPath+fileName;
+      return assetPath + fileName;
     } else {
       return defaultAssets[fileName];
     }
   }
+
+  updateImages(images) {
+    if (images) {
+      this.images = images;
+    } else {
+      images = this.images;
+    }  
+    if (this.editor) {
+      const assetManager = this.editor.AssetManager;
+      if (assetManager) {
+        if (!images || !images.length) {
+          localStorage('gjs-mjml-assets')(null);
+        } else {  
+          assetManager.add(images);
+        }  
+      }  
+    }  
+  }  
 
   handleIframe = el => {
     this.dIframe = el;
@@ -30,23 +49,35 @@ class GrapesJsMjml extends Component {
   };
 
   handleEditorLoad = () => {
-    const {onEditorLoad} = this.props;
+    const {onEditorLoad, images} = this.props;
     this.editor.runCommand('core:open-blocks');
+    this.updateImages(get(images));
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
   };
 
   handleContentRemove = e => {
-    const tagName= get(e, ['attributes', 'tagName']);
+    const tagName = get(e, ['attributes', 'tagName']);
     if ('mj-container' === tagName) {
       this.editor.setComponents(defaultMjml);
     }
-  }  
+  };
 
   handleInitGrapesJS = () => {
-    const {onEditorInit, onCKEditorInit} = this.props;
+    const {onEditorInit, onCKEditorInit, mergeFields, init} = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
-    callfunc(onCKEditorInit, [{CKEDITOR, component: this}]);
-    this.editor = this.iframeWindow.initEditor({
+    let extraPlugins = 'sharedspace,justify,colorbutton,panelbutton,font';
+    const toolbar = [
+      {name: 'styles', items: ['Font', 'FontSize']},
+      ['Bold', 'Italic', 'Underline', 'Strike'],
+      {name: 'paragraph', items: ['NumberedList', 'BulletedList']},
+      {name: 'links', items: ['Link', 'Unlink']},
+      {name: 'colors', items: ['TextColor', 'BGColor']},
+    ];
+    if (mergeFields) {
+      extraPlugins+=',strinsert';
+      toolbar.push({name: 'Merge Fields', items: [ 'strinsert' ]},);
+    }  
+    const initGrapesJS = {
       clearOnRender: true,
       height: '100%',
       storageManager: {id: 'gjs-mjml-'},
@@ -65,25 +96,24 @@ class GrapesJsMjml extends Component {
             extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
             allowedContent: true, // Disable auto-formatting, class removing, etc.
             enterMode: CKEDITOR.ENTER_BR,
-            extraPlugins: 'sharedspace,justify,colorbutton,panelbutton,font',
-            toolbar: [
-              {name: 'styles', items: ['Font', 'FontSize']},
-              ['Bold', 'Italic', 'Underline', 'Strike'],
-              {name: 'paragraph', items: ['NumberedList', 'BulletedList']},
-              {name: 'links', items: ['Link', 'Unlink']},
-              {name: 'colors', items: ['TextColor', 'BGColor']},
-            ],
+            extraPlugins,
+            toolbar,
           },
         },
       },
-    });
+      ...init,
+    };
+    callfunc(onCKEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
+
+    this.editor = this.iframeWindow.initEditor(initGrapesJS);
     this.editor.on('load', this.handleEditorLoad);
     this.editor.on('component:remove', this.handleContentRemove);
     callfunc(onEditorInit, [{editor: this.editor, component: this}]);
   };
 
   render() {
-    const {style, mjml} = this.props;
+    const {style, mjml, images} = this.props;
+    this.updateImages(get(images));
     const thisMjml = mjml || defaultMjml;
     const html = `
       <link rel="stylesheet" href="${this.getAsset('grapes.min.css')}" />
@@ -92,7 +122,9 @@ class GrapesJsMjml extends Component {
       </style>
       <script src="${this.getAsset('grapes.min.js')}"></script>
       <script src="${this.getAsset('ckeditor.js')}"></script>
-      <script src="${this.getAsset('grapesjs-plugin-ckeditor.min.js')}"></script>
+      <script src="${this.getAsset(
+        'grapesjs-plugin-ckeditor.min.js',
+      )}"></script>
       <script src="${this.getAsset('grapesjs-mjml.min.js')}"></script>
       <div id="gjs">${thisMjml}</div>
       <script>
