@@ -3,7 +3,6 @@ import {Unsafe} from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get from 'get-object-value';
-import {localStorage} from 'get-storage';
 
 class GrapesJsMjml extends Component {
   getAsset(fileName) {
@@ -20,18 +19,16 @@ class GrapesJsMjml extends Component {
       this.images = images;
     } else {
       images = this.images;
-    }  
+    }
     if (this.editor) {
       const assetManager = this.editor.AssetManager;
       if (assetManager) {
-        if (!images || !images.length) {
-          localStorage('gjs-mjml-assets')(null);
-        } else {  
+        if (images && images.length) {
           assetManager.add(images);
-        }  
-      }  
-    }  
-  }  
+        }
+      }
+    }
+  }
 
   handleIframe = el => {
     this.dIframe = el;
@@ -74,16 +71,16 @@ class GrapesJsMjml extends Component {
       {name: 'colors', items: ['TextColor', 'BGColor']},
     ];
     if (mergeFields) {
-      extraPlugins+=',strinsert';
-      toolbar.push({name: 'Merge Fields', items: [ 'strinsert' ]},);
-    }  
+      extraPlugins += ',strinsert';
+      toolbar.push({name: 'Merge Fields', items: ['strinsert']});
+    }
     const initGrapesJS = {
       clearOnRender: true,
       height: '100%',
-      storageManager: {id: 'gjs-mjml-'},
-      assetManager: {
-        upload: 0,
-        uploadText: 'Uploading is not available in this demo',
+      storageManager: {
+        autosave: false,
+        autoload: false,
+        type: null,
       },
       container: '#gjs',
       fromElement: true,
@@ -106,6 +103,7 @@ class GrapesJsMjml extends Component {
     callfunc(onCKEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
 
     this.editor = this.iframeWindow.initEditor(initGrapesJS);
+    this.initGrapesJS = initGrapesJS;
     this.editor.on('load', this.handleEditorLoad);
     this.editor.on('component:remove', this.handleContentRemove);
     callfunc(onEditorInit, [{editor: this.editor, component: this}]);

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,7 +13,6 @@
   "dependencies": {
     "call-func": "*",
     "get-object-value": "*",
-    "get-storage": "*",
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*"
   },

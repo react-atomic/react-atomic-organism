@@ -1106,16 +1106,6 @@ get-scroll-info@*:
     reshow-runtime "*"
     win-doc "*"
 
-get-storage@*:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/get-storage/-/get-storage-0.1.5.tgz#6a30c5453bf287d32cf98796f75f6391e3453160"
-  integrity sha512-fM1LOFvdxzYibpVQ6Hhd5SfYQ9ih5fjpbOnpOpwVm91xFJMHwHLZzowVUSKv2uzPbfhJhArYDDFHe/u4idwWFA==
-  dependencies:
-    get-object-value "*"
-    reshow-constant "*"
-    reshow-runtime "*"
-    win-doc "*"
-
 get-stream@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
