@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Unsafe} from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
+import get from 'get-object-value';
 
 class GrapesJsMjml extends Component {
   getAsset(fileName) {
@@ -33,6 +34,13 @@ class GrapesJsMjml extends Component {
     this.editor.runCommand('core:open-blocks');
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
   };
+
+  handleContentRemove = e => {
+    const tagName= get(e, ['attributes', 'tagName']);
+    if ('mj-container' === tagName) {
+      this.editor.setComponents(defaultMjml);
+    }
+  }  
 
   handleInitGrapesJS = () => {
     const {onEditorInit, onCKEditorInit} = this.props;
@@ -70,6 +78,7 @@ class GrapesJsMjml extends Component {
       },
     });
     this.editor.on('load', this.handleEditorLoad);
+    this.editor.on('component:remove', this.handleContentRemove);
     callfunc(onEditorInit, [{editor: this.editor, component: this}]);
   };
 
