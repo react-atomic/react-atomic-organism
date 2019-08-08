@@ -104,11 +104,47 @@ class GrapesJsMjml extends Component {
     }
   };
 
+  handleMergeFields(mergeFields, CKEDITOR, extraPlugins, toolbar) {
+    CKEDITOR.plugins.add('strinsert', {
+      requires: ['richcombo'],
+      init: function(editor) {
+
+        editor.ui.addRichCombo('strinsert', {
+          label: 'Merge Tags',
+          title: 'Merge Tags',
+          voiceLabel: 'Insert Content',
+          className: 'cke_format',
+          multiSelect: false,
+          panel: {
+            css: [editor.config.contentsCss, CKEDITOR.skin.getPath('editor')],
+            voiceLabel: editor.lang.panelVoiceLabel,
+          },
+
+          init: function() {
+            this.startGroup('Insert Content');
+            mergeFields.forEach(m => this.add(m[0], m[1], m[2]));
+          },
+
+          onClick: function(value) {
+            editor.focus();
+            editor.fire('saveSnapshot');
+            editor.insertHtml(value);
+            editor.fire('saveSnapshot');
+          },
+        });
+      },
+    });
+    extraPlugins += ',strinsert';
+    toolbar.push({name: 'Merge Fields', items: ['strinsert']});
+    return extraPlugins;
+  }
+
   handleInitGrapesJS = () => {
     const {font, onEditorInit, onCKEditorInit, mergeFields, init} = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
     let extraPlugins = 'sharedspace,justify,colorbutton,panelbutton,font';
-    const fontItems = (font ? ['Font'] : []).push('FontSize');
+    const fontItems = (font ? ['Font'] : []);
+    fontItems.push('FontSize');
     const toolbar = [
       {name: 'styles', items: fontItems},
       ['Bold', 'Italic', 'Underline', 'Strike'],
@@ -117,8 +153,7 @@ class GrapesJsMjml extends Component {
       {name: 'colors', items: ['TextColor', 'BGColor']},
     ];
     if (mergeFields) {
-      extraPlugins += ',strinsert';
-      toolbar.push({name: 'Merge Fields', items: ['strinsert']});
+      extraPlugins = this.handleMergeFields(mergeFields, CKEDITOR, extraPlugins, toolbar);
     }
     const initGrapesJS = {
       noticeOnUnload: false,
