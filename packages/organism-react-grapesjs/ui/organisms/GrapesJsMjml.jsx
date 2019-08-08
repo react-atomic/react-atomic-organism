@@ -108,7 +108,6 @@ class GrapesJsMjml extends Component {
     CKEDITOR.plugins.add('strinsert', {
       requires: ['richcombo'],
       init: function(editor) {
-
         editor.ui.addRichCombo('strinsert', {
           label: 'Merge Tags',
           title: 'Merge Tags',
@@ -140,10 +139,16 @@ class GrapesJsMjml extends Component {
   }
 
   handleInitGrapesJS = () => {
-    const {font, onEditorInit, onCKEditorInit, mergeFields, init} = this.props;
+    const {
+      font,
+      onEditorInit,
+      onBeforeEditorInit,
+      mergeFields,
+      init,
+    } = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
     let extraPlugins = 'sharedspace,justify,colorbutton,panelbutton,font';
-    const fontItems = (font ? ['Font'] : []);
+    const fontItems = font ? ['Font'] : [];
     fontItems.push('FontSize');
     const toolbar = [
       {name: 'styles', items: fontItems},
@@ -153,7 +158,12 @@ class GrapesJsMjml extends Component {
       {name: 'colors', items: ['TextColor', 'BGColor']},
     ];
     if (mergeFields) {
-      extraPlugins = this.handleMergeFields(mergeFields, CKEDITOR, extraPlugins, toolbar);
+      extraPlugins = this.handleMergeFields(
+        mergeFields,
+        CKEDITOR,
+        extraPlugins,
+        toolbar,
+      );
     }
     const initGrapesJS = {
       noticeOnUnload: false,
@@ -182,7 +192,7 @@ class GrapesJsMjml extends Component {
       },
       ...init,
     };
-    callfunc(onCKEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
+    callfunc(onBeforeEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
 
     this.editor = this.iframeWindow.initEditor(initGrapesJS);
     this.initGrapesJS = initGrapesJS;
