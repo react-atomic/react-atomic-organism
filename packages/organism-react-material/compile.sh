@@ -1,4 +1,6 @@
 #!/bin/sh
+#find ./assets -name "*.js" | xargs rm -rf
+
 
 production(){
     echo "Production Mode";

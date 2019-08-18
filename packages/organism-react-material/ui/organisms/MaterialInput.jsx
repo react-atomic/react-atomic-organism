@@ -5,7 +5,7 @@ import {
     reactStyle
 } from 'react-atomic-molecule';
 
-export default class MaterialInput extends PureComponent
+class MaterialInput extends PureComponent
 {
    static defaultProps = {
         value: '',
@@ -79,6 +79,8 @@ export default class MaterialInput extends PureComponent
         )
     }
 }
+
+export default MaterialInput;
 
 const Styles = {
     cardFieldContainer: reactStyle({
