@@ -19,15 +19,15 @@
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
-    "babel-cli": "*",
+    "@babel/cli": "^7.x",
     "react": "^16.x",
     "react-dom": "^16.x",
     "reshow-app": "*"
   },
   "scripts": {
-    "clean": "find ./build ./assets -name '*.*' | xargs rm -rf",
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },
