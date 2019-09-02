@@ -16,10 +16,11 @@ class MaterialInput extends PureComponent
    constructor(props)
    {
        super(props);
+       const {value} = props; 
        this.state = {
-           labelStyle: this.getLabelBlurStyle(props.value),
+           labelStyle: this.getLabelBlurStyle(value),
            barFocus: [],
-           value: value
+           value
        };
     } 
 
@@ -43,6 +44,7 @@ class MaterialInput extends PureComponent
 
     render()
     {
+        const {labelFocusStyles, ...otherProps} = this.props;
         return (
             <Field 
                 fieldStyles={Styles.cardFieldContainer}
@@ -50,7 +52,7 @@ class MaterialInput extends PureComponent
                 styles={Styles.cardInput}
                 ui={false}
                 atom="input"
-                {...this.props}
+                {...otherProps}
                 value={this.state.value}
                 onFocus={()=>{
                     this.setState({
