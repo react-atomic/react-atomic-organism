@@ -3,6 +3,7 @@ import {Unsafe} from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get from 'get-object-value';
+import {queryFrom} from 'css-query-selector';
 
 class GrapesJsMjml extends Component {
   getAsset(fileName) {
@@ -90,18 +91,46 @@ class GrapesJsMjml extends Component {
   };
 
   handleEditorLoad = () => {
-    const {onEditorLoad, images} = this.props;
+    const {onEditorLoad, mjml, images} = this.props;
+    const doc = this.iframeWindow.document;
     this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
-    this.iframeWindow.document.getElementById('root').className = '';
+    const thisMjml =
+      -1 !== (mjml || '').indexOf('mj-container') ? mjml : defaultMjml;
+    this.editor.setComponents(thisMjml);
+    doc.getElementById('root').className = '';
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
   };
 
-  handleContentRemove = e => {
+  handleRemoveContent = e => {
     const tagName = get(e, ['attributes', 'tagName']);
     if ('mj-container' === tagName) {
       this.editor.setComponents(defaultMjml);
     }
+  };
+
+  handleRemoveAsset = asset => {
+    const {onRemoveAsset} = this.props;
+    const src = asset.get('src');
+    const wrapper = this.editor.DomComponents.getWrapper();
+    const css = queryFrom(
+      get(queryFrom(this.iframeWindow.document).one('iframe'), [
+        'contentWindow',
+        'window',
+        'document',
+      ]),
+    );
+    const images = css.all('img[src="' + src + '"]');
+    if (images && images.length) {
+      images.forEach(img => {
+        const ancestor = css.ancestor(img, '[data-gjs-type="mj-image"]');
+        if (ancestor) {
+          const ancestorWrapper = wrapper.find('#' + ancestor.id);
+          ancestorWrapper[0].remove();
+        }
+      });
+    }
+    callfunc(onRemoveAsset, [asset]);
   };
 
   handleMergeFields(mergeFields, CKEDITOR, extraPlugins, toolbar) {
@@ -197,27 +226,14 @@ class GrapesJsMjml extends Component {
     this.editor = this.iframeWindow.initEditor(initGrapesJS);
     this.initGrapesJS = initGrapesJS;
     this.editor.on('load', this.handleEditorLoad);
-    this.editor.on('component:remove', this.handleContentRemove);
+    this.editor.on('component:remove', this.handleRemoveContent);
     this.editor.on('asset:remove', this.handleRemoveAsset);
     callfunc(onEditorInit, [{editor: this.editor, component: this}]);
   };
 
-  handleRemoveAsset = asset => {
-    const {onRemoveAsset} = this.props;
-    const src = asset.get('src');
-    const wrapper = this.editor.DomComponents.getWrapper();
-    const images = wrapper.find('[src="' + src + '"]');
-    if (images && images.length) {
-      images.forEach(img => img.remove());
-    }
-    callfunc(onRemoveAsset, [asset]);
-  };
-
   render() {
-    const {style, mjml, images} = this.props;
+    const {style, images} = this.props;
     this.updateImages(get(images));
-    const thisMjml =
-      -1 !== (mjml || '').indexOf('mj-container') ? mjml : defaultMjml;
     const html = `
       <link rel="stylesheet" href="${this.getAsset('grapes.min.css')}" />
       <style>
@@ -241,7 +257,7 @@ class GrapesJsMjml extends Component {
      </script>
      <div class="hidden" id="root">
       <div class="loading">Loading...</div>
-      <div id="gjs">${thisMjml}</div>
+      <div id="gjs"></div>
      </div> 
     `;
     const thisStyle = {
@@ -268,13 +284,15 @@ const Styles = {
 };
 
 const defaultAssets = {
-  'grapes.min.css': 'https://grapesjs.com/stylesheets/grapes.min.css?v0.14.61',
-  'grapes.min.js': 'https://grapesjs.com/js/grapes.min.js?v0.14.61',
-  'ckeditor.js': 'https://grapesjs.com/js/ckeditor/ckeditor.js',
+  'grapes.min.css':
+    'https://cdn.jsdelivr.net/npm/grapesjs@0.15.3/dist/css/grapes.min.css',
+  'grapes.min.js':
+    'https://cdn.jsdelivr.net/npm/grapesjs@0.15.3/dist/grapes.min.js',
+  'ckeditor.js': 'https://cdn.jsdelivr.net/npm/ckeditor@4.6.2/ckeditor.js',
   'grapesjs-plugin-ckeditor.min.js':
-    'https://grapesjs.com/js/grapesjs-plugin-ckeditor.min.js',
+    'https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js',
   'grapesjs-mjml.min.js':
-    'https://grapesjs.com/js/grapesjs-mjml.min.js?v=0.0.31',
+    'https://cdn.jsdelivr.net/npm/grapesjs-mjml@0.0.31/dist/grapesjs-mjml.min.js',
 };
 const defaultMjml = `
   <mjml>
