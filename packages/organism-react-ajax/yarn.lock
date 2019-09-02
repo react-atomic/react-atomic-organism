@@ -1078,6 +1078,11 @@ get-random-id@*:
   resolved "https://registry.yarnpkg.com/get-random-id/-/get-random-id-0.0.1.tgz#42380956d786ed25c9545baacdde7411e951345e"
   integrity sha512-rD7hLgnHz4wNMWciXtHPcC/x/fkofXNIXxWlJ+08HqzZc9PqcC7gxuLoVz0ZIPvJbT7MCblcQHCzp2X74XEVOw==
 
+get-safe-reg@*:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.0.2.tgz#fa99f25ca20d48836a1a980c3cf63ed95d8e833e"
+  integrity sha512-U/VruLFxilNqBkzHp0dMV4pu1J5L8zSQ/XTPNMXqaCv28owAePCyMyaphEiEhdtWFuAmBYt5IXZwhkU0YQJcRg==
+
 get-scroll-info@*:
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.1.11.tgz#4d4f24bc07d72dcf966df7391f28fca8726a6145"
@@ -2602,6 +2607,14 @@ setimmediate@*:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
   integrity sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU=
+
+seturl@*:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/seturl/-/seturl-0.0.12.tgz#77fbfa9f0c731dee71be1d7040fb78eda076a80c"
+  integrity sha512-gYx1nosGpE75mrwWSxf1eyTGHhKHTYeFkHR9RQeLF67UqZu1ZEewkV94trkhlEerSpbtpZlzMX2t/zX2Hh8nbw==
+  dependencies:
+    get-safe-reg "*"
+    win-doc "*"
 
 shebang-command@^1.2.0:
   version "1.2.0"
