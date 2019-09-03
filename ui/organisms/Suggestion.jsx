@@ -1,17 +1,18 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import {build, mixClass} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import {doc} from 'win-doc';
 import callfunc from 'call-func';
-import {UNDEFINED} from 'reshow-constant';
+import {UNDEFINED, FUNCTION} from 'reshow-constant';
 
 import SearchBox from '../organisms/SearchBox';
 
 const body = () => doc().body;
 
-class Suggestion extends PureComponent {
+class Suggestion extends Component {
   static defaultProps = {
     itemClickToClose: true,
+    couldCreate: true,
     component: SearchBox,
     itemsLocator: d => get(d, null, []),
     itemLocator: d => d || '',
@@ -79,7 +80,7 @@ class Suggestion extends PureComponent {
     } else {
       e = {target: input, currentTarget: input}
     }
-    if (isOpen) {
+    if (isOpen || false === isOpen) {
       nextState.isOpen = isOpen;
     }
     this.setState(nextState, () => {
@@ -107,8 +108,25 @@ class Suggestion extends PureComponent {
   };
 
   handleFocus = e => {
+    const {onFocus, couldCreate} = this.props;
     this.open(e);
     this.focus();
+    if (!couldCreate && this.originalInput) {
+      this.setValue(this.originalInput, e);
+      this.originalInput = null;
+    }
+    callfunc(onFocus, [e]);
+  };
+
+  handleBlur = e => {
+    const {onBlur, couldCreate, results} = this.props;
+    const thisResults = this.handleFilter(results)
+    if (!couldCreate && !get(thisResults, ['length'])) {
+      const {value} = this.state;
+      this.originalInput = value;
+      this.setValue('', e, false);
+    }
+    callfunc(onBlur, [e]);
   };
 
   handleWrapClick = e => {
@@ -169,6 +187,10 @@ class Suggestion extends PureComponent {
     });
   };
 
+  handleRefCb = el => this.input = el
+
+  handleWrapRefCb = el => this.searchbox = el
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value} = nextProps;
     if (value !== prevState.prevPropsValue) {
@@ -188,11 +210,13 @@ class Suggestion extends PureComponent {
   render() {
     const {
       component,
+      couldCreate,
       className,
       wrapRefCb,
       wrapOnClick,
       onChange,
       onFocus,
+      onBlur,
       results,
       itemOnClick,
       itemClickToClose,
@@ -208,7 +232,7 @@ class Suggestion extends PureComponent {
     if (isOpen) {
       this.results = this.handleFilter(results);
     }
-    if ('function' === typeof itemOnClick) {
+    if (FUNCTION === typeof itemOnClick) {
       props.itemOnClick = (e, item) => {
         itemOnClick(e, item);
         if (itemClickToClose) {
@@ -224,11 +248,12 @@ class Suggestion extends PureComponent {
       value,
       selIndex,
       className: classes,
-      wrapRefCb: el => (this.searchbox = el),
+      wrapRefCb: this.handleWrapRefCb, 
       wrapOnClick: this.handleWrapClick,
-      refCb: el => (this.input = el),
+      refCb: this.handleRefCb,
       onChange: this.handleInput,
       onFocus: this.handleFocus,
+      onBlur: this.handleBlur,
       onKeyUp: this.handleKeyUp,
       results: this.results,
       itemsLocator,
