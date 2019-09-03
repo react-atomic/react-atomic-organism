@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {build, mixClass} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import {doc} from 'win-doc';
@@ -9,14 +9,23 @@ import SearchBox from '../organisms/SearchBox';
 
 const body = () => doc().body;
 
-class Suggestion extends Component {
+const defaultItemClick = (e, item, sugg) => sugg.setValue(item);
+
+const defaultItemFilter = (d, value) => value && d && -1 !== d.indexOf(value);
+
+const defaultItemLocator = d => d || '';
+
+const defaultItemsLocator = d => get(d, null, []);
+
+class Suggestion extends PureComponent {
   static defaultProps = {
     itemClickToClose: true,
     couldCreate: true,
     component: SearchBox,
-    itemsLocator: d => get(d, null, []),
-    itemLocator: d => d || '',
-    itemFilter: (d, value) => value && d && -1 !== d.indexOf(value),
+    itemsLocator: defaultItemsLocator,
+    itemLocator: defaultItemLocator,
+    itemFilter: defaultItemFilter,
+    itemOnClick: defaultItemClick,
     filter: false,
     preview: false,
   };
@@ -28,6 +37,8 @@ class Suggestion extends Component {
   };
 
   results = [];
+
+  timerCouldCreate = null;
 
   disabled(bool) {
     if (UNDEFINED === typeof bool) {
@@ -78,7 +89,7 @@ class Suggestion extends Component {
     if (e) {
       e.persist();
     } else {
-      e = {target: input, currentTarget: input}
+      e = {target: input, currentTarget: input};
     }
     if (isOpen || false === isOpen) {
       nextState.isOpen = isOpen;
@@ -119,12 +130,34 @@ class Suggestion extends Component {
   };
 
   handleBlur = e => {
-    const {onBlur, couldCreate, results} = this.props;
-    const thisResults = this.handleFilter(results)
-    if (!couldCreate && !get(thisResults, ['length'])) {
-      const {value} = this.state;
-      this.originalInput = value;
-      this.setValue('', e, false);
+    const {
+      onBlur,
+      couldCreate,
+      results,
+      itemsLocator,
+      itemLocator,
+    } = this.props;
+    if (!couldCreate) {
+      const arr = itemsLocator(results);
+      if (arr && arr.length) {
+        this.clearTimer();
+        this.timerCouldCreate = setTimeout(() => {
+          const {value} = this.state;
+          if (!this.results || !this.results.length) {
+            const isIn = arr.some(a => {
+              if (itemLocator(a) === value) {
+                return true;
+              } else {
+                return false;
+              }
+            });
+            if (!isIn) {
+              this.originalInput = value;
+              this.setValue('', e, false);
+            }
+          }
+        }, 300);
+      }
     }
     callfunc(onBlur, [e]);
   };
@@ -180,16 +213,23 @@ class Suggestion extends Component {
         case 13:
           e.preventDefault();
           if (selIndex && this.results) {
-            itemOnClick(e, get(this.results, [selIndex - 1], {}));
+            itemOnClick(e, get(this.results, [selIndex - 1], {}), this);
           }
       }
       return {selIndex};
     });
   };
 
-  handleRefCb = el => this.input = el
+  handleRefCb = el => (this.input = el);
 
-  handleWrapRefCb = el => this.searchbox = el
+  handleWrapRefCb = el => (this.searchbox = el);
+
+  clearTimer() {
+    if (this.timerCouldCreate) {
+      clearTimeout(this.timerCouldCreate);
+      this.timerCouldCreate = null;
+    }
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value} = nextProps;
@@ -205,6 +245,7 @@ class Suggestion extends Component {
 
   componentWillUnmount() {
     this.close();
+    this.clearTimer();
   }
 
   render() {
@@ -234,7 +275,7 @@ class Suggestion extends Component {
     }
     if (FUNCTION === typeof itemOnClick) {
       props.itemOnClick = (e, item) => {
-        itemOnClick(e, item);
+        itemOnClick(e, item, this);
         if (itemClickToClose) {
           this.close();
         }
@@ -248,7 +289,7 @@ class Suggestion extends Component {
       value,
       selIndex,
       className: classes,
-      wrapRefCb: this.handleWrapRefCb, 
+      wrapRefCb: this.handleWrapRefCb,
       wrapOnClick: this.handleWrapClick,
       refCb: this.handleRefCb,
       onChange: this.handleInput,
