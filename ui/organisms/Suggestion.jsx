@@ -96,7 +96,7 @@ class Suggestion extends PureComponent {
     }
     this.setState(nextState, () => {
       const {onChange} = this.props;
-      callfunc(onChange, [e, this.state.value, input.name]);
+      callfunc(onChange, [e, this.state.value, input.name, this]);
     });
   }
 
@@ -224,6 +224,14 @@ class Suggestion extends PureComponent {
 
   handleWrapRefCb = el => (this.searchbox = el);
 
+  handleResults() {
+    let results = null;
+    if (this.state.isOpen) {
+      results = this.handleFilter(this.props.results);
+    }
+    return results;
+  }
+
   clearTimer() {
     if (this.timerCouldCreate) {
       clearTimeout(this.timerCouldCreate);
@@ -268,11 +276,11 @@ class Suggestion extends PureComponent {
       filter,
       ...props
     } = this.props;
-    const {value, isOpen, disabled, selIndex} = this.state;
-    this.results = null;
-    if (isOpen) {
-      this.results = this.handleFilter(results);
+    const {value, disabled, selIndex} = this.state;
+    if (!component) {
+      return null;
     }
+    this.results = this.handleResults();
     if (FUNCTION === typeof itemOnClick) {
       props.itemOnClick = (e, item) => {
         itemOnClick(e, item, this);
