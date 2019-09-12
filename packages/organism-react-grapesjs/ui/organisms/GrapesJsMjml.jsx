@@ -124,6 +124,17 @@ class GrapesJsMjml extends Component {
     const thisMjml =
       -1 !== (mjml || '').indexOf('mj-container') ? mjml : defaultMjml;
     this.editor.setComponents(thisMjml);
+    const css = queryFrom(
+      get(queryFrom(this.iframeWindow.document).one('iframe'), [
+        'contentWindow',
+        'window',
+        'document',
+      ]),
+    );
+    const embedHead = css.one('head');
+    const style = document.createElement('style'); 
+    style.innerHTML = `div[data-gjs-type="mj-container"]{ min-height: 100vh !important; }`;
+    embedHead.appendChild(style);
     doc.getElementById('root').className = '';
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
   };
