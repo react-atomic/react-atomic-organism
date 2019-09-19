@@ -255,6 +255,9 @@ class GrapesJsMjml extends Component {
             toolbar,
           },
         },
+        'grapesjs-mjml': {
+          columnsPadding: 0,
+        },
       },
       ...init,
     };
