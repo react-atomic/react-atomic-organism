@@ -1,1 +1,1 @@
-export {default as GrapesJsMjml} from '../ui/organisms/GrapesJsMjml';
+export {default as GrapesJsController} from '../ui/organisms/GrapesJsController';

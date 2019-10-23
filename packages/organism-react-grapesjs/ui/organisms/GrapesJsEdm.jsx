@@ -13,25 +13,11 @@ const defaultAssets = {
   'ckeditor.js': 'https://cdn.jsdelivr.net/npm/ckeditor@4.6.2/ckeditor.js',
   'grapesjs-plugin-ckeditor.min.js':
     'https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js',
-  'grapesjs-mjml.min.js':
-    'https://cdn.jsdelivr.net/npm/grapesjs-mjml@0.0.31/dist/grapesjs-mjml.min.js',
+  'grapesjs-preset-newsletter.min.js':
+    'https://cdn.jsdelivr.net/npm/grapesjs-preset-newsletter@0.2.15/dist/grapesjs-preset-newsletter.min.js',
 };
 
-const defaultMjml = `
-  <mjml>
-    <mj-body>
-      <mj-container>
-        <mj-section>
-          <mj-column>
-            <mj-text>Content 1</mj-text>
-          </mj-column>
-        </mj-section>
-      </mj-container>
-    </mj-body>
-  </mjml>
-`;
-
-class GrapesJsMjml extends Component {
+class GrapesJsEdm extends Component {
   getAsset(fileName) {
     const {assetPath} = this.props;
     if (assetPath) {
@@ -73,18 +59,6 @@ class GrapesJsMjml extends Component {
     }
   }
 
-  getMjml() {
-    if (!this.beforeGetHtml()) {
-      return;
-    }
-    let mjml = (this.editor.getHtml() || '').trim();
-    mjml = mjml.replace(
-      /(\<mj\-image)([^\>]*)(\>)/gi,
-      s => s.substring(0, s.length - 2) + '></mj-image>',
-    );
-    return mjml;
-  }
-
   updateImages(images) {
     if (images) {
       this.images = images;
@@ -105,52 +79,10 @@ class GrapesJsMjml extends Component {
     this.dIframe = el;
   };
 
-  getImportButtonName() {
-    return 'mjml-import';
-  }
-
-  handleLoad = e => {
-    this.iframeWindow = this.dIframe.contentWindow.window;
-    let timer;
-    timer = setInterval(() => {
-      if (this.iframeWindow.initEditor) {
-        clearInterval(timer);
-        this.handleInitGrapesJS();
-      }
-    }, 10);
-  };
-
-  getImportButtonName() {
-    return 'mjml-import';
-  }
-
-  handleEditorLoad = () => {
-    const {onEditorLoad, mjml, images} = this.props;
-    const doc = this.iframeWindow.document;
-    this.editor.runCommand('core:open-blocks');
-    this.updateImages(get(images));
-    const thisMjml =
-      -1 !== (mjml || '').indexOf('mj-container') ? mjml : defaultMjml;
-    this.editor.setComponents(thisMjml);
-    const css = queryFrom(
-      get(queryFrom(this.iframeWindow.document).one('iframe'), [
-        'contentWindow',
-        'window',
-        'document',
-      ]),
-    );
-    const embedHead = css.one('head');
-    const style = document.createElement('style');
-    style.innerHTML = `div[data-gjs-type="mj-container"]{ min-height: 100vh !important; }`;
-    embedHead.appendChild(style);
-    doc.getElementById('root').className = '';
-    callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
-  };
-
   handleRemoveContent = e => {
     const tagName = get(e, ['attributes', 'tagName']);
     if ('mj-container' === tagName) {
-      this.editor.setComponents(defaultMjml);
+      this.editor.setComponents('');
     }
   };
 
@@ -212,6 +144,23 @@ class GrapesJsMjml extends Component {
     return extraPlugins;
   }
 
+  getImportButtonName()
+  {
+    return 'gjs-open-import-template';
+  }
+
+  handleLoad = e => {
+    this.iframeWindow = this.dIframe.contentWindow.window;
+    this.iframeWindow.grapejs = this;
+    let timer;
+    timer = setInterval(() => {
+      if (this.iframeWindow.initEditor) {
+        clearInterval(timer);
+        this.handleInitGrapesJS();
+      }
+    }, 10);
+  };
+
   handleInitGrapesJS = () => {
     const {
       font,
@@ -239,6 +188,8 @@ class GrapesJsMjml extends Component {
         toolbar,
       );
     }
+    const plugins = ['gjs-preset-newsletter', 'gjs-plugin-ckeditor'];
+
     const initGrapesJS = {
       noticeOnUnload: false,
       clearOnRender: true,
@@ -250,7 +201,7 @@ class GrapesJsMjml extends Component {
       },
       container: '#gjs',
       fromElement: true,
-      plugins: ['grapesjs-mjml', 'gjs-plugin-ckeditor'],
+      plugins,
       pluginsOpts: {
         'gjs-plugin-ckeditor': {
           position: 'center',
@@ -263,8 +214,21 @@ class GrapesJsMjml extends Component {
             toolbar,
           },
         },
-        'grapesjs-mjml': {
-          columnsPadding: 0,
+        'gjs-preset-newsletter': {
+          modalLabelImport: 'Paste all your code here below and click import',
+          modalLabelExport: 'Copy the code and use it wherever you want',
+          codeViewerTheme: 'material',
+          //defaultTemplate: templateImport,
+          importPlaceholder:
+            '<table class="table"><tr><td class="cell">Hello world!</td></tr></table>',
+          cellStyle: {
+            'font-size': '12px',
+            'font-weight': 300,
+            'vertical-align': 'top',
+            color: 'rgb(111, 119, 125)',
+            margin: 0,
+            padding: 0,
+          },
         },
       },
       ...init,
@@ -279,23 +243,46 @@ class GrapesJsMjml extends Component {
     callfunc(onEditorInit, [{editor: this.editor, component: this}]);
   };
 
+  handleEditorLoad = () => {
+    const {onEditorLoad, mjml, images} = this.props;
+    const doc = this.iframeWindow.document;
+    this.editor.runCommand('core:open-blocks');
+    this.updateImages(get(images));
+    this.editor.setComponents('');
+    const css = queryFrom(
+      get(queryFrom(this.iframeWindow.document).one('iframe'), [
+        'contentWindow',
+        'window',
+        'document',
+      ]),
+    );
+    const embedHead = css.one('head');
+    const style = document.createElement('style');
+    style.innerHTML = `div[data-gjs-type="mj-container"]{ min-height: 100vh !important; }`;
+    embedHead.appendChild(style);
+    doc.getElementById('root').className = '';
+    callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
+  };
+
   render() {
-    const {id, style, images} = this.props;
+    const {style, images, id} = this.props;
     this.updateImages(get(images));
     const html = `
       <link rel="stylesheet" href="${this.getAsset('grapes.min.css')}" />
       <style>
-      .gjs-pn-buttons {overflow: hidden}
-      .loading {display: none}
-      #root.hidden .loading {display: block; visibility: visible}
-      #root.hidden {visibility: hidden}
+        .gjs-pn-buttons {overflow: hidden}
+        .loading {display: none}
+        #root.hidden .loading {display: block; visibility: visible}
+        #root.hidden {visibility: hidden}
       </style>
       <script src="${this.getAsset('grapes.min.js')}"></script>
       <script src="${this.getAsset('ckeditor.js')}"></script>
       <script src="${this.getAsset(
         'grapesjs-plugin-ckeditor.min.js',
       )}"></script>
-      <script src="${this.getAsset('grapesjs-mjml.min.js')}"></script>
+      <script src="${this.getAsset(
+        'grapesjs-preset-newsletter.min.js',
+      )}"></script>
       <script>
       CKEDITOR.dtd.$editable.a = 1;
       window.initEditor = function(init) {
@@ -324,7 +311,7 @@ class GrapesJsMjml extends Component {
   }
 }
 
-export default GrapesJsMjml;
+export default GrapesJsEdm;
 
 const Styles = {
   iframe: {
