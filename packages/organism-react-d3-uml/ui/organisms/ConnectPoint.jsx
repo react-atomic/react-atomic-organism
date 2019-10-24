@@ -48,6 +48,8 @@ class ConnectPoint extends Component {
     const {absX, absY, sourceEvent} = e;
     this.setState({absX, absY});
     const {host} = this.props;
+    const hostEl = host.getVectorEl();
+    const end = mouse(sourceEvent, hostEl);
     const {lineId, center} = this.state.start;
     let endXY;
     const target = e.destTarget;
@@ -69,21 +71,15 @@ class ConnectPoint extends Component {
             targetGroup,
           });
         }
-        const targetPoint = targetBox.getConnectPoint(center);
-        if (!targetPoint) {
-          return console.error('[ConnectPoint] connect point not found', {
-            targetBox,
-            center,
-          });
+        const targetPoint = targetBox.getConnectPoint(center, end);
+        if (targetPoint) {
+          endXY = targetPoint.getCenter();
+          host.setConnectEndPoint(targetPoint);
         }
-        endXY = targetPoint.getCenter();
-        host.setConnectEndPoint(targetPoint);
       }
     }
     if (!endXY) {
       host.setConnectEndPoint(null);
-      const hostEl = host.getVectorEl();
-      const end = mouse(sourceEvent, hostEl);
       endXY = host.applyXY(end[0], end[1]);
     }
     host.oConn.updateLine(lineId, {start: center, end: endXY});

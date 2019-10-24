@@ -82,10 +82,10 @@ class Box extends Component {
     return distanceMap[min];
   }
 
-  getConnectPoint(center) {
+  getConnectPoint(center, endCenter) {
     const elRef = this.getRef();
     if (elRef && elRef.getConnectPoint) {
-      return elRef.getConnectPoint(center);
+      return elRef.getConnectPoint(center, endCenter);
     } else {
       return this.getRecentPoint(center);
     }
