@@ -50,7 +50,10 @@ class Box extends Component {
   }
 
   getEl() {
-    return this.getRef().getEl();
+    const ref = this.getRef();
+    if (ref && ref.getEl) {
+      return ref.getEl();
+    }
   }
 
   getEdge() {
