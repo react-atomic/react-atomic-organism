@@ -39,7 +39,7 @@ class RadioGroup extends PureComponent {
     if (FUNCTION === typeof checkedCallback) {
       return checkedCallback(item, nextValue, current);
     } else {
-      return nextValue === valueLocator(item); 
+      return nextValue === valueLocator(item);
     }
   }
 
@@ -59,19 +59,30 @@ class RadioGroup extends PureComponent {
   };
 
   getValue() {
-    const current = get(this, ['state', 'current']);
-    return current ? current.getValue() : null;
+    const {options, valueLocator} = this.props;
+    const {value, current} = this.state;
+    let thisValue;
+    (options || []).some((item, key) => {
+      const checked = this.getChecked(item, value, current);
+      if (checked) {
+        thisValue = valueLocator(item);
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return thisValue;
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value, defaultValue, options} = nextProps;
-    const thisValue = value || defaultValue;
+    const thisValue = value != null ? value : defaultValue;
     const nextState = {};
     if (options !== prevState.options) {
       nextState.options = options;
-    } 
+    }
     if (thisValue !== prevState.prePropsValue) {
-      nextState.value = thisValue; 
+      nextState.value = thisValue;
       nextState.prePropsValue = thisValue;
     }
     return nextState;
@@ -102,7 +113,7 @@ class RadioGroup extends PureComponent {
     return (
       <Field inline={inline} fieldClassName={classes} {...others}>
         <Label>{label}</Label>
-        {options.map((item, key) => (
+        {(options || []).map((item, key) => (
           <Radio
             type="radio"
             key={key}
