@@ -20,6 +20,10 @@ class TagsField extends PureComponent {
     maxTags: -1,
   };
 
+  isFocus = false;
+
+  blurTimer = null;
+
   state = {tags: []};
 
   getTags() {
@@ -96,11 +100,28 @@ class TagsField extends PureComponent {
     }
   }
 
-  handleBlur = e => {
-    const {createOnBlur} = this.props;
-    if (createOnBlur) {
-        this.maybeCreate();
+  clearTimer() {
+    if (this.blurTimer) {
+      clearTimeout(this.blurTimer);
+      this.blurTimer = null;
     }
+  }
+
+  handleBlur = e => {
+    this.isFocus = false;
+    this.clearTimer();
+    this.blurTimer = setTimeout(() => {
+      if (!this.isFocus) {
+        const {createOnBlur} = this.props;
+        if (createOnBlur) {
+          this.maybeCreate();
+        }
+      }
+    }, 500);
+  };
+
+  handleFocus = e => {
+    this.isFocus = true;
   };
 
   handleItemClick = (e, itemData) => {
@@ -152,6 +173,10 @@ class TagsField extends PureComponent {
     injects = lazyInject(injects, InjectStyles);
   }
 
+  componentWillUnmount() {
+    this.clearTimer();
+  }
+
   render() {
     const {
       itemsLocator,
@@ -200,6 +225,7 @@ class TagsField extends PureComponent {
         itemsLocator={this.handleItems}
         onKeyDown={this.handleKey}
         onBlur={this.handleBlur}
+        onFocus={this.handleFocus}
       />
     );
     return <Field {...otherProps} inputComponent={input} />;
