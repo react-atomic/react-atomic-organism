@@ -11,6 +11,7 @@ export {default as RadioGroup} from '../ui/organisms/RadioGroup';
 export {default as FormattedJson} from '../ui/organisms/FormattedJson';
 export {default as SearchBox} from '../ui/organisms/SearchBox';
 export {default as Suggestion} from '../ui/organisms/Suggestion';
+export {default as OnEnterInput} from '../ui/organisms/OnEnterInput';
 
 // card view
 export { default as CardView } from '../ui/organisms/CardView';
