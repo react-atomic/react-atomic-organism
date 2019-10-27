@@ -167,27 +167,6 @@ class Suggestion extends PureComponent {
     callfunc(this.props.wrapOnClick);
   };
 
-  handlePreview(results) {
-    const {value} = this.state;
-    const {preview, itemsLocator, itemLocator, itemFilter} = this.props;
-    let arr = itemsLocator(results);
-    if (!arr || !arr.length) {
-      return [];
-    }
-    if (!value && preview) {
-      const previewNum = 'number' !== typeof preview ? 5 : preview;
-      arr = arr.slice(0, previewNum);
-    } else {
-      arr = arr.filter(d => itemFilter(itemLocator(d), value));
-    }
-    return arr;
-  }
-
-  handleFilter(results) {
-    const {filter} = this.props;
-    return filter ? this.handlePreview(results) : results;
-  }
-
   handleKeyUp = e => {
     const {keyCode} = e;
     const {itemOnClick} = this.props;
@@ -224,12 +203,40 @@ class Suggestion extends PureComponent {
 
   handleWrapRefCb = el => (this.searchbox = el);
 
+  handlePreview(results) {
+    const {value} = this.state;
+    const {preview, itemsLocator, itemLocator, itemFilter} = this.props;
+    let arr = itemsLocator(results);
+    if (!arr || !arr.length) {
+      return [];
+    }
+    if (!value && preview) {
+      const previewNum = 'number' !== typeof preview ? 5 : preview;
+      arr = arr.slice(0, previewNum);
+    } else {
+      arr = arr.filter(d => itemFilter(itemLocator(d), value));
+    }
+    return arr;
+  }
+
+  handleFilter(results) {
+    const {filter} = this.props;
+    return filter ? this.handlePreview(results) : results;
+  }
+
   handleResults() {
     let results = null;
-    if (this.state.isOpen) {
+    if (this.state.isOpen && this.shouldRenderSuggestions()) {
       results = this.handleFilter(this.props.results);
     }
     return results;
+  }
+
+  shouldRenderSuggestions() {
+    const {shouldRenderSuggestions} = this.props;
+    return !shouldRenderSuggestions
+      ? true
+      : callfunc(shouldRenderSuggestions, [this]);
   }
 
   clearTimer() {
@@ -274,6 +281,7 @@ class Suggestion extends PureComponent {
       itemFilter,
       preview,
       filter,
+      shouldRenderSuggestions,
       ...props
     } = this.props;
     const {value, disabled, selIndex} = this.state;
