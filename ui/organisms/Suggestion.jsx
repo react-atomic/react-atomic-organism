@@ -247,10 +247,10 @@ class Suggestion extends PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {value} = nextProps;
+    const {value, defaultValue} = nextProps;
     if (value !== prevState.prevPropsValue) {
       return {
-        value,
+        value: value || defaultValue,
         prevPropsValue: value,
       };
     } else {
@@ -281,6 +281,7 @@ class Suggestion extends PureComponent {
       itemFilter,
       preview,
       filter,
+      defaultValue,
       shouldRenderSuggestions,
       ...props
     } = this.props;

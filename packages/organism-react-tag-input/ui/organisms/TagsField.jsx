@@ -239,6 +239,7 @@ const Styles = {
     borderRadius: '.28571429rem',
     width: '100%',
     cursor: 'text',
+    overflow: 'hidden',
   },
   input: {
     border: 'none',
