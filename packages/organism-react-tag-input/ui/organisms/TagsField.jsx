@@ -23,6 +23,7 @@ class TagsField extends PureComponent {
   isFocus = false;
 
   blurTimer = null;
+  clickTimer = null;
 
   state = {tags: []};
 
@@ -30,13 +31,36 @@ class TagsField extends PureComponent {
     return get(this, ['state', 'tags']);
   }
 
+  enableError(errorMsg, errorProps) {
+    const {onError} = this.props;
+    this.sugg.disabled(true);
+    this.hasError = true;
+    callfunc(onError, [errorMsg, errorProps]);
+  }
+
+  disableError() {
+    if (this.hasError) {
+      this.sugg.disabled(false);
+      this.sugg.setValue('');
+      this.hasError = false;
+    }
+  }
+
+  handleClick = () => {
+    clearTimeout(this.clickTimer);
+    this.clickTimer = setTimeout(() => {
+      if (!this.isFocus) {
+        this.disableError();
+      }
+    }, 100);
+  };
+
   handleAdd(tag) {
-    const {maxTags, onError} = this.props;
+    const {maxTags} = this.props;
     let {tags: prevTags} = this.state;
     const tags = prevTags || [];
     if (-1 !== maxTags && tags && tags.length >= maxTags) {
-      this.sugg.disabled(true);
-      callfunc(onError, [EXCEED_MAX_TAGS, {tags, maxTags}]);
+      this.enableError(EXCEED_MAX_TAGS, {tags, maxTags});
       return false;
     }
     if (-1 === tags.indexOf(tag)) {
@@ -58,7 +82,7 @@ class TagsField extends PureComponent {
         tags: tags.filter(tag => tag !== delTag),
       }),
       () => {
-        this.sugg.disabled(false);
+        this.disableError();
         const {onDel} = this.props;
         callfunc(onDel);
       },
@@ -104,6 +128,10 @@ class TagsField extends PureComponent {
     if (this.blurTimer) {
       clearTimeout(this.blurTimer);
       this.blurTimer = null;
+    }
+    if (this.clickTimer) {
+      clearTimeout(this.clickTimer);
+      this.clickTimer = null;
     }
   }
 
@@ -190,6 +218,7 @@ class TagsField extends PureComponent {
       onAdd,
       onDel,
       onError,
+      name,
       ...otherProps
     } = this.props;
     const {tags} = this.state;
@@ -204,6 +233,7 @@ class TagsField extends PureComponent {
               onDel={this.handleDel(tag)}
               key={key}>
               {tag}
+            <input type="hidden" name={name} value={tag} />
             </Tag>
           ))}
         </List>
@@ -228,7 +258,7 @@ class TagsField extends PureComponent {
         onFocus={this.handleFocus}
       />
     );
-    return <Field {...otherProps} inputComponent={input} />;
+    return <Field {...otherProps} inputComponent={input} fieldProps={{onClick: this.handleClick}}/>;
   }
 }
 
