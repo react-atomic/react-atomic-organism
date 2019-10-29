@@ -95,8 +95,8 @@ class Suggestion extends PureComponent {
       nextState.isOpen = isOpen;
     }
     this.setState(nextState, () => {
-      const {onChange} = this.props;
-      callfunc(onChange, [e, this.state.value, input.name, this]);
+      const {onChange, name} = this.props;
+      callfunc(onChange, [e, this.state.value, name, this]);
     });
   }
 
@@ -164,7 +164,7 @@ class Suggestion extends PureComponent {
 
   handleWrapClick = e => {
     this.handleFocus();
-    callfunc(this.props.wrapOnClick);
+    callfunc(this.props.onWrapClick, [e]);
   };
 
   handleKeyUp = e => {
@@ -269,7 +269,7 @@ class Suggestion extends PureComponent {
       couldCreate,
       className,
       wrapRefCb,
-      wrapOnClick,
+      onWrapClick,
       onChange,
       onFocus,
       onBlur,
@@ -283,9 +283,10 @@ class Suggestion extends PureComponent {
       filter,
       defaultValue,
       shouldRenderSuggestions,
+      name,
       ...props
     } = this.props;
-    const {value, disabled, selIndex} = this.state;
+    const {isOpen, value, disabled, selIndex} = this.state;
     if (!component) {
       return null;
     }
@@ -304,10 +305,11 @@ class Suggestion extends PureComponent {
     return build(component)({
       ...props,
       value,
+      name: isOpen ? null : name, // disalbe autofill
       selIndex,
       className: classes,
       wrapRefCb: this.handleWrapRefCb,
-      wrapOnClick: this.handleWrapClick,
+      onWrapClick: this.handleWrapClick,
       refCb: this.handleRefCb,
       onChange: this.handleInput,
       onFocus: this.handleFocus,

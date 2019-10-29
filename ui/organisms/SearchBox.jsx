@@ -9,7 +9,7 @@ const SearchBox = ({
   compHd,
   wrapRefCb,
   wrapStyle,
-  wrapOnClick,
+  onWrapClick,
   results,
   itemOnClick,
   itemLocator,
@@ -49,7 +49,7 @@ const SearchBox = ({
       className={classes}
       style={wrapStyle}
       refCb={wrapRefCb}
-      onClick={e => callfunc(wrapOnClick, [e])}>
+      onClick={e => callfunc(onWrapClick, [e])}>
       {compHd}
       {/*className: prompt is for semantic-ui. https://semantic-ui.com/modules/search.html*/}
       <SemanticUI atom="input" className="prompt" type="text" {...props} />

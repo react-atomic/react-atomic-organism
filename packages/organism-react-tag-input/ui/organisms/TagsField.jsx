@@ -239,11 +239,11 @@ const Styles = {
     borderRadius: '.28571429rem',
     width: '100%',
     cursor: 'text',
-    overflow: 'hidden',
   },
   input: {
     border: 'none',
     width: 'auto',
+    margin: 0,
   },
   list: {
     padding: 0,
