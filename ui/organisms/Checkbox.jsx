@@ -76,11 +76,13 @@ class Checkbox extends PureComponent {
       ? true
       : !stateChecked;
     const callbackParams = [e, beforeChecked, afterChecked, this];
-    callfunc(beforeClick, callbackParams);
-    if (!disabled) {
+    const isContinue = callfunc(beforeClick, callbackParams);
+    if (!disabled && false !== isContinue) {
       this.processChange(afterChecked);
+      callfunc(afterClick, callbackParams);
+    } else {
+      callfunc(afterClick, [e, beforeChecked, beforeChecked, this]);
     }
-    callfunc(afterClick, callbackParams);
   };
 
   processChange(checked) {
