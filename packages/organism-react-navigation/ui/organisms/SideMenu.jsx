@@ -20,7 +20,7 @@ import {queryOne} from 'css-query-selector';
 import getOffset from 'getoffset';
 import callfunc from 'call-func';
 
-const getKeys = Object.keys;
+const keys = Object.keys;
 
 import {navigationStore, navigationDispatch} from '../../src/index';
 
@@ -28,15 +28,15 @@ const getMenuByArray = onClick => (arr, component, active) => {
   if (!arr) {
     return null;
   }
-  const keys = getKeys(arr);
-  let results = [];
-  keys.forEach(key => {
+  const results = [];
+  const buildComp = build(component);
+  keys(arr).forEach(key => {
     const {href, text, className, ...others} = arr[key];
     const classes = mixClass(className, 'item', {
       active: active === key,
     });
     results.push(
-      build(component)(
+      buildComp(
         {
           ...others,
           key,
@@ -217,7 +217,7 @@ class SideMenu extends PureComponent {
     const menuElement = build(component)(others, menuItems);
     let thisDefaultOnIcon = null;
     let thisDefaultOffIcon = defaultOffIcon;
-    let defaultOff = (isInit) ? false : on;
+    let defaultOff = isInit ? false : on;
     if (!thisDefaultOffIcon) {
       thisDefaultOffIcon = <DefaultIcon />;
     }
@@ -229,7 +229,7 @@ class SideMenu extends PureComponent {
       hamburgerStyle,
     });
     if (!fixedMini) {
-      let defaultOn = (isInit) ? true : on;
+      let defaultOn = isInit ? true : on;
       thisDefaultOnIcon = defaultOnIcon;
       if (!thisDefaultOnIcon) {
         thisDefaultOnIcon = <DefaultIcon />;
