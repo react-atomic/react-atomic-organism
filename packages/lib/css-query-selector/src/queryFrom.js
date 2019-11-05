@@ -22,12 +22,18 @@ const queryFrom = base => {
 
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
-    const findHit = all =>
-      all.some(p => (p.contains(el) && !p.isSameNode(el) ? p : false));
+    const findHit = all => { 
+      let hit;
+      const setHit = p => hit = p;
+      all.some(p => (p.contains(el) && !p.isSameNode(el) ? setHit(p) : false));
+      return hit;
+    }
     let lastHit;
     let hit;
     let all = queryAll(ancestor);
-    hit = findHit(all);
+    if (all) {
+      hit = findHit(all);
+    }
     while (hit) {
       lastHit = hit;
       all = hit.querySelectorAll(ancestor);
