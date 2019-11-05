@@ -10,7 +10,7 @@ const queryFrom = base => {
       doc = base;
       break;
     default:
-      doc = () => defaultQuery.el(base); 
+      doc = () => defaultQuery.el(base);
       break;
   }
 
@@ -22,18 +22,8 @@ const queryFrom = base => {
 
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
-    const findHit = all => {
-      let hit = false;
-      all.some(p => {
-        if (p.contains(el) && !p.isSameNode(el)) {
-          hit = p;
-          return true;
-        } else {
-          return false;
-        }
-      });
-      return hit;
-    };
+    const findHit = all =>
+      all.some(p => (p.contains(el) && !p.isSameNode(el) ? p : false));
     let lastHit;
     let hit;
     let all = queryAll(ancestor);
