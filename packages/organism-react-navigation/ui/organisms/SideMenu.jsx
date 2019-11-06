@@ -24,13 +24,16 @@ const keys = Object.keys;
 
 import {navigationStore, navigationDispatch} from '../../src/index';
 
-const getMenuByArray = onClick => (arr, component, active) => {
+const getMenuByArray = onClick => (arr, component, active, menuOrder) => {
   if (!arr) {
     return null;
   }
   const results = [];
   const buildComp = build(component);
-  keys(arr).forEach(key => {
+  if (!menuOrder) {
+    menuOrder = keys(arr);
+  }
+  menuOrder.forEach(key => {
     const {href, text, className, ...others} = arr[key];
     const classes = mixClass(className, 'item', {
       active: active === key,
@@ -202,6 +205,7 @@ class SideMenu extends PureComponent {
       linkComponent,
       className,
       menus,
+      menuOrder,
       root,
       rootActiveClass,
       rootInactiveClass,
@@ -213,6 +217,7 @@ class SideMenu extends PureComponent {
       toJS(menus),
       linkComponent,
       activeMenu,
+      toJS(menuOrder),
     );
     const menuElement = build(component)(others, menuItems);
     let thisDefaultOnIcon = null;
