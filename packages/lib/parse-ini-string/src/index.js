@@ -9,22 +9,23 @@ const isQuoted = s => {
     return false;
   }
   const bAndE = s.charAt(0) + '' + s.slice(-1);
-  return bAndE === '""' || bAndE === "''";
+  const bAndE2 = s.charAt(0) + '' + s.slice(-2);
+  return (
+    bAndE === '""' || bAndE === "''" || bAndE2 === '"";' || bAndE2 === "'';"
+  );
 };
 
 const stripQuote = s =>
-  s.replace(stripQuoteReg, '"').substring(1, s.length - 1);
+  s
+    .replace(stripQuoteReg, '"')
+    .substring(1, s.length - (s.slice(-1) === ';' ? 2 : 1));
 
 const isMultiLine = s => {
   const n = s.trim();
   if (isQuoted(n)) {
     return false;
   }
-  if (n.charAt(0) === '"') {
-    return true;
-  } else {
-    return false;
-  }
+  return n.charAt(0) === '"' ? true : false;
 };
 
 const parse = s => {
@@ -57,8 +58,12 @@ const parse = s => {
         isEnd = true;
       }
     } else {
-      if (line.trim().slice(-1) === '"') {
+      const lineTrim = line.trim();
+      if (lineTrim.slice(-1) === '"' || lineTrim.slice(-2) === '";') {
         isEnd = true;
+      }
+      if (!isEnd) {
+        value += "\n";
       }
       value += line;
     }

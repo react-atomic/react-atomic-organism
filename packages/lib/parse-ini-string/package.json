@@ -1,7 +1,7 @@
 {
   "name": "parse-ini-string",
-  "version": "0.0.6",
-  "description": "PHP like parse-ini-string, support multi line",
+  "version": "0.0.7",
+  "description": "PHP parse-ini-string like library, support multi line",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -21,9 +21,8 @@
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
-    "prepublishOnly": "npm run test && npm run build",
-    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js'",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
     "build",
