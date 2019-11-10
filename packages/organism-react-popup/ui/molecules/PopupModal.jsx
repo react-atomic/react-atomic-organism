@@ -128,6 +128,15 @@ class PopupModal extends PopupOverlay {
 
   render() {
     const {
+      hasError,
+      show: stateShow,
+      modalStyle: stateModalStyle,
+      maskStyle: stateMaskStyle,
+    } = this.state;
+    if (hasError) {
+      return null;
+    }
+    const {
       disableClose,
       scrolling,
       appear,
@@ -150,11 +159,6 @@ class PopupModal extends PopupOverlay {
       className,
       ...others
     } = this.props;
-    const {
-      show: stateShow,
-      modalStyle: stateModalStyle,
-      maskStyle: stateMaskStyle,
-    } = this.state;
     let containerClick = null;
     let thisCloseEl;
     let content = '';

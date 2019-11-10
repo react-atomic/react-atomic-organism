@@ -5,7 +5,7 @@ class BasePopup extends PureComponent {
     name: 'default',
   };
   static getDerivedStateFromError(error) {
-    return {show: false};
+    return {hasError: true};
   }
   componentDidCatch(error, info) {
     const {onError} = this.props;
@@ -14,7 +14,7 @@ class BasePopup extends PureComponent {
     } else {
       console.error([error, info]);
     }
-    this.setState({show: false});
+    this.setState({hasError: true});
   }
 }
 

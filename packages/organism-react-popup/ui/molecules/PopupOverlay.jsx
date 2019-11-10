@@ -44,8 +44,8 @@ class PopupOverlay extends BasePopup {
   }
 
   render() {
-    const {show: stateShow} = this.state;
-    if (!stateShow) {
+    const {show: stateShow, hasError} = this.state;
+    if (!stateShow || hasError) {
       return null;
     }
     const {
