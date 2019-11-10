@@ -1,22 +1,49 @@
 import React, {PureComponent} from 'react';
 import {Suggestion} from 'react-atomic-organism';
-import {lazyInject, mixClass, List, Field} from 'react-atomic-molecule';
+import {build, lazyInject, mixClass, List, Field} from 'react-atomic-molecule';
 import dedup from 'array.dedup';
-import get from 'get-object-value';
+import get, {initMap} from 'get-object-value';
 import callfunc from 'call-func';
 
 import Tag from '../organisms/Tag';
 
 const EXCEED_MAX_TAGS = 'exceed max tags';
+const keys = Object.keys;
+
+const groupingTags = ({tags, tagData, tagsLocator, tagLocator}) => {
+  const group = {};
+  const initGroup = initMap(group);
+  const preTags = tagsLocator(tagData);
+  if (tagData && !preTags.forEach) {
+    console.error('tagsLocator not return array.');
+    return null;
+  } else {
+    preTags.forEach(t => {
+      const tag = tagLocator(t);
+      if (tag) {
+        initGroup(tag, {data: [], num: 0});
+        group[tag].data.push(t);
+      }
+    });
+  }
+  const thisTags = tags != null ? tags : keys(group);
+  thisTags.forEach(tag => {
+    initGroup(tag, {data: [], num: 0});
+    group[tag].num++;
+  });
+  return {tags: keys(group).filter(tag => group[tag].num !== 0), group};
+};
 
 class TagsField extends PureComponent {
   static defaultProps = {
     fluid: true,
     couldCreate: true,
+    couldDuplicate: false,
     createOnBlur: true,
     itemsLocator: d => get(d, null, []),
     tagsLocator: d => d || [],
     tagLocator: d => d,
+    tagComponent: Tag,
     maxTags: -1,
   };
 
@@ -46,68 +73,6 @@ class TagsField extends PureComponent {
     }
   }
 
-  handleClick = () => {
-    clearTimeout(this.clickTimer);
-    this.clickTimer = setTimeout(() => {
-      if (!this.isFocus) {
-        this.disableError();
-      }
-    }, 100);
-  };
-
-  handleAdd(tag) {
-    const {maxTags} = this.props;
-    let {tags: prevTags} = this.state;
-    const tags = prevTags || [];
-    if (-1 !== maxTags && tags && tags.length >= maxTags) {
-      this.enableError(EXCEED_MAX_TAGS, {tags, maxTags});
-      return false;
-    }
-    if (-1 === tags.indexOf(tag)) {
-      tags.push(tag);
-      this.setState({tags: [...tags]}, () => {
-        const {onAdd} = this.props;
-        this.sugg.setValue('');
-        callfunc(onAdd);
-      });
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  handleDel = delTag => () => {
-    this.setState(
-      ({tags}) => ({
-        tags: tags.filter(tag => tag !== delTag),
-      }),
-      () => {
-        this.disableError();
-        const {onDel} = this.props;
-        callfunc(onDel);
-      },
-    );
-  };
-
-  handleKey = e => {
-    const {couldCreate, itemsLocator, itemLocator, results} = this.props;
-    const {tags} = this.state;
-    const value = this.sugg.getValue();
-    const keyCode = get(e, ['keyCode']);
-    switch (keyCode) {
-      case 8:
-        if (!(value || '').length) {
-          const lastTag = [...tags].pop();
-          this.handleDel(lastTag)();
-        }
-        break;
-      case 13:
-        e.preventDefault();
-        this.maybeCreate();
-        break;
-    }
-  };
-
   maybeCreate() {
     const {couldCreate, itemsLocator, itemLocator, results} = this.props;
     const value = this.sugg.getValue();
@@ -134,6 +99,82 @@ class TagsField extends PureComponent {
       this.clickTimer = null;
     }
   }
+
+  handleClick = () => {
+    clearTimeout(this.clickTimer);
+    this.clickTimer = setTimeout(() => {
+      if (!this.isFocus) {
+        this.disableError();
+      }
+    }, 100);
+  };
+
+  handleAdd(tag) {
+    const {maxTags, couldDuplicate} = this.props;
+    let {tags: prevTags} = this.state;
+    const tags = prevTags || [];
+    if (-1 !== maxTags && tags && tags.length >= maxTags) {
+      this.enableError(EXCEED_MAX_TAGS, {tags, maxTags});
+      return false;
+    }
+    if (-1 === tags.indexOf(tag) || couldDuplicate) {
+      tags.push(tag);
+      this.setState({tags: [...tags]}, () => {
+        const {onAdd} = this.props;
+        this.sugg.setValue('');
+        callfunc(onAdd);
+      });
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  handleDel = delTag => () => {
+    const {couldDuplicate} = this.props;
+    this.setState(
+      ({tags}) => {
+        if (couldDuplicate) {
+          tags.some((tag, key) => {
+            if (tag === delTag) {
+              tags.splice(key, 1);
+              return true;
+            } else {
+              return false;
+            }
+          });
+          tags = tags.slice(0);
+        } else {
+          tags = tags.filter(tag => tag !== delTag);
+        }
+        return {tags};
+      },
+      () => {
+        this.disableError();
+        const {onDel} = this.props;
+        callfunc(onDel);
+      },
+    );
+  };
+
+  handleKey = e => {
+    const {couldCreate, itemsLocator, itemLocator, results} = this.props;
+    const {tags} = this.state;
+    const value = this.sugg.getValue();
+    const keyCode = get(e, ['keyCode']);
+    switch (keyCode) {
+      case 8:
+        if (!(value || '').length) {
+          const lastTag = [...tags].pop();
+          this.handleDel(lastTag)();
+        }
+        break;
+      case 13:
+        e.preventDefault();
+        this.maybeCreate();
+        break;
+    }
+  };
 
   handleBlur = e => {
     this.isFocus = false;
@@ -164,10 +205,14 @@ class TagsField extends PureComponent {
 
   handleItems = d => {
     const {tags} = this.state;
-    const {itemsLocator, itemLocator} = this.props;
-    return itemsLocator(d).filter(
-      item => -1 === tags.indexOf(itemLocator(item)),
-    );
+    const {couldDuplicate, itemsLocator, itemLocator} = this.props;
+    if (couldDuplicate) {
+      return itemsLocator(d);
+    } else {
+      return itemsLocator(d).filter(
+        item => -1 === tags.indexOf(itemLocator(item)),
+      );
+    }
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -176,17 +221,10 @@ class TagsField extends PureComponent {
     if (tagData) {
       const compare = JSON.stringify(tagData);
       if (compare !== prevTagData) {
-        const tags = [];
-        const preTags = tagsLocator(tagData);
-        if (!preTags.forEach) {
-          console.error('tagsLocator not return array.');
-          return null;
-        }
-        preTags.forEach(tag => {
-          const t = tagLocator(tag);
-          if (t) {
-            tags.push(t);
-          }
+        const {tags} = groupingTags({
+          tagData,
+          tagsLocator,
+          tagLocator,
         });
         return {
           tags,
@@ -211,8 +249,10 @@ class TagsField extends PureComponent {
       tagData,
       tagsLocator,
       tagLocator,
+      tagComponent,
       fluid,
       couldCreate,
+      couldDuplicate,
       createOnBlur,
       maxTags,
       onAdd,
@@ -224,18 +264,21 @@ class TagsField extends PureComponent {
     const {tags} = this.state;
     let thisTags = null;
     if (tags.length) {
+      const pTags = groupingTags({tags, tagData, tagsLocator, tagLocator});
+      const buildTag = build(tagComponent);
       thisTags = (
         <List style={Styles.list} ui={false} atom="ul" className="horizontal">
-          {tags.map((tag, key) => (
-            <Tag
-              style={Styles.tag}
-              buttonStyle={Styles.tagButton}
-              onDel={this.handleDel(tag)}
-              key={key}>
-              {tag}
-            <input type="hidden" name={name} value={tag} />
-            </Tag>
-          ))}
+          {pTags.tags.map(tag =>
+            buildTag(
+              {
+                onDel: this.handleDel(tag),
+                group: pTags.group[tag],
+                key: tag,
+                tag,
+              },
+              <input type="hidden" name={name} value={tag} />,
+            ),
+          )}
         </List>
       );
     }
@@ -258,7 +301,13 @@ class TagsField extends PureComponent {
         onFocus={this.handleFocus}
       />
     );
-    return <Field {...otherProps} inputComponent={input} fieldProps={{onClick: this.handleClick}}/>;
+    return (
+      <Field
+        {...otherProps}
+        inputComponent={input}
+        fieldProps={{onClick: this.handleClick}}
+      />
+    );
   }
 }
 
@@ -280,21 +329,6 @@ const Styles = {
     margin: 0,
     display: 'inline',
     pointerEvents: 'all',
-  },
-  tag: {
-    margin: '0.678571em 0 0.678571em 1em',
-    position: 'relative',
-    paddingRight: 25,
-  },
-  tagButton: {
-    background: 'none',
-    border: 'none',
-    outline: 'none',
-    borderLeft: '1px solid rgba(0,0,0,0.3)',
-    marginLeft: 3,
-    position: 'absolute',
-    top: 0,
-    height: '100%',
   },
 };
 

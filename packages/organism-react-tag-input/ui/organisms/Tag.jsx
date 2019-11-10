@@ -7,13 +7,37 @@ const handleDel = func => e => {
   callfunc(func);
 };
 
-const Tag = ({children, onDel, buttonStyle, ...props}) => {
+const Tag = ({tag, group, children, onDel, ...props}) => {
+  let numEl = null;
+  if (group.num > 1) {
+    numEl = `(${group.num})`;
+  }
   return (
-    <Label className="tiny" {...props}>
+    <Label className="tiny" {...props} style={Styles.tag}>
       {children}
-      <button style={buttonStyle} onClick={handleDel(onDel)}>x</button>
+      {tag}
+      {numEl}
+      <button style={Styles.tagButton} onClick={handleDel(onDel)}>x</button>
     </Label>
   );
 };
 
 export default Tag;
+
+const Styles = {
+  tag: {
+    margin: '0.678571em 0 0.678571em 1em',
+    position: 'relative',
+    paddingRight: 25,
+  },
+  tagButton: {
+    background: 'none',
+    border: 'none',
+    outline: 'none',
+    borderLeft: '1px solid rgba(0,0,0,0.3)',
+    marginLeft: 3,
+    position: 'absolute',
+    top: 0,
+    height: '100%',
+  },
+};
