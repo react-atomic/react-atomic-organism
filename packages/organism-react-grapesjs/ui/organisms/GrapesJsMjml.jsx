@@ -196,6 +196,8 @@ class GrapesJsMjml extends Component {
 
           init: function() {
             this.startGroup('Insert Content');
+            // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
+            // add : function( value, html, text )
             mergeFields.forEach(m => this.add(m[0], m[1], m[2]));
           },
 
