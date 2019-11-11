@@ -4,6 +4,7 @@ import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
+import MjmlPlguin from '../../src/grapesjs-mjml';
 
 const defaultAssets = {
   'grapes.min.css':
@@ -127,7 +128,7 @@ class GrapesJsMjml extends Component {
   handleEditorLoad = () => {
     const {onEditorLoad, mjml, images} = this.props;
     const doc = this.iframeWindow.document;
-    this.editor.runCommand('core:open-blocks');
+    // this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
     const thisMjml =
       -1 !== (mjml || '').indexOf('mj-container') ? mjml : defaultMjml;
@@ -271,7 +272,7 @@ class GrapesJsMjml extends Component {
     };
     callfunc(onBeforeEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
 
-    this.editor = this.iframeWindow.initEditor(initGrapesJS);
+    this.editor = this.iframeWindow.initEditor(initGrapesJS, MjmlPlguin);
     this.initGrapesJS = initGrapesJS;
     this.editor.on('load', this.handleEditorLoad);
     this.editor.on('component:remove', this.handleRemoveContent);
@@ -295,12 +296,11 @@ class GrapesJsMjml extends Component {
       <script src="${this.getAsset(
         'grapesjs-plugin-ckeditor.min.js',
       )}"></script>
-      <script src="${this.getAsset('grapesjs-mjml.min.js')}"></script>
       <script>
       CKEDITOR.dtd.$editable.a = 1;
-      window.initEditor = function(init) {
-         var editor = grapesjs.init(init); 
-         return editor;
+      window.initEditor = function(init, mjml) {
+         grapesjs.plugins.add('grapesjs-mjml', mjml);
+         return grapesjs.init(init); 
       };
      </script>
      <div class="hidden" id="root">

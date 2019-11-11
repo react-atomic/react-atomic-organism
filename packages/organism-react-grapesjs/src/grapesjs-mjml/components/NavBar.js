@@ -1,4 +1,4 @@
-import mjml2html from 'mjml';
+import mjml2html from 'mjml4-in-browser';
 import { isComponentType } from '.';
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {

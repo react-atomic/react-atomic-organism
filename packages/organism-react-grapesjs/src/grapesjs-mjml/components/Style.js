@@ -1,5 +1,5 @@
 // Specs: https://mjml.io/documentation/#mj-style
-import mjml2html from 'mjml';
+import mjml2html from 'mjml4-in-browser';
 import { isComponentType } from './index.js';
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
