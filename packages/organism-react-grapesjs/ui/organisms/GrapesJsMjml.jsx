@@ -14,20 +14,16 @@ const defaultAssets = {
   'ckeditor.js': 'https://cdn.jsdelivr.net/npm/ckeditor@4.6.2/ckeditor.js',
   'grapesjs-plugin-ckeditor.min.js':
     'https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js',
-  'grapesjs-mjml.min.js':
-    'https://cdn.jsdelivr.net/npm/grapesjs-mjml@0.0.31/dist/grapesjs-mjml.min.js',
 };
 
 const defaultMjml = `
   <mjml>
     <mj-body>
-      <mj-container>
         <mj-section>
           <mj-column>
             <mj-text>Content 1</mj-text>
           </mj-column>
         </mj-section>
-      </mj-container>
     </mj-body>
   </mjml>
 `;
@@ -131,7 +127,7 @@ class GrapesJsMjml extends Component {
     // this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
     const thisMjml =
-      -1 !== (mjml || '').indexOf('mj-container') ? mjml : defaultMjml;
+      -1 !== (mjml || '').indexOf('mj-body') ? mjml : defaultMjml;
     this.editor.setComponents(thisMjml);
     const css = queryFrom(
       get(queryFrom(this.iframeWindow.document).one('iframe'), [
@@ -140,17 +136,13 @@ class GrapesJsMjml extends Component {
         'document',
       ]),
     );
-    const embedHead = css.one('head');
-    const style = document.createElement('style');
-    style.innerHTML = `div[data-gjs-type="mj-container"]{ min-height: 100vh !important; }`;
-    embedHead.appendChild(style);
     doc.getElementById('root').className = '';
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
   };
 
   handleRemoveContent = e => {
     const tagName = get(e, ['attributes', 'tagName']);
-    if ('mj-container' === tagName) {
+    if ('mj-body' === tagName) {
       this.editor.setComponents(defaultMjml);
     }
   };
