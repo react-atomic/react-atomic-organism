@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {Unsafe} from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
-import get from 'get-object-value';
+import get, {getDefault} from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
-import MjmlPlguin from '../../src/grapesjs-mjml';
 
 const defaultAssets = {
   'grapes.min.css':
@@ -267,12 +266,15 @@ class GrapesJsMjml extends Component {
     };
     callfunc(onBeforeEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
 
-    this.editor = this.iframeWindow.initEditor(initGrapesJS, MjmlPlguin);
-    this.initGrapesJS = initGrapesJS;
-    this.editor.on('load', this.handleEditorLoad);
-    this.editor.on('component:remove', this.handleRemoveContent);
-    this.editor.on('asset:remove', this.handleRemoveAsset);
-    callfunc(onEditorInit, [{editor: this.editor, component: this}]);
+    import('../../src/grapesjs-mjml').then(MjmlPlguin=>{
+      MjmlPlguin = getDefault(MjmlPlguin);
+      this.editor = this.iframeWindow.initEditor(initGrapesJS, MjmlPlguin);
+      this.initGrapesJS = initGrapesJS;
+      this.editor.on('load', this.handleEditorLoad);
+      this.editor.on('component:remove', this.handleRemoveContent);
+      this.editor.on('asset:remove', this.handleRemoveAsset);
+      callfunc(onEditorInit, [{editor: this.editor, component: this}]);
+    });
   };
 
   render() {
