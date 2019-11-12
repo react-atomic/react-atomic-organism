@@ -1,6 +1,6 @@
 {
   "name": "organism-react-dropzone",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "React dropzone",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -18,15 +18,24 @@
     "ricon": "*"
   },
   "devDependencies": {
-    "babel-cli": "*",
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
     "react": "^16.x",
-    "react-dom": "^16.x"
+    "react-dom": "^16.x",
+    "react-test-renderer": "*"
   },
   "scripts": {
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src && BABEL_ENV=build babel ui -d build/cjs/ui",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src && BABEL_ENV=es babel ui -d build/es/ui",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build"
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
