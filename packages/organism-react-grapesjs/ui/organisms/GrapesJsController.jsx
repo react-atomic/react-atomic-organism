@@ -8,7 +8,6 @@ import GrapesJsMjml from './GrapesJsMjml';
 let grapesId = 0;
 
 class GrapesJsController extends Component {
-
   getType() {
     const {type} = this.props;
     return type === 'html' ? 'html' : 'mjml';
@@ -54,17 +53,22 @@ class GrapesJsController extends Component {
   handleEl = el => (this.el = el);
 
   componentDidMount() {
-    const {id} = this.props;
+    const {id, debug} = this.props;
     if (id) {
       this.id = id;
     } else {
-      this.id = 'grapejs-' + grapesId;
-      grapesId++;
+      if (!this.id) {
+        this.id = 'grapejs-' + grapesId;
+        grapesId++;
+      }
+    }
+    if (debug) {
+      console.log(`$("#${this.id}").contentWindow.window.debug`);
     }
   }
 
   render() {
-    const {type, ...otherProps} = this.props;
+    const {debug, type, ...otherProps} = this.props;
     otherProps.id = this.id;
     otherProps.onEditorInit = this.handleEditorInit;
     return this.getType() === 'html' ? (

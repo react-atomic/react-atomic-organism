@@ -52,9 +52,14 @@ class GrapesJsEdm extends Component {
     if (!this.beforeGetHtml()) {
       return;
     }
-    let html = this.editor.runCommand('mjml-get-code');
-    if (html && html.html) {
-      html = html.html.trim();
+    const editor = this.editor;
+    let html = editor.getHtml() + `<style>${editor.getCss()}</style>`;
+    if (html) {
+      html = html.trim();
+      const css = editor.getCss();
+      if (css) {
+        html += `<style>${css}</style>`;
+      }
       return html;
     }
   }
@@ -154,7 +159,7 @@ class GrapesJsEdm extends Component {
 
   handleLoad = e => {
     this.iframeWindow = this.dIframe.contentWindow.window;
-    this.iframeWindow.grapejs = this;
+    this.iframeWindow.debug = this;
     let timer;
     timer = setInterval(() => {
       if (this.iframeWindow.initEditor) {

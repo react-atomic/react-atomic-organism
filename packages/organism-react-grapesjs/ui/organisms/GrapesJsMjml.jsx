@@ -108,6 +108,7 @@ class GrapesJsMjml extends Component {
 
   handleLoad = e => {
     this.iframeWindow = this.dIframe.contentWindow.window;
+    this.iframeWindow.debug = this;
     let timer;
     timer = setInterval(() => {
       if (this.iframeWindow.initEditor) {
