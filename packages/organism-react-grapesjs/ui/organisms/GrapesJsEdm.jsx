@@ -17,6 +17,8 @@ const defaultAssets = {
     'https://cdn.jsdelivr.net/npm/grapesjs-preset-newsletter@0.2.15/dist/grapesjs-preset-newsletter.min.js',
 };
 
+const ERROR_HTML_INVALID_SYNTAX = 'HTML invalid syntax';
+
 class GrapesJsEdm extends Component {
   getAsset(fileName) {
     const {assetPath} = this.props;
@@ -249,13 +251,14 @@ class GrapesJsEdm extends Component {
   };
 
   handleEditorLoad = () => {
-    const {onEditorLoad, design, images} = this.props;
+    const {onEditorLoad, onError, design, images} = this.props;
     const doc = this.iframeWindow.document;
     this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
     try {
       this.editor.setComponents(design);
     } catch (e) {
+      callfunc(onError, [{e, design, message: ERROR_HTML_INVALID_SYNTAX}]);
       console.warn({e, design});
     }
     const css = queryFrom(
