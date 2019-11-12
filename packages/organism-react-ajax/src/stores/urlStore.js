@@ -1,7 +1,7 @@
 import {ReduceStore} from 'reshow-flux';
 import urlDispatcher, {urlDispatch} from '../urlDispatcher';
 import get from 'get-object-value';
-import setUrl, {getUrl} from 'seturl';
+import setUrl, {getUrl, unsetUrl} from 'seturl';
 import {win, doc} from 'win-doc';
 
 const keys = Object.keys;
@@ -67,6 +67,7 @@ class UrlStore extends ReduceStore {
       return state;
     }
     let url;
+    let urlV;
     switch (action.type) {
       case 'url':
         url = get(action, ['url']);
@@ -77,7 +78,8 @@ class UrlStore extends ReduceStore {
       case 'query':
         url = oDoc.URL;
         keys(get(action.params, null, [])).forEach(key => {
-          url = setUrl(key, get(action, ['params', key]), url);
+          urlV = get(action.params, [key]);
+          url = urlV != null ? setUrl(key, urlV, url) : unsetUrl(key, url);
         });
         break;
     }
