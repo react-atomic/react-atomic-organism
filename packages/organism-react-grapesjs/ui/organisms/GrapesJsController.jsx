@@ -8,6 +8,12 @@ import GrapesJsMjml from './GrapesJsMjml';
 let grapesId = 0;
 
 class GrapesJsController extends Component {
+
+  getType() {
+    const {type} = this.props;
+    return type === 'html' ? 'html' : 'mjml';
+  }
+
   getPanel() {
     return get(this.editor, ['Panels']);
   }
@@ -16,18 +22,25 @@ class GrapesJsController extends Component {
     return this.el && this.el.getHtml && this.el.getHtml();
   }
 
-
-  getMjml() {
-    return this.el && this.el.getMjml && this.el.getMjml();
+  getDesign() {
+    return this.el && this.el.getDesign && this.el.getDesign();
   }
 
   disableImport() {
+    const type = this.getType();
+    if ('html' === type) {
+      return;
+    }
     const panelManager = this.getPanel();
     const btnName = this.el.getImportButtonName();
     return panelManager.removeButton('options', btnName);
   }
 
   disableExport() {
+    const type = this.getType();
+    if ('html' === type) {
+      return;
+    }
     const panelManager = this.getPanel();
     return panelManager.removeButton('options', 'export-template');
   }
@@ -54,7 +67,7 @@ class GrapesJsController extends Component {
     const {type, ...otherProps} = this.props;
     otherProps.id = this.id;
     otherProps.onEditorInit = this.handleEditorInit;
-    return type === 'html' ? (
+    return this.getType() === 'html' ? (
       <GrapesJsEdm ref={this.handleEl} {...otherProps} />
     ) : (
       <GrapesJsMjml ref={this.handleEl} {...otherProps} />

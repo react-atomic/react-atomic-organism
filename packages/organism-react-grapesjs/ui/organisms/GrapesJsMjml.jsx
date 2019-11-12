@@ -70,7 +70,7 @@ class GrapesJsMjml extends Component {
     }
   }
 
-  getMjml() {
+  getDesign() {
     if (!this.beforeGetHtml()) {
       return;
     }

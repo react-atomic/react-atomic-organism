@@ -59,6 +59,10 @@ class GrapesJsEdm extends Component {
     }
   }
 
+  getDesign() {
+    return this.getHtml();
+  }
+
   updateImages(images) {
     if (images) {
       this.images = images;
@@ -244,11 +248,15 @@ class GrapesJsEdm extends Component {
   };
 
   handleEditorLoad = () => {
-    const {onEditorLoad, mjml, images} = this.props;
+    const {onEditorLoad, html, images} = this.props;
     const doc = this.iframeWindow.document;
     this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
-    this.editor.setComponents('');
+    try {
+      this.editor.setComponents(html);
+    } catch(e) {
+      console.warn({e, html});
+    }
     const css = queryFrom(
       get(queryFrom(this.iframeWindow.document).one('iframe'), [
         'contentWindow',
