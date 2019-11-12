@@ -148,8 +148,7 @@ class GrapesJsEdm extends Component {
     return extraPlugins;
   }
 
-  getImportButtonName()
-  {
+  getImportButtonName() {
     return 'gjs-open-import-template';
   }
 
@@ -248,14 +247,14 @@ class GrapesJsEdm extends Component {
   };
 
   handleEditorLoad = () => {
-    const {onEditorLoad, html, images} = this.props;
+    const {onEditorLoad, design, images} = this.props;
     const doc = this.iframeWindow.document;
     this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
     try {
-      this.editor.setComponents(html);
-    } catch(e) {
-      console.warn({e, html});
+      this.editor.setComponents(design);
+    } catch (e) {
+      console.warn({e, design});
     }
     const css = queryFrom(
       get(queryFrom(this.iframeWindow.document).one('iframe'), [
@@ -264,10 +263,6 @@ class GrapesJsEdm extends Component {
         'document',
       ]),
     );
-    const embedHead = css.one('head');
-    const style = document.createElement('style');
-    style.innerHTML = `div[data-gjs-type="mj-container"]{ min-height: 100vh !important; }`;
-    embedHead.appendChild(style);
     doc.getElementById('root').className = '';
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
   };
@@ -294,8 +289,7 @@ class GrapesJsEdm extends Component {
       <script>
       CKEDITOR.dtd.$editable.a = 1;
       window.initEditor = function(init) {
-         var editor = grapesjs.init(init); 
-         return editor;
+         return grapesjs.init(init); 
       };
      </script>
      <div class="hidden" id="root">

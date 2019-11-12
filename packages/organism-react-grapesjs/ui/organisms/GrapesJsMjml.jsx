@@ -122,12 +122,12 @@ class GrapesJsMjml extends Component {
   }
 
   handleEditorLoad = () => {
-    const {onEditorLoad, mjml, images} = this.props;
+    const {onEditorLoad, design, images} = this.props;
     const doc = this.iframeWindow.document;
     // this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
     const thisMjml =
-      -1 !== (mjml || '').indexOf('mj-body') ? mjml : defaultMjml;
+      -1 !== (mjml || '').indexOf('mj-body') ? design : defaultMjml;
     this.editor.setComponents(thisMjml);
     const css = queryFrom(
       get(queryFrom(this.iframeWindow.document).one('iframe'), [

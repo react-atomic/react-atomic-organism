@@ -35,7 +35,7 @@
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
