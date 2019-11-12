@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {lazyInject, mixClass, Icon, SemanticUI} from 'react-atomic-molecule';
-
 import get, {getDefault} from 'get-object-value';
-
 import FileIcon from 'ricon/File';
 
 const keys = Object.keys;
