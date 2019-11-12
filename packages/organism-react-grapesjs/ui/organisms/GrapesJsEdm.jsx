@@ -221,9 +221,6 @@ class GrapesJsEdm extends Component {
           modalLabelImport: 'Paste all your code here below and click import',
           modalLabelExport: 'Copy the code and use it wherever you want',
           codeViewerTheme: 'material',
-          //defaultTemplate: templateImport,
-          importPlaceholder:
-            '<table class="table"><tr><td class="cell">Hello world!</td></tr></table>',
           cellStyle: {
             'font-size': '12px',
             'font-weight': 300,
