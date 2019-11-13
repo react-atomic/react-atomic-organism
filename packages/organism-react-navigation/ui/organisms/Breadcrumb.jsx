@@ -1,68 +1,64 @@
-import React, {Component} from 'react'; 
+import React, {Children} from 'react';
 
-import {
-    mixClass,
-    SemanticUI
-} from 'react-atomic-molecule';
+import {build, mixClass, SemanticUI} from 'react-atomic-molecule';
 
 import get from 'get-object-value';
 
-class Breakcrumb extends Component
-{
-    render()
-    {
-        const {className, children, divider, dividerStyle, style, ...reset} = this.props;
-        const itemList = []; 
-        let thisDivider;
-        if (React.isValidElement(divider)) {
-            thisDivider = divider;
-        } else {
-            thisDivider = <SemanticUI> / </SemanticUI>;
-        }
-        React.Children.map(children,(node, k)=>{
-            if (!node) {
-                return;
-            } else if (!React.isValidElement(node)) {
-                node = <SemanticUI>{node}</SemanticUI>;
-            }
-            node = React.cloneElement(
-                node, 
-                {
-                    key: k,
-                    className: mixClass(
-                        get(node, ['props','className']),
-                        'section'
-                    )
-                }
-            );
-            itemList.push(node);  
-            node = React.cloneElement(
-                thisDivider, 
-                {
-                    key: k+'-div',
-                    className: mixClass(thisDivider.props.className, 'divider'),
-                    style: {
-                        ...thisDivider.props.style,
-                        ...dividerStyle
-                    }
-                }
-            );
-            itemList.push(node);
-        });
-        if (itemList.length) {
-            itemList.pop();
-        }
-        return (
-            <SemanticUI {...reset} style={{...Styles.container, ...style}} className={mixClass('breadcrumb', className)}>
-                {itemList}
-            </SemanticUI>
-        );
+const Breakcrumb = props => {
+  const {
+    className,
+    children,
+    divider,
+    dividerStyle,
+    style,
+    ...reset
+  } = props;
+  const itemList = [];
+  const defaultDivider = build(divider || <SemanticUI> / </SemanticUI>);
+
+  Children.forEach(children, (node, k) => {
+    if (!node) {
+      return;
     }
-}
+    const nodeProps = get(node, ['props'], {});
+    itemList.push(
+      build(node)({
+        key: k,
+        className: mixClass(nodeProps.className, 'section'),
+      }),
+    );
+    const nodeDataDivider = nodeProps['data-divider'];
+    const thisDivider = nodeDataDivider
+      ? build(nodeDataDivider)
+      : defaultDivider;
+    const dividerProps = get(divider, ['props'], () =>
+      get(nodeProps.divider, ['props'], {}),
+    );
+    itemList.push(
+      thisDivider({
+        key: k + '-div',
+        style: {...dividerProps.style, ...dividerStyle},
+        className: mixClass(dividerProps.className, 'divider'),
+      }),
+    );
+  });
+  if (itemList.length) {
+    itemList.pop();
+  }
+  return (
+    <SemanticUI
+      {...reset}
+      style={{...Styles.container, ...style}}
+      className={mixClass('breadcrumb', className)}>
+      {itemList}
+    </SemanticUI>
+  );
+};
+
 export default Breakcrumb;
 
 const Styles = {
-    container: {
-        lineHeight: 1.8
-    }
+  container: {
+    lineHeight: 1.8,
+  },
 };
