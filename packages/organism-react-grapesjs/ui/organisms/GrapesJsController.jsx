@@ -44,6 +44,42 @@ class GrapesJsController extends Component {
     return panelManager.removeButton('options', 'export-template');
   }
 
+  handleMergeTags(mergeTags, CKEDITOR, extraPlugins, toolbar) {
+    CKEDITOR.plugins.add('strinsert', {
+      requires: ['richcombo'],
+      init: function(editor) {
+        editor.ui.addRichCombo('strinsert', {
+          label: 'Merge Tags',
+          title: 'Merge Tags',
+          voiceLabel: 'Insert Content',
+          className: 'cke_format',
+          multiSelect: false,
+          panel: {
+            css: [editor.config.contentsCss, CKEDITOR.skin.getPath('editor')],
+            voiceLabel: editor.lang.panelVoiceLabel,
+          },
+
+          init: function() {
+            this.startGroup('Insert Content');
+            // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
+            // add : function( value, html, text )
+            mergeTags.forEach(m => this.add(m[0], m[1], m[2]));
+          },
+
+          onClick: function(value) {
+            editor.focus();
+            editor.fire('saveSnapshot');
+            editor.insertHtml(value);
+            editor.fire('saveSnapshot');
+          },
+        });
+      },
+    });
+    extraPlugins += ',strinsert';
+    toolbar.push({name: 'Merge Tags', items: ['strinsert']});
+    return extraPlugins;
+  }
+
   handleEditorInit = e => {
     const {onEditorInit} = this.props;
     this.editor = e.editor;
@@ -71,6 +107,7 @@ class GrapesJsController extends Component {
     const {debug, type, ...otherProps} = this.props;
     otherProps.id = this.id;
     otherProps.onEditorInit = this.handleEditorInit;
+    otherProps.host = this;
     return this.getType() === 'html' ? (
       <GrapesJsEdm ref={this.handleEl} {...otherProps} />
     ) : (

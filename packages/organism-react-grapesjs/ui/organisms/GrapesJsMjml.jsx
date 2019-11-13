@@ -171,48 +171,14 @@ class GrapesJsMjml extends Component {
     callfunc(onRemoveAsset, [asset]);
   };
 
-  handleMergeFields(mergeFields, CKEDITOR, extraPlugins, toolbar) {
-    CKEDITOR.plugins.add('strinsert', {
-      requires: ['richcombo'],
-      init: function(editor) {
-        editor.ui.addRichCombo('strinsert', {
-          label: 'Merge Tags',
-          title: 'Merge Tags',
-          voiceLabel: 'Insert Content',
-          className: 'cke_format',
-          multiSelect: false,
-          panel: {
-            css: [editor.config.contentsCss, CKEDITOR.skin.getPath('editor')],
-            voiceLabel: editor.lang.panelVoiceLabel,
-          },
-
-          init: function() {
-            this.startGroup('Insert Content');
-            // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
-            // add : function( value, html, text )
-            mergeFields.forEach(m => this.add(m[0], m[1], m[2]));
-          },
-
-          onClick: function(value) {
-            editor.focus();
-            editor.fire('saveSnapshot');
-            editor.insertHtml(value);
-            editor.fire('saveSnapshot');
-          },
-        });
-      },
-    });
-    extraPlugins += ',strinsert';
-    toolbar.push({name: 'Merge Fields', items: ['strinsert']});
-    return extraPlugins;
-  }
 
   handleInitGrapesJS = () => {
     const {
       font,
       onEditorInit,
       onBeforeEditorInit,
-      mergeFields,
+      mergeTags,
+      host,
       init,
     } = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
@@ -226,9 +192,9 @@ class GrapesJsMjml extends Component {
       {name: 'links', items: ['Link', 'Unlink']},
       {name: 'colors', items: ['TextColor', 'BGColor']},
     ];
-    if (mergeFields) {
-      extraPlugins = this.handleMergeFields(
-        mergeFields,
+    if (mergeTags) {
+      extraPlugins = host.handleMergeTags(
+        mergeTags,
         CKEDITOR,
         extraPlugins,
         toolbar,
