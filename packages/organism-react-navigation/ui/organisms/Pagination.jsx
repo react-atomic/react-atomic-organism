@@ -17,6 +17,17 @@ const getFromTo = (from, to) => {
   return plusOne(from) + '-' + plusOne(to);
 };
 
+const keys = Object.keys;
+
+const mergeStyle = (main, ...merges) => {
+  const style = {...get(main, ['style'], {})};
+  merges.forEach(m => {
+    const mStyle = get(m, ['style'], {});
+    keys(mStyle).forEach( key => style[key] = mStyle[key]);
+  });
+  return style;
+};
+
 const BasePage = props => {
   const {onPageChange, component, className, children, style, url, rel} = props;
   const classes = mixClass(
@@ -24,14 +35,17 @@ const BasePage = props => {
     className,
     'item link',
   );
-  const onClick = onPageChange ? 
-    () => callfunc(onPageChange, [{
-      begin: props[0],
-      end: props[1],
-      page: props['currentPage'],
-      perPageNum: props['perPageNum']
-    }]):
-    null;
+  const onClick = onPageChange
+    ? () =>
+        callfunc(onPageChange, [
+          {
+            begin: props[0],
+            end: props[1],
+            page: props['currentPage'],
+            perPageNum: props['perPageNum'],
+          },
+        ])
+    : null;
   return build(component)(
     {
       rel,
@@ -52,14 +66,14 @@ const BasePage = props => {
 const Page = props => <BasePage {...props}>{props.currentPage}</BasePage>;
 
 const Forward = ({isLastPage, text, ...props}) => (
-  <BasePage {...props} style={{display: 'inline'}} rel="next">
+  <BasePage {...props} rel="next">
     {isLastPage ? props.currentPage : text}
   </BasePage>
 );
 
 const Backward = ({text, ...props}) => {
   return (
-    <BasePage {...props} style={{display: 'inline'}} rel="prev">
+    <BasePage {...props} rel="prev">
       {props.currentPage === 1 ? props.currentPage : text}
     </BasePage>
   );
@@ -67,9 +81,10 @@ const Backward = ({text, ...props}) => {
 
 const Current = props => (
   <Item
+    style={props.style}
     title={getFromTo(props[0], props[1])}
-    className="active"
-    style={{display: 'inline'}}>
+    className={mixClass('active', props.className)}
+  >
     {props.currentPage}
   </Item>
 );
@@ -79,46 +94,53 @@ const FirstPage = props => <Page {...props} />;
 const LastPage = props => <Page {...props} />;
 
 const Ellipsis = props => (
-  <Item
-    className="disabled ellipsis"
-    style={{ minWidth: 0, width: 0 }}>
+  <Item className="disabled ellipsis" style={{minWidth: 0, width: 0, ...props.style}}>
     ...
   </Item>
 );
 
 const Pagination = pg => {
   injects = lazyInject(injects, InjectStyles);
-  const {linkComponent, onPageChange, forwardText, backwardText} = pg;
+  const {
+    linkComponent,
+    onPageChange,
+    forwardText,
+    backwardText,
+    ui,
+    currentPageProps,
+  } = pg;
   let firstPage;
   let firstEllipsis;
   let lastPage;
   let lastEllipsis;
+  const pageProps = pg.pageProps || {};
+  pageProps.onPageChange = onPageChange;
+  pageProps.component = linkComponent;
+  const ellipsisProps = {...pageProps, onPageChange: null};
   if (pg.firstPage) {
     firstPage = (
       <FirstPage
         {...pg.firstPage}
-        component={linkComponent}
-        onPageChange={onPageChange}
+        {...pageProps}
       />
     );
-    firstEllipsis = <Ellipsis />;
+    firstEllipsis = <Ellipsis {...ellipsisProps} />;
   }
   if (pg.lastPage) {
     lastPage = (
       <LastPage
         {...pg.lastPage}
-        component={linkComponent}
-        onPageChange={onPageChange}
+        {...pageProps} 
       />
     );
-    lastEllipsis = <Ellipsis />;
+    lastEllipsis = <Ellipsis  {...ellipsisProps} />;
   }
   const pgList = pg.list;
   if (!isArray(pgList)) {
     console.error('Page list not array', pg);
   }
   return (
-    <Menu className="compact pagination">
+    <Menu className="compact pagination" ui={ui}>
       {firstPage}
       {firstEllipsis}
       {pgList.map((v, k) => {
@@ -133,10 +155,9 @@ const Pagination = pg => {
           }
           return (
             <Page
+              {...pageProps}
               key={k}
               {...v}
-              component={linkComponent}
-              onPageChange={onPageChange}
             />
           );
         } else {
@@ -146,17 +167,17 @@ const Pagination = pg => {
               <Backward
                 text={backwardText}
                 {...current.backward}
-                component={linkComponent}
-                onPageChange={onPageChange}
+                {...pageProps}
               />,
             );
           }
           re.push(
             <Current
               key={k}
+              {...pageProps}
               {...current}
-              component={linkComponent}
-              onPageChange={onPageChange}
+              {...currentPageProps}
+              style={mergeStyle(pageProps, currentPageProps)}
             />,
           );
           if (current.forward) {
@@ -164,9 +185,8 @@ const Pagination = pg => {
               <Forward
                 isLastPage={pgList.length - 2 === k}
                 {...current.forward}
-                component={linkComponent}
                 text={forwardText}
-                onPageChange={onPageChange}
+                {...pageProps}
               />,
             );
           }

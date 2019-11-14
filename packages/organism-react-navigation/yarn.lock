@@ -2745,6 +2745,13 @@ to-object-path@^0.3.0:
   dependencies:
     kind-of "^3.0.2"
 
+to-percent-js@*:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/to-percent-js/-/to-percent-js-0.1.1.tgz#30ca4d3822b4de152ade77d1774120de28efac68"
+  integrity sha512-k/vnJHjwMdZsEwjfXDKtardFoOgYeP6o+SNTvjXTbQr3aFLk6dhw2J/KKMseKrSjKYmQKrga2vm9p9Jq5lspiA==
+  dependencies:
+    reshow-runtime "*"
+
 to-regex-range@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-2.1.1.tgz#7c80c17b9dfebe599e27367e0d4dd5590141db38"

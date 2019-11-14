@@ -1,6 +1,6 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.4.2",
+  "version": "0.4.6",
   "description": "React Navigation",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -20,7 +20,8 @@
     "immutable": "*",
     "react-atomic-molecule": "*",
     "reshow-flux": "*",
-    "ricon": "*"
+    "ricon": "*",
+    "to-percent-js": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

@@ -1,32 +1,60 @@
-import React, {PureComponent} from 'react'; 
+import React, {PureComponent} from 'react';
 import {SemanticUI} from 'react-atomic-molecule';
+import {toInt} from 'to-percent-js';
 
 import Pagination from '../organisms/Pagination';
-import paginationCalculator, {TOTAL, BEGIN, CURRENT_PAGE} from '../../src/paginationCalculator';
+import paginationCalculator, {
+  TOTAL,
+  BEGIN,
+  CURRENT_PAGE,
+  PER_PAGE_NUM,
+} from '../../src/paginationCalculator';
 
 class PaginationController extends PureComponent {
+  static defaultProps = {perPageNum: 10};
 
   getPaginationData() {
     if (!this.cal) {
       this.cal = new paginationCalculator();
     }
     const cal = this.cal;
-    const {pageListNumber, total, begin, currentPage} = this.props;
-    cal.set(TOTAL, total);
-    if (null != begin) {
-      cal.set(BEGIN, begin);
-    } else {
-      cal.set(CURRENT_PAGE, currentPage);
+    const {pageListNumber, total, begin, currentPage, perPageNum} = this.props;
+    cal.set(TOTAL, toInt(total));
+    if (null != perPageNum) {
+      cal.set(PER_PAGE_NUM, toInt(perPageNum));
     }
-    return cal.genPageList(pageListNumber);
+
+    if (null != begin) {
+      cal.set(BEGIN, toInt(begin));
+    } else {
+      cal.set(CURRENT_PAGE, toInt(currentPage));
+    }
+    return cal.genPageList(toInt(pageListNumber));
   }
 
   render() {
-    const {onPageChange, pageListNumber, total, begin, currentPage, ...otherProps} = this.props;
+    const {
+      pageProps,
+      currentPageProps,
+      onPageChange,
+      pageListNumber,
+      total,
+      begin,
+      currentPage,
+      perPageNum,
+      ui,
+      ...otherProps
+    } = this.props;
     const data = this.getPaginationData();
     return (
-      <SemanticUI {...otherProps}>
-        <Pagination {...data} onPageChange={onPageChange} />
+      <SemanticUI {...otherProps} ui={ui}>
+        <Pagination
+          {...data}
+          onPageChange={onPageChange}
+          ui={ui}
+          pageProps={pageProps}
+          currentPageProps={currentPageProps}
+        />
       </SemanticUI>
     );
   }

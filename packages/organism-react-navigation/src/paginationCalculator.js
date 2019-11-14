@@ -41,9 +41,9 @@ class Page {
     this[FIRST_PAGE] = null;
     this[LAST_PAGE] = null;
     if (null != currentPage) {
+      // force use type with page. need let currentPage have value and begin keep null
       this[CURRENT_PAGE] = currentPage;
-      cal.process(this);
-      this[TYPE] = cal.props[TYPE];
+      cal.process(this, {...cal.props, [BEGIN]: null});
     }
   }
 
@@ -55,10 +55,11 @@ class Page {
 class paginationCalculator {
   constructor(props) {
     props = {
-      [PER_PAGE_NUM]: 10,
       [TOTAL]: 0,
-      [QUERY_B]: QUERY_B,
-      [QUERY_PAGE]: QUERY_PAGE,
+      query: {
+        [QUERY_B]: QUERY_B,
+        [QUERY_PAGE]: QUERY_PAGE,
+      },
       ...props,
     };
     this.props = props;
@@ -79,10 +80,10 @@ class paginationCalculator {
 
   calBegin(page) {
     page[TOTAL_PAGE] = Math.ceil(page[TOTAL] / page[PER_PAGE_NUM]);
-    if (null == page[TOTAL_PAGE]) {
+    if (isNaN(page[TOTAL_PAGE]) || 1 > page[TOTAL_PAGE]) {
       page[TOTAL_PAGE] = 1;
     }
-    if (null == page[CURRENT_PAGE]) {
+    if (!page[CURRENT_PAGE] || 1 > page[CURRENT_PAGE]) {
       page[CURRENT_PAGE] = 1;
     }
     if (page[CURRENT_PAGE] > page[TOTAL_PAGE]) {
@@ -140,6 +141,9 @@ class paginationCalculator {
 
   fixedPageList({page, pages, liCount, num}) {
     const list = keys(pages).map(key => pages[key]);
+    if (num >= list.length) {
+      return list;
+    }
     const lastKey = list.length - 1;
     let start = 0;
     let end = undefined;
@@ -150,9 +154,10 @@ class paginationCalculator {
       start = 2;
       end = -2;
     }
-    
-    if (list[lastKey][CURRENT_PAGE] === page[LAST_PAGE] ||
-      list[lastKey] === CURRENT_PAGE 
+
+    if (
+      list[lastKey][CURRENT_PAGE] === page[LAST_PAGE] ||
+      list[lastKey] === CURRENT_PAGE
     ) {
       end = undefined;
     }
@@ -160,7 +165,7 @@ class paginationCalculator {
   }
 
   genPageList(num, page, url) {
-    if (isNaN(num)) {
+    if (isNaN(num) || !num) {
       num = 10;
     }
     if (null == page) {
@@ -172,12 +177,9 @@ class paginationCalculator {
     };
     const pages = {};
     const current = page[CURRENT_PAGE];
-    pages[current] = CURRENT_PAGE;
     const liCount = this.calPageList(page, num);
     for (let i = liCount[BEGIN], j = liCount[END]; i <= j; i++) {
-      if (i !== current) {
-        pages[i] = new Page(i, url, this);
-      }
+      pages[i] = i !== current ? new Page(i, url, this) : CURRENT_PAGE;
     }
     if (page[FIRST_PAGE]) {
       if (get(liCount, [BEGIN], -1) > page[FIRST_PAGE]) {
@@ -217,9 +219,9 @@ class paginationCalculator {
     }
     this.sync(page, copyFrom);
     if (!page[PER_PAGE_NUM]) {
-      console.error(`Per page number can't  set to empty.`);
+      console.error(`Per page number can't set to empty.`);
     }
-    if (null != page[BEGIN] && null == page[CURRENT_PAGE]) {
+    if (null != page[BEGIN]) {
       page[CURRENT_PAGE] = Math.floor(page[BEGIN] / page[PER_PAGE_NUM]) + 1;
       page[TYPE] = TYPE_BEGIN;
     } else if (null != page[CURRENT_PAGE]) {
@@ -233,4 +235,4 @@ class paginationCalculator {
 }
 
 export default paginationCalculator;
-export {TOTAL, TOTAL_PAGE, CURRENT_PAGE, BEGIN};
+export {TOTAL, TOTAL_PAGE, CURRENT_PAGE, BEGIN, PER_PAGE_NUM};
