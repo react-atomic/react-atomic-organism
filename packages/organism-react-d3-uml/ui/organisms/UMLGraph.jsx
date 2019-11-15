@@ -330,6 +330,7 @@ class UMLGraph extends Component {
   };
 
   componentDidMount() {
+    const {onLoad} = this.props;
     setTimeout(() => {
       const conns = this.syncPropConnects();
       import('../../src/dagre').then(dagreAutoLayout => {
@@ -339,6 +340,7 @@ class UMLGraph extends Component {
           const oBoxGroup = this.getBoxGroup(key);
           oBoxGroup.move(newXY[key].x, newXY[key].y);
         });
+        callfunc(onLoad, [this]);
       });
     });
   }
@@ -367,6 +369,7 @@ class UMLGraph extends Component {
       onConnWillAdd,
       onLineEdit,
       onLineDel,
+      onLoad,
       onGetBoxGroupComponent,
       onGetBoxComponent,
       ...props
