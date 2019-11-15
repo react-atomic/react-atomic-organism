@@ -23,7 +23,7 @@ const mergeStyle = (main, ...merges) => {
   const style = {...get(main, ['style'], {})};
   merges.forEach(m => {
     const mStyle = get(m, ['style'], {});
-    keys(mStyle).forEach( key => style[key] = mStyle[key]);
+    keys(mStyle).forEach(key => (style[key] = mStyle[key]));
   });
   return style;
 };
@@ -83,8 +83,7 @@ const Current = props => (
   <Item
     style={props.style}
     title={getFromTo(props[0], props[1])}
-    className={mixClass('active', props.className)}
-  >
+    className={mixClass('active', props.className)}>
     {props.currentPage}
   </Item>
 );
@@ -94,7 +93,9 @@ const FirstPage = props => <Page {...props} />;
 const LastPage = props => <Page {...props} />;
 
 const Ellipsis = props => (
-  <Item className="disabled ellipsis" style={{minWidth: 0, width: 0, ...props.style}}>
+  <Item
+    className="disabled ellipsis"
+    style={{minWidth: 0, width: 0, ...props.style}}>
     ...
   </Item>
 );
@@ -118,22 +119,12 @@ const Pagination = pg => {
   pageProps.component = linkComponent;
   const ellipsisProps = {...pageProps, onPageChange: null};
   if (pg.firstPage) {
-    firstPage = (
-      <FirstPage
-        {...pg.firstPage}
-        {...pageProps}
-      />
-    );
+    firstPage = <FirstPage {...pg.firstPage} {...pageProps} />;
     firstEllipsis = <Ellipsis {...ellipsisProps} />;
   }
   if (pg.lastPage) {
-    lastPage = (
-      <LastPage
-        {...pg.lastPage}
-        {...pageProps} 
-      />
-    );
-    lastEllipsis = <Ellipsis  {...ellipsisProps} />;
+    lastPage = <LastPage {...pg.lastPage} {...pageProps} />;
+    lastEllipsis = <Ellipsis {...ellipsisProps} />;
   }
   const pgList = pg.list;
   if (!isArray(pgList)) {
@@ -153,13 +144,7 @@ const Pagination = pg => {
           ) {
             return null;
           }
-          return (
-            <Page
-              {...pageProps}
-              key={k}
-              {...v}
-            />
-          );
+          return <Page {...pageProps} key={k} {...v} />;
         } else {
           const re = [];
           if (current.backward) {

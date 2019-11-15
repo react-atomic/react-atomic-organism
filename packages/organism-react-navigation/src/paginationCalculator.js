@@ -1,4 +1,5 @@
 import get from 'get-object-value';
+import {toInt} from 'to-percent-js';
 
 const keys = Object.keys;
 
@@ -91,11 +92,12 @@ class paginationCalculator {
     }
     page[BEGIN] = (page[CURRENT_PAGE] - 1) * page[PER_PAGE_NUM];
     page[END] = page[BEGIN] + page[PER_PAGE_NUM] - 1;
+    const fixTotal = () => (page[TOTAL] ? page[TOTAL] - 1 : 0);
     if (page[BEGIN] >= page[TOTAL]) {
-      page[BEGIN] = page[TOTAL] - 1;
+      page[BEGIN] = fixTotal();
     }
     if (page[END] >= page[TOTAL]) {
-      page[END] = page[TOTAL] - 1;
+      page[END] = fixTotal();
     }
     return page;
   }
@@ -128,7 +130,7 @@ class paginationCalculator {
     }
     let end = begin + num - 1;
     if (end > page[TOTAL_PAGE]) {
-      end = page[TOTAL_PAGE];
+      end = toInt(page[TOTAL_PAGE]) || 1;
     }
     if (end - begin < num - 1) {
       begin = end - num + 1;
@@ -141,7 +143,7 @@ class paginationCalculator {
 
   fixedPageList({page, pages, liCount, num}) {
     const list = keys(pages).map(key => pages[key]);
-    if (num >= list.length) {
+    if (num >= liCount[END]) {
       return list;
     }
     const lastKey = list.length - 1;
@@ -169,7 +171,7 @@ class paginationCalculator {
       num = 10;
     }
     if (null == page) {
-      page = this.process(new Page());
+      page = this.process(this.getPage());
     }
     this.calNav(page);
     const result = {
@@ -178,12 +180,15 @@ class paginationCalculator {
     const pages = {};
     const current = page[CURRENT_PAGE];
     const liCount = this.calPageList(page, num);
+    pages[current] = CURRENT_PAGE; // this line can not inside foreach, licount may not contain current
     for (let i = liCount[BEGIN], j = liCount[END]; i <= j; i++) {
-      pages[i] = i !== current ? new Page(i, url, this) : CURRENT_PAGE;
+      if (i !== current) {
+        pages[i] = this.getPage(i, url, this);
+      }
     }
     if (page[FIRST_PAGE]) {
       if (get(liCount, [BEGIN], -1) > page[FIRST_PAGE]) {
-        const firstPage = new Page(page[FIRST_PAGE], url, this);
+        const firstPage = this.getPage(page[FIRST_PAGE], url, this);
         if (2 === liCount[BEGIN]) {
           // index 1 is mean first page
           pages[1] = firstPage;
@@ -193,13 +198,13 @@ class paginationCalculator {
       }
     }
     if (page[FORWARD]) {
-      result[CURRENT_PAGE][FORWARD] = new Page(page[FORWARD], url, this);
+      result[CURRENT_PAGE][FORWARD] = this.getPage(page[FORWARD], url, this);
     }
     if (page[BACKWARD]) {
-      result[CURRENT_PAGE][BACKWARD] = new Page(page[BACKWARD], url, this);
+      result[CURRENT_PAGE][BACKWARD] = this.getPage(page[BACKWARD], url, this);
     }
     if (page && page[LAST_PAGE] && null == pages[page[LAST_PAGE]]) {
-      const lastPage = new Page(page[LAST_PAGE], url, this);
+      const lastPage = this.getPage(page[LAST_PAGE], url, this);
       if (liCount[END] === page[LAST_PAGE]) {
         pages[liCount[END]] = lastPage;
       } else {
@@ -212,7 +217,7 @@ class paginationCalculator {
 
   process(page, copyFrom) {
     if (null == page) {
-      page = this.process(new Page());
+      page = this.process(this.getPage());
     }
     if (null == copyFrom) {
       copyFrom = this.props;
@@ -231,6 +236,10 @@ class paginationCalculator {
       page[TYPE] = TYPE_PAGE;
     }
     return this.calBegin(page);
+  }
+
+  getPage(currentPage, url, cal) {
+    return new Page(currentPage, url, cal);
   }
 }
 
