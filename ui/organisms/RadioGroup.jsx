@@ -7,18 +7,6 @@ import {FUNCTION} from 'reshow-constant';
 
 import Radio from '../organisms/Checkbox';
 
-const Label = ({children, ...props}) => {
-  if (!children) {
-    return null;
-  } else {
-    return (
-      <SemanticUI {...props} atom="label">
-        {children}
-      </SemanticUI>
-    );
-  }
-};
-
 class RadioGroup extends PureComponent {
   state = {value: null};
 
@@ -35,11 +23,11 @@ class RadioGroup extends PureComponent {
   };
 
   getChecked(item, nextValue, current) {
-    const {checkedCallback, valueLocator} = this.props;
+    const {checkedCallback} = this.props;
     if (FUNCTION === typeof checkedCallback) {
       return checkedCallback(item, nextValue, current);
     } else {
-      return nextValue === valueLocator(item);
+      return nextValue === this.altValue(item);
     }
   }
 
@@ -59,19 +47,25 @@ class RadioGroup extends PureComponent {
   };
 
   getValue() {
-    const {options, valueLocator} = this.props;
+    const {options} = this.props;
     const {value, current} = this.state;
     let thisValue;
     (options || []).some((item, key) => {
       const checked = this.getChecked(item, value, current);
       if (checked) {
-        thisValue = valueLocator(item);
+        thisValue = this.altValue(item);
         return true;
       } else {
         return false;
       }
     });
     return thisValue;
+  }
+
+  altValue(item) {
+    const {valueLocator, labelLocator} = this.props;
+    const value = valueLocator(item);
+    return value != null ? value : labelLocator(item);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -111,8 +105,7 @@ class RadioGroup extends PureComponent {
     });
 
     return (
-      <Field inline={inline} fieldClassName={classes} {...others}>
-        <Label>{label}</Label>
+      <Field inline={inline} label={label} fieldClassName={classes} {...others}>
         {(options || []).map((item, key) => (
           <Radio
             type="radio"
@@ -123,7 +116,7 @@ class RadioGroup extends PureComponent {
             name={name}
             {...item.props}
             label={labelLocator(item)}
-            value={valueLocator(item)}
+            value={this.altValue(item)}
             afterClick={this.handleClick}
             checked={this.getChecked(item, value, current)}
           />
