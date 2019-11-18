@@ -2755,11 +2755,7 @@ if (typeof jQuery !== 'undefined' && jQuery !== null) {
   };
 }
 
-if (typeof module !== 'undefined' && module !== null) {
-  module.exports = Dropzone;
-} else {
-  window.Dropzone = Dropzone;
-}
+export default Dropzone;
 
 // Dropzone file status codes
 Dropzone.ADDED = 'added';
