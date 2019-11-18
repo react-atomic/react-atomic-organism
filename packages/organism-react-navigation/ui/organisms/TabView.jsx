@@ -6,7 +6,7 @@ class TabView extends PureComponent {
 
   static defaultProps = {
     disableSwitch: false,
-    stackable: true,
+    rwd: true,
     selected: true,
     body: SemanticUI,
     menu: SemanticUI,
@@ -32,7 +32,7 @@ class TabView extends PureComponent {
       menu,
       body,
       disableSwitch,
-      stackable,
+      rwd,
       rightMenu,
       bottom,
       left,
@@ -92,7 +92,7 @@ class TabView extends PureComponent {
       top: !bottom && !left && !right,
       bottom,
       vertical: left || right,
-      stackable,
+      stackable: rwd,
     };
     const menuClasses = mixClass('attached tabular menu', menuOpt);
     tabMenu = build(menu)(
@@ -120,7 +120,7 @@ class TabView extends PureComponent {
     }
     const childOrder = menuOpt.top ? [tabMenu, content] : [content, tabMenu];
     return (
-      <SemanticUI style={style} id={id}>
+      <SemanticUI style={style} id={id} className="tab-view">
         {childOrder}
       </SemanticUI>
     );
