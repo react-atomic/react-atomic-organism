@@ -1,17 +1,15 @@
-
 import {expect} from 'chai';
 
 import getCookie, {
     getCookieRegString,
     getCookieReg,
-    setCookie
-} from '../cjs/src/index.js';
+} from '../index.js';
 
 describe('test get cookie', ()=>{
 
     it('get cookie string', ()=>{
         const n = getCookieRegString('?');           
-        expect(n).to.equal('\\?=([^;]+)');
+        expect(n).to.equal('(?:^|;)\\s?\\?=([^;]+)');
     });
 
     it('get cookie reg', ()=>{
@@ -20,11 +18,12 @@ describe('test get cookie', ()=>{
     });
 
     it('get cookie', ()=>{
-        let cookie = 'csrftoken=Ly6OXDBtwNOVYa411Pb9zEVSjzp9HwN5Kcel7wUslGPXpGQKqSKOSVvzB7dUc6yy; sessionid=ufnhbb0vpybhu411ggye5wa96aeo77ll'; 
+        let cookie = 'csrftoken=Ly6OXDBtwNOVYa411Pb9zEVSjzp9HwN5Kcel7wUslGPXpGQKqSKOSVvzB7dUc6yy; token=ufnhbb0vpybhu411ggye5wa96aeo77ll'; 
         const csrftoken = getCookie('csrftoken', cookie);
-        const sessionid = getCookie('sessionid', cookie);
+        const token = getCookie('token', cookie);
+
         expect(csrftoken).to.equal('Ly6OXDBtwNOVYa411Pb9zEVSjzp9HwN5Kcel7wUslGPXpGQKqSKOSVvzB7dUc6yy');
-        expect(sessionid).to.equal('ufnhbb0vpybhu411ggye5wa96aeo77ll');
+        expect(token).to.equal('ufnhbb0vpybhu411ggye5wa96aeo77ll');
     });
 
     it('get not exists cookie', ()=>{
@@ -32,11 +31,4 @@ describe('test get cookie', ()=>{
       const result = getCookie('foo', cookie);
       expect(result).to.equal(null)
     });
-});
-
-describe('test set cookie', ()=>{
-  it('simple test', ()=>{
-    setCookie('foo-set', 'bar-set');  
-    expect(getCookie('foo-set')).to.equal('bar-set');
-  });
 });
