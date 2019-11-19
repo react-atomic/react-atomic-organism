@@ -25,7 +25,7 @@ class Suggestion extends PureComponent {
     itemsLocator: defaultItemsLocator,
     itemLocator: defaultItemLocator,
     itemFilter: defaultItemFilter,
-    itemOnClick: defaultItemClick,
+    onItemClick: defaultItemClick,
     filter: false,
     preview: false,
   };
@@ -169,7 +169,7 @@ class Suggestion extends PureComponent {
 
   handleKeyUp = e => {
     const {keyCode} = e;
-    const {itemOnClick} = this.props;
+    const {onItemClick} = this.props;
     e.persist();
     this.setState(({selIndex}) => {
       switch (keyCode) {
@@ -192,7 +192,11 @@ class Suggestion extends PureComponent {
         case 13:
           e.preventDefault();
           if (selIndex && this.results) {
-            itemOnClick(e, get(this.results, [selIndex - 1], {}), this);
+            callfunc(onItemClick, [
+              e,
+              get(this.results, [selIndex - 1], {}),
+              this,
+            ]);
           }
       }
       return {selIndex};
@@ -274,7 +278,7 @@ class Suggestion extends PureComponent {
       onFocus,
       onBlur,
       results,
-      itemOnClick,
+      onItemClick,
       itemClickToClose,
       itemsLocator,
       itemLocator,
@@ -291,9 +295,9 @@ class Suggestion extends PureComponent {
       return null;
     }
     this.results = this.handleResults();
-    if (FUNCTION === typeof itemOnClick) {
-      props.itemOnClick = (e, item) => {
-        itemOnClick(e, item, this);
+    if (FUNCTION === typeof onItemClick) {
+      props.onItemClick = (e, item) => {
+        onItemClick(e, item, this);
         if (itemClickToClose) {
           this.close();
         }
