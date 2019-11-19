@@ -15,7 +15,7 @@ const getCookie = (name, cookie) => {
   return value !== null ? decodeURIComponent(value[1]) : null;
 };
 
-const setCookie = (cname, cvalue, exdays, domain) => {
+const getCookieSetStr = (cname, cvalue, exdays, domain) => {
   exdays = exdays || 0;
   domain = domain || '';
   let expires = '';
@@ -28,8 +28,17 @@ const setCookie = (cname, cvalue, exdays, domain) => {
     domain = 'domain=' + domain + ';' || '';
   }
   const cStr = cname + '=' + cvalue + ';' + expires + domain + 'path=/';
-  doc().cookie = cStr;
+  return cStr;
+};
+
+const setCookie = (cname, cvalue, exdays, domain) => {
+  doc().cookie = getCookieSetStr(cname, cvalue, exdays, domain);
 };
 
 export default getCookie;
-export {getRegString as getCookieRegString, getCookieReg, setCookie};
+export {
+  getRegString as getCookieRegString,
+  getCookieReg,
+  setCookie,
+  getCookieSetStr,
+};

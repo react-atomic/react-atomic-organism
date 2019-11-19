@@ -1,6 +1,6 @@
 {
   "name": "get-cookie",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lite library for get cookie",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -17,6 +17,7 @@
     "chai": "*",
     "jsdom": "*",
     "jsdom-global": "*",
+    "sinon": "*",
     "mocha": "*"
   },
   "scripts": {
