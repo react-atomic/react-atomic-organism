@@ -11,7 +11,10 @@ const body = () => doc().body;
 
 const defaultItemClick = (e, item, sugg) => sugg.setValue(item);
 
-const defaultItemFilter = (d, value) => value && d && -1 !== d.indexOf(value);
+const defaultItemFilter = (d, value) =>
+  value &&
+  d &&
+  -1 !== (d + '').toLowerCase().indexOf((value + '').toLowerCase());
 
 const defaultItemLocator = d => d || '';
 
