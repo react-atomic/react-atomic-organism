@@ -195,10 +195,6 @@ class TagsController extends PureComponent {
     this.handleAdd(item);
   };
 
-  handleItemFilter = (d, value) => {
-    return value && d && -1 !== d.indexOf(value);
-  };
-
   handleItems = d => {
     const {tags} = this.state;
     const {couldDuplicate, itemsLocator, itemLocator} = this.props;
@@ -249,7 +245,6 @@ class TagsController extends PureComponent {
       ...this.props,
       tags,
       groupTags: tags && tags.length ? groupingTags({tags, tagData, tagsLocator, tagLocator}) : null,
-      itemFilter: this.handleItemFilter,
       itemsLocator: this.handleItems,
       onDel: this.handleDel,
       onItemClick: this.handleItemClick,

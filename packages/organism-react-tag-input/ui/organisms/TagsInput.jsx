@@ -12,6 +12,7 @@ const TagInput = props => {
     groupTags,
     name,
     itemFilter,
+    itemLocator,
     itemsLocator,
     onDel,
     onItemClick,
@@ -19,6 +20,7 @@ const TagInput = props => {
     onBlur,
     onFocus,
     onGetSugg,
+    results,
   } = props;
   let thisTags = null;
   if (tags.length) {
@@ -52,7 +54,9 @@ const TagInput = props => {
       wrapStyle={Styles.wrap}
       onItemClick={onItemClick}
       itemFilter={itemFilter}
+      itemLocator={itemLocator}
       itemsLocator={itemsLocator}
+      results={results}
       onKeyDown={onKeyDown}
       onBlur={onBlur}
       onFocus={onFocus}

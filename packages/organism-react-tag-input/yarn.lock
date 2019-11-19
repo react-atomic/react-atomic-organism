@@ -19,9 +19,9 @@
     chokidar "^2.1.8"
 
 "@types/node@*":
-  version "12.12.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.9.tgz#0b5ae05516b757cbff2e82c04500190aef986c7b"
-  integrity sha512-kV3w4KeLsRBW+O2rKhktBwENNJuqAUQHS3kf4ia2wIaF/MN6U7ANgTsx7tGremcA0Pk3Yh0Hl0iKiLPuBdIgmw==
+  version "12.12.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.11.tgz#bec2961975888d964196bf0016a2f984d793d3ce"
+  integrity sha512-O+x6uIpa6oMNTkPuHDa9MhMMehlxLAd5QcOvKRjAFsBVpeFWTOPnXbDvILvFgFFZfQ1xh1EZi1FbXxUix+zpsQ==
 
 abab@^2.0.0:
   version "2.0.3"
@@ -2193,9 +2193,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.0.2.tgz#12e54f9e5ff32b9bbb9eb2dc4ef8fade6fd0ab3f"
-  integrity sha512-CqSZpv7IwaH5b2ZPQE0gTloiMyBgPtOS/9og4EPt1i090VGhEGai0nOvsylPcg9LxcSSm04oT7tPCCkfUqFaTw==
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.0.5.tgz#ea0b8e439e9cc64ae3dff83e3271ec94ec7fb41e"
+  integrity sha512-39M/I9O26J0QkrtL8LBOJOAf00ORYpwSpCJgsGd9T28DtYjW6dqyv1cwia8jci1P6dtPlqEddc4Xo65l+x7eeA==
   dependencies:
     array.merge "*"
     class-lib "*"
@@ -2208,9 +2208,9 @@ react-atomic-molecule@*:
     win-doc "*"
 
 react-atomic-organism@*:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.7.1.tgz#685d3743de4327b9a40a6d45ffdf5f58ace070e9"
-  integrity sha512-DBTg0AYge/oD+qE8o//fsSCg0It+/inWpQed0uB2FU/hxWUKwodihyRqu63V2We1GKyTGB1oxPGPUkbxk06HyA==
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.7.2.tgz#5dfa5bfb074e520df5c77fef56b8919b92f8c661"
+  integrity sha512-iVcKHWeZkWCRW7asYjyYRN92po1g8Qf6iPNRoA2bgMnF3cFxDZPmyVZqD93cxXfnTLS6F3pXnBmvMMvPh63FlA==
   dependencies:
     array.merge "*"
     call-func "*"
