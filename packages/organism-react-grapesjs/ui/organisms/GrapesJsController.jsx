@@ -45,9 +45,10 @@ class GrapesJsController extends Component {
   }
 
   handleMergeTags(mergeTags, CKEDITOR, extraPlugins, toolbar) {
+    let isRun = 0;
     CKEDITOR.plugins.add('strinsert', {
       requires: ['richcombo'],
-      init: function(editor) {
+      init: editor => {
         editor.ui.addRichCombo('strinsert', {
           label: 'Merge Tags',
           title: 'Merge Tags',
@@ -60,13 +61,32 @@ class GrapesJsController extends Component {
           },
 
           init: function() {
-            this.startGroup('Insert Content');
             // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
             // add : function( value, html, text )
-            mergeTags.forEach(m => this.add(m[0], m[1], m[2]));
+
+            editor.on('panelHide', () => {
+              this._.list.element.$.innerHTML = '';
+              this._.list._.items = {};
+            });
           },
 
-          onClick: function(value) {
+          onOpen: function() {
+            const buildList = () => {
+              this.startGroup('Insert Content');
+              const tags = callfunc(mergeTags);
+              if (tags && tags.forEach) {
+                tags.forEach(m => this.add(m[0], m[1], m[2]));
+              }
+              if (isRun) {
+                this._.committed = 0;
+                this.commit();
+              }
+            };
+            buildList();
+            isRun = 1;
+          },
+
+          onClick: value => {
             editor.focus();
             editor.fire('saveSnapshot');
             editor.insertHtml(value);
