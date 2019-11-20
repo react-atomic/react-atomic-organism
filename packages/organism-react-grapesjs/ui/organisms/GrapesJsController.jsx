@@ -9,7 +9,7 @@ let grapesId = 0;
 
 class GrapesJsController extends Component {
   static defaultProps = {
-    i18nMergeTags: 'Merge Tags'
+    i18nMergeTags: 'Merge Tags',
   };
 
   getType() {
@@ -80,16 +80,19 @@ class GrapesJsController extends Component {
           },
 
           init: function() {
-            isRun = 1;
             editor.on('panelHide', () => {
               this._.list.element.$.innerHTML = '';
               this._.list._.items = {};
             });
+            isRun = 0;
             buildList.call(this);
           },
 
           onOpen: function() {
-            buildList.call(this);
+            if (isRun) {
+              buildList.call(this);
+            }
+            isRun = 1;
           },
 
           onClick: value => {
