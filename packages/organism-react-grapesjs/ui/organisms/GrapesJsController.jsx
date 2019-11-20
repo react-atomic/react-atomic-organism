@@ -8,6 +8,10 @@ import GrapesJsMjml from './GrapesJsMjml';
 let grapesId = 0;
 
 class GrapesJsController extends Component {
+  static defaultProps = {
+    i18nMergeTags: 'Merge Tags'
+  };
+
   getType() {
     const {type} = this.props;
     return type === 'html' ? 'html' : 'mjml';
@@ -45,14 +49,29 @@ class GrapesJsController extends Component {
   }
 
   handleMergeTags(mergeTags, CKEDITOR, extraPlugins, toolbar) {
+    const {i18nMergeTags} = this.props;
     let isRun = 0;
+    const buildList = function() {
+      // !!important!! should not use arrow function
+      this.startGroup(i18nMergeTags);
+      const tags = callfunc(mergeTags);
+      if (tags && tags.forEach) {
+        // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
+        // add : function( value, html, text )
+        tags.forEach(m => this.add(m[0], m[1], m[2]));
+      }
+      if (isRun) {
+        this._.committed = 0;
+        this.commit();
+      }
+    };
     CKEDITOR.plugins.add('strinsert', {
       requires: ['richcombo'],
       init: editor => {
         editor.ui.addRichCombo('strinsert', {
-          label: 'Merge Tags',
-          title: 'Merge Tags',
-          voiceLabel: 'Insert Content',
+          label: i18nMergeTags,
+          title: i18nMergeTags,
+          voiceLabel: i18nMergeTags,
           className: 'cke_format',
           multiSelect: false,
           panel: {
@@ -61,29 +80,16 @@ class GrapesJsController extends Component {
           },
 
           init: function() {
-            // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
-            // add : function( value, html, text )
-
+            isRun = 1;
             editor.on('panelHide', () => {
               this._.list.element.$.innerHTML = '';
               this._.list._.items = {};
             });
+            buildList.call(this);
           },
 
           onOpen: function() {
-            const buildList = () => {
-              this.startGroup('Insert Content');
-              const tags = callfunc(mergeTags);
-              if (tags && tags.forEach) {
-                tags.forEach(m => this.add(m[0], m[1], m[2]));
-              }
-              if (isRun) {
-                this._.committed = 0;
-                this.commit();
-              }
-            };
-            buildList();
-            isRun = 1;
+            buildList.call(this);
           },
 
           onClick: value => {
@@ -96,7 +102,7 @@ class GrapesJsController extends Component {
       },
     });
     extraPlugins += ',strinsert';
-    toolbar.push({name: 'Merge Tags', items: ['strinsert']});
+    toolbar.push({name: i18nMergeTags, items: ['strinsert']});
     return extraPlugins;
   }
 
