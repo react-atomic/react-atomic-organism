@@ -1,6 +1,6 @@
 {
   "name": "organism-react-code",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "React Code Example",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/src/index.js",
@@ -16,6 +16,7 @@
     "organism-react-ajax": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
+    "call-func": "*",
     "ricon": "*"
   },
   "devDependencies": {
