@@ -20,7 +20,7 @@ class Dialog extends BasePopup {
     const {onClick} = this.props;
     if ('function' === typeof onClick) {
       // Locate befor this.popup.close()
-      // because need trigger befor closeCallback
+      // because need trigger befor onClose
       onClick(e, button);
     }
     this.popup.close();
@@ -66,8 +66,7 @@ class Dialog extends BasePopup {
         name={name}
         content={false}
         ref={el => (this.popup = el)}
-        {...props}
-      >
+        {...props}>
         {thisHeader}
         <Content>{children}</Content>
         <List type="actions">{thisButtons}</List>

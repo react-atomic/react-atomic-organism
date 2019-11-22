@@ -4,6 +4,7 @@ import get from 'get-object-value';
 
 import PopupModal from '../molecules/PopupModal';
 import DisplayPopupEl from '../organisms/DisplayPopupEl';
+import callfunc from 'call-func';
 
 class FullScreen extends PureComponent {
   xIcoEnter = () => {
@@ -23,11 +24,9 @@ class FullScreen extends PureComponent {
   };
 
   handleCloseCallback = () => {
-    const {closeCallback} = this.props;
+    const {onClose} = this.props;
     this._mounted = false;
-    if ('function' === typeof closeCallback) {
-      closeCallback();
-    }
+    callfunc(onClose);
   };
 
   getDefaultXIcon() {
@@ -55,7 +54,7 @@ class FullScreen extends PureComponent {
   }
 
   render() {
-    const {children, closeCallback} = this.props;
+    const {children, onClose} = this.props;
     const xico = this.getDefaultXIcon();
     return (
       <DisplayPopupEl>
@@ -69,7 +68,7 @@ class FullScreen extends PureComponent {
           modalStyle={Styles.modal}
           modal={children}
           closeEl={xico}
-          closeCallback={this.handleCloseCallback}
+          onClose={this.handleCloseCallback}
         />
       </DisplayPopupEl>
     );
