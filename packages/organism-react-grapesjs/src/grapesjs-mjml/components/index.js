@@ -1,4 +1,4 @@
-import mjml2html from 'mjml4-in-browser';
+import mjml2html from '../../mjml2html';
 import loadMjml from './mjml';
 import loadHead from './Head';
 import loadStyle from './Style';
@@ -169,15 +169,15 @@ export default (editor, opt = {}) => {
 
 
     getTemplateFromEl(sandboxEl) {
-      return sandboxEl.firstChild.innerHTML;
+      return sandboxEl && sandboxEl.firstChild && sandboxEl.firstChild.innerHTML;
     },
 
 
     getTemplateFromMjml() {
       let mjmlTmpl = this.getMjmlTemplate();
       let innerMjml = this.getInnerMjmlTemplate();
-      const htmlOutput = mjml2html(`${mjmlTmpl.start}
-        ${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`);
+      const mjmlCode =mjmlTmpl.start+innerMjml.start+innerMjml.end+mjmlTmpl.end;
+      const htmlOutput = mjml2html(mjmlCode);
       let html = htmlOutput.html;
       html = html.replace(/<body(.*)>/, '<body>');
       let start = html.indexOf('<body>') + 6;

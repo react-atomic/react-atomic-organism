@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.1.0-beta.7",
+  "version": "0.1.0-beta.13",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,7 +11,6 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "mjml4-in-browser": "1.1.2",
     "call-func": "*",
     "get-object-value": "*",
     "organism-react-iframe": "*",
@@ -24,20 +23,24 @@
     "enzyme-adapter-react-16": "*",
     "jsdom": "*",
     "jsdom-global": "*",
+    "mjml4-in-browser": "1.1.2",
     "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "react-test-renderer": "*",
+    "reshow-app": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:mjml": "npm run build && webpack && cp assets/mjml.bundle.js dist/mjml.js",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run test"
   },
   "files": [
+    "dist",
     "build",
     "package.json",
     "README.md"

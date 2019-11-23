@@ -21,9 +21,11 @@ const ERROR_HTML_INVALID_SYNTAX = 'HTML invalid syntax';
 
 class GrapesJsEdm extends Component {
   getAsset(fileName) {
-    const {assetPath} = this.props;
+    const {assetPath, assets} = this.props;
     if (assetPath) {
       return assetPath + fileName;
+    } else if (get(assets, [fileName])) {
+      return assets[fileName];
     } else {
       return defaultAssets[fileName];
     }

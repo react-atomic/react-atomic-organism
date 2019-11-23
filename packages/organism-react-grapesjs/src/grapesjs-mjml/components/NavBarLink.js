@@ -1,4 +1,4 @@
-import { isComponentType } from '.';
+import { isComponentType } from './index.js';
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
   const type = 'mj-navbar-link';

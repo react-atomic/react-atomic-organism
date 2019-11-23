@@ -4,6 +4,7 @@ import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get, {getDefault} from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
+import {setWindow} from '../../src/mjml2html'; 
 
 const defaultAssets = {
   'grapes.min.css':
@@ -13,6 +14,8 @@ const defaultAssets = {
   'ckeditor.js': 'https://cdn.jsdelivr.net/npm/ckeditor@4.6.2/ckeditor.js',
   'grapesjs-plugin-ckeditor.min.js':
     'https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js',
+  'mjml.js':
+    'https://cdn.jsdelivr.net/npm/organism-react-grapesjs@0.1.0-beta.10/dist/mjml.js',
 };
 
 const defaultMjml = `
@@ -29,9 +32,11 @@ const defaultMjml = `
 
 class GrapesJsMjml extends Component {
   getAsset(fileName) {
-    const {assetPath} = this.props;
+    const {assetPath, assets} = this.props;
     if (assetPath) {
       return assetPath + fileName;
+    } else if (get(assets, [fileName])) {
+      return assets[fileName];
     } else {
       return defaultAssets[fileName];
     }
@@ -106,11 +111,13 @@ class GrapesJsMjml extends Component {
   }
 
   handleLoad = e => {
-    this.iframeWindow = this.dIframe.contentWindow.window;
-    this.iframeWindow.debug = this;
+    const ifw = this.dIframe.contentWindow.window;
+    this.iframeWindow = ifw;
+    ifw.debug = this;
+    setWindow(ifw);
     let timer;
     timer = setInterval(() => {
-      if (this.iframeWindow.initEditor) {
+      if (ifw.initEditor && ifw.mjml2html) {
         clearInterval(timer);
         this.handleInitGrapesJS();
       }
@@ -254,6 +261,7 @@ class GrapesJsMjml extends Component {
       #root.hidden .loading {display: block; visibility: visible}
       #root.hidden {visibility: hidden}
       </style>
+      <script async src="${this.getAsset('mjml.js')}"></script>
       <script src="${this.getAsset('grapes.min.js')}"></script>
       <script src="${this.getAsset('ckeditor.js')}"></script>
       <script src="${this.getAsset(

@@ -8,3 +8,4 @@ coverage*
 v8.log
 build
 .*.sw?
+packages/organism-react-grapesjs/assets/

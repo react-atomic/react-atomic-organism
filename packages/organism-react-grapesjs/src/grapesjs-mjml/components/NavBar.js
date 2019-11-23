@@ -1,5 +1,5 @@
-import mjml2html from 'mjml4-in-browser';
-import { isComponentType } from '.';
+import mjml2html from '../../mjml2html';
+import { isComponentType } from './index.js';
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
   const type = 'mj-navbar';
