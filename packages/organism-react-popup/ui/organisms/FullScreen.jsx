@@ -7,6 +7,10 @@ import DisplayPopupEl from '../organisms/DisplayPopupEl';
 import callfunc from 'call-func';
 
 class FullScreen extends PureComponent {
+  static defaultProps = {
+    name: 'fullscreen'
+  }
+
   xIcoEnter = () => {
     setTimeout(() => {
       if (!this._mounted) {
