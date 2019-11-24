@@ -18,6 +18,7 @@ class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
     initialContent: '',
+    autoHeight: false
   };
 
   html = null;
@@ -30,7 +31,7 @@ class Iframe extends PureComponent {
     this.handleScript(div);
   };
 
-  postHeight = win => this.iframe.postHeight(this.getWindow());
+  postHeight = () => this.iframe.postHeight(this.getWindow());
 
   getBody = () => get(this.getDoc(), ['body']);
 
@@ -81,8 +82,18 @@ class Iframe extends PureComponent {
     }
   };
 
+  handleRef = el => this.iframe = el
+
+  handleRefCb = el => {
+    if (el) {
+      const {refCb} = this.props;
+      this.el = el;
+      callfunc(refCb, [el]);
+    }
+  }
+
   renderIframe(props, root) {
-    const {children} = props;
+    const {children, autoHeight} = props;
 
     // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
     setImmediate(() => {
@@ -98,6 +109,9 @@ class Iframe extends PureComponent {
           if (html !== this.html) {
             this.handleScript(root);
             this.handleClickLink();
+            if (autoHeight) {
+              this.postHeight();
+            }
           }
         },
       );
@@ -134,19 +148,17 @@ class Iframe extends PureComponent {
       children,
       keepTargetInIframe,
       refCb,
+      autoHeight,
       ...others
     } = this.props;
     return (
       <IframeContainer
         {...others}
-        ref={el => (this.iframe = el)}
-        refCb={el => {
-          if (el) {
-            this.el = el;
-            callfunc(refCb, [el]);
-          }
-        }}
-      />
+        ref={this.handleRef}
+        refCb={this.handleRefCb}
+      >
+      {()=>null}
+      </IframeContainer>
     );
   }
 }
