@@ -65,6 +65,7 @@ class IframeContainer extends PureComponent {
         style={{
           ...Styles.iframe,
           height: iframeH,
+          minHeight: iframeH,
           ...style,
         }}
         atom="iframe"
