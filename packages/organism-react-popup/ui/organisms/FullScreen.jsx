@@ -27,9 +27,8 @@ class FullScreen extends PureComponent {
     this.setState({xIcoHoverStyle: null});
   };
 
-  handleCloseCallback = () => {
+  handleClose = () => {
     const {onClose} = this.props;
-    this._mounted = false;
     callfunc(onClose);
   };
 
@@ -72,7 +71,7 @@ class FullScreen extends PureComponent {
           modalStyle={Styles.modal}
           modal={children}
           closeEl={xico}
-          onClose={this.handleCloseCallback}
+          onClose={this.handleClose}
         />
       </DisplayPopupEl>
     );
