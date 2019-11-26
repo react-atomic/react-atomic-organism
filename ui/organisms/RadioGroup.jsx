@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {mixClass, Field, SemanticUI} from 'react-atomic-molecule';
+import {lazyInject, mixClass, Field, SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import callfunc from 'call-func';
 import {FUNCTION} from 'reshow-constant';
@@ -68,6 +68,11 @@ class RadioGroup extends PureComponent {
     return value != null ? value : labelLocator(item);
   }
 
+  constructor(props) {
+    super(props);
+    injects = lazyInject(injects, InjectStyles);
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value, defaultValue, options} = nextProps;
     const thisValue = value != null ? value : defaultValue;
@@ -97,12 +102,15 @@ class RadioGroup extends PureComponent {
       valueLocator,
       labelLocator,
       checkedCallback,
+      'data-constraint-id': dataConstraintId,
       ...others
     } = this.props;
     const {current, value} = this.state;
     const classes = mixClass(fieldClassName, {
       grouped: !inline,
     });
+    const thisRadioProps = radioProps || {};
+    thisRadioProps['data-constraint-id'] = dataConstraintId;
 
     return (
       <Field inline={inline} label={label} fieldClassName={classes} {...others}>
@@ -110,7 +118,7 @@ class RadioGroup extends PureComponent {
           <Radio
             type="radio"
             key={key}
-            {...radioProps}
+            {...thisRadioProps}
             fieldStyle={radioFieldStyle}
             fieldStyles={radioFieldStyles}
             name={name}
@@ -127,3 +135,15 @@ class RadioGroup extends PureComponent {
 }
 
 export default RadioGroup;
+
+let injects;
+const InjectStyles = {
+  inlineRequired: [{
+    margin: '-.2em 0 0 .2em',
+    content: '*',
+    color: '#db2828',
+  }, '.required.fields.inline>label:after'],
+  cleanInlineRequired: [ {
+    display: 'none', 
+  }, '.required.fields:not(.grouped)>.field>.checkbox:after'],
+};
