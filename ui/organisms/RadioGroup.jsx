@@ -8,7 +8,7 @@ import {FUNCTION} from 'reshow-constant';
 import Radio from '../organisms/Checkbox';
 
 class RadioGroup extends PureComponent {
-  state = {value: null};
+  state = {value: null, error: ''};
 
   static propTypes = {
     options: PropTypes.array.isRequired,
@@ -68,6 +68,10 @@ class RadioGroup extends PureComponent {
     return value != null ? value : labelLocator(item);
   }
 
+  handleDisplayError(el, error) {
+    this.setState({error: error || ''});
+  }
+
   constructor(props) {
     super(props);
     injects = lazyInject(injects, InjectStyles);
@@ -105,13 +109,22 @@ class RadioGroup extends PureComponent {
       'data-constraint-id': dataConstraintId,
       ...others
     } = this.props;
-    const {current, value} = this.state;
-    const classes = mixClass(fieldClassName, {
+    const {current, value, error} = this.state;
+    const classes = mixClass('radio-group', fieldClassName, {
       grouped: !inline,
     });
     const thisRadioProps = radioProps || {};
     thisRadioProps['data-constraint-id'] = dataConstraintId;
 
+    if (error) {
+      others.messageType = 'error';
+      others.message = error;
+    }
+
+    /**
+     * Do not pass constraint (required) to childeren else will get foucus error
+     * such as "An invalid form control with name='xxx' is not focusable"..
+     */
     return (
       <Field inline={inline} label={label} fieldClassName={classes} {...others}>
         {(options || []).map((item, key) => (
@@ -138,12 +151,18 @@ export default RadioGroup;
 
 let injects;
 const InjectStyles = {
-  inlineRequired: [{
-    margin: '-.2em 0 0 .2em',
-    content: '*',
-    color: '#db2828',
-  }, '.required.fields.inline>label:after'],
-  cleanInlineRequired: [ {
-    display: 'none', 
-  }, '.required.fields:not(.grouped)>.field>.checkbox:after'],
+  inlineRequired: [
+    {
+      margin: '-.2em 0 0 .2em',
+      content: '*',
+      color: '#db2828',
+    },
+    '.required.fields.inline>label:after',
+  ],
+  cleanInlineRequired: [
+    {
+      display: 'none',
+    },
+    '.required.fields:not(.grouped)>.field>.checkbox:after',
+  ],
 };

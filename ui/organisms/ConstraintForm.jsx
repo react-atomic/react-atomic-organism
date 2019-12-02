@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {build, Form, Field} from 'react-atomic-molecule';
+import {mixClass, build, Form, Field} from 'react-atomic-molecule';
 import callfunc from 'call-func';
 
 let constraintId = 0;
@@ -17,13 +17,14 @@ class ConstraintField extends PureComponent {
     const {onValidate, onError} = this.props;
     el = el || this.el;
     let customState;
+    const setCustomState = s => customState = s
     const isOK = onValidate
-      ? callfunc(onValidate, [el, customState])
+      ? callfunc(onValidate, [el, this, setCustomState])
       : el.checkValidity();
     if (!isOK) {
       this.handleDisplayError(
         el,
-        callfunc(onError, [{el, state: {...el.validity, customState}}]),
+        onError ? callfunc(onError, [{el, state: {...el.validity, customState}}]) : customState,
         el.validationMessage,
       );
     } else {
@@ -73,7 +74,14 @@ class ConstraintField extends PureComponent {
   }
 
   render() {
-    const {component, compRef, onValidate, onError, onDisplayError, ...otherProps} = this.props;
+    const {
+      component,
+      compRef,
+      onValidate,
+      onError,
+      onDisplayError,
+      ...otherProps
+    } = this.props;
     const {constraintId} = this.state;
     if (constraintId) {
       otherProps['data-constraint-id'] = constraintId;
@@ -89,6 +97,9 @@ class ConstraintField extends PureComponent {
 }
 
 class ConstraintForm extends PureComponent {
+
+  state = {error: false} 
+
   static defaultProps = {
     component: Form,
   };
@@ -124,13 +135,21 @@ class ConstraintForm extends PureComponent {
     });
     if (!hasError) {
       callfunc(onSubmit, [e]);
+    } else {
+      this.setState({error: hasError});
     }
   };
 
   render() {
-    const {onSubmit, component, stop, ...otherProps} = this.props;
+    const {className, onSubmit, component, stop, ...otherProps} = this.props;
+    const {error} = this.state;
+    const classes = mixClass(className, {
+      error
+    });
+    
     return build(component)({
       ...otherProps,
+      className: classes,
       refCb: this.handleRefCb,
       onSubmit: this.handleSubmit,
     });
