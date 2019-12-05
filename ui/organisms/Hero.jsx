@@ -1,59 +1,34 @@
-import React, {
-    PureComponent,
-    cloneElement,
-    createElement
-} from 'react';
-import {
-   mixClass,
-   SemanticUI 
-} from 'react-atomic-molecule';
+import React from 'react';
+import {build, mixClass, SemanticUI} from 'react-atomic-molecule';
 
-class Hero extends PureComponent
-{
-    static defaultProps = {
-        component: SemanticUI,
-    }
+const Hero = props => {
+  const {className, component, backgroundImage, style, ...others} = props;
+  const thisStyle = {};
+  if (backgroundImage) {
+    thisStyle.backgroundImage = 'url(' + backgroundImage + ')';
+  }
+  const classes = mixClass(className, 'hero-component');
+  return build(component)({
+    style: {
+      ...Styles.hero,
+      ...style,
+      ...thisStyle,
+    },
+    className: classes,
+    ...others,
+  });
+};
 
-    render()
-    {
-	const {className, component, backgroundImage, style, ...others} = this.props;
-        let build;
-        if (React.isValidElement(component)) {
-            build = React.cloneElement;
-        } else {
-            build = React.createElement;
-        }
-        const thisStyle = {};
-        if (backgroundImage) {
-            thisStyle.backgroundImage = 'url('+backgroundImage+')';
-        }
-        const classes = mixClass(
-          className,
-          'hero-component'
-        );
-        return build(
-	    component,
-	    {
-		style: {
-		    ...Styles.hero,
-		    ...style,
-                    ...thisStyle,
-		},
-                className: classes,
-		...others
-	    } 
-        );
-    }
-}
+Hero.defaultProps = {component: SemanticUI};
 
 export default Hero;
 
 const Styles = {
-    hero: {
-        display: 'block',
-        minHeight: '100vh',
-        backgroundClip: 'content-box',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'
-    }
+  hero: {
+    display: 'block',
+    minHeight: '100vh',
+    backgroundClip: 'border-box',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  },
 };
