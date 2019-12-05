@@ -30,5 +30,6 @@ const Styles = {
     backgroundClip: 'border-box',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    backgroundPosition: '50% 50%',
   },
 };
