@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -17,7 +17,7 @@
     "d3-lib": "*",
     "get-object-value": "*",
     "getoffset": "*",
-    "organism-react-graph": "^0.1.0-beta",
+    "organism-react-graph": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
     "set-object-value": "*",
