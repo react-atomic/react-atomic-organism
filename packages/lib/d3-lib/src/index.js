@@ -260,10 +260,13 @@ const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
 /**
  * Events, DnD, Zoom
  */
-const d3DnD = ({el, start, end, drag, subject}) => {
+const d3DnD = ({el, container, touchable, start, end, drag, subject}) => {
   let dd = d3_drag();
-  if (el) {
-    dd = dd.container(el);
+  if (container) {
+    dd = dd.container(container);
+  }
+  if (touchable) {
+    dd = dd.touchable(touchable);
   }
   if (start) {
     dd = dd.on('start', start);
