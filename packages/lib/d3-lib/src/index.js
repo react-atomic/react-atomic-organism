@@ -261,7 +261,10 @@ const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
  * Events, DnD, Zoom
  */
 const d3DnD = ({el, start, end, drag, subject}) => {
-  let dd = d3_drag().container(el);
+  let dd = d3_drag();
+  if (el) {
+    dd = dd.container(el);
+  }
   if (start) {
     dd = dd.on('start', start);
   }
