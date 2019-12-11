@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-axis-chart",
-  "version": "0.1.25",
+  "version": "0.2.0",
   "description": "D3 Axis Chart",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -15,7 +15,7 @@
     "colorlib": "*",
     "d3-lib": "*",
     "getoffset": "*",
-    "organism-react-graph": "^0.1.0-beta",
+    "organism-react-graph": "*",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
