@@ -36,8 +36,8 @@ class DragAndDrop extends PureComponent {
     const {fromX, fromY} = this.start;
     const {absX, absY, onDrag, zoom} = this.props;
     const zoomK = get(callfunc(zoom), ['k'], 1);
-    const nextAbsX = absX + ((x - fromX) / zoomK);
-    const nextAbsY = absY + ((y - fromY) / zoomK);
+    const nextAbsX = absX + dx / zoomK;
+    const nextAbsY = absY + dy / zoomK;
     const destTarget = callfunc(
       doc().elementFromPoint,
       [thisEvent.clientX, thisEvent.clientY],
@@ -66,7 +66,7 @@ class DragAndDrop extends PureComponent {
   }
 
   handleElChange = el => {
-    if (el) {
+    if (el && (!this.el || !this.el.isSameNode(el))) {
       this.el = el;
       d3DnD({
         el,
