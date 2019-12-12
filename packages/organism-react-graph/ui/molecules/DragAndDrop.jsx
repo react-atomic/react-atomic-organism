@@ -33,7 +33,6 @@ class DragAndDrop extends PureComponent {
   handleDrag = () => {
     const {x, y, dx, dy, sourceEvent} = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
-    const {fromX, fromY} = this.start;
     const {absX, absY, onDrag, zoom} = this.props;
     const zoomK = get(callfunc(zoom), ['k'], 1);
     const nextAbsX = absX + dx / zoomK;
@@ -48,7 +47,7 @@ class DragAndDrop extends PureComponent {
     thisEvent.absX = nextAbsX;
     thisEvent.absY = nextAbsY;
     this.last = thisEvent;
-    callfunc(onDrag, [thisEvent]);
+    callfunc(onDrag, [thisEvent, this.start]);
   };
 
   handleEnd = () => {
