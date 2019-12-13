@@ -28,7 +28,7 @@ class DragAndDrop extends PureComponent {
       fromX,
       fromY,
       elStartX: elStartX - w,
-      elStartY: elStartY + h,
+      elStartY,
       zoomK,
     };
     thisEvent.start = this.start;
