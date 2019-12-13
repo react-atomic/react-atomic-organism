@@ -19,11 +19,16 @@ class DragAndDrop extends PureComponent {
   handleStart = () => {
     const {onDragStart, zoom} = this.props;
     const zoomK = get(callfunc(zoom), ['k'], 1);
-    const {x: fromX, y: fromY, sourceEvent} = d3Event();
+    const {x: startX, y: startY, sourceEvent} = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
+    const offset = getOffset(this.el);
+    const {top: fromY, left: fromX, w, h} = offset || {};
     this.start = {
-      fromX,
-      fromY,
+      offset,
+      startX,
+      startY,
+      fromX: fromX - w,
+      fromY: fromY + h,
       zoomK,
     };
     thisEvent.start = this.start;
