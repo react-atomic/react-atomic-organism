@@ -19,16 +19,16 @@ class DragAndDrop extends PureComponent {
   handleStart = () => {
     const {onDragStart, zoom} = this.props;
     const zoomK = get(callfunc(zoom), ['k'], 1);
-    const {x: startX, y: startY, sourceEvent} = d3Event();
+    const {x: fromX, y: fromY, sourceEvent} = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(this.el);
-    const {top: fromY, left: fromX, w, h} = offset || {};
+    const {left: elStartX, top: elStartY, w, h} = offset || {};
     this.start = {
       offset,
-      startX,
-      startY,
-      fromX: fromX - w,
-      fromY: fromY + h,
+      fromX,
+      fromY,
+      elStartX: elStartX - w,
+      elStartY: elStartY + h,
       zoomK,
     };
     thisEvent.start = this.start;
@@ -59,6 +59,8 @@ class DragAndDrop extends PureComponent {
     const {onDragEnd} = this.props;
     const sourceEvent = d3Event().sourceEvent;
     const thisEvent = unifyTouch(sourceEvent);
+    const offset = getOffset(this.el);
+    this.last.offset = offset;
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.last = this.last;
     thisEvent.start = this.start;
