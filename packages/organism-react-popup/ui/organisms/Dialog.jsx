@@ -1,6 +1,13 @@
-import React, {cloneElement} from 'react';
+import React from 'react';
 
-import {mixClass, Header, Content, List, Button} from 'react-atomic-molecule';
+import {
+  build,
+  mixClass,
+  Header,
+  Content,
+  List,
+  Button,
+} from 'react-atomic-molecule';
 
 import PopupModal from '../molecules/PopupModal';
 import BasePopup from '../molecules/BasePopup';
@@ -55,7 +62,7 @@ class Dialog extends BasePopup {
       ];
     }
     thisButtons = thisButtons.map(button =>
-      cloneElement(button, {
+      build(button)({
         onClick: this.handleClick.bind(this, button),
       }),
     );

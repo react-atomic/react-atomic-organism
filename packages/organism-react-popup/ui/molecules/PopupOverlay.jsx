@@ -1,4 +1,4 @@
-import React, {cloneElement} from 'react';
+import React from 'react';
 import {connect} from 'reshow-flux';
 import get from 'get-object-value';
 import {mixClass, SemanticUI} from 'react-atomic-molecule';

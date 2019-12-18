@@ -7,11 +7,7 @@ class DisplayPopupEl extends PureComponent {
   _mount = false;
 
   getChildren() {
-    let {children} = this.props;
-    if (isArray(children)) {
-      children = children[0];
-    }
-    return children;
+    return this.props.children;
   }
 
   setFloat() {

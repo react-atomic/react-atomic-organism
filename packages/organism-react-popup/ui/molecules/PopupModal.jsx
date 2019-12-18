@@ -1,7 +1,7 @@
 require('setimmediate');
-import React, {isValidElement, cloneElement} from 'react';
+import React, {isValidElement} from 'react';
 import {connect} from 'reshow-flux';
-import {reactStyle, Dimmer, SemanticUI} from 'react-atomic-molecule';
+import {build, reactStyle, Dimmer, SemanticUI} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset';
@@ -32,6 +32,16 @@ class PopupModal extends PopupOverlay {
 
   handleClick = () => {
     this.close();
+  };
+
+  handleModalRefCb = el => {
+    this.el = el;
+    this.reCalculate();
+  };
+
+  handleModalClick = cb => e => {
+    e.stopPropagation();
+    callfunc(cb, [e]);
   };
 
   close() {
@@ -169,7 +179,7 @@ class PopupModal extends PopupOverlay {
           containerClick = this.handleClick;
         }
       } else {
-        thisCloseEl = React.cloneElement(closeEl, {
+        thisCloseEl = build(closeEl)({
           onClick: this.handleClick,
           key: 'close',
           style: {
@@ -194,16 +204,8 @@ class PopupModal extends PopupOverlay {
       if (isValidElement(thisModal)) {
         const orgModalOnClick = get(thisModal, ['props', 'onClick']);
         thisModal = cloneElement(thisModal, {
-          refCb: el => {
-            this.el = el;
-            this.reCalculate();
-          },
-          onClick: (e, ...params) => {
-            e.stopPropagation();
-            if ('function' === typeof orgModalOnClick) {
-              orgModalOnClick(e, ...params);
-            }
-          },
+          refCb: this.handleModalRefCb,
+          onClick: this.handleModalClick(orgModalOnClick),
           styles: reactStyle(
             {
               ...Styles.modal,

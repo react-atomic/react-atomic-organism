@@ -1,6 +1,6 @@
-import React, {Component, cloneElement} from 'react'; 
+import React, {Component} from 'react'; 
 import { connect } from 'reshow-flux';
-import { SemanticUI } from 'react-atomic-molecule'; 
+import { build, SemanticUI } from 'react-atomic-molecule'; 
 import get from 'get-object-value';
 
 import { popupStore } from '../../src/index';
@@ -9,6 +9,10 @@ const keys = Object.keys;
 
 class PopupPool extends Component
 {
+    static defaultProps = {
+      component: SemanticUI
+    }
+
     static getStores()
     {
         return [popupStore];
@@ -26,10 +30,7 @@ class PopupPool extends Component
                 return;
             }
 
-            node = cloneElement (
-                node,
-                {key} 
-            );
+            node = build( node) ( {key} );
             pops.push(node); 
         });
         return { pops };
@@ -39,7 +40,12 @@ class PopupPool extends Component
     {
         const {pops} = this.state;
         if (pops.length) {
-            return <SemanticUI className="popup-pool" ui={false} {...this.props}>{pops}</SemanticUI>;
+            const {component, ...otherProps} = this.props;
+            return build(component)({
+              className: 'popup-pool',
+              ui: false,
+              ...otherProps
+            }, pops);
         } else {
             return null;
         }

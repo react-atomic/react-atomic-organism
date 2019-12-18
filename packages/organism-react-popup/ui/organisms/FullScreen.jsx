@@ -5,6 +5,7 @@ import get from 'get-object-value';
 import PopupModal from '../molecules/PopupModal';
 import DisplayPopupEl from '../organisms/DisplayPopupEl';
 import callfunc from 'call-func';
+import {popupDispatch} from '../../src/popupDispatcher';
 
 class FullScreen extends PureComponent {
   static defaultProps = {
@@ -28,8 +29,16 @@ class FullScreen extends PureComponent {
   };
 
   handleClose = () => {
-    const {onClose} = this.props;
+    const {onClose, removeOnClose} = this.props;
     callfunc(onClose);
+    if (removeOnClose) { 
+      popupDispatch({
+        type: 'dom/cleanOne',
+        params: {
+          popup: this,
+        },
+      });
+    }
   };
 
   getDefaultXIcon() {
@@ -57,7 +66,7 @@ class FullScreen extends PureComponent {
   }
 
   render() {
-    const {children, onClose} = this.props;
+    const {children, onClose, toPool} = this.props;
     const xico = this.getDefaultXIcon();
     return (
       <DisplayPopupEl>
@@ -72,6 +81,7 @@ class FullScreen extends PureComponent {
           modal={children}
           closeEl={xico}
           onClose={this.handleClose}
+          toPool={toPool}
         />
       </DisplayPopupEl>
     );
