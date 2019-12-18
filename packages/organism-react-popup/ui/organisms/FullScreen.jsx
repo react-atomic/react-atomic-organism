@@ -1,10 +1,11 @@
 import React, {PureComponent} from 'react';
 import XIco from 'ricon/X';
 import get from 'get-object-value';
+import callfunc from 'call-func';
+import {mixClass} from 'react-atomic-molecule';
 
 import PopupModal from '../molecules/PopupModal';
 import DisplayPopupEl from '../organisms/DisplayPopupEl';
-import callfunc from 'call-func';
 import {popupDispatch} from '../../src/popupDispatcher';
 
 class FullScreen extends PureComponent {
@@ -66,16 +67,16 @@ class FullScreen extends PureComponent {
   }
 
   render() {
-    const {children, onClose, toPool} = this.props;
+    const {children, className, style, onClose, toPool} = this.props;
     const xico = this.getDefaultXIcon();
     return (
       <DisplayPopupEl>
         <PopupModal
           appear="fadeIn-500"
           enter="fadeIn-500"
-          className="full-screen"
+          className={mixClass('full-screen', className)}
           scrolling={true}
-          style={Styles.container}
+          style={{...Styles.container, ...style}}
           modalClassName="basic"
           modalStyle={Styles.modal}
           modal={children}

@@ -10,6 +10,7 @@ import arrayMerge from 'array.merge';
 import {removeClass, mixClass} from 'class-lib';
 import callfunc from 'call-func';
 import {win, doc} from 'win-doc';
+import {UNDEFINED} from 'reshow-constant';
 
 import {PopupOverlay} from '../molecules/PopupOverlay';
 import {popupDispatch} from '../../src/index';
@@ -168,6 +169,7 @@ class PopupModal extends PopupOverlay {
       closeCallback,
       onClose,
       className,
+      contentClassName,
       ...others
     } = this.props;
     let containerClick = null;
@@ -191,7 +193,7 @@ class PopupModal extends PopupOverlay {
         });
       }
       let thisModal = modal;
-      if ('undefined' === typeof thisModal) {
+      if (UNDEFINED === typeof thisModal) {
         thisModal = (
           <Dimmer
             {...others}
@@ -229,7 +231,7 @@ class PopupModal extends PopupOverlay {
         );
         content = (
           <Dimmer
-            className="page modals"
+            className={mixClass('page modals', contentClassName)}
             show={stateShow}
             center={false}
             styles={thisStyles}
