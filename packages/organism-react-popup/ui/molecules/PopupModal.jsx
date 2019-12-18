@@ -154,12 +154,13 @@ class PopupModal extends PopupOverlay {
       leave,
       style,
       styles,
+      contentStyle,
       modal,
       modalClassName,
       modalStyle,
-      contentStyle,
       mask,
       maskScroll,
+      toPool,
       closeEl,
       /**
        * closeCallback will deprecate
@@ -203,7 +204,7 @@ class PopupModal extends PopupOverlay {
       }
       if (isValidElement(thisModal)) {
         const orgModalOnClick = get(thisModal, ['props', 'onClick']);
-        thisModal = cloneElement(thisModal, {
+        thisModal = build(thisModal)({
           refCb: this.handleModalRefCb,
           onClick: this.handleModalClick(orgModalOnClick),
           styles: reactStyle(
