@@ -5,13 +5,13 @@ import Iframe from 'organism-react-iframe';
 import {reshow, pageStore} from 'reshow';
 import get from 'get-object-value';
 import {ajaxStore} from 'organism-react-ajax';
+import {win} from 'win-doc';
 
 import i13nStore from '../../src/stores/i13nStore';
 import {i13nDispatch} from '../../src/index';
 
 const keys = Object.keys;
 const urlDecode = decodeURIComponent;
-let win;
 
 class MonitorPvid extends Component
 {
@@ -128,7 +128,6 @@ class I13nElement extends PureComponent
 
     update()
     {
-        const self = this;
         const {I13N} = this.state;
         let query = {};
         if (win && win.startUpTime) {
@@ -149,7 +148,7 @@ class I13nElement extends PureComponent
                     query,
                     I13N: i13n,
                     callback: (json, text) => {
-                        self.setState({
+                        this.setState({
                             iframe: text
                         });
                     },
@@ -168,12 +167,12 @@ class I13nElement extends PureComponent
 
     componentDidMount() 
     {
-        win = window;
-        win.i13nDispatch = i13nDispatch;
+        const {I18N, ...otherProps} = this.props;
+        win().i13nDispatch = i13nDispatch;
         i13nDispatch(
             'config/set',
             {
-                ...this.props,
+                ...otherProps,
                 element: this
             }
         )
