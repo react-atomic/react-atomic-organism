@@ -3,23 +3,25 @@ import {win, doc} from 'win-doc';
 import {FUNCTION, STRING, SCRIPT} from 'reshow-constant';
 import callfunc from 'call-func';
 
-const inlineScripts = {};
-const queueScripts = [];
 let scriptCount = 0;
-let getScript;
 let lastScript;
-let lastScripts = [];
-
 const keys = Object.keys;
-
 const getLastScript = () => lastScript;
 
-const handleScriptOnload = (win, errCb, cb) => (i, origScript) => {
+const handleScriptOnload = ({
+  oWin,
+  errCb,
+  cb,
+  inlineScripts,
+  queueScripts,
+  lastScripts,
+  getScript,
+}) => (i, origScript) => {
   if (inlineScripts[i] && inlineScripts[i].length) {
     inlineScripts[i].forEach(script => {
       try {
         lastScript = script;
-        win.eval('(' + FUNCTION + '(){' + script + '}())');
+        oWin.eval('(' + FUNCTION + '(){' + script + '}())');
       } catch (e) {
         if (FUNCTION !== typeof errCb) {
           throw e;
@@ -47,8 +49,10 @@ const handleScriptOnload = (win, errCb, cb) => (i, origScript) => {
 const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   oWin = oWin || win();
   jsBase = jsBase || doc(oWin).body;
-  const onLoad = handleScriptOnload(oWin, errCb, cb);
-  getScript = origScript => {
+  const inlineScripts = {};
+  const queueScripts = [];
+  let lastScripts = [];
+  const getScript = origScript => {
     const {key, asyncKey} = origScript.attributes;
     let callback = null;
     if (key) {
@@ -62,6 +66,15 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     ]);
     return loadScript;
   };
+  const onLoad = handleScriptOnload({
+    oWin,
+    errCb,
+    cb,
+    inlineScripts,
+    queueScripts,
+    lastScripts,
+    getScript,
+  });
   const thisEl = STRING === typeof el ? create('div')()({innerHTML: el}) : el;
   const scripts = thisEl.getElementsByTagName(SCRIPT);
   const getNewKey = () => {

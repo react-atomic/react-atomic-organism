@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import gJsdom from 'jsdom-global';
 
-import exec from '../cjs/src/index.js';
+import exec from '../index.js';
 import callfunc from 'call-func';
 
 describe('Exec Script', () => {
