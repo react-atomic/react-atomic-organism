@@ -1,6 +1,6 @@
 {
   "name": "organism-react-codeeditor",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React Simple Html Editor",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,11 +13,11 @@
   "license": "MIT",
   "dependencies": {
     "call-func": "*",
+    "fix-html": "*",
     "organism-react-iframe": "*",
     "organism-react-popup": "*",
     "reshow-constant": "*",
-    "ricon": "*",
-    "fix-html": "*"
+    "ricon": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

@@ -3,6 +3,8 @@ import {popupDispatch, FullScreen} from 'organism-react-popup';
 import {build, SemanticUI, Unsafe} from 'react-atomic-molecule';
 import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
+import fixHtml from 'fix-html';
+
 import Preview from '../organisms/Preview';
 
 const openCodeEditor = (code, cb) => {
@@ -20,7 +22,8 @@ class CodeEditor extends PureComponent {
   state = {code: ''};
 
   getHtml() {
-    return fixHtml(this.codemirror.getValue());
+    const html = this.codemirror ? this.codemirror.getValue() : '';
+    return fixHtml(html);
   }
 
   getCode() {
