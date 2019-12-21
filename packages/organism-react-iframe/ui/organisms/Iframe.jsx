@@ -156,9 +156,7 @@ class Iframe extends PureComponent {
         {...others}
         ref={this.handleRef}
         refCb={this.handleRefCb}
-      >
-      {()=>null}
-      </IframeContainer>
+      />
     );
   }
 }
