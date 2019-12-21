@@ -7,7 +7,7 @@ import getScrollInfo from 'get-scroll-info';
 import getOffset from 'getoffset';
 import get from 'get-object-value';
 import arrayMerge from 'array.merge';
-import {removeClass, mixClass} from 'class-lib';
+import {removeClass, hasClass, mixClass} from 'class-lib';
 import callfunc from 'call-func';
 import {win, doc} from 'win-doc';
 import {UNDEFINED} from 'reshow-constant';
@@ -124,13 +124,17 @@ class PopupModal extends PopupOverlay {
   }
 
   detach() {
-    this.resetBodyClassName();
-    win().removeEventListener('resize', this.reCalculate);
     /**
      * closeCallback will deprecate
      */
-    const {closeCallback, onClose} = this.props;
-    callfunc(onClose || closeCallback);
+    if ( hasClass( get(doc(), ['body', 'className']), 'dimmed' ) ) {
+      const {closeCallback, onClose} = this.props;
+      callfunc(onClose || closeCallback);
+    }
+
+    // do detach
+    this.resetBodyClassName();
+    win().removeEventListener('resize', this.reCalculate);
   }
 
   componentWillUnmount() {
