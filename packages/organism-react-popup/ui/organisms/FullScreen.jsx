@@ -10,8 +10,8 @@ import {popupDispatch} from '../../src/popupDispatcher';
 
 class FullScreen extends PureComponent {
   static defaultProps = {
-    name: 'fullscreen'
-  }
+    name: 'fullscreen',
+  };
 
   xIcoEnter = () => {
     setTimeout(() => {
@@ -32,13 +32,16 @@ class FullScreen extends PureComponent {
   handleClose = () => {
     const {onClose, removeOnClose} = this.props;
     callfunc(onClose);
-    if (removeOnClose) { 
-      popupDispatch({
-        type: 'dom/cleanOne',
-        params: {
-          popup: this,
-        },
-      });
+    if (removeOnClose) {
+      // use setTimeout to avoid call setState druing render 
+      setTimeout(() =>
+        popupDispatch({
+          type: 'dom/cleanOne',
+          params: {
+            popup: this,
+          },
+        }),
+      );
     }
   };
 
