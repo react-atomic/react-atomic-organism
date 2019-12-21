@@ -52,11 +52,6 @@ class PopupModal extends PopupOverlay {
         popup: this,
       },
     });
-    /**
-     * closeCallback will deprecate
-     */
-    const {closeCallback, onClose} = this.props;
-    callfunc(onClose || closeCallback);
   }
 
   reCalculate = () => {
@@ -131,6 +126,11 @@ class PopupModal extends PopupOverlay {
   detach() {
     this.resetBodyClassName();
     win().removeEventListener('resize', this.reCalculate);
+    /**
+     * closeCallback will deprecate
+     */
+    const {closeCallback, onClose} = this.props;
+    callfunc(onClose || closeCallback);
   }
 
   componentWillUnmount() {
