@@ -4,16 +4,11 @@ import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get, {getDefault} from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
+
 import {setWindow} from '../../src/mjml2html'; 
+import getAsset from '../../src/getAsset';
 
 const defaultAssets = {
-  'grapes.min.css':
-    'https://cdn.jsdelivr.net/npm/grapesjs@0.15.3/dist/css/grapes.min.css',
-  'grapes.min.js':
-    'https://cdn.jsdelivr.net/npm/grapesjs@0.15.3/dist/grapes.min.js',
-  'ckeditor.js': 'https://cdn.jsdelivr.net/npm/ckeditor@4.6.2/ckeditor.js',
-  'grapesjs-plugin-ckeditor.min.js':
-    'https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js',
   'mjml.js':
     'https://cdn.jsdelivr.net/npm/organism-react-grapesjs@0.1.0-beta.10/dist/mjml.js',
 };
@@ -32,14 +27,7 @@ const defaultMjml = `
 
 class GrapesJsMjml extends Component {
   getAsset(fileName) {
-    const {assetPath, assets} = this.props;
-    if (assetPath) {
-      return assetPath + fileName;
-    } else if (get(assets, [fileName])) {
-      return assets[fileName];
-    } else {
-      return defaultAssets[fileName];
-    }
+    return getAsset(fileName, this.props, defaultAssets);
   }
 
   resetUploadField() {

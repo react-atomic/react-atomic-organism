@@ -4,31 +4,40 @@ import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
 import get from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
+import {popupDispatch, FullScreen} from 'organism-react-popup';
+import {openCodeEditor} from 'organism-react-codeeditor';
+import fixHtml from 'fix-html';
+
+import getAsset from '../../src/getAsset';
 
 const defaultAssets = {
-  'grapes.min.css':
-    'https://cdn.jsdelivr.net/npm/grapesjs@0.15.3/dist/css/grapes.min.css',
-  'grapes.min.js':
-    'https://cdn.jsdelivr.net/npm/grapesjs@0.15.3/dist/grapes.min.js',
-  'ckeditor.js': 'https://cdn.jsdelivr.net/npm/ckeditor@4.6.2/ckeditor.js',
-  'grapesjs-plugin-ckeditor.min.js':
-    'https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js',
   'grapesjs-preset-newsletter.min.js':
     'https://cdn.jsdelivr.net/npm/grapesjs-preset-newsletter@0.2.15/dist/grapesjs-preset-newsletter.min.js',
 };
 
+const cleanClassReg = /(class\=")([^"]*)(c\d{0,4})(\s)?([^"]*)/g
+
 const ERROR_HTML_INVALID_SYNTAX = 'HTML invalid syntax';
+
+const initViewSource = host => {
+  const panelManager = host.getPanel();
+  panelManager.addButton('options', [
+    {
+      id: 'edit-code',
+      className: 'gjs-pn-btn fa fa-code',
+      command: function(editor1, sender) {
+        openCodeEditor(host.getHtml(), code => {
+          host.getEditor().setComponents(code);
+        });
+      },
+      attributes: {title: 'Edit Html'},
+    },
+  ]);
+};
 
 class GrapesJsEdm extends Component {
   getAsset(fileName) {
-    const {assetPath, assets} = this.props;
-    if (assetPath) {
-      return assetPath + fileName;
-    } else if (get(assets, [fileName])) {
-      return assets[fileName];
-    } else {
-      return defaultAssets[fileName];
-    }
+    return getAsset(fileName, this.props, defaultAssets);
   }
 
   resetUploadField() {
@@ -56,20 +65,31 @@ class GrapesJsEdm extends Component {
     if (!this.beforeGetHtml()) {
       return;
     }
-    const editor = this.editor;
-    let html = editor.getHtml() + `<style>${editor.getCss()}</style>`;
+    let html = this.getDesign();
     if (html) {
-      html = html.trim();
-      const css = editor.getCss();
-      if (css) {
-        html += `<style>${css}</style>`;
-      }
+      html = `
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+${html}
+</body>
+</html>
+`;
       return html;
     }
   }
 
   getDesign() {
-    return this.getHtml();
+    const editor = this.editor;
+    let html = editor.runCommand('gjs-get-inlined-html');
+    if (html) {
+      return html.trim().replace(cleanClassReg, '$1$5');
+    }
   }
 
   updateImages(images) {
@@ -90,13 +110,6 @@ class GrapesJsEdm extends Component {
 
   handleIframe = el => {
     this.dIframe = el;
-  };
-
-  handleRemoveContent = e => {
-    const tagName = get(e, ['attributes', 'tagName']);
-    if ('mj-container' === tagName) {
-      this.editor.setComponents('');
-    }
   };
 
   handleRemoveAsset = asset => {
@@ -149,6 +162,8 @@ class GrapesJsEdm extends Component {
       init,
     } = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
+    CKEDITOR.dtd.$editable.span = 1;
+    CKEDITOR.dtd.$editable.a = 1;
     let extraPlugins = 'sharedspace,justify,colorbutton,panelbutton,font';
     const fontItems = font ? ['Font'] : [];
     fontItems.push('FontSize');
@@ -214,31 +229,23 @@ class GrapesJsEdm extends Component {
     this.editor = this.iframeWindow.initEditor(initGrapesJS);
     this.initGrapesJS = initGrapesJS;
     this.editor.on('load', this.handleEditorLoad);
-    this.editor.on('component:remove', this.handleRemoveContent);
     this.editor.on('asset:remove', this.handleRemoveAsset);
     callfunc(onEditorInit, [{editor: this.editor, component: this}]);
   };
 
   handleEditorLoad = () => {
-    const {onEditorLoad, onError, design, images} = this.props;
+    const {host, onEditorLoad, onError, design, images} = this.props;
     const doc = this.iframeWindow.document;
-    this.editor.runCommand('core:open-blocks');
     this.updateImages(get(images));
     try {
-      this.editor.setComponents(design);
+      this.editor.setComponents(fixHtml(design));
     } catch (e) {
       callfunc(onError, [{e, design, message: ERROR_HTML_INVALID_SYNTAX}]);
       console.warn({e, design});
     }
-    const css = queryFrom(
-      get(queryFrom(this.iframeWindow.document).one('iframe'), [
-        'contentWindow',
-        'window',
-        'document',
-      ]),
-    );
     doc.getElementById('root').className = '';
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
+    initViewSource(host);
   };
 
   render() {
@@ -261,7 +268,6 @@ class GrapesJsEdm extends Component {
         'grapesjs-preset-newsletter.min.js',
       )}"></script>
       <script>
-      CKEDITOR.dtd.$editable.a = 1;
       window.initEditor = function(init) {
          return grapesjs.init(init); 
       };

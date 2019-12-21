@@ -29,23 +29,36 @@ class GrapesJsController extends Component {
     return this.el && this.el.getDesign && this.el.getDesign();
   }
 
+  getEditor() {
+    return this.editor;
+  }
+
   disableImport() {
     const type = this.getType();
-    if ('html' === type) {
-      return;
-    }
     const panelManager = this.getPanel();
     const btnName = this.el.getImportButtonName();
+    if ('html' === type) {
+      const button = panelManager.getButton('options', btnName);
+      button.set('attributes', {
+        style: "display:none",
+      });
+      return;
+    }
     return panelManager.removeButton('options', btnName);
   }
 
   disableExport() {
     const type = this.getType();
-    if ('html' === type) {
-      return;
-    }
     const panelManager = this.getPanel();
-    return panelManager.removeButton('options', 'export-template');
+    if ('html' === type) {
+      const button = panelManager.getButton('options', 'export-template');
+      button.set('attributes', {
+        style: "display:none",
+      });
+      return;
+    } else {
+      return panelManager.removeButton('options', 'export-template');
+    }
   }
 
   handleMergeTags(mergeTags, CKEDITOR, extraPlugins, toolbar) {

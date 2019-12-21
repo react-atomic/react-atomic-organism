@@ -12,8 +12,11 @@
   "license": "MIT",
   "dependencies": {
     "call-func": "*",
+    "fix-html": "*",
     "get-object-value": "*",
+    "organism-react-codeeditor": "*",
     "organism-react-iframe": "*",
+    "organism-react-popup": "*",
     "react-atomic-molecule": "*"
   },
   "devDependencies": {

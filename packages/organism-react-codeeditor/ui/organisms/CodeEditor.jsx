@@ -57,18 +57,20 @@ class CodeEditor extends PureComponent {
         lineWrapping: true,
       },
     );
+    this.codemirror = codemirror;
     codemirror.setSize(null, '100%');
     const update = editor => {
       this.preview.setValue(this.getCode());
     };
     codemirror.on('change', update);
-    update(codemirror);
     codemirror.autoFormatRange(
       {line: 0, ch: 0},
       {line: codemirror.lineCount()},
     );
     codemirror.setCursor({line: 0, ch: 0});
-    this.codemirror = codemirror;
+
+    // better to keep update at last
+    update(codemirror);
   };
 
   handleClose = () => {
