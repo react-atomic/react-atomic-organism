@@ -1,9 +1,9 @@
 {
   "name": "fix-html",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Simple tip to resolve html error",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
@@ -13,11 +13,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "w3c-xmlserializer": "*",
     "chai": "*",
     "jsdom": "*",
     "jsdom-global": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "w3c-xmlserializer": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
