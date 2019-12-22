@@ -6,7 +6,6 @@ import getOffset from 'getoffset';
 import smoothScrollTo from 'smooth-scroll-to';
 import exec from 'exec-script';
 import {SemanticUI, Unsafe} from 'react-atomic-molecule';
-import {js} from 'create-el';
 import {queryFrom} from 'css-query-selector';
 import callfunc from 'call-func';
 
@@ -18,7 +17,7 @@ class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
     initialContent: '',
-    autoHeight: false
+    autoHeight: false,
   };
 
   html = null;
@@ -39,8 +38,8 @@ class Iframe extends PureComponent {
 
   getWindow = () => get(this.el, ['contentWindow', 'window']);
 
-  handleClickLink() {
-    const {keepTargetInIframe} = this.props;
+  handleLinkClick() {
+    const {keepTargetInIframe, onLinkClick} = this.props;
     const body = this.getBody();
     if (!body) {
       return;
@@ -56,12 +55,23 @@ class Iframe extends PureComponent {
       if (link.target && '_blank' === link.target.toLowerCase()) {
         return;
       }
-      if (link.hash) {
+
+      const isContinue = callfunc(onLinkClick, [e, link]);
+
+      if (false === isContinue) {
         e.preventDefault();
+        return;
+      }
+
+      if (link.hash) {
         const tarDom = query.one(link.hash);
         if (tarDom) {
-          smoothScrollTo(getOffset(tarDom).top);
-          return;
+          const URI = document.location;
+          if (URI.pathname === link.pathname && URI.host === link.host) {
+            e.preventDefault();
+            smoothScrollTo(getOffset(tarDom).top);
+            return;
+          }
         }
       }
       if (keepTargetInIframe) {
@@ -82,7 +92,7 @@ class Iframe extends PureComponent {
     }
   };
 
-  handleRef = el => this.iframe = el
+  handleRef = el => (this.iframe = el);
 
   handleRefCb = el => {
     if (el) {
@@ -90,7 +100,7 @@ class Iframe extends PureComponent {
       this.el = el;
       callfunc(refCb, [el]);
     }
-  }
+  };
 
   renderIframe(props, root) {
     const {children, autoHeight} = props;
@@ -108,9 +118,9 @@ class Iframe extends PureComponent {
           const html = root.innerHTML;
           if (html !== this.html) {
             this.handleScript(root);
-            this.handleClickLink();
+            this.handleLinkClick();
             if (autoHeight) {
-              this.postHeight();
+              this.autoHeightTimer = setTimeout(() => this.postHeight(), 500);
             }
           }
         },
@@ -138,6 +148,9 @@ class Iframe extends PureComponent {
   }
 
   componentWillUnmount() {
+    if (this.autoHeightTimer) {
+      clearTimeout(this.autoHeightTimer);
+    }
     // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
     ReactDOM.unmountComponentAtNode(this.root);
   }
@@ -149,6 +162,7 @@ class Iframe extends PureComponent {
       keepTargetInIframe,
       refCb,
       autoHeight,
+      onLinkClick,
       ...others
     } = this.props;
     return (
