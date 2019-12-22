@@ -38,14 +38,9 @@ class Iframe extends PureComponent {
 
   getWindow = () => get(this.el, ['contentWindow', 'window']);
 
-  handleLinkClick() {
-    const {keepTargetInIframe, onLinkClick} = this.props;
-    const body = this.getBody();
-    if (!body) {
-      return;
-    }
-    const query = queryFrom(() => body);
-    body.addEventListener('click', e => {
+  handleBodyClick = e => {
+      const {keepTargetInIframe, onLinkClick} = this.props;
+      const query = queryFrom(() => this.getBody());
       const evTarget = e.target;
       const link =
         evTarget.nodeName === 'A' ? evTarget : query.ancestor(evTarget, 'a');
@@ -82,7 +77,15 @@ class Iframe extends PureComponent {
           location.href = link.href;
         }
       }
-    });
+  };
+
+  handleLinkClick() {
+    const body = this.getBody();
+    if (!body) {
+      return;
+    }
+    body.removeEventListener('click', this.handleBodyClick);
+    body.addEventListener('click', this.handleBodyClick);
   }
 
   handleScript = el => {
