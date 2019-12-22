@@ -31,18 +31,12 @@ class Asciidoc extends PureComponent {
               ${JSON.stringify(options,)}
             );
 	    document.getElementById('output').innerHTML = html;
-	    setTimeout(function(){
-		parent.window.postMessage({
-		    type: 'iframeH|asciidoc',
-		    h: document.body.offsetHeight,
-		}, '*')
-	    },100);
         </script>
         `,
     ].join('');
 
     return (
-      <Iframe scrolling="no">
+      <Iframe scrolling="no" autoHeight>
         <Unsafe>{html}</Unsafe>
       </Iframe>
     );

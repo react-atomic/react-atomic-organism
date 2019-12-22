@@ -1,6 +1,6 @@
 {
   "name": "organism-react-asciidoc",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Rendering asciidoc to iFrames with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,10 +11,10 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "organism-react-iframe": "*",
     "get-object-value": "*",
-    "reshow-runtime": "*",
-    "react-atomic-molecule": "*"
+    "organism-react-iframe": "*",
+    "react-atomic-molecule": "*",
+    "reshow-runtime": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
