@@ -156,7 +156,9 @@ class Iframe extends PureComponent {
     if (this.autoHeightTimer) {
       clearTimeout(this.autoHeightTimer);
     }
-    this.execStop();
+
+    callfunc(this.execStop);
+
     // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
     unmountComponentAtNode(this.root);
   }
