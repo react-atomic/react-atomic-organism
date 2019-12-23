@@ -39,7 +39,7 @@ const inject = (base, isStart) => dNode => {
 
 const create = tag => callback => attrs => {
   const d = doc();
-  if (d) {
+  if (d.createElement) {
     const dNode = d.createElement(tag);
     if (attrs) {
       keys(attrs).forEach(key => (dNode[key] = attrs[key]));
