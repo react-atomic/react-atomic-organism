@@ -22,6 +22,8 @@ class Iframe extends PureComponent {
 
   html = null;
 
+  execStop = null;
+
   appendHtml = html => {
     let div = document.createElement('div');
     div.innerHTML = html;
@@ -91,7 +93,7 @@ class Iframe extends PureComponent {
   handleScript = el => {
     const win = this.getWindow();
     if (win) {
-      exec(el, win, this.root.parentNode);
+      this.execStop = exec(el, win, this.root.parentNode);
     }
   };
 
@@ -154,6 +156,7 @@ class Iframe extends PureComponent {
     if (this.autoHeightTimer) {
       clearTimeout(this.autoHeightTimer);
     }
+    this.execStop();
     // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
     unmountComponentAtNode(this.root);
   }
