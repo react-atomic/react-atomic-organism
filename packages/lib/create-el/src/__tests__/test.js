@@ -1,4 +1,4 @@
-import {js, css, create} from '../cjs/src/index'; 
+import {js, css, create} from '../index'; 
 import {expect} from 'chai';
 
 

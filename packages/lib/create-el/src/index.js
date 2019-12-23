@@ -39,22 +39,24 @@ const inject = (base, isStart) => dNode => {
 
 const create = tag => callback => attrs => {
   const d = doc();
-  const dNode = d.createElement(tag);
-  if (attrs) {
-    keys(attrs).forEach(key => (dNode[key] = attrs[key]));
+  if (d) {
+    const dNode = d.createElement(tag);
+    if (attrs) {
+      keys(attrs).forEach(key => (dNode[key] = attrs[key]));
+    }
+    if (callback) {
+      dNode.onreadystatechange = dNode.onload = () => {
+        const readyState = dNode.readyState;
+        if (
+          !readyState ||
+          -1 !== '|loaded|complete|'.indexOf('|' + readyState + '|')
+        ) {
+          setTimeout(callback);
+        }
+      };
+    }
+    return dNode;
   }
-  if (callback) {
-    dNode.onreadystatechange = dNode.onload = () => {
-      const readyState = dNode.readyState;
-      if (
-        !readyState ||
-        -1 !== '|loaded|complete|'.indexOf('|' + readyState + '|')
-      ) {
-        setTimeout(callback);
-      }
-    };
-  }
-  return dNode;
 };
 
 const js = (base, isStart) => callback => (url, attrs) => {
