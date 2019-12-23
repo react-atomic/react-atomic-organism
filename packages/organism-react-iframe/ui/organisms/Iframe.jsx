@@ -1,6 +1,6 @@
 import 'setimmediate';
 import React, {PureComponent} from 'react';
-import ReactDOM from 'react-dom';
+import {render, unmountComponentAtNode} from 'react-dom';
 import get from 'get-object-value';
 import getOffset from 'getoffset';
 import smoothScrollTo from 'smooth-scroll-to';
@@ -111,7 +111,7 @@ class Iframe extends PureComponent {
     // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
     setImmediate(() => {
       this.html = root.innerHTML;
-      ReactDOM.render(
+      render(
         <SemanticUI>
           <Unsafe atom="style">{() => 'body {padding:0; margin:0;}'}</Unsafe>
           {children}
@@ -155,7 +155,7 @@ class Iframe extends PureComponent {
       clearTimeout(this.autoHeightTimer);
     }
     // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
-    ReactDOM.unmountComponentAtNode(this.root);
+    unmountComponentAtNode(this.root);
   }
 
   render() {
