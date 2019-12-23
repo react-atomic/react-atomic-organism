@@ -52,19 +52,22 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   const inlineScripts = {};
   const queueScripts = [];
   let lastScripts = [];
+  let bStop = false;
   const getScript = origScript => {
     const {key, asyncKey} = origScript.attributes;
     let callback = null;
     if (key) {
       callback = () => onLoad(key, origScript);
     }
-    const loadScript = js(jsBase)(callback)(origScript.src, {
-      key: key || asyncKey,
-    });
-    callfunc(getScriptCb, [
-      {loadScript, origScript, inlineScripts, queueScripts, lastScripts},
-    ]);
-    return loadScript;
+    if (!bStop) {
+      const loadScript = js(jsBase)(callback)(origScript.src, {
+        key: key || asyncKey,
+      });
+      callfunc(getScriptCb, [
+        {loadScript, origScript, inlineScripts, queueScripts, lastScripts},
+      ]);
+      return loadScript;
+    }
   };
   const onLoad = handleScriptOnload({
     oWin,
@@ -108,6 +111,7 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     }
   }
   onLoad(first);
+  return () => bStop = true;
 };
 
 export default execScript;
