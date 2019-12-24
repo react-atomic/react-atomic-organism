@@ -13,6 +13,7 @@ module.exports = function(api) {
           '@babel/preset-react',
         ],
         plugins: [
+          'object-to-json-parse',
           'add-module-exports',
           'dynamic-import-node',
           'transform-react-pure-class-to-function',
@@ -23,6 +24,7 @@ module.exports = function(api) {
               regenerator: false,
             },
           ],
+          '@babel/plugin-proposal-optional-chaining',
           '@babel/plugin-proposal-export-default-from',
           '@babel/plugin-syntax-dynamic-import',
           '@babel/plugin-transform-react-constant-elements',
@@ -43,6 +45,7 @@ module.exports = function(api) {
           '@babel/preset-react',
         ],
         plugins: [
+          'object-to-json-parse',
           'transform-react-pure-class-to-function',
           ['transform-react-remove-prop-types', {mode: 'wrap'}],
           [
@@ -53,6 +56,7 @@ module.exports = function(api) {
               version: "7.5.0",
             },
           ],
+          '@babel/plugin-proposal-optional-chaining',
           '@babel/plugin-proposal-export-default-from',
           '@babel/plugin-syntax-dynamic-import',
           '@babel/plugin-transform-object-assign',

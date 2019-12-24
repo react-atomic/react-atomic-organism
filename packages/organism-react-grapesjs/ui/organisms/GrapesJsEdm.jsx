@@ -11,6 +11,7 @@ import fixHtml from 'fix-html';
 import getAsset from '../../src/getAsset';
 
 const defaultAssets = {
+  'sanitize-html': 'https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js',
   'grapesjs-preset-newsletter.min.js':
     'https://cdn.jsdelivr.net/npm/grapesjs-preset-newsletter@0.2.15/dist/grapesjs-preset-newsletter.min.js',
 };
@@ -26,7 +27,7 @@ const initViewSource = host => {
       id: 'edit-code',
       className: 'gjs-pn-btn fa fa-code',
       command: function(editor1, sender) {
-        openCodeEditor(host.getHtml(), code => {
+        openCodeEditor(host.getDesign(), code => {
           host.getEditor().setComponents(code);
         });
       },
@@ -68,7 +69,7 @@ class GrapesJsEdm extends Component {
     let html = this.getDesign();
     if (html) {
       html = `
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -238,7 +239,7 @@ ${html}
     const doc = this.iframeWindow.document;
     this.updateImages(get(images));
     try {
-      this.editor.setComponents(fixHtml(design));
+      this.editor.setComponents(fixHtml(design, this.iframeWindow.sanitizeHtml));
     } catch (e) {
       callfunc(onError, [{e, design, message: ERROR_HTML_INVALID_SYNTAX}]);
       console.warn({e, design});
@@ -259,6 +260,7 @@ ${html}
         #root.hidden .loading {display: block; visibility: visible}
         #root.hidden {visibility: hidden}
       </style>
+      <script async src="${this.getAsset('sanitize-html')}"></script>
       <script src="${this.getAsset('grapes.min.js')}"></script>
       <script src="${this.getAsset('ckeditor.js')}"></script>
       <script src="${this.getAsset(

@@ -23,7 +23,7 @@ class CodeEditor extends PureComponent {
 
   getHtml() {
     const html = this.codemirror ? this.codemirror.getValue() : '';
-    return fixHtml(html);
+    return fixHtml(html, this.iframeWindow?.sanitizeHtml || null);
   }
 
   getCode() {
@@ -118,6 +118,7 @@ class CodeEditor extends PureComponent {
             <Unsafe>
               {`
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
+          <script async src="https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/xml/xml.min.js"></script>
