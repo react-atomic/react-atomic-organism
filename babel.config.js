@@ -13,15 +13,16 @@ module.exports = function(api) {
           '@babel/preset-react',
         ],
         plugins: [
-          'object-to-json-parse',
           'add-module-exports',
           'dynamic-import-node',
+          'object-to-json-parse',
           'transform-react-pure-class-to-function',
           ['transform-react-remove-prop-types', {mode: 'wrap'}],
           [
             'reshow-transform-runtime',
             {
               regenerator: false,
+              version: "7.5.0",
             },
           ],
           '@babel/plugin-proposal-optional-chaining',

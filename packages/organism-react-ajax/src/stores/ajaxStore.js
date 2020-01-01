@@ -5,11 +5,11 @@ import {ReduceStore} from 'reshow-flux';
 import get, {getDefault} from 'get-object-value';
 import smoothScrollTo from 'smooth-scroll-to';
 import getRandomId from 'get-random-id';
+import callfunc from 'call-func';
 
 import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
-import {urlDispatch} from '../urlDispatcher';
 
-const empty = function() {};
+const empty = () => {};
 const keys = Object.keys;
 let wsAuth = Map();
 let gWorker;
@@ -53,8 +53,8 @@ const handleUpdateNewUrl = (state, action, url) => {
   setImmediate(() => {
     const preUrl = state.get('currentLocation');
     if (preUrl !== url) {
-      const updateWithUrl = state.get('updateWithUrl');
-      updateWithUrl(url);
+      const onUrlChange = state.get('onUrlChange');
+      callfunc(onUrlChange, [url]);
     }
     const params = get(action, ['params'], {});
     if (params.disableAjax && false !== params.scrollBack) {
@@ -66,7 +66,7 @@ const handleUpdateNewUrl = (state, action, url) => {
 
 class AjaxStore extends ReduceStore {
   getInitialState() {
-    const updateWithUrl = url => {
+    const onUrlChange = url => {
       ajaxDispatch({
         type: 'ajaxGet',
         params: {
@@ -75,7 +75,7 @@ class AjaxStore extends ReduceStore {
         },
       });
     };
-    return Map({updateWithUrl});
+    return Map({onUrlChange});
   }
 
   cookAjaxUrl(params, ajaxUrl, globalHeaders) {
@@ -266,12 +266,11 @@ class AjaxStore extends ReduceStore {
     const self = this;
     const params = action.params;
     const rawUrl = self.getRawUrl(params);
-    if (params.updateUrl && rawUrl !== document.URL) {
-      urlDispatch({type: 'url', url: rawUrl});
+    if (params.updateUrl && this.urlDispatch && rawUrl !== document.URL) {
+      this.urlDispatch({type: 'url', url: rawUrl});
     }
     if (params.disableAjax) {
-      state = handleUpdateNewUrl(state, action, rawUrl);
-      return state;
+      return handleUpdateNewUrl(state, action, rawUrl);
     }
     if (!params.disableProgress) {
       self.start();
@@ -366,7 +365,7 @@ class AjaxStore extends ReduceStore {
     return state;
   }
 
-  updateWithUrl(state, action) {
+  handleUrlChange(state, action) {
     const url = get(action, ['params', 'url'], document.URL);
     state = handleUpdateNewUrl(state, action, url);
     /**
@@ -389,10 +388,10 @@ class AjaxStore extends ReduceStore {
         return this.ajaxGet(state, action);
       case 'ajaxPost':
         return this.ajaxPost(state, action);
+      case 'urlChange':
+        return this.handleUrlChange(state, action);
       case 'callback':
         return this.applyCallback(state, action);
-      case 'updateWithUrl':
-        return this.updateWithUrl(state, action);
       case 'config/set':
         return state.merge(action.params);
       default:

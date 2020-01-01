@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.8.0",
+  "version": "0.13.0-beta.0",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -12,6 +12,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "es6-promise": "4.2.5",
     "get-object-value": "*",
     "get-random-id": "*",
@@ -21,9 +22,9 @@
     "reshow-runtime": "*",
     "set-object-value": "*",
     "setimmediate": "*",
+    "seturl": "*",
     "smooth-scroll-to": "*",
     "superagent": "3.8.3",
-    "seturl": "*",
     "win-doc": "*"
   },
   "devDependencies": {

@@ -39,11 +39,6 @@ class AjaxPage extends PureComponent {
           },
         });
       }
-      win.addEventListener(
-        'popstate',
-        e => ajaxDispatch('updateWithUrl'),
-        true,
-      );
     });
   }
 
