@@ -31,14 +31,9 @@ class PopupModal extends PopupOverlay {
     disableClose: false,
   };
 
-  handleClick = () => {
-    this.close();
-  };
+  handleClick = () => this.close();
 
-  handleModalRefCb = el => {
-    this.el = el;
-    this.reCalculate();
-  };
+  handleModalRefCb = el => (this.el = el);
 
   handleModalClick = cb => e => {
     e.stopPropagation();
@@ -127,7 +122,7 @@ class PopupModal extends PopupOverlay {
     /**
      * closeCallback will deprecate
      */
-    if ( hasClass( get(doc(), ['body', 'className']), 'dimmed' ) ) {
+    if (hasClass(get(doc(), ['body', 'className']), 'dimmed')) {
       const {closeCallback, onClose} = this.props;
       callfunc(onClose || closeCallback);
     }
@@ -139,6 +134,14 @@ class PopupModal extends PopupOverlay {
 
   componentWillUnmount() {
     this.detach();
+  }
+
+  componentDidMount() {
+    this.reCalculate();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.reCalculate();
   }
 
   render() {
