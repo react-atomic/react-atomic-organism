@@ -1,6 +1,6 @@
 {
   "name": "organism-react-scroll-animate",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "React Animate When You Scroll",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,6 +14,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "organism-react-animate": "*",
     "organism-react-scroll-nav": "*",
     "react-atomic-molecule": "*"
@@ -22,13 +23,14 @@
     "@babel/cli": "^7.x",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "reshow-app": "*"
+    "reshow-app": "^0.13.0-beta"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run build"
   },
   "files": [
