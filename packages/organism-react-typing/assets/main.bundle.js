@@ -15962,13 +15962,14 @@ var getTypingNextWordAniClassName = function getTypingNextWordAniClassName(el, s
     return aniName;
   }
 
+  var elLen = el.textContent.trim().length;
   Object(__WEBPACK_IMPORTED_MODULE_11_react_atomic_molecule__["reactStyle"])([{
     maxWidth: 0
   }, {
     maxWidth: width
   }], ['@keyframes ' + aniName, '0%', '100%'], aniName + '-keyframe');
   Object(__WEBPACK_IMPORTED_MODULE_11_react_atomic_molecule__["reactStyle"])({
-    animation: [aniName + ' ' + sec + 's steps(10) infinite alternate'],
+    animation: ["".concat(aniName, " ").concat(sec, "s steps(").concat(elLen, ") infinite alternate")],
     visibility: 'visible !important'
   }, '.' + aniName, aniName + '-ani');
   injects[aniName] = true;
@@ -16055,13 +16056,18 @@ function (_Component2) {
       var children = props.children,
           propsHeight = props.height,
           sec = props.sec;
+
+      if (!children) {
+        return null;
+      }
+
       var itemLength = children.length;
       var height = parseInt(propsHeight, 10);
       var aniName = 'typingNextLine';
       var styleId = aniName + '-' + itemLength + '-' + height;
       var typingItemStyles = Object(__WEBPACK_IMPORTED_MODULE_11_react_atomic_molecule__["reactStyle"])({
         position: 'relative',
-        animation: [styleId + ' ' + itemLength * 2 * sec + 's steps(' + itemLength + ') infinite'],
+        animation: ["".concat(styleId, " ").concat(itemLength * 2 * sec, "s steps(").concat(itemLength, ") infinite")],
         height: height
       }, null, false);
       Object(__WEBPACK_IMPORTED_MODULE_11_react_atomic_molecule__["reactStyle"])([{
@@ -16133,6 +16139,7 @@ function (_Component2) {
       }
 
       return __WEBPACK_IMPORTED_MODULE_10_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_11_react_atomic_molecule__["SemanticUI"], {
+        className: "react-typing",
         style: Object(__WEBPACK_IMPORTED_MODULE_0_reshow_runtime_es_helpers_objectSpread2__["a" /* default */])({}, Styles.typingContainer, {}, atts)
       }, items);
     }

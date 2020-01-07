@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-
 import {lazyInject, reactStyle, SemanticUI} from 'react-atomic-molecule';
+import get from 'get-object-value';
 
 const getTypingNextWordAniClassName = (el, sec) => {
   const width = el.offsetWidth + 70;
@@ -9,6 +9,7 @@ const getTypingNextWordAniClassName = (el, sec) => {
   if (injects[aniName]) {
     return aniName;
   }
+  const elLen = get(el, ['textContent', 'length'], 10);
   reactStyle(
     [
       {
@@ -23,7 +24,7 @@ const getTypingNextWordAniClassName = (el, sec) => {
   );
   reactStyle(
     {
-      animation: [aniName + ' ' + sec + 's steps(10) infinite alternate'],
+      animation: [`${aniName} ${sec}s steps(${elLen}) infinite alternate`],
       visibility: 'visible !important',
     },
     '.' + aniName,
@@ -100,12 +101,7 @@ class Typing extends Component {
       {
         position: 'relative',
         animation: [
-          styleId +
-            ' ' +
-            itemLength * 2 * sec +
-            's steps(' +
-            itemLength +
-            ') infinite',
+          `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
         ],
         height,
       },
@@ -124,12 +120,12 @@ class Typing extends Component {
     this.update(this.props);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot)
-  {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const {children, height, sec} = this.props;
-    if (prevProps.children.length !== children.length || 
-        prevProps.height !== height ||
-        prevProps.sec !== sec
+    if (
+      prevProps.children.length !== children.length ||
+      prevProps.height !== height ||
+      prevProps.sec !== sec
     ) {
       this.update(this.props);
     }
