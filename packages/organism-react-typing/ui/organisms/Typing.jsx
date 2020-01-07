@@ -89,6 +89,9 @@ class Typing extends Component {
 
   update(props) {
     const {children, height: propsHeight, sec} = props;
+    if (!children) {
+      return null;
+    }
     const itemLength = children.length;
     const height = parseInt(propsHeight, 10);
     const aniName = 'typingNextLine';
@@ -171,6 +174,7 @@ class Typing extends Component {
     }
     return (
       <SemanticUI
+        className="react-typing"
         style={{
           ...Styles.typingContainer,
           ...atts,
