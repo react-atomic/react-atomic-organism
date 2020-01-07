@@ -9,7 +9,8 @@ import sinon from 'sinon';
 const sandbox = sinon.createSandbox();
 
 
-import Animate, {AnimateGroup} from '../../../cjs/src/index';
+import Animate from '../Animate';
+import AnimateGroup from '../AnimateGroup';
 
 
 describe('Animate', ()=>{ 

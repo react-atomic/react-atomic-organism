@@ -155,13 +155,13 @@ class AnimateGroup extends Component {
     if (children) {
       thisChildren = keys(children).map(key => {
         let child = get(children, [key]);
-        const childProps = get(child, ['props']);
+        const childProps = get(child, ['props'], {});
         const isCSSTransition = childProps.isCSSTransition;
         if (!isCSSTransition || (isCSSTransition && !childProps.isCompiled)) {
           const newProps = {
             ...childProps,
             ...aniProps,
-            key: get(child, ['props', 'name'], key),
+            key: childProps.name || key,
             isCompiled: true,
             onExited: this.handleExited.bind(this, child),
           };
@@ -169,10 +169,8 @@ class AnimateGroup extends Component {
             ? cloneElement(child, newProps)
             : createElement(CSSTransition, newProps, child);
         }
-        children[key] = child;
         return child;
       });
-      this.state.children = children;
     }
     return createElement(component, props, thisChildren);
   }
