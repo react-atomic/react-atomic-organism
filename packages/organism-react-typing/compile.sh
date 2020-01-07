@@ -1,21 +1,21 @@
 #!/bin/sh
-find ./assets -name "*.js" | xargs rm -rf
 
-
-production(){
-    echo "Production Mode";
-    NODE_ENV=production webpack -p 
-}
+conf='{ "assetsRoot": "./assets/" }'
 
 develop(){
     echo "Develop Mode";
     npm run build
-    webpack
+    CONFIG=$conf webpack
+}
+
+startServer(){
+    echo "Start server";
+    node_modules/.bin/ws -p 3000 
 }
 
 case "$1" in
-  p)
-    production
+  s)
+    startServer 
     ;;
   *)
     develop
