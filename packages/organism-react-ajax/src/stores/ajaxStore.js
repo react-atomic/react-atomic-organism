@@ -51,17 +51,19 @@ const initFakeWorker = () => {
 
 const handleUpdateNewUrl = (state, action, url) => {
   setImmediate(() => {
-    const preUrl = state.get('currentLocation');
-    if (preUrl !== url) {
-      const onUrlChange = state.get('onUrlChange');
-      callfunc(onUrlChange, [url]);
-    }
     const params = get(action, ['params'], {});
     if (params.disableAjax && false !== params.scrollBack) {
       smoothScrollTo(0);
     }
   });
-  return state.set('currentLocation', url);
+  const preUrl = state.get('currentLocation');
+  if (preUrl !== url) {
+    const onUrlChange = state.get('onUrlChange');
+    state = state
+      .set('currentLocation', url)
+      .merge(callfunc(onUrlChange, [url]));
+  }
+  return state;
 };
 
 class AjaxStore extends ReduceStore {
@@ -270,7 +272,10 @@ class AjaxStore extends ReduceStore {
       this.urlDispatch({type: 'url', url: rawUrl});
     }
     if (params.disableAjax) {
-      return handleUpdateNewUrl(state, action, rawUrl);
+      return this.applyCallback(
+        state,
+        {json: handleUpdateNewUrl(state, action, rawUrl)}
+      );
     }
     if (!params.disableProgress) {
       self.start();
@@ -339,7 +344,7 @@ class AjaxStore extends ReduceStore {
         if ('ws' === sourceType) {
           json = {'--realTimeData--': json, '--realTimeUrl--': url};
         }
-        setImmediate(() => (isRedirect = callback(json, text, response)));
+        isRedirect = callfunc(callback, [json, text, response]);
         break;
     }
     if (false !== isRedirect) {
@@ -367,15 +372,17 @@ class AjaxStore extends ReduceStore {
 
   handleUrlChange(state, action) {
     const url = get(action, ['params', 'url'], document.URL);
-    state = handleUpdateNewUrl(state, action, url);
     /**
      * "Do not change" toggleBfChange and bfApplyUrl
      * in other place, such as ajaxGet.
      * Because this state should only trigger with bfchange.
      */
-    return state
-      .set('toggleBfChange', !state.get('toggleBfChange'))
-      .set('bfApplyUrl', url);
+    return this.applyCallback(
+      state
+        .set('toggleBfChange', !state.get('toggleBfChange'))
+        .set('bfApplyUrl', url),
+      {json: handleUpdateNewUrl(state, action, url)} 
+    );
   }
 
   reduce(state, action) {

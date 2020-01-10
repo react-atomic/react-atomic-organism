@@ -17,13 +17,14 @@ class AjaxPage extends PureComponent {
 
   constructor(props) {
     super(props);
+    const {win, ...otherProps} = props;
     /**
      * Need put in constructor before render,
      * else AjaxLink will not get baseUrl
      */
     ajaxDispatch({
       type: 'config/set',
-      params: props,
+      params: otherProps,
     });
   }
 
