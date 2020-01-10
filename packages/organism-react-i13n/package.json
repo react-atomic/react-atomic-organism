@@ -1,6 +1,6 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "React I13N",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -16,7 +16,6 @@
     "organism-react-ajax": "*",
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*",
-    "reshow": "*",
     "reshow-runtime": "*",
     "win-doc": "*"
   },
@@ -30,7 +29,8 @@
     "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "react-test-renderer": "*",
+    "reshow": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
