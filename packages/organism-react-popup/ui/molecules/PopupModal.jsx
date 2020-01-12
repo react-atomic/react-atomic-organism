@@ -177,6 +177,7 @@ class PopupModal extends PopupOverlay {
       onClose,
       className,
       contentClassName,
+      name,
       ...others
     } = this.props;
     let containerClick = null;
@@ -256,7 +257,7 @@ class PopupModal extends PopupOverlay {
     }
 
     return (
-      <SemanticUI className={className}>
+      <SemanticUI ui={false} className={className} name={name}>
         <Animate {...{appear, enter, leave}}>{content}</Animate>
         {thisCloseEl}
       </SemanticUI>

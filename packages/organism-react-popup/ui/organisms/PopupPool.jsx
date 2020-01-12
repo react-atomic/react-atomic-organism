@@ -25,7 +25,8 @@ class PopupPool extends Component
         const pops = [];
         keys(nodes).forEach( key => {
             let node = nodes[key];
-            const toPool = get(node, ['props', 'toPool']); 
+            const nodeProps = get(node, ['props'], {}); 
+            const toPool = nodeProps.toPool; 
             if ((name || toPool) && toPool !== name) {
                 return;
             }
