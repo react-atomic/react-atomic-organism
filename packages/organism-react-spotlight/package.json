@@ -1,6 +1,6 @@
 {
   "name": "organism-react-spotlight",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "React spotlight",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
