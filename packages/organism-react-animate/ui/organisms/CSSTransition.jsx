@@ -2,6 +2,7 @@ import React, {cloneElement} from 'react';
 import Transition from '../organisms/Transition';
 import {mixClass, removeClass} from 'class-lib';
 import get from 'get-object-value';
+import callfunc from 'call-func';
 
 const getValue = (arr, isAppear, isExit, defaultValue) => {
   const index = isExit ? 'exit' : isAppear ? 'appear' : 'enter';
@@ -34,9 +35,7 @@ const handleStart = (
         node.className = mixClass(node.className, thisClass);
       }
     }
-    if (FUNCTION === typeof handler) {
-      handler(node, isAppear);
-    }
+    callfunc(handler, [node, isAppear]);
   }, thisDelay);
 };
 
@@ -44,15 +43,15 @@ const handleFinish = (classList, handler, isExit, node, isAppear) => {
   if (node) {
     if (isExit) {
       node.style.visibility = 'hidden';
+    } else if (node.getAttribute('data-status') === 'entered') {
+      node.style.visibility = 'inherit';
     }
     const thisClass = getValue(classList, isAppear, isExit);
     if (thisClass) {
       node.className = removeClass(node.className, thisClass);
     }
   }
-  if (FUNCTION === typeof handler) {
-    handler(node, isAppear);
-  }
+  callfunc(handler, [node, isAppear]);
 };
 
 const CSSTransition = ({
@@ -71,14 +70,7 @@ const CSSTransition = ({
   <Transition
     {...props}
     onEnter={handleStart.bind(this, classNames, onEnter, delay, false, false)}
-    onEntering={handleStart.bind(
-      this,
-      classNames,
-      onEntering,
-      delay,
-      false,
-      true,
-    )}
+    onEntering={handleStart.bind(this, classNames, onEntering, delay, false, true)}
     onEntered={handleFinish.bind(this, classNames, onEntered, false)}
     onExit={handleStart.bind(this, classNames, onExit, delay, true, false)}
     onExiting={handleStart.bind(this, classNames, onExiting, delay, true, true)}

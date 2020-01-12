@@ -3,9 +3,9 @@
 
 
 "@babel/cli@^7.x":
-  version "7.7.7"
-  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.7.7.tgz#56849acbf81d1a970dd3d1b3097c8ebf5da3f534"
-  integrity sha512-XQw5KyCZyu/M8/0rYiZyuwbgIQNzOrJzs9dDLX+MieSgBwTLvTj4QVbLmxJACAIvQIDT7PtyHN2sC48EOWTgaA==
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.8.0.tgz#e9ed4c3dbb163de5034c18979c118ed1aa294e05"
+  integrity sha512-/zOi56gIH3jBmnrfUvVf8MOMqf3hfFou2ONRYdRRpgnBSi0dUkiO+usu44YHsOEJqqwPkijBsiDKscQizouoag==
   dependencies:
     commander "^4.0.1"
     convert-source-map "^1.1.0"
@@ -34,9 +34,9 @@
     "@sinonjs/samsam" "^4.2.0"
 
 "@sinonjs/samsam@^4.2.0", "@sinonjs/samsam@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@sinonjs/samsam/-/samsam-4.2.1.tgz#cee77dc95f8d00339633e1683e026f2d73ed1d3a"
-  integrity sha512-7+5S4C4wpug5pzHS+z/63+XUwsH7dtyYELDafoT1QnfruFh7eFjlDWwZXltUB0GLk6y5eMeAt34Bjx8wJ4KfSA==
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@sinonjs/samsam/-/samsam-4.2.2.tgz#0f6cb40e467865306d8a20a97543a94005204e23"
+  integrity sha512-z9o4LZUzSD9Hl22zV38aXNykgFeVj8acqfFabCY6FY83n/6s/XwNJyYYldz6/9lBJanpno9h+oL6HTISkviweA==
   dependencies:
     "@sinonjs/commons" "^1.6.0"
     lodash.get "^4.4.2"
@@ -48,9 +48,9 @@
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
 "@types/node@*":
-  version "13.1.4"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.4.tgz#4cfd90175a200ee9b02bd6b1cd19bc349741607e"
-  integrity sha512-Lue/mlp2egZJoHXZr4LndxDAd7i/7SQYhV0EjWfb/a4/OZ6tuVwMCVPiwkU5nsEipxEf7hmkSU7Em5VQ8P5NGA==
+  version "13.1.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.1.6.tgz#076028d0b0400be8105b89a0a55550c86684ffec"
+  integrity sha512-Jg1F+bmxcpENHP23sVKkNuU3uaxPnsBMW0cLjleiikFKomJQbsn0Cqk2yDvQArqzZN6ABfBkZ0To7pQ8sLdWDg==
 
 abab@^2.0.0:
   version "2.0.3"
@@ -382,6 +382,13 @@ cache-base@^1.0.1:
     to-object-path "^0.3.0"
     union-value "^1.0.0"
     unset-value "^1.0.0"
+
+call-func@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.0.4.tgz#3c70ae685575be63eeb085ba0cd7f8d93cbb89a4"
+  integrity sha512-r2Q9o9pCplNi3jsmNizZDno10ESQ7YqFLrWb0ENH3y5W/wDdls4Aq7jzPt7Gf7zQqsTqvo0hfL/CEi4nrDXpMg==
+  dependencies:
+    reshow-constant "*"
 
 camelcase@^5.0.0:
   version "5.3.1"
