@@ -1,4 +1,3 @@
-require('setimmediate');
 import React, {isValidElement} from 'react';
 import {connect} from 'reshow-flux';
 import {build, reactStyle, Dimmer, SemanticUI} from 'react-atomic-molecule';
@@ -31,6 +30,9 @@ class PopupModal extends PopupOverlay {
     disableClose: false,
   };
 
+  _timer = null;
+  _mount = false;
+
   handleClick = () => this.close();
 
   handleModalRefCb = el => (this.el = el);
@@ -50,7 +52,7 @@ class PopupModal extends PopupOverlay {
   }
 
   reCalculate = () => {
-    setImmediate(() => {
+    this._timer = setTimeout(() => {
       if (this.el) {
         const domInfo = getOffset(this.el);
         if (domInfo) {
@@ -69,8 +71,10 @@ class PopupModal extends PopupOverlay {
             maskStyle: orgMaskStyle,
           } = this.state;
           if (
-            get(orgModalStyle, ['marginTop']) !== marginTop ||
-            get(orgMaskStyle, ['justifyContent']) !== maskStyle.justifyContent
+            this._mount &&
+            (get(orgModalStyle, ['marginTop']) !== marginTop ||
+              get(orgMaskStyle, ['justifyContent']) !==
+                maskStyle.justifyContent)
           ) {
             this.setState(({modalStyle}) => {
               modalStyle = {
@@ -124,24 +128,28 @@ class PopupModal extends PopupOverlay {
      */
     if (hasClass(get(doc(), ['body', 'className']), 'dimmed')) {
       const {closeCallback, onClose} = this.props;
-      callfunc(onClose || closeCallback);
+      //settimeout is for fixed cant setstate during render error 
+      setTimeout(()=>callfunc(onClose || closeCallback));
     }
 
-    // do detach
+    // do detach (need put after onClose else will make modal can't appear again)
+    clearTimeout(this._timer);
     this.resetBodyClassName();
     win().removeEventListener('resize', this.reCalculate);
   }
 
-  componentWillUnmount() {
-    this.detach();
-  }
-
   componentDidMount() {
+    this._mount = true;
     this.reCalculate();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     this.reCalculate();
+  }
+
+  componentWillUnmount() {
+    this._mount = false;
+    this.detach();
   }
 
   render() {
