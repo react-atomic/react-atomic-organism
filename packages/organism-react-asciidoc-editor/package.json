@@ -1,20 +1,23 @@
 {
-  "name": "organism-react-animate",
-  "version": "0.3.4",
-  "description": "React Animate",
+  "name": "organism-react-codeeditor",
+  "version": "0.0.4",
+  "description": "React Simple Html Editor",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "keywords": [
-    "react"
+    "react",
+    "html-editor"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
     "call-func": "*",
-    "get-object-value": "*",
-    "keyframe-css": "*",
-    "react-atomic-molecule": "*"
+    "fix-html": "*",
+    "organism-react-iframe": "*",
+    "organism-react-popup": "*",
+    "reshow-constant": "*",
+    "ricon": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
@@ -26,8 +29,7 @@
     "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*",
-    "sinon": "*"
+    "react-test-renderer": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
@@ -35,7 +37,7 @@
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
     "build",

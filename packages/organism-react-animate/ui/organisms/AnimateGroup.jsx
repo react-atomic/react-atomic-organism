@@ -54,7 +54,7 @@ const getAniProps = (props, enterToAppear) => {
 const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = props => {
-  const { onExited, component, style, className, ...otherProps } = props;
+  const {className, component, lazy, onExited, style, ...otherProps} = props;
   const [children, setChildren] = useState();
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach(key => delete otherProps[key]);
@@ -75,16 +75,18 @@ const AnimateGroup = props => {
       );
     };
     const prevChildMapping = children || {};
-    const nextChildMapping = getChildMapping(otherProps.children, (child, key) =>
-      buildCSSTransition(
-        {
-          ...child.props,
-          ...aniProps,
-          key: get(child, ['props', 'name'], key),
-          onExited: handleExited(child),
-        },
-        child,
-      ),
+    const nextChildMapping = getChildMapping(
+      otherProps.children,
+      (child, key) =>
+        buildCSSTransition(
+          {
+            ...child.props,
+            ...aniProps,
+            key: get(child, ['props', 'name'], key),
+            onExited: handleExited(child),
+          },
+          child,
+        ),
     );
     const allChildMapping = {...prevChildMapping, ...nextChildMapping};
     keys(allChildMapping).forEach(key => {
@@ -103,7 +105,7 @@ const AnimateGroup = props => {
       }
     });
     if (!children) {
-      _enterTimeout = setTimeout(() => setChildren(allChildMapping), 100);
+      _enterTimeout = setTimeout(() => setChildren(allChildMapping), lazy);
     } else {
       setChildren(allChildMapping);
     }
@@ -113,14 +115,18 @@ const AnimateGroup = props => {
       _isClean = true;
     };
   }, [props]);
-  return useMemo(()=>{
+  return useMemo(() => {
     otherProps.style = {overflow: 'hidden', ...style};
     otherProps.className = mixClass(className, 'animate-group-container');
-    return build(component)(otherProps, keys(children || {}).map(key => children[key]))
+    return build(component)(
+      otherProps,
+      keys(children || {}).map(key => children[key]),
+    );
   }, [children]);
 };
 
 AnimateGroup.defaultProps = {
+  lazy: 150,
   component: 'div',
   unmountOnExit: true,
   in: true,
