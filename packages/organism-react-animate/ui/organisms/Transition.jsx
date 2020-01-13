@@ -39,12 +39,17 @@ const setNextCallback = callback => {
     }
     nextCallback.reset();
   };
-
   nextCallback.reset = () => {
     active = false;
   };
-
   return nextCallback;
+};
+
+const cancelNextCallback = (state, dispatch) => {
+  if (state.nextCallback !== null) {
+    state.nextCallback.reset();
+    dispatch({nextCallback: null});
+  }
 };
 
 const Transition = ({
@@ -66,10 +71,9 @@ const Transition = ({
   ...props
 }) => {
   const [state, dispatch] = useReducer(reducer, {
-    in: props.in,
+    in: null,
     callbackWith: null,
     nextCallback: null,
-    appearStatus: null,
     init: false,
     node: false,
   });
@@ -80,7 +84,6 @@ const Transition = ({
     if (props.in) {
       if (thisAppear) {
         initialStatus = EXITED;
-        dispatch({appearStatus: ENTERING});
       } else {
         initialStatus = ENTERED;
       }
@@ -94,103 +97,96 @@ const Transition = ({
     return initialStatus;
   });
 
-  const cancelNextCallback = () => {
-    if (state.nextCallback !== null) {
-      state.nextCallback.reset();
-      dispatch({nextCallback: null});
-    }
-  };
-
   useEffect(() => {
     if (state.callbackWith === status) {
       callfunc(state.nextCallback, [status]);
     }
+
     const safeSetState = (nextStatus, callback) => {
       // This shouldn't be necessary, but there are weird race conditions with
       // setState callbacks and unmounting in testing, so always make sure that
       // we can cancel any pending setState callbacks after we unmount.
-
       dispatch({
         callbackWith: nextStatus,
         nextCallback: callback ? setNextCallback(callback) : null,
       });
       setStatus(nextStatus);
     };
+
     const onTransitionEnd = (node, timeout, handler) => {
       if (state.timer) {
         clearTimeout(state.timer);
       }
       const callback = setNextCallback(() => {
         callfunc(handler);
-        if (addEndListener) {
-          callfunc(addEndListener, [{node, state, status}]);
-        }
+        callfunc(addEndListener, [{node, state, status}]);
       });
-      const myCb = () => {
-        callfunc(state.nextCallback, ['onTransitionEnd']);
-      };
       dispatch({
         nextCallback: callback,
-        timer: setTimeout(myCb, timeout || 0)
+        timer: setTimeout(
+          () => callfunc(state.nextCallback, ['onTransitionEnd']),
+          timeout || 0,
+        ),
       });
     };
-    const performEnter = mounting => {
-      const timeouts = getTimeouts(timeout);
-      const enterTimeout = mounting ? timeouts.appear : timeouts.enter;
+
+    const perform = ({
+      step1,
+      step1Cb,
+      step2,
+      step2Cb,
+      step3,
+      step3Cb,
+      goToLast,
+      isAppear,
+      timeout,
+    }) => {
       const last = () => {
-        onTransitionEnd(state.node, enterTimeout, () => {
-          safeSetState(ENTERED, () =>
-            callfunc(onEntered, [state.node, mounting]),
-          );
+        onTransitionEnd(state.node, timeout, () => {
+          safeSetState(step3, () => callfunc(step3Cb, [state.node, mounting]));
         });
       };
-
-      // no enter animation skip right to ENTERED
-      // if we are mounting and running this it means appear _must_ be set
-      if (mounting && (!appear && !enter)) {
-        safeSetState(ENTERED, () => last());
+      if (goToLast) {
+        last();
         return;
       }
-      safeSetState(ENTERSTART, () => {
-        callfunc(onEnter, [state.node, mounting]);
-        safeSetState(ENTERING, () => {
-          callfunc(onEntering, [state.node, mounting]);
+      safeSetState(step1, () => {
+        callfunc(step1Cb, [state.node, mounting]);
+        safeSetState(step2, () => {
+          callfunc(step2Cb, [state.node, mounting]);
           last();
         });
       });
     };
-    const performExit = () => {
-      const timeouts = getTimeouts(timeout);
 
-      const last = () => {
-        onTransitionEnd(state.node, timeouts.exit, () => {
-          safeSetState(EXITED, () => {
-            callfunc(onExited, [state.node]);
-          });
-        });
-      };
-
-      // no exit animation skip right to EXITED
-      if (!exit) {
-        safeSetState(EXITED, () => last());
-        return;
-      }
-      safeSetState(EXITSTART, () => {
-        callfunc(onExit, [state.node]);
-        safeSetState(EXITING, () => {
-          callfunc(onExiting, [state.node]);
-          last();
-        });
-      });
-    };
     const updateStatus = (mounting, nextStatus) => {
       if (nextStatus !== null) {
         // nextStatus will always be ENTERING or EXITING.
-        cancelNextCallback();
+        cancelNextCallback(state, dispatch);
+        const timeouts = getTimeouts(timeout);
         if (nextStatus === ENTERING) {
-          performEnter(mounting);
+          perform({
+            step1: ENTERSTART,
+            step1Cb: onEnter,
+            step2: ENTERING,
+            step2Cb: onEntering,
+            step3: ENTERED,
+            step3Cb: onEntered,
+            goToLast: (mounting && !appear) || (!mounting && !enter),
+            isAppear: mounting,
+            timeout: mounting ? timeouts.appear : timeouts.enter,
+          });
         } else {
-          performExit();
+          perform({
+            step1: EXITSTART,
+            step1Cb: onExit,
+            step2: EXITING,
+            step2Cb: onExiting,
+            step3: EXITED,
+            step3Cb: onExited,
+            goToLast: !exit,
+            timeout: timeouts.exit,
+          });
         }
       } else if (unmountOnExit && status === EXITED) {
         safeSetState(UNMOUNTED);
@@ -205,17 +201,18 @@ const Transition = ({
       if (props.in) {
         if (status !== ENTERING && status !== ENTERED) {
           nextStatus = ENTERING;
+        } else if (!state.init) {
+          dispatch({init: true});
+          if (appear) {
+            nextStatus = ENTERING;
+            mounting = true;
+          }
         }
       } else {
         if (status === ENTERING || status === ENTERED) {
           nextStatus = EXITING;
         }
       }
-    }
-    if (!state.init) {
-      dispatch({init: true});
-      nextStatus = state.appearStatus;
-      mounting = true;
     }
     updateStatus(mounting, nextStatus);
 
@@ -226,6 +223,7 @@ const Transition = ({
       }
     };
   }, [props.in, status]);
+
   return useMemo(() => {
     let myChild = undefined;
     if (status !== UNMOUNTED) {
