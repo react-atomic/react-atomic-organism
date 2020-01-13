@@ -148,15 +148,15 @@ const Transition = ({
       };
       if (goToLast) {
         last();
-        return;
-      }
-      safeSetState(step1, () => {
-        callfunc(step1Cb, [state.node, mounting]);
-        safeSetState(step2, () => {
-          callfunc(step2Cb, [state.node, mounting]);
-          last();
+      } else {
+        safeSetState(step1, () => {
+          callfunc(step1Cb, [state.node, mounting]);
+          safeSetState(step2, () => {
+            callfunc(step2Cb, [state.node, mounting]);
+            last();
+          });
         });
-      });
+      }
     };
 
     const updateStatus = (mounting, nextStatus) => {
