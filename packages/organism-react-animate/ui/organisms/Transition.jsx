@@ -143,16 +143,16 @@ const Transition = ({
     }) => {
       const last = () => {
         onTransitionEnd(state.node, timeout, () => {
-          safeSetState(step3, () => callfunc(step3Cb, [state.node, mounting]));
+          safeSetState(step3, () => callfunc(step3Cb, [state.node, isAppear]));
         });
       };
       if (goToLast) {
         last();
       } else {
         safeSetState(step1, () => {
-          callfunc(step1Cb, [state.node, mounting]);
+          callfunc(step1Cb, [state.node, isAppear]);
           safeSetState(step2, () => {
-            callfunc(step2Cb, [state.node, mounting]);
+            callfunc(step2Cb, [state.node, isAppear]);
             last();
           });
         });
