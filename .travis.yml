@@ -10,4 +10,4 @@ env:
   - TEST_DIR=packages/lib/array.merge
   - TEST_DIR=packages/lib/get-object-value
   - TEST_DIR=packages/lib/get-cookie
-script: cd $TEST_DIR; yarn --ignore-engines; npm t
+script: cd $TEST_DIR; yarn --ignore-engines; mocha --version; npm t
