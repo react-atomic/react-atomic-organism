@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useMemo} from 'react';
-import {build} from 'react-atomic-molecule';
+import {build, mixClass} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import callfunc from 'call-func';
 import CSSTransition from '../organisms/CSSTransition';
@@ -54,7 +54,7 @@ const getAniProps = (props, enterToAppear) => {
 const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = props => {
-  const { onExited, component, style, ...otherProps } = props;
+  const { onExited, component, style, className, ...otherProps } = props;
   const [children, setChildren] = useState();
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach(key => delete otherProps[key]);
@@ -103,7 +103,7 @@ const AnimateGroup = props => {
       }
     });
     if (!children) {
-      _enterTimeout = setTimeout(() => setChildren(allChildMapping), 300);
+      _enterTimeout = setTimeout(() => setChildren(allChildMapping), 100);
     } else {
       setChildren(allChildMapping);
     }
@@ -115,6 +115,7 @@ const AnimateGroup = props => {
   }, [props]);
   return useMemo(()=>{
     otherProps.style = {overflow: 'hidden', ...style};
+    otherProps.className = mixClass(className, 'animate-group-container');
     return build(component)(otherProps, keys(children || {}).map(key => children[key]))
   }, [children]);
 };
