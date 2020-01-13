@@ -5,7 +5,7 @@ import {mixClass, SemanticUI} from 'react-atomic-molecule';
 import getStyle from 'get-style';
 
 import BasePopup from '../molecules/BasePopup';
-import {popupStore} from '../../src/index';
+import popupStore from '../../src/stores/popupStore';
 
 class PopupOverlay extends BasePopup {
   static getStores() {

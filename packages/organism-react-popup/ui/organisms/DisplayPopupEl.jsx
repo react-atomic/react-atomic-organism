@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {popupDispatch} from '../../src/index';
+import {popupDispatch} from '../../src/popupDispatcher';
 
 const isArray = Array.isArray;
 

@@ -1,20 +1,13 @@
-import React, {PureComponent} from 'react';
+import React, {useEffect} from 'react';
+import {popupDispatch} from '../../src/popupDispatcher';
+import {mixClass, build} from 'react-atomic-molecule';
+import callfunc from 'call-func';
 
-import {popupDispatch} from '../../src/index';
-
-class PopupMonitor extends PureComponent {
-  static getPopupKey(props) {
-    console.error('Not override getPopupKey');
-  }
-
-  static getPopupElement(key) {
-    console.error('Not override getPopupElement');
-  }
-
-  static calculateState(prevState, props) {
-    const key = this.popupKey || this.getPopupKey(props);
-    if (key) {
-      const popupElement = this.getPopupElement(key);
+const PopupMonitor = ({children, className, getPopupRefStore, getPopupKey, getPopupElement, ...otherProps}) => {
+  useEffect(()=>{
+    const popupKey = callfunc(getPopupKey); 
+    if (popupKey) {
+      const popupElement = callfunc(getPopupElement);
       popupDispatch({
         type: 'dom/update',
         params: {
@@ -26,8 +19,9 @@ class PopupMonitor extends PureComponent {
         type: 'dom/closeAll',
       });
     }
-    return prevState;
-  }
+  });
+  otherProps.className = mixClass(className, 'popup-monitor');
+  return build(children)(otherProps);
 }
 
 export default PopupMonitor;

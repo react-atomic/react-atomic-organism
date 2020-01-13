@@ -6,6 +6,7 @@ import {toInt} from 'to-percent-js';
 
 import PopupOverlay from '../molecules/PopupOverlay';
 
+
 class PopupFloatEl extends PopupOverlay {
   _mount = false;
 

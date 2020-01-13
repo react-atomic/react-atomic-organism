@@ -12,7 +12,7 @@ import {win, doc} from 'win-doc';
 import {UNDEFINED} from 'reshow-constant';
 
 import {PopupOverlay} from '../molecules/PopupOverlay';
-import {popupDispatch} from '../../src/index';
+import {popupDispatch} from '../../src/popupDispatcher';
 
 /**
  * 1. if you need trace show: true
@@ -186,6 +186,7 @@ class PopupModal extends PopupOverlay {
       className,
       contentClassName,
       name,
+      id,
       ...others
     } = this.props;
     let containerClick = null;
@@ -265,7 +266,7 @@ class PopupModal extends PopupOverlay {
     }
 
     return (
-      <SemanticUI ui={false} className={className} name={name}>
+      <SemanticUI ui={false} className={className} name={name} id={id}>
         <Animate {...{appear, enter, leave}}>{content}</Animate>
         {thisCloseEl}
       </SemanticUI>

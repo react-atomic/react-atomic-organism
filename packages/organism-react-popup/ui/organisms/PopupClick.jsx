@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 
-import {build, SemanticUI} from 'react-atomic-molecule';
+import {build, mixClass, SemanticUI} from 'react-atomic-molecule';
 
-import {popupDispatch, PopupOverlay} from '../../src/index';
+import PopupOverlay from '../molecules/PopupOverlay';
+import {popupDispatch} from '../../src/popupDispatcher';
+
 
 class PopupClick extends Component {
   handleClick = () => {
@@ -28,14 +30,16 @@ class PopupClick extends Component {
   };
 
   render() {
-    let {style, container, popup, callback, ...reset} = this.props;
+    let {style, className, container, popup, callback, ...reset} = this.props;
     if (!React.isValidElement(container)) {
       container = <SemanticUI />;
     }
     style = {...style, ...Styles.container};
+    className = mixClass(className, 'popup-click');
     const props = {
       ...reset,
       onClick: this.handleClick,
+      className,
       style,
     };
     return build(container)(props);

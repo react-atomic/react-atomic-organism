@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import {build, SemanticUI} from 'react-atomic-molecule';
 
-import {popupDispatch, PopupFloatEl} from '../../src/index';
+import {popupDispatch} from '../../src/popupDispatcher';
+import PopupFloatEl from '../molecules/PopupFloatEl';
 
 let closeTimer = {};
 
@@ -9,7 +10,7 @@ class PopupHover extends PureComponent {
   popup = null;
 
   static defaultProps = {
-    name: 'hover',
+    name: 'popup-hover',
     component: SemanticUI,
   };
 

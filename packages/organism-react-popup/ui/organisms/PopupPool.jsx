@@ -3,7 +3,7 @@ import { connect } from 'reshow-flux';
 import { build, SemanticUI } from 'react-atomic-molecule'; 
 import get from 'get-object-value';
 
-import { popupStore } from '../../src/index';
+import popupStore from '../../src/stores/popupStore';
 
 const keys = Object.keys;
 
