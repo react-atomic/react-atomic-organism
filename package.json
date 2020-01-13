@@ -58,9 +58,6 @@
     "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run test"
   },
-  "engines": {
-    "node": "10.x"
-  },
   "files": [
     "build",
     "package.json",
