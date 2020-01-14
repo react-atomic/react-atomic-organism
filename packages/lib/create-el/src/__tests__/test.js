@@ -1,4 +1,4 @@
-import {js, css, create} from '../index'; 
+import {js, css, create, inject, remove} from '../index'; 
 import {expect} from 'chai';
 
 
@@ -7,6 +7,27 @@ describe('Test create', ()=>{
     const div = create('div')()()
     expect(typeof div).to.equal('object')
   })
+});
+
+describe('Test remove', ()=>{
+  let dom;
+  it('add a dom', ()=>{
+    dom = create('div')()({
+      id: 'test-remove-dom',
+      innerHTML: 'hello'
+    });
+    inject()(dom);
+    const html = document.documentElement.innerHTML;
+    expect(html).to.have.string('test-remove-dom');
+  });
+
+  it('test remove dom', ()=>{
+    let html = document.documentElement.innerHTML;
+    expect(html).to.have.string('test-remove-dom');
+    remove(dom); 
+    html = document.documentElement.innerHTML;
+    expect(html).to.not.have.string('test-remove-dom');
+  });
 });
 
 describe('Test JS', ()=>{

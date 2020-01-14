@@ -3,10 +3,10 @@ import callfunc from 'call-func';
 
 const keys = Object.keys;
 
-const inject = (base, isStart) => dNode => {
+const inject = (base, isPrepend) => dNode => {
   base = callfunc(base);
   if (base && (base.nodeName === 'BODY' || base.nodeName === 'HEAD')) {
-    if (isStart && base.firstChild) {
+    if (isPrepend && base.firstChild) {
       base.insertBefore(dNode, base.firstChild);
       return;
     } else {
@@ -20,7 +20,7 @@ const inject = (base, isStart) => dNode => {
     }
     const parentNode = base.parentNode;
     if (parentNode) {
-      if (!isStart) {
+      if (!isPrepend) {
         if (base.nextSibling) {
           parentNode.insertBefore(dNode, base.nextSibling);
           return;
@@ -59,26 +59,35 @@ const create = tag => callback => attrs => {
   }
 };
 
-const js = (base, isStart) => callback => (url, attrs) => {
+const remove = dNode => {
+  if (dNode) {
+    try {
+      dNode.parentNode.removeChild(dNode);
+      dNode = null;
+    } catch (e) {}
+  }
+};
+
+const js = (base, isPrepend) => callback => (url, attrs) => {
   const dNode = create('script')(callback)(attrs);
   if (base) {
-    inject(base, isStart)(dNode);
+    inject(base, isPrepend)(dNode);
   }
   dNode.src = url;
   return dNode;
 };
 
-const css = (base, isStart) => callback => (url, attrs) => {
+const css = (base, isPrepend) => callback => (url, attrs) => {
   const dNode = create('link')(callback)({
     rel: 'stylesheet',
     type: 'text/css',
     ...attrs,
   });
   if (base) {
-    inject(base, isStart)(dNode);
+    inject(base, isPrepend)(dNode);
   }
   dNode.href = url;
   return dNode;
 };
 
-export {js, css, inject, create};
+export {js, css, inject, create, remove};
