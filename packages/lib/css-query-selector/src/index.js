@@ -1,5 +1,7 @@
 import queryFrom, {defaultQuery} from './queryFrom';
 
+defaultQuery.from = queryFrom;
+
 export default defaultQuery;
 
 const {
