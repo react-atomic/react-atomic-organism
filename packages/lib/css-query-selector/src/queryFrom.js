@@ -3,6 +3,13 @@ import {FUNCTION, STRING} from 'reshow-constant';
 
 const arrayFrom = a => [...a];
 
+const findHit = (all, el) => {
+  let hit;
+  const setHit = p => (hit = p);
+  all.some(p => (p.contains(el) && !p.isSameNode(el) ? setHit(p) : false));
+  return hit;
+};
+
 const queryFrom = base => {
   let doc;
   switch (typeof base) {
@@ -21,33 +28,29 @@ const queryFrom = base => {
   const queryEl = el => (STRING === typeof el ? queryOne(el) : el);
 
   const _queryAncestorPolyfill = (el, ancestor) => {
-    const findHit = all => { 
-      let hit;
-      const setHit = p => hit = p;
-      all.some(p => (p.contains(el) && !p.isSameNode(el) ? setHit(p) : false));
-      return hit;
-    }
     let lastHit;
     let hit;
     let all = queryAll(ancestor);
     if (all) {
-      hit = findHit(all);
+      hit = findHit(all, el);
     }
     while (hit) {
       lastHit = hit;
       all = hit.querySelectorAll(ancestor);
       if (all) {
-        hit = findHit(arrayFrom(all));
+        hit = findHit(arrayFrom(all), el);
       } else {
         break;
       }
     }
     return lastHit;
-  }
+  };
 
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
-    return el.closest ? el.closest(ancestor) : _queryAncestorPolyfill(el, ancestor);
+    return el.closest
+      ? el.closest(ancestor)
+      : _queryAncestorPolyfill(el, ancestor);
   };
 
   return {
