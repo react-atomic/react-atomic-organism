@@ -20,8 +20,7 @@ const queryFrom = base => {
 
   const queryEl = el => (STRING === typeof el ? queryOne(el) : el);
 
-  const queryAncestor = (el, ancestor) => {
-    el = queryEl(el);
+  const _queryAncestorPolyfill = (el, ancestor) => {
     const findHit = all => { 
       let hit;
       const setHit = p => hit = p;
@@ -44,7 +43,13 @@ const queryFrom = base => {
       }
     }
     return lastHit;
+  }
+
+  const queryAncestor = (el, ancestor) => {
+    el = queryEl(el);
+    return el.closest ? el.closest(ancestor) : _queryAncestorPolyfill(el, ancestor);
   };
+
   return {
     all: queryAll,
     ancestor: queryAncestor,
