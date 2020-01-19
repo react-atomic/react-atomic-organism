@@ -11,19 +11,11 @@ const findHit = (all, el) => {
 };
 
 const queryFrom = base => {
-  let doc;
-  switch (typeof base) {
-    case FUNCTION:
-      doc = base;
-      break;
-    default:
-      doc = () => defaultQuery.el(base);
-      break;
-  }
+  const myBase = FUNCTION === typeof base ? base : () => defaultQuery.el(base);
 
-  const queryOne = sel => doc().querySelector(sel);
+  const queryOne = sel => myBase()?.querySelector(sel);
 
-  const queryAll = sel => arrayFrom(doc().querySelectorAll(sel));
+  const queryAll = sel => arrayFrom(myBase()?.querySelectorAll(sel));
 
   const queryEl = el => (STRING === typeof el ? queryOne(el) : el);
 
