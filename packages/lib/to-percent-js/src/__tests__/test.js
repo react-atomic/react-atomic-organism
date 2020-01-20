@@ -1,6 +1,6 @@
 'use strict';
 
-import toPercent, {percent, round, toNum, getNum, toInt} from '../cjs/src/index.js';
+import toPercent, {percent, round, toNum, getNum, toInt} from '../index.js';
 import {expect} from 'chai';
 
 describe('Test to percent', () => {

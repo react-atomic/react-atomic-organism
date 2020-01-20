@@ -6,8 +6,6 @@ const percent = num => round(toNum(num) * 100);
 
 const round = (f, precision = 2) => toNum(f).toFixed(precision);
 
-const toRoundNum = (f, precision = 2) => toNum(round(f, precision));
-
 const toNum = num => {
   if ('undefined' === typeof num) {
     return 0;
@@ -22,15 +20,13 @@ const toNum = num => {
       return isNaN(maybeFloat) ? 0 : maybeFloat;
     }
   }
-}
+};
 
 const toInt = num => toNum(round(num, 0));
 
 const numReg = /(\-)?(\d+)(\.)?(\d+)?/g;
 const getNum = s => {
-  const match = s
-    .replace(',', '')
-    .match(numReg);
+  const match = s.replace(',', '').match(numReg);
   if (!match) {
     console.warn('Get number fail', s);
     return 0;
@@ -39,6 +35,6 @@ const getNum = s => {
   }
 };
 
-export {round, toRoundNum, percent, toNum, getNum, toInt};
+export {round, percent, toNum, getNum, toInt};
 
 export default toPercent;

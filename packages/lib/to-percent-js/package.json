@@ -1,6 +1,6 @@
 {
   "name": "to-percent-js",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Change number to percentage.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -21,8 +21,8 @@
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run test && npm run build",
-    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js'",
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
