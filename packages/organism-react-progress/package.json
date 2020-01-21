@@ -1,9 +1,10 @@
 {
   "name": "organism-react-progress",
-  "version": "0.0.15",
+  "version": "0.13.0-beta.2",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
     "react-component"
@@ -11,27 +12,31 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "organism-react-ajax": "*",
+    "organism-react-ajax": "^0.13.0-beta",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
-    "reshow-flux": "*",
+    "reshow-return": "*",
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {
-    "babel-cli": "^6.7.5",
-    "babel-core": "^6.7.5",
-    "babel-plugin-add-module-exports": "^0.1.2",
-    "babel-plugin-transform-object-assign": "^6.8.0",
-    "babel-plugin-transform-react-constant-elements": "^6.9.1",
-    "babel-preset-env": "*",
-    "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1"
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
+    "react": "^16.x",
+    "react-dom": "^16.x",
+    "react-test-renderer": "*"
   },
   "scripts": {
-    "build": "rm -rf build && BABEL_ENV=build babel ui -d build/ui && BABEL_ENV=build babel src -d build/src",
-    "prepublish": "npm run build"
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
