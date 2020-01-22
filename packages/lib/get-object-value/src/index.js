@@ -9,7 +9,8 @@ const toJS = v => (v && v.toJS ? v.toJS() : v);
 
 const toMap = a => get(toJS(a), null, {});
 
-const initMap = o => (k, v) => o[k] || (o[k] = getDefaultValue(v));
+const initMap = o => (k, defaultValue) =>
+  o[k] || (o[k] = getDefaultValue(defaultValue));
 
 const getDefaultValue = v => (FUNCTION === typeof v ? v() : v);
 
