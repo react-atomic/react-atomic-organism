@@ -21,7 +21,7 @@ const acture = merge(['a'], ['b'], ['c']);    // return ['a', 'b', 'c']
 
 ### combine
 ```
-import combine from 'array.merge'; 
+import {combine} from 'array.merge'; 
 const arr = {
   foo: ['a', 'b', 'c'],
   bar: ['d', 'e', 'f']
