@@ -1,10 +1,9 @@
-import React, {PureComponent} from 'react';
+import React, {PureComponent, Suspense, isValidElement} from 'react';
 import get from 'get-object-value';
+import build from "reshow-build";
 
 import {ajaxDispatch} from '../../src/ajaxDispatcher';
 import {win as oWin} from 'win-doc';
-
-let pages = {};
 
 class AjaxPage extends PureComponent {
   _lastThemePath = '';
@@ -13,6 +12,7 @@ class AjaxPage extends PureComponent {
     ajax: true,
     themes: {},
     win: null,
+    fallback: 'div',
   };
 
   constructor(props) {
@@ -44,7 +44,7 @@ class AjaxPage extends PureComponent {
   }
 
   render() {
-    const {themes, themePath} = this.props;
+    const {themes, themePath, fallback} = this.props;
     let thisThemePath = themePath;
     if ('undefined' === typeof themes[thisThemePath]) {
       thisThemePath = this._lastThemePath;
@@ -54,26 +54,17 @@ class AjaxPage extends PureComponent {
       }
     }
     this._lastThemePath = thisThemePath;
-    if (!pages[thisThemePath]) {
-      const myTheme = themes[thisThemePath];
-      let build;
-      if (React.isValidElement(myTheme)) {
-        build = React.cloneElement;
-      } else {
-        build = React.createElement;
-      }
-      const builded = build(myTheme);
-      if (!React.isValidElement(builded)) {
+    const myTheme = themes[thisThemePath];
+    const builded = build(myTheme)();
+    if (!isValidElement(builded)) {
         console.error(
-          'Not findi a valid element for name: [' + themePath + ']',
+          'Not find a valid element for name: [' + themePath + ']',
           themes,
         );
         return null;
-      } else {
-        pages[thisThemePath] = builded;
-      }
+    } else {
+        return <Suspense fallback={build(fallback)()}>{builded}</Suspense>;
     }
-    return pages[thisThemePath];
   }
 }
 
