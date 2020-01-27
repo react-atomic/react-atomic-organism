@@ -1,11 +1,8 @@
 import * as util from './util';
 import {Graph} from './graphlib';
 
-export {debugOrdering};
-
-
 /* istanbul ignore next */
-function debugOrdering(g) {
+const debugOrdering = g => {
   var layerMatrix = util.buildLayerMatrix(g);
 
   var h = new Graph({ compound: true, multigraph: true }).setGraph({});
@@ -30,3 +27,5 @@ function debugOrdering(g) {
 
   return h;
 }
+
+export default debugOrdering;

@@ -1,22 +1,6 @@
 import { isUndefined } from '../../lodash-lite'
 import Graph from './graph'
-export {write, read};
 
-function write(g) {
-  var json = {
-    options: {
-      directed: g.isDirected(),
-      multigraph: g.isMultigraph(),
-      compound: g.isCompound()
-    },
-    nodes: writeNodes(g),
-    edges: writeEdges(g)
-  };
-  if (!isUndefined(g.graph())) {
-    json.value = {...g.graph()};
-  }
-  return json;
-}
 
 function writeNodes(g) {
   return g.nodes().map(function(v) {
@@ -47,7 +31,23 @@ function writeEdges(g) {
   });
 }
 
-function read(json) {
+const write = g => {
+  var json = {
+    options: {
+      directed: g.isDirected(),
+      multigraph: g.isMultigraph(),
+      compound: g.isCompound()
+    },
+    nodes: writeNodes(g),
+    edges: writeEdges(g)
+  };
+  if (!isUndefined(g.graph())) {
+    json.value = {...g.graph()};
+  }
+  return json;
+}
+
+const read = json => {
   var g = new Graph(json.options).setGraph(json.value);
   json.nodes.forEach(function(entry) {
     g.setNode(entry.v, entry.value);
@@ -60,3 +60,6 @@ function read(json) {
   });
   return g;
 }
+
+export {write, read};
+export default {write, read};
