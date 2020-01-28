@@ -4,7 +4,7 @@ import {build, mixClass, SemanticUI} from 'react-atomic-molecule';
 
 import get from 'get-object-value';
 
-const Breakcrumb = props => {
+const Breadcrumb = props => {
   const {
     className,
     children,
@@ -55,7 +55,7 @@ const Breakcrumb = props => {
   );
 };
 
-export default Breakcrumb;
+export default Breadcrumb;
 
 const Styles = {
   container: {
