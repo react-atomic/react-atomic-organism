@@ -1,6 +1,6 @@
 {
   "name": "get-object-value",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Get Object Value",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -21,8 +21,8 @@
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run test && npm run build",
-    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js'"
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js'",
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",

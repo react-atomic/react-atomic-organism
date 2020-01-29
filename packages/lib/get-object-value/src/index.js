@@ -1,13 +1,18 @@
 import {DEFAULT, FUNCTION} from 'reshow-constant';
 
 const isArray = Array.isArray;
+const keys = Object.keys;
 
 const getWebpack4Default = o =>
   get(o, [DEFAULT, DEFAULT], () => get(o, [DEFAULT], () => o));
 
 const toJS = v => (v && v.toJS ? v.toJS() : v);
 
-const toMap = a => get(toJS(a), null, {});
+const toMap = (a, path) => {
+  const next = get(a, path, {});
+  keys(next).forEach(key => (next[key] = toJS(next[key])));
+  return next;
+};
 
 const initMap = o => (k, defaultValue) =>
   o[k] || (o[k] = getDefaultValue(defaultValue));
