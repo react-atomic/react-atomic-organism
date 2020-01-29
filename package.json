@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -27,7 +27,6 @@
     "@babel/plugin-proposal-class-properties": "*",
     "@babel/plugin-proposal-export-default-from": "*",
     "@babel/plugin-proposal-object-rest-spread": "*",
-    "@babel/plugin-proposal-optional-chaining": "*",
     "@babel/plugin-syntax-dynamic-import": "*",
     "@babel/plugin-transform-object-assign": "*",
     "@babel/plugin-transform-react-constant-elements": "*",
