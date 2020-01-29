@@ -1,55 +1,51 @@
-import React, {Component} from 'react'; 
-import { connect } from 'reshow-flux';
-import { build, SemanticUI } from 'react-atomic-molecule'; 
+import React from 'react';
+import {build, SemanticUI} from 'react-atomic-molecule';
 import get from 'get-object-value';
+import Return from 'reshow-return';
 
 import popupStore from '../../src/stores/popupStore';
 
 const keys = Object.keys;
 
-class PopupPool extends Component
-{
-    static defaultProps = {
-      component: SemanticUI
+const getPops = nodes => {
+  nodes = get(nodes) || {};
+  const pops = [];
+  keys(nodes).map(key => {
+    const node = nodes[key];
+    const nodeProps = get(node, ['props'], {});
+    const toPool = nodeProps.toPool;
+    if ((name || toPool) && toPool !== name) {
+      return;
     }
+    pops.push(build(node)({key}));
+  });
+  return pops;
+};
 
-    static getStores()
-    {
-        return [popupStore];
-    }
-
-    static calculateState(prevState, props)
-    {
-        const nodes = popupStore.getMap('nodes');
-        const {name} = props;
-        const pops = [];
-        keys(nodes).forEach( key => {
-            let node = nodes[key];
-            const nodeProps = get(node, ['props'], {}); 
-            const toPool = nodeProps.toPool; 
-            if ((name || toPool) && toPool !== name) {
-                return;
-            }
-
-            node = build( node) ( {key} );
-            pops.push(node); 
-        });
-        return { pops };
-    }
-
-    render()
-    {
-        const {pops} = this.state;
+const PopupPool = ({name, component, ...otherProps}) => {
+  return (
+    <Return stores={[popupStore]} initStates={['nodes']}>
+      {({nodes}) => {
+        const pops = getPops(nodes);
         if (pops.length) {
-            const {component, ...otherProps} = this.props;
-            return build(component)({
+          return build(component)(
+            {
               className: 'popup-pool',
               ui: false,
-              ...otherProps
-            }, pops);
+              ...otherProps,
+            },
+            pops,
+          );
         } else {
-            return null;
+          return null;
         }
-    }
-}
-export default connect(PopupPool, {withProps: true});
+      }}
+    </Return>
+  );
+};
+
+PopupPool.defaultProps = {
+    component: SemanticUI,
+};
+
+export default PopupPool;

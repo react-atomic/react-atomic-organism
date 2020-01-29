@@ -1,41 +1,13 @@
 import React from 'react';
-import {connect} from 'reshow-flux';
-import get from 'get-object-value';
+import Return from 'reshow-return';
 import {mixClass, SemanticUI} from 'react-atomic-molecule';
+import get from 'get-object-value';
 import getStyle from 'get-style';
 
 import BasePopup from '../molecules/BasePopup';
 import popupStore from '../../src/stores/popupStore';
 
 class PopupOverlay extends BasePopup {
-  static getStores() {
-    return [popupStore];
-  }
-
-  static calculateState(prevState, props) {
-    const state = popupStore.getState();
-    const key = get(props, ['name'], 'default');
-    const show = state.get('shows').get(key);
-    return {
-      show,
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const prevShow = get(prevState, ['props', 'show']);
-    const {show} = nextProps || {};
-    if (show !== prevShow) {
-      return {
-        props: nextProps,
-        show: nextProps.show,
-      };
-    }
-  }
-
-  renderOverlay(props) {
-    return <SemanticUI {...props} />;
-  }
-
   resetStyle(key, thisStyle) {
     const value = get(this.state, [key], () => get(this.props, [key]));
     if ('undefined' !== typeof value) {
@@ -43,9 +15,12 @@ class PopupOverlay extends BasePopup {
     }
   }
 
-  render() {
-    const {show: stateShow, hasError} = this.state;
-    if (!stateShow || hasError) {
+  renderOverlay(props) {
+    return <SemanticUI {...props} />;
+  }
+
+  shouldShow(show) {
+    if (!show) {
       return null;
     }
     const {
@@ -54,7 +29,6 @@ class PopupOverlay extends BasePopup {
       alignParams,
       isFollowTransform,
       className,
-      show,
       style,
       group,
       ...others
@@ -84,11 +58,20 @@ class PopupOverlay extends BasePopup {
     );
     return this.renderOverlay(others);
   }
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return (
+      <Return stores={[popupStore]} initStates={['shows']}>
+        {({shows}) => {
+          const show = get(shows, [this.props.name]);
+          return this.shouldShow(show);
+        }}
+      </Return>
+    );
+  }
 }
 
-export {PopupOverlay};
-
-export default connect(
-  PopupOverlay,
-  {withProps: true},
-);
+export default PopupOverlay;

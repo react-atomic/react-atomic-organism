@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 
 class BasePopup extends PureComponent {
+  state = {hasError: false};
   static defaultProps = {
     name: 'default',
   };

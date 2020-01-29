@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "React Atomic Organism Popup",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -23,7 +23,7 @@
     "organism-react-animate": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
-    "reshow-flux": "*",
+    "reshow-return": "*",
     "reshow-runtime": "*",
     "ricon": "*",
     "set-object-value": "*",
@@ -46,7 +46,9 @@
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:es": "npm run build:es:src && npm run build:es:ui",
+    "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "prepublishOnly": "npm run test"

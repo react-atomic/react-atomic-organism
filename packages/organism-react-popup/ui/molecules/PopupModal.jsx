@@ -1,5 +1,4 @@
 import React, {isValidElement} from 'react';
-import {connect} from 'reshow-flux';
 import {build, reactStyle, Dimmer, SemanticUI} from 'react-atomic-molecule';
 import Animate from 'organism-react-animate';
 import getScrollInfo from 'get-scroll-info';
@@ -11,7 +10,7 @@ import callfunc from 'call-func';
 import {win, doc} from 'win-doc';
 import {UNDEFINED} from 'reshow-constant';
 
-import {PopupOverlay} from '../molecules/PopupOverlay';
+import PopupOverlay from '../molecules/PopupOverlay';
 import {popupDispatch} from '../../src/popupDispatcher';
 
 /**
@@ -128,8 +127,8 @@ class PopupModal extends PopupOverlay {
      */
     if (hasClass(get(doc(), ['body', 'className']), 'dimmed')) {
       const {closeCallback, onClose} = this.props;
-      //settimeout is for fixed cant setstate during render error 
-      setTimeout(()=>callfunc(onClose || closeCallback));
+      //settimeout is for fixed cant setstate during render error
+      setTimeout(() => callfunc(onClose || closeCallback));
     }
 
     // do detach (need put after onClose else will make modal can't appear again)
@@ -152,16 +151,11 @@ class PopupModal extends PopupOverlay {
     this.detach();
   }
 
-  render() {
+  shouldShow(show) {
     const {
-      hasError,
-      show: stateShow,
       modalStyle: stateModalStyle,
       maskStyle: stateMaskStyle,
     } = this.state;
-    if (hasError) {
-      return null;
-    }
     const {
       disableClose,
       scrolling,
@@ -192,7 +186,7 @@ class PopupModal extends PopupOverlay {
     let containerClick = null;
     let thisCloseEl;
     let content = '';
-    if (stateShow) {
+    if (show) {
       this.lockScreen();
       if (!closeEl) {
         if (!disableClose) {
@@ -216,7 +210,7 @@ class PopupModal extends PopupOverlay {
             {...others}
             isModal="true"
             className={mixClass({scrolling: scrolling}, modalClassName)}
-            show={stateShow}
+            show={show}
             contentStyle={contentStyle}
           />
         );
@@ -249,7 +243,7 @@ class PopupModal extends PopupOverlay {
         content = (
           <Dimmer
             className={mixClass('page modals', contentClassName)}
-            show={stateShow}
+            show={show}
             center={false}
             styles={thisStyles}
             styleOrder={1}
@@ -274,12 +268,7 @@ class PopupModal extends PopupOverlay {
   }
 }
 
-const PopupModalContainer = connect(
-  PopupModal,
-  {withProps: true},
-);
-
-export default PopupModalContainer;
+export default PopupModal;
 
 const Styles = {
   flexAlignTop: {
