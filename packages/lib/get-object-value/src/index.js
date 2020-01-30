@@ -10,8 +10,9 @@ const toJS = v => (v && v.toJS ? v.toJS() : v);
 
 const toMap = (a, path) => {
   const next = get(a, path, {});
-  keys(next).forEach(key => (next[key] = toJS(next[key])));
-  return next;
+  const nextMap = {};
+  keys(next).forEach(key => (nextMap[key] = toJS(next[key])));
+  return nextMap;
 };
 
 const initMap = o => (k, defaultValue) =>
