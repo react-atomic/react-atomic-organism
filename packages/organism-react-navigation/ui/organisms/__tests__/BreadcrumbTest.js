@@ -1,4 +1,3 @@
-import jsdom from 'jsdom-global'
 import React, {PureComponent} from 'react'
 import {expect} from 'chai';
 import {mount, configure} from 'enzyme';

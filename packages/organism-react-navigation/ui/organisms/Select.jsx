@@ -30,7 +30,7 @@ class Select extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value, defaultValue} = nextProps;
     const {prevValue} = prevState;
-    let thisValue = value || defaultValue;
+    const thisValue = value ?? defaultValue;
     if (thisValue !== prevValue) {
       return {
         value: thisValue,
