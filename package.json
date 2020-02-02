@@ -18,7 +18,6 @@
     "reshow-constant": "*",
     "reshow-runtime": "*",
     "ricon": "*",
-    "set-object-value": "*",
     "seturl": "*",
     "win-doc": "*"
   },
