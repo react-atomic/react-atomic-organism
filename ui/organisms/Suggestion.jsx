@@ -28,6 +28,7 @@ class Suggestion extends PureComponent {
     itemsLocator: defaultItemsLocator,
     itemLocator: defaultItemLocator,
     itemFilter: defaultItemFilter,
+    valueLocator: defaultItemLocator,
     onItemClick: defaultItemClick,
     filter: false,
     preview: false,
@@ -89,9 +90,7 @@ class Suggestion extends PureComponent {
         value: input.value,
       };
     }
-    if (e) {
-      e.persist();
-    } else {
+    if (!e) {
       e = {target: input, currentTarget: input};
     }
     if (isOpen || false === isOpen) {
@@ -99,6 +98,7 @@ class Suggestion extends PureComponent {
     }
     this.setState(nextState, () => {
       const {onChange, name} = this.props;
+      e.inputName = name;
       callfunc(onChange, [e, this.state.value, name, this]);
     });
   }
@@ -112,7 +112,8 @@ class Suggestion extends PureComponent {
     this.close();
   };
 
-  handleInput = e => {
+  handleChange = e => {
+    e.persist();
     const {isOpen} = this.state;
     const value = get(e, ['target', 'value'], '');
     this.setValue(value, e);
@@ -122,23 +123,28 @@ class Suggestion extends PureComponent {
   };
 
   handleFocus = e => {
+    if (e && e.persist) {
+      e.persist();
+    }
     const {onFocus, couldCreate} = this.props;
     this.open(e);
     this.focus();
-    if (!couldCreate && this.originalInput) {
-      this.setValue(this.originalInput, e);
-      this.originalInput = null;
+    if (!couldCreate && this.originalValue) {
+      this.setValue(this.originalValue, e);
+      this.originalValue = null;
     }
     callfunc(onFocus, [e]);
   };
 
   handleBlur = e => {
+    e.persist();
     const {
       onBlur,
       couldCreate,
       results,
       itemsLocator,
       itemLocator,
+      valueLocator,
     } = this.props;
     if (!couldCreate) {
       const arr = itemsLocator(results);
@@ -148,14 +154,14 @@ class Suggestion extends PureComponent {
           const {value} = this.state;
           if (!this.results || !this.results.length) {
             const isIn = arr.some(a => {
-              if (itemLocator(a) === value) {
+              if (valueLocator(itemLocator(a)) === value) {
                 return true;
               } else {
                 return false;
               }
             });
             if (!isIn) {
-              this.originalInput = value;
+              this.originalValue = value;
               this.setValue('', e, false);
             }
           }
@@ -169,6 +175,14 @@ class Suggestion extends PureComponent {
     this.handleFocus();
     callfunc(this.props.onWrapClick, [e]);
   };
+
+  handleItemClick = (e, item) => {
+    const {itemClickToClose, onItemClick} = this.props;
+    callfunc(onItemClick, [e, item, this]);
+    if (itemClickToClose) {
+      setTimeout(()=>this.close());
+    }
+  }
 
   handleKeyUp = e => {
     const {keyCode} = e;
@@ -195,11 +209,10 @@ class Suggestion extends PureComponent {
         case 13:
           e.preventDefault();
           if (selIndex && this.results) {
-            callfunc(onItemClick, [
+            this.handleItemClick(
               e,
               get(this.results, [selIndex - 1], {}),
-              this,
-            ]);
+            );
           }
       }
       return {selIndex};
@@ -212,7 +225,7 @@ class Suggestion extends PureComponent {
 
   handlePreview(results) {
     const {value} = this.state;
-    const {preview, itemsLocator, itemLocator, itemFilter} = this.props;
+    const {preview, itemsLocator, itemLocator, itemFilter, valueLocator} = this.props;
     let arr = itemsLocator(results);
     if (!arr || !arr.length) {
       return [];
@@ -221,7 +234,7 @@ class Suggestion extends PureComponent {
       const previewNum = 'number' !== typeof preview ? 5 : preview;
       arr = arr.slice(0, previewNum);
     } else {
-      arr = arr.filter(d => itemFilter(itemLocator(d), value));
+      arr = arr.filter(d => itemFilter(valueLocator(itemLocator(d)), value));
     }
     return arr;
   }
@@ -257,7 +270,7 @@ class Suggestion extends PureComponent {
     const {value, defaultValue} = nextProps;
     if (value !== prevState.prevPropsValue) {
       return {
-        value: value || defaultValue,
+        value: value ?? defaultValue,
         prevPropsValue: value,
       };
     } else {
@@ -286,6 +299,7 @@ class Suggestion extends PureComponent {
       itemsLocator,
       itemLocator,
       itemFilter,
+      valueLocator,
       preview,
       filter,
       defaultValue,
@@ -299,12 +313,7 @@ class Suggestion extends PureComponent {
     }
     this.results = this.handleResults();
     if (FUNCTION === typeof onItemClick) {
-      props.onItemClick = (e, item) => {
-        onItemClick(e, item, this);
-        if (itemClickToClose) {
-          this.close();
-        }
-      };
+      props.onItemClick = this.handleItemClick; 
     }
     const classes = mixClass(className, {
       disabled,
@@ -318,7 +327,7 @@ class Suggestion extends PureComponent {
       wrapRefCb: this.handleWrapRefCb,
       onWrapClick: this.handleWrapClick,
       refCb: this.handleRefCb,
-      onChange: this.handleInput,
+      onChange: this.handleChange,
       onFocus: this.handleFocus,
       onBlur: this.handleBlur,
       onKeyUp: this.handleKeyUp,
