@@ -233,7 +233,6 @@ class Suggestion extends PureComponent {
     const {itemClickToClose, onItemClick, valueLocator} = this.props;
     callfunc(onItemClick, [e, item, this]);
     if (itemClickToClose) {
-      console.log(valueLocator(item), {item});
       this.setValue(valueLocator(item));
       this.handleSubmit(e);
     }
