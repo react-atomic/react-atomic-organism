@@ -366,6 +366,7 @@ class Suggestion extends PureComponent {
       ...props,
       value,
       name: isOpen ? null : name, // disalbe autofill
+      'data-name': name,
       selIndex,
       className: classes,
       refCb: this.handleRefCb,
