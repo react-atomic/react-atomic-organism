@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SemanticUI, build} from 'react-atomic-molecule';
+import {build, SemanticUI} from 'react-atomic-molecule';
 import {Graph, Group, Zoom} from 'organism-react-graph';
 import get, {getDefault} from 'get-object-value';
 import set from 'set-object-value';
@@ -301,8 +301,10 @@ class UMLGraph extends Component {
   };
 
   handleLineDel = payload => {
-    this.oConn.deleteLine(payload.lineId);
-    callfunc(this.props.onLineDel, [payload]);
+    const isContinue = callfunc(this.props.onLineDel, [payload]);
+    if (isContinue !== false) {
+      this.oConn.deleteLine(payload.lineId);
+    }
   };
 
   handleConnAdd = payload => {
@@ -378,7 +380,7 @@ class UMLGraph extends Component {
     const {k, x, y} = oTransform || {};
     const transform = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
     return (
-      <SemanticUI style={Styles.container} refCb={el => (this.zoomEl = el)}>
+      <SemanticUI className="d3-uml" style={Styles.container} refCb={el => (this.zoomEl = el)}>
         <Graph refCb={el => (this.vector = el)} {...props} style={Styles.svg}>
           <Zoom
             onGetEl={() => this.zoomEl}
