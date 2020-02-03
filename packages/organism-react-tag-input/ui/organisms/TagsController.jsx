@@ -177,12 +177,11 @@ class TagsController extends PureComponent {
     this.clearTimer();
     this.blurTimer = setTimeout(() => {
       if (!this.isFocus) {
-        const {createOnBlur} = this.props;
-        if (createOnBlur) {
+        if (this.props.createOnBlur) {
           this.maybeCreate();
         }
       }
-    }, 500);
+    }, 50);
   };
 
   handleFocus = e => {

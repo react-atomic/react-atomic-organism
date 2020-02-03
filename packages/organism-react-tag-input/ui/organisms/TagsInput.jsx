@@ -79,6 +79,8 @@ const Styles = {
   input: {
     border: 'none',
     width: 'auto',
+    maxWidth: '100%',
+    maxHeight: '100%',
     margin: 0,
   },
   list: {

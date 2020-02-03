@@ -22,6 +22,7 @@ const TagsField = props => {
       onDel,
       onError,
       onController,
+      onItemClick,
       name,
       ...otherProps
     } = props;
