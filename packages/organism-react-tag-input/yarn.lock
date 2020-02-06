@@ -866,9 +866,9 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.5:
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
 escodegen@^1.12.1:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/escodegen/-/escodegen-1.13.0.tgz#c7adf9bd3f3cc675bb752f202f79a720189cab29"
-  integrity sha512-eYk2dCkxR07DsHA/X2hRBj0CFAZeri/LyDMc0C8JT1Hqi6JnVpMhJ7XFITbb0+yZS3lVkaPL2oCkZ3AVmeVbMw==
+  version "1.14.1"
+  resolved "https://registry.yarnpkg.com/escodegen/-/escodegen-1.14.1.tgz#ba01d0c8278b5e95a9a45350142026659027a457"
+  integrity sha512-Bmt7NcRySdIfNPfU2ZoXDrrXsG9ZjvDxcAlMfDUgRBjLOWTuIACXPBFJH7Z+cLb40JeQco5toikyc9t9P8E9SQ==
   dependencies:
     esprima "^4.0.1"
     estraverse "^4.2.0"
@@ -1879,9 +1879,9 @@ nearley@^2.7.10:
     semver "^5.4.1"
 
 needle@^2.2.1:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/needle/-/needle-2.4.0.tgz#6833e74975c444642590e15a750288c5f939b57c"
-  integrity sha512-4Hnwzr3mi5L97hMYeNl8wRW/Onhy4nUKR/lVemJ8gJedxxUyBLm9kkrDColJvoSfwi0jCNhD+xCdOtiGDQiRZg==
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/needle/-/needle-2.3.2.tgz#3342dea100b7160960a450dc8c22160ac712a528"
+  integrity sha512-DUzITvPVDUy6vczKKYTnWc/pBZ0EnjMJnQ3y+Jo5zfKFimJs7S3HFCxCRZYB9FUZcrzUQr3WsmvZgddMEIZv6w==
   dependencies:
     debug "^3.2.6"
     iconv-lite "^0.4.4"
@@ -2290,9 +2290,9 @@ react-atomic-molecule@*:
     win-doc "*"
 
 react-atomic-organism@*:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.9.3.tgz#44b9b9283029a6abd4d4d58243e0b051c4326c44"
-  integrity sha512-j724/Ap0MNUgACLUHtgNBPwhohCS3D8HXAT+d2JwAK3+l58MEvXXBKwXVa7s+FvIWPO7DY0Lp3OyCGuXJRGVRw==
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.9.4.tgz#21cfc40de6dc677b354f1b9238e93f23efac0e4f"
+  integrity sha512-/ljdcXcRSC0alqvIXZiDEnNdK7wpL7d10OyKqYMWeeoav+Tw3nXhp88VIplzUX1CEv/kMHpoZGNQq4zwDTOOGw==
   dependencies:
     array.merge "*"
     call-func "*"
