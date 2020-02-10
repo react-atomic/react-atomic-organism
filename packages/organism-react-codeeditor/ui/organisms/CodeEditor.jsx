@@ -6,6 +6,7 @@ import callfunc from 'call-func';
 import fixHtml from 'fix-html';
 
 import Preview from '../organisms/Preview';
+import CodeMirror from '../organisms/CodeMirror';
 
 const openCodeEditor = (code, cb) => {
   popupDispatch('dom/update', {
@@ -30,20 +31,8 @@ class CodeEditor extends PureComponent {
     return this.getHtml();
   }
 
-  handleIframe = el => (this.dIframe = el);
-  handleTextarea = el => (this.textarea = el);
   handlePreview = el => (this.preview = el);
 
-  handleLoad = () => {
-    this.iframeWindow = this.dIframe.contentWindow.window;
-    let timer;
-    timer = setInterval(() => {
-      if (this.iframeWindow.isCodeMirrorReady) {
-        clearInterval(timer);
-        this.handleCodeMirror();
-      }
-    }, 10);
-  };
 
   handleCodeMirror = () => {
     const codemirror = this.iframeWindow.CodeMirror.fromTextArea(
@@ -111,29 +100,7 @@ class CodeEditor extends PureComponent {
         {...otherProps}
         style={Styles.full}>
         <SemanticUI className={codeClasses} style={Styles.fitHeight}>
-          <Iframe
-            style={Styles.fitHeight}
-            refCb={this.handleIframe}
-            onLoad={this.handleLoad}>
-            <Unsafe>
-              {`
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
-          <script async src="https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/xml/xml.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/javascript/javascript.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/css/css.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/htmlmixed/htmlmixed.min.js"></script>
-          <script>window.isCodeMirrorReady=true;</script>
-          `}
-            </Unsafe>
-            <textarea
-              ref={this.handleTextarea}
-              style={Styles.textArea}
-              defaultValue={children}
-            />
-          </Iframe>
+          <CodeMirror />
         </SemanticUI>
         {thisPreview}
       </FullScreen>
@@ -148,9 +115,6 @@ const Styles = {
   full: {
     display: 'block',
     padding: 0,
-  },
-  textArea: {
-    display: 'none',
   },
   fitHeight: {
     height: '100%',
