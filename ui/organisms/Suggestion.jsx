@@ -79,6 +79,10 @@ class Suggestion extends PureComponent {
     return this.state.selIndex;
   }
 
+  getIsOpen() {
+    return this.state.isOpen;
+  }
+
   shouldRenderSuggestions() {
     const {shouldRenderSuggestions} = this.props;
     return !shouldRenderSuggestions
