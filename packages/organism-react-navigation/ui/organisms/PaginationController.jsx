@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {SemanticUI} from 'react-atomic-molecule';
 import {toInt} from 'to-percent-js';
+import get from 'get-object-value';
 
 import Pagination from '../organisms/Pagination';
 import paginationCalculator, {
@@ -34,6 +35,7 @@ class PaginationController extends PureComponent {
 
   render() {
     const {
+      hideOnlyOne,
       pageProps,
       currentPageProps,
       onPageChange,
@@ -46,6 +48,12 @@ class PaginationController extends PureComponent {
       ...otherProps
     } = this.props;
     const data = this.getPaginationData();
+    if (hideOnlyOne) {
+      const liLen = get(data.list, ['length'], 0);
+      if (liLen < 2) {
+        return null;
+      }
+    }
     return (
       <SemanticUI {...otherProps} ui={ui}>
         <Pagination
