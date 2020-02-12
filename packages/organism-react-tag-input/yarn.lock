@@ -2285,9 +2285,9 @@ react-atomic-molecule@*:
     win-doc "*"
 
 react-atomic-organism@*:
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.9.5.tgz#3049bd7af6f33e678f927532cbd3712337a5c4ce"
-  integrity sha512-Wy91/H75L8psVjPGZ+xZmrtLT0R6vdyyXritffRTB3uJOu7ukP4EAJh/rp8wpPr2nsdlefJKYANqWX+xjg2wQQ==
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.9.6.tgz#4ef2cd28933cdf7f3f34282a3638523695a37515"
+  integrity sha512-sXlW0bFd/k0vaArkKGShwMMBiSBDSkrSVO5v2zhAk5DJdRPbjpplOCle9+55E4t/6ia8DeyG9EGWQALzheFRwg==
   dependencies:
     array.merge "*"
     call-func "*"
