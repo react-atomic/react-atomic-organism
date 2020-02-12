@@ -1,6 +1,6 @@
 {
   "name": "organism-react-tag-input",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "React Tag Input",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

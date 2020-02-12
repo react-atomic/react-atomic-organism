@@ -77,7 +77,7 @@ class Suggestion extends PureComponent {
 
   valueLocator(rawItem) {
     const {valueLocator, itemLocator} = this.props;
-    let value = itemLocator(a);
+    let value = itemLocator(rawItem);
     if (valueLocator) {
       value = callfunc(valueLocator, [value]);
     }

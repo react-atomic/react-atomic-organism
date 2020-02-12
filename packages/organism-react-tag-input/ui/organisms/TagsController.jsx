@@ -193,7 +193,7 @@ class TagsController extends PureComponent {
   handleItemClick = (e, itemData) => {
     const {itemLocator} = this.props;
     const item = itemLocator(itemData);
-    this.handleAdd(item);
+    return this.handleAdd(item);
   };
 
   handleItems = d => {
