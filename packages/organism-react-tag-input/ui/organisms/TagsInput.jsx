@@ -57,6 +57,7 @@ const TagInput = props => {
       itemLocator={itemLocator}
       itemsLocator={itemsLocator}
       results={results}
+      onSubmit={false}
       onKeyDown={onKeyDown}
       onBlur={onBlur}
       onFocus={onFocus}

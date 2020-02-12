@@ -150,13 +150,16 @@ class Suggestion extends PureComponent {
   };
 
   handleSubmit = e => {
-    this.input.blur();
-    this.timerClose = setTimeout(() => this.close());
-    this.timerSubmit = setTimeout(() => {
-      const {onSubmit} = this.props;
-      e.inputValue = this.getValue();
-      callfunc(onSubmit, [e]);
-    }, 300);
+    const {onSubmit} = this.props;
+    if (false !== onSubmit) {
+      this.input.blur();
+      this.timerClose = setTimeout(() => this.close());
+      this.timerSubmit = setTimeout(() => {
+        // Timeout is for this.handleResetValue
+        e.inputValue = this.getValue();
+        callfunc(onSubmit, [e]);
+      }, 300);
+    }
   };
 
   handleResetValue = (value, e) => {
