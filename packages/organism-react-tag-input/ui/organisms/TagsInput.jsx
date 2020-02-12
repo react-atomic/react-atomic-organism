@@ -75,6 +75,7 @@ const Styles = {
     borderRadius: '.28571429rem',
     width: '100%',
     cursor: 'text',
+    position: 'relative',
   },
   input: {
     border: 'none',
