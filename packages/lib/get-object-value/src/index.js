@@ -25,7 +25,7 @@ const get = (o, path, defaultValue) => {
     return getDefaultValue(defaultValue);
   }
   let current = toJS(o);
-  if (!isArray(path)) {
+  if (!path || !isArray(path)) {
     return current;
   }
   path.every(a => {
