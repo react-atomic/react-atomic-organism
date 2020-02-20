@@ -4,6 +4,7 @@ import {Set} from 'immutable';
 import Animate from 'organism-react-animate';
 import XIcon from 'ricon/X';
 import {Message, reactStyle} from 'react-atomic-molecule';
+import callfunc from 'call-func';
 
 const messageTypes = ['success', 'info', 'warning', 'error'];
 
@@ -33,8 +34,8 @@ class Alert extends Component {
 
   componentDidMount() {
     const {duration, onClick} = this.props;
-    if (duration*1 > 0) {
-      setTimeout(()=>onClick(), duration);
+    if (duration * 1 > 0) {
+      setTimeout(() => onClick(), duration);
     }
   }
 
@@ -94,15 +95,13 @@ class AlertsNotifier extends PureComponent {
 
   dismiss(item) {
     const {onDismiss} = this.props;
-    if ('function' === typeof onDismiss) {
-      onDismiss(item);
-    }
-    //if no callback for dismissal, just update our state
-    this.setState(({dismissedAlerts}) => {
-      return {
+    const isContinue = callfunc(onDismiss, [item]);
+    if (false !== isContinue) {
+      // if no callback for dismissal, just update our state
+      this.setState(({dismissedAlerts}) => ({
         dismissedAlerts: dismissedAlerts.add(item),
-      };
-    });
+      }));
+    }
   }
 
   render() {
