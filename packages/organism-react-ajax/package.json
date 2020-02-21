@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.13.0-beta.4",
+  "version": "0.13.0-beta.5",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -14,6 +14,7 @@
   "dependencies": {
     "call-func": "*",
     "es6-promise": "4.2.5",
+    "form-serialize-js": "*",
     "get-object-value": "*",
     "get-random-id": "*",
     "immutable": "*",
@@ -23,7 +24,6 @@
     "reshow-runtime": "*",
     "set-object-value": "*",
     "setimmediate": "*",
-    "seturl": "*",
     "smooth-scroll-to": "*",
     "superagent": "3.8.3",
     "win-doc": "*"

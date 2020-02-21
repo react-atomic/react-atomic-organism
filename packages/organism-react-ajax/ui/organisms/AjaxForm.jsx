@@ -1,8 +1,8 @@
 import React, {cloneElement, createElement, isValidElement} from 'react'; 
+import formSerialize from 'form-serialize-js';
 import AjaxBase from '../organisms/AjaxBase';
 import ajaxStore from '../../src/stores/ajaxStore';
 import {ajaxDispatch} from '../../src/ajaxDispatcher';
-import formSerialize from '../../src/lib/formSerialize';
 
 class AjaxForm extends AjaxBase 
 {
