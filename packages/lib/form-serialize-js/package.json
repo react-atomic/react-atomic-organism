@@ -1,7 +1,7 @@
 {
-  "name": "get-object-value",
-  "version": "0.1.8",
-  "description": "Get Object Value",
+  "name": "form-serialize-js",
+  "version": "0.0.0",
+  "description": "Serialize form fields to submit through ajax",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -9,20 +9,23 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "reshow-constant": "*",
-    "reshow-runtime": "*"
+    "set-object-value": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
     "mocha": "*"
   },
   "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js'",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "npm run test",
+    "mocha": "mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
+    "test": "npm run build && npm run mocha"
   },
   "files": [
     "build",

@@ -26,7 +26,7 @@ class Suggestion extends PureComponent {
     itemsLocator: defaultItemsLocator,
     itemLocator: defaultItemLocator,
     itemFilter: defaultItemFilter,
-    valueLocator: defaultItemLocator,
+    valueLocator: null,
     filter: false,
     preview: false,
   };
@@ -73,6 +73,15 @@ class Suggestion extends PureComponent {
 
   getValue() {
     return this.state.value;
+  }
+
+  valueLocator(rawItem) {
+    const {valueLocator, itemLocator} = this.props;
+    let value = itemLocator(rawItem);
+    if (valueLocator) {
+      value = callfunc(valueLocator, [value]);
+    }
+    return value;
   }
 
   getSelIndex() {
@@ -141,13 +150,16 @@ class Suggestion extends PureComponent {
   };
 
   handleSubmit = e => {
-    this.input.blur();
-    this.timerClose = setTimeout(() => this.close());
-    this.timerSubmit = setTimeout(() => {
-      const {onSubmit} = this.props;
-      e.inputValue = this.getValue();
-      callfunc(onSubmit, [e]);
-    }, 300);
+    const {onSubmit} = this.props;
+    if (false !== onSubmit) {
+      this.input.blur();
+      this.timerClose = setTimeout(() => this.close());
+      this.timerSubmit = setTimeout(() => {
+        // Timeout is for this.handleResetValue
+        e.inputValue = this.getValue();
+        callfunc(onSubmit, [e]);
+      }, 300);
+    }
   };
 
   handleResetValue = (value, e) => {
@@ -165,20 +177,14 @@ class Suggestion extends PureComponent {
   };
 
   handleCouldCreate = () => {
-    const {
-      couldCreate,
-      results,
-      itemsLocator,
-      itemLocator,
-      valueLocator,
-    } = this.props;
+    const {couldCreate, results, itemsLocator} = this.props;
     const {value: originalValue} = this.state;
     let value = originalValue;
     if (!couldCreate) {
       const arr = itemsLocator(results);
       if (arr && arr.length) {
         const isIn = arr.some(a => {
-          if (valueLocator(itemLocator(a)) === value) {
+          if (this.valueLocator(a) === value) {
             return true;
           } else {
             return false;
@@ -234,10 +240,10 @@ class Suggestion extends PureComponent {
 
   handleItemClick = (e, item) => {
     e.persist();
-    const {itemClickToClose, onItemClick, valueLocator} = this.props;
-    callfunc(onItemClick, [e, item, this]);
-    if (itemClickToClose) {
-      this.setValue(valueLocator(item));
+    const {itemClickToClose, onItemClick} = this.props;
+    const isContinue = callfunc(onItemClick, [e, item, this]);
+    if (itemClickToClose && false !== isContinue) {
+      this.setValue(this.valueLocator(item));
       this.handleSubmit(e);
     }
   };
@@ -283,13 +289,7 @@ class Suggestion extends PureComponent {
 
   handlePreview(results) {
     const {value} = this.state;
-    const {
-      preview,
-      itemsLocator,
-      itemLocator,
-      itemFilter,
-      valueLocator,
-    } = this.props;
+    const {preview, itemsLocator, itemFilter} = this.props;
     let arr = itemsLocator(results);
     if (!arr || !arr.length) {
       return [];
@@ -298,7 +298,7 @@ class Suggestion extends PureComponent {
       const previewNum = 'number' !== typeof preview ? 5 : preview;
       arr = arr.slice(0, previewNum);
     } else {
-      arr = arr.filter(d => itemFilter(valueLocator(itemLocator(d)), value));
+      arr = arr.filter(d => itemFilter(this.valueLocator(d), value));
     }
     return arr;
   }

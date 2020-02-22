@@ -13,4 +13,4 @@ export {
 export { ajaxDispatch } from './ajaxDispatcher';
 
 // Util
-export { default as  formSerialize } from './lib/formSerialize';
+export { default as  formSerialize } from 'form-serialize-js';

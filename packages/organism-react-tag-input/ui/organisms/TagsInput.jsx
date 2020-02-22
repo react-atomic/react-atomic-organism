@@ -57,6 +57,7 @@ const TagInput = props => {
       itemLocator={itemLocator}
       itemsLocator={itemsLocator}
       results={results}
+      onSubmit={false}
       onKeyDown={onKeyDown}
       onBlur={onBlur}
       onFocus={onFocus}
@@ -67,14 +68,18 @@ const TagInput = props => {
 export default TagInput;
 
 TagInput.defaultProps = {
-  tagComponent: Tag
+  tagComponent: Tag,
 };
 
 const Styles = {
   wrap: {
+    border: '1px solid rgba(34,36,38,.15)',
     borderRadius: '.28571429rem',
+    padding: '1px 0',
     width: '100%',
     cursor: 'text',
+    position: 'relative',
+    boxSizing: 'border-box',
   },
   input: {
     border: 'none',
@@ -97,5 +102,4 @@ const InjectStyles = {
     {background: '#fff6f6', borderColor: '#e0b4b4'},
     '.field.error.ui .tags-field.ui',
   ],
-  wrap: [{border: '1px solid rgba(34,36,38,.15)'}, '.field.ui .tags-input.ui'],
 };

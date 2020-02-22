@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import jsdom from 'jsdom-global';
 
-import formSerialize from '../formSerialize';
+import formSerialize from '../index';
 
 describe('Test formSerialize', () => {
   let uGlobal;
