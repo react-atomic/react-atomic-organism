@@ -10,7 +10,7 @@ import CodeMirror from '../organisms/CodeMirror';
 
 const openCodeEditor = (code, cb) => {
   popupDispatch('dom/update', {
-    popup: <CodeEditor onClose={cb}>{code}</CodeEditor>,
+    popup: <CodeEditor onClose={cb}>{code ?? ''}</CodeEditor>,
   });
 };
 
@@ -22,8 +22,7 @@ class CodeEditor extends PureComponent {
 
   state = {code: ''};
 
-  getHtml() {
-    const html = this.codemirror ? this.codemirror.getValue() : '';
+  getHtml(html) {
     return fixHtml(html, this.iframeWindow?.sanitizeHtml || null);
   }
 
@@ -33,33 +32,8 @@ class CodeEditor extends PureComponent {
 
   handlePreview = el => (this.preview = el);
 
-
-  handleCodeMirror = () => {
-    const codemirror = this.iframeWindow.CodeMirror.fromTextArea(
-      this.textarea,
-      {
-        mode: 'htmlmixed',
-        indentUnit: 2,
-        tabSize: 2,
-        indentWithTabs: false,
-        lineNumbers: true,
-        lineWrapping: true,
-      },
-    );
-    this.codemirror = codemirror;
-    codemirror.setSize(null, '100%');
-    const update = editor => {
-      this.preview.setValue(this.getCode());
-    };
-    codemirror.on('change', update);
-    codemirror.autoFormatRange(
-      {line: 0, ch: 0},
-      {line: codemirror.lineCount()},
-    );
-    codemirror.setCursor({line: 0, ch: 0});
-
-    // better to keep update at last
-    update(codemirror);
+  handleChange = e => {
+    this.preview.setValue(this.getHtml(e.codemirror.getValue()));
   };
 
   handleClose = () => {
@@ -100,7 +74,7 @@ class CodeEditor extends PureComponent {
         {...otherProps}
         style={Styles.full}>
         <SemanticUI className={codeClasses} style={Styles.fitHeight}>
-          <CodeMirror />
+          <CodeMirror onChange={this.handleChange}>{children}</CodeMirror>
         </SemanticUI>
         {thisPreview}
       </FullScreen>

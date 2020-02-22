@@ -14,7 +14,7 @@ const CodeMirror = ({onChange, children, ...props}) => {
   const [that, dispatch] = useReducer(reducer, {});
   const handleIframeRef = el => {
     dispatch({
-      iframe: el
+      dIframe: el,
     });
   };
   const dTextarea = useRef(null);
@@ -31,38 +31,35 @@ const CodeMirror = ({onChange, children, ...props}) => {
       },
     );
     codemirror.setSize(null, '100%');
-    codemirror.on('change', update);
+    codemirror.on('change', () => {
+      callfunc(onChange, [{codemirror, iframe: that.iframeWindow}]);
+    });
     codemirror.autoFormatRange(
       {line: 0, ch: 0},
       {line: codemirror.lineCount()},
     );
     codemirror.setCursor({line: 0, ch: 0});
-
-    // better to keep update at last
-    update(codemirror);
-    callfunc(onChange, [{codemirror, iframe: that.iframeWindow}]);
   }, [dTextarea]);
 
-    const handleLoad = () => {
-      console.log(that.dIframe);
-      /*
-      dispatch({
-        iframeWindow: dIframe.current.contentWindow.window,
-      });
-      let timer;
-      timer = setInterval(() => {
-        if (that.iframeWindow.isCodeMirrorReady) {
-          clearInterval(timer);
-          handleCodeMirror();
-        }
-      }, 10);
-      */
-    };
+  const handleLoad = () => {
+    dispatch({
+      iframeWindow: that.dIframe.contentWindow.window,
+    });
+    let timer;
+    timer = setInterval(() => {
+      if (that.iframeWindow.isCodeMirrorReady) {
+        clearInterval(timer);
+        handleCodeMirror();
+      }
+    }, 10);
+  };
 
-  useEffect(()=>{
-  });
+  useEffect(() => {});
   return (
-    <Iframe style={Styles.fitHeight} refCb={handleIframeRef} onLoad={handleLoad}>
+    <Iframe
+      style={Styles.fitHeight}
+      refCb={handleIframeRef}
+      onLoad={handleLoad}>
       <Unsafe>
         {`
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
@@ -90,5 +87,8 @@ export default CodeMirror;
 const Styles = {
   textarea: {
     display: 'none',
+  },
+  fitHeight: {
+    height: '100%',
   },
 };

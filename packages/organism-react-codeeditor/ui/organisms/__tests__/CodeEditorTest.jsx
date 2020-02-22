@@ -24,8 +24,9 @@ describe('Test CodeEditor', () => {
       const html = uDom.html();
       expect(html).to.have.string('full-screen');
       done();
-    });
+    }, 10);
   });
+
   it('test set html', done => {
     const dom = <PopupPool />;
     const uDom = mount(dom);
@@ -37,4 +38,5 @@ describe('Test CodeEditor', () => {
       popupDispatch('dom/closeAll');
     });
   });
+
 });
