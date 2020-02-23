@@ -69,10 +69,10 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
           <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
-          ${(oModel.jsList || []).map(
+          ${(oModel.libJS || []).map(
             js => '<script src="' + js + '"></script>',
           )?.join('')}
-          ${(oModel.codeMirrorJs || []).map(
+          ${(oModel.codeMirrorJS || []).map(
             js =>
               '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
               js +

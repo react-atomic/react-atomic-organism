@@ -9,10 +9,10 @@ const html = {
     }
     return e;
   },
-  jsList: [
+  libJS: [
     'https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js',
   ],
-  codeMirrorJs: [
+  codeMirrorJS: [
     'mode/xml/xml.min.js',
     'mode/javascript/javascript.min.js',
     'mode/css/css.min.js',
