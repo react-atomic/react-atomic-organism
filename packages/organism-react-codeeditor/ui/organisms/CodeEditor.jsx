@@ -1,12 +1,9 @@
 import React, {PureComponent} from 'react';
 import {popupDispatch, FullScreen} from 'organism-react-popup';
 import {build, SemanticUI, Unsafe} from 'react-atomic-molecule';
-import Iframe from 'organism-react-iframe';
 import callfunc from 'call-func';
-import fixHtml from 'fix-html';
-
-import Preview from '../organisms/Preview';
 import CodeMirror from '../organisms/CodeMirror';
+import * as models from '../../src/models';
 
 const openCodeEditor = (code, cb) => {
   popupDispatch('dom/update', {
@@ -17,48 +14,49 @@ const openCodeEditor = (code, cb) => {
 class CodeEditor extends PureComponent {
   static defaultProps = {
     name: 'code-editor',
-    preview: Preview,
+    model: 'html',
+    preview: true,
   };
-
-  state = {code: ''};
-
-  getHtml(html) {
-    return fixHtml(html, this.iframeWindow?.sanitizeHtml || null);
-  }
-
-  getCode() {
-    return this.getHtml();
-  }
 
   handlePreview = el => (this.preview = el);
 
   handleChange = e => {
-    this.preview.setValue(this.getHtml(e.codemirror.getValue()));
+    const {onChange} = this.props;
+    this.lastEvent = e;
+    this.preview?.setValue(e.value);
+    callfunc(onChange, [e]);
   };
+
+  getCode() {
+    const last = this.lastEvent;
+    if (last) {
+      return last.getCode ? callfunc(last.getCode) : last.value;
+    }
+  }
 
   handleClose = () => {
     const {onClose} = this.props;
     callfunc(onClose, [this.getCode()]);
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const {children} = nextProps;
-    let nextState = null;
-    if (children !== prevState.prevChildren) {
-      nextState = {
-        code: children,
-        prevChildren: children,
-      };
-    }
-    return nextState;
-  }
-
   render() {
-    const {onClose, children, preview, ...otherProps} = this.props;
+    const {
+      onChange,
+      onClose,
+      model,
+      children,
+      preview: propsPreview,
+      ...otherProps
+    } = this.props;
+    let preview = propsPreview;
     let thisPreview;
     let codeClasses;
     let containerClasses;
     if (preview) {
+      if (preview === true) {
+        const oModel = models[model] || models.html;
+        preview = oModel.preview;
+      }
       thisPreview = build(preview)({
         className: 'pure-u-1 pure-u-md-1-2',
         ref: this.handlePreview,

@@ -2,6 +2,7 @@ import React, {useRef, useEffect, useCallback, useReducer} from 'react';
 import Iframe from 'organism-react-iframe';
 import {Unsafe} from 'react-atomic-molecule';
 import callfunc from 'call-func';
+import * as models from '../../src/models';
 
 const keys = Object.keys;
 
@@ -10,7 +11,8 @@ const reducer = (state, action) => {
   return state;
 };
 
-const CodeMirror = ({onChange, children, ...props}) => {
+const CodeMirror = ({onChange, model, children, ...props}) => {
+  const oModel = models[model] || models.html;
   const [that, dispatch] = useReducer(reducer, {});
   const handleIframeRef = el => {
     dispatch({
@@ -32,7 +34,9 @@ const CodeMirror = ({onChange, children, ...props}) => {
     );
     codemirror.setSize(null, '100%');
     codemirror.on('change', () => {
-      callfunc(onChange, [{codemirror, iframe: that.iframeWindow}]);
+      callfunc(onChange, [
+        oModel.setValue({codemirror, iframeWindow: that.iframeWindow}),
+      ]);
     });
     codemirror.autoFormatRange(
       {line: 0, ch: 0},
@@ -63,13 +67,17 @@ const CodeMirror = ({onChange, children, ...props}) => {
       <Unsafe>
         {`
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
-          <script async src="https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/xml/xml.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/javascript/javascript.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/css/css.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/mode/htmlmixed/htmlmixed.min.js"></script>
+          ${(oModel.jsList || []).map(
+            js => '<script src="' + js + '"></script>',
+          )?.join('')}
+          ${(oModel.codeMirrorJs || []).map(
+            js =>
+              '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
+              js +
+              '"></script>',
+          )?.join('')}
           <script>window.isCodeMirrorReady=true;</script>
           `}
       </Unsafe>
