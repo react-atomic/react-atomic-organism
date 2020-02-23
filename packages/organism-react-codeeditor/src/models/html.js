@@ -9,8 +9,6 @@ const html = {
     }
     return e;
   },
-  getCode: e => {
-  },
   jsList: [
     'https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js',
   ],
