@@ -16,7 +16,7 @@ const keys = Object.keys;
 class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
-    initialContent: '',
+    initialContent: '<html><body /></html>',
     autoHeight: false,
   };
 
@@ -41,44 +41,44 @@ class Iframe extends PureComponent {
   getWindow = () => get(this.el, ['contentWindow', 'window']);
 
   handleBodyClick = e => {
-      const {keepTargetInIframe, onLinkClick} = this.props;
-      const query = queryFrom(() => this.getBody());
-      const evTarget = e.target;
-      const link =
-        evTarget.nodeName === 'A' ? evTarget : query.ancestor(evTarget, 'a');
-      if (!link) {
-        return;
-      }
-      if (link.target && '_blank' === link.target.toLowerCase()) {
-        return;
-      }
+    const {keepTargetInIframe, onLinkClick} = this.props;
+    const query = queryFrom(() => this.getBody());
+    const evTarget = e.target;
+    const link =
+      evTarget.nodeName === 'A' ? evTarget : query.ancestor(evTarget, 'a');
+    if (!link) {
+      return;
+    }
+    if (link.target && '_blank' === link.target.toLowerCase()) {
+      return;
+    }
 
-      const isContinue = callfunc(onLinkClick, [e, link]);
+    const isContinue = callfunc(onLinkClick, [e, link]);
 
-      if (false === isContinue) {
-        e.preventDefault();
-        return;
-      }
+    if (false === isContinue) {
+      e.preventDefault();
+      return;
+    }
 
-      if (link.hash) {
-        const tarDom = query.one(link.hash);
-        if (tarDom) {
-          const URI = document.location;
-          if (URI.pathname === link.pathname && URI.host === link.host) {
-            e.preventDefault();
-            smoothScrollTo(getOffset(tarDom).top);
-            return;
-          }
+    if (link.hash) {
+      const tarDom = query.one(link.hash);
+      if (tarDom) {
+        const URI = document.location;
+        if (URI.pathname === link.pathname && URI.host === link.host) {
+          e.preventDefault();
+          smoothScrollTo(getOffset(tarDom).top);
+          return;
         }
       }
-      if (keepTargetInIframe) {
-        return;
-      } else {
-        e.preventDefault();
-        if (link.href) {
-          location.href = link.href;
-        }
+    }
+    if (keepTargetInIframe) {
+      return;
+    } else {
+      e.preventDefault();
+      if (link.href) {
+        location.href = link.href;
       }
+    }
   };
 
   handleLinkClick() {
@@ -108,7 +108,7 @@ class Iframe extends PureComponent {
   };
 
   renderIframe(props, root) {
-    const {children, autoHeight} = props;
+    const {children, autoHeight, onLoad} = props;
 
     // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
     setImmediate(() => {
@@ -127,6 +127,7 @@ class Iframe extends PureComponent {
             if (autoHeight) {
               this.autoHeightTimer = setTimeout(() => this.postHeight(), 500);
             }
+            callfunc(onLoad);
           }
         },
       );
@@ -144,8 +145,8 @@ class Iframe extends PureComponent {
 
       const body = this.getBody();
       body.appendChild(this.root);
+      this.renderIframe(this.props, this.root);
     }
-    this.renderIframe(this.props, this.root);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -159,8 +160,10 @@ class Iframe extends PureComponent {
 
     callfunc(this.execStop);
 
-    // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
-    unmountComponentAtNode(this.root);
+    if (this.root) {
+      // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
+      unmountComponentAtNode(this.root);
+    }
   }
 
   render() {
@@ -171,6 +174,7 @@ class Iframe extends PureComponent {
       refCb,
       autoHeight,
       onLinkClick,
+      onLoad,
       ...others
     } = this.props;
     return (

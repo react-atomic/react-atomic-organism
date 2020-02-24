@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import jsdom from 'jsdom-global';
+let reset = jsdom(null, {runScripts: 'dangerously', resources: 'usable'})
 
 import {expect} from 'chai';
 import {shallow, mount, configure} from 'enzyme';
@@ -9,10 +11,15 @@ import {openCodeEditor} from '../CodeEditor';
 import {PopupPool, popupDispatch} from 'organism-react-popup';
 
 describe('Test CodeEditor', () => {
+  after(() => {
+    jsdom();
+  });
 
   afterEach(done => {
-      popupDispatch('dom/cleanAll');
-      setTimeout(()=>done(), 300);
+    reset();
+    reset = jsdom(null, {runScripts: 'dangerously', resources: 'usable'})
+    popupDispatch('dom/cleanAll');
+    setTimeout(() => done(), 300);
   });
 
   it('simple test', done => {
@@ -29,14 +36,16 @@ describe('Test CodeEditor', () => {
 
   it('test set html', done => {
     const dom = <PopupPool />;
-    const uDom = mount(dom);
-    openCodeEditor('<div>', (html)=>{
-        expect(html).to.have.string('html');
-        done();
+    const wrapper = mount(dom);
+    openCodeEditor('<div>', html => {
+      console.log(html);
+      expect(html).to.have.string('html');
+      done();
     });
     setTimeout(() => {
+      const dIfraem = wrapper.find('iframe');
+      console.log({dIfraem});
       popupDispatch('dom/closeAll');
-    });
+    }, 100);
   });
-
 });

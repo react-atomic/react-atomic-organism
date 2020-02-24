@@ -21,7 +21,7 @@ const handleScriptOnload = ({
     inlineScripts[i].forEach(script => {
       try {
         lastScript = script;
-        oWin.eval('(' + FUNCTION + '(){' + script + '}())');
+        oWin.eval('(' + FUNCTION + '(){' + script + '}.call(window))');
       } catch (e) {
         if (FUNCTION !== typeof errCb) {
           throw e;

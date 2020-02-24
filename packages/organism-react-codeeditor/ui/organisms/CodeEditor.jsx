@@ -21,16 +21,19 @@ class CodeEditor extends PureComponent {
   handlePreview = el => (this.preview = el);
 
   handleChange = e => {
-    const {onChange} = this.props;
-    this.lastEvent = e;
-    this.preview?.setValue(e.value);
-    callfunc(onChange, [e]);
+    if (e) {
+      this.lastEvent = e;
+      this.preview?.setValue(e.value);
+      callfunc(this.props.onChange, [e]);
+    }
   };
 
   getCode() {
     const last = this.lastEvent;
     if (last) {
       return last.getCode ? callfunc(last.getCode) : last.value;
+    } else {
+      return '';
     }
   }
 

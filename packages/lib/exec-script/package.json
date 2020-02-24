@@ -1,6 +1,6 @@
 {
   "name": "exec-script",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "run script which inside innerHTML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

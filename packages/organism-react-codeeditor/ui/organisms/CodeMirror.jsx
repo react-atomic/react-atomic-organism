@@ -19,6 +19,7 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
       dIframe: el,
     });
   };
+
   const dTextarea = useRef(null);
   const handleCodeMirror = useCallback(() => {
     const codemirror = that.iframeWindow.CodeMirror.fromTextArea(
@@ -49,18 +50,19 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
     dispatch({
       iframeWindow: that.dIframe.contentWindow.window,
     });
-    let timer;
-    timer = setInterval(() => {
-      if (that.iframeWindow.isCodeMirrorReady) {
-        clearInterval(timer);
-        handleCodeMirror();
-      }
-    }, 10);
+    if (that.iframeWindow) {
+      let timer;
+      timer = setInterval(() => {
+        if (that.iframeWindow.isCodeMirrorReady) {
+          clearInterval(timer);
+          handleCodeMirror();
+        }
+      }, 10);
+    }
   };
-
-  useEffect(() => {});
   return (
     <Iframe
+      className="codemirror"
       style={Styles.fitHeight}
       refCb={handleIframeRef}
       onLoad={handleLoad}>
@@ -69,15 +71,17 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
           <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
-          ${(oModel.libJS || []).map(
-            js => '<script src="' + js + '"></script>',
-          )?.join('')}
-          ${(oModel.codeMirrorJS || []).map(
-            js =>
-              '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
-              js +
-              '"></script>',
-          )?.join('')}
+          ${(oModel.libJS || [])
+            .map(js => '<script src="' + js + '"></script>')
+            ?.join('')}
+          ${(oModel.codeMirrorJS || [])
+            .map(
+              js =>
+                '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
+                js +
+                '"></script>',
+            )
+            ?.join('')}
           <script>window.isCodeMirrorReady=true;</script>
           `}
       </Unsafe>
