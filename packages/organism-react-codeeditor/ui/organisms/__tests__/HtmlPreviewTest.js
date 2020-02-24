@@ -5,7 +5,7 @@ import {shallow, mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
-import Preview from '../Preview';
+import Preview from '../HtmlPreview';
 
 describe('Test Preview', ()=>{ 
   it('simple test', ()=>{

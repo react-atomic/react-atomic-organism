@@ -13,7 +13,7 @@ const deviceWidth = {
 
 const keys = Object.keys;
 
-class Preview extends PureComponent {
+class HtmlPreview extends PureComponent {
   state = {width: deviceWidth.desktop, scale: 1, height: '100%'};
 
   setValue(v) {
@@ -108,7 +108,7 @@ class Preview extends PureComponent {
   }
 }
 
-export default Preview;
+export default HtmlPreview;
 
 const Styles = {
   icon: {
