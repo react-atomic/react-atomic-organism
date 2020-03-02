@@ -99,7 +99,10 @@ class GrapesJsMjml extends Component {
   }
 
   handleLoad = e => {
-    const ifw = this.dIframe.contentWindow.window;
+    const ifw = this.dIframe.contentWindow?.window;
+    if (!ifw) {
+      return;
+    }
     this.iframeWindow = ifw;
     ifw.debug = this;
     setWindow(ifw);

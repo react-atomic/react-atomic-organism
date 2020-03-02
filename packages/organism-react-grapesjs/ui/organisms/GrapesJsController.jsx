@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import callfunc from 'call-func';
 import get from 'get-object-value';
 
+import GrapesJsWeb from './GrapesJsWeb';
 import GrapesJsEdm from './GrapesJsEdm';
 import GrapesJsMjml from './GrapesJsMjml';
 
@@ -19,6 +20,11 @@ class GrapesJsController extends Component {
 
   getPanel() {
     return get(this.editor, ['Panels']);
+  }
+
+  getButtons(panelId) {
+    const panelManager = this.getPanel();
+    return panelManager.getPanel(panelId).get('buttons');
   }
 
   getHtml() {
@@ -39,8 +45,8 @@ class GrapesJsController extends Component {
     const btnName = this.el.getImportButtonName();
     if ('html' === type) {
       const button = panelManager.getButton('options', btnName);
-      button.set('attributes', {
-        style: "display:none",
+      button?.set('attributes', {
+        style: 'display:none',
       });
       return;
     }
@@ -53,7 +59,7 @@ class GrapesJsController extends Component {
     if ('html' === type) {
       const button = panelManager.getButton('options', 'export-template');
       button.set('attributes', {
-        style: "display:none",
+        style: 'display:none',
       });
       return;
     } else {
@@ -146,12 +152,16 @@ class GrapesJsController extends Component {
   }
 
   render() {
-    const {debug, type, ...otherProps} = this.props;
+    const {web, debug, type, ...otherProps} = this.props;
     otherProps.id = this.id;
     otherProps.onEditorInit = this.handleEditorInit;
     otherProps.host = this;
     return this.getType() === 'html' ? (
-      <GrapesJsEdm ref={this.handleEl} {...otherProps} />
+      web ? (
+        <GrapesJsWeb ref={this.handleEl} {...otherProps} />
+      ) : (
+        <GrapesJsEdm ref={this.handleEl} {...otherProps} />
+      )
     ) : (
       <GrapesJsMjml ref={this.handleEl} {...otherProps} />
     );
