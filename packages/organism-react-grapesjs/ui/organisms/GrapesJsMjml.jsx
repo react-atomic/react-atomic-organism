@@ -5,7 +5,7 @@ import callfunc from 'call-func';
 import get, {getDefault} from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
 
-import {setWindow} from '../../src/mjml2html'; 
+import {setMjmlWindow} from '../../src/mjml2html'; 
 import getAsset from '../../src/getAsset';
 
 const defaultAssets = {
@@ -105,11 +105,10 @@ class GrapesJsMjml extends Component {
     }
     this.iframeWindow = ifw;
     ifw.debug = this;
-    setWindow(ifw);
-    let timer;
-    timer = setInterval(() => {
+    setMjmlWindow(ifw);
+    this.timer = setInterval(() => {
       if (ifw.initEditor && ifw.mjml2html) {
-        clearInterval(timer);
+        clearInterval(this.timer);
         this.handleInitGrapesJS();
       }
     }, 10);
@@ -240,6 +239,12 @@ class GrapesJsMjml extends Component {
       callfunc(onEditorInit, [{editor: this.editor, component: this}]);
     });
   };
+
+  componentWillUnMount() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
 
   render() {
     const {id, style, images} = this.props;

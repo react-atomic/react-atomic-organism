@@ -143,10 +143,9 @@ ${html}
   handleLoad = e => {
     this.iframeWindow = this.dIframe.contentWindow.window;
     this.iframeWindow.debug = this;
-    let timer;
-    timer = setInterval(() => {
+    this.timer = setInterval(() => {
       if (this.iframeWindow.initEditor) {
-        clearInterval(timer);
+        clearInterval(this.timer);
         this.handleInitGrapesJS();
       }
     }, 10);
@@ -655,6 +654,12 @@ ${html}
     callfunc(onEditorLoad, [{editor: this.editor, component: this}]);
     initViewSource(host);
   };
+
+  componentWillUnMount() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
 
   render() {
     const {style, images, id} = this.props;
