@@ -36,10 +36,10 @@ describe('Test Iframe', () => {
     }
     const el = document.createElement('div');
     document.body.appendChild(el);
-    const uDom = mount(<Comp />, {attachTo: el});
-    const wrap = uDom.instance();
+    const wrap = mount(<Comp />, {attachTo: el});
+    const obj = wrap.instance();
     setTimeout(() => {
-      const html = wrap.el.getBody().innerHTML;
+      const html = obj.el.getBody().innerHTML;
       expect(html).to.have.string('<span>test</span>');
       done();
     }, 100);

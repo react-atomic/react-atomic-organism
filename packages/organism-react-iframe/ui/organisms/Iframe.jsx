@@ -1,6 +1,5 @@
-import 'setimmediate';
-import React, {PureComponent} from 'react';
-import {render, unmountComponentAtNode} from 'react-dom';
+import React, {PureComponent, useEffect} from 'react';
+import {createPortal} from 'react-dom';
 import get from 'get-object-value';
 import getOffset from 'getoffset';
 import smoothScrollTo from 'smooth-scroll-to';
@@ -12,6 +11,19 @@ import callfunc from 'call-func';
 import IframeContainer from '../organisms/IframeContainer';
 
 const keys = Object.keys;
+
+const IframeInner = ({children, onLoad}) =>
+{
+  useEffect(() => {
+    callfunc(onLoad);
+  }, [children]);
+  return (
+    <SemanticUI>
+      <Unsafe atom="style">{() => 'body {padding:0; margin:0;}'}</Unsafe>
+      {children}
+    </SemanticUI>
+  );
+}
 
 class Iframe extends PureComponent {
   static defaultProps = {
@@ -107,63 +119,58 @@ class Iframe extends PureComponent {
     }
   };
 
-  renderIframe(props, root) {
+  renderIframe(props) {
+    if (!this.root) {
+      this.init();
+    }
+    const root = this.root;
+
     const {children, autoHeight, onLoad} = props;
 
-    // setTimeout for https://gist.github.com/HillLiu/013d94ce76cfb7e8c46dd935164e4d72
-    setImmediate(() => {
-      this.html = root.innerHTML;
-      render(
-        <SemanticUI>
-          <Unsafe atom="style">{() => 'body {padding:0; margin:0;}'}</Unsafe>
-          {children}
-        </SemanticUI>,
-        root,
-        () => {
-          const html = root.innerHTML;
-          if (html !== this.html) {
-            this.handleScript(root);
-            this.handleLinkClick();
-            if (autoHeight) {
-              this.autoHeightTimer = setTimeout(() => this.postHeight(), 500);
-            }
-            callfunc(onLoad);
-          }
-        },
-      );
-    });
+    this.html = root.innerHTML;
+    const callback = () => {
+      const html = root.innerHTML;
+      if (html !== this.html) {
+        this.handleScript(root);
+        this.handleLinkClick();
+        if (autoHeight) {
+          this.autoHeightTimer = setTimeout(() => this.postHeight(), 500);
+        }
+        callfunc(onLoad);
+      }
+    };
+    return createPortal(
+      <IframeInner {...props} onLoad={callback}/>,
+      this.root
+    );
   }
 
-  componentDidMount() {
+  init() {
+    const {initialContent, onUnload, onBeforeUnload} = this.props;
     this.root = document.createElement('div');
     const doc = this.getDoc();
     if (doc) {
       // fixed firfox innerHTML suddenly disappear.
       doc.open('text/html', 'replace');
-      doc.write(this.props.initialContent);
+      doc.write(initialContent);
       doc.close();
 
       const body = this.getBody();
       body.appendChild(this.root);
-      this.renderIframe(this.props, this.root);
+      body.addEventListener('unload', onUnload);
+      body.addEventListener('beforeunload', onBeforeUnload);
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    this.renderIframe(this.props, this.root);
+  componentDidMount() {
+    !this.root && this.forceUpdate();
   }
 
   componentWillUnmount() {
     if (this.autoHeightTimer) {
       clearTimeout(this.autoHeightTimer);
     }
-
     callfunc(this.execStop);
-
-    if (this.root) {
-      // https://facebook.github.io/react/docs/react-dom.html#unmountcomponentatnode
-      unmountComponentAtNode(this.root);
-    }
   }
 
   render() {
@@ -175,14 +182,17 @@ class Iframe extends PureComponent {
       autoHeight,
       onLinkClick,
       onLoad,
+      onUnload,
+      onBeforeUnload,
       ...others
     } = this.props;
     return (
       <IframeContainer
         {...others}
         ref={this.handleRef}
-        refCb={this.handleRefCb}
-      />
+        refCb={this.handleRefCb}>
+        {this.el && this.renderIframe(this.props)}
+      </IframeContainer>
     );
   }
 }
