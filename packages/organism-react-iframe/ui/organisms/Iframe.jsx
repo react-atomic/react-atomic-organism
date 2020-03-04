@@ -171,6 +171,7 @@ class Iframe extends PureComponent {
       clearTimeout(this.autoHeightTimer);
     }
     callfunc(this.execStop);
+    callfunc(this.props.onUnmount);
   }
 
   render() {
@@ -184,6 +185,7 @@ class Iframe extends PureComponent {
       onLoad,
       onUnload,
       onBeforeUnload,
+      onUnmount,
       ...others
     } = this.props;
     return (
