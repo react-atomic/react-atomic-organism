@@ -11,5 +11,6 @@ describe('Test GrapesJsMjml Component', () => {
   it('simple test', () => {
     const wrapper = shallow(<GrapesJsMjml />);
     expect(wrapper.html()).to.have.string('iframe');
+    wrapper.unmount();
   });
 });

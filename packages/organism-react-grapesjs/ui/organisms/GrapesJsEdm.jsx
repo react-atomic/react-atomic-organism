@@ -248,10 +248,14 @@ ${html}
     initViewSource(host);
   };
 
-  componentWillUnMount() {
+  clearTimeout = () => {
     if (this.timer) {
       clearInterval(this.timer);
     }
+  }
+
+  componentWillUnmount() {
+    this.clearTimeout();
   }
 
   render() {
@@ -293,7 +297,8 @@ ${html}
         id={id}
         style={thisStyle}
         refCb={this.handleIframe}
-        onLoad={this.handleLoad}>
+        onLoad={this.handleLoad}
+      >
         <Unsafe>{html}</Unsafe>
       </Iframe>
     );
