@@ -26,6 +26,23 @@ describe('Test Radio Group Component', () => {
     expect(instance.getValue()).to.equal('');
   });
 
+  it('test set default value', () => {
+    const options = [
+      {label: 'a', value: 'a'},
+      {label: 'b', value: 'b'},
+      {label: 'c', value: 'c'},
+    ];
+    const wrapper = mount(
+      <RadioGroup options={options} name='' />
+    );
+    const instance = wrapper.instance();
+    expect(instance.getValue()).to.be.undefined;
+    wrapper.setProps({defaultValue: 'a'});
+    expect(instance.getValue()).to.equal('a');
+    wrapper.setProps({defaultValue: 'b'});
+    expect(instance.getValue()).to.equal('a');
+  });
+
   it('test getValue not found', () => {
     const options = [
       {label: 'a', value: ''}

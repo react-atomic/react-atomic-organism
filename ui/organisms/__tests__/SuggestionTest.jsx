@@ -10,8 +10,18 @@ import Suggestion from '../Suggestion';
 describe('Test Suggestion Component', ()=>{ 
   it('basic test', ()=>{
     const comp = <Suggestion />
-    const uDom = mount(comp);
-    const html = uDom.html(); 
+    const wrapper = mount(comp);
+    const html = wrapper.html(); 
     expect(html).to.have.string('div');
+  });
+
+  it('test set default value', ()=>{
+    const comp = <Suggestion />
+    const wrapper = mount(comp);
+    const instance = wrapper.instance();
+    wrapper.setProps({defaultValue: 'a'});
+    expect(instance.getValue()).to.equal('a');
+    wrapper.setProps({defaultValue: 'b'});
+    expect(instance.getValue()).to.equal('a');
   });
 });

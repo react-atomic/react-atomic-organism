@@ -22,7 +22,7 @@ class RadioGroup extends PureComponent {
     checkedCallback: null,
   };
 
-  getChecked(item, nextValue, current) {
+  isChecked(item, nextValue, current) {
     const {checkedCallback} = this.props;
     if (FUNCTION === typeof checkedCallback) {
       return checkedCallback(item, nextValue, current);
@@ -46,20 +46,28 @@ class RadioGroup extends PureComponent {
     });
   };
 
-  getValue() {
+  getChecked() {
     const {options} = this.props;
     const {value, current} = this.state;
-    let thisValue;
+    let thisChecked;
     (options || []).some((item, key) => {
-      const checked = this.getChecked(item, value, current);
+      const checked = this.isChecked(item, value, current);
       if (checked) {
-        thisValue = this.altValue(item);
+        thisChecked = item;
         return true;
       } else {
         return false;
       }
     });
-    return thisValue;
+    return thisChecked;
+  }
+
+  getValue() {
+    const thisChecked = this.getChecked();
+    if (thisChecked) {
+      const thisValue = this.altValue(thisChecked);
+      return thisValue;
+    }
   }
 
   altValue(item) {
@@ -79,12 +87,13 @@ class RadioGroup extends PureComponent {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value, defaultValue, options} = nextProps;
-    const thisValue = value ?? (get(prevState, ['value']) ? null : defaultValue);
+    const thisValue =
+      value ?? (get(prevState, ['value']) ? null : defaultValue);
     const nextState = {};
     if (options !== prevState.options) {
       nextState.options = options;
     }
-    if (thisValue !== prevState.prePropsValue) {
+    if (thisValue != null  && thisValue !== prevState.prePropsValue) {
       nextState.value = thisValue;
       nextState.prePropsValue = thisValue;
     }
@@ -139,7 +148,7 @@ class RadioGroup extends PureComponent {
             label={labelLocator(item)}
             value={this.altValue(item)}
             afterClick={this.handleClick}
-            checked={this.getChecked(item, value, current)}
+            checked={this.isChecked(item, value, current)}
           />
         ))}
       </Field>

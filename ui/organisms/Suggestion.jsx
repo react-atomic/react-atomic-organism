@@ -319,7 +319,7 @@ class Suggestion extends PureComponent {
   static getDerivedStateFromProps(nextProps, prevState) {
     const {value, defaultValue} = nextProps;
     const thisValue = value ?? (get(prevState, ['value']) ? null : defaultValue);
-    if (thisValue !== prevState.prevPropsValue) {
+    if (thisValue != null && thisValue !== prevState.prevPropsValue) {
       return {
         value: thisValue,
         prevPropsValue: thisValue,
