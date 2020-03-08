@@ -1,5 +1,5 @@
 require('setimmediate');
-import React, {Component} from 'react';
+import React, {Component, forwardRef} from 'react';
 import {ajaxStore} from 'organism-react-ajax';
 import Return from 'reshow-return';
 import {popupDispatch} from 'organism-react-popup';
@@ -151,13 +151,13 @@ class Body extends Component {
   }
 }
 
-const PageLoadProgressHandler = props => {
+const PageLoadProgressHandler = forwardRef((props, ref) => {
   return (
     <Return stores={[ajaxStore]} initStates={['isRunning']}>
-      <Body {...props} />
+      <Body {...props} ref={ref} />
     </Return>
   );
-};
+});
 
 export default PageLoadProgressHandler;
 
