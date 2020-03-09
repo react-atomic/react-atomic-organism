@@ -1,6 +1,6 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.3.2",
+  "version": "0.13.0-beta.0",
   "description": "React I13N",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "i13n": "*",
-    "organism-react-ajax": "*",
+    "organism-react-ajax": "^0.13.0-beta",
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*",
     "reshow-runtime": "*",

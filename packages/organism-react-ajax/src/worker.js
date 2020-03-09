@@ -27,17 +27,26 @@ const oNonWorker = new nonWorker().onMessage(handleMessage);
 const post = oNonWorker.post;
 export default oNonWorker;
 
-const ajaxGet = ({url, action}) => {
+const cookParams = action => {
   const params = get(action, ['params'], {});
-  const headers = {
+  const cookHeaders = {
     ...get(params, ['globalHeaders'], {}),
     ...get(params, ['headers'], {}),
     Accept: get(params, ['accept'], 'application/json'),
   };
-  req
-    .get(url)
+  params.cookHeaders = cookHeaders;
+  return params;
+};
+
+const ajaxGet = ({url, action}) => {
+  const params = cookParams(action);
+  let callReq = req.get(url);
+  if (params.responseType) {
+    callReq = callReq.responseType(params.responseType);
+  }
+  callReq
     .query(params.query)
-    .set(headers)
+    .set(params.cookHeaders)
     .end((err, res) => {
       if (res) {
         const {error, req, text, xhr, ...response} = res;
@@ -51,12 +60,14 @@ const ajaxGet = ({url, action}) => {
 };
 
 const ajaxPost = ({url, action}) => {
-  const {query, method, isSendJson, ...params} = get(action, ['params'], {});
-  const headers = {
-    ...get(params, ['globalHeaders'], {}),
-    ...get(params, ['headers'], {}),
-    Accept: get(params, ['accept'], 'application/json'),
-  };
+  const {
+    query,
+    method,
+    isSendJson,
+    cookHeaders,
+    responseType,
+    ...params
+  } = cookParams(action);
   let isSend = false;
   if (isSendJson) {
     isSend = true;
@@ -92,9 +103,12 @@ const ajaxPost = ({url, action}) => {
   if (!isSend) {
     callReq = callReq.type('form');
   }
+  if (responseType) {
+    callReq = callReq.responseType(responseType);
+  }
   callReq
     .send(query)
-    .set(headers)
+    .set(cookHeaders)
     .end((err, res) => {
       if (res) {
         const {error, req, text, xhr, ...response} = res;
