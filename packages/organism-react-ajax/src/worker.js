@@ -27,7 +27,7 @@ const oNonWorker = new nonWorker().onMessage(handleMessage);
 const post = oNonWorker.post;
 export default oNonWorker;
 
-const cookParams = action => {
+const cookParams = (action, callReq) => {
   const params = get(action, ['params'], {});
   const cookHeaders = {
     ...get(params, ['globalHeaders'], {}),
@@ -35,15 +35,22 @@ const cookParams = action => {
     Accept: get(params, ['accept'], 'application/json'),
   };
   params.cookHeaders = cookHeaders;
+  const superagent = params.superagent || {};
+  const syncKeys = ['responseType'];
+  syncKeys.forEach(key => {
+    if (params[key]) {
+      superagent[key] = params[key];
+    }
+  });
+  keys(superagent).forEach(key => {
+    callReq = callReq[key].apply(callReq, superagent[key]);
+  });
   return params;
 };
 
 const ajaxGet = ({url, action}) => {
-  const params = cookParams(action);
   let callReq = req.get(url);
-  if (params.responseType) {
-    callReq = callReq.responseType(params.responseType);
-  }
+  const params = cookParams(action, callReq);
   callReq
     .query(params.query)
     .set(params.cookHeaders)
@@ -60,28 +67,6 @@ const ajaxGet = ({url, action}) => {
 };
 
 const ajaxPost = ({url, action}) => {
-  const {
-    query,
-    method,
-    isSendJson,
-    cookHeaders,
-    responseType,
-    ...params
-  } = cookParams(action);
-  let isSend = false;
-  if (isSendJson) {
-    isSend = true;
-  } else {
-    if (null == isSendJson) {
-      keys(query).every(key => {
-        if ('object' !== typeof query[key]) {
-          return true;
-        }
-        isSend = true;
-        return false;
-      });
-    }
-  }
   let callReq;
   switch (method) {
     case 'delete':
@@ -100,11 +85,30 @@ const ajaxPost = ({url, action}) => {
       callReq = req.post(url);
       break;
   }
+  const {
+    query,
+    method,
+    isSendJson,
+    cookHeaders,
+    responseType,
+    ...params
+  } = cookParams(action, callReq);
+  let isSend = false;
+  if (isSendJson) {
+    isSend = true;
+  } else {
+    if (null == isSendJson) {
+      keys(query).every(key => {
+        if ('object' !== typeof query[key]) {
+          return true;
+        }
+        isSend = true;
+        return false;
+      });
+    }
+  }
   if (!isSend) {
     callReq = callReq.type('form');
-  }
-  if (responseType) {
-    callReq = callReq.responseType(responseType);
   }
   callReq
     .send(query)
