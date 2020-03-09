@@ -1,0 +1,36 @@
+{
+  "name": "ajax-save",
+  "version": "0.0.0",
+  "description": "A simple way to download in-memory content (ajax).",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
+  "keywords": [],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "win-doc": "*",
+    "create-el": "*",
+    "get-random-id": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*"
+  },
+  "scripts": {
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "prepublishOnly": "npm run test",
+    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}
