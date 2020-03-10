@@ -68,7 +68,7 @@ const ajaxGet = ({url, action}) => {
 
 const ajaxPost = ({url, action}) => {
   let callReq;
-  switch (method) {
+  switch (get(action, ['params', 'method'])) {
     case 'delete':
       callReq = req.del(url);
       break;
@@ -85,14 +85,10 @@ const ajaxPost = ({url, action}) => {
       callReq = req.post(url);
       break;
   }
-  const {
-    query,
-    method,
-    isSendJson,
-    cookHeaders,
-    responseType,
-    ...params
-  } = cookParams(action, callReq);
+  const {query, isSendJson, cookHeaders, responseType, ...params} = cookParams(
+    action,
+    callReq,
+  );
   let isSend = false;
   if (isSendJson) {
     isSend = true;
