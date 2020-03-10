@@ -93,7 +93,7 @@ const ajaxPost = ({url, action}) => {
   if (isSendJson) {
     isSend = true;
   } else {
-    if (null == isSendJson) {
+    if (null == isSendJson && query) {
       keys(query).every(key => {
         if ('object' !== typeof query[key]) {
           return true;
