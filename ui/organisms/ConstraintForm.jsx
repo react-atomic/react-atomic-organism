@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {mixClass, build, Form, Field} from 'react-atomic-molecule';
 import callfunc from 'call-func';
+import formSerialize from 'form-serialize-js';
 
 let constraintId = 0;
 const constraintObj = {};
@@ -104,6 +105,14 @@ class ConstraintForm extends PureComponent {
     component: Form,
   };
 
+  getEl() {
+    return this.form;
+  }
+
+  getSerialize() {
+    return formSerialize(this.form);
+  }
+
   handleRefCb = el => {
     const {refCb} = this.props;
     this.form = el;
@@ -134,6 +143,7 @@ class ConstraintForm extends PureComponent {
       return false;
     });
     if (!hasError) {
+      e.instance = this;
       callfunc(onSubmit, [e]);
     } else {
       this.setState({error: hasError});
