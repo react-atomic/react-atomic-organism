@@ -19,14 +19,20 @@ class ConstraintField extends PureComponent {
     el = el || this.el;
     let customState;
     const setCustomState = s => (customState = s);
+    const checkValidityParams = [{el, constraintField: this, setState: setCustomState}];
     const isOK = onValidate
-      ? callfunc(onValidate, [el, this, setCustomState])
+      ? callfunc(onValidate, checkValidityParams)
+      : this.compRef && this.compRef.checkValidity
+      ? callfunc(this.compRef.checkValidity, checkValidityParams, this.compRef)
       : el.checkValidity();
     if (!isOK) {
+      const onErrorParams = [{el, state: {...el.validity, customState}}];
       this.handleDisplayError(
         el,
         onError
-          ? callfunc(onError, [{el, state: {...el.validity, customState}}])
+          ? callfunc(onError, onErrorParams)
+          : this.compRef && this.compRef.handleError
+          ? callfunc(this.compRef.handleError, onErrorParams, this.compRef)
           : customState,
         el.validationMessage,
       );
@@ -90,6 +96,8 @@ class ConstraintField extends PureComponent {
       otherProps['data-constraint-id'] = constraintId;
     }
     if (compRef) {
+      // could pass compRef to true to force enable handleRef
+      // this is for avoid pass ref to function component
       otherProps.ref = this.handleCompRef;
     }
     return build(component)({
@@ -105,14 +113,6 @@ class ConstraintForm extends PureComponent {
   static defaultProps = {
     component: Form,
   };
-
-  getEl() {
-    return this.form;
-  }
-
-  getSerialize() {
-    return formSerialize(this.form);
-  }
 
   checkValidity() {
     const elements = [...this.form.elements];
@@ -135,6 +135,18 @@ class ConstraintForm extends PureComponent {
       return false;
     });
     return {hasError, errorEl};
+  }
+
+  submit() {
+    this.getEl()?.dispatchEvent(new Event("submit"));
+  }
+
+  getEl() {
+    return this.form;
+  }
+
+  getSerialize() {
+    return formSerialize(this.form);
   }
 
   handleRefCb = el => {

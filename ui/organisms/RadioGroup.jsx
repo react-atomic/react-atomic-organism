@@ -1,6 +1,12 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {lazyInject, mixClass, Field, SemanticUI} from 'react-atomic-molecule';
+import {
+  lazyInject,
+  mixClass,
+  Field,
+  SemanticUI,
+  Message,
+} from 'react-atomic-molecule';
 import get from 'get-object-value';
 import callfunc from 'call-func';
 import {FUNCTION} from 'reshow-constant';
@@ -20,6 +26,7 @@ class RadioGroup extends PureComponent {
     valueLocator: d => d.value,
     // not an event base so naming it with callback
     checkedCallback: null,
+    I18NValueMissing: 'There must be a value.',
   };
 
   isChecked(item, nextValue, current) {
@@ -31,20 +38,22 @@ class RadioGroup extends PureComponent {
     }
   }
 
-  handleClick = (e, before, after, ref) => {
-    const {onChange} = this.props;
-    let current = null;
-    if (ref) {
-      if (ref.props.disabled) {
-        return;
+  altValue(item) {
+    const {valueLocator, labelLocator} = this.props;
+    const value = valueLocator(item);
+    return value != null ? value : labelLocator(item);
+  }
+
+  checkValidity({setState}) {
+    const {required} = this.props;
+    if (required) {
+      if (this.getValue() == null) {
+        setState('valueMissing');
+        return false;
       }
-      current = ref;
     }
-    const value = current.getValue();
-    this.setState({current, value}, () => {
-      callfunc(onChange, [value, current]);
-    });
-  };
+    return true;
+  }
 
   getChecked() {
     const {options} = this.props;
@@ -70,10 +79,26 @@ class RadioGroup extends PureComponent {
     }
   }
 
-  altValue(item) {
-    const {valueLocator, labelLocator} = this.props;
-    const value = valueLocator(item);
-    return value != null ? value : labelLocator(item);
+  handleClick = (e, before, after, ref) => {
+    const {onChange} = this.props;
+    let current = null;
+    if (ref) {
+      if (ref.props.disabled) {
+        return;
+      }
+      current = ref;
+    }
+    const value = current.getValue();
+    this.setState({current, value}, () => {
+      callfunc(onChange, [value, current]);
+    });
+  };
+
+  handleError(e) {
+    console.log({e});
+    if ('valueMissing' === e.state?.customState) {
+      return this.props.I18NValueMissing;
+    }
   }
 
   handleDisplayError(el, error) {
@@ -93,7 +118,7 @@ class RadioGroup extends PureComponent {
     if (options !== prevState.options) {
       nextState.options = options;
     }
-    if (thisValue != null  && thisValue !== prevState.prePropsValue) {
+    if (thisValue != null && thisValue !== prevState.prePropsValue) {
       nextState.value = thisValue;
       nextState.prePropsValue = thisValue;
     }
@@ -127,14 +152,13 @@ class RadioGroup extends PureComponent {
 
     if (error) {
       others.messageType = 'error';
-      others.message = error;
     }
 
     /**
      * Do not pass constraint (required) to childeren else will get foucus error
      * such as "An invalid form control with name='xxx' is not focusable"..
      */
-    return (
+    const comp = (
       <Field inline={inline} label={label} fieldClassName={classes} {...others}>
         {(options || []).map((item, key) => (
           <Radio
@@ -153,6 +177,17 @@ class RadioGroup extends PureComponent {
         ))}
       </Field>
     );
+
+    if (error) {
+      return (
+        <SemanticUI>
+          {comp}
+          <Message messageType="error">{error}</Message>
+        </SemanticUI>
+      );
+    } else {
+      return comp;
+    }
   }
 }
 
