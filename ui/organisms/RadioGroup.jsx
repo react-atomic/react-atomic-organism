@@ -95,8 +95,12 @@ class RadioGroup extends PureComponent {
   };
 
   handleError(e) {
-    if ('valueMissing' === e.state?.customState) {
-      return this.props.I18NValueMissing;
+    const customState = e.state?.customState;
+    if (customState) {
+      if ('valueMissing' === customState) {
+        return this.props.I18NValueMissing;
+      }
+      return customState;
     }
   }
 
