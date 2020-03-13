@@ -150,8 +150,10 @@ class RadioGroup extends PureComponent {
     const thisRadioProps = radioProps || {};
     thisRadioProps['data-constraint-id'] = dataConstraintId;
 
+    let errorEl;
     if (error) {
       others.messageType = 'error';
+      errorEl = <Message messageType="error">{error}</Message>;
     }
 
     /**
@@ -178,16 +180,7 @@ class RadioGroup extends PureComponent {
       </Field>
     );
 
-    if (error) {
-      return (
-        <SemanticUI>
-          {comp}
-          <Message messageType="error">{error}</Message>
-        </SemanticUI>
-      );
-    } else {
-      return comp;
-    }
+    return <SemanticUI>{comp}{errorEl}</SemanticUI>;
   }
 }
 
