@@ -26,7 +26,13 @@ class ConstraintField extends PureComponent {
       ? callfunc(this.compRef.checkValidity, checkValidityParams, this.compRef)
       : el.checkValidity();
     if (!isOK) {
-      const onErrorParams = [{el, state: {...el.validity, customState}}];
+      const state = {customState};
+      for (let k in el.validity) {
+        if (el.validity[k]) {
+          state[k] = true;
+        }
+      }
+      const onErrorParams = [{el, state}];
       this.handleDisplayError(
         el,
         onError
@@ -39,7 +45,9 @@ class ConstraintField extends PureComponent {
     } else {
       this.handleDisplayError(el, '');
     }
-    return isOK;
+
+    // ignore isOK is undefined or null and think it's true
+    return isOK == null || isOK;
   }
 
   handleDisplayError(el, message, nativeMessage) {
@@ -131,10 +139,19 @@ class ConstraintForm extends PureComponent {
           errorEl = el;
           return true;
         }
+      } else {
+        if (el.checkValidity) {
+          el.checkValidity();
+          if (!el.validity.valid) {
+              errorEl = el;
+              el.reportValidity();
+              return true;
+          }
+        }
       }
       return false;
     });
-    return {hasError, errorEl};
+    return {hasError, errorEl, results};
   }
 
   submit() {

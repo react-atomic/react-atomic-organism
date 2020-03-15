@@ -214,6 +214,6 @@ const InjectStyles = {
     {
       marginBottom: '1em',
     },
-    '.radio-group .error.message',
+    '.radio-group .ui.error.message:last-child',
   ],
 };
