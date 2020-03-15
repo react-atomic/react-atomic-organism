@@ -147,7 +147,7 @@ class RadioGroup extends PureComponent {
       ...others
     } = this.props;
     const {current, value, error} = this.state;
-    const classes = mixClass('radio-group', fieldClassName, {
+    const classes = mixClass(fieldClassName, {
       grouped: !inline,
     });
     const thisRadioProps = radioProps || {};
@@ -183,7 +183,12 @@ class RadioGroup extends PureComponent {
       </Field>
     );
 
-    return <SemanticUI>{comp}{errorEl}</SemanticUI>;
+    return (
+      <SemanticUI className="radio-group">
+        {comp}
+        {errorEl}
+      </SemanticUI>
+    );
   }
 }
 
@@ -204,5 +209,11 @@ const InjectStyles = {
       display: 'none',
     },
     '.required.fields:not(.grouped)>.field>.checkbox:after',
+  ],
+  errorStyle: [
+    {
+      marginBottom: '1em',
+    },
+    '.radio-group .error.message',
   ],
 };
