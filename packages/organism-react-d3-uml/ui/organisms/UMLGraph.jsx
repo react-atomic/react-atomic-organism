@@ -227,8 +227,10 @@ class UMLGraph extends Component {
   };
 
   arrange() {
-    const conns = this.oConn.getUniqueFromTo();
-    this.handleAutoArrange(conns);
+    const conns = this.oConn?.getUniqueFromTo();
+    if (conns) {
+      this.handleAutoArrange(conns);
+    }
   }
 
   syncPropConnects() {
@@ -361,7 +363,7 @@ class UMLGraph extends Component {
   }
 
   componentWillUnmount() {
-    this.oConn.clearTimeout();
+    this.oConn?.clearTimeout();
   }
 
   render() {
