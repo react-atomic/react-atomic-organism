@@ -1,8 +1,8 @@
-import React, {Component, Children, cloneElement} from 'react';
-import {build} from 'react-atomic-molecule';
-import {DragAndDrop} from 'organism-react-graph';
-import get from 'get-object-value';
-import getOffset from 'getoffset';
+import React, { Component, Children, cloneElement } from "react";
+import { build } from "react-atomic-molecule";
+import { DragAndDrop } from "organism-react-graph";
+import get from "get-object-value";
+import getOffset from "getoffset";
 
 const keys = Object.keys;
 let boxGroupId = 1;
@@ -10,7 +10,7 @@ let boxGroupId = 1;
 class BoxGroup extends Component {
   state = {
     absX: 0,
-    absY: 0,
+    absY: 0
   };
 
   boxNameInvertMap = {};
@@ -18,17 +18,17 @@ class BoxGroup extends Component {
 
   move = (x, y) => {
     if (this._mount) {
-      this.setState({absX: x, absY: y});
+      this.setState({ absX: x, absY: y });
     }
   };
 
-  handleDrag = ({absX, absY}) => this.move(absX, absY);
+  handleDrag = ({ absX, absY }) => this.move(absX, absY);
 
   handleEdit = e => {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
-    const {onEdit, name} = this.props;
+    const { onEdit, name } = this.props;
     onEdit(name, this);
   };
 
@@ -36,23 +36,26 @@ class BoxGroup extends Component {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
-    const {onDel, name} = this.props;
+    const { onDel, name } = this.props;
     onDel(name);
   };
 
-  getBoxIdByName(name) {
-    const boxId = get(this.boxNameInvertMap, [name]);
-    return boxId;
-  }
-
-  setBoxNameInvertMap(id, name) {
-    this.boxNameInvertMap[name] = id;
-  }
+  handleGetEl = () => this.getEl();
 
   addBox(obj) {
     if (obj) {
       this.boxs[obj.getId()] = obj;
     }
+  }
+
+  getXY() {
+    const {absX: x, absY: y} = this.state;
+    return {x, y};
+  }
+
+  getBoxIdByName(name) {
+    const boxId = get(this.boxNameInvertMap, [name]);
+    return boxId;
   }
 
   getBox(id) {
@@ -63,10 +66,10 @@ class BoxGroup extends Component {
     const el = this.getEl();
     if (el) {
       const offset = getOffset(this.getEl());
-      const {width, height} = offset;
-      return {width, height};
+      const { width, height } = offset;
+      return { width, height };
     } else {
-      return {width: 1, height: 1};
+      return { width: 1, height: 1 };
     }
   }
 
@@ -78,11 +81,15 @@ class BoxGroup extends Component {
     return this.id;
   }
 
-  getEl = () => {
+  getEl() {
     if (this.el) {
       return this.el.getEl();
     }
-  };
+  }
+
+  setBoxNameInvertMap(id, name) {
+    this.boxNameInvertMap[name] = id;
+  }
 
   constructor(props) {
     super(props);
@@ -92,8 +99,8 @@ class BoxGroup extends Component {
 
   componentDidMount() {
     this._mount = true;
-    const {name, host} = this.props;
-    const {x, y} = host.getLazyMoveByName(name) || {};
+    const { name, host } = this.props;
+    const { x, y } = host.getLazyMoveByName(name) || {};
     if (x || y) {
       this.move(x, y);
     }
@@ -104,23 +111,15 @@ class BoxGroup extends Component {
   }
 
   render() {
-    const {
-      name,
-      text,
-      host,
-      onEdit,
-      onDel,
-      children,
-      ...props
-    } = this.props;
-    const {rectW, rectH, boxsPos, absX, absY} = this.state;
+    const { name, text, host, onEdit, onDel, children, ...props } = this.props;
+    const { rectW, rectH, boxsPos, absX, absY } = this.state;
     const component = build(host.getBoxGroupComponent(name));
     const thisChildren = Children.map(children, c =>
       cloneElement(c, {
         boxGroupId: this.id,
         boxGroupAbsX: absX,
-        boxGroupAbsY: absY,
-      }),
+        boxGroupAbsY: absY
+      })
     );
     return (
       <DragAndDrop
@@ -129,7 +128,7 @@ class BoxGroup extends Component {
         absY={absY}
         onDrag={this.handleDrag}
         zoom={host.getTransform}
-        onGetEl={this.getEl}
+        onGetEl={this.handleGetEl}
         component={component(
           {
             ...props,
@@ -137,13 +136,13 @@ class BoxGroup extends Component {
             isInsideVector: host.insideVector,
             onEdit: this.handleEdit,
             onDel: this.handleDel,
-            className: 'box-group',
+            className: "box-group",
             boxGroupAbsX: absX,
             boxGroupAbsY: absY,
             zoomK: host.getZoomK(),
-            text: text || name,
+            text: text || name
           },
-          thisChildren,
+          thisChildren
         )}
       />
     );

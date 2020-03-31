@@ -46,58 +46,6 @@ class UMLGraph extends Component {
   lazyMove = {};
   oConn;
 
-  getLines() {
-    return this.state.lines;
-  }
-
-  getBox(id, groupId) {
-    const group = get(this.boxGroupMap, [groupId]);
-    if (group) {
-      return group.getBox(id);
-    }
-  }
-
-  getBoxGroup(id) {
-    return get(this.boxGroupMap, [id]);
-  }
-
-  getBoxComponent(name, groupName) {
-    const {onGetBoxComponent} = this.props;
-    const component = callfunc(onGetBoxComponent, [name, groupName]);
-    return component || BoxDefaultLayout;
-  }
-
-  getBoxGroupComponent(name) {
-    const {onGetBoxGroupComponent} = this.props;
-    const component = callfunc(onGetBoxGroupComponent, [name]);
-    return component || BoxGroupDefaultLayout;
-  }
-
-  getVectorEl() {
-    return this.vector;
-  }
-
-  getConnectStartPoint() {
-    return this.startPoint;
-  }
-
-  getConnectEndPoint() {
-    return this.endPoint;
-  }
-
-  getBoxGroupIdByName(name) {
-    return get(this, ['boxGroupNameInvertMap', name]);
-  }
-
-  setConnectStartPoint(el) {
-    this.startPoint = el;
-    return this.startPoint;
-  }
-
-  setConnectEndPoint(el) {
-    this.endPoint = el;
-  }
-
   addLazyMoveWithMouseEvent(boxGroupName, e, dnd) {
     const vectorEl = this.getVectorEl();
     if (vectorEl) {
@@ -119,28 +67,10 @@ class UMLGraph extends Component {
     this.lazyMove[boxGroupName] = {x, y};
   }
 
-  getLazyMoveByName(boxGroupName) {
-    const xy = {...this.lazyMove[boxGroupName]};
-    if (xy) {
-      delete this.lazyMove[boxGroupName];
-      return xy;
-    }
-  }
-
   add(payload) {
     const {onAdd} = this.props;
     callfunc(onAdd, [payload]);
   }
-
-  edit = (name, payload) => {
-    const {onEdit} = this.props;
-    callfunc(onEdit, [name, payload]);
-  };
-
-  del = name => {
-    const {onDel} = this.props;
-    callfunc(onDel, [name]);
-  };
 
   addBoxGroup(obj) {
     if (!obj) {
@@ -185,6 +115,88 @@ class UMLGraph extends Component {
     return true;
   }
 
+  getLazyMoveByName(boxGroupName) {
+    const xy = {...this.lazyMove[boxGroupName]};
+    if (xy) {
+      delete this.lazyMove[boxGroupName];
+      return xy;
+    }
+  }
+
+  getLines() {
+    return this.state.lines;
+  }
+
+  getBox(id, groupId) {
+    const group = get(this.boxGroupMap, [groupId]);
+    if (group) {
+      return group.getBox(id);
+    }
+  }
+
+  getBoxGroup(id) {
+    return get(this.boxGroupMap, [id]);
+  }
+
+  getBoxComponent(name, groupName) {
+    const {onGetBoxComponent} = this.props;
+    const component = callfunc(onGetBoxComponent, [name, groupName]);
+    return component || BoxDefaultLayout;
+  }
+
+  getBoxGroupComponent(name) {
+    const {onGetBoxGroupComponent} = this.props;
+    const component = callfunc(onGetBoxGroupComponent, [name]);
+    return component || BoxGroupDefaultLayout;
+  }
+
+  getVectorEl() {
+    return this.vector;
+  }
+
+  getConnectStartPoint() {
+    return this.startPoint;
+  }
+
+  getConnectEndPoint() {
+    return this.endPoint;
+  }
+
+  getBoxGroupIdByName(name) {
+    return get(this, ['boxGroupNameInvertMap', name]);
+  }
+
+  getTransform = () => {
+    if (this.zoom) {
+      const t = this.zoom.getTransform();
+      return t;
+    }
+  };
+
+  getZoomK = () => {
+    const {k} = this.getTransform() || {};
+    return k || 1;
+  };
+
+  setConnectStartPoint(el) {
+    this.startPoint = el;
+    return this.startPoint;
+  }
+
+  setConnectEndPoint(el) {
+    this.endPoint = el;
+  }
+
+  edit = (name, payload) => {
+    const {onEdit} = this.props;
+    callfunc(onEdit, [name, payload]);
+  };
+
+  del = name => {
+    const {onDel} = this.props;
+    callfunc(onDel, [name]);
+  };
+
   insideHtml = el => this.html && this.html.contains(el);
   insideVector = el => this.vector && this.vector.contains(el);
 
@@ -202,28 +214,6 @@ class UMLGraph extends Component {
     }
   };
 
-  handleZoomRef = o => {
-    if (o) {
-      this.zoom = o;
-    }
-  };
-
-  handleZoom = e => {
-    const {transform: oTransform} = e;
-    this.setState({oTransform});
-  };
-
-  getTransform = () => {
-    if (this.zoom) {
-      const t = this.zoom.getTransform();
-      return t;
-    }
-  };
-
-  getZoomK = () => {
-    const {k} = this.getTransform() || {};
-    return k || 1;
-  };
 
   applyXY = (pX, pY, dom) => {
     if (!dom) {
@@ -295,6 +285,18 @@ class UMLGraph extends Component {
     oConn.setState();
     return groupConn;
   }
+
+  handleZoomRef = o => {
+    if (o) {
+      this.zoom = o;
+    }
+  };
+
+  handleZoom = e => {
+    const {transform: oTransform} = e;
+    this.setState({oTransform});
+  };
+
 
   handleLineEdit = payload => {
     callfunc(this.props.onLineEdit, [payload]);
