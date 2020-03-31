@@ -95,14 +95,18 @@ class ConnectController {
     const toBoxGroup = toBox.getBoxGroup();
     const fromBoxName = fromBox.getName();
     const fromBoxGroupName = fromBoxGroup.getName();
+    const fromBoxGroupId = fromBoxGroup.getId();
     const toBoxName = toBox.getName();
     const toBoxGroupName = toBoxGroup.getName();
+    const toBoxGroupId = toBoxGroup.getId();
     return {
       ...ids,
       fromBoxName,
       toBoxName,
       fromBoxGroupName,
       toBoxGroupName,
+      fromBoxGroupId,
+      toBoxGroupId
     };
   }
 
@@ -188,6 +192,19 @@ class ConnectController {
         this.updateCbQueue=[];
       });
     }, delay);
+  }
+
+  getUniqueFromTo() {
+    const conns = this.getConnects();
+    const connsMap = {};
+    const addBySort = (from, to) => {
+      const a = [from, to].sort();
+      connsMap[a[0] + '-' + a[1]] = [from, to];
+    };
+    conns.forEach(conn => {
+      addBySort(conn.fromBoxGroupId, conn.toBoxGroupId);
+    });
+    return connsMap;
   }
 }
 

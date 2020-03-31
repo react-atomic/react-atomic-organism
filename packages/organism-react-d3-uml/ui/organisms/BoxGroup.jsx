@@ -3,6 +3,7 @@ import { build } from "react-atomic-molecule";
 import { DragAndDrop } from "organism-react-graph";
 import get from "get-object-value";
 import getOffset from "getoffset";
+import callfunc from "call-func";
 
 const keys = Object.keys;
 let boxGroupId = 1;
@@ -23,6 +24,12 @@ class BoxGroup extends Component {
   };
 
   handleDrag = ({ absX, absY }) => this.move(absX, absY);
+
+  handleDragEnd = e => {
+    const { onDragEnd } = this.props;
+    e.boxGroup = this;
+    callfunc(onDragEnd, [e]);
+  };
 
   handleEdit = e => {
     if (e.stopPropagation) {
@@ -49,8 +56,8 @@ class BoxGroup extends Component {
   }
 
   getXY() {
-    const {absX: x, absY: y} = this.state;
-    return {x, y};
+    const { absX: x, absY: y } = this.state;
+    return { x, y };
   }
 
   getBoxIdByName(name) {
@@ -99,8 +106,14 @@ class BoxGroup extends Component {
 
   componentDidMount() {
     this._mount = true;
-    const { name, host } = this.props;
-    const { x, y } = host.getLazyMoveByName(name) || {};
+    const { name, host, x: propsX, y: propsY } = this.props;
+    let { x, y } = host.getLazyMoveByName(name) || {};
+    if (x == null) {
+      x = propsX;
+    }
+    if (y == null) {
+      y = propsY;
+    }
     if (x || y) {
       this.move(x, y);
     }
@@ -111,7 +124,18 @@ class BoxGroup extends Component {
   }
 
   render() {
-    const { name, text, host, onEdit, onDel, children, ...props } = this.props;
+    const {
+      x,
+      y,
+      name,
+      text,
+      host,
+      onEdit,
+      onDel,
+      onDragEnd,
+      children,
+      ...props
+    } = this.props;
     const { rectW, rectH, boxsPos, absX, absY } = this.state;
     const component = build(host.getBoxGroupComponent(name));
     const thisChildren = Children.map(children, c =>
@@ -126,9 +150,10 @@ class BoxGroup extends Component {
         ref={el => (this.el = el)}
         absX={absX}
         absY={absY}
-        onDrag={this.handleDrag}
         zoom={host.getTransform}
+        onDrag={this.handleDrag}
         onGetEl={this.handleGetEl}
+        onDragEnd={this.handleDragEnd}
         component={component(
           {
             ...props,
