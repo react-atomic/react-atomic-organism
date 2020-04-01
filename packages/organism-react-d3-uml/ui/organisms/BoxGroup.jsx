@@ -26,7 +26,7 @@ class BoxGroup extends Component {
   handleDrag = ({ absX, absY }) => this.move(absX, absY);
 
   handleDragEnd = e => {
-    const {absX, absY} = this.state; 
+    const { absX, absY } = this.state;
     if (this.lastX !== absX && this.lastY !== absY) {
       //only need update when position is changed
       this.lastX = absX;
@@ -121,6 +121,8 @@ class BoxGroup extends Component {
       y = propsY;
     }
     if (x || y) {
+      this.lastX = x;
+      this.lastY = y;
       this.move(x, y);
     }
   }

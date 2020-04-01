@@ -142,6 +142,17 @@ class UMLGraph extends Component {
     return get(this.boxGroupMap, [id]);
   }
 
+  getBoxGroupByName(name) {
+    const id = this.getBoxGroupIdByName(name);
+    if (id) {
+      return this.getBoxGroup(id);
+    }
+  }
+
+  getBoxGroupIdByName(name) {
+    return get(this, ["boxGroupNameInvertMap", name]);
+  }
+
   getBoxComponent(name, groupName) {
     const { onGetBoxComponent } = this.props;
     const component = callfunc(onGetBoxComponent, [name, groupName]);
@@ -164,10 +175,6 @@ class UMLGraph extends Component {
 
   getConnectEndPoint() {
     return this.endPoint;
-  }
-
-  getBoxGroupIdByName(name) {
-    return get(this, ["boxGroupNameInvertMap", name]);
   }
 
   getTransform = () => {
@@ -233,7 +240,7 @@ class UMLGraph extends Component {
   }
 
   syncPropConnects() {
-    const oConn = new ConnectController({ host: this });
+    const oConn = this.oConn;
     const {
       data,
       connsLocator,
@@ -247,7 +254,6 @@ class UMLGraph extends Component {
 
     const conns = connsLocator(data);
     if (!conns || !conns.length) {
-      this.oConn = oConn;
       return;
     }
     conns.forEach(conn => {
@@ -283,7 +289,6 @@ class UMLGraph extends Component {
         );
       }
     });
-    this.oConn = oConn;
     oConn.setState();
     return oConn.getUniqueFromTo();
   }
@@ -353,10 +358,13 @@ class UMLGraph extends Component {
 
   componentDidMount() {
     const { autoArrange } = this.props;
+    this.oConn = new ConnectController({ host: this });
     setTimeout(() => {
       const conns = this.syncPropConnects();
       if (autoArrange) {
         this.handleAutoArrange(conns);
+      } else {
+        callfunc(this.props.onLoad, [this]);
       }
     });
   }
