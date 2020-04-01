@@ -63,6 +63,7 @@ class UMLGraph extends Component {
       }
       const { x, y } = this.applyXY(mouseX, mouseY);
       this.addLazyMove(boxGroupName, x, y);
+      return { x, y };
     }
   }
 
@@ -228,9 +229,7 @@ class UMLGraph extends Component {
 
   arrange() {
     const conns = this.oConn?.getUniqueFromTo();
-    if (conns) {
-      this.handleAutoArrange(conns);
-    }
+    this.handleAutoArrange(conns);
   }
 
   syncPropConnects() {
