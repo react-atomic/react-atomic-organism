@@ -156,7 +156,7 @@ class GrapesJsController extends Component {
     otherProps.id = this.id;
     otherProps.onEditorInit = this.handleEditorInit;
     otherProps.host = this;
-    return this.getType() === 'html' ? (
+    return web || this.getType() === 'html' ? (
       web ? (
         <GrapesJsWeb ref={this.handleEl} {...otherProps} />
       ) : (

@@ -15,7 +15,7 @@ module.exports = function(api) {
         plugins: [
           'add-module-exports',
           'dynamic-import-node',
-          'object-to-json-parse',
+          'reshow-object-to-json-parse',
           'transform-react-pure-class-to-function',
           ['transform-react-remove-prop-types', {mode: 'wrap'}],
           [
@@ -45,7 +45,7 @@ module.exports = function(api) {
           '@babel/preset-react',
         ],
         plugins: [
-          'object-to-json-parse',
+          'reshow-object-to-json-parse',
           'transform-react-pure-class-to-function',
           ['transform-react-remove-prop-types', {mode: 'wrap'}],
           [
