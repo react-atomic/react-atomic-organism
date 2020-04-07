@@ -1,30 +1,31 @@
-import React, {Component} from 'react';
-import callfunc from 'call-func';
-import get from 'get-object-value';
+import React, { Component } from "react";
+import callfunc from "call-func";
+import get from "get-object-value";
 
-import GrapesJsWeb from './GrapesJsWeb';
-import GrapesJsEdm from './GrapesJsEdm';
-import GrapesJsMjml from './GrapesJsMjml';
+import GrapesJsWeb from "./GrapesJsWeb";
+import GrapesJsEdm from "./GrapesJsEdm";
+import GrapesJsMjml from "./GrapesJsMjml";
 
 let grapesId = 0;
 
 class GrapesJsController extends Component {
   static defaultProps = {
-    i18nMergeTags: 'Merge Tags',
+    i18nMergeTags: "Merge Tags",
+    i18nCleanCanvas: "Are you sure to clean the canvas?"
   };
 
   getType() {
-    const {type} = this.props;
-    return type === 'html' ? 'html' : 'mjml';
+    const { web, type } = this.props;
+    return web || type === "html" ? "html" : "mjml";
   }
 
   getPanel() {
-    return get(this.editor, ['Panels']);
+    return get(this.editor, ["Panels"]);
   }
 
   getButtons(panelId) {
     const panelManager = this.getPanel();
-    return panelManager.getPanel(panelId).get('buttons');
+    return panelManager.getPanel(panelId).get("buttons");
   }
 
   getHtml() {
@@ -43,32 +44,32 @@ class GrapesJsController extends Component {
     const type = this.getType();
     const panelManager = this.getPanel();
     const btnName = this.el.getImportButtonName();
-    if ('html' === type) {
-      const button = panelManager.getButton('options', btnName);
-      button?.set('attributes', {
-        style: 'display:none',
+    if ("html" === type) {
+      const button = panelManager.getButton("options", btnName);
+      button?.set("attributes", {
+        style: "display:none"
       });
       return;
     }
-    return panelManager.removeButton('options', btnName);
+    return panelManager.removeButton("options", btnName);
   }
 
   disableExport() {
     const type = this.getType();
     const panelManager = this.getPanel();
-    if ('html' === type) {
-      const button = panelManager.getButton('options', 'export-template');
-      button.set('attributes', {
-        style: 'display:none',
+    if ("html" === type) {
+      const button = panelManager.getButton("options", "export-template");
+      button.set("attributes", {
+        style: "display:none"
       });
       return;
     } else {
-      return panelManager.removeButton('options', 'export-template');
+      return panelManager.removeButton("options", "export-template");
     }
   }
 
   handleMergeTags(mergeTags, CKEDITOR, extraPlugins, toolbar) {
-    const {i18nMergeTags} = this.props;
+    const { i18nMergeTags } = this.props;
     let isRun = 0;
     const buildList = function() {
       // !!important!! should not use arrow function
@@ -84,23 +85,23 @@ class GrapesJsController extends Component {
         this.commit();
       }
     };
-    CKEDITOR.plugins.add('strinsert', {
-      requires: ['richcombo'],
+    CKEDITOR.plugins.add("strinsert", {
+      requires: ["richcombo"],
       init: editor => {
-        editor.ui.addRichCombo('strinsert', {
+        editor.ui.addRichCombo("strinsert", {
           label: i18nMergeTags,
           title: i18nMergeTags,
           voiceLabel: i18nMergeTags,
-          className: 'cke_format',
+          className: "cke_format",
           multiSelect: false,
           panel: {
-            css: [editor.config.contentsCss, CKEDITOR.skin.getPath('editor')],
-            voiceLabel: editor.lang.panelVoiceLabel,
+            css: [editor.config.contentsCss, CKEDITOR.skin.getPath("editor")],
+            voiceLabel: editor.lang.panelVoiceLabel
           },
 
           init: function() {
-            editor.on('panelHide', () => {
-              this._.list.element.$.innerHTML = '';
+            editor.on("panelHide", () => {
+              this._.list.element.$.innerHTML = "";
               this._.list._.items = {};
             });
             isRun = 0;
@@ -116,33 +117,64 @@ class GrapesJsController extends Component {
 
           onClick: value => {
             editor.focus();
-            editor.fire('saveSnapshot');
+            editor.fire("saveSnapshot");
             editor.insertHtml(value);
-            editor.fire('saveSnapshot');
-          },
+            editor.fire("saveSnapshot");
+          }
         });
-      },
+      }
     });
-    extraPlugins += ',strinsert';
-    toolbar.push({name: i18nMergeTags, items: ['strinsert']});
+    extraPlugins += ",strinsert";
+    toolbar.push({ name: i18nMergeTags, items: ["strinsert"] });
     return extraPlugins;
   }
 
   handleEditorInit = e => {
-    const {onEditorInit} = this.props;
+    const { onEditorInit } = this.props;
     this.editor = e.editor;
     callfunc(onEditorInit, [e]);
   };
 
   handleEl = el => (this.el = el);
 
+  execReset() {
+    const { onReset, images } = this.props;
+    callfunc(onReset, [{ editor: this.editor, component: this.el }]);
+    this.execUpdateImages(get(images));
+  };
+
+  execClean() {
+    const { i18nCleanCanvas } = this.props;
+    const exec = () => {
+      this.editor.runCommand("core:canvas-clear");
+      this.execReset();
+    };
+    confirm(i18nCleanCanvas) && exec();
+  }
+
+  execUpdateImages(images) {
+    if (images) {
+      this.images = images;
+    } else {
+      images = this.images;
+    }
+    if (this.editor) {
+      const assetManager = this.editor.AssetManager;
+      if (assetManager) {
+        if (images && images.length) {
+          assetManager.add(images);
+        }
+      }
+    }
+  }
+
   componentDidMount() {
-    const {id, debug} = this.props;
+    const { id, debug } = this.props;
     if (id) {
       this.id = id;
     } else {
       if (!this.id) {
-        this.id = 'grapejs-' + grapesId;
+        this.id = "grapejs-" + grapesId;
         grapesId++;
       }
     }
@@ -152,11 +184,11 @@ class GrapesJsController extends Component {
   }
 
   render() {
-    const {web, debug, type, ...otherProps} = this.props;
+    const { web, debug, type, onReset, ...otherProps } = this.props;
     otherProps.id = this.id;
     otherProps.onEditorInit = this.handleEditorInit;
     otherProps.host = this;
-    return web || this.getType() === 'html' ? (
+    return this.getType() === "html" ? (
       web ? (
         <GrapesJsWeb ref={this.handleEl} {...otherProps} />
       ) : (
