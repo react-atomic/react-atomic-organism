@@ -9,14 +9,13 @@ import {openCodeEditor} from 'organism-react-codeeditor';
 import fixHtml from 'fix-html';
 
 import getAsset from '../../src/getAsset';
+import getInlinedHtmlCss from '../../src/getInlinedHtmlCss';
 
 const defaultAssets = {
   'sanitize-html': 'https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js',
   'grapesjs-preset-newsletter.min.js':
     'https://cdn.jsdelivr.net/npm/grapesjs-preset-newsletter@0.2.15/dist/grapesjs-preset-newsletter.min.js',
 };
-
-const cleanClassReg = /(class\=")([^"]*)(c\d{0,4})(\s)?([^"]*)/g
 
 const ERROR_HTML_INVALID_SYNTAX = 'HTML invalid syntax';
 
@@ -86,11 +85,7 @@ ${html}
   }
 
   getDesign() {
-    const editor = this.editor;
-    let html = editor.runCommand('gjs-get-inlined-html');
-    if (html) {
-      return html.trim().replace(cleanClassReg, '$1$5');
-    }
+    return getInlinedHtmlCss(this.editor);
   }
 
   updateImages(images) {

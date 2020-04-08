@@ -10,6 +10,7 @@ import fixHtml from "fix-html";
 
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
+import getInlinedHtmlCss from '../../src/getInlinedHtmlCss';
 
 const defaultAssets = {
   "sanitize-html":
@@ -88,9 +89,7 @@ ${html}
   }
 
   getDesign() {
-    const editor = this.editor;
-    const html = editor.getHtml();
-    return html;
+    return getInlinedHtmlCss(this.editor);
   }
 
   handleIframe = el => {
