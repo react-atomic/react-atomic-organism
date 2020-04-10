@@ -1,0 +1,35 @@
+{
+  "name": "url-route",
+  "version": "0.0.0",
+  "description": "Url Router",
+  "repository": "react-atomic/react-atomic-organism",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
+  "keywords": [],
+  "author": "Hill <hill@kimo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "seturl": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.x",
+    "chai": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
+    "sinon": "*"
+  },
+  "scripts": {
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es --root-mode upward",
+    "build": "rm -rf build && npm run build:cjs && npm run build:es",
+    "mocha": "mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
+    "test": "npm run build && npm run mocha",
+    "prepublishOnly": "npm run test"
+  },
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}
