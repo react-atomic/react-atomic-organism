@@ -10,7 +10,7 @@ import fixHtml from "fix-html";
 
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
-import getInlinedHtmlCss from '../../src/getInlinedHtmlCss';
+import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
 
 const defaultAssets = {
   "sanitize-html":
@@ -223,12 +223,16 @@ ${html}
       const { host, onEditorLoad, onError, design } = this.props;
       const doc = this.iframeWindow.document;
       host.execReset();
-      try {
-        const html = fixHtml(design, this.iframeWindow.sanitizeHtml);
-        this.editor.setComponents(html);
-      } catch (e) {
-        callfunc(onError, [{ e, design, message: ERROR_HTML_INVALID_SYNTAX }]);
-        console.warn({ e, design });
+      if (design) {
+        try {
+          const html = fixHtml(design, this.iframeWindow.sanitizeHtml);
+          this.editor.setComponents(html);
+        } catch (e) {
+          callfunc(onError, [
+            { e, design, message: ERROR_HTML_INVALID_SYNTAX }
+          ]);
+          console.warn({ e, design });
+        }
       }
       doc.getElementById("root").className = "";
       setTimeout(() => {
