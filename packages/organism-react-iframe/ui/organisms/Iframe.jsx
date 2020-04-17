@@ -1,35 +1,34 @@
-import React, {PureComponent, useEffect} from 'react';
-import {createPortal} from 'react-dom';
-import get from 'get-object-value';
-import getOffset from 'getoffset';
-import smoothScrollTo from 'smooth-scroll-to';
-import exec from 'exec-script';
-import {SemanticUI, Unsafe} from 'react-atomic-molecule';
-import {queryFrom} from 'css-query-selector';
-import callfunc from 'call-func';
+import React, { PureComponent, useEffect } from "react";
+import { createPortal } from "react-dom";
+import get from "get-object-value";
+import getOffset from "getoffset";
+import smoothScrollTo from "smooth-scroll-to";
+import exec from "exec-script";
+import { SemanticUI, Unsafe } from "react-atomic-molecule";
+import { queryFrom } from "css-query-selector";
+import callfunc from "call-func";
 
-import IframeContainer from '../organisms/IframeContainer';
+import IframeContainer from "../organisms/IframeContainer";
 
 const keys = Object.keys;
 
-const IframeInner = ({children, onLoad}) =>
-{
+const IframeInner = ({ children, onLoad }) => {
   useEffect(() => {
     callfunc(onLoad);
   }, [children]);
   return (
     <SemanticUI>
-      <Unsafe atom="style">{() => 'body {padding:0; margin:0;}'}</Unsafe>
+      <Unsafe atom="style">{() => "body {padding:0; margin:0;}"}</Unsafe>
       {children}
     </SemanticUI>
   );
-}
+};
 
 class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
-    initialContent: '<html><body /></html>',
-    autoHeight: false,
+    initialContent: "<html><body /></html>",
+    autoHeight: false
   };
 
   html = null;
@@ -37,31 +36,31 @@ class Iframe extends PureComponent {
   execStop = null;
 
   appendHtml = html => {
-    let div = document.createElement('div');
+    let div = document.createElement("div");
     div.innerHTML = html;
-    const root = get(this.root, ['childNodes', 0, 'childNodes', 0], this.root);
+    const root = get(this.root, ["childNodes", 0, "childNodes", 0], this.root);
     root.appendChild(div);
     this.handleScript(div);
   };
 
   postHeight = () => this.iframe.postHeight(this.getWindow());
 
-  getBody = () => get(this.getDoc(), ['body']);
+  getBody = () => get(this.getDoc(), ["body"]);
 
-  getDoc = () => get(this.getWindow(), ['document']);
+  getDoc = () => get(this.getWindow(), ["document"]);
 
-  getWindow = () => get(this.el, ['contentWindow', 'window']);
+  getWindow = () => get(this.el, ["contentWindow", "window"]);
 
   handleBodyClick = e => {
-    const {keepTargetInIframe, onLinkClick} = this.props;
+    const { keepTargetInIframe, onLinkClick } = this.props;
     const query = queryFrom(() => this.getBody());
     const evTarget = e.target;
     const link =
-      evTarget.nodeName === 'A' ? evTarget : query.ancestor(evTarget, 'a');
+      evTarget.nodeName === "A" ? evTarget : query.ancestor(evTarget, "a");
     if (!link) {
       return;
     }
-    if (link.target && '_blank' === link.target.toLowerCase()) {
+    if (link.target && "_blank" === link.target.toLowerCase()) {
       return;
     }
 
@@ -98,8 +97,8 @@ class Iframe extends PureComponent {
     if (!body) {
       return;
     }
-    body.removeEventListener('click', this.handleBodyClick);
-    body.addEventListener('click', this.handleBodyClick);
+    body.removeEventListener("click", this.handleBodyClick);
+    body.addEventListener("click", this.handleBodyClick);
   }
 
   handleScript = el => {
@@ -113,7 +112,7 @@ class Iframe extends PureComponent {
 
   handleRefCb = el => {
     if (el) {
-      const {refCb} = this.props;
+      const { refCb } = this.props;
       this.el = el;
       callfunc(refCb, [el]);
     }
@@ -125,7 +124,7 @@ class Iframe extends PureComponent {
     }
     const root = this.root;
 
-    const {children, autoHeight, onLoad} = props;
+    const { children, autoHeight, onLoad } = props;
 
     this.html = root.innerHTML;
     const callback = () => {
@@ -140,25 +139,28 @@ class Iframe extends PureComponent {
       }
     };
     return createPortal(
-      <IframeInner {...props} onLoad={callback}/>,
+      <IframeInner {...props} onLoad={callback} />,
       this.root
     );
   }
 
   init() {
-    const {initialContent, onUnload, onBeforeUnload} = this.props;
-    this.root = document.createElement('div');
+    const { initialContent, onUnload, onBeforeUnload, autoHeight } = this.props;
+    this.root = document.createElement("div");
     const doc = this.getDoc();
     if (doc) {
       // fixed firfox innerHTML suddenly disappear.
-      doc.open('text/html', 'replace');
+      doc.open("text/html", "replace");
       doc.write(initialContent);
       doc.close();
 
       const body = this.getBody();
       body.appendChild(this.root);
-      body.addEventListener('unload', onUnload);
-      body.addEventListener('beforeunload', onBeforeUnload);
+      body.addEventListener("unload", onUnload);
+      body.addEventListener("beforeunload", onBeforeUnload);
+      if (autoHeight) {
+        this.getWindow()?.addEventListener("resize", this.postHeight);
+      }
     }
   }
 
@@ -192,7 +194,8 @@ class Iframe extends PureComponent {
       <IframeContainer
         {...others}
         ref={this.handleRef}
-        refCb={this.handleRefCb}>
+        refCb={this.handleRefCb}
+      >
         {this.el && this.renderIframe(this.props)}
       </IframeContainer>
     );
