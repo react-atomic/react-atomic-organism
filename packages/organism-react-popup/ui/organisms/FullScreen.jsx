@@ -98,6 +98,7 @@ const Styles = {
   container: {
     background: '#fff',
     textAlign: 'left',
+    padding: 0,
   },
   x: {
     width: '70px',
