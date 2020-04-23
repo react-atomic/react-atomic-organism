@@ -207,7 +207,6 @@ class GrapesJsMjml extends Component {
         type: null,
       },
       container: '#gjs',
-      fromElement: true,
       plugins: ['grapesjs-mjml', 'gjs-plugin-ckeditor'],
       pluginsOpts: {
         'gjs-plugin-ckeditor': {

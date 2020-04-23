@@ -177,7 +177,6 @@ ${html}
         type: null
       },
       container: "#gjs",
-      fromElement: true,
       plugins,
       pluginsOpts: {
         "gjs-plugin-ckeditor": {
