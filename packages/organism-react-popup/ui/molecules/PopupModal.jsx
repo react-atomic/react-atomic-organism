@@ -139,11 +139,11 @@ class PopupModal extends PopupOverlay {
 
   componentDidMount() {
     this._mount = true;
-    this.reCalculate();
+    setTimeout(()=>this.reCalculate(), 300);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    this.reCalculate();
+    setTimeout(()=>this.reCalculate(), 300);
   }
 
   componentWillUnmount() {

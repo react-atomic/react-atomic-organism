@@ -31,6 +31,6 @@ describe('Test PopupModal', () => {
       const actual = oDom.html();
       expect(actual).to.have.string('id="my-id"');
       done();
-    });
+    }, 300);
   });
 });

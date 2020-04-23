@@ -31,6 +31,6 @@ describe('Test PopupOverlay', () => {
       const actual = oDom.html();
       expect(actual).to.have.string('id="my-overlay"');
       done();
-    });
+    }, 300);
   });
 });
