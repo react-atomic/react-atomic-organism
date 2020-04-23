@@ -158,9 +158,6 @@ class Iframe extends PureComponent {
       body.appendChild(this.root);
       body.addEventListener("unload", onUnload);
       body.addEventListener("beforeunload", onBeforeUnload);
-      if (autoHeight) {
-        this.getWindow()?.addEventListener("resize", this.postHeight);
-      }
     }
   }
 
