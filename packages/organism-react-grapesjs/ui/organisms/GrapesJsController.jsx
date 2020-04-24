@@ -29,11 +29,13 @@ class GrapesJsController extends Component {
   }
 
   getHtml() {
-    return this.el && this.el.getHtml && this.el.getHtml();
+    const strHtml = this.el && this.el.getHtml && this.el.getHtml();
+    return strHtml || "";
   }
 
   getDesign() {
-    return this.el && this.el.getDesign && this.el.getDesign();
+    const strDesign = this.el && this.el.getDesign && this.el.getDesign();
+    return strDesign || "";
   }
 
   getEditor() {
@@ -141,7 +143,7 @@ class GrapesJsController extends Component {
     const { onReset, images } = this.props;
     callfunc(onReset, [{ editor: this.editor, component: this.el }]);
     this.execUpdateImages(get(images));
-  };
+  }
 
   execClean() {
     const { i18nCleanCanvas } = this.props;
