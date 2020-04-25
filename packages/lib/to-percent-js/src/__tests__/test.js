@@ -93,6 +93,10 @@ describe('Get Num', () => {
     const flotV = 0.1;
     expect(getNum(flotV)).to.equal(flotV);
   });
+  it('Test input object', ()=>{
+    const v = {};
+    expect(getNum(v)).to.equal(0);
+  });
   it('Test get int', () => {
     const s = 'cd2';
     expect(getNum(s)).to.equal(2);

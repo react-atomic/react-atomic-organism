@@ -1,4 +1,6 @@
-const numTypes = '|number|string|';
+import {UNDEFINED, STRING} from 'reshow-constant';
+
+const numTypes = `|number|${STRING}|`;
 
 const toPercent = num => percent(num) + '%';
 
@@ -7,10 +9,11 @@ const percent = num => round(toNum(num) * 100);
 const round = (f, precision = 2) => toNum(f).toFixed(precision);
 
 const toNum = num => {
-  if ('undefined' === typeof num) {
+  if (UNDEFINED === typeof num) {
     return 0;
   } else if (-1 === numTypes.indexOf('|' + typeof num + '|') || !num) {
-    return Number(num);
+    const maybeNaN = Number(num);
+    return isNaN(maybeNaN) ? 0 : maybeNaN;
   } else {
     const maybeFloat = parseFloat(num);
     const maybeInt = parseInt(num, 10);
@@ -26,8 +29,8 @@ const toInt = num => toNum(round(num, 0));
 
 const numReg = /(\-)?(\d+)(\.)?(\d+)?/g;
 const getNum = s => {
-  if (!isNaN(s)) {
-    return s;
+  if (STRING !== typeof s) {
+    return toNum(s);
   }
   const match = s.replace(',', '').match(numReg);
   if (!match) {
