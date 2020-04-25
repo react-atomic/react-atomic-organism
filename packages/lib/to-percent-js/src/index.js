@@ -26,6 +26,9 @@ const toInt = num => toNum(round(num, 0));
 
 const numReg = /(\-)?(\d+)(\.)?(\d+)?/g;
 const getNum = s => {
+  if (!isNaN(s)) {
+    return s;
+  }
   const match = s.replace(',', '').match(numReg);
   if (!match) {
     console.warn('Get number fail', s);

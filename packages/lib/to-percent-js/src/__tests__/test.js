@@ -87,6 +87,12 @@ describe('To Int', () => {
 
 
 describe('Get Num', () => {
+  it('Test input number', ()=>{
+    const intV = 1;
+    expect(getNum(intV)).to.equal(intV);
+    const flotV = 0.1;
+    expect(getNum(flotV)).to.equal(flotV);
+  });
   it('Test get int', () => {
     const s = 'cd2';
     expect(getNum(s)).to.equal(2);
