@@ -18,7 +18,7 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
   }, [children]);
   return (
     <SemanticUI>
-      <Unsafe atom="style">{() => inlineCSS}</Unsafe>
+      <Unsafe atom="style">{() => inlineCSS || "body {padding:0; margin:0;}"}</Unsafe>
       {children}
     </SemanticUI>
   );
@@ -28,7 +28,6 @@ class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
     initialContent: "<html><body /></html>",
-    inlineCSS: "body {padding:0; margin:0;}",
     autoHeight: false,
     onLoadDelay: 500
   };
