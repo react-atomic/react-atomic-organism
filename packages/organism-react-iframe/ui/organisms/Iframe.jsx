@@ -12,13 +12,13 @@ import IframeContainer from "../organisms/IframeContainer";
 
 const keys = Object.keys;
 
-const IframeInner = ({ children, onLoad }) => {
+const IframeInner = ({ children, inlineCSS, onLoad }) => {
   useEffect(() => {
     callfunc(onLoad);
   }, [children]);
   return (
     <SemanticUI>
-      <Unsafe atom="style">{() => "body {padding:0; margin:0;}"}</Unsafe>
+      <Unsafe atom="style">{() => inlineCSS}</Unsafe>
       {children}
     </SemanticUI>
   );
@@ -28,7 +28,9 @@ class Iframe extends PureComponent {
   static defaultProps = {
     keepTargetInIframe: false,
     initialContent: "<html><body /></html>",
-    autoHeight: false
+    inlineCSS: "body {padding:0; margin:0;}",
+    autoHeight: false,
+    onLoadDelay: 500
   };
 
   html = null;
@@ -124,7 +126,7 @@ class Iframe extends PureComponent {
     }
     const root = this.root;
 
-    const { children, autoHeight, onLoad } = props;
+    const { children, autoHeight, onLoadDelay, onLoad, inlineCSS } = props;
 
     this.html = root.innerHTML;
     const callback = () => {
@@ -132,14 +134,16 @@ class Iframe extends PureComponent {
       if (html !== this.html) {
         this.handleScript(root);
         this.handleLinkClick();
-        if (autoHeight) {
-          this.autoHeightTimer = setTimeout(() => this.postHeight(), 500);
-        }
-        callfunc(onLoad);
+        this.onLoadTimer = setTimeout(() => {
+          if (autoHeight) {
+            this.postHeight();
+          }
+          callfunc(onLoad);
+        }, onLoadDelay);
       }
     };
     return createPortal(
-      <IframeInner {...props} onLoad={callback} />,
+      <IframeInner {...props} inlineCSS={inlineCSS} onLoad={callback} />,
       this.root
     );
   }
@@ -166,8 +170,8 @@ class Iframe extends PureComponent {
   }
 
   componentWillUnmount() {
-    if (this.autoHeightTimer) {
-      clearTimeout(this.autoHeightTimer);
+    if (this.onLoadTimer) {
+      clearTimeout(this.onLoadTimer);
     }
     callfunc(this.execStop);
     callfunc(this.props.onUnmount);
@@ -175,6 +179,7 @@ class Iframe extends PureComponent {
 
   render() {
     const {
+      inlineCSS,
       initialContent,
       children,
       keepTargetInIframe,
@@ -182,11 +187,15 @@ class Iframe extends PureComponent {
       autoHeight,
       onLinkClick,
       onLoad,
+      onLoadDelay,
       onUnload,
       onBeforeUnload,
       onUnmount,
       ...others
     } = this.props;
+    if (autoHeight) {
+      others.scrolling = "no";
+    }
     return (
       <IframeContainer
         {...others}
