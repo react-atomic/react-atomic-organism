@@ -95,7 +95,7 @@ const getOffset = (dom, scrollNode) => {
     w = dom.offsetWidth;
     h = dom.offsetHeight;
     if (dom.getBoundingClientRect) {
-      const rect = dom.getBoundingClientRect();
+      rect = dom.getBoundingClientRect();
       top = parseInt(rect.top + scrollInfo.top, 10);
       left = parseInt(rect.left + scrollInfo.left, 10);
     } else {
