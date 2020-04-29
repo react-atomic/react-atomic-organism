@@ -19,7 +19,9 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
   return (
     <SemanticUI>
       <Unsafe atom="style">
-        {() => inlineCSS || "body {padding: 0; margin: 0; background: transparent;}"}
+        {() =>
+          inlineCSS || "body {padding: 0; margin: 0; background: transparent;}"
+        }
       </Unsafe>
       {children}
     </SemanticUI>
@@ -47,6 +49,13 @@ class Iframe extends PureComponent {
   };
 
   postHeight = () => this.iframe.postHeight(this.getWindow());
+
+  scrollToEl = el => {
+    const pos = getOffset(tarDom);
+    if (pos.rect) {
+      smoothScrollTo(pos.rect.top);
+    }
+  };
 
   getBody = () => get(this.getDoc(), ["body"]);
 
@@ -86,7 +95,7 @@ class Iframe extends PureComponent {
         const URI = document.location;
         if (URI.pathname === link.pathname && URI.host === link.host) {
           e.preventDefault();
-          smoothScrollTo(getOffset(tarDom).top);
+          this.scrollToEl(tarDom);
           return;
         }
       }
