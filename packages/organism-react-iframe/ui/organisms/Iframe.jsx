@@ -18,7 +18,9 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
   }, [children]);
   return (
     <SemanticUI>
-      <Unsafe atom="style">{() => inlineCSS || "body {padding:0; margin:0;}"}</Unsafe>
+      <Unsafe atom="style">
+        {() => inlineCSS || "body {padding:0; margin:0;}"}
+      </Unsafe>
       {children}
     </SemanticUI>
   );
@@ -73,7 +75,13 @@ class Iframe extends PureComponent {
     }
 
     if (link.hash) {
-      const tarDom = query.one(link.hash);
+      let tarDom;
+      try {
+        tarDom = query.one(link.hash);
+      } catch (e) {
+        console.warn("Can not handle hash", { e });
+        return;
+      }
       if (tarDom) {
         const URI = document.location;
         if (URI.pathname === link.pathname && URI.host === link.host) {
