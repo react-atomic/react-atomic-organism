@@ -51,7 +51,7 @@ class Iframe extends PureComponent {
   postHeight = () => this.iframe.postHeight(this.getWindow());
 
   scrollToEl = el => {
-    const pos = getOffset(tarDom);
+    const pos = getOffset(el);
     if (pos.rect) {
       smoothScrollTo(pos.rect.top);
     }
