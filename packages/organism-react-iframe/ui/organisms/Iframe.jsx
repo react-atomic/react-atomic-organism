@@ -19,7 +19,7 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
   return (
     <SemanticUI>
       <Unsafe atom="style">
-        {() => inlineCSS || "body {padding:0; margin:0;}"}
+        {() => inlineCSS || "body {padding: 0; margin: 0; background: transparent;}"}
       </Unsafe>
       {children}
     </SemanticUI>
