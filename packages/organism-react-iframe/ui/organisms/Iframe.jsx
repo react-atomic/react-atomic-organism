@@ -30,6 +30,7 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
 
 class Iframe extends PureComponent {
   static defaultProps = {
+    disableSmoothScroll: false,
     keepTargetInIframe: false,
     initialContent: "<html><body /></html>",
     autoHeight: false,
@@ -64,7 +65,7 @@ class Iframe extends PureComponent {
   getWindow = () => get(this.el, ["contentWindow", "window"]);
 
   handleBodyClick = e => {
-    const { keepTargetInIframe, onLinkClick } = this.props;
+    const { keepTargetInIframe, disableSmoothScroll, onLinkClick } = this.props;
     const query = queryFrom(() => this.getBody());
     const evTarget = e.target;
     const link =
@@ -83,7 +84,7 @@ class Iframe extends PureComponent {
       return;
     }
 
-    if (link.hash) {
+    if (link.hash && !disableSmoothScroll) {
       let tarDom;
       try {
         tarDom = query.one(link.hash);
@@ -100,6 +101,7 @@ class Iframe extends PureComponent {
         }
       }
     }
+
     if (keepTargetInIframe) {
       return;
     } else {
