@@ -1,6 +1,6 @@
 {
   "name": "organism-react-asciidoc",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Rendering asciidoc to iFrames with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

@@ -76,13 +76,13 @@ class Asciidoc extends PureComponent {
 }
 
 Asciidoc.defaultProps = {
-  onLoadDelay: 3000,
+  onLoadDelay: 3500,
   inlineCSS: 'body {padding: 0; margin: 0; background: transparent !important;}',
   js:
-    "//cdn.jsdelivr.net/npm/asciidoctor.js@[VERSION]/dist/browser/asciidoctor.min.js",
+    "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
   css:
-    "//cdn.jsdelivr.net/npm/asciidoctor.js@[VERSION]/dist/css/asciidoctor.css",
-  npmVersion: "1.5.9"
+    "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
+  npmVersion: "2.2.0"
 };
 
 export default Asciidoc;
