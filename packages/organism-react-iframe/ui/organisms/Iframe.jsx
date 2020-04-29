@@ -89,8 +89,11 @@ class Iframe extends PureComponent {
       try {
         tarDom = query.one(link.hash);
       } catch (e) {
-        console.warn("Can not handle hash", { e });
-        return;
+        tarDom = query.one(`[id*="${decodeURIComponent(link.hash.substr(1))}"]`);
+        if (!tarDom) {
+          console.warn("Can not handle hash", { e });
+          return;
+        }
       }
       if (tarDom) {
         const URI = document.location;
@@ -201,6 +204,7 @@ class Iframe extends PureComponent {
       initialContent,
       children,
       keepTargetInIframe,
+      disableSmoothScroll,
       refCb,
       autoHeight,
       onLinkClick,
