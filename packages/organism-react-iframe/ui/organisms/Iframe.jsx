@@ -85,17 +85,13 @@ class Iframe extends PureComponent {
     }
 
     if (link.hash && !disableSmoothScroll) {
-      let tarDom;
-      try {
-        tarDom = query.one(link.hash);
-      } catch (e) {
-        tarDom = query.one(`[id*="${decodeURIComponent(link.hash.substr(1))}"]`);
-        if (!tarDom) {
-          console.warn("Can not handle hash", { e });
-          return;
-        }
-      }
-      if (tarDom) {
+      const tarId = decodeURIComponent(link.hash.substr(1));
+      const tarDom =
+        query.one(`[id="${tarId}"]`) || query.one(`[name="${tarId}"]`);
+      if (!tarDom) {
+        console.warn("Can not handle hash", { e });
+        return;
+      } else {
         const URI = document.location;
         if (URI.pathname === link.pathname && URI.host === link.host) {
           e.preventDefault();
