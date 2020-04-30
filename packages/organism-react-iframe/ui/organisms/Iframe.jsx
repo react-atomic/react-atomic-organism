@@ -85,9 +85,13 @@ class Iframe extends PureComponent {
     }
 
     if (link.hash && !disableSmoothScroll) {
-      const tarId = decodeURIComponent(link.hash.substr(1));
-      const tarDom =
-        query.one(`[id="${tarId}"]`) || query.one(`[name="${tarId}"]`);
+      let tarDom;
+      try {
+        tarDom = query.one(link.hash);
+      } catch (e) {
+        const tarId = decodeURIComponent(link.hash.substr(1));
+        tarDom = query.one(`[id="${tarId}"]`) || query.one(`[name="${tarId}"]`);
+      }
       if (!tarDom) {
         console.warn("Can not handle hash", { e });
         return;
