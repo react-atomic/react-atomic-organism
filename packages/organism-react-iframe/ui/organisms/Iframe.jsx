@@ -127,7 +127,9 @@ class Iframe extends PureComponent {
   handleScript = el => {
     const win = this.getWindow();
     if (win) {
-      this.execStop = exec(el, win, this.root.parentNode);
+      this.execStop = exec(el, win, this.root.parentNode, (e, script)=>{
+        console.warn('script error', [e, script]);
+      });
     }
   };
 
