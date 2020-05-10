@@ -40,6 +40,11 @@ const initViewSource = host => {
 };
 
 class GrapesJsWeb extends Component {
+
+  static defaultProps = {
+    allowScripts: true,
+  };
+
   getAsset(fileName) {
     return getAsset(fileName, this.props, defaultAssets);
   }
@@ -137,6 +142,7 @@ ${html}
 
   handleInitGrapesJS = () => {
     const {
+      allowScripts,
       font,
       onEditorInit,
       onBeforeEditorInit,
@@ -168,6 +174,7 @@ ${html}
     const plugins = ["gjs-preset-webpage", "gjs-plugin-ckeditor"];
 
     const initGrapesJS = {
+      allowScripts,
       noticeOnUnload: false,
       clearOnRender: true,
       height: "100%",

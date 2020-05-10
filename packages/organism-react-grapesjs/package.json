@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.1.13",
+  "version": "0.2.0",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,10 +11,10 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "juice": "*",
     "call-func": "*",
     "fix-html": "*",
     "get-object-value": "*",
+    "juice": "*",
     "organism-react-codeeditor": "*",
     "organism-react-iframe": "*",
     "organism-react-popup": "*",
