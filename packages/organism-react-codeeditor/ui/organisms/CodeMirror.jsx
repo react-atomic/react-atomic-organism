@@ -1,8 +1,8 @@
-import React, {useRef, useEffect, useCallback, useReducer} from 'react';
-import Iframe from 'organism-react-iframe';
-import {Unsafe} from 'react-atomic-molecule';
-import callfunc from 'call-func';
-import * as models from '../../src/models';
+import React, { useRef, useEffect, useCallback, useReducer } from "react";
+import Iframe from "organism-react-iframe";
+import { Unsafe } from "react-atomic-molecule";
+import callfunc from "call-func";
+import * as models from "../../src/models";
 
 const keys = Object.keys;
 
@@ -11,12 +11,12 @@ const reducer = (state, action) => {
   return state;
 };
 
-const CodeMirror = ({onChange, model, children, ...props}) => {
+const CodeMirror = ({ onChange, model, children, ...props }) => {
   const oModel = models[model] || models.html;
   const [that, dispatch] = useReducer(reducer, {});
   const handleIframeRef = el => {
     dispatch({
-      dIframe: el,
+      dIframe: el
     });
   };
 
@@ -25,33 +25,30 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
     const codemirror = that.iframeWindow.CodeMirror.fromTextArea(
       dTextarea.current,
       {
-        mode: 'htmlmixed',
+        mode: "htmlmixed",
         indentUnit: 2,
         tabSize: 2,
         indentWithTabs: false,
         lineNumbers: true,
-        lineWrapping: true,
-      },
+        lineWrapping: true
+      }
     );
-    codemirror.setSize(null, '100%');
-    codemirror.on('change', () => {
+    codemirror.setSize(null, "100%");
+    codemirror.on("change", () => {
       callfunc(onChange, [
-        oModel.setValue({codemirror, iframeWindow: that.iframeWindow}),
+        oModel.setValue({ codemirror, iframeWindow: that.iframeWindow })
       ]);
     });
     codemirror.autoFormatRange(
-      {line: 0, ch: 0},
-      {line: codemirror.lineCount()},
+      { line: 0, ch: 0 },
+      { line: codemirror.lineCount() }
     );
-    codemirror.setCursor({line: 0, ch: 0});
+    codemirror.setCursor({ line: 0, ch: 0 });
   }, [dTextarea]);
 
   const handleLoad = () => {
-    dispatch({
-      iframeWindow: that.dIframe.contentWindow.window,
-    });
+    let timer;
     if (that.iframeWindow) {
-      let timer;
       timer = setInterval(() => {
         if (that.iframeWindow.isCodeMirrorReady) {
           clearInterval(timer);
@@ -59,13 +56,28 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
         }
       }, 10);
     }
+    dispatch({
+      timer,
+      iframeWindow: that.dIframe.contentWindow.window
+    });
   };
+
+  useEffect(() => {
+    return () => {
+      if (that.timer) {
+        clearInterval(that.timer);
+      }
+    };
+  }, []);
+
   return (
     <Iframe
+      inlineCSS="body {padding: 15 0; background: transparent;}"
       className="codemirror"
       style={Styles.fitHeight}
       refCb={handleIframeRef}
-      onLoad={handleLoad}>
+      onLoad={handleLoad}
+    >
       <Unsafe>
         {`
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
@@ -73,15 +85,15 @@ const CodeMirror = ({onChange, model, children, ...props}) => {
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
           ${(oModel.libJS || [])
             .map(js => '<script src="' + js + '"></script>')
-            ?.join('')}
+            ?.join("")}
           ${(oModel.codeMirrorJS || [])
             .map(
               js =>
                 '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
                 js +
-                '"></script>',
+                '"></script>'
             )
-            ?.join('')}
+            ?.join("")}
           <script>window.isCodeMirrorReady=true;</script>
           `}
       </Unsafe>
@@ -98,9 +110,9 @@ export default CodeMirror;
 
 const Styles = {
   textarea: {
-    display: 'none',
+    display: "none"
   },
   fitHeight: {
-    height: '100%',
-  },
+    height: "100%"
+  }
 };
