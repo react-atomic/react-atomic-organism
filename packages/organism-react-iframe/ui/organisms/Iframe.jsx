@@ -153,11 +153,17 @@ class Iframe extends PureComponent {
 
     this.html = root.innerHTML;
     const callback = () => {
+      if (!this._mount) {
+        return;
+      }
       const html = root.innerHTML;
       if (html !== this.html) {
         this.handleScript(root);
         this.handleLinkClick();
         this.onLoadTimer = setTimeout(() => {
+          if (!this._mount || !this.getWindow()) {
+            return;
+          }
           if (autoHeight) {
             this.postHeight();
           }
@@ -190,9 +196,11 @@ class Iframe extends PureComponent {
 
   componentDidMount() {
     !this.root && this.forceUpdate();
+    this._mount = true;
   }
 
   componentWillUnmount() {
+    this._mount = false;
     if (this.onLoadTimer) {
       clearTimeout(this.onLoadTimer);
     }
