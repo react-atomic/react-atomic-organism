@@ -1,6 +1,6 @@
 {
   "name": "fix-html",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "Simple tip to resolve html error",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

@@ -1,5 +1,5 @@
-import {win} from 'win-doc';
-import callfunc from 'call-func';
+import { win } from "win-doc";
+import callfunc from "call-func";
 
 const allAttr = JSON.parse(`[
 "accept", "accept-charset", "accesskey", "action", "allowfullscreen", "allowtransparency", "align", "alt", "async", "autocomplete", "autofocus", "autoplay", "autocorrect", "aria-*", 
@@ -45,16 +45,25 @@ const allAttr = JSON.parse(`[
 
 const docTypeReg = /^<!DOCTYPE .*?>/i;
 
-const fixHtml = (s, cb) => {
-  const d = new (win()).DOMParser();
-  const xml = new (win()).XMLSerializer();
-  const docType = ((s || '').match(docTypeReg) || [])[0] || '';
-  const html = xml.serializeToString(d.parseFromString(s || '', 'text/html'));
-  return cb
-    ? docType+callfunc(cb, [
-        html,
-        {allowedTags: false, allowedAttributes: {'*': allAttr}},
-      ])
-    : html;
+const htmlDecode = s => {
+  const textArea = document.createElement("textarea");
+  textArea.innerHTML = s;
+  return textArea.textContent;
 };
+
+const fixHtml = (s, cb, componentOnly) => {
+  const d = new (win().DOMParser)();
+  const oXml = new (win().XMLSerializer)();
+  const domObj = d.parseFromString(s || "", "text/html");
+  const xmlStr = componentOnly ? domObj.body.innerHTML : oXml.serializeToString(domObj);
+  const docType = (xmlStr.match(docTypeReg) || [])[0] || "";
+  const callcb = s =>
+    docType +
+    callfunc(cb, [
+      s,
+      { allowedTags: false, allowedAttributes: { "*": allAttr } }
+    ]);
+  return htmlDecode(cb ? callcb(xmlStr) : xmlStr);
+};
+
 export default fixHtml;
