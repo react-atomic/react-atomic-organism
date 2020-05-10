@@ -47,19 +47,20 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
   }, [dTextarea]);
 
   const handleLoad = () => {
-    let timer;
-    if (that.iframeWindow) {
+    const iframeWindow = that.dIframe.contentWindow?.window;
+    if (iframeWindow) {
+      let timer;
       timer = setInterval(() => {
-        if (that.iframeWindow.isCodeMirrorReady) {
+        if (iframeWindow.isCodeMirrorReady) {
           clearInterval(timer);
           handleCodeMirror();
         }
       }, 10);
+      dispatch({
+        timer,
+        iframeWindow
+      });
     }
-    dispatch({
-      timer,
-      iframeWindow: that.dIframe.contentWindow.window
-    });
   };
 
   useEffect(() => {

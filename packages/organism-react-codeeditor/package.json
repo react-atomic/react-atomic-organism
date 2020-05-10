@@ -1,6 +1,6 @@
 {
   "name": "organism-react-codeeditor",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "React Simple Html Editor",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
