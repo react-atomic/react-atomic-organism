@@ -25,12 +25,12 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
     const codemirror = that.iframeWindow.CodeMirror.fromTextArea(
       dTextarea.current,
       {
-        mode: "htmlmixed",
         indentUnit: 2,
         tabSize: 2,
         indentWithTabs: false,
         lineNumbers: true,
-        lineWrapping: true
+        lineWrapping: true,
+        ...oModel.options
       }
     );
     codemirror.setSize(null, "100%");

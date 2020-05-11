@@ -2,6 +2,10 @@ import HtmlPreview from '../../ui/organisms/HtmlPreview';
 import fixHtml from 'fix-html';
 
 const html = {
+  options: {
+    mode: "htmlmixed",
+    matchTags: {bothTags: true},
+  },
   setValue: e => {
     e.value = e.codemirror.getValue();
     e.getCode = () => {
@@ -17,6 +21,8 @@ const html = {
     'mode/javascript/javascript.min.js',
     'mode/css/css.min.js',
     'mode/htmlmixed/htmlmixed.min.js',
+    'addon/edit/matchtags.js',
+    'addon/fold/xml-fold.js',
   ],
   preview: HtmlPreview,
 };
