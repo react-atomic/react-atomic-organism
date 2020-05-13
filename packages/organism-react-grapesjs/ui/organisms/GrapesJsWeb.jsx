@@ -11,6 +11,7 @@ import fixHtml from "fix-html";
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
+import fixCountdown from "../../src/fixCountdown";
 
 const defaultAssets = {
   "sanitize-html":
@@ -40,9 +41,8 @@ const initViewSource = host => {
 };
 
 class GrapesJsWeb extends Component {
-
   static defaultProps = {
-    allowScripts: true,
+    allowScripts: true
   };
 
   getAsset(fileName) {
@@ -94,6 +94,7 @@ ${html}
   }
 
   getDesign() {
+    this.editor.store();
     return getInlinedHtmlCss(this.editor);
   }
 
@@ -175,13 +176,13 @@ ${html}
 
     const initGrapesJS = {
       allowScripts,
+      exportWrapper: true,
       noticeOnUnload: false,
       clearOnRender: true,
       height: "100%",
       storageManager: {
         autosave: false,
-        autoload: false,
-        type: null
+        autoload: false
       },
       container: "#gjs",
       plugins,
@@ -224,15 +225,30 @@ ${html}
     callfunc(onInitBlockManager, [{ blockManager, editor: this.editor }]);
   };
 
+  handleInitStore = editor => {
+    const storeM = editor.StorageManager;
+    storeM.add("local", {
+      store(data, clb, clbErr) {
+        this.gjsStore = data;
+      },
+      load(keys, clb, clbErr) {
+        console.log({ keys, clb, clbErr });
+      }
+    });
+  };
+
   handleEditorLoad = () => {
     setTimeout(() => {
       const { host, onEditorLoad, onError, design } = this.props;
       const doc = this.iframeWindow.document;
+      const editor = this.editor;
+      fixCountdown(editor);
+      this.handleInitStore(editor);
       host.execReset();
       if (design) {
         try {
           const html = fixHtml(design, this.iframeWindow.sanitizeHtml);
-          this.editor.setComponents(html);
+          editor.setComponents(html);
         } catch (e) {
           callfunc(onError, [
             { e, design, message: ERROR_HTML_INVALID_SYNTAX }
@@ -242,7 +258,7 @@ ${html}
       }
       doc.getElementById("root").className = "";
       setTimeout(() => {
-        callfunc(onEditorLoad, [{ editor: this.editor, component: this }]);
+        callfunc(onEditorLoad, [{ editor, component: this }]);
         initViewSource(host);
       }, 10);
     }, 100);
