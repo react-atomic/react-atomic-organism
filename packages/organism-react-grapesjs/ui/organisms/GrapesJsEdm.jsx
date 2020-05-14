@@ -25,9 +25,10 @@ const initViewSource = host => {
     {
       id: 'edit-code',
       className: 'gjs-pn-btn fa fa-code',
-      command: function(editor1, sender) {
+      command: (editor, sender) => {
         openCodeEditor(host.getDesign(), code => {
-          host.getEditor().setComponents(code);
+          editor.runCommand("core:canvas-clear");
+          editor.setComponents(code);
         });
       },
       attributes: {title: 'Edit Html'},
