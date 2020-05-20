@@ -60,38 +60,10 @@ class GrapesJsWeb extends Component {
     }
   }
 
-  beforeGetHtml() {
-    if (!this.editor) {
-      return false;
-    }
-    const sel = this.editor.getSelected();
-    if (sel && sel.view && sel.view.disableEditing) {
-      sel.view.disableEditing();
-    }
-    return true;
-  }
-
-  getHtml() {
-    if (!this.beforeGetHtml()) {
-      return;
-    }
-    let html = this.getDesign();
-    if (html) {
-      html = `
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-${html}
-</body>
-</html>
-`;
-      return html;
-    }
+  getHtml(isComponent) {
+    const {host} = this.props;
+    const html = this.getDesign();
+    return host.toHtml(html, isComponent);
   }
 
   getDesign() {

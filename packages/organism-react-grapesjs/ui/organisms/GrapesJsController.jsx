@@ -28,18 +28,55 @@ class GrapesJsController extends Component {
     return panelManager.getPanel(panelId).get("buttons");
   }
 
-  getHtml() {
-    const strHtml = this.el && this.el.getHtml && this.el.getHtml();
+  beforeGetCode() {
+    const editor = this.getEditor();
+    if (!editor) {
+      return false;
+    }
+    const sel = editor.getSelected();
+    if (sel && sel.view && sel.view.disableEditing) {
+      sel.view.disableEditing();
+    }
+    return true;
+  }
+
+  getHtml(isComponent) {
+    if (!this.beforeGetCode()) {
+      return;
+    }
+    const strHtml = this.el && this.el.getHtml && this.el.getHtml(isComponent);
     return strHtml || "";
   }
 
   getDesign() {
+    if (!this.beforeGetCode()) {
+      return;
+    }
     const strDesign = this.el && this.el.getDesign && this.el.getDesign();
     return strDesign || "";
   }
 
   getEditor() {
     return this.editor;
+  }
+
+  toHtml(html, isComponent) {
+    if (html && !isComponent) {
+      html = `
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+${html}
+</body>
+</html>
+`;
+      return html;
+    }
   }
 
   disableImport() {
