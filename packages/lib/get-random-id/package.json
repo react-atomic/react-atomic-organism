@@ -1,7 +1,7 @@
 {
   "name": "get-random-id",
-  "version": "0.0.1",
-  "description": "Simple rand key",
+  "version": "0.1.0",
+  "description": "Generate simple random keys",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
