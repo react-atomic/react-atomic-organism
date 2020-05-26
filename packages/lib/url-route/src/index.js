@@ -8,14 +8,15 @@
  * @return {Object}
  */
 
-import {getPath} from 'seturl';
+import { getPath, getUrl } from "seturl";
 
 const Route = (path, fn) => {
   const keys = [];
-  const re = pathToRegExp(path, keys);
+  const srcArr = getPath(path, null, true);
+  const re = pathToRegExp(srcArr[6] || srcArr[16] ? srcArr[13] : path, keys);
   const src = path;
 
-  return {re, src, keys, fn};
+  return { re, src, srcArr, keys, fn };
 };
 
 /**
@@ -33,47 +34,43 @@ const Route = (path, fn) => {
  */
 const pathToRegExp = (path, keys) => {
   path = path
-    .concat('/?')
-    .replace(/\/\(/g, '(?:/')
-    .replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g, (
-      _,
-      slash,
-      format,
-      key,
-      capture,
-      optional,
-    ) => {
-      if (_ === '*') {
-        keys.push(undefined);
-        return _;
-      }
+    .concat("/?")
+    .replace(/\/\(/g, "(?:/")
+    .replace(
+      /(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g,
+      (_, slash, format, key, capture, optional) => {
+        if (_ === "*") {
+          keys.push(undefined);
+          return _;
+        }
 
-      keys.push(key);
-      slash = slash || '';
-      return (
-        '' +
-        (optional ? '' : slash) +
-        '(?:' +
-        (optional ? slash : '') +
-        (format || '') +
-        (capture || '([^/]+?)') +
-        ')' +
-        (optional || '')
-      );
-    })
-    .replace(/([\/.])/g, '\\$1')
-    .replace(/\*/g, '(.*)');
-  return new RegExp('^' + path + '$', 'i');
+        keys.push(key);
+        slash = slash || "";
+        return (
+          "" +
+          (optional ? "" : slash) +
+          "(?:" +
+          (optional ? slash : "") +
+          (format || "") +
+          (capture || "([^/]+?)") +
+          ")" +
+          (optional || "")
+        );
+      }
+    )
+    .replace(/([\/.])/g, "\\$1")
+    .replace(/\*/g, "(.*)");
+  return new RegExp("^" + path + "$", "i");
 };
 
 const paraseParms = (captures, route) => {
-  const {keys, src, fn} = route;
+  const { keys, src, fn } = route;
   const params = {};
   const splats = [];
   Object.keys(captures).forEach((cKey, index) => {
     const item = captures[cKey];
     const key = keys[index];
-    const val = 'string' === typeof item ? decodeURI(item) : item;
+    const val = "string" === typeof item ? decodeURI(item) : item;
     if (key) {
       params[key] = val;
     } else {
@@ -84,7 +81,7 @@ const paraseParms = (captures, route) => {
     fn,
     params,
     splats,
-    route: src,
+    route: src
   };
   return result;
 };
@@ -99,15 +96,34 @@ const paraseParms = (captures, route) => {
  * @return {Object}
  */
 const match = (routes, uri) => {
-  const thisUri = getPath(uri);
+  const thisUriArr = getPath(uri, null, true);
+  const thisUri = thisUriArr[13];
+  const thisHost = thisUriArr[6];
   if (!thisUri) {
     return false;
   }
   let result;
   routes.some((route, index) => {
-    const {re} = route;
+    const { re, src, srcArr } = route;
     const captures = thisUri.match(re);
     if (captures) {
+      const rtHost = srcArr[6];
+      if (rtHost && thisHost !== rtHost) {
+        return;
+      }
+      const isQueryNotMatch = srcArr[16]
+        ?.replace("?", "")
+        .split("&")
+        .some(query => {
+          const queryArr = query.split("=");
+          if (queryArr[1] !== getUrl(queryArr[0], uri)) {
+            return true;
+          }
+          return false;
+        });
+      if (isQueryNotMatch) {
+        return;
+      }
       result = paraseParms(captures, route);
       result.nextIndex = index + 1;
       return true;
@@ -132,10 +148,10 @@ class Router {
 
   addRoute(path, fn) {
     if (!path) {
-      throw new Error('Route requires a path');
+      throw new Error("Route requires a path");
     }
     if (!fn) {
-      throw new Error('Route ' + path.toString() + ' requires a callback');
+      throw new Error("Route " + path + " requires a callback");
     }
     this.routes.push(Route(path, fn));
   }
