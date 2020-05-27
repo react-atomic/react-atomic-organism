@@ -107,67 +107,6 @@ ${html}
     }
   }
 
-  handleMergeTags(mergeTags, CKEDITOR, extraPlugins, toolbar) {
-    const { i18nMergeTags } = this.props;
-    let isRun = 0;
-    const buildList = function() {
-      // !!important!! should not use arrow function
-      this.startGroup(i18nMergeTags);
-      const tags = callfunc(mergeTags);
-      if (tags && tags.forEach) {
-        // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
-        // add : function( value, html, text )
-        tags.forEach(m => this.add(m[0], m[1], m[2]));
-      }
-      if (isRun) {
-        this._.committed = 0;
-        this.commit();
-      }
-    };
-    CKEDITOR.plugins.add("strinsert", {
-      requires: ["richcombo"],
-      init: editor => {
-        editor.ui.addRichCombo("strinsert", {
-          label: i18nMergeTags,
-          title: i18nMergeTags,
-          voiceLabel: i18nMergeTags,
-          className: "cke_format",
-          multiSelect: false,
-          panel: {
-            css: [editor.config.contentsCss, CKEDITOR.skin.getPath("editor")],
-            voiceLabel: editor.lang.panelVoiceLabel
-          },
-
-          init: function() {
-            editor.on("panelHide", () => {
-              this._.list.element.$.innerHTML = "";
-              this._.list._.items = {};
-            });
-            isRun = 0;
-            buildList.call(this);
-          },
-
-          onOpen: function() {
-            if (isRun) {
-              buildList.call(this);
-            }
-            isRun = 1;
-          },
-
-          onClick: value => {
-            editor.focus();
-            editor.fire("saveSnapshot");
-            editor.insertHtml(value);
-            editor.fire("saveSnapshot");
-          }
-        });
-      }
-    });
-    extraPlugins += ",strinsert";
-    toolbar.push({ name: i18nMergeTags, items: ["strinsert"] });
-    return extraPlugins;
-  }
-
   handleEditorInit = e => {
     const { onEditorInit } = this.props;
     this.editor = e.editor;

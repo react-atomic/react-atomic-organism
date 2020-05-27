@@ -11,6 +11,7 @@ import fixHtml from "fix-html";
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
+import {getCkeditorOption} from '../../src/getCkeditor';
 import fixCountdown from "../../src/fixCountdown";
 
 const defaultAssets = {
@@ -116,35 +117,17 @@ class GrapesJsWeb extends Component {
 
   handleInitGrapesJS = () => {
     const {
-      allowScripts,
+      i18nMergeTags,
       font,
+      mergeTags,
+      allowScripts,
       onEditorInit,
       onBeforeEditorInit,
-      mergeTags,
       host,
       init
     } = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
-    CKEDITOR.dtd.$editable.span = 1;
-    CKEDITOR.dtd.$editable.a = 1;
-    let extraPlugins = "sharedspace,justify,colorbutton,panelbutton,font";
-    const fontItems = font ? ["Font"] : [];
-    fontItems.push("FontSize");
-    const toolbar = [
-      { name: "styles", items: fontItems },
-      ["Bold", "Italic", "Underline", "Strike"],
-      { name: "paragraph", items: ["NumberedList", "BulletedList"] },
-      { name: "links", items: ["Link", "Unlink"] },
-      { name: "colors", items: ["TextColor", "BGColor"] }
-    ];
-    if (mergeTags) {
-      extraPlugins = host.handleMergeTags(
-        mergeTags,
-        CKEDITOR,
-        extraPlugins,
-        toolbar
-      );
-    }
+
     const plugins = ["gjs-preset-webpage", "gjs-plugin-ckeditor"];
 
     const initGrapesJS = {
@@ -160,17 +143,12 @@ class GrapesJsWeb extends Component {
       container: "#gjs",
       plugins,
       pluginsOpts: {
-        "gjs-plugin-ckeditor": {
-          position: "center",
-          options: {
-            startupFocus: true,
-            extraAllowedContent: "*(*);*{*}", // Allows any class and any inline style
-            allowedContent: true, // Disable auto-formatting, class removing, etc.
-            enterMode: CKEDITOR.ENTER_BR,
-            extraPlugins,
-            toolbar
-          }
-        },
+        ...getCkeditorOption({
+          CKEDITOR,
+          i18nMergeTags,
+          font,
+          mergeTags
+        }),
         "gjs-preset-webpage": getGjsPresetWebpage()
       },
       ...init

@@ -7,6 +7,7 @@ import { queryFrom } from "css-query-selector";
 
 import { setMjmlWindow } from "../../src/mjml2html";
 import getAsset from "../../src/getAsset";
+import {getCkeditorOption} from '../../src/getCkeditor';
 
 const defaultAssets = {
   "mjml.js":
@@ -155,32 +156,16 @@ class GrapesJsMjml extends Component {
 
   handleInitGrapesJS = () => {
     const {
+      i18nMergeTags,
       font,
+      mergeTags,
       onEditorInit,
       onBeforeEditorInit,
-      mergeTags,
-      host,
       init
     } = this.props;
+
     const CKEDITOR = this.iframeWindow.CKEDITOR;
-    let extraPlugins = "sharedspace,justify,colorbutton,panelbutton,font";
-    const fontItems = font ? ["Font"] : [];
-    fontItems.push("FontSize");
-    const toolbar = [
-      { name: "styles", items: fontItems },
-      ["Bold", "Italic", "Underline", "Strike"],
-      { name: "paragraph", items: ["NumberedList", "BulletedList"] },
-      { name: "links", items: ["Link", "Unlink"] },
-      { name: "colors", items: ["TextColor", "BGColor"] }
-    ];
-    if (mergeTags) {
-      extraPlugins = host.handleMergeTags(
-        mergeTags,
-        CKEDITOR,
-        extraPlugins,
-        toolbar
-      );
-    }
+
     const initGrapesJS = {
       noticeOnUnload: false,
       clearOnRender: true,
@@ -193,24 +178,19 @@ class GrapesJsMjml extends Component {
       container: "#gjs",
       plugins: ["grapesjs-mjml", "gjs-plugin-ckeditor"],
       pluginsOpts: {
-        "gjs-plugin-ckeditor": {
-          position: "center",
-          options: {
-            startupFocus: true,
-            extraAllowedContent: "*(*);*{*}", // Allows any class and any inline style
-            allowedContent: true, // Disable auto-formatting, class removing, etc.
-            enterMode: CKEDITOR.ENTER_BR,
-            extraPlugins,
-            toolbar
-          }
-        },
+        ...getCkeditorOption({
+          oCkeditor: this.iframeWindow.CKEDITOR,
+          i18nMergeTags,
+          font,
+          mergeTags
+        }),
         "grapesjs-mjml": {
           columnsPadding: 0
         }
       },
       ...init
     };
-    callfunc(onBeforeEditorInit, [{ CKEDITOR, initGrapesJS, component: this }]);
+    callfunc(onBeforeEditorInit, [{CKEDITOR, initGrapesJS, component: this }]);
 
     import("../../src/grapesjs-mjml").then(MjmlPlguin => {
       MjmlPlguin = getDefault(MjmlPlguin);

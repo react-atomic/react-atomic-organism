@@ -10,6 +10,7 @@ import fixHtml from 'fix-html';
 
 import getAsset from '../../src/getAsset';
 import getInlinedHtmlCss from '../../src/getInlinedHtmlCss';
+import {getCkeditorOption} from '../../src/getCkeditor';
 
 const defaultAssets = {
   'sanitize-html': 'https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js',
@@ -54,7 +55,7 @@ class GrapesJsEdm extends Component {
   getHtml() {
     const {host} = this.props;
     const html = this.getDesign();
-    return host.toHtml(html, isComponent);
+    return host.toHtml(html);
   }
 
   getDesign() {
@@ -122,35 +123,17 @@ class GrapesJsEdm extends Component {
 
   handleInitGrapesJS = () => {
     const {
+      i18nMergeTags,
       font,
+      mergeTags,
       onEditorInit,
       onBeforeEditorInit,
-      mergeTags,
-      host,
       init,
     } = this.props;
-    const CKEDITOR = this.iframeWindow.CKEDITOR;
-    CKEDITOR.dtd.$editable.span = 1;
-    CKEDITOR.dtd.$editable.a = 1;
-    let extraPlugins = 'sharedspace,justify,colorbutton,panelbutton,font';
-    const fontItems = font ? ['Font'] : [];
-    fontItems.push('FontSize');
-    const toolbar = [
-      {name: 'styles', items: fontItems},
-      ['Bold', 'Italic', 'Underline', 'Strike'],
-      {name: 'paragraph', items: ['NumberedList', 'BulletedList']},
-      {name: 'links', items: ['Link', 'Unlink']},
-      {name: 'colors', items: ['TextColor', 'BGColor']},
-    ];
-    if (mergeTags) {
-      extraPlugins = host.handleMergeTags(
-        mergeTags,
-        CKEDITOR,
-        extraPlugins,
-        toolbar,
-      );
-    }
+
     const plugins = ['gjs-preset-newsletter', 'gjs-plugin-ckeditor'];
+
+    const CKEDITOR = this.iframeWindow.CKEDITOR;
 
     const initGrapesJS = {
       noticeOnUnload: false,
@@ -164,17 +147,12 @@ class GrapesJsEdm extends Component {
       container: '#gjs',
       plugins,
       pluginsOpts: {
-        'gjs-plugin-ckeditor': {
-          position: 'center',
-          options: {
-            startupFocus: true,
-            extraAllowedContent: '*(*);*{*}', // Allows any class and any inline style
-            allowedContent: true, // Disable auto-formatting, class removing, etc.
-            enterMode: CKEDITOR.ENTER_BR,
-            extraPlugins,
-            toolbar,
-          },
-        },
+        ...getCkeditorOption({
+          CKEDITOR,
+          i18nMergeTags,
+          font,
+          mergeTags
+        }),
         'gjs-preset-newsletter': {
           modalLabelImport: 'Paste all your code here below and click import',
           modalLabelExport: 'Copy the code and use it wherever you want',
@@ -191,7 +169,7 @@ class GrapesJsEdm extends Component {
       },
       ...init,
     };
-    callfunc(onBeforeEditorInit, [{CKEDITOR, initGrapesJS, component: this}]);
+    callfunc(onBeforeEditorInit, [{ CKEDITOR, initGrapesJS, component: this}]);
 
     this.editor = this.iframeWindow.initEditor(initGrapesJS);
     this.initGrapesJS = initGrapesJS;
