@@ -179,7 +179,7 @@ class GrapesJsMjml extends Component {
       plugins: ["grapesjs-mjml", "gjs-plugin-ckeditor"],
       pluginsOpts: {
         ...getCkeditorOption({
-          oCkeditor: this.iframeWindow.CKEDITOR,
+          CKEDITOR,
           i18nMergeTags,
           font,
           mergeTags
