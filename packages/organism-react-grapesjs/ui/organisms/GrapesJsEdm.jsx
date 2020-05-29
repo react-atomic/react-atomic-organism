@@ -59,7 +59,7 @@ class GrapesJsEdm extends Component {
   }
 
   getDesign() {
-    return getInlinedHtmlCss(this.editor);
+    return getInlinedHtmlCss({editor: this.editor});
   }
 
   updateImages(images) {

@@ -40,11 +40,22 @@ class GrapesJsController extends Component {
     return true;
   }
 
+  store(cb) {
+    if (this.el && this.el.store) {
+      this.el?.store(cb);
+    } else {
+      callfunc(cb, [{
+        html: this.getHtml(),
+        design: this.getDesign(),
+      }]);
+    }
+  }
+
   getHtml(isComponent) {
     if (!this.beforeGetCode()) {
       return;
     }
-    const strHtml = this.el && this.el.getHtml && this.el.getHtml(isComponent);
+    const strHtml = this.el?.getHtml(isComponent);
     return strHtml || "";
   }
 
@@ -52,7 +63,7 @@ class GrapesJsController extends Component {
     if (!this.beforeGetCode()) {
       return;
     }
-    const strDesign = this.el && this.el.getDesign && this.el.getDesign();
+    const strDesign = this.el?.getDesign();
     return strDesign || "";
   }
 

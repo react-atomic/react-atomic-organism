@@ -7,11 +7,12 @@ import { queryFrom } from "css-query-selector";
 import { popupDispatch, FullScreen } from "organism-react-popup";
 import { openCodeEditor } from "organism-react-codeeditor";
 import fixHtml from "fix-html";
+import {STRING} from "reshow-constant";
 
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
-import {getCkeditorOption} from '../../src/getCkeditor';
+import { getCkeditorOption } from "../../src/getCkeditor";
 import fixCountdown from "../../src/fixCountdown";
 
 const defaultAssets = {
@@ -62,14 +63,24 @@ class GrapesJsWeb extends Component {
   }
 
   getHtml(isComponent) {
-    const {host} = this.props;
+    const { host } = this.props;
     const html = this.getDesign();
     return host.toHtml(html, isComponent);
   }
 
   getDesign() {
-    this.editor.store();
-    return getInlinedHtmlCss(this.editor);
+    return getInlinedHtmlCss({ editor: this.editor });
+  }
+
+  store(cb) {
+    this.editor.store(data => {
+      const html = getInlinedHtmlCss({
+        html: get(data, ["gjs-html"]),
+        css: get(data, ["gjs-css"])
+      });
+      const design = data;
+      callfunc(cb, [{ html, design }]);
+    });
   }
 
   handleIframe = el => {
@@ -180,7 +191,7 @@ class GrapesJsWeb extends Component {
     const storeM = editor.StorageManager;
     storeM.add("local", {
       store(data, clb, clbErr) {
-        this.gjsStore = data;
+        callfunc(clb, [data]);
       },
       load(keys, clb, clbErr) {
         console.log({ keys, clb, clbErr });
@@ -198,8 +209,17 @@ class GrapesJsWeb extends Component {
       host.execReset();
       if (design) {
         try {
-          const html = fixHtml(design, this.iframeWindow.sanitizeHtml);
-          editor.setComponents(html);
+          if (STRING === typeof design) {
+            const html = fixHtml(design, this.iframeWindow.sanitizeHtml);
+            editor.setComponents(html);
+          } else {
+            if (design["gjs-components"]) {
+              editor.setComponents(JSON.parse(design["gjs-components"]));
+            }
+            if (design["gjs-styles"]) {
+              editor.setStyle(JSON.parse(design["gjs-styles"]));
+            }
+          }
         } catch (e) {
           callfunc(onError, [
             { e, design, message: ERROR_HTML_INVALID_SYNTAX }

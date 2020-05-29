@@ -5,14 +5,21 @@ const fixCountdown = editor => {
     script: () => {
       const startfrom = "{[ startfrom ]}".replace(/-/g, "/");
       const endTxt = "{[ endText ]}";
-
-      // Time calculations for days, hours, minutes and seconds
-      let timer = setInterval(() => {
-        const item = 'undefined' !== typeof items ? items[0] : item;
+      const item = 'undefined' !== typeof items ? items[0] : item;
+      if (!item) {
+        return;
+      }
+      const timerArr = window.timerArr || {};
+      window.timerArr = timerArr;
+      if (timerArr[item.id]) {
+        clearInterval(timerArr[item.id]);
+      }
+      timerArr[item.id] = setInterval(() => {
         if (!item) {
-          clearInterval(timer);
+          clearInterval(timerArr[item.id]);
           return;
         }
+        // Time calculations for days, hours, minutes and seconds
         const countDownDate = new Date(startfrom).getTime();
         const now = new Date().getTime();
         const distance = countDownDate - now;
