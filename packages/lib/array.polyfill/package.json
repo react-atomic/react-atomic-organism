@@ -1,9 +1,10 @@
 {
   "name": "array.polyfill",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "array polyfill",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
