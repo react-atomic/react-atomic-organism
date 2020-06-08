@@ -1,6 +1,6 @@
 {
   "name": "array.polyfill",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "array polyfill",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -23,7 +23,7 @@
     "test": "npm run build && npm run mocha"
   },
   "files": [
-    "build/src",
+    "build",
     "package.json",
     "README.md"
   ]
