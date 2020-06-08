@@ -1,12 +1,14 @@
 import callfunc from "call-func";
 import { doc } from "win-doc";
 
+const complete = "complete";
+
 const windowOnLoad = options => {
-  const { timeout, interval = 10 } = options || {};
+  const { doc:oDoc = doc(), timeout, interval = 10 } = options || {};
   let _timer;
   const close = () => _timer && clearInterval(_timer);
   const process = run => {
-    if (doc().readyState === "complete") {
+    if (complete === oDoc.readyState) {
       callfunc(run);
     } else {
       const doit = () => {
@@ -14,8 +16,8 @@ const windowOnLoad = options => {
         callfunc(run);
       };
       _timer = setInterval(() => {
-        const readyState = doc().readyState;
-        if ("complete" === readyState || null == readyState) {
+        const readyState = oDoc.readyState;
+        if (complete === readyState || null == readyState) {
           doit();
         }
       }, interval);
