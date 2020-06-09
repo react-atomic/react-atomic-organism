@@ -7,7 +7,7 @@ import { queryFrom } from "css-query-selector";
 
 import { setMjmlWindow } from "../../src/mjml2html";
 import getAsset from "../../src/getAsset";
-import {getCkeditorOption} from '../../src/getCkeditor';
+import { getCkeditorOption } from "../../src/getCkeditor";
 
 const defaultAssets = {
   "mjml.js":
@@ -182,7 +182,10 @@ class GrapesJsMjml extends Component {
           CKEDITOR,
           i18nMergeTags,
           font,
-          mergeTags
+          mergeTags,
+          options: {
+            forcePasteAsPlainText: true
+          }
         }),
         "grapesjs-mjml": {
           columnsPadding: 0
@@ -190,7 +193,7 @@ class GrapesJsMjml extends Component {
       },
       ...init
     };
-    callfunc(onBeforeEditorInit, [{CKEDITOR, initGrapesJS, component: this }]);
+    callfunc(onBeforeEditorInit, [{ CKEDITOR, initGrapesJS, component: this }]);
 
     import("../../src/grapesjs-mjml").then(MjmlPlguin => {
       MjmlPlguin = getDefault(MjmlPlguin);

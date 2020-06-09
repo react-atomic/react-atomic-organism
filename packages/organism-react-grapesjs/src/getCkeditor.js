@@ -1,4 +1,5 @@
 import callfunc from "call-func";
+import fixHtml from './fixHtml';
 
 const initCkeditorMergeTags = ({mergeTags, CKEDITOR, extraPlugins, toolbar, i18nMergeTags}) => {
   let isRun = 0;
@@ -60,7 +61,7 @@ const initCkeditorMergeTags = ({mergeTags, CKEDITOR, extraPlugins, toolbar, i18n
   return extraPlugins;
 };
 
-const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags }) => {
+const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags, options }) => {
   CKEDITOR.dtd.$editable.span = 1;
   CKEDITOR.dtd.$editable.a = 1;
   CKEDITOR.dtd.$editable.strong = 1;
@@ -86,12 +87,19 @@ const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags }) => {
   return {
     "gjs-plugin-ckeditor": {
       position: "center",
+      // https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
       options: {
+        on: {
+          paste: e => {
+            e.data.dataValue = fixHtml(e.data.dataValue);
+          }
+        },
         startupFocus: true,
         extraAllowedContent: "*(*);*{*}", // Allows any class and any inline style
         allowedContent: true, // Disable auto-formatting, class removing, etc.
         enterMode: CKEDITOR.ENTER_BR,
         autoParagraph: false,
+        ...options,
         extraPlugins,
         toolbar
       }

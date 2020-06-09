@@ -6,8 +6,8 @@ import get from 'get-object-value';
 import {queryFrom} from 'css-query-selector';
 import {popupDispatch, FullScreen} from 'organism-react-popup';
 import {openCodeEditor} from 'organism-react-codeeditor';
-import fixHtml from 'fix-html';
 
+import fixHtml, {setSanitizeHtml} from "../../src/fixHtml";
 import getAsset from '../../src/getAsset';
 import getInlinedHtmlCss from '../../src/getInlinedHtmlCss';
 import {getCkeditorOption} from '../../src/getCkeditor';
@@ -181,9 +181,10 @@ class GrapesJsEdm extends Component {
   handleEditorLoad = () => {
     const {host, onEditorLoad, onError, design, images} = this.props;
     const doc = this.iframeWindow.document;
+    setSanitizeHtml(this.iframeWindow.sanitizeHtml);
     this.updateImages(get(images));
     try {
-      this.editor.setComponents(fixHtml(design, this.iframeWindow.sanitizeHtml));
+      this.editor.setComponents(fixHtml(design));
     } catch (e) {
       callfunc(onError, [{e, design, message: ERROR_HTML_INVALID_SYNTAX}]);
       console.warn({e, design});

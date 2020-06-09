@@ -6,9 +6,10 @@ import get from "get-object-value";
 import { queryFrom } from "css-query-selector";
 import { popupDispatch, FullScreen } from "organism-react-popup";
 import { openCodeEditor } from "organism-react-codeeditor";
-import fixHtml from "fix-html";
+
 import {STRING} from "reshow-constant";
 
+import fixHtml, {setSanitizeHtml} from "../../src/fixHtml";
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
@@ -204,13 +205,14 @@ class GrapesJsWeb extends Component {
       const { host, onEditorLoad, onError, design } = this.props;
       const doc = this.iframeWindow.document;
       const editor = this.editor;
+      setSanitizeHtml(this.iframeWindow.sanitizeHtml);
       fixCountdown(editor);
       this.handleInitStore(editor);
       host.execReset();
       if (design) {
         try {
           if (STRING === typeof design) {
-            const html = fixHtml(design, this.iframeWindow.sanitizeHtml);
+            const html = fixHtml(design);
             editor.setComponents(html);
           } else {
             if (design["gjs-components"]) {
