@@ -94,6 +94,7 @@ const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags, options }
             e.data.dataValue = fixHtml(e.data.dataValue);
           }
         },
+        removePlugins: 'magicline',
         startupFocus: true,
         extraAllowedContent: "*(*);*{*}", // Allows any class and any inline style
         allowedContent: true, // Disable auto-formatting, class removing, etc.
