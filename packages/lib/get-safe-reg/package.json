@@ -1,6 +1,6 @@
 {
   "name": "get-safe-reg",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "get safe regular-expression",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,17 +10,17 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.x",
+    "@babel/cli": "^7.x",
     "chai": "*",
     "mocha": "*"
   },
   "scripts": {
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src",
+    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run test && npm run build",
-    "build:test": "BABEL_ENV=build babel tests -d build/tests",
-    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js'"
+    "prepublishOnly": "npm run test",
+    "mocha": "mocha 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha"
   },
   "files": [
     "build/cjs",
