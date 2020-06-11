@@ -1,16 +1,9 @@
 'use strict';
 
-import set, {getUrl, unsetUrl} from '../index.js';
+import set, {unsetUrl} from '../index.js';
 import {expect} from 'chai';
 
 global.document = {};
-describe('test get url', ()=>{
-    let document = global.document;
-    it('url', ()=>{
-        document.URL='http://xxx?abc=def';
-        expect(getUrl('abc')).to.equal('def');
-    });
-});
 
 describe('test set url', ()=>{
     let document = global.document;

@@ -18,7 +18,7 @@ const getUrl = (key, url) => {
   url = resetUrl(url);
   const reg = getKeyReg(key);
   const exec = reg.exec(url);
-  return !exec ? "" : decodeURIComponent(exec[3]);
+  return !exec ? null : decodeURIComponent(exec[3]);
 };
 
 const unsetUrl = (key, url) => {
