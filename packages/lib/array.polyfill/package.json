@@ -1,6 +1,6 @@
 {
   "name": "array.polyfill",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "array polyfill",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
