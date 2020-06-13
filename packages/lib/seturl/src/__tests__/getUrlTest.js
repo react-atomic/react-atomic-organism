@@ -1,32 +1,38 @@
 import { expect } from "chai";
+import gjsdom from 'jsdom-global';
 
 import { getUrl } from "../index.js";
 
-global.document = {};
 describe("test get url", () => {
-  let document;
-  beforeEach(() => {
-    document = global.document;
+  let reset;
+  afterEach(() => {
+    reset();
   });
 
   it("basic test", () => {
-    document.URL = "http://xxx?abc=def";
+    reset = gjsdom(null, {url: "http://xxx?abc=def"});
     expect(getUrl("abc")).to.equal("def");
   });
 
   it("test get empty string with &", () => {
-    document.URL = "http://xxx?foo=&";
+    reset = gjsdom(null, {url: "http://xxx?foo=&"});
     expect(getUrl("foo")).to.equal("");
   });
 
   it("test get empty string without &", () => {
-    document.URL = "http://xxx?foo=";
+    reset = gjsdom(null, {url: "http://xxx?foo="});
     expect(getUrl("foo")).to.equal("");
   });
 
   it("test get null", () => {
-    document.URL = "http://xxx?foo";
-    expect(getUrl("foo")).to.be.null;
-    expect(getUrl("bar")).to.be.null;
+    reset = gjsdom(null, {url: "http://xxx?foo"});
+    expect(getUrl("foo")).to.be.undefined;
+    expect(getUrl("bar")).to.be.undefined;
+  });
+
+  it("test get mulit", () => {
+    reset = gjsdom(null, {url: "http://xxx?foo=1&foo=2"});
+    const actual = getUrl('foo');
+    expect(actual).to.deep.equal(['1', '2']);
   });
 });

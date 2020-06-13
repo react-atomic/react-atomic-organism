@@ -1,5 +1,5 @@
 import { doc } from "win-doc";
-import getKeyReg from "./getKeyReg";
+import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
 
 const uriReg = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
@@ -16,30 +16,40 @@ const resetUrl = url => (url ? url : doc().URL);
 
 const getUrl = (key, url) => {
   url = resetUrl(url);
-  const reg = getKeyReg(key);
-  const exec = reg.exec(url);
-  return !exec ? null : decodeURIComponent(exec[3]);
+  if (url.indexOf(key) === url.lastIndexOf(key)) {
+    const reg = getKeyReg(key);
+    const exec = reg.exec(url);
+    return !exec ? undefined : decodeURIComponent(exec[3]);
+  } else {
+    const reg = getMultiMatchReg(key);
+    const results = [];
+    let exec;
+    while ((exec = reg.exec(url))) {
+      results.push(decodeURIComponent(exec[3]));
+    }
+    return results;
+  }
 };
 
 const unsetUrl = (key, url) => {
-  const reg = getKeyReg(key);
   url = resetUrl(url);
-  const exec = reg.exec(url);
-  if (exec) {
+  const reg = getKeyReg(key);
+  let exec;
+  while ((exec = reg.exec(url))) {
     url = exec[2] === "?" ? url.replace(reg, "?") : url.replace(reg, "");
   }
   return url;
 };
 
 const setUrl = (key, value, url, KeepRawValue) => {
-  const reg = getKeyReg(key);
-  if (!KeepRawValue) {
-    value = encodeURIComponent(value);
-  }
-  url = resetUrl(url);
-  url = reg.test(url)
-    ? url.replace(reg, "$1" + value)
-    : url + (-1 === url.indexOf("?") ? "?" : "&") + key + "=" + value;
+  const multi = Array.isArray(value);
+  url = unsetUrl(key, resetUrl(url));
+  (multi ? value : [value]).forEach(vItem => {
+    if (!KeepRawValue) {
+      vItem = encodeURIComponent(vItem);
+    }
+    url = url + (-1 === url.indexOf("?") ? "?" : "&") + key + "=" + vItem;
+  });
   return url;
 };
 
