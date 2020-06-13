@@ -30,6 +30,12 @@ describe("test get url", () => {
     expect(getUrl("bar")).to.be.undefined;
   });
 
+  it("test get without query", () => {
+    reset = gjsdom(null, {url: "http://xxx"});
+    expect(getUrl("foo")).to.be.undefined;
+    expect(getUrl("bar")).to.be.undefined;
+  });
+
   it("test get mulit", () => {
     reset = gjsdom(null, {url: "http://xxx?foo=1&foo=2"});
     const actual = getUrl('foo');

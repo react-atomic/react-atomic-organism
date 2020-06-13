@@ -14,8 +14,8 @@ const getPath = (url, key, raw) => {
 
 const resetUrl = url => (url ? url : doc().URL);
 
-const getUrl = (key, url) => {
-  url = getPath(resetUrl(url), 16);
+const getUrl = (key, origUrl) => {
+  const url = getPath(resetUrl(origUrl), 16) || '';
   if (url.indexOf(key) === url.lastIndexOf(key)) {
     const reg = getKeyReg(key);
     const exec = reg.exec(url);
@@ -27,7 +27,7 @@ const getUrl = (key, url) => {
     while ((exec = reg.exec(url))) {
       results.push(decodeURIComponent(exec[3]));
     }
-    return results;
+    return results.length ? results : undefined;
   }
 };
 
