@@ -28,6 +28,7 @@ class PaginationController extends PureComponent {
     if (null != begin) {
       cal.set(BEGIN, toInt(begin));
     } else {
+      cal.set(BEGIN, null); // when "type = page" need reset begin
       cal.set(CURRENT_PAGE, toInt(currentPage));
     }
     return cal.genPageList(toInt(pageListNumber));
