@@ -28,7 +28,7 @@ const getUrl = (key, origUrl) => {
     while ((exec = reg.exec(url))) {
       results.push(decodeURIComponent(exec[3]));
     }
-    return results.length > 1 ? results : (results[0] || undefined);
+    return results.length > 1 ? results : (results[0] ?? undefined);
   }
 };
 

@@ -53,4 +53,22 @@ describe("test get url", () => {
     const actual = getUrl('type');
     expect(actual).to.be.undefined;
   });
+
+  it("test get multi with similar key and value equal empty string", () => {
+    reset = gjsdom(null, {url: "http://xxx?xxx_type=1&email_type=2&type="});
+    const actual = getUrl('type');
+    expect(actual).to.equal('');
+  });
+
+  it("test get multi with similar key and value equal empty string with ampersand", () => {
+    reset = gjsdom(null, {url: "http://xxx?xxx_type=1&email_type=2&type=&"});
+    const actual = getUrl('type');
+    expect(actual).to.equal('');
+  });
+
+  it("test get multi with similar key and value equal zero", () => {
+    reset = gjsdom(null, {url: "http://xxx?xxx_type=1&email_type=2&type=0"});
+    const actual = getUrl('type');
+    expect(actual).to.equal('0');
+  });
 });
