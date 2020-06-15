@@ -36,9 +36,21 @@ describe("test get url", () => {
     expect(getUrl("bar")).to.be.undefined;
   });
 
-  it("test get mulit", () => {
+  it("test get multi", () => {
     reset = gjsdom(null, {url: "http://xxx?foo=1&foo=2"});
     const actual = getUrl('foo');
     expect(actual).to.deep.equal(['1', '2']);
+  });
+
+  it("test get multi with similar key", () => {
+    reset = gjsdom(null, {url: "http://xxx?type=1&email_type=2"});
+    const actual = getUrl('type');
+    expect(actual).to.equal('1');
+  });
+
+  it("test get multi with similar key and zero match", () => {
+    reset = gjsdom(null, {url: "http://xxx?xxx_type=1&email_type=2"});
+    const actual = getUrl('type');
+    expect(actual).to.be.undefined;
   });
 });

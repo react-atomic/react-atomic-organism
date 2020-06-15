@@ -16,7 +16,8 @@ const resetUrl = url => (url ? url : doc().URL);
 
 const getUrl = (key, origUrl) => {
   const url = getPath(resetUrl(origUrl), 16) || '';
-  if (url.indexOf(key) === url.lastIndexOf(key)) {
+  const keyEq = key+'=';
+  if (url.indexOf(keyEq) === url.lastIndexOf(keyEq)) {
     const reg = getKeyReg(key);
     const exec = reg.exec(url);
     return !exec ? undefined : decodeURIComponent(exec[3]);
@@ -27,7 +28,7 @@ const getUrl = (key, origUrl) => {
     while ((exec = reg.exec(url))) {
       results.push(decodeURIComponent(exec[3]));
     }
-    return results.length ? results : undefined;
+    return results.length > 1 ? results : (results[0] || undefined);
   }
 };
 
