@@ -2,7 +2,7 @@
 
 import {expect} from 'chai';
 
-import dedup from '../src/index.js';
+import dedup from '../index.js';
 
 
 describe('test dedup', ()=>{
