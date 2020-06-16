@@ -1,4 +1,5 @@
 import { doc } from "win-doc";
+import { toStringForOneArray } from "get-object-value";
 import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
 
 const uriReg = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
@@ -15,21 +16,31 @@ const getPath = (url, key, raw) => {
 const resetUrl = url => (url ? url : doc().URL);
 
 const getUrl = (key, origUrl) => {
-  const url = getPath(resetUrl(origUrl), 16) || '';
-  const keyEq = key+'=';
+  const url = getPath(resetUrl(origUrl), 16) || "";
+  const keyEq = key + "=";
   if (url.indexOf(keyEq) === url.lastIndexOf(keyEq)) {
     const reg = getKeyReg(key);
     const exec = reg.exec(url);
     return !exec ? undefined : decodeURIComponent(exec[3]);
   } else {
-    const reg = getMultiMatchReg(key);
-    const results = [];
-    let exec;
-    while ((exec = reg.exec(url))) {
-      results.push(decodeURIComponent(exec[3]));
-    }
-    return results.length > 1 ? results : (results[0] ?? undefined);
+    const results = getUrlArray(key, url);
+    return toStringForOneArray(results);
   }
+};
+
+const getMultiKey = (key, url) => {
+  const reg = getMultiMatchReg(key);
+  const results = [];
+  let exec;
+  while ((exec = reg.exec(url))) {
+    results.push(decodeURIComponent(exec[3]));
+  }
+  return results;
+};
+
+const getUrlArray = (key, origUrl) => {
+  const url = getPath(resetUrl(origUrl), 16) || "";
+  return getMultiKey(key, url);
 };
 
 const unsetUrl = (key, url) => {
@@ -54,5 +65,5 @@ const setUrl = (key, value, url, KeepRawValue) => {
   return url;
 };
 
-export { getUrl, getPath, unsetUrl };
+export { getUrl, getUrlArray, getPath, unsetUrl };
 export default setUrl;

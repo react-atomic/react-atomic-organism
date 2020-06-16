@@ -808,6 +808,14 @@ get-func-name@^2.0.0:
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
   integrity sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=
 
+get-object-value@*:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.2.0.tgz#47c8ef5a0c126be2fb54420483c3db78bc28aa83"
+  integrity sha512-Td5/faXlPs96I8IsWEQl21fNoPTWgXG/uDV+s63Lk3OvWY7Vw55mV72ANyCY5qcZC3WofWV+hHtY4A/H5hwJBg==
+  dependencies:
+    reshow-constant "*"
+    reshow-runtime "*"
+
 get-safe-reg@*:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.1.0.tgz#3ba7c05d594e3c95b9762beed2aed118b2f18472"
@@ -1775,6 +1783,18 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
+
+reshow-constant@*:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.0.5.tgz#fbc9ba458b57befba0a275893d2f016d0821b00a"
+  integrity sha512-PRwvxfln60W897Z8puaZhWhY4wrP6Mb+c8Wu+9n1yBgn+//6GP8AhW/xMdsy+MyM2HcTJ8d1iTmvr/G4Pm2NyA==
+
+reshow-runtime@*:
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.1.19.tgz#3ebe6285f2d42dbd8c838e423f784d98c5727bda"
+  integrity sha512-NwDffwZtEQjYSmEvix7gi+XKdqxs4q+nAzjqe01GhacnXXeeOQX1NPGQP8vCzJMuIzok6Uu5mK7VqxNSb+eKvg==
+  dependencies:
+    reshow-constant "*"
 
 resolve-url@^0.2.1:
   version "0.2.1"
