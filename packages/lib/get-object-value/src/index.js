@@ -33,15 +33,20 @@ const get = (o, path, defaultValue) => {
   if (!path || !isArray(path)) {
     return current;
   }
-  path.every(a => {
-    if (null != current[a]) {
-      current = current[a];
-      return true;
-    } else {
-      current = getDefaultValue(defaultValue);
-      return false;
-    }
-  });
+  try {
+    path.every(a => {
+      if (null != current[a]) {
+        current = current[a];
+        return true;
+      } else {
+        current = getDefaultValue(defaultValue);
+        return false;
+      }
+    });
+  } catch (e) {
+    console.warn({e});
+    current = getDefaultValue(defaultValue);
+  }
   return current;
 };
 
