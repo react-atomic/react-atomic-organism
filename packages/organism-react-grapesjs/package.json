@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.2.7",
+  "version": "0.3.2",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -38,7 +38,7 @@
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
-    "build:mjml": "npm run build && webpack && cp assets/mjml.bundle.js dist/mjml.js",
+    "build:mjml": "npm run build && NODE_ENV=production webpack && cp assets/mjml.bundle.js dist/mjml.js",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "mocha": "mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
     "test": "npm run build && npm run mocha",

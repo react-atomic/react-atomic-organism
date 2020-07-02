@@ -11,7 +11,7 @@ import { getCkeditorOption } from "../../src/getCkeditor";
 
 const defaultAssets = {
   "mjml.js":
-    "https://cdn.jsdelivr.net/npm/organism-react-grapesjs@0.1.0-beta.10/dist/mjml.js"
+    "https://cdn.jsdelivr.net/npm/organism-react-grapesjs@0.3.1/dist/mjml.min.js"
 };
 
 const defaultMjml = `
