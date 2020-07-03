@@ -1,5 +1,6 @@
 import { win } from "win-doc";
 import callfunc from "call-func";
+import {htmlDecode} from "html-entity-js";
 
 const allAttr = JSON.parse(`[
 "accept", "accept-charset", "accesskey", "action", "allowfullscreen", "allowtransparency", "align", "alt", "async", "autocomplete", "autofocus", "autoplay", "autocorrect", "aria-*", 
@@ -44,12 +45,6 @@ const allAttr = JSON.parse(`[
 ]`);
 
 const docTypeReg = /^<!DOCTYPE .*?>/i;
-
-const htmlDecode = s => {
-  const textArea = document.createElement("textarea");
-  textArea.innerHTML = s;
-  return textArea.textContent;
-};
 
 const fixHtml = (s, cb, componentOnly) => {
   const d = new (win().DOMParser)();
