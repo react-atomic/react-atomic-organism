@@ -9,7 +9,6 @@ const keys = Object.keys;
 const constraintIdKey = 'data-constraint-id';
 
 class ConstraintField extends PureComponent {
-  state = {constraintId: null};
 
   static defaultProps = {
     component: Field,
@@ -74,25 +73,28 @@ class ConstraintField extends PureComponent {
 
   handleEl = el => {
     const {refCb} = this.props;
-    const {constraintId} = this.state;
-    if (constraintId && el) {
-      el.setAttribute(constraintIdKey, constraintId);
+    if (el) {
+      const thisConstraintId = this.getConstraintId();
+      el.setAttribute(constraintIdKey, thisConstraintId);
     }
     this.el = el;
     callfunc(refCb, [el]);
   };
 
-  componentDidMount() {
-    const id = 'constraint-' + constraintId;
-    constraintId++;
-    constraintObj[id] = this;
-    this.setState({
-      constraintId: id,
-    });
+  getConstraintId() {
+    if (!this.constraintId) {
+      const id = 'constraint-' + constraintId;
+      constraintId++;
+      constraintObj[id] = this;
+      this.constraintId = id;
+    }
+    return this.constraintId;
   }
 
   componentWillUnmount() {
-    delete constraintObj[this.state.constraintId];
+    if (this.constraintId) {
+      delete constraintObj[this.constraintId];
+    }
   }
 
   render() {
@@ -104,10 +106,7 @@ class ConstraintField extends PureComponent {
       onDisplayError,
       ...otherProps
     } = this.props;
-    const {constraintId} = this.state;
-    if (constraintId) {
-      otherProps[constraintIdKey] = constraintId;
-    }
+    otherProps[constraintIdKey] = this.getConstraintId();
     if (compRef) {
       // could pass compRef to true to force enable handleRef
       // this is for avoid pass ref to function component
