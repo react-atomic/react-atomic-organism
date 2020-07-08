@@ -75,7 +75,7 @@ class ConstraintField extends PureComponent {
   handleEl = el => {
     const {refCb} = this.props;
     const {constraintId} = this.state;
-    if (constraintId) {
+    if (constraintId && el) {
       el.setAttribute(constraintIdKey, constraintId);
     }
     this.el = el;
