@@ -6,6 +6,7 @@ import formSerialize from 'form-serialize-js';
 let constraintId = 0;
 const constraintObj = {};
 const keys = Object.keys;
+const constraintIdKey = 'data-constraint-id';
 
 class ConstraintField extends PureComponent {
   state = {constraintId: null};
@@ -73,6 +74,10 @@ class ConstraintField extends PureComponent {
 
   handleEl = el => {
     const {refCb} = this.props;
+    const {constraintId} = this.state;
+    if (constraintId) {
+      el.setAttribute(constraintIdKey, constraintId);
+    }
     this.el = el;
     callfunc(refCb, [el]);
   };
@@ -101,7 +106,7 @@ class ConstraintField extends PureComponent {
     } = this.props;
     const {constraintId} = this.state;
     if (constraintId) {
-      otherProps['data-constraint-id'] = constraintId;
+      otherProps[constraintIdKey] = constraintId;
     }
     if (compRef) {
       // could pass compRef to true to force enable handleRef
@@ -127,7 +132,7 @@ class ConstraintForm extends PureComponent {
     const results = {};
     let errorEl = null;
     const hasError = elements.some(el => {
-      const id = el.getAttribute('data-constraint-id');
+      const id = el.getAttribute(constraintIdKey);
       if (id && !results[id]) {
         const obj = constraintObj[id];
         if (obj) {
