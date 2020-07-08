@@ -50,6 +50,7 @@ class Select extends PureComponent {
       options,
       name,
       onChange,
+      refCb,
       ...props
     } = this.props;
     const {value} = this.state;
@@ -91,7 +92,7 @@ class Select extends PureComponent {
     const title = thisSelected || thisPlaceholder;
     return (
       <Dropdown {...props} list={thisList}>
-        <input type="hidden" name={name} value={value || ''} />
+        <SemanticUI refCb={refCb} atom="input" type="hidden" name={name} value={value || ''} />
         {title}
       </Dropdown>
     );
