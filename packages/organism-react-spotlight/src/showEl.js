@@ -16,6 +16,9 @@ const addSvgClass = (node, classes) =>
             break;
         }
         thisParent = thisParent.parentNode;
+        if (!thisParent) {
+          break;
+        }
     }
 }
 
