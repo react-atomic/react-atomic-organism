@@ -16,7 +16,9 @@ class PopupOverlay extends BasePopup {
   }
 
   renderOverlay(props) {
-    return <SemanticUI {...props} />;
+    const {className, ...others} = props;
+    const classes = mixClass('popup', className);
+    return <SemanticUI {...others} className={classes} />;
   }
 
   shouldShow(show) {

@@ -26,7 +26,7 @@ class PopupFloatEl extends PopupOverlay {
   };
 
   handleMoveTo = () => {
-    if (this.state && !this.state.show) {
+    if (!this.floatEl || !this._mount) {
       return;
     }
     const {targetEl} = this.props;
@@ -53,9 +53,7 @@ class PopupFloatEl extends PopupOverlay {
     this.floatWidth = pos.width;
     this.floatHeight = pos.height;
     this.floatClassName = pos.className;
-    if (this._mount) {
-      this.setState(pos);
-    }
+    this.setState(pos);
   };
 
   calPos = () => {
@@ -90,12 +88,6 @@ class PopupFloatEl extends PopupOverlay {
    */
   getFloatEl() {
     return this.floatEl;
-  }
-
-  renderOverlay(props) {
-    const {className, ...others} = props;
-    const classes = mixClass('popup', className);
-    return <SemanticUI {...others} className={classes} />;
   }
 
   constructor(props)
