@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.8.6",
+  "version": "0.9.0",
   "description": "React Atomic Organism Popup",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -17,6 +17,7 @@
     "array.merge": "*",
     "call-func": "*",
     "get-object-value": "*",
+    "get-random-id": "*",
     "get-style": "*",
     "get-window-offset": "*",
     "getoffset": "*",

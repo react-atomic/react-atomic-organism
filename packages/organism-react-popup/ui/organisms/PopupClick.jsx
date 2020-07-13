@@ -1,48 +1,58 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
+import { build, mixClass, SemanticUI } from "react-atomic-molecule";
+import { getTimestamp } from "get-random-id";
+import callfunc from "call-func";
 
-import {build, mixClass, SemanticUI} from 'react-atomic-molecule';
-
-import PopupOverlay from '../molecules/PopupOverlay';
-import {popupDispatch} from '../../src/popupDispatcher';
-
+import PopupOverlay from "../molecules/PopupOverlay";
+import DisplayPopupEl from "../organisms/DisplayPopupEl";
 
 class PopupClick extends Component {
-  handleClick = () => {
-    const {popup: propsPopup, callback} = this.props;
-    let popup;
-    if (React.isValidElement(propsPopup)) {
-      popup = propsPopup;
-    } else if (typeof propsPopup === 'function') {
-      popup = propsPopup();
-    } else {
-      popup = <PopupOverlay>{propsPopup}</PopupOverlay>;
-    }
+  handleClick = () => this.open();
 
-    popupDispatch({
-      type: 'dom/update',
-      params: {
-        popup: popup,
-      },
+  open() {
+    const { callback } = this.props;
+    this.setState({ show: true, bust: getTimestamp() }, () => {
+      callfunc(callback);
     });
-    if (typeof callback === 'function') {
-      callback(popup);
-    }
-  };
+  }
+
+  close() {
+    const { onClose } = this.props;
+    this.setState({ show: false }, () => {
+      callfunc(onClose);
+    });
+  }
 
   render() {
-    let {style, className, container, popup, callback, ...reset} = this.props;
-    if (!React.isValidElement(container)) {
-      container = <SemanticUI />;
+    const {
+      children,
+      style,
+      className,
+      component,
+      container, // Retire, will not use.
+      popup,
+      callback,
+      onClose,
+      ...reset
+    } = this.props;
+    const { show, bust } = this.state || {};
+    const thisStyle = { ...style, ...Styles.container };
+    let popupEl = null;
+    if (show) {
+      popupEl = (
+        <DisplayPopupEl bust={bust} key="popup-el">
+          {build(popup, { wrap: PopupOverlay, doCallFunction: true })()}
+        </DisplayPopupEl>
+      );
     }
-    style = {...style, ...Styles.container};
-    className = mixClass(className, 'popup-click');
+    const thisChildren = [...(children || []), popupEl];
     const props = {
       ...reset,
       onClick: this.handleClick,
-      className,
-      style,
+      className: mixClass(className, "popup-click"),
+      style: thisStyle
     };
-    return build(container)(props);
+    return build(component || container || SemanticUI)(props, thisChildren);
   }
 }
 
@@ -50,6 +60,6 @@ export default PopupClick;
 
 const Styles = {
   container: {
-    cursor: 'pointer',
-  },
+    cursor: "pointer"
+  }
 };

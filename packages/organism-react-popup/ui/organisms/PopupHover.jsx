@@ -1,17 +1,19 @@
-import React, {PureComponent} from 'react';
-import {build, SemanticUI} from 'react-atomic-molecule';
+import React, { PureComponent } from "react";
+import { build, SemanticUI } from "react-atomic-molecule";
+import { getTimestamp } from "get-random-id";
+import callfunc from "call-func";
 
-import {popupDispatch} from '../../src/popupDispatcher';
-import PopupFloatEl from '../molecules/PopupFloatEl';
+import { popupDispatch } from "../../src/popupDispatcher";
+import PopupFloatEl from "../molecules/PopupFloatEl";
+import DisplayPopupEl from "../organisms/DisplayPopupEl";
 
 let closeTimer = {};
 
 class PopupHover extends PureComponent {
-  popup = null;
 
   static defaultProps = {
-    name: 'popup-hover',
-    component: SemanticUI,
+    name: "popup-hover",
+    component: SemanticUI
   };
 
   floatMouseOver = () => {
@@ -24,88 +26,78 @@ class PopupHover extends PureComponent {
   };
 
   mouseOver = () => {
-    const {name} = this.props;
+    const { name } = this.props;
     clearTimeout(closeTimer[name]);
-    this.popup = build(this.popup)({
-      targetEl: this.dom,
-    });
-    popupDispatch({
-      type: 'dom/update',
-      params: {
-        popup: this.popup,
-      },
-    });
+    this.open();
   };
 
   mouseOut = () => {
-    const {name} = this.props;
+    const { name } = this.props;
     clearTimeout(closeTimer[name]);
     closeTimer[name] = setTimeout(() => {
       this.close();
     }, 100);
   };
 
-  close = () => {
-    const {isKeep} = this.props;
+  open() {
+    const { callback } = this.props;
+    this.setState({ show: true, bust: getTimestamp() }, () => {
+      callfunc(callback);
+    });
+  }
+
+  close() {
+    const { isKeep, onClose } = this.props;
     if (this.isKeep || isKeep) {
       return;
     }
-    popupDispatch({
-      type: 'dom/closeOne',
-      params: {
-        popup: this.popup,
-      },
+    this.setState({ show: false }, () => {
+      callfunc(onClose);
     });
-  };
-
-  update(props) {
-    const {popup, name, toPool, alignParams} = props;
-    this.popup = (
-      <PopupFloatEl
-        toPool={toPool}
-        name={name}
-        alignParams={alignParams}
-        onMouseEnter={this.floatMouseOver}
-        onMouseLeave={this.floatMouseOut}>
-        {popup}
-      </PopupFloatEl>
-    );
   }
 
   handleDom = dom => (this.dom = dom);
 
-  componentDidMount() {
-    this.update(this.props);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    this.update(this.props);
-  }
-
-  componentWillUnmount() {
-    popupDispatch({
-      type: 'dom/cleanOne',
-      params: {
-        popup: this.popup,
-      },
-    });
-  }
-
   render() {
     const {
+      children,
       popup,
       isKeep,
       toPool,
       alignParams,
       component,
+      name,
       ...others
     } = this.props;
-    return build(component)({
-      refCb: this.handleDom,
-      onMouseEnter: this.mouseOver,
-      onMouseLeave: this.mouseOut,
-      ...others,
-    });
+    const { show, bust } = this.state || {};
+    let popupEl = null;
+    if (show) {
+      popupEl = (
+        <DisplayPopupEl bust={bust} key="popup-el">
+          <PopupFloatEl
+            targetEl={this.dom} 
+            toPool={toPool}
+            name={name}
+            alignParams={alignParams}
+            onMouseEnter={this.floatMouseOver}
+            onMouseLeave={this.floatMouseOut}
+          >
+            {popup}
+          </PopupFloatEl>
+        </DisplayPopupEl>
+      );
+    }
+    const thisChildren = [children, popupEl];
+    return build(component)(
+      {
+        refCb: this.handleDom,
+        onMouseEnter: this.mouseOver,
+        onMouseLeave: this.mouseOut,
+        name,
+        ...others
+      },
+      thisChildren
+    );
   }
 }
 
