@@ -3,6 +3,8 @@ import get from "get-object-value";
 import Iframe from "organism-react-iframe";
 import { Unsafe } from "react-atomic-molecule";
 import callfunc from "call-func";
+import windowOnload from "window-onload";
+import query from "css-query-selector";
 
 const VERSION = "[VERSION]";
 
@@ -19,18 +21,46 @@ class Asciidoc extends PureComponent {
 
   clear() {
     if (this.timer) {
-      clearInterval(this.timer);
+      this.timer();
+    }
+    if (this.onloadTimer) {
+      clearTimeout(this.onloadTimer);
     }
   }
 
   componentDidMount() {
+    const { onLoadDelay } = this.props;
     const oWin = this.iframe.getWindow();
-    this.timer = setInterval(() => {
-      if (oWin.renderDone) {
-        this.clear();
-        this.handleLoad(oWin.renderDone);
-      }
-    }, 10);
+    const { close, process } = windowOnload({
+      doc: oWin.document
+    });
+    process(() => {
+      const run = () => {
+        this.onloadTimer = setTimeout(
+          () => this.handleLoad(oWin.renderDone),
+          onLoadDelay
+        );
+      };
+      const imgs = query.all("img");
+      const allImgLen = imgs.length;
+      let loadLen = 0;
+      imgs.forEach(img => {
+        const oImg = new Image();
+        oImg.onload = () => {
+          loadLen++;
+          if (loadLen >= allImgLen) {
+            run();
+          }
+        };
+        oImg.onerror = () => {
+          loadLen++;
+          if (loadLen >= allImgLen) {
+            run();
+          }
+        };
+        oImg.src = img.src;
+      });
+    });
   }
 
   componentWillUnmount() {
@@ -38,15 +68,7 @@ class Asciidoc extends PureComponent {
   }
 
   render() {
-    const {
-      js,
-      css,
-      inlineCSS,
-      npmVersion,
-      onLoadDelay,
-      children,
-      attributes
-    } = this.props;
+    const { js, css, inlineCSS, npmVersion, children, attributes } = this.props;
     let { options } = this.props;
     options = get(options, null, {});
     options.attributes = {
@@ -71,7 +93,7 @@ class Asciidoc extends PureComponent {
             );
             var output = document.getElementById('output');
 	    output.innerHTML = html;
-            setTimeout(function(){window.renderDone=output;}, ${onLoadDelay});
+            window.renderDone=output;
         </script>
         `
     ].join("");
@@ -85,7 +107,7 @@ class Asciidoc extends PureComponent {
 }
 
 Asciidoc.defaultProps = {
-  onLoadDelay: 3500,
+  onLoadDelay: 1500,
   inlineCSS:
     "body {padding: 0; margin: 0; background: transparent !important;}",
   js:
