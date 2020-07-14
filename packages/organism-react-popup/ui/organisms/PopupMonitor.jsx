@@ -1,33 +1,38 @@
-import React, {useEffect} from 'react';
-import {popupDispatch} from '../../src/popupDispatcher';
-import {mixClass, build} from 'react-atomic-molecule';
-import callfunc from 'call-func';
+import React, { useEffect, useState } from "react";
+import { mixClass, build, SemanticUI } from "react-atomic-molecule";
+import callfunc from "call-func";
+
+import DisplayPopupEl from "../organisms/DisplayPopupEl";
+import PopupOverlay from "../molecules/PopupOverlay";
 
 const PopupMonitor = ({
+  component,
   children,
   className,
-  getPopupKey,
-  PopupElement,
+  getIsShow,
+  popup,
   ...otherProps
 }) => {
-  const popupKey = callfunc(getPopupKey, [otherProps]);
+  const [show, setShow] = useState();
+  const isShow = callfunc(getIsShow, [otherProps]);
   useEffect(() => {
-    const myPopupElement = build(PopupElement, [otherProps]);
-    if (popupKey) {
-      popupDispatch('dom/update', {
-        popup: myPopupElement,
-      });
+    if (isShow) {
+      setShow(true);
     } else {
-      popupDispatch('dom/closeAll', {
-        popup: myPopupElement,
-      });
+      setShow(false);
     }
-  }, [getPopupKey, PopupElement]);
-  otherProps.className = mixClass(className, 'popup-monitor');
-  if (popupKey) {
-    delete otherProps[popupKey];
+  }, [isShow]);
+  otherProps.className = mixClass(className, "popup-monitor");
+  let popupEl = null;
+  if (show) {
+    popupEl = (
+      <DisplayPopupEl key="popup-el">
+        {build(popup, { wrap: PopupOverlay, doCallFunction: true })()}
+      </DisplayPopupEl>
+    );
   }
-  return build(children)(otherProps);
+  const thisChildren = [children, popupEl];
+  return build(component || SemanticUI)(otherProps, thisChildren);
 };
 
 export default PopupMonitor;

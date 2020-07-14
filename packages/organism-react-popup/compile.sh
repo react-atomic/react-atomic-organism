@@ -21,6 +21,8 @@ stop(){
 
 watch(){
     stop 
+    npm run build:cjs:ui -- --watch &
+    npm run build:cjs:src -- --watch &
     npm run build:es:ui -- --watch &
     npm run build:es:src -- --watch &
 }

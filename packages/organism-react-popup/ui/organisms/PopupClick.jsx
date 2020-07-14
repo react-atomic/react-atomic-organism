@@ -45,7 +45,7 @@ class PopupClick extends Component {
         </DisplayPopupEl>
       );
     }
-    const thisChildren = [...(children || []), popupEl];
+    const thisChildren = [children, popupEl];
     const props = {
       ...reset,
       onClick: this.handleClick,
