@@ -92,6 +92,7 @@ class PopupModal extends PopupOverlay {
   };
 
   lockScreen() {
+    this._locked = true;
     const {modal, toPool} = this.props;
     const oDoc = doc();
     win().addEventListener('resize', this.reCalculate);
@@ -122,6 +123,12 @@ class PopupModal extends PopupOverlay {
   }
 
   detach() {
+    if (this._locked) {
+      this._locked = false;
+    } else {
+      return;
+    }
+
     /**
      * closeCallback will deprecate
      */

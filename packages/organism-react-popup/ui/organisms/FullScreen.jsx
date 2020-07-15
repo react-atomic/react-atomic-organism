@@ -70,11 +70,12 @@ class FullScreen extends PureComponent {
   }
 
   render() {
-    const {children, className, style, onClose, toPool} = this.props;
+    const {name, children, className, style, onClose, toPool} = this.props;
     const xico = this.getDefaultXIcon();
     return (
       <DisplayPopupEl>
         <PopupModal
+          name={name}
           appear="fadeIn-500"
           enter="fadeIn-500"
           className={mixClass('full-screen', className)}
