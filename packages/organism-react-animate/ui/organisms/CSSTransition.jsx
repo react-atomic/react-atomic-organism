@@ -40,17 +40,6 @@ const handleStart = (
   }, thisDelay);
 };
 
-const handleFinish = (classList, handler, isExit, node, isAppear) => {
-  if (node) {
-    if (isExit) {
-      node.style.visibility = "hidden";
-    } else if (node.getAttribute("data-status") === "entered") {
-      node.style.visibility = "inherit";
-    }
-  }
-  callfunc(handler, [node, isAppear]);
-};
-
 const handleReset = (classList, handler, isExit, node, isAppear) => {
   if (node) {
     const thisClass = getValue(classList, isAppear, isExit);
@@ -68,10 +57,8 @@ const CSSTransition = ({
   isCSSTransition,
   onEnter,
   onEntering,
-  onEntered,
   onExit,
   onExiting,
-  onExited,
   resetEntered,
   resetExited,
   ...props
@@ -87,11 +74,9 @@ const CSSTransition = ({
       false,
       true
     )}
-    onEntered={handleFinish.bind(this, classNames, onEntered, false)}
     resetEntered={handleReset.bind(this, classNames, resetEntered, false)}
     onExit={handleStart.bind(this, classNames, onExit, delay, true, false)}
     onExiting={handleStart.bind(this, classNames, onExiting, delay, true, true)}
-    onExited={handleFinish.bind(this, classNames, onExited, true)}
     resetExited={handleReset.bind(this, classNames, resetExited, true)}
   />
 );

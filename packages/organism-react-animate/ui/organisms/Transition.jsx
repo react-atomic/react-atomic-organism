@@ -273,13 +273,13 @@ Transition.defaultProps = {
   enter: true,
   exit: true,
 
-  onEnter: false,
-  onEntering: false,
-  onEntered: false,
+  onEnter: null,
+  onEntering: null,
+  onEntered: null,
 
-  onExit: false,
-  onExiting: false,
-  onExited: false
+  onExit: null,
+  onExiting: null,
+  onExited: null
 };
 
 export default Transition;
