@@ -1,8 +1,9 @@
 import React, { cloneElement } from "react";
-import Transition from "../organisms/Transition";
 import { mixClass, removeClass } from "class-lib";
 import get from "get-object-value";
 import callfunc from "call-func";
+
+import Transition from "../organisms/Transition";
 
 const getValue = (arr, isAppear, isExit, defaultValue) => {
   const index = isExit ? "exit" : isAppear ? "appear" : "enter";

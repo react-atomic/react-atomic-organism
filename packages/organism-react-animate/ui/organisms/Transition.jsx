@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer, useMemo } from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
+import { dataStatusKey } from "../../src/const";
 
 const keys = Object.keys;
 
@@ -25,8 +26,7 @@ const getTimeouts = timeout => {
   if (timeout != null && typeof timeout !== "number") {
     exit = timeout.exit;
     enter = timeout.enter;
-    // TODO: remove fallback for next major
-    appear = timeout.appear !== undefined ? timeout.appear : enter;
+    appear = timeout.appear ?? enter;
   }
   return { exit, enter, appear };
 };
@@ -52,6 +52,44 @@ const cancelNextCallback = (state, dispatch) => {
   }
 };
 
+const perform = ({
+  step1,
+  step1Cb,
+  step2,
+  step2Cb,
+  step3,
+  step3Cb,
+  setUp,
+  safeSetState,
+  onTransitionEnd,
+  tearDown,
+  goToLast,
+  isAppear,
+  node,
+  timeout
+}) => {
+  const last = () => {
+    onTransitionEnd(node, timeout, () => {
+      safeSetState(step3, () => {
+        callfunc(tearDown, [node, isAppear]);
+        callfunc(step3Cb, [node, isAppear]);
+      });
+    });
+  };
+  callfunc(setUp, [node, isAppear]);
+  if (goToLast) {
+    last();
+  } else {
+    safeSetState(step1, () => {
+      callfunc(step1Cb, [node, isAppear]);
+      safeSetState(step2, () => {
+        callfunc(step2Cb, [node, isAppear]);
+        last();
+      });
+    });
+  }
+};
+
 const Transition = ({
   component,
   children,
@@ -70,6 +108,7 @@ const Transition = ({
   onExited,
   resetEntered,
   resetExited,
+  statusKey,
   ...props
 }) => {
   const [state, dispatch] = useReducer(reducer, {
@@ -132,41 +171,6 @@ const Transition = ({
       });
     };
 
-    const perform = ({
-      step1,
-      step1Cb,
-      step2,
-      step2Cb,
-      step3,
-      step3Cb,
-      setUp,
-      tearDown,
-      goToLast,
-      isAppear,
-      timeout
-    }) => {
-      const last = () => {
-        onTransitionEnd(state.node, timeout, () => {
-          safeSetState(step3, () => {
-            callfunc(tearDown, [state.node, isAppear]);
-            callfunc(step3Cb, [state.node, isAppear]);
-          });
-        });
-      };
-      callfunc(setUp, [state.node, isAppear]);
-      if (goToLast) {
-        last();
-      } else {
-        safeSetState(step1, () => {
-          callfunc(step1Cb, [state.node, isAppear]);
-          safeSetState(step2, () => {
-            callfunc(step2Cb, [state.node, isAppear]);
-            last();
-          });
-        });
-      }
-    };
-
     const updateStatus = (mounting, nextStatus) => {
       if (nextStatus !== null) {
         // nextStatus will always be ENTERING or EXITING.
@@ -183,6 +187,9 @@ const Transition = ({
             setUp: resetExited,
             tearDown: resetEntered,
             goToLast: (mounting && !appear) || (!mounting && !enter),
+            node: state.node,
+            safeSetState,
+            onTransitionEnd,
             isAppear: mounting,
             timeout: mounting ? timeouts.appear : timeouts.enter
           });
@@ -197,6 +204,9 @@ const Transition = ({
             setUp: resetEntered,
             tearDown: resetExited,
             goToLast: !exit,
+            node: state.node,
+            safeSetState,
+            onTransitionEnd,
             timeout: timeouts.exit
           });
         }
@@ -245,7 +255,7 @@ const Transition = ({
     }
     return build(component)(
       {
-        "data-status": status,
+        [statusKey]: status,
         refCb: el => dispatch({ node: el })
       },
       myChild
@@ -254,6 +264,7 @@ const Transition = ({
 };
 
 Transition.defaultProps = {
+  statusKey: dataStatusKey,
   component: SemanticUI,
   in: false,
   mountOnEnter: false,

@@ -4,11 +4,13 @@ import get from "get-object-value";
 import callfunc from "call-func";
 import CSSTransition from "../organisms/CSSTransition";
 import getChildMapping from "../../src/getChildMapping";
+import { dataStatusKey } from "../../src/const";
 
 const keys = Object.keys;
 
 const getAniProps = (props, enterToAppear) => {
   const {
+    statusKey,
     timeout,
     delay,
     classNames,
@@ -32,6 +34,7 @@ const getAniProps = (props, enterToAppear) => {
   }
   /* not assign onExited, because call at handleExited */
   const aniProps = {
+    statusKey,
     timeout,
     delay,
     classNames,
@@ -54,12 +57,20 @@ const getAniProps = (props, enterToAppear) => {
 const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = props => {
-  const { className, component, lazy, onExited, style, ...otherProps } = props;
+  const {
+    className,
+    component,
+    lazy,
+    onExited,
+    style,
+    statusKey,
+    ...otherProps
+  } = props;
   const [children, setChildren] = useState();
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach(key => delete otherProps[key]);
   useEffect(() => {
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(injects, InjectStyles({ statusKey }));
   }, []);
   useEffect(() => {
     let _isClean = false;
@@ -129,6 +140,7 @@ const AnimateGroup = props => {
 };
 
 AnimateGroup.defaultProps = {
+  statusKey: dataStatusKey,
   lazy: 150,
   component: "div",
   unmountOnExit: true,
@@ -138,15 +150,15 @@ AnimateGroup.defaultProps = {
 export default AnimateGroup;
 
 let injects;
-const InjectStyles = {
+const InjectStyles = ({ statusKey }) => ({
   init: [
     {
       visibility: "hidden"
     },
     [
-      '[data-status="exited"]',
-      '[data-status="unmounted"]',
-      '[data-status="enter-start"]',
-    ].join(',')
+      `[${statusKey}="exited"]`,
+      `[${statusKey}="unmounted"]`,
+      `[${statusKey}="enter-start"]`
+    ].join(",")
   ]
-};
+});
