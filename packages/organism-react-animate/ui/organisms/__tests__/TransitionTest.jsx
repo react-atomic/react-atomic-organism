@@ -34,13 +34,14 @@ describe('Test Transition', ()=>{
     const end = () => {
       setTimeout(()=>{
       wrap.update();
-      console.log(wrap.html());
+      expect(wrap.html()).to.have.string('data-status="entered"');
       done();
       });
     } 
     const vDom = (<Transition in enter appear addEndListener={end}><SemanticUI /></Transition>);
     wrap = mount(vDom);
     const html = wrap.html();
-    console.log({html});
+    expect(html).to.have.string('data-status="entering"');
+
   });
 });

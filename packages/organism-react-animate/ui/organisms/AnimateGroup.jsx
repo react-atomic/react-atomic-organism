@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useMemo} from 'react';
-import {build, mixClass} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import callfunc from 'call-func';
-import CSSTransition from '../organisms/CSSTransition';
-import getChildMapping from '../../src/getChildMapping';
+import React, { useState, useEffect, useMemo } from "react";
+import { build, mixClass, lazyInject } from "react-atomic-molecule";
+import get from "get-object-value";
+import callfunc from "call-func";
+import CSSTransition from "../organisms/CSSTransition";
+import getChildMapping from "../../src/getChildMapping";
 
 const keys = Object.keys;
 
@@ -21,7 +21,7 @@ const getAniProps = (props, enterToAppear) => {
     onEntering,
     onEntered,
     onExit,
-    onExiting,
+    onExiting
   } = props;
   let appear = props.appear;
   if (enterToAppear && classNames && classNames.enter) {
@@ -46,7 +46,7 @@ const getAniProps = (props, enterToAppear) => {
     onEntered,
     onExit,
     onExiting,
-    in: props.in,
+    in: props.in
   };
   return aniProps;
 };
@@ -54,10 +54,13 @@ const getAniProps = (props, enterToAppear) => {
 const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = props => {
-  const {className, component, lazy, onExited, style, ...otherProps} = props;
+  const { className, component, lazy, onExited, style, ...otherProps } = props;
   const [children, setChildren] = useState();
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach(key => delete otherProps[key]);
+  useEffect(() => {
+    injects = lazyInject(injects, InjectStyles);
+  }, []);
   useEffect(() => {
     let _isClean = false;
     let _exitTimeout;
@@ -70,8 +73,8 @@ const AnimateGroup = props => {
       _exitTimeout = setTimeout(() =>
         setChildren(children => {
           delete children[child.key];
-          return {...children};
-        }),
+          return { ...children };
+        })
       );
     };
     const prevChildMapping = children || {};
@@ -82,23 +85,23 @@ const AnimateGroup = props => {
           {
             ...child.props,
             ...aniProps,
-            key: get(child, ['props', 'name'], key),
-            onExited: handleExited(child),
+            key: get(child, ["props", "name"], key),
+            onExited: handleExited(child)
           },
-          child,
-        ),
+          child
+        )
     );
-    const allChildMapping = {...prevChildMapping, ...nextChildMapping};
+    const allChildMapping = { ...prevChildMapping, ...nextChildMapping };
     keys(allChildMapping).forEach(key => {
       const child = allChildMapping[key];
       const hasPrev = key in prevChildMapping;
       const hasNext = key in nextChildMapping;
       const prevChild = prevChildMapping[key];
-      const isLeaving = !get(prevChild, ['props', 'in']);
+      const isLeaving = !get(prevChild, ["props", "in"]);
       if (!hasNext && hasPrev) {
         // Will Exit
         if (!isLeaving) {
-          allChildMapping[key] = build(child)({in: false});
+          allChildMapping[key] = build(child)({ in: false });
         } else {
           delete allChildMapping[key];
         }
@@ -116,20 +119,34 @@ const AnimateGroup = props => {
     };
   }, [props]);
   return useMemo(() => {
-    otherProps.style = {overflow: 'hidden', ...style};
-    otherProps.className = mixClass(className, 'animate-group-container');
+    otherProps.style = { overflow: "hidden", ...style };
+    otherProps.className = mixClass(className, "animate-group-container");
     return build(component)(
       otherProps,
-      keys(children || {}).map(key => children[key]),
+      keys(children || {}).map(key => children[key])
     );
   }, [children]);
 };
 
 AnimateGroup.defaultProps = {
   lazy: 150,
-  component: 'div',
+  component: "div",
   unmountOnExit: true,
-  in: true,
+  in: true
 };
 
 export default AnimateGroup;
+
+let injects;
+const InjectStyles = {
+  init: [
+    {
+      visibility: "hidden"
+    },
+    [
+      '[data-status="exited"]',
+      '[data-status="unmounted"]',
+      '[data-status="enter-start"]',
+    ].join(',')
+  ]
+};

@@ -1,16 +1,16 @@
-import React, {useState, useEffect, useReducer, useMemo} from 'react';
-import {build, SemanticUI} from 'react-atomic-molecule';
-import callfunc from 'call-func';
+import React, { useState, useEffect, useReducer, useMemo } from "react";
+import { build, SemanticUI } from "react-atomic-molecule";
+import callfunc from "call-func";
 
 const keys = Object.keys;
 
-export const UNMOUNTED = 'unmounted';
-export const EXITSTART = 'exit-start';
-export const EXITING = 'exiting';
-export const EXITED = 'exited';
-export const ENTERSTART = 'enter-start';
-export const ENTERING = 'entering';
-export const ENTERED = 'entered';
+export const UNMOUNTED = "unmounted";
+export const EXITSTART = "exit-start";
+export const EXITING = "exiting";
+export const EXITED = "exited";
+export const ENTERSTART = "enter-start";
+export const ENTERING = "entering";
+export const ENTERED = "entered";
 
 const reducer = (state, action) => {
   keys(action).forEach(key => (state[key] = action[key]));
@@ -22,13 +22,13 @@ const getTimeouts = timeout => {
 
   exit = enter = appear = timeout;
 
-  if (timeout != null && typeof timeout !== 'number') {
+  if (timeout != null && typeof timeout !== "number") {
     exit = timeout.exit;
     enter = timeout.enter;
     // TODO: remove fallback for next major
     appear = timeout.appear !== undefined ? timeout.appear : enter;
   }
-  return {exit, enter, appear};
+  return { exit, enter, appear };
 };
 
 const setNextCallback = callback => {
@@ -48,7 +48,7 @@ const setNextCallback = callback => {
 const cancelNextCallback = (state, dispatch) => {
   if (state.nextCallback !== null) {
     state.nextCallback.reset();
-    dispatch({nextCallback: null});
+    dispatch({ nextCallback: null });
   }
 };
 
@@ -68,6 +68,8 @@ const Transition = ({
   onExit,
   onExiting,
   onExited,
+  resetEntered,
+  resetExited,
   ...props
 }) => {
   const [state, dispatch] = useReducer(reducer, {
@@ -75,7 +77,7 @@ const Transition = ({
     callbackWith: null,
     nextCallback: null,
     init: false,
-    node: false,
+    node: false
   });
 
   const [status, setStatus] = useState(() => {
@@ -108,7 +110,7 @@ const Transition = ({
       // we can cancel any pending setState callbacks after we unmount.
       dispatch({
         callbackWith: nextStatus,
-        nextCallback: callback ? setNextCallback(callback) : null,
+        nextCallback: callback ? setNextCallback(callback) : null
       });
       setStatus(nextStatus);
     };
@@ -119,14 +121,14 @@ const Transition = ({
       }
       const callback = setNextCallback(() => {
         callfunc(handler);
-        callfunc(addEndListener, [{node, state, status}]);
+        callfunc(addEndListener, [{ node, state, status }]);
       });
       dispatch({
         nextCallback: callback,
         timer: setTimeout(
-          () => callfunc(state.nextCallback, ['onTransitionEnd']),
-          timeout || 0,
-        ),
+          () => callfunc(state.nextCallback, ["onTransitionEnd"]),
+          timeout || 0
+        )
       });
     };
 
@@ -137,15 +139,21 @@ const Transition = ({
       step2Cb,
       step3,
       step3Cb,
+      setUp,
+      tearDown,
       goToLast,
       isAppear,
-      timeout,
+      timeout
     }) => {
       const last = () => {
         onTransitionEnd(state.node, timeout, () => {
-          safeSetState(step3, () => callfunc(step3Cb, [state.node, isAppear]));
+          safeSetState(step3, () => {
+            callfunc(tearDown, [state.node, isAppear]);
+            callfunc(step3Cb, [state.node, isAppear]);
+          });
         });
       };
+      callfunc(setUp, [state.node, isAppear]);
       if (goToLast) {
         last();
       } else {
@@ -172,9 +180,11 @@ const Transition = ({
             step2Cb: onEntering,
             step3: ENTERED,
             step3Cb: onEntered,
+            setUp: resetExited,
+            tearDown: resetEntered,
             goToLast: (mounting && !appear) || (!mounting && !enter),
             isAppear: mounting,
-            timeout: mounting ? timeouts.appear : timeouts.enter,
+            timeout: mounting ? timeouts.appear : timeouts.enter
           });
         } else {
           perform({
@@ -184,8 +194,10 @@ const Transition = ({
             step2Cb: onExiting,
             step3: EXITED,
             step3Cb: onExited,
+            setUp: resetEntered,
+            tearDown: resetExited,
             goToLast: !exit,
-            timeout: timeouts.exit,
+            timeout: timeouts.exit
           });
         }
       } else if (unmountOnExit && status === EXITED) {
@@ -197,12 +209,12 @@ const Transition = ({
     let mounting = null;
     if (state.in !== props.in) {
       mounting = false;
-      dispatch({in: props.in});
+      dispatch({ in: props.in });
       if (props.in) {
         if (status !== ENTERING && status !== ENTERED) {
           nextStatus = ENTERING;
         } else if (!state.init) {
-          dispatch({init: true});
+          dispatch({ init: true });
           if (appear) {
             nextStatus = ENTERING;
             mounting = true;
@@ -227,16 +239,16 @@ const Transition = ({
   return useMemo(() => {
     let myChild = undefined;
     if (status !== UNMOUNTED) {
-      const nextProps = {...props};
+      const nextProps = { ...props };
       delete nextProps.in;
       myChild = build(children)(nextProps);
     }
     return build(component)(
       {
-        'data-status': status,
-        refCb: el => dispatch({node: el}),
+        "data-status": status,
+        refCb: el => dispatch({ node: el })
       },
-      myChild,
+      myChild
     );
   }, [props]);
 };
@@ -256,7 +268,7 @@ Transition.defaultProps = {
 
   onExit: false,
   onExiting: false,
-  onExited: false,
+  onExited: false
 };
 
 export default Transition;
