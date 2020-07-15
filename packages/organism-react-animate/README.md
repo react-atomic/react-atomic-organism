@@ -9,7 +9,7 @@ React Animate
 * Demo Url:
    * https://react-atomic-ui.js.org/#/animation
 
-## explain appear or enter
+## explain difference between appear and enter
 * appear -> the react key not exists in parent node.
 * enter -> parent has react key.
 
