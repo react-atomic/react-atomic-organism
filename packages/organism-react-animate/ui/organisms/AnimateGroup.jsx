@@ -73,14 +73,10 @@ const AnimateGroup = props => {
     injects = lazyInject(injects, InjectStyles({ statusKey }));
   }, []);
   useEffect(() => {
-    let _isClean = false;
     let _exitTimeout;
     let _enterTimeout;
     const handleExited = child => node => {
       callfunc(onExited, [node]);
-      if (_isClean) {
-        return;
-      }
       _exitTimeout = setTimeout(() =>
         setChildren(children => {
           delete children[child.key];
@@ -113,8 +109,6 @@ const AnimateGroup = props => {
         // Will Exit
         if (!isLeaving) {
           allChildMapping[key] = build(child)({ in: false });
-        } else {
-          delete allChildMapping[key];
         }
       }
     });
@@ -126,9 +120,8 @@ const AnimateGroup = props => {
     return () => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
-      _isClean = true;
     };
-  }, [props]);
+  }, [props.children]);
   return useMemo(() => {
     otherProps.style = { overflow: "hidden", ...style };
     otherProps.className = mixClass(className, "animate-group-container");
