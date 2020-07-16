@@ -67,6 +67,7 @@ const AnimateGroup = props => {
     ...otherProps
   } = props;
   const [children, setChildren] = useState();
+  const [mount, setMount] = useState();
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach(key => delete otherProps[key]);
   useEffect(() => {
@@ -75,14 +76,17 @@ const AnimateGroup = props => {
   useEffect(() => {
     let _exitTimeout;
     let _enterTimeout;
+    setMount(true);
     const handleExited = child => node => {
       callfunc(onExited, [node]);
-      _exitTimeout = setTimeout(() =>
-        setChildren(children => {
-          delete children[child.key];
-          return { ...children };
-        })
-      );
+      _exitTimeout = setTimeout(() => {
+        if (mount) {
+          setChildren(children => {
+            delete children[child.key];
+            return { ...children };
+          });
+        }
+      });
     };
     const prevChildMapping = children || {};
     const nextChildMapping = getChildMapping(
@@ -120,6 +124,7 @@ const AnimateGroup = props => {
     return () => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
+      setMount(false);
     };
   }, [props.children]);
   return useMemo(() => {

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-animate",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "React Animate",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
