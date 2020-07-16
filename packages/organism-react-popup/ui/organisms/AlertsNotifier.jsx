@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Set } from "immutable";
 import Animate from "organism-react-animate";
 import XIcon from "ricon/X";
-import { Message, reactStyle } from "react-atomic-molecule";
+import { Message } from "react-atomic-molecule";
 import callfunc from "call-func";
 
 const messageTypes = ["success", "info", "warning", "error"];
@@ -27,15 +27,16 @@ class Alert extends Component {
     });
   };
 
-  handleClick = () => {
-    const { onClick } = this.props;
-    onClick();
+  handleClick = e => {
+    const { onClick, data } = this.props;
+    e.data = data;
+    onClick(e);
   };
 
   componentDidMount() {
-    const { duration } = this.props;
+    const { duration, onClick, data } = this.props;
     if (duration * 1 > 0) {
-      setTimeout(this.handleClick, duration);
+      setTimeout(()=>onClick({data}), duration);
     }
   }
 
@@ -81,6 +82,17 @@ class AlertsNotifier extends PureComponent {
     duration: 5000
   };
 
+  handleDismiss = e => {
+    const { onDismiss } = this.props;
+    const isContinue = callfunc(onDismiss, [e]);
+    if (false !== isContinue) {
+      // if no callback for dismissal, just update our state
+      this.setState(({ dismissedAlerts }) => ({
+        dismissedAlerts: dismissedAlerts.add(e.data)
+      }));
+    }
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { alerts } = nextProps;
     if (alerts !== prevState.prevPropsAlerts) {
@@ -93,17 +105,6 @@ class AlertsNotifier extends PureComponent {
     }
   }
 
-  dismiss(item) {
-    const { onDismiss } = this.props;
-    const isContinue = callfunc(onDismiss, [item]);
-    if (false !== isContinue) {
-      // if no callback for dismissal, just update our state
-      this.setState(({ dismissedAlerts }) => ({
-        dismissedAlerts: dismissedAlerts.add(item)
-      }));
-    }
-  }
-
   render() {
     const { ani, alerts, position, duration } = this.props;
     const { dismissedAlerts } = this.state;
@@ -111,7 +112,7 @@ class AlertsNotifier extends PureComponent {
     if (alerts && alerts.length) {
       alerts.forEach((item, key) => {
         const thisItem = "string" === typeof item ? { message: item } : item;
-        if (!dismissedAlerts.has(item)) {
+        if (!dismissedAlerts.has(thisItem)) {
           if (-1 === messageTypes.indexOf(thisItem.type)) {
             thisItem.type = "info";
           }
@@ -122,7 +123,8 @@ class AlertsNotifier extends PureComponent {
               messageType={thisItem.type}
               message={thisItem.message}
               header={thisItem.header}
-              onClick={this.dismiss.bind(this, item)}
+              data={thisItem}
+              onClick={this.handleDismiss}
             />
           );
           alertArr.push(oAlert);
