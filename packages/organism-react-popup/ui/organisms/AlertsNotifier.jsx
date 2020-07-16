@@ -118,7 +118,7 @@ class AlertsNotifier extends PureComponent {
           }
           const oAlert = (
             <Alert
-              key={key}
+              key={thisItem.id ? thisItem.id : key}
               duration={duration}
               messageType={thisItem.type}
               message={thisItem.message}
