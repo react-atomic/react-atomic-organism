@@ -36,7 +36,7 @@ class Alert extends Component {
   componentDidMount() {
     const { duration, onClick, data } = this.props;
     if (duration * 1 > 0) {
-      setTimeout(()=>onClick({data}), duration);
+      setTimeout(() => onClick({ data }), duration);
     }
   }
 
@@ -44,7 +44,7 @@ class Alert extends Component {
     const { messageType, header, message, onClick } = this.props;
     const { hoverStyle } = this.state;
     return (
-      <Message messageType={messageType} header={header}>
+      <Message messageType={messageType} header={header} style={Styles.message}>
         {message}
         <XIcon
           style={{
@@ -158,5 +158,8 @@ const Styles = {
     top: 20,
     right: 10,
     opacity: ".5"
+  },
+  message: {
+    margin: "3px 0"
   }
 };
