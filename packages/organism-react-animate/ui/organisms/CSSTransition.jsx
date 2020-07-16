@@ -10,8 +10,6 @@ const getValue = (arr, isAppear, isExit, defaultValue) => {
   return get(arr, [index], defaultValue);
 };
 
-const FUNCTION = "function";
-
 const handleStart = (
   classList,
   handler,
