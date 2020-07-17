@@ -10,7 +10,7 @@ class CarouselAnimation extends Component
         animate: {
             appear: 'fadeIn-500-550',
             enter: 'fadeIn-500-550',
-            leave: 'fadeOut-500',
+            leave: 'fadeOut-50',
         }
     };
 
