@@ -18,13 +18,11 @@ const Change = props => {
   };
 
   const handleEntered = (node, isAppear) => {
-    setTimeout(()=>{
-      isRunning.current = false;
-      if (nextCall.current) {
-        callfunc(nextCall.current);
-        callfunc(onEntered, [node, isAppear]);
-      }
-    });
+    isRunning.current = false;
+    if (nextCall.current) {
+      callfunc(nextCall.current);
+    }
+    setTimeout(() => mount.current && callfunc(onEntered, [node, isAppear]));
   };
 
   useEffect(() => {
