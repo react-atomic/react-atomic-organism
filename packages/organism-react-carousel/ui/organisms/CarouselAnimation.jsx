@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; 
 import { mixClass, SemanticUI } from 'react-atomic-molecule';
-import Animate from 'organism-react-animate';
+import {Change} from 'organism-react-animate';
 
 import CarouselNavigation from '../organisms/CarouselNavigation';
 
@@ -18,9 +18,9 @@ class CarouselAnimation extends Component
     {
         const { animate } = this.props;
         return ( 
-            <Animate {...animate}>
+            <Change {...animate}>
             {activeEl}
-            </Animate>
+            </Change>
         );
     };
 

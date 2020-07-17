@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { build, mixClass, lazyInject } from "react-atomic-molecule";
 import get from "get-object-value";
 import callfunc from "call-func";
@@ -67,7 +67,7 @@ const AnimateGroup = props => {
     ...otherProps
   } = props;
   const [children, setChildren] = useState();
-  const [mount, setMount] = useState();
+  const mount = useRef(false);
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach(key => delete otherProps[key]);
   useEffect(() => {
@@ -76,11 +76,11 @@ const AnimateGroup = props => {
   useEffect(() => {
     let _exitTimeout;
     let _enterTimeout;
-    setMount(true);
+    mount.current = true;
     const handleExited = child => node => {
       callfunc(onExited, [node]);
       _exitTimeout = setTimeout(() => {
-        if (mount) {
+        if (mount.current) {
           setChildren(children => {
             delete children[child.key];
             return { ...children };
@@ -124,7 +124,7 @@ const AnimateGroup = props => {
     return () => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
-      setMount(false);
+      mount.current = false;
     };
   }, [props.children]);
   return useMemo(() => {
@@ -153,10 +153,12 @@ const InjectStyles = ({ statusKey }) => ({
     {
       visibility: "hidden"
     },
-    [
-      `[${statusKey}="exited"]`,
-      `[${statusKey}="unmounted"]`,
-      `[${statusKey}="enter-start"]`
-    ].join(",")
+    [`[${statusKey}="unmounted"]`, `[${statusKey}="enter-start"]`].join(",")
+  ],
+  exit: [
+    {
+      display: "none"
+    },
+    `[${statusKey}="exited"]`
   ]
 });
