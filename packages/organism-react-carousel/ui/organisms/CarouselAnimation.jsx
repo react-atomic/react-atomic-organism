@@ -8,9 +8,8 @@ class CarouselAnimation extends Component
 {
     static defaultProps = {
         animate: {
-            appear: 'fadeIn-500-550',
-            enter: 'fadeIn-500-550',
-            leave: 'fadeOut-50',
+            enter: 'fadeIn-500',
+            leave: 'fadeOut-100',
         }
     };
 
