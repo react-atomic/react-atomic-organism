@@ -10,7 +10,7 @@ const Change = props => {
   const isRunning = useRef(false);
   const nextCall = useRef(false);
 
-  const handleExited = node => {
+  const handleExited = (node, isAppear) => {
     if (mount.current && nextChildren.current) {
       setChildren(nextChildren.current);
       callfunc(onExited, [node, isAppear]);
