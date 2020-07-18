@@ -20,8 +20,8 @@ class Asciidoc extends PureComponent {
   };
 
   clear() {
-    if (this.timer) {
-      this.timer();
+    if (this.clearWindowOnload) {
+      this.clearWindowOnload();
     }
     if (this.onloadTimer) {
       clearTimeout(this.onloadTimer);
@@ -34,6 +34,7 @@ class Asciidoc extends PureComponent {
     const { close, process } = windowOnload({
       doc: oWin.document
     });
+    this.clearWindowOnload = close;
     process(() => {
       const run = () => {
         this.onloadTimer = setTimeout(
@@ -43,23 +44,27 @@ class Asciidoc extends PureComponent {
       };
       const imgs = query.all("img");
       const allImgLen = imgs.length;
-      let loadLen = 0;
-      imgs.forEach(img => {
-        const oImg = new Image();
-        oImg.onload = () => {
-          loadLen++;
-          if (loadLen >= allImgLen) {
-            run();
-          }
-        };
-        oImg.onerror = () => {
-          loadLen++;
-          if (loadLen >= allImgLen) {
-            run();
-          }
-        };
-        oImg.src = img.src;
-      });
+      if (allImgLen) {
+        let loadLen = 0;
+        imgs.forEach(img => {
+          const oImg = new Image();
+          oImg.onload = () => {
+            loadLen++;
+            if (loadLen >= allImgLen) {
+              run();
+            }
+          };
+          oImg.onerror = () => {
+            loadLen++;
+            if (loadLen >= allImgLen) {
+              run();
+            }
+          };
+          oImg.src = img.src;
+        });
+      } else {
+        run();
+      }
     });
   }
 

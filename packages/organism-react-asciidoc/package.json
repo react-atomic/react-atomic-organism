@@ -1,6 +1,6 @@
 {
   "name": "organism-react-asciidoc",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Rendering asciidoc to iFrames with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -25,8 +25,12 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
+    "build:cjs:src": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:cjs:ui": "BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "npm run build:es:src && npm run build:es:ui",
+    "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run build"
   },
