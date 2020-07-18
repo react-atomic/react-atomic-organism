@@ -3,7 +3,7 @@ import callfunc from "call-func";
 import Animate from "../organisms/Animate";
 
 const Change = props => {
-  const { children: propsChildren, onExited, onEntered, ...otherProps } = props;
+  const { children: propsChildren, onExited, onEntered, keyEqualer, ...otherProps } = props;
   const [children, setChildren] = useState(propsChildren);
   const mount = useRef(false);
   const nextChildren = useRef(propsChildren);
@@ -33,7 +33,7 @@ const Change = props => {
       };
       if (
         nextChildren.current !== willChild &&
-        children?.key !== willChild?.key
+        !keyEqualer(children, willChild)
       ) {
         if (willChild && !isRunning.current) {
           nextChildren.current = willChild;
@@ -69,7 +69,8 @@ const Change = props => {
 };
 
 Change.defaultProps = {
-  unmountOnExit: false
+  unmountOnExit: false,
+  keyEqualer: (item1, item2) => item1?.key === item2?.key,
 };
 
 export default Change;
