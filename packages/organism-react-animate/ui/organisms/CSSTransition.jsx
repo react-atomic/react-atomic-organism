@@ -1,19 +1,37 @@
-import React, { cloneElement } from "react";
+import React from "react";
 import { mixClass, removeClass } from "class-lib";
 import get from "get-object-value";
 import callfunc from "call-func";
 
 import Transition from "../organisms/Transition";
 
-const getValue = (arr, isAppear, isExit, defaultValue) => {
-  const index = isExit ? "exit" : isAppear ? "appear" : "enter";
+const keys = Object.keys;
+
+const getIndex = (isAppear, isExit, { exit, appear, enter }) => {
+  const index = isExit ? exit : isAppear ? appear : enter;
+  return index;
+};
+
+const getAction = (isDone, ing, { start, active, done }) => {
+  if (!ing) {
+    return isDone ? done : start;
+  } else {
+    return active;
+  }
+};
+
+const getValue = (arr, index, defaultValue) => {
   return get(arr, [index], defaultValue);
 };
 
+const getClassName = (arr, index, action) => {
+  const classes = getValue(arr, index);
+  return get(classes, [action], classes);
+};
+
 const handleStart = (
-  classList,
+  { classNames, delay, stepKeys, actionKeys },
   handler,
-  delay,
   isExit,
   ing,
   node,
@@ -22,28 +40,56 @@ const handleStart = (
   if (!node || !node.style) {
     return;
   }
+  const index = getIndex(isAppear, isExit, stepKeys);
+  const action = getAction(false, ing, actionKeys);
   if (!isExit && !ing) {
     node.style.visibility = "hidden";
   }
-  const thisDelay = getValue(delay, isAppear, isExit, 0);
+  const thisDelay = getValue(delay, index, 0);
   setTimeout(() => {
-    if (!ing) {
-      const thisClass = getValue(classList, isAppear, isExit);
-      if (thisClass) {
-        node.className = mixClass(node.className, thisClass);
-      }
-      node.style.visibility = "inherit";
+    const thisClass = getClassName(classNames, index, action);
+    if (thisClass) {
+      node.className = mixClass(node.className, thisClass);
     }
+    node.style.visibility = "inherit";
     callfunc(handler, [node, isAppear]);
   }, thisDelay);
 };
 
-const handleReset = (classList, handler, isExit, node, isAppear) => {
+const handleFinish = (
+  { classNames, delay, stepKeys, actionKeys },
+  handler,
+  isExit,
+  node,
+  isAppear
+) => {
   if (node) {
-    const thisClass = getValue(classList, isAppear, isExit);
+    const index = getIndex(isAppear, isExit, stepKeys);
+    const action = getAction(true, false, actionKeys);
+    const thisClass = getClassName(classNames, index, action);
     if (thisClass) {
-      node.className = removeClass(node.className, thisClass);
+      node.className = mixClass(node.className, thisClass);
     }
+  }
+  callfunc(handler, [node, isAppear]);
+};
+
+const handleReset = (
+  { classNames, delay, stepKeys, actionKeys },
+  handler,
+  isExit,
+  node,
+  isAppear
+) => {
+  if (node) {
+    const index = getIndex(isAppear, isExit, stepKeys);
+    keys(actionKeys).forEach(key => {
+      const action = actionKeys[key];
+      const thisClass = getClassName(classNames, index, action);
+      if (thisClass) {
+        node.className = removeClass(node.className, thisClass);
+      }
+    });
   }
   callfunc(handler, [node, isAppear]);
 };
@@ -51,36 +97,44 @@ const handleReset = (classList, handler, isExit, node, isAppear) => {
 const CSSTransition = ({
   classNames,
   delay,
-  isCompiled,
-  isCSSTransition,
+  stepKeys,
+  actionKeys,
   onEnter,
   onEntering,
+  onEntered,
   onExit,
   onExiting,
+  onExited,
   resetEntered,
   resetExited,
   ...props
-}) => (
-  <Transition
-    {...props}
-    onEnter={handleStart.bind(this, classNames, onEnter, delay, false, false)}
-    onEntering={handleStart.bind(
-      this,
-      classNames,
-      onEntering,
-      delay,
-      false,
-      true
-    )}
-    resetEntered={handleReset.bind(this, classNames, resetEntered, false)}
-    onExit={handleStart.bind(this, classNames, onExit, delay, true, false)}
-    onExiting={handleStart.bind(this, classNames, onExiting, delay, true, true)}
-    resetExited={handleReset.bind(this, classNames, resetExited, true)}
-  />
-);
+}) => {
+  const options = { classNames, delay, stepKeys, actionKeys };
+  return (
+    <Transition
+      {...props}
+      onEnter={handleStart.bind(this, options, onEnter, false, false)}
+      onEntering={handleStart.bind(this, options, onEntering, false, true)}
+      onEntered={handleFinish.bind(this, options, onEntered, false)}
+      resetEntered={handleReset.bind(this, options, resetEntered, false)}
+      onExit={handleStart.bind(this, options, onExit, true, false)}
+      onExiting={handleStart.bind(this, options, onExiting, true, true)}
+      onExited={handleFinish.bind(this, options, onExited, true)}
+      resetExited={handleReset.bind(this, options, resetExited, true)}
+    />
+  );
+};
 CSSTransition.defaultProps = {
-  isCSSTransition: true,
-  isCompiled: false,
+  stepKeys: {
+    appear: "appear",
+    enter: "enter",
+    exit: "exit"
+  },
+  actionKeys: {
+    start: "",
+    active: "active",
+    done: "done"
+  },
   in: true
 };
 export default CSSTransition;

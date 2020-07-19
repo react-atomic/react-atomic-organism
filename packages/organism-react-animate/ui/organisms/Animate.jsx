@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import AnimateGroup from './AnimateGroup';
-import {reactStyle, SemanticUI} from 'react-atomic-molecule';
+import React, { Component } from "react";
+import AnimateGroup from "./AnimateGroup";
+import { reactStyle, SemanticUI } from "react-atomic-molecule";
 
-import getKeyframe from 'keyframe-css';
+import getKeyframe from "keyframe-css";
 
 let inject = {};
 
@@ -11,22 +11,22 @@ class Animate extends Component {
     component: SemanticUI,
     appear: null,
     enter: null,
-    leave: null,
+    leave: null
   };
 
   state = {
-    receive: false,
+    receive: false
   };
 
   init(key, ani, timeout) {
     reactStyle(
       {
         animationName: [ani],
-        animationDuration: [timeout * 1 + 30 + 'ms'],
-        ...Styles.linear,
+        animationDuration: [timeout * 1 + 30 + "ms"],
+        ...Styles.linear
       },
-      '.' + key,
-      key,
+      "." + key,
+      key
     );
 
     // Need locate after reactStyle, for inject latest style in getKeyframe function
@@ -35,7 +35,7 @@ class Animate extends Component {
   }
 
   parseAniValue(s) {
-    const data = s.split('-');
+    const data = s.split("-");
     const name = data[0];
     let timeout = 500;
     let delay = 0;
@@ -44,19 +44,20 @@ class Animate extends Component {
     }
     if (!isNaN(data[2])) {
       delay = parseInt(data[2], 10);
+      timeout += delay;
     }
-    const key = [name, timeout, delay].join('-');
+    const key = [name, timeout, delay].join("-");
     return {
-      className: key + ' ' + name,
+      className: key + " " + name,
       key,
       name,
       timeout,
-      delay,
+      delay
     };
   }
 
   update(props) {
-    const {appear, enter, leave} = props;
+    const { appear, enter, leave } = props;
     let data;
     if (appear) {
       data = this.parseAniValue(appear);
@@ -85,10 +86,10 @@ class Animate extends Component {
   }
 
   updateClient(props) {
-    if ('undefined' === typeof document) {
+    if ("undefined" === typeof document) {
       return;
     }
-    const {appear, enter, leave} = props;
+    const { appear, enter, leave } = props;
     if (appear) {
       if (!inject[this.appearKey]) {
         this.init(this.appearKey, this.appear, this.appearTimeout);
@@ -113,12 +114,12 @@ class Animate extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
-      receive: !prevState.receive,
+      receive: !prevState.receive
     };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {receive} = nextState;
+    const { receive } = nextState;
     if (receive !== this.state.receive) {
       this.update(nextProps);
       this.updateClient(nextProps);
@@ -133,23 +134,23 @@ class Animate extends Component {
   }
 
   render() {
-    const {appear, enter, leave, ...others} = this.props;
+    const { appear, enter, leave, ...others } = this.props;
     return (
       <AnimateGroup
         timeout={{
           appear: this.appearTimeout,
           enter: this.enterTimeout,
-          exit: this.leaveTimeout,
+          exit: this.leaveTimeout
         }}
         delay={{
           appear: this.appearDelay,
           enter: this.enterDelay,
-          exit: this.leaveDelay,
+          exit: this.leaveDelay
         }}
         classNames={{
           appear: this.appearClass,
           enter: this.enterClass,
-          exit: this.leaveClass,
+          exit: this.leaveClass
         }}
         appear={!!appear}
         enter={!!enter}
@@ -165,6 +166,6 @@ export default Animate;
 const Styles = {
   linear: {
     animationIterationCount: [1],
-    animationTimingFunction: ['linear'],
-  },
+    animationTimingFunction: ["linear"]
+  }
 };

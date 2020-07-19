@@ -2,7 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { build, mixClass, lazyInject } from "react-atomic-molecule";
 import get from "get-object-value";
 import callfunc from "call-func";
+
 import CSSTransition from "../organisms/CSSTransition";
+import { UNMOUNTED, ENTERSTART, EXITED } from "../organisms/Transition";
 import getChildMapping from "../../src/getChildMapping";
 import { dataStatusKey } from "../../src/const";
 
@@ -153,12 +155,14 @@ const InjectStyles = ({ statusKey }) => ({
     {
       visibility: "hidden"
     },
-    [`[${statusKey}="unmounted"]`, `[${statusKey}="enter-start"]`].join(",")
+    [`[${statusKey}="${UNMOUNTED}"]`, `[${statusKey}="${ENTERSTART}"]`].join(
+      ","
+    )
   ],
   exit: [
     {
       display: "none"
     },
-    `[${statusKey}="exited"]`
+    `[${statusKey}="${EXITED}"]`
   ]
 });

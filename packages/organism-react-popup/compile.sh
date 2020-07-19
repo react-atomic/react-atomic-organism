@@ -1,9 +1,4 @@
 #!/bin/sh
-# find ./assets -name "*.js" | xargs rm -rf
-
-production(){
-    echo "Production Mode";
-}
 
 develop(){
     echo "Develop Mode";
@@ -28,9 +23,6 @@ watch(){
 }
 
 case "$1" in
-  p)
-    production
-    ;;
   watch)
     watch 
     ;;

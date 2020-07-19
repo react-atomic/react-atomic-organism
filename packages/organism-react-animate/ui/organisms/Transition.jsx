@@ -71,8 +71,8 @@ const perform = ({
   const last = () => {
     onTransitionEnd(node, timeout, () => {
       safeSetState(step3, () => {
-        callfunc(tearDown, [node, isAppear]);
         callfunc(step3Cb, [node, isAppear]);
+        setTimeout(()=>callfunc(tearDown, [node, isAppear]));
       });
     });
   };
@@ -100,6 +100,7 @@ const Transition = ({
   exit,
   timeout,
   addEndListener,
+  getProps,
   onEnter,
   onEntering,
   onEntered,
@@ -256,7 +257,8 @@ const Transition = ({
     return build(component)(
       {
         [statusKey]: status,
-        refCb: el => dispatch({ node: el })
+        refCb: el => dispatch({ node: el }),
+        ...(callfunc(getProps, [status]) || {})
       },
       myChild
     );

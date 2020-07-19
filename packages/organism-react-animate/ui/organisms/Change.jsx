@@ -38,7 +38,7 @@ const Change = props => {
         if (willChild && !isRunning.current) {
           nextChildren.current = willChild;
           nextCall.current = false;
-          setChildren(null);
+          children ? setChildren(null) : setChildren(willChild);
           isRunning.current = true;
         } else {
           reset();
