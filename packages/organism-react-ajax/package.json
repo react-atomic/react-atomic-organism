@@ -31,7 +31,6 @@
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
-    "sinon": "*",
     "enzyme": "*",
     "enzyme-adapter-react-16": "*",
     "jsdom": "*",
@@ -39,7 +38,8 @@
     "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "react-test-renderer": "*",
+    "sinon": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
