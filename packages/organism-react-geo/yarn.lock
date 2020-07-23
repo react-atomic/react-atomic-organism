@@ -135,10 +135,6 @@ array.dedup@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
 
-array.merge@*:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.2.tgz#6a0a0939fe30d4c0963d35ab0540ae74acb01b03"
-
 asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
@@ -2127,28 +2123,9 @@ get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
-get-style@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.0.0.tgz#966e37b08dea60e1994a2652437a8a5e6d7b0224"
-
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
-
-get-window-offset@*:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.21.tgz#0f43e95a3cb17cf8ec57ad17020c0eca8e5742bf"
-  dependencies:
-    get-object-value "*"
-    get-scroll-info "*"
-    get-style "*"
-    getoffset "*"
-
-getoffset@*:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.8.tgz#c4addf59859e30fea177f143cae847e18f551591"
-  dependencies:
-    get-scroll-info "*"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -2650,6 +2627,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+keyframe-css@*:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/keyframe-css/-/keyframe-css-0.0.14.tgz#5b9115ecc34f99388bbd486fe0a6bca0bddd0185"
+
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
@@ -2709,8 +2690,8 @@ locate-path@^2.0.0:
     path-exists "^3.0.0"
 
 lodash@^4.14.0, lodash@^4.17.4:
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
 
 log-symbols@^2.2.0:
   version "2.2.0"
@@ -3121,19 +3102,6 @@ organism-react-ajax@*:
     reshow-flux "*"
     smooth-scroll-to "*"
     superagent "^3.3.0"
-
-organism-react-scroll-nav@*:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.4.4.tgz#b183eab9b05dc2465d164c1b5b5c7268ad471299"
-  dependencies:
-    get-object-value "*"
-    get-scroll-info "*"
-    get-window-offset "*"
-    getoffset "*"
-    immutable "*"
-    react-atomic-molecule "*"
-    reshow-flux "*"
-    smooth-scroll-to "*"
 
 os-browserify@^0.3.0:
   version "0.3.0"
@@ -3662,6 +3630,13 @@ restore-cursor@^2.0.0:
 ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
+
+ricon@*:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.2.4.tgz#8ee045d42212603fc3134cea9710d8979bc0497b"
+  dependencies:
+    keyframe-css "*"
+    react-atomic-molecule "*"
 
 right-align@^0.1.1:
   version "0.1.3"
