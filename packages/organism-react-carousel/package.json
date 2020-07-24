@@ -1,6 +1,6 @@
 {
   "name": "organism-react-carousel",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "React Carousel",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -12,6 +12,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "get-object-value": "*",
     "organism-react-animate": "*",
     "react-atomic-molecule": "*",

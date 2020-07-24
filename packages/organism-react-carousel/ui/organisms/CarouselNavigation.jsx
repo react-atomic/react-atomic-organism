@@ -1,49 +1,61 @@
-import React, {PureComponent, cloneElement} from 'react';
-import {mixClass, reactStyle, SemanticUI} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import CarouselList from '../organisms/CarouselList';
-import Carousel from '../organisms/Carousel';
+import React, { Children, useState, useEffect, useRef, useMemo } from "react";
+import { build, mixClass, reactStyle, SemanticUI } from "react-atomic-molecule";
+import get from "get-object-value";
+import callfunc from "call-func";
+
+import CarouselList from "../organisms/CarouselList";
+import Carousel from "../organisms/Carousel";
 
 let gLastX;
 let gLastY;
 let mouseMoveTimer;
 
-class CarouselNavigation extends PureComponent {
-  static defaultProps = {
-    infinity: true,
-  };
+const CarouselNavigation = props => {
+  const {
+    style,
+    className,
+    carouselAttr,
+    container,
+    children,
+    thumbAttr,
+    infinity,
+    selected: propsSelected,
+    onChange,
+    onSelected,
+    hideThumb,
+    ...others
+  } = props;
 
-  backward = null;
-  forward = null;
-  handleLeft = () => {
-    this.handleChange(this.backward);
-  };
+  const [selected, setSelected] = useState();
+  const [childs, setChilds] = useState();
+  const thisBackward = useRef();
+  const thisForward = useRef();
 
-  handleRight = () => {
-    this.handleChange(this.forward);
-  };
-
-  handleChange = selected => {
-    const {onChange} = this.props;
-    if ('function' === typeof onChange) {
-      onChange(selected);
+  const thisThumbAttr = {
+    ...carouselAttr,
+    ...thumbAttr,
+    hoverStyle: Styles.thumbHover,
+    className: "link card",
+    style: {
+      ...get(carouselAttr, ["style"], {}),
+      ...Styles.thumb,
+      ...get(thumbAttr, ["style"], {})
     }
-    this.setState({selected});
   };
 
-  update = props => {
-    const {children, selected: propsSelected} = props;
+  useEffect(() => {
     const childs = [];
-    React.Children.forEach(children, child => {
+    Children.forEach(children, child => {
       if (child) {
         childs.push(child);
       }
     });
+    setChilds(childs);
     let selected;
-    if (childs) {
+    if (childs && childs.length) {
       // check propsSelected is valid.
       childs.some((child, i) => {
-        const key = get(child, ['props', 'name']) || i;
+        const key = get(child, ["props", "name"]) || i;
         if (key === propsSelected) {
           selected = key;
           return true;
@@ -52,69 +64,44 @@ class CarouselNavigation extends PureComponent {
         }
       });
       if (!selected) {
-        selected = get(childs.slice(0, 1)[0], ['props', 'name'], 0);
+        selected = get(childs.slice(0, 1)[0], ["props", "name"], 0);
       }
+      setSelected(selected);
     }
-    return {
-      selected,
-      childs,
-    };
+  }, [propsSelected, children]);
+
+  const handleLeft = () => {
+    handleChange(thisBackward.current);
   };
 
-  constructor(props) {
-    super(props);
-    this.state = this.update(props);
-  }
+  const handleRight = () => {
+    handleChange(thisForward.current);
+  };
 
-  componentWillReceiveProps(props) {
-    this.setState({...this.update(props)});
-  }
+  const handleChange = selected => {
+    setSelected(selected);
+    callfunc(onChange, [selected]);
+  };
 
-  render() {
-    const {selected, childs} = this.state;
+  return useMemo(() => {
     if (!childs || !childs.length) {
       return null;
     }
-    const {
-      style,
-      className,
-      carouselAttr,
-      container,
-      children,
-      thumbAttr,
-      infinity,
-      selected: propsSelected,
-      onChange,
-      onSelected,
-      hideThumb,
-      ...others
-    } = this.props;
 
-    const thisThumbAttr = {
-      ...carouselAttr,
-      ...thumbAttr,
-      hoverStyle: Styles.thumbHover,
-      className: 'link card',
-      style: {
-        ...get(carouselAttr, ['style'], {}),
-        ...Styles.thumb,
-        ...get(thumbAttr, ['style'], {}),
-      },
-    };
+    thisBackward.current = null;
+    thisForward.current = null;
     let activeChildren = null;
     let activeEl = false;
     const thumbChild = [];
-    this.backward = null;
-    this.forward = null;
 
     childs.forEach((child, i) => {
-      const key = get(child, ['props', 'name']) || i;
+      const key = get(child, ["props", "name"]) || i;
       let activeStyle = {}; //need always reset
       const isSelected = key === selected;
-      childs[i] = child = cloneElement(child, {
+      childs[i] = child = build(child)({
         ...carouselAttr,
         name: key,
-        key,
+        key
       });
       if (isSelected) {
         activeStyle = Styles.thumbActive;
@@ -123,14 +110,14 @@ class CarouselNavigation extends PureComponent {
           selected,
           childs,
           activeEl,
-          handleChange: this.handleChange,
+          handleChange
         });
       } else {
         if (!activeEl) {
-          this.backward = key;
+          thisBackward.current = key;
         } else {
-          if (!this.forward) {
-            this.forward = key;
+          if (!thisForward.current) {
+            thisForward.current = key;
           }
         }
       }
@@ -139,10 +126,10 @@ class CarouselNavigation extends PureComponent {
           key,
           ...thisThumbAttr,
           className: mixClass(thisThumbAttr.className, {
-            active: isSelected,
+            active: isSelected
           }),
           onClick: () => {
-            this.handleChange(key);
+            handleChange(key);
           },
           onMouseMove: e => {
             if (mouseMoveTimer) {
@@ -162,41 +149,36 @@ class CarouselNavigation extends PureComponent {
             if (gLastX === lastX && gLastY === lastY) {
               return;
             } else {
-              this.handleChange(key);
+              handleChange(key);
             }
           },
           style: null,
           styles: reactStyle(
             {
               ...thisThumbAttr.style,
-              ...activeStyle,
+              ...activeStyle
             },
             false,
-            false,
-          ),
+            false
+          )
         };
-        let thisChild = get(child, ['props', 'thumbContainer']);
+        let thisChild = get(child, ["props", "thumbContainer"]);
         if (thisChild) {
           thisChild = <Carousel>{thisChild}</Carousel>;
         } else {
           thisChild = child;
         }
-        thumbChild.push(cloneElement(thisChild, newThumbChildAttr));
+        thumbChild.push(build(thisChild)(newThumbChildAttr));
       }
     });
-    if (null === this.forward && infinity && childs) {
-      this.forward = childs.slice(0, 1)[0].props.name;
-    }
-    if (null === this.backward && infinity && childs) {
-      this.backward = childs.slice(-1)[0].props.name;
-    }
 
     const thisChildren = [];
     thisChildren.push(
-      <CarouselList key={0} onLeft={this.handleLeft} onRight={this.handleRight}>
-        {cloneElement(activeChildren, others)}
-      </CarouselList>,
+      <CarouselList key={0} onLeft={handleLeft} onRight={handleRight}>
+        {build(activeChildren)(others)}
+      </CarouselList>
     );
+
     if (!hideThumb) {
       thisChildren.push(
         //thumb
@@ -204,60 +186,64 @@ class CarouselNavigation extends PureComponent {
           key={1}
           {...others}
           style={Styles.thumbList}
-          className="cards thumbs">
+          className="cards thumbs"
+        >
           {thumbChild}
-        </CarouselList>,
+        </CarouselList>
       );
     }
-    /*container*/
-    let thisContainer;
-    if (container) {
-      thisContainer = container;
-    } else {
-      thisContainer = <SemanticUI />;
+    if (null === thisForward.current && infinity && childs) {
+      thisForward.current = childs.slice(0, 1)[0].props.name;
     }
-    return cloneElement(
-      thisContainer,
+    if (null === thisBackward.current && infinity && childs) {
+      thisBackward.current = childs.slice(-1)[0].props.name;
+    }
+    return build(container)(
       {
         style: {
           ...Styles.container,
-          ...style,
+          ...style
         },
-        className: mixClass(className, 'carousel-navigation'),
+        className: mixClass(className, "carousel-navigation")
       },
-      thisChildren,
+      thisChildren
     );
-  }
-}
+  }, [childs, selected]);
+};
+
+CarouselNavigation.defaultProps = {
+  container: SemanticUI,
+  infinity: true
+};
 
 export default CarouselNavigation;
 
 const Styles = {
   container: {
-    position: 'relative',
-    marginBottom: 35,
+    position: "relative",
+    marginBottom: 35
   },
   thumbList: {
-    fontSize: '1rem',
-    width: '77%',
-    margin: '-85px auto 0',
+    fontSize: "1rem",
+    width: "77%",
+    margin: "-85px auto 0",
     minHeight: 50,
     padding: 5,
-    whiteSpace: 'normal',
+    whiteSpace: "normal"
   },
   thumb: {
-    margin: '0 5px 10px 0',
+    margin: "0 5px 10px 0",
     opacity: 0.5,
-    overflow: 'hidden',
+    overflow: "hidden",
     width: 50,
     height: 50,
-    verticalAlign: 'bottom',
+    verticalAlign: "bottom"
   },
   thumbHover: {
-    opacity: 1,
+    opacity: 1
   },
   thumbActive: {
     opacity: 1,
-    border: '1px solid #fff',
-  },
+    border: "1px solid #fff"
+  }
 };
