@@ -7,8 +7,7 @@ import {ajaxDispatch} from 'organism-react-ajax';
 import {i13nDispatcher, BaseI13nStore} from 'i13n';
 
 const getDefaultActionCallback = state => (json, text) => {
-  const element = state.get('element');
-  const iframe = get(element, ['iframe']);
+  const iframe = state.get('iframe');
   if (iframe) {
     iframe.appendHtml(text);
   }
