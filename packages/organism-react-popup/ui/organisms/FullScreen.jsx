@@ -75,7 +75,7 @@ class FullScreen extends PureComponent {
     return (
       <DisplayPopupEl>
         <PopupModal
-          name={name}
+          name={name+' (modal)'}
           appear="fadeIn-500"
           enter="fadeIn-500"
           className={mixClass('full-screen', className)}
