@@ -14,7 +14,7 @@ class IframeContainer extends PureComponent {
 
   postHeight = win =>
     setTimeout(() => {
-      win.parent.window.postMessage(
+      win?.parent.window.postMessage(
         {
           type: this.messageKey,
           h: win.document.body.offsetHeight,
