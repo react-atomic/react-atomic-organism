@@ -1,165 +1,122 @@
-import React, { Component } from "react";
-import AnimateGroup from "./AnimateGroup";
+import React, { useState, useRef, useEffect } from "react";
 import { reactStyle, SemanticUI } from "react-atomic-molecule";
-
 import getKeyframe from "keyframe-css";
+import {doc} from "win-doc"; 
 
-let inject = {};
+import AnimateGroup from "../organisms/AnimateGroup";
 
-class Animate extends Component {
-  static defaultProps = {
-    component: SemanticUI,
-    appear: null,
-    enter: null,
-    leave: null
-  };
-
-  state = {
-    receive: false
-  };
-
-  init(key, ani, timeout) {
-    reactStyle(
-      {
-        animationName: [ani],
-        animationDuration: [timeout * 1 + 30 + "ms"],
-        ...Styles.linear
-      },
-      "." + key,
-      key
-    );
-
-    // Need locate after reactStyle, for inject latest style in getKeyframe function
-    getKeyframe(ani);
-    inject[key] = true;
+const inject = {};
+const init = (key, ani, timeout) => {
+  if (inject[key] || doc().__null) {
+    return;
   }
+  reactStyle(
+    {
+      animationName: [ani],
+      animationDuration: [timeout * 1 + 30 + "ms"],
+      ...Styles.linear
+    },
+    "." + key,
+    key
+  );
 
-  parseAniValue(s) {
-    const data = s.split("-");
-    const name = data[0];
-    let timeout = 500;
-    let delay = 0;
-    if (!isNaN(data[1])) {
-      timeout = parseInt(data[1], 10);
-    }
-    if (!isNaN(data[2])) {
-      delay = parseInt(data[2], 10);
-      timeout += delay;
-    }
-    const key = [name, timeout, delay].join("-");
-    return {
-      className: key + " " + name,
-      key,
-      name,
-      timeout,
-      delay
-    };
+  // Need locate after reactStyle, for inject latest style in getKeyframe function
+  getKeyframe(ani);
+  inject[key] = true;
+};
+
+const parseAniValue = (s) => {
+  const data = s.split("-");
+  const name = data[0];
+  let timeout = 500;
+  let delay = 0;
+  if (!isNaN(data[1])) {
+    timeout = parseInt(data[1], 10);
   }
+  if (!isNaN(data[2])) {
+    delay = parseInt(data[2], 10);
+    timeout += delay;
+  }
+  const key = [name, timeout, delay].join("-");
+  return {
+    className: key + " " + name,
+    key,
+    name,
+    timeout,
+    delay
+  };
+};
 
-  update(props) {
-    const { appear, enter, leave } = props;
+const Animate = (props) => {
+  const { appear, enter, leave, ...others } = props;
+  const [isLoad, setIsLoad] = useState();
+  const [aniConf, setAniConf] = useState({});
+
+  useEffect(() => {
+    const that = {};
     let data;
     if (appear) {
-      data = this.parseAniValue(appear);
-      this.appear = data.name;
-      this.appearKey = data.key;
-      this.appearTimeout = data.timeout;
-      this.appearDelay = data.delay;
-      this.appearClass = data.className;
+      data = parseAniValue(appear);
+      that.appear = data.name;
+      that.appearKey = data.key;
+      that.appearTimeout = data.timeout;
+      that.appearDelay = data.delay;
+      that.appearClass = data.className;
+      init(that.appearKey, that.appear, that.appearTimeout);
     }
     if (enter) {
-      data = this.parseAniValue(enter);
-      this.enter = data.name;
-      this.enterKey = data.key;
-      this.enterTimeout = data.timeout;
-      this.enterDelay = data.delay;
-      this.enterClass = data.className;
+      data = parseAniValue(enter);
+      that.enter = data.name;
+      that.enterKey = data.key;
+      that.enterTimeout = data.timeout;
+      that.enterDelay = data.delay;
+      that.enterClass = data.className;
+      init(that.enterKey, that.enter, that.enterTimeout);
     }
     if (leave) {
-      data = this.parseAniValue(leave);
-      this.leave = data.name;
-      this.leaveKey = data.key;
-      this.leaveTimeout = data.timeout;
-      this.leaveDelay = data.delay;
-      this.leaveClass = data.className;
+      data = parseAniValue(leave);
+      that.leave = data.name;
+      that.leaveKey = data.key;
+      that.leaveTimeout = data.timeout;
+      that.leaveDelay = data.delay;
+      that.leaveClass = data.className;
+      init(that.leaveKey, that.leave, that.leaveTimeout);
     }
-  }
+    setAniConf(that);
+    setTimeout(() => setIsLoad(true));
+  }, [appear, enter, leave, isLoad]);
 
-  updateClient(props) {
-    if ("undefined" === typeof document) {
-      return;
-    }
-    const { appear, enter, leave } = props;
-    if (appear) {
-      if (!inject[this.appearKey]) {
-        this.init(this.appearKey, this.appear, this.appearTimeout);
-      }
-    }
-    if (enter) {
-      if (!inject[this.enterKey]) {
-        this.init(this.enterKey, this.enter, this.enterTimeout);
-      }
-    }
-    if (leave) {
-      if (!inject[this.leaveKey]) {
-        this.init(this.leaveKey, this.leave, this.leaveTimeout);
-      }
-    }
-  }
+  return isLoad ? (
+    <AnimateGroup
+      timeout={{
+        appear: aniConf.appearTimeout,
+        enter: aniConf.enterTimeout,
+        exit: aniConf.leaveTimeout
+      }}
+      delay={{
+        appear: aniConf.appearDelay,
+        enter: aniConf.enterDelay,
+        exit: aniConf.leaveDelay
+      }}
+      classNames={{
+        appear: aniConf.appearClass,
+        enter: aniConf.enterClass,
+        exit: aniConf.leaveClass
+      }}
+      appear={!!appear}
+      enter={!!enter}
+      exit={!!leave}
+      {...others}
+    />
+  ) : null;
+};
 
-  constructor(props) {
-    super(props);
-    this.update(props);
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return {
-      receive: !prevState.receive
-    };
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { receive } = nextState;
-    if (receive !== this.state.receive) {
-      this.update(nextProps);
-      this.updateClient(nextProps);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  componentDidMount() {
-    this.updateClient(this.props);
-  }
-
-  render() {
-    const { appear, enter, leave, ...others } = this.props;
-    return (
-      <AnimateGroup
-        timeout={{
-          appear: this.appearTimeout,
-          enter: this.enterTimeout,
-          exit: this.leaveTimeout
-        }}
-        delay={{
-          appear: this.appearDelay,
-          enter: this.enterDelay,
-          exit: this.leaveDelay
-        }}
-        classNames={{
-          appear: this.appearClass,
-          enter: this.enterClass,
-          exit: this.leaveClass
-        }}
-        appear={!!appear}
-        enter={!!enter}
-        exit={!!leave}
-        {...others}
-      />
-    );
-  }
-}
+Animate.defaultProps = {
+  component: SemanticUI,
+  appear: null,
+  enter: null,
+  leave: null
+};
 
 export default Animate;
 

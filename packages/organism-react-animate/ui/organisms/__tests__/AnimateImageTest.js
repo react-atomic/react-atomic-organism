@@ -36,6 +36,7 @@ describe("Test Animate Image", () => {
     };
     const wrap = mount(<VDom />);
     setTimeout(() => {
+      wrap.update();
       const html = wrap.html();
       expect(html).to.have.string("xxx.png");
       done();
