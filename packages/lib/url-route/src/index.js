@@ -25,8 +25,8 @@ const Route = (path, fn) => {
  *
  * An empty array should be passed,
  * which will contain the placeholder
- * key names. For example "/user/:id" will
- * then contain ["id"].
+ * key names.
+ * For example "/user/:id" will contain ["id"].
  *
  * @param  {String} path
  * @param  {Array} keys
