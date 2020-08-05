@@ -71,4 +71,10 @@ describe("test get url", () => {
     const actual = getUrl('type');
     expect(actual).to.equal('0');
   });
+
+  it("test get multi different keys", ()=>{
+    reset = gjsdom(null, {url: "http://xxx?foo=aaa&bar=bbb"});
+    const actual = getUrl(['foo', 'bar']);
+    expect(actual).to.deep.equal({ foo: 'aaa', bar: 'bbb' });
+  });
 });
