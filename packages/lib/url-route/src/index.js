@@ -33,18 +33,19 @@ const Route = (path, fn) => {
  * @return {RegExp}
  */
 const pathToRegExp = (path, keys) => {
-  path = path
+  const nextPath = (path || "")
+    .replace(/\?/g, "<<?>>")
     .concat("/?")
     .replace(/\/\(/g, "(?:/")
     .replace(
       /(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g,
       (_, slash, format, key, capture, optional) => {
         if (_ === "*") {
-          keys.push(undefined);
+          keys && keys.push(undefined);
           return _;
         }
 
-        keys.push(key);
+        keys && keys.push(key);
         slash = slash || "";
         return (
           "" +
@@ -59,8 +60,9 @@ const pathToRegExp = (path, keys) => {
       }
     )
     .replace(/([\/.])/g, "\\$1")
-    .replace(/\*/g, "(.*)");
-  return new RegExp("^" + path + "$", "i");
+    .replace(/\*/g, "(.*)")
+    .replace(/<<\?>>/g, ".?");
+  return new RegExp("^" + nextPath + "$", "i");
 };
 
 const paraseParms = (captures, route) => {
@@ -68,8 +70,11 @@ const paraseParms = (captures, route) => {
   const params = {};
   const splats = [];
   Object.keys(captures).forEach((cKey, index) => {
+    if (!index || isNaN(cKey)) {
+      return;
+    }
     const item = captures[cKey];
-    const key = keys[index];
+    const key = keys[index - 1];
     const val = "string" === typeof item ? decodeURI(item) : item;
     if (key) {
       params[key] = val;
@@ -81,7 +86,7 @@ const paraseParms = (captures, route) => {
     fn,
     params,
     splats,
-    route: src
+    route: src,
   };
   return result;
 };
@@ -114,9 +119,11 @@ const match = (routes, uri) => {
       const isQueryNotMatch = srcArr[16]
         ?.replace("?", "")
         .split("&")
-        .some(query => {
+        .some((query) => {
           const queryArr = query.split("=");
-          if (queryArr[1] !== getUrl(queryArr[0], uri)) {
+          const queryReg = pathToRegExp(queryArr[1]);
+          const queryMeet = getUrl(queryArr[0], uri).match(queryReg);
+          if (!queryMeet) {
             return true;
           }
           return false;
@@ -137,8 +144,7 @@ const match = (routes, uri) => {
 /**
  * Default "normal" router constructor.
  * accepts path, fn tuples via addRoute
- * returns {fn, params, splats, route}
- *  via match
+ * returns {fn, params, splats, route} via match
  *
  * @return {Object}
  */
@@ -157,7 +163,7 @@ class Router {
   }
 
   match(pathname, startAt) {
-    startAt = startAt ? startAt : 0;
+    startAt = startAt || 0;
     const routes = this.routes.slice(startAt);
     const route = match(routes, pathname);
     if (route) {
