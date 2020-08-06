@@ -61,7 +61,7 @@ const pathToRegExp = (path, keys) => {
     )
     .replace(/([\/.])/g, "\\$1")
     .replace(/\*/g, "(.*)")
-    .replace(/<<\?>>/g, ".?");
+    .replace(/<<\?>>/g, ".+");
   return new RegExp("^" + nextPath + "$", "i");
 };
 
