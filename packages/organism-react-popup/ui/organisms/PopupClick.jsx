@@ -5,15 +5,30 @@ import callfunc from "call-func";
 
 import PopupOverlay from "../molecules/PopupOverlay";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
+import { popupDispatch } from "../../src/popupDispatcher";
 
 class PopupClick extends Component {
+  static defaultProps = {
+    once: true,
+  };
+
   handleClick = () => this.open();
 
   open() {
-    const { callback } = this.props;
-    this.setState({ show: true, bust: getTimestamp() }, () => {
+    const { callback, once, popup } = this.props;
+    if (once) {
+      popupDispatch({
+        type: "dom/update",
+        params: {
+          popup: build(popup, { wrap: PopupOverlay, doCallFunction: true })(),
+        },
+      });
       callfunc(callback);
-    });
+    } else {
+      this.setState({ show: true, bust: getTimestamp() }, () => {
+        callfunc(callback);
+      });
+    }
   }
 
   close() {
@@ -33,12 +48,13 @@ class PopupClick extends Component {
       popup,
       callback,
       onClose,
+      once,
       ...reset
     } = this.props;
     const { show, bust } = this.state || {};
     const thisStyle = { ...style, ...Styles.container };
     let popupEl = null;
-    if (show) {
+    if (show && !once) {
       popupEl = (
         <DisplayPopupEl bust={bust} key="popup-el">
           {build(popup, { wrap: PopupOverlay, doCallFunction: true })()}
@@ -50,7 +66,7 @@ class PopupClick extends Component {
       ...reset,
       onClick: this.handleClick,
       className: mixClass(className, "popup-click"),
-      style: thisStyle
+      style: thisStyle,
     };
     return build(component || container || SemanticUI)(props, thisChildren);
   }
@@ -60,6 +76,6 @@ export default PopupClick;
 
 const Styles = {
   container: {
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 };
