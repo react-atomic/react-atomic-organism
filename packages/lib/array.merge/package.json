@@ -1,6 +1,6 @@
 {
   "name": "array.merge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Array Merge",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -24,7 +24,8 @@
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "rm -rf build && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run test",
-    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js'"
+    "mocha": "mocha 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha"
   },
   "files": [
     "build",
