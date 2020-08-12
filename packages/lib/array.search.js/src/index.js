@@ -28,15 +28,27 @@ const getHaystack = (haystack, keyArr) => {
   }
 };
 
-const arraySearch = (arr, exact) => (needle, cb) =>
-  (arr && arr.filter ? arr : []).filter((a) => {
-    if (FUNCTION === typeof exact) {
-      return exact(getHaystack(a, keys(needle)), toArray(needle), cb);
-    } else {
-      return exact
-        ? exactMatch(getHaystack(a, keys(needle)), toArray(needle), cb)
-        : keywordMatch(getHaystack(a, keys(needle)), toArray(needle), cb);
-    }
-  });
+const doFilter = ({ a, func, needle, cb }) =>
+  func(getHaystack(a, keys(needle)), toArray(needle), cb);
+
+const getFunc = (exact) =>
+  exact ? (FUNCTION === typeof exact ? exact : exactMatch) : keywordMatch;
+
+const arraySearchFirst = (arr, exact) => (needle, cb) => {
+  const func = getFunc(exact);
+  let result = false;
+  (arr && arr.some ? arr : []).some(
+    (a) => doFilter({ a, func, needle, cb }) && (() => result = a)()
+  );
+  return result;
+};
+
+const arraySearch = (arr, exact) => (needle, cb) => {
+  const func = getFunc(exact);
+  return (arr && arr.filter ? arr : []).filter((a) =>
+    doFilter({ a, func, needle, cb })
+  );
+};
 
 export default arraySearch;
+export { arraySearchFirst };
