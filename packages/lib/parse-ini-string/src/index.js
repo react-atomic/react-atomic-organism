@@ -59,14 +59,8 @@ const parse = (s) => {
       }
     } else {
       const lineTrim = line.trim();
-      if (isMultiLine(value)) {
-        if (lineTrim === '"' || lineTrim === '";') {
-          isEnd = true;
-        }
-      } else {
-        if (lineTrim.slice(-1) === '"' || lineTrim.slice(-2) === '";') {
-          isEnd = true;
-        }
+      if (lineTrim === '"' || lineTrim === '";') {
+        isEnd = true;
       }
       if (!isEnd) {
         value += "\n";

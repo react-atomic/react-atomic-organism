@@ -3,6 +3,7 @@ import parse from '../index';
 
 describe('Test multi line', () => {
 
+
   it('Test multi line', () => {
     const uMultiLineText = `
 a="000
