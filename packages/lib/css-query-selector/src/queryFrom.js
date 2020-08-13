@@ -40,6 +40,10 @@ const queryFrom = base => {
 
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
+    if (!el) {
+      console.warn('Element is empty.');
+      return false;
+    }
     return el.closest
       ? el.closest(ancestor)
       : _queryAncestorPolyfill(el, ancestor);

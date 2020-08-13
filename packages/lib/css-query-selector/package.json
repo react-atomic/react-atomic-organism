@@ -1,6 +1,6 @@
 {
   "name": "css-query-selector",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "CSS simple query alias function",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -26,7 +26,8 @@
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "prepublishOnly": "npm run test",
-    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register"
+    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha"
   },
   "files": [
     "build",
