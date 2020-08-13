@@ -1,14 +1,16 @@
-import parse from '../index';
 import {expect} from 'chai';
+import parse from '../index';
 
 describe('Test parse ini', () => {
   const testData = `
 foo=bar
 abc=def
+111="222"
+aaa='bbb'
 `;
   it('Test simple', () => {
     const arr = parse(testData);
-    expect(arr).to.deep.equal({foo: 'bar', abc: 'def'});
+    expect(arr).to.deep.equal({foo: 'bar', abc: 'def', '111': '222', aaa: 'bbb'});
   });
 
   it('Test null', () => {
@@ -24,18 +26,4 @@ abc=def
     expect(arr).to.deep.equal(expected);
   });
 
-  it('Test multi line', () => {
-    const uMultiLineText = `
-a="000
-111
-"
-b="111
-222
-333
-";
-`;
-    const arr = parse(uMultiLineText);
-    const expected = {a: '000\n111', b: '111\n222\n333'};
-    expect(arr).to.deep.equal(expected);
-  });
 });
