@@ -7,8 +7,8 @@ const defaultCb = (t) => t + "";
 const toArray = (maybeString) =>
   STRING === typeof maybeString ? [maybeString] : maybeString;
 
-const getHaystack = (haystack, keyArr) =>
-  !keyArr.length ? [haystack] : haystack;
+const getHaystack = (haystack, needle) =>
+  STRING === typeof needle ? [haystack] : haystack;
 
 const keywordMatch = (haystack, needle) =>
   -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
@@ -17,7 +17,7 @@ const exactMatch = (haystack, needle) => haystack === needle;
 
 const doFilter = ({ a, func, needle, cb = defaultCb }) => {
   const thisNeedle = toArray(needle);
-  const thisHaystack = getHaystack(a, keys(needle));
+  const thisHaystack = getHaystack(a, needle);
   return keys(thisNeedle).every((key) =>
     func(cb(thisHaystack[key]), cb(thisNeedle[key]))
   );
