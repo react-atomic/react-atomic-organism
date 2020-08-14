@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { build, mixClass, SemanticUI } from "react-atomic-molecule";
 import { getTimestamp } from "get-random-id";
 import callfunc from "call-func";
+import get from "get-object-value";
 
 import PopupOverlay from "../molecules/PopupOverlay";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
@@ -38,6 +39,11 @@ class PopupClick extends Component {
     });
   }
 
+  componentDidMount() {
+    const {container} = this.props;
+    console.warn('Container will retire soon, change to use component');
+  }
+
   render() {
     const {
       children,
@@ -61,14 +67,15 @@ class PopupClick extends Component {
         </DisplayPopupEl>
       );
     }
-    const thisChildren = [children, popupEl];
+    const thisComponent = component || container || SemanticUI;
+    const thisChildren = [children || get(thisComponent, ['props', 'children']) , popupEl];
     const props = {
       ...reset,
       onClick: this.handleClick,
       className: mixClass(className, "popup-click"),
       style: thisStyle,
     };
-    return build(component || container || SemanticUI)(props, thisChildren);
+    return build(thisComponent)(props, thisChildren);
   }
 }
 
