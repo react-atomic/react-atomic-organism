@@ -7,29 +7,21 @@ const defaultCb = (t) => t + "";
 const toArray = (maybeString) =>
   STRING === typeof maybeString ? [maybeString] : maybeString;
 
-const keywordMatch = (haystack, needle, cb = defaultCb) =>
-  keys(haystack).every((key) => {
-    return (
-      -1 !==
-      cb(haystack[key]).toLowerCase().indexOf(cb(needle[key]).toLowerCase())
-    );
-  });
+const getHaystack = (haystack, keyArr) =>
+  !keyArr.length ? [haystack] : haystack;
 
-const exactMatch = (haystack, needle, cb = defaultCb) =>
-  keys(haystack).every((key) => cb(haystack[key]) === cb(needle[key]));
+const keywordMatch = (haystack, needle) =>
+  -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
 
-const getHaystack = (haystack, keyArr) => {
-  if (!keyArr.length) {
-    return [haystack];
-  } else {
-    const results = {};
-    keyArr.forEach((key) => (results[key] = haystack[key]));
-    return results;
-  }
+const exactMatch = (haystack, needle) => haystack === needle;
+
+const doFilter = ({ a, func, needle, cb = defaultCb }) => {
+  const thisNeedle = toArray(needle);
+  const thisHaystack = getHaystack(a, keys(needle));
+  return keys(thisNeedle).every((key) =>
+    func(cb(thisHaystack[key]), cb(thisNeedle[key]))
+  );
 };
-
-const doFilter = ({ a, func, needle, cb }) =>
-  func(getHaystack(a, keys(needle)), toArray(needle), cb);
 
 const getFunc = (exact) =>
   exact ? (FUNCTION === typeof exact ? exact : exactMatch) : keywordMatch;
@@ -38,7 +30,7 @@ const arraySearchFirst = (arr, exact) => (needle, cb) => {
   const func = getFunc(exact);
   let result = false;
   (arr && arr.some ? arr : []).some(
-    (a) => doFilter({ a, func, needle, cb }) && (() => result = a)()
+    (a) => doFilter({ a, func, needle, cb }) && (() => (result = a))()
   );
   return result;
 };
