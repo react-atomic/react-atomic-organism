@@ -5,6 +5,7 @@ import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
 const uriReg = /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
 const isArray = Array.isArray;
+const defaultValue = undefined;
 
 const getPath = (url, key, raw) => {
   const result = uriReg.exec(url);
@@ -24,7 +25,7 @@ const getUrl = (keys, origUrl) => {
     if (url.indexOf(keyEq) === url.lastIndexOf(keyEq)) {
       const reg = getKeyReg(key);
       const exec = reg.exec(url);
-      return !exec ? undefined : decodeURIComponent(exec[3]);
+      return !exec ? defaultValue : decodeURIComponent(exec[3]);
     } else {
       const results = getUrlArray(key, url);
       return toStringForOneArray(results);
@@ -37,7 +38,7 @@ const getUrl = (keys, origUrl) => {
     });
     return results;
   } else {
-    return getOne(keys);
+    return keys ? getOne(keys) : defaultValue;
   }
 };
 

@@ -1,6 +1,6 @@
 {
   "name": "seturl",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Use regularexpression to replace url query.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -9,8 +9,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "get-safe-reg": "*",
     "get-object-value": "*",
+    "get-safe-reg": "*",
     "win-doc": "*"
   },
   "devDependencies": {

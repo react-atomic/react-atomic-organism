@@ -1,6 +1,6 @@
 {
   "name": "get-safe-reg",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "get safe regular-expression",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

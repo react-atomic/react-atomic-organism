@@ -14,6 +14,11 @@ describe("test get url", () => {
     expect(getUrl("abc")).to.equal("def");
   });
 
+  it("test get undefined", () => {
+    reset = gjsdom(null, {url: "http://xxx?abc=def"});
+    expect(getUrl()).to.be.undefined;
+  });
+
   it("test get empty string with &", () => {
     reset = gjsdom(null, {url: "http://xxx?foo=&"});
     expect(getUrl("foo")).to.equal("");
