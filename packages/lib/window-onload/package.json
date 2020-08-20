@@ -1,6 +1,6 @@
 {
   "name": "window-onload",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "detect onload with document readyState",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

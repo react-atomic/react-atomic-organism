@@ -2,28 +2,47 @@ import callfunc from "call-func";
 import { doc } from "win-doc";
 
 const complete = "complete";
+const interactive = "interactive";
 
 const windowOnLoad = (options) => {
-  const { doc: oDoc = doc(), timeout, interval = 10 } = options || {};
+  const {
+    doc: oDoc = doc(),
+    timeout,
+    interval = 10,
+    domReady,
+    domReadyDelay = 300,
+  } = options || {};
   let _timer;
-  const close = () => _timer && clearInterval(_timer);
+  let _domReadyTimer;
+  let _timeoutTimer;
+  const close = () => {
+    _timer && clearInterval(_timer);
+    _domReadyTimer && clearTimeout(_domReadyTimer);
+    _timeoutTimer && clearTimeout(_timeoutTimer);
+    return true;
+  };
   const process = (run) => {
-    close();
-    if (complete === oDoc.readyState) {
+    const doit = () => {
+      close();
       callfunc(run);
+    };
+    const readyState = oDoc.readyState;
+    close();
+    if (complete === readyState) {
+      doit();
+    } else if (domReady && interactive === readyState) {
+      _domReadyTimer = setTimeout(doit, domReadyDelay);
     } else {
-      const doit = () => {
-        close();
-        callfunc(run);
-      };
       _timer = setInterval(() => {
-        const readyState = oDoc.readyState;
-        if (complete === readyState || null == readyState) {
+        const intervalReadyState = oDoc.readyState;
+        if (complete === intervalReadyState || null == intervalReadyState) {
           doit();
+        } else if (domReady && interactive === intervalReadyState) {
+          _domReadyTimer = setTimeout(doit, domReadyDelay);
         }
       }, interval);
       if (!isNaN(timeout)) {
-        setTimeout(() => doit(), timeout);
+        _timeoutTimer = setTimeout(doit, timeout);
       }
     }
   };

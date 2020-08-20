@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import jsdom from 'jsdom-global';
+import jsdom from "jsdom-global";
 
 import windowOnLoad from "../index";
 
@@ -14,18 +14,31 @@ describe("Test window onload", () => {
     reset();
   });
 
-  it("basic test", done => {
+  it("basic test", (done) => {
     const load = windowOnLoad();
     load.process(() => {
       done();
     });
   });
 
-  it("test timeout", done => {
+  it("domReady test", (done) => {
+    Object.defineProperty(document, "readyState", {
+      get() {
+        return "interactive";
+      },
+    });
+    const load = windowOnLoad({ domReady: true });
+    load.process(() => {
+      expect(document.readyState).to.equal("interactive");
+      done();
+    });
+  });
+
+  it("test timeout", (done) => {
     Object.defineProperty(document, "readyState", {
       get() {
         return "loading";
-      }
+      },
     });
     const load = windowOnLoad({ timeout: 1000 });
     load.process(() => {
@@ -33,14 +46,16 @@ describe("Test window onload", () => {
     });
   });
 
-  it("test close", done => {
+  it("test close", (done) => {
     Object.defineProperty(document, "readyState", {
       get() {
         return "loading";
-      }
+      },
     });
     const load = windowOnLoad();
-    load.process(() => { });
-    setTimeout(()=>{load.close(), done()}, 100);
+    load.process(() => {});
+    setTimeout(() => {
+      load.close(), done();
+    }, 100);
   });
 });
