@@ -21,19 +21,6 @@ describe("Test window onload", () => {
     });
   });
 
-  it("domReady test", (done) => {
-    Object.defineProperty(document, "readyState", {
-      get() {
-        return "interactive";
-      },
-    });
-    const load = windowOnLoad({ domReady: true });
-    load.process(() => {
-      expect(document.readyState).to.equal("interactive");
-      done();
-    });
-  });
-
   it("test timeout", (done) => {
     Object.defineProperty(document, "readyState", {
       get() {

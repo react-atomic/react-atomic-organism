@@ -10,7 +10,7 @@ const windowOnLoad = (options) => {
     timeout,
     interval = 10,
     domReady,
-    domReadyDelay = 300,
+    domReadyDelay = 500,
   } = options || {};
   let _timer;
   let _domReadyTimer;
@@ -22,9 +22,13 @@ const windowOnLoad = (options) => {
     return true;
   };
   const process = (run) => {
+    let isRun = false;
     const doit = () => {
       close();
-      callfunc(run);
+      if (!isRun) {
+        isRun = true;
+        callfunc(run);
+      }
     };
     const readyState = oDoc.readyState;
     close();
@@ -37,7 +41,7 @@ const windowOnLoad = (options) => {
         const intervalReadyState = oDoc.readyState;
         if (complete === intervalReadyState || null == intervalReadyState) {
           doit();
-        } else if (domReady && interactive === intervalReadyState) {
+        } else if (domReady && interactive === intervalReadyState && !_domReadyTimer) {
           _domReadyTimer = setTimeout(doit, domReadyDelay);
         }
       }, interval);
