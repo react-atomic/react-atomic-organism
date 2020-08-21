@@ -23,30 +23,32 @@ const windowOnLoad = (options) => {
   };
   const process = (run) => {
     let isRun = false;
-    const doit = () => {
+    const doit = (state) => {
       close();
       if (!isRun) {
         isRun = true;
-        callfunc(run);
+        callfunc(run, [state]);
       }
     };
     const readyState = oDoc.readyState;
     close();
     if (complete === readyState) {
-      doit();
-    } else if (domReady && interactive === readyState) {
-      _domReadyTimer = setTimeout(doit, domReadyDelay);
+      doit(complete);
     } else {
       _timer = setInterval(() => {
         const intervalReadyState = oDoc.readyState;
         if (complete === intervalReadyState || null == intervalReadyState) {
-          doit();
-        } else if (domReady && interactive === intervalReadyState && !_domReadyTimer) {
-          _domReadyTimer = setTimeout(doit, domReadyDelay);
+          doit(complete);
+        } else if (
+          domReady &&
+          interactive === intervalReadyState &&
+          !_domReadyTimer
+        ) {
+          _domReadyTimer = setTimeout(doit, domReadyDelay, interactive);
         }
       }, interval);
       if (!isNaN(timeout)) {
-        _timeoutTimer = setTimeout(doit, timeout);
+        _timeoutTimer = setTimeout(doit, timeout, timeout);
       }
     }
   };

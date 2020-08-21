@@ -3,7 +3,6 @@ import jsdom from "jsdom-global";
 
 import windowOnLoad from "../index";
 
-
 describe("Test Dom Ready", () => {
   let reset;
 
@@ -31,10 +30,31 @@ describe("Test Dom Ready", () => {
       },
     });
     const load = windowOnLoad({ domReady: true });
-    load.process(() => {
-      expect(document.readyState).to.equal("interactive");
+    load.process((state) => {
+      expect(state).to.equal("interactive");
       done();
     });
   });
 
+  it("run with complete", (done) => {
+    let i = 0;
+    Object.defineProperty(document, "readyState", {
+      get() {
+        if (!i) {
+          i++;
+          return "loading";
+        } else if (i <= 2) {
+          i++;
+          return "interactive";
+        } else {
+          return "complete";
+        }
+      },
+    });
+    const load = windowOnLoad({ domReady: true });
+    load.process((state) => {
+      expect(state).to.equal("complete");
+      done();
+    });
+  });
 });
