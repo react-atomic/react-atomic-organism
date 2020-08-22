@@ -22,6 +22,7 @@ const windowOnLoad = (options) => {
     return true;
   };
   const process = (run) => {
+    close();
     let isRun = false;
     const doit = (state) => {
       close();
@@ -31,7 +32,6 @@ const windowOnLoad = (options) => {
       }
     };
     const readyState = oDoc.readyState;
-    close();
     if (complete === readyState) {
       doit(complete);
     } else {
