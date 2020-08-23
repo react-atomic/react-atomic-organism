@@ -1,11 +1,11 @@
-import {doc} from 'win-doc';
-import callfunc from 'call-func';
+import { doc } from "win-doc";
+import callfunc from "call-func";
 
 const keys = Object.keys;
 
-const inject = (base, isPrepend) => dNode => {
+const inject = (base, isPrepend) => (dNode) => {
   base = callfunc(base);
-  if (base && (base.nodeName === 'BODY' || base.nodeName === 'HEAD')) {
+  if (base && (base.nodeName === "BODY" || base.nodeName === "HEAD")) {
     if (isPrepend && base.firstChild) {
       base.insertBefore(dNode, base.firstChild);
       return;
@@ -37,21 +37,25 @@ const inject = (base, isPrepend) => dNode => {
   }
 };
 
-const create = tag => callback => attrs => {
+const create = (tag) => (callback) => (attrs) => {
   const d = doc();
   if (d.createElement) {
     const dNode = d.createElement(tag);
     if (attrs) {
-      keys(attrs).forEach(key => (dNode[key] = attrs[key]));
+      keys(attrs).forEach((key) => (dNode[key] = attrs[key]));
     }
     if (callback) {
+      let _isRun;
       dNode.onreadystatechange = dNode.onload = () => {
         const readyState = dNode.readyState;
         if (
           !readyState ||
-          -1 !== '|loaded|complete|'.indexOf('|' + readyState + '|')
+          -1 !== "|loaded|complete|".indexOf("|" + readyState + "|")
         ) {
-          setTimeout(callback);
+          if (!_isRun) {
+            _isRun = true;
+            setTimeout(callback);
+          }
         }
       };
     }
@@ -59,7 +63,7 @@ const create = tag => callback => attrs => {
   }
 };
 
-const remove = dNode => {
+const remove = (dNode) => {
   if (dNode) {
     try {
       dNode.parentNode.removeChild(dNode);
@@ -68,8 +72,8 @@ const remove = dNode => {
   }
 };
 
-const js = (base, isPrepend) => callback => (url, attrs) => {
-  const dNode = create('script')(callback)(attrs);
+const js = (base, isPrepend) => (callback) => (url, attrs) => {
+  const dNode = create("script")(callback)(attrs);
   if (base) {
     inject(base, isPrepend)(dNode);
   }
@@ -77,10 +81,10 @@ const js = (base, isPrepend) => callback => (url, attrs) => {
   return dNode;
 };
 
-const css = (base, isPrepend) => callback => (url, attrs) => {
-  const dNode = create('link')(callback)({
-    rel: 'stylesheet',
-    type: 'text/css',
+const css = (base, isPrepend) => (callback) => (url, attrs) => {
+  const dNode = create("link")(callback)({
+    rel: "stylesheet",
+    type: "text/css",
     ...attrs,
   });
   if (base) {
@@ -90,4 +94,4 @@ const css = (base, isPrepend) => callback => (url, attrs) => {
   return dNode;
 };
 
-export {js, css, inject, create, remove};
+export { js, css, inject, create, remove };
