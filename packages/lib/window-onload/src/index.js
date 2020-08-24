@@ -10,7 +10,7 @@ const windowOnLoad = (options) => {
     timeout,
     interval = 10,
     domReady,
-    domReadyDelay = 500,
+    domReadyDelay = 1000,
   } = options || {};
   let _timer;
   let _domReadyTimer;
