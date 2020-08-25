@@ -21,7 +21,7 @@ describe("Test Dom Ready", () => {
         if (!i) {
           i++;
           return "loading";
-        } else if (i <= 110) {
+        } else if (i <= 150) {
           i++;
           return "interactive";
         } else {
