@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
-import { Unsafe } from "react-atomic-molecule";
 import Iframe from "organism-react-iframe";
 import get from "get-object-value";
+import ratio from "ratio-js";
 
 const defaultAssets = {
   "html2canvas.min.js":
@@ -43,7 +43,10 @@ const HTMLToCanvas = (props) => {
         preview.current.appendChild(dCanvas);
         const doc = new jsPDF('', 'pt', 'a4');
         const image = dCanvas.toDataURL('image/jpeg', 1.0);
-        doc.addImage(image, 'JPEG', 0, 0, 595.28 / (dCanvas.width * dCanvas.height), 595.28);
+        // paper size
+        // https://web.archive.org/web/20200906132355/https://prawnpdf.org/docs/0.11.1/Prawn/Document/PageGeometry.html
+        const {newWH, newWHLoc} = ratio(dCanvas.width, dCanvas.height, 595.28, 841.89);
+        doc.addImage(image, 'JPEG', newWHLoc.x, newWHLoc.y, newWH.w, newWH.h);
         doc.save('test.pdf');
       });
     }, 1000);
