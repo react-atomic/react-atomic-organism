@@ -1,6 +1,6 @@
 {
   "name": "organism-react-animate",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "React Animate",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,11 +11,11 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "win-doc": "*",
     "call-func": "*",
     "get-object-value": "*",
     "keyframe-css": "*",
-    "react-atomic-molecule": "*"
+    "react-atomic-molecule": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

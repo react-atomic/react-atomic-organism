@@ -1,12 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import { reactStyle, SemanticUI } from "react-atomic-molecule";
 import getKeyframe from "keyframe-css";
-import {doc} from "win-doc"; 
+import { doc } from "win-doc";
 
 import AnimateGroup from "../organisms/AnimateGroup";
 
 const inject = {};
-const init = (key, ani, timeout) => {
+const injectDone = {};
+const injectCb = {};
+const init = (key, ani, timeout, callback) => {
+  if (!injectCb[ani]) {
+    injectCb[ani] = [];
+  }
+  if (!injectDone[ani]) {
+    injectCb[ani].push(callback);
+  } else {
+    callback();
+  }
   if (inject[key] || doc().__null) {
     return;
   }
@@ -14,14 +24,17 @@ const init = (key, ani, timeout) => {
     {
       animationName: [ani],
       animationDuration: [timeout * 1 + 30 + "ms"],
-      ...Styles.linear
+      ...Styles.linear,
     },
     "." + key,
     key
   );
 
   // Need locate after reactStyle, for inject latest style in getKeyframe function
-  getKeyframe(ani);
+  getKeyframe(ani, () => {
+    injectDone[ani] = true;
+    injectCb[ani].forEach((cb) => cb());
+  });
   inject[key] = true;
 };
 
@@ -43,18 +56,27 @@ const parseAniValue = (s) => {
     key,
     name,
     timeout,
-    delay
+    delay,
   };
 };
 
 const Animate = (props) => {
   const { appear, enter, leave, ...others } = props;
-  const [isLoad, setIsLoad] = useState();
+  const [isLoad, setIsLoad] = useState(false);
   const [aniConf, setAniConf] = useState({});
+  const done = useRef([]);
 
   useEffect(() => {
     const that = {};
     let data;
+    const isDone = (key) => () => {
+      done.current = done.current.filter((val) => val !== key);
+      if (done.current.length) {
+        return;
+      } else {
+        setTimeout(() => setIsLoad(true));
+      }
+    };
     if (appear) {
       data = parseAniValue(appear);
       that.appear = data.name;
@@ -62,7 +84,8 @@ const Animate = (props) => {
       that.appearTimeout = data.timeout;
       that.appearDelay = data.delay;
       that.appearClass = data.className;
-      init(that.appearKey, that.appear, that.appearTimeout);
+      done.current.push(appear);
+      init(that.appearKey, that.appear, that.appearTimeout, isDone(appear));
     }
     if (enter) {
       data = parseAniValue(enter);
@@ -71,7 +94,8 @@ const Animate = (props) => {
       that.enterTimeout = data.timeout;
       that.enterDelay = data.delay;
       that.enterClass = data.className;
-      init(that.enterKey, that.enter, that.enterTimeout);
+      done.current.push(enter);
+      init(that.enterKey, that.enter, that.enterTimeout, isDone(enter));
     }
     if (leave) {
       data = parseAniValue(leave);
@@ -80,10 +104,10 @@ const Animate = (props) => {
       that.leaveTimeout = data.timeout;
       that.leaveDelay = data.delay;
       that.leaveClass = data.className;
-      init(that.leaveKey, that.leave, that.leaveTimeout);
+      done.current.push(leave);
+      init(that.leaveKey, that.leave, that.leaveTimeout, isDone(leave));
     }
     setAniConf(that);
-    setTimeout(() => setIsLoad(true));
   }, [appear, enter, leave, isLoad]);
 
   return isLoad ? (
@@ -91,17 +115,17 @@ const Animate = (props) => {
       timeout={{
         appear: aniConf.appearTimeout,
         enter: aniConf.enterTimeout,
-        exit: aniConf.leaveTimeout
+        exit: aniConf.leaveTimeout,
       }}
       delay={{
         appear: aniConf.appearDelay,
         enter: aniConf.enterDelay,
-        exit: aniConf.leaveDelay
+        exit: aniConf.leaveDelay,
       }}
       classNames={{
         appear: aniConf.appearClass,
         enter: aniConf.enterClass,
-        exit: aniConf.leaveClass
+        exit: aniConf.leaveClass,
       }}
       appear={!!appear}
       enter={!!enter}
@@ -115,7 +139,7 @@ Animate.defaultProps = {
   component: SemanticUI,
   appear: null,
   enter: null,
-  leave: null
+  leave: null,
 };
 
 export default Animate;
@@ -123,6 +147,6 @@ export default Animate;
 const Styles = {
   linear: {
     animationIterationCount: [1],
-    animationTimingFunction: ["linear"]
-  }
+    animationTimingFunction: ["linear"],
+  },
 };
