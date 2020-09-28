@@ -31,9 +31,9 @@ class Zoom extends PureComponent {
 
   setXYK({ x, y, k }) {
     const { x: x1, y: y1, k: k1 } = this.getXYK();
-    x = x ?? x1;
-    y = y ?? y1;
-    k = k ?? k1;
+    x = x ?? x1 ?? 0;
+    y = y ?? y1 ?? 0;
+    k = k ?? k1 ?? 1;
     return this.setTransform(toZoomTransform({ x, y, k }));
   }
 
