@@ -1,5 +1,5 @@
 // https://github.com/d3/d3/blob/master/index.js
-import * as d3 from 'd3';
+import * as d3 from "d3";
 const {
   curveCatmullRom: d3_curveCatmullRom,
   curveBasis: d3_curveBasis,
@@ -18,10 +18,11 @@ const {
   select: d3_select,
   zoom: d3_zoom,
   zoomTransform: d3_zoomTransform,
+  zoomIdentity: d3_zoomIdentity,
 } = d3;
-import memoizeOne from 'memoize-one';
-import get from 'get-object-value';
-import arrayMinMax from 'array.min.max';
+import memoizeOne from "memoize-one";
+import get from "get-object-value";
+import arrayMinMax from "array.min.max";
 
 const keys = Object.keys;
 const isArray = Array.isArray;
@@ -30,8 +31,8 @@ const isArray = Array.isArray;
 const getCurveType = (curve, def) =>
   curve && curve.type ? curve.type : def || d3_curveCatmullRom.alpha(0.5);
 
-const defaultXLocator = d => (d || {}).x;
-const defaultYLocator = d => (d || {}).y;
+const defaultXLocator = (d) => (d || {}).x;
+const defaultYLocator = (d) => (d || {}).y;
 
 const getPointsCenter = (points, xLocator, yLocator) => {
   xLocator = xLocator || defaultXLocator;
@@ -50,9 +51,7 @@ const _line = (start, end, curve, xLocator, yLocator) => {
   yLocator = yLocator || defaultYLocator;
   let c;
   let points = [start, end];
-  let l = d3_line()
-    .x(xLocator)
-    .y(yLocator);
+  let l = d3_line().x(xLocator).y(yLocator);
   if (curve) {
     l = l.curve(getCurveType(curve, d3_curveBasis));
     c = curve.center || {
@@ -76,14 +75,14 @@ const curve = (data, xLocator, yLocator, xScale, yScale) => {
   yLocator = yLocator || defaultYLocator;
   const l = d3_line()
     .curve(getCurveType())
-    .x(d => {
+    .x((d) => {
       let num = xScale.scaler(xLocator(d));
       if (xScale.length) {
         num += xScale.length;
       }
       return num;
     })
-    .y(d => {
+    .y((d) => {
       let num = yScale.scaler(yLocator(d));
       if (yScale.length) {
         num += yScale.length;
@@ -96,15 +95,12 @@ const curve = (data, xLocator, yLocator, xScale, yScale) => {
 const _hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
   xLocator = xLocator || defaultXLocator;
   if (!y0Locator) {
-    y0Locator = d => d.y0;
+    y0Locator = (d) => d.y0;
   }
   if (!y1Locator) {
-    y1Locator = d => d.y1;
+    y1Locator = (d) => d.y1;
   }
-  let series = d3_area()
-    .x(xLocator)
-    .y0(y0Locator)
-    .y1(y1Locator);
+  let series = d3_area().x(xLocator).y0(y0Locator).y1(y1Locator);
   if (curve) {
     series = series.curve(getCurveType(curve, d3_curveMonotoneX));
   }
@@ -115,7 +111,7 @@ const hArea = memoizeOne(_hArea);
 // https://github.com/d3/d3-shape/blob/master/README.md#pies
 const pie = (data, inner, outer, valueLocator) => {
   if (!valueLocator) {
-    valueLocator = d => d.value;
+    valueLocator = (d) => d.value;
   }
   let p = d3_pie().value(valueLocator)(data);
   return arc(p, inner, outer);
@@ -139,7 +135,7 @@ const arc = (data, inner, outer, cornerRadius) => {
     outerRadius: outer,
     innerRadius: inner,
   };
-  const items = data.map(item => {
+  const items = data.map((item) => {
     const params = {
       ...item,
       ...radius,
@@ -173,8 +169,8 @@ const stack = (data, keyList) => {
 // scheme
 // https://github.com/d3/d3-scale/blob/master/README.md#scaleOrdinal
 // https://github.com/d3/d3-scale-chromatic
-const colors = scheme => {
-  const defaultScheme = 'schemeCategory10';
+const colors = (scheme) => {
+  const defaultScheme = "schemeCategory10";
   if (!scheme) {
     scheme = defaultScheme;
   }
@@ -185,7 +181,7 @@ const colors = scheme => {
 // https://github.com/d3/d3-scale/blob/master/README.md#band-scales
 const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
   if (!labelLocator) {
-    labelLocator = d => d.label;
+    labelLocator = (d) => d.label;
   }
   let list = {};
   /**
@@ -196,11 +192,11 @@ const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
     .paddingInner(0.05)
     .align(0.1)
     .domain(
-      data.map(d => {
+      data.map((d) => {
         const key = labelLocator(d);
         list[key] = null;
         return key;
-      }),
+      })
     );
   const length = band.bandwidth();
   const halfLength = Math.round(length / 2);
@@ -217,19 +213,19 @@ const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
     listKeys = newKeys;
     list = {};
   }
-  listKeys.forEach(k => {
+  listKeys.forEach((k) => {
     const start = band(k);
     list[k] = {
       start: start,
       value: start + halfLength,
     };
   });
-  band.invertIndex = v => {
+  band.invertIndex = (v) => {
     const step = band.step();
     const index = Math.floor(v / step);
     return index;
   };
-  band.invert = v => allKeys[band.invertIndex(v)];
+  band.invert = (v) => allKeys[band.invertIndex(v)];
   return {
     scaler: band,
     list: list,
@@ -250,7 +246,7 @@ const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
     .nice();
   const ticks = scaler.ticks(tickNum);
   const list = {};
-  ticks.forEach(k => (list[k] = {value: scaler(k)}));
+  ticks.forEach((k) => (list[k] = { value: scaler(k) }));
   return {
     scaler,
     list,
@@ -260,7 +256,7 @@ const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
 /**
  * Events, DnD, Zoom
  */
-const d3DnD = ({el, container, touchable, start, end, drag, subject}) => {
+const d3DnD = ({ el, container, touchable, start, end, drag, subject }) => {
   let dd = d3_drag();
   if (container) {
     dd = dd.container(container);
@@ -269,13 +265,13 @@ const d3DnD = ({el, container, touchable, start, end, drag, subject}) => {
     dd = dd.touchable(touchable);
   }
   if (start) {
-    dd = dd.on('start', start);
+    dd = dd.on("start", start);
   }
   if (end) {
-    dd = dd.on('end', end);
+    dd = dd.on("end", end);
   }
   if (drag) {
-    dd = dd.on('drag', drag);
+    dd = dd.on("drag", drag);
   }
   if (subject) {
     dd = dd.subject(subject);
@@ -283,19 +279,22 @@ const d3DnD = ({el, container, touchable, start, end, drag, subject}) => {
   d3Select(el).call(dd);
 };
 
-const d3Zoom = ({el, scaleExtent, callback}) => {
+const d3Zoom = ({ el, scaleExtent, callback }) => {
   const zoom = d3_zoom()
     .scaleExtent(scaleExtent)
-    .on('zoom', () => callback(d3Event()));
+    .on("zoom", () => callback(d3Event()));
   d3Select(el).call(zoom);
   return zoom;
 };
 
-const getZoom = el => d3_zoomTransform(d3Select(el).node());
+const getZoom = (el) => d3_zoomTransform(d3Select(el).node());
+
+const toZoomTransform = ({ x, y, k }) =>
+  d3_zoomIdentity.translate(x, y).scale(k);
 
 const d3Event = () => d3.event;
 
-const d3Select = el => d3_select(el);
+const d3Select = (el) => d3_select(el);
 
 export {
   line,
@@ -313,4 +312,5 @@ export {
   d3Event,
   d3Select,
   getPointsCenter,
+  toZoomTransform,
 };
