@@ -18,27 +18,27 @@ import ConnectController from "../../src/ConnectController";
 
 const keys = Object.keys;
 
-const HTMLGraph = props => <SemanticUI {...props} className="html-graph" />;
+const HTMLGraph = (props) => <SemanticUI {...props} className="html-graph" />;
 
 class UMLGraph extends Component {
   static defaultProps = {
-    boxGroupsLocator: d => (d || {}).tables || [],
+    boxGroupsLocator: (d) => (d || {}).tables || [],
     boxGroupXLocator: () => {},
     boxGroupYLocator: () => {},
-    boxsLocator: d => (d || {}).cols || [],
-    uniqueBoxGroupNameLocator: d => d,
-    boxNameLocator: d => ({ name: d }),
-    connsLocator: d => d,
-    connFromBoxGroupLocator: d => d,
-    connToBoxGroupLocator: d => d,
-    connFromBoxLocator: d => d,
-    connToBoxLocator: d => d,
+    boxsLocator: (d) => (d || {}).cols || [],
+    uniqueBoxGroupNameLocator: (d) => d,
+    boxNameLocator: (d) => ({ name: d }),
+    connsLocator: (d) => d,
+    connFromBoxGroupLocator: (d) => d,
+    connToBoxGroupLocator: (d) => d,
+    connFromBoxLocator: (d) => d,
+    connToBoxLocator: (d) => d,
     arrowHeadComponent: ArrowHead,
-    autoArrange: true
+    autoArrange: true,
   };
 
   state = {
-    lines: {}
+    lines: {},
   };
 
   boxGroupNameInvertMap = {};
@@ -84,7 +84,7 @@ class UMLGraph extends Component {
     const name = obj.getName();
     this.boxGroupNameInvertMap[name] = id;
     this.boxGroupMap[id] = obj;
-    keys(get(this.boxQueue[id], null, {})).forEach(boxName => {
+    keys(get(this.boxQueue[id], null, {})).forEach((boxName) => {
       const boxObj = this.boxQueue[id][boxName];
       const isAdd = this.addBox(boxObj);
     });
@@ -203,15 +203,15 @@ class UMLGraph extends Component {
     callfunc(onEdit, [name, payload]);
   };
 
-  del = name => {
+  del = (name) => {
     const { onDel } = this.props;
     callfunc(onDel, [name]);
   };
 
-  insideHtml = el => this.html && this.html.contains(el);
-  insideVector = el => this.vector && this.vector.contains(el);
+  insideHtml = (el) => this.html && this.html.contains(el);
+  insideVector = (el) => this.vector && this.vector.contains(el);
 
-  isOnGraph = el => {
+  isOnGraph = (el) => {
     const umlRect = getOffset(this.zoomEl);
     if (el) {
       const elRect = getOffset(el);
@@ -249,14 +249,14 @@ class UMLGraph extends Component {
       connFromBoxLocator,
       connToBoxLocator,
       boxGroupsLocator,
-      onConnAdd
+      onConnAdd,
     } = this.props;
 
     const conns = connsLocator(data);
     if (!conns || !conns.length) {
       return;
     }
-    conns.forEach(conn => {
+    conns.forEach((conn) => {
       const fromBoxGroupName = connFromBoxGroupLocator(conn);
       const fromBoxName = connFromBoxLocator(conn);
       const toBoxGroupName = connToBoxGroupLocator(conn);
@@ -267,7 +267,7 @@ class UMLGraph extends Component {
           fromBoxName,
           toBoxGroupName,
           toBoxName,
-          conn
+          conn,
         ]);
         return;
       }
@@ -293,34 +293,35 @@ class UMLGraph extends Component {
     return oConn.getUniqueFromTo();
   }
 
-  handleBoxGroupDragEnd = e => {
+  handleBoxGroupDragEnd = (e) => {
     const { onDragEnd } = this.props;
     callfunc(onDragEnd, [e]);
   };
 
-  handleZoomRef = o => {
+  handleZoomRef = (o) => {
     if (o) {
       this.zoom = o;
     }
   };
 
-  handleZoom = e => {
+  handleZoom = (e) => {
+    const { onZoom } = this.props;
     const { transform: oTransform } = e;
-    this.setState({ oTransform });
+    this.setState({ oTransform }, () => callfunc(onZoom, [e]));
   };
 
-  handleLineEdit = payload => {
+  handleLineEdit = (payload) => {
     callfunc(this.props.onLineEdit, [payload]);
   };
 
-  handleLineDel = payload => {
+  handleLineDel = (payload) => {
     const isContinue = callfunc(this.props.onLineDel, [payload]);
     if (isContinue !== false) {
       this.oConn.deleteLine(payload.lineId);
     }
   };
 
-  handleConnAdd = payload => {
+  handleConnAdd = (payload) => {
     const { onConnAdd } = this.props;
     const from = get(payload, ["from"]).getBoxGroupName();
     const to = get(payload, ["to"]).getBoxGroupName();
@@ -330,7 +331,7 @@ class UMLGraph extends Component {
     callfunc(onConnAdd, [payload]);
   };
 
-  handleConnWillAdd = payload => {
+  handleConnWillAdd = (payload) => {
     const { onConnWillAdd } = this.props;
     let isContinue = true;
     if (onConnWillAdd) {
@@ -344,11 +345,11 @@ class UMLGraph extends Component {
     return isContinue;
   };
 
-  handleAutoArrange = conns => {
-    import("../../src/dagre").then(dagreAutoLayout => {
+  handleAutoArrange = (conns) => {
+    import("../../src/dagre").then((dagreAutoLayout) => {
       dagreAutoLayout = getDefault(dagreAutoLayout);
       const newXY = dagreAutoLayout({ ...this.boxGroupMap }, conns);
-      get(keys(newXY), null, []).forEach(key => {
+      get(keys(newXY), null, []).forEach((key) => {
         const oBoxGroup = this.getBoxGroup(key);
         oBoxGroup.move(newXY[key].x, newXY[key].y);
       });
@@ -400,6 +401,7 @@ class UMLGraph extends Component {
       onLoad,
       onGetBoxGroupComponent,
       onGetBoxComponent,
+      onZoom,
       ...props
     } = this.props;
     const { lines, oTransform } = this.state;
@@ -409,9 +411,9 @@ class UMLGraph extends Component {
       <SemanticUI
         className="d3-uml"
         style={Styles.container}
-        refCb={el => (this.zoomEl = el)}
+        refCb={(el) => (this.zoomEl = el)}
       >
-        <Graph refCb={el => (this.vector = el)} {...props} style={Styles.svg}>
+        <Graph refCb={(el) => (this.vector = el)} {...props} style={Styles.svg}>
           <Zoom
             onGetEl={() => this.zoomEl}
             ref={this.handleZoomRef}
@@ -421,7 +423,7 @@ class UMLGraph extends Component {
             {(() => {
               const arrLineEl = [];
               let hoverLineEl;
-              keys(lines).forEach(key => {
+              keys(lines).forEach((key) => {
                 const { hover, ...lineProps } = lines[key];
                 const lineEl = (
                   <Line {...lineProps} id={key} key={key} host={this} />
@@ -441,13 +443,13 @@ class UMLGraph extends Component {
         </Graph>
         <HTMLGraph
           style={{ ...Styles.htmlGraph, transform }}
-          refCb={el => (this.html = el)}
+          refCb={(el) => (this.html = el)}
         >
-          {(boxGroupsLocator(data) || []).map(item => {
+          {(boxGroupsLocator(data) || []).map((item) => {
             const bgName = uniqueBoxGroupNameLocator(item);
             return !bgName.name ? null : (
               <BoxGroup
-                ref={el => this.addBoxGroup(el)}
+                ref={(el) => this.addBoxGroup(el)}
                 host={this}
                 key={"box-group-" + bgName.name}
                 onEdit={this.edit}
@@ -482,7 +484,7 @@ const Styles = {
     width: "100%",
     height: "100%",
     minHeight: 100,
-    position: "relative"
+    position: "relative",
   },
   svg: {
     cursor: "grabbing",
@@ -491,12 +493,12 @@ const Styles = {
     left: 0,
     width: "100%",
     height: "100%",
-    overflow: "visible"
+    overflow: "visible",
   },
   htmlGraph: {
     pointerEvents: "none",
     transformOrigin: "0 0",
     width: "100%",
-    height: "100%"
-  }
+    height: "100%",
+  },
 };
