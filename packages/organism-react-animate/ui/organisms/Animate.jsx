@@ -107,8 +107,11 @@ const Animate = (props) => {
       done.current.push(leave);
       init(that.leaveKey, that.leave, that.leaveTimeout, isDone(leave));
     }
+    if (!appear && !enter && !leave) {
+      setIsLoad(true);
+    }
     setAniConf(that);
-  }, [appear, enter, leave, isLoad]);
+  }, [appear, enter, leave]);
 
   return isLoad ? (
     <AnimateGroup
