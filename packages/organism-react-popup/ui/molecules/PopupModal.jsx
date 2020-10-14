@@ -1,17 +1,23 @@
-import React, {isValidElement} from 'react';
-import {build, reactStyle, Dimmer, SemanticUI} from 'react-atomic-molecule';
-import Animate from 'organism-react-animate';
-import getScrollInfo from 'get-scroll-info';
-import getOffset from 'getoffset';
-import get from 'get-object-value';
-import arrayMerge from 'array.merge';
-import {removeClass, hasClass, mixClass} from 'class-lib';
-import callfunc from 'call-func';
-import {win, doc} from 'win-doc';
-import {UNDEFINED} from 'reshow-constant';
+import React, { isValidElement } from "react";
+import { build, reactStyle, Dimmer, SemanticUI } from "react-atomic-molecule";
+import Animate from "organism-react-animate";
+import getScrollInfo from "get-scroll-info";
+import getOffset from "getoffset";
+import get from "get-object-value";
+import arrayMerge from "array.merge";
+import { removeClass, hasClass, mixClass } from "class-lib";
+import callfunc from "call-func";
+import { win, doc } from "win-doc";
+import { UNDEFINED } from "reshow-constant";
 
-import PopupOverlay from '../molecules/PopupOverlay';
-import {popupDispatch} from '../../src/popupDispatcher';
+import PopupOverlay from "../molecules/PopupOverlay";
+import { popupDispatch } from "../../src/popupDispatcher";
+
+const observerConfig = {
+  attributes: true,
+  childList: true,
+  subtree: true,
+};
 
 /**
  * 1. if you need trace show: true
@@ -25,25 +31,26 @@ class PopupModal extends PopupOverlay {
     mask: true,
     maskScroll: false,
     scrolling: false,
-    name: 'modal',
+    name: "modal",
     disableClose: false,
   };
 
   _timer = null;
   _mount = false;
+  _observer = null;
 
   handleClick = () => this.close();
 
-  handleModalRefCb = el => (this.el = el);
+  handleModalRefCb = (el) => (this.el = el);
 
-  handleModalClick = cb => e => {
+  handleModalClick = (cb) => (e) => {
     e.stopPropagation();
     callfunc(cb, [e]);
   };
 
   close() {
     popupDispatch({
-      type: 'dom/closeOne',
+      type: "dom/closeOne",
       params: {
         popup: this,
       },
@@ -57,7 +64,7 @@ class PopupModal extends PopupOverlay {
         if (domInfo) {
           const domHalfHeight = domInfo.h / 2;
           let marginTop = Math.floor(1 - domHalfHeight);
-          const {scrollNodeHeight} = getScrollInfo();
+          const { scrollNodeHeight } = getScrollInfo();
           let maskStyle = {};
           if (domInfo.h * 3 > scrollNodeHeight) {
             marginTop = 0;
@@ -71,11 +78,11 @@ class PopupModal extends PopupOverlay {
           } = this.state;
           if (
             this._mount &&
-            (get(orgModalStyle, ['marginTop']) !== marginTop ||
-              get(orgMaskStyle, ['justifyContent']) !==
+            (get(orgModalStyle, ["marginTop"]) !== marginTop ||
+              get(orgMaskStyle, ["justifyContent"]) !==
                 maskStyle.justifyContent)
           ) {
-            this.setState(({modalStyle}) => {
+            this.setState(({ modalStyle }) => {
               modalStyle = {
                 ...modalStyle,
                 marginTop,
@@ -91,34 +98,40 @@ class PopupModal extends PopupOverlay {
     });
   };
 
+  resetBodyClassName() {
+    const { toPool } = this.props;
+    const body = doc().body;
+    if (!toPool && body) {
+      let bodyClass = body.className;
+      bodyClass = removeClass(bodyClass, "dimmable");
+      bodyClass = removeClass(bodyClass, "scrolling");
+      bodyClass = removeClass(bodyClass, "dimmed");
+      body.className = bodyClass;
+    }
+  }
+
   lockScreen() {
     this._locked = true;
-    const {modal, toPool} = this.props;
+    const { modal, toPool } = this.props;
     const oDoc = doc();
-    win().addEventListener('resize', this.reCalculate);
+    win().addEventListener("resize", this.reCalculate);
     const body = oDoc.body;
     const addBodyClass = mixClass(
       body.className,
       {
         scrolling: this.props.maskScroll,
       },
-      'dimmable',
-      'dimmed',
+      "dimmable",
+      "dimmed"
     );
     if (!toPool) {
       body.className = addBodyClass;
     }
-  }
-
-  resetBodyClassName() {
-    const {toPool} = this.props;
-    const body = doc().body;
-    if (!toPool && body) {
-      let bodyClass = body.className;
-      bodyClass = removeClass(bodyClass, 'dimmable');
-      bodyClass = removeClass(bodyClass, 'scrolling');
-      bodyClass = removeClass(bodyClass, 'dimmed');
-      body.className = bodyClass;
+    setTimeout(this.reCalculate, 300);
+    const MutationObserver = win().MutationObserver;
+    if (MutationObserver && this.el && !this._observer) {
+      this._observer = new MutationObserver(this.reCalculate);
+      this._observer.observe(this.el, observerConfig);
     }
   }
 
@@ -132,8 +145,8 @@ class PopupModal extends PopupOverlay {
     /**
      * closeCallback will deprecate
      */
-    if (hasClass(get(doc(), ['body', 'className']), 'dimmed')) {
-      const {closeCallback, onClose} = this.props;
+    if (hasClass(get(doc(), ["body", "className"]), "dimmed")) {
+      const { closeCallback, onClose } = this.props;
       //settimeout is for fixed cant setstate during render error
       setTimeout(() => callfunc(onClose || closeCallback));
     }
@@ -141,16 +154,15 @@ class PopupModal extends PopupOverlay {
     // do detach (need put after onClose else will make modal can't appear again)
     clearTimeout(this._timer);
     this.resetBodyClassName();
-    win().removeEventListener('resize', this.reCalculate);
+    win().removeEventListener("resize", this.reCalculate);
+    if (this._observer) {
+      this._observer.disconnect();
+      this._observer = null;
+    }
   }
 
   componentDidMount() {
     this._mount = true;
-    setTimeout(()=>this.reCalculate(), 300);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    setTimeout(()=>this.reCalculate(), 300);
   }
 
   componentWillUnmount() {
@@ -192,7 +204,7 @@ class PopupModal extends PopupOverlay {
     } = this.props;
     let containerClick = null;
     let thisCloseEl;
-    let content = '';
+    let content = "";
     if (show) {
       this.lockScreen();
       if (!closeEl) {
@@ -202,10 +214,10 @@ class PopupModal extends PopupOverlay {
       } else {
         thisCloseEl = build(closeEl)({
           onClick: this.handleClick,
-          key: 'close',
+          key: "close",
           style: {
             zIndex: 1001,
-            position: 'fixed',
+            position: "fixed",
             ...closeEl.props.style,
           },
         });
@@ -216,14 +228,14 @@ class PopupModal extends PopupOverlay {
           <Dimmer
             {...others}
             isModal="true"
-            className={mixClass({scrolling: scrolling}, modalClassName)}
+            className={mixClass({ scrolling: scrolling }, modalClassName)}
             show={show}
             contentStyle={contentStyle}
           />
         );
       }
       if (isValidElement(thisModal)) {
-        const orgModalOnClick = get(thisModal, ['props', 'onClick']);
+        const orgModalOnClick = get(thisModal, ["props", "onClick"]);
         thisModal = build(thisModal)({
           refCb: this.handleModalRefCb,
           onClick: this.handleModalClick(orgModalOnClick),
@@ -234,28 +246,29 @@ class PopupModal extends PopupOverlay {
               ...stateModalStyle,
             },
             false,
-            false,
+            false
           ),
         });
       }
       if (mask) {
         const thisStyles = arrayMerge(
           reactStyle(
-            {...Styles.background, ...style, ...stateMaskStyle},
+            { ...Styles.background, ...style, ...stateMaskStyle },
             false,
-            false,
+            false
           ),
-          styles,
+          styles
         );
         content = (
           <Dimmer
-            className={mixClass('page modals', contentClassName)}
+            className={mixClass("page modals", contentClassName)}
             show={show}
             center={false}
             styles={thisStyles}
             styleOrder={1}
             onClick={containerClick}
-            key="modals">
+            key="modals"
+          >
             {thisModal}
           </Dimmer>
         );
@@ -268,7 +281,7 @@ class PopupModal extends PopupOverlay {
 
     return (
       <SemanticUI ui={false} className={className} name={name} id={id}>
-        <Animate {...{appear, enter, leave}}>{content}</Animate>
+        <Animate {...{ appear, enter, leave }}>{content}</Animate>
         {thisCloseEl}
       </SemanticUI>
     );
@@ -279,18 +292,18 @@ export default PopupModal;
 
 const Styles = {
   flexAlignTop: {
-    justifyContent: 'flex-start',
-    WebkitBoxPack: 'start',
-    MsFlexPack: 'start',
+    justifyContent: "flex-start",
+    WebkitBoxPack: "start",
+    MsFlexPack: "start",
   },
   background: {
-    overflow: 'auto',
-    boxSizing: 'border-box',
+    overflow: "auto",
+    boxSizing: "border-box",
   },
   modal: {
-    boxSizing: 'border-box',
-    right: 'auto',
-    bottom: 'auto',
-    transition: ['all 500ms ease'],
+    boxSizing: "border-box",
+    right: "auto",
+    bottom: "auto",
+    transition: ["all 500ms ease"],
   },
 };
