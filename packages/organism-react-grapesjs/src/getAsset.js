@@ -2,13 +2,11 @@ import get from "get-object-value";
 
 const shareAssets = {
   "grapes.min.css":
-    "https://cdn.jsdelivr.net/npm/grapesjs@0.16.18/dist/css/grapes.min.css",
+    "https://cdn.jsdelivr.net/npm/grapesjs@0.16.22/dist/css/grapes.min.css",
   "grapes.min.js":
-    "https://cdn.jsdelivr.net/npm/grapesjs@0.16.18/dist/grapes.min.js",
+    "https://cdn.jsdelivr.net/npm/grapesjs@0.16.22/dist/grapes.min.js",
   // ckeditor can not use ckeditor.min.js
-  "ckeditor.js": "https://cdn.jsdelivr.net/npm/ckeditor4@4.14.1/ckeditor.js",
-  "grapesjs-plugin-ckeditor.min.js":
-    "https://cdn.jsdelivr.net/npm/grapesjs-plugin-ckeditor@0.0.9/dist/grapesjs-plugin-ckeditor.min.js"
+  "ckeditor.js": "https://cdn.jsdelivr.net/npm/ckeditor4@4.15.0/ckeditor.js",
 };
 
 const getAsset = (fileName, props, defaultAssets) => {

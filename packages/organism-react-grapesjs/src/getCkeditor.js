@@ -1,25 +1,32 @@
 import callfunc from "call-func";
-import fixHtml from './fixHtml';
+import fixHtml from "./fixHtml";
 
-const initCkeditorMergeTags = ({mergeTags, CKEDITOR, extraPlugins, toolbar, i18nMergeTags}) => {
+const initCkeditorMergeTags = ({
+  mergeTags,
+  CKEDITOR,
+  extraPlugins,
+  toolbar,
+  i18nMergeTags,
+}) => {
   let isRun = 0;
-  const buildList = function() {
+  const buildList = function () {
     // !!important!! should not use arrow function
     this.startGroup(i18nMergeTags);
     const tags = callfunc(mergeTags);
     if (tags && tags.forEach) {
       // https://docs-old.ckeditor.com/ckeditor_api/symbols/src/plugins_richcombo_plugin.js.html
       // add : function( value, html, text )
-      tags.forEach(m => this.add(m[0], m[1], m[2]));
+      tags.forEach((m) => this.add(m[0], m[1], m[2]));
     }
     if (isRun) {
       this._.committed = 0;
       this.commit();
     }
   };
+  CKEDITOR.addCss(".cke_editable {padding: 3px}");
   CKEDITOR.plugins.add("strinsert", {
     requires: ["richcombo"],
-    init: editor => {
+    init: (editor) => {
       editor.ui.addRichCombo("strinsert", {
         label: i18nMergeTags,
         title: i18nMergeTags,
@@ -28,10 +35,10 @@ const initCkeditorMergeTags = ({mergeTags, CKEDITOR, extraPlugins, toolbar, i18n
         multiSelect: false,
         panel: {
           css: [editor.config.contentsCss, CKEDITOR.skin.getPath("editor")],
-          voiceLabel: editor.lang.panelVoiceLabel
+          voiceLabel: editor.lang.panelVoiceLabel,
         },
 
-        init: function() {
+        init: function () {
           editor.on("panelHide", () => {
             this._.list.element.$.innerHTML = "";
             this._.list._.items = {};
@@ -40,28 +47,34 @@ const initCkeditorMergeTags = ({mergeTags, CKEDITOR, extraPlugins, toolbar, i18n
           buildList.call(this);
         },
 
-        onOpen: function() {
+        onOpen: function () {
           if (isRun) {
             buildList.call(this);
           }
           isRun = 1;
         },
 
-        onClick: value => {
+        onClick: (value) => {
           editor.focus();
           editor.fire("saveSnapshot");
           editor.insertHtml(value);
           editor.fire("saveSnapshot");
-        }
+        },
       });
-    }
+    },
   });
   extraPlugins += ",strinsert";
   toolbar.push({ name: i18nMergeTags, items: ["strinsert"] });
   return extraPlugins;
 };
 
-const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags, options }) => {
+const getCkeditorOption = ({
+  CKEDITOR,
+  font,
+  mergeTags,
+  i18nMergeTags,
+  options,
+}) => {
   CKEDITOR.dtd.$editable.span = 1;
   CKEDITOR.dtd.$editable.a = 1;
   CKEDITOR.dtd.$editable.strong = 1;
@@ -73,7 +86,7 @@ const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags, options }
     ["Bold", "Italic", "Underline", "Strike"],
     { name: "paragraph", items: ["NumberedList", "BulletedList"] },
     { name: "links", items: ["Link", "Unlink"] },
-    { name: "colors", items: ["TextColor", "BGColor"] }
+    { name: "colors", items: ["TextColor", "BGColor"] },
   ];
   if (mergeTags) {
     extraPlugins = initCkeditorMergeTags({
@@ -81,30 +94,44 @@ const getCkeditorOption = ({ CKEDITOR, font, mergeTags, i18nMergeTags, options }
       mergeTags,
       CKEDITOR,
       extraPlugins,
-      toolbar
+      toolbar,
     });
   }
+
   return {
     "gjs-plugin-ckeditor": {
       position: "center",
       // https://ckeditor.com/docs/ckeditor4/latest/api/CKEDITOR_config.html
       options: {
         on: {
-          paste: e => {
-            e.data.dataValue = fixHtml(e.data.dataValue);
-          }
+          paste: (e) => {
+            const orig = CKEDITOR.SELECTION_NONE;
+            CKEDITOR.SELECTION_NONE = 2;
+            e.data.dataValue = fixHtml(e.data.dataValue, true);
+            setTimeout(() => {
+              CKEDITOR.SELECTION_NONE = orig;
+            });
+          },
+          key: (e) => {
+            const { data = {}, editor } = e || {};
+            if (data.keyCode === 13 || data.keyCode === 2228237 || data.keyCode === 8) {
+              throw 'ckeditor-enter-workaround';
+            }
+          },
         },
-        removePlugins: 'magicline',
+        removePlugins: "magicline",
         startupFocus: true,
         extraAllowedContent: "*(*);*{*}", // Allows any class and any inline style
         allowedContent: true, // Disable auto-formatting, class removing, etc.
-        enterMode: CKEDITOR.ENTER_BR,
+        enterMode: CKEDITOR.ENTER_P,
+        shiftEnterMode: CKEDITOR.ENTER_P,
+        disableAutoInline: true,
         autoParagraph: false,
         ...options,
         extraPlugins,
-        toolbar
-      }
-    }
+        toolbar,
+      },
+    },
   };
 };
 

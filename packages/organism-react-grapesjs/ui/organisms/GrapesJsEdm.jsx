@@ -11,6 +11,7 @@ import fixHtml, {setSanitizeHtml} from "../../src/fixHtml";
 import getAsset from '../../src/getAsset';
 import getInlinedHtmlCss from '../../src/getInlinedHtmlCss';
 import {getCkeditorOption} from '../../src/getCkeditor';
+import plugCkeditor from "../../src/plugCkeditor";
 
 const defaultAssets = {
   'sanitize-html': 'https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js',
@@ -134,6 +135,7 @@ class GrapesJsEdm extends Component {
     const plugins = ['gjs-preset-newsletter', 'gjs-plugin-ckeditor'];
 
     const CKEDITOR = this.iframeWindow.CKEDITOR;
+    plugCkeditor({grapesjs: this.iframeWindow.grapesjs, CKEDITOR});
 
     const initGrapesJS = {
       noticeOnUnload: false,
@@ -218,9 +220,6 @@ class GrapesJsEdm extends Component {
       <script async src="${this.getAsset('sanitize-html')}"></script>
       <script src="${this.getAsset('grapes.min.js')}"></script>
       <script src="${this.getAsset('ckeditor.js')}"></script>
-      <script src="${this.getAsset(
-        'grapesjs-plugin-ckeditor.min.js',
-      )}"></script>
       <script src="${this.getAsset(
         'grapesjs-preset-newsletter.min.js',
       )}"></script>

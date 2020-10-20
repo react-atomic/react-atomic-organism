@@ -5,18 +5,35 @@ develop(){
     npm run build
 }
 
-server(){
-    port=${1-3000}
-    echo "Start server";
-    node_modules/.bin/ws -p $port -v 
+killBy(){
+    ps auxwwww | grep $1 | grep -v grep | awk '{print $2}' | xargs -I{} kill -9 {}
+}
+
+stop(){
+    DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+    killBy ${DIR}/node_modules/.bin/babel 
+    cat webpack.pid | xargs -I{} kill -9 {}
+}
+
+watch(){
+    stop 
+    npm run build:cjs:ui -- --watch &
+    npm run build:cjs:src -- --watch &
+    npm run build:es:ui -- --watch &
+    npm run build:es:src -- --watch &
+    npm run webpack -- --watch &
 }
 
 case "$1" in
-  s)
-    server $2
+  watch)
+    watch 
+    ;;
+  stop)
+    stop 
     ;;
   *)
     develop
+    ;; 
 esac
 
 exit $?

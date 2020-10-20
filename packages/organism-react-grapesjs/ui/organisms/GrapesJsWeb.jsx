@@ -15,6 +15,7 @@ import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
 import { getCkeditorOption } from "../../src/getCkeditor";
 import fixCountdown from "../../src/fixCountdown";
+import plugCkeditor from "../../src/plugCkeditor";
 
 const defaultAssets = {
   "sanitize-html":
@@ -139,6 +140,7 @@ class GrapesJsWeb extends Component {
       init
     } = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
+    plugCkeditor({grapesjs: this.iframeWindow.grapesjs, CKEDITOR});
 
     const plugins = ["gjs-preset-webpage", "gjs-plugin-ckeditor"];
 
@@ -261,9 +263,6 @@ class GrapesJsWeb extends Component {
       <script async src="${this.getAsset("sanitize-html")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>
       <script src="${this.getAsset("ckeditor.js")}"></script>
-      <script src="${this.getAsset(
-        "grapesjs-plugin-ckeditor.min.js"
-      )}"></script>
       <script src="${this.getAsset("grapesjs-preset-webpage.min.js")}"></script>
       <script>
       window.initEditor = function(init) {
