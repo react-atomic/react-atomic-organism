@@ -130,6 +130,7 @@ const plugCkeditor = ({ grapesjs, CKEDITOR }) => {
       if (pos.left < pos.canvasOffsetLeft) {
         pos.left = pos.canvasOffsetLeft;
       }
+      // console.warn({pos});
     });
   });
 };

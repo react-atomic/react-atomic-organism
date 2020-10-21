@@ -23,7 +23,6 @@ const initCkeditorMergeTags = ({
       this.commit();
     }
   };
-  CKEDITOR.addCss(".cke_editable {padding: 3px}");
   CKEDITOR.plugins.add("strinsert", {
     requires: ["richcombo"],
     init: (editor) => {
@@ -63,9 +62,8 @@ const initCkeditorMergeTags = ({
       });
     },
   });
-  extraPlugins += ",strinsert";
   toolbar.push({ name: i18nMergeTags, items: ["strinsert"] });
-  return extraPlugins;
+  return extraPlugins + ",strinsert";
 };
 
 const getCkeditorOption = ({
@@ -78,6 +76,12 @@ const getCkeditorOption = ({
   CKEDITOR.dtd.$editable.span = 1;
   CKEDITOR.dtd.$editable.a = 1;
   CKEDITOR.dtd.$editable.strong = 1;
+  CKEDITOR.addCss(".cke_editable {padding: 3px}");
+
+  // need use ckeditor original this so not use arrow function here
+  CKEDITOR.dom.element.prototype.scrollIntoView = function(p1, p2){
+    // console.log(this);
+  };
   let extraPlugins = "sharedspace,justify,colorbutton,panelbutton,font";
   const fontItems = font ? ["Font"] : [];
   fontItems.push("FontSize");
@@ -105,18 +109,7 @@ const getCkeditorOption = ({
       options: {
         on: {
           paste: (e) => {
-            const orig = CKEDITOR.SELECTION_NONE;
-            CKEDITOR.SELECTION_NONE = 2;
             e.data.dataValue = fixHtml(e.data.dataValue, true);
-            setTimeout(() => {
-              CKEDITOR.SELECTION_NONE = orig;
-            });
-          },
-          key: (e) => {
-            const { data = {}, editor } = e || {};
-            if (data.keyCode === 13 || data.keyCode === 2228237 || data.keyCode === 8) {
-              throw 'ckeditor-enter-workaround';
-            }
           },
         },
         removePlugins: "magicline",
