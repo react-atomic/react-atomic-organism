@@ -2,25 +2,16 @@ const stopPropagation = (e) => e.stopPropagation();
 
 const plugCkeditor = ({ grapesjs, CKEDITOR }) => {
   grapesjs.plugins.add("gjs-plugin-ckeditor", (editor, opts = {}) => {
-    let c = opts;
-
-    let defaults = {
-      // CKEditor options
-      options: {},
-
-      // On which side of the element to position the toolbar
-      // Available options: 'left|center|right'
-      position: "left",
+    const c = {
+      ...{position: "left"},
+      ...opts
     };
-
-    // Load defaults
-    for (let name in defaults) {
-      if (!(name in c)) c[name] = defaults[name];
-    }
 
     if (!CKEDITOR) {
       throw new Error("CKEDITOR instance not found");
     }
+
+    editor.setStyle('[contenteditable="true"]{padding:5px;}');
 
     editor.setCustomRte({
       enable(el, rte) {

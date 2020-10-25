@@ -234,7 +234,6 @@ class GrapesJsMjml extends Component {
       <script src="${this.getAsset("grapes.min.js")}"></script>
       <script src="${this.getAsset("ckeditor.js")}"></script>
       <script>
-        CKEDITOR.dtd.$editable.a = 1;
         window.initEditor = function(init, mjml) {
            grapesjs.plugins.add('grapesjs-mjml', mjml);
            return grapesjs.init(init); 

@@ -9,8 +9,8 @@ const initCkeditorMergeTags = ({
   i18nMergeTags,
 }) => {
   let isRun = 0;
+  // !!important!! should not use arrow function to keep "this"
   const buildList = function () {
-    // !!important!! should not use arrow function
     this.startGroup(i18nMergeTags);
     const tags = callfunc(mergeTags);
     if (tags && tags.forEach) {
@@ -74,12 +74,10 @@ const getCkeditorOption = ({
   options,
 }) => {
   CKEDITOR.dtd.$editable.span = 1;
-  CKEDITOR.dtd.$editable.a = 1;
   CKEDITOR.dtd.$editable.strong = 1;
-  CKEDITOR.addCss(".cke_editable {padding: 3px}");
 
   // need use ckeditor original this so not use arrow function here
-  CKEDITOR.dom.element.prototype.scrollIntoView = function(p1, p2){
+  CKEDITOR.dom.element.prototype.scrollIntoView = function(){
     // console.log(this);
   };
   let extraPlugins = "sharedspace,justify,colorbutton,panelbutton,font";
