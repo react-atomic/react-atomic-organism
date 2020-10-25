@@ -5,9 +5,9 @@ const extendComponent = (editor, key, extendOptions, newKey) => {
     model: origModel.extend({
       defaults: {
         ...origModel.prototype.defaults,
-        ...extendOptions
-      }
-    })
+        ...extendOptions,
+      },
+    }),
   });
 };
 

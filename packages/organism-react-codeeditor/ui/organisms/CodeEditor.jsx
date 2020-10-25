@@ -1,26 +1,26 @@
-import React, {PureComponent} from 'react';
-import {popupDispatch, FullScreen} from 'organism-react-popup';
-import {build, SemanticUI, Unsafe} from 'react-atomic-molecule';
-import callfunc from 'call-func';
-import CodeMirror from '../organisms/CodeMirror';
-import * as models from '../../src/models';
+import React, { PureComponent } from "react";
+import { popupDispatch, FullScreen } from "organism-react-popup";
+import { build, SemanticUI, Unsafe } from "react-atomic-molecule";
+import callfunc from "call-func";
+import CodeMirror from "../organisms/CodeMirror";
+import * as models from "../../src/models";
 
 const openCodeEditor = (code, cb) => {
-  popupDispatch('dom/update', {
-    popup: <CodeEditor onClose={cb}>{code ?? ''}</CodeEditor>,
+  popupDispatch("dom/update", {
+    popup: <CodeEditor onClose={cb}>{code ?? ""}</CodeEditor>,
   });
 };
 
 class CodeEditor extends PureComponent {
   static defaultProps = {
-    name: 'code-editor',
-    model: 'html',
+    name: "code-editor",
+    model: "html",
     preview: true,
   };
 
-  handlePreview = el => (this.preview = el);
+  handlePreview = (el) => (this.preview = el);
 
-  handleChange = e => {
+  handleChange = (e) => {
     if (e) {
       this.lastEvent = e;
       this.preview?.setValue(e.value);
@@ -33,12 +33,12 @@ class CodeEditor extends PureComponent {
     if (last) {
       return last.getCode ? callfunc(last.getCode) : last.value;
     } else {
-      return '';
+      return "";
     }
   }
 
   handleClose = () => {
-    const {onClose} = this.props;
+    const { onClose } = this.props;
     callfunc(onClose, [this.getCode()]);
   };
 
@@ -61,11 +61,11 @@ class CodeEditor extends PureComponent {
         preview = oModel.preview;
       }
       thisPreview = build(preview)({
-        className: 'pure-u-1 pure-u-md-1-2',
+        className: "pure-u-1 pure-u-md-1-2",
         ref: this.handlePreview,
       });
-      containerClasses = 'pure-g';
-      codeClasses = 'pure-u-1 pure-u-md-1-2';
+      containerClasses = "pure-g";
+      codeClasses = "pure-u-1 pure-u-md-1-2";
     }
     return (
       <FullScreen
@@ -73,7 +73,8 @@ class CodeEditor extends PureComponent {
         className={containerClasses}
         removeOnClose
         {...otherProps}
-        style={Styles.full}>
+        style={Styles.full}
+      >
         <SemanticUI className={codeClasses} style={Styles.fitHeight}>
           <CodeMirror onChange={this.handleChange}>{children}</CodeMirror>
         </SemanticUI>
@@ -84,14 +85,14 @@ class CodeEditor extends PureComponent {
 }
 
 export default CodeEditor;
-export {openCodeEditor};
+export { openCodeEditor };
 
 const Styles = {
   full: {
-    display: 'block',
+    display: "block",
     padding: 0,
   },
   fitHeight: {
-    height: '100%',
+    height: "100%",
   },
 };

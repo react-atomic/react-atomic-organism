@@ -28,7 +28,7 @@ class FormattedJSON extends Component {
       Parent = SemanticUI;
     }
     return (
-      <Parent atom={atom} className="form" style={{boxSizing: "inherit"}}>
+      <Parent atom={atom} className="form" style={{ boxSizing: "inherit" }}>
         <Field
           readOnly={true}
           {...others}

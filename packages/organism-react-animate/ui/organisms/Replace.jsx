@@ -4,12 +4,12 @@ import Change from "../organisms/Change";
 
 class Replace extends PureComponent {
   static defaultProps = {
-    interval: 5000
+    interval: 5000,
   };
 
   state = {
     no: 0,
-    childs: {}
+    childs: {},
   };
 
   handleNext = () => {
@@ -35,12 +35,12 @@ class Replace extends PureComponent {
     }
 
     const childs = [];
-    Children.map(children, c => c).forEach(
+    Children.map(children, (c) => c).forEach(
       (child, key) => (childs[key] = child)
     );
     return {
       childs,
-      prevChildren: children
+      prevChildren: children,
     };
   }
 

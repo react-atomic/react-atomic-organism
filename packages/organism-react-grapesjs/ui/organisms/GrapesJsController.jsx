@@ -11,7 +11,7 @@ let grapesId = 0;
 class GrapesJsController extends Component {
   static defaultProps = {
     i18nMergeTags: "Merge Tags",
-    i18nCleanCanvas: "Are you sure to clean the canvas?"
+    i18nCleanCanvas: "Are you sure to clean the canvas?",
   };
 
   getType() {
@@ -44,10 +44,12 @@ class GrapesJsController extends Component {
     if (this.el && this.el.store) {
       this.el?.store(cb);
     } else {
-      callfunc(cb, [{
-        html: this.getHtml(),
-        design: this.getDesign(),
-      }]);
+      callfunc(cb, [
+        {
+          html: this.getHtml(),
+          design: this.getDesign(),
+        },
+      ]);
     }
   }
 
@@ -97,7 +99,7 @@ ${html}
     if ("html" === type) {
       const button = panelManager.getButton("options", btnName);
       button?.set("attributes", {
-        style: "display:none"
+        style: "display:none",
       });
       return;
     }
@@ -110,7 +112,7 @@ ${html}
     if ("html" === type) {
       const button = panelManager.getButton("options", "export-template");
       button.set("attributes", {
-        style: "display:none"
+        style: "display:none",
       });
       return;
     } else {
@@ -118,13 +120,13 @@ ${html}
     }
   }
 
-  handleEditorInit = e => {
+  handleEditorInit = (e) => {
     const { onEditorInit } = this.props;
     this.editor = e.editor;
     callfunc(onEditorInit, [e]);
   };
 
-  handleEl = el => (this.el = el);
+  handleEl = (el) => (this.el = el);
 
   execReset() {
     const { onReset, images } = this.props;

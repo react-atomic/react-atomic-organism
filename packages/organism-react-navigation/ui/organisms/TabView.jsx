@@ -1,5 +1,5 @@
-import React, {PureComponent, Children} from 'react';
-import {mixClass, build, SemanticUI} from 'react-atomic-molecule';
+import React, { PureComponent, Children } from "react";
+import { mixClass, build, SemanticUI } from "react-atomic-molecule";
 
 class TabView extends PureComponent {
   state = {};
@@ -12,7 +12,7 @@ class TabView extends PureComponent {
     menu: SemanticUI,
   };
 
-  static getDerivedStateFromProps({selected}, {lastPropsSelected}) {
+  static getDerivedStateFromProps({ selected }, { lastPropsSelected }) {
     if (lastPropsSelected !== selected) {
       return {
         lastPropsSelected: selected,
@@ -57,18 +57,18 @@ class TabView extends PureComponent {
       Children.map(itemProps.children, (node, index) => {
         if (index % 2 || 1 === Children.count(itemProps.children)) {
           const nodeProps = node.props;
-          const nodeClasses = mixClass(nodeProps.className, 'item', {
+          const nodeClasses = mixClass(nodeProps.className, "item", {
             active: selected,
           });
           node = build(node)({
             key: nodeKey,
             selected,
             className: nodeClasses,
-            style: {...Styles.tabItem, ...nodeProps.style},
-            onClickCapture: e => {
+            style: { ...Styles.tabItem, ...nodeProps.style },
+            onClickCapture: (e) => {
               if (!disableSwitch) {
                 if (!nodeProps.disableSwitch) {
-                  this.setState({selected: nodeKey});
+                  this.setState({ selected: nodeKey });
                 }
               }
               if (props.onTabItemPress) {
@@ -86,7 +86,7 @@ class TabView extends PureComponent {
     });
     // Tab Menu
     if (rightMenu) {
-      tabMenuItems.push(build(rightMenu)({key: 'r-menu'}));
+      tabMenuItems.push(build(rightMenu)({ key: "r-menu" }));
     }
     const menuOpt = {
       top: !bottom && !left && !right,
@@ -94,28 +94,28 @@ class TabView extends PureComponent {
       vertical: left || right,
       stackable: rwd,
     };
-    const menuClasses = mixClass('attached tabular menu', menuOpt);
+    const menuClasses = mixClass("attached tabular menu", menuOpt);
     tabMenu = build(menu)(
       {
-        key: 'menu',
+        key: "menu",
         style: menuStyle,
         className: menuClasses,
       },
-      tabMenuItems,
+      tabMenuItems
     );
     if (contentView) {
       // Tab Body
-      const contentClasses = mixClass('attached tab segment active', {
+      const contentClasses = mixClass("attached tab segment active", {
         top: !menuOpt.top,
         bottom: menuOpt.top,
       });
       content = build(body)(
         {
-          key: 'content',
-          style: {...Styles.tabBody, ...contentStyle},
+          key: "content",
+          style: { ...Styles.tabBody, ...contentStyle },
           className: contentClasses,
         },
-        contentView,
+        contentView
       );
     }
     const childOrder = menuOpt.top ? [tabMenu, content] : [content, tabMenu];
@@ -131,10 +131,10 @@ export default TabView;
 
 const Styles = {
   tabBody: {
-    boxSizing: 'border-box',
+    boxSizing: "border-box",
   },
   tabItem: {
-    boxSizing: 'border-box',
-    cursor: 'pointer',
+    boxSizing: "border-box",
+    cursor: "pointer",
   },
 };

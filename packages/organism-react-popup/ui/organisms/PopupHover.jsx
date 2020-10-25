@@ -10,10 +10,9 @@ import DisplayPopupEl from "../organisms/DisplayPopupEl";
 let closeTimer = {};
 
 class PopupHover extends PureComponent {
-
   static defaultProps = {
     name: "popup-hover",
-    component: SemanticUI
+    component: SemanticUI,
   };
 
   floatMouseOver = () => {
@@ -56,7 +55,7 @@ class PopupHover extends PureComponent {
     });
   }
 
-  handleDom = dom => (this.dom = dom);
+  handleDom = (dom) => (this.dom = dom);
 
   render() {
     const {
@@ -75,7 +74,7 @@ class PopupHover extends PureComponent {
       popupEl = (
         <DisplayPopupEl bust={bust} key="popup-el">
           <PopupFloatEl
-            targetEl={this.dom} 
+            targetEl={this.dom}
             toPool={toPool}
             name={name}
             alignParams={alignParams}
@@ -94,7 +93,7 @@ class PopupHover extends PureComponent {
         onMouseEnter: this.mouseOver,
         onMouseLeave: this.mouseOut,
         name,
-        ...others
+        ...others,
       },
       thisChildren
     );

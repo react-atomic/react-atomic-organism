@@ -1,9 +1,9 @@
-import * as util from './util';
-import {max, values} from '../../lodash-lite'
+import * as util from "./util";
+import { max, values } from "../../lodash-lite";
 
-export {run, cleanup};
+export { run, cleanup };
 
-const keys = Object.keys
+const keys = Object.keys;
 
 /*
  * A nesting graph creates dummy nodes for the tops and bottoms of subgraphs,
@@ -37,13 +37,15 @@ function run(g) {
   g.graph().nestingRoot = root;
 
   // Multiply minlen by nodeSep to align nodes on non-border ranks.
-  g.edges().forEach( function(e) { g.edge(e).minlen *= nodeSep; });
+  g.edges().forEach(function (e) {
+    g.edge(e).minlen *= nodeSep;
+  });
 
   // Calculate a weight that is sufficient to keep subgraphs vertically compact
   var weight = sumWeights(g) + 1;
 
   // Create border nodes and link them up
-  g.children().forEach( function(child) {
+  g.children().forEach(function (child) {
     dfs(g, root, nodeSep, weight, height, depths, child);
   });
 
@@ -62,33 +64,33 @@ function dfs(g, root, nodeSep, weight, height, depths, v) {
   }
 
   var top = util.addBorderNode(g, "_bt"),
-      bottom = util.addBorderNode(g, "_bb"),
-      label = g.node(v);
+    bottom = util.addBorderNode(g, "_bb"),
+    label = g.node(v);
 
   g.setParent(top, v);
   label.borderTop = top;
   g.setParent(bottom, v);
   label.borderBottom = bottom;
 
-  children.forEach( function(child) {
+  children.forEach(function (child) {
     dfs(g, root, nodeSep, weight, height, depths, child);
 
     var childNode = g.node(child),
-        childTop = childNode.borderTop ? childNode.borderTop : child,
-        childBottom = childNode.borderBottom ? childNode.borderBottom : child,
-        thisWeight = childNode.borderTop ? weight : 2 * weight,
-        minlen = childTop !== childBottom ? 1 : height - depths[v] + 1;
+      childTop = childNode.borderTop ? childNode.borderTop : child,
+      childBottom = childNode.borderBottom ? childNode.borderBottom : child,
+      thisWeight = childNode.borderTop ? weight : 2 * weight,
+      minlen = childTop !== childBottom ? 1 : height - depths[v] + 1;
 
     g.setEdge(top, childTop, {
       weight: thisWeight,
       minlen: minlen,
-      nestingEdge: true
+      nestingEdge: true,
     });
 
     g.setEdge(childBottom, bottom, {
       weight: thisWeight,
       minlen: minlen,
-      nestingEdge: true
+      nestingEdge: true,
     });
   });
 
@@ -102,18 +104,20 @@ function treeDepths(g) {
   function dfs(v, depth) {
     var children = g.children(v);
     if (children && children.length) {
-      children.forEach( function(child) {
+      children.forEach(function (child) {
         dfs(child, depth + 1);
       });
     }
     depths[v] = depth;
   }
-  g.children().forEach( function(v) { dfs(v, 1); });
+  g.children().forEach(function (v) {
+    dfs(v, 1);
+  });
   return depths;
 }
 
 function sumWeights(g) {
-  return g.edges().reduce( function(acc, e) {
+  return g.edges().reduce(function (acc, e) {
     return acc + g.edge(e).weight;
   }, 0);
 }
@@ -122,7 +126,7 @@ function cleanup(g) {
   var graphLabel = g.graph();
   g.removeNode(graphLabel.nestingRoot);
   delete graphLabel.nestingRoot;
-  g.edges().forEach( function(e) {
+  g.edges().forEach(function (e) {
     var edge = g.edge(e);
     if (edge.nestingEdge) {
       g.removeEdge(e);

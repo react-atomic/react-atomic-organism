@@ -1,18 +1,18 @@
-import mjml2html from '../../mjml2html';
-import { isComponentType } from './index.js';
+import mjml2html from "../../mjml2html";
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
-  const type = 'mj-navbar';
+  const type = "mj-navbar";
 
   dc.addType(type, {
     isComponent: isComponentType(type),
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'NavBar',
-        draggable: '[data-gjs-type=mj-column]',
-        droppable: '[data-gjs-type=mj-navbar-link]',
-        'style-default': {
+        name: "NavBar",
+        draggable: "[data-gjs-type=mj-column]",
+        droppable: "[data-gjs-type=mj-navbar-link]",
+        "style-default": {
           // TODO
         },
         stylable: [
@@ -20,14 +20,14 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
         ],
         traits: [
           {
-            type: 'select',
-            label: 'Hamburger',
-            name: 'hamburger',
+            type: "select",
+            label: "Hamburger",
+            name: "hamburger",
             options: [
-              { value: 'hamburger', name: 'ON' },
-              { value: '', name: 'OFF' },
-            ]
-          }
+              { value: "hamburger", name: "ON" },
+              { value: "", name: "OFF" },
+            ],
+          },
         ],
       },
     },
@@ -35,15 +35,15 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
     view: {
       ...coreMjmlView,
 
-      tagName: 'tr',
+      tagName: "tr",
 
       attributes: {
-        style: 'pointer-events: all; display: table; width: 100%',
+        style: "pointer-events: all; display: table; width: 100%",
       },
 
       init() {
         coreMjmlView.init.call(this);
-        this.listenTo(this.model.get('components'), 'add remove', this.render);
+        this.listenTo(this.model.get("components"), "add remove", this.render);
       },
 
       getTemplateFromMjml() {
@@ -56,15 +56,14 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
         // I need styles for hamburger
         let styles = [];
         sandboxEl.innerHTML = html;
-        var styleArr = Array.from(sandboxEl.querySelectorAll('style'));
+        var styleArr = Array.from(sandboxEl.querySelectorAll("style"));
         styleArr.forEach((item) => {
           styles.push(item.innerHTML);
         });
 
-
-        let content = html.replace(/<body(.*)>/, '<body>');
-        let start = content.indexOf('<body>') + 6;
-        let end = content.indexOf('</body>');
+        let content = html.replace(/<body(.*)>/, "<body>");
+        let start = content.indexOf("<body>") + 6;
+        let end = content.indexOf("</body>");
         sandboxEl.innerHTML = content.substring(start, end).trim();
         let componentEl = this.getTemplateFromEl(sandboxEl);
 
@@ -80,7 +79,7 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
         return {
           attributes,
           content: componentEl.innerHTML,
-          style: styles.join(' ')
+          style: styles.join(" "),
         };
       },
 
@@ -90,7 +89,7 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
         this.el.innerHTML = mjmlResult.content;
         this.$el.attr(mjmlResult.attributes);
         editor.addComponents(`<style>${mjmlResult.style}</style>`);
-        this.getChildrenContainer().innerHTML = this.model.get('content');
+        this.getChildrenContainer().innerHTML = this.model.get("content");
         this.renderChildren();
         this.renderStyle();
         return this;
@@ -104,11 +103,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.firstChild.querySelector('tr');
+        return sandboxEl.firstChild.querySelector("tr");
       },
 
       getChildrenSelector() {
-        return 'div.mj-inline-links';
+        return "div.mj-inline-links";
       },
 
       rerender() {

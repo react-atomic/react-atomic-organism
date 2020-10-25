@@ -1,11 +1,11 @@
 import extendComponent from "./extendComponent";
 
-const fixCountdown = editor => {
+const fixCountdown = (editor) => {
   extendComponent(editor, "countdown", {
     script: () => {
       const startfrom = "{[ startfrom ]}".replace(/-/g, "/");
       const endTxt = "{[ endText ]}";
-      const item = 'undefined' !== typeof items ? items[0] : item;
+      const item = "undefined" !== typeof items ? items[0] : item;
       if (!item) {
         return;
       }
@@ -39,7 +39,7 @@ const fixCountdown = editor => {
         const minuteEl = item.querySelector("[data-js=countdown-minute]");
         const secondEl = item.querySelector("[data-js=countdown-second]");
 
-        const fixdTwoDigt = n => ((n + "").length < 2 ? "0" : "") + n;
+        const fixdTwoDigt = (n) => ((n + "").length < 2 ? "0" : "") + n;
 
         dayEl.innerHTML = fixdTwoDigt(days);
         hourEl.innerHTML = fixdTwoDigt(hours);
@@ -56,7 +56,7 @@ const fixCountdown = editor => {
           endTextEl.style.display = "";
         }
       }, 1000);
-    }
+    },
   });
 };
 

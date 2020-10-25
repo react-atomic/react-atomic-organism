@@ -1,6 +1,6 @@
-import React from 'react';
-import {Circle} from 'organism-react-graph';
-import BaseLayout from '../molecules/BaseLayout';
+import React from "react";
+import { Circle } from "organism-react-graph";
+import BaseLayout from "../molecules/BaseLayout";
 
 class ConnectPointDefaultLayout extends BaseLayout {
   getEl() {
@@ -9,8 +9,8 @@ class ConnectPointDefaultLayout extends BaseLayout {
     }
   }
 
-  handleEl = el => {
-    const {onGetEl} = this.props;
+  handleEl = (el) => {
+    const { onGetEl } = this.props;
     if (el) {
       onGetEl(el);
       this.el = el;
@@ -18,11 +18,11 @@ class ConnectPointDefaultLayout extends BaseLayout {
   };
 
   render() {
-    const {style, onGetEl, ...props} = this.props;
-    const isShow = props['data-is-show'];
-    let thisStyle = {...Styles.container, ...style};
+    const { style, onGetEl, ...props } = this.props;
+    const isShow = props["data-is-show"];
+    let thisStyle = { ...Styles.container, ...style };
     if (isShow) {
-      thisStyle = {...thisStyle, ...Styles.visible};
+      thisStyle = { ...thisStyle, ...Styles.visible };
     }
 
     return (
@@ -42,10 +42,10 @@ export default ConnectPointDefaultLayout;
 
 const Styles = {
   container: {
-    visibility: 'hidden',
-    cursor: 'alias',
+    visibility: "hidden",
+    cursor: "alias",
   },
   visible: {
-    visibility: 'visible',
+    visibility: "visible",
   },
 };

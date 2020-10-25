@@ -1,6 +1,6 @@
-import {has} from '../../../lodash-lite'
+import { has } from "../../../lodash-lite";
 
-export default components
+export default components;
 
 function components(g) {
   var visited = {};
@@ -15,7 +15,7 @@ function components(g) {
     g.predecessors(v).forEach(dfs);
   }
 
-  g.nodes().forEach(function(v) {
+  g.nodes().forEach(function (v) {
     cmpt = [];
     dfs(v);
     if (cmpt.length) {

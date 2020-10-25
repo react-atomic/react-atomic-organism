@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from "react";
 import {
   mixClass,
   Icon,
@@ -6,9 +6,9 @@ import {
   Item,
   Title,
   Content,
-} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import Dropdown from 'ricon/Dropdown';
+} from "react-atomic-molecule";
+import get from "get-object-value";
+import Dropdown from "ricon/Dropdown";
 
 const AccordionItem = ({
   title,
@@ -20,7 +20,7 @@ const AccordionItem = ({
   onClick,
 }) => (
   <Item>
-    <Title {...{onClick, className: titleClasses}}>
+    <Title {...{ onClick, className: titleClasses }}>
       {iconLeft}
       {title}
       {iconRight}
@@ -42,9 +42,9 @@ class Accordion extends PureComponent {
   };
 
   handleClick(name) {
-    this.setState(({isActives}) => {
+    this.setState(({ isActives }) => {
       isActives[name] = !get(isActives, [name], false);
-      return {...isActives};
+      return { ...isActives };
     });
   }
 
@@ -57,12 +57,12 @@ class Accordion extends PureComponent {
       iconOpen,
       iconClose,
     } = this.props;
-    const {isActives} = this.state;
-    const classes = mixClass('accordion', className);
+    const { isActives } = this.state;
+    const classes = mixClass("accordion", className);
     return (
       <SemanticUI className={classes}>
         {items.map((item, key) => {
-          const itemProps = get(item, ['props'], {});
+          const itemProps = get(item, ["props"], {});
           const name = itemProps.name || key;
           const isActive = !!isActives[name];
           const titleClasses = mixClass({

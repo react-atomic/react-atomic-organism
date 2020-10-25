@@ -1,1 +1,1 @@
-export PageLoadProgressHandler from '../ui/organisms/PageLoadProgressHandler';
+export PageLoadProgressHandler from "../ui/organisms/PageLoadProgressHandler";

@@ -1,10 +1,10 @@
-import {getScrollNode} from 'get-scroll-info';
-import easeInOutCubic from 'easing-lib/easeInOutCubic';
+import { getScrollNode } from "get-scroll-info";
+import easeInOutCubic from "easing-lib/easeInOutCubic";
 
 let isRunning = false;
 
 const _call = (func, scrollNode) => () => {
-  if ('function' !== typeof func) {
+  if ("function" !== typeof func) {
     return;
   }
   func(scrollNode);
@@ -35,7 +35,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
     return;
   }
   let beginTimeStamp;
-  const scrollTo = timeStamp => {
+  const scrollTo = (timeStamp) => {
     beginTimeStamp = beginTimeStamp || timeStamp;
     const elapsedTime = timeStamp - beginTimeStamp;
     const progress = easeInOutCubic(elapsedTime, from, go, duration);

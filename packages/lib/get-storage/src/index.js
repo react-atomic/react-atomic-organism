@@ -5,7 +5,7 @@ import { UNDEFINED } from "reshow-constant";
 
 const notSupport = {};
 
-const getStorage = storageType => key => value => {
+const getStorage = (storageType) => (key) => (value) => {
   const oWin = win();
   if (!oWin || notSupport[storageType]) {
     return;

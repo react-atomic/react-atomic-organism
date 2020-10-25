@@ -1,44 +1,58 @@
 // Specs: https://mjml.io/documentation/#mjml-image
-import { isComponentType } from './index.js';
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-image';
+  const type = "mj-image";
 
   dc.addType(type, {
     isComponent: isComponentType(type),
-    extend: 'image',
+    extend: "image",
 
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'Image',
+        name: "Image",
         resizable: false,
         highlightable: false,
-        draggable: '[data-gjs-type=mj-column],[data-gjs-type=mj-section]',
+        draggable: "[data-gjs-type=mj-column],[data-gjs-type=mj-section]",
         stylable: [
-          'width', 'height',
-          'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
-          'border-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-bottom-left-radius', 'border-bottom-right-radius',
-          'border', 'border-width', 'border-style', 'border-color',
-          'container-background-color', 'align',
+          "width",
+          "height",
+          "padding",
+          "padding-top",
+          "padding-left",
+          "padding-right",
+          "padding-bottom",
+          "border-radius",
+          "border-top-left-radius",
+          "border-top-right-radius",
+          "border-bottom-left-radius",
+          "border-bottom-right-radius",
+          "border",
+          "border-width",
+          "border-style",
+          "border-color",
+          "container-background-color",
+          "align",
         ],
-        'style-default': {
-          'padding-top': '10px',
-          'padding-bottom': '10px',
-          'padding-right': '25px',
-          'padding-left': '25px',
-          'align': 'center',
+        "style-default": {
+          "padding-top": "10px",
+          "padding-bottom": "10px",
+          "padding-right": "25px",
+          "padding-left": "25px",
+          align: "center",
         },
-        traits: ['href', 'rel', 'alt', 'title'],
+        traits: ["href", "rel", "alt", "title"],
         void: true,
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'tr',
+      tagName: "tr",
       attributes: {
-        style: 'pointer-events: all; display: table; width: 100%; user-select: none;',
+        style:
+          "pointer-events: all; display: table; width: 100%; user-select: none;",
       },
 
       getMjmlTemplate() {
@@ -49,11 +63,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelector('tr').innerHTML;
+        return sandboxEl.querySelector("tr").innerHTML;
       },
 
       getChildrenSelector() {
-        return 'img';
+        return "img";
       },
     },
   });

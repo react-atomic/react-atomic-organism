@@ -1,11 +1,11 @@
 // Specs: https://mjml.io/documentation/#mjml-text
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-text';
+  const type = "mj-text";
 
   dc.addType(type, {
-    extend: 'text',
-    extendFnView: ['onActive', 'disableEditing'],
+    extend: "text",
+    extendFnView: ["onActive", "disableEditing"],
 
     isComponent(el) {
       if (el.tagName === type.toUpperCase()) {
@@ -20,32 +20,45 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'Text',
-        draggable: '[data-gjs-type=mj-column]',
+        name: "Text",
+        draggable: "[data-gjs-type=mj-column]",
         highlightable: false,
         stylable: [
-          'height', 'font-style', 'font-size', 'font-weight', 'font-family', 'color',
-          'line-height', 'letter-spacing', 'text-decoration', 'align', 'text-transform',
-          'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
-          'container-background-color'
+          "height",
+          "font-style",
+          "font-size",
+          "font-weight",
+          "font-family",
+          "color",
+          "line-height",
+          "letter-spacing",
+          "text-decoration",
+          "align",
+          "text-transform",
+          "padding",
+          "padding-top",
+          "padding-left",
+          "padding-right",
+          "padding-bottom",
+          "container-background-color",
         ],
-        'style-default': {
-          'padding-top': '10px',
-          'padding-bottom': '10px',
-          'padding-right': '25px',
-          'padding-left': '25px',
-          'font-size': '13px',
-          'line-height': '22px',
-          'align': 'left',
+        "style-default": {
+          "padding-top": "10px",
+          "padding-bottom": "10px",
+          "padding-right": "25px",
+          "padding-left": "25px",
+          "font-size": "13px",
+          "line-height": "22px",
+          align: "left",
         },
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'tr',
+      tagName: "tr",
       attributes: {
-        style: 'pointer-events: all; display: table; width: 100%',
+        style: "pointer-events: all; display: table; width: 100%",
       },
 
       getMjmlTemplate() {
@@ -56,11 +69,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelector('tr').innerHTML;
+        return sandboxEl.querySelector("tr").innerHTML;
       },
 
       getChildrenSelector() {
-        return 'td > div';
+        return "td > div";
       },
 
       /**
@@ -74,11 +87,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
        * Need to make text selectable.
        */
       onActive() {
-        this.getChildrenContainer().style.pointerEvents = 'all';
+        this.getChildrenContainer().style.pointerEvents = "all";
       },
 
       disableEditing() {
-        this.getChildrenContainer().style.pointerEvents = 'none';
+        this.getChildrenContainer().style.pointerEvents = "none";
       },
     },
   });

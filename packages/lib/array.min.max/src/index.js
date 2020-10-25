@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
 const isArray = Array.isArray;
 
 class minMaxHelper {
   max = null;
   min = null;
-  process = locater => data => {
+  process = (locater) => (data) => {
     if (!isArray(data) || !data.length) {
       return this;
     }
-    if ('function' !== typeof locater) {
-      locater = d => d;
+    if ("function" !== typeof locater) {
+      locater = (d) => d;
     }
     const thisData = data.concat([]);
     if (!this.max && !this.min) {
@@ -18,7 +18,7 @@ class minMaxHelper {
       this.max = firstItem;
       this.min = firstItem;
     }
-    thisData.forEach(d => {
+    thisData.forEach((d) => {
       d = locater(d);
       if (isNaN(d)) {
         return;
@@ -31,7 +31,7 @@ class minMaxHelper {
     });
     return this;
   };
-  toArray = () => [this.min, this.max].filter(n => null !== n);
+  toArray = () => [this.min, this.max].filter((n) => null !== n);
 }
 
 export default minMaxHelper;

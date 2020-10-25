@@ -1,21 +1,21 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from "react";
 
 class BasePopup extends PureComponent {
-  state = {hasError: false};
+  state = { hasError: false };
   static defaultProps = {
-    name: 'default',
+    name: "default",
   };
   static getDerivedStateFromError(error) {
-    return {hasError: true};
+    return { hasError: true };
   }
   componentDidCatch(error, info) {
-    const {onError} = this.props;
+    const { onError } = this.props;
     if (onError) {
       callfunc(onError, [error, info]);
     } else {
       console.error([error, info]);
     }
-    this.setState({hasError: true});
+    this.setState({ hasError: true });
   }
 }
 

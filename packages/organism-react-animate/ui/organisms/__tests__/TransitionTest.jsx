@@ -39,7 +39,7 @@ describe("Test Transition", () => {
     expect(html).to.have.string(`${dataStatusKey}="entering"`);
   });
 
-  it("test entered", done => {
+  it("test entered", (done) => {
     let wrap;
     const end = () => {
       setTimeout(() => {

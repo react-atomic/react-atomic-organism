@@ -1,17 +1,17 @@
 // Specs: https://mjml.io/documentation/#mj-font
-import mjml2html from '../../mjml2html';
-import { isComponentType } from './index.js';
+import mjml2html from "../../mjml2html";
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
-  const type = 'mj-font';
+  const type = "mj-font";
   dc.addType(type, {
     isComponent: isComponentType(type),
 
     model: {
       ...coreMjmlModel,
       defaults: {
-        draggable: '[data-gjs-type=mj-head]',
-        void: true
+        draggable: "[data-gjs-type=mj-head]",
+        void: true,
       },
     },
     view: {
@@ -19,7 +19,7 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
       tagName: "style",
 
       getMjmlTemplate() {
-        const name = this.model.get('attributes').name
+        const name = this.model.get("attributes").name;
         /*
          * mjml will omit `<mj-font> definitions which are not actually used.
          * Therefore we need to have an mj-text that uses our font
@@ -31,12 +31,12 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelectorAll('style')[1].innerHTML
+        return sandboxEl.querySelectorAll("style")[1].innerHTML;
       },
 
       renderStyle() {},
 
-      renderContent(){},
+      renderContent() {},
 
       getTemplateFromMjml() {
         let mjmlTmpl = this.getMjmlTemplate();
@@ -44,13 +44,12 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
         const htmlOutput = mjml2html(`${mjmlTmpl.start}
           ${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`);
         let html = htmlOutput.html;
-        let start = html.indexOf('<head>') + 6;
-        let end = html.indexOf('</head>');
+        let start = html.indexOf("<head>") + 6;
+        let end = html.indexOf("</head>");
         html = html.substring(start, end).trim();
         sandboxEl.innerHTML = html;
         return this.getTemplateFromEl(sandboxEl);
       },
-    }
+    },
   });
-
 };

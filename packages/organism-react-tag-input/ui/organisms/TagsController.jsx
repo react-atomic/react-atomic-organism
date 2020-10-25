@@ -1,34 +1,33 @@
-import React, {PureComponent} from 'react';
-import callfunc from 'call-func';
-import get, {initMap} from 'get-object-value';
-import {build} from 'react-atomic-molecule';
+import React, { PureComponent } from "react";
+import callfunc from "call-func";
+import get, { initMap } from "get-object-value";
+import { build } from "react-atomic-molecule";
 
-
-const EXCEED_MAX_TAGS = 'exceed max tags';
+const EXCEED_MAX_TAGS = "exceed max tags";
 const keys = Object.keys;
 
-const groupingTags = ({tags, tagData, tagsLocator, tagLocator}) => {
+const groupingTags = ({ tags, tagData, tagsLocator, tagLocator }) => {
   const group = {};
   const initGroup = initMap(group);
   const preTags = tagsLocator(tagData);
   if (tagData && !preTags.forEach) {
-    console.error('tagsLocator not return array.');
+    console.error("tagsLocator not return array.");
     return null;
   } else {
-    preTags.forEach(t => {
+    preTags.forEach((t) => {
       const tag = tagLocator(t);
       if (tag) {
-        initGroup(tag, {data: [], num: 0});
+        initGroup(tag, { data: [], num: 0 });
         group[tag].data.push(t);
       }
     });
   }
   const thisTags = tags != null ? tags : keys(group);
-  thisTags.forEach(tag => {
-    initGroup(tag, {data: [], num: 0});
+  thisTags.forEach((tag) => {
+    initGroup(tag, { data: [], num: 0 });
     group[tag].num++;
   });
-  return {tags: keys(group).filter(tag => group[tag].num !== 0), group};
+  return { tags: keys(group).filter((tag) => group[tag].num !== 0), group };
 };
 
 class TagsController extends PureComponent {
@@ -37,9 +36,9 @@ class TagsController extends PureComponent {
     couldCreate: true,
     couldDuplicate: false,
     createOnBlur: true,
-    itemsLocator: d => get(d, null, []),
-    tagsLocator: d => d || [],
-    tagLocator: d => d,
+    itemsLocator: (d) => get(d, null, []),
+    tagsLocator: (d) => d || [],
+    tagLocator: (d) => d,
     maxTags: -1,
   };
 
@@ -48,14 +47,14 @@ class TagsController extends PureComponent {
   blurTimer = null;
   clickTimer = null;
 
-  state = {tags: []};
+  state = { tags: [] };
 
   getTags() {
-    return get(this, ['state', 'tags']);
+    return get(this, ["state", "tags"]);
   }
 
   enableError(errorMsg, errorProps) {
-    const {onError} = this.props;
+    const { onError } = this.props;
     this.sugg.disabled(true);
     this.hasError = true;
     callfunc(onError, [errorMsg, errorProps]);
@@ -64,19 +63,19 @@ class TagsController extends PureComponent {
   disableError() {
     if (this.hasError) {
       this.sugg.disabled(false);
-      this.sugg.setValue('');
+      this.sugg.setValue("");
       this.hasError = false;
     }
   }
 
   maybeCreate() {
-    const {couldCreate, itemsLocator, itemLocator, results} = this.props;
+    const { couldCreate, itemsLocator, itemLocator, results } = this.props;
     const value = this.sugg.getValue();
     if (value && !this.sugg.getSelIndex()) {
       let isContinue = true;
       if (!couldCreate) {
         isContinue = !!itemsLocator(results).some(
-          item => itemLocator(item) === value,
+          (item) => itemLocator(item) === value
         );
       }
       if (isContinue) {
@@ -106,18 +105,18 @@ class TagsController extends PureComponent {
   };
 
   handleAdd(tag) {
-    const {maxTags, couldDuplicate} = this.props;
-    let {tags: prevTags} = this.state;
+    const { maxTags, couldDuplicate } = this.props;
+    let { tags: prevTags } = this.state;
     const tags = prevTags || [];
     if (-1 !== maxTags && tags && tags.length >= maxTags) {
-      this.enableError(EXCEED_MAX_TAGS, {tags, maxTags});
+      this.enableError(EXCEED_MAX_TAGS, { tags, maxTags });
       return false;
     }
     if (-1 === tags.indexOf(tag) || couldDuplicate) {
       tags.push(tag);
-      this.setState({tags: [...tags]}, () => {
-        const {onAdd} = this.props;
-        this.sugg.setValue('');
+      this.setState({ tags: [...tags] }, () => {
+        const { onAdd } = this.props;
+        this.sugg.setValue("");
         callfunc(onAdd);
       });
       return true;
@@ -126,10 +125,10 @@ class TagsController extends PureComponent {
     }
   }
 
-  handleDel = delTag => () => {
-    const {couldDuplicate} = this.props;
+  handleDel = (delTag) => () => {
+    const { couldDuplicate } = this.props;
     this.setState(
-      ({tags}) => {
+      ({ tags }) => {
         if (couldDuplicate) {
           tags.some((tag, key) => {
             if (tag === delTag) {
@@ -141,26 +140,26 @@ class TagsController extends PureComponent {
           });
           tags = tags.slice(0);
         } else {
-          tags = tags.filter(tag => tag !== delTag);
+          tags = tags.filter((tag) => tag !== delTag);
         }
-        return {tags};
+        return { tags };
       },
       () => {
         this.disableError();
-        const {onDel} = this.props;
+        const { onDel } = this.props;
         callfunc(onDel);
-      },
+      }
     );
   };
 
-  handleKey = e => {
-    const {couldCreate, itemsLocator, itemLocator, results} = this.props;
-    const {tags} = this.state;
+  handleKey = (e) => {
+    const { couldCreate, itemsLocator, itemLocator, results } = this.props;
+    const { tags } = this.state;
     const value = this.sugg.getValue();
-    const keyCode = get(e, ['keyCode']);
+    const keyCode = get(e, ["keyCode"]);
     switch (keyCode) {
       case 8:
-        if (!(value || '').length) {
+        if (!(value || "").length) {
           const lastTag = [...tags].pop();
           this.handleDel(lastTag)();
         }
@@ -172,11 +171,11 @@ class TagsController extends PureComponent {
     }
   };
 
-  handleBlur = e => {
+  handleBlur = (e) => {
     this.isFocus = false;
     this.clearTimer();
-    const suggResults = this.sugg?.results; 
-    const delay = (suggResults && suggResults.length) ? 300 : 50;
+    const suggResults = this.sugg?.results;
+    const delay = suggResults && suggResults.length ? 300 : 50;
     this.blurTimer = setTimeout(() => {
       if (!this.isFocus) {
         if (this.props.createOnBlur) {
@@ -186,37 +185,37 @@ class TagsController extends PureComponent {
     }, delay);
   };
 
-  handleFocus = e => {
+  handleFocus = (e) => {
     this.isFocus = true;
   };
 
   handleItemClick = (e, itemData) => {
-    const {itemLocator} = this.props;
+    const { itemLocator } = this.props;
     const item = itemLocator(itemData);
     return this.handleAdd(item);
   };
 
-  handleItems = d => {
-    const {tags} = this.state;
-    const {couldDuplicate, itemsLocator, itemLocator} = this.props;
+  handleItems = (d) => {
+    const { tags } = this.state;
+    const { couldDuplicate, itemsLocator, itemLocator } = this.props;
     if (couldDuplicate) {
       return itemsLocator(d);
     } else {
       return itemsLocator(d).filter(
-        item => -1 === tags.indexOf(itemLocator(item)),
+        (item) => -1 === tags.indexOf(itemLocator(item))
       );
     }
   };
 
-  handleGetSugg = el => this.sugg = el
+  handleGetSugg = (el) => (this.sugg = el);
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {tagData, tagsLocator, tagLocator} = nextProps;
-    const {prevTagData} = prevState;
+    const { tagData, tagsLocator, tagLocator } = nextProps;
+    const { prevTagData } = prevState;
     if (tagData) {
       const compare = JSON.stringify(tagData);
       if (compare !== prevTagData) {
-        const {tags} = groupingTags({
+        const { tags } = groupingTags({
           tagData,
           tagsLocator,
           tagLocator,
@@ -235,26 +234,24 @@ class TagsController extends PureComponent {
   }
 
   render() {
-    const {
-      component,
-      tagData,
-      tagsLocator,
-      tagLocator,
-    } = this.props;
-    const {tags} = this.state;
+    const { component, tagData, tagsLocator, tagLocator } = this.props;
+    const { tags } = this.state;
     return build(component)({
       ...this.props,
       tags,
-      groupTags: tags && tags.length ? groupingTags({tags, tagData, tagsLocator, tagLocator}) : null,
+      groupTags:
+        tags && tags.length
+          ? groupingTags({ tags, tagData, tagsLocator, tagLocator })
+          : null,
       itemsLocator: this.handleItems,
       onDel: this.handleDel,
       onItemClick: this.handleItemClick,
       onKeyDown: this.handleKey,
       onBlur: this.handleBlur,
       onFocus: this.handleFocus,
-      onGetSugg: this.handleGetSugg 
+      onGetSugg: this.handleGetSugg,
     });
   }
 }
 
-export default TagsController; 
+export default TagsController;

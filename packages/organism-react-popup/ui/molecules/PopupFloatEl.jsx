@@ -1,21 +1,20 @@
-import React from 'react';
-import {mixClass, SemanticUI} from 'react-atomic-molecule';
-import getWindowOffset, {alignUI, getPositionString} from 'get-window-offset';
-import {toInt} from 'to-percent-js';
+import React from "react";
+import { mixClass, SemanticUI } from "react-atomic-molecule";
+import getWindowOffset, { alignUI, getPositionString } from "get-window-offset";
+import { toInt } from "to-percent-js";
 
-import PopupOverlay from '../molecules/PopupOverlay';
-
+import PopupOverlay from "../molecules/PopupOverlay";
 
 class PopupFloatEl extends PopupOverlay {
   _mount = false;
 
   static defaultProps = {
     style: {
-      position: 'absolute',
-      right: 'auto',
+      position: "absolute",
+      right: "auto",
     },
-    name: 'float',
-    className: 'popup',
+    name: "float",
+    className: "popup",
   };
 
   /**
@@ -29,7 +28,7 @@ class PopupFloatEl extends PopupOverlay {
     if (!this.floatEl || !this._mount) {
       return;
     }
-    const {targetEl} = this.props;
+    const { targetEl } = this.props;
     if (!document.body.contains(targetEl)) {
       return;
     }
@@ -57,17 +56,17 @@ class PopupFloatEl extends PopupOverlay {
   };
 
   calPos = () => {
-    const {targetEl, alignParams} = this.props;
+    const { targetEl, alignParams } = this.props;
     const winInfo = getWindowOffset(targetEl);
     if (!this.floatEl || !targetEl || !winInfo) {
       return false;
     }
     const info = alignUI(targetEl, this.floatEl, alignParams, winInfo);
     if (!info) {
-      console.error('can not get alignUI info');
+      console.error("can not get alignUI info");
       return;
     }
-    const {move, loc} = info;
+    const { move, loc } = info;
     const result = {
       top: move[1],
       left: move[0],
@@ -76,7 +75,7 @@ class PopupFloatEl extends PopupOverlay {
     return result;
   };
 
-  setFloatEl = el => {
+  setFloatEl = (el) => {
     if (el) {
       this.floatEl = el;
     }
@@ -90,19 +89,18 @@ class PopupFloatEl extends PopupOverlay {
     return this.floatEl;
   }
 
-  constructor(props)
-  {
-      super(props);
-      // Need exted state form parent class (PopupOverlay)
-      this.state = {
-        ...this.state,
-        refCb: this.setFloatEl,
-      };
+  constructor(props) {
+    super(props);
+    // Need exted state form parent class (PopupOverlay)
+    this.state = {
+      ...this.state,
+      refCb: this.setFloatEl,
+    };
   }
 
   componentDidMount() {
     this._mount = true;
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -111,7 +109,7 @@ class PopupFloatEl extends PopupOverlay {
 
   componentWillUnmount() {
     this._mount = false;
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
   }
 }
 

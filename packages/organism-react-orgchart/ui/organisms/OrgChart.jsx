@@ -1,91 +1,101 @@
-import React, {Component} from 'react'; 
-import {
-    mixClass,
-    reactStyle,
-    SemanticUI
-} from 'react-atomic-molecule';
+import React, { Component } from "react";
+import { mixClass, reactStyle, SemanticUI } from "react-atomic-molecule";
 
 const branchStyle = {
-    content: '',
-    position: 'absolute',
-    top: 0,
-    height: '20px'
+  content: "",
+  position: "absolute",
+  top: 0,
+  height: "20px",
 };
 
 const Styles = {
-    firstBranch: reactStyle(
-        {
-            ...branchStyle,
-            left: '50%',
-            width: 0,
-            borderLeft: '1px solid #ccc'
-        },
-        '.org-tree ul ul::before'
-    ),
+  firstBranch: reactStyle(
+    {
+      ...branchStyle,
+      left: "50%",
+      width: 0,
+      borderLeft: "1px solid #ccc",
+    },
+    ".org-tree ul ul::before"
+  ),
 
-    removeFirstTop: reactStyle({
-        paddingTop:0
-    }, '.org-tree li:only-child'),
+  removeFirstTop: reactStyle(
+    {
+      paddingTop: 0,
+    },
+    ".org-tree li:only-child"
+  ),
 
-    secondBranch: reactStyle(
-        {
-            ...branchStyle,
-            right: '50%',
-            width: '50%',
-            borderTop: '1px solid #ccc'
-        },
-        '.org-tree li::before, .org-tree li::after'
-    ),
+  secondBranch: reactStyle(
+    {
+      ...branchStyle,
+      right: "50%",
+      width: "50%",
+      borderTop: "1px solid #ccc",
+    },
+    ".org-tree li::before, .org-tree li::after"
+  ),
 
-    secondBranchLeft: reactStyle({
-       right: 'auto',
-       left: '50%',
-       borderLeft: '1px solid #ccc'
-    }, '.org-tree li::after'),
+  secondBranchLeft: reactStyle(
+    {
+      right: "auto",
+      left: "50%",
+      borderLeft: "1px solid #ccc",
+    },
+    ".org-tree li::after"
+  ),
 
-    secondBranchLeftSide: reactStyle({
-        border: '0 none'
-    }, '.org-tree li:first-child::before'),
+  secondBranchLeftSide: reactStyle(
+    {
+      border: "0 none",
+    },
+    ".org-tree li:first-child::before"
+  ),
 
-    secondBranchRight: reactStyle({
-        borderRight: '1px solid #ccc',
-        borderRadius: ['0 5px 0 0']
-    }, '.org-tree li:last-child::before'),
+  secondBranchRight: reactStyle(
+    {
+      borderRight: "1px solid #ccc",
+      borderRadius: ["0 5px 0 0"],
+    },
+    ".org-tree li:last-child::before"
+  ),
 
-    secondBranchRightSide: reactStyle({
-        borderRadius: ['5px 0 0 0'],
-    }, '.org-tree li:first-child::after'),
+  secondBranchRightSide: reactStyle(
+    {
+      borderRadius: ["5px 0 0 0"],
+    },
+    ".org-tree li:first-child::after"
+  ),
 
-    noChild: reactStyle({
-        display: 'none' 
-    }, '.org-tree li:only-child::after, .org-tree li:only-child::before'),
+  noChild: reactStyle(
+    {
+      display: "none",
+    },
+    ".org-tree li:only-child::after, .org-tree li:only-child::before"
+  ),
 
-    removeLeftRight: reactStyle({
-        border: 'none'   
-    }, '.org-tree li:first-child::before, .org-tree li:last-child::after'),
+  removeLeftRight: reactStyle(
+    {
+      border: "none",
+    },
+    ".org-tree li:first-child::before, .org-tree li:last-child::after"
+  ),
 
-    clean: reactStyle({
-        content: '.',
-        display: 'block',
-        visibility: 'hidden',
-        height: 0,
-        clear: 'both'
-    }, '.org-tree ul::after')
+  clean: reactStyle(
+    {
+      content: ".",
+      display: "block",
+      visibility: "hidden",
+      height: 0,
+      clear: "both",
+    },
+    ".org-tree ul::after"
+  ),
 };
 
-export default class OrgChart extends Component
-{
-    render()
-    {
-        let classes = mixClass(
-            this.props,
-            'org-tree'
-        );
-        return (
-            <SemanticUI
-                {...this.props}
-                className={classes}
-            />
-        );
-    }
+export default class OrgChart extends Component {
+  render() {
+    let classes = mixClass(this.props, "org-tree");
+    return <SemanticUI {...this.props} className={classes} />;
+  }
 }

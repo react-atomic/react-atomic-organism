@@ -1,14 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import MultiHArea from '../molecules/MultiHArea';
-import BaseChartClass from '../molecules/BaseChartClass';
+import MultiHArea from "../molecules/MultiHArea";
+import BaseChartClass from "../molecules/BaseChartClass";
 
 const yScaleMore = [0];
 
 class AreaChart extends BaseChartClass {
   static defaultProps = {
     areaY1Locator: () => 0,
-    yValueLocator: d => d.y,
+    yValueLocator: (d) => d.y,
   };
 
   baseChartProps() {

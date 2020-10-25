@@ -31,7 +31,7 @@ const combine = (arr, objKey) => {
 const getAllCombine = (arr) => {
   const arrKeys = keys(arr);
   const results = {};
-  arrKeys.forEach(key => {
+  arrKeys.forEach((key) => {
     results[key] = combine(arr, key);
   });
   return results;

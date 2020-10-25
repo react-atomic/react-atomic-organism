@@ -1,15 +1,15 @@
-import React, {Component, PropTypes} from 'react';
-import {lazyInject, reactStyle, SemanticUI} from 'react-atomic-molecule';
-import get from 'get-object-value';
+import React, { Component, PropTypes } from "react";
+import { lazyInject, reactStyle, SemanticUI } from "react-atomic-molecule";
+import get from "get-object-value";
 
 const getTypingNextWordAniClassName = (el, sec) => {
   const width = el.offsetWidth + 70;
-  const ssec = '' + sec;
-  const aniName = 'typingNextWord-' + width + '-' + ssec.replace('.', '-');
+  const ssec = "" + sec;
+  const aniName = "typingNextWord-" + width + "-" + ssec.replace(".", "-");
   if (injects[aniName]) {
     return aniName;
   }
-  const elLen = get(el, ['textContent', 'length'], 10);
+  const elLen = get(el, ["textContent", "length"], 10);
   reactStyle(
     [
       {
@@ -19,16 +19,16 @@ const getTypingNextWordAniClassName = (el, sec) => {
         maxWidth: width,
       },
     ],
-    ['@keyframes ' + aniName, '0%', '100%'],
-    aniName + '-keyframe',
+    ["@keyframes " + aniName, "0%", "100%"],
+    aniName + "-keyframe"
   );
   reactStyle(
     {
       animation: [`${aniName} ${sec}s steps(${elLen}) infinite alternate`],
-      visibility: 'visible !important',
+      visibility: "visible !important",
     },
-    '.' + aniName,
-    aniName + '-ani',
+    "." + aniName,
+    aniName + "-ani"
   );
   injects[aniName] = true;
   return aniName;
@@ -42,11 +42,11 @@ class TypingItem extends Component {
     };
   }
 
-  handleEl = el => {
-    this.setState(classes => {
+  handleEl = (el) => {
+    this.setState((classes) => {
       const next = getTypingNextWordAniClassName(el, this.props.sec);
       if (next !== classes) {
-        return {classes: next};
+        return { classes: next };
       } else {
         return {};
       }
@@ -54,14 +54,15 @@ class TypingItem extends Component {
   };
 
   render() {
-    const {children, sec, background, ...others} = this.props;
-    const {classes} = this.state;
+    const { children, sec, background, ...others } = this.props;
+    const { classes } = this.state;
     return (
       <SemanticUI {...others}>
         <div
           className={classes}
           ref={this.handleEl}
-          style={Styles.typingItemText}>
+          style={Styles.typingItemText}
+        >
           {children} &nbsp;
         </div>
         <SemanticUI styles={injects.typingCursor}> | </SemanticUI>
@@ -73,7 +74,7 @@ class TypingItem extends Component {
 class Typing extends Component {
   static defaultProps = {
     height: 80,
-    color: '#000',
+    color: "#000",
     background: null,
     sec: 2,
     autoStart: true,
@@ -89,31 +90,31 @@ class Typing extends Component {
   }
 
   update(props) {
-    const {children, height: propsHeight, sec} = props;
+    const { children, height: propsHeight, sec } = props;
     if (!children) {
       return null;
     }
     const itemLength = children.length;
     const height = parseInt(propsHeight, 10);
-    const aniName = 'typingNextLine';
-    const styleId = aniName + '-' + itemLength + '-' + height;
+    const aniName = "typingNextLine";
+    const styleId = aniName + "-" + itemLength + "-" + height;
     const typingItemStyles = reactStyle(
       {
-        position: 'relative',
+        position: "relative",
         animation: [
           `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
         ],
         height,
       },
       null,
-      false,
+      false
     );
     reactStyle(
-      [{top: 0}, {top: 0 - height * itemLength}],
-      ['@keyframes ' + styleId, '0%', '100%'],
-      styleId,
+      [{ top: 0 }, { top: 0 - height * itemLength }],
+      ["@keyframes " + styleId, "0%", "100%"],
+      styleId
     );
-    this.setState({typingItemStyles});
+    this.setState({ typingItemStyles });
   }
 
   componentDidMount() {
@@ -121,7 +122,7 @@ class Typing extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {children, height, sec} = this.props;
+    const { children, height, sec } = this.props;
     if (
       prevProps.children.length !== children.length ||
       prevProps.height !== height ||
@@ -145,7 +146,7 @@ class Typing extends Component {
 
   render() {
     const props = this.props;
-    const {isRun, typingItemStyles} = this.state;
+    const { isRun, typingItemStyles } = this.state;
     let items = [];
     let atts = {
       height: props.height,
@@ -162,9 +163,10 @@ class Typing extends Component {
             key={key}
             sec={props.sec}
             styles={typingItemStyles}
-            {...atts}>
+            {...atts}
+          >
             {item.props.children}
-          </TypingItem>,
+          </TypingItem>
         );
       });
     }
@@ -174,7 +176,8 @@ class Typing extends Component {
         style={{
           ...Styles.typingContainer,
           ...atts,
-        }}>
+        }}
+      >
         {items}
       </SemanticUI>
     );
@@ -185,15 +188,15 @@ export default Typing;
 
 const Styles = {
   typingContainer: {
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   typingItemText: {
-    display: 'inline-block',
-    overflow: 'hidden',
-    visibility: 'hidden',
-    whiteSpace: 'nowrap',
+    display: "inline-block",
+    overflow: "hidden",
+    visibility: "hidden",
+    whiteSpace: "nowrap",
     paddingRight: 1,
-    boxSizing: 'border-box',
+    boxSizing: "border-box",
   },
 };
 
@@ -201,23 +204,23 @@ let injects;
 const InjectStyles = {
   typingCursor: [
     {
-      display: 'inline-block',
-      position: 'relative',
+      display: "inline-block",
+      position: "relative",
       marginLeft: 5,
       top: 1,
-      verticalAlign: 'top',
-      animation: ['typingBlink 1s infinite'],
+      verticalAlign: "top",
+      animation: ["typingBlink 1s infinite"],
     },
   ],
   typingBlink: [
     [
       {
-        opacity: '1',
+        opacity: "1",
       },
       {
-        opacity: '0',
+        opacity: "0",
       },
     ],
-    ['@keyframes typingBlink', '0%, 100%', '50%'],
+    ["@keyframes typingBlink", "0%, 100%", "50%"],
   ],
 };

@@ -1,5 +1,5 @@
-import {doc, win} from 'win-doc';
-import {UNDEFINED} from 'reshow-constant';
+import { doc, win } from "win-doc";
+import { UNDEFINED } from "reshow-constant";
 
 const lastScrollStore = {};
 let oDoc;
@@ -15,7 +15,7 @@ const initDoc = () => {
   docEl = oDoc.documentElement;
 };
 
-const getScrollNode = el => {
+const getScrollNode = (el) => {
   if (!oDoc) {
     initDoc();
   }
@@ -29,7 +29,7 @@ const getScrollNode = el => {
     }
   }
   if (!el.id) {
-    el.id = 'scroll-info-' + domCount;
+    el.id = "scroll-info-" + domCount;
     domCount++;
   }
   return el;
@@ -42,8 +42,8 @@ const getScrollInfo = (el, margin) => {
   }
   let w;
   let h;
-  const nodeName = (el.nodeName || '').toLowerCase();
-  const isRoot = 'body' === nodeName || 'html' === nodeName;
+  const nodeName = (el.nodeName || "").toLowerCase();
+  const isRoot = "body" === nodeName || "html" === nodeName;
   if (isRoot) {
     w = Math.max(docEl.clientWidth || 0, oWin.innerWidth || 0);
     h = Math.max(docEl.clientHeight || 0, oWin.innerHeight || 0);
@@ -86,4 +86,4 @@ const getScrollInfo = (el, margin) => {
 };
 
 export default getScrollInfo;
-export {getScrollNode};
+export { getScrollNode };

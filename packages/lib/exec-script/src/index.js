@@ -1,7 +1,7 @@
-import {js, create} from 'create-el';
-import {win, doc} from 'win-doc';
-import {FUNCTION, STRING, SCRIPT} from 'reshow-constant';
-import callfunc from 'call-func';
+import { js, create } from "create-el";
+import { win, doc } from "win-doc";
+import { FUNCTION, STRING, SCRIPT } from "reshow-constant";
+import callfunc from "call-func";
 
 let scriptCount = 0;
 let lastScript;
@@ -18,10 +18,10 @@ const handleScriptOnload = ({
   getScript,
 }) => (i, origScript) => {
   if (inlineScripts[i] && inlineScripts[i].length) {
-    inlineScripts[i].forEach(script => {
+    inlineScripts[i].forEach((script) => {
       try {
         lastScript = script;
-        oWin.eval('(' + FUNCTION + '(){' + script + '}.call(window))');
+        oWin.eval("(" + FUNCTION + "(){" + script + "}.call(window))");
       } catch (e) {
         if (FUNCTION !== typeof errCb) {
           throw e;
@@ -33,7 +33,7 @@ const handleScriptOnload = ({
     delete inlineScripts[i];
   }
   const isContinue = callfunc(cb, [
-    {key: i, inlineScripts, queueScripts, lastScripts, origScript},
+    { key: i, inlineScripts, queueScripts, lastScripts, origScript },
   ]);
   if (false === isContinue) {
     return isContinue;
@@ -41,7 +41,7 @@ const handleScriptOnload = ({
   if (queueScripts.length) {
     getScript(queueScripts.shift());
   } else if (lastScripts.length) {
-    lastScripts.forEach(script => getScript(script));
+    lastScripts.forEach((script) => getScript(script));
     lastScripts = [];
   }
 };
@@ -53,8 +53,8 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   const queueScripts = [];
   let lastScripts = [];
   let bStop = false;
-  const getScript = origScript => {
-    const {key, asyncKey} = origScript.attributes;
+  const getScript = (origScript) => {
+    const { key, asyncKey } = origScript.attributes;
     let callback = null;
     if (key) {
       callback = () => onLoad(key, origScript);
@@ -64,7 +64,7 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
         key: key || asyncKey,
       });
       callfunc(getScriptCb, [
-        {loadScript, origScript, inlineScripts, queueScripts, lastScripts},
+        { loadScript, origScript, inlineScripts, queueScripts, lastScripts },
       ]);
       return loadScript;
     }
@@ -78,10 +78,10 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     lastScripts,
     getScript,
   });
-  const thisEl = STRING === typeof el ? create('div')()({innerHTML: el}) : el;
+  const thisEl = STRING === typeof el ? create("div")()({ innerHTML: el }) : el;
   const scripts = thisEl.getElementsByTagName(SCRIPT);
   const getNewKey = () => {
-    const k = 'id-' + scriptCount;
+    const k = "id-" + scriptCount;
     scriptCount++;
     return k;
   };
@@ -91,7 +91,7 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     const script = scripts[i];
     const src = script.src;
     if (src) {
-      const {async, defer} = script.attributes || {};
+      const { async, defer } = script.attributes || {};
       if (async) {
         script.attributes.asyncKey = key;
         getScript(script);
@@ -111,8 +111,8 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     }
   }
   onLoad(first);
-  return () => bStop = true;
+  return () => (bStop = true);
 };
 
 export default execScript;
-export {getLastScript};
+export { getLastScript };

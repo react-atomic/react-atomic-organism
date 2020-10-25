@@ -1,16 +1,16 @@
-import React, {PureComponent} from 'react';
-import XIco from 'ricon/X';
-import get from 'get-object-value';
-import callfunc from 'call-func';
-import {mixClass} from 'react-atomic-molecule';
+import React, { PureComponent } from "react";
+import XIco from "ricon/X";
+import get from "get-object-value";
+import callfunc from "call-func";
+import { mixClass } from "react-atomic-molecule";
 
-import PopupModal from '../molecules/PopupModal';
-import DisplayPopupEl from '../organisms/DisplayPopupEl';
-import {popupDispatch} from '../../src/popupDispatcher';
+import PopupModal from "../molecules/PopupModal";
+import DisplayPopupEl from "../organisms/DisplayPopupEl";
+import { popupDispatch } from "../../src/popupDispatcher";
 
 class FullScreen extends PureComponent {
   static defaultProps = {
-    name: 'fullscreen',
+    name: "fullscreen",
   };
 
   xIcoEnter = () => {
@@ -18,7 +18,7 @@ class FullScreen extends PureComponent {
       if (!this._mounted) {
         return null;
       }
-      this.setState({xIcoHoverStyle: Styles.xIcoHover});
+      this.setState({ xIcoHoverStyle: Styles.xIcoHover });
     });
   };
 
@@ -26,27 +26,27 @@ class FullScreen extends PureComponent {
     if (!this._mounted) {
       return null;
     }
-    this.setState({xIcoHoverStyle: null});
+    this.setState({ xIcoHoverStyle: null });
   };
 
   handleClose = () => {
-    const {onClose, removeOnClose} = this.props;
+    const { onClose, removeOnClose } = this.props;
     callfunc(onClose);
     if (removeOnClose) {
-      // use setTimeout to avoid call setState druing render 
+      // use setTimeout to avoid call setState druing render
       setTimeout(() =>
         popupDispatch({
-          type: 'dom/cleanOne',
+          type: "dom/cleanOne",
           params: {
             popup: this,
           },
-        }),
+        })
       );
     }
   };
 
   getDefaultXIcon() {
-    const {xIcoHoverStyle} = get(this, ['state'], {});
+    const { xIcoHoverStyle } = get(this, ["state"], {});
     return (
       <XIco
         onMouseEnter={this.xIcoEnter}
@@ -70,17 +70,17 @@ class FullScreen extends PureComponent {
   }
 
   render() {
-    const {name, children, className, style, onClose, toPool} = this.props;
+    const { name, children, className, style, onClose, toPool } = this.props;
     const xico = this.getDefaultXIcon();
     return (
       <DisplayPopupEl>
         <PopupModal
-          name={name+' (modal)'}
+          name={name + " (modal)"}
           appear="fadeIn-500"
           enter="fadeIn-500"
-          className={mixClass('full-screen', className)}
+          className={mixClass("full-screen", className)}
           scrolling={true}
-          style={{...Styles.container, ...style}}
+          style={{ ...Styles.container, ...style }}
           modalClassName="basic"
           modalStyle={Styles.modal}
           modal={children}
@@ -97,20 +97,20 @@ export default FullScreen;
 
 const Styles = {
   container: {
-    background: '#fff',
-    textAlign: 'left',
+    background: "#fff",
+    textAlign: "left",
     padding: 0,
   },
   x: {
-    width: '70px',
-    height: '75px',
-    borderRadius: '8px',
-    backgroundColor: 'rgba(190,190,190,.39)',
-    top: '20px',
-    right: '20px',
-    opacity: '.3',
+    width: "70px",
+    height: "75px",
+    borderRadius: "8px",
+    backgroundColor: "rgba(190,190,190,.39)",
+    top: "20px",
+    right: "20px",
+    opacity: ".3",
   },
   xIcoHover: {
-    opacity: '.9',
+    opacity: ".9",
   },
 };

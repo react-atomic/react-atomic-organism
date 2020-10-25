@@ -1,38 +1,39 @@
-import React, {PureComponent} from 'react';
-import {mixClass, build, Form, Field} from 'react-atomic-molecule';
-import callfunc from 'call-func';
-import formSerialize from 'form-serialize-js';
+import React, { PureComponent } from "react";
+import { mixClass, build, Form, Field } from "react-atomic-molecule";
+import callfunc from "call-func";
+import formSerialize from "form-serialize-js";
 
 let constraintId = 0;
 const constraintObj = {};
 const keys = Object.keys;
-const constraintIdKey = 'data-constraint-id';
+const constraintIdKey = "data-constraint-id";
 
 class ConstraintField extends PureComponent {
-
   static defaultProps = {
     component: Field,
   };
 
   checkValidity(el) {
-    const {onValidate, onError} = this.props;
+    const { onValidate, onError } = this.props;
     el = el || this.el;
     let customState;
-    const setCustomState = s => (customState = s);
-    const checkValidityParams = [{el, constraintField: this, setState: setCustomState}];
+    const setCustomState = (s) => (customState = s);
+    const checkValidityParams = [
+      { el, constraintField: this, setState: setCustomState },
+    ];
     const isOK = onValidate
       ? callfunc(onValidate, checkValidityParams)
       : this.compRef && this.compRef.checkValidity
       ? callfunc(this.compRef.checkValidity, checkValidityParams, this.compRef)
       : el.checkValidity();
     if (!isOK) {
-      const state = {customState};
+      const state = { customState };
       for (let k in el.validity) {
         if (el.validity[k]) {
           state[k] = true;
         }
       }
-      const onErrorParams = [{el, state}];
+      const onErrorParams = [{ el, state }];
       this.handleDisplayError(
         el,
         onError
@@ -40,10 +41,10 @@ class ConstraintField extends PureComponent {
           : this.compRef && this.compRef.handleError
           ? callfunc(this.compRef.handleError, onErrorParams, this.compRef)
           : customState,
-        el.validationMessage,
+        el.validationMessage
       );
     } else {
-      this.handleDisplayError(el, '');
+      this.handleDisplayError(el, "");
     }
 
     // ignore isOK is undefined or null and think it's true
@@ -51,7 +52,7 @@ class ConstraintField extends PureComponent {
   }
 
   handleDisplayError(el, message, nativeMessage) {
-    const {onDisplayError} = this.props;
+    const { onDisplayError } = this.props;
     if (onDisplayError) {
       callfunc(onDisplayError, [el, message || nativeMessage]);
     } else if (this.compRef && this.compRef.handleDisplayError) {
@@ -65,14 +66,14 @@ class ConstraintField extends PureComponent {
     }
   }
 
-  handleCompRef = el => {
-    const {compRef} = this.props;
+  handleCompRef = (el) => {
+    const { compRef } = this.props;
     this.compRef = el;
     callfunc(compRef, [el]);
   };
 
-  handleEl = el => {
-    const {refCb} = this.props;
+  handleEl = (el) => {
+    const { refCb } = this.props;
     if (el) {
       const thisConstraintId = this.getConstraintId();
       el.setAttribute(constraintIdKey, thisConstraintId);
@@ -83,7 +84,7 @@ class ConstraintField extends PureComponent {
 
   getConstraintId() {
     if (!this.constraintId) {
-      const id = 'constraint-' + constraintId;
+      const id = "constraint-" + constraintId;
       constraintId++;
       constraintObj[id] = this;
       this.constraintId = id;
@@ -120,7 +121,7 @@ class ConstraintField extends PureComponent {
 }
 
 class ConstraintForm extends PureComponent {
-  state = {error: false};
+  state = { error: false };
 
   static defaultProps = {
     component: Form,
@@ -130,7 +131,7 @@ class ConstraintForm extends PureComponent {
     const elements = [...this.form.elements];
     const results = {};
     let errorEl = null;
-    const hasError = elements.some(el => {
+    const hasError = elements.some((el) => {
       const id = el.getAttribute(constraintIdKey);
       if (id && !results[id]) {
         const obj = constraintObj[id];
@@ -147,15 +148,15 @@ class ConstraintForm extends PureComponent {
         if (el.checkValidity) {
           el.checkValidity();
           if (!el.validity.valid) {
-              errorEl = el;
-              el.reportValidity();
-              return true;
+            errorEl = el;
+            el.reportValidity();
+            return true;
           }
         }
       }
       return false;
     });
-    return {hasError, errorEl, results};
+    return { hasError, errorEl, results };
   }
 
   submit() {
@@ -170,21 +171,21 @@ class ConstraintForm extends PureComponent {
     return formSerialize(this.form);
   }
 
-  handleRefCb = el => {
-    const {refCb} = this.props;
+  handleRefCb = (el) => {
+    const { refCb } = this.props;
     this.form = el;
     callfunc(refCb, [el]);
   };
 
-  handleSubmit = e => {
-    const {onSubmit, stop} = this.props;
+  handleSubmit = (e) => {
+    const { onSubmit, stop } = this.props;
     if (stop) {
       e.preventDefault();
     }
-    const {hasError} = this.checkValidity();
+    const { hasError } = this.checkValidity();
     if (hasError) {
       e.preventDefault();
-      this.setState({error: hasError});
+      this.setState({ error: hasError });
     } else {
       e.instance = this;
       callfunc(onSubmit, [e]);
@@ -192,8 +193,8 @@ class ConstraintForm extends PureComponent {
   };
 
   render() {
-    const {className, onSubmit, component, stop, ...otherProps} = this.props;
-    const {error} = this.state;
+    const { className, onSubmit, component, stop, ...otherProps } = this.props;
+    const { error } = this.state;
     const classes = mixClass(className, {
       error,
     });
@@ -207,5 +208,5 @@ class ConstraintForm extends PureComponent {
   }
 }
 
-export {ConstraintField};
+export { ConstraintField };
 export default ConstraintForm;

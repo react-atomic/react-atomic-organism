@@ -1,6 +1,6 @@
 const replaceValue = (obj, arrKey, val, isAppend) => {
   const last = arrKey.pop();
-  arrKey.forEach(k => {
+  arrKey.forEach((k) => {
     obj[k] = obj[k] || {};
     obj = obj[k];
   });

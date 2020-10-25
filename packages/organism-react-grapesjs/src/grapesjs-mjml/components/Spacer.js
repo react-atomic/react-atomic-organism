@@ -1,8 +1,8 @@
 // Specs: https://mjml.io/documentation/#mjml-spacer
-import { isComponentType } from './index.js';
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-spacer';
+  const type = "mj-spacer";
 
   dc.addType(type, {
     isComponent: isComponentType(type),
@@ -10,20 +10,21 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'Spacer',
-        draggable: '[data-gjs-type=mj-column]',
+        name: "Spacer",
+        draggable: "[data-gjs-type=mj-column]",
         droppable: false,
-        'style-default': { height: '20px' },
-        stylable: ['height', 'container-background-color'],
+        "style-default": { height: "20px" },
+        stylable: ["height", "container-background-color"],
         void: true,
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'tr',
+      tagName: "tr",
       attributes: {
-        style: 'pointer-events: all; display: table; width: 100%;user-select: none;',
+        style:
+          "pointer-events: all; display: table; width: 100%;user-select: none;",
       },
 
       getMjmlTemplate() {
@@ -34,16 +35,16 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelector('tr').innerHTML;
+        return sandboxEl.querySelector("tr").innerHTML;
       },
 
       getChildrenSelector() {
-        return 'td';
+        return "td";
       },
 
       renderChildren() {
         coreMjmlView.renderChildren.call(this);
-      }
+      },
     },
   });
 };

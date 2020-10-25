@@ -1,11 +1,11 @@
 // Specs https://mjml.io/documentation/#mj-body
-import { isComponentType } from './index.js';
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-body';
-  const droppable = [
-    'mj-section',
-  ].map(tag => `[data-gjs-type=${tag}]`).join(', ');
+  const type = "mj-body";
+  const droppable = ["mj-section"]
+    .map((tag) => `[data-gjs-type=${tag}]`)
+    .join(", ");
 
   dc.addType(type, {
     isComponent: isComponentType(type),
@@ -17,25 +17,25 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
         draggable: false,
         copyable: false,
         removable: false,
-        'style-default': { width: '600px' },
+        "style-default": { width: "600px" },
         stylable: [
           // Currently the UX sucks too much with the heavy rendering approach
-          'width',
-          'background-color'
+          "width",
+          "background-color",
         ],
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'div',
+      tagName: "div",
       attributes: {
-        style: 'width: 100%; min-height: 100%',
-        'data-type': 'mj-body',
+        style: "width: 100%; min-height: 100%",
+        "data-type": "mj-body",
       },
 
       getChildrenSelector() {
-        return 'div';
+        return "div";
       },
 
       getInnerMjmlTemplate() {
@@ -47,11 +47,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       renderStyle() {
-        this.el.style = this.el.getAttribute('style') + this.attributes.style;
+        this.el.style = this.el.getAttribute("style") + this.attributes.style;
       },
 
       renderContent() {
-        this.getChildrenContainer().innerHTML = this.model.get('content');
+        this.getChildrenContainer().innerHTML = this.model.get("content");
       },
 
       rerender() {
@@ -65,5 +65,4 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
     },
   });
-
 };

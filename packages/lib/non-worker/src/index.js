@@ -3,9 +3,9 @@ class NonWorker {
   callbacks = [];
 
   constructor() {
-    this.post = data => {
+    this.post = (data) => {
       const e = { data };
-      this.callbacks.forEach(c => c(e));
+      this.callbacks.forEach((c) => c(e));
     };
 
     if ("undefined" === typeof window) {
@@ -19,7 +19,7 @@ class NonWorker {
     }
   }
 
-  onMessage = callback => {
+  onMessage = (callback) => {
     this.onmessage = callback;
     if ("undefined" === typeof window) {
       onmessage = callback;
@@ -29,7 +29,7 @@ class NonWorker {
 
   addEventListener = (type, callback) => this.callbacks.push(callback);
 
-  postMessage = data => {
+  postMessage = (data) => {
     const e = { data };
     this.onmessage(e);
   };

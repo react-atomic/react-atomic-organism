@@ -5,8 +5,8 @@ const arrayMerge = (...args) => {
   if (!isArray(arg1)) {
     arg1 = [arg1];
   }
-  args.forEach(a => {
-    if (null === a || 'undefined' === typeof a) {
+  args.forEach((a) => {
+    if (null === a || "undefined" === typeof a) {
       return;
     }
     if (isArray(a)) {

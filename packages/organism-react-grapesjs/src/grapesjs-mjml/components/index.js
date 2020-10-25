@@ -1,31 +1,32 @@
-import mjml2html from '../../mjml2html';
-import loadMjml from './mjml';
-import loadHead from './Head';
-import loadStyle from './Style';
-import loadFont from './Font';
-import loadBody from './Body';
-import loadWrapper from './Wrapper';
-import loadSection from './Section';
-import loadGroup from './Group';
-import loadColumn from './Column';
-import loadText from './Text';
-import loadButton from './Button';
-import loadImage from './Image';
-import loadSocial from './Social';
-import loadSocialElement from './SocialElement';
-import loadDivider from './Divider';
-import loadSpacer from './Spacer';
-import loadNavBar from './NavBar';
-import loadNavBarLink from './NavBarLink';
+import mjml2html from "../../mjml2html";
+import loadMjml from "./mjml";
+import loadHead from "./Head";
+import loadStyle from "./Style";
+import loadFont from "./Font";
+import loadBody from "./Body";
+import loadWrapper from "./Wrapper";
+import loadSection from "./Section";
+import loadGroup from "./Group";
+import loadColumn from "./Column";
+import loadText from "./Text";
+import loadButton from "./Button";
+import loadImage from "./Image";
+import loadSocial from "./Social";
+import loadSocialElement from "./SocialElement";
+import loadDivider from "./Divider";
+import loadSpacer from "./Spacer";
+import loadNavBar from "./NavBar";
+import loadNavBarLink from "./NavBarLink";
 
-export const isComponentType = type => (el) => el.tagName === type.toUpperCase();
+export const isComponentType = (type) => (el) =>
+  el.tagName === type.toUpperCase();
 
 export default (editor, opt = {}) => {
   let domc = editor.DomComponents;
-  let defaultType = domc.getType('default');
-  let textType = domc.getType('text');
-  let imageType = domc.getType('image');
-  let linkType = domc.getType('link');
+  let defaultType = domc.getType("default");
+  let textType = domc.getType("text");
+  let imageType = domc.getType("image");
+  let linkType = domc.getType("link");
   let defaultModel = defaultType.model;
   let defaultView = defaultType.view;
   let textModel = textType.model;
@@ -36,14 +37,13 @@ export default (editor, opt = {}) => {
   let linkView = linkType.view;
   const dc = domc;
   const ComponentsView = domc.ComponentsView;
-  const sandboxEl = document.createElement('div');
-
+  const sandboxEl = document.createElement("div");
 
   // MJML Core model
   let coreMjmlModel = {
     init() {
-      const attrs = { ...this.get('attributes') };
-      const style = { ...this.get('style') };
+      const attrs = { ...this.get("attributes") };
+      const style = { ...this.get("style") };
 
       for (let prop in style) {
         if (!(prop in attrs)) {
@@ -51,35 +51,31 @@ export default (editor, opt = {}) => {
         }
       }
 
-      this.set('attributes', attrs);
-      this.set('style', attrs);
-      this.listenTo(this, 'change:style', this.handleStyleChange);
+      this.set("attributes", attrs);
+      this.set("style", attrs);
+      this.listenTo(this, "change:style", this.handleStyleChange);
     },
-
 
     handleStyleChange() {
-      const style = { ...this.get('attributes'), ...this.get('style') };
-      this.set('attributes', style);
+      const style = { ...this.get("attributes"), ...this.get("style") };
+      this.set("attributes", style);
     },
-
 
     getMjmlAttributes() {
-      let attr = this.get('attributes') || {};
+      let attr = this.get("attributes") || {};
       delete attr.style;
-      let src = this.get('src');
-      if (src)
-        attr.src = src;
+      let src = this.get("src");
+      if (src) attr.src = src;
       return attr;
     },
-
 
     /**
      * This will avoid rendering default attributes
      * @return {Object}
      */
     getAttrToHTML() {
-      const attr = { ...this.get('attributes') };
-      const style = { ...this.get('style-default') };
+      const attr = { ...this.get("attributes") };
+      const style = { ...this.get("style-default") };
       delete attr.style;
 
       for (let prop in attr) {
@@ -93,53 +89,48 @@ export default (editor, opt = {}) => {
       return attr;
     },
 
-
     /**
      * Rhave to change few things for hte MJML's xml (no id, style, class)
      */
     toHTML() {
-      let code = '';
+      let code = "";
       let model = this;
-      let tag = model.get('tagName'),
-        sTag = model.get('void');
+      let tag = model.get("tagName"),
+        sTag = model.get("void");
 
       // Build the string of attributes
-      let strAttr = '';
+      let strAttr = "";
       let attr = this.getAttrToHTML();
       for (let prop in attr) {
         let val = attr[prop];
-        strAttr += typeof val !== undefined && val !== '' ?
-          ' ' + prop + '="' + val + '"' : '';
+        strAttr +=
+          typeof val !== undefined && val !== ""
+            ? " " + prop + '="' + val + '"'
+            : "";
       }
 
-      code += `<${tag}${strAttr}${sTag ? '/' : ''}>` + model.get('content');
+      code += `<${tag}${strAttr}${sTag ? "/" : ""}>` + model.get("content");
 
-      model.get('components').each((model) => {
+      model.get("components").each((model) => {
         code += model.toHTML();
       });
 
-      if (!sTag)
-        code += `</${tag}>`;
+      if (!sTag) code += `</${tag}>`;
 
       return code;
     },
-
   };
-
 
   // MJML Core view
   let coreMjmlView = {
-
     init() {
-      this.stopListening(this.model, 'change:style');
-      this.listenTo(this.model, 'change:attributes change:src', this.rerender);
+      this.stopListening(this.model, "change:style");
+      this.listenTo(this.model, "change:attributes change:src", this.rerender);
     },
-
 
     rerender() {
       this.render(null, null, {}, 1);
     },
-
 
     getMjmlTemplate() {
       return {
@@ -148,17 +139,18 @@ export default (editor, opt = {}) => {
       };
     },
 
-
     getInnerMjmlTemplate() {
       const model = this.model;
-      let tagName = model.get('tagName');
+      let tagName = model.get("tagName");
       let attr = model.getMjmlAttributes();
-      let strAttr = '';
+      let strAttr = "";
 
       for (let prop in attr) {
         let val = attr[prop];
-        strAttr += typeof val !== undefined && val !== '' ?
-          ' ' + prop + '="' + val + '"' : '';
+        strAttr +=
+          typeof val !== undefined && val !== ""
+            ? " " + prop + '="' + val + '"'
+            : "";
       }
 
       return {
@@ -167,26 +159,26 @@ export default (editor, opt = {}) => {
       };
     },
 
-
     getTemplateFromEl(sandboxEl) {
-      return sandboxEl && sandboxEl.firstChild && sandboxEl.firstChild.innerHTML;
+      return (
+        sandboxEl && sandboxEl.firstChild && sandboxEl.firstChild.innerHTML
+      );
     },
-
 
     getTemplateFromMjml() {
       let mjmlTmpl = this.getMjmlTemplate();
       let innerMjml = this.getInnerMjmlTemplate();
-      const mjmlCode =mjmlTmpl.start+innerMjml.start+innerMjml.end+mjmlTmpl.end;
+      const mjmlCode =
+        mjmlTmpl.start + innerMjml.start + innerMjml.end + mjmlTmpl.end;
       const htmlOutput = mjml2html(mjmlCode);
       let html = htmlOutput.html;
-      html = html.replace(/<body(.*)>/, '<body>');
-      let start = html.indexOf('<body>') + 6;
-      let end = html.indexOf('</body>');
+      html = html.replace(/<body(.*)>/, "<body>");
+      let start = html.indexOf("<body>") + 6;
+      let end = html.indexOf("</body>");
       html = html.substring(start, end).trim();
       sandboxEl.innerHTML = html;
       return this.getTemplateFromEl(sandboxEl);
     },
-
 
     /**
      * Render children components
@@ -198,7 +190,7 @@ export default (editor, opt = {}) => {
       // This trick will help perfs by caching children
       if (!appendChildren) {
         this.componentsView = new ComponentsView({
-          collection: this.model.get('components'),
+          collection: this.model.get("components"),
           config: this.config,
           defaultTypes: this.opts.defaultTypes,
           componentTypes: this.opts.componentTypes,
@@ -218,7 +210,7 @@ export default (editor, opt = {}) => {
         var disableNode = function (el) {
           var children = Array.prototype.slice.call(el.children);
           children.forEach(function (el) {
-            el.style['pointer-events'] = 'none';
+            el.style["pointer-events"] = "none";
             if (container !== el) {
               disableNode(el);
             }
@@ -228,20 +220,17 @@ export default (editor, opt = {}) => {
       }
     },
 
-
     renderStyle() {
       this.el.style = this.attributes.style;
     },
 
-
     renderContent() {
-      let content = this.model.get('content');
+      let content = this.model.get("content");
 
       if (content) {
         this.getChildrenContainer().innerHTML = content;
       }
     },
-
 
     render(p, c, opts, appendChildren) {
       this.renderAttributes();
@@ -251,14 +240,24 @@ export default (editor, opt = {}) => {
       this.childNodes = this.getChildrenContainer().childNodes;
       this.renderStyle();
       return this;
-    }
+    },
   };
-
 
   // MJML Internal view (for elements inside mj-columns)
   const compOpts = {
-    dc, coreMjmlModel, coreMjmlView, opt, sandboxEl, defaultModel, defaultView,
-    textModel, textView, linkModel, linkView, imageModel, imageView
+    dc,
+    coreMjmlModel,
+    coreMjmlView,
+    opt,
+    sandboxEl,
+    defaultModel,
+    defaultView,
+    textModel,
+    textView,
+    linkModel,
+    linkView,
+    imageModel,
+    imageView,
   };
 
   loadMjml(editor, compOpts);

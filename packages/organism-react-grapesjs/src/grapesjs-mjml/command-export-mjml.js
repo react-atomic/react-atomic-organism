@@ -1,15 +1,15 @@
-import mjml2html from '../mjml2html';
+import mjml2html from "../mjml2html";
 
 export default (editor, opt = {}) => {
   const config = editor.getConfig();
-  const codeViewer = editor.CodeManager.getViewer('CodeMirror').clone();
-  const container = document.createElement('div');
+  const codeViewer = editor.CodeManager.getViewer("CodeMirror").clone();
+  const container = document.createElement("div");
   const cmdm = editor.Commands;
-  container.style = 'display: flex; justify-content: space-between;';
+  container.style = "display: flex; justify-content: space-between;";
 
   // Init code viewer
   codeViewer.set({
-    codeName: 'htmlmixed',
+    codeName: "htmlmixed",
     theme: opt.codeViewerTheme,
   });
 
@@ -19,32 +19,35 @@ export default (editor, opt = {}) => {
   };
 
   // Set the command which could be used outside
-  cmdm.add('mjml-get-code', {
+  cmdm.add("mjml-get-code", {
     run() {
       return getMjml();
-    }
+    },
   });
 
   let mjmlCode;
   let htmlCode;
 
   return {
-
     buildEditor(label) {
       const ecm = editor.CodeManager;
-      const cm = ecm.getViewer('CodeMirror').clone();
-      const txtarea = document.createElement('textarea');
-      const el = document.createElement('div');
-      el.style = 'flex:1 0 auto; padding:5px; max-width:50%; box-sizing:border-box;';
+      const cm = ecm.getViewer("CodeMirror").clone();
+      const txtarea = document.createElement("textarea");
+      const el = document.createElement("div");
+      el.style =
+        "flex:1 0 auto; padding:5px; max-width:50%; box-sizing:border-box;";
 
       const codeEditor = cm.set({
         label: label,
-        codeName: 'htmlmixed',
+        codeName: "htmlmixed",
         theme: opt.codeViewerTheme,
         input: txtarea,
       });
 
-      const elEditor = new ecm.EditorView({ model: codeEditor, config }).render().el;
+      const elEditor = new ecm.EditorView({
+        model: codeEditor,
+        config,
+      }).render().el;
       el.appendChild(elEditor);
       codeEditor.init(txtarea);
       return { codeEditor, el };
@@ -53,16 +56,16 @@ export default (editor, opt = {}) => {
     run(editor, sender = {}) {
       const modal = editor.Modal;
       modal.setTitle(opt.modalTitleExport);
-      modal.setContent('');
+      modal.setContent("");
       modal.setContent(container);
 
       if (!mjmlCode) {
-        const codeViewer = this.buildEditor('MJML');
+        const codeViewer = this.buildEditor("MJML");
         mjmlCode = codeViewer.codeEditor;
         container.appendChild(codeViewer.el);
       }
       if (!htmlCode) {
-        const codeViewer = this.buildEditor('HTML');
+        const codeViewer = this.buildEditor("HTML");
         htmlCode = codeViewer.codeEditor;
         container.appendChild(codeViewer.el);
       }
@@ -87,8 +90,7 @@ export default (editor, opt = {}) => {
         htmlCode.editor.refresh();
       }
 
-      sender.set && sender.set('active', 0);
+      sender.set && sender.set("active", 0);
     },
-
   };
 };

@@ -1,13 +1,19 @@
-import {constant} from '../../../lodash-lite'
-import PriorityQueue from '../data/priority-queue'
-export default dijkstra
+import { constant } from "../../../lodash-lite";
+import PriorityQueue from "../data/priority-queue";
+export default dijkstra;
 
 var DEFAULT_WEIGHT_FUNC = constant(1);
 
 function dijkstra(g, source, weightFn, edgeFn) {
-  return runDijkstra(g, String(source),
+  return runDijkstra(
+    g,
+    String(source),
     weightFn || DEFAULT_WEIGHT_FUNC,
-    edgeFn || function(v) { return g.outEdges(v); });
+    edgeFn ||
+      function (v) {
+        return g.outEdges(v);
+      }
+  );
 }
 
 function runDijkstra(g, source, weightFn, edgeFn) {
@@ -15,15 +21,20 @@ function runDijkstra(g, source, weightFn, edgeFn) {
   var pq = new PriorityQueue();
   var v, vEntry;
 
-  var updateNeighbors = function(edge) {
+  var updateNeighbors = function (edge) {
     var w = edge.v !== v ? edge.v : edge.w;
     var wEntry = results[w];
     var weight = weightFn(edge);
     var distance = vEntry.distance + weight;
 
     if (weight < 0) {
-      throw new Error("dijkstra does not allow negative edge weights. " +
-                      "Bad edge: " + edge + " Weight: " + weight);
+      throw new Error(
+        "dijkstra does not allow negative edge weights. " +
+          "Bad edge: " +
+          edge +
+          " Weight: " +
+          weight
+      );
     }
 
     if (distance < wEntry.distance) {
@@ -33,7 +44,7 @@ function runDijkstra(g, source, weightFn, edgeFn) {
     }
   };
 
-  g.nodes().forEach(function(v) {
+  g.nodes().forEach(function (v) {
     var distance = v === source ? 0 : Number.POSITIVE_INFINITY;
     results[v] = { distance: distance };
     pq.add(v, distance);

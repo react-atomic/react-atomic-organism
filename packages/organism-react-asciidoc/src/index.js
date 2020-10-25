@@ -1,1 +1,1 @@
-export default from '../ui/organisms/Asciidoc'
+export default from "../ui/organisms/Asciidoc";

@@ -1,34 +1,34 @@
-import React from 'react'; 
+import React from "react";
 
-import Line from '../molecules/Line';
+import Line from "../molecules/Line";
 
 const MultiLine = ({
-    data,
-    valuesLocator,
-    xValueLocator,
-    yValueLocator,
-    attrsLocator,
-    xScale,
-    yScale,
-    d3
+  data,
+  valuesLocator,
+  xValueLocator,
+  yValueLocator,
+  attrsLocator,
+  xScale,
+  yScale,
+  d3,
 }) =>
-data.map( (line, key) =>{
+  data.map((line, key) => {
     const attr = attrsLocator(line);
     const d = d3.curve(
-        valuesLocator(line),
-        xValueLocator,
-        yValueLocator,
-        xScale,
-        yScale
+      valuesLocator(line),
+      xValueLocator,
+      yValueLocator,
+      xScale,
+      yScale
     );
-    return  (<Line d={d} {...attr} key={key}/>);
-});
+    return <Line d={d} {...attr} key={key} />;
+  });
 
 MultiLine.defaultProps = {
-    xValueLocator: d => d.x,
-    yValueLocator: d => d.y,
-    valuesLocator: d => d.values,
-    attrsLocator: d => d.attrs
+  xValueLocator: (d) => d.x,
+  yValueLocator: (d) => d.y,
+  valuesLocator: (d) => d.values,
+  attrsLocator: (d) => d.attrs,
 };
 
 export default MultiLine;

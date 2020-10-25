@@ -1,22 +1,22 @@
-import {expect} from 'chai';
-import sinon from 'sinon';
-import req from 'superagent';
+import { expect } from "chai";
+import sinon from "sinon";
+import req from "superagent";
 const sandbox = sinon.createSandbox();
 
-import worker from '../worker';
+import worker from "../worker";
 
-describe('Worker  Test', () => {
+describe("Worker  Test", () => {
   afterEach(() => {
     sandbox.restore();
   });
-  it('test pass method', () => {
-    sandbox.spy(req, 'put');
+  it("test pass method", () => {
+    sandbox.spy(req, "put");
     worker.postMessage({
-      type: 'ajaxPost',
-      url: 'http://localhost',
+      type: "ajaxPost",
+      url: "http://localhost",
       action: {
         params: {
-          method: 'put',
+          method: "put",
         },
       },
     });

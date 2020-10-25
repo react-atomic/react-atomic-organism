@@ -1,20 +1,20 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import {
   lazyInject,
   mixClass,
   Field,
   SemanticUI,
   Message,
-} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import callfunc from 'call-func';
-import {FUNCTION} from 'reshow-constant';
+} from "react-atomic-molecule";
+import get from "get-object-value";
+import callfunc from "call-func";
+import { FUNCTION } from "reshow-constant";
 
-import Radio from '../organisms/Checkbox';
+import Radio from "../organisms/Checkbox";
 
 class RadioGroup extends PureComponent {
-  state = {value: null, error: ''};
+  state = { value: null, error: "" };
 
   static propTypes = {
     options: PropTypes.array.isRequired,
@@ -22,15 +22,15 @@ class RadioGroup extends PureComponent {
   };
 
   static defaultProps = {
-    labelLocator: d => d.label,
-    valueLocator: d => d.value,
+    labelLocator: (d) => d.label,
+    valueLocator: (d) => d.value,
     // not an event base so naming it with callback
     checkedCallback: null,
-    I18NValueMissing: 'There must be a value.',
+    I18NValueMissing: "There must be a value.",
   };
 
   isChecked(item, nextValue, current) {
-    const {checkedCallback} = this.props;
+    const { checkedCallback } = this.props;
     if (FUNCTION === typeof checkedCallback) {
       return checkedCallback(item, nextValue, current);
     } else {
@@ -39,16 +39,16 @@ class RadioGroup extends PureComponent {
   }
 
   altValue(item) {
-    const {valueLocator, labelLocator} = this.props;
+    const { valueLocator, labelLocator } = this.props;
     const value = valueLocator(item);
     return value != null ? value : labelLocator(item);
   }
 
-  checkValidity({setState}) {
-    const {required} = this.props;
+  checkValidity({ setState }) {
+    const { required } = this.props;
     if (required) {
       if (this.getValue() == null) {
-        setState('valueMissing');
+        setState("valueMissing");
         return false;
       }
     }
@@ -56,8 +56,8 @@ class RadioGroup extends PureComponent {
   }
 
   getChecked() {
-    const {options} = this.props;
-    const {value, current} = this.state;
+    const { options } = this.props;
+    const { value, current } = this.state;
     let thisChecked;
     (options || []).some((item, key) => {
       const checked = this.isChecked(item, value, current);
@@ -80,7 +80,7 @@ class RadioGroup extends PureComponent {
   }
 
   handleClick = (e, before, after, ref) => {
-    const {onChange} = this.props;
+    const { onChange } = this.props;
     let current = null;
     if (ref) {
       if (ref.props.disabled) {
@@ -89,7 +89,7 @@ class RadioGroup extends PureComponent {
       current = ref;
     }
     const value = current.getValue();
-    this.setState({current, value}, () => {
+    this.setState({ current, value }, () => {
       callfunc(onChange, [value, current]);
     });
   };
@@ -97,7 +97,7 @@ class RadioGroup extends PureComponent {
   handleError(e) {
     const customState = e.state?.customState;
     if (customState) {
-      if ('valueMissing' === customState) {
+      if ("valueMissing" === customState) {
         return this.props.I18NValueMissing;
       }
       return customState;
@@ -105,7 +105,7 @@ class RadioGroup extends PureComponent {
   }
 
   handleDisplayError(el, error) {
-    this.setState({error: error || ''});
+    this.setState({ error: error || "" });
   }
 
   constructor(props) {
@@ -114,9 +114,9 @@ class RadioGroup extends PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {value, defaultValue, options} = nextProps;
+    const { value, defaultValue, options } = nextProps;
     const thisValue =
-      value ?? (get(prevState, ['value']) ? null : defaultValue);
+      value ?? (get(prevState, ["value"]) ? null : defaultValue);
     const nextState = {};
     if (options !== prevState.options) {
       nextState.options = options;
@@ -143,19 +143,19 @@ class RadioGroup extends PureComponent {
       valueLocator,
       labelLocator,
       checkedCallback,
-      'data-constraint-id': dataConstraintId,
+      "data-constraint-id": dataConstraintId,
       ...others
     } = this.props;
-    const {current, value, error} = this.state;
+    const { current, value, error } = this.state;
     const classes = mixClass(fieldClassName, {
       grouped: !inline,
     });
     const thisRadioProps = radioProps || {};
-    thisRadioProps['data-constraint-id'] = dataConstraintId;
+    thisRadioProps["data-constraint-id"] = dataConstraintId;
 
     let errorEl;
     if (error) {
-      others.messageType = 'error';
+      others.messageType = "error";
       errorEl = <Message messageType="error">{error}</Message>;
     }
 
@@ -198,22 +198,22 @@ let injects;
 const InjectStyles = {
   inlineRequired: [
     {
-      margin: '-.2em 0 0 .2em',
-      content: '*',
-      color: '#db2828',
+      margin: "-.2em 0 0 .2em",
+      content: "*",
+      color: "#db2828",
     },
-    '.required.fields.inline>label:after',
+    ".required.fields.inline>label:after",
   ],
   cleanInlineRequired: [
     {
-      display: 'none',
+      display: "none",
     },
-    '.required.fields:not(.grouped)>.field>.checkbox:after',
+    ".required.fields:not(.grouped)>.field>.checkbox:after",
   ],
   errorStyle: [
     {
-      marginBottom: '1em',
+      marginBottom: "1em",
     },
-    '.radio-group .ui.error.message:last-child',
+    ".radio-group .ui.error.message:last-child",
   ],
 };

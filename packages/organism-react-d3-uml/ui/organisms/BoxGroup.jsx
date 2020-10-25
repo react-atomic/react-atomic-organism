@@ -11,7 +11,7 @@ let boxGroupId = 1;
 class BoxGroup extends Component {
   state = {
     absX: 0,
-    absY: 0
+    absY: 0,
   };
 
   boxNameInvertMap = {};
@@ -25,7 +25,7 @@ class BoxGroup extends Component {
 
   handleDrag = ({ absX, absY }) => this.move(absX, absY);
 
-  handleDragEnd = e => {
+  handleDragEnd = (e) => {
     const { absX, absY } = this.state;
     if (this.lastX !== absX && this.lastY !== absY) {
       //only need update when position is changed
@@ -37,7 +37,7 @@ class BoxGroup extends Component {
     }
   };
 
-  handleEdit = e => {
+  handleEdit = (e) => {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
@@ -45,7 +45,7 @@ class BoxGroup extends Component {
     onEdit(name, this);
   };
 
-  handleDel = e => {
+  handleDel = (e) => {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
@@ -146,16 +146,16 @@ class BoxGroup extends Component {
     } = this.props;
     const { rectW, rectH, boxsPos, absX, absY } = this.state;
     const component = build(host.getBoxGroupComponent(name));
-    const thisChildren = Children.map(children, c =>
+    const thisChildren = Children.map(children, (c) =>
       cloneElement(c, {
         boxGroupId: this.id,
         boxGroupAbsX: absX,
-        boxGroupAbsY: absY
+        boxGroupAbsY: absY,
       })
     );
     return (
       <DragAndDrop
-        ref={el => (this.el = el)}
+        ref={(el) => (this.el = el)}
         absX={absX}
         absY={absY}
         zoom={host.getTransform}
@@ -173,7 +173,7 @@ class BoxGroup extends Component {
             boxGroupAbsX: absX,
             boxGroupAbsY: absY,
             zoomK: host.getZoomK(),
-            text: text || name
+            text: text || name,
           },
           thisChildren
         )}

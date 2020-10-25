@@ -1,7 +1,7 @@
-import getSafeReg, {cacheReg} from 'get-safe-reg';
+import getSafeReg, { cacheReg } from "get-safe-reg";
 
-const getRegString = name => '(?:^|\\s+)' + getSafeReg(name) + '(?:\\s+|$)';
+const getRegString = (name) => "(?:^|\\s+)" + getSafeReg(name) + "(?:\\s+|$)";
 
 const cache = cacheReg({})(getRegString);
 
-export default name => cache(name);
+export default (name) => cache(name);

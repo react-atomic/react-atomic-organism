@@ -1,2 +1,2 @@
 // Default
-export default from '../ui/organisms/Dropzone';
+export default from "../ui/organisms/Dropzone";

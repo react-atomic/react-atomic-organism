@@ -9,11 +9,11 @@ import query from "css-query-selector";
 const VERSION = "[VERSION]";
 
 class Asciidoc extends PureComponent {
-  handleIframe = el => {
+  handleIframe = (el) => {
     this.iframe = el;
   };
 
-  handleLoad = el => {
+  handleLoad = (el) => {
     const { onLoad } = this.props;
     this.iframe.postHeight();
     callfunc(onLoad, [el]);
@@ -32,7 +32,7 @@ class Asciidoc extends PureComponent {
     const { onLoadDelay } = this.props;
     const oWin = this.iframe.getWindow();
     const { close, process } = windowOnload({
-      doc: oWin.document
+      doc: oWin.document,
     });
     this.clearWindowOnload = close;
     process(() => {
@@ -46,7 +46,7 @@ class Asciidoc extends PureComponent {
       const allImgLen = imgs.length;
       if (allImgLen) {
         let loadLen = 0;
-        imgs.forEach(img => {
+        imgs.forEach((img) => {
           const oImg = new Image();
           oImg.onload = () => {
             loadLen++;
@@ -78,7 +78,7 @@ class Asciidoc extends PureComponent {
     options = get(options, null, {});
     options.attributes = {
       ...get(options, ["attributes"], {}),
-      ...attributes
+      ...attributes,
     };
 
     const thisJs = js.replace(VERSION, npmVersion);
@@ -100,7 +100,7 @@ class Asciidoc extends PureComponent {
 	    output.innerHTML = html;
             window.renderDone=output;
         </script>
-        `
+        `,
     ].join("");
 
     return (
@@ -119,7 +119,7 @@ Asciidoc.defaultProps = {
     "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
   css:
     "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
-  npmVersion: "2.2.0"
+  npmVersion: "2.2.0",
 };
 
 export default Asciidoc;

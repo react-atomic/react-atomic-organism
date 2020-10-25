@@ -1,4 +1,4 @@
-export {adjust, undo};
+export { adjust, undo };
 
 function adjust(g) {
   var rankDir = g.graph().rankdir.toLowerCase();
@@ -20,8 +20,12 @@ function undo(g) {
 }
 
 function swapWidthHeight(g) {
-  g.nodes().forEach( function(v) { swapWidthHeightOne(g.node(v)); });
-  g.edges().forEach( function(e) { swapWidthHeightOne(g.edge(e)); });
+  g.nodes().forEach(function (v) {
+    swapWidthHeightOne(g.node(v));
+  });
+  g.edges().forEach(function (e) {
+    swapWidthHeightOne(g.edge(e));
+  });
 }
 
 function swapWidthHeightOne(attrs) {
@@ -31,11 +35,13 @@ function swapWidthHeightOne(attrs) {
 }
 
 function reverseY(g) {
-  g.nodes().forEach( function(v) { reverseYOne(g.node(v)); });
+  g.nodes().forEach(function (v) {
+    reverseYOne(g.node(v));
+  });
 
-  g.edges().forEach( function(e) {
+  g.edges().forEach(function (e) {
     var edge = g.edge(e);
-    edge.points.forEach( reverseYOne);
+    edge.points.forEach(reverseYOne);
     if (edge.y) {
       reverseYOne(edge);
     }
@@ -47,9 +53,11 @@ function reverseYOne(attrs) {
 }
 
 function swapXY(g) {
-  g.nodes().forEach( function(v) { swapXYOne(g.node(v)); });
+  g.nodes().forEach(function (v) {
+    swapXYOne(g.node(v));
+  });
 
-  g.edges().forEach( function(e) {
+  g.edges().forEach(function (e) {
     var edge = g.edge(e);
     edge.points.forEach(swapXYOne);
     if (edge.x) {

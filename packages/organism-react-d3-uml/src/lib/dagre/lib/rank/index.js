@@ -1,8 +1,8 @@
-import networkSimplex from './network-simplex'
-import {longestPath} from './util';
-import feasibleTree from './feasible-tree';
+import networkSimplex from "./network-simplex";
+import { longestPath } from "./util";
+import feasibleTree from "./feasible-tree";
 
-export default rank
+export default rank;
 
 /*
  * Assigns a rank to each node in the input graph that respects the "minlen"
@@ -24,11 +24,17 @@ export default rank
  *       fix them up later.
  */
 function rank(g) {
-  switch(g.graph().ranker) {
-    case "tight-tree": tightTreeRanker(g); break;
-    case "longest-path": longestPathRanker(g); break;
+  switch (g.graph().ranker) {
+    case "tight-tree":
+      tightTreeRanker(g);
+      break;
+    case "longest-path":
+      longestPathRanker(g);
+      break;
     case "network-simplex":
-    default: networkSimplexRanker(g); break;
+    default:
+      networkSimplexRanker(g);
+      break;
   }
 }
 

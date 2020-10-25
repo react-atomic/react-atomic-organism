@@ -10,7 +10,7 @@ let gLastX;
 let gLastY;
 let mouseMoveTimer;
 
-const CarouselNavigation = props => {
+const CarouselNavigation = (props) => {
   const {
     style,
     className,
@@ -39,13 +39,13 @@ const CarouselNavigation = props => {
     style: {
       ...get(carouselAttr, ["style"], {}),
       ...Styles.thumb,
-      ...get(thumbAttr, ["style"], {})
-    }
+      ...get(thumbAttr, ["style"], {}),
+    },
   };
 
   useEffect(() => {
     const childs = [];
-    Children.forEach(children, child => {
+    Children.forEach(children, (child) => {
       if (child) {
         childs.push(child);
       }
@@ -78,7 +78,7 @@ const CarouselNavigation = props => {
     handleChange(thisForward.current);
   };
 
-  const handleChange = selected => {
+  const handleChange = (selected) => {
     setSelected(selected);
     callfunc(onChange, [selected]);
   };
@@ -101,7 +101,7 @@ const CarouselNavigation = props => {
       childs[i] = child = build(child)({
         ...carouselAttr,
         name: key,
-        key
+        key,
       });
       if (isSelected) {
         activeStyle = Styles.thumbActive;
@@ -110,7 +110,7 @@ const CarouselNavigation = props => {
           selected,
           childs,
           activeEl,
-          handleChange
+          handleChange,
         });
       } else {
         if (!activeEl) {
@@ -126,12 +126,12 @@ const CarouselNavigation = props => {
           key,
           ...thisThumbAttr,
           className: mixClass(thisThumbAttr.className, {
-            active: isSelected
+            active: isSelected,
           }),
           onClick: () => {
             handleChange(key);
           },
-          onMouseMove: e => {
+          onMouseMove: (e) => {
             if (mouseMoveTimer) {
               clearTimeout(mouseMoveTimer);
               mouseMoveTimer = null;
@@ -143,7 +143,7 @@ const CarouselNavigation = props => {
               gLastY = lastY;
             }, 100);
           },
-          onMouseOver: e => {
+          onMouseOver: (e) => {
             const lastX = e.screenX;
             const lastY = e.screenY;
             if (gLastX === lastX && gLastY === lastY) {
@@ -156,11 +156,11 @@ const CarouselNavigation = props => {
           styles: reactStyle(
             {
               ...thisThumbAttr.style,
-              ...activeStyle
+              ...activeStyle,
             },
             false,
             false
-          )
+          ),
         };
         let thisChild = get(child, ["props", "thumbContainer"]);
         if (thisChild) {
@@ -202,9 +202,9 @@ const CarouselNavigation = props => {
       {
         style: {
           ...Styles.container,
-          ...style
+          ...style,
         },
-        className: mixClass(className, "carousel-navigation")
+        className: mixClass(className, "carousel-navigation"),
       },
       thisChildren
     );
@@ -213,7 +213,7 @@ const CarouselNavigation = props => {
 
 CarouselNavigation.defaultProps = {
   container: SemanticUI,
-  infinity: true
+  infinity: true,
 };
 
 export default CarouselNavigation;
@@ -221,7 +221,7 @@ export default CarouselNavigation;
 const Styles = {
   container: {
     position: "relative",
-    marginBottom: 35
+    marginBottom: 35,
   },
   thumbList: {
     fontSize: "1rem",
@@ -229,7 +229,7 @@ const Styles = {
     margin: "-85px auto 0",
     minHeight: 50,
     padding: 5,
-    whiteSpace: "normal"
+    whiteSpace: "normal",
   },
   thumb: {
     margin: "0 5px 10px 0",
@@ -237,13 +237,13 @@ const Styles = {
     overflow: "hidden",
     width: 50,
     height: 50,
-    verticalAlign: "bottom"
+    verticalAlign: "bottom",
   },
   thumbHover: {
-    opacity: 1
+    opacity: 1,
   },
   thumbActive: {
     opacity: 1,
-    border: "1px solid #fff"
-  }
+    border: "1px solid #fff",
+  },
 };

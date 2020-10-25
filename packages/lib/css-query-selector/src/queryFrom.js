@@ -1,23 +1,23 @@
-import {doc} from 'win-doc';
-import {FUNCTION, STRING} from 'reshow-constant';
+import { doc } from "win-doc";
+import { FUNCTION, STRING } from "reshow-constant";
 
-const arrayFrom = a => [...a];
+const arrayFrom = (a) => [...a];
 
 const findHit = (all, el) => {
   let hit;
-  const setHit = p => (hit = p);
-  all.some(p => (p.contains(el) && !p.isSameNode(el) ? setHit(p) : false));
+  const setHit = (p) => (hit = p);
+  all.some((p) => (p.contains(el) && !p.isSameNode(el) ? setHit(p) : false));
   return hit;
 };
 
-const queryFrom = base => {
+const queryFrom = (base) => {
   const myBase = FUNCTION === typeof base ? base : () => defaultQuery.el(base);
 
-  const queryOne = sel => myBase()?.querySelector(sel);
+  const queryOne = (sel) => myBase()?.querySelector(sel);
 
-  const queryAll = sel => arrayFrom(myBase()?.querySelectorAll(sel));
+  const queryAll = (sel) => arrayFrom(myBase()?.querySelectorAll(sel));
 
-  const queryEl = el => (STRING === typeof el ? queryOne(el) : el);
+  const queryEl = (el) => (STRING === typeof el ? queryOne(el) : el);
 
   const _queryAncestorPolyfill = (el, ancestor) => {
     let lastHit;
@@ -41,7 +41,7 @@ const queryFrom = base => {
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
     if (!el) {
-      console.warn('Element is empty.');
+      console.warn("Element is empty.");
       return false;
     }
     return el.closest
@@ -60,4 +60,4 @@ const queryFrom = base => {
 const defaultQuery = queryFrom(doc);
 
 export default queryFrom;
-export {defaultQuery};
+export { defaultQuery };

@@ -1,7 +1,7 @@
-import {uniqueId} from '../../../lodash-lite'
-import {Graph} from '../graphlib';
+import { uniqueId } from "../../../lodash-lite";
+import { Graph } from "../graphlib";
 
-export default buildLayerGraph
+export default buildLayerGraph;
 
 /*
  * Constructs a graph that can be used to sort a layer of nodes. The graph will
@@ -35,29 +35,32 @@ export default buildLayerGraph
  */
 function buildLayerGraph(g, rank, relationship) {
   var root = createRootNode(g),
-      result = new Graph({ compound: true }).setGraph({ root: root })
-                  .setDefaultNodeLabel(function(v) { return g.node(v); });
+    result = new Graph({ compound: true })
+      .setGraph({ root: root })
+      .setDefaultNodeLabel(function (v) {
+        return g.node(v);
+      });
 
-  g.nodes().forEach( function(v) {
+  g.nodes().forEach(function (v) {
     var node = g.node(v),
-        parent = g.parent(v);
+      parent = g.parent(v);
 
-    if (node.rank === rank || node.minRank <= rank && rank <= node.maxRank) {
+    if (node.rank === rank || (node.minRank <= rank && rank <= node.maxRank)) {
       result.setNode(v);
       result.setParent(v, parent || root);
 
       // This assumes we have only short edges!
-      g[relationship](v).forEach( function(e) {
+      g[relationship](v).forEach(function (e) {
         var u = e.v === v ? e.w : e.v,
-            edge = result.edge(u, v),
-            weight = "undefined" !== typeof(edge) ? edge.weight : 0;
+          edge = result.edge(u, v),
+          weight = "undefined" !== typeof edge ? edge.weight : 0;
         result.setEdge(u, v, { weight: g.edge(e).weight + weight });
       });
 
-      if ('undefined' !== typeof node.minRank) {
+      if ("undefined" !== typeof node.minRank) {
         result.setNode(v, {
           borderLeft: node.borderLeft[rank],
-          borderRight: node.borderRight[rank]
+          borderRight: node.borderRight[rank],
         });
       }
     }

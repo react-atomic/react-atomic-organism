@@ -10,24 +10,24 @@ const messageTypes = ["success", "info", "warning", "error"];
 
 class Alert extends Component {
   state = {
-    hoverStyle: null
+    hoverStyle: null,
   };
 
   handleMouseEnter = () => {
     this.setState({
       hoverStyle: {
-        opacity: ".9"
-      }
+        opacity: ".9",
+      },
     });
   };
 
   handleMouseLeave = () => {
     this.setState({
-      hoverStyle: null
+      hoverStyle: null,
     });
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     const { onClick, data } = this.props;
     e.data = data;
     onClick(e);
@@ -49,7 +49,7 @@ class Alert extends Component {
         <XIcon
           style={{
             ...Styles.xicon,
-            ...hoverStyle
+            ...hoverStyle,
           }}
           weight=".1rem"
           onMouseEnter={this.handleMouseEnter}
@@ -63,32 +63,32 @@ class Alert extends Component {
 
 class AlertsNotifier extends PureComponent {
   state = {
-    dismissedAlerts: Set()
+    dismissedAlerts: Set(),
   };
 
   static propTypes = {
     alerts: PropTypes.array,
-    onDismiss: PropTypes.func
+    onDismiss: PropTypes.func,
   };
 
   static defaultProps = {
     ani: {
       appear: "fadeIn",
       enter: "fadeIn",
-      leave: "fadeOut"
+      leave: "fadeOut",
     },
     position: "top",
     name: "alerts",
-    duration: 5000
+    duration: 5000,
   };
 
-  handleDismiss = e => {
+  handleDismiss = (e) => {
     const { onDismiss } = this.props;
     const isContinue = callfunc(onDismiss, [e]);
     if (false !== isContinue) {
       // if no callback for dismissal, just update our state
       this.setState(({ dismissedAlerts }) => ({
-        dismissedAlerts: dismissedAlerts.add(e.data)
+        dismissedAlerts: dismissedAlerts.add(e.data),
       }));
     }
   };
@@ -98,7 +98,7 @@ class AlertsNotifier extends PureComponent {
     if (alerts !== prevState.prevPropsAlerts) {
       return {
         prevPropsAlerts: alerts,
-        dismissedAlerts: Set()
+        dismissedAlerts: Set(),
       };
     } else {
       return null;
@@ -152,14 +152,14 @@ const Styles = {
     position: "fixed",
     left: 10,
     right: 10,
-    zIndex: 9999
+    zIndex: 9999,
   },
   xicon: {
     top: 20,
     right: 10,
-    opacity: ".5"
+    opacity: ".5",
   },
   message: {
-    margin: "3px 0"
-  }
+    margin: "3px 0",
+  },
 };

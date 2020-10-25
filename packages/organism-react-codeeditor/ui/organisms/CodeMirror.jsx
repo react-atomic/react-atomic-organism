@@ -7,16 +7,16 @@ import * as models from "../../src/models";
 const keys = Object.keys;
 
 const reducer = (state, action) => {
-  keys(action).forEach(key => (state[key] = action[key]));
+  keys(action).forEach((key) => (state[key] = action[key]));
   return state;
 };
 
 const CodeMirror = ({ onChange, model, children, ...props }) => {
   const oModel = models[model] || models.html;
   const [that, dispatch] = useReducer(reducer, {});
-  const handleIframeRef = el => {
+  const handleIframeRef = (el) => {
     dispatch({
-      dIframe: el
+      dIframe: el,
     });
   };
 
@@ -30,13 +30,13 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
         indentWithTabs: false,
         lineNumbers: true,
         lineWrapping: true,
-        ...oModel.options
+        ...oModel.options,
       }
     );
     codemirror.setSize(null, "100%");
     codemirror.on("change", () => {
       callfunc(onChange, [
-        oModel.setValue({ codemirror, iframeWindow: that.iframeWindow })
+        oModel.setValue({ codemirror, iframeWindow: that.iframeWindow }),
       ]);
     });
     codemirror.autoFormatRange(
@@ -58,7 +58,7 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
       }, 10);
       dispatch({
         timer,
-        iframeWindow
+        iframeWindow,
       });
     }
   };
@@ -85,11 +85,11 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
           <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
           ${(oModel.libJS || [])
-            .map(js => '<script src="' + js + '"></script>')
+            .map((js) => '<script src="' + js + '"></script>')
             ?.join("")}
           ${(oModel.codeMirrorJS || [])
             .map(
-              js =>
+              (js) =>
                 '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
                 js +
                 '"></script>'
@@ -111,9 +111,9 @@ export default CodeMirror;
 
 const Styles = {
   textarea: {
-    display: "none"
+    display: "none",
   },
   fitHeight: {
-    height: "100%"
-  }
+    height: "100%",
+  },
 };

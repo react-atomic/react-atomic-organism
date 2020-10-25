@@ -1,11 +1,9 @@
 "use strict";
 
-import {range} from '../../../lodash-lite'
-import {maxRank as getMaxRank} from '../util'
+import { range } from "../../../lodash-lite";
+import { maxRank as getMaxRank } from "../util";
 
-
-export default initOrder
-
+export default initOrder;
 
 /*
  * Assigns an initial order value for each node by performing a DFS search
@@ -20,21 +18,25 @@ export default initOrder
  */
 function initOrder(g) {
   var visited = {},
-      simpleNodes = g.nodes().filter( function(v) {
-        return !g.children(v).length;
-      });
-    const maxRank = getMaxRank(g, simpleNodes) 
-    const layers = range(maxRank + 1).map( function() { return []; });
+    simpleNodes = g.nodes().filter(function (v) {
+      return !g.children(v).length;
+    });
+  const maxRank = getMaxRank(g, simpleNodes);
+  const layers = range(maxRank + 1).map(function () {
+    return [];
+  });
 
   function dfs(v) {
     if (visited[v]) return;
     visited[v] = true;
     var node = g.node(v);
     layers[node.rank].push(v);
-    g.successors(v).forEach( dfs);
+    g.successors(v).forEach(dfs);
   }
 
-  var orderedVs = simpleNodes.sort( function(v) { return g.node(v).rank; });
+  var orderedVs = simpleNodes.sort(function (v) {
+    return g.node(v).rank;
+  });
   orderedVs.forEach(dfs);
 
   return layers;

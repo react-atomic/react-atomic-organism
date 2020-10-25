@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {build} from 'react-atomic-molecule';
+import React, { Component } from "react";
+import { build } from "react-atomic-molecule";
 
-import LineDefaultLayout from '../molecules/LineDefaultLayout';
+import LineDefaultLayout from "../molecules/LineDefaultLayout";
 
 class Line extends Component {
   static defaultProps = {
@@ -12,33 +12,33 @@ class Line extends Component {
     isHover: false,
   };
 
-  handleMouseEnter = e => {
-    const {host, id} = this.props;
+  handleMouseEnter = (e) => {
+    const { host, id } = this.props;
     if (!host.getConnectStartPoint()) {
       this.setState(
         {
           isHover: true,
         },
-        () => host.oConn.updateLine(id, {hover: true}),
+        () => host.oConn.updateLine(id, { hover: true })
       );
     }
   };
 
-  handleMouseLeave = e => {
-    const {host, id} = this.props;
+  handleMouseLeave = (e) => {
+    const { host, id } = this.props;
     if (!host.getConnectStartPoint()) {
       this.setState(
         {
           isHover: false,
         },
-        () => host.oConn.updateLine(id, {hover: false}),
+        () => host.oConn.updateLine(id, { hover: false })
       );
     }
   };
 
-  handleCancelButtonClick = e => {
+  handleCancelButtonClick = (e) => {
     e.preventDefault();
-    const {host, id: lineId} = this.props;
+    const { host, id: lineId } = this.props;
     host.handleLineDel({
       ref: this,
       lineId,
@@ -46,9 +46,9 @@ class Line extends Component {
     });
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     e.preventDefault();
-    const {host, id: lineId} = this.props;
+    const { host, id: lineId } = this.props;
     host.handleLineEdit({
       ref: this,
       lineId,
@@ -61,13 +61,13 @@ class Line extends Component {
   }
 
   getFromTo() {
-    const {from, to} = this.props;
-    return {from, to};
+    const { from, to } = this.props;
+    return { from, to };
   }
 
   render() {
-    const {start, props, init, host, component, ...other} = this.props;
-    const {isHover} = this.state;
+    const { start, props, init, host, component, ...other } = this.props;
+    const { isHover } = this.state;
     if (!start) {
       return null;
     }

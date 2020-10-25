@@ -4,7 +4,7 @@ import React, {
   useMemo,
   useRef,
   forwardRef,
-  useImperativeHandle
+  useImperativeHandle,
 } from "react";
 import { Image } from "react-atomic-molecule";
 import { win } from "win-doc";
@@ -18,7 +18,7 @@ const AnimateImageComp = (props, ref) => {
   const oImg = useRef();
 
   useImperativeHandle(ref, () => ({
-    getImageObject: () => oImg.current
+    getImageObject: () => oImg.current,
   }));
 
   useEffect(() => {
@@ -48,8 +48,8 @@ const AnimateImage = forwardRef(AnimateImageComp);
 AnimateImage.defaultProps = {
   animate: {
     enter: "fadeIn-300",
-    leave: "fadeOut-300"
-  }
+    leave: "fadeOut-300",
+  },
 };
 
 export default AnimateImage;

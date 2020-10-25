@@ -1,2 +1,2 @@
 // Default
-export {default} from '../ui/organisms/ScrollAnimate';
+export { default } from "../ui/organisms/ScrollAnimate";

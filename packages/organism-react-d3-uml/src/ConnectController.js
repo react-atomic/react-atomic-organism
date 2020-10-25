@@ -1,5 +1,5 @@
-import get from 'get-object-value';
-import {removeEmpty} from 'array.merge';
+import get from "get-object-value";
+import { removeEmpty } from "array.merge";
 
 let lineCounts = 1;
 const keys = Object.keys;
@@ -16,21 +16,21 @@ class ConnectController {
   }
 
   getLine(id) {
-    return get(this, ['host', 'state', 'lines', id]);
+    return get(this, ["host", "state", "lines", id]);
   }
 
   addLine(props) {
-    const id = 'line-' + lineCounts;
+    const id = "line-" + lineCounts;
     lineCounts++;
-    this.setState(lines => {
-      lines[id] = {props};
+    this.setState((lines) => {
+      lines[id] = { props };
       return lines;
     });
     return id;
   }
 
   updateLine(id, params) {
-    this.setState(lines => {
+    this.setState((lines) => {
       lines[id] = {
         ...lines[id],
         ...params,
@@ -42,7 +42,7 @@ class ConnectController {
   deleteLine(id) {
     const payload = {};
     this.setState(
-      lines => {
+      (lines) => {
         const line = lines[id];
         if (line) {
           payload.line = line;
@@ -57,7 +57,7 @@ class ConnectController {
             payload.to = to.getBoxGroupName();
           }
           if (from && to) {
-            const {mergeId, invertMergeId} = this.getConnectIds(from, to);
+            const { mergeId, invertMergeId } = this.getConnectIds(from, to);
             delete this.connects[mergeId];
             delete this.connects[invertMergeId];
           }
@@ -66,11 +66,11 @@ class ConnectController {
         return lines;
       },
       () => {
-        const {from, to} = payload;
+        const { from, to } = payload;
         if (from || to) {
           this.host.handleLineDel(payload);
         }
-      },
+      }
     );
   }
 
@@ -106,17 +106,17 @@ class ConnectController {
       fromBoxGroupName,
       toBoxGroupName,
       fromBoxGroupId,
-      toBoxGroupId
+      toBoxGroupId,
     };
   }
 
   getConnects() {
     const conns = this.connects;
-    const {lines} = this.host.state;
+    const { lines } = this.host.state;
     const results = [];
-    keys(conns).forEach(key => {
+    keys(conns).forEach((key) => {
       const lineId = conns[key];
-      const {from, to} = lines[lineId];
+      const { from, to } = lines[lineId];
       if (!from || !to) {
         return;
       } else {
@@ -129,9 +129,9 @@ class ConnectController {
   }
 
   addConnected(lineId, from, to, init) {
-    const {fromBoxId, toBoxId, mergeId, invertMergeId} = this.getConnectIds(
+    const { fromBoxId, toBoxId, mergeId, invertMergeId } = this.getConnectIds(
       from,
-      to,
+      to
     );
     const connects = this.connects;
     if (
@@ -147,13 +147,13 @@ class ConnectController {
         start: from.getCenter(),
         end: to.getCenter(),
       });
-      const isContinue = host.handleConnWillAdd({...payload, lineId});
+      const isContinue = host.handleConnWillAdd({ ...payload, lineId });
       if (isContinue) {
         connects[mergeId] = lineId;
-        from.setLine(lineId, 'from');
-        to.setLine(lineId, 'to');
+        from.setLine(lineId, "from");
+        to.setLine(lineId, "to");
         this.updateLine(lineId, payload);
-        host.handleConnAdd({...payload, lineId});
+        host.handleConnAdd({ ...payload, lineId });
       }
       return isContinue;
     } else {
@@ -186,10 +186,10 @@ class ConnectController {
       return;
     }
     this.lineTimer = setTimeout(() => {
-      this.host.setState({lines: {...this.queue}}, () => {
+      this.host.setState({ lines: { ...this.queue } }, () => {
         this.queue = null;
-        this.updateCbQueue.forEach(cb => cb());  
-        this.updateCbQueue=[];
+        this.updateCbQueue.forEach((cb) => cb());
+        this.updateCbQueue = [];
       });
     }, delay);
   }
@@ -199,9 +199,9 @@ class ConnectController {
     const connsMap = {};
     const addBySort = (from, to) => {
       const a = [from, to].sort();
-      connsMap[a[0] + '-' + a[1]] = [from, to];
+      connsMap[a[0] + "-" + a[1]] = [from, to];
     };
-    conns.forEach(conn => {
+    conns.forEach((conn) => {
       addBySort(conn.fromBoxGroupId, conn.toBoxGroupId);
     });
     return connsMap;

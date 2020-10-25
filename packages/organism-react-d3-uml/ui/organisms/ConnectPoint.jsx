@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {build} from 'react-atomic-molecule';
-import {DragAndDrop} from 'organism-react-graph';
-import {mouse, toSvgXY} from 'getoffset';
-import get from 'get-object-value';
-import callfunc from 'call-func';
-import {queryAncestor} from 'css-query-selector';
+import React, { Component } from "react";
+import { build } from "react-atomic-molecule";
+import { DragAndDrop } from "organism-react-graph";
+import { mouse, toSvgXY } from "getoffset";
+import get from "get-object-value";
+import callfunc from "call-func";
+import { queryAncestor } from "css-query-selector";
 
 // files
-import ConnectPointDefaultLayout from '../molecules/ConnectPointDefaultLayout';
+import ConnectPointDefaultLayout from "../molecules/ConnectPointDefaultLayout";
 
 let connPointId = 1;
 const keys = Object.keys;
@@ -33,40 +33,40 @@ class ConnectPoint extends Component {
     }
   };
 
-  handleDragStart = e => {
-    const {start} = e;
-    const {onDragStart, host} = this.props;
+  handleDragStart = (e) => {
+    const { start } = e;
+    const { onDragStart, host } = this.props;
     callfunc(onDragStart, [true]);
     const lineId = host.oConn.addLine();
     start.center = this.getCenter();
     start.lineId = lineId;
-    this.setState({start});
+    this.setState({ start });
     host.setConnectStartPoint(this);
   };
 
-  handleDrag = e => {
-    const {absX, absY, sourceEvent} = e;
-    this.setState({absX, absY});
-    const {host} = this.props;
+  handleDrag = (e) => {
+    const { absX, absY, sourceEvent } = e;
+    this.setState({ absX, absY });
+    const { host } = this.props;
     const hostEl = host.getVectorEl();
     const end = mouse(sourceEvent, hostEl);
-    const {lineId, center} = this.state.start;
+    const { lineId, center } = this.state.start;
     let endXY;
     const target = e.destTarget;
     if (target) {
-      let targetId = target.getAttribute('data-id');
-      let targetGroup = target.getAttribute('data-group');
+      let targetId = target.getAttribute("data-id");
+      let targetGroup = target.getAttribute("data-group");
       if (!targetId && !targetGroup) {
-        const pDom = queryAncestor(target, '[data-id]');
+        const pDom = queryAncestor(target, "[data-id]");
         if (pDom) {
-          targetId = pDom.getAttribute('data-id');
-          targetGroup = pDom.getAttribute('data-group');
+          targetId = pDom.getAttribute("data-id");
+          targetGroup = pDom.getAttribute("data-group");
         }
       }
       if (targetId && targetGroup) {
         const targetBox = host.getBox(targetId, targetGroup);
         if (!targetBox) {
-          return console.error('[ConnectPoint] target-box not found', {
+          return console.error("[ConnectPoint] target-box not found", {
             targetId,
             targetGroup,
           });
@@ -82,12 +82,12 @@ class ConnectPoint extends Component {
       host.setConnectEndPoint(null);
       endXY = host.applyXY(end[0], end[1]);
     }
-    host.oConn.updateLine(lineId, {start: center, end: endXY});
+    host.oConn.updateLine(lineId, { start: center, end: endXY });
   };
 
-  handleDragEnd = e => {
-    const {lineId} = this.state.start;
-    const {onDragStart, host} = this.props;
+  handleDragEnd = (e) => {
+    const { lineId } = this.state.start;
+    const { onDragStart, host } = this.props;
     const oConn = host.oConn;
     const endPoint = host.getConnectEndPoint();
     let isAddConnected = false;
@@ -96,7 +96,7 @@ class ConnectPoint extends Component {
     }
 
     // after connected
-    this.setState({start: null});
+    this.setState({ start: null });
     host.setConnectStartPoint(null);
     if (!endPoint || !isAddConnected) {
       oConn.deleteLine(lineId);
@@ -114,14 +114,14 @@ class ConnectPoint extends Component {
 
   getVectorCenter(el, host) {
     const bbox = el.getBBox();
-    const {left, top, width, height} = el.getBoundingClientRect();
+    const { left, top, width, height } = el.getBoundingClientRect();
     const x = width / 2 + bbox.x;
     const y = height / 2 + bbox.y;
     return host.applyXY(x, y, el);
   }
 
   getHtmlCenter(el, host) {
-    const {left, top, width, height} =
+    const { left, top, width, height } =
       el && el.getBoundingClientRect
         ? el.getBoundingClientRect()
         : {
@@ -138,7 +138,7 @@ class ConnectPoint extends Component {
   }
 
   getCenter() {
-    const {host} = this.props;
+    const { host } = this.props;
     const el = this.getEl();
     let center;
     if (host.insideVector(el)) {
@@ -152,7 +152,7 @@ class ConnectPoint extends Component {
   }
 
   getBox() {
-    const {host, boxId, boxGroupId} = this.props;
+    const { host, boxId, boxGroupId } = this.props;
     return host.getBox(boxId, boxGroupId);
   }
 
@@ -161,9 +161,7 @@ class ConnectPoint extends Component {
   }
 
   getBoxGroupName() {
-    return this.getBox()
-      .getBoxGroup()
-      .getName();
+    return this.getBox().getBoxGroup().getName();
   }
 
   getId() {
@@ -171,7 +169,7 @@ class ConnectPoint extends Component {
   }
 
   isShow() {
-    let {show} = this.props;
+    let { show } = this.props;
     if (null == show) {
       if (this.state.start) {
         show = true;
@@ -184,7 +182,7 @@ class ConnectPoint extends Component {
     return show;
   }
 
-  handleEl = el => {
+  handleEl = (el) => {
     if (el) {
       this.dnd = el;
     }
@@ -197,21 +195,21 @@ class ConnectPoint extends Component {
   }
 
   componentDidMount() {
-    const {onMount} = this.props;
+    const { onMount } = this.props;
     onMount(this);
   }
 
   componentWillUnmount() {
     const lineKeys = keys(this.lines);
     if (lineKeys.length) {
-      const {host} = this.props;
-      lineKeys.forEach(lineId => host.oConn.deleteLine(lineId));
+      const { host } = this.props;
+      lineKeys.forEach((lineId) => host.oConn.deleteLine(lineId));
     }
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {boxGroupAbsX, boxGroupAbsY} = this.props;
-    const {boxGroupAbsX: prevBoxGroupAbsX, boxGroupAbsY: prevBoxGroupAbsY} =
+    const { boxGroupAbsX, boxGroupAbsY } = this.props;
+    const { boxGroupAbsX: prevBoxGroupAbsX, boxGroupAbsY: prevBoxGroupAbsY } =
       prevProps || {};
     if (
       boxGroupAbsX === prevBoxGroupAbsX &&
@@ -221,14 +219,14 @@ class ConnectPoint extends Component {
     }
     const lineKeys = keys(this.lines);
     if (lineKeys.length) {
-      const {host} = this.props;
+      const { host } = this.props;
       const center = this.getCenter();
-      lineKeys.forEach(lineId => {
+      lineKeys.forEach((lineId) => {
         const lineType = this.lines[lineId];
-        if ('from' === lineType) {
-          host.oConn.updateLine(lineId, {start: center});
+        if ("from" === lineType) {
+          host.oConn.updateLine(lineId, { start: center });
         } else {
-          host.oConn.updateLine(lineId, {end: center});
+          host.oConn.updateLine(lineId, { end: center });
         }
       });
     }
@@ -247,7 +245,7 @@ class ConnectPoint extends Component {
       component,
       ...props
     } = this.props;
-    const {absX, absY} = this.state;
+    const { absX, absY } = this.state;
     return (
       <DragAndDrop
         {...props}

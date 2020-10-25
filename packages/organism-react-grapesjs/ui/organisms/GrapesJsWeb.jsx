@@ -7,9 +7,9 @@ import { queryFrom } from "css-query-selector";
 import { popupDispatch, FullScreen } from "organism-react-popup";
 import { openCodeEditor } from "organism-react-codeeditor";
 
-import {STRING} from "reshow-constant";
+import { STRING } from "reshow-constant";
 
-import fixHtml, {setSanitizeHtml} from "../../src/fixHtml";
+import fixHtml, { setSanitizeHtml } from "../../src/fixHtml";
 import getAsset from "../../src/getAsset";
 import getGjsPresetWebpage from "../../src/getGjsPresetWebpage";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
@@ -21,33 +21,33 @@ const defaultAssets = {
   "sanitize-html":
     "https://cdn.jsdelivr.net/npm/sanitize-html@1.20.1/dist/sanitize-html.min.js",
   "grapesjs-preset-webpage.min.js":
-    "https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.js"
+    "https://cdn.jsdelivr.net/npm/grapesjs-preset-webpage@0.1.11/dist/grapesjs-preset-webpage.min.js",
 };
 
 const cleanClassReg = /(class\=")([^"]*)(c\d{0,4})(\s)?([^"]*)/g;
 
 const ERROR_HTML_INVALID_SYNTAX = "HTML invalid syntax";
 
-const initViewSource = host => {
+const initViewSource = (host) => {
   const panelManager = host.getPanel();
   panelManager.addButton("options", [
     {
       id: "edit-code",
       className: "gjs-pn-btn fa fa-code",
       command: (editor, sender) => {
-        openCodeEditor(host.getDesign(), code => {
+        openCodeEditor(host.getDesign(), (code) => {
           editor.runCommand("core:canvas-clear");
           editor.setComponents(code);
         });
       },
-      attributes: { title: "Edit Html" }
-    }
+      attributes: { title: "Edit Html" },
+    },
   ]);
 };
 
 class GrapesJsWeb extends Component {
   static defaultProps = {
-    allowScripts: true
+    allowScripts: true,
   };
 
   getAsset(fileName) {
@@ -75,21 +75,21 @@ class GrapesJsWeb extends Component {
   }
 
   store(cb) {
-    this.editor.store(data => {
+    this.editor.store((data) => {
       const html = getInlinedHtmlCss({
         html: get(data, ["gjs-html"]),
-        css: get(data, ["gjs-css"])
+        css: get(data, ["gjs-css"]),
       });
       const design = data;
       callfunc(cb, [{ html, design }]);
     });
   }
 
-  handleIframe = el => {
+  handleIframe = (el) => {
     this.dIframe = el;
   };
 
-  handleRemoveAsset = asset => {
+  handleRemoveAsset = (asset) => {
     const { onRemoveAsset } = this.props;
     const src = asset.get("src");
     const wrapper = this.editor.DomComponents.getWrapper();
@@ -97,12 +97,12 @@ class GrapesJsWeb extends Component {
       get(queryFrom(this.iframeWindow.document).one("iframe"), [
         "contentWindow",
         "window",
-        "document"
+        "document",
       ])
     );
     const images = css.all('img[src="' + src + '"]');
     if (images && images.length) {
-      images.forEach(img => {
+      images.forEach((img) => {
         const ancestor = css.ancestor(img, '[data-gjs-type="mj-image"]');
         if (ancestor) {
           const ancestorWrapper = wrapper.find("#" + ancestor.id);
@@ -117,7 +117,7 @@ class GrapesJsWeb extends Component {
     return "gjs-open-import-webpage";
   }
 
-  handleLoad = e => {
+  handleLoad = (e) => {
     this.iframeWindow = this.dIframe.contentWindow.window;
     this.iframeWindow.debug = this;
     this.timer = setInterval(() => {
@@ -137,10 +137,10 @@ class GrapesJsWeb extends Component {
       onEditorInit,
       onBeforeEditorInit,
       host,
-      init
+      init,
     } = this.props;
     const CKEDITOR = this.iframeWindow.CKEDITOR;
-    plugCkeditor({grapesjs: this.iframeWindow.grapesjs, CKEDITOR});
+    plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
 
     const plugins = ["gjs-preset-webpage", "gjs-plugin-ckeditor"];
 
@@ -152,7 +152,7 @@ class GrapesJsWeb extends Component {
       height: "100%",
       storageManager: {
         autosave: false,
-        autoload: false
+        autoload: false,
       },
       container: "#gjs",
       plugins,
@@ -161,11 +161,11 @@ class GrapesJsWeb extends Component {
           CKEDITOR,
           i18nMergeTags,
           font,
-          mergeTags
+          mergeTags,
         }),
-        "gjs-preset-webpage": getGjsPresetWebpage()
+        "gjs-preset-webpage": getGjsPresetWebpage(),
       },
-      ...init
+      ...init,
     };
     callfunc(onBeforeEditorInit, [{ CKEDITOR, initGrapesJS, component: this }]);
 
@@ -177,7 +177,7 @@ class GrapesJsWeb extends Component {
       run() {
         host.execClean();
         return true;
-      }
+      },
     });
     editor.on("load", this.handleEditorLoad);
     editor.on("asset:remove", this.handleRemoveAsset);
@@ -185,12 +185,12 @@ class GrapesJsWeb extends Component {
     callfunc(onEditorInit, [{ editor, component: this }]);
   };
 
-  hadleInitBlockManager = blockManager => {
+  hadleInitBlockManager = (blockManager) => {
     const { onInitBlockManager } = this.props;
     callfunc(onInitBlockManager, [{ blockManager, editor: this.editor }]);
   };
 
-  handleInitStore = editor => {
+  handleInitStore = (editor) => {
     const storeM = editor.StorageManager;
     storeM.add("local", {
       store(data, clb, clbErr) {
@@ -198,7 +198,7 @@ class GrapesJsWeb extends Component {
       },
       load(keys, clb, clbErr) {
         console.log({ keys, clb, clbErr });
-      }
+      },
     });
   };
 
@@ -226,7 +226,7 @@ class GrapesJsWeb extends Component {
           }
         } catch (e) {
           callfunc(onError, [
-            { e, design, message: ERROR_HTML_INVALID_SYNTAX }
+            { e, design, message: ERROR_HTML_INVALID_SYNTAX },
           ]);
           console.warn({ e, design });
         }
@@ -276,7 +276,7 @@ class GrapesJsWeb extends Component {
     `;
     const thisStyle = {
       ...Styles.iframe,
-      ...style
+      ...style,
     };
     return (
       <Iframe
@@ -295,6 +295,6 @@ export default GrapesJsWeb;
 
 const Styles = {
   iframe: {
-    height: "100%"
-  }
+    height: "100%",
+  },
 };

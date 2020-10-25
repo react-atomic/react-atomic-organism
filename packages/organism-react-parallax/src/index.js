@@ -1,2 +1,2 @@
 // Default
-export {default as ParallaxBackgroundImage} from '../ui/organisms/ParallaxBackgroundImage';
+export { default as ParallaxBackgroundImage } from "../ui/organisms/ParallaxBackgroundImage";

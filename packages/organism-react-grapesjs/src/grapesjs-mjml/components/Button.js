@@ -1,50 +1,71 @@
 // Specs: https://mjml.io/documentation/#mjml-button
-import { isComponentType } from './index.js';
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-button';
+  const type = "mj-button";
 
   dc.addType(type, {
     isComponent: isComponentType(type),
-    extend: 'link',
-    extendFnView: ['onActive', 'disableEditing'],
+    extend: "link",
+    extendFnView: ["onActive", "disableEditing"],
 
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'Button',
-        draggable: '[data-gjs-type=mj-column]',
+        name: "Button",
+        draggable: "[data-gjs-type=mj-column]",
         highlightable: false,
-        stylable: ['width', 'height',
-          'background-color', 'container-background-color',
-          'font-style', 'font-size', 'font-weight', 'font-family', 'color',
-          'text-decoration', 'align',
-          'vertical-align', 'text-transform',
-          'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
-          'border-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-bottom-left-radius', 'border-bottom-right-radius',
-          'border', 'border-width', 'border-style', 'border-color',],
-        'style-default': {
-          'background-color': '#414141',
-          'border-radius': '3px',
-          'font-size': '13px',
-          'font-weight': '400',
-          'color': '#ffffff',
-          'vertical-align': 'middle',
-          'padding-bottom': '10px',
-          'padding-right': '25px',
-          'padding-left': '25px',
-          'align': 'center',
+        stylable: [
+          "width",
+          "height",
+          "background-color",
+          "container-background-color",
+          "font-style",
+          "font-size",
+          "font-weight",
+          "font-family",
+          "color",
+          "text-decoration",
+          "align",
+          "vertical-align",
+          "text-transform",
+          "padding",
+          "padding-top",
+          "padding-left",
+          "padding-right",
+          "padding-bottom",
+          "border-radius",
+          "border-top-left-radius",
+          "border-top-right-radius",
+          "border-bottom-left-radius",
+          "border-bottom-right-radius",
+          "border",
+          "border-width",
+          "border-style",
+          "border-color",
+        ],
+        "style-default": {
+          "background-color": "#414141",
+          "border-radius": "3px",
+          "font-size": "13px",
+          "font-weight": "400",
+          color: "#ffffff",
+          "vertical-align": "middle",
+          "padding-bottom": "10px",
+          "padding-right": "25px",
+          "padding-left": "25px",
+          align: "center",
         },
-        traits: ['href'],
+        traits: ["href"],
         // 'container-background-color', 'inner-padding'
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'tr',
+      tagName: "tr",
       attributes: {
-        style: 'pointer-events: all; display: table; width: 100%',
+        style: "pointer-events: all; display: table; width: 100%",
       },
 
       getMjmlTemplate() {
@@ -55,11 +76,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelector('tr').innerHTML;
+        return sandboxEl.querySelector("tr").innerHTML;
       },
 
       getChildrenSelector() {
-        return 'a,p';
+        return "a,p";
       },
 
       /**
@@ -73,11 +94,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
        * Need to make text selectable.
        */
       onActive() {
-        this.getChildrenContainer().style.pointerEvents = 'all';
+        this.getChildrenContainer().style.pointerEvents = "all";
       },
 
       disableEditing() {
-        this.getChildrenContainer().style.pointerEvents = 'none';
+        this.getChildrenContainer().style.pointerEvents = "none";
       },
     },
   });

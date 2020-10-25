@@ -11,16 +11,16 @@ function List() {
   this._sentinel = sentinel;
 }
 
-List.prototype.dequeue = function() {
+List.prototype.dequeue = function () {
   var sentinel = this._sentinel,
-      entry = sentinel._prev;
+    entry = sentinel._prev;
   if (entry !== sentinel) {
     unlink(entry);
     return entry;
   }
 };
 
-List.prototype.enqueue = function(entry) {
+List.prototype.enqueue = function (entry) {
   var sentinel = this._sentinel;
   if (entry._prev && entry._next) {
     unlink(entry);
@@ -31,10 +31,10 @@ List.prototype.enqueue = function(entry) {
   entry._prev = sentinel;
 };
 
-List.prototype.toString = function() {
+List.prototype.toString = function () {
   var strs = [],
-      sentinel = this._sentinel,
-      curr = sentinel._prev;
+    sentinel = this._sentinel,
+    curr = sentinel._prev;
   while (curr !== sentinel) {
     strs.push(JSON.stringify(curr, filterOutLinks));
     curr = curr._prev;

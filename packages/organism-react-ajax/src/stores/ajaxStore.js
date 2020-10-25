@@ -1,13 +1,13 @@
-import 'es6-promise/auto'; // [RESHOW] Need keep if use "new Promise"
-import 'setimmediate';
-import {Map} from 'immutable';
-import {ReduceStore} from 'reshow-flux';
-import get, {getDefault} from 'get-object-value';
-import smoothScrollTo from 'smooth-scroll-to';
-import getRandomId from 'get-random-id';
-import callfunc from 'call-func';
+import "es6-promise/auto"; // [RESHOW] Need keep if use "new Promise"
+import "setimmediate";
+import { Map } from "immutable";
+import { ReduceStore } from "reshow-flux";
+import get, { getDefault } from "get-object-value";
+import smoothScrollTo from "smooth-scroll-to";
+import getRandomId from "get-random-id";
+import callfunc from "call-func";
 
-import dispatcher, {ajaxDispatch} from '../ajaxDispatcher';
+import dispatcher, { ajaxDispatch } from "../ajaxDispatcher";
 
 const empty = () => {};
 const keys = Object.keys;
@@ -18,11 +18,11 @@ let isWorkerReady;
 let cbIndex = 0;
 const Callbacks = [];
 
-const initWorkerEvent = worker => {
-  worker.addEventListener('message', e => {
-    const sourceType = get(e, ['data', 'type']);
+const initWorkerEvent = (worker) => {
+  worker.addEventListener("message", (e) => {
+    const sourceType = get(e, ["data", "type"]);
     switch (sourceType) {
-      case 'ready':
+      case "ready":
         // fakeWorker will not run this
         gWorker = worker;
         isWorkerReady = true;
@@ -31,7 +31,7 @@ const initWorkerEvent = worker => {
         ajaxDispatch({
           ...e.data,
           sourceType,
-          type: 'callback',
+          type: "callback",
         });
         break;
     }
@@ -39,7 +39,7 @@ const initWorkerEvent = worker => {
 };
 
 const initFakeWorker = () => {
-  import('../../src/worker').then(workerObject => {
+  import("../../src/worker").then((workerObject) => {
     fakeWorker = getDefault(workerObject);
     initWorkerEvent(fakeWorker);
     if (!gWorker) {
@@ -51,16 +51,16 @@ const initFakeWorker = () => {
 
 const handleUpdateNewUrl = (state, action, url) => {
   setImmediate(() => {
-    const params = get(action, ['params'], {});
+    const params = get(action, ["params"], {});
     if (params.disableAjax && false !== params.scrollBack) {
       smoothScrollTo(0);
     }
   });
-  const preUrl = state.get('currentLocation');
+  const preUrl = state.get("currentLocation");
   if (preUrl !== url) {
-    const onUrlChange = state.get('onUrlChange');
+    const onUrlChange = state.get("onUrlChange");
     state = state
-      .set('currentLocation', url)
+      .set("currentLocation", url)
       .merge(callfunc(onUrlChange, [url]));
   }
   return state;
@@ -68,36 +68,36 @@ const handleUpdateNewUrl = (state, action, url) => {
 
 class AjaxStore extends ReduceStore {
   getInitialState() {
-    const onUrlChange = url => {
+    const onUrlChange = (url) => {
       ajaxDispatch({
-        type: 'ajaxGet',
+        type: "ajaxGet",
         params: {
           url,
           scrollBack: true,
         },
       });
     };
-    return Map({onUrlChange});
+    return Map({ onUrlChange });
   }
 
   cookAjaxUrl(params, ajaxUrl, globalHeaders) {
-    if (globalHeaders && !get(params, ['ignoreGlobalHeaders'])) {
+    if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
       if (globalHeaders.toJS) {
         params.globalHeaders = globalHeaders.toJS();
       } else {
-        console.error('Global headers should be a map.', globalHeaders);
+        console.error("Global headers should be a map.", globalHeaders);
       }
     }
-    const urls = ajaxUrl.split('#');
-    const query = get(params, ['query'], {});
+    const urls = ajaxUrl.split("#");
+    const query = get(params, ["query"], {});
     if (urls[1]) {
-      query['--hashState'] = urls[1];
+      query["--hashState"] = urls[1];
     }
 
     // <!-- Clean key for fixed superagent error
     if (query) {
-      keys(query).forEach(key => {
-        if ('undefined' === typeof query[key]) {
+      keys(query).forEach((key) => {
+        if ("undefined" === typeof query[key]) {
           delete query[key];
         }
       });
@@ -108,26 +108,26 @@ class AjaxStore extends ReduceStore {
     return urls[0];
   }
 
-  getRawUrl = params => {
-    let {url, path} = get(params, null, {});
+  getRawUrl = (params) => {
+    let { url, path } = get(params, null, {});
     if (!url) {
       if (path) {
-        let baseUrl = this.getState().get('baseUrl');
+        let baseUrl = this.getState().get("baseUrl");
         if (!baseUrl) {
-          baseUrl = '';
+          baseUrl = "";
         }
         url = baseUrl + path;
       } else {
-        url = '#';
+        url = "#";
       }
     }
     return url;
   };
 
   getCallback(state, action, json, response) {
-    const params = get(action, ['params'], {});
+    const params = get(action, ["params"], {});
     let callback;
-    if (get(json, ['data', 'errors']) || !get(response, ['ok'])) {
+    if (get(json, ["data", "errors"]) || !get(response, ["ok"])) {
       if (params.errorCallback) {
         callback = Callbacks[params.errorCallback];
         delete Callbacks[params.errorCallback];
@@ -136,16 +136,16 @@ class AjaxStore extends ReduceStore {
     if (json.debugs) {
       let debugs = json.debugs;
       let bFail = false;
-      import('../lib/dlog').then(dlog => {
+      import("../lib/dlog").then((dlog) => {
         dlog = getDefault(dlog);
-        const oLog = new dlog({level: 'trace'});
-        debugs.forEach(v => {
+        const oLog = new dlog({ level: "trace" });
+        debugs.forEach((v) => {
           const dump = get(oLog, [v[0]], () => oLog.info);
           dump.call(oLog, v[1]);
         });
       });
-      debugs.forEach(v => {
-        if ('error' === v[1]) {
+      debugs.forEach((v) => {
+        if ("error" === v[1]) {
           bFail = true;
         }
       });
@@ -158,7 +158,7 @@ class AjaxStore extends ReduceStore {
         callback = Callbacks[params.callback];
         delete Callbacks[params.callback];
       } else {
-        callback = state.get('callback');
+        callback = state.get("callback");
       }
     }
     return callback;
@@ -177,7 +177,7 @@ class AjaxStore extends ReduceStore {
   start() {
     setImmediate(() => {
       ajaxDispatch({
-        type: 'config/set',
+        type: "config/set",
         params: {
           isRunning: 1,
         },
@@ -188,7 +188,7 @@ class AjaxStore extends ReduceStore {
   done() {
     setImmediate(() => {
       ajaxDispatch({
-        type: 'config/set',
+        type: "config/set",
         params: {
           isRunning: 0,
         },
@@ -197,16 +197,16 @@ class AjaxStore extends ReduceStore {
   }
 
   storeCallback(action) {
-    const cb = get(action, ['params', 'callback']);
+    const cb = get(action, ["params", "callback"]);
     if (cb) {
-      const cbKey = 'cb' + cbIndex;
+      const cbKey = "cb" + cbIndex;
       Callbacks[cbKey] = cb;
       action.params.callback = cbKey;
       cbIndex++;
     }
-    const err = get(action, ['params', 'errorCallback']);
+    const err = get(action, ["params", "errorCallback"]);
     if (err) {
-      const errCbKey = 'err' + cbIndex;
+      const errCbKey = "err" + cbIndex;
       Callbacks[errCbKey] = err;
       action.params.errorCallback = errCbKey;
       cbIndex++;
@@ -218,9 +218,9 @@ class AjaxStore extends ReduceStore {
     if (isWorkerReady && fakeWorker) {
       setImmediate(() => {
         const disableWebWorker = get(data, [
-          'action',
-          'params',
-          'disableWebWorker',
+          "action",
+          "params",
+          "disableWebWorker",
         ]);
         const run = disableWebWorker ? fakeWorker : gWorker;
         run.postMessage(data);
@@ -248,18 +248,18 @@ class AjaxStore extends ReduceStore {
   }
 
   initWs(state, action) {
-    const params = get(action, ['params'], {});
-    const {url} = params;
+    const params = get(action, ["params"], {});
+    const { url } = params;
     if (url) {
-      this.worker({params, ws: url, type: 'initWs'});
+      this.worker({ params, ws: url, type: "initWs" });
     }
     return state;
   }
 
   closeWs(state, action) {
-    const url = get(action, ['params', 'url']);
+    const url = get(action, ["params", "url"]);
     if (url) {
-      this.worker({ws: url, type: 'closeWs'});
+      this.worker({ ws: url, type: "closeWs" });
     }
     return state;
   }
@@ -269,13 +269,12 @@ class AjaxStore extends ReduceStore {
     const params = action.params;
     const rawUrl = self.getRawUrl(params);
     if (params.updateUrl && this.urlDispatch && rawUrl !== document.URL) {
-      this.urlDispatch({type: 'url', url: rawUrl});
+      this.urlDispatch({ type: "url", url: rawUrl });
     }
     if (params.disableAjax) {
-      return this.applyCallback(
-        state,
-        {json: handleUpdateNewUrl(state, action, rawUrl)}
-      );
+      return this.applyCallback(state, {
+        json: handleUpdateNewUrl(state, action, rawUrl),
+      });
     }
     if (!params.disableProgress) {
       self.start();
@@ -284,18 +283,18 @@ class AjaxStore extends ReduceStore {
       const ajaxUrl = self.cookAjaxUrl(
         params,
         rawUrl,
-        state.get('globalHeaders'),
+        state.get("globalHeaders")
       );
       if (!params.query) {
         params.query = {};
       }
       if (!params.disableRandom) {
-        params.query['--r'] = getRandomId();
+        params.query["--r"] = getRandomId();
       } else {
-        params.query['--r'] = state.get('staticVersion');
+        params.query["--r"] = state.get("staticVersion");
       }
       self.worker({
-        type: 'ajaxGet',
+        type: "ajaxGet",
         url: ajaxUrl,
         action: self.storeCallback(action),
       });
@@ -313,10 +312,10 @@ class AjaxStore extends ReduceStore {
     const ajaxUrl = self.cookAjaxUrl(
       params,
       rawUrl,
-      state.get('globalHeaders'),
+      state.get("globalHeaders")
     );
     self.worker({
-      type: 'ajaxPost',
+      type: "ajaxPost",
       url: ajaxUrl,
       action: self.storeCallback(action),
     });
@@ -324,37 +323,37 @@ class AjaxStore extends ReduceStore {
   }
 
   applyCallback(state, action) {
-    const params = get(action, ['params'], {});
+    const params = get(action, ["params"], {});
     if (!params.disableProgress) {
       this.done();
     }
-    const sourceType = get(action, ['sourceType']);
-    const response = get(action, ['response']);
-    const text = get(action, ['text']);
-    let json = get(action, ['json'], () => this.getJson(text));
+    const sourceType = get(action, ["sourceType"]);
+    const response = get(action, ["response"]);
+    const text = get(action, ["text"]);
+    let json = get(action, ["json"], () => this.getJson(text));
     const callback = this.getCallback(state, action, json, response);
-    const type = get(json, ['type']);
+    const type = get(json, ["type"]);
     let isRedirect = null;
-    const url = get(action, ['url']);
+    const url = get(action, ["url"]);
     switch (type) {
-      case 'ws-auth':
+      case "ws-auth":
         this.setWsAuth(url, json);
         break;
       default:
-        if ('ws' === sourceType) {
-          json = {'--realTimeData--': json, '--realTimeUrl--': url};
+        if ("ws" === sourceType) {
+          json = { "--realTimeData--": json, "--realTimeUrl--": url };
         }
         isRedirect = callfunc(callback, [json, text, response]);
         break;
     }
     if (false !== isRedirect) {
-      const loc = get(json, ['clientRedirectTo']);
+      const loc = get(json, ["clientRedirectTo"]);
       if (loc) {
-        switch (get(json, ['clientRedirectType'])) {
-          case 'href':
+        switch (get(json, ["clientRedirectType"])) {
+          case "href":
             location.href = loc;
             break;
-          case 'replace':
+          case "replace":
           default:
             location.replace(loc);
             break;
@@ -371,7 +370,7 @@ class AjaxStore extends ReduceStore {
   }
 
   handleUrlChange(state, action) {
-    const url = get(action, ['params', 'url'], document.URL);
+    const url = get(action, ["params", "url"], document.URL);
     /**
      * "Do not change" toggleBfChange and bfApplyUrl
      * in other place, such as ajaxGet.
@@ -379,27 +378,27 @@ class AjaxStore extends ReduceStore {
      */
     return this.applyCallback(
       state
-        .set('toggleBfChange', !state.get('toggleBfChange'))
-        .set('bfApplyUrl', url),
-      {json: handleUpdateNewUrl(state, action, url)} 
+        .set("toggleBfChange", !state.get("toggleBfChange"))
+        .set("bfApplyUrl", url),
+      { json: handleUpdateNewUrl(state, action, url) }
     );
   }
 
   reduce(state, action) {
     switch (action.type) {
-      case 'ws/init':
+      case "ws/init":
         return this.initWs(state, action);
-      case 'ws/close':
+      case "ws/close":
         return this.closeWs(state, action);
-      case 'ajaxGet':
+      case "ajaxGet":
         return this.ajaxGet(state, action);
-      case 'ajaxPost':
+      case "ajaxPost":
         return this.ajaxPost(state, action);
-      case 'urlChange':
+      case "urlChange":
         return this.handleUrlChange(state, action);
-      case 'callback':
+      case "callback":
         return this.applyCallback(state, action);
-      case 'config/set':
+      case "config/set":
         return state.merge(action.params);
       default:
         return state;
@@ -408,4 +407,4 @@ class AjaxStore extends ReduceStore {
 }
 
 export default new AjaxStore(dispatcher);
-export {initWorkerEvent as initAjaxWorkerEvent};
+export { initWorkerEvent as initAjaxWorkerEvent };

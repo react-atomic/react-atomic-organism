@@ -1,21 +1,21 @@
-import React, {Component, cloneElement, isValidElement} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import {mouse} from 'getoffset';
+import React, { Component, cloneElement, isValidElement } from "react";
+import { SemanticUI } from "react-atomic-molecule";
+import get from "get-object-value";
+import { mouse } from "getoffset";
 
-import Line from '../molecules/Line';
-import Rect from '../molecules/Rect';
-import Group from '../molecules/Group';
-import XAxis from '../organisms/XAxis';
-import YAxis from '../organisms/YAxis';
-import Crosshair from '../organisms/Crosshair';
+import Line from "../molecules/Line";
+import Rect from "../molecules/Rect";
+import Group from "../molecules/Group";
+import XAxis from "../organisms/XAxis";
+import YAxis from "../organisms/YAxis";
+import Crosshair from "../organisms/Crosshair";
 
 const adjustX = 60;
 const adjustY = 20;
 
 class BaseChart extends Component {
   d3 = {};
-  state = {isLoad: false};
+  state = { isLoad: false };
 
   getXScale() {
     return this.xScale;
@@ -26,33 +26,33 @@ class BaseChart extends Component {
   }
 
   getCrosshairX() {
-    return get(this.state, ['crosshairX']);
+    return get(this.state, ["crosshairX"]);
   }
 
-  handleMouseEnter = e => {
-    const hideX = get(this.props, ['hideCrosshairX'], false);
-    const hideY = get(this.props, ['hideCrosshairY'], false);
+  handleMouseEnter = (e) => {
+    const hideX = get(this.props, ["hideCrosshairX"], false);
+    const hideY = get(this.props, ["hideCrosshairY"], false);
     this.setState({
       hideCrosshairX: hideX,
       hideCrosshairY: hideY,
     });
   };
 
-  handleMouseLeave = e => {
-    const hideX = get(this.props, ['hideCrosshairX'], true);
-    const hideY = get(this.props, ['hideCrosshairY'], true);
+  handleMouseLeave = (e) => {
+    const hideX = get(this.props, ["hideCrosshairX"], true);
+    const hideY = get(this.props, ["hideCrosshairY"], true);
     this.setState({
       hideCrosshairX: hideX,
       hideCrosshairY: hideY,
     });
   };
 
-  handleMouseMove = e => {
+  handleMouseMove = (e) => {
     const point = mouse(e);
     this._mouseMove(point);
   };
 
-  _mouseMove = point => {
+  _mouseMove = (point) => {
     if (this.props.onMouseMove) {
       this.props.onMouseMove(point);
     }
@@ -63,7 +63,7 @@ class BaseChart extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {crosshairX, hideCrosshairY} = nextProps;
+    const { crosshairX, hideCrosshairY } = nextProps;
     const nextState = {};
     if (crosshairX !== prevState.porpsCrosshairX) {
       nextState.crosshairX = crosshairX;
@@ -77,7 +77,7 @@ class BaseChart extends Component {
   }
 
   componentDidMount() {
-    import('d3-lib').then(({stack, curve, scaleLinear, scaleBand, hArea}) => {
+    import("d3-lib").then(({ stack, curve, scaleLinear, scaleBand, hArea }) => {
       this.d3 = {
         stack,
         curve,
@@ -146,17 +146,17 @@ class BaseChart extends Component {
     if (xScale) {
       this.xScale = xScale;
     } else {
-      const xScaleData = get(xAxisAttr, ['data'], () =>
-        valuesLocator(get(data, [0], {})),
+      const xScaleData = get(xAxisAttr, ["data"], () =>
+        valuesLocator(get(data, [0], {}))
       );
       if (!xScaleData.map) {
-        console.warn(['Assign wrong xScaleData', xScaleData]);
+        console.warn(["Assign wrong xScaleData", xScaleData]);
         return null;
       }
       this.xScale = this.d3.scaleBand(xScaleData, 0, scaleW, xValueLocator);
     }
-    const yScaleData = get(yAxisAttr, ['data'], () =>
-      valuesLocator(get(data, [0], {})).map(d => yValueLocator(d)),
+    const yScaleData = get(yAxisAttr, ["data"], () =>
+      valuesLocator(get(data, [0], {})).map((d) => yValueLocator(d))
     );
     if (!yScaleData) {
       return false;
@@ -167,8 +167,8 @@ class BaseChart extends Component {
       scaleH,
       0,
       null,
-      get(yAxisAttr, ['num']),
-      thisYScaleMore,
+      get(yAxisAttr, ["num"]),
+      thisYScaleMore
     );
     if (!hideAxis) {
       xaxis = (
@@ -209,14 +209,14 @@ class BaseChart extends Component {
         const yThreshold = this.yScale.scaler(threshold);
         thresholdLines.push(
           <Line
-            start={{x: 0, y: yThreshold}}
-            end={{x: scaleW, y: yThreshold}}
+            start={{ x: 0, y: yThreshold }}
+            end={{ x: scaleW, y: yThreshold }}
             stroke="#f00"
             strokeWidth="2"
             strokeDasharray="5,5"
-            key={'threshold' + key}
-            style={{opacity: '.5'}}
-          />,
+            key={"threshold" + key}
+            style={{ opacity: ".5" }}
+          />
         );
       });
     }
@@ -237,12 +237,12 @@ class BaseChart extends Component {
       mouseHandlers = {
         onMouseEnter: this.handleMouseEnter,
         onMouseLeave: this.handleMouseLeave,
-        onMouseMove:  this.handleMouseMove
+        onMouseMove: this.handleMouseMove,
       };
     }
     let childEl = children(this);
     if (isValidElement(childEl)) {
-      childEl = cloneElement(childEl, {key: 'base-chart'});
+      childEl = cloneElement(childEl, { key: "base-chart" });
     }
     const childArr = [
       childEl,
@@ -257,7 +257,7 @@ class BaseChart extends Component {
         y="0"
         width={scaleW}
         height={scaleH}
-        style={{pointerEvents: 'all', fill: 'none'}}
+        style={{ pointerEvents: "all", fill: "none" }}
       />,
     ];
     if (multiChart) {
@@ -267,8 +267,9 @@ class BaseChart extends Component {
       <SemanticUI
         {...props}
         viewBox={`0 0 ${Math.round(scaleW + thisExtraViewBox)} ${Math.round(
-          scaleH + thisExtraViewBox,
-        )}`}>
+          scaleH + thisExtraViewBox
+        )}`}
+      >
         <Group transform={`translate(${adjustX}, ${adjustY})`}>
           {childArr}
         </Group>
@@ -278,17 +279,17 @@ class BaseChart extends Component {
 }
 
 BaseChart.defaultProps = {
-  atom: 'svg',
-  width: '100%',
+  atom: "svg",
+  width: "100%",
   data: [],
   scaleW: 500,
   scaleH: 500,
   extraViewBox: 100,
-  valuesLocator: d => d.values,
-  xValueLocator: d => d.x,
-  yValueLocator: d => d.y,
+  valuesLocator: (d) => d.values,
+  xValueLocator: (d) => d.x,
+  yValueLocator: (d) => d.y,
   hideAxis: false,
-  preserveAspectRatio: 'xMidYMid meet',
+  preserveAspectRatio: "xMidYMid meet",
 };
 
 export default BaseChart;

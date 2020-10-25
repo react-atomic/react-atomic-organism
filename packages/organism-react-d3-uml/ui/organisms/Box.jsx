@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {build} from 'react-atomic-molecule';
-import {getDistance} from 'organism-react-graph';
+import React, { Component } from "react";
+import { build } from "react-atomic-molecule";
+import { getDistance } from "organism-react-graph";
 
-import ConnectPoint from '../organisms/ConnectPoint';
+import ConnectPoint from "../organisms/ConnectPoint";
 
 let boxId = 1;
 const keys = Object.keys;
@@ -17,7 +17,7 @@ class Box extends Component {
   };
 
   getFromBoxId() {
-    const {host} = this.props;
+    const { host } = this.props;
     const point = host.getConnectStartPoint();
     if (point) {
       return point.getBox().getId();
@@ -25,7 +25,7 @@ class Box extends Component {
   }
 
   getBoxGroup() {
-    const {host, boxGroupId} = this.props;
+    const { host, boxGroupId } = this.props;
     return host.getBoxGroup(boxGroupId);
   }
 
@@ -34,7 +34,7 @@ class Box extends Component {
   }
 
   getName() {
-    let {name} = this.props;
+    let { name } = this.props;
     if (name !== 0 && !name) {
       name = this.getId();
     }
@@ -57,9 +57,9 @@ class Box extends Component {
   }
 
   getEdge() {
-    const {host} = this.props;
+    const { host } = this.props;
     const el = this.getEl();
-    const {right, bottom} =
+    const { right, bottom } =
       el && el.getBoundingClientRect
         ? el.getBoundingClientRect()
         : {
@@ -72,7 +72,7 @@ class Box extends Component {
   getRecentPoint(center) {
     const distance = [];
     const distanceMap = {};
-    keys(this.points).forEach(key => {
+    keys(this.points).forEach((key) => {
       const p = this.points[key];
       const point = p.getCenter();
       if (point) {
@@ -108,7 +108,7 @@ class Box extends Component {
     if (elRef && elRef.getToPoint) {
       return elRef.getToPoint();
     } else {
-      return this.getRecentPoint({x: 0, y: 0});
+      return this.getRecentPoint({ x: 0, y: 0 });
     }
   }
 
@@ -116,7 +116,7 @@ class Box extends Component {
     return this.points[key];
   }
 
-  addPoint = obj => {
+  addPoint = (obj) => {
     if (obj) {
       this.points[obj.getId()] = obj;
     }
@@ -131,27 +131,27 @@ class Box extends Component {
 
   handleMouseEnter = () => {
     this.clearHoverTimer();
-    this.setState({showConnectPoint: true});
+    this.setState({ showConnectPoint: true });
   };
 
   handleMouseLeave = () => {
     const fromBoxId = this.getFromBoxId();
     if (fromBoxId && this.getId() !== fromBoxId) {
-      this.setState({showConnectPoint: false});
+      this.setState({ showConnectPoint: false });
     } else {
       if (!this.isConnectPointDrag) {
         this.hoverTimer = setTimeout(() => {
-          this.setState({showConnectPoint: false});
+          this.setState({ showConnectPoint: false });
         }, 1000);
       }
     }
   };
 
-  handlePointDrag = bool => {
+  handlePointDrag = (bool) => {
     this.isConnectPointDrag = bool;
   };
 
-  handleEl = el => {
+  handleEl = (el) => {
     if (el) {
       this.elRef = el;
     }
@@ -164,7 +164,7 @@ class Box extends Component {
   }
 
   componentDidMount() {
-    const {host} = this.props;
+    const { host } = this.props;
     host.addBox(this);
   }
 
@@ -184,7 +184,7 @@ class Box extends Component {
       ...props
     } = this.props;
     const name = this.getName();
-    const {showConnectPoint} = this.state;
+    const { showConnectPoint } = this.state;
     const connectPointComponent = build(
       <ConnectPoint
         boxId={this.id}
@@ -195,10 +195,10 @@ class Box extends Component {
         host={host}
         onDragStart={this.handlePointDrag}
         onMount={this.addPoint}
-      />,
+      />
     );
     const component = build(
-      boxComponent ? boxComponent : host.getBoxComponent(name, boxGroupName),
+      boxComponent ? boxComponent : host.getBoxComponent(name, boxGroupName)
     );
     return component({
       ...props,
@@ -206,8 +206,8 @@ class Box extends Component {
       ref: this.handleEl,
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
-      'data-id': this.id,
-      'data-group': boxGroupId,
+      "data-id": this.id,
+      "data-group": boxGroupId,
       text: text || name,
     });
   }

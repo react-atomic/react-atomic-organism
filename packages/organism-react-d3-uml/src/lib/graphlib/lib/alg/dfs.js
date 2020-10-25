@@ -1,6 +1,6 @@
-import {has, isArray} from '../../../lodash-lite'
+import { has, isArray } from "../../../lodash-lite";
 
-export default dfs
+export default dfs;
 
 /*
  * A helper that preforms a pre- or post-order traversal on the input graph
@@ -19,7 +19,7 @@ function dfs(g, vs, order) {
 
   var acc = [];
   var visited = {};
-  vs.forEach(function(v) {
+  vs.forEach(function (v) {
     if (!g.hasNode(v)) {
       throw new Error("Graph does not have node: " + v);
     }
@@ -33,10 +33,14 @@ function doDfs(g, v, postorder, visited, navigation, acc) {
   if (!has(visited, v)) {
     visited[v] = true;
 
-    if (!postorder) { acc.push(v); }
-    navigation(v).forEach(function(w) {
+    if (!postorder) {
+      acc.push(v);
+    }
+    navigation(v).forEach(function (w) {
       doDfs(g, w, postorder, visited, navigation, acc);
     });
-    if (postorder) { acc.push(v); }
+    if (postorder) {
+      acc.push(v);
+    }
   }
 }

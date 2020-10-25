@@ -1,4 +1,4 @@
-import queryFrom, {defaultQuery} from './queryFrom';
+import queryFrom, { defaultQuery } from "./queryFrom";
 
 defaultQuery.from = queryFrom;
 
@@ -11,4 +11,4 @@ const {
   one: queryOne,
 } = defaultQuery;
 
-export {queryAll, queryAncestor, queryEl, queryOne, queryFrom};
+export { queryAll, queryAncestor, queryEl, queryOne, queryFrom };

@@ -1,6 +1,6 @@
 import { win } from "win-doc";
 import callfunc from "call-func";
-import {htmlDecode} from "html-entity-js";
+import { htmlDecode } from "html-entity-js";
 
 const allAttr = JSON.parse(`[
 "accept", "accept-charset", "accesskey", "action", "allowfullscreen", "allowtransparency", "align", "alt", "async", "autocomplete", "autofocus", "autoplay", "autocorrect", "aria-*", 
@@ -50,13 +50,15 @@ const fixHtml = (s, cb, componentOnly) => {
   const d = new (win().DOMParser)();
   const oXml = new (win().XMLSerializer)();
   const domObj = d.parseFromString(s || "", "text/html");
-  const xmlStr = componentOnly ? domObj.body.innerHTML : oXml.serializeToString(domObj);
+  const xmlStr = componentOnly
+    ? domObj.body.innerHTML
+    : oXml.serializeToString(domObj);
   const docType = (xmlStr.match(docTypeReg) || [])[0] || "";
-  const callcb = s =>
+  const callcb = (s) =>
     docType +
     callfunc(cb, [
       s,
-      { allowedTags: false, allowedAttributes: { "*": allAttr } }
+      { allowedTags: false, allowedAttributes: { "*": allAttr } },
     ]);
   return htmlDecode(cb ? callcb(xmlStr) : xmlStr);
 };

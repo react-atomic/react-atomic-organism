@@ -1,16 +1,16 @@
-import getOffset from 'getoffset';
-import getScrollInfo from 'get-scroll-info';
-import get from 'get-object-value';
+import getOffset from "getoffset";
+import getScrollInfo from "get-scroll-info";
+import get from "get-object-value";
 
-import getAfterMove from './getAfterMove';
-import getWindowOffset from './getWindowOffset';
-import alignWith from './alignWith';
-import isFullOnScreen from './isFullOnScreen';
-import isSetOverflow from './isSetOverflow';
-import isFixed from './isFixed';
-import pos from './positions';
+import getAfterMove from "./getAfterMove";
+import getWindowOffset from "./getWindowOffset";
+import alignWith from "./alignWith";
+import isFullOnScreen from "./isFullOnScreen";
+import isSetOverflow from "./isSetOverflow";
+import isFixed from "./isFixed";
+import pos from "./positions";
 
-const getAlignWithLoc = toLoc => {
+const getAlignWithLoc = (toLoc) => {
   let loc;
   switch (toLoc) {
     case pos.TL:
@@ -32,20 +32,20 @@ const getAlignWithLoc = toLoc => {
   return loc;
 };
 
-const fixFixedNode = scrollInfo => move => [
+const fixFixedNode = (scrollInfo) => (move) => [
   move[0] + scrollInfo.left,
   move[1] + scrollInfo.top,
 ];
 
-const fixScrollNode = scrollInfo => move => [
+const fixScrollNode = (scrollInfo) => (move) => [
   move[0] - scrollInfo.left,
   move[1] - scrollInfo.top,
 ];
 
 const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
-  let {toLoc, disableAutoLoc} = get(alignParams, null, {});
+  let { toLoc, disableAutoLoc } = get(alignParams, null, {});
   if (!targetEl) {
-    console.error('targetEl was empty');
+    console.error("targetEl was empty");
     console.trace();
     return false;
   }
@@ -57,13 +57,13 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   if (!disableAutoLoc) {
     winInfo = winInfo || getWindowOffset(targetEl);
     if (!winInfo) {
-      console.error('get windows offset failed');
+      console.error("get windows offset failed");
     } else {
       locs = locs.concat(winInfo.locs);
     }
   }
   if (!locs.length) {
-    console.error('Not set any locs', toLoc);
+    console.error("Not set any locs", toLoc);
     return;
   }
   if (!targetInfo) {
@@ -96,7 +96,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   }
   let loc;
   let move;
-  locs.some(locItem => {
+  locs.some((locItem) => {
     toLoc = locItem;
     loc = getAlignWithLoc(toLoc);
     move = alignWith(targetInfo, floatInfo, loc);

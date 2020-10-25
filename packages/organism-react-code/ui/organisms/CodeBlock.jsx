@@ -1,7 +1,7 @@
-import React from 'react';
-import marked from 'marked';
-import {Unsafe} from 'react-atomic-molecule';
-import hl from 'highlight.js';
+import React from "react";
+import marked from "marked";
+import { Unsafe } from "react-atomic-molecule";
+import hl from "highlight.js";
 
 marked.setOptions({
   gfm: true,
@@ -13,16 +13,15 @@ marked.setOptions({
   smartypants: false,
   highlight: (code, lang) => {
     return hl.highlight(lang, code).value;
-  }
+  },
 });
 
-const CodeBlock = (props) =>
-{
-    const text = `\`\`\`js
+const CodeBlock = (props) => {
+  const text = `\`\`\`js
 ${props.children}
 \`\`\``;
 
-    return <Unsafe>{marked(text)}</Unsafe>;
-}
+  return <Unsafe>{marked(text)}</Unsafe>;
+};
 
 export default CodeBlock;

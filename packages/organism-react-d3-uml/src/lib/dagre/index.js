@@ -20,10 +20,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-import * as graphlib from "./lib/graphlib"
-const {Graph} = graphlib;
-export {graphlib, Graph};
-export {default as layout} from "./lib/layout"
-export {default as debug} from "./lib/debug"
-export {time, notime} from "./lib/util"
-export {default as version} from "./lib/version"
+import * as graphlib from "./lib/graphlib";
+const { Graph } = graphlib;
+export { graphlib, Graph };
+export { default as layout } from "./lib/layout";
+export { default as debug } from "./lib/debug";
+export { time, notime } from "./lib/util";
+export { default as version } from "./lib/version";

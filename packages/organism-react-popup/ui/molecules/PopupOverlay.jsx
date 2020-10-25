@@ -1,23 +1,23 @@
-import React from 'react';
-import Return from 'reshow-return';
-import {mixClass, SemanticUI} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import getStyle from 'get-style';
+import React from "react";
+import Return from "reshow-return";
+import { mixClass, SemanticUI } from "react-atomic-molecule";
+import get from "get-object-value";
+import getStyle from "get-style";
 
-import BasePopup from '../molecules/BasePopup';
-import popupStore from '../../src/stores/popupStore';
+import BasePopup from "../molecules/BasePopup";
+import popupStore from "../../src/stores/popupStore";
 
 class PopupOverlay extends BasePopup {
   resetStyle(key, thisStyle) {
     const value = get(this.state, [key], () => get(this.props, [key]));
-    if ('undefined' !== typeof value) {
-      thisStyle[key] = value + 'px';
+    if ("undefined" !== typeof value) {
+      thisStyle[key] = value + "px";
     }
   }
 
   renderOverlay(props) {
-    const {className, ...others} = props;
-    const classes = mixClass('popup', className);
+    const { className, ...others } = props;
+    const classes = mixClass("popup", className);
     return <SemanticUI {...others} className={classes} />;
   }
 
@@ -37,26 +37,26 @@ class PopupOverlay extends BasePopup {
     } = this.props;
 
     /* <!-- Handle Style */
-    const thisStyle = {...style};
-    this.resetStyle('top', thisStyle);
-    this.resetStyle('left', thisStyle);
-    this.resetStyle('width', thisStyle);
-    this.resetStyle('height', thisStyle);
+    const thisStyle = { ...style };
+    this.resetStyle("top", thisStyle);
+    this.resetStyle("left", thisStyle);
+    this.resetStyle("width", thisStyle);
+    this.resetStyle("height", thisStyle);
     if (targetEl && isFollowTransform) {
-      thisStyle.transform = getStyle(targetEl, 'transform');
+      thisStyle.transform = getStyle(targetEl, "transform");
     }
     others.style = thisStyle;
     /*  Handle Style --> */
 
-    const refCb = get(this.state, ['refCb'], () => get(this.props, ['refCb']));
+    const refCb = get(this.state, ["refCb"], () => get(this.props, ["refCb"]));
     if (refCb) {
       others.refCb = refCb;
     }
 
     others.className = mixClass(
       className,
-      get(this, ['state', 'className']),
-      'visible',
+      get(this, ["state", "className"]),
+      "visible"
     );
     return this.renderOverlay(others);
   }
@@ -66,8 +66,8 @@ class PopupOverlay extends BasePopup {
       return null;
     }
     return (
-      <Return stores={[popupStore]} initStates={['shows']}>
-        {({shows}) => {
+      <Return stores={[popupStore]} initStates={["shows"]}>
+        {({ shows }) => {
           const show = get(shows, [this.props.name]);
           return this.shouldShow(show);
         }}

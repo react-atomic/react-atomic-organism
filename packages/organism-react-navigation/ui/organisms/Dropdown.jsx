@@ -1,5 +1,5 @@
-import React, {cloneElement, isValidElement, PureComponent} from 'react';
-import get from 'get-object-value';
+import React, { cloneElement, isValidElement, PureComponent } from "react";
+import get from "get-object-value";
 import {
   lazyInject,
   mixClass,
@@ -7,9 +7,9 @@ import {
   Icon,
   Menu,
   Item,
-} from 'react-atomic-molecule';
-import DropdownIcon from 'ricon/Dropdown';
-import {doc} from 'win-doc';
+} from "react-atomic-molecule";
+import DropdownIcon from "ricon/Dropdown";
+import { doc } from "win-doc";
 
 const body = () => doc().body;
 
@@ -27,9 +27,9 @@ class Dropdown extends PureComponent {
     hideList: false,
   };
 
-  handleTitleClick = e => {
-    const {listStyle} = this.state;
-    if (listStyle.display === 'block') {
+  handleTitleClick = (e) => {
+    const { listStyle } = this.state;
+    if (listStyle.display === "block") {
       this.close();
     } else {
       this.open();
@@ -37,10 +37,10 @@ class Dropdown extends PureComponent {
   };
 
   handleMenuClick = () => {
-    const {simple} = this.props;
+    const { simple } = this.props;
     if (simple) {
       setTimeout(() => {
-        if ('hidden' !== get(this, ['state', 'listStyle', 'visibility'])) {
+        if ("hidden" !== get(this, ["state", "listStyle", "visibility"])) {
           this.setState({
             hideList: true,
           });
@@ -49,7 +49,7 @@ class Dropdown extends PureComponent {
               this.setState({
                 hideList: false,
               }),
-            300,
+            300
           );
         }
       });
@@ -58,7 +58,7 @@ class Dropdown extends PureComponent {
     }
   };
 
-  handleClose = e => {
+  handleClose = (e) => {
     const target = e.target;
     if (this.menu.contains(target)) {
       return;
@@ -67,29 +67,29 @@ class Dropdown extends PureComponent {
   };
 
   open() {
-    const {simple} = this.props;
+    const { simple } = this.props;
     const listStyle = {};
     if (simple) {
-      listStyle.visibility = 'hidden';
+      listStyle.visibility = "hidden";
       this.titleTimer = setTimeout(() => {
-        listStyle.visibility = 'inherit';
+        listStyle.visibility = "inherit";
         this.setState({
-          listStyle: {...listStyle},
+          listStyle: { ...listStyle },
         });
       }, 300);
     } else {
-      body().addEventListener('click', this.handleClose);
-      listStyle.display = 'block';
+      body().addEventListener("click", this.handleClose);
+      listStyle.display = "block";
     }
-    this.setState({listStyle});
+    this.setState({ listStyle });
   }
 
   close() {
-    const {simple} = this.props;
+    const { simple } = this.props;
     if (!simple) {
-      body().removeEventListener('click', this.handleClose);
+      body().removeEventListener("click", this.handleClose);
     }
-    this.setState({listStyle: {}});
+    this.setState({ listStyle: {} });
   }
 
   constructor(props) {
@@ -104,9 +104,9 @@ class Dropdown extends PureComponent {
     if (this.menuTimer) {
       clearTimeout(this.menuTimer);
     }
-    const {simple} = this.props;
+    const { simple } = this.props;
     if (!simple) {
-      body().removeEventListener('click', this.handleClose);
+      body().removeEventListener("click", this.handleClose);
     }
   }
 
@@ -123,7 +123,7 @@ class Dropdown extends PureComponent {
       simple,
       ...props
     } = this.props;
-    const {listStyle: stateListStyle, hideList} = this.state;
+    const { listStyle: stateListStyle, hideList } = this.state;
     let thisList = null;
     if (!hideList && list) {
       thisList = cloneElement(list, {
@@ -141,7 +141,8 @@ class Dropdown extends PureComponent {
         thisIcon = (
           <Icon
             className="dropdown-default-icon"
-            style={{...Styles.icon, ...iconStyle}}>
+            style={{ ...Styles.icon, ...iconStyle }}
+          >
             <DropdownIcon />
           </Icon>
         );
@@ -149,18 +150,21 @@ class Dropdown extends PureComponent {
         thisIcon = icon;
       }
     }
-    const classes = mixClass(className, 'compact');
-    const titleClasses = mixClass('dropdown', {simple});
+    const classes = mixClass(className, "compact");
+    const titleClasses = mixClass("dropdown", { simple });
     return (
       <Menu
         {...props}
-        style={{...Styles.container, ...style}}
+        style={{ ...Styles.container, ...style }}
         className={classes}
-        refCb={el => (this.menu = el)}
+        refCb={(el) => (this.menu = el)}
         onClick={this.handleTitleClick}
       >
-        <Item className={titleClasses} style={{...Styles.title, ...titleStyle}}>
-          <SemanticUI style={Styles.label} >
+        <Item
+          className={titleClasses}
+          style={{ ...Styles.title, ...titleStyle }}
+        >
+          <SemanticUI style={Styles.label}>
             {children}
             {thisIcon}
           </SemanticUI>
@@ -175,16 +179,16 @@ export default Dropdown;
 
 const Styles = {
   container: {
-    border: 'none',
-    boxShadow: 'none',
-    minHeight: 'auto',
-    background: 'none',
+    border: "none",
+    boxShadow: "none",
+    minHeight: "auto",
+    background: "none",
   },
   title: {
     padding: 0,
   },
   label: {
-    display: 'inherit',
+    display: "inherit",
   },
   icon: {
     width: 24,
@@ -193,8 +197,8 @@ const Styles = {
   },
   list: {
     marginTop: -1, //aviod not expected hover out
-    maxHeight: '50vh',
-    overflow: 'auto',
+    maxHeight: "50vh",
+    overflow: "auto",
   },
 };
 
@@ -202,23 +206,23 @@ let injects;
 const InjectStyles = {
   defaultIcon: [
     {
-      transform: ['rotate(180deg)'],
+      transform: ["rotate(180deg)"],
     },
-    '.ui.simple.dropdown:hover .dropdown-default-icon',
+    ".ui.simple.dropdown:hover .dropdown-default-icon",
   ],
   initMenu: [
     {
-      display: 'none !important',
+      display: "none !important",
     },
-    '.ui.simple.dropdown .menu',
+    ".ui.simple.dropdown .menu",
   ],
   hoverMenu: [
     {
-      display: 'block !important',
+      display: "block !important",
     },
     [
-      '.ui.simple.active.dropdown>.menu',
-      '.ui.simple.dropdown:hover>.menu',
-    ].join(','),
+      ".ui.simple.active.dropdown>.menu",
+      ".ui.simple.dropdown:hover>.menu",
+    ].join(","),
   ],
 };

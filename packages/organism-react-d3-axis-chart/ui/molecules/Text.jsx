@@ -1,12 +1,11 @@
-import React from 'react'; 
+import React from "react";
 
-import { SemanticUI } from 'react-atomic-molecule';
+import { SemanticUI } from "react-atomic-molecule";
 
-const Text = props =>
-<SemanticUI {...props} />
+const Text = (props) => <SemanticUI {...props} />;
 
 Text.defaultProps = {
-    atom: 'text'
+  atom: "text",
 };
 
 export default Text;

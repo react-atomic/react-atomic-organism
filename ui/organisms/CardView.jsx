@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import {
   reactStyle,
   mixClass,
@@ -10,9 +10,9 @@ import {
   Meta,
   Description,
   SemanticUI,
-} from 'react-atomic-molecule';
+} from "react-atomic-molecule";
 
-const CardView = props => {
+const CardView = (props) => {
   let {
     header,
     headerProps,
@@ -47,7 +47,7 @@ const CardView = props => {
     if (!imageWrapper) {
       let imgWrapperAtom;
       if (href) {
-        imgWrapperAtom = 'a';
+        imgWrapperAtom = "a";
       }
       imageWrapper = <SemanticUI atom={imgWrapperAtom} />;
     }
@@ -57,7 +57,7 @@ const CardView = props => {
     image = React.cloneElement(
       imageWrapper,
       {
-        className: 'image-wrapper',
+        className: "image-wrapper",
         href: href,
         style: Styles.imgWrapper,
         ...imageWrapperAttr,
@@ -65,9 +65,9 @@ const CardView = props => {
       React.cloneElement(imageContainer, {
         styles: reactStyle(Styles.image, null, false),
         src: imageSrc,
-        className: 'rounded',
+        className: "rounded",
         ...imageAttr,
-      }),
+      })
     );
     // fixed can't use padding with % in firefox and edge
     // http://stackoverflow.com/questions/23717953/padding-bottom-top-in-flexbox-layout
@@ -109,16 +109,16 @@ export default CardView;
 
 const Styles = {
   image: {
-    maxWidth: '100%',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: ['translate(-50%, -50%)'],
+    maxWidth: "100%",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: ["translate(-50%, -50%)"],
   },
   imgWrapper: {
-    position: 'relative',
-    paddingBottom: '100%',
-    overflow: 'hidden',
-    display: 'block',
+    position: "relative",
+    paddingBottom: "100%",
+    overflow: "hidden",
+    display: "block",
   },
 };

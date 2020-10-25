@@ -1,2 +1,2 @@
 // Default
-export {default} from '../ui/organisms/Typing';
+export { default } from "../ui/organisms/Typing";

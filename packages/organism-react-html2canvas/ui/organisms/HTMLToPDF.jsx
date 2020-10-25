@@ -19,7 +19,7 @@ const HTMLToPDF = (props, ref) => {
   const canvas = useRef();
   const handleRefCanvas = (el) => (canvas.current = el);
   const execDownload = (payload) => {
-    const {iframe, canvas: dCanvas} = payload;
+    const { iframe, canvas: dCanvas } = payload;
     const iframeWindow = iframe.getWindow();
     const pdf = iframeWindow.jspdf.jsPDF;
     if (pdf) {

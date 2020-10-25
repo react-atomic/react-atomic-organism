@@ -1,10 +1,10 @@
-import React, {PureComponent} from 'react';
-import {build} from 'react-atomic-molecule';
-import {d3DnD, d3Event} from 'd3-lib';
-import getOffset, {unifyTouch} from 'getoffset';
-import get from 'get-object-value';
-import callfunc from 'call-func';
-import {doc} from 'win-doc';
+import React, { PureComponent } from "react";
+import { build } from "react-atomic-molecule";
+import { d3DnD, d3Event } from "d3-lib";
+import getOffset, { unifyTouch } from "getoffset";
+import get from "get-object-value";
+import callfunc from "call-func";
+import { doc } from "win-doc";
 
 class DragAndDrop extends PureComponent {
   static defaultProps = {
@@ -17,12 +17,12 @@ class DragAndDrop extends PureComponent {
   el = null;
 
   handleStart = () => {
-    const {onDragStart, zoom} = this.props;
-    const zoomK = get(callfunc(zoom), ['k'], 1);
-    const {x: fromX, y: fromY, sourceEvent} = d3Event();
+    const { onDragStart, zoom } = this.props;
+    const zoomK = get(callfunc(zoom), ["k"], 1);
+    const { x: fromX, y: fromY, sourceEvent } = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(this.el);
-    const {left: elStartX, top: elStartY, w, h} = offset || {};
+    const { left: elStartX, top: elStartY, w, h } = offset || {};
     this.start = {
       offset,
       fromX,
@@ -36,16 +36,16 @@ class DragAndDrop extends PureComponent {
   };
 
   handleDrag = () => {
-    const {x, y, dx, dy, sourceEvent} = d3Event();
+    const { x, y, dx, dy, sourceEvent } = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
-    const {absX, absY, onDrag, zoom} = this.props;
-    const zoomK = get(callfunc(zoom), ['k'], 1);
+    const { absX, absY, onDrag, zoom } = this.props;
+    const zoomK = get(callfunc(zoom), ["k"], 1);
     const nextAbsX = absX + dx / zoomK;
     const nextAbsY = absY + dy / zoomK;
     const destTarget = callfunc(
       doc().elementFromPoint,
       [thisEvent.clientX, thisEvent.clientY],
-      doc(),
+      doc()
     );
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.destTarget = destTarget;
@@ -56,7 +56,7 @@ class DragAndDrop extends PureComponent {
   };
 
   handleEnd = () => {
-    const {onDragEnd} = this.props;
+    const { onDragEnd } = this.props;
     const sourceEvent = d3Event().sourceEvent;
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(this.el);
@@ -71,7 +71,7 @@ class DragAndDrop extends PureComponent {
     return this.el;
   }
 
-  handleElChange = el => {
+  handleElChange = (el) => {
     if (el && (!this.el || !this.el.isSameNode(el))) {
       this.el = el;
       d3DnD({
@@ -97,14 +97,18 @@ class DragAndDrop extends PureComponent {
       onDragEnd,
       ...props
     } = this.props;
-    const {style: compStyle, refCb: compRefcb} = get(component, ['props'], {});
+    const { style: compStyle, refCb: compRefcb } = get(
+      component,
+      ["props"],
+      {}
+    );
     props.style = {
       ...Styles.container,
       ...style,
       ...compStyle,
     };
     if (refCb || compRefcb) {
-      props.refCb = el => {
+      props.refCb = (el) => {
         this.handleElChange(el);
         callfunc(refCb, [el]);
         callfunc(compRefcb, [el]);
@@ -121,7 +125,7 @@ export default DragAndDrop;
 
 const Styles = {
   container: {
-    cursor: 'grab',
-    pointerEvents: 'all',
+    cursor: "grab",
+    pointerEvents: "all",
   },
 };

@@ -34,14 +34,14 @@ class Iframe extends PureComponent {
     keepTargetInIframe: false,
     initialContent: "<html><body /></html>",
     autoHeight: false,
-    onLoadDelay: 500
+    onLoadDelay: 500,
   };
 
   html = null;
 
   execStop = null;
 
-  appendHtml = html => {
+  appendHtml = (html) => {
     let div = document.createElement("div");
     div.innerHTML = html;
     const root = get(this.root, ["childNodes", 0, "childNodes", 0], this.root);
@@ -51,7 +51,7 @@ class Iframe extends PureComponent {
 
   postHeight = () => this.iframe.postHeight(this.getWindow());
 
-  scrollToEl = el => {
+  scrollToEl = (el) => {
     const pos = getOffset(el);
     if (pos.rect) {
       smoothScrollTo(pos.rect.top);
@@ -64,7 +64,7 @@ class Iframe extends PureComponent {
 
   getWindow = () => get(this.el, ["contentWindow", "window"]);
 
-  handleBodyClick = e => {
+  handleBodyClick = (e) => {
     const { keepTargetInIframe, disableSmoothScroll, onLinkClick } = this.props;
     const query = queryFrom(() => this.getBody());
     const evTarget = e.target;
@@ -124,18 +124,18 @@ class Iframe extends PureComponent {
     body.addEventListener("click", this.handleBodyClick);
   }
 
-  handleScript = el => {
+  handleScript = (el) => {
     const win = this.getWindow();
     if (win) {
-      this.execStop = exec(el, win, this.root.parentNode, (e, script)=>{
-        console.warn('script error', [e, script]);
+      this.execStop = exec(el, win, this.root.parentNode, (e, script) => {
+        console.warn("script error", [e, script]);
       });
     }
   };
 
-  handleRef = el => (this.iframe = el);
+  handleRef = (el) => (this.iframe = el);
 
-  handleRefCb = el => {
+  handleRefCb = (el) => {
     if (el) {
       const { refCb } = this.props;
       this.el = el;

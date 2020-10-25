@@ -1,12 +1,11 @@
-import React from 'react'; 
+import React from "react";
 
-import { SemanticUI } from 'react-atomic-molecule';
+import { SemanticUI } from "react-atomic-molecule";
 
-const Span = props =>
-<SemanticUI {...props} />
+const Span = (props) => <SemanticUI {...props} />;
 
 Span.defaultProps = {
-    atom: 'tspan'
+  atom: "tspan",
 };
 
 export default Span;

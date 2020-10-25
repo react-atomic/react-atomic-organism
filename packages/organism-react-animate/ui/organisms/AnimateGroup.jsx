@@ -25,7 +25,7 @@ const getAniProps = (props, enterToAppear) => {
     onEntering,
     onEntered,
     onExit,
-    onExiting
+    onExiting,
   } = props;
   let appear = props.appear;
   if (enterToAppear && classNames && classNames.enter) {
@@ -51,14 +51,14 @@ const getAniProps = (props, enterToAppear) => {
     onEntered,
     onExit,
     onExiting,
-    in: props.in
+    in: props.in,
   };
   return aniProps;
 };
 
 const buildCSSTransition = build(CSSTransition);
 
-const AnimateGroup = props => {
+const AnimateGroup = (props) => {
   const {
     className,
     component,
@@ -71,7 +71,7 @@ const AnimateGroup = props => {
   const [children, setChildren] = useState();
   const mount = useRef(false);
   const aniProps = getAniProps(otherProps, true);
-  keys(aniProps).forEach(key => delete otherProps[key]);
+  keys(aniProps).forEach((key) => delete otherProps[key]);
   useEffect(() => {
     injects = lazyInject(injects, InjectStyles({ statusKey }));
   }, []);
@@ -79,11 +79,11 @@ const AnimateGroup = props => {
     let _exitTimeout;
     let _enterTimeout;
     mount.current = true;
-    const handleExited = child => node => {
+    const handleExited = (child) => (node) => {
       callfunc(onExited, [node]);
       _exitTimeout = setTimeout(() => {
         if (mount.current) {
-          setChildren(children => {
+          setChildren((children) => {
             delete children[child.key];
             return { ...children };
           });
@@ -99,13 +99,13 @@ const AnimateGroup = props => {
             ...child.props,
             ...aniProps,
             key: get(child, ["props", "name"], key),
-            onExited: handleExited(child)
+            onExited: handleExited(child),
           },
           child
         )
     );
     const allChildMapping = { ...prevChildMapping, ...nextChildMapping };
-    keys(allChildMapping).forEach(key => {
+    keys(allChildMapping).forEach((key) => {
       const child = allChildMapping[key];
       const hasPrev = key in prevChildMapping;
       const hasNext = key in nextChildMapping;
@@ -134,7 +134,7 @@ const AnimateGroup = props => {
     otherProps.className = mixClass(className, "animate-group-container");
     return build(component)(
       otherProps,
-      keys(children || {}).map(key => children[key])
+      keys(children || {}).map((key) => children[key])
     );
   }, [children]);
 };
@@ -144,7 +144,7 @@ AnimateGroup.defaultProps = {
   lazy: 150,
   component: "div",
   unmountOnExit: true,
-  in: true
+  in: true,
 };
 
 export default AnimateGroup;
@@ -153,16 +153,16 @@ let injects;
 const InjectStyles = ({ statusKey }) => ({
   init: [
     {
-      visibility: "hidden"
+      visibility: "hidden",
     },
     [`[${statusKey}="${UNMOUNTED}"]`, `[${statusKey}="${ENTERSTART}"]`].join(
       ","
-    )
+    ),
   ],
   exit: [
     {
-      display: "none"
+      display: "none",
     },
-    `[${statusKey}="${EXITED}"]`
-  ]
+    `[${statusKey}="${EXITED}"]`,
+  ],
 });

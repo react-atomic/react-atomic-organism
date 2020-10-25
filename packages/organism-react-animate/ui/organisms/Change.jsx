@@ -2,8 +2,14 @@ import React, { useRef, useState, useEffect, useMemo } from "react";
 import callfunc from "call-func";
 import Animate from "../organisms/Animate";
 
-const Change = props => {
-  const { children: propsChildren, onExited, onEntered, keyEqualer, ...otherProps } = props;
+const Change = (props) => {
+  const {
+    children: propsChildren,
+    onExited,
+    onEntered,
+    keyEqualer,
+    ...otherProps
+  } = props;
   const [children, setChildren] = useState(propsChildren);
   const mount = useRef(false);
   const nextChildren = useRef(propsChildren);
@@ -27,7 +33,7 @@ const Change = props => {
 
   useEffect(() => {
     mount.current = true;
-    const setNext = willChild => {
+    const setNext = (willChild) => {
       const reset = () => {
         nextCall.current = () => setNext(willChild);
       };

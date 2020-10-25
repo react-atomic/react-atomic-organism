@@ -1,8 +1,8 @@
-import {win, doc} from '../index.js';
-import {expect} from 'chai';
-import jsdom from 'jsdom-global'; 
+import { win, doc } from "../index.js";
+import { expect } from "chai";
+import jsdom from "jsdom-global";
 
-describe('Test doc in node', () => {
+describe("Test doc in node", () => {
   let cleanup;
 
   before(() => {
@@ -13,13 +13,13 @@ describe('Test doc in node', () => {
 
   after(() => cleanup());
 
-  it('test doc', () => {
+  it("test doc", () => {
     const d = doc();
     expect(d.__null).to.be.true;
   });
 });
 
-describe('Test win in node', () => {
+describe("Test win in node", () => {
   let cleanup;
 
   before(() => {
@@ -29,7 +29,7 @@ describe('Test win in node', () => {
   });
 
   after(() => cleanup());
-  it('test win', () => {
+  it("test win", () => {
     const w = win();
     expect(w.__null).to.be.true;
   });

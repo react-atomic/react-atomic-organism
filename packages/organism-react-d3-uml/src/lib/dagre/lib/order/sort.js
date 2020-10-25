@@ -1,25 +1,26 @@
-import {flattenDownDepth} from '../../../lodash-lite';
-import * as util from '../util';
+import { flattenDownDepth } from "../../../lodash-lite";
+import * as util from "../util";
 
-
-export default sort
+export default sort;
 
 function sort(entries, biasRight) {
-  var parts = util.partition(entries, function(entry) {
-    return 'undefined' !== typeof entry.barycenter
+  var parts = util.partition(entries, function (entry) {
+    return "undefined" !== typeof entry.barycenter;
   });
   var sortable = parts.lhs,
-      unsortable = parts.rhs.sort( function(entry) { return -entry.i; }),
-      vs = [],
-      sum = 0,
-      weight = 0,
-      vsIndex = 0;
+    unsortable = parts.rhs.sort(function (entry) {
+      return -entry.i;
+    }),
+    vs = [],
+    sum = 0,
+    weight = 0,
+    vsIndex = 0;
 
   sortable.sort(compareWithBias(!!biasRight));
 
   vsIndex = consumeUnsortable(vs, unsortable, vsIndex);
 
-  sortable.forEach( function (entry) {
+  sortable.forEach(function (entry) {
     vsIndex += entry.vs.length;
     vs.push(entry.vs);
     sum += entry.barycenter * entry.weight;
@@ -46,7 +47,7 @@ function consumeUnsortable(vs, unsortable, index) {
 }
 
 function compareWithBias(bias) {
-  return function(entryV, entryW) {
+  return function (entryV, entryW) {
     if (entryV.barycenter < entryW.barycenter) {
       return -1;
     } else if (entryV.barycenter > entryW.barycenter) {

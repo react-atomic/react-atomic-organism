@@ -1,44 +1,52 @@
-import { isComponentType } from './index.js';
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-navbar-link';
+  const type = "mj-navbar-link";
 
   dc.addType(type, {
     isComponent: isComponentType(type),
-    extend: 'link',
-    extendFnView: ['onActive', 'disableEditing'],
+    extend: "link",
+    extendFnView: ["onActive", "disableEditing"],
     model: {
       ...coreMjmlModel,
 
       defaults: {
-        name: 'NavBarLink',
-        draggable: '[data-gjs-type=mj-navbar]',
+        name: "NavBarLink",
+        draggable: "[data-gjs-type=mj-navbar]",
         highlightable: false,
         stylable: [
-          'font-style', 'font-size', 'font-weight', 'font-family', 'color',
-          'text-decoration', 'text-transform',
-          'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
+          "font-style",
+          "font-size",
+          "font-weight",
+          "font-family",
+          "color",
+          "text-decoration",
+          "text-transform",
+          "padding",
+          "padding-top",
+          "padding-left",
+          "padding-right",
+          "padding-bottom",
         ],
-        'style-default': {
-          'font-size': '13px',
-          'padding-top': '25px',
-          'padding-bottom': '25px',
-          'padding-left': '10px',
-          'padding-right': '10px',
-          'text-transform': 'uppercase',
+        "style-default": {
+          "font-size": "13px",
+          "padding-top": "25px",
+          "padding-bottom": "25px",
+          "padding-left": "10px",
+          "padding-right": "10px",
+          "text-transform": "uppercase",
         },
-        traits: ['href'],
+        traits: ["href"],
       },
     },
-
 
     view: {
       ...coreMjmlView,
 
-      tagName: 'a',
+      tagName: "a",
 
       attributes: {
-        style: 'pointer-events: all; float: none; display: inline-table;',
+        style: "pointer-events: all; float: none; display: inline-table;",
       },
 
       getMjmlTemplate() {
@@ -58,11 +66,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelector('div').innerHTML;
+        return sandboxEl.querySelector("div").innerHTML;
       },
 
       getChildrenSelector() {
-        return 'a,p';
+        return "a,p";
       },
 
       /**
@@ -76,11 +84,11 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
        * Need to make text selectable.
        */
       onActive() {
-        this.getChildrenContainer().style.pointerEvents = 'all';
+        this.getChildrenContainer().style.pointerEvents = "all";
       },
 
       disableEditing() {
-        this.getChildrenContainer().style.pointerEvents = 'none';
+        this.getChildrenContainer().style.pointerEvents = "none";
       },
     },
   });

@@ -1,28 +1,28 @@
-import React, {PureComponent} from 'react';
-import {popupDispatch, FullScreen} from 'organism-react-popup';
-import {build, SemanticUI, Unsafe} from 'react-atomic-molecule';
-import Iframe from 'organism-react-iframe';
-import callfunc from 'call-func';
-import fixHtml from 'fix-html';
+import React, { PureComponent } from "react";
+import { popupDispatch, FullScreen } from "organism-react-popup";
+import { build, SemanticUI, Unsafe } from "react-atomic-molecule";
+import Iframe from "organism-react-iframe";
+import callfunc from "call-func";
+import fixHtml from "fix-html";
 
-import Preview from '../organisms/Preview';
+import Preview from "../organisms/Preview";
 
 const openCodeEditor = (code, cb) => {
-  popupDispatch('dom/update', {
+  popupDispatch("dom/update", {
     popup: <CodeEditor onClose={cb}>{code}</CodeEditor>,
   });
 };
 
 class CodeEditor extends PureComponent {
   static defaultProps = {
-    name: 'code-editor',
+    name: "code-editor",
     preview: Preview,
   };
 
-  state = {code: ''};
+  state = { code: "" };
 
   getHtml() {
-    const html = this.codemirror ? this.codemirror.getValue() : '';
+    const html = this.codemirror ? this.codemirror.getValue() : "";
     return fixHtml(html, this.iframeWindow?.sanitizeHtml || null);
   }
 
@@ -30,9 +30,9 @@ class CodeEditor extends PureComponent {
     return this.getHtml();
   }
 
-  handleIframe = el => (this.dIframe = el);
-  handleTextarea = el => (this.textarea = el);
-  handlePreview = el => (this.preview = el);
+  handleIframe = (el) => (this.dIframe = el);
+  handleTextarea = (el) => (this.textarea = el);
+  handlePreview = (el) => (this.preview = el);
 
   handleLoad = () => {
     this.iframeWindow = this.dIframe.contentWindow.window;
@@ -49,37 +49,37 @@ class CodeEditor extends PureComponent {
     const codemirror = this.iframeWindow.CodeMirror.fromTextArea(
       this.textarea,
       {
-        mode: 'htmlmixed',
+        mode: "htmlmixed",
         indentUnit: 2,
         tabSize: 2,
         indentWithTabs: false,
         lineNumbers: true,
         lineWrapping: true,
-      },
+      }
     );
     this.codemirror = codemirror;
-    codemirror.setSize(null, '100%');
-    const update = editor => {
+    codemirror.setSize(null, "100%");
+    const update = (editor) => {
       this.preview.setValue(this.getCode());
     };
-    codemirror.on('change', update);
+    codemirror.on("change", update);
     codemirror.autoFormatRange(
-      {line: 0, ch: 0},
-      {line: codemirror.lineCount()},
+      { line: 0, ch: 0 },
+      { line: codemirror.lineCount() }
     );
-    codemirror.setCursor({line: 0, ch: 0});
+    codemirror.setCursor({ line: 0, ch: 0 });
 
     // better to keep update at last
     update(codemirror);
   };
 
   handleClose = () => {
-    const {onClose} = this.props;
+    const { onClose } = this.props;
     callfunc(onClose, [this.getCode()]);
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {children} = nextProps;
+    const { children } = nextProps;
     let nextState = null;
     if (children !== prevState.prevChildren) {
       nextState = {
@@ -91,17 +91,17 @@ class CodeEditor extends PureComponent {
   }
 
   render() {
-    const {onClose, children, preview, ...otherProps} = this.props;
+    const { onClose, children, preview, ...otherProps } = this.props;
     let thisPreview;
     let codeClasses;
     let containerClasses;
     if (preview) {
       thisPreview = build(preview)({
-        className: 'pure-u-1 pure-u-md-1-2',
+        className: "pure-u-1 pure-u-md-1-2",
         ref: this.handlePreview,
       });
-      containerClasses = 'pure-g';
-      codeClasses = 'pure-u-1 pure-u-md-1-2';
+      containerClasses = "pure-g";
+      codeClasses = "pure-u-1 pure-u-md-1-2";
     }
     return (
       <FullScreen
@@ -109,12 +109,14 @@ class CodeEditor extends PureComponent {
         className={containerClasses}
         removeOnClose
         {...otherProps}
-        style={Styles.full}>
+        style={Styles.full}
+      >
         <SemanticUI className={codeClasses} style={Styles.fitHeight}>
           <Iframe
             style={Styles.fitHeight}
             refCb={this.handleIframe}
-            onLoad={this.handleLoad}>
+            onLoad={this.handleLoad}
+          >
             <Unsafe>
               {`
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
@@ -142,17 +144,17 @@ class CodeEditor extends PureComponent {
 }
 
 export default CodeEditor;
-export {openCodeEditor};
+export { openCodeEditor };
 
 const Styles = {
   full: {
-    display: 'block',
+    display: "block",
     padding: 0,
   },
   textArea: {
-    display: 'none',
+    display: "none",
   },
   fitHeight: {
-    height: '100%',
+    height: "100%",
   },
 };

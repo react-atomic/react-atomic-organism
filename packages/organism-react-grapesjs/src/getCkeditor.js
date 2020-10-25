@@ -77,7 +77,7 @@ const getCkeditorOption = ({
   CKEDITOR.dtd.$editable.strong = 1;
 
   // need use ckeditor original this so not use arrow function here
-  CKEDITOR.dom.element.prototype.scrollIntoView = function(){
+  CKEDITOR.dom.element.prototype.scrollIntoView = function () {
     // console.log(this);
   };
   let extraPlugins = "sharedspace,justify,colorbutton,panelbutton,font";

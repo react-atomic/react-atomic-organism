@@ -1,30 +1,30 @@
-import get from 'get-object-value';
-import {toInt} from 'to-percent-js';
+import get from "get-object-value";
+import { toInt } from "to-percent-js";
 
 const keys = Object.keys;
 
-const BEGIN = '0';
-const END = '1';
-const PER_PAGE_NUM = 'perPageNum';
-const TOTAL = 'total';
-const TOTAL_PAGE = 'totalPage';
-const CURRENT_PAGE = 'currentPage';
-const BACKWARD = 'backward';
-const FORWARD = 'forward';
-const LAST_PAGE = 'lastPage';
-const FIRST_PAGE = 'firstPage';
+const BEGIN = "0";
+const END = "1";
+const PER_PAGE_NUM = "perPageNum";
+const TOTAL = "total";
+const TOTAL_PAGE = "totalPage";
+const CURRENT_PAGE = "currentPage";
+const BACKWARD = "backward";
+const FORWARD = "forward";
+const LAST_PAGE = "lastPage";
+const FIRST_PAGE = "firstPage";
 
 /**
  * type: [begin|page]
  */
-const TYPE = 'type';
-const TYPE_BEGIN = 'begin';
-const TYPE_PAGE = 'page';
+const TYPE = "type";
+const TYPE_BEGIN = "begin";
+const TYPE_PAGE = "page";
 
 // url
-const URL = 'url';
-const QUERY_B = 'b';
-const QUERY_PAGE = 'page';
+const URL = "url";
+const QUERY_B = "b";
+const QUERY_PAGE = "page";
 
 class Page {
   constructor(currentPage, url, cal) {
@@ -44,7 +44,7 @@ class Page {
     if (null != currentPage) {
       // force use type with page. need let currentPage have value and begin keep null
       this[CURRENT_PAGE] = currentPage;
-      cal.process(this, {...cal.props, [BEGIN]: null});
+      cal.process(this, { ...cal.props, [BEGIN]: null });
     }
   }
 
@@ -72,7 +72,7 @@ class paginationCalculator {
 
   sync(page, copyFrom) {
     const syncKeys = [PER_PAGE_NUM, TOTAL, CURRENT_PAGE, BEGIN];
-    syncKeys.forEach(key => {
+    syncKeys.forEach((key) => {
       if (null != copyFrom[key] && null == page[key]) {
         page.set(key, copyFrom[key]);
       }
@@ -116,7 +116,7 @@ class paginationCalculator {
   calPageList(page, num) {
     if (num < 2) {
       console.error(
-        `Page list number need greater than 2, You set to [${num}].`,
+        `Page list number need greater than 2, You set to [${num}].`
       );
       return;
     }
@@ -138,11 +138,11 @@ class paginationCalculator {
         begin = 1;
       }
     }
-    return {[BEGIN]: begin, [END]: end};
+    return { [BEGIN]: begin, [END]: end };
   }
 
-  fixedPageList({page, pages, liCount, num}) {
-    const list = keys(pages).map(key => pages[key]);
+  fixedPageList({ page, pages, liCount, num }) {
+    const list = keys(pages).map((key) => pages[key]);
     if (num >= liCount[END]) {
       return list;
     }
@@ -211,7 +211,7 @@ class paginationCalculator {
         result[LAST_PAGE] = lastPage;
       }
     }
-    result.list = this.fixedPageList({page, pages, num, liCount});
+    result.list = this.fixedPageList({ page, pages, num, liCount });
     return result;
   }
 
@@ -244,4 +244,4 @@ class paginationCalculator {
 }
 
 export default paginationCalculator;
-export {TOTAL, TOTAL_PAGE, CURRENT_PAGE, BEGIN, PER_PAGE_NUM};
+export { TOTAL, TOTAL_PAGE, CURRENT_PAGE, BEGIN, PER_PAGE_NUM };

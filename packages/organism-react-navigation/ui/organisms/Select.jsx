@@ -1,20 +1,20 @@
-import React, {PureComponent} from 'react';
-import {Field, Menu, Item, SemanticUI} from 'react-atomic-molecule';
-import callfunc from 'call-func';
+import React, { PureComponent } from "react";
+import { Field, Menu, Item, SemanticUI } from "react-atomic-molecule";
+import callfunc from "call-func";
 
-import Dropdown from '../organisms/Dropdown';
+import Dropdown from "../organisms/Dropdown";
 
 class Select extends PureComponent {
   static defaultProps = {
-    labelLocator: d => d.label,
-    valueLocator: d => d.value,
+    labelLocator: (d) => d.label,
+    valueLocator: (d) => d.value,
     simple: false,
   };
 
-  state = {value: null};
+  state = { value: null };
 
-  handleSelect = item => e => {
-    const {labelLocator, valueLocator, onChange} = this.props;
+  handleSelect = (item) => (e) => {
+    const { labelLocator, valueLocator, onChange } = this.props;
     const value = valueLocator(item);
     const selected = labelLocator(item);
     this.setState(
@@ -22,14 +22,14 @@ class Select extends PureComponent {
         value,
       },
       () => {
-        callfunc(onChange, [value, {selected, item}]);
-      },
+        callfunc(onChange, [value, { selected, item }]);
+      }
     );
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {value, defaultValue} = nextProps;
-    const {prevValue} = prevState;
+    const { value, defaultValue } = nextProps;
+    const { prevValue } = prevState;
     const thisValue = value ?? defaultValue;
     if (thisValue !== prevValue) {
       return {
@@ -53,7 +53,7 @@ class Select extends PureComponent {
       refCb,
       ...props
     } = this.props;
-    const {value} = this.state;
+    const { value } = this.state;
     let thisList = null;
     let thisPlaceholder = null;
     let thisSelected = value;
@@ -73,7 +73,7 @@ class Select extends PureComponent {
             let optionClasses = null;
             if (value === optionValue) {
               thisSelected = optionText;
-              optionClasses = 'active';
+              optionClasses = "active";
             }
             return (
               <Item
@@ -92,14 +92,20 @@ class Select extends PureComponent {
     const title = thisSelected || thisPlaceholder;
     return (
       <Dropdown {...props} list={thisList}>
-        <SemanticUI refCb={refCb} atom="input" type="hidden" name={name} value={value || ''} />
+        <SemanticUI
+          refCb={refCb}
+          atom="input"
+          type="hidden"
+          name={name}
+          value={value || ""}
+        />
         {title}
       </Dropdown>
     );
   }
 }
 
-const SelectField = props => (
+const SelectField = (props) => (
   <Field
     {...props}
     inputComponent={
@@ -113,20 +119,20 @@ const SelectField = props => (
 );
 
 export default Select;
-export {SelectField};
+export { SelectField };
 
 const Styles = {
   dropdown: {
-    border: '1px solid rgba(34,36,38,.15)',
+    border: "1px solid rgba(34,36,38,.15)",
     minHeight: 40,
   },
   dropdownTitle: {
     paddingLeft: 10,
   },
   dropdownPlaceholder: {
-    color: '#ccc',
+    color: "#ccc",
   },
   dropdownIcon: {
-    fill: '#ccc',
+    fill: "#ccc",
   },
 };

@@ -15,7 +15,7 @@ import { i13nDispatch } from "../../src/index";
 const keys = Object.keys;
 const urlDecode = decodeURIComponent;
 
-const MonitorPvidContainer = props => {
+const MonitorPvidContainer = (props) => {
   const pvid = useRef();
   return (
     <Return initStates={["data", "pvid"]}>
@@ -30,7 +30,7 @@ const MonitorPvidContainer = props => {
   );
 };
 
-const MonitorBrowserBFContainer = props => {
+const MonitorBrowserBFContainer = (props) => {
   const toggleBfChange = useRef();
   const bfApplyUrl = useRef();
   return (
@@ -45,8 +45,8 @@ const MonitorBrowserBFContainer = props => {
                 action: "bfChange",
                 before: urlDecode(get(i13nState.get("lastUrl"), null, "")),
                 after: urlDecode(nextBfApplyUrl),
-                last: urlDecode(get(bfApplyUrl.current, null, ""))
-              }
+                last: urlDecode(get(bfApplyUrl.current, null, "")),
+              },
             });
             bfApplyUrl.current = nextBfApplyUrl;
           });
@@ -57,11 +57,11 @@ const MonitorBrowserBFContainer = props => {
   );
 };
 
-const handleIframe = iframe => {
+const handleIframe = (iframe) => {
   i13nDispatch("config/set", { iframe });
 };
 
-const I13nElement = props => {
+const I13nElement = (props) => {
   const [iframe, setIframe] = useState();
   const [isLoad, setIsLoad] = useState();
   const pvid = useRef(true);
@@ -105,7 +105,7 @@ const I13nElement = props => {
                   I13N: get(I13N),
                   callback: (json, text) => {
                     setIframe(text);
-                  }
+                  },
                 });
               });
             }
@@ -127,6 +127,6 @@ const Styles = {
     width: 1,
     height: 1,
     position: "absolute",
-    top: -99999
-  }
+    top: -99999,
+  },
 };

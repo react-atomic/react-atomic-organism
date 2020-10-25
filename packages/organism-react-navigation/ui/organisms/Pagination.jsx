@@ -1,6 +1,6 @@
-import React from 'react';
-import callfunc from 'call-func';
-import get from 'get-object-value';
+import React from "react";
+import callfunc from "call-func";
+import get from "get-object-value";
 
 import {
   build,
@@ -9,31 +9,39 @@ import {
   lazyInject,
   Item,
   Menu,
-} from 'react-atomic-molecule';
+} from "react-atomic-molecule";
 
 const isArray = Array.isArray;
-const plusOne = i => i + 1;
+const plusOne = (i) => i + 1;
 const getFromTo = (from, to) => {
-  return plusOne(from) + '-' + plusOne(to);
+  return plusOne(from) + "-" + plusOne(to);
 };
 
 const keys = Object.keys;
 
 const mergeStyle = (main, ...merges) => {
-  const style = {...get(main, ['style'], {})};
-  merges.forEach(m => {
-    const mStyle = get(m, ['style'], {});
-    keys(mStyle).forEach(key => (style[key] = mStyle[key]));
+  const style = { ...get(main, ["style"], {}) };
+  merges.forEach((m) => {
+    const mStyle = get(m, ["style"], {});
+    keys(mStyle).forEach((key) => (style[key] = mStyle[key]));
   });
   return style;
 };
 
-const BasePage = props => {
-  const {onPageChange, component, className, children, style, url, rel} = props;
-  const classes = mixClass(
-    get(component, ['props', 'className']),
+const BasePage = (props) => {
+  const {
+    onPageChange,
+    component,
     className,
-    'item link',
+    children,
+    style,
+    url,
+    rel,
+  } = props;
+  const classes = mixClass(
+    get(component, ["props", "className"]),
+    className,
+    "item link"
   );
   const onClick = onPageChange
     ? () =>
@@ -41,8 +49,8 @@ const BasePage = props => {
           {
             begin: props[0],
             end: props[1],
-            page: props['currentPage'],
-            perPageNum: props['perPageNum'],
+            page: props["currentPage"],
+            perPageNum: props["perPageNum"],
           },
         ])
     : null;
@@ -54,24 +62,24 @@ const BasePage = props => {
       href: url,
       style,
       onClick,
-      'data-begin': props[0],
-      'data-end': props[1],
-      'data-page': props['currentPage'],
-      'data-per-page-num': props['perPageNum'],
+      "data-begin": props[0],
+      "data-end": props[1],
+      "data-page": props["currentPage"],
+      "data-per-page-num": props["perPageNum"],
     },
-    children,
+    children
   );
 };
 
-const Page = props => <BasePage {...props}>{props.currentPage}</BasePage>;
+const Page = (props) => <BasePage {...props}>{props.currentPage}</BasePage>;
 
-const Forward = ({isLastPage, text, ...props}) => (
+const Forward = ({ isLastPage, text, ...props }) => (
   <BasePage {...props} rel="next">
     {isLastPage ? props.currentPage : text}
   </BasePage>
 );
 
-const Backward = ({text, ...props}) => {
+const Backward = ({ text, ...props }) => {
   return (
     <BasePage {...props} rel="prev">
       {props.currentPage === 1 ? props.currentPage : text}
@@ -79,28 +87,30 @@ const Backward = ({text, ...props}) => {
   );
 };
 
-const Current = props => (
+const Current = (props) => (
   <Item
     style={props.style}
     title={getFromTo(props[0], props[1])}
-    className={mixClass('active', props.className)}>
+    className={mixClass("active", props.className)}
+  >
     {props.currentPage}
   </Item>
 );
 
-const FirstPage = props => <Page {...props} />;
+const FirstPage = (props) => <Page {...props} />;
 
-const LastPage = props => <Page {...props} />;
+const LastPage = (props) => <Page {...props} />;
 
-const Ellipsis = props => (
+const Ellipsis = (props) => (
   <Item
     className="disabled ellipsis"
-    style={{minWidth: 0, width: 0, ...props.style}}>
+    style={{ minWidth: 0, width: 0, ...props.style }}
+  >
     ...
   </Item>
 );
 
-const Pagination = pg => {
+const Pagination = (pg) => {
   injects = lazyInject(injects, InjectStyles);
   const {
     linkComponent,
@@ -117,7 +127,7 @@ const Pagination = pg => {
   const pageProps = pg.pageProps || {};
   pageProps.onPageChange = onPageChange;
   pageProps.component = linkComponent;
-  const ellipsisProps = {...pageProps, onPageChange: null};
+  const ellipsisProps = { ...pageProps, onPageChange: null };
   if (pg.firstPage) {
     firstPage = <FirstPage {...pg.firstPage} {...pageProps} />;
     firstEllipsis = <Ellipsis {...ellipsisProps} />;
@@ -128,7 +138,7 @@ const Pagination = pg => {
   }
   const pgList = pg.list;
   if (!isArray(pgList)) {
-    console.error('Page list not array', pg);
+    console.error("Page list not array", pg);
   }
   return (
     <Menu className="compact pagination" ui={ui}>
@@ -153,7 +163,7 @@ const Pagination = pg => {
                 text={backwardText}
                 {...current.backward}
                 {...pageProps}
-              />,
+              />
             );
           }
           re.push(
@@ -163,7 +173,7 @@ const Pagination = pg => {
               {...current}
               {...currentPageProps}
               style={mergeStyle(pageProps, currentPageProps)}
-            />,
+            />
           );
           if (current.forward) {
             re.push(
@@ -172,7 +182,7 @@ const Pagination = pg => {
                 {...current.forward}
                 text={forwardText}
                 {...pageProps}
-              />,
+              />
             );
           }
           return re;
@@ -184,26 +194,26 @@ const Pagination = pg => {
   );
 };
 Pagination.defaultProps = {
-  linkComponent: 'a',
-  forwardText: '> Next',
-  backwardText: '<',
+  linkComponent: "a",
+  forwardText: "> Next",
+  backwardText: "<",
 };
 export default Pagination;
 
 let injects;
-const pgCssSelector = '.pagination.ui.menu:not(.vertical) .item';
+const pgCssSelector = ".pagination.ui.menu:not(.vertical) .item";
 const InjectStyles = {
   hidePg: [
     {
-      display: 'none',
-      minWidth: '2rem',
-      justifyContent: 'center',
+      display: "none",
+      minWidth: "2rem",
+      justifyContent: "center",
     },
     pgCssSelector,
   ],
   showPg: [
     {
-      display: 'flex',
+      display: "flex",
     },
     [min.sm, pgCssSelector],
   ],

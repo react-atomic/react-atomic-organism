@@ -1,4 +1,2 @@
-
 //UI
-export default from '../ui/organisms/PieChart';
-
+export default from "../ui/organisms/PieChart";

@@ -16,10 +16,8 @@ describe("test get safe reg", () => {
     expect(res).to.be.true;
   });
 
-  it("test with undefined", ()=>{
+  it("test with undefined", () => {
     const acture = getSafeReg();
     expect(acture).to.equal("");
   });
-
 });
-

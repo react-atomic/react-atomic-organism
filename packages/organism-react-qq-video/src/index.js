@@ -1,1 +1,1 @@
-export {default} from '../ui/organisms/QQVideo';
+export { default } from "../ui/organisms/QQVideo";

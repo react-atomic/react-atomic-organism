@@ -3,8 +3,8 @@ const stopPropagation = (e) => e.stopPropagation();
 const plugCkeditor = ({ grapesjs, CKEDITOR }) => {
   grapesjs.plugins.add("gjs-plugin-ckeditor", (editor, opts = {}) => {
     const c = {
-      ...{position: "left"},
-      ...opts
+      ...{ position: "left" },
+      ...opts,
     };
 
     if (!CKEDITOR) {
@@ -45,7 +45,6 @@ const plugCkeditor = ({ grapesjs, CKEDITOR }) => {
         if (!c.options.sharedSpaces) {
           c.options.sharedSpaces = { top: rteToolbar };
         }
-
 
         // Init CkEditors
         rte = CKEDITOR.inline(el, c.options);
@@ -114,7 +113,7 @@ const plugCkeditor = ({ grapesjs, CKEDITOR }) => {
     // https://github.com/artf/grapesjs/blob/master/src/canvas/index.js#L450-L490
     editor.on("rteToolbarPosUpdate", (pos) => {
       if (pos.top <= pos.canvasOffsetTop) {
-//        pos.top = pos.canvasOffsetTop;
+        //        pos.top = pos.canvasOffsetTop;
       }
 
       // Check if not outside of the canvas

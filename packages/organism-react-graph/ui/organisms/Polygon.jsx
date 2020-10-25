@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
+import React, { PureComponent } from "react";
+import { SemanticUI } from "react-atomic-molecule";
 
 class Polygon extends PureComponent {
   render() {

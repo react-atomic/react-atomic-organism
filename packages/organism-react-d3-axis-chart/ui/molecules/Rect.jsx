@@ -1,14 +1,13 @@
-import React from 'react'; 
+import React from "react";
 
-import { SemanticUI } from 'react-atomic-molecule';
+import { SemanticUI } from "react-atomic-molecule";
 
-const Rect = (props)=>
-{
-    return <SemanticUI {...props} />;
-}
+const Rect = (props) => {
+  return <SemanticUI {...props} />;
+};
 
 Rect.defaultProps = {
-    atom: 'rect'
+  atom: "rect",
 };
 
 export default Rect;

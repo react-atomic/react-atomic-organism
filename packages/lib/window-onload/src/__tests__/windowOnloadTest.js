@@ -62,30 +62,38 @@ describe("Test window onload", () => {
     });
     const load = windowOnLoad();
     let foo;
-    let bar; 
+    let bar;
     const reset = () => {
       foo = false;
       bar = false;
     };
     reset();
-    load.process(() => {foo = true;});
-    load.process(() => {bar = true;});
+    load.process(() => {
+      foo = true;
+    });
+    load.process(() => {
+      bar = true;
+    });
     fakeStatus = "complete";
     setTimeout(() => {
-      expect({foo, bar}).to.deep.equal({
+      expect({ foo, bar }).to.deep.equal({
         foo: false,
-        bar: true
+        bar: true,
       });
       reset();
-      expect({foo, bar}).to.deep.equal({
+      expect({ foo, bar }).to.deep.equal({
         foo: false,
-        bar: false 
+        bar: false,
       });
-      load.process(() => {foo = true;});
-      load.process(() => {bar = true;});
-      expect({foo, bar}).to.deep.equal({
+      load.process(() => {
+        foo = true;
+      });
+      load.process(() => {
+        bar = true;
+      });
+      expect({ foo, bar }).to.deep.equal({
         foo: true,
-        bar: true
+        bar: true,
       });
       done();
     }, 50);

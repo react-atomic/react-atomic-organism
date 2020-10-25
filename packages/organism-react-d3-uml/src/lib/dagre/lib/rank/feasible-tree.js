@@ -1,6 +1,6 @@
-import {minBy} from '../../../lodash-lite'
-import {Graph} from '../graphlib';
-import {slack} from './util';
+import { minBy } from "../../../lodash-lite";
+import { Graph } from "../graphlib";
+import { slack } from "./util";
 
 export default feasibleTree;
 
@@ -34,7 +34,7 @@ function feasibleTree(g) {
 
   // Choose arbitrary node from which to start our tree
   var start = g.nodes()[0],
-      size = g.nodeCount();
+    size = g.nodeCount();
   t.setNode(start, {});
 
   var edge, delta;
@@ -54,9 +54,9 @@ function feasibleTree(g) {
  */
 function tightTree(t, g) {
   function dfs(v) {
-    g.nodeEdges(v).forEach( function(e) {
+    g.nodeEdges(v).forEach(function (e) {
       var edgeV = e.v,
-          w = (v === edgeV) ? e.w : edgeV;
+        w = v === edgeV ? e.w : edgeV;
       if (!t.hasNode(w) && !slack(g, e)) {
         t.setNode(w, {});
         t.setEdge(v, w, {});
@@ -74,7 +74,7 @@ function tightTree(t, g) {
  * it.
  */
 function findMinSlackEdge(t, g) {
-  const minSlackEdge = minBy(g.edges(), e => {
+  const minSlackEdge = minBy(g.edges(), (e) => {
     if (t.hasNode(e.v) !== t.hasNode(e.w)) {
       return slack(g, e);
     }
@@ -83,7 +83,7 @@ function findMinSlackEdge(t, g) {
 }
 
 function shiftRanks(t, g, delta) {
-  t.nodes().forEach( function(v) {
+  t.nodes().forEach(function (v) {
     g.node(v).rank += delta;
   });
 }

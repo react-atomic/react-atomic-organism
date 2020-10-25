@@ -59,8 +59,10 @@ class Zoom extends PureComponent {
   render() {
     const { onGetEl, onZoom, ...props } = this.props;
     const { transform } = this.state;
-    
-    return <Group name="zoom" {...props} transform={transform && transform + ""} />;
+
+    return (
+      <Group name="zoom" {...props} transform={transform && transform + ""} />
+    );
   }
 }
 

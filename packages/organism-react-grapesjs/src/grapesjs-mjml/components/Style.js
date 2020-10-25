@@ -1,16 +1,16 @@
 // Specs: https://mjml.io/documentation/#mj-style
-import mjml2html from '../../mjml2html';
-import { isComponentType } from './index.js';
+import mjml2html from "../../mjml2html";
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
-  const type = 'mj-style';
+  const type = "mj-style";
   dc.addType(type, {
     isComponent: isComponentType(type),
 
     model: {
       ...coreMjmlModel,
       defaults: {
-        draggable: '[data-gjs-type=mj-head]',
+        draggable: "[data-gjs-type=mj-head]",
       },
     },
     view: {
@@ -25,7 +25,7 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.querySelector('style').innerHTML;
+        return sandboxEl.querySelector("style").innerHTML;
       },
 
       renderStyle() {},
@@ -36,13 +36,12 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView, sandboxEl }) => {
         const htmlOutput = mjml2html(`${mjmlTmpl.start}
           ${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`);
         let html = htmlOutput.html;
-        let start = html.indexOf('<head>') + 6;
-        let end = html.indexOf('</head>');
+        let start = html.indexOf("<head>") + 6;
+        let end = html.indexOf("</head>");
         html = html.substring(start, end).trim();
         sandboxEl.innerHTML = html;
         return this.getTemplateFromEl(sandboxEl);
       },
-    }
+    },
   });
-
 };

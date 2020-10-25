@@ -1,58 +1,58 @@
-import loadBlocks from './blocks';
-import loadComponents from './components';
-import loadCommands from './commands';
-import loadButtons from './buttons';
-import loadStyle from './style';
+import loadBlocks from "./blocks";
+import loadComponents from "./components";
+import loadCommands from "./commands";
+import loadButtons from "./buttons";
+import loadStyle from "./style";
 
 export default (editor, opt = {}) => {
   const config = editor.getConfig();
   const opts = {
     editor,
-    cmdBtnMoveLabel: 'Move',
-    cmdBtnUndoLabel: 'Undo',
-    cmdBtnRedoLabel: 'Redo',
-    cmdBtnDesktopLabel: 'Desktop',
-    cmdBtnTabletLabel: 'Tablet',
-    cmdBtnMobileLabel: 'Mobile',
+    cmdBtnMoveLabel: "Move",
+    cmdBtnUndoLabel: "Undo",
+    cmdBtnRedoLabel: "Redo",
+    cmdBtnDesktopLabel: "Desktop",
+    cmdBtnTabletLabel: "Tablet",
+    cmdBtnMobileLabel: "Mobile",
 
-    expTplBtnTitle: 'View Code',
-    fullScrBtnTitle: 'FullScreen',
-    swichtVwBtnTitle: 'View Components',
-    defaultTemplate: '', // Default template in case the canvas is empty
-    categoryLabel: '',
+    expTplBtnTitle: "View Code",
+    fullScrBtnTitle: "FullScreen",
+    swichtVwBtnTitle: "View Components",
+    defaultTemplate: "", // Default template in case the canvas is empty
+    categoryLabel: "",
 
     // Code viewer theme
-    codeViewerTheme: 'hopscotch',
+    codeViewerTheme: "hopscotch",
 
     // Import placeholder MJML
-    importPlaceholder: '',
+    importPlaceholder: "",
 
     // Title for the import modal
-    modalTitleImport: 'Import MJML',
+    modalTitleImport: "Import MJML",
 
     // Test for the import button
-    modalBtnImport: 'Import',
+    modalBtnImport: "Import",
 
     // Description for the import modal
-    modalLabelImport: '',
+    modalLabelImport: "",
 
     // Title for the export modal
-    modalTitleExport: 'Export MJML',
+    modalTitleExport: "Export MJML",
 
     // Description for the export modal
-    modalLabelExport: '',
+    modalLabelExport: "",
 
     // Overwrite default export command
     overwriteExport: 1,
 
     // String before the MJML in export code
-    preMjml: '',
+    preMjml: "",
 
     // String after the MJML in export code
-    postMjml: '',
+    postMjml: "",
 
     // Export 'mjml', 'html' or both (leave empty) TODO
-    exportOnly: '',
+    exportOnly: "",
 
     // Clean all previous blocks if true
     resetBlocks: 1,
@@ -61,7 +61,7 @@ export default (editor, opt = {}) => {
     resetStyleManager: 1,
 
     // Column padding (this way it's easier select columns)
-    columnsPadding: '10px 0',
+    columnsPadding: "10px 0",
 
     ...opt,
   };
@@ -85,14 +85,14 @@ export default (editor, opt = {}) => {
     loadCommands,
     loadButtons,
     loadStyle,
-  ].forEach(module => module(editor, opts));
+  ].forEach((module) => module(editor, opts));
 
   // Update devices
   if (opts.resetDevices) {
     const dm = editor.DeviceManager;
     dm.getAll().reset();
-    dm.add('Desktop', '');
-    dm.add('Mobile', '320px');
-    dm.add('Tablet', '820px');
+    dm.add("Desktop", "");
+    dm.add("Mobile", "320px");
+    dm.add("Tablet", "820px");
   }
 };

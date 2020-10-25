@@ -2,11 +2,11 @@ import { expect } from "chai";
 import getSafeReg, { cacheReg } from "../index.js";
 
 describe("test cache reg", () => {
-  const getRegString = name => "(([#?&])" + getSafeReg(name) + "=)([^&#]*)";
+  const getRegString = (name) => "(([#?&])" + getSafeReg(name) + "=)([^&#]*)";
 
   it("get cache back", () => {
     const cache = {};
-    const getCache = name => cacheReg(cache)(getRegString)(name);
+    const getCache = (name) => cacheReg(cache)(getRegString)(name);
     const reg = getCache("foo");
     const exec = reg.exec("?foo=bar");
     expect(exec[3]).to.equal("bar");
@@ -15,7 +15,7 @@ describe("test cache reg", () => {
 
   it("tet flags", () => {
     const cache = {};
-    const getCache = name => cacheReg(cache)(getRegString, "g")(name);
+    const getCache = (name) => cacheReg(cache)(getRegString, "g")(name);
     const reg = getCache("foo");
     let exec;
     const arr = [];

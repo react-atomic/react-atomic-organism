@@ -1,13 +1,13 @@
-import React from 'react';
-import {Line as LineGraph, Group} from 'organism-react-graph';
-import {build} from 'react-atomic-molecule';
+import React from "react";
+import { Line as LineGraph, Group } from "organism-react-graph";
+import { build } from "react-atomic-molecule";
 
-import CancelButton from '../molecules/CancelButton';
-import BaseLayout from '../molecules/BaseLayout';
+import CancelButton from "../molecules/CancelButton";
+import BaseLayout from "../molecules/BaseLayout";
 
 class LineDefaultLayout extends BaseLayout {
   static defaultProps = {
-    markerEnd: 'url(#marker-arrow-head)',
+    markerEnd: "url(#marker-arrow-head)",
   };
 
   getEl() {
@@ -19,16 +19,16 @@ class LineDefaultLayout extends BaseLayout {
     if (lEl) {
       const totalLen = lEl.getTotalLength();
       const pcntLen = Math.floor((maxPercent * totalLen) / 100);
-      const thisLen = (len > pcntLen) ? pcntLen : len;
+      const thisLen = len > pcntLen ? pcntLen : len;
       return this.lineEl.getPointAtLength(thisLen);
     }
   }
 
-  handleEl = el => {
+  handleEl = (el) => {
     this.el = el;
   };
 
-  handleLineEl = el => {
+  handleLineEl = (el) => {
     this.lineEl = el;
   };
 
@@ -50,11 +50,11 @@ class LineDefaultLayout extends BaseLayout {
     let cancelButton = null;
     let areaStyle = Styles.area;
     let isShowedCancel = false;
-    const {x: centerX, y: centerY} = this.getLinePoint(50, 50) || start;
+    const { x: centerX, y: centerY } = this.getLinePoint(50, 50) || start;
     const compLine = build(<LineGraph start={start} end={end} curve={true} />);
     if (from && to) {
       if (isHover) {
-        areaStyle = {...areaStyle, ...Styles.hover};
+        areaStyle = { ...areaStyle, ...Styles.hover };
         isShowedCancel = true;
       }
       cancelButton = (
@@ -68,15 +68,20 @@ class LineDefaultLayout extends BaseLayout {
       area = compLine({
         onClick,
         style: areaStyle,
-        className: 'area',
+        className: "area",
       });
     }
     return (
-      <Group name={id} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} refCb={this.handleEl}>
+      <Group
+        name={id}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        refCb={this.handleEl}
+      >
         {compLine({
           ...other,
           refCb: this.handleLineEl,
-          className: 'line',
+          className: "line",
           style: Styles.line,
         })}
         {area}
@@ -90,19 +95,19 @@ export default LineDefaultLayout;
 
 const Styles = {
   line: {
-    stroke: '#bbb',
+    stroke: "#bbb",
     strokeWidth: 1.5,
-    fill: 'none',
+    fill: "none",
   },
   area: {
-    strokeLinecap: 'round',
-    stroke: '#999',
+    strokeLinecap: "round",
+    stroke: "#999",
     strokeWidth: 15,
     strokeOpacity: 0,
-    fill: 'none',
-    cursor: 'default',
+    fill: "none",
+    cursor: "default",
   },
   hover: {
-    strokeOpacity: '.1',
+    strokeOpacity: ".1",
   },
 };

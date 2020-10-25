@@ -1,24 +1,26 @@
-export default parentDummyChains; 
+export default parentDummyChains;
 
 function parentDummyChains(g) {
   var postorderNums = postorder(g);
 
-  g.graph().dummyChains.forEach( function(v) {
+  g.graph().dummyChains.forEach(function (v) {
     var node = g.node(v),
-        edgeObj = node.edgeObj,
-        pathData = findPath(g, postorderNums, edgeObj.v, edgeObj.w),
-        path = pathData.path,
-        lca = pathData.lca,
-        pathIdx = 0,
-        pathV = path[pathIdx],
-        ascending = true;
+      edgeObj = node.edgeObj,
+      pathData = findPath(g, postorderNums, edgeObj.v, edgeObj.w),
+      path = pathData.path,
+      lca = pathData.lca,
+      pathIdx = 0,
+      pathV = path[pathIdx],
+      ascending = true;
 
     while (v !== edgeObj.w) {
       node = g.node(v);
 
       if (ascending) {
-        while ((pathV = path[pathIdx]) !== lca &&
-               g.node(pathV).maxRank < node.rank) {
+        while (
+          (pathV = path[pathIdx]) !== lca &&
+          g.node(pathV).maxRank < node.rank
+        ) {
           pathIdx++;
         }
 
@@ -28,8 +30,10 @@ function parentDummyChains(g) {
       }
 
       if (!ascending) {
-        while (pathIdx < path.length - 1 &&
-               g.node(pathV = path[pathIdx + 1]).minRank <= node.rank) {
+        while (
+          pathIdx < path.length - 1 &&
+          g.node((pathV = path[pathIdx + 1])).minRank <= node.rank
+        ) {
           pathIdx++;
         }
         pathV = path[pathIdx];
@@ -45,19 +49,21 @@ function parentDummyChains(g) {
 // full path and the LCA.
 function findPath(g, postorderNums, v, w) {
   var vPath = [],
-      wPath = [],
-      low = Math.min(postorderNums[v].low, postorderNums[w].low),
-      lim = Math.max(postorderNums[v].lim, postorderNums[w].lim),
-      parent,
-      lca;
+    wPath = [],
+    low = Math.min(postorderNums[v].low, postorderNums[w].low),
+    lim = Math.max(postorderNums[v].lim, postorderNums[w].lim),
+    parent,
+    lca;
 
   // Traverse up from v to find the LCA
   parent = v;
   do {
     parent = g.parent(parent);
     vPath.push(parent);
-  } while (parent &&
-           (postorderNums[parent].low > low || lim > postorderNums[parent].lim));
+  } while (
+    parent &&
+    (postorderNums[parent].low > low || lim > postorderNums[parent].lim)
+  );
   lca = parent;
 
   // Traverse from w to LCA
@@ -71,7 +77,7 @@ function findPath(g, postorderNums, v, w) {
 
 function postorder(g) {
   var result = {},
-      lim = 0;
+    lim = 0;
 
   function dfs(v) {
     var low = lim;

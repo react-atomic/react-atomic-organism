@@ -3,27 +3,28 @@ import { DEFAULT, FUNCTION } from "reshow-constant";
 const isArray = Array.isArray;
 const keys = Object.keys;
 
-const getWebpack4Default = o =>
+const getWebpack4Default = (o) =>
   get(o, [DEFAULT, DEFAULT], () => get(o, [DEFAULT], () => o));
 
-const toJS = v => (v && v.toJS ? v.toJS() : v);
+const toJS = (v) => (v && v.toJS ? v.toJS() : v);
 
 const toMap = (a, path) => {
   const next = get(a, path, {});
   const nextMap = {};
-  keys(next).forEach(key => (nextMap[key] = toJS(next[key])));
+  keys(next).forEach((key) => (nextMap[key] = toJS(next[key])));
   return nextMap;
 };
 
-const toArray = maybeString =>
+const toArray = (maybeString) =>
   isArray(maybeString) ? maybeString : [maybeString];
 
-const toStringForOneArray = arr => (arr.length > 1 ? arr : arr[0] ?? undefined);
+const toStringForOneArray = (arr) =>
+  arr.length > 1 ? arr : arr[0] ?? undefined;
 
-const initMap = o => (k, defaultValue) =>
+const initMap = (o) => (k, defaultValue) =>
   o[k] || (o[k] = getDefaultValue(defaultValue));
 
-const getDefaultValue = v => (FUNCTION === typeof v ? v() : v);
+const getDefaultValue = (v) => (FUNCTION === typeof v ? v() : v);
 
 const get = (o, path, defaultValue) => {
   if (null == o) {
@@ -34,7 +35,7 @@ const get = (o, path, defaultValue) => {
     return current;
   }
   try {
-    path.every(a => {
+    path.every((a) => {
       if (null != current[a]) {
         current = current[a];
         return true;
@@ -44,7 +45,7 @@ const get = (o, path, defaultValue) => {
       }
     });
   } catch (e) {
-    console.warn({e});
+    console.warn({ e });
     current = getDefaultValue(defaultValue);
   }
   return current;
@@ -57,5 +58,5 @@ export {
   toMap,
   toArray,
   toStringForOneArray,
-  initMap
+  initMap,
 };

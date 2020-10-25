@@ -1,4 +1,4 @@
-const dedup = array => {
+const dedup = (array) => {
   if (!array || !array.filter) {
     return array;
   }

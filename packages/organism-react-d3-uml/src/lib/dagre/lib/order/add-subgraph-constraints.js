@@ -1,13 +1,11 @@
-
-
-const  addSubgraphConstraints = (g, cg, vs) => {
+const addSubgraphConstraints = (g, cg, vs) => {
   var prev = {},
-      rootPrev;
+    rootPrev;
 
-  vs.forEach( function(v) {
+  vs.forEach(function (v) {
     var child = g.parent(v),
-        parent,
-        prevChild;
+      parent,
+      prevChild;
     while (child) {
       parent = g.parent(child);
       if (parent) {
@@ -24,7 +22,6 @@ const  addSubgraphConstraints = (g, cg, vs) => {
       child = parent;
     }
   });
-
-}
+};
 
 export default addSubgraphConstraints;

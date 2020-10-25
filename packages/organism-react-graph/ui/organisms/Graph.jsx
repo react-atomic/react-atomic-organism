@@ -1,6 +1,6 @@
-import React from 'react'
-import Svg from '../molecules/Svg';
+import React from "react";
+import Svg from "../molecules/Svg";
 
-const Graph = props => <Svg {...props} />
+const Graph = (props) => <Svg {...props} />;
 
-export default Graph
+export default Graph;

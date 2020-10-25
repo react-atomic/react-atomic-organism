@@ -13,7 +13,7 @@ import plugCkeditor from "../../src/plugCkeditor";
 const defaultAssets = {
   "mjml.js":
     "https://cdn.jsdelivr.net/npm/organism-react-grapesjs@0.3.1/dist/mjml.min.js",
-//    "http://localhost:8000/assets/mjml.bundle.js",
+  //    "http://localhost:8000/assets/mjml.bundle.js",
 };
 
 const defaultMjml = `

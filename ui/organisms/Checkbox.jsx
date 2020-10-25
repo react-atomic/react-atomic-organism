@@ -1,14 +1,21 @@
-import React, {PureComponent} from 'react';
-import get from 'get-object-value';
-import arrayMerge from 'array.merge';
-import {lazyInject, mixClass, Field, SemanticUI} from 'react-atomic-molecule';
-import callfunc from 'call-func';
+import React, { PureComponent } from "react";
+import get from "get-object-value";
+import arrayMerge from "array.merge";
+import { lazyInject, mixClass, Field, SemanticUI } from "react-atomic-molecule";
+import callfunc from "call-func";
 
 let checkboxId = 0;
 
-const InputWrapper = ({toggle, slider, type, checked, disabled, ...props}) => {
-  const classes = mixClass('checkbox', {
-    radio: type === 'radio',
+const InputWrapper = ({
+  toggle,
+  slider,
+  type,
+  checked,
+  disabled,
+  ...props
+}) => {
+  const classes = mixClass("checkbox", {
+    radio: type === "radio",
     toggle,
     slider,
     checked,
@@ -25,8 +32,8 @@ class Checkbox extends PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const {checked} = nextProps;
-    let {id} = nextProps;
+    const { checked } = nextProps;
+    let { id } = nextProps;
     const nextState = {};
     if (checked !== prevState.prePropsChecked) {
       nextState.prePropsChecked = checked;
@@ -34,7 +41,7 @@ class Checkbox extends PureComponent {
     }
     if (!id) {
       if (!prevState.id) {
-        id = 'react-checkbox-' + checkboxId;
+        id = "react-checkbox-" + checkboxId;
         checkboxId++;
       }
     }
@@ -45,7 +52,7 @@ class Checkbox extends PureComponent {
   }
 
   getValue() {
-    return get(this, ['props', 'value']);
+    return get(this, ["props", "value"]);
   }
 
   getName() {
@@ -59,20 +66,20 @@ class Checkbox extends PureComponent {
   getChecked() {
     return {
       input: this.getInput().checked,
-      state: get(this, ['state', 'checked']),
+      state: get(this, ["state", "checked"]),
     };
   }
 
-  handleClick = e => {
-    if ('INPUT' !== e.target.nodeName) {
+  handleClick = (e) => {
+    if ("INPUT" !== e.target.nodeName) {
       e.preventDefault();
     }
     const stateChecked = this.state.checked;
-    const {beforeClick, afterClick, disabled, type} = this.props;
+    const { beforeClick, afterClick, disabled, type } = this.props;
     const beforeChecked = stateChecked;
     const afterChecked = disabled
       ? stateChecked
-      : type === 'radio'
+      : type === "radio"
       ? true
       : !stateChecked;
     const callbackParams = [e, beforeChecked, afterChecked, this];
@@ -86,21 +93,21 @@ class Checkbox extends PureComponent {
   };
 
   processChange(checked) {
-    const {onChange} = this.props;
-    this.setState({checked}, () =>
+    const { onChange } = this.props;
+    this.setState({ checked }, () =>
       callfunc(onChange, [
         {
-          type: 'change',
+          type: "change",
           target: this.getInput(),
           currentTarget: this.getInput(),
           checked,
         },
         this,
-      ]),
+      ])
     );
   }
 
-  handleChange = e => {};
+  handleChange = (e) => {};
 
   render() {
     const {
@@ -117,12 +124,12 @@ class Checkbox extends PureComponent {
       afterClick,
       ...props
     } = this.props;
-    const {checked: stateChecked, id} = this.state;
-    let thisLabel = ' ';
+    const { checked: stateChecked, id } = this.state;
+    let thisLabel = " ";
     if (label) {
       thisLabel = label;
     }
-    const thisValue = 'object' === typeof value ? '' : value;
+    const thisValue = "object" === typeof value ? "" : value;
     return (
       <Field
         {...{
@@ -130,11 +137,11 @@ class Checkbox extends PureComponent {
           disabled,
           type,
           id,
-          refCb: el => {
+          refCb: (el) => {
             this.el = el;
             callfunc(refCb, [el]);
           },
-          className: mixClass(className, 'hidden'),
+          className: mixClass(className, "hidden"),
           label: thisLabel,
           checked: stateChecked,
           onChange: this.handleChange,
@@ -159,8 +166,8 @@ class Checkbox extends PureComponent {
 }
 
 Checkbox.defaultProps = {
-  atom: 'input',
-  type: 'checkbox',
+  atom: "input",
+  type: "checkbox",
   checked: false,
   disabled: false,
 };

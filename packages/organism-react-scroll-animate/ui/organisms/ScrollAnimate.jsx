@@ -1,20 +1,20 @@
-import React, {useReducer, useCallback} from 'react';
-import Animate from 'organism-react-animate';
-import callfunc from 'call-func';
+import React, { useReducer, useCallback } from "react";
+import Animate from "organism-react-animate";
+import callfunc from "call-func";
 import {
   ScrollSpy,
   ScrollReceiver,
   scrollStore,
-} from 'organism-react-scroll-nav';
+} from "organism-react-scroll-nav";
 
-const initialState = {isShown: false};
+const initialState = { isShown: false };
 
 const reducer = (state, action) => {
   state.isShown = action;
   return state;
 };
 
-const Content = props => {
+const Content = (props) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
     children,
@@ -30,7 +30,7 @@ const Content = props => {
     onEntered,
     ...others
   } = props;
-  const {isShown, isOnScreen, targetId} = targetInfo;
+  const { isShown, isOnScreen, targetId } = targetInfo;
   if (once && state.isShown) {
     const node = scrollStore.getNode(targetId);
     if (node && !node.props.monitorScroll) {
@@ -40,7 +40,7 @@ const Content = props => {
   let el = null;
   const thisStyle = {};
   if (isOnScreen || (once && isShown) || isKeep) {
-    if ('function' === typeof children) {
+    if ("function" === typeof children) {
       el = children();
     } else {
       el = children;
@@ -49,7 +49,7 @@ const Content = props => {
   if (!el) {
     thisStyle.minHeight = minHeight;
   }
-  const isIn = ((el && !isShown) || (!once && !isOnScreen)) ? false : true;
+  const isIn = (el && !isShown) || (!once && !isOnScreen) ? false : true;
   const thisOnEntered = useCallback(
     (node, isAppear) => {
       setTimeout(() => {
@@ -59,17 +59,18 @@ const Content = props => {
         }
       });
     },
-    [once],
+    [once]
   );
   return (
     <Animate
       {...others}
-      style={{...thisStyle, ...style}}
+      style={{ ...thisStyle, ...style }}
       appear={appear}
       enter={enter}
       leave={leave}
       onEntered={thisOnEntered}
-      in={isIn}>
+      in={isIn}
+    >
       {el}
     </Animate>
   );
@@ -90,7 +91,8 @@ const ScrollAnimate = ({
       enter={enter}
       leave={leave}
       once={once}
-      minHeight={minHeight}>
+      minHeight={minHeight}
+    >
       {children}
     </ScrollReceiver>
   </ScrollSpy>

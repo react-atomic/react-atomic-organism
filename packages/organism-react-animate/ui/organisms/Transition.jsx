@@ -14,11 +14,11 @@ export const ENTERING = "entering";
 export const ENTERED = "entered";
 
 const reducer = (state, action) => {
-  keys(action).forEach(key => (state[key] = action[key]));
+  keys(action).forEach((key) => (state[key] = action[key]));
   return state;
 };
 
-const getTimeouts = timeout => {
+const getTimeouts = (timeout) => {
   let exit, enter, appear;
 
   exit = enter = appear = timeout;
@@ -31,9 +31,9 @@ const getTimeouts = timeout => {
   return { exit, enter, appear };
 };
 
-const setNextCallback = callback => {
+const setNextCallback = (callback) => {
   let active = true;
-  const nextCallback = event => {
+  const nextCallback = (event) => {
     if (active) {
       callfunc(callback, [event]);
     }
@@ -66,13 +66,13 @@ const perform = ({
   goToLast,
   isAppear,
   node,
-  timeout
+  timeout,
 }) => {
   const last = () => {
     onTransitionEnd(node, timeout, () => {
       safeSetState(step3, () => {
         callfunc(step3Cb, [node, isAppear]);
-        setTimeout(()=>callfunc(tearDown, [node, isAppear]));
+        setTimeout(() => callfunc(tearDown, [node, isAppear]));
       });
     });
   };
@@ -117,7 +117,7 @@ const Transition = ({
     callbackWith: null,
     nextCallback: null,
     init: false,
-    node: false
+    node: false,
   });
 
   const [status, setStatus] = useState(() => {
@@ -150,7 +150,7 @@ const Transition = ({
       // we can cancel any pending setState callbacks after we unmount.
       dispatch({
         callbackWith: nextStatus,
-        nextCallback: callback ? setNextCallback(callback) : null
+        nextCallback: callback ? setNextCallback(callback) : null,
       });
       setStatus(nextStatus);
     };
@@ -168,7 +168,7 @@ const Transition = ({
         timer: setTimeout(
           () => callfunc(state.nextCallback, ["onTransitionEnd"]),
           timeout || 0
-        )
+        ),
       });
     };
 
@@ -192,7 +192,7 @@ const Transition = ({
             safeSetState,
             onTransitionEnd,
             isAppear: mounting,
-            timeout: mounting ? timeouts.appear : timeouts.enter
+            timeout: mounting ? timeouts.appear : timeouts.enter,
           });
         } else {
           perform({
@@ -208,7 +208,7 @@ const Transition = ({
             node: state.node,
             safeSetState,
             onTransitionEnd,
-            timeout: timeouts.exit
+            timeout: timeouts.exit,
           });
         }
       } else if (unmountOnExit && status === EXITED) {
@@ -257,8 +257,8 @@ const Transition = ({
     return build(component)(
       {
         [statusKey]: status,
-        refCb: el => dispatch({ node: el }),
-        ...(callfunc(getProps, [status]) || {})
+        refCb: (el) => dispatch({ node: el }),
+        ...(callfunc(getProps, [status]) || {}),
       },
       myChild
     );
@@ -281,7 +281,7 @@ Transition.defaultProps = {
 
   onExit: null,
   onExiting: null,
-  onExited: null
+  onExited: null,
 };
 
 export default Transition;

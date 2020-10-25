@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
-import {pie} from 'd3-lib';
-import get from 'get-object-value';
-import {lightenColor} from 'colorlib';
-import {Svg, Group} from 'organism-react-graph';
+import React, { Component } from "react";
+import { SemanticUI } from "react-atomic-molecule";
+import { pie } from "d3-lib";
+import get from "get-object-value";
+import { lightenColor } from "colorlib";
+import { Svg, Group } from "organism-react-graph";
 
 const ValueLabel = ({
   value,
@@ -15,16 +15,17 @@ const ValueLabel = ({
 }) => {
   return (
     <SemanticUI
-      key={groupIndex + '-value'}
+      key={groupIndex + "-value"}
       atom="text"
-      transform={`translate(${centroid.join(',')})`}
+      transform={`translate(${centroid.join(",")})`}
       dy=".35em"
       style={{
-        shapeRendering: 'crispEdges',
-        textAnchor: 'middle',
+        shapeRendering: "crispEdges",
+        textAnchor: "middle",
         fill: valueTextFill,
         fontSize: 8,
-      }}>
+      }}
+    >
       {value}
       {unit}
     </SemanticUI>
@@ -48,16 +49,17 @@ const NameLabel = ({
   const translate = `translate(${x},${y})`;
   return (
     <SemanticUI
-      key={groupIndex + '-name'}
+      key={groupIndex + "-name"}
       atom="text"
       transform={translate}
       dy=".35em"
       style={{
         fill: labelTextFill,
-        textAnchor: 'middle',
-        shapeRendering: 'crispEdges',
+        textAnchor: "middle",
+        shapeRendering: "crispEdges",
         fontSize: 8,
-      }}>
+      }}
+    >
       {label}
     </SemanticUI>
   );
@@ -77,7 +79,7 @@ const Line = ({
   return (
     <SemanticUI
       atom="line"
-      key={groupIndex + '-line'}
+      key={groupIndex + "-line"}
       x1="0"
       x2="0"
       y1={-outerRadius - start}
@@ -93,21 +95,21 @@ const Line = ({
 };
 
 class Arc extends Component {
-  handleMouseEnter = e => {
+  handleMouseEnter = (e) => {
     this.setState({
       fill: lightenColor(this.props.color, 20),
     });
   };
 
-  handleMouseLeave = e => {
+  handleMouseLeave = (e) => {
     this.setState({
       fill: this.props.color,
     });
   };
 
   render() {
-    const {groupIndex, color, path, sectorBorderColor, ...props} = this.props;
-    let fill = get(this, ['state', 'fill'], color);
+    const { groupIndex, color, path, sectorBorderColor, ...props } = this.props;
+    let fill = get(this, ["state", "fill"], color);
     return (
       <SemanticUI
         atom="g"
@@ -115,7 +117,8 @@ class Arc extends Component {
         ui={false}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-        key={groupIndex + '-arc'}>
+        key={groupIndex + "-arc"}
+      >
         <SemanticUI
           d={path}
           fill={fill}
@@ -128,7 +131,7 @@ class Arc extends Component {
   }
 }
 
-const elements = ({data, groupIndex, ...props}) => {
+const elements = ({ data, groupIndex, ...props }) => {
   const lineStart = 1;
   const lineLength = 10;
   const textDistance = lineStart + lineLength + 3;
@@ -143,7 +146,7 @@ const elements = ({data, groupIndex, ...props}) => {
     <NameLabel
       {...props}
       groupIndex={groupIndex}
-      label={get(data, ['label'])}
+      label={get(data, ["label"])}
       distance={textDistance}
     />,
   ];
@@ -173,7 +176,8 @@ const PieChart = ({
     <Svg {...props} viewBox={`0 0 ${wBoxSize} ${hBoxSize}`}>
       <SemanticUI
         atom="g"
-        transform={`translate(${wBoxSize / 2},${hBoxSize / 2})`}>
+        transform={`translate(${wBoxSize / 2},${hBoxSize / 2})`}
+      >
         {pieData.items.map((item, key) =>
           elements({
             ...item,
@@ -183,7 +187,7 @@ const PieChart = ({
             valueTextFill: valueTextFill,
             sectorBorderColor: sectorBorderColor,
             unit: unit,
-          }),
+          })
         )}
       </SemanticUI>
     </Svg>
@@ -192,13 +196,13 @@ const PieChart = ({
 
 PieChart.defaultProps = {
   innerRadius: 20,
-  labelTextFill: '#000',
-  valueTextFill: '#000',
-  width: '100%',
+  labelTextFill: "#000",
+  valueTextFill: "#000",
+  width: "100%",
   data: [],
   showInnerLabels: true,
   showOuterLabels: true,
-  sectorBorderColor: '#000',
-  unit: '%',
+  sectorBorderColor: "#000",
+  unit: "%",
 };
 export default PieChart;

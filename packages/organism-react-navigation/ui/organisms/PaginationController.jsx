@@ -1,25 +1,31 @@
-import React, {PureComponent} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
-import {toInt} from 'to-percent-js';
-import get from 'get-object-value';
+import React, { PureComponent } from "react";
+import { SemanticUI } from "react-atomic-molecule";
+import { toInt } from "to-percent-js";
+import get from "get-object-value";
 
-import Pagination from '../organisms/Pagination';
+import Pagination from "../organisms/Pagination";
 import paginationCalculator, {
   TOTAL,
   BEGIN,
   CURRENT_PAGE,
   PER_PAGE_NUM,
-} from '../../src/paginationCalculator';
+} from "../../src/paginationCalculator";
 
 class PaginationController extends PureComponent {
-  static defaultProps = {perPageNum: 10};
+  static defaultProps = { perPageNum: 10 };
 
   getPaginationData() {
     if (!this.cal) {
       this.cal = new paginationCalculator();
     }
     const cal = this.cal;
-    const {pageListNumber, total, begin, currentPage, perPageNum} = this.props;
+    const {
+      pageListNumber,
+      total,
+      begin,
+      currentPage,
+      perPageNum,
+    } = this.props;
     cal.set(TOTAL, toInt(total));
     if (null != perPageNum) {
       cal.set(PER_PAGE_NUM, toInt(perPageNum));
@@ -50,7 +56,7 @@ class PaginationController extends PureComponent {
     } = this.props;
     const data = this.getPaginationData();
     if (hideOnlyOne) {
-      const liLen = get(data.list, ['length'], 0);
+      const liLen = get(data.list, ["length"], 0);
       if (liLen < 2) {
         return null;
       }

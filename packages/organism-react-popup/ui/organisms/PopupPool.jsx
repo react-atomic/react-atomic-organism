@@ -10,7 +10,7 @@ const keys = Object.keys;
 const getPops = (nodes, name) => {
   nodes = get(nodes) || {};
   const pops = [];
-  keys(nodes).map(key => {
+  keys(nodes).map((key) => {
     const node = nodes[key];
     const nodeProps = get(node, ["props"], {});
     const toPool = nodeProps.toPool;
@@ -29,10 +29,10 @@ const PopupPool = ({ name, component, ...otherProps }) => (
       if (pops.length) {
         return build(component)(
           {
-            'data-name': name,
+            "data-name": name,
             className: "popup-pool",
             ui: false,
-            ...otherProps
+            ...otherProps,
           },
           pops
         );
@@ -44,7 +44,7 @@ const PopupPool = ({ name, component, ...otherProps }) => (
 );
 
 PopupPool.defaultProps = {
-  component: SemanticUI
+  component: SemanticUI,
 };
 
 export default PopupPool;

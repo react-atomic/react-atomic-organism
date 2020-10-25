@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import {lazyInject, mixClass, Icon, SemanticUI} from 'react-atomic-molecule';
-import get, {getDefault} from 'get-object-value';
-import FileIcon from 'ricon/File';
+import React, { Component } from "react";
+import { lazyInject, mixClass, Icon, SemanticUI } from "react-atomic-molecule";
+import get, { getDefault } from "get-object-value";
+import FileIcon from "ricon/File";
 
 const keys = Object.keys;
 
@@ -17,7 +17,7 @@ class Dropzone extends Component {
    * http://www.dropzonejs.com/#configuration
    */
   getDjsConfig(props) {
-    const {postUrl, acceptedFiles, djsConfig} = props;
+    const { postUrl, acceptedFiles, djsConfig } = props;
     const option = {
       url: postUrl,
       acceptedFiles,
@@ -31,32 +31,32 @@ class Dropzone extends Component {
    * and binds them to dropzone.js events
    */
   setupEvents() {
-    const {eventHandlers} = this.props;
+    const { eventHandlers } = this.props;
 
     if (!this.dropzone) {
       return;
     }
 
     if (eventHandlers) {
-      keys(eventHandlers).forEach(handlerKey => {
+      keys(eventHandlers).forEach((handlerKey) => {
         this.dropzone.on(handlerKey, eventHandlers[handlerKey]);
       });
     }
 
-    this.dropzone.on('addedfile', file => {
+    this.dropzone.on("addedfile", (file) => {
       if (file) {
-        this.setState(({files}) => {
+        this.setState(({ files }) => {
           const nextFiles = files.concat([file]);
-          return {files: nextFiles};
+          return { files: nextFiles };
         });
       }
     });
 
-    this.dropzone.on('removedfile', file => {
+    this.dropzone.on("removedfile", (file) => {
       if (file) {
-        this.setState(({files}) => {
+        this.setState(({ files }) => {
           const nextFiles = this.dropzone.files;
-          return {files: nextFiles};
+          return { files: nextFiles };
         });
       }
     });
@@ -71,9 +71,9 @@ class Dropzone extends Component {
   }
 
   initDropzone(props) {
-    const {postUrl} = props;
+    const { postUrl } = props;
     if (!postUrl) {
-      console.warn('Need set dropzone url.');
+      console.warn("Need set dropzone url.");
     }
     const options = this.getDjsConfig(props);
     this.dropzone = new lazyDropzone(this.el, options);
@@ -83,7 +83,7 @@ class Dropzone extends Component {
   destroyDropzone(callback) {
     const last = () => {
       this.dropzone = this.dropzone.destroy();
-      this.el.innerHTML = '';
+      this.el.innerHTML = "";
       callback();
     };
 
@@ -135,7 +135,7 @@ class Dropzone extends Component {
    */
   componentDidMount() {
     injects = lazyInject(injects, InjectStyles);
-    import('../../src/dropzone').then(dropzone => {
+    import("../../src/dropzone").then((dropzone) => {
       dropzone = getDefault(dropzone);
       dropzone.autoDiscover = false;
       lazyDropzone = dropzone;
@@ -159,17 +159,17 @@ class Dropzone extends Component {
       showFiletypeIcon,
       acceptedFiles,
     } = this.props;
-    const {files} = this.state;
-    const classes = mixClass(className, 'dropzone');
+    const { files } = this.state;
+    const classes = mixClass(className, "dropzone");
     let thisIcon = null;
-    if (showFiletypeIcon && acceptedFiles && !get(files, ['length'], 0)) {
-      const iconFiletypes = acceptedFiles.split(',');
+    if (showFiletypeIcon && acceptedFiles && !get(files, ["length"], 0)) {
+      const iconFiletypes = acceptedFiles.split(",");
       const icons = [];
       iconFiletypes.forEach((fileType, key) => {
         icons.push(
           <Icon style={Styles.icon} key={key}>
             <FileIcon>{fileType.trim()}</FileIcon>
-          </Icon>,
+          </Icon>
         );
       });
       if (icons.length) {
@@ -182,9 +182,10 @@ class Dropzone extends Component {
     }
     return (
       <SemanticUI
-        refCb={el => (this.el = el)}
+        refCb={(el) => (this.el = el)}
         className={classes}
-        style={{...Styles.container, ...style}}>
+        style={{ ...Styles.container, ...style }}
+      >
         {thisIcon}
         {children}
       </SemanticUI>
@@ -196,17 +197,17 @@ export default Dropzone;
 
 const Styles = {
   container: {
-    backgroundColor: '#eee',
-    border: '2px dashed #c7c7c7',
-    cursor: 'pointer',
+    backgroundColor: "#eee",
+    border: "2px dashed #c7c7c7",
+    cursor: "pointer",
   },
   icon: {
     width: 35,
     marginRight: 10,
   },
   icons: {
-    textAlign: 'center',
-    pointerEvents: 'none',
+    textAlign: "center",
+    pointerEvents: "none",
   },
 };
 
@@ -214,236 +215,236 @@ let injects;
 const InjectStyles = {
   dropzone: [
     {
-      boxSizing: 'border-box',
+      boxSizing: "border-box",
     },
-    '.dropzone, .dropzone *',
+    ".dropzone, .dropzone *",
   ],
   dropzonePreview: [
     {
-      position: 'relative',
-      display: 'inline-block',
-      verticalAlign: 'top',
+      position: "relative",
+      display: "inline-block",
+      verticalAlign: "top",
       minHeight: 120,
       maxWidth: 120,
       margin: 10,
-      overflow: 'hidden',
+      overflow: "hidden",
     },
-    '.dz-preview',
+    ".dz-preview",
   ],
   dropzonePreviewHover: [
     {
-      transform: ['scale(1.05, 1.05)'],
-      filter: ['blur(8px)'],
+      transform: ["scale(1.05, 1.05)"],
+      filter: ["blur(8px)"],
     },
-    '.dropzone .dz-preview:hover .dz-image',
+    ".dropzone .dz-preview:hover .dz-image",
   ],
   dropzoneError: [
     {
-      display: 'none',
-      pointerEvents: 'none',
-      transition: ['opacity 0.3s ease'],
+      display: "none",
+      pointerEvents: "none",
+      transition: ["opacity 0.3s ease"],
       borderRadius: 8,
       fontSize: 10,
-      width: '100%',
-      background: 'linear-gradient(to bottom, #be2626, #a92222)',
-      padding: '0.5em 1.2em',
-      color: 'white',
+      width: "100%",
+      background: "linear-gradient(to bottom, #be2626, #a92222)",
+      padding: "0.5em 1.2em",
+      color: "white",
       lineHeight: 1,
     },
-    '.dz-error-message',
+    ".dz-error-message",
   ],
   displayDropzoneError: [
     {
-      display: 'block',
+      display: "block",
     },
-    '.dropzone .dz-preview.dz-error .dz-error-message',
+    ".dropzone .dz-preview.dz-error .dz-error-message",
   ],
   message: [
     {
-      fontSize: '1.875rem',
+      fontSize: "1.875rem",
       fontWeight: 300,
-      textAlign: 'center',
+      textAlign: "center",
     },
-    '.dz-message',
+    ".dz-message",
   ],
   dropzoneThumbFile: [
     {
       width: 120,
       height: 120,
-      background: 'linear-gradient(to bottom, #eee, #ddd)',
+      background: "linear-gradient(to bottom, #eee, #ddd)",
     },
-    '.dz-preview.dz-file-preview .dz-image',
+    ".dz-preview.dz-file-preview .dz-image",
   ],
   dropzoneThumbFileDetail: [
     {
       opacity: 1,
     },
-    '.dz-preview.dz-file-preview .dz-details',
+    ".dz-preview.dz-file-preview .dz-details",
   ],
   dropzoneImage: [
     {
       maxWidth: 120,
       maxHeight: 120,
     },
-    '.dz-preview .dz-image',
+    ".dz-preview .dz-image",
   ],
-  dropzoneImagePreviewHover: [{}, '.dz-preview:hover .dz-image'],
+  dropzoneImagePreviewHover: [{}, ".dz-preview:hover .dz-image"],
   dropzoneDetail: [
     {
-      position: 'absolute',
+      position: "absolute",
       top: 0,
       left: 0,
       opacity: 0,
-      fontSize: '13px',
+      fontSize: "13px",
       minWidth: 120,
       maxWidth: 120,
       maxHeight: 120,
-      padding: '2em 1em',
-      textAlign: 'center',
+      padding: "2em 1em",
+      textAlign: "center",
       lineHeight: 1.5,
     },
-    '.dz-details',
+    ".dz-details",
   ],
   dropzoneDetailSpan: [
     {
-      backgroundColor: 'rgba(255, 255, 255, 0.4)',
-      padding: '0 0.4em',
-      borderRadius: '3px',
+      backgroundColor: "rgba(255, 255, 255, 0.4)",
+      padding: "0 0.4em",
+      borderRadius: "3px",
     },
-    '.dz-details .dz-filename span, .dz-details .dz-size span',
+    ".dz-details .dz-filename span, .dz-details .dz-size span",
   ],
   dropzoneDetailHover: [
     {
       opacity: 1,
     },
-    '.dz-preview:hover .dz-details',
+    ".dz-preview:hover .dz-details",
   ],
   dropzoneSize: [
     {
-      marginBottom: '1em',
-      fontSize: '16px',
+      marginBottom: "1em",
+      fontSize: "16px",
     },
-    '.dz-details .dz-size',
+    ".dz-details .dz-size",
   ],
   dropzoneDetailFilename: [
     {
-      whiteSpace: 'nowrap',
+      whiteSpace: "nowrap",
     },
-    '.dz-details .dz-filename',
+    ".dz-details .dz-filename",
   ],
   dropzoneDetailFilenameNotHover: [
     {
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
+      overflow: "hidden",
+      textOverflow: "ellipsis",
     },
-    '.dz-details .dz-filename:not(:hover)',
+    ".dz-details .dz-filename:not(:hover)",
   ],
   dropzoneDetailFilenameSpanHover: [
     {
-      border: '1px solid rgba(200, 200, 200, 0.8)',
-      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      border: "1px solid rgba(200, 200, 200, 0.8)",
+      backgroundColor: "rgba(255, 255, 255, 0.8)",
     },
-    '.dz-details .dz-filename:hover span',
+    ".dz-details .dz-filename:hover span",
   ],
   dropzoneDetailFilenameSpanNotHover: [
     {
-      border: '1px solid transparent',
+      border: "1px solid transparent",
     },
-    '.dz-details .dz-filename:not(:hover) span',
+    ".dz-details .dz-filename:not(:hover) span",
   ],
   dropzoneMark: [
     {
       zIndex: 0,
       opacity: 0,
-      position: 'absolute',
-      display: 'none',
+      position: "absolute",
+      display: "none",
       top: 0,
-      left: '50%',
-      animation: ['passing-through 3s cubic-bezier(0.77, 0, 0.175, 1)'],
+      left: "50%",
+      animation: ["passing-through 3s cubic-bezier(0.77, 0, 0.175, 1)"],
     },
-    '.dz-success-mark, .dz-error-mark',
+    ".dz-success-mark, .dz-error-mark",
   ],
   dropzoneSuccessMark: [
     {
-      display: 'block',
+      display: "block",
       opacity: 1,
-      animation: ['passing-through 3s cubic-bezier(0.77, 0, 0.175, 1)'],
+      animation: ["passing-through 3s cubic-bezier(0.77, 0, 0.175, 1)"],
     },
-    '.dropzone .dz-preview.dz-success .dz-success-mark',
+    ".dropzone .dz-preview.dz-success .dz-success-mark",
   ],
   dropzoneErrorMark: [
     {
-      display: 'block',
+      display: "block",
       opacity: 1,
-      animation: ['slide-in 3s cubic-bezier(0.77, 0, 0.175, 1)'],
+      animation: ["slide-in 3s cubic-bezier(0.77, 0, 0.175, 1)"],
     },
-    '.dropzone .dz-preview.dz-error .dz-error-mark',
+    ".dropzone .dz-preview.dz-error .dz-error-mark",
   ],
   dropzoneMarkSvg: [
     {
-      width: '54px',
-      height: '54px',
+      width: "54px",
+      height: "54px",
     },
-    '.dz-success-mark svg, .dz-error-mark svg',
+    ".dz-success-mark svg, .dz-error-mark svg",
   ],
   dropzoneProgressNotProcessing: [
     {
-      animation: ['pulse 6s ease infinite'],
+      animation: ["pulse 6s ease infinite"],
     },
-    '.dropzone .dz-preview:not(.dz-processing) .dz-progress',
+    ".dropzone .dz-preview:not(.dz-processing) .dz-progress",
   ],
   dropzoneRemoveLink: [
     {
-      position: 'absolute',
+      position: "absolute",
       width: 120,
       top: 85,
       left: 0,
       zIndex: 999,
     },
-    '.dropzone .dz-remove',
+    ".dropzone .dz-remove",
   ],
   passingThrough: [
     [
       {
         opacity: 0,
-        transform: ['translateY(40px)'],
+        transform: ["translateY(40px)"],
       },
       {
         opacity: 1,
-        transform: ['translateY(0)'],
+        transform: ["translateY(0)"],
       },
       {
         opacity: 0,
-        transform: ['translateY(-40px)'],
+        transform: ["translateY(-40px)"],
       },
     ],
-    ['@keyframes passing-through', '0%', '30%, 70%', '100%'],
+    ["@keyframes passing-through", "0%", "30%, 70%", "100%"],
   ],
   pulse: [
     [
       {
-        transform: ['scale(1)'],
+        transform: ["scale(1)"],
       },
       {
-        transform: ['scale(1.1)'],
+        transform: ["scale(1.1)"],
       },
       {
-        transform: ['scale(1)'],
+        transform: ["scale(1)"],
       },
     ],
-    ['@keyframes pulse', '0%', '10%', '20%'],
+    ["@keyframes pulse", "0%", "10%", "20%"],
   ],
   slideIn: [
     [
       {
         opacity: 0,
-        transform: ['translateY(40px)'],
+        transform: ["translateY(40px)"],
       },
       {
         opacity: 1,
-        transform: ['translateY(0)'],
+        transform: ["translateY(0)"],
       },
     ],
-    ['@keyframes slide-in', '0%', '30%'],
+    ["@keyframes slide-in", "0%", "30%"],
   ],
 };

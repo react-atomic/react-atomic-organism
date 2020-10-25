@@ -1,5 +1,13 @@
-import {has, values, union, isUndefined, isFunction, isEmpty, constant} from '../../lodash-lite'
-const keys = Object.keys
+import {
+  has,
+  values,
+  union,
+  isUndefined,
+  isFunction,
+  isEmpty,
+  constant,
+} from "../../lodash-lite";
+const keys = Object.keys;
 export default Graph;
 
 var DEFAULT_EDGE_NAME = "\x00";
@@ -67,34 +75,32 @@ Graph.prototype._nodeCount = 0;
 /* Number of edges in the graph. Should only be changed by the implementation. */
 Graph.prototype._edgeCount = 0;
 
-
 /* === Graph functions ========= */
 
-Graph.prototype.isDirected = function() {
+Graph.prototype.isDirected = function () {
   return this._isDirected;
 };
 
-Graph.prototype.isMultigraph = function() {
+Graph.prototype.isMultigraph = function () {
   return this._isMultigraph;
 };
 
-Graph.prototype.isCompound = function() {
+Graph.prototype.isCompound = function () {
   return this._isCompound;
 };
 
-Graph.prototype.setGraph = function(label) {
+Graph.prototype.setGraph = function (label) {
   this._label = label;
   return this;
 };
 
-Graph.prototype.graph = function() {
+Graph.prototype.graph = function () {
   return this._label;
 };
 
-
 /* === Node functions ========== */
 
-Graph.prototype.setDefaultNodeLabel = function(newDefault) {
+Graph.prototype.setDefaultNodeLabel = function (newDefault) {
   if (!isFunction(newDefault)) {
     newDefault = constant(newDefault);
   }
@@ -102,32 +108,32 @@ Graph.prototype.setDefaultNodeLabel = function(newDefault) {
   return this;
 };
 
-Graph.prototype.nodeCount = function() {
+Graph.prototype.nodeCount = function () {
   return this._nodeCount;
 };
 
-Graph.prototype.nodes = function() {
+Graph.prototype.nodes = function () {
   return keys(this._nodes);
 };
 
-Graph.prototype.sources = function() {
+Graph.prototype.sources = function () {
   var self = this;
-  return this.nodes().filter(function(v) {
+  return this.nodes().filter(function (v) {
     return isEmpty(self._in[v]);
   });
 };
 
-Graph.prototype.sinks = function() {
+Graph.prototype.sinks = function () {
   var self = this;
-  return this.nodes().filter(function(v) {
+  return this.nodes().filter(function (v) {
     return isEmpty(self._out[v]);
   });
 };
 
-Graph.prototype.setNodes = function(vs, value) {
+Graph.prototype.setNodes = function (vs, value) {
   var args = arguments;
   var self = this;
-  vs.forEach(function(v) {
+  vs.forEach(function (v) {
     if (args.length > 1) {
       self.setNode(v, value);
     } else {
@@ -137,7 +143,7 @@ Graph.prototype.setNodes = function(vs, value) {
   return this;
 };
 
-Graph.prototype.setNode = function(v, value) {
+Graph.prototype.setNode = function (v, value) {
   if (has(this._nodes, v)) {
     if (arguments.length > 1) {
       this._nodes[v] = value;
@@ -159,23 +165,25 @@ Graph.prototype.setNode = function(v, value) {
   return this;
 };
 
-Graph.prototype.node = function(v) {
+Graph.prototype.node = function (v) {
   return this._nodes[v];
 };
 
-Graph.prototype.hasNode = function(v) {
+Graph.prototype.hasNode = function (v) {
   return has(this._nodes, v);
 };
 
-Graph.prototype.removeNode =  function(v) {
+Graph.prototype.removeNode = function (v) {
   var self = this;
   if (has(this._nodes, v)) {
-    var removeEdge = function(e) { self.removeEdge(self._edgeObjs[e]); };
+    var removeEdge = function (e) {
+      self.removeEdge(self._edgeObjs[e]);
+    };
     delete this._nodes[v];
     if (this._isCompound) {
       this._removeFromParentsChildList(v);
       delete this._parent[v];
-      this.children(v).forEach(function(child) {
+      this.children(v).forEach(function (child) {
         self.setParent(child);
       });
       delete this._children[v];
@@ -191,7 +199,7 @@ Graph.prototype.removeNode =  function(v) {
   return this;
 };
 
-Graph.prototype.setParent = function(v, parent) {
+Graph.prototype.setParent = function (v, parent) {
   if (!this._isCompound) {
     throw new Error("Cannot set parent in a non-compound graph");
   }
@@ -201,12 +209,15 @@ Graph.prototype.setParent = function(v, parent) {
   } else {
     // Coerce parent to string
     parent += "";
-    for (var ancestor = parent;
+    for (
+      var ancestor = parent;
       !isUndefined(ancestor);
-      ancestor = this.parent(ancestor)) {
+      ancestor = this.parent(ancestor)
+    ) {
       if (ancestor === v) {
-        throw new Error("Setting " + parent+ " as parent of " + v +
-                        " would create a cycle");
+        throw new Error(
+          "Setting " + parent + " as parent of " + v + " would create a cycle"
+        );
       }
     }
 
@@ -220,11 +231,11 @@ Graph.prototype.setParent = function(v, parent) {
   return this;
 };
 
-Graph.prototype._removeFromParentsChildList = function(v) {
+Graph.prototype._removeFromParentsChildList = function (v) {
   delete this._children[this._parent[v]][v];
 };
 
-Graph.prototype.parent = function(v) {
+Graph.prototype.parent = function (v) {
   if (this._isCompound) {
     var parent = this._parent[v];
     if (parent !== GRAPH_NODE) {
@@ -233,7 +244,7 @@ Graph.prototype.parent = function(v) {
   }
 };
 
-Graph.prototype.children = function(v) {
+Graph.prototype.children = function (v) {
   if (isUndefined(v)) {
     v = GRAPH_NODE;
   }
@@ -250,21 +261,21 @@ Graph.prototype.children = function(v) {
   }
 };
 
-Graph.prototype.predecessors = function(v) {
+Graph.prototype.predecessors = function (v) {
   var predsV = this._preds[v];
   if (predsV) {
     return keys(predsV);
   }
 };
 
-Graph.prototype.successors = function(v) {
+Graph.prototype.successors = function (v) {
   var sucsV = this._sucs[v];
   if (sucsV) {
     return keys(sucsV);
   }
 };
 
-Graph.prototype.neighbors = function(v) {
+Graph.prototype.neighbors = function (v) {
   var preds = this.predecessors(v);
   if (preds) {
     return union(preds, this.successors(v));
@@ -281,23 +292,23 @@ Graph.prototype.isLeaf = function (v) {
   return neighbors.length === 0;
 };
 
-Graph.prototype.filterNodes = function(filter) {
+Graph.prototype.filterNodes = function (filter) {
   var copy = new this.constructor({
     directed: this._isDirected,
     multigraph: this._isMultigraph,
-    compound: this._isCompound
+    compound: this._isCompound,
   });
 
   copy.setGraph(this.graph());
 
   var self = this;
-  this._nodes.forEach(function(value, v) {
+  this._nodes.forEach(function (value, v) {
     if (filter(v)) {
       copy.setNode(v, value);
     }
   });
 
-  this._edgeObjs.forEach(function(e) {
+  this._edgeObjs.forEach(function (e) {
     if (copy.hasNode(e.v) && copy.hasNode(e.w)) {
       copy.setEdge(e, self.edge(e));
     }
@@ -317,7 +328,7 @@ Graph.prototype.filterNodes = function(filter) {
   }
 
   if (this._isCompound) {
-    copy.nodes().forEach(function(v) {
+    copy.nodes().forEach(function (v) {
       copy.setParent(v, findParent(v));
     });
   }
@@ -327,7 +338,7 @@ Graph.prototype.filterNodes = function(filter) {
 
 /* === Edge functions ========== */
 
-Graph.prototype.setDefaultEdgeLabel = function(newDefault) {
+Graph.prototype.setDefaultEdgeLabel = function (newDefault) {
   if (!isFunction(newDefault)) {
     newDefault = constant(newDefault);
   }
@@ -335,18 +346,18 @@ Graph.prototype.setDefaultEdgeLabel = function(newDefault) {
   return this;
 };
 
-Graph.prototype.edgeCount = function() {
+Graph.prototype.edgeCount = function () {
   return this._edgeCount;
 };
 
-Graph.prototype.edges = function() {
+Graph.prototype.edges = function () {
   return values(this._edgeObjs);
 };
 
-Graph.prototype.setPath = function(vs, value) {
+Graph.prototype.setPath = function (vs, value) {
   var self = this;
   var args = arguments;
-  vs.reduce(function(v, w) {
+  vs.reduce(function (v, w) {
     if (args.length > 1) {
       self.setEdge(v, w, value);
     } else {
@@ -361,7 +372,7 @@ Graph.prototype.setPath = function(vs, value) {
  * setEdge(v, w, [value, [name]])
  * setEdge({ v, w, [name] }, [value])
  */
-Graph.prototype.setEdge = function() {
+Graph.prototype.setEdge = function () {
   var v, w, name, value;
   var valueSpecified = false;
   var arg0 = arguments[0];
@@ -407,7 +418,9 @@ Graph.prototype.setEdge = function() {
   this.setNode(v);
   this.setNode(w);
 
-  this._edgeLabels[e] = valueSpecified ? value : this._defaultEdgeLabelFn(v, w, name);
+  this._edgeLabels[e] = valueSpecified
+    ? value
+    : this._defaultEdgeLabelFn(v, w, name);
 
   var edgeObj = edgeArgsToObj(this._isDirected, v, w, name);
   // Ensure we add undirected edges in a consistent way.
@@ -424,24 +437,27 @@ Graph.prototype.setEdge = function() {
   return this;
 };
 
-Graph.prototype.edge = function(v, w, name) {
-  var e = (arguments.length === 1
-    ? edgeObjToId(this._isDirected, arguments[0])
-    : edgeArgsToId(this._isDirected, v, w, name));
+Graph.prototype.edge = function (v, w, name) {
+  var e =
+    arguments.length === 1
+      ? edgeObjToId(this._isDirected, arguments[0])
+      : edgeArgsToId(this._isDirected, v, w, name);
   return this._edgeLabels[e];
 };
 
-Graph.prototype.hasEdge = function(v, w, name) {
-  var e = (arguments.length === 1
-    ? edgeObjToId(this._isDirected, arguments[0])
-    : edgeArgsToId(this._isDirected, v, w, name));
+Graph.prototype.hasEdge = function (v, w, name) {
+  var e =
+    arguments.length === 1
+      ? edgeObjToId(this._isDirected, arguments[0])
+      : edgeArgsToId(this._isDirected, v, w, name);
   return has(this._edgeLabels, e);
 };
 
-Graph.prototype.removeEdge = function(v, w, name) {
-  var e = (arguments.length === 1
-    ? edgeObjToId(this._isDirected, arguments[0])
-    : edgeArgsToId(this._isDirected, v, w, name));
+Graph.prototype.removeEdge = function (v, w, name) {
+  var e =
+    arguments.length === 1
+      ? edgeObjToId(this._isDirected, arguments[0])
+      : edgeArgsToId(this._isDirected, v, w, name);
   var edge = this._edgeObjs[e];
   if (edge) {
     v = edge.v;
@@ -457,29 +473,33 @@ Graph.prototype.removeEdge = function(v, w, name) {
   return this;
 };
 
-Graph.prototype.inEdges = function(v, u) {
+Graph.prototype.inEdges = function (v, u) {
   var inV = this._in[v];
   if (inV) {
     var edges = values(inV);
     if (!u) {
       return edges;
     }
-    return edges.filter(function(edge) { return edge.v === u; });
+    return edges.filter(function (edge) {
+      return edge.v === u;
+    });
   }
 };
 
-Graph.prototype.outEdges = function(v, w) {
+Graph.prototype.outEdges = function (v, w) {
   var outV = this._out[v];
   if (outV) {
     var edges = values(outV);
     if (!w) {
       return edges;
     }
-    return edges.filter(function(edge) { return edge.w === w; });
+    return edges.filter(function (edge) {
+      return edge.w === w;
+    });
   }
 };
 
-Graph.prototype.nodeEdges = function(v, w) {
+Graph.prototype.nodeEdges = function (v, w) {
   var inEdges = this.inEdges(v, w);
   if (inEdges) {
     return inEdges.concat(this.outEdges(v, w));
@@ -495,7 +515,9 @@ function incrementOrInitEntry(map, k) {
 }
 
 function decrementOrRemoveEntry(map, k) {
-  if (!--map[k]) { delete map[k]; }
+  if (!--map[k]) {
+    delete map[k];
+  }
 }
 
 function edgeArgsToId(isDirected, v_, w_, name) {
@@ -506,8 +528,13 @@ function edgeArgsToId(isDirected, v_, w_, name) {
     v = w;
     w = tmp;
   }
-  return v + EDGE_KEY_DELIM + w + EDGE_KEY_DELIM +
-             (isUndefined(name) ? DEFAULT_EDGE_NAME : name);
+  return (
+    v +
+    EDGE_KEY_DELIM +
+    w +
+    EDGE_KEY_DELIM +
+    (isUndefined(name) ? DEFAULT_EDGE_NAME : name)
+  );
 }
 
 function edgeArgsToObj(isDirected, v_, w_, name) {
@@ -518,7 +545,7 @@ function edgeArgsToObj(isDirected, v_, w_, name) {
     v = w;
     w = tmp;
   }
-  var edgeObj =  { v: v, w: w };
+  var edgeObj = { v: v, w: w };
   if (name) {
     edgeObj.name = name;
   }

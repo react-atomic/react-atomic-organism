@@ -1,8 +1,7 @@
-import {has} from '../../../lodash-lite'
-import Graph from '../graph'
-import PriorityQueue from '../data/priority-queue'
+import { has } from "../../../lodash-lite";
+import Graph from "../graph";
+import PriorityQueue from "../data/priority-queue";
 export default prim;
-
 
 function prim(g, weightFunc) {
   var result = new Graph();
@@ -26,7 +25,7 @@ function prim(g, weightFunc) {
     return result;
   }
 
-  g.nodes().forEach(function(v) {
+  g.nodes().forEach(function (v) {
     pq.add(v, Number.POSITIVE_INFINITY);
     result.setNode(v);
   });

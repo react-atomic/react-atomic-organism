@@ -1,15 +1,15 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import {IframeContainer} from 'organism-react-iframe';
-import {doc} from 'win-doc';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { IframeContainer } from "organism-react-iframe";
+import { doc } from "win-doc";
 
-import ResponsiveVideo from '../organisms/ResponsiveVideo';
+import ResponsiveVideo from "../organisms/ResponsiveVideo";
 
 const keys = Object.keys;
 
 const message = (func, args) =>
   JSON.stringify({
-    event: 'command',
+    event: "command",
     func,
     args,
   });
@@ -50,17 +50,17 @@ class YoutubeRWD extends PureComponent {
       return;
     }
     const thisCmd = message(cmd, args);
-    this.iframe.contentWindow.postMessage(thisCmd, '*');
+    this.iframe.contentWindow.postMessage(thisCmd, "*");
   }
 
-  handleEl = el => {
+  handleEl = (el) => {
     this.iframe = el;
     this.restart();
   };
 
   restart = () => {
-    this.exec('playVideo');
-  }
+    this.exec("playVideo");
+  };
 
   handleLoad = () => {
     this.restart();
@@ -70,32 +70,32 @@ class YoutubeRWD extends PureComponent {
     const loc = doc().location;
     this.setState({
       load: 1,
-      hostname: loc.protocol + '//' + loc.hostname,
+      hostname: loc.protocol + "//" + loc.hostname,
     });
   }
 
   render() {
-    const {load, hostname} = this.state;
+    const { load, hostname } = this.state;
     if (!load) {
       return null;
     }
-    const {defaultVideoParams, videoId, videoParams, ...others} = this.props;
+    const { defaultVideoParams, videoId, videoParams, ...others } = this.props;
     const aParams = [];
     const thisVideoParams = {
       ...defaultVideoParams,
       ...videoParams,
     };
-    if (thisVideoParams['enablejsapi']) {
-      thisVideoParams['origin'] = hostname;
+    if (thisVideoParams["enablejsapi"]) {
+      thisVideoParams["origin"] = hostname;
     }
-    keys(thisVideoParams).forEach(key =>
-      aParams.push(key + '=' + encodeURIComponent(thisVideoParams[key])),
+    keys(thisVideoParams).forEach((key) =>
+      aParams.push(key + "=" + encodeURIComponent(thisVideoParams[key]))
     );
-    if (thisVideoParams['loop'] && !thisVideoParams['playlist']) {
-      aParams.push('playlist=' + videoId);
+    if (thisVideoParams["loop"] && !thisVideoParams["playlist"]) {
+      aParams.push("playlist=" + videoId);
     }
     const src =
-      'https://www.youtube.com/embed/' + videoId + '?' + aParams.join('&');
+      "https://www.youtube.com/embed/" + videoId + "?" + aParams.join("&");
 
     return (
       <ResponsiveVideo {...others} restart={this.restart}>

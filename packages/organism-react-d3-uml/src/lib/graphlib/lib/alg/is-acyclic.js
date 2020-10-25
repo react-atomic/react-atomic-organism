@@ -1,4 +1,4 @@
-import topsort from './topsort';
+import topsort from "./topsort";
 
 export default isAcyclic;
 

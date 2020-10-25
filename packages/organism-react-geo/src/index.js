@@ -1,2 +1,2 @@
 // Default
-export {default as GetLocation} from '../ui/organisms/GetLocation';
+export { default as GetLocation } from "../ui/organisms/GetLocation";

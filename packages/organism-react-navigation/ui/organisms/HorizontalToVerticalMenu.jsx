@@ -1,8 +1,4 @@
-import React, {
-  isValidElement,
-  Children,
-  PureComponent,
-} from 'react';
+import React, { isValidElement, Children, PureComponent } from "react";
 import {
   build,
   min,
@@ -12,38 +8,38 @@ import {
   reactStyle,
   Icon,
   SemanticUI,
-} from 'react-atomic-molecule';
-import HamburgerIcon from 'ricon/HamburgerToX';
+} from "react-atomic-molecule";
+import HamburgerIcon from "ricon/HamburgerToX";
 
 export const getHorizontalToVerticalMenu = (Styles, merge) => {
   const InjectStyles = {
     headerActive: [
       {
-        maxHeight: '1000px !important',
+        maxHeight: "1000px !important",
       },
-      '.page-header.active',
+      ".page-header.active",
     ],
     navActive: [
       {
-        display: 'block !important',
+        display: "block !important",
       },
-      '.page-header.active .nav',
+      ".page-header.active .nav",
     ],
     lgHeaderNav: [
       {
         display: [
-          'inline-flex !important',
-          '-webkit-inline-box !important',
-          '-ms-inline-flexbox !important',
+          "inline-flex !important",
+          "-webkit-inline-box !important",
+          "-ms-inline-flexbox !important",
         ],
       },
-      [min.lg, '.page-header .nav, .page-header.active .nav'],
+      [min.lg, ".page-header .nav, .page-header.active .nav"],
     ],
     lgHamburgerIcon: [
       {
-        display: 'none !important',
+        display: "none !important",
       },
-      [min.lg, '.page-header .hamburger-icon'],
+      [min.lg, ".page-header .hamburger-icon"],
     ],
   };
   if (merge) {
@@ -62,8 +58,8 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
     };
 
     handleOn = () => {
-      this.setState(({on}) => {
-        return {on: !on};
+      this.setState(({ on }) => {
+        return { on: !on };
       });
     };
 
@@ -95,9 +91,9 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
               ...brand.props.style,
               height: height,
             },
-            className: mixClass(brand.props.className, 'brand'),
-            key: 'brand',
-          }),
+            className: mixClass(brand.props.className, "brand"),
+            key: "brand",
+          })
         );
       }
       if (nav) {
@@ -107,14 +103,14 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
               ...Styles.nav,
               ...nav.props.style,
             },
-            className: mixClass('nav', nav.props.className),
-            key: 'nav',
+            className: mixClass("nav", nav.props.className),
+            key: "nav",
             handleOn: this.handleOn,
-          }),
+          })
         );
       }
       Children.forEach(children, (child, key) => {
-        thisChildren.push(build(child)({key, handleOn: this.handleOn}));
+        thisChildren.push(build(child)({ key, handleOn: this.handleOn }));
       });
       if (nav) {
         thisChildren.push(
@@ -122,9 +118,10 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
             key="hamburger-icon"
             className="hamburger-icon"
             style={Styles.hamburgerIcon}
-            onClick={this.handleOn}>
+            onClick={this.handleOn}
+          >
             <HamburgerIcon on={this.state.on} />
-          </Icon>,
+          </Icon>
         );
       }
       return build(component)(
@@ -136,17 +133,17 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
               ...style,
               maxHeight: height,
               transition: [
-                ['padding 300ms linear', 'max-height 300ms ease-in-out'].join(
-                  ', ',
+                ["padding 300ms linear", "max-height 300ms ease-in-out"].join(
+                  ", "
                 ),
               ],
             },
             null,
-            false,
+            false
           ),
           className: classes,
         },
-        thisChildren,
+        thisChildren
       );
     }
   }
@@ -156,22 +153,22 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
 let injects;
 const defaultStyles = {
   hamburgerIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 30,
     width: 35,
     height: 35,
-    fill: '#fff',
-    cursor: 'pointer',
+    fill: "#fff",
+    cursor: "pointer",
   },
   container: {
-    position: 'relative',
+    position: "relative",
     maxHeight: 60,
-    overflow: 'hidden',
-    boxSizing: 'border-box',
+    overflow: "hidden",
+    boxSizing: "border-box",
   },
   nav: {
-    display: 'none',
+    display: "none",
   },
 };
 

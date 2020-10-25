@@ -1,4 +1,3 @@
-
 const fixX = (newWH, origWH, force = false) => {
   let tmpH = newWH.w / (origWH.w / origWH.h);
   if (tmpH <= newWH.h || force) {
@@ -7,12 +6,12 @@ const fixX = (newWH, origWH, force = false) => {
     newWH.h = tmpH;
     return {
       x: 0,
-      y
+      y,
     };
   } else {
     return fixY(newWH, origWH);
   }
-}
+};
 
 const fixY = (newWH, origWH, force = false) => {
   let tmpW = newWH.h * (origWH.w / origWH.h);
@@ -22,12 +21,12 @@ const fixY = (newWH, origWH, force = false) => {
     newWH.w = tmpW;
     return {
       x,
-      y: 0
+      y: 0,
     };
   } else {
     return fixX(newWH, origWH);
   }
-}
+};
 
 const getNextLoc = (toWH, origWH, maxWH) => {
   const nextLoc = {
@@ -45,28 +44,28 @@ const getNextLoc = (toWH, origWH, maxWH) => {
     if (maxWH.h > toWH.h) {
       nextLoc.y = -((maxWH.h - toWH.h) / 2);
     } else {
-      nextLoc.y = 0; 
+      nextLoc.y = 0;
     }
   }
   return nextLoc;
-}
+};
 
 const ratio = (w, h, newW, newH) => {
   const newWH = {
     w: newW,
-    h: newH
+    h: newH,
   };
   const maxWH = {
     w: newW,
-    h: newH
+    h: newH,
   };
   const toWH = {
     w: newW,
-    h: newH
+    h: newH,
   };
   const origWH = {
     w,
-    h
+    h,
   };
   let newWHLoc;
   if (w > h) {
@@ -84,8 +83,8 @@ const ratio = (w, h, newW, newH) => {
     origWHLoc,
     newWH,
     maxWH,
-    origWH
+    origWH,
   };
-}
+};
 
 export default ratio;

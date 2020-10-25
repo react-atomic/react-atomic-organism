@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from "react";
 
 const keys = Object.keys;
 
@@ -6,18 +6,18 @@ class BaseString extends PureComponent {
   state = {};
 
   resetProps(thisProps, thisState) {
-    const {parentWidth, alignCenter, x, y, ...props} = thisProps;
-    const {x: stateX, y: stateY} = thisState;
+    const { parentWidth, alignCenter, x, y, ...props } = thisProps;
+    const { x: stateX, y: stateY } = thisState;
     let thisX = x;
     let thisY = y;
     if (alignCenter) {
       if (stateX) {
         thisX = stateX;
-        props.textAnchor = 'middle';
+        props.textAnchor = "middle";
       }
       if (stateY) {
         thisY = stateY;
-        props.alignmentBaseline = 'central';
+        props.alignmentBaseline = "central";
       }
     }
     if (thisX) {
@@ -34,8 +34,9 @@ class BaseString extends PureComponent {
   }
 
   update(props, prevProps) {
-    const {parentWidth: prevParentWidth, parentHeight: prevParentHeight} = prevProps || {};
-    const {parentWidth, parentHeight, alignCenter} = props;
+    const { parentWidth: prevParentWidth, parentHeight: prevParentHeight } =
+      prevProps || {};
+    const { parentWidth, parentHeight, alignCenter } = props;
     if (alignCenter) {
       const nextState = {};
       if (parentWidth && parentWidth !== prevParentWidth) {

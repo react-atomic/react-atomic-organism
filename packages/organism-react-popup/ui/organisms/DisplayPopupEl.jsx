@@ -1,5 +1,5 @@
-import React, {PureComponent} from 'react';
-import {popupDispatch} from '../../src/popupDispatcher';
+import React, { PureComponent } from "react";
+import { popupDispatch } from "../../src/popupDispatcher";
 
 const isArray = Array.isArray;
 
@@ -14,7 +14,7 @@ class DisplayPopupEl extends PureComponent {
     setTimeout(() => {
       if (this._mount) {
         popupDispatch({
-          type: 'dom/update',
+          type: "dom/update",
           params: {
             popup: this.getChildren(),
           },
@@ -35,7 +35,7 @@ class DisplayPopupEl extends PureComponent {
   componentWillUnmount() {
     this._mount = false;
     popupDispatch({
-      type: 'dom/cleanOne',
+      type: "dom/cleanOne",
       params: {
         popup: this.getChildren(),
       },

@@ -1,13 +1,13 @@
-import React, {Children, cloneElement} from 'react';
-import getOffset from 'getoffset';
-import get from 'get-object-value';
-import {Graph, Group, Rect, Text} from 'organism-react-graph';
+import React, { Children, cloneElement } from "react";
+import getOffset from "getoffset";
+import get from "get-object-value";
+import { Graph, Group, Rect, Text } from "organism-react-graph";
 
-import CancelButton from '../molecules/CancelButton';
-import BaseLayout from '../molecules/BaseLayout';
+import CancelButton from "../molecules/CancelButton";
+import BaseLayout from "../molecules/BaseLayout";
 const keys = Object.keys;
 
-const BoxGroupHeader = ({children, x, y, width}) => (
+const BoxGroupHeader = ({ children, x, y, width }) => (
   <Group transform="translate(0, 20)" style={Styles.boxGroupHeader}>
     <Rect x="0" y="-20" rx="5" width={width} height="20" fill="#aaa" />
     <Text y="-5" alignCenter parentWidth={width} fill="#fff">
@@ -34,10 +34,10 @@ class BoxGroupDefaultLayout extends BaseLayout {
     let startY = 15;
     const boxsPos = {};
     const arrW = [0];
-    const {zoomK} = this.props;
-    keys(this.childrenEl).forEach(cKey => {
+    const { zoomK } = this.props;
+    keys(this.childrenEl).forEach((cKey) => {
       const cEl = this.childrenEl[cKey].getEl();
-      const {w, h} = getOffset(cEl);
+      const { w, h } = getOffset(cEl);
       startY += h / zoomK;
       arrW.push(w);
       boxsPos[cKey] = {
@@ -50,7 +50,7 @@ class BoxGroupDefaultLayout extends BaseLayout {
     if (maxW > 0 && !prevState.maxW) {
       this.setState({
         maxW,
-        rectW: (maxW / zoomK) + 10,
+        rectW: maxW / zoomK + 10,
         rectH: startY + 5,
         boxsPos,
       });
@@ -82,20 +82,20 @@ class BoxGroupDefaultLayout extends BaseLayout {
       onEdit,
       zoomK,
     } = this.props;
-    const {rectW, rectH, boxsPos} = this.state;
-    const graphStyle = {...Styles.container};
+    const { rectW, rectH, boxsPos } = this.state;
+    const graphStyle = { ...Styles.container };
     const graphProps = {};
     const groupProps = {};
     let atom;
     let gAtom;
     let translate;
     if (isInsideVector(this.el)) {
-      atom = 'g';
-      gAtom = 'g';
+      atom = "g";
+      gAtom = "g";
       graphProps.transform = `translate(${boxGroupAbsX}, ${boxGroupAbsY})`;
     } else {
-      atom = 'i';
-      gAtom = 'svg';
+      atom = "i";
+      gAtom = "svg";
       graphStyle.transform = `translate(${boxGroupAbsX}px, ${boxGroupAbsY}px)`;
       graphStyle.width = rectW + 10;
       graphStyle.height = rectH + 10;
@@ -107,14 +107,14 @@ class BoxGroupDefaultLayout extends BaseLayout {
       <CancelButton
         x={-10}
         y={-10}
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           onDel(e);
         }}
       />
     );
     if (onEdit) {
-      graphStyle.cursor = 'pointer';
+      graphStyle.cursor = "pointer";
     }
     return (
       <Graph
@@ -123,7 +123,8 @@ class BoxGroupDefaultLayout extends BaseLayout {
         atom={atom}
         style={graphStyle}
         data-id={id}
-        refCb={el => (this.el = onGetEl(el))}>
+        refCb={(el) => (this.el = onGetEl(el))}
+      >
         <Group atom={gAtom} {...groupProps} style={Styles.group}>
           <Rect
             style={Styles.rect}
@@ -141,11 +142,11 @@ class BoxGroupDefaultLayout extends BaseLayout {
             cloneElement(c, {
               key: ck,
               x: 5,
-              y: get(boxsPos, [ck, 'y'], 0),
+              y: get(boxsPos, [ck, "y"], 0),
               width: rectW,
-              ref: el => (this.childrenEl[ck] = el),
+              ref: (el) => (this.childrenEl[ck] = el),
               onClick: onEdit,
-            }),
+            })
           )}
         </Group>
       </Graph>
@@ -157,17 +158,17 @@ export default BoxGroupDefaultLayout;
 
 const Styles = {
   container: {
-    position: 'absolute',
-    pointerEvents: 'all',
+    position: "absolute",
+    pointerEvents: "all",
   },
   group: {
-    overflow: 'visible',
+    overflow: "visible",
   },
   rect: {
-    stroke: '#999',
-    fill: '#fff',
+    stroke: "#999",
+    fill: "#fff",
   },
   boxGroupHeader: {
-    pointerEvents: 'none',
+    pointerEvents: "none",
   },
 };

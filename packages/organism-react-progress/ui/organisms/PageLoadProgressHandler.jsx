@@ -1,9 +1,9 @@
-require('setimmediate');
-import React, {Component, forwardRef} from 'react';
-import {ajaxStore} from 'organism-react-ajax';
-import Return from 'reshow-return';
-import {popupDispatch} from 'organism-react-popup';
-import {Progress, SemanticUI} from 'react-atomic-molecule';
+require("setimmediate");
+import React, { Component, forwardRef } from "react";
+import { ajaxStore } from "organism-react-ajax";
+import Return from "reshow-return";
+import { popupDispatch } from "organism-react-popup";
+import { Progress, SemanticUI } from "react-atomic-molecule";
 
 class Body extends Component {
   _timer = null;
@@ -13,7 +13,7 @@ class Body extends Component {
   _bar = null;
 
   static defaultProps = {
-    name: 'processBar',
+    name: "processBar",
     delay: 200,
     isFloat: true,
     ajax: false,
@@ -64,7 +64,7 @@ class Body extends Component {
     }, delay);
   };
 
-  _start = pause => {
+  _start = (pause) => {
     if (!pause || pause > 100) {
       pause = 100;
     }
@@ -85,12 +85,12 @@ class Body extends Component {
 
   setFloat() {
     setImmediate(() => {
-      const {isFloat} = this.props;
+      const { isFloat } = this.props;
       if (!isFloat) {
         return;
       }
       popupDispatch({
-        type: 'dom/update',
+        type: "dom/update",
         params: {
           popup: this._bar,
         },
@@ -103,7 +103,7 @@ class Body extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const {isRunning, ajax, pause} = this.props;
+    const { isRunning, ajax, pause } = this.props;
     this.setFloat();
     if (ajax && prevProps.isRunning !== isRunning) {
       setImmediate(() => {
@@ -119,7 +119,7 @@ class Body extends Component {
   componentWillUnmount() {
     this.pause();
     popupDispatch({
-      type: 'dom/cleanOne',
+      type: "dom/cleanOne",
       params: {
         popup: this.props.name,
       },
@@ -127,8 +127,8 @@ class Body extends Component {
   }
 
   render() {
-    const {percent, opacity} = this.state;
-    const {name, zIndex, isFloat} = this.props;
+    const { percent, opacity } = this.state;
+    const { name, zIndex, isFloat } = this.props;
     this._bar = (
       <Progress
         style={{
@@ -153,7 +153,7 @@ class Body extends Component {
 
 const PageLoadProgressHandler = forwardRef((props, ref) => {
   return (
-    <Return stores={[ajaxStore]} initStates={['isRunning']}>
+    <Return stores={[ajaxStore]} initStates={["isRunning"]}>
       <Body {...props} ref={ref} />
     </Return>
   );
@@ -163,20 +163,20 @@ export default PageLoadProgressHandler;
 
 const Styles = {
   progress: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
-    transition: ['opacity 500ms linear'],
+    transition: ["opacity 500ms linear"],
   },
   bar: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
     left: 0,
     height: 2,
-    display: 'inline-block',
-    background: '#77b6ff',
-    transition: ['width 500ms ease'],
-    boxShadow: ['0 0 10px rgba(119,182,255,0.7)'],
+    display: "inline-block",
+    background: "#77b6ff",
+    transition: ["width 500ms ease"],
+    boxShadow: ["0 0 10px rgba(119,182,255,0.7)"],
   },
 };

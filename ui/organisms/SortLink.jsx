@@ -3,50 +3,50 @@ import React, {
   isValidElement,
   cloneElement,
   createElement,
-} from 'react';
-import seturl, {getUrl} from 'seturl';
-import SortIcon from 'ricon/Sort';
-import Dropdown from 'ricon/Dropdown';
-import {SemanticUI, Icon} from 'react-atomic-molecule';
-import get from 'get-object-value';
-import {doc} from 'win-doc';
+} from "react";
+import seturl, { getUrl } from "seturl";
+import SortIcon from "ricon/Sort";
+import Dropdown from "ricon/Dropdown";
+import { SemanticUI, Icon } from "react-atomic-molecule";
+import get from "get-object-value";
+import { doc } from "win-doc";
 
 class SortLink extends PureComponent {
   static defaultProps = {
-    component: 'a',
+    component: "a",
     icon: true,
-    sortKeyName: 'sort'
+    sortKeyName: "sort",
   };
 
   state = {};
 
-  handleClick = e => {
-    const {onClick, sortKeyName} = this.props;
+  handleClick = (e) => {
+    const { onClick, sortKeyName } = this.props;
     const target = e.currentTarget;
-    const nextSort = target.getAttribute('data-sort');
+    const nextSort = target.getAttribute("data-sort");
     const nextDesc = this.getNextDesc();
-    const sort2 = target.getAttribute('data-sort2');
-    const slice = target.getAttribute('data-slice');
-    let url = target.getAttribute('data-url') || doc().URL;
+    const sort2 = target.getAttribute("data-sort2");
+    const slice = target.getAttribute("data-slice");
+    let url = target.getAttribute("data-url") || doc().URL;
     if (nextSort) {
       url = seturl(sortKeyName, nextSort, url);
-      url = seturl('desc', nextDesc, url);
+      url = seturl("desc", nextDesc, url);
     }
     if (sort2) {
-      url = seturl('sort2', sort2, url);
-      url = seturl('slice', slice, url);
+      url = seturl("sort2", sort2, url);
+      url = seturl("slice", slice, url);
     }
     target.href = url;
-    if ('function' === typeof onClick) {
-      onClick(e, {nextSort, nextDesc});
+    if ("function" === typeof onClick) {
+      onClick(e, { nextSort, nextDesc });
     }
-    this.setState({href: url});
+    this.setState({ href: url });
   };
 
   getNextDesc() {
-    let {desc} = this.props;
-    if ('undefined' === typeof desc) {
-      desc = getUrl('desc');
+    let { desc } = this.props;
+    if ("undefined" === typeof desc) {
+      desc = getUrl("desc");
     }
     let nextDesc;
     const isSorted = this.isSorted();
@@ -60,7 +60,7 @@ class SortLink extends PureComponent {
 
   isSorted() {
     const props = this.props;
-    const nextSort = get(props, ['data-sort']);
+    const nextSort = get(props, ["data-sort"]);
     return nextSort === props.sort;
   }
 
@@ -75,11 +75,11 @@ class SortLink extends PureComponent {
       desc,
       ...props
     } = this.props;
-    let {href} = this.state;
+    let { href } = this.state;
 
     if (!href) {
-      const thisSort = get(props, ['data-sort'], '');
-      href = '#' + thisSort;
+      const thisSort = get(props, ["data-sort"], "");
+      href = "#" + thisSort;
     }
 
     const build = isValidElement(component) ? cloneElement : createElement;
@@ -87,9 +87,9 @@ class SortLink extends PureComponent {
     if (icon) {
       const bSorted = this.isSorted();
       const thisIcon = bSorted ? (
-        <Dropdown type={this.getNextDesc() ? 'up' : null} />
+        <Dropdown type={this.getNextDesc() ? "up" : null} />
       ) : (
-        <SortIcon style={{...Styles.sortIcon, ...iconStyle}} />
+        <SortIcon style={{ ...Styles.sortIcon, ...iconStyle }} />
       );
       child = (
         <SemanticUI style={Styles.inner}>
@@ -105,7 +105,7 @@ class SortLink extends PureComponent {
         onClick: this.handleClick,
         href,
       },
-      child,
+      child
     );
   }
 }
@@ -114,13 +114,13 @@ export default SortLink;
 
 const Styles = {
   sortIcon: {
-    fill: '#ccc',
+    fill: "#ccc",
   },
   icon: {
     width: 12,
     height: 12,
   },
   inner: {
-    whiteSpace: 'nowrap',
+    whiteSpace: "nowrap",
   },
 };

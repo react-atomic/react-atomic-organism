@@ -1,10 +1,10 @@
-import get from 'get-object-value'
+import get from "get-object-value";
 
-import {range, values, max, min} from '../../../lodash-lite'
-import * as util from '../util';
-import {Graph} from '../graphlib';
+import { range, values, max, min } from "../../../lodash-lite";
+import * as util from "../util";
+import { Graph } from "../graphlib";
 
-const keys = Object.keys
+const keys = Object.keys;
 
 /*
  * This module provides coordinate assignment based on Brandes and Köpf, "Fast
@@ -20,9 +20,8 @@ export {
   horizontalCompaction,
   alignCoordinates,
   findSmallestWidthAlignment,
-  balance
+  balance,
 };
-
 
 /*
  * Marks all edges in the graph with a type-1 conflict with the "type1Conflict"
@@ -45,27 +44,28 @@ function findType1Conflicts(g, layering) {
   var conflicts = {};
 
   function visitLayer(prevLayer, layer) {
-    var
-      // last visited node in the previous layer that is incident on an inner
+    var // last visited node in the previous layer that is incident on an inner
       // segment.
       k0 = 0,
       // Tracks the last node in this layer scanned for crossings with a type-1
       // segment.
       scanPos = 0,
       prevLayerLength = prevLayer.length,
-      lastNode = layer.slice(-1)[0]
+      lastNode = layer.slice(-1)[0];
 
-    layer.forEach( function(v, i) {
+    layer.forEach(function (v, i) {
       var w = findOtherInnerSegmentNode(g, v),
-          k1 = w ? g.node(w).order : prevLayerLength;
+        k1 = w ? g.node(w).order : prevLayerLength;
 
       if (w || v === lastNode) {
-        layer.slice(scanPos, i +1).forEach( function(scanNode) {
-          g.predecessors(scanNode).forEach( function(u) {
+        layer.slice(scanPos, i + 1).forEach(function (scanNode) {
+          g.predecessors(scanNode).forEach(function (u) {
             var uLabel = g.node(u),
-                uPos = uLabel.order;
-            if ((uPos < k0 || k1 < uPos) &&
-                !(uLabel.dummy && g.node(scanNode).dummy)) {
+              uPos = uLabel.order;
+            if (
+              (uPos < k0 || k1 < uPos) &&
+              !(uLabel.dummy && g.node(scanNode).dummy)
+            ) {
               addConflict(conflicts, u, scanNode);
             }
           });
@@ -87,27 +87,30 @@ function findType2Conflicts(g, layering) {
 
   function scan(south, southPos, southEnd, prevNorthBorder, nextNorthBorder) {
     var v;
-    range(southEnd).slice(southPos).forEach( function(i) {
-      v = south[i];
-      if (g.node(v).dummy) {
-        g.predecessors(v).forEach( function(u) {
-          var uNode = g.node(u);
-          if (uNode.dummy &&
-              (uNode.order < prevNorthBorder || uNode.order > nextNorthBorder)) {
-            addConflict(conflicts, u, v);
-          }
-        });
-      }
-    });
+    range(southEnd)
+      .slice(southPos)
+      .forEach(function (i) {
+        v = south[i];
+        if (g.node(v).dummy) {
+          g.predecessors(v).forEach(function (u) {
+            var uNode = g.node(u);
+            if (
+              uNode.dummy &&
+              (uNode.order < prevNorthBorder || uNode.order > nextNorthBorder)
+            ) {
+              addConflict(conflicts, u, v);
+            }
+          });
+        }
+      });
   }
-
 
   function visitLayer(north, south) {
     var prevNorthPos = -1,
-        nextNorthPos,
-        southPos = 0;
+      nextNorthPos,
+      southPos = 0;
 
-    south.forEach( function(v, southLookahead) {
+    south.forEach(function (v, southLookahead) {
       if (g.node(v).dummy === "border") {
         var predecessors = g.predecessors(v);
         if (predecessors.length) {
@@ -129,16 +132,16 @@ function findType2Conflicts(g, layering) {
 
 function findOtherInnerSegmentNode(g, v) {
   if (g.node(v).dummy) {
-    let result
-    g.predecessors(v).some(u => {
-        if (g.node(u).dummy) {
-            result = u
-            return true
-        } else {
-            return false
-        }
-    })
-    return result
+    let result;
+    g.predecessors(v).some((u) => {
+      if (g.node(u).dummy) {
+        result = u;
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return result;
   }
 }
 
@@ -162,7 +165,7 @@ function hasConflict(conflicts, v, w) {
     v = w;
     w = tmp;
   }
-  return !!get(conflicts, ['v', 'w']);
+  return !!get(conflicts, ["v", "w"]);
 }
 
 /*
@@ -175,32 +178,34 @@ function hasConflict(conflicts, v, w) {
  */
 function verticalAlignment(g, layering, conflicts, neighborFn) {
   var root = {},
-      align = {},
-      pos = {};
+    align = {},
+    pos = {};
 
   // We cache the position here based on the layering because the graph and
   // layering may be out of sync. The layering matrix is manipulated to
   // generate different extreme alignments.
-  layering.forEach( function(layer) {
-    layer.forEach( function(v, order) {
+  layering.forEach(function (layer) {
+    layer.forEach(function (v, order) {
       root[v] = v;
       align[v] = v;
       pos[v] = order;
     });
   });
 
-  layering.forEach( function(layer) {
+  layering.forEach(function (layer) {
     var prevIdx = -1;
-    layer.forEach( function(v) {
+    layer.forEach(function (v) {
       var ws = neighborFn(v);
       if (ws.length) {
-        ws.sort(w => pos[w]) 
+        ws.sort((w) => pos[w]);
         var mp = (ws.length - 1) / 2;
         for (var i = Math.floor(mp), il = Math.ceil(mp); i <= il; ++i) {
           var w = ws[i];
-          if (align[v] === v &&
-              prevIdx < pos[w] &&
-              !hasConflict(conflicts, v, w)) {
+          if (
+            align[v] === v &&
+            prevIdx < pos[w] &&
+            !hasConflict(conflicts, v, w)
+          ) {
             align[w] = v;
             align[v] = root[v] = root[w];
             prevIdx = pos[w];
@@ -220,8 +225,8 @@ function horizontalCompaction(g, layering, root, align, reverseSep) {
   // coordinates. The second sweep removes unused space by moving blocks to the
   // greatest coordinates without violating separation.
   var xs = {},
-      blockG = buildBlockGraph(g, layering, root, reverseSep),
-      borderType = reverseSep ? "borderLeft" : "borderRight";
+    blockG = buildBlockGraph(g, layering, root, reverseSep),
+    borderType = reverseSep ? "borderLeft" : "borderRight";
 
   function iterate(setXsFunc, nextNodesFunc) {
     var stack = blockG.nodes();
@@ -242,14 +247,14 @@ function horizontalCompaction(g, layering, root, align, reverseSep) {
 
   // First pass, assign smallest coordinates
   function pass1(elem) {
-    xs[elem] = blockG.inEdges(elem).reduce(function(acc, e) {
+    xs[elem] = blockG.inEdges(elem).reduce(function (acc, e) {
       return Math.max(acc, xs[e.v] + blockG.edge(e));
     }, 0);
   }
 
   // Second pass, assign greatest coordinates
   function pass2(elem) {
-    var min = blockG.outEdges(elem).reduce(function(acc, e) {
+    var min = blockG.outEdges(elem).reduce(function (acc, e) {
       return Math.min(acc, xs[e.w] - blockG.edge(e));
     }, Number.POSITIVE_INFINITY);
 
@@ -263,28 +268,31 @@ function horizontalCompaction(g, layering, root, align, reverseSep) {
   iterate(pass2, blockG.successors.bind(blockG));
 
   // Assign x coordinates to all nodes
-  keys(align).map(key=>align[key]).forEach( 
-    v => xs[v] = xs[root[v]]
-  );
+  keys(align)
+    .map((key) => align[key])
+    .forEach((v) => (xs[v] = xs[root[v]]));
 
   return xs;
 }
 
-
 function buildBlockGraph(g, layering, root, reverseSep) {
   var blockGraph = new Graph(),
-      graphLabel = g.graph(),
-      sepFn = sep(graphLabel.nodesep, graphLabel.edgesep, reverseSep);
+    graphLabel = g.graph(),
+    sepFn = sep(graphLabel.nodesep, graphLabel.edgesep, reverseSep);
 
-  layering.forEach( function(layer) {
+  layering.forEach(function (layer) {
     var u;
-    layer.forEach( function(v) {
+    layer.forEach(function (v) {
       var vRoot = root[v];
       blockGraph.setNode(vRoot);
       if (u) {
         var uRoot = root[u],
-            prevMax = blockGraph.edge(uRoot, vRoot);
-        blockGraph.setEdge(uRoot, vRoot, Math.max(sepFn(g, v, u), prevMax || 0));
+          prevMax = blockGraph.edge(uRoot, vRoot);
+        blockGraph.setEdge(
+          uRoot,
+          vRoot,
+          Math.max(sepFn(g, v, u), prevMax || 0)
+        );
       }
       u = v;
     });
@@ -297,21 +305,22 @@ function buildBlockGraph(g, layering, root, reverseSep) {
  * Returns the alignment that has the smallest width of the given alignments.
  */
 function findSmallestWidthAlignment(g, xss) {
- 
-  const arr = keys(xss).map(key=>xss[key]).map( function (xs) {
-    var max = Number.NEGATIVE_INFINITY;
-    var min = Number.POSITIVE_INFINITY;
-    keys(xs).forEach( key1 => {
-        let x = xs[key1]
-        let v = key1
-      var halfWidth = width(g, v) / 2;
+  const arr = keys(xss)
+    .map((key) => xss[key])
+    .map(function (xs) {
+      var max = Number.NEGATIVE_INFINITY;
+      var min = Number.POSITIVE_INFINITY;
+      keys(xs).forEach((key1) => {
+        let x = xs[key1];
+        let v = key1;
+        var halfWidth = width(g, v) / 2;
 
-      max = Math.max(x + halfWidth, max);
-      min = Math.min(x - halfWidth, min);
-    })
-    return max - min;
-  })
-  return min(arr)
+        max = Math.max(x + halfWidth, max);
+        min = Math.min(x - halfWidth, min);
+      });
+      return max - min;
+    });
+  return min(arr);
 }
 
 /*
@@ -324,66 +333,82 @@ function findSmallestWidthAlignment(g, xss) {
 function alignCoordinates(xss, alignTo) {
   const alignToVals = values(alignTo);
   const alignToMin = min(alignToVals);
-  const alignToMax = max(alignToVals); 
+  const alignToMax = max(alignToVals);
 
-  ["u", "d"].forEach( function(vert) {
-    ["l", "r"].forEach( function(horiz) {
+  ["u", "d"].forEach(function (vert) {
+    ["l", "r"].forEach(function (horiz) {
       var alignment = vert + horiz,
-          xs = xss[alignment],
-          delta;
+        xs = xss[alignment],
+        delta;
       if (xs === alignTo) return;
 
       var xsVals = values(xs);
-      delta = horiz === "l" ? alignToMin - min(xsVals) : alignToMax - max(xsVals);
+      delta =
+        horiz === "l" ? alignToMin - min(xsVals) : alignToMax - max(xsVals);
 
       if (delta) {
-        xss[alignment] = keys(xs).map(key => xs[key]).map(x => x + delta) 
+        xss[alignment] = keys(xs)
+          .map((key) => xs[key])
+          .map((x) => x + delta);
       }
     });
   });
 }
 
 function balance(xss, align) {
-  const callback = function(ignore, v) {  
+  const callback = function (ignore, v) {
     if (align) {
       return xss[align.toLowerCase()][v];
     } else {
-      const xs = keys(xss).map(key=>xss[key][v]).sort()
+      const xs = keys(xss)
+        .map((key) => xss[key][v])
+        .sort();
       return (xs[1] + xs[2]) / 2;
     }
-  }
-  const result = {}
-  keys(xss.ul).forEach(key => result[key] = callback(xss.ul[key], key)) 
-  return result
+  };
+  const result = {};
+  keys(xss.ul).forEach((key) => (result[key] = callback(xss.ul[key], key)));
+  return result;
 }
 
 function positionX(g) {
   var layering = util.buildLayerMatrix(g);
   const conflicts = {
     ...findType1Conflicts(g, layering),
-    ...findType2Conflicts(g, layering)
-  }
+    ...findType2Conflicts(g, layering),
+  };
 
   var xss = {},
-      adjustedLayering;
-  ["u", "d"].forEach( function(vert) {
-    adjustedLayering = vert === "u" ? layering : keys(layering).map(key=>layering[key]).reverse();
-    ["l", "r"].forEach( function(horiz) {
+    adjustedLayering;
+  ["u", "d"].forEach(function (vert) {
+    adjustedLayering =
+      vert === "u"
+        ? layering
+        : keys(layering)
+            .map((key) => layering[key])
+            .reverse();
+    ["l", "r"].forEach(function (horiz) {
       if (horiz === "r") {
-        adjustedLayering = adjustedLayering.map( function(inner) {
-          return keys(inner).map(key=>inner[key]).reverse();
+        adjustedLayering = adjustedLayering.map(function (inner) {
+          return keys(inner)
+            .map((key) => inner[key])
+            .reverse();
         });
       }
 
       var neighborFn = (vert === "u" ? g.predecessors : g.successors).bind(g);
       var align = verticalAlignment(g, adjustedLayering, conflicts, neighborFn);
-      var xs = horizontalCompaction(g, adjustedLayering,
-                                    align.root, align.align,
-                                    horiz === "r");
+      var xs = horizontalCompaction(
+        g,
+        adjustedLayering,
+        align.root,
+        align.align,
+        horiz === "r"
+      );
       if (horiz === "r") {
-        keys(xs).forEach(key=>{
-            xs[key] = -1 * (xs[key])
-        })
+        keys(xs).forEach((key) => {
+          xs[key] = -1 * xs[key];
+        });
       }
       xss[vert + horiz] = xs;
     });
@@ -395,17 +420,21 @@ function positionX(g) {
 }
 
 function sep(nodeSep, edgeSep, reverseSep) {
-  return function(g, v, w) {
+  return function (g, v, w) {
     var vLabel = g.node(v),
-        wLabel = g.node(w),
-        sum = 0,
-        delta;
+      wLabel = g.node(w),
+      sum = 0,
+      delta;
 
     sum += vLabel.width / 2;
     if (vLabel.labelpos) {
       switch (vLabel.labelpos.toLowerCase()) {
-        case "l": delta = -vLabel.width / 2; break;
-        case "r": delta = vLabel.width / 2; break;
+        case "l":
+          delta = -vLabel.width / 2;
+          break;
+        case "r":
+          delta = vLabel.width / 2;
+          break;
       }
     }
     if (delta) {
@@ -419,8 +448,12 @@ function sep(nodeSep, edgeSep, reverseSep) {
     sum += wLabel.width / 2;
     if (wLabel.labelpos) {
       switch (wLabel.labelpos.toLowerCase()) {
-        case "l": delta = wLabel.width / 2; break;
-        case "r": delta = -wLabel.width / 2; break;
+        case "l":
+          delta = wLabel.width / 2;
+          break;
+        case "r":
+          delta = -wLabel.width / 2;
+          break;
       }
     }
     if (delta) {

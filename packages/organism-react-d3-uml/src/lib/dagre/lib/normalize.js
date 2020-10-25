@@ -1,5 +1,5 @@
-import * as util from './util';
-export {run, undo};
+import * as util from "./util";
+export { run, undo };
 
 /*
  * Breaks any long edges in the graph into short segments that span 1 layer
@@ -19,17 +19,19 @@ export {run, undo};
  */
 function run(g) {
   g.graph().dummyChains = [];
-  g.edges().forEach( function(edge) { normalizeEdge(g, edge); });
+  g.edges().forEach(function (edge) {
+    normalizeEdge(g, edge);
+  });
 }
 
 function normalizeEdge(g, e) {
   var v = e.v,
-      vRank = g.node(v).rank,
-      w = e.w,
-      wRank = g.node(w).rank,
-      name = e.name,
-      edgeLabel = g.edge(e),
-      labelRank = edgeLabel.labelRank;
+    vRank = g.node(v).rank,
+    w = e.w,
+    wRank = g.node(w).rank,
+    name = e.name,
+    edgeLabel = g.edge(e),
+    labelRank = edgeLabel.labelRank;
 
   if (wRank === vRank + 1) return;
 
@@ -39,9 +41,11 @@ function normalizeEdge(g, e) {
   for (i = 0, ++vRank; vRank < wRank; ++i, ++vRank) {
     edgeLabel.points = [];
     attrs = {
-      width: 0, height: 0,
-      edgeLabel: edgeLabel, edgeObj: e,
-      rank: vRank
+      width: 0,
+      height: 0,
+      edgeLabel: edgeLabel,
+      edgeObj: e,
+      rank: vRank,
     };
     dummy = util.addDummyNode(g, "edge", attrs, "_d");
     if (vRank === labelRank) {
@@ -61,10 +65,10 @@ function normalizeEdge(g, e) {
 }
 
 function undo(g) {
-  g.graph().dummyChains.forEach( function(v) {
+  g.graph().dummyChains.forEach(function (v) {
     var node = g.node(v),
-        origLabel = node.edgeLabel,
-        w;
+      origLabel = node.edgeLabel,
+      w;
     g.setEdge(node.edgeObj, origLabel);
     while (node.dummy) {
       w = g.successors(v)[0];

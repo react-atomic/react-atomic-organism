@@ -3,13 +3,13 @@ import { doc } from "win-doc";
 
 let isCookieSupport = true;
 
-const getRegString = name => "(?:^|;)\\s?" + getSafeReg(name) + "=([^;]+)";
+const getRegString = (name) => "(?:^|;)\\s?" + getSafeReg(name) + "=([^;]+)";
 
 const cache = cacheReg({})(getRegString);
 
-const getCookieReg = name => cache(name);
+const getCookieReg = (name) => cache(name);
 
-const docCookie = cookie => {
+const docCookie = (cookie) => {
   if (cookie) {
     return cookie;
   } else {
@@ -26,7 +26,7 @@ const docCookie = cookie => {
   }
 };
 
-const notSupport = e => {
+const notSupport = (e) => {
   console.warn("cookie not support", { e });
   isCookieSupport = false;
 };
@@ -68,5 +68,5 @@ export {
   getRegString as getCookieRegString,
   getCookieReg,
   setCookie,
-  getCookieSetStr
+  getCookieSetStr,
 };

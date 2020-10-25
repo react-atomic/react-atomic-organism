@@ -1,4 +1,4 @@
-import {has, size} from '../../../lodash-lite'
+import { has, size } from "../../../lodash-lite";
 export default topsort;
 
 topsort.CycleException = CycleException;

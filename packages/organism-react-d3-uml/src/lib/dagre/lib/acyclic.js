@@ -1,13 +1,12 @@
-import {uniqueId} from '../../lodash-lite'
-import greedyFAS from './greedy-fas';
+import { uniqueId } from "../../lodash-lite";
+import greedyFAS from "./greedy-fas";
 
-export {run, undo}
+export { run, undo };
 
 function run(g) {
-  var fas = (g.graph().acyclicer === "greedy"
-                ? greedyFAS(g, weightFn(g))
-                : dfsFAS(g));
-  fas.forEach( function(e) {
+  var fas =
+    g.graph().acyclicer === "greedy" ? greedyFAS(g, weightFn(g)) : dfsFAS(g);
+  fas.forEach(function (e) {
     var label = g.edge(e);
     g.removeEdge(e);
     label.forwardName = e.name;
@@ -16,7 +15,7 @@ function run(g) {
   });
 
   function weightFn(g) {
-    return function(e) {
+    return function (e) {
       return g.edge(e).weight;
     };
   }
@@ -24,8 +23,8 @@ function run(g) {
 
 function dfsFAS(g) {
   var fas = [],
-      stack = {},
-      visited = {};
+    stack = {},
+    visited = {};
 
   function dfs(v) {
     if (visited[v]) {
@@ -33,7 +32,7 @@ function dfsFAS(g) {
     }
     visited[v] = true;
     stack[v] = true;
-    g.outEdges(v).forEach( function(e) {
+    g.outEdges(v).forEach(function (e) {
       if (stack[e.w]) {
         fas.push(e);
       } else {
@@ -48,7 +47,7 @@ function dfsFAS(g) {
 }
 
 function undo(g) {
-  g.edges().forEach( function(e) {
+  g.edges().forEach(function (e) {
     var label = g.edge(e);
     if (label.reversed) {
       g.removeEdge(e);

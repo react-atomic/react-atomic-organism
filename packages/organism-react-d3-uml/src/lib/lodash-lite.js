@@ -1,19 +1,19 @@
-import get from 'get-object-value';
-import {UNDEFINED, FUNCTION} from 'reshow-constant';
-import {win} from 'win-doc';
-import dedup from 'array.dedup';
+import get from "get-object-value";
+import { UNDEFINED, FUNCTION } from "reshow-constant";
+import { win } from "win-doc";
+import dedup from "array.dedup";
 
 const keys = Object.keys;
 
 const isArray = Array.isArray;
-const isNotEmptyArray = arr => isArray(arr) && arr.length;
-const isEmptyArray = arr => isArray(arr) && !arr.length;
+const isNotEmptyArray = (arr) => isArray(arr) && arr.length;
+const isEmptyArray = (arr) => isArray(arr) && !arr.length;
 
-const isEmptyObj = obj => !obj || !keys(obj).length;
+const isEmptyObj = (obj) => !obj || !keys(obj).length;
 
-const isEmpty = v => !v || isEmptyArray(v) || isEmptyObj(v) 
+const isEmpty = (v) => !v || isEmptyArray(v) || isEmptyObj(v);
 
-const range = n => [...Array(n).keys()];
+const range = (n) => [...Array(n).keys()];
 
 const rangeStep = (start, end, step, fromRight) => {
   let index = -1;
@@ -47,7 +47,7 @@ const flattenDownDepth = (array, result, depth) => {
 const minBy = (obj, func) => {
   const arrMin = {};
   const oKeys = keys(obj);
-  oKeys.forEach(key => {
+  oKeys.forEach((key) => {
     const v = func(obj[key], key);
     if (!isNaN(v)) {
       arrMin[key] = v;
@@ -55,7 +55,7 @@ const minBy = (obj, func) => {
   });
   const thisMin = min(values(arrMin));
   let result = null;
-  oKeys.some(key => {
+  oKeys.some((key) => {
     if (thisMin === arrMin[key]) {
       result = obj[key];
       return true;
@@ -68,7 +68,7 @@ const minBy = (obj, func) => {
 
 const find = (obj, func) => {
   let result;
-  keys(obj).some(key => {
+  keys(obj).some((key) => {
     if (func(obj[key], key)) {
       result = obj[key];
       return true;
@@ -85,7 +85,7 @@ const pick = (obj, arr) => {
   if (!oKeys || !oKeys.length) {
     return results;
   }
-  arr.forEach(key => {
+  arr.forEach((key) => {
     if (has(obj, key)) {
       results[key] = obj[key];
     }
@@ -95,13 +95,13 @@ const pick = (obj, arr) => {
 
 const mapValues = (obj, func) => {
   const results = {};
-  keys(obj).forEach(key => (results[key] = func(obj[key], key)));
+  keys(obj).forEach((key) => (results[key] = func(obj[key], key)));
   return results;
 };
 
 let uniqueIdCount = 0;
-const uniqueId = name => {
-  const id = name + '_' + uniqueIdCount;
+const uniqueId = (name) => {
+  const id = name + "_" + uniqueIdCount;
   uniqueIdCount++;
   return id;
 };
@@ -116,7 +116,7 @@ const zipObject = (a1, a2) => {
 
 const now = () => win().Date.now();
 
-const values = obj => obj && keys(obj).map(key => obj[key]);
+const values = (obj) => obj && keys(obj).map((key) => obj[key]);
 
 const max = (p1, ...other) =>
   isNotEmptyArray(p1) ? Math.max(...p1) : Math.max(p1, ...other);
@@ -128,29 +128,29 @@ const has = (obj, key) => {
   return obj && obj.hasOwnProperty(key);
 };
 
-const isFunction = func => FUNCTION === typeof func;
+const isFunction = (func) => FUNCTION === typeof func;
 
-const isUndefined = val => UNDEFINED === typeof val;
+const isUndefined = (val) => UNDEFINED === typeof val;
 
-const constant = v => () => v;
+const constant = (v) => () => v;
 
 const union = (...arr) => {
   let newArr = [];
-  arr.forEach(a => {
+  arr.forEach((a) => {
     newArr = [...newArr, ...a];
   });
   return dedup(newArr);
 };
 
 const transform = (obj, callback, result) => {
-  keys(obj).forEach(key=>{
-    const v = obj[key]; 
+  keys(obj).forEach((key) => {
+    const v = obj[key];
     callback(result, v);
   });
   return result;
 };
 
-const size = obj => obj ? keys(obj).length : 0
+const size = (obj) => (obj ? keys(obj).length : 0);
 
 export {
   size,

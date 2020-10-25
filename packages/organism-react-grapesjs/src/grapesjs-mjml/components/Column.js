@@ -1,9 +1,12 @@
 // Specs: https://mjml.io/documentation/#mjml-column
-import mjml2html from '../../mjml2html';
-import { isComponentType } from './index.js';
+import mjml2html from "../../mjml2html";
+import { isComponentType } from "./index.js";
 
-export default (editor, { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }) => {
-  const type = 'mj-column';
+export default (
+  editor,
+  { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }
+) => {
+  const type = "mj-column";
   const clmPadd = opt.columnsPadding;
 
   dc.addType(type, {
@@ -11,21 +14,30 @@ export default (editor, { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }) => 
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'Column',
-        draggable: '[data-gjs-type=mj-section]',
+        name: "Column",
+        draggable: "[data-gjs-type=mj-section]",
         stylable: [
-          'background-color', 'vertical-align', 'width',
-          'border-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-bottom-left-radius', 'border-bottom-right-radius',
-          'border', 'border-width', 'border-style', 'border-color',
+          "background-color",
+          "vertical-align",
+          "width",
+          "border-radius",
+          "border-top-left-radius",
+          "border-top-right-radius",
+          "border-bottom-left-radius",
+          "border-bottom-right-radius",
+          "border",
+          "border-width",
+          "border-style",
+          "border-color",
         ],
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'div',
+      tagName: "div",
       attributes: {
-        style: 'pointer-events: all;' + (clmPadd ? `padding: ${clmPadd};` : ''),
+        style: "pointer-events: all;" + (clmPadd ? `padding: ${clmPadd};` : ""),
       },
 
       getTemplateFromMjml() {
@@ -38,15 +50,14 @@ export default (editor, { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }) => 
         // I need styles for responsive columns
         let styles = [];
         sandboxEl.innerHTML = html;
-        var styleArr = Array.from(sandboxEl.querySelectorAll('style'));
+        var styleArr = Array.from(sandboxEl.querySelectorAll("style"));
         styleArr.forEach((item) => {
           styles.push(item.innerHTML);
         });
 
-
-        let content = html.replace(/<body(.*)>/, '<body>');
-        let start = content.indexOf('<body>') + 6;
-        let end = content.indexOf('</body>');
+        let content = html.replace(/<body(.*)>/, "<body>");
+        let start = content.indexOf("<body>") + 6;
+        let end = content.indexOf("</body>");
         sandboxEl.innerHTML = content.substring(start, end).trim();
         let componentEl = this.getTemplateFromEl(sandboxEl);
 
@@ -62,7 +73,7 @@ export default (editor, { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }) => 
         return {
           attributes,
           content: componentEl.innerHTML,
-          style: styles.join(' ')
+          style: styles.join(" "),
         };
       },
 
@@ -72,21 +83,21 @@ export default (editor, { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }) => 
         this.el.innerHTML = mjmlResult.content;
         this.$el.attr(mjmlResult.attributes);
         editor.addComponents(`<style>${mjmlResult.style}</style>`);
-        this.getChildrenContainer().innerHTML = this.model.get('content');
+        this.getChildrenContainer().innerHTML = this.model.get("content");
         this.renderChildren();
         this.renderStyle();
         return this;
       },
 
       renderStyle() {
-        this.el.style = this.el.getAttribute('style') + this.attributes.style;
+        this.el.style = this.el.getAttribute("style") + this.attributes.style;
       },
 
       getMjmlTemplate() {
         // Need it for responsive columns
         let cols = this.model.collection.length - 1;
         cols = cols ? cols : 0;
-        let addColmn = Array(cols).fill('<mj-column></mj-column>').join('');
+        let addColmn = Array(cols).fill("<mj-column></mj-column>").join("");
 
         return {
           start: `<mjml><mj-body><mj-section>`,
@@ -95,11 +106,13 @@ export default (editor, { dc, opt, coreMjmlModel, coreMjmlView, sandboxEl }) => 
       },
 
       getTemplateFromEl(sandboxEl) {
-        return sandboxEl.firstChild.querySelector('div > table > tbody > tr > td > div');
+        return sandboxEl.firstChild.querySelector(
+          "div > table > tbody > tr > td > div"
+        );
       },
 
       getChildrenSelector() {
-        return 'table';
+        return "table";
       },
     },
   });

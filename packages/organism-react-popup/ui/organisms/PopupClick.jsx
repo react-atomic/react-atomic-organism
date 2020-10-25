@@ -40,8 +40,8 @@ class PopupClick extends Component {
   }
 
   componentDidMount() {
-    const {container} = this.props;
-    console.warn('Container will retire soon, change to use component');
+    const { container } = this.props;
+    console.warn("Container will retire soon, change to use component");
   }
 
   render() {
@@ -68,7 +68,10 @@ class PopupClick extends Component {
       );
     }
     const thisComponent = component || container || SemanticUI;
-    const thisChildren = [children || get(thisComponent, ['props', 'children']) , popupEl];
+    const thisChildren = [
+      children || get(thisComponent, ["props", "children"]),
+      popupEl,
+    ];
     const props = {
       ...reset,
       onClick: this.handleClick,

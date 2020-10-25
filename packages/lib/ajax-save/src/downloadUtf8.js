@@ -1,7 +1,7 @@
-import download from './download';
+import download from "./download";
 
 const downloadUtf8 = (text, fileName, option, isKeep) => {
-  text = "\ufeff"+text;
+  text = "\ufeff" + text;
   return execDownload(text, fileName, option, isKeep);
 };
 

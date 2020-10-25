@@ -1,8 +1,8 @@
 // Specs: https://mjml.io/documentation/#mjml-group
-import { isComponentType } from './index.js';
+import { isComponentType } from "./index.js";
 
 export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
-  const type = 'mj-wrapper';
+  const type = "mj-wrapper";
 
   dc.addType(type, {
     isComponent: isComponentType(type),
@@ -10,17 +10,17 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
     model: {
       ...coreMjmlModel,
       defaults: {
-        name: 'Wrapper',
-        draggable: '[data-gjs-type=mj-body]',
-        droppable: '[data-gjs-type=mj-wrapper]',
+        name: "Wrapper",
+        draggable: "[data-gjs-type=mj-body]",
+        droppable: "[data-gjs-type=mj-wrapper]",
       },
     },
 
     view: {
       ...coreMjmlView,
-      tagName: 'div',
+      tagName: "div",
       attributes: {
-        style: 'pointer-events: all; display: table; width: 100%',
+        style: "pointer-events: all; display: table; width: 100%",
       },
 
       getMjmlTemplate() {
@@ -31,9 +31,8 @@ export default (editor, { dc, coreMjmlModel, coreMjmlView }) => {
       },
 
       getChildrenSelector() {
-        return 'table tr td';
+        return "table tr td";
       },
-
-    }
+    },
   });
 };

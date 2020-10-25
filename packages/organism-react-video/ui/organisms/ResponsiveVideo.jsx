@@ -1,12 +1,10 @@
-import React, {cloneElement} from 'react';
-import {SemanticUI} from 'react-atomic-molecule';
-import get from 'get-object-value';
+import React, { cloneElement } from "react";
+import { SemanticUI } from "react-atomic-molecule";
+import get from "get-object-value";
 
-const ResponsiveVideo = props => {
-  const {mask, children, corp, showControllBar, restart} = props;
-  const thisRestart = ('function' === typeof restart) ?
-    restart :
-    () => {};
+const ResponsiveVideo = (props) => {
+  const { mask, children, corp, showControllBar, restart } = props;
+  const thisRestart = "function" === typeof restart ? restart : () => {};
   let thisMask = null;
   if (mask) {
     thisMask = (
@@ -22,26 +20,24 @@ const ResponsiveVideo = props => {
 
   const showControllBarStyle = {};
   if (showControllBar) {
-    showControllBarStyle['marginBottom'] = -corp + 'vw';
+    showControllBarStyle["marginBottom"] = -corp + "vw";
   } else {
-    showControllBarStyle['marginBottom'] = -(corp * 2) + 'vw';
+    showControllBarStyle["marginBottom"] = -(corp * 2) + "vw";
   }
 
   return (
     <SemanticUI className="rwd-video" style={Styles.container}>
       <SemanticUI
         className="rwd-video-inner"
-        style={{...Styles.inner, ...showControllBarStyle}}>
-        {cloneElement(
-          children,
-          {
-            style: {
-              ...get(children, ['props', 'style']),
-              ...Styles.videoContainer,
-              margin: `-${corp}vw 0`
-            }
-          }
-        )}
+        style={{ ...Styles.inner, ...showControllBarStyle }}
+      >
+        {cloneElement(children, {
+          style: {
+            ...get(children, ["props", "style"]),
+            ...Styles.videoContainer,
+            margin: `-${corp}vw 0`,
+          },
+        })}
       </SemanticUI>
       {thisMask}
     </SemanticUI>
@@ -58,27 +54,27 @@ export default ResponsiveVideo;
 
 const Styles = {
   container: {
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
     zIndex: 0,
   },
   inner: {
-    position: 'relative',
-    padding: '0 0 100%',
+    position: "relative",
+    padding: "0 0 100%",
     height: 0,
-    overflow: 'hidden',
+    overflow: "hidden",
     zIndex: 0,
   },
   videoContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   mask: {
     zIndex: 1,
-    position: 'absolute',
+    position: "absolute",
     top: -10,
     left: -10,
     right: -10,

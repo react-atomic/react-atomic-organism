@@ -12,7 +12,7 @@ const getGjsPresetWebpage = () => {
           "top",
           "right",
           "left",
-          "bottom"
+          "bottom",
         ],
         properties: [
           {
@@ -23,11 +23,11 @@ const getGjsPresetWebpage = () => {
             list: [
               { value: "none", className: "fa fa-times" },
               { value: "left", className: "fa fa-align-left" },
-              { value: "right", className: "fa fa-align-right" }
-            ]
+              { value: "right", className: "fa fa-align-right" },
+            ],
           },
-          { property: "position", type: "select" }
-        ]
+          { property: "position", type: "select" },
+        ],
       },
       {
         name: "Dimension",
@@ -39,7 +39,7 @@ const getGjsPresetWebpage = () => {
           "max-width",
           "min-height",
           "margin",
-          "padding"
+          "padding",
         ],
         properties: [
           {
@@ -48,7 +48,7 @@ const getGjsPresetWebpage = () => {
             name: "Width",
             units: ["px", "%"],
             property: "flex-basis",
-            toRequire: 1
+            toRequire: 1,
           },
           {
             property: "margin",
@@ -56,8 +56,8 @@ const getGjsPresetWebpage = () => {
               { name: "Top", property: "margin-top" },
               { name: "Right", property: "margin-right" },
               { name: "Bottom", property: "margin-bottom" },
-              { name: "Left", property: "margin-left" }
-            ]
+              { name: "Left", property: "margin-left" },
+            ],
           },
           {
             property: "padding",
@@ -65,10 +65,10 @@ const getGjsPresetWebpage = () => {
               { name: "Top", property: "padding-top" },
               { name: "Right", property: "padding-right" },
               { name: "Bottom", property: "padding-bottom" },
-              { name: "Left", property: "padding-left" }
-            ]
-          }
-        ]
+              { name: "Left", property: "padding-left" },
+            ],
+          },
+        ],
       },
       {
         name: "Typography",
@@ -82,7 +82,7 @@ const getGjsPresetWebpage = () => {
           "line-height",
           "text-align",
           "text-decoration",
-          "text-shadow"
+          "text-shadow",
         ],
         properties: [
           { name: "Font", property: "font-family" },
@@ -96,24 +96,24 @@ const getGjsPresetWebpage = () => {
               {
                 value: "left",
                 name: "Left",
-                className: "fa fa-align-left"
+                className: "fa fa-align-left",
               },
               {
                 value: "center",
                 name: "Center",
-                className: "fa fa-align-center"
+                className: "fa fa-align-center",
               },
               {
                 value: "right",
                 name: "Right",
-                className: "fa fa-align-right"
+                className: "fa fa-align-right",
               },
               {
                 value: "justify",
                 name: "Justify",
-                className: "fa fa-align-justify"
-              }
-            ]
+                className: "fa fa-align-justify",
+              },
+            ],
           },
           {
             property: "text-decoration",
@@ -124,14 +124,14 @@ const getGjsPresetWebpage = () => {
               {
                 value: "underline",
                 name: "underline",
-                className: "fa fa-underline"
+                className: "fa fa-underline",
               },
               {
                 value: "line-through",
                 name: "Line-through",
-                className: "fa fa-strikethrough"
-              }
-            ]
+                className: "fa fa-strikethrough",
+              },
+            ],
           },
           {
             property: "text-shadow",
@@ -139,10 +139,10 @@ const getGjsPresetWebpage = () => {
               { name: "X position", property: "text-shadow-h" },
               { name: "Y position", property: "text-shadow-v" },
               { name: "Blur", property: "text-shadow-blur" },
-              { name: "Color", property: "text-shadow-color" }
-            ]
-          }
-        ]
+              { name: "Color", property: "text-shadow-color" },
+            ],
+          },
+        ],
       },
       {
         name: "Decorations",
@@ -153,7 +153,7 @@ const getGjsPresetWebpage = () => {
           "border-radius",
           "border",
           "box-shadow",
-          "background"
+          "background",
         ],
         properties: [
           {
@@ -162,7 +162,7 @@ const getGjsPresetWebpage = () => {
             defaults: 1,
             step: 0.01,
             max: 1,
-            min: 0
+            min: 0,
           },
           {
             property: "border-radius",
@@ -170,8 +170,8 @@ const getGjsPresetWebpage = () => {
               { name: "Top", property: "border-top-left-radius" },
               { name: "Right", property: "border-top-right-radius" },
               { name: "Bottom", property: "border-bottom-left-radius" },
-              { name: "Left", property: "border-bottom-right-radius" }
-            ]
+              { name: "Left", property: "border-bottom-right-radius" },
+            ],
           },
           {
             property: "box-shadow",
@@ -181,8 +181,8 @@ const getGjsPresetWebpage = () => {
               { name: "Blur", property: "box-shadow-blur" },
               { name: "Spread", property: "box-shadow-spread" },
               { name: "Color", property: "box-shadow-color" },
-              { name: "Shadow type", property: "box-shadow-type" }
-            ]
+              { name: "Shadow type", property: "box-shadow-type" },
+            ],
           },
           {
             property: "background",
@@ -191,10 +191,10 @@ const getGjsPresetWebpage = () => {
               { name: "Repeat", property: "background-repeat" },
               { name: "Position", property: "background-position" },
               { name: "Attachment", property: "background-attachment" },
-              { name: "Size", property: "background-size" }
-            ]
-          }
-        ]
+              { name: "Size", property: "background-size" },
+            ],
+          },
+        ],
       },
       {
         name: "Extra",
@@ -206,8 +206,8 @@ const getGjsPresetWebpage = () => {
             properties: [
               { name: "Property", property: "transition-property" },
               { name: "Duration", property: "transition-duration" },
-              { name: "Easing", property: "transition-timing-function" }
-            ]
+              { name: "Easing", property: "transition-timing-function" },
+            ],
           },
           {
             property: "transform",
@@ -217,10 +217,10 @@ const getGjsPresetWebpage = () => {
               { name: "Rotate Z", property: "transform-rotate-z" },
               { name: "Scale X", property: "transform-scale-x" },
               { name: "Scale Y", property: "transform-scale-y" },
-              { name: "Scale Z", property: "transform-scale-z" }
-            ]
-          }
-        ]
+              { name: "Scale Z", property: "transform-scale-z" },
+            ],
+          },
+        ],
       },
       {
         name: "Flex",
@@ -233,13 +233,13 @@ const getGjsPresetWebpage = () => {
             defaults: "block",
             list: [
               { value: "block", name: "Disable" },
-              { value: "flex", name: "Enable" }
-            ]
+              { value: "flex", name: "Enable" },
+            ],
           },
           {
             name: "Flex Parent",
             property: "label-parent-flex",
-            type: "integer"
+            type: "integer",
           },
           {
             name: "Direction",
@@ -251,27 +251,27 @@ const getGjsPresetWebpage = () => {
                 value: "row",
                 name: "Row",
                 className: "icons-flex icon-dir-row",
-                title: "Row"
+                title: "Row",
               },
               {
                 value: "row-reverse",
                 name: "Row reverse",
                 className: "icons-flex icon-dir-row-rev",
-                title: "Row reverse"
+                title: "Row reverse",
               },
               {
                 value: "column",
                 name: "Column",
                 title: "Column",
-                className: "icons-flex icon-dir-col"
+                className: "icons-flex icon-dir-col",
               },
               {
                 value: "column-reverse",
                 name: "Column reverse",
                 title: "Column reverse",
-                className: "icons-flex icon-dir-col-rev"
-              }
-            ]
+                className: "icons-flex icon-dir-col-rev",
+              },
+            ],
           },
           {
             name: "Justify",
@@ -282,29 +282,29 @@ const getGjsPresetWebpage = () => {
               {
                 value: "flex-start",
                 className: "icons-flex icon-just-start",
-                title: "Start"
+                title: "Start",
               },
               {
                 value: "flex-end",
                 title: "End",
-                className: "icons-flex icon-just-end"
+                className: "icons-flex icon-just-end",
               },
               {
                 value: "space-between",
                 title: "Space between",
-                className: "icons-flex icon-just-sp-bet"
+                className: "icons-flex icon-just-sp-bet",
               },
               {
                 value: "space-around",
                 title: "Space around",
-                className: "icons-flex icon-just-sp-ar"
+                className: "icons-flex icon-just-sp-ar",
               },
               {
                 value: "center",
                 title: "Center",
-                className: "icons-flex icon-just-sp-cent"
-              }
-            ]
+                className: "icons-flex icon-just-sp-cent",
+              },
+            ],
           },
           {
             name: "Align",
@@ -315,36 +315,36 @@ const getGjsPresetWebpage = () => {
               {
                 value: "flex-start",
                 title: "Start",
-                className: "icons-flex icon-al-start"
+                className: "icons-flex icon-al-start",
               },
               {
                 value: "flex-end",
                 title: "End",
-                className: "icons-flex icon-al-end"
+                className: "icons-flex icon-al-end",
               },
               {
                 value: "stretch",
                 title: "Stretch",
-                className: "icons-flex icon-al-str"
+                className: "icons-flex icon-al-str",
               },
               {
                 value: "center",
                 title: "Center",
-                className: "icons-flex icon-al-center"
-              }
-            ]
+                className: "icons-flex icon-al-center",
+              },
+            ],
           },
           {
             name: "Flex Children",
             property: "label-parent-flex",
-            type: "integer"
+            type: "integer",
           },
           {
             name: "Order",
             property: "order",
             type: "integer",
             defaults: 0,
-            min: 0
+            min: 0,
           },
           {
             name: "Flex",
@@ -356,14 +356,14 @@ const getGjsPresetWebpage = () => {
                 property: "flex-grow",
                 type: "integer",
                 defaults: 0,
-                min: 0
+                min: 0,
               },
               {
                 name: "Shrink",
                 property: "flex-shrink",
                 type: "integer",
                 defaults: 0,
-                min: 0
+                min: 0,
               },
               {
                 name: "Basis",
@@ -371,9 +371,9 @@ const getGjsPresetWebpage = () => {
                 type: "integer",
                 units: ["px", "%", ""],
                 unit: "",
-                defaults: "auto"
-              }
-            ]
+                defaults: "auto",
+              },
+            ],
           },
           {
             name: "Align",
@@ -383,33 +383,33 @@ const getGjsPresetWebpage = () => {
             list: [
               {
                 value: "auto",
-                name: "Auto"
+                name: "Auto",
               },
               {
                 value: "flex-start",
                 title: "Start",
-                className: "icons-flex icon-al-start"
+                className: "icons-flex icon-al-start",
               },
               {
                 value: "flex-end",
                 title: "End",
-                className: "icons-flex icon-al-end"
+                className: "icons-flex icon-al-end",
               },
               {
                 value: "stretch",
                 title: "Stretch",
-                className: "icons-flex icon-al-str"
+                className: "icons-flex icon-al-str",
               },
               {
                 value: "center",
                 title: "Center",
-                className: "icons-flex icon-al-center"
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                className: "icons-flex icon-al-center",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 };
 

@@ -83,7 +83,7 @@ const handleReset = (
 ) => {
   if (node) {
     const index = getIndex(isAppear, isExit, stepKeys);
-    keys(actionKeys).forEach(key => {
+    keys(actionKeys).forEach((key) => {
       const action = actionKeys[key];
       const thisClass = getClassName(classNames, index, action);
       if (thisClass) {
@@ -128,13 +128,13 @@ CSSTransition.defaultProps = {
   stepKeys: {
     appear: "appear",
     enter: "enter",
-    exit: "exit"
+    exit: "exit",
   },
   actionKeys: {
     start: "",
     active: "active",
-    done: "done"
+    done: "done",
   },
-  in: true
+  in: true,
 };
 export default CSSTransition;

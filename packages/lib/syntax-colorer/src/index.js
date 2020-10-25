@@ -1,12 +1,12 @@
-import prism from 'prismjs';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-diff';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-markup';
-import 'prismjs/components/prism-tsx';
-import {doc} from 'win-doc';
+import prism from "prismjs";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-diff";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-tsx";
+import { doc } from "win-doc";
 
 let styleNode;
 let lightTheme;
@@ -14,32 +14,32 @@ let darkTheme;
 let oDoc = doc();
 
 if (oDoc) {
-  lightTheme = require('prismjs/themes/prism.css');
-  darkTheme = require('prismjs/themes/prism-okaidia.css');
-  styleNode = oDoc.createElement('style');
-  styleNode.setAttribute('data-prism', 'true');
+  lightTheme = require("prismjs/themes/prism.css");
+  darkTheme = require("prismjs/themes/prism-okaidia.css");
+  styleNode = oDoc.createElement("style");
+  styleNode.setAttribute("data-prism", "true");
   styleNode.textContent = lightTheme;
   oDoc.head.appendChild(styleNode);
 }
 
-const setPrismTheme = theme => {
+const setPrismTheme = (theme) => {
   styleNode.textContent = theme;
 };
 
 const highlight = (code, language) => {
   let prismLanguage;
   switch (language) {
-    case 'ts':
+    case "ts":
       prismLanguage = prism.languages.tsx;
       break;
 
-    case 'js':
-    case 'sh':
+    case "js":
+    case "sh":
       prismLanguage = prism.languages.jsx;
       break;
 
-    case 'diff':
-      prismLanguage = {...prism.languages.diff};
+    case "diff":
+      prismLanguage = { ...prism.languages.diff };
       // original `/^[-<].*$/m` matches lines starting with `<` which matches
       // <SomeComponent />
       // we will only use `-` as the deleted marker
@@ -63,4 +63,4 @@ const highlight = (code, language) => {
 };
 
 export default highlight;
-export {lightTheme, darkTheme, setPrismTheme};
+export { lightTheme, darkTheme, setPrismTheme };

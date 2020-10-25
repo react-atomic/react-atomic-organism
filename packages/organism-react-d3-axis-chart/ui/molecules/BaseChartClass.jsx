@@ -1,8 +1,7 @@
-import React, {Component, cloneElement, Children} from 'react';
-import BaseChart from '../molecules/BaseChart';
+import React, { Component, cloneElement, Children } from "react";
+import BaseChart from "../molecules/BaseChart";
 
 class BaseChartClass extends Component {
-
   getXScale() {
     return this.chart.getXScale();
   }
@@ -20,7 +19,7 @@ class BaseChartClass extends Component {
   }
 
   renderChart() {
-    console.error('You should override renderChart');
+    console.error("You should override renderChart");
     return null;
   }
 
@@ -43,22 +42,23 @@ class BaseChartClass extends Component {
     } else {
       return (
         <BaseChart
-          ref={el => (this.chart = el)}
+          ref={(el) => (this.chart = el)}
           {...this.baseChartProps()}
           {...others}
           data={data}
           valuesLocator={valuesLocator}
           xValueLocator={xValueLocator}
-          yValueLocator={yValueLocator}>
-          {baseChart => {
+          yValueLocator={yValueLocator}
+        >
+          {(baseChart) => {
             return [
               this.renderChart(baseChart),
-              Children.map(children, c =>
+              Children.map(children, (c) =>
                 !c
                   ? null
                   : cloneElement(c, {
                       ...baseChart,
-                    }),
+                    })
               ),
             ];
           }}

@@ -1,10 +1,9 @@
-'use strict';
+"use strict";
 
-import getReg from './getClassReg';
+import getReg from "./getClassReg";
 
-const hasClass = (classes, name)=>
-{
-    return getReg(name).test(classes);
-}
+const hasClass = (classes, name) => {
+  return getReg(name).test(classes);
+};
 
 export default hasClass;
