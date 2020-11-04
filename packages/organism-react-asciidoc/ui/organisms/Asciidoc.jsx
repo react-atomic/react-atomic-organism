@@ -31,41 +31,46 @@ class Asciidoc extends PureComponent {
   componentDidMount() {
     const { onLoadDelay } = this.props;
     const oWin = this.iframe.getWindow();
-    const { close, process } = windowOnload({
-      doc: oWin.document,
-    });
-    this.clearWindowOnload = close;
-    process(() => {
+
+    oWin.onRender = (outputEl) => {
+      const { close, process } = windowOnload({
+        doc: oWin.document,
+      });
+      this.clearWindowOnload = close;
       const run = () => {
+        if (this.onloadTimer) {
+          clearTimeout(this.onloadTimer);
+        }
         this.onloadTimer = setTimeout(
-          () => this.handleLoad(oWin.renderDone),
+          () => this.handleLoad(outputEl),
           onLoadDelay
         );
       };
-      const imgs = query.all("img");
-      const allImgLen = imgs.length;
-      if (allImgLen) {
-        let loadLen = 0;
-        imgs.forEach((img) => {
-          const oImg = new Image();
-          oImg.onload = () => {
-            loadLen++;
-            if (loadLen >= allImgLen) {
-              run();
-            }
-          };
-          oImg.onerror = () => {
-            loadLen++;
-            if (loadLen >= allImgLen) {
-              run();
-            }
-          };
-          oImg.src = img.src;
-        });
-      } else {
+      process(() => {
+        const imgs = query.from(outputEl).all("img");
+        const allImgLen = imgs?.length;
+        if (allImgLen) {
+          let loadLen = 0;
+          imgs.forEach((img) => {
+            const oImg = new Image();
+            oImg.onload = () => {
+              loadLen++;
+              if (loadLen >= allImgLen) {
+                run();
+              }
+            };
+            oImg.onerror = () => {
+              loadLen++;
+              if (loadLen >= allImgLen) {
+                run();
+              }
+            };
+            oImg.src = img.src;
+          });
+        }
         run();
-      }
-    });
+      });
+    };
   }
 
   componentWillUnmount() {
@@ -98,7 +103,7 @@ class Asciidoc extends PureComponent {
             );
             var output = document.getElementById('output');
 	    output.innerHTML = html;
-            window.renderDone=output;
+            window.onRender(output);
         </script>
         `,
     ].join("");

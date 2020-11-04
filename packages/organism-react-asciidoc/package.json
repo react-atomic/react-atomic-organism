@@ -1,6 +1,6 @@
 {
   "name": "organism-react-asciidoc",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Rendering asciidoc to iFrames with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,15 +11,22 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "window-onload": "*",
+    "css-query-selector": ">=0.2.12",
     "call-func": "*",
     "get-object-value": "*",
-    "organism-react-iframe": "*",
+    "organism-react-iframe": ">=0.8.1",
     "react-atomic-molecule": "*",
-    "reshow-runtime": "*"
+    "reshow-runtime": "*",
+    "window-onload": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
+    "chai": "*",
+    "enzyme": "*",
+    "enzyme-adapter-react-16": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
+    "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x"
   },
@@ -32,7 +39,9 @@
     "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build"
+    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha",
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
