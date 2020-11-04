@@ -1,7 +1,7 @@
 import { doc } from "win-doc";
 import { FUNCTION, STRING } from "reshow-constant";
 
-const arrayFrom = (a) => [...a];
+const arrayFrom = (a) => (a ? [...a] : []);
 
 const findHit = (all, el) => {
   let hit;

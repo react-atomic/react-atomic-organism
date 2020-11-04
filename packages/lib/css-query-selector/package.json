@@ -1,6 +1,6 @@
 {
   "name": "css-query-selector",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "CSS simple query alias function",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
