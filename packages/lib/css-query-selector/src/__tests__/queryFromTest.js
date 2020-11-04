@@ -13,4 +13,9 @@ describe("Test", () => {
     const name = query.one("body").nodeName;
     expect(name).to.be.equal("BODY");
   });
+
+  it("test base is undefined", ()=>{
+    const query = queryFrom(undefined);
+    expect(query).to.be.false;
+  });
 });
