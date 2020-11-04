@@ -11,7 +11,8 @@ const findHit = (all, el) => {
 };
 
 const queryFrom = (base) => {
-  const myBase = FUNCTION === typeof base ? base : () => defaultQuery.el(base);
+  const myBase =
+    FUNCTION === typeof base ? base : () => base && defaultQuery.el(base);
 
   const queryOne = (sel) => myBase()?.querySelector(sel);
 

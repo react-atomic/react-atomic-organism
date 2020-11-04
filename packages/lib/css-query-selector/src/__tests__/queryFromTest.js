@@ -7,4 +7,10 @@ describe("Test", () => {
     const name = query.one("body").nodeName;
     expect(name).to.be.equal("BODY");
   });
+
+  it("test base is not func", ()=>{
+    const query = queryFrom(document);
+    const name = query.one("body").nodeName;
+    expect(name).to.be.equal("BODY");
+  });
 });
