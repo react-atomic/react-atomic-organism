@@ -41,37 +41,29 @@ class ConnectController {
 
   deleteLine(id) {
     const payload = {};
-    this.setState(
-      (lines) => {
-        const line = lines[id];
-        if (line) {
-          payload.line = line;
-          const from = line.from;
-          const to = line.to;
-          if (from) {
-            from.delLine(id);
-            payload.from = from.getBoxGroupName();
-          }
-          if (to) {
-            to.delLine(id);
-            payload.to = to.getBoxGroupName();
-          }
-          if (from && to) {
-            const { mergeId, invertMergeId } = this.getConnectIds(from, to);
-            delete this.connects[mergeId];
-            delete this.connects[invertMergeId];
-          }
-          delete lines[id];
+    this.setState((lines) => {
+      const line = lines[id];
+      if (line) {
+        payload.line = line;
+        const from = line.from;
+        const to = line.to;
+        if (from) {
+          from.delLine(id);
+          payload.from = from.getBoxGroupName();
         }
-        return lines;
-      },
-      () => {
-        const { from, to } = payload;
-        if (from || to) {
-          this.host.handleLineDel(payload);
+        if (to) {
+          to.delLine(id);
+          payload.to = to.getBoxGroupName();
         }
+        if (from && to) {
+          const { mergeId, invertMergeId } = this.getConnectIds(from, to);
+          delete this.connects[mergeId];
+          delete this.connects[invertMergeId];
+        }
+        delete lines[id];
       }
-    );
+      return lines;
+    });
   }
 
   getConnectIds(from, to) {
