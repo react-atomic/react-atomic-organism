@@ -391,6 +391,7 @@ class UMLGraph extends Component {
       connFromBoxLocator,
       connToBoxLocator,
       onAdd,
+      onBoxWillDrag,
       onEdit,
       onDel,
       onDragEnd,
@@ -455,6 +456,7 @@ class UMLGraph extends Component {
                 onEdit={this.edit}
                 onDel={this.del}
                 onDragEnd={this.handleBoxGroupDragEnd}
+                onWillDrag={onBoxWillDrag}
                 x={boxGroupXLocator(item)}
                 y={boxGroupYLocator(item)}
                 {...bgName}

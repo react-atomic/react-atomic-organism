@@ -36,7 +36,7 @@ class Line extends Component {
     }
   };
 
-  handleCancelButtonClick = (e) => {
+  handleDeleteButtonClick = (e) => {
     e.preventDefault();
     const { host, id: lineId } = this.props;
     host.handleLineDel({
@@ -76,7 +76,7 @@ class Line extends Component {
       start,
       isHover,
       onClick: this.handleClick,
-      onCancelButtonClick: this.handleCancelButtonClick,
+      onDeleteButtonClick: this.handleDeleteButtonClick,
       onMouseEnter: this.handleMouseEnter,
       onMouseLeave: this.handleMouseLeave,
     });

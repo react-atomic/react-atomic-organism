@@ -42,7 +42,7 @@ class LineDefaultLayout extends BaseLayout {
       isHover,
       onMouseEnter,
       onMouseLeave,
-      onCancelButtonClick,
+      onDeleteButtonClick,
       onClick,
       ...other
     } = this.props;
@@ -61,7 +61,7 @@ class LineDefaultLayout extends BaseLayout {
         <CancelButton
           x={centerX}
           y={centerY}
-          onClick={onCancelButtonClick}
+          onClick={onDeleteButtonClick}
           show={isShowedCancel}
         />
       );
