@@ -162,7 +162,7 @@ class SideMenu extends PureComponent {
     const { id, onSwitch } = this.props;
     const isValidStateOn = "boolean" === typeof stateOn;
     const on = !(isValidStateOn ? stateOn : this.state.on);
-    const defaultOff = getOffset(queryOne(".sidebar .default-off"));
+    const defaultOff = getOffset(queryOne(".sidebar-menu .default-off"));
     const isSet = isValidStateOn || (defaultOff.w && defaultOff.h);
     if (isSet) {
       navigationDispatch({
@@ -254,7 +254,7 @@ class SideMenu extends PureComponent {
         active: on,
         inactive: on === false,
       },
-      "sidebar",
+      "sidebar-menu",
       className
     );
     return (
