@@ -5,11 +5,13 @@ import callfunc from "call-func";
 import Group from "../molecules/Group";
 
 class Zoom extends PureComponent {
+  static defaultProps = {
+    scaleExtent: [-1, 8],
+  };
+
   state = {
     transform: null,
   };
-
-  oD3Zoom = null;
 
   getTransform() {
     const { transform } = this.state;
@@ -20,9 +22,10 @@ class Zoom extends PureComponent {
     const { onZoom, onGetEl } = this.props;
     if (!e) {
       e = { transform };
+      const objD3Zoom = this.getD3Zoom();
       const el = d3Select(callfunc(onGetEl));
-      if (this.oD3Zoom && el) {
-        this.oD3Zoom.transform(el, transform);
+      if (objD3Zoom && el) {
+        objD3Zoom.transform(el, transform);
       }
     }
     e.zoom = this;
@@ -43,21 +46,34 @@ class Zoom extends PureComponent {
     return { x, y, k };
   }
 
-  getD3Zoom = () => this.oD3Zoom;
-
   componentDidMount() {
-    const { onGetEl } = this.props;
+    const { onGetEl, scaleExtent } = this.props;
+    let objD3Zoom;
+    let enableZooming = true;
     setTimeout(() => {
-      this.oD3Zoom = d3Zoom({
-        el: callfunc(onGetEl),
-        scaleExtent: [-1, 8],
-        callback: (e) => this.setTransform(e.transform, e),
+      const el = callfunc(onGetEl);
+      objD3Zoom = d3Zoom({
+        el,
+        scaleExtent,
+        callback: (e) => {
+          if (enableZooming) {
+            this.setTransform(e.transform, e);
+          } else {
+            if (this.state.transform && e.transform !== this.state.transform) {
+              objD3Zoom.transform(d3Select(el), this.state.transform);
+            }
+          }
+        },
       });
     });
+    this.getD3Zoom = () => objD3Zoom;
+    this.enable = () => enableZooming = true;
+    this.disable = () => enableZooming = false;
+    this.getEnable = () => enableZooming;
   }
 
   render() {
-    const { onGetEl, onZoom, ...props } = this.props;
+    const { onGetEl, onZoom, scaleExtent, ...props } = this.props;
     const { transform } = this.state;
 
     return (
