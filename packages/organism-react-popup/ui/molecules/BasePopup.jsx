@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { popupDispatch } from "../../src/popupDispatcher";
 
 class BasePopup extends PureComponent {
   state = { hasError: false };
@@ -16,6 +17,15 @@ class BasePopup extends PureComponent {
       console.error([error, info]);
     }
     this.setState({ hasError: true });
+  }
+
+  close() {
+    popupDispatch({
+      type: "dom/closeOne",
+      params: {
+        popup: this,
+      },
+    });
   }
 }
 

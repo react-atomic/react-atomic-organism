@@ -11,7 +11,6 @@ import { win, doc } from "win-doc";
 import { UNDEFINED } from "reshow-constant";
 
 import PopupOverlay from "../molecules/PopupOverlay";
-import { popupDispatch } from "../../src/popupDispatcher";
 
 const observerConfig = {
   attributes: true,
@@ -47,15 +46,6 @@ class PopupModal extends PopupOverlay {
     e.stopPropagation();
     callfunc(cb, [e]);
   };
-
-  close() {
-    popupDispatch({
-      type: "dom/closeOne",
-      params: {
-        popup: this,
-      },
-    });
-  }
 
   reCalculate = () => {
     this._timer = setTimeout(() => {
