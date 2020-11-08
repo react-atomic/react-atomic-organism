@@ -36,6 +36,7 @@ class UMLGraph extends Component {
     arrowHeadComponent: ArrowHead,
     autoArrange: true,
     editToCenter: false,
+    editToCenterDelay: 500,
   };
 
   state = {
@@ -220,10 +221,10 @@ class UMLGraph extends Component {
   }
 
   edit = (name, payload) => {
-    const { onEdit, editToCenter } = this.props;
+    const { onEdit, editToCenter, editToCenterDelay } = this.props;
     this.zoom.disable();
     if (editToCenter) {
-      setTimeout(() => this.center(payload), 500);
+      setTimeout(() => this.center(payload), editToCenterDelay);
     }
     callfunc(onEdit, [name, payload]);
     setTimeout(() => this.zoom.enable(), 1500);
@@ -417,6 +418,7 @@ class UMLGraph extends Component {
       connFromBoxLocator,
       connToBoxLocator,
       editToCenter,
+      editToCenterDelay,
       onAdd,
       onBoxWillDrag,
       onEdit,
