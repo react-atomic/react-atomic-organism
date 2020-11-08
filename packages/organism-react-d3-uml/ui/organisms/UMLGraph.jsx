@@ -35,6 +35,7 @@ class UMLGraph extends Component {
     connToBoxLocator: (d) => d,
     arrowHeadComponent: ArrowHead,
     autoArrange: true,
+    editToCenter: false,
   };
 
   state = {
@@ -169,6 +170,11 @@ class UMLGraph extends Component {
     return this.vector;
   }
 
+  getBoundingClientRect() {
+    const vectorEl = this.getVectorEl();
+    return getOffset(vectorEl);
+  }
+
   getConnectStartPoint() {
     return this.startPoint;
   }
@@ -198,9 +204,29 @@ class UMLGraph extends Component {
     this.endPoint = el;
   }
 
+  center(boxGroup) {
+    const { width: w, height: h } = boxGroup.getWH();
+    const x = boxGroup.lastX;
+    const y = boxGroup.lastY;
+    const { width: vectorW, height: vectorH } = this.getBoundingClientRect();
+    const zoomK = this.getZoomK();
+    const halfVectorW = vectorW / 2;
+    const halfVectorH = vectorH / 2;
+    const halfW = w / 2;
+    const halfH = h / 2;
+    const nextX = (-x - halfW) * zoomK + halfVectorW;
+    const nextY = (-y - halfH) * zoomK + halfVectorH;
+    this.zoom.setXYK({ x: nextX, y: nextY });
+  }
+
   edit = (name, payload) => {
-    const { onEdit } = this.props;
+    const { onEdit, editToCenter } = this.props;
+    this.zoom.disable();
+    if ( editToCenter) {
+      this.center(payload);
+    }
     callfunc(onEdit, [name, payload]);
+    setTimeout(()=>this.zoom.enable(), 1500);
   };
 
   del = (name) => {
@@ -390,6 +416,7 @@ class UMLGraph extends Component {
       connToBoxGroupLocator,
       connFromBoxLocator,
       connToBoxLocator,
+      editToCenter,
       onAdd,
       onBoxWillDrag,
       onEdit,

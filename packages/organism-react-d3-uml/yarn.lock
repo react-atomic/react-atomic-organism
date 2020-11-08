@@ -2271,9 +2271,9 @@ optionator@^0.8.1:
     word-wrap "~1.2.3"
 
 organism-react-graph@*:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.3.2.tgz#3274e16a04358fc31adf781334cfc71926ea3c25"
-  integrity sha512-T+4cU7ndldgXfTxgsNlvaAdB7cB2AX60JwWncfloWHdWd3djC7KuV8ak4HM2VO/MmCYFr41dI0PIhA1pxk6QkQ==
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.4.2.tgz#f45380b0ecd2c4010095620472a5190886526afe"
+  integrity sha512-MZeSwajmp/dL+RRajehB0gN7hakgq8MaXm6CBW57yT28+5/QNXUgiOubyOy1BFLyMxCu1WMpLuDBIA8xzo9zrQ==
   dependencies:
     call-func "*"
     colorlib "*"
@@ -3203,9 +3203,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 ws@^7.2.3:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
-  integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.0.tgz#a5dd76a24197940d4a8bb9e0e152bb4503764da7"
+  integrity sha512-kyFwXuV/5ymf+IXhS6f0+eAFvydbaBW3zjpT6hUdAh/hbVjTIB5EHBGi0bPoCLSK2wcuz3BrEkB9LrYv1Nm4NQ==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
