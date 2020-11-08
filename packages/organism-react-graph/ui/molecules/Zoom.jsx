@@ -50,25 +50,33 @@ class Zoom extends PureComponent {
     const { onGetEl, scaleExtent } = this.props;
     let objD3Zoom;
     let enableZooming = true;
+    let debounceTimer;
     setTimeout(() => {
       const el = callfunc(onGetEl);
       objD3Zoom = d3Zoom({
         el,
         scaleExtent,
         callback: (e) => {
+          debounceTimer && clearTimeout(debounceTimer);
+          debounceTimer = null;
           if (enableZooming) {
             this.setTransform(e.transform, e);
           } else {
-            if (this.state.transform && e.transform !== this.state.transform) {
-              objD3Zoom.transform(d3Select(el), this.state.transform);
-            }
+            debounceTimer = setTimeout(() => {
+              if (
+                this.state.transform &&
+                e.transform !== this.state.transform
+              ) {
+                objD3Zoom.transform(d3Select(el), this.state.transform);
+              }
+            }, 100);
           }
         },
       });
     });
     this.getD3Zoom = () => objD3Zoom;
-    this.enable = () => enableZooming = true;
-    this.disable = () => enableZooming = false;
+    this.enable = () => (enableZooming = true);
+    this.disable = () => (enableZooming = false);
     this.getEnable = () => enableZooming;
   }
 
