@@ -417,6 +417,7 @@ class UMLGraph extends Component {
       connToBoxGroupLocator,
       connFromBoxLocator,
       connToBoxLocator,
+      children,
       editToCenter,
       editToCenterDelay,
       onAdd,
@@ -502,6 +503,7 @@ class UMLGraph extends Component {
             );
           })}
         </HTMLGraph>
+        {children}
       </SemanticUI>
     );
   }
