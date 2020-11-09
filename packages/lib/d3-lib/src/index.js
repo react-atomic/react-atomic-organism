@@ -280,9 +280,8 @@ const d3DnD = ({ el, container, touchable, start, end, drag, subject }) => {
 };
 
 const d3Zoom = ({ el, scaleExtent, callback }) => {
-  const zoom = d3_zoom()
-    .scaleExtent(scaleExtent)
-    .on("zoom", () => callback(d3Event()));
+  const eventCb = null == callback ? null : () => callback(d3Event());
+  const zoom = d3_zoom().scaleExtent(scaleExtent).on("zoom", eventCb);
   d3Select(el).call(zoom);
   return zoom;
 };
