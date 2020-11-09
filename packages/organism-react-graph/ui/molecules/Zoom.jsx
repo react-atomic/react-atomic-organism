@@ -33,7 +33,16 @@ const Zoom = forwardRef((props, ref) => {
       return handleTransform(toZoomTransform({ x, y, k }));
     },
     getD3Zoom: () => lastD3ZoomObject.current,
-    enable: () => (lastEnable.current = true),
+    enable: () => {
+      if (!lastEnable.current) {
+        const el = callfunc(onGetEl);
+        const objD3Zoom = lastD3ZoomObject.current;
+        if (el && objD3Zoom && lastTransform.current) {
+          objD3Zoom.transform(d3Select(el), lastTransform.current);
+        }
+      }
+      lastEnable.current = true;
+    },
     disable: () => (lastEnable.current = false),
     getEnabled: () => lastEnable.current,
   };
@@ -62,11 +71,11 @@ const Zoom = forwardRef((props, ref) => {
       el,
       scaleExtent,
       callback: (e) => {
-        const objD3Zoom = lastD3ZoomObject.current;
         debounceTimer && clearTimeout(debounceTimer);
         if (lastEnable.current) {
           return handleTransform(e.transform, e);
         } else {
+          const objD3Zoom = lastD3ZoomObject.current;
           debounceTimer = setTimeout(() => {
             debounceTimer = null;
             if (
@@ -89,6 +98,6 @@ Zoom.defaultProps = {
   scaleExtent: [-1, 8],
 };
 
-Zoom.displayName = 'Zoom';
+Zoom.displayName = "Zoom";
 
 export default Zoom;
