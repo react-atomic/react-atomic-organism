@@ -721,9 +721,9 @@ d3-hierarchy@2:
     d3-color "1 - 2"
 
 d3-lib@*:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.5.4.tgz#a506f6055c181b1f30a1bdd66f7e684958745950"
-  integrity sha512-Xo63YioLYs1jdN37vcYRMqwsMuymKJ3ZkvLXHfkvRKslghDCB9qD7EDdK29LBq2rgDxZYgSN5q8tU41y/aMfUA==
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.5.5.tgz#fee96c7b81ecb66e158c6abedcfb8a2dc5c40e02"
+  integrity sha512-rCtdFGxShrD4WNEHlFqSmAXygA2WXWBf6XEtzUsEqZT3JS5c98elYLh2kHlC7IfU0PcmpGEYsEiyy816S9wXgQ==
   dependencies:
     array.min.max "*"
     d3 "*"
@@ -2443,9 +2443,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.4.0.tgz#e9428aed3df4687b0e53104a1de0b1135ac38fba"
-  integrity sha512-kIHoyS9hS220Gr7LeqYT1Xlx5RWferesjFILGwN5phOP0g7pbFEGGw0fLK8pjJCK8ZLWgyB1JpKWNcLhLgFLrA==
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.4.1.tgz#90ddbeba3ee60f506acd68f7302b5c89c7cc7785"
+  integrity sha512-G3RwJDi1W+qgeMNXqaEtJK5IaQQ103tr7F1GVlAxOiljRDLSDgAkykqD7Xky3lbwnRWG2kSgPbZMHHhvAMIwsA==
   dependencies:
     array.merge "*"
     class-lib "*"
@@ -3183,9 +3183,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 ws@^7.2.3:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.3.1.tgz#d0547bf67f7ce4f12a72dfe31262c68d7dc551c8"
-  integrity sha512-D3RuNkynyHmEJIpD2qrgVkc9DQ23OrN/moAwZX4L8DfvszsJxpjQuUq3LMx6HoYji9fbIOBY18XWBsAux1ZZUA==
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.0.tgz#a5dd76a24197940d4a8bb9e0e152bb4503764da7"
+  integrity sha512-kyFwXuV/5ymf+IXhS6f0+eAFvydbaBW3zjpT6hUdAh/hbVjTIB5EHBGi0bPoCLSK2wcuz3BrEkB9LrYv1Nm4NQ==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"

@@ -16,7 +16,7 @@ const Zoom = forwardRef((props, ref) => {
   const lastEvent = useRef();
   const lastTransform = useRef();
   const lastD3ZoomObject = useRef();
-  const lastEnable = useRef(true);
+  const lastEnable = useRef();
   const getXYK = () => {
     const { x, y, k } = lastTransform.current || {};
     return { x, y, k };
@@ -36,14 +36,25 @@ const Zoom = forwardRef((props, ref) => {
     enable: () => {
       if (!lastEnable.current) {
         const el = callfunc(onGetEl);
-        const objD3Zoom = lastD3ZoomObject.current;
-        if (el && objD3Zoom && lastTransform.current) {
-          objD3Zoom.transform(d3Select(el), lastTransform.current);
-        }
+        lastD3ZoomObject.current = d3Zoom({
+          el,
+          scaleExtent,
+          callback: (e) => handleTransform(e.transform, e),
+        });
       }
       lastEnable.current = true;
     },
-    disable: () => (lastEnable.current = false),
+    disable: () => {
+      if (lastEnable.current) {
+        const el = callfunc(onGetEl);
+        lastD3ZoomObject.current = d3Zoom({
+          el,
+          scaleExtent,
+          callback: null,
+        });
+      }
+      lastEnable.current = false;
+    },
     getEnabled: () => lastEnable.current,
   };
   const handleTransform = (transformVal, e) => {
@@ -65,29 +76,7 @@ const Zoom = forwardRef((props, ref) => {
     lastEvent.current && callfunc(onZoom, [lastEvent.current]);
   }, [transform]);
   useEffect(() => {
-    let debounceTimer;
-    const el = callfunc(onGetEl);
-    lastD3ZoomObject.current = d3Zoom({
-      el,
-      scaleExtent,
-      callback: (e) => {
-        debounceTimer && clearTimeout(debounceTimer);
-        if (lastEnable.current) {
-          return handleTransform(e.transform, e);
-        } else {
-          const objD3Zoom = lastD3ZoomObject.current;
-          debounceTimer = setTimeout(() => {
-            debounceTimer = null;
-            if (
-              lastTransform.current &&
-              lastTransform.current !== e.transform
-            ) {
-              objD3Zoom.transform(d3Select(el), lastTransform.current);
-            }
-          });
-        }
-      },
-    });
+    expose.enable();
   }, []);
   return (
     <Group name="zoom" {...others} transform={transform && transform + ""} />
