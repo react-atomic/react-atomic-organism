@@ -40,11 +40,7 @@ const initViewSource = (host) => {
 };
 
 class GrapesJsEdm extends Component {
-  static defaultProps = { ckeditor: false };
-
-  getAsset(fileName) {
-    return getAsset(fileName, this.props, defaultAssets);
-  }
+  static defaultProps = { disableCkeditor: false };
 
   resetUploadField() {
     if (!this.iframeWindow) {
@@ -54,16 +50,6 @@ class GrapesJsEdm extends Component {
     if (dom) {
       dom.value = "";
     }
-  }
-
-  getHtml() {
-    const { host } = this.props;
-    const html = this.getDesign();
-    return host.toHtml(html);
-  }
-
-  getDesign() {
-    return getInlinedHtmlCss({ editor: this.editor });
   }
 
   updateImages(images) {
@@ -80,6 +66,24 @@ class GrapesJsEdm extends Component {
         }
       }
     }
+  }
+
+  getAsset(fileName) {
+    return getAsset(fileName, this.props, defaultAssets);
+  }
+
+  getHtml() {
+    const { host } = this.props;
+    const html = this.getDesign();
+    return host.toHtml(html);
+  }
+
+  getDesign() {
+    return getInlinedHtmlCss({ editor: this.editor });
+  }
+
+  getImportButtonName() {
+    return "gjs-open-import-template";
   }
 
   handleIframe = (el) => {
@@ -110,10 +114,6 @@ class GrapesJsEdm extends Component {
     callfunc(onRemoveAsset, [asset]);
   };
 
-  getImportButtonName() {
-    return "gjs-open-import-template";
-  }
-
   handleLoad = (e) => {
     this.iframeWindow = this.dIframe.contentWindow.window;
     this.iframeWindow.debug = this;
@@ -127,7 +127,7 @@ class GrapesJsEdm extends Component {
 
   handleInitGrapesJS = () => {
     const {
-      ckeditor,
+      disableCkeditor,
       i18nMergeTags,
       font,
       mergeTags,
@@ -138,9 +138,9 @@ class GrapesJsEdm extends Component {
 
     const plugins = ["gjs-preset-newsletter"];
 
-    const CKEDITOR = ckeditor ? this.iframeWindow.CKEDITOR : null;
+    const CKEDITOR = disableCkeditor ? null : this.iframeWindow.CKEDITOR;
     let ckeditorPluginOpt = {};
-    if (ckeditor) {
+    if (!disableCkeditor) {
       plugins.push("gjs-plugin-ckeditor");
       plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
       ckeditorPluginOpt = getCkeditorOption({
@@ -216,7 +216,7 @@ class GrapesJsEdm extends Component {
   }
 
   render() {
-    const { style, images, id, ckeditor } = this.props;
+    const { style, images, id, disableCkeditor } = this.props;
     this.updateImages(get(images));
     const html = `
       <link rel="stylesheet" href="${this.getAsset("grapes.min.css")}" />
@@ -229,9 +229,9 @@ class GrapesJsEdm extends Component {
       <script async src="${this.getAsset("sanitize-html")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>
       ${
-        ckeditor
-          ? `<script src="${this.getAsset("ckeditor.js")}"></script>`
-          : ""
+        disableCkeditor
+          ? ""
+          : `<script src="${this.getAsset("ckeditor.js")}"></script>`
       }
       <script src="${this.getAsset(
         "grapesjs-preset-newsletter.min.js"

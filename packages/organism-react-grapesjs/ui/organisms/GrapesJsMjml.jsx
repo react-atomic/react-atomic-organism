@@ -29,11 +29,7 @@ const defaultMjml = `
 `;
 
 class GrapesJsMjml extends Component {
-  static defaultProps = { ckeditor: false };
-
-  getAsset(fileName) {
-    return getAsset(fileName, this.props, defaultAssets);
-  }
+  static defaultProps = { disableCkeditor: false };
 
   resetUploadField() {
     if (!this.iframeWindow) {
@@ -43,6 +39,10 @@ class GrapesJsMjml extends Component {
     if (dom) {
       dom.value = "";
     }
+  }
+
+  getAsset(fileName) {
+    return getAsset(fileName, this.props, defaultAssets);
   }
 
   getHtml() {
@@ -64,13 +64,13 @@ class GrapesJsMjml extends Component {
     return mjml;
   }
 
-  handleIframe = (el) => {
-    this.dIframe = el;
-  };
-
   getImportButtonName() {
     return "mjml-import";
   }
+
+  handleIframe = (el) => {
+    this.dIframe = el;
+  };
 
   handleLoad = (e) => {
     const ifw = this.dIframe.contentWindow?.window;
@@ -133,7 +133,7 @@ class GrapesJsMjml extends Component {
 
   handleInitGrapesJS = () => {
     const {
-      ckeditor,
+      disableCkeditor,
       i18nMergeTags,
       font,
       mergeTags,
@@ -144,9 +144,9 @@ class GrapesJsMjml extends Component {
 
     const plugins = ["grapesjs-mjml"];
 
-    const CKEDITOR = ckeditor ? this.iframeWindow.CKEDITOR : null;
+    const CKEDITOR = disableCkeditor ? null : this.iframeWindow.CKEDITOR;
     let ckeditorPluginOpt = {};
-    if (ckeditor) {
+    if (!disableCkeditor) {
       plugins.push("gjs-plugin-ckeditor");
       plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
       ckeditorPluginOpt = getCkeditorOption({
@@ -200,7 +200,7 @@ class GrapesJsMjml extends Component {
   }
 
   render() {
-    const { style, images, id, ckeditor, host } = this.props;
+    const { style, images, id, disableCkeditor, host } = this.props;
     host.execUpdateImages(get(images));
     const html = `
       <link rel="stylesheet" href="${this.getAsset("grapes.min.css")}" />
@@ -213,9 +213,9 @@ class GrapesJsMjml extends Component {
       <script async src="${this.getAsset("mjml.js")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>
       ${
-        ckeditor
-          ? `<script src="${this.getAsset("ckeditor.js")}"></script>`
-          : ""
+        disableCkeditor
+          ? ""
+          : `<script src="${this.getAsset("ckeditor.js")}"></script>`
       }
       <script>
         window.initEditor = function(init, mjml) {
