@@ -9,7 +9,10 @@ import GrapesJsMjml from '../GrapesJsMjml';
 
 describe('Test GrapesJsMjml Component', () => {
   it('simple test', () => {
-    const wrapper = shallow(<GrapesJsMjml />);
+    const fakeHost = {
+      execUpdateImages: ()=>{}
+    };
+    const wrapper = shallow(<GrapesJsMjml host={fakeHost}/>);
     expect(wrapper.html()).to.have.string('iframe');
     wrapper.unmount();
   });

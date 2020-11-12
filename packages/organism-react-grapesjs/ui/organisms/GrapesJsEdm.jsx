@@ -40,6 +40,8 @@ const initViewSource = (host) => {
 };
 
 class GrapesJsEdm extends Component {
+  static defaultProps = { ckeditor: false };
+
   getAsset(fileName) {
     return getAsset(fileName, this.props, defaultAssets);
   }
@@ -125,6 +127,7 @@ class GrapesJsEdm extends Component {
 
   handleInitGrapesJS = () => {
     const {
+      ckeditor,
       i18nMergeTags,
       font,
       mergeTags,
@@ -133,10 +136,20 @@ class GrapesJsEdm extends Component {
       init,
     } = this.props;
 
-    const plugins = ["gjs-preset-newsletter", "gjs-plugin-ckeditor"];
+    const plugins = ["gjs-preset-newsletter"];
 
-    const CKEDITOR = this.iframeWindow.CKEDITOR;
-    plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
+    const CKEDITOR = ckeditor ? this.iframeWindow.CKEDITOR : null;
+    let ckeditorPluginOpt = {};
+    if (ckeditor) {
+      plugins.push("gjs-plugin-ckeditor");
+      plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
+      ckeditorPluginOpt = getCkeditorOption({
+        CKEDITOR,
+        i18nMergeTags,
+        font,
+        mergeTags,
+      });
+    }
 
     const initGrapesJS = {
       noticeOnUnload: false,
@@ -150,12 +163,7 @@ class GrapesJsEdm extends Component {
       container: "#gjs",
       plugins,
       pluginsOpts: {
-        ...getCkeditorOption({
-          CKEDITOR,
-          i18nMergeTags,
-          font,
-          mergeTags,
-        }),
+        ...ckeditorPluginOpt,
         "gjs-preset-newsletter": {
           modalLabelImport: "Paste all your code here below and click import",
           modalLabelExport: "Copy the code and use it wherever you want",
@@ -208,7 +216,7 @@ class GrapesJsEdm extends Component {
   }
 
   render() {
-    const { style, images, id } = this.props;
+    const { style, images, id, ckeditor } = this.props;
     this.updateImages(get(images));
     const html = `
       <link rel="stylesheet" href="${this.getAsset("grapes.min.css")}" />
@@ -220,7 +228,11 @@ class GrapesJsEdm extends Component {
       </style>
       <script async src="${this.getAsset("sanitize-html")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>
-      <script src="${this.getAsset("ckeditor.js")}"></script>
+      ${
+        ckeditor
+          ? `<script src="${this.getAsset("ckeditor.js")}"></script>`
+          : ""
+      }
       <script src="${this.getAsset(
         "grapesjs-preset-newsletter.min.js"
       )}"></script>

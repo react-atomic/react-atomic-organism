@@ -29,6 +29,8 @@ const defaultMjml = `
 `;
 
 class GrapesJsMjml extends Component {
+  static defaultProps = { ckeditor: false };
+
   getAsset(fileName) {
     return getAsset(fileName, this.props, defaultAssets);
   }
@@ -62,22 +64,6 @@ class GrapesJsMjml extends Component {
     return mjml;
   }
 
-  updateImages(images) {
-    if (images) {
-      this.images = images;
-    } else {
-      images = this.images;
-    }
-    if (this.editor) {
-      const assetManager = this.editor.AssetManager;
-      if (assetManager) {
-        if (images && images.length) {
-          assetManager.add(images);
-        }
-      }
-    }
-  }
-
   handleIframe = (el) => {
     this.dIframe = el;
   };
@@ -102,25 +88,14 @@ class GrapesJsMjml extends Component {
     }, 10);
   };
 
-  getImportButtonName() {
-    return "mjml-import";
-  }
-
   handleEditorLoad = () => {
-    const { onEditorLoad, design, images } = this.props;
+    const { onEditorLoad, design, images, host } = this.props;
     const doc = this.iframeWindow.document;
     // this.editor.runCommand('core:open-blocks');
-    this.updateImages(get(images));
+    host.execUpdateImages(get(images));
     const thisMjml =
       -1 !== (design || "").indexOf("mj-body") ? design : defaultMjml;
     this.editor.setComponents(thisMjml);
-    const css = queryFrom(
-      get(queryFrom(this.iframeWindow.document).one("iframe"), [
-        "contentWindow",
-        "window",
-        "document",
-      ])
-    );
     doc.getElementById("root").className = "";
     callfunc(onEditorLoad, [{ editor: this.editor, component: this }]);
   };
@@ -158,6 +133,7 @@ class GrapesJsMjml extends Component {
 
   handleInitGrapesJS = () => {
     const {
+      ckeditor,
       i18nMergeTags,
       font,
       mergeTags,
@@ -166,8 +142,20 @@ class GrapesJsMjml extends Component {
       init,
     } = this.props;
 
-    const CKEDITOR = this.iframeWindow.CKEDITOR;
-    plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
+    const plugins = ["grapesjs-mjml"];
+
+    const CKEDITOR = ckeditor ? this.iframeWindow.CKEDITOR : null;
+    let ckeditorPluginOpt = {};
+    if (ckeditor) {
+      plugins.push("gjs-plugin-ckeditor");
+      plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
+      ckeditorPluginOpt = getCkeditorOption({
+        CKEDITOR,
+        i18nMergeTags,
+        font,
+        mergeTags,
+      });
+    }
 
     const initGrapesJS = {
       noticeOnUnload: false,
@@ -179,17 +167,9 @@ class GrapesJsMjml extends Component {
         type: null,
       },
       container: "#gjs",
-      plugins: ["grapesjs-mjml", "gjs-plugin-ckeditor"],
+      plugins,
       pluginsOpts: {
-        ...getCkeditorOption({
-          CKEDITOR,
-          i18nMergeTags,
-          font,
-          mergeTags,
-          options: {
-            forcePasteAsPlainText: true,
-          },
-        }),
+        ...ckeditorPluginOpt,
         "grapesjs-mjml": {
           columnsPadding: 0,
         },
@@ -220,8 +200,8 @@ class GrapesJsMjml extends Component {
   }
 
   render() {
-    const { id, style, images } = this.props;
-    this.updateImages(get(images));
+    const { style, images, id, ckeditor, host } = this.props;
+    host.execUpdateImages(get(images));
     const html = `
       <link rel="stylesheet" href="${this.getAsset("grapes.min.css")}" />
       <style>
@@ -232,7 +212,11 @@ class GrapesJsMjml extends Component {
       </style>
       <script async src="${this.getAsset("mjml.js")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>
-      <script src="${this.getAsset("ckeditor.js")}"></script>
+      ${
+        ckeditor
+          ? `<script src="${this.getAsset("ckeditor.js")}"></script>`
+          : ""
+      }
       <script>
         window.initEditor = function(init, mjml) {
            grapesjs.plugins.add('grapesjs-mjml', mjml);

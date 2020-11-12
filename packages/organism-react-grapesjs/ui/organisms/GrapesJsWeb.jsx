@@ -48,6 +48,7 @@ const initViewSource = (host) => {
 class GrapesJsWeb extends Component {
   static defaultProps = {
     allowScripts: true,
+    ckeditor: false,
   };
 
   getAsset(fileName) {
@@ -130,6 +131,7 @@ class GrapesJsWeb extends Component {
 
   handleInitGrapesJS = () => {
     const {
+      ckeditor,
       i18nMergeTags,
       font,
       mergeTags,
@@ -139,10 +141,21 @@ class GrapesJsWeb extends Component {
       host,
       init,
     } = this.props;
-    const CKEDITOR = this.iframeWindow.CKEDITOR;
-    plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
 
-    const plugins = ["gjs-preset-webpage", "gjs-plugin-ckeditor"];
+    const plugins = ["gjs-preset-webpage"];
+
+    const CKEDITOR = ckeditor ? this.iframeWindow.CKEDITOR : null;
+    let ckeditorPluginOpt = {};
+    if (ckeditor) {
+      plugins.push("gjs-plugin-ckeditor");
+      plugCkeditor({ grapesjs: this.iframeWindow.grapesjs, CKEDITOR });
+      ckeditorPluginOpt = getCkeditorOption({
+        CKEDITOR,
+        i18nMergeTags,
+        font,
+        mergeTags,
+      });
+    }
 
     const initGrapesJS = {
       allowScripts,
@@ -157,12 +170,7 @@ class GrapesJsWeb extends Component {
       container: "#gjs",
       plugins,
       pluginsOpts: {
-        ...getCkeditorOption({
-          CKEDITOR,
-          i18nMergeTags,
-          font,
-          mergeTags,
-        }),
+        ...ckeditorPluginOpt,
         "gjs-preset-webpage": getGjsPresetWebpage(),
       },
       ...init,
@@ -250,7 +258,7 @@ class GrapesJsWeb extends Component {
   }
 
   render() {
-    const { style, host, images, id } = this.props;
+    const { style, images, id, ckeditor, host } = this.props;
     host.execUpdateImages(get(images));
     const html = `
       <link rel="stylesheet" href="${this.getAsset("grapes.min.css")}" />
