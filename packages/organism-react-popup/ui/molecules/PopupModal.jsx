@@ -38,7 +38,7 @@ class PopupModal extends PopupOverlay {
   _mount = false;
   _observer = null;
 
-  handleClick = () => this.close();
+  handleClick = () => this.close() && this.detach();
 
   handleModalRefCb = (el) => (this.el = el);
 
