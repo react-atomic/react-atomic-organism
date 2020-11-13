@@ -205,7 +205,7 @@ class UMLGraph extends Component {
     this.endPoint = el;
   }
 
-  center(boxGroup) {
+  center(boxGroup, cb) {
     const { width: w, height: h } = boxGroup.getWH();
     const x = boxGroup.lastX;
     const y = boxGroup.lastY;
@@ -217,14 +217,15 @@ class UMLGraph extends Component {
     const halfH = h / 2;
     const nextX = (-x - halfW) * zoomK + halfVectorW;
     const nextY = (-y - halfH) * zoomK + halfVectorH;
-    this.zoom.setXYK({ x: nextX, y: nextY });
+    const nextResult = { x: nextX, y: nextY };
+    this.zoom.setXYK({ ...nextResult, ...callfunc(cb, [nextResult]) });
   }
 
   edit = (name, payload) => {
-    const { onEdit, editToCenter, editToCenterDelay } = this.props;
+    const { onEdit, editToCenter, editToCenterCb, editToCenterDelay } = this.props;
     this.zoom.disable();
     if (editToCenter) {
-      setTimeout(() => this.center(payload), editToCenterDelay);
+      setTimeout(() => this.center(payload, editToCenterCb), editToCenterDelay);
     }
     callfunc(onEdit, [name, payload]);
     setTimeout(() => this.zoom.enable(), 1500);
@@ -419,6 +420,7 @@ class UMLGraph extends Component {
       connToBoxLocator,
       children,
       editToCenter,
+      editToCenterCb,
       editToCenterDelay,
       onAdd,
       onBoxWillDrag,
@@ -433,6 +435,7 @@ class UMLGraph extends Component {
       onGetBoxGroupComponent,
       onGetBoxComponent,
       onZoom,
+      scaleExtent,
       ...props
     } = this.props;
     const { lines, oTransform } = this.state;
@@ -449,6 +452,7 @@ class UMLGraph extends Component {
             onGetEl={() => this.zoomEl}
             ref={this.handleZoomRef}
             onZoom={this.handleZoom}
+            scaleExtent={scaleExtent}
           >
             {build(arrowHeadComponent)()}
             {(() => {
