@@ -37,8 +37,8 @@ describe('Test Iframe', () => {
     const el = document.createElement('div');
     document.body.appendChild(el);
     const wrap = mount(<Comp />, {attachTo: el});
-    const obj = wrap.instance();
     setTimeout(() => {
+      const obj = wrap.instance();
       const html = obj.el.getBody().innerHTML;
       expect(html).to.have.string('<span>test</span>');
       done();

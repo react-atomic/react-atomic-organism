@@ -1,4 +1,12 @@
-import React, { PureComponent, useEffect } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+  useMemo,
+  forwardRef,
+} from "react";
 import { createPortal } from "react-dom";
 import get from "get-object-value";
 import getOffset from "getoffset";
@@ -7,10 +15,9 @@ import exec from "exec-script";
 import { SemanticUI, Unsafe } from "react-atomic-molecule";
 import { queryFrom } from "css-query-selector";
 import callfunc from "call-func";
+import { doc } from "win-doc";
 
 import IframeContainer from "../organisms/IframeContainer";
-
-const keys = Object.keys;
 
 const IframeInner = ({ children, inlineCSS, onLoad }) => {
   useEffect(() => {
@@ -28,45 +35,73 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
   );
 };
 
-class Iframe extends PureComponent {
-  static defaultProps = {
-    disableSmoothScroll: false,
-    keepTargetInIframe: false,
-    initialContent: "<html><body /></html>",
-    autoHeight: false,
-    onLoadDelay: 500,
+const Iframe = forwardRef((props, ref) => {
+  const {
+    children,
+    inlineCSS,
+    initialContent,
+    autoHeight,
+    keepTargetInIframe,
+    disableSmoothScroll,
+    onLoad,
+    onUnload,
+    onBeforeUnload,
+    onLinkClick,
+    onUnmount,
+    loadDelay,
+    refCb,
+    ...others
+  } = props;
+  const root = useRef();
+  const _mount = useRef(true);
+  const html = useRef();
+  const execStop = useRef();
+  const onLoadTimer = useRef();
+  const thisIframe = useRef();
+  const lastEl = useRef();
+  const [thisEl, setThisEl] = useState();
+  const expose = {
+    appendHtml: (html) => {
+      const div = doc().createElement("div");
+      div.innerHTML = html;
+      const myRoot = get(
+        root.current,
+        ["childNodes", 0, "childNodes", 0],
+        root.current
+      );
+      myRoot.appendChild(div);
+      handleScript(div);
+    },
+    getWindow: () => get(lastEl.current, ["contentWindow", "window"]),
+    getDoc: () => get(expose.getWindow(), ["document"]),
+    getBody: () => get(expose.getDoc(), ["body"]),
+    scrollToEl: (el) => {
+      const pos = getOffset(el);
+      if (pos.rect) {
+        smoothScrollTo(pos.rect.top);
+      }
+    },
+    postHeight: () => thisIframe.current.postHeight(expose.getWindow()),
   };
 
-  html = null;
-
-  execStop = null;
-
-  appendHtml = (html) => {
-    let div = document.createElement("div");
-    div.innerHTML = html;
-    const root = get(this.root, ["childNodes", 0, "childNodes", 0], this.root);
-    root.appendChild(div);
-    this.handleScript(div);
-  };
-
-  postHeight = () => this.iframe.postHeight(this.getWindow());
-
-  scrollToEl = (el) => {
-    const pos = getOffset(el);
-    if (pos.rect) {
-      smoothScrollTo(pos.rect.top);
+  const handleRefCb = (myEl) => {
+    if (myEl) {
+      lastEl.current = myEl;
+      callfunc(refCb, [myEl]);
     }
   };
 
-  getBody = () => get(this.getDoc(), ["body"]);
+  const handleScript = (el) => {
+    const win = expose.getWindow();
+    if (win) {
+      execStop.current = exec(el, win, root.current.parentNode, (e, script) => {
+        console.warn("script error", [e, script]);
+      });
+    }
+  };
 
-  getDoc = () => get(this.getWindow(), ["document"]);
-
-  getWindow = () => get(this.el, ["contentWindow", "window"]);
-
-  handleBodyClick = (e) => {
-    const { keepTargetInIframe, disableSmoothScroll, onLinkClick } = this.props;
-    const query = queryFrom(() => this.getBody());
+  const handleBodyClick = (e) => {
+    const query = queryFrom(() => expose.getBody());
     const evTarget = e.target;
     const link =
       evTarget.nodeName === "A" ? evTarget : query.ancestor(evTarget, "a");
@@ -76,14 +111,11 @@ class Iframe extends PureComponent {
     if (link.target && "_blank" === link.target.toLowerCase()) {
       return;
     }
-
     const isContinue = callfunc(onLinkClick, [e, link]);
-
     if (false === isContinue) {
       e.preventDefault();
       return;
     }
-
     if (link.hash && !disableSmoothScroll) {
       let tarDom;
       try {
@@ -99,12 +131,11 @@ class Iframe extends PureComponent {
         const URI = document.location;
         if (URI.pathname === link.pathname && URI.host === link.host) {
           e.preventDefault();
-          this.scrollToEl(tarDom);
+          expose.scrollToEl(tarDom);
           return;
         }
       }
     }
-
     if (keepTargetInIframe) {
       return;
     } else {
@@ -115,129 +146,94 @@ class Iframe extends PureComponent {
     }
   };
 
-  handleLinkClick() {
-    const body = this.getBody();
+  const handleLinkClick = () => {
+    const body = expose.getBody();
     if (!body) {
       return;
     }
-    body.removeEventListener("click", this.handleBodyClick);
-    body.addEventListener("click", this.handleBodyClick);
-  }
+    body.removeEventListener("click", handleBodyClick);
+    body.addEventListener("click", handleBodyClick);
+  };
 
-  handleScript = (el) => {
-    const win = this.getWindow();
-    if (win) {
-      this.execStop = exec(el, win, this.root.parentNode, (e, script) => {
-        console.warn("script error", [e, script]);
-      });
+  const init = () => {
+    root.current = doc().createElement("div");
+    const myDoc = expose.getDoc();
+    if (myDoc) {
+      // fixed firfox innerHTML suddenly disappear.
+      myDoc.open("text/html", "replace");
+      myDoc.write(initialContent);
+      myDoc.close();
+      const body = expose.getBody();
+      body.appendChild(root.current);
+      body.addEventListener("unload", onUnload);
+      body.addEventListener("beforeunload", onBeforeUnload);
     }
   };
 
-  handleRef = (el) => (this.iframe = el);
-
-  handleRefCb = (el) => {
-    if (el) {
-      const { refCb } = this.props;
-      this.el = el;
-      callfunc(refCb, [el]);
+  const renderIframe = () => {
+    if (!root.current) {
+      init();
     }
-  };
-
-  renderIframe(props) {
-    if (!this.root) {
-      this.init();
-    }
-    const root = this.root;
-
-    const { children, autoHeight, onLoadDelay, onLoad, inlineCSS } = props;
-
-    this.html = root.innerHTML;
+    const thisRoot = root.current;
+    html.current = thisRoot.innerHTML;
     const callback = () => {
-      if (!this._mount) {
+      if (!_mount.current) {
         return;
       }
-      const html = root.innerHTML;
-      if (html !== this.html) {
-        this.handleScript(root);
-        this.handleLinkClick();
-        this.onLoadTimer = setTimeout(() => {
-          if (!this._mount || !this.getWindow()) {
+      const myHtml = thisRoot.innerHTML;
+      if (myHtml !== html.current) {
+        handleScript(thisRoot);
+        handleLinkClick();
+        onLoadTimer.current = setTimeout(() => {
+          if (!_mount.current || !expose.getWindow()) {
             return;
           }
           if (autoHeight) {
-            this.postHeight();
+            expose.postHeight();
           }
           callfunc(onLoad);
-        }, onLoadDelay);
+        }, loadDelay);
       }
     };
     return createPortal(
       <IframeInner {...props} inlineCSS={inlineCSS} onLoad={callback} />,
-      this.root
+      thisRoot
     );
+  };
+
+  useImperativeHandle(ref, () => expose);
+  useEffect(() => {
+    _mount.current = true;
+    setThisEl(lastEl.current);
+    return () => {
+      _mount.current = false;
+      if (onLoadTimer.current) {
+        clearTimeout(onLoadTimer.current);
+      }
+      callfunc(execStop.current);
+      callfunc(onUnmount);
+    };
+  }, []);
+
+  if (autoHeight) {
+    others.scrolling = "no";
   }
 
-  init() {
-    const { initialContent, onUnload, onBeforeUnload, autoHeight } = this.props;
-    this.root = document.createElement("div");
-    const doc = this.getDoc();
-    if (doc) {
-      // fixed firfox innerHTML suddenly disappear.
-      doc.open("text/html", "replace");
-      doc.write(initialContent);
-      doc.close();
+  return (
+    <IframeContainer {...others} ref={thisIframe} refCb={handleRefCb}>
+      {thisEl && renderIframe()}
+    </IframeContainer>
+  );
+});
 
-      const body = this.getBody();
-      body.appendChild(this.root);
-      body.addEventListener("unload", onUnload);
-      body.addEventListener("beforeunload", onBeforeUnload);
-    }
-  }
+Iframe.defaultProps = {
+  disableSmoothScroll: false,
+  keepTargetInIframe: false,
+  initialContent: "<html><body /></html>",
+  autoHeight: false,
+  loadDelay: 500,
+};
 
-  componentDidMount() {
-    !this.root && this.forceUpdate();
-    this._mount = true;
-  }
-
-  componentWillUnmount() {
-    this._mount = false;
-    if (this.onLoadTimer) {
-      clearTimeout(this.onLoadTimer);
-    }
-    callfunc(this.execStop);
-    callfunc(this.props.onUnmount);
-  }
-
-  render() {
-    const {
-      inlineCSS,
-      initialContent,
-      children,
-      keepTargetInIframe,
-      disableSmoothScroll,
-      refCb,
-      autoHeight,
-      onLinkClick,
-      onLoad,
-      onLoadDelay,
-      onUnload,
-      onBeforeUnload,
-      onUnmount,
-      ...others
-    } = this.props;
-    if (autoHeight) {
-      others.scrolling = "no";
-    }
-    return (
-      <IframeContainer
-        {...others}
-        ref={this.handleRef}
-        refCb={this.handleRefCb}
-      >
-        {this.el && this.renderIframe(this.props)}
-      </IframeContainer>
-    );
-  }
-}
+Iframe.displayName = "ReshowIframe";
 
 export default Iframe;
