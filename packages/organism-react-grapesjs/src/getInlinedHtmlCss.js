@@ -1,4 +1,4 @@
-import juice from "juice";
+import {juice} from "./mjml2html";
 
 const cleanClassReg = /(class\=")([^"]*)(c\d{4})(\s)?([^"]*)/g;
 

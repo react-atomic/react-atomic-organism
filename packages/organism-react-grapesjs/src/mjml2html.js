@@ -6,5 +6,7 @@ const setMjmlWindow = (w) => (win = w);
 
 const mjml2html = (code) => callfunc(win.mjml2html, [code]);
 
+const juice = (...p) => callfunc(win.juice, p);
+
 export default mjml2html;
-export { setMjmlWindow };
+export { setMjmlWindow, juice };

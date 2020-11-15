@@ -7,6 +7,7 @@ import { queryFrom } from "css-query-selector";
 import { popupDispatch, FullScreen } from "organism-react-popup";
 import { openCodeEditor } from "organism-react-codeeditor";
 
+import { setMjmlWindow } from "../../src/mjml2html";
 import fixHtml, { setSanitizeHtml } from "../../src/fixHtml";
 import getAsset from "../../src/getAsset";
 import getInlinedHtmlCss from "../../src/getInlinedHtmlCss";
@@ -117,6 +118,7 @@ class GrapesJsEdm extends Component {
   handleLoad = (e) => {
     this.iframeWindow = this.dIframe.contentWindow.window;
     this.iframeWindow.debug = this;
+    setMjmlWindow(this.iframeWindow);
     this.timer = setInterval(() => {
       if (this.iframeWindow.initEditor) {
         clearInterval(this.timer);
@@ -227,6 +229,7 @@ class GrapesJsEdm extends Component {
         #root.hidden {visibility: hidden}
       </style>
       <script async src="${this.getAsset("sanitize-html")}"></script>
+      <script async src="${this.getAsset("mjml.js")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>
       ${
         disableCkeditor

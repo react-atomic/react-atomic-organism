@@ -7,6 +7,9 @@ const shareAssets = {
     "https://cdn.jsdelivr.net/npm/grapesjs@0.16.22/dist/grapes.min.js",
   // ckeditor can not use ckeditor.min.js
   "ckeditor.js": "https://cdn.jsdelivr.net/npm/ckeditor4@4.15.0/ckeditor.js",
+  "mjml.js":
+    "https://cdn.jsdelivr.net/npm/organism-react-grapesjs@0.5.3/dist/mjml.min.js",
+  //    "http://localhost:8000/assets/mjml.bundle.js",
 };
 
 const getAsset = (fileName, props, defaultAssets) => {
