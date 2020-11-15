@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -14,7 +14,6 @@
     "call-func": "*",
     "fix-html": "*",
     "get-object-value": "*",
-    "juice": "*",
     "organism-react-codeeditor": "*",
     "organism-react-iframe": "*",
     "organism-react-popup": "*",
@@ -27,6 +26,7 @@
     "enzyme-adapter-react-16": "*",
     "jsdom": "*",
     "jsdom-global": "*",
+    "juice": "*",
     "mjml4-in-browser": "1.1.2",
     "mocha": "*",
     "react": "^16.x",
