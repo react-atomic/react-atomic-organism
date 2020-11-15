@@ -4,7 +4,6 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
-  useMemo,
   forwardRef,
 } from "react";
 import { createPortal } from "react-dom";
@@ -50,6 +49,7 @@ const Iframe = forwardRef((props, ref) => {
     onUnmount,
     loadDelay,
     refCb,
+    immutable,
     ...others
   } = props;
   const root = useRef();
@@ -196,7 +196,11 @@ const Iframe = forwardRef((props, ref) => {
       }
     };
     return createPortal(
-      <IframeInner {...props} inlineCSS={inlineCSS} onLoad={callback} />,
+      <IframeInner
+        children={children}
+        inlineCSS={inlineCSS}
+        onLoad={callback}
+      />,
       thisRoot
     );
   };
@@ -219,9 +223,11 @@ const Iframe = forwardRef((props, ref) => {
     others.scrolling = "no";
   }
 
+  const immutableRender = useCallback(() => renderIframe(), []);
+
   return (
     <IframeContainer {...others} ref={thisIframe} refCb={handleRefCb}>
-      {thisEl && renderIframe()}
+      {thisEl && callfunc(immutable ? immutableRender : renderIframe)}
     </IframeContainer>
   );
 });
