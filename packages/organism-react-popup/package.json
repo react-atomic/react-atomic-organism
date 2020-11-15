@@ -1,6 +1,6 @@
 {
   "name": "organism-react-popup",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "React Atomic Organism Popup",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -33,6 +33,7 @@
     "win-doc": "*"
   },
   "devDependencies": {
+    "prop-types": "*",
     "@babel/cli": "^7.x",
     "chai": "*",
     "enzyme": "*",
