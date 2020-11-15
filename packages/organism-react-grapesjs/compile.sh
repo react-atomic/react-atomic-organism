@@ -24,7 +24,21 @@ watch(){
     npm run webpack -- --watch &
 }
 
+startServer(){
+    DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+    killBy ${DIR}/node_modules/.bin/ws
+    yarn
+    if [ -z "$port" ] ; then
+        port=3001;
+    fi
+    echo "Start server";
+    npm run start -- -p $port -v
+}
+
 case "$1" in
+  s)
+    startServer 
+    ;;
   watch)
     watch 
     ;;

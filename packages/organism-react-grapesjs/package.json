@@ -1,6 +1,6 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.5.4",
+  "version": "0.5.6",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -26,7 +26,7 @@
     "enzyme-adapter-react-16": "*",
     "jsdom": "*",
     "jsdom-global": "*",
-    "juice": "*",
+    "juice": "^4.1.0",
     "mjml4-in-browser": "1.1.2",
     "mocha": "*",
     "react": "^16.x",
@@ -48,7 +48,7 @@
     "prepublishOnly": "npm run test",
     "start": "ws",
     "webpack": "webpack",
-    "build:mjml": "npm run build && NODE_ENV=production npm run webpack && cp assets/mjml.bundle.js dist/mjml.js"
+    "build:mjml": "npm run build && NODE_ENV=production npm run webpack --mode=production && cp assets/mjml.bundle.js dist/mjml.js"
   },
   "files": [
     "dist",

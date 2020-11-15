@@ -14,6 +14,10 @@ class GrapesJsController extends Component {
     i18nCleanCanvas: "Are you sure to clean the canvas?",
   };
 
+  state = {
+    id: null
+  };
+
   getType() {
     const { web, type } = this.props;
     return web || type === "html" ? "html" : "mjml";
@@ -161,22 +165,26 @@ ${html}
 
   componentDidMount() {
     const { id, debug } = this.props;
+    let myId;
     if (id) {
-      this.id = id;
+      myId = id;
     } else {
-      if (!this.id) {
-        this.id = "grapejs-" + grapesId;
-        grapesId++;
-      }
+      myId = "grapejs-" + grapesId;
+      grapesId++;
     }
     if (debug) {
-      console.log(`$("#${this.id}").contentWindow.window.debug`);
+      console.log(`$("#${myId}").contentWindow.window.debug`);
     }
+    this.setState({id: myId});
   }
 
   render() {
     const { web, debug, type, onReset, ...otherProps } = this.props;
-    otherProps.id = this.id;
+    const { id } = this.state;
+    if (!id) {
+      return null;
+    }
+    otherProps.id = id;
     otherProps.onEditorInit = this.handleEditorInit;
     otherProps.host = this;
     return this.getType() === "html" ? (

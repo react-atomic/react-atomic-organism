@@ -7,7 +7,7 @@ module.exports = webpack(
     disableVendor: true,
     output: {
       libraryExport: "default",
-      libraryTarget: "umd"
-    }
+      libraryTarget: "window",
+    },
   }
 );
