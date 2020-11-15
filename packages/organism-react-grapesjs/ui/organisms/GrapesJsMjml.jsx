@@ -234,6 +234,7 @@ class GrapesJsMjml extends Component {
     };
     return (
       <Iframe
+        immutable
         id={id}
         style={thisStyle}
         refCb={this.handleIframe}
