@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { build, mixClass, lazyInject } from "react-atomic-molecule";
+import { build, mixClass, lazyInject, getChildMapping } from "react-atomic-molecule";
 import get from "get-object-value";
 import callfunc from "call-func";
 
 import CSSTransition from "../organisms/CSSTransition";
 import { UNMOUNTED, ENTERSTART, EXITED } from "../organisms/Transition";
-import getChildMapping from "../../src/getChildMapping";
 import { dataStatusKey } from "../../src/const";
 
 const keys = Object.keys;
