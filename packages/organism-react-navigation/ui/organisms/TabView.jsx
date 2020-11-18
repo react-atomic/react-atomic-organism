@@ -3,6 +3,7 @@ import { mixClass, build, SemanticUI } from "react-atomic-molecule";
 
 const handleTabPress = ({
   disableSwitch,
+  nodeKey,
   nodeProps,
   setLastSelected,
   onTabItemPress,
@@ -47,6 +48,7 @@ const handleSelected = ({
           style: { ...Styles.tabItem, ...nodeProps.style },
           onClickCapture: handleTabPress({
             disableSwitch,
+            nodeKey,
             nodeProps,
             setLastSelected,
             onTabItemPress,
