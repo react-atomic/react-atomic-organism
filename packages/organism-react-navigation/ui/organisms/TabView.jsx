@@ -1,131 +1,158 @@
-import React, { PureComponent, Children } from "react";
+import React, { Children, useState, useEffect, useRef } from "react";
 import { mixClass, build, SemanticUI } from "react-atomic-molecule";
 
-class TabView extends PureComponent {
-  state = {};
-
-  static defaultProps = {
-    disableSwitch: false,
-    rwd: true,
-    selected: true,
-    body: SemanticUI,
-    menu: SemanticUI,
-  };
-
-  static getDerivedStateFromProps({ selected }, { lastPropsSelected }) {
-    if (lastPropsSelected !== selected) {
-      return {
-        lastPropsSelected: selected,
-        selected,
-      };
-    } else {
-      return null;
+const handleTabPress = ({
+  disableSwitch,
+  nodeProps,
+  setLastSelected,
+  onTabItemPress,
+}) => (e) => {
+  if (!disableSwitch) {
+    if (!nodeProps.disableSwitch) {
+      setLastSelected(nodeKey);
     }
   }
+  if (onTabItemPress) {
+    onTabItemPress(nodeKey);
+  }
+};
 
-  render() {
-    const {
-      id,
-      style,
-      contentStyle,
-      menuStyle,
-      menu,
-      body,
-      disableSwitch,
-      rwd,
-      rightMenu,
-      bottom,
-      left,
-      right,
-      ...props
-    } = this.props;
-    const tabMenuItems = [];
-    let stateSelected = this.state.selected;
-    let contentView = null;
-    let content = null;
-    let tabMenu;
-    Children.map(props.children, (item, itemKey) => {
-      const itemProps = item.props;
-
-      // detect selected
-      const nodeKey = itemProps.name || itemKey;
-      if (true === stateSelected) {
-        stateSelected = nodeKey;
-      }
-      const selected = nodeKey === stateSelected;
-
-      Children.map(itemProps.children, (node, index) => {
-        if (index % 2 || 1 === Children.count(itemProps.children)) {
-          const nodeProps = node.props;
-          const nodeClasses = mixClass(nodeProps.className, "item", {
-            active: selected,
-          });
-          node = build(node)({
-            key: nodeKey,
-            selected,
-            className: nodeClasses,
-            style: { ...Styles.tabItem, ...nodeProps.style },
-            onClickCapture: (e) => {
-              if (!disableSwitch) {
-                if (!nodeProps.disableSwitch) {
-                  this.setState({ selected: nodeKey });
-                }
-              }
-              if (props.onTabItemPress) {
-                props.onTabItemPress(nodeKey);
-              }
-            },
-          });
-          tabMenuItems.push(node);
-        } else {
-          if (selected) {
-            contentView = node;
-          }
+const handleSelected = ({
+  children,
+  lastSelected,
+  setLastSelected,
+  disableSwitch,
+  onTabItemPress,
+}) => {
+  const tabMenuItems = [];
+  let contentView = null;
+  Children.map(children, (item, itemKey) => {
+    const itemProps = item.props;
+    // Detect selected
+    const nodeKey = itemProps.name || itemKey;
+    if (true === lastSelected) {
+      lastSelected = nodeKey;
+    }
+    const curSelected = nodeKey === lastSelected;
+    Children.map(itemProps.children, (node, index) => {
+      if (index % 2 || 1 === Children.count(itemProps.children)) {
+        const nodeProps = node.props;
+        const nodeClasses = mixClass(nodeProps.className, "item", {
+          active: curSelected,
+        });
+        node = build(node)({
+          key: nodeKey,
+          "data-selected": curSelected,
+          className: nodeClasses,
+          style: { ...Styles.tabItem, ...nodeProps.style },
+          onClickCapture: handleTabPress({
+            disableSwitch,
+            nodeProps,
+            setLastSelected,
+            onTabItemPress,
+          }),
+        });
+        tabMenuItems.push(node);
+      } else {
+        if (curSelected) {
+          contentView = node;
         }
-      });
+      }
     });
-    // Tab Menu
-    if (rightMenu) {
-      tabMenuItems.push(build(rightMenu)({ key: "r-menu" }));
+  });
+  return {
+    contentView,
+    tabMenuItems,
+  };
+};
+
+const TabView = (props) => {
+  const {
+    id,
+    style,
+    selected: propsSelected,
+    children,
+    contentStyle,
+    menuStyle,
+    menu,
+    body,
+    disableSwitch,
+    rwd,
+    leftMenu,
+    rightMenu,
+    bottom,
+    left,
+    right,
+    onTabItemPress
+  } = props;
+  const [lastSelected, setLastSelected] = useState();
+  const lastPropsSelected = useRef();
+  useEffect(()=>{
+    if (propsSelected !== lastPropsSelected.current) {
+      lastPropsSelected.current = propsSelected;
+      setLastSelected(propsSelected); 
     }
-    const menuOpt = {
-      top: !bottom && !left && !right,
-      bottom,
-      vertical: left || right,
-      stackable: rwd,
-    };
-    const menuClasses = mixClass("attached tabular menu", menuOpt);
-    tabMenu = build(menu)(
+  }, [propsSelected]);
+  const { contentView, tabMenuItems } = handleSelected({
+    children,
+    lastSelected,
+    setLastSelected,
+    disableSwitch,
+    onTabItemPress,
+  });
+  // Tab Menu
+  if (leftMenu) {
+    tabMenuItems.push(build(leftMenu)({ key: "l-menu" }));
+  }
+  if (rightMenu) {
+    tabMenuItems.push(build(rightMenu)({ key: "r-menu" }));
+  }
+  const menuOpt = {
+    top: !bottom && !left && !right,
+    bottom,
+    vertical: left || right,
+    stackable: rwd,
+  };
+  const menuClasses = mixClass("attached tabular menu", menuOpt);
+  const tabMenu = build(menu)(
+    {
+      key: "menu",
+      style: menuStyle,
+      className: menuClasses,
+    },
+    tabMenuItems
+  );
+  let content;
+  if (contentView) {
+    // Tab Body
+    const contentClasses = mixClass("attached tab segment active", {
+      top: !menuOpt.top,
+      bottom: menuOpt.top,
+    });
+    content = build(body)(
       {
-        key: "menu",
-        style: menuStyle,
-        className: menuClasses,
+        key: "content",
+        style: { ...Styles.tabBody, ...contentStyle },
+        className: contentClasses,
       },
-      tabMenuItems
-    );
-    if (contentView) {
-      // Tab Body
-      const contentClasses = mixClass("attached tab segment active", {
-        top: !menuOpt.top,
-        bottom: menuOpt.top,
-      });
-      content = build(body)(
-        {
-          key: "content",
-          style: { ...Styles.tabBody, ...contentStyle },
-          className: contentClasses,
-        },
-        contentView
-      );
-    }
-    const childOrder = menuOpt.top ? [tabMenu, content] : [content, tabMenu];
-    return (
-      <SemanticUI style={style} id={id} className="tab-view">
-        {childOrder}
-      </SemanticUI>
+      contentView
     );
   }
-}
+  const childOrder = menuOpt.top ? [tabMenu, content] : [content, tabMenu];
+  return (
+    <SemanticUI style={style} id={id} className="tab-view">
+      {childOrder}
+    </SemanticUI>
+  );
+};
+
+TabView.defaultProps = {
+  disableSwitch: false,
+  rwd: true,
+  selected: true,
+  body: SemanticUI,
+  menu: SemanticUI,
+};
 
 export default TabView;
 

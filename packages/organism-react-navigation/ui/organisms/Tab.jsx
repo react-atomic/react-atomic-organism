@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { SemanticUI } from "react-atomic-molecule";
-export default class Tab extends Component {
-  render() {
-    return <SemanticUI {...this.props} />;
-  }
-}
+
+const Tab = (props) => <SemanticUI {...props} />;
+
+export default Tab;
