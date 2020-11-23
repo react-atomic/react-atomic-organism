@@ -10,7 +10,11 @@ React Asciidoc
 
 ## Example Usage
 * codesandbox
-   * https://codesandbox.io/embed/jjq8ko2krv?module=%2Fsrc%2Fasciidoc.js&moduleview=1
+   * basic demo
+      * https://codesandbox.io/embed/jjq8ko2krv?module=%2Fsrc%2Fasciidoc.js&moduleview=1
+   * http include
+      * https://codesandbox.io/s/asciidoc-http-include-n7b6r?file=/src/AsciiDocDemo.js
+
 
 * More Demo:
    * https://react-atomic-ui.js.org/#/AsciiDoc
