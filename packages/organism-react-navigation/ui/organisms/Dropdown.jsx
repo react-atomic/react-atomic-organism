@@ -119,6 +119,8 @@ const Dropdown = (props) => {
     if (!isListClick.current) {
       if (!isOpen()) {
         expose.open();
+      } else {
+        expose.close();
       }
     } else {
       isListClick.current = false;
