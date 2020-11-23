@@ -199,7 +199,6 @@ const Styles = {
     border: "none",
     boxShadow: "none",
     minHeight: "auto",
-    background: "none",
   },
   label: {
     display: "inline-block",
