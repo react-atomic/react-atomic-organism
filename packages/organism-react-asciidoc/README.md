@@ -8,6 +8,8 @@ React Asciidoc
    * Codesandbox
       * https://codesandbox.io/s/8vj7x3m82
 
+<!--/hidden-->
+
 ## Example Usage
 * codesandbox
    * basic demo
@@ -21,7 +23,6 @@ React Asciidoc
 
 ## asciidoctor.js 
 https://github.com/asciidoctor/asciidoctor.js
-<!--/hidden-->
 
 
 
