@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Field, Menu, Item, SemanticUI } from "react-atomic-molecule";
+import { mixClass, Field, Menu, Item, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 
 import Dropdown from "../organisms/Dropdown";
@@ -91,7 +91,7 @@ class Select extends PureComponent {
     }
     const title = thisSelected || thisPlaceholder;
     return (
-      <Dropdown {...props} list={thisList}>
+      <Dropdown {...props} list={thisList} className={mixClass(props.className, "selection")}>
         <SemanticUI
           refCb={refCb}
           atom="input"

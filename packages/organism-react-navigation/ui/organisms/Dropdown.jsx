@@ -1,179 +1,196 @@
-import React, { cloneElement, isValidElement, PureComponent } from "react";
+import React, {
+  isValidElement,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import get from "get-object-value";
 import {
+  build,
   lazyInject,
   mixClass,
   SemanticUI,
   Icon,
-  Menu,
   Item,
 } from "react-atomic-molecule";
 import DropdownIcon from "ricon/Dropdown";
 import { doc } from "win-doc";
 
-const body = () => doc().body;
+const Dropdown = (props) => {
+  const {
+    list,
+    listStyle,
+    titleStyle,
+    iconStyle,
+    icon,
+    children,
+    style,
+    className,
+    textClassName,
+    simple,
+    ...others
+  } = props;
 
-class Dropdown extends PureComponent {
-  static defaultProps = {
-    icon: true,
-    simple: true,
-  };
+  const titleTimer = useRef();
+  const menuTimer = useRef();
+  const handleClose = useRef();
+  const thisEl = useRef();
+  const listEl = useRef();
+  const isActive = useRef();
+  const isListClick = useRef();
+  const [stateListStyle, setStateListStyle] = useState({});
+  const [hideList, setHideList] = useState(false);
 
-  menuTimer = null;
-  titleTimer = null;
-
-  state = {
-    listStyle: {},
-    hideList: false,
-  };
-
-  handleTitleClick = (e) => {
-    const { listStyle } = this.state;
-    if (listStyle.display === "block") {
-      this.close();
-    } else {
-      this.open();
-    }
-  };
-
-  handleMenuClick = () => {
-    const { simple } = this.props;
-    if (simple) {
-      setTimeout(() => {
-        if ("hidden" !== get(this, ["state", "listStyle", "visibility"])) {
-          this.setState({
-            hideList: true,
-          });
-          this.menuTimer = setTimeout(
-            () =>
-              this.setState({
-                hideList: false,
-              }),
-            300
-          );
-        }
-      });
-    } else {
-      this.close();
-    }
-  };
-
-  handleClose = (e) => {
-    const target = e.target;
-    if (this.menu.contains(target)) {
-      return;
-    }
-    this.close();
-  };
-
-  open() {
-    const { simple } = this.props;
-    const listStyle = {};
-    if (simple) {
-      listStyle.visibility = "hidden";
-      this.titleTimer = setTimeout(() => {
-        listStyle.visibility = "inherit";
-        this.setState({
-          listStyle: { ...listStyle },
-        });
-      }, 300);
-    } else {
-      body().addEventListener("click", this.handleClose);
-      listStyle.display = "block";
-    }
-    this.setState({ listStyle });
-  }
-
-  close() {
-    const { simple } = this.props;
-    if (!simple) {
-      body().removeEventListener("click", this.handleClose);
-    }
-    this.setState({ listStyle: {} });
-  }
-
-  constructor(props) {
-    super(props);
-    injects = lazyInject(injects, InjectStyles);
-  }
-
-  componentWillUnmount() {
-    if (this.titleTimer) {
-      clearTimeout(this.titleTimer);
-    }
-    if (this.menuTimer) {
-      clearTimeout(this.menuTimer);
-    }
-    const { simple } = this.props;
-    if (!simple) {
-      body().removeEventListener("click", this.handleClose);
-    }
-  }
-
-  render() {
-    const {
-      list,
-      listStyle,
-      titleStyle,
-      iconStyle,
-      icon,
-      children,
-      style,
-      className,
-      simple,
-      ...props
-    } = this.props;
-    const { listStyle: stateListStyle, hideList } = this.state;
-    let thisList = null;
-    if (!hideList && list) {
-      thisList = cloneElement(list, {
-        style: {
-          ...Styles.list,
-          ...listStyle,
-          ...stateListStyle,
-        },
-        onClick: this.handleMenuClick,
-      });
-    }
-    let thisIcon = null;
-    if (icon) {
-      if (!isValidElement(icon)) {
-        thisIcon = (
-          <Icon
-            className="dropdown-default-icon"
-            style={{ ...Styles.icon, ...iconStyle }}
-          >
-            <DropdownIcon />
-          </Icon>
-        );
-      } else {
-        thisIcon = icon;
+  const expose = {
+    open: () => {
+      const listStyle = {};
+      if (simple) {
+        listStyle.visibility = "hidden";
+        titleTimer.current = setTimeout(() => {
+          listStyle.visibility = "inherit";
+          setStateListStyle({ ...listStyle });
+        }, 300);
       }
+      doc().addEventListener("click", handleClose.current);
+      listStyle.display = "block";
+      isActive.current = true;
+      setStateListStyle(listStyle);
+    },
+    close: () => {
+      doc().removeEventListener("click", handleClose.current);
+      isActive.current = false;
+      setStateListStyle({});
+    },
+  };
+
+  useEffect(() => {
+    handleClose.current = (e) => {
+      const target = e.target;
+      if (thisEl.current.contains(target)) {
+        return;
+      }
+      expose.close();
+    };
+    injects = lazyInject(injects, InjectStyles);
+    return () => {
+      if (titleTimer.current) {
+        clearTimeout(titleTimer.current);
+      }
+      if (menuTimer.current) {
+        clearTimeout(menuTimer.current);
+      }
+      if (!simple) {
+        doc().removeEventListener("click", handleClose.current);
+      }
+    };
+  }, []);
+
+  const isOpen = () => {
+    if (simple) {
+      return get(listEl.current, ["style", "display"]) !== "";
+    } else {
+      return isActive.current;
     }
-    const classes = mixClass(className, "compact");
-    const titleClasses = mixClass("dropdown", { simple });
-    return (
-      <Menu
-        {...props}
-        style={{ ...Styles.container, ...style }}
-        className={classes}
-        refCb={(el) => (this.menu = el)}
-        onClick={this.handleTitleClick}
-      >
-        <Item
-          className={titleClasses}
-          style={{ ...Styles.title, ...titleStyle }}
-        >
-          <SemanticUI style={Styles.label}>
-            {children}
-            {thisIcon}
-          </SemanticUI>
-          {thisList}
-        </Item>
-      </Menu>
-    );
+  };
+
+  const handleListTouchStart = (e) => {
+    if (!isOpen()) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
+  const handleListClick = (e) => {
+    if (simple) {
+      if (!isOpen()) {
+        setTimeout(() => {
+          setHideList(true);
+          menuTimer.current = setTimeout(() => setHideList(false), 500);
+        });
+      }
+    } else {
+      expose.close();
+    }
+    isListClick.current = true;
+  };
+
+  const handleDropdownClick = (e) => {
+    if (!isListClick.current) {
+      if (!isOpen()) {
+        expose.open();
+      }
+    } else {
+      isListClick.current = false;
+    }
+  };
+
+  const handleThisEl = (el) => {
+    thisEl.current = el;
+  };
+
+  const handleListEl = (el) => {
+    listEl.current = el;
+  };
+
+  let thisList = null;
+  if (!hideList && list) {
+    thisList = build(list)({
+      style: {
+        ...Styles.list,
+        ...listStyle,
+        ...stateListStyle,
+      },
+      refCb: handleListEl,
+      onClick: handleListClick,
+      onTouchStart: handleListTouchStart,
+    });
   }
-}
+  let thisIcon = null;
+  if (icon) {
+    if (!isValidElement(icon)) {
+      thisIcon = (
+        <Icon
+          className="dropdown-default-icon dropdown icon"
+          style={iconStyle}
+        ></Icon>
+      );
+    } else {
+      thisIcon = icon;
+    }
+  }
+  const textClasses = mixClass("text", textClassName);
+  const thisText = (
+    <SemanticUI
+      className={textClasses}
+      style={{ ...Styles.label, ...titleStyle }}
+    >
+      {children}
+    </SemanticUI>
+  );
+  const classes = mixClass(className, "dropdown", {
+    active: isActive.current,
+    simple,
+  });
+  return (
+    <SemanticUI
+      {...others}
+      style={{ ...Styles.container, ...style }}
+      className={classes}
+      refCb={handleThisEl}
+      onClick={handleDropdownClick}
+    >
+      {thisText}
+      {thisIcon}
+      {thisList}
+    </SemanticUI>
+  );
+};
+
+Dropdown.defaultProps = {
+  icon: true,
+  simple: true,
+};
 
 export default Dropdown;
 
@@ -184,19 +201,12 @@ const Styles = {
     minHeight: "auto",
     background: "none",
   },
-  title: {
-    padding: 0,
-  },
   label: {
-    display: "inherit",
-  },
-  icon: {
-    width: 24,
-    height: 24,
-    marginTop: -5,
+    display: "inline-block",
   },
   list: {
     marginTop: -1, //aviod not expected hover out
+    boxSizing: "inherit",
     maxHeight: "50vh",
     overflow: "auto",
   },
@@ -204,11 +214,23 @@ const Styles = {
 
 let injects;
 const InjectStyles = {
+  resetSelectionBorderColor: [
+    {
+      borderColor: "inherit",
+    },
+    [
+      ".selection.active.dropdown .menu.ui",
+      ".ui.selection.active.dropdown:hover .menu.ui",
+    ].join(","),
+  ],
   defaultIcon: [
     {
       transform: ["rotate(180deg)"],
     },
-    ".ui.simple.dropdown:hover .dropdown-default-icon",
+    [
+      ".ui.simple.dropdown:hover .dropdown-default-icon",
+      ".ui.dropdown.active .dropdown-default-icon",
+    ].join(","),
   ],
   initMenu: [
     {
@@ -221,7 +243,7 @@ const InjectStyles = {
       display: "block !important",
     },
     [
-      ".ui.simple.active.dropdown>.menu",
+      ".ui.simple.dropdown.active>.menu",
       ".ui.simple.dropdown:hover>.menu",
     ].join(","),
   ],
