@@ -3,6 +3,13 @@ import getOffset from "getoffset";
 import isOnScreen from "./isOnScreen";
 import isFixed from "./isFixed";
 import isSetOverflow from "./isSetOverflow";
+import pos from "./positions";
+
+const T = "T";
+const R = "R";
+const B = "B";
+const L = "L";
+const C = "C";
 
 const calWindowOffset = (domInfo, scrollInfo) => {
   const distance = {};
@@ -11,10 +18,10 @@ const calWindowOffset = (domInfo, scrollInfo) => {
   distance.bottom = scrollInfo.bottom - domInfo.bottom;
   distance.left = domInfo.left - scrollInfo.left;
   let distanceFlip = {
-    [distance.top]: "t",
-    [distance.right]: "r",
-    [distance.bottom]: "b",
-    [distance.left]: "l",
+    [distance.top]: T,
+    [distance.right]: R,
+    [distance.bottom]: B,
+    [distance.left]: L,
   };
   const maxDistance = Math.max(
     distance.top,
@@ -24,23 +31,23 @@ const calWindowOffset = (domInfo, scrollInfo) => {
   );
   let firstKey = distanceFlip[maxDistance];
   let secondKey;
-  let locs = [firstKey + "c"];
-  if (firstKey === "t" || firstKey === "b") {
+  let locs = [pos[firstKey + C]];
+  if (firstKey === T || firstKey === B) {
     distanceFlip = {
-      [distance.right]: "r",
-      [distance.left]: "l",
+      [distance.right]: R,
+      [distance.left]: L,
     };
     secondKey = distanceFlip[Math.max(distance.left, distance.right)];
   } else {
     distanceFlip = {
-      [distance.top]: "t",
-      [distance.bottom]: "b",
+      [distance.top]: T,
+      [distance.bottom]: B,
     };
     secondKey = firstKey;
     firstKey = distanceFlip[Math.max(distance.top, distance.bottom)];
   }
-  locs.push(firstKey + secondKey);
-  locs.push(secondKey + firstKey);
+  locs.push(pos[firstKey + secondKey]);
+  locs.push(pos[secondKey + C]);
   const tb = firstKey;
   const lr = secondKey;
   return {
@@ -52,8 +59,7 @@ const calWindowOffset = (domInfo, scrollInfo) => {
 
 const getWindowOffset = (dom) => {
   if (!dom) {
-    console.error("getWindowOffset not assign dom");
-    console.trace();
+    console.warn("getWindowOffset not assign dom");
     return false;
   }
   const fixedNode = isFixed(dom);

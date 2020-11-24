@@ -14,17 +14,17 @@ import getPositionString from "./getPositionString";
 const getAlignWithLoc = (toLoc) => {
   let loc;
   switch (toLoc) {
-    case pos.TL:
-      loc = pos.TR;
-      break;
     case pos.TR:
       loc = pos.TL;
       break;
-    case pos.BL:
-      loc = pos.BR;
+    case pos.TL:
+      loc = pos.TR;
       break;
-    case pos.BR:
+    case pos.RB:
       loc = pos.BL;
+      break;
+    case pos.BL:
+      loc = pos.RB;
       break;
     default:
       loc = toLoc;
@@ -57,13 +57,13 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   if (!disableAutoLoc) {
     winInfo = winInfo || getWindowOffset(targetEl);
     if (!winInfo) {
-      console.error("get windows offset failed");
+      console.warn("get windows offset failed");
     } else {
       locs = locs.concat(winInfo.locs);
     }
   }
   if (!locs.length) {
-    console.error("Not set any locs", toLoc);
+    console.warn("Not set any locs", toLoc);
     return;
   }
   if (!targetInfo) {
@@ -97,8 +97,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   let loc;
   let move;
   locs.some((locItem) => {
-    toLoc = locItem;
-    loc = getAlignWithLoc(toLoc);
+    loc = locItem;
     move = alignWith(targetInfo, floatInfo, loc);
     if (adjustMove) {
       move = adjustMove(move);
@@ -117,11 +116,11 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   });
   const result = {
     loc,
-    toLoc,
     move,
+    toLoc: toLoc || loc,
     locClassName: getPositionString(loc),
   };
-  //console.log(result);
+//  console.log(result);
   return result;
 };
 

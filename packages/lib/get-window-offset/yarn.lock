@@ -355,9 +355,9 @@ get-object-value@*:
     reshow-runtime "*"
 
 get-scroll-info@*:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.1.11.tgz#4d4f24bc07d72dcf966df7391f28fca8726a6145"
-  integrity sha512-ERfzUrBgv7e7ZM3z40VOQElyhTcsXUCpd6sXt5BZ1vvfkVCakrF1TMj8On3XUO/Pe9zlnf4Lf4yuBlhuC8imhA==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.2.0.tgz#d624ac342b4ef16db1ebfff7ef14b7d127e4533c"
+  integrity sha512-/EjIdRB/XqUhuKG150IESROYZavbY0ftMvQxz9fT+ESC4YlKnuvIRNx8MT8MsnQTUf/i+7vRFdmQOHKsBdUSLg==
   dependencies:
     reshow-constant "*"
     reshow-runtime "*"

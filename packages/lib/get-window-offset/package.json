@@ -1,6 +1,6 @@
 {
   "name": "get-window-offset",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A simple library to tell you where could get best space by a target to put your container.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
