@@ -44,17 +44,30 @@ const getScrollInfo = (el, margin) => {
   let h;
   const nodeName = (el.nodeName || "").toLowerCase();
   const isRoot = "body" === nodeName || "html" === nodeName;
+
+  // defined scrollWidth and scrollHeight first.
+  // to know if have vertical or horizontal bar.
+  const scrollWidth = el.scrollWidth;
+  const scrollHeight = el.scrollHeight;
+
   if (isRoot) {
-    w = Math.max(docEl.clientWidth || 0, oWin.innerWidth || 0);
-    h = Math.max(docEl.clientHeight || 0, oWin.innerHeight || 0);
+    w = Math.max(el.clientWidth || 0, oWin.innerWidth || 0);
+    h = Math.max(el.clientHeight || 0, oWin.innerHeight || 0);
+    const hasHorizontalBar = w < scrollWidth;
+    const hasVerticalBar = h < scrollHeight;
+    if (hasHorizontalBar) {
+      h = el.clientHeight;
+    }
+    if (hasVerticalBar) {
+      w = el.clientWidth;
+    }
   } else {
     w = el.clientWidth;
     h = el.clientHeight;
   }
+
   const scrollLeft = el.scrollLeft;
-  const scrollHeight = el.scrollHeight;
   const scrollTop = el.scrollTop;
-  const scrollWidth = el.scrollWidth;
   const scrollBottom = scrollTop + h;
   const scrollRight = scrollLeft + w;
   const elId = el.id;
@@ -77,8 +90,8 @@ const getScrollInfo = (el, margin) => {
     scrollNodeHeight: h,
 
     top: scrollTop,
-    right: w > scrollWidth ? scrollWidth : scrollRight,
-    bottom: h > scrollHeight ? scrollHeight : scrollBottom,
+    right: scrollRight,
+    bottom: scrollBottom,
     left: scrollLeft,
   };
   lastScrollStore[elId] = info;

@@ -17,8 +17,8 @@ describe("Test", () => {
       scrollNodeWidth: 1024,
       scrollNodeHeight: 768,
       top: 0,
-      right: 0,
-      bottom: 0,
+      right: 1024,
+      bottom: 768,
       left: 0,
     });
   });
