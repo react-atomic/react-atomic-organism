@@ -9,6 +9,7 @@ import isFullOnScreen from "./isFullOnScreen";
 import isSetOverflow from "./isSetOverflow";
 import isFixed from "./isFixed";
 import pos from "./positions";
+import getPositionString from "./getPositionString";
 
 const getAlignWithLoc = (toLoc) => {
   let loc;
@@ -45,8 +46,7 @@ const fixScrollNode = (scrollInfo) => (move) => [
 const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   let { toLoc, disableAutoLoc } = get(alignParams, null, {});
   if (!targetEl) {
-    console.error("targetEl was empty");
-    console.trace();
+    console.warn("targetEl was empty");
     return false;
   }
   let targetInfo;
@@ -119,6 +119,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     loc,
     toLoc,
     move,
+    locClassName: getPositionString(loc),
   };
   //console.log(result);
   return result;
