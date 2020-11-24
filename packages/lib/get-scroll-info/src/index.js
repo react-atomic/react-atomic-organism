@@ -71,14 +71,14 @@ const getScrollInfo = (el, margin) => {
     isScrollRight: lastScroll && scrollLeft > lastScroll.left,
     isScrollUp: lastScroll && scrollTop < lastScroll.top,
 
-    scrollWidth: scrollWidth,
-    scrollHeight: scrollHeight,
+    scrollWidth,
+    scrollHeight,
     scrollNodeWidth: w,
     scrollNodeHeight: h,
 
     top: scrollTop,
-    right: scrollRight,
-    bottom: scrollBottom,
+    right: w > scrollWidth ? scrollWidth : scrollRight,
+    bottom: h > scrollHeight ? scrollHeight : scrollBottom,
     left: scrollLeft,
   };
   lastScrollStore[elId] = info;
