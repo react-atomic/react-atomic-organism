@@ -8,11 +8,13 @@ import TabView from "../TabView";
 import Tab from "../Tab";
 
 describe("Test TabView", () => {
-  it("basic test", ()=>{
-    const Test = props => {
+  it("basic test", () => {
+    const Test = (props) => {
       return (
         <TabView>
-          <Tab><div>tab1</div></Tab>
+          <Tab>
+            <div>tab1</div>
+          </Tab>
         </TabView>
       );
     };

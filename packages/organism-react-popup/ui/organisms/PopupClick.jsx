@@ -41,7 +41,8 @@ class PopupClick extends Component {
 
   componentDidMount() {
     const { container } = this.props;
-    container && console.warn("Container will retire soon, change to use component");
+    container &&
+      console.warn("Container will retire soon, change to use component");
   }
 
   render() {

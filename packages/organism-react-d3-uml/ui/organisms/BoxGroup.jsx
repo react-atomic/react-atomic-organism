@@ -24,12 +24,12 @@ class BoxGroup extends Component {
   };
 
   handleDrag = ({ absX, absY }) => {
-    const payload = {boxGroup: this};
+    const payload = { boxGroup: this };
     const isContinue = callfunc(this.props.onWillDrag, [payload]);
     if (isContinue !== false) {
       this.move(absX, absY);
     }
-  }
+  };
 
   handleDragEnd = (e) => {
     const { absX, absY } = this.state;

@@ -91,7 +91,11 @@ class Select extends PureComponent {
     }
     const title = thisSelected || thisPlaceholder;
     return (
-      <Dropdown {...props} list={thisList} className={mixClass(props.className, "selection")}>
+      <Dropdown
+        {...props}
+        list={thisList}
+        className={mixClass(props.className, "selection")}
+      >
         <SemanticUI
           refCb={refCb}
           atom="input"

@@ -15,7 +15,7 @@ class GrapesJsController extends Component {
   };
 
   state = {
-    id: null
+    id: null,
   };
 
   getType() {
@@ -175,7 +175,7 @@ ${html}
     if (debug) {
       console.log(`$("#${myId}").contentWindow.window.debug`);
     }
-    this.setState({id: myId});
+    this.setState({ id: myId });
   }
 
   render() {

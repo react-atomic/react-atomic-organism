@@ -8,13 +8,13 @@ describe("Test", () => {
     expect(name).to.be.equal("BODY");
   });
 
-  it("test base is not func", ()=>{
+  it("test base is not func", () => {
     const query = queryFrom(document);
     const name = query.one("body").nodeName;
     expect(name).to.be.equal("BODY");
   });
 
-  it("test base is undefined", ()=>{
+  it("test base is undefined", () => {
     const query = queryFrom(undefined);
     expect(query).to.be.false;
   });

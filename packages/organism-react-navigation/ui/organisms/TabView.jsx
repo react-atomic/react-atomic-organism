@@ -85,14 +85,14 @@ const TabView = (props) => {
     bottom,
     left,
     right,
-    onTabItemPress
+    onTabItemPress,
   } = props;
   const [lastSelected, setLastSelected] = useState();
   const lastPropsSelected = useRef();
-  useEffect(()=>{
+  useEffect(() => {
     if (propsSelected !== lastPropsSelected.current) {
       lastPropsSelected.current = propsSelected;
-      setLastSelected(propsSelected); 
+      setLastSelected(propsSelected);
     }
   }, [propsSelected]);
   const { contentView, tabMenuItems } = handleSelected({

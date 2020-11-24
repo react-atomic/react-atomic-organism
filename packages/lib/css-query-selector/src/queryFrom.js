@@ -14,8 +14,7 @@ const queryFrom = (base) => {
   if (!base) {
     return false;
   }
-  const myBase =
-    FUNCTION === typeof base ? base : () => defaultQuery.el(base);
+  const myBase = FUNCTION === typeof base ? base : () => defaultQuery.el(base);
 
   const queryOne = (sel) => myBase()?.querySelector(sel);
 

@@ -222,7 +222,12 @@ class UMLGraph extends Component {
   }
 
   edit = (name, payload) => {
-    const { onEdit, editToCenter, editToCenterCb, editToCenterDelay } = this.props;
+    const {
+      onEdit,
+      editToCenter,
+      editToCenterCb,
+      editToCenterDelay,
+    } = this.props;
     this.zoom.disable();
     if (editToCenter) {
       setTimeout(() => this.center(payload, editToCenterCb), editToCenterDelay);
