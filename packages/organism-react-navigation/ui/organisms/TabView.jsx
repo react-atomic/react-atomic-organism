@@ -1,4 +1,11 @@
-import React, { Children, useState, useEffect, useRef } from "react";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useState,
+  useEffect,
+  useRef,
+  Children,
+} from "react";
 import { mixClass, build, SemanticUI } from "react-atomic-molecule";
 
 const handleTabPress = ({
@@ -6,15 +13,17 @@ const handleTabPress = ({
   nodeKey,
   nodeProps,
   setLastSelected,
+  thisSelected,
   onTabItemPress,
 }) => (e) => {
   if (!disableSwitch) {
     if (!nodeProps.disableSwitch) {
       setLastSelected(nodeKey);
+      thisSelected.current = nodeKey;
     }
   }
   if (onTabItemPress) {
-    onTabItemPress(nodeKey);
+    onTabItemPress(thisSelected.current, nodeKey);
   }
 };
 
@@ -22,6 +31,7 @@ const handleSelected = ({
   children,
   lastSelected,
   setLastSelected,
+  thisSelected,
   disableSwitch,
   onTabItemPress,
 }) => {
@@ -34,16 +44,17 @@ const handleSelected = ({
     if (true === lastSelected) {
       lastSelected = nodeKey;
     }
-    const curSelected = nodeKey === lastSelected;
+    thisSelected.current = lastSelected;
+    const isActived = nodeKey === lastSelected;
     Children.map(itemProps.children, (node, index) => {
       if (index % 2 || 1 === Children.count(itemProps.children)) {
         const nodeProps = node.props;
         const nodeClasses = mixClass(nodeProps.className, "item", {
-          active: curSelected,
+          active: isActived,
         });
         node = build(node)({
           key: nodeKey,
-          "data-selected": curSelected,
+          "data-selected": isActived,
           className: nodeClasses,
           style: { ...Styles.tabItem, ...nodeProps.style },
           onClickCapture: handleTabPress({
@@ -51,24 +62,26 @@ const handleSelected = ({
             nodeKey,
             nodeProps,
             setLastSelected,
+            thisSelected,
             onTabItemPress,
           }),
         });
         tabMenuItems.push(node);
       } else {
-        if (curSelected) {
+        if (isActived) {
           contentView = node;
         }
       }
     });
   });
   return {
+    lastSelected,
     contentView,
     tabMenuItems,
   };
 };
 
-const TabView = (props) => {
+const TabView = forwardRef((props, ref) => {
   const {
     id,
     style,
@@ -89,6 +102,10 @@ const TabView = (props) => {
   } = props;
   const [lastSelected, setLastSelected] = useState();
   const lastPropsSelected = useRef();
+  const thisSelected = useRef();
+  useImperativeHandle(ref, () => ({
+    getSelected: () => thisSelected.current,
+  }));
   useEffect(() => {
     if (propsSelected !== lastPropsSelected.current) {
       lastPropsSelected.current = propsSelected;
@@ -98,6 +115,7 @@ const TabView = (props) => {
   const { contentView, tabMenuItems } = handleSelected({
     children,
     lastSelected,
+    thisSelected,
     setLastSelected,
     disableSwitch,
     onTabItemPress,
@@ -146,7 +164,7 @@ const TabView = (props) => {
       {childOrder}
     </SemanticUI>
   );
-};
+});
 
 TabView.defaultProps = {
   disableSwitch: false,
@@ -155,6 +173,8 @@ TabView.defaultProps = {
   body: SemanticUI,
   menu: SemanticUI,
 };
+
+TabView.displayName = "TabView";
 
 export default TabView;
 
