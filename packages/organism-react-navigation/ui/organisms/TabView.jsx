@@ -7,6 +7,7 @@ import React, {
   Children,
 } from "react";
 import { mixClass, build, SemanticUI } from "react-atomic-molecule";
+import callfunc from "call-func";
 
 const handleTabPress = ({
   disableSwitch,
@@ -48,7 +49,7 @@ const handleSelected = ({
     const isActived = nodeKey === lastSelected;
     Children.map(itemProps.children, (node, index) => {
       if (index % 2 || 1 === Children.count(itemProps.children)) {
-        const nodeProps = node.props;
+        const nodeProps = node?.props || {};
         const nodeClasses = mixClass(nodeProps.className, "item", {
           active: isActived,
         });
@@ -99,6 +100,7 @@ const TabView = forwardRef((props, ref) => {
     left,
     right,
     onTabItemPress,
+    onChange,
   } = props;
   const [lastSelected, setLastSelected] = useState();
   const lastPropsSelected = useRef();
@@ -112,6 +114,9 @@ const TabView = forwardRef((props, ref) => {
       setLastSelected(propsSelected);
     }
   }, [propsSelected]);
+  useEffect(() => {
+    callfunc(onChange, [{selected: thisSelected.current}]);
+  }, [lastSelected]);
   const { contentView, tabMenuItems } = handleSelected({
     children,
     lastSelected,
