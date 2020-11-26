@@ -143,7 +143,6 @@ const TabView = forwardRef((props, ref) => {
       onTabItemPress,
     });
     if (selectResult.hasSelected) {
-      console.log(thisSelected.current, 'rrrret selected');
       setTimeout(()=>setLastSelected(thisSelected.current));
     }
   }
