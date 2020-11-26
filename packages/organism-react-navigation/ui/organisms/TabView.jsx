@@ -38,6 +38,7 @@ const handleSelected = ({
 }) => {
   const tabMenuItems = [];
   let contentView = null;
+  let hasSelected = false;
   Children.map(children, (item, itemKey) => {
     const itemProps = item.props;
     // Detect selected
@@ -47,6 +48,9 @@ const handleSelected = ({
     }
     thisSelected.current = lastSelected;
     const isActived = nodeKey === lastSelected;
+    if (isActived && !hasSelected) {
+      hasSelected = true;
+    }
     Children.map(itemProps.children, (node, index) => {
       if (index % 2 || 1 === Children.count(itemProps.children)) {
         const nodeProps = node?.props || {};
@@ -76,7 +80,7 @@ const handleSelected = ({
     });
   });
   return {
-    lastSelected,
+    hasSelected,
     contentView,
     tabMenuItems,
   };
@@ -105,19 +109,23 @@ const TabView = forwardRef((props, ref) => {
   const [lastSelected, setLastSelected] = useState();
   const lastPropsSelected = useRef();
   const thisSelected = useRef();
+
   useImperativeHandle(ref, () => ({
     getSelected: () => thisSelected.current,
   }));
+
   useEffect(() => {
     if (propsSelected !== lastPropsSelected.current) {
       lastPropsSelected.current = propsSelected;
       setLastSelected(propsSelected);
     }
   }, [propsSelected]);
+
   useEffect(() => {
-    callfunc(onChange, [{selected: thisSelected.current}]);
+    callfunc(onChange, [{ selected: thisSelected.current }]);
   }, [lastSelected]);
-  const { contentView, tabMenuItems } = handleSelected({
+
+  let selectResult = handleSelected({
     children,
     lastSelected,
     thisSelected,
@@ -125,6 +133,22 @@ const TabView = forwardRef((props, ref) => {
     disableSwitch,
     onTabItemPress,
   });
+  if (!selectResult.hasSelected && lastSelected !== false) {
+    selectResult = handleSelected({
+      children,
+      lastSelected: true,
+      thisSelected,
+      setLastSelected,
+      disableSwitch,
+      onTabItemPress,
+    });
+    if (selectResult.hasSelected) {
+      console.log(thisSelected.current, 'rrrret selected');
+      setTimeout(()=>setLastSelected(thisSelected.current));
+    }
+  }
+  const { contentView, tabMenuItems } = selectResult;
+
   // Tab Menu
   if (leftMenu) {
     tabMenuItems.push(build(leftMenu)({ key: "l-menu" }));
