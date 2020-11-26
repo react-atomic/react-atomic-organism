@@ -27,7 +27,7 @@ import getStyle from "get-style";
 import getScrollInfo from "get-scroll-info";
 import get from "get-object-value";
 import { isFixed } from "get-window-offset";
-import { percent } from "topercent";
+import { percent } from "to-percent-js";
 import scroll from "smooth-scroll-to";
 
 import Beacon from "../organisms/Beacon";
