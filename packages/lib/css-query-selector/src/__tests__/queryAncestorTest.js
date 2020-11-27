@@ -2,7 +2,9 @@ import { expect } from "chai";
 import { defaultQuery as query } from "../queryFrom";
 
 describe("Test query ancestor", () => {
+
   after(() => (document.body.innerHTML = ""));
+
   it("test closest and polyfill", () => {
     document.body.innerHTML = `
 <main id="root"><div id="foo"><span id="bar"></span></div></main>
@@ -13,4 +15,5 @@ describe("Test query ancestor", () => {
     const foo1 = query.ancestor(el, "#foo");
     expect(foo.isSameNode(foo1)).to.be.true;
   });
+
 });

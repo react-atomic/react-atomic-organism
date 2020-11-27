@@ -18,14 +18,23 @@ const queryFrom = (base) => {
 
   const queryOne = (sel) => myBase()?.querySelector(sel);
 
-  const queryAll = (sel) => arrayFrom(myBase()?.querySelectorAll(sel));
+  const _all = (sel) => arrayFrom(myBase()?.querySelectorAll(sel));
+
+  const queryAll = (sel) =>
+    sel &&
+    (sel.reduce
+      ? sel.reduce(
+          (accumulator, currentValue) => accumulator.concat(_all(currentValue)),
+          []
+        )
+      : _all(sel));
 
   const queryEl = (el) => (STRING === typeof el ? queryOne(el) : el);
 
   const _queryAncestorPolyfill = (el, ancestor) => {
     let lastHit;
     let hit;
-    let all = queryAll(ancestor);
+    let all = _all(ancestor);
     if (all) {
       hit = findHit(all, el);
     }
