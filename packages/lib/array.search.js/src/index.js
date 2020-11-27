@@ -19,7 +19,20 @@ const doFilter = ({ a, func, needle, cb = defaultCb }) => {
   const thisNeedle = toArray(needle);
   const thisHaystack = getHaystack(a, needle);
   return keys(thisNeedle).every((key) =>
-    func(cb(thisHaystack[key]), cb(thisNeedle[key]))
+    func(
+      cb(thisHaystack[key], {
+        thisHaystack,
+        thisNeedle,
+        key,
+        type: "haystack",
+      }),
+      cb(thisNeedle[key], {
+        thisHaystack,
+        thisNeedle,
+        key,
+        type: "needle",
+      })
+    )
   );
 };
 
