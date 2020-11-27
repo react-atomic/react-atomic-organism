@@ -23,9 +23,9 @@ const handleTabPress = ({
       thisSelected.current = nodeKey;
     }
   }
-  if (onTabItemPress) {
-    onTabItemPress(thisSelected.current, nodeKey);
-  }
+  e.selected = thisSelected.current;
+  e.nodeKey = nodeKey;
+  callfunc(onTabItemPress, [thisSelected.current, e]);
 };
 
 const handleSelected = ({
@@ -122,7 +122,10 @@ const TabView = forwardRef((props, ref) => {
   }, [propsSelected]);
 
   useEffect(() => {
-    callfunc(onChange, [{ selected: thisSelected.current }]);
+    callfunc(onChange, [
+      thisSelected.current,
+      { selected: thisSelected.current },
+    ]);
   }, [lastSelected]);
 
   let selectResult = handleSelected({
@@ -143,7 +146,7 @@ const TabView = forwardRef((props, ref) => {
       onTabItemPress,
     });
     if (selectResult.hasSelected) {
-      setTimeout(()=>setLastSelected(thisSelected.current));
+      setTimeout(() => setLastSelected(thisSelected.current));
     }
   }
   const { contentView, tabMenuItems } = selectResult;
