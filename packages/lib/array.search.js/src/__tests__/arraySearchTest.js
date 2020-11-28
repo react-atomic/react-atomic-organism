@@ -54,6 +54,12 @@ describe("Test Array Search", () => {
     expect(arraySearchFirst(arr)("f")).to.equal("FOO");
   });
 
+  it("test number and without key", () => {
+    const arr = [111, 222];
+    expect(arraySearchFirst(arr, true)(111)).to.equal(111);
+    expect(arraySearchFirst(arr, true)(1)).to.equal(false);
+  });
+
   it("test with exact", () => {
     const arr = ["a", "bbb", "aa"];
     const acture1 = arraySearch(arr)("a");

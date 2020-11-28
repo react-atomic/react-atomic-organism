@@ -1,37 +1,48 @@
 import { FUNCTION, STRING } from "reshow-constant";
 
+// avoid Object.keys("foo") => ["0", "1", "2"]
 const keys = (o) => (null == o || STRING === typeof o ? [] : Object.keys(o));
 
 const defaultCb = (t) => t + "";
 
+const shouldBeString = (s) => !isNaN(s) || STRING === typeof s;
+
 const toArray = (maybeString) =>
-  STRING === typeof maybeString ? [maybeString] : maybeString;
+  shouldBeString(maybeString) ? [maybeString] : maybeString;
 
 const getHaystack = (haystack, needle) =>
-  STRING === typeof needle ? [haystack] : haystack;
+  shouldBeString(needle) ? [haystack] : haystack;
 
-const keywordMatch = (haystack, needle) =>
-  -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
+const keywordMatch = (haystack, needle) => {
+  return -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
+};
 
-const exactMatch = (haystack, needle) => haystack === needle;
+const exactMatch = (haystack, needle) => {
+  return haystack === needle;
+};
 
 const doFilter = ({ a, func, needle, cb = defaultCb }) => {
   const thisNeedle = toArray(needle);
   const thisHaystack = getHaystack(a, needle);
-  return keys(thisNeedle).every((key) =>
-    func(
-      cb(thisHaystack[key], {
-        thisHaystack,
-        thisNeedle,
-        key,
-        type: "haystack",
-      }),
-      cb(thisNeedle[key], {
-        thisHaystack,
-        thisNeedle,
-        key,
-        type: "needle",
-      })
+  const thisNeedleKeys = keys(thisNeedle);
+  return (
+    thisNeedleKeys &&
+    thisNeedleKeys.length &&
+    thisNeedleKeys.every((key) =>
+      func(
+        cb(thisHaystack[key], {
+          thisHaystack,
+          thisNeedle,
+          key,
+          type: "haystack",
+        }),
+        cb(thisNeedle[key], {
+          thisHaystack,
+          thisNeedle,
+          key,
+          type: "needle",
+        })
+      )
     )
   );
 };
