@@ -30,7 +30,7 @@ const handleTabPress = ({
 
 const handleSelected = ({
   children,
-  lastSelected,
+  nextSelect,
   setLastSelected,
   thisSelected,
   disableSwitch,
@@ -43,11 +43,11 @@ const handleSelected = ({
     const itemProps = item.props;
     // Detect selected
     const nodeKey = itemProps.name || itemKey;
-    if (true === lastSelected) {
-      lastSelected = nodeKey;
+    if (true === nextSelect) {
+      nextSelect = nodeKey;
     }
-    thisSelected.current = lastSelected;
-    const isActived = nodeKey === lastSelected;
+    thisSelected.current = nextSelect;
+    const isActived = nodeKey === nextSelect;
     if (isActived && !hasSelected) {
       hasSelected = true;
     }
@@ -106,9 +106,17 @@ const TabView = forwardRef((props, ref) => {
     onTabItemPress,
     onChange,
   } = props;
-  const [lastSelected, setLastSelected] = useState();
+  const [lastSelected, setHookLastSelected] = useState({
+    current: propsSelected,
+  });
   const lastPropsSelected = useRef();
   const thisSelected = useRef();
+
+  const setLastSelected = (val) =>
+    setHookLastSelected(({ prev, current }) => ({
+      prev: current,
+      current: val,
+    }));
 
   useImperativeHandle(ref, () => ({
     getSelected: () => thisSelected.current,
@@ -122,24 +130,26 @@ const TabView = forwardRef((props, ref) => {
   }, [propsSelected]);
 
   useEffect(() => {
-    callfunc(onChange, [
-      thisSelected.current,
-      { selected: thisSelected.current },
-    ]);
+    if (lastSelected.prev !== lastSelected.current) {
+      callfunc(onChange, [
+        thisSelected.current,
+        { selected: thisSelected.current },
+      ]);
+    }
   }, [lastSelected]);
 
   let selectResult = handleSelected({
+    nextSelect: lastSelected.current,
     children,
-    lastSelected,
     thisSelected,
     setLastSelected,
     disableSwitch,
     onTabItemPress,
   });
-  if (!selectResult.hasSelected && lastSelected !== false) {
+  if (!selectResult.hasSelected && propsSelected !== false) {
     selectResult = handleSelected({
+      nextSelect: true,
       children,
-      lastSelected: true,
       thisSelected,
       setLastSelected,
       disableSwitch,
