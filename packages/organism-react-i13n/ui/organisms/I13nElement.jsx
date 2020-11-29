@@ -7,11 +7,12 @@ import { ajaxStore } from "organism-react-ajax";
 import get from "get-object-value";
 import { win } from "win-doc";
 import windowOnload from "window-onload";
-const { close, process } = windowOnload();
+import { getTimestamp } from "get-random-id";
 
 import i13nStore from "../../src/stores/i13nStore";
 import { i13nDispatch } from "../../src/index";
 
+const { close, process } = windowOnload();
 const keys = Object.keys;
 const urlDecode = decodeURIComponent;
 
@@ -99,7 +100,7 @@ const I13nElement = (props) => {
               pvid.current = nextPvid;
               let query = {};
               if (oWin.startUpTime) {
-                query.sp = Math.round(new Date().getTime() - oWin.startUpTime);
+                query.sp = Math.round(getTimestamp() - oWin.startUpTime);
                 oWin.startUpTime = false; //only log in page refresh
               }
               setTimeout(() =>
