@@ -16,8 +16,17 @@ const handleTabPress = ({
   setLastSelected,
   thisSelected,
   onTabItemPress,
+  onTabItemWillPress,
 }) => (e) => {
-  if (!disableSwitch) {
+  const isContinue =
+    false !==
+    callfunc(onTabItemWillPress, [
+      {
+        nodeKey,
+        selected: thisSelected.current,
+      },
+    ]);
+  if (!disableSwitch && isContinue) {
     if (!nodeProps.disableSwitch) {
       setLastSelected(nodeKey);
       thisSelected.current = nodeKey;
