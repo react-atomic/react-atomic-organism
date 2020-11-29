@@ -74,6 +74,9 @@ const I13nElement = (props) => {
       i13nDispatch("config/set", otherProps);
       setIsLoad(true);
     }
+    return () => {
+      close();
+    };
   }, []);
 
   return useMemo(() => {
@@ -99,15 +102,17 @@ const I13nElement = (props) => {
                 query.sp = Math.round(new Date().getTime() - oWin.startUpTime);
                 oWin.startUpTime = false; //only log in page refresh
               }
-              process(() => {
-                i13nDispatch("view", {
-                  query,
-                  I13N: get(I13N),
-                  callback: (json, text) => {
-                    setIframe(text);
-                  },
-                });
-              });
+              setTimeout(() =>
+                process(() =>
+                  i13nDispatch("view", {
+                    query,
+                    I13N: get(I13N),
+                    callback: (json, text) => {
+                      setIframe(text);
+                    },
+                  })
+                )
+              );
             }
             return null;
           }}
