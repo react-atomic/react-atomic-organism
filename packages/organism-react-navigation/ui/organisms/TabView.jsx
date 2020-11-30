@@ -43,6 +43,7 @@ const handleSelected = ({
   setLastSelected,
   thisSelected,
   disableSwitch,
+  onTabItemWillPress,
   onTabItemPress,
 }) => {
   const tabMenuItems = [];
@@ -77,6 +78,7 @@ const handleSelected = ({
             nodeProps,
             setLastSelected,
             thisSelected,
+            onTabItemWillPress,
             onTabItemPress,
           }),
         });
@@ -112,6 +114,7 @@ const TabView = forwardRef((props, ref) => {
     bottom,
     left,
     right,
+    onTabItemWillPress,
     onTabItemPress,
     onChange,
   } = props;
@@ -153,6 +156,7 @@ const TabView = forwardRef((props, ref) => {
     thisSelected,
     setLastSelected,
     disableSwitch,
+    onTabItemWillPress,
     onTabItemPress,
   });
   if (!selectResult.hasSelected && propsSelected !== false) {
@@ -162,6 +166,7 @@ const TabView = forwardRef((props, ref) => {
       thisSelected,
       setLastSelected,
       disableSwitch,
+      onTabItemWillPress,
       onTabItemPress,
     });
     if (selectResult.hasSelected) {
