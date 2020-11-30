@@ -330,6 +330,13 @@ class Suggestion extends PureComponent {
     }
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {disabled} = this.props;
+    if (null != disabled && prevProps.disabled !== disabled) {
+      this.disabled(disabled);
+    }
+  }
+
   componentWillUnmount() {
     this.close();
     this.clearTimer();
