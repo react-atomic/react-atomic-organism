@@ -33,6 +33,7 @@ const groupingTags = ({ tags, tagData, tagsLocator, tagLocator }) => {
 class TagsController extends PureComponent {
   static defaultProps = {
     fluid: true,
+    disabled: false,
     couldCreate: true,
     couldDuplicate: false,
     createOnBlur: true,
@@ -69,7 +70,7 @@ class TagsController extends PureComponent {
   }
 
   maybeCreate() {
-    const { couldCreate, itemsLocator, itemLocator, results } = this.props;
+    const { disabled, couldCreate, itemsLocator, itemLocator, results } = this.props;
     const value = this.sugg.getValue();
     if (value && !this.sugg.getSelIndex()) {
       let isContinue = true;
@@ -78,7 +79,7 @@ class TagsController extends PureComponent {
           (item) => itemLocator(item) === value
         );
       }
-      if (isContinue) {
+      if (isContinue && !disabled) {
         this.handleAdd(value);
       }
     }
@@ -126,7 +127,10 @@ class TagsController extends PureComponent {
   }
 
   handleDel = (delTag) => () => {
-    const { couldDuplicate } = this.props;
+    const { couldDuplicate, disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     this.setState(
       ({ tags }) => {
         if (couldDuplicate) {

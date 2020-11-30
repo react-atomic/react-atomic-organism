@@ -27,6 +27,7 @@ const TagInput = (props) => {
     onFocus,
     onGetSugg,
     results,
+    disabled,
   } = props;
   let thisTags = null;
   if (tags.length) {
@@ -53,6 +54,7 @@ const TagInput = (props) => {
   return (
     <Suggestion
       filter
+      disabled={disabled}
       compHd={thisTags}
       ref={onGetSugg}
       className={classes}
