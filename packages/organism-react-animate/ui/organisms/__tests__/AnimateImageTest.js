@@ -40,6 +40,6 @@ describe("Test Animate Image", () => {
       const html = wrap.html();
       expect(html).to.have.string("xxx.png");
       done();
-    }, 300);
+    }, 500);
   });
 });
