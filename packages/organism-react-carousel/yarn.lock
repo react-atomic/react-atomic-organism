@@ -2018,9 +2018,9 @@ optionator@^0.8.1:
     word-wrap "~1.2.3"
 
 organism-react-animate@*:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.8.0.tgz#be651209381f1a7e77fe076618637b0b81d77f46"
-  integrity sha512-HjOTdlfN9jxHd+7gvtFLTh9LVZ7Ga1UtCvQj5pKsN9Lxi8vTVMDRxurH0BxbvusF43Oa3Oc0KfmeZjiboX3ujg==
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.8.1.tgz#25c91a48a2e83e31b13c61862f9066c582542641"
+  integrity sha512-fCpYE+PFHNECYE6jE7DwdDGtFeh8Qq4N9ZWPw/BOxJ+fSnAssi6SPuAzwKwRBsvIf0gp9QNUyuQ9hA2i22EEgw==
   dependencies:
     call-func "*"
     get-object-value "*"

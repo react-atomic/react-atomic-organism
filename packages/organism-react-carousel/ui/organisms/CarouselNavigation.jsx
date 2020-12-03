@@ -19,6 +19,7 @@ const CarouselNavigation = (props) => {
     children,
     thumbAttr,
     thumbListStyle,
+    carouselListStyle,
     infinity,
     selected: propsSelected,
     onChange,
@@ -176,7 +177,7 @@ const CarouselNavigation = (props) => {
 
     const thisChildren = [];
     thisChildren.push(
-      <CarouselList key={0} onLeft={handleLeft} onRight={handleRight}>
+      <CarouselList key={0} style={carouselListStyle} onLeft={handleLeft} onRight={handleRight}>
         {build(activeChildren)(others)}
       </CarouselList>
     );
