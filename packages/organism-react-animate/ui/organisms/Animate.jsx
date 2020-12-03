@@ -65,6 +65,14 @@ const Animate = (props) => {
   const [isLoad, setIsLoad] = useState(false);
   const [aniConf, setAniConf] = useState({});
   const done = useRef([]);
+  const _mount = useRef(false);
+
+  useEffect(() => {
+    _mount.current = true;
+    return () => {
+      _mount.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     const that = {};
@@ -74,7 +82,7 @@ const Animate = (props) => {
       if (done.current.length) {
         return;
       } else {
-        setTimeout(() => setIsLoad(true));
+        setTimeout(() => _mount.current && setIsLoad(true));
       }
     };
     if (appear) {
