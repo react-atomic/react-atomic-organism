@@ -18,6 +18,7 @@ const CarouselNavigation = (props) => {
     container,
     children,
     thumbAttr,
+    thumbListStyle,
     infinity,
     selected: propsSelected,
     onChange,
@@ -104,6 +105,7 @@ const CarouselNavigation = (props) => {
         key,
       });
       if (isSelected) {
+        others.key = key;
         activeStyle = Styles.thumbActive;
         activeEl = child;
         activeChildren = onSelected({
@@ -185,7 +187,7 @@ const CarouselNavigation = (props) => {
         <CarouselList
           key={1}
           {...others}
-          style={Styles.thumbList}
+          style={{ ...Styles.thumbList, ...thumbListStyle }}
           className="cards thumbs"
         >
           {thumbChild}
