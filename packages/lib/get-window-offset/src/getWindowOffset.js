@@ -89,7 +89,6 @@ const getWindowOffset = (dom) => {
       scrollInfo,
       cookScrollInfo,
     });
-    return false;
   }
   const result = {
     domInfo,
