@@ -25,10 +25,10 @@
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "build:test": "BABEL_ENV=build babel tests -d build/tests --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build",
-    "test": "npm run build && npm run build:test && mocha 'build/tests/**/*.js' -r jsdom-global/register"
+    "prepublishOnly": "npm run test",
+    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha"
   },
   "files": [
     "build",

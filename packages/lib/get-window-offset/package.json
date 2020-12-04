@@ -1,6 +1,6 @@
 {
   "name": "get-window-offset",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A simple library to tell you where could get best space by a target to put your container.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -22,7 +22,9 @@
     "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha"
   },
   "files": [
     "build",
