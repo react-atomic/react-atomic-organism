@@ -83,6 +83,8 @@ const getWindowOffset = (dom) => {
   domInfo.fixedNode = fixedNode;
   domInfo.scrollNode = scrollNode;
   if (!domInfo.isOnScreen) {
+    // should not break function here
+    // not use return here
     console.warn("Dom is not in screen", {
       dom,
       domInfo,
