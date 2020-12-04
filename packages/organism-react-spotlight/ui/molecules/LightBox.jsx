@@ -17,12 +17,13 @@ class LightBox extends PopupFloatEl {
     const height = pos.bottom - pos.top + padding * 2;
     const top = pos.top - padding;
     const left = pos.left - padding;
-    return {
+    const nextPos = {
       top,
       left,
       width,
       height,
     };
+    return nextPos;
   };
 
   renderOverlay(props) {
