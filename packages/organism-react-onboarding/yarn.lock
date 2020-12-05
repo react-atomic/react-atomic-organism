@@ -435,9 +435,9 @@ get-value@^2.0.3, get-value@^2.0.6:
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
 get-window-offset@*:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.2.0.tgz#5fa9f9c862542d57258d6baf485546c265ff1d90"
-  integrity sha512-AAzC3UhVywnhINHcoWLxYlbKEewihjr9o5jr6GPpCJwg4TT9WAhNWQ8sIv3RXLCZqfZNevNAK70L824Fs/C4rQ==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.2.2.tgz#8604f8e546a7cfcaa29afb0f5cfb9e0133dafaeb"
+  integrity sha512-kbKtVyDJRhThDFYGL9VQkIMmp9Mx2hh9tx+XA4ePFsyBIALm+Bzpgb1LF4AQJZG2LSOg3yDCanV5J+GLMIr+5A==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"

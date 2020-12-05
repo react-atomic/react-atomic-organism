@@ -16,7 +16,7 @@ class Beacon extends PopupFloatEl {
   calPos = () => {
     const { targetEl } = this.props;
     const floatEl = this.getFloatEl();
-    const info = alignUI(targetEl, this.floatEl, {toLoc: "cc", disableAutoLoc: true});
+    const info = alignUI(targetEl, this.floatEl, {toLoc: "cc", disableAutoLoc: true, positionFixed: true});
     const { move } = info;
     const result = {
       top: move[1],
