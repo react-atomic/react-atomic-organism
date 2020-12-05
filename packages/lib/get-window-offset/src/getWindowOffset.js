@@ -80,7 +80,7 @@ const calWindowOffset = (domInfo, scrollInfo) => {
   };
 };
 
-const getWindowOffset = (dom) => {
+const getWindowOffset = (dom, debug) => {
   if (!dom) {
     console.warn("getWindowOffset not assign dom");
     return false;
@@ -105,7 +105,7 @@ const getWindowOffset = (dom) => {
     cookScrollInfo.left += scrollNodeScrollInfo.left;
   }
   const domInfo = isOnScreen(targetDomInfo, cookScrollInfo);
-  if (!domInfo.isOnScreen) {
+  if (!domInfo.isOnScreen && false !== debug) {
     // should not break function here
     // not use return here
     console.warn("Dom is not in screen", {
