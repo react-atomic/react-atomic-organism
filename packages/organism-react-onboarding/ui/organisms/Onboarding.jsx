@@ -1,4 +1,5 @@
 import React, { cloneElement, PureComponent, Children } from "react";
+import {win} from "win-doc";
 
 class Onboarding extends PureComponent {
   static defaultProps = {
@@ -116,9 +117,13 @@ class Onboarding extends PureComponent {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const props = this.props;
+    const {stepIndex} = this.state;
     Children.forEach(props.children, (c, key) => {
       this.steps[key] = c;
     });
+    if (win().debug) { 
+      console.log("[Onboarding] Current step: "+ (stepIndex+1) );
+    }
   }
 
   constructor(props) {

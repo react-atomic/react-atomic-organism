@@ -264,18 +264,13 @@ create-el@*:
     win-doc "*"
 
 css-query-selector@*:
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/css-query-selector/-/css-query-selector-0.2.12.tgz#bedf8ed37e675e0221b9076e8cc36a358eeae946"
-  integrity sha512-euPNQtbe+V46WS9IaGLb0Unxna0QIIf4IEVhItrwx+psYCzbTWdBEoMZEXjrodJF3ztYSAR+5khPY0qkwmo47Q==
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/css-query-selector/-/css-query-selector-0.3.0.tgz#e4befa6759aba5b7688671d079d733402df29a61"
+  integrity sha512-ioON4M4jRNgFmHg4vHbQZq3sBevyw8wNYaen1SrAvSbOdJRpWME0+n/ws7MtUuHQAOrB3s8bJRQg6WveL1t1gQ==
   dependencies:
     reshow-constant "*"
     reshow-runtime "*"
     win-doc "*"
-
-css-query-selector@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/css-query-selector/-/css-query-selector-0.0.0.tgz#27eff80e798a3f066bbbdde08c2679d958b5baef"
-  integrity sha512-vh5fHHbtQLANdIwMR7w6Dc0O9OblTqF9h7xrUJFsObRAXxQl6dQG5GRho5kOSBk2DwJ/vw9gQRNsNxtpFCnrXA==
 
 debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -440,9 +435,9 @@ get-value@^2.0.3, get-value@^2.0.6:
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
 get-window-offset@*:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.1.6.tgz#a311402212ab84521b8ac17cdf3a043cd78bb639"
-  integrity sha512-4QIMVOR8yLtZKwInCJ0orv1G6srbbOb38gSI7Oept7AOv3BiObCCoPDt7++SqBuZ0klzV1v3qVL00Bq+6LHKJQ==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.2.0.tgz#5fa9f9c862542d57258d6baf485546c265ff1d90"
+  integrity sha512-AAzC3UhVywnhINHcoWLxYlbKEewihjr9o5jr6GPpCJwg4TT9WAhNWQ8sIv3RXLCZqfZNevNAK70L824Fs/C4rQ==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -861,9 +856,9 @@ once@^1.3.0:
     wrappy "1"
 
 organism-react-animate@*:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.8.0.tgz#be651209381f1a7e77fe076618637b0b81d77f46"
-  integrity sha512-HjOTdlfN9jxHd+7gvtFLTh9LVZ7Ga1UtCvQj5pKsN9Lxi8vTVMDRxurH0BxbvusF43Oa3Oc0KfmeZjiboX3ujg==
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/organism-react-animate/-/organism-react-animate-0.8.1.tgz#25c91a48a2e83e31b13c61862f9066c582542641"
+  integrity sha512-fCpYE+PFHNECYE6jE7DwdDGtFeh8Qq4N9ZWPw/BOxJ+fSnAssi6SPuAzwKwRBsvIf0gp9QNUyuQ9hA2i22EEgw==
   dependencies:
     call-func "*"
     get-object-value "*"
@@ -895,9 +890,9 @@ organism-react-popup@*:
     win-doc "*"
 
 organism-react-spotlight@*:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.10.tgz#bac9051ce676d3b7743ee8260183bbfa36a3d15a"
-  integrity sha512-G6Fc9yY19AzpD4gf8/r3/pxW9iFJHZBkP/RyPSH2kBdFzmuHuZzGbD1Iy6VArAbJJqDF8h715b15Hd/nA3hbcg==
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/organism-react-spotlight/-/organism-react-spotlight-0.0.11.tgz#4282d659ce93d078e587e1211577ce9592b7639b"
+  integrity sha512-f3bzMjDw6/K/fIYrxkrkMcfc9n0NjSdd6AxzY4G/8Qe/4TJhIeNhQcHxXHQ/e7g2nglEnU0a6vWocZaJaGcF9Q==
   dependencies:
     array.merge "*"
     class-lib "*"

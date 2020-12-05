@@ -1,5 +1,6 @@
 import React from "react";
 import getOffset from "getoffset";
+import { isFixed } from "get-window-offset";
 import { reactStyle, SemanticUI } from "react-atomic-molecule";
 import { PopupFloatEl } from "organism-react-popup";
 
@@ -17,7 +18,7 @@ class Highlight extends PopupFloatEl {
 
   calPos = () => {
     const { targetEl, padding } = this.props;
-    const pos = getOffset(targetEl);
+    const pos = getOffset(targetEl, isFixed(targetEl));
     const width = pos.right - pos.left + padding * 2;
     const height = pos.bottom - pos.top + padding * 2;
     const top = pos.top - padding;

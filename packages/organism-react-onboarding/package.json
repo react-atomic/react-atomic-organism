@@ -1,6 +1,6 @@
 {
   "name": "organism-react-onboarding",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Create guided tours with react.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "class-lib": "*",
-    "css-query-selector": "^0.0.0",
+    "css-query-selector": "*",
     "get-style": "*",
     "get-window-offset": "*",
     "getoffset": "*",
@@ -24,7 +24,8 @@
     "react-atomic-molecule": "*",
     "ricon": "*",
     "smooth-scroll-to": "*",
-    "to-percent-js": "*"
+    "to-percent-js": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

@@ -553,7 +553,6 @@ class Step extends PureComponent {
   render() {
     const {
       maskScroll,
-      closeCallback,
       header,
       content,
       actions,
@@ -563,6 +562,7 @@ class Step extends PureComponent {
       total,
       userScroll,
       I18N,
+      onClose,
     } = this.props;
     const stepDisplayIndex = stepIndex + 1;
     let floatEl;
@@ -648,7 +648,7 @@ class Step extends PureComponent {
       {
         maskScroll,
         name,
-        closeCallback,
+        onClose,
         modalStyle: style,
         modalClassName: "mini",
         center: false,
