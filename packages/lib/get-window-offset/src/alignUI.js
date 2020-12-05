@@ -2,12 +2,11 @@ import getOffset from "getoffset";
 import getScrollInfo from "get-scroll-info";
 import get from "get-object-value";
 
+import getTargetElInfo from "./getTargetElInfo";
 import getAfterMove from "./getAfterMove";
 import getWindowOffset from "./getWindowOffset";
 import alignWith from "./alignWith";
 import isFullOnScreen from "./isFullOnScreen";
-import isSetOverflow from "./isSetOverflow";
-import isFixed from "./isFixed";
 import pos from "./positions";
 import getPositionString from "./getPositionString";
 
@@ -44,7 +43,7 @@ const fixScrollNode = (scrollInfo) => (move) => [
 ];
 
 const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
-  let { toLoc, disableAutoLoc } = get(alignParams, null, {});
+  let { toLoc, disableAutoLoc, positionFixed } = get(alignParams, null, {});
   if (!targetEl) {
     console.warn("targetEl was empty", {targetEl});
     return false;
@@ -70,10 +69,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     if (winInfo) {
       targetInfo = winInfo.domInfo;
     } else {
-      const targetFixedNode = isFixed(targetEl);
-      targetInfo = getOffset(targetEl, targetFixedNode);
-      targetInfo.scrollNode = isSetOverflow(targetEl);
-      targetInfo.fixedNode = targetFixedNode;
+      targetInfo = getTargetElInfo(targetEl).domInfo;
     }
   }
   if (!targetInfo) {
@@ -81,13 +77,15 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     return false;
   }
 
-  const floatInfo = getOffset(floatEl);
   let adjustMove;
   const scrollNode = targetInfo.scrollNode;
   const fixedNode = targetInfo.fixedNode;
+
   if (fixedNode) {
     if (fixedNode.contains(floatEl)) {
       adjustMove = fixFixedNode(getScrollInfo(fixedNode));
+    } else if (positionFixed) { 
+      adjustMove = fixScrollNode(getScrollInfo(fixedNode));
     } else {
       if (winInfo) {
         adjustMove = fixFixedNode(winInfo.scrollInfo);
@@ -100,6 +98,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   }
   let loc;
   let move;
+  const floatInfo = getOffset(floatEl);
   locs.some((locItem) => {
     loc = locItem;
     move = alignWith(targetInfo, floatInfo, loc);

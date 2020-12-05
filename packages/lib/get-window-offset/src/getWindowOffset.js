@@ -1,8 +1,7 @@
 import getScrollInfo from "get-scroll-info";
 import getOffset from "getoffset";
 import isOnScreen from "./isOnScreen";
-import isFixed from "./isFixed";
-import isSetOverflow from "./isSetOverflow";
+import getTargetElInfo from "./getTargetElInfo";
 import pos from "./positions";
 
 const T = "T";
@@ -86,8 +85,10 @@ const getWindowOffset = (dom) => {
     console.warn("getWindowOffset not assign dom");
     return false;
   }
-  const fixedNode = isFixed(dom);
-  const scrollNode = isSetOverflow(dom);
+  const { fixedNode, scrollNode, domInfo: targetDomInfo } = getTargetElInfo(
+    dom
+  );
+
   const scrollInfo = getScrollInfo();
   const cookScrollInfo = { ...scrollInfo };
   if (fixedNode) {
@@ -103,9 +104,7 @@ const getWindowOffset = (dom) => {
     cookScrollInfo.bottom += scrollNodeScrollInfo.top;
     cookScrollInfo.left += scrollNodeScrollInfo.left;
   }
-  const domInfo = isOnScreen(getOffset(dom, fixedNode), cookScrollInfo);
-  domInfo.fixedNode = fixedNode;
-  domInfo.scrollNode = scrollNode;
+  const domInfo = isOnScreen(targetDomInfo, cookScrollInfo);
   if (!domInfo.isOnScreen) {
     // should not break function here
     // not use return here
