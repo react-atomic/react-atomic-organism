@@ -57,6 +57,7 @@ class Step extends PureComponent {
 
   static defaultProps = {
     delay: 100,
+    monitorDelay: 700,
     userScroll: false,
     scrollTo: true,
   };
@@ -294,7 +295,7 @@ class Step extends PureComponent {
     const {
       type,
       delay,
-      isBack,
+      isReady,
       before,
       cook,
       target,
@@ -333,7 +334,7 @@ class Step extends PureComponent {
         }
         clearInterval(this.timerFind);
         let thisDelay = delay;
-        if (isBack) {
+        if (isReady) {
           thisDelay = 0;
         }
         this.timerExecute = setTimeout(() => {
@@ -375,24 +376,26 @@ class Step extends PureComponent {
   }
 
   handleMonitor() {
-    const { monitors, host } = this.props;
+    const { monitors, monitorDelay, host } = this.props;
     if (!monitors) {
       return;
     }
-    clearInterval(this.timerMonitor);
-    this.timerMonitor = setInterval(() => {
-      monitors.forEach((sel) => {
-        const nodes = query.all(sel);
-        if (nodes.length) {
-          nodes.forEach((node) => {
-            const pos = getOffset(node);
-            if (pos.w && pos.h) {
-              host.next();
-            }
-          });
-        }
-      });
-    }, 100);
+    setTimeout(() => {
+      clearInterval(this.timerMonitor);
+      this.timerMonitor = setInterval(() => {
+        monitors.forEach((sel) => {
+          const nodes = query.all(sel);
+          if (nodes.length) {
+            nodes.forEach((node) => {
+              const pos = getOffset(node);
+              if (pos.w && pos.h) {
+                host.next();
+              }
+            });
+          }
+        });
+      }, 100);
+    }, monitorDelay);
   }
 
   closeFloats() {
@@ -480,73 +483,6 @@ class Step extends PureComponent {
 
   constructor(props) {
     super(props);
-    const InjectStyles = {
-      modal: [
-        {
-          background: [
-            "-webkit-radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%)",
-            "radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%)",
-          ],
-        },
-      ],
-      fixed: [
-        {
-          position: "fixed !important",
-        },
-        ".react-onboarding-fixed",
-        "react-onboarding-fixed",
-      ],
-      cleanZIndex: [
-        {
-          zIndex: "auto !important",
-        },
-        "." + classCleanZIndex,
-        classCleanZIndex,
-      ],
-      relative: [
-        {
-          position: "relative !important",
-        },
-        "." + classRelative,
-        classRelative,
-      ],
-      showEl: [
-        {
-          zIndex: "99999 !important",
-          transform: "translate3d(0,0,0)",
-        },
-        "." + classShowEl,
-        classShowEl,
-      ],
-      progress: [
-        {
-          position: "absolute !important",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 2,
-        },
-      ],
-      header: [
-        {
-          textAlign: "left",
-        },
-      ],
-      content: [
-        {
-          textAlign: "left",
-          padding: "1rem 1rem",
-        },
-      ],
-      actions: [
-        {
-          textAlign: "right",
-          paddingTop: "1rem",
-          background: "f9fafb",
-          borderTop: "1px solid rgba(34,36,38,.15)",
-        },
-      ],
-    };
     injects = lazyInject(injects, InjectStyles);
   }
 
@@ -666,3 +602,71 @@ class Step extends PureComponent {
 export default Step;
 
 export { myShowEl as showEl, myCleanZIndex as cleanZIndex };
+
+const InjectStyles = {
+  modal: [
+    {
+      background: [
+        "-webkit-radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%)",
+        "radial-gradient(center,ellipse cover,rgba(0,0,0,0.4) 0,rgba(0,0,0,0.9) 100%)",
+      ],
+    },
+  ],
+  fixed: [
+    {
+      position: "fixed !important",
+    },
+    ".react-onboarding-fixed",
+    "react-onboarding-fixed",
+  ],
+  cleanZIndex: [
+    {
+      zIndex: "auto !important",
+    },
+    "." + classCleanZIndex,
+    classCleanZIndex,
+  ],
+  relative: [
+    {
+      position: "relative !important",
+    },
+    "." + classRelative,
+    classRelative,
+  ],
+  showEl: [
+    {
+      zIndex: "99999 !important",
+      transform: "translate3d(0,0,0)",
+    },
+    "." + classShowEl,
+    classShowEl,
+  ],
+  progress: [
+    {
+      position: "absolute !important",
+      top: 0,
+      left: 0,
+      right: 0,
+      zIndex: 2,
+    },
+  ],
+  header: [
+    {
+      textAlign: "left",
+    },
+  ],
+  content: [
+    {
+      textAlign: "left",
+      padding: "1rem 1rem",
+    },
+  ],
+  actions: [
+    {
+      textAlign: "right",
+      paddingTop: "1rem",
+      background: "f9fafb",
+      borderTop: "1px solid rgba(34,36,38,.15)",
+    },
+  ],
+};

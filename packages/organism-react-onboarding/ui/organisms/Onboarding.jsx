@@ -1,5 +1,5 @@
 import React, { cloneElement, PureComponent, Children } from "react";
-import {win} from "win-doc";
+import { win } from "win-doc";
 
 class Onboarding extends PureComponent {
   static defaultProps = {
@@ -38,7 +38,7 @@ class Onboarding extends PureComponent {
       this.current.handleFinish();
       return {
         stepIndex,
-        isBack: false,
+        isReady: false,
       };
     });
   };
@@ -52,7 +52,7 @@ class Onboarding extends PureComponent {
       this.current.handleFinish();
       return {
         stepIndex,
-        isBack: true,
+        isReady: true,
       };
     });
   };
@@ -67,6 +67,10 @@ class Onboarding extends PureComponent {
     if (this.current) {
       this.current.resetLightBox();
     }
+  }
+
+  setIsReady(bool) {
+    this.setState({ isReady: bool });
   }
 
   tryOpen() {
@@ -115,14 +119,20 @@ class Onboarding extends PureComponent {
     return this.state.stepIndex;
   }
 
+  handleRef = (el) => {
+    if (el) {
+      this.current = el;
+    }
+  };
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     const props = this.props;
-    const {stepIndex} = this.state;
+    const { stepIndex } = this.state;
     Children.forEach(props.children, (c, key) => {
       this.steps[key] = c;
     });
-    if (win().debug) { 
-      console.log("[Onboarding] Current step: "+ (stepIndex+1) );
+    if (win().debug) {
+      console.log("[Onboarding] Current step: " + (stepIndex + 1));
     }
   }
 
@@ -155,7 +165,7 @@ class Onboarding extends PureComponent {
   render() {
     const { total, next, back } = this;
     const { I18N, before } = this.props;
-    const { stepIndex, isBack } = this.state;
+    const { stepIndex, isReady } = this.state;
     if (null === stepIndex) {
       return null;
     }
@@ -168,17 +178,13 @@ class Onboarding extends PureComponent {
       host: this,
       key: stepIndex,
       onboardingBefore,
-      isBack,
+      isReady,
       I18N,
       stepIndex,
       total,
       next,
       back,
-      ref: (el) => {
-        if (el) {
-          this.current = el;
-        }
-      },
+      ref: this.handleRef,
     });
   }
 }
