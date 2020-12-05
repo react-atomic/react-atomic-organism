@@ -11,6 +11,28 @@ const B = "B";
 const L = "L";
 const C = "C";
 
+const getRevertLoc = (fromLoc) => {
+  let loc;
+  switch (fromLoc) {
+    case pos.TL:
+      loc = pos.TR;
+      break;
+    case pos.TR:
+      loc = pos.TL;
+      break;
+    case pos.BL:
+      loc = pos.BR;
+      break;
+    case pos.BR:
+      loc = pos.BL;
+      break;
+    default:
+      loc = toLoc;
+      break;
+  }
+  return loc;
+};
+
 const calWindowOffset = (domInfo, scrollInfo) => {
   const distance = {};
   distance.top = domInfo.top - scrollInfo.top;
@@ -31,7 +53,6 @@ const calWindowOffset = (domInfo, scrollInfo) => {
   );
   let firstKey = distanceFlip[maxDistance];
   let secondKey;
-  let locs = [pos[firstKey + C]];
   if (firstKey === T || firstKey === B) {
     distanceFlip = {
       [distance.right]: R,
@@ -46,8 +67,11 @@ const calWindowOffset = (domInfo, scrollInfo) => {
     secondKey = firstKey;
     firstKey = distanceFlip[Math.max(distance.top, distance.bottom)];
   }
-  locs.push(pos[firstKey + secondKey]);
-  locs.push(pos[secondKey + C]);
+  const locs = [
+    getRevertLoc(pos[firstKey + secondKey]),
+    pos[firstKey + C],
+    pos[secondKey + C],
+  ];
   const tb = firstKey;
   const lr = secondKey;
   return {

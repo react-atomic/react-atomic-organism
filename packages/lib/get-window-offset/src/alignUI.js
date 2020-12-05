@@ -124,7 +124,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     toLoc: toLoc || loc,
     locClassName: getPositionString(loc),
   };
-//  console.log(result);
+  // console.log(result, {locs, winInfo});
   return result;
 };
 
