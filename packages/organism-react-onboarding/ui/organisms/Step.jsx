@@ -279,8 +279,9 @@ class Step extends PureComponent {
     return true;
   }
 
-  tryResetFloats(callback) {
-    const { delay, isReady, target } = this.props;
+  tryResetFloats(callback, isReady) {
+    const { delay, target } = this.props;
+    isReady = isReady ?? this.props.isReady;
     let maxTry = 100;
     let tryTime = 0;
     clearInterval(this.timerFind);
