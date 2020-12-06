@@ -29,23 +29,13 @@ class Onboarding extends PureComponent {
     }
   };
 
-  next = () => {
+  back = (currentIndex) => {
     this.setState(({ stepIndex }) => {
-      stepIndex++;
-      if (stepIndex >= this.total) {
-        stepIndex = null;
+      if (null == currentIndex) {
+        stepIndex--;
+      } else {
+        stepIndex = currentIndex - 1;
       }
-      this.current.handleFinish();
-      return {
-        stepIndex,
-        isReady: false,
-      };
-    });
-  };
-
-  back = () => {
-    this.setState(({ stepIndex }) => {
-      stepIndex--;
       if (stepIndex < 0) {
         stepIndex = 0;
       }
@@ -53,6 +43,24 @@ class Onboarding extends PureComponent {
       return {
         stepIndex,
         isReady: true,
+      };
+    });
+  };
+
+  next = (currentIndex) => {
+    this.setState(({ stepIndex }) => {
+      if (null == currentIndex) {
+        stepIndex++;
+      } else {
+        stepIndex = currentIndex + 1;
+      }
+      if (stepIndex >= this.total) {
+        stepIndex = null;
+      }
+      this.current.handleFinish();
+      return {
+        stepIndex,
+        isReady: false,
       };
     });
   };
@@ -131,7 +139,7 @@ class Onboarding extends PureComponent {
     Children.forEach(props.children, (c, key) => {
       this.steps[key] = c;
     });
-    if (win().debug) {
+    if (this.debug) {
       console.log("[Onboarding] Current step: " + (stepIndex + 1));
     }
   }

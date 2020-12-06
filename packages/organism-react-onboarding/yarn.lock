@@ -435,9 +435,9 @@ get-value@^2.0.3, get-value@^2.0.6:
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
 get-window-offset@*:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.2.3.tgz#6f900fc24207fa0307258aa9f1cda9f8c84fc064"
-  integrity sha512-/i1xkDDCysmTAWS3BujDqw1F4//B0U4FER864FReSzIfXZVCZh+I7gufrHmQu2NkigeylO5oTBJNxOyTHEvSog==
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.2.4.tgz#626adcb390a9adb46de2ea7251411ea51a9cfe5b"
+  integrity sha512-DX7FwYH5A3BLVlTm8Uok81YdUojUdeyYzROa5G8dyjWCxInv+6qdqrXsFb1iej7JYxTuPE7++YBsL5TuWCIMRQ==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -867,9 +867,9 @@ organism-react-animate@*:
     win-doc "*"
 
 organism-react-popup@*:
-  version "0.10.4"
-  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.10.4.tgz#c58cb66622a0984771cc1f34201f3e48e0d1317f"
-  integrity sha512-Z8n7BitXZvdsnoRB/akYPalP4jmFeEVKyCxRnnAR+FySUxOaivwROLH3JXfn8Dm5tZmqvIGZ1/R+8KZG6XM/Mg==
+  version "0.10.7"
+  resolved "https://registry.yarnpkg.com/organism-react-popup/-/organism-react-popup-0.10.7.tgz#23c1a24b6d858f0a1f6a78f9cb5693ff6d544a2b"
+  integrity sha512-J/gL/l3Nv/+V0VL9UvYavCLfpUPJGULDniGLhIh8kRpcPmdhn7ppI23ySM5ejKCG07EACsj3tSIluCXLf6Xj1w==
   dependencies:
     array.merge "*"
     call-func "*"

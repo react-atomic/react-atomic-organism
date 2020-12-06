@@ -54,6 +54,7 @@ class Step extends PureComponent {
   timerFind;
   timerExecute;
   timerMonitor;
+  timerMonitorInit;
 
   static defaultProps = {
     delay: 100,
@@ -61,6 +62,35 @@ class Step extends PureComponent {
     userScroll: false,
     scrollTo: true,
   };
+
+  addNumber(num, node) {
+    if (!node || !num) {
+      return;
+    }
+    if (!this.isDomShow(node)) {
+      return;
+    }
+    let thisStyles;
+    const isSetFixed = isFixed(node);
+    if (isSetFixed) {
+      thisStyles = injects.fixed;
+    }
+    popupDispatch({
+      type: "dom/update",
+      params: {
+        popup: (
+          <StepNumber
+            name={"number-" + num}
+            key={"number-" + num}
+            targetEl={node}
+            styles={thisStyles}
+          >
+            {num}
+          </StepNumber>
+        ),
+      },
+    });
+  }
 
   addLightBox(node, isHide) {
     const isSetFixed = isFixed(node);
@@ -97,47 +127,9 @@ class Step extends PureComponent {
     }
   }
 
-  _resetFloats(callback, lightEl) {
-    const { type, before, hideLightBox } = this.props;
-    if (before) {
-      before.call(this);
-    }
-    if (lightEl) {
-      this.addLightBox(lightEl, hideLightBox);
-      const isSetFixed = isFixed(lightEl);
-      let floatProps = {};
-      if (type !== "modal") {
-        floatProps = {
-          isSetFixed,
-          targetEl: lightEl,
-        };
-      }
-      this._float = cloneElement(this._float, floatProps);
-    }
-    this.setHighlights();
-    this.setNumbers();
-    this.setBeacons();
-    if ("function" === typeof callback) {
-      callback.call(this);
-    }
-    this.handleMonitor();
-    return true;
-  }
-
-  resetFloats(targetEl) {
-    this._resetFloats(() => {
-      popupDispatch({
-        type: "dom/update",
-        params: {
-          popup: this._float,
-        },
-      });
-    }, targetEl);
-  }
-
   addHighlight(node) {
-    const nodePos = getOffset(node);
-    if (!nodePos.w || !nodePos.h) {
+    const nodePos = this.isDomShow(node);
+    if (!nodePos) {
       return;
     }
     let thisStyles;
@@ -190,8 +182,7 @@ class Step extends PureComponent {
       if (!node) {
         return;
       }
-      const nodePos = getOffset(node);
-      if (!nodePos.w || !nodePos.h) {
+      if (!this.isDomShow(node)) {
         return;
       }
       const isSetFixed = isFixed(node);
@@ -215,36 +206,6 @@ class Step extends PureComponent {
     });
   }
 
-  addNumber(num, node) {
-    if (!node || !num) {
-      return;
-    }
-    const nodePos = getOffset(node);
-    if (!nodePos.w || !nodePos.h) {
-      return;
-    }
-    let thisStyles;
-    const isSetFixed = isFixed(node);
-    if (isSetFixed) {
-      thisStyles = injects.fixed;
-    }
-    popupDispatch({
-      type: "dom/update",
-      params: {
-        popup: (
-          <StepNumber
-            name={"number-" + num}
-            key={"number-" + num}
-            targetEl={node}
-            styles={thisStyles}
-          >
-            {num}
-          </StepNumber>
-        ),
-      },
-    });
-  }
-
   setNumbers() {
     const { numbers } = this.props;
     if (!numbers) {
@@ -255,41 +216,6 @@ class Step extends PureComponent {
       this.addNumber(key, node);
     });
   }
-
-  handleScrollTo(lightEl, callback) {
-    const { scrollTo } = this.props;
-    if (!scrollTo || !lightEl) {
-      callback.call(this);
-      return;
-    }
-    const lightElPos = getOffset(lightEl);
-    const scrollInfo = getScrollInfo();
-    let halfH;
-    if (scrollInfo.scrollNodeHeight > lightElPos.h) {
-      halfH = (scrollInfo.scrollNodeHeight - lightElPos.h) / 2;
-    } else {
-      halfH = scrollInfo.scrollNodeHeight / 2;
-    }
-    scroll(Math.floor(lightElPos.top - halfH), null, null, () => {
-      callback.call(this);
-    });
-  }
-
-  handleNext = () => {
-    const { verify, next, finish } = this.props;
-    let isSuccess = true;
-    if (verify) {
-      isSuccess = verify.call(this);
-    }
-    if (!isSuccess) {
-      console.warn("Handle finish failed.");
-      return isSuccess;
-    }
-    if (finish) {
-      finish.call(this);
-    }
-    next();
-  };
 
   initFloat() {
     const {
@@ -320,45 +246,126 @@ class Step extends PureComponent {
       });
     };
     if (target) {
-      let maxTry = 100;
-      let tryTime = 0;
-      this.timerFind = setInterval(() => {
-        tryTime++;
-        const lightEl = query.one(target);
-        if (tryTime > maxTry) {
-          clearInterval(this.timerFind);
-          console.warn("Can not find light element. [" + target + "]");
-        }
-        if (!lightEl) {
-          return;
-        }
-        clearInterval(this.timerFind);
-        let thisDelay = delay;
-        if (isReady) {
-          thisDelay = 0;
-        }
-        this.timerExecute = setTimeout(() => {
-          this.handleScrollTo(lightEl, () => {
-            this._resetFloats(callback, lightEl);
-          });
-        }, thisDelay);
-      }, 50);
+      this.tryResetFloats(callback);
     } else {
       callback.call(this);
     }
   }
 
+  _resetFloats(callback, lightEl) {
+    const { type, before, hideLightBox } = this.props;
+    if (before) {
+      before.call(this);
+    }
+    if (lightEl) {
+      this.addLightBox(lightEl, hideLightBox);
+      const isSetFixed = isFixed(lightEl);
+      let floatProps = {};
+      if (type !== "modal") {
+        floatProps = {
+          isSetFixed,
+          targetEl: lightEl,
+        };
+      }
+      this._float = cloneElement(this._float, floatProps);
+    }
+    this.setHighlights();
+    this.setNumbers();
+    this.setBeacons();
+    if ("function" === typeof callback) {
+      callback.call(this);
+    }
+    this.handleMonitor();
+    return true;
+  }
+
+  tryResetFloats(callback) {
+    const { delay, isReady, target } = this.props;
+    let maxTry = 100;
+    let tryTime = 0;
+    clearInterval(this.timerFind);
+    this.timerFind = setInterval(() => {
+      tryTime++;
+      const targetEl = this.getTargetEl();
+      if (tryTime > maxTry) {
+        clearInterval(this.timerFind);
+        console.warn("Can not find target element. [" + target + "]");
+      }
+      if (!targetEl) {
+        return;
+      }
+      clearInterval(this.timerFind);
+      let thisDelay = delay;
+      if (isReady) {
+        thisDelay = 0;
+      }
+      clearTimeout(this.timerExecute);
+      this.timerExecute = setTimeout(() => {
+        this.handleScrollTo(targetEl, () => {
+          this._resetFloats(callback, targetEl);
+        });
+      }, thisDelay);
+    }, 50);
+  }
+
+  resetFloats() {
+    this.tryResetFloats(() => {
+      popupDispatch({
+        type: "dom/update",
+        params: {
+          popup: this._float,
+        },
+      });
+    });
+  }
+
+  handleScrollTo(lightEl, callback) {
+    const { scrollTo } = this.props;
+    if (!scrollTo || !lightEl) {
+      callback.call(this);
+      return;
+    }
+    const lightElPos = getOffset(lightEl);
+    const scrollInfo = getScrollInfo();
+    let halfH;
+    if (scrollInfo.scrollNodeHeight > lightElPos.h) {
+      halfH = (scrollInfo.scrollNodeHeight - lightElPos.h) / 2;
+    } else {
+      halfH = scrollInfo.scrollNodeHeight / 2;
+    }
+    scroll(Math.floor(lightElPos.top - halfH), null, null, () => {
+      callback.call(this);
+    });
+  }
+
   handleBack = () => {
-    const { back, finish } = this.props;
+    const { back, finish, stepIndex } = this.props;
     if (finish) {
       finish.call(this);
     }
-    back();
+    back(stepIndex);
+  };
+
+  handleNext = () => {
+    const { verify, next, finish, stepIndex } = this.props;
+    let isSuccess = true;
+    if (verify) {
+      isSuccess = verify.call(this);
+    }
+    if (!isSuccess) {
+      console.warn("Handle finish failed.");
+      return isSuccess;
+    }
+    if (finish) {
+      finish.call(this);
+    }
+    next(stepIndex);
   };
 
   handleFinish() {
     clearInterval(this.timerFind);
     clearInterval(this.timerMonitor);
+    clearTimeout(this.timerMonitorInit);
     clearTimeout(this.timerExecute);
     const { finish } = this.props;
     if (finish) {
@@ -376,20 +383,21 @@ class Step extends PureComponent {
   }
 
   handleMonitor() {
-    const { monitors, monitorDelay, host } = this.props;
+    const { monitors, monitorDelay, next, stepIndex } = this.props;
     if (!monitors) {
       return;
     }
-    setTimeout(() => {
+    clearTimeout(this.timerMonitorInit);
+    this.timerMonitorInit = setTimeout(() => {
       clearInterval(this.timerMonitor);
       this.timerMonitor = setInterval(() => {
         monitors.forEach((sel) => {
           const nodes = query.all(sel);
           if (nodes.length) {
             nodes.forEach((node) => {
-              const pos = getOffset(node);
-              if (pos.w && pos.h) {
-                host.next();
+              if (this.isDomShow(node)) {
+                next(stepIndex);
+                clearInterval(this.timerMonitor);
               }
             });
           }
@@ -407,6 +415,15 @@ class Step extends PureComponent {
     });
   }
 
+  isDomShow(dom) {
+    const elPos = getOffset(dom);
+    if (!elPos.w || !elPos.h) {
+      return false;
+    } else {
+      return elPos;
+    }
+  }
+
   /**
    * @return null mean not assign target
    * @return false mean target not exists
@@ -420,11 +437,11 @@ class Step extends PureComponent {
     if (!targetEl) {
       return false;
     }
-    const targetElPos = getOffset(targetEl);
-    if (!targetElPos.w || !targetElPos.h) {
+    if (this.isDomShow(targetEl)) {
+      return targetEl;
+    } else {
       return false;
     }
-    return targetEl;
   }
 
   tryOpen() {
@@ -444,9 +461,7 @@ class Step extends PureComponent {
       this.handleFinish();
       return;
     }
-    this.handleScrollTo(targetEl, () => {
-      this.resetFloats(targetEl);
-    });
+    this.resetFloats();
   }
 
   resetLightBox() {
