@@ -33,9 +33,6 @@ class PopupFloatEl extends PopupOverlay {
       return;
     }
     const pos = this.calPos();
-    if (!pos) {
-      return;
-    }
     const diffTop = Math.abs(pos.top - toInt(this.floatTop));
     const diffLeft = Math.abs(pos.left - toInt(this.floatLeft));
     if (
@@ -86,7 +83,7 @@ class PopupFloatEl extends PopupOverlay {
     if (el) {
       this.floatEl = el;
     }
-    setTimeout(() => this.handleMoveTo());
+    this.handleMoveTo();
   };
 
   /**
