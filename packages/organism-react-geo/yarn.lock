@@ -135,10 +135,6 @@ array.dedup@*:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.0.1.tgz#f46b16c2706992d5d18cfd81a1af7b63c6b66aea"
 
-array.merge@*:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.0.2.tgz#6a0a0939fe30d4c0963d35ab0540ae74acb01b03"
-
 asap@~2.0.3:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
@@ -1171,6 +1167,12 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
+call-func@*:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.0.4.tgz#3c70ae685575be63eeb085ba0cd7f8d93cbb89a4"
+  dependencies:
+    reshow-constant "*"
+
 camelcase@^1.0.2:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-1.2.1.tgz#9bb5304d2e0b56698b2c758b08a3eaa9daa58a39"
@@ -2127,28 +2129,9 @@ get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
-get-style@*:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.0.0.tgz#966e37b08dea60e1994a2652437a8a5e6d7b0224"
-
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
-
-get-window-offset@*:
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/get-window-offset/-/get-window-offset-0.0.21.tgz#0f43e95a3cb17cf8ec57ad17020c0eca8e5742bf"
-  dependencies:
-    get-object-value "*"
-    get-scroll-info "*"
-    get-style "*"
-    getoffset "*"
-
-getoffset@*:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.0.8.tgz#c4addf59859e30fea177f143cae847e18f551591"
-  dependencies:
-    get-scroll-info "*"
 
 getpass@^0.1.1:
   version "0.1.7"
@@ -2375,8 +2358,8 @@ inherits@2.0.1:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
 
 ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
 
 interpret@^1.0.0:
   version "1.1.0"
@@ -2649,6 +2632,14 @@ jsprim@^1.2.2:
     extsprintf "1.3.0"
     json-schema "0.2.3"
     verror "1.10.0"
+
+keyframe-css@*:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/keyframe-css/-/keyframe-css-0.1.0.tgz#de2e512ed3d335b834a513fa57ef3ad223e0e0c6"
+  dependencies:
+    call-func "*"
+    get-object-value "*"
+    react-atomic-molecule "*"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -3121,19 +3112,6 @@ organism-react-ajax@*:
     reshow-flux "*"
     smooth-scroll-to "*"
     superagent "^3.3.0"
-
-organism-react-scroll-nav@*:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/organism-react-scroll-nav/-/organism-react-scroll-nav-0.4.4.tgz#b183eab9b05dc2465d164c1b5b5c7268ad471299"
-  dependencies:
-    get-object-value "*"
-    get-scroll-info "*"
-    get-window-offset "*"
-    getoffset "*"
-    immutable "*"
-    react-atomic-molecule "*"
-    reshow-flux "*"
-    smooth-scroll-to "*"
 
 os-browserify@^0.3.0:
   version "0.3.0"
@@ -3633,6 +3611,10 @@ reshow-app@*:
     webpack "^3.0.0"
     webpack-bundle-analyzer "*"
 
+reshow-constant@*:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.0.5.tgz#fbc9ba458b57befba0a275893d2f016d0821b00a"
+
 reshow-flux@*:
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.0.28.tgz#33df057689e62fff886d8610d36e59f3f66836d2"
@@ -3662,6 +3644,13 @@ restore-cursor@^2.0.0:
 ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
+
+ricon@*:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.2.7.tgz#6f321bc57d3e54483e0bedfbd3cd1e8cfbd7cf64"
+  dependencies:
+    keyframe-css "*"
+    react-atomic-molecule "*"
 
 right-align@^0.1.1:
   version "0.1.3"
