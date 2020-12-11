@@ -15,6 +15,19 @@ describe("Test Get Object Value", () => {
     expect(acture).to.equal("v");
   });
 
+  it("test null", () => {
+    const a = {
+      foo: {
+        bar: {
+          key: null,
+        },
+      },
+    };
+    const acture = get(a, ["foo", "bar", "key"]);
+    expect(acture).to.equal(null);
+  });
+
+
   it("test toMap", () => {
     const map = {
       a: {

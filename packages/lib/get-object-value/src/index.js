@@ -36,7 +36,7 @@ const get = (o, path, defaultValue) => {
   }
   try {
     path.every((a) => {
-      if (null != current[a]) {
+      if (current.hasOwnProperty(a)) {
         current = current[a];
         return true;
       } else {
