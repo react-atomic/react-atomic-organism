@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, useState, useCallback, useRef } from "react";
 
 import { Video, VideoThumbnail, ResponsiveVideo } from "organism-react-video";
 import Iframe from "organism-react-iframe";
@@ -23,7 +23,7 @@ class Body extends PureComponent {
     });
   };
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  handleInitVideo = () => {
     const { api, videoId, iframe, srcTpl } = this.props;
     const { curVideoId } = this.state;
     if (videoId !== curVideoId && iframe) {
@@ -46,6 +46,14 @@ class Body extends PureComponent {
     }
   }
 
+  componentDidMount() {
+    this.handleInitVideo();
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.handleInitVideo();
+  }
+
   render() {
     const { src, isPlay } = this.state;
     const { videoId, thumbTpl, playBgColor, playFgColor } = this.props;
@@ -61,7 +69,7 @@ class Body extends PureComponent {
     }
     return (
       <Video
-        refCb={(el) => el.play()}
+        refCb={(el) => setTimeout(()=>el.play())}
         showControllBar={true}
         mask={false}
         corp={0}
@@ -71,24 +79,30 @@ class Body extends PureComponent {
   }
 }
 
-class QQVideo extends PureComponent {
-  static defaultProps = {
-    mask: false,
-  };
+const QQVideo = (props) => {
+  const { showControllBar, mask, corp, ...others } = props;
+  const [isLoad, setIsLoad] = useState();
+  const thisIframe = useRef();
+  const handleRef = useCallback(
+    (el) => {
+      thisIframe.current = el;
+      if (!isLoad) {
+        setIsLoad(true);
+      }
+    },
+    [isLoad]
+  );
+  return (
+    <ResponsiveVideo {...{ showControllBar, mask, corp }}>
+      <Iframe ref={handleRef}>
+        {isLoad && <Body iframe={thisIframe.current} {...others} />}
+      </Iframe>
+    </ResponsiveVideo>
+  );
+};
 
-  state = { iframe: null };
-
-  render() {
-    const { showControllBar, mask, corp, ...others } = this.props;
-    const { iframe } = this.state;
-    return (
-      <ResponsiveVideo {...{ showControllBar, mask, corp }}>
-        <Iframe ref={(o) => this.setState({ iframe: o })}>
-          <Body iframe={iframe} {...others} />
-        </Iframe>
-      </ResponsiveVideo>
-    );
-  }
-}
+QQVideo.defaultProps = {
+  mask: false
+};
 
 export default QQVideo;
