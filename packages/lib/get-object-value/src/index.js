@@ -24,11 +24,11 @@ const toStringForOneArray = (arr) =>
 const initMap = (o) => (k, defaultValue) =>
   o[k] || (o[k] = getDefaultValue(defaultValue));
 
-const getDefaultValue = (v) => (FUNCTION === typeof v ? v() : v);
+const getDefaultValue = (v, cur) => (FUNCTION === typeof v ? v(cur) : (v ?? cur));
 
 const get = (o, path, defaultValue) => {
   if (null == o) {
-    return getDefaultValue(defaultValue);
+    return getDefaultValue(defaultValue, o);
   }
   let current = toJS(o);
   if (!path || !isArray(path)) {
@@ -36,9 +36,14 @@ const get = (o, path, defaultValue) => {
   }
   try {
     path.every((a) => {
-      if (current.hasOwnProperty(a)) {
+      if (current && a in current) {
         current = current[a];
-        return true;
+        if (null == current) {
+          current = getDefaultValue(defaultValue, current);
+          return false;
+        } else {
+          return true;
+        }
       } else {
         current = getDefaultValue(defaultValue);
         return false;
