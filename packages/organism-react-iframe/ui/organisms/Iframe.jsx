@@ -81,7 +81,7 @@ const Iframe = forwardRef((props, ref) => {
         smoothScrollTo(pos.rect.top);
       }
     },
-    postHeight: () => thisIframe.current.postHeight(expose.getWindow()),
+    postHeight: () => thisIframe.current?.postHeight(expose.getWindow()),
   };
 
   const handleRefCb = (myEl) => {
