@@ -52,7 +52,7 @@ const handleSelected = ({
   Children.map(children, (item, itemKey) => {
     const itemProps = item.props;
     // Detect selected
-    const nodeKey = itemProps.name || itemKey;
+    const nodeKey = "name" in itemProps ? itemProps.name : itemKey;
     if (true === nextSelect) {
       nextSelect = nodeKey;
     }
