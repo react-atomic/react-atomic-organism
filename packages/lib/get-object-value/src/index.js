@@ -1,4 +1,4 @@
-import { DEFAULT, FUNCTION } from "reshow-constant";
+import { DEFAULT, FUNCTION, UNDEFINED } from "reshow-constant";
 
 const isArray = Array.isArray;
 const keys = Object.keys;
@@ -24,7 +24,7 @@ const toStringForOneArray = (arr) =>
 const initMap = (o) => (k, defaultValue) =>
   o[k] || (o[k] = getDefaultValue(defaultValue));
 
-const getDefaultValue = (v, cur) => (FUNCTION === typeof v ? v(cur) : (v ?? cur));
+const getDefaultValue = (v, cur) => (FUNCTION === typeof v ? v(cur) : v ?? cur);
 
 const get = (o, path, defaultValue) => {
   if (null == o) {
@@ -36,7 +36,7 @@ const get = (o, path, defaultValue) => {
   }
   try {
     path.every((a) => {
-      if (current && a in current) {
+      if (current && UNDEFINED !== typeof current[a]) {
         current = current[a];
         if (null == current) {
           current = getDefaultValue(defaultValue, current);

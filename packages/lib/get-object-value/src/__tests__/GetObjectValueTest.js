@@ -15,7 +15,7 @@ describe("Test Get Object Value", () => {
     expect(acture).to.equal("v");
   });
 
-  it("test null", () => {
+  it("test with null", () => {
     const a = {
       foo: {
         bar: {
@@ -25,6 +25,14 @@ describe("Test Get Object Value", () => {
     };
     const acture = get(a, ["foo", "bar", "key"]);
     expect(acture).to.equal(null);
+  });
+
+  it("test with number", () => {
+    const a = {
+      foo: 111,
+    };
+    const acture = get(a, ["foo", "bar"]);
+    expect(acture).to.equal(undefined);
   });
 
 
