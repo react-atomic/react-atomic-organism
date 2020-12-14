@@ -144,10 +144,12 @@ const TabView = forwardRef((props, ref) => {
   useEffect(() => {
     if (lastSelected.prev !== lastSelected.current) {
       thisSelected.current = lastSelected.current;
-      callfunc(onChange, [
-        thisSelected.current,
-        { selected: thisSelected.current },
-      ]);
+      setTimeout(() => {
+        callfunc(onChange, [
+          thisSelected.current,
+          { selected: thisSelected.current },
+        ]);
+      });
     }
   }, [lastSelected]);
 
