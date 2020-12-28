@@ -20,3 +20,6 @@ smoothScrollTo(to, duration, el);
 * to: scroll to where
 * duration(option, default 900): for how may time 
 * el(option, default body): scroll node element
+
+## ScrollToOptions
+https://caniuse.com/mdn-api_scrolltooptions_behavior
