@@ -16,5 +16,7 @@ React GrapesJs
 ## GrapesJS Doc
 https://grapesjs.com/docs/
 
-
-
+## Mjml debug
+```
+$("#grapejs-0").contentWindow.window.mjml2html(`<mjml><mj-body><mj-section><mj-column><mj-text>Content 1</mj-text></mj-column></mj-section></mj-body></mjml>`)
+```
