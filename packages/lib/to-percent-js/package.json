@@ -1,6 +1,6 @@
 {
   "name": "to-percent-js",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Change number to percentage.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

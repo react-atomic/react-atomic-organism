@@ -15,25 +15,29 @@ const toNum = (num) => {
     const maybeNaN = Number(num);
     return isNaN(maybeNaN) ? 0 : maybeNaN;
   } else {
-    const maybeString = num && num.trim ? num.trim() : num+"";
+    const maybeString = num && num.trim ? num.trim() : num + "";
     const maybeFloat = parseFloat(maybeString);
     const maybeInt = parseInt(maybeString, 10);
     if (maybeFloat === maybeInt && maybeInt === maybeString) {
       return maybeInt;
     } else {
-      if (maybeString === maybeFloat+"") {
+      if (maybeString === maybeFloat + "") {
         return maybeFloat;
       } else {
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/MAX_SAFE_INTEGER
         let willNum = 0;
-        if (-1 !== maybeString.indexOf('.') || (maybeFloat.indexOf && -1 !== maybeFloat.indexOf('.'))) {
+        if (-1 !== maybeString.indexOf(".")) {
           return maybeFloat;
         } else {
           if (!isNaN(maybeString)) {
             willNum = maybeString;
           }
         }
-        console.warn("Can not change to number well.", {willNum, maybeString, num});
+        console.warn("Can not change to number well.", {
+          willNum,
+          maybeString,
+          num,
+        });
         return willNum;
       }
     }
