@@ -69,6 +69,10 @@ describe("to num", () => {
   it("Test 100.01f", () => {
     expect(toNum("100.01f")).to.equal(100.01);
   });
+  it("Test over max-int", () => {
+    const overInt = "20210106042517623"; 
+    expect(toNum(overInt)).to.equal(overInt);
+  });
 });
 
 describe("To Int", () => {
