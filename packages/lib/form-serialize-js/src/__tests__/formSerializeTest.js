@@ -243,4 +243,17 @@ describe("Test formSerialize with checkbox", () => {
       foo8: false,
     });
   });
+
+  it("get value 0", ()=>{
+    const body = document.body;
+    body.innerHTML = `
+      <form>
+        <input name="foo" value="0">
+      </form>
+    `;
+    const fm = document.getElementsByTagName("form")[0];
+    expect(formSerialize(fm)).to.deep.equal({
+      foo: "0"
+    });
+  });
 });
