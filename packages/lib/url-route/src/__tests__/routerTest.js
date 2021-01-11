@@ -37,4 +37,19 @@ describe("Test Router", () => {
     });
     expect(match.splats).to.deep.equal(["abc", "def"]);
   });
+
+  it("route with host", () => {
+    const cb = sinon.spy(() => {});
+    const router = new Router();
+    router.addRoute("http://localhost/abc", cb);
+    const notMatch = router.match("/abc");
+    expect(notMatch).to.be.undefined;
+    const matchDifferentProtocol = router.match("https://localhost/abc");
+    matchDifferentProtocol.fn();
+    expect(cb.callCount).to.equal(1);
+    const matchSameProtocol = router.match("https://localhost/abc");
+    matchSameProtocol.fn();
+    expect(cb.callCount).to.equal(2);
+  });
+
 });
