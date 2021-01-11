@@ -8,6 +8,7 @@ import BaseLayout from "../molecules/BaseLayout";
 class LineDefaultLayout extends BaseLayout {
   static defaultProps = {
     markerEnd: "url(#marker-arrow-head)",
+    curve: true,
   };
 
   getEl() {
@@ -44,6 +45,7 @@ class LineDefaultLayout extends BaseLayout {
       onMouseLeave,
       onDeleteButtonClick,
       onClick,
+      curve,
       ...other
     } = this.props;
     let area = null;
@@ -51,7 +53,7 @@ class LineDefaultLayout extends BaseLayout {
     let areaStyle = Styles.area;
     let isShowedCancel = false;
     const { x: centerX, y: centerY } = this.getLinePoint(50, 50) || start;
-    const compLine = build(<LineGraph start={start} end={end} curve={true} />);
+    const compLine = build(<LineGraph start={start} end={end} curve={curve} />);
     if (from && to) {
       if (isHover) {
         areaStyle = { ...areaStyle, ...Styles.hover };

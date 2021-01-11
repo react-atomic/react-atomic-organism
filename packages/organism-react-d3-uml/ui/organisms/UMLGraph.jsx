@@ -441,6 +441,7 @@ class UMLGraph extends Component {
       onGetBoxComponent,
       onZoom,
       scaleExtent,
+      lineDefaultProps,
       ...props
     } = this.props;
     const { lines, oTransform } = this.state;
@@ -466,7 +467,7 @@ class UMLGraph extends Component {
               keys(lines).forEach((key) => {
                 const { hover, ...lineProps } = lines[key];
                 const lineEl = (
-                  <Line {...lineProps} id={key} key={key} host={this} />
+                  <Line {...lineDefaultProps} {...lineProps} id={key} key={key} host={this} />
                 );
                 if (hover) {
                   hoverLineEl = lineEl;
