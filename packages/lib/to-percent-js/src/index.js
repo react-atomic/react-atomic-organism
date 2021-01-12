@@ -18,7 +18,10 @@ const toNum = (num) => {
     const maybeString = num && num.trim ? num.trim() : num + "";
     const maybeFloat = parseFloat(maybeString);
     const maybeInt = parseInt(maybeString, 10);
-    if (maybeFloat === maybeInt && maybeInt + "" === maybeString) {
+    if (
+      maybeFloat === maybeInt &&
+      (maybeInt + "" === maybeString || 0 === maybeInt)
+    ) {
       return maybeInt;
     } else {
       if (maybeString === maybeFloat + "") {

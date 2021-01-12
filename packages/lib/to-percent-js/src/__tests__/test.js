@@ -87,6 +87,9 @@ describe("To Int", () => {
     expect(toInt("1.1")).to.equal(1);
     expect(toInt("1.5")).to.equal(2);
   });
+  it("Test zero", () => {
+    expect(toInt("-0")).to.equal(0);
+  });
 });
 
 describe("Get Num", () => {
