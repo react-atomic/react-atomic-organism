@@ -31,7 +31,7 @@ const DragAndDrop = forwardRef((props, ref) => {
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(thisEl.current);
     const { left: elStartX, top: elStartY, w, h } = offset || {};
-    startPoint.current = {
+    thisEvent.start = {
       offset,
       fromX,
       fromY,
@@ -39,7 +39,8 @@ const DragAndDrop = forwardRef((props, ref) => {
       elStartY,
       zoomK,
     };
-    thisEvent.start = startPoint.current;
+    startPoint.current = thisEvent.start;
+    lastPoint.current = thisEvent.start;
     callfunc(onDragStart, [thisEvent]);
   };
 
