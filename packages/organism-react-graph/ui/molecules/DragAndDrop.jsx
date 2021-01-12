@@ -21,8 +21,11 @@ const DragAndDrop = forwardRef((props, ref) => {
   } = props;
   const startPoint = useRef();
   const lastPoint = useRef();
+  const lastProps = useRef({});
+  lastProps.current = props;
   const thisEl = useRef();
   const handleStart = () => {
+    const {zoom} = lastProps.current;
     const zoomK = get(callfunc(zoom), ["k"], 1);
     const { x: fromX, y: fromY, sourceEvent } = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
@@ -41,6 +44,7 @@ const DragAndDrop = forwardRef((props, ref) => {
   };
 
   const handleDrag = () => {
+    const {absX, absY, zoom} = lastProps.current;
     const { x, y, dx, dy, sourceEvent } = d3Event();
     const thisEvent = unifyTouch(sourceEvent);
     const zoomK = get(callfunc(zoom), ["k"], 1);
@@ -105,6 +109,8 @@ const DragAndDrop = forwardRef((props, ref) => {
 
   return build(component)(others);
 });
+
+DragAndDrop.displayName= "DragAndDrop";
 
 DragAndDrop.defaultProps = {
   absX: 0,
