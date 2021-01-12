@@ -83,11 +83,9 @@ const DragAndDrop = forwardRef((props, ref) => {
     return thisEl.current;
   };
 
-  useImperativeHandle(ref, () => {
-    getEl: () => {
-      return thisEl.current;
-    };
-  });
+  useImperativeHandle(ref, () => ({
+    getEl: () => thisEl.current
+  }));
 
   const { style: compStyle, refCb: compRefcb } = get(component, ["props"], {});
   others.style = {
