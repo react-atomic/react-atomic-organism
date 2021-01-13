@@ -50,6 +50,7 @@ class UMLGraph extends Component {
   endPoint = null;
   lazyMove = {};
   oConn;
+  mount = false;
 
   addLazyMoveWithMouseEvent(boxGroupName, e, dnd) {
     const vectorEl = this.getVectorEl();
@@ -370,7 +371,7 @@ class UMLGraph extends Component {
     if (onConnWillAdd) {
       const result = callfunc(onConnWillAdd, [payload]);
       if (UNDEFINED === typeof result) {
-        console.error("onConnWillAdd should not return undefined.");
+        console.warn("onConnWillAdd should not return undefined.");
       } else {
         isContinue = result;
       }
@@ -401,9 +402,11 @@ class UMLGraph extends Component {
         callfunc(this.props.onLoad, [this]);
       }
     });
+    this.mount = true;
   }
 
   componentWillUnmount() {
+    this.mount = false;
     this.oConn?.clearTimeout();
   }
 
@@ -467,7 +470,13 @@ class UMLGraph extends Component {
               keys(lines).forEach((key) => {
                 const { hover, ...lineProps } = lines[key];
                 const lineEl = (
-                  <Line {...lineDefaultProps} {...lineProps} id={key} key={key} host={this} />
+                  <Line
+                    {...lineDefaultProps}
+                    {...lineProps}
+                    id={key}
+                    key={key}
+                    host={this}
+                  />
                 );
                 if (hover) {
                   hoverLineEl = lineEl;

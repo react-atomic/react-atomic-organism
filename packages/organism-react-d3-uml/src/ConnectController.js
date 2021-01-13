@@ -67,6 +67,10 @@ class ConnectController {
   }
 
   getConnectIds(from, to) {
+    if (!from || !to) {
+      console.warn("Can not get point type for 'from' or 'to'.", {from, to});
+      return {};
+    }
     const fromBoxId = from.getBox().getId();
     const toBoxId = to.getBox().getId();
     const mergeId = `${fromBoxId}-${toBoxId}`;
@@ -178,7 +182,8 @@ class ConnectController {
       return;
     }
     this.lineTimer = setTimeout(() => {
-      this.host.setState({ lines: { ...this.queue } }, () => {
+      const host = this.host;
+      host.mount && host.setState({ lines: { ...this.queue } }, () => {
         this.queue = null;
         this.updateCbQueue.forEach((cb) => cb());
         this.updateCbQueue = [];

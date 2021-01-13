@@ -147,6 +147,7 @@ class BoxGroup extends Component {
       onEdit,
       onDel,
       onDragEnd,
+      onWillDrag,
       children,
       ...props
     } = this.props;

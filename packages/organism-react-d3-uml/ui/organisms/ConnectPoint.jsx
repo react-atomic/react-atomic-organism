@@ -45,9 +45,15 @@ class ConnectPoint extends Component {
   };
 
   handleDrag = (e) => {
+    const { host, onWillDrag } = this.props;
+    const isContinue = callfunc(onWillDrag, [{
+      connectPoint: this
+    }]);
+    if (isContinue === false) {
+      return;
+    }
     const { absX, absY, sourceEvent } = e;
     this.setState({ absX, absY });
-    const { host } = this.props;
     const hostEl = host.getVectorEl();
     const end = mouse(sourceEvent, hostEl);
     const { lineId, center } = this.state.start;
@@ -241,6 +247,7 @@ class ConnectPoint extends Component {
       boxGroupAbsY,
       onDragStart,
       onMount,
+      onWillDrag,
       show,
       component,
       ...props
