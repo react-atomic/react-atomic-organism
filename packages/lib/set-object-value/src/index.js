@@ -1,4 +1,10 @@
-const replaceValue = (obj, arrKey, val, isAppend) => {
+const isUnSafeKey = (key) =>
+  key === "__proto__" || key === "constructor" || key === "prototype";
+
+const replaceValue = (obj, arrKey, val, isAppend, unSafe) => {
+  if (!unSafe && arrKey.some(isUnSafeKey)) {
+    throw "Contain un-safe key.";
+  }
   const last = arrKey.pop();
   arrKey.forEach((k) => {
     obj[k] = obj[k] || {};
@@ -17,4 +23,8 @@ const replaceValue = (obj, arrKey, val, isAppend) => {
   }
 };
 
+const unsafeSet = (obj, arrKey, val, isAppend) =>
+  replaceValue(obj, arrKey, val, isAppend, true);
+
 export default replaceValue;
+export { unsafeSet };
