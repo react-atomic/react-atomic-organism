@@ -17,6 +17,7 @@ describe("CVE-2020-28281", () => {
     expect(() => set(obj, ["constructor", "isAdmin"], true)).to.throw();
     expect(() => set(obj, ["prototype", "isAdmin"], true)).to.throw();
     expect(obj.isAdmin).to.be.undefined;
+    expect({}.isAdmin).to.be.undefined;
     set(obj, ["isAdmin"], true);
     expect(obj.isAdmin).to.be.true;
   });
