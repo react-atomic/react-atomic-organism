@@ -1,13 +1,17 @@
-const isUnSafeKey = (key) =>
-  key === "__proto__" || key === "constructor" || key === "prototype";
+const isPrototypePolluted = (arrPath) => {
+  const joinPath = `|${arrPath.join("|")}|`;
+  return ["__proto__", "constructor", "prototype"].some(
+    (key) => -1 !== joinPath.indexOf(`|${key}|`)
+  );
+};
 
-const replaceValue = (obj, arrKey, val, isAppend, unSafe) => {
-  if (!unSafe && arrKey.some(isUnSafeKey)) {
+const replaceValue = (obj, arrPath, val, isAppend, unSafe) => {
+  if (!unSafe && isPrototypePolluted(arrPath)) {
     throw "Contain un-safe key.";
   }
-  const last = arrKey.pop();
-  arrKey.forEach((k) => {
-    obj[k] = obj[k] || {};
+  const last = arrPath.pop();
+  arrPath.forEach((k) => {
+    obj[k] = obj[k] ?? Object.create(null);
     obj = obj[k];
   });
   if (isAppend && (!obj[last] || !obj[last].push)) {
@@ -23,8 +27,8 @@ const replaceValue = (obj, arrKey, val, isAppend, unSafe) => {
   }
 };
 
-const unsafeSet = (obj, arrKey, val, isAppend) =>
-  replaceValue(obj, arrKey, val, isAppend, true);
+const unsafeSet = (obj, arrPath, val, isAppend) =>
+  replaceValue(obj, arrPath, val, isAppend, true);
 
 export default replaceValue;
 export { unsafeSet };
