@@ -3,6 +3,8 @@ import marked from "marked";
 import { Unsafe } from "react-atomic-molecule";
 import hl from "highlight.js";
 
+const DEFAULT_LANG = "js";
+
 marked.setOptions({
   gfm: true,
   tables: true,
@@ -12,12 +14,12 @@ marked.setOptions({
   smartLists: true,
   smartypants: false,
   highlight: (code, lang) => {
-    return hl.highlight(lang, code).value;
+    return hl.highlight(lang || DEFAULT_LANG, code).value;
   },
 });
 
 const CodeBlock = (props) => {
-  const text = `\`\`\`js
+  const text = `\`\`\`${DEFAULT_LANG}
 ${props.children}
 \`\`\``;
 
