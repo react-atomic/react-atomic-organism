@@ -3,11 +3,14 @@
  * Bable will transpile it to double undefined
  */
 
-const doc = (w) => {
+const defaultObj = { __null: true };
+
+const doc = (w, def = defaultObj) => {
   w = w || win();
-  return "undefined" !== typeof w.document ? w.document : { __null: true };
+  return "undefined" !== typeof w.document ? w.document : def;
 };
 
-const win = () => ("undefined" !== typeof window ? window : { __null: true });
+const win = (def = defaultObj) =>
+  "undefined" !== typeof window ? window : def;
 
 export { doc, win };
