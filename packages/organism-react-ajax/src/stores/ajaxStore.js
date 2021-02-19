@@ -38,7 +38,7 @@ const initWorkerEvent = (worker) => {
   });
 };
 
-const initFakeWorker = () => {
+const initFakeWorker = (cb) => {
   import("../../src/worker").then((workerObject) => {
     fakeWorker = getDefault(workerObject);
     initWorkerEvent(fakeWorker);
@@ -46,6 +46,7 @@ const initFakeWorker = () => {
       gWorker = fakeWorker;
     }
     isWorkerReady = true;
+    cb();
   });
 };
 
@@ -67,6 +68,9 @@ const handleUpdateNewUrl = (state, action, url) => {
 };
 
 class AjaxStore extends ReduceStore {
+
+  queue = [];
+
   getInitialState() {
     const onUrlChange = (url) => {
       ajaxDispatch({
@@ -226,12 +230,13 @@ class AjaxStore extends ReduceStore {
         run.postMessage(data);
       });
     } else {
-      const self = this;
       if (false === fakeWorker) {
-        initFakeWorker();
+        initFakeWorker(()=>{
+          this.queue.forEach(d=>this.worker(d));
+        });
         fakeWorker = null;
       }
-      setTimeout(() => self.worker(data), 50);
+      this.queue.push(data);
     }
   }
 
