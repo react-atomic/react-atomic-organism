@@ -1,12 +1,18 @@
 import React, { isValidElement } from "react";
-import { build, reactStyle, Dimmer, SemanticUI } from "react-atomic-molecule";
+import {
+  build,
+  reactStyle,
+  lazyInject,
+  Dimmer,
+  SemanticUI,
+} from "react-atomic-molecule";
 import Animate from "organism-react-animate";
 import getScrollInfo from "get-scroll-info";
 import getOffset from "getoffset";
 import get from "get-object-value";
 import arrayMerge from "array.merge";
-import { removeClass, hasClass, mixClass } from "class-lib";
 import callfunc from "call-func";
+import { removeClass, hasClass, mixClass } from "class-lib";
 import { win, doc } from "win-doc";
 import { UNDEFINED } from "reshow-constant";
 
@@ -30,6 +36,7 @@ class PopupModal extends PopupOverlay {
     mask: true,
     maskScroll: false,
     scrolling: false,
+    backgroundScroll: false,
     name: "modal",
     disableClose: false,
   };
@@ -96,20 +103,22 @@ class PopupModal extends PopupOverlay {
       bodyClass = removeClass(bodyClass, "dimmable");
       bodyClass = removeClass(bodyClass, "scrolling");
       bodyClass = removeClass(bodyClass, "dimmed");
+      bodyClass = removeClass(bodyClass, "dimmed-bg-scrolling");
       body.className = bodyClass;
     }
   }
 
   lockScreen() {
     this._locked = true;
-    const { modal, toPool } = this.props;
+    const { modal, toPool, maskScroll, backgroundScroll } = this.props;
     const oDoc = doc();
     win().addEventListener("resize", this.reCalculate);
     const body = oDoc.body;
     const addBodyClass = mixClass(
       body.className,
       {
-        scrolling: this.props.maskScroll,
+        scrolling: maskScroll,
+        "dimmed-bg-scrolling": backgroundScroll,
       },
       "dimmable",
       "dimmed"
@@ -153,6 +162,7 @@ class PopupModal extends PopupOverlay {
 
   componentDidMount() {
     this._mount = true;
+    injects = lazyInject(injects, InjectStyles);
   }
 
   componentWillUnmount() {
@@ -179,6 +189,7 @@ class PopupModal extends PopupOverlay {
       modalStyle,
       mask,
       maskScroll,
+      backgroundScroll,
       toPool,
       closeEl,
       /**
@@ -289,6 +300,7 @@ const Styles = {
   background: {
     overflow: "auto",
     boxSizing: "border-box",
+    WebkitOverflowScrolling: "touch",
   },
   modal: {
     boxSizing: "border-box",
@@ -296,4 +308,15 @@ const Styles = {
     bottom: "auto",
     transition: ["all 500ms ease"],
   },
+};
+
+let injects;
+const InjectStyles = {
+  backgroundScroll: [
+    {
+      overflow: "auto !important",
+      WebkitOverflowScrolling: "touch !important",
+    },
+    ".dimmable.dimmed.dimmed-bg-scrolling",
+  ],
 };
