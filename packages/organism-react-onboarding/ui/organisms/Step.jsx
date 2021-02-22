@@ -504,6 +504,7 @@ class Step extends PureComponent {
   render() {
     const {
       maskScroll,
+      backgroundScroll,
       header,
       content,
       actions,
@@ -597,6 +598,7 @@ class Step extends PureComponent {
       floatEl,
       {
         maskScroll,
+        backgroundScroll,
         name,
         onClose,
         modalStyle: style,
