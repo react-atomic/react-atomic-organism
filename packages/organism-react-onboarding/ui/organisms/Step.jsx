@@ -59,7 +59,6 @@ class Step extends PureComponent {
   static defaultProps = {
     delay: 100,
     monitorDelay: 700,
-    userScroll: false,
     scrollTo: true,
   };
 
@@ -512,7 +511,6 @@ class Step extends PureComponent {
       style,
       stepIndex,
       total,
-      userScroll,
       I18N,
       onClose,
     } = this.props;
