@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { UrlReturn } from "reshow";
+import { UrlReturn } from "reshow-url";
 import { SortLink } from "react-atomic-organism";
 
 class SortBy extends PureComponent {
