@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useRef, forwardRef } from "react";
 import { build } from "react-atomic-molecule";
-import { d3DnD, d3Event } from "d3-lib";
+import { d3DnD } from "d3-lib";
 import getOffset, { unifyTouch } from "getoffset";
 import get from "get-object-value";
 import callfunc from "call-func";
@@ -24,10 +24,10 @@ const DragAndDrop = forwardRef((props, ref) => {
   const lastProps = useRef({});
   lastProps.current = props;
   const thisEl = useRef();
-  const handleStart = () => {
+  const handleStart = (d3Event) => {
     const {zoom} = lastProps.current;
     const zoomK = get(callfunc(zoom), ["k"], 1);
-    const { x: fromX, y: fromY, sourceEvent } = d3Event();
+    const { x: fromX, y: fromY, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(thisEl.current);
     const { left: elStartX, top: elStartY, w, h } = offset || {};
@@ -44,9 +44,9 @@ const DragAndDrop = forwardRef((props, ref) => {
     callfunc(onDragStart, [thisEvent]);
   };
 
-  const handleDrag = () => {
+  const handleDrag = (d3Event) => {
     const {absX, absY, zoom} = lastProps.current;
-    const { x, y, dx, dy, sourceEvent } = d3Event();
+    const { x, y, dx, dy, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
     const zoomK = get(callfunc(zoom), ["k"], 1);
     const nextAbsX = absX + dx / zoomK;
@@ -64,8 +64,8 @@ const DragAndDrop = forwardRef((props, ref) => {
     callfunc(onDrag, [thisEvent, startPoint.current]);
   };
 
-  const handleEnd = () => {
-    const sourceEvent = d3Event().sourceEvent;
+  const handleEnd = (d3Event) => {
+    const sourceEvent = d3Event.sourceEvent;
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(thisEl.current);
     lastPoint.current.offset = offset;
