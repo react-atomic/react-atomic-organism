@@ -7,7 +7,6 @@ import {
   colors,
   scaleBand,
   scaleLinear,
-  d3Event,
 } from "../index";
 
 import { expect } from "chai";
@@ -113,8 +112,3 @@ describe("area", () => {
   });
 });
 
-describe("event", () => {
-  it("simple test", () => {
-    d3Event();
-  });
-});

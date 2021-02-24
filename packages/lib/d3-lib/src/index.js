@@ -280,7 +280,7 @@ const d3DnD = ({ el, container, touchable, start, end, drag, subject }) => {
 };
 
 const d3Zoom = ({ el, scaleExtent, callback }) => {
-  const eventCb = null == callback ? null : () => callback(d3Event());
+  const eventCb = null == callback ? null : callback;
   const zoom = d3_zoom().scaleExtent(scaleExtent).on("zoom", eventCb);
   d3Select(el).call(zoom);
   return zoom;
@@ -291,7 +291,6 @@ const getZoom = (el) => d3_zoomTransform(d3Select(el).node());
 const toZoomTransform = ({ x, y, k }) =>
   d3_zoomIdentity.translate(x, y).scale(k);
 
-const d3Event = () => d3.event;
 
 const d3Select = (el) => d3_select(el);
 
@@ -308,7 +307,6 @@ export {
   d3DnD,
   d3Zoom,
   getZoom,
-  d3Event,
   d3Select,
   getPointsCenter,
   toZoomTransform,
