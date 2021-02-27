@@ -12,7 +12,6 @@ class AjaxPage extends PureComponent {
     ajax: true,
     themes: {},
     win: null,
-    fallback: "div",
   };
 
   constructor(props) {
@@ -63,7 +62,11 @@ class AjaxPage extends PureComponent {
       );
       return null;
     } else {
-      return <Suspense fallback={build(fallback)()}>{builded}</Suspense>;
+      if (fallback) {
+        return <Suspense fallback={build(fallback)()}>{builded}</Suspense>;
+      } else {
+        return builded;
+      }
     }
   }
 }
