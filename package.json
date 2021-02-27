@@ -1,13 +1,11 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.11.3",
+  "version": "0.11.4",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
-  "keywords": [
-    "reactjs"
-  ],
+  "keywords": ["reactjs"],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -28,6 +26,8 @@
     "@babel/plugin-proposal-class-properties": "*",
     "@babel/plugin-proposal-export-default-from": "*",
     "@babel/plugin-proposal-object-rest-spread": "*",
+    "@babel/plugin-proposal-optional-chaining": "*",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "*",
     "@babel/plugin-syntax-dynamic-import": "*",
     "@babel/plugin-transform-object-assign": "*",
     "@babel/plugin-transform-react-constant-elements": "*",
@@ -67,9 +67,5 @@
     "format": "prettier-eslint --write '**/src/**/*.js' '**/ui/**/*.jsx'",
     "prepublishOnly": "npm run test"
   },
-  "files": [
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["build", "package.json", "README.md"]
 }
