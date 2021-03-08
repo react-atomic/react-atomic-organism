@@ -230,9 +230,9 @@ class ConnectPoint extends Component {
       lineKeys.forEach((lineId) => {
         const lineType = this.lines[lineId];
         if ("from" === lineType) {
-          host.oConn.updateLine(lineId, { start: center });
+          host.oConn.setLineStart(lineId, center);
         } else {
-          host.oConn.updateLine(lineId, { end: center });
+          host.oConn.setLineEnd(lineId, center);
         }
       });
     }

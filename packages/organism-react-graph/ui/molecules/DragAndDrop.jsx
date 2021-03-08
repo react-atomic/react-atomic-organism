@@ -1,4 +1,9 @@
-import React, { useImperativeHandle, useRef, forwardRef } from "react";
+import React, {
+  useImperativeHandle,
+  useRef,
+  useCallback,
+  forwardRef,
+} from "react";
 import { build } from "react-atomic-molecule";
 import { d3DnD } from "d3-lib";
 import getOffset, { unifyTouch } from "getoffset";
@@ -25,7 +30,7 @@ const DragAndDrop = forwardRef((props, ref) => {
   lastProps.current = props;
   const thisEl = useRef();
   const handleStart = (d3Event) => {
-    const {zoom} = lastProps.current;
+    const { zoom } = lastProps.current;
     const zoomK = get(callfunc(zoom), ["k"], 1);
     const { x: fromX, y: fromY, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
@@ -45,7 +50,7 @@ const DragAndDrop = forwardRef((props, ref) => {
   };
 
   const handleDrag = (d3Event) => {
-    const {absX, absY, zoom} = lastProps.current;
+    const { absX, absY, zoom } = lastProps.current;
     const { x, y, dx, dy, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
     const zoomK = get(callfunc(zoom), ["k"], 1);
@@ -75,7 +80,7 @@ const DragAndDrop = forwardRef((props, ref) => {
     callfunc(onDragEnd, [thisEvent]);
   };
 
-  const handleElChange = (el) => {
+  const handleElChange = useCallback((el) => {
     if (el && (!thisEl.current || !thisEl.current.isSameNode(el))) {
       thisEl.current = el;
       d3DnD({
@@ -86,10 +91,10 @@ const DragAndDrop = forwardRef((props, ref) => {
       });
     }
     return thisEl.current;
-  };
+  }, []);
 
   useImperativeHandle(ref, () => ({
-    getEl: () => thisEl.current
+    getEl: () => thisEl.current,
   }));
 
   const { style: compStyle, refCb: compRefcb } = get(component, ["props"], {});
@@ -111,7 +116,7 @@ const DragAndDrop = forwardRef((props, ref) => {
   return build(component)(others);
 });
 
-DragAndDrop.displayName= "DragAndDrop";
+DragAndDrop.displayName = "DragAndDrop";
 
 DragAndDrop.defaultProps = {
   absX: 0,

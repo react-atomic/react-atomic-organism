@@ -21,7 +21,9 @@ class LineDefaultLayout extends BaseLayout {
       const totalLen = lEl.getTotalLength();
       const pcntLen = Math.floor((maxPercent * totalLen) / 100);
       const thisLen = len > pcntLen ? pcntLen : len;
-      return this.lineEl.getPointAtLength(thisLen);
+      if (totalLen) {
+        return lEl.getPointAtLength(thisLen);
+      }
     }
   }
 
@@ -30,7 +32,9 @@ class LineDefaultLayout extends BaseLayout {
   };
 
   handleLineEl = (el) => {
-    this.lineEl = el;
+    if (el) {
+      this.lineEl = el;
+    }
   };
 
   render() {
@@ -52,7 +56,7 @@ class LineDefaultLayout extends BaseLayout {
     let cancelButton = null;
     let areaStyle = Styles.area;
     let isShowedCancel = false;
-    const { x: centerX, y: centerY } = this.getLinePoint(50, 50) || start;
+    const { x: centerX, y: centerY } = this.getLinePoint(50, 50) || start || {};
     const compLine = build(<LineGraph start={start} end={end} curve={curve} />);
     if (from && to) {
       if (isHover) {

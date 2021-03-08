@@ -13,7 +13,7 @@ import BoxGroupDefaultLayout from "../molecules/BoxGroupDefaultLayout";
 import BoxDefaultLayout from "../molecules/BoxDefaultLayout";
 import BoxGroup from "../organisms/BoxGroup";
 import Box from "../organisms/Box";
-import Line from "../organisms/Line";
+import LineList from "../organisms/LineList";
 import ConnectController from "../../src/ConnectController";
 
 const keys = Object.keys;
@@ -79,7 +79,7 @@ class UMLGraph extends Component {
     callfunc(onAdd, [payload]);
   }
 
-  addBoxGroup(obj) {
+  addBoxGroup = (obj) => {
     if (!obj) {
       return;
     }
@@ -91,7 +91,7 @@ class UMLGraph extends Component {
       const boxObj = this.boxQueue[id][boxName];
       const isAdd = this.addBox(boxObj);
     });
-  }
+  };
 
   addBoxQueue(obj) {
     if (!obj) {
@@ -391,6 +391,20 @@ class UMLGraph extends Component {
     });
   };
 
+  handleSetZoomEl = (el) => {
+    this.zoomEl = el;
+  };
+
+  handleGetZoomEl = () => this.zoomEl;
+
+  handleSetVector = (el) => {
+    this.vector = el;
+  };
+
+  handleSetHtmlEl = (el) => {
+    this.html = el;
+  };
+
   componentDidMount() {
     const { autoArrange } = this.props;
     this.oConn = new ConnectController({ host: this });
@@ -454,52 +468,28 @@ class UMLGraph extends Component {
       <SemanticUI
         className="d3-uml"
         style={Styles.container}
-        refCb={(el) => (this.zoomEl = el)}
+        refCb={this.handleSetZoomEl}
       >
-        <Graph refCb={(el) => (this.vector = el)} {...props} style={Styles.svg}>
+        <Graph refCb={this.handleSetVector} {...props} style={Styles.svg}>
           <Zoom
-            onGetEl={() => this.zoomEl}
+            onGetEl={this.handleGetZoomEl}
             ref={this.handleZoomRef}
             onZoom={this.handleZoom}
             scaleExtent={scaleExtent}
           >
             {build(arrowHeadComponent)()}
-            {(() => {
-              const arrLineEl = [];
-              let hoverLineEl;
-              keys(lines).forEach((key) => {
-                const { hover, ...lineProps } = lines[key];
-                const lineEl = (
-                  <Line
-                    {...lineDefaultProps}
-                    {...lineProps}
-                    id={key}
-                    key={key}
-                    host={this}
-                  />
-                );
-                if (hover) {
-                  hoverLineEl = lineEl;
-                } else {
-                  arrLineEl.push(lineEl);
-                }
-              });
-              if (hoverLineEl) {
-                arrLineEl.push(hoverLineEl);
-              }
-              return arrLineEl;
-            })()}
+            <LineList host={this} lines={lines} lineDefaultProps={lineDefaultProps} />
           </Zoom>
         </Graph>
         <HTMLGraph
           style={{ ...Styles.htmlGraph, transform }}
-          refCb={(el) => (this.html = el)}
+          refCb={this.handleSetHtmlEl}
         >
           {(boxGroupsLocator(data) || []).map((item) => {
             const bgName = uniqueBoxGroupNameLocator(item);
             return !bgName.name ? null : (
               <BoxGroup
-                ref={(el) => this.addBoxGroup(el)}
+                ref={this.addBoxGroup}
                 host={this}
                 key={"box-group-" + bgName.name}
                 onEdit={this.edit}

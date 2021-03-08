@@ -1,86 +1,97 @@
-import React, { Component } from "react";
+import React, {
+  useImperativeHandle,
+  useState,
+  useEffect,
+  forwardRef,
+} from "react";
+
 import { build } from "react-atomic-molecule";
 
 import LineDefaultLayout from "../molecules/LineDefaultLayout";
 
-class Line extends Component {
-  static defaultProps = {
-    component: LineDefaultLayout,
+const Line = forwardRef((props, ref) => {
+  const {
+    start: propsStart,
+    end: propsEnd,
+    props: paramProps,
+    init,
+    host,
+    component,
+    ...other
+  } = props;
+  const [isHover, setIsHover] = useState();
+  const [start, setStart] = useState(propsStart);
+  const [end, setEnd] = useState(propsEnd);
+  useImperativeHandle(ref, () => expose);
+  const expose = {
+    getId: () => props.id,
+    getFromTo: () => ({ from: props.from, to: props.to }),
+    getIsHover: () => isHover,
+    setStart,
+    setEnd,
   };
 
-  state = {
-    isHover: false,
-  };
+  useEffect(() => {
+    setStart(propsStart);
+  }, [propsStart]);
 
-  handleMouseEnter = (e) => {
-    const { host, id } = this.props;
-    if (!host.getConnectStartPoint()) {
-      this.setState(
-        {
-          isHover: true,
-        },
-        () => host.oConn.updateLine(id, { hover: true })
-      );
-    }
-  };
+  useEffect(() => {
+    setEnd(propsEnd);
+  }, [propsEnd]);
 
-  handleMouseLeave = (e) => {
-    const { host, id } = this.props;
-    if (!host.getConnectStartPoint()) {
-      this.setState(
-        {
-          isHover: false,
-        },
-        () => host.oConn.updateLine(id, { hover: false })
-      );
-    }
-  };
+  useEffect(()=>{
+    const lineId = expose.getId();
+    host.oConn.setLineObj(lineId, expose);
+  }, []);
 
-  handleDeleteButtonClick = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    const { host, id: lineId } = this.props;
-    host.handleLineDel({
-      ref: this,
-      lineId,
-      lineData: host.oConn.getLine(lineId),
-    });
-  };
-
-  handleClick = (e) => {
-    e.preventDefault();
-    const { host, id: lineId } = this.props;
+    const lineId = expose.getId();
     host.handleLineEdit({
-      ref: this,
+      ref: expose,
       lineId,
       lineData: host.oConn.getLine(lineId),
     });
   };
 
-  getId() {
-    return this.props.id;
-  }
-
-  getFromTo() {
-    const { from, to } = this.props;
-    return { from, to };
-  }
-
-  render() {
-    const { start, props, init, host, component, ...other } = this.props;
-    const { isHover } = this.state;
-    if (!start) {
-      return null;
-    }
-    return build(component)({
-      ...other,
-      start,
-      isHover,
-      onClick: this.handleClick,
-      onDeleteButtonClick: this.handleDeleteButtonClick,
-      onMouseEnter: this.handleMouseEnter,
-      onMouseLeave: this.handleMouseLeave,
+  const handleDeleteButtonClick = (e) => {
+    e.preventDefault();
+    const lineId = expose.getId();
+    host.handleLineDel({
+      ref: expose,
+      lineId,
+      lineData: host.oConn.getLine(lineId),
     });
-  }
-}
+  };
+
+  const handleMouseEnter = (e) => {
+    if (!host.getConnectStartPoint()) {
+      setIsHover(true);
+    }
+  };
+
+  const handleMouseLeave = (e) => {
+    if (!host.getConnectStartPoint()) {
+      setIsHover(false);
+    }
+  };
+
+  return build(component)({
+    ...other,
+    start,
+    end,
+    isHover,
+    onClick: handleClick,
+    onDeleteButtonClick: handleDeleteButtonClick,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
+  });
+});
+
+Line.displayName = "Line";
+
+Line.defaultProps = {
+  component: LineDefaultLayout,
+};
 
 export default Line;

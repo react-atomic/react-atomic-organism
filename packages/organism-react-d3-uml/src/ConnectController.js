@@ -10,6 +10,7 @@ class ConnectController {
   queue = null;
   updateCbQueue = [];
   host = null;
+  lineObjs = {};
 
   constructor(props) {
     this.host = props.host;
@@ -17,6 +18,35 @@ class ConnectController {
 
   getLine(id) {
     return get(this, ["host", "state", "lines", id]);
+  }
+
+  getLineObj(id) {
+    return this.lineObjs[id];
+  }
+
+  getIsHover(id) {
+    const obj = this.lineObjs[id];
+    if (obj) {
+      return obj.getIsHover();
+    }
+  }
+
+  setLineObj(id, o) {
+    this.lineObjs[id] = o;
+  }
+
+  setLineStart(id, start) {
+    const obj = this.lineObjs[id];
+    if (obj) {
+      obj.setStart(start);
+    }
+  }
+
+  setLineEnd(id, end) {
+    const obj = this.lineObjs[id];
+    if (obj) {
+      obj.setEnd(end);
+    }
   }
 
   addLine(props) {
