@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.5.12",
+  "version": "0.6.0",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -29,7 +29,7 @@
     "chai": "*",
     "enzyme": "*",
     "enzyme-adapter-react-16": "*",
-    "jsdom": "*",
+    "jsdom": "16.4.0",
     "jsdom-global": "*",
     "mocha": "*",
     "react": "^16.x",

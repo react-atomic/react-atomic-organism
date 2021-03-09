@@ -1,4 +1,9 @@
-import React, { Component } from "react";
+import React, {
+  Component,
+  useState,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import { Graph, Group, Zoom } from "organism-react-graph";
 import get, { getDefault } from "get-object-value";
@@ -18,7 +23,17 @@ import ConnectController from "../../src/ConnectController";
 
 const keys = Object.keys;
 
-const HTMLGraph = (props) => <SemanticUI {...props} className="html-graph" />;
+const HTMLGraph = forwardRef((props, ref) => {
+  const [transform, setTransform] = useState();
+  const { k, x, y } = transform || {};
+  const transformStyle = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
+  const style = { ...Styles.htmlGraph, transform: transformStyle };
+  const expose = {
+    setTransform,
+  };
+  useImperativeHandle(ref, () => expose);
+  return <SemanticUI {...props} style={style} className="html-graph" />;
+});
 
 class UMLGraph extends Component {
   static defaultProps = {
@@ -332,16 +347,11 @@ class UMLGraph extends Component {
     callfunc(onDragEnd, [e]);
   };
 
-  handleZoomRef = (o) => {
-    if (o) {
-      this.zoom = o;
-    }
-  };
 
   handleZoom = (e) => {
     const { onZoom } = this.props;
-    const { transform: oTransform } = e;
-    this.setState({ oTransform }, () => callfunc(onZoom, [e]));
+    this.htmlObj.setTransform(e.transform);
+    callfunc(onZoom, [e]);
   };
 
   handleLineEdit = (payload) => {
@@ -391,6 +401,12 @@ class UMLGraph extends Component {
     });
   };
 
+  handleZoomRef = (o) => {
+    if (o) {
+      this.zoom = o;
+    }
+  };
+
   handleSetZoomEl = (el) => {
     this.zoomEl = el;
   };
@@ -403,6 +419,10 @@ class UMLGraph extends Component {
 
   handleSetHtmlEl = (el) => {
     this.html = el;
+  };
+
+  handleSetHtmlObj = (o) => {
+    this.htmlObj = o;
   };
 
   componentDidMount() {
@@ -461,9 +481,7 @@ class UMLGraph extends Component {
       lineDefaultProps,
       ...props
     } = this.props;
-    const { lines, oTransform } = this.state;
-    const { k, x, y } = oTransform || {};
-    const transform = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
+    const { lines } = this.state;
     return (
       <SemanticUI
         className="d3-uml"
@@ -478,13 +496,14 @@ class UMLGraph extends Component {
             scaleExtent={scaleExtent}
           >
             {build(arrowHeadComponent)()}
-            <LineList host={this} lines={lines} lineDefaultProps={lineDefaultProps} />
+            <LineList
+              host={this}
+              lines={lines}
+              lineDefaultProps={lineDefaultProps}
+            />
           </Zoom>
         </Graph>
-        <HTMLGraph
-          style={{ ...Styles.htmlGraph, transform }}
-          refCb={this.handleSetHtmlEl}
-        >
+        <HTMLGraph refCb={this.handleSetHtmlEl} ref={this.handleSetHtmlObj}>
           {(boxGroupsLocator(data) || []).map((item) => {
             const bgName = uniqueBoxGroupNameLocator(item);
             return !bgName.name ? null : (
