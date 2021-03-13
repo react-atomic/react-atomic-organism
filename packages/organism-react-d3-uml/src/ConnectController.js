@@ -197,7 +197,7 @@ class ConnectController {
   setState(callback, updateCb, delay) {
     this.clearTimeout();
     if (!delay) {
-      delay = 1;
+      delay = 100;
     }
     if (!this.queue) {
       this.queue = this.host.getLines();
