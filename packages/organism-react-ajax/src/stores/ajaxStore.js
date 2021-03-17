@@ -382,8 +382,8 @@ class AjaxStore extends ReduceStore {
   handleUrlChange(state, action) {
     const url = get(action, ["params", "url"], document.URL);
     /**
-     * "Do not change" toggleBfChange and bfApplyUrl
-     * in other place, such as ajaxGet.
+     * "!! Important !!" don't modify states of toggleBfChange and bfApplyUrl in other way,
+     * such as ajaxGet.
      * Because this state should only trigger with bfchange.
      */
     return this.applyCallback(
