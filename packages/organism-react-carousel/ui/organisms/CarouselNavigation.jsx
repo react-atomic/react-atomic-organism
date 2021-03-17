@@ -177,7 +177,7 @@ const CarouselNavigation = (props) => {
 
     const thisChildren = [];
     thisChildren.push(
-      <CarouselList key={0} style={carouselListStyle} onLeft={handleLeft} onRight={handleRight}>
+      <CarouselList key="list" style={carouselListStyle} onLeft={handleLeft} onRight={handleRight}>
         {build(activeChildren)(others)}
       </CarouselList>
     );
@@ -186,7 +186,7 @@ const CarouselNavigation = (props) => {
       thisChildren.push(
         //thumb
         <CarouselList
-          key={1}
+          key="thumb-list"
           {...others}
           style={{ ...Styles.thumbList, ...thumbListStyle }}
           className="cards thumbs"
