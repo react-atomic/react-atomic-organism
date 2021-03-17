@@ -30,7 +30,7 @@ const post = (payload) => {
     const wcb = eval("(" + strWcb + ")");
     payload = wcb(payload);
   }
-  oNonWorker.post(payload);
+  oNonWorker.post.call(this, payload);
 };
 
 export default oNonWorker;
