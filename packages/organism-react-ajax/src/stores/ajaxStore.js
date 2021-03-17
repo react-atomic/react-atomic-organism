@@ -3,6 +3,7 @@ import "setimmediate";
 import { Map } from "immutable";
 import { ReduceStore } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
+import set from "set-object-value";
 import smoothScrollTo from "smooth-scroll-to";
 import getRandomId from "get-random-id";
 import callfunc from "call-func";
@@ -28,11 +29,12 @@ const initWorkerEvent = (worker) => {
         isWorkerReady = true;
         break;
       default:
-        ajaxDispatch({
+        const nextState = {
           ...e.data,
           sourceType,
           type: "callback",
-        });
+        };
+        ajaxDispatch(nextState);
         break;
     }
   });
@@ -68,7 +70,6 @@ const handleUpdateNewUrl = (state, action, url) => {
 };
 
 class AjaxStore extends ReduceStore {
-
   queue = [];
 
   getInitialState() {
@@ -215,6 +216,10 @@ class AjaxStore extends ReduceStore {
       action.params.errorCallback = errCbKey;
       cbIndex++;
     }
+    const wcb = get(action, ["params", "workerCallback"]);
+    if (wcb) {
+      action.params.workerCallback = wcb + "";
+    }
     return action;
   }
 
@@ -231,8 +236,8 @@ class AjaxStore extends ReduceStore {
       });
     } else {
       if (false === fakeWorker) {
-        initFakeWorker(()=>{
-          this.queue.forEach(d=>this.worker(d));
+        initFakeWorker(() => {
+          this.queue.forEach((d) => this.worker(d));
         });
         fakeWorker = null;
       }
@@ -278,7 +283,7 @@ class AjaxStore extends ReduceStore {
     }
     if (params.disableAjax) {
       return this.applyCallback(state, {
-        json: handleUpdateNewUrl(state, action, rawUrl),
+        params: { json: handleUpdateNewUrl(state, action, rawUrl) },
       });
     }
     if (!params.disableProgress) {
@@ -332,14 +337,14 @@ class AjaxStore extends ReduceStore {
     if (!params.disableProgress) {
       this.done();
     }
-    const sourceType = get(action, ["sourceType"]);
-    const response = get(action, ["response"]);
-    const text = get(action, ["text"]);
-    let json = get(action, ["json"], () => this.getJson(text));
+    const sourceType = get(params, ["sourceType"]);
+    const response = get(params, ["response"]);
+    const text = get(params, ["text"]);
+    let json = get(params, ["json"], () => this.getJson(text));
     const callback = this.getCallback(state, action, json, response);
     const type = get(json, ["type"]);
     let isRedirect = null;
-    const url = get(action, ["url"]);
+    const url = get(params, ["url"]);
     switch (type) {
       case "ws-auth":
         this.setWsAuth(url, json);
@@ -385,7 +390,7 @@ class AjaxStore extends ReduceStore {
       state
         .set("toggleBfChange", !state.get("toggleBfChange"))
         .set("bfApplyUrl", url),
-      { json: handleUpdateNewUrl(state, action, url) }
+      { params: { json: handleUpdateNewUrl(state, action, url) } }
     );
   }
 
@@ -397,6 +402,11 @@ class AjaxStore extends ReduceStore {
         return this.closeWs(state, action);
       case "ajaxGet":
         return this.ajaxGet(state, action);
+      case "ajaxDelete":
+      case "ajaxHead":
+      case "ajaxPatch":
+      case "ajaxPut":
+        set(action, ["params", "method"], action.type.substr(4).toLowerCase());
       case "ajaxPost":
         return this.ajaxPost(state, action);
       case "urlChange":

@@ -24,7 +24,15 @@ const handleMessage = (e) => {
 };
 
 const oNonWorker = new nonWorker().onMessage(handleMessage);
-const post = oNonWorker.post;
+const post = (payload) => {
+  const strWcb = get(payload, ["params", "workerCallback"]);
+  if (strWcb) {
+    const wcb = eval("(" + strWcb + ")");
+    payload = wcb(payload);
+  }
+  oNonWorker.post(payload);
+};
+
 export default oNonWorker;
 
 const cookParams = (action, callReq) => {
@@ -57,11 +65,12 @@ const ajaxGet = ({ url, action }) => {
     .end((err, res) => {
       if (res) {
         const { error, req, text, xhr, ...response } = res;
-        post({
-          ...action,
+        action.params = {
+          ...action.params,
           text,
           response,
-        });
+        };
+        post(action);
       }
     });
 };
@@ -115,11 +124,12 @@ const ajaxPost = ({ url, action }) => {
     .end((err, res) => {
       if (res) {
         const { error, req, text, xhr, ...response } = res;
-        post({
-          ...action,
+        action.params = {
+          ...action.params,
           text,
           response,
-        });
+        };
+        post(action);
       }
     });
 };
@@ -169,8 +179,10 @@ class WebSocketHelper {
         default:
           post({
             type: "ws",
-            text: e.data,
-            url,
+            params: {
+              text: e.data,
+              url,
+            },
           });
           break;
       }
