@@ -1,6 +1,6 @@
 {
   "name": "organism-react-iframe",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "description": "Rendering to iFrames in React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -20,9 +20,9 @@
     "getoffset": "*",
     "react-atomic-molecule": "*",
     "reshow-runtime": "*",
-    "win-doc": "*",
     "setimmediate": "^1.0.5",
-    "smooth-scroll-to": "*"
+    "smooth-scroll-to": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
@@ -38,10 +38,16 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward && BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward && BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
+    "build:cjs:src": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "build:cjs:ui": "BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:es": "npm run build:es:src && npm run build:es:ui",
+    "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "test": "npm run build && mocha 'build/cjs/**/__tests__/*.js' -r jsdom-global/register",
+    "mochaFor": "mocha -r jsdom-global/register",
+    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
   "files": [

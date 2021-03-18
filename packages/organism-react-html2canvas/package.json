@@ -1,14 +1,11 @@
 {
   "name": "organism-react-html2canvas",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Use html2canvas with React",
   "repository": "react-atomic/react-atomic-organism",
   "module": "./build/es/src/index.js",
   "main": "./build/src/index.js",
-  "keywords": [
-    "react",
-    "reactjs"
-  ],
+  "keywords": ["react", "reactjs"],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -27,13 +24,10 @@
     "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
+    "mochaFor": "mocha -r jsdom-global/register",
+    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": [
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["build", "package.json", "README.md"]
 }

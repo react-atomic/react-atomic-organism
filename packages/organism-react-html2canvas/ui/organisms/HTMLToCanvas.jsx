@@ -43,9 +43,6 @@ const HTMLToCanvasComp = (props, ref) => {
     getCanvas: (onCanvas) => getCanvas(onCanvas),
   }));
 
-  const handleIframe = (el) => (iframe.current = el);
-  const handlePreview = (el) => (preview.current = el);
-
   const getCanvas = (canvasCallback) => {
     const oIframe = iframe.current;
     const oIframwWindow = oIframe.getWindow();
@@ -53,7 +50,7 @@ const HTMLToCanvasComp = (props, ref) => {
     if (!html2canvas) {
       return;
     }
-    html2canvas(oIframe.root, {
+    html2canvas(oIframe.getRoot(), {
       useCORS: true,
     }).then((dCanvas) => {
       callfunc(canvasCallback, [
@@ -80,7 +77,7 @@ const HTMLToCanvasComp = (props, ref) => {
 
   let oPreview;
   if (hasPreview) {
-    oPreview = <div ref={handlePreview} className="preivew" />;
+    oPreview = <div ref={preview} className="preivew" />;
   }
 
   let iframeStyle = {};
@@ -100,7 +97,7 @@ const HTMLToCanvasComp = (props, ref) => {
         style={iframeStyle}
         initialContent={initialContent(jsArr)}
         onLoad={handleLoad}
-        ref={handleIframe}
+        ref={iframe}
       >
         {children}
       </Iframe>

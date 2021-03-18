@@ -60,14 +60,15 @@ const Iframe = forwardRef((props, ref) => {
   const thisIframe = useRef();
   const lastEl = useRef();
   const [thisEl, setThisEl] = useState();
+  const getRoot = () => root.current;
   const expose = {
     appendHtml: (html) => {
       const div = doc().createElement("div");
       div.innerHTML = html;
       const myRoot = get(
-        root.current,
+        getRoot(),
         ["childNodes", 0, "childNodes", 0],
-        root.current
+        getRoot
       );
       myRoot.appendChild(div);
       handleScript(div);
@@ -75,6 +76,7 @@ const Iframe = forwardRef((props, ref) => {
     getWindow: () => get(lastEl.current, ["contentWindow", "window"]),
     getDoc: () => get(expose.getWindow(), ["document"]),
     getBody: () => get(expose.getDoc(), ["body"]),
+    getRoot,
     scrollToEl: (el) => {
       const pos = getOffset(el);
       if (pos.rect) {
@@ -94,7 +96,7 @@ const Iframe = forwardRef((props, ref) => {
   const handleScript = (el) => {
     const win = expose.getWindow();
     if (win) {
-      execStop.current = exec(el, win, root.current.parentNode, (e, script) => {
+      execStop.current = exec(el, win, getRoot().parentNode, (e, script) => {
         console.warn("script error", [e, script]);
       });
     }
@@ -164,17 +166,17 @@ const Iframe = forwardRef((props, ref) => {
       myDoc.write(initialContent);
       myDoc.close();
       const body = expose.getBody();
-      body.appendChild(root.current);
+      body.appendChild(getRoot());
       body.addEventListener("unload", onUnload);
       body.addEventListener("beforeunload", onBeforeUnload);
     }
   };
 
   const renderIframe = () => {
-    if (!root.current) {
+    if (!getRoot()) {
       init();
     }
-    const thisRoot = root.current;
+    const thisRoot = getRoot();
     html.current = thisRoot.innerHTML;
     const callback = () => {
       if (!_mount.current) {
