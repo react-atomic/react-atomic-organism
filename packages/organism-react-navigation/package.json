@@ -1,14 +1,11 @@
 {
   "name": "organism-react-navigation",
-  "version": "0.6.18",
+  "version": "0.7.0",
   "description": "React Navigation",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
-  "keywords": [
-    "react",
-    "react-component"
-  ],
+  "keywords": ["react", "react-component"],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -20,6 +17,7 @@
     "immutable": "*",
     "react-atomic-molecule": "*",
     "reshow-flux": "*",
+    "reshow-return": "*",
     "ricon": "*",
     "to-percent-js": "*"
   },
@@ -30,7 +28,7 @@
     "enzyme-adapter-react-16": "*",
     "jsdom": "*",
     "jsdom-global": "*",
-    "mocha": "*",
+    "mocha": "^8.3.2",
     "react": "^16.x",
     "react-dom": "^16.x",
     "react-test-renderer": "*"
@@ -44,13 +42,10 @@
     "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
+    "mochaFor": "mocha -r jsdom-global/register",
+    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": [
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["build", "package.json", "README.md"]
 }
