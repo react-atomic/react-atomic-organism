@@ -1,4 +1,4 @@
-import minMaxHelper from '../cjs/src/index'; 
+import minMaxHelper from '..//index'; 
 import {expect} from 'chai';
 
 describe('test get Min and Max', ()=>{
