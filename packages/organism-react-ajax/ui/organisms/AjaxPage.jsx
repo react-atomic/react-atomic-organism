@@ -28,7 +28,7 @@ const AjaxPage = ({win, ...props}) => {
         url: webSocketUrl,
       });
     }
-  }, []);
+  }, [webSocketUrl]);
 
   return useMemo(() => {
     let thisThemePath = themePath;
