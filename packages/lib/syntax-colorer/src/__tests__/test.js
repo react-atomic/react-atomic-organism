@@ -1,4 +1,4 @@
-import {win, doc} from '../cjs/src/index';
+import {win, doc} from '../index';
 import {expect} from 'chai';
 
 describe('Test doc', () => {

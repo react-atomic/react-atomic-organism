@@ -17,20 +17,19 @@
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
+    "jsdom": "*",
+    "jsdom-global": "*",
     "mocha": "*"
   },
   "scripts": {
-    "build:cjs": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "build": "rm -rf build && npm run build:cjs && npm run build:es",
-    "prepublishOnly": "npm run build",
-    "mocha": "mocha -r jsdom-global/register 'build/cjs/**/__tests__/*.js'",
-    "test": "npm run build && npm run mocha"
+    "mochaFor": "mocha -r jsdom-global/register",
+    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
+    "test": "npm run build && npm run mocha",
+    "prepublishOnly": "npm run test"
   },
-  "files": [
-    "build/cjs",
-    "build/es",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["build/cjs", "build/es", "package.json", "README.md"]
 }
