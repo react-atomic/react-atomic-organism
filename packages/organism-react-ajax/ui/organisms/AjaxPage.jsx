@@ -10,7 +10,7 @@ import { win as getWin } from "win-doc";
 
 import { ajaxDispatch } from "../../src/ajaxDispatcher";
 
-const AjaxPage = ({win, ...props}) => {
+const AjaxPage = ({ win, ...props }) => {
   win = win || getWin();
   const { themes, themePath, fallback, webSocketUrl } = props;
 
@@ -32,7 +32,6 @@ const AjaxPage = ({win, ...props}) => {
 
   return useMemo(() => {
     let thisThemePath = themePath;
-    lastThemePath.current = themePath;
     if (null == themes[thisThemePath]) {
       thisThemePath = lastThemePath.current;
       if (null == typeof themes[thisThemePath]) {
@@ -45,10 +44,11 @@ const AjaxPage = ({win, ...props}) => {
     const myTheme = themes[thisThemePath];
     const builded = build(myTheme)();
     if (!isValidElement(builded)) {
-      console.error(
-        "Not find a valid element for name: [" + themePath + "]",
-        themes
-      );
+      console.error("Not find a valid element for name: [" + themePath + "]", {
+        themes,
+        thisThemePath,
+        myTheme,
+      });
       return null;
     } else {
       if (fallback) {
