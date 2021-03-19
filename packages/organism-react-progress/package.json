@@ -25,7 +25,8 @@
     "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "react-test-renderer": "*",
+    "sinon": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
