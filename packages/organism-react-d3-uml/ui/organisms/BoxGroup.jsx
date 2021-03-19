@@ -59,6 +59,8 @@ class BoxGroup extends Component {
     onDel(name);
   };
 
+  handleSetRef = (el) => (this.el = el);
+
   handleGetEl = () => this.getEl();
 
   addBox(obj) {
@@ -162,7 +164,7 @@ class BoxGroup extends Component {
     );
     return (
       <DragAndDrop
-        ref={(el) => (this.el = el)}
+        ref={this.handleSetRef}
         absX={absX}
         absY={absY}
         zoom={host.getTransform}

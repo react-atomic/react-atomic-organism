@@ -1,81 +1,95 @@
-import React, { cloneElement, createElement, isValidElement } from "react";
-import AjaxBase from "../organisms/AjaxBase";
+import React, {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useCallback,
+} from "react";
+import callfunc from "call-func";
+import build from "reshow-build";
+
 import ajaxStore from "../../src/stores/ajaxStore";
 import { ajaxDispatch } from "../../src/ajaxDispatcher";
+import isRunAjax from "../../src/isRunAjax";
 
-class AjaxLink extends AjaxBase {
-  isAlreadyTouchStart = false;
+const AjaxLink = forwardRef((props, ref) => {
+  const {
+    ajax,
+    target,
+    component,
+    callback,
+    errorCallback,
+    path,
+    href,
+    updateUrl,
+    disableRandom,
+    onClick,
+    ...rest
+  } = props;
 
-  static defaultProps = {
-    updateUrl: true,
-    disableRandom: false,
-    component: "a",
-  };
+  const isAlreadyTouchStart = useRef(false);
 
-  handleClick = (onClick) => (type) => (e) => {
-    const { target } = this.props;
-    if ("_blank" !== target) {
-      e.preventDefault();
-    }
-    if ("touchStart" === type) {
-      this.isAlreadyTouchStart = true;
-    } else {
-      if (this.isAlreadyTouchStart) {
-        this.isAlreadyTouchStart = false;
-        return;
+  const handleClick = useCallback(
+    (callback) => (type) => (e) => {
+      if ("_blank" !== target) {
+        e.preventDefault();
       }
-    }
-    if ("function" === typeof onClick) {
-      onClick(e);
-    }
-    if ("_blank" !== target) {
-      const href = e.currentTarget.href;
-      this.go(href);
-    }
-  };
-
-  go(url) {
-    const { callback, errorCallback, updateUrl, disableRandom } = this.props;
-    ajaxDispatch({
-      type: "ajaxGet",
-      params: {
-        disableAjax: !this.isRunAjax(),
+      if ("touchStart" === type) {
+        isAlreadyTouchStart.current = true;
+      } else {
+        if (isAlreadyTouchStart.current) {
+          isAlreadyTouchStart.current = false;
+          return;
+        }
+      }
+      callfunc(callback, [e]);
+      if ("_blank" !== target) {
+        const thisHref = e.currentTarget.href;
+        go(thisHref);
+      }
+    },
+    [target]
+  );
+  const go = useCallback(
+    (url) => {
+      const { href, callback, errorCallback, updateUrl, disableRandom } = props;
+      url = url || href;
+      ajaxDispatch("ajaxGet", {
+        disableAjax: !isRunAjax(props),
         url,
         updateUrl,
         disableRandom,
         callback,
         errorCallback,
-      },
-    });
-  }
+      });
+    },
+    [props]
+  );
 
-  render() {
-    const {
-      component,
-      callback,
-      errorCallback,
-      path,
-      href,
-      updateUrl,
-      disableRandom,
-      ...rest
-    } = this.props;
-    let { onClick, onTouchStart } = this.props;
-    if (true === onTouchStart) {
-      onTouchStart = this.handleClick(onTouchStart)("touchStart");
-    }
-    const thisHref = ajaxStore.getRawUrl({
-      path: path,
-      url: href,
-    });
-    const build = isValidElement(component) ? cloneElement : createElement;
-    return build(component, {
-      ...rest,
-      href: thisHref,
-      onTouchStart,
-      onClick: this.handleClick(onClick)("click"),
-    });
+  useImperativeHandle(ref, () => ({ go }));
+
+  const thisHref = ajaxStore.getRawUrl({
+    path,
+    url: href,
+  });
+  let onTouchStart = props.onTouchStart;
+  if (true === onTouchStart) {
+    onTouchStart = handleClick(onTouchStart)("touchStart");
   }
-}
+  return build(component)({
+    ...rest,
+    ref,
+    href: thisHref,
+    onTouchStart,
+    onClick: handleClick(onClick)("click"),
+  });
+});
+
+AjaxLink.defaultProps = {
+  updateUrl: true,
+  disableRandom: false,
+  component: "a",
+};
+
+AjaxLink.displayName = "AjaxLink";
 
 export default AjaxLink;

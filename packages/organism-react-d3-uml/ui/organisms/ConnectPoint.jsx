@@ -46,9 +46,11 @@ class ConnectPoint extends Component {
 
   handleDrag = (e) => {
     const { host, onWillDrag } = this.props;
-    const isContinue = callfunc(onWillDrag, [{
-      connectPoint: this
-    }]);
+    const isContinue = callfunc(onWillDrag, [
+      {
+        connectPoint: this,
+      },
+    ]);
     if (isContinue === false) {
       return;
     }

@@ -1,58 +1,47 @@
-import React, { PureComponent, Suspense, isValidElement } from "react";
-import get from "get-object-value";
+import React, {
+  isValidElement,
+  useEffect,
+  useRef,
+  useMemo,
+  Suspense,
+} from "react";
 import build from "reshow-build";
+import { win as getWin } from "win-doc";
 
 import { ajaxDispatch } from "../../src/ajaxDispatcher";
-import { win as oWin } from "win-doc";
 
-class AjaxPage extends PureComponent {
-  _lastThemePath = "";
+const AjaxPage = ({win, ...props}) => {
+  win = win || getWin();
+  const { themes, themePath, fallback, webSocketUrl } = props;
 
-  static defaultProps = {
-    ajax: true,
-    themes: {},
-    win: null,
-  };
+  const isInit = useRef(false);
+  const lastThemePath = useRef();
 
-  constructor(props) {
-    super(props);
-    const { win, ...otherProps } = props;
-    /**
-     * Need put in constructor before render,
-     * else AjaxLink will not get baseUrl
-     */
-    ajaxDispatch({
-      type: "config/set",
-      params: otherProps,
-    });
+  if (!isInit.current) {
+    isInit.current = true;
+    ajaxDispatch(props);
   }
 
-  componentDidMount() {
-    setImmediate(() => {
-      let { win, webSocketUrl } = this.props;
-      win = win || oWin();
-      if (win.WebSocket && webSocketUrl) {
-        ajaxDispatch({
-          type: "ws/init",
-          params: {
-            url: webSocketUrl,
-          },
-        });
-      }
-    });
-  }
+  useEffect(() => {
+    if (win.WebSocket && webSocketUrl) {
+      ajaxDispatch("ws/init", {
+        url: webSocketUrl,
+      });
+    }
+  }, []);
 
-  render() {
-    const { themes, themePath, fallback } = this.props;
+  return useMemo(() => {
     let thisThemePath = themePath;
-    if ("undefined" === typeof themes[thisThemePath]) {
-      thisThemePath = this._lastThemePath;
-      if ("undefined" === typeof themes[thisThemePath]) {
+    lastThemePath.current = themePath;
+    if (null == themes[thisThemePath]) {
+      thisThemePath = lastThemePath.current;
+      if (null == typeof themes[thisThemePath]) {
         console.error("Not find a theme for name: [" + themePath + "]", themes);
         return null;
       }
+    } else {
+      lastThemePath.current = thisThemePath;
     }
-    this._lastThemePath = thisThemePath;
     const myTheme = themes[thisThemePath];
     const builded = build(myTheme)();
     if (!isValidElement(builded)) {
@@ -68,7 +57,13 @@ class AjaxPage extends PureComponent {
         return builded;
       }
     }
-  }
-}
+  }, [themePath]);
+};
+
+AjaxPage.defaultProps = {
+  ajax: true,
+  themes: {},
+  win: null,
+};
 
 export default AjaxPage;

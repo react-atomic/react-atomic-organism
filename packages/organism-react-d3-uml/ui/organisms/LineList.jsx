@@ -1,14 +1,9 @@
-import React, {
-  useImperativeHandle,
-  useState,
-  useEffect,
-  forwardRef,
-} from "react";
+import React, { useState, useEffect } from "react";
 import Line from "../organisms/Line";
 const keys = Object.keys;
 
-const LineList = forwardRef((props, ref) => {
-  const {lines, lineDefaultProps, host} = props;
+const LineList = (props) => {
+  const { lines, lineDefaultProps, host } = props;
   const arrLineEl = [];
   let hoverLineEl;
   keys(lines).forEach((key) => {
@@ -33,8 +28,6 @@ const LineList = forwardRef((props, ref) => {
     arrLineEl.push(hoverLineEl);
   }
   return arrLineEl;
-});
-
-LineList.displayName = "LineList";
+};
 
 export default LineList;

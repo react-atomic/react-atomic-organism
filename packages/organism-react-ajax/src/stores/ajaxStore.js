@@ -413,10 +413,12 @@ class AjaxStore extends ReduceStore {
         return this.handleUrlChange(state, action);
       case "callback":
         return this.applyCallback(state, action);
-      case "config/set":
-        return state.merge(action.params);
       default:
-        return state;
+        if (keys(action)) {
+          return state.merge(action);
+        } else {
+          return state;
+        }
     }
   }
 }

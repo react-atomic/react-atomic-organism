@@ -288,7 +288,7 @@ class UMLGraph extends Component {
     this.handleAutoArrange(conns);
   }
 
-  syncPropConnects() {
+  syncPropConnects(autoArrange) {
     const oConn = this.oConn;
     const {
       data,
@@ -338,15 +338,18 @@ class UMLGraph extends Component {
         );
       }
     });
-    oConn.setState();
-    return oConn.getUniqueFromTo();
+    oConn.setState(null, ()=>{
+      // fixed line not sync after initialize arrange
+      if (autoArrange) {
+        setTimeout(()=>this.arrange(), 100);
+      }
+    });
   }
 
   handleBoxGroupDragEnd = (e) => {
     const { onDragEnd } = this.props;
     callfunc(onDragEnd, [e]);
   };
-
 
   handleZoom = (e) => {
     const { onZoom } = this.props;
@@ -389,6 +392,13 @@ class UMLGraph extends Component {
     return isContinue;
   };
 
+  handleLoad = () => {
+    if (!this.isInit) {
+      this.isInit = true;
+      callfunc(this.props.onLoad, [this]);
+    }
+  };
+
   handleAutoArrange = (conns) => {
     import("../../src/dagre").then((dagreAutoLayout) => {
       dagreAutoLayout = getDefault(dagreAutoLayout);
@@ -397,7 +407,7 @@ class UMLGraph extends Component {
         const oBoxGroup = this.getBoxGroup(key);
         oBoxGroup.move(newXY[key].x, newXY[key].y);
       });
-      callfunc(this.props.onLoad, [this]);
+      this.handleLoad();
     });
   };
 
@@ -429,11 +439,9 @@ class UMLGraph extends Component {
     const { autoArrange } = this.props;
     this.oConn = new ConnectController({ host: this });
     setTimeout(() => {
-      const conns = this.syncPropConnects();
-      if (autoArrange) {
-        this.handleAutoArrange(conns);
-      } else {
-        callfunc(this.props.onLoad, [this]);
+      this.syncPropConnects(autoArrange);
+      if (!autoArrange) {
+        this.handleLoad();
       }
     });
     this.mount = true;

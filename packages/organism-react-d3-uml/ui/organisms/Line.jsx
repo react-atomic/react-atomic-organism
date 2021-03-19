@@ -22,7 +22,6 @@ const Line = forwardRef((props, ref) => {
   const [isHover, setIsHover] = useState();
   const [start, setStart] = useState(propsStart);
   const [end, setEnd] = useState(propsEnd);
-  useImperativeHandle(ref, () => expose);
   const expose = {
     getId: () => props.id,
     getFromTo: () => ({ from: props.from, to: props.to }),
@@ -30,6 +29,8 @@ const Line = forwardRef((props, ref) => {
     setStart,
     setEnd,
   };
+
+  useImperativeHandle(ref, () => expose);
 
   useEffect(() => {
     setStart(propsStart);
@@ -88,7 +89,7 @@ const Line = forwardRef((props, ref) => {
   });
 });
 
-Line.displayName = "Line";
+Line.displayName = "UmlLine";
 
 Line.defaultProps = {
   component: LineDefaultLayout,

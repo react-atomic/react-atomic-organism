@@ -1,104 +1,99 @@
-import React, { cloneElement, createElement, isValidElement } from "react";
+import React, { forwardRef, useRef, useCallback } from "react";
 import formSerialize from "form-serialize-js";
-import AjaxBase from "../organisms/AjaxBase";
+import build from "reshow-build";
+import callfunc from "call-func";
+
 import ajaxStore from "../../src/stores/ajaxStore";
 import { ajaxDispatch } from "../../src/ajaxDispatcher";
+import isRunAjax from "../../src/isRunAjax";
 
-class AjaxForm extends AjaxBase {
-  static defaultProps = {
-    updateUrl: false,
-    stop: false,
-    component: "form",
-  };
+const AjaxForm = forwardRef((props, ref) => {
+  const {
+    action,
+    afterSubmit,
+    beforeSubmit,
+    callback,
+    component,
+    errorCallback,
+    path,
+    stop,
+    updateUrl,
+    ...rest
+  } = props;
 
-  handleSubmit = (e) => {
-    if (this.props.stop) {
-      return;
-    }
-    e.preventDefault();
-    const {
-      callback,
-      errorCallback,
-      updateUrl,
-      beforeSubmit,
-      afterSubmit,
-    } = this.props;
-    let otherParams = {};
-    if (beforeSubmit) {
-      otherParams = beforeSubmit(e);
-      if (!otherParams) {
-        otherParams = {};
+  const handleSubmit = useCallback(
+    (e) => {
+      const {
+        stop,
+        callback,
+        errorCallback,
+        updateUrl,
+        beforeSubmit,
+        afterSubmit,
+      } = props;
+      if (stop) {
+        return;
       }
-    }
+      e.preventDefault();
+      const otherParams = callfunc(beforeSubmit, [e]) ?? {};
 
-    if (otherParams.pause) {
-      // pause by beforeSubmit
-      return false;
-    }
+      if (false === otherParams) {
+        // pause by beforeSubmit
+        return false;
+      }
 
-    let formDom = e.target;
-    let action = formDom.action;
-    const formParams = formSerialize(formDom);
-    let type;
-    switch (formDom.method.toLowerCase()) {
-      case "post":
-        type = "ajaxPost";
-        break;
-      /**
-       * Default method
-       * https://www.w3schools.com/tags/att_form_method.asp
-       */
-      default:
-      case "get":
-        type = "ajaxGet";
-        otherParams = {
-          ...otherParams,
-          disableAjax: !this.isRunAjax(),
-          updateUrl,
-        };
-        break;
-    }
+      let formDom = e.target;
+      let action = formDom.action;
+      const formParams = formSerialize(formDom);
+      let type;
+      switch (formDom.method.toLowerCase()) {
+        case "post":
+          type = "ajaxPost";
+          break;
+        /**
+         * Default method
+         * https://www.w3schools.com/tags/att_form_method.asp
+         */
+        default:
+        case "get":
+          type = "ajaxGet";
+          otherParams = {
+            ...otherParams,
+            disableAjax: !isRunAjax(props),
+            updateUrl,
+          };
+          break;
+      }
 
-    ajaxDispatch({
-      type: type,
-      params: {
+      ajaxDispatch(type, {
         url: action,
         query: formParams,
         callback,
         errorCallback,
         ...otherParams,
-      },
-    });
+      });
 
-    if (afterSubmit) {
-      afterSubmit(e);
-    }
-  };
+      callfunc(afterSubmit, [e]);
+    },
+    [props]
+  );
+  const thisUrl = ajaxStore.getRawUrl({
+    url: action,
+    path: path,
+  });
+  return build(component)({
+    action: thisUrl,
+    onSubmit: handleSubmit,
+    ...rest,
+  });
+});
 
-  render() {
-    const {
-      action,
-      afterSubmit,
-      beforeSubmit,
-      callback,
-      component,
-      errorCallback,
-      path,
-      stop,
-      updateUrl,
-      ...rest
-    } = this.props;
-    const thisUrl = ajaxStore.getRawUrl({
-      url: action,
-      path: path,
-    });
-    const build = isValidElement(component) ? cloneElement : createElement;
-    return build(component, {
-      action: thisUrl,
-      onSubmit: this.handleSubmit,
-      ...rest,
-    });
-  }
-}
+AjaxForm.defaultProps = {
+  updateUrl: false,
+  stop: false,
+  component: "form",
+};
+
+AjaxForm.displayName = "AjaxForm";
 
 export default AjaxForm;

@@ -45,8 +45,8 @@ const HTMLToCanvasComp = (props, ref) => {
 
   const getCanvas = (canvasCallback) => {
     const oIframe = iframe.current;
-    const oIframwWindow = oIframe.getWindow();
-    const html2canvas = oIframwWindow.html2canvas;
+    const oIframwWindow = oIframe?.getWindow();
+    const html2canvas = oIframwWindow?.html2canvas;
     if (!html2canvas) {
       return;
     }

@@ -34,7 +34,7 @@ class CancelButton extends PureComponent {
         ...Styles.hide,
       };
     }
-    const translate = `translate(${x - r}, ${y - r})`;
+    const translate = x && y ? `translate(${x - r}, ${y - r})` : null;
     return (
       <Group
         className="cance-button"

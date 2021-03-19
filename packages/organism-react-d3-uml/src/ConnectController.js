@@ -98,7 +98,7 @@ class ConnectController {
 
   getConnectIds(from, to) {
     if (!from || !to) {
-      console.warn("Can not get point type for 'from' or 'to'.", {from, to});
+      console.warn("Can not get point type for 'from' or 'to'.", { from, to });
       return {};
     }
     const fromBoxId = from.getBox().getId();
@@ -196,29 +196,21 @@ class ConnectController {
 
   setState(callback, updateCb, delay) {
     this.clearTimeout();
-    if (!delay) {
-      delay = 100;
-    }
-    if (!this.queue) {
-      this.queue = this.host.getLines();
-    }
     if (callback) {
-      this.queue = callback(this.queue);
+      this.queue = callback(this.queue || this.host.getLines());
     }
     if (updateCb) {
       this.updateCbQueue.push(updateCb);
     }
-    if (!this.host.oConn) {
-      return;
-    }
     this.lineTimer = setTimeout(() => {
       const host = this.host;
-      host.mount && host.setState({ lines: { ...this.queue } }, () => {
-        this.queue = null;
-        this.updateCbQueue.forEach((cb) => cb());
-        this.updateCbQueue = [];
-      });
-    }, delay);
+      host.mount &&
+        host.setState({ lines: { ...this.queue } }, () => {
+          this.queue = null;
+          this.updateCbQueue.forEach((cb) => cb());
+          this.updateCbQueue = [];
+        });
+    }, delay ?? 100);
   }
 
   getUniqueFromTo() {
