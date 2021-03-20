@@ -90,7 +90,8 @@ class ConnectPoint extends Component {
       host.setConnectEndPoint(null);
       endXY = host.applyXY(end[0], end[1]);
     }
-    host.oConn.updateLine(lineId, { start: center, end: endXY });
+    host.oConn.setLineStart(lineId, center);
+    host.oConn.setLineEnd(lineId, endXY);
   };
 
   handleDragEnd = (e) => {

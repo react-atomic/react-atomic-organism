@@ -54,10 +54,6 @@ class UMLGraph extends Component {
     editToCenterDelay: 500,
   };
 
-  state = {
-    lines: {},
-  };
-
   boxGroupNameInvertMap = {};
   boxGroupMap = {};
   boxQueue = {};
@@ -146,7 +142,7 @@ class UMLGraph extends Component {
   }
 
   getLines() {
-    return this.state.lines;
+    return this.lineList?.getLines();
   }
 
   getBox(id, groupId) {
@@ -338,10 +334,10 @@ class UMLGraph extends Component {
         );
       }
     });
-    oConn.setState(null, ()=>{
+    oConn.setState(null, () => {
       // fixed line not sync after initialize arrange
       if (autoArrange) {
-        setTimeout(()=>this.arrange(), 100);
+        setTimeout(() => this.arrange(), 100);
       }
     });
   }
@@ -409,6 +405,10 @@ class UMLGraph extends Component {
       });
       this.handleLoad();
     });
+  };
+
+  handleSetLineListRef = (el) => {
+    this.lineList = el;
   };
 
   handleZoomRef = (o) => {
@@ -489,7 +489,6 @@ class UMLGraph extends Component {
       lineDefaultProps,
       ...props
     } = this.props;
-    const { lines } = this.state;
     return (
       <SemanticUI
         className="d3-uml"
@@ -505,39 +504,42 @@ class UMLGraph extends Component {
           >
             {build(arrowHeadComponent)()}
             <LineList
+              ref={this.handleSetLineListRef}
               host={this}
-              lines={lines}
               lineDefaultProps={lineDefaultProps}
             />
           </Zoom>
         </Graph>
         <HTMLGraph refCb={this.handleSetHtmlEl} ref={this.handleSetHtmlObj}>
-          {(boxGroupsLocator(data) || []).map((item) => {
-            const bgName = uniqueBoxGroupNameLocator(item);
-            return !bgName.name ? null : (
-              <BoxGroup
-                ref={this.addBoxGroup}
-                host={this}
-                key={"box-group-" + bgName.name}
-                onEdit={this.edit}
-                onDel={this.del}
-                onDragEnd={this.handleBoxGroupDragEnd}
-                onWillDrag={onBoxWillDrag}
-                x={boxGroupXLocator(item)}
-                y={boxGroupYLocator(item)}
-                {...bgName}
-              >
-                {boxsLocator(item).map((colItem, colKey) => (
-                  <Box
-                    host={this}
-                    key={"box-" + colKey}
-                    boxGroupName={bgName.name}
-                    {...boxNameLocator(colItem)}
-                  />
-                ))}
-              </BoxGroup>
-            );
-          })}
+          {
+            /* !!Important!! BoxGroup need put in root component for get render position*/
+            (boxGroupsLocator(data) || []).map((item) => {
+              const bgName = uniqueBoxGroupNameLocator(item);
+              return !bgName.name ? null : (
+                <BoxGroup
+                  ref={this.addBoxGroup}
+                  host={this}
+                  key={"box-group-" + bgName.name}
+                  onEdit={this.edit}
+                  onDel={this.del}
+                  onDragEnd={this.handleBoxGroupDragEnd}
+                  onWillDrag={onBoxWillDrag}
+                  x={boxGroupXLocator(item)}
+                  y={boxGroupYLocator(item)}
+                  {...bgName}
+                >
+                  {boxsLocator(item).map((colItem, colKey) => (
+                    <Box
+                      host={this}
+                      key={"box-" + colKey}
+                      boxGroupName={bgName.name}
+                      {...boxNameLocator(colItem)}
+                    />
+                  ))}
+                </BoxGroup>
+              );
+            })
+          }
         </HTMLGraph>
         {children}
       </SemanticUI>

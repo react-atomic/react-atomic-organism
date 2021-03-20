@@ -17,7 +17,7 @@ class ConnectController {
   }
 
   getLine(id) {
-    return get(this, ["host", "state", "lines", id]);
+    return get(this.host.getLines(), [id]);
   }
 
   getLineObj(id) {
@@ -138,7 +138,7 @@ class ConnectController {
 
   getConnects() {
     const conns = this.connects;
-    const { lines } = this.host.state;
+    const lines = this.host.getLines();
     const results = [];
     keys(conns).forEach((key) => {
       const lineId = conns[key];
@@ -197,20 +197,22 @@ class ConnectController {
   setState(callback, updateCb, delay) {
     this.clearTimeout();
     if (callback) {
-      this.queue = callback(this.queue || this.host.getLines());
+      this.queue = callback(this.queue || this.host.getLines() || []);
     }
     if (updateCb) {
       this.updateCbQueue.push(updateCb);
     }
     this.lineTimer = setTimeout(() => {
       const host = this.host;
-      host.mount &&
-        host.setState({ lines: { ...this.queue } }, () => {
+      if (host.mount) {
+        host.lineList?.setLines({...this.queue});
+        host.lineList?.addUpdateCb(() => {
           this.queue = null;
           this.updateCbQueue.forEach((cb) => cb());
           this.updateCbQueue = [];
         });
-    }, delay ?? 100);
+      }
+    }, delay ?? 10);
   }
 
   getUniqueFromTo() {
