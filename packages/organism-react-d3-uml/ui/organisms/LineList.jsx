@@ -24,9 +24,9 @@ const LineList = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => expose);
   useEffect(() => {
     lastLines.current = lines;
-    setTimeout(()=>{
-    setLinesCb.current.forEach((cb) => callfunc(cb));
-    setLinesCb.current = [];
+    setTimeout(() => {
+      setLinesCb.current.forEach((cb) => callfunc(cb));
+      setLinesCb.current = [];
     });
   }, [lines]);
   const arrLineEl = [];
