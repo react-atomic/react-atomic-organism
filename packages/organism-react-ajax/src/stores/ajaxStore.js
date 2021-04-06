@@ -298,7 +298,7 @@ class AjaxStore extends ReduceStore {
       if (!params.query) {
         params.query = {};
       }
-      if (!params.disableRandom) {
+      if (!params.disableCacheBusting) {
         params.query["--r"] = getRandomId();
       } else {
         params.query["--r"] = state.get("staticVersion");
