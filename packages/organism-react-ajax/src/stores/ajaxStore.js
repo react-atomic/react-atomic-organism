@@ -173,32 +173,16 @@ class AjaxStore extends ReduceStore {
     let json;
     try {
       json = JSON.parse(text);
-    } catch (e) {
-      json = {};
-    }
-    return json;
+    } catch (e) { }
+    return json || {};
   }
 
   start() {
-    setImmediate(() => {
-      ajaxDispatch({
-        type: "config/set",
-        params: {
-          isRunning: 1,
-        },
-      });
-    });
+    setImmediate(() => ajaxDispatch({ isRunning: 1 }));
   }
 
   done() {
-    setImmediate(() => {
-      ajaxDispatch({
-        type: "config/set",
-        params: {
-          isRunning: 0,
-        },
-      });
-    });
+    setImmediate(() => ajaxDispatch({ isRunning: 0 }));
   }
 
   storeCallback(action) {
