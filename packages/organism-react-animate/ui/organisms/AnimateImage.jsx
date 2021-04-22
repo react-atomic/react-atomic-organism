@@ -37,7 +37,7 @@ const AnimateImageComp = (props, ref) => {
     oImg.current = new oWin.Image();
     oImg.current.onload = () => {
       if (_mount.current) {
-        setImage(<Image src={src} {...otherProps} />);
+        setImage(<Image key={src} src={src} {...otherProps} />);
       }
     };
     oImg.current.src = src;
@@ -54,6 +54,8 @@ const AnimateImageComp = (props, ref) => {
 };
 
 const AnimateImage = forwardRef(AnimateImageComp);
+
+AnimateImage.displayName = 'AnimateImage';
 
 AnimateImage.defaultProps = {
   animate: {
