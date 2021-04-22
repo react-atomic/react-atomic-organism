@@ -15,11 +15,19 @@ const AnimateImageComp = (props, ref) => {
   const { src, animate, ...otherProps } = props;
   const [image, setImage] = useState();
 
+  const _mount = useRef(false);
   const oImg = useRef();
 
   useImperativeHandle(ref, () => ({
     getImageObject: () => oImg.current,
   }));
+
+  useEffect(() => {
+    _mount.current = true;
+    return () => {
+      _mount.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     const oWin = win();
@@ -28,7 +36,9 @@ const AnimateImageComp = (props, ref) => {
     }
     oImg.current = new oWin.Image();
     oImg.current.onload = () => {
-      setImage(<Image src={src} {...otherProps} />);
+      if (_mount.current) {
+        setImage(<Image src={src} {...otherProps} />);
+      }
     };
     oImg.current.src = src;
   }, [src]);
