@@ -377,9 +377,9 @@ chai@*:
     type-detect "^4.0.5"
 
 chalk@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.0.tgz#4e14870a618d9e2edd97dd8345fd9d9dc315646a"
-  integrity sha512-qwx12AxXe2Q5xQ43Ac//I6v5aXTipYrSESdOgzrN+9XjgEpyjpKuvSGaN4qE93f7TQTlerQQ8S+EQ0EyDoVL1A==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
+  integrity sha512-diHzdDKxcU+bAsUboHLPEDQiw0qEe0qd7SYUn3HgcFlWgbDcfLGswOHYeGrHKzG9z6UYf01d9VFMfZxPM1xZSg==
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
@@ -2489,9 +2489,9 @@ reshow-flux-base@*:
     reshow-runtime "*"
 
 reshow-flux@*:
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.10.3.tgz#a98bb85620ab9349154bc7add87619d44802405c"
-  integrity sha512-gsX9kT0k+JUDG6G2lQzUC6JKsPWARqEsYtYUKuJNejhqO64kt9BNOAwlshDZiLonR6/XMNcYi4X7PZpcPIOfvA==
+  version "0.10.9"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.10.9.tgz#b85bda6c092d66e8e1790f88b80b8793bc30eac3"
+  integrity sha512-T2hdOqcmaeQWDej3K2Oo6iVTSgu9j8rjKwq11G65VeD+OIpKxIgEMTlHXOr669PH+PnFzonO9z+svUFvDyNCaA==
   dependencies:
     array.dedup "*"
     get-object-value "*"
@@ -2502,9 +2502,9 @@ reshow-flux@*:
     setimmediate "*"
 
 reshow-return@*:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/reshow-return/-/reshow-return-0.2.1.tgz#f0e68ba4701c2b01f7fb0d7dc9c7ef6ec85fa4de"
-  integrity sha512-LKqeEJqYpMGdFiVqt/nbrJu1OdD3H8ZKcebGWDCVUxx8+dqd5964TTlDdCAZccrIQRQUsLFPcyjRGKyKRl3dcg==
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/reshow-return/-/reshow-return-0.3.2.tgz#db8b460c0bd8dfd826b9512ba4fe234e906ce0cc"
+  integrity sha512-ITFeQ9DAHPi0ToAltyLSLBB+H2zMnbxLfUbSLdPIvdLXdwca+M+AUiLCqbOJMiSOweGAf56zj/AUTmzT/XGqxA==
   dependencies:
     call-func "*"
     get-object-value "*"
@@ -2522,9 +2522,9 @@ reshow-runtime@*:
     reshow-constant "*"
 
 reshow@*:
-  version "0.14.5"
-  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.14.5.tgz#1c19fa0d74a6c4c1019c587b584b1a132d89911e"
-  integrity sha512-i9RXQIlYRD0unRtbhFZYn5WzyQZIK3H0k6eu4v/vSa1Ofv/E+BQnAX8tmU7yhnubt2bX44odM6hvCK1lRGpvQw==
+  version "0.14.6"
+  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.14.6.tgz#7cd5c94bc0c93a42b991d9ae9f1244fd5428da9e"
+  integrity sha512-/PvbVSlsMP369dyKSIZdSDPV4kVdNk66KB/aYf/m9l4KUNX3A6m5B77lbjgFHaRipRHSrpWygYlglODf/HMREA==
   dependencies:
     call-func "*"
     get-storage "*"
