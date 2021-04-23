@@ -1,11 +1,14 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.14.7",
+  "version": "0.14.8",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
-  "keywords": ["reactjs", "webworker"],
+  "keywords": [
+    "reactjs",
+    "webworker"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -53,5 +56,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test && npm run build"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

@@ -63,6 +63,7 @@ const handleUpdateNewUrl = (state, action, url) => {
   if (preUrl !== url) {
     const onUrlChange = state.get("onUrlChange");
     state = state
+      .delete("themePath")
       .set("currentLocation", url)
       .merge(callfunc(onUrlChange, [url]));
   }
