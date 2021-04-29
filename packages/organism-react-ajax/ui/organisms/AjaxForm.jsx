@@ -57,11 +57,8 @@ const AjaxForm = forwardRef((props, ref) => {
         default:
         case "get":
           type = "ajaxGet";
-          otherParams = {
-            ...otherParams,
-            disableAjax: !isRunAjax(props),
-            updateUrl,
-          };
+          otherParams.disableAjax = !isRunAjax(props);
+          otherParams.updateUrl = updateUrl;
           break;
       }
 
