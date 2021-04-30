@@ -52,7 +52,8 @@ const AjaxPage = ({ win, ...props }) => {
       return null;
     } else {
       if (fallback) {
-        return <Suspense fallback={build(fallback)()}>{builded}</Suspense>;
+        const fallbackEl = true === fallback ? "div" : fallback;
+        return <Suspense fallback={build(fallbackEl)()}>{builded}</Suspense>;
       } else {
         return builded;
       }
