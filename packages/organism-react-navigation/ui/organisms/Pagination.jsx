@@ -19,15 +19,6 @@ const getFromTo = (from, to) => {
 
 const keys = Object.keys;
 
-const mergeStyle = (main, ...merges) => {
-  const style = { ...get(main, ["style"], {}) };
-  merges.forEach((m) => {
-    const mStyle = get(m, ["style"], {});
-    keys(mStyle).forEach((key) => (style[key] = mStyle[key]));
-  });
-  return style;
-};
-
 const BasePage = (props) => {
   const {
     onPageChange,
@@ -118,7 +109,7 @@ const Pagination = (pg) => {
     forwardText,
     backwardText,
     ui,
-    currentPageProps,
+    currentPageProps = {},
   } = pg;
   let firstPage;
   let firstEllipsis;
@@ -163,6 +154,7 @@ const Pagination = (pg) => {
                 text={backwardText}
                 {...current.backward}
                 {...pageProps}
+                style={{...pageProps.style, display: "flex"}}
               />
             );
           }
@@ -172,7 +164,7 @@ const Pagination = (pg) => {
               {...pageProps}
               {...current}
               {...currentPageProps}
-              style={mergeStyle(pageProps, currentPageProps)}
+              style={{...pageProps.style, ...currentPageProps.style, display: "flex"}}
             />
           );
           if (current.forward) {
@@ -182,6 +174,7 @@ const Pagination = (pg) => {
                 {...current.forward}
                 text={forwardText}
                 {...pageProps}
+                style={{...pageProps.style, display: "flex"}}
               />
             );
           }
