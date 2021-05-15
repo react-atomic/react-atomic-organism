@@ -4,6 +4,7 @@ import req from "superagent";
 
 const keys = Object.keys;
 const arrWs = {};
+const arrReq = {};
 
 const handleMessage = (e) => {
   const data = get(e, ["data"]);
@@ -37,6 +38,13 @@ export default oNonWorker;
 
 const cookParams = (action, callReq) => {
   const params = get(action, ["params"], {});
+  const id = params.id;
+  if (id) {
+    if (arrReq[id]) {
+      arrReq[id].abort();
+    }
+    arrReq[id] = callReq;
+  }
   const cookHeaders = {
     ...get(params, ["globalHeaders"], {}),
     ...get(params, ["headers"], {}),
@@ -58,12 +66,15 @@ const cookParams = (action, callReq) => {
 
 const ajaxGet = ({ url, action }) => {
   let callReq = req.get(url);
-  const params = cookParams(action, callReq);
+  const { query, cookHeaders, id } = cookParams(action, callReq);
   callReq
-    .query(params.query)
-    .set(params.cookHeaders)
+    .query(query)
+    .set(cookHeaders)
     .end((err, res) => {
       if (res) {
+        if (arrReq[id]) {
+          delete arrWs[id];
+        }
         const { error, req, text, xhr, ...response } = res;
         action.params = {
           ...action.params,
@@ -95,6 +106,7 @@ const ajaxPost = ({ url, action }) => {
       break;
   }
   const {
+    id,
     query,
     isSendJson,
     cookHeaders,
@@ -123,6 +135,9 @@ const ajaxPost = ({ url, action }) => {
     .set(cookHeaders)
     .end((err, res) => {
       if (res) {
+        if (arrReq[id]) {
+          delete arrWs[id];
+        }
         const { error, req, text, xhr, ...response } = res;
         action.params = {
           ...action.params,
