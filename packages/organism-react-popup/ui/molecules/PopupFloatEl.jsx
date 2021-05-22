@@ -6,7 +6,7 @@ import { toInt } from "to-percent-js";
 import PopupOverlay from "../molecules/PopupOverlay";
 
 class PopupFloatEl extends PopupOverlay {
-  _mount = false;
+  _mount = true;
 
   static defaultProps = {
     style: {
@@ -103,7 +103,6 @@ class PopupFloatEl extends PopupOverlay {
   }
 
   componentDidMount() {
-    this._mount = true;
     window.addEventListener("resize", this.handleResize);
   }
 
