@@ -1,50 +1,33 @@
-import React, { PureComponent } from "react";
+import React, { useEffect, useRef } from "react";
 import { popupDispatch } from "../../src/popupDispatcher";
 
-const isArray = Array.isArray;
-
-class DisplayPopupEl extends PureComponent {
-  _mount = false;
-
-  getChildren() {
-    return this.props.children;
-  }
-
-  setFloat() {
-    setTimeout(() => {
-      if (this._mount) {
-        popupDispatch({
-          type: "dom/update",
-          params: {
-            popup: this.getChildren(),
-          },
-        });
-      }
-    });
-  }
-
-  componentDidMount() {
-    this._mount = true;
-    this.setFloat();
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    this.setFloat();
-  }
-
-  componentWillUnmount() {
-    this._mount = false;
-    popupDispatch({
-      type: "dom/cleanOne",
-      params: {
-        popup: this.getChildren(),
-      },
-    });
-  }
-
-  render() {
-    return null;
-  }
-}
+const DisplayPopupEl = (props) => {
+  const _mount = useRef(false);
+  const popup = useRef(props.children);
+  useEffect(() => {
+    _mount.current = true;
+    return () => {
+      _mount.current = false;
+      popupDispatch({
+        type: "dom/cleanOne",
+        params: {
+          popup: popup.current,
+        },
+      });
+    };
+  }, []);
+  useEffect(() => {
+    popup.current = props.children;
+    if (_mount.current) {
+      popupDispatch({
+        type: "dom/update",
+        params: {
+          popup: popup.current,
+        },
+      });
+    }
+  }, [props.children]);
+  return null;
+};
 
 export default DisplayPopupEl;
