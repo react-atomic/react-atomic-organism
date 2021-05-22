@@ -1,140 +1,111 @@
-require("setimmediate");
-import React, { Component, forwardRef } from "react";
-import { ajaxStore } from "organism-react-ajax";
+import React, {
+  forwardRef,
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+  useImperativeHandle,
+} from "react";
+import { Progress } from "react-atomic-molecule";
 import Return from "reshow-return";
-import { popupDispatch } from "organism-react-popup";
-import { Progress, SemanticUI } from "react-atomic-molecule";
+import { ajaxStore } from "organism-react-ajax";
+import { DisplayPopupEl } from "organism-react-popup";
 
-class Body extends Component {
-  _timer = null;
-  _timerComplete = null;
-  _timerReset1 = null;
-  _timerReset2 = null;
-  _bar = null;
+const PageLoadProgress = forwardRef((props, ref) => {
+  const { name, zIndex, isFloat, isRunning, ajax } = props;
+  const [percent, setPercent] = useState(0);
+  const [opacity, setOpacity] = useState(0);
+  const lastPercent = useRef(0);
+  const _timer = useRef();
+  const _timerComplete = useRef();
+  const _timerReset = useRef();
 
-  static defaultProps = {
-    name: "processBar",
-    delay: 200,
-    isFloat: true,
-    ajax: false,
-    pause: 90,
-    zIndex: 1,
-  };
-
-  state = {
-    percent: 0,
-    opacity: 1,
-  };
-
-  complete = () => {
-    this.pause();
-    this.setState({
-      percent: 100,
-    });
-    this._timerComplete = setTimeout(() => {
-      this.reset();
-    }, 500);
-  };
-
-  reset = () => {
-    this.setState({
-      opacity: 0,
-    });
-    this._timerReset1 = setTimeout(() => {
-      this.setState({
-        percent: 0,
-      });
-    }, 500);
-  };
-
-  pause = () => {
-    clearInterval(this._timer);
-    clearTimeout(this._timerComplete);
-    clearTimeout(this._timerReset1);
-  };
-
-  start = (pause, delay) => {
-    clearInterval(this._timer);
-    if (!delay) {
-      delay = this.props.delay;
+  const _start = (goToPercent) => {
+    if (!goToPercent || goToPercent > 100) {
+      goToPercent = 100;
     }
-    this._start(pause);
-    this._timer = setInterval(() => {
-      this._start(pause);
-    }, delay);
-  };
+    let end = lastPercent.current + 5;
+    if (end >= goToPercent) {
+      end = goToPercent;
+      expose.pause();
+    }
 
-  _start = (pause) => {
-    if (!pause || pause > 100) {
-      pause = 100;
-    }
-    let end = this.state.percent + 5;
-    if (end >= pause) {
-      end = pause;
-      this.pause();
-    }
     if (end >= 100) {
-      return this.complete();
+      return expose.complete();
     } else {
-      this.setState({
-        percent: end,
-        opacity: 1,
-      });
+      setPercent(end);
+      setTimeout(() => setOpacity(1));
     }
   };
 
-  setFloat() {
-    setImmediate(() => {
-      const { isFloat } = this.props;
-      if (!isFloat) {
-        return;
+  const expose = {
+    complete: () => {
+      expose.pause();
+      setPercent(100);
+      _timerComplete.current = setTimeout(() => {
+        expose.reset();
+      }, 500);
+    },
+    reset: () => {
+      setOpacity(0);
+      _timerReset.current = setTimeout(() => {
+        setPercent(0);
+      });
+    },
+    pause: () => {
+      if (_timer.current) {
+        clearInterval(_timer.current);
       }
-      popupDispatch({
-        type: "dom/update",
-        params: {
-          popup: this._bar,
-        },
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.setFloat();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { isRunning, ajax, pause } = this.props;
-    this.setFloat();
-    if (ajax && prevProps.isRunning !== isRunning) {
-      setImmediate(() => {
-        if (isRunning) {
-          this.start(pause);
-        } else {
-          this.complete();
+      if (_timerComplete.current) {
+        clearTimeout(_timerComplete.current);
+      }
+      if (_timerReset.current) {
+        clearTimeout(_timerReset.current);
+      }
+    },
+    start: useCallback(
+      (goToPercent, delay) => {
+        if (_timer.current) {
+          clearInterval(_timer.current);
         }
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    this.pause();
-    popupDispatch({
-      type: "dom/cleanOne",
-      params: {
-        popup: this.props.name,
+        if (null == delay) {
+          delay = props.delay;
+        }
+        _timer.current = setInterval(() => {
+          _start(goToPercent);
+        }, delay);
       },
-    });
-  }
+      [props.delay]
+    ),
+  };
 
-  render() {
-    const { percent, opacity } = this.state;
-    const { name, zIndex, isFloat } = this.props;
-    this._bar = (
+  useImperativeHandle(ref, () => expose);
+  useEffect(() => {
+    lastPercent.current = percent;
+  }, [percent]);
+  useEffect(() => {
+    if (ajax && null != isRunning) {
+      if (isRunning) {
+        expose.start(90);
+      } else {
+        expose.complete();
+      }
+    }
+  }, [isRunning, props.pause]);
+  useEffect(() => {
+    return () => {
+      expose.pause();
+    };
+  }, []);
+
+  return useMemo(() => {
+    const bar = (
       <Progress
         style={{
           ...Styles.progress,
-          opacity: opacity,
-          zIndex: zIndex,
+          opacity,
+          zIndex,
         }}
         barProps={{
           style: Styles.bar,
@@ -144,20 +115,29 @@ class Body extends Component {
       />
     );
     if (isFloat) {
-      return null;
+      return <DisplayPopupEl>{bar}</DisplayPopupEl>;
     } else {
-      return this._bar;
+      return bar;
     }
-  }
-}
-
-const PageLoadProgressHandler = forwardRef((props, ref) => {
-  return (
-    <Return stores={[ajaxStore]} initStates={["isRunning"]}>
-      <Body {...props} ref={ref} />
-    </Return>
-  );
+  }, [opacity, percent]);
 });
+
+PageLoadProgress.defaultProps = {
+  name: "processBar",
+  delay: 200,
+  isFloat: true,
+  ajax: false,
+  zIndex: 1,
+};
+
+PageLoadProgress.displayName = "PageLoadProgress";
+
+const PageLoadProgressHandler = forwardRef((props, ref) => (
+  <Return stores={[ajaxStore]} initStates={["isRunning"]}>
+    <PageLoadProgress {...props} ref={ref} />
+  </Return>
+));
+PageLoadProgressHandler.displayName = "PageLoadProgressHandler";
 
 export default PageLoadProgressHandler;
 

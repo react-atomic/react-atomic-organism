@@ -1,11 +1,14 @@
 {
   "name": "organism-react-progress",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["react", "react-component"],
+  "keywords": [
+    "react",
+    "react-component"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -31,8 +34,8 @@
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
-    "build:cjs:src": "BABEL_ENV=build babel src -d build/cjs/src --root-mode upward",
-    "build:cjs:ui": "BABEL_ENV=build babel ui -d build/cjs/ui --root-mode upward",
+    "build:cjs:src": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
+    "build:cjs:ui": "BABEL_ENV=cjs babel ui -d build/cjs/ui --root-mode upward",
     "build:es": "npm run build:es:src && npm run build:es:ui",
     "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
@@ -42,5 +45,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
