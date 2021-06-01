@@ -77,6 +77,7 @@ const AjaxLink = forwardRef((props, ref) => {
   }
   return build(component)({
     ...rest,
+    target,
     ref,
     href: thisHref,
     onTouchStart,
