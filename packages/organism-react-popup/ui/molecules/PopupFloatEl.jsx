@@ -67,8 +67,8 @@ class PopupFloatEl extends PopupOverlay {
       return faultPos;
     }
     const myAlignParams = {
-      exclude: ['lt', 'lb', 'rt', 'rb'],
-      ...alignParams
+      exclude: ["lt", "lb", "rt", "rb"],
+      ...alignParams,
     };
     const info = alignUI(targetEl, this.floatEl, myAlignParams, winInfo);
     if (!info) {
@@ -89,7 +89,10 @@ class PopupFloatEl extends PopupOverlay {
       this.floatEl = el;
     }
     this.handleMoveTo();
-    setTimeout(()=>this.handleMoveTo(), this.props.retryAt);
+    const { retryAt } = this.props;
+    if (retryAt) {
+      setTimeout(() => this.handleMoveTo(), retryAt);
+    }
   };
 
   /**
