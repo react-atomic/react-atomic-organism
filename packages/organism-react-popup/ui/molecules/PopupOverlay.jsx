@@ -29,6 +29,7 @@ class PopupOverlay extends BasePopup {
       targetEl,
       toPool,
       alignParams,
+      retryAt,
       isFollowTransform,
       className,
       style,

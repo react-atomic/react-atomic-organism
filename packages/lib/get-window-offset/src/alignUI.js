@@ -43,9 +43,13 @@ const fixScrollNode = (scrollInfo) => (move) => [
 ];
 
 const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
-  let { toLoc, disableAutoLoc, positionFixed } = get(alignParams, null, {});
+  let { toLoc, disableAutoLoc, positionFixed, exclude } = get(
+    alignParams,
+    null,
+    {}
+  );
   if (!targetEl) {
-    console.warn("targetEl was empty", {targetEl});
+    console.warn("targetEl was empty", { targetEl });
     return false;
   }
   let targetInfo;
@@ -56,13 +60,13 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   if (!disableAutoLoc) {
     winInfo = winInfo || getWindowOffset(targetEl);
     if (!winInfo) {
-      console.warn("get windows offset failed", {targetEl});
+      console.warn("get windows offset failed", { targetEl });
     } else {
       locs = locs.concat(winInfo.locs);
     }
   }
   if (!locs.length) {
-    console.warn("Not set any locs", {toLoc});
+    console.warn("Not set any locs", { toLoc });
     return false;
   }
   if (!targetInfo) {
@@ -73,7 +77,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     }
   }
   if (!targetInfo) {
-    console.warn("[alertUI] can't get target info.", {targetEl, winInfo});
+    console.warn("[alertUI] can't get target info.", { targetEl, winInfo });
     return false;
   }
 
@@ -84,7 +88,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   if (fixedNode) {
     if (fixedNode.contains(floatEl)) {
       adjustMove = fixFixedNode(getScrollInfo(fixedNode));
-    } else if (positionFixed) { 
+    } else if (positionFixed) {
       adjustMove = fixScrollNode(getScrollInfo(fixedNode));
     } else {
       if (winInfo) {
@@ -101,6 +105,9 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   const floatInfo = getOffset(floatEl);
   locs.some((locItem) => {
     loc = locItem;
+    if ( exclude && -1 !== exclude.indexOf(loc)) {
+      return false;
+    }
     move = alignWith(targetInfo, floatInfo, loc);
     if (adjustMove) {
       move = adjustMove(move);
@@ -117,13 +124,16 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
       }
     }
   });
+  if (!move) {
+      return false;
+  }
   const result = {
     loc,
     move,
     toLoc: toLoc || loc,
     locClassName: getPositionString(loc),
   };
-  // console.log(result, {locs, winInfo});
+//   console.log(result, {locs, winInfo});
   return result;
 };
 

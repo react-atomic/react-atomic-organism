@@ -72,12 +72,10 @@ const calWindowOffset = (domInfo, scrollInfo) => {
     pos[secondKey + C],
     getRevertLoc(pos[secondKey + firstKey]),
   ];
-  const tb = firstKey;
-  const lr = secondKey;
   return {
     locs,
-    tb,
-    lr,
+    firstKey,
+    secondKey,
   };
 };
 
