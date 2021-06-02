@@ -34,7 +34,7 @@ const AjaxPage = ({ win, ...props }) => {
     let thisThemePath = themePath;
     if (null == themes[thisThemePath]) {
       thisThemePath = lastThemePath.current;
-      if (null == typeof themes[thisThemePath]) {
+      if (null == themes[thisThemePath]) {
         console.error("Not find a theme for name: [" + themePath + "]", themes);
         return null;
       }
@@ -45,9 +45,10 @@ const AjaxPage = ({ win, ...props }) => {
     const builded = build(myTheme)();
     if (!isValidElement(builded)) {
       console.error("Not find a valid element for name: [" + themePath + "]", {
-        themes,
-        thisThemePath,
-        myTheme,
+        "Theme List": themes,
+        "Theme Path": thisThemePath,
+        "Element before build:": myTheme,
+        "Element builded:": builded,
       });
       return null;
     } else {
