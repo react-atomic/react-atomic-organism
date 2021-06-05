@@ -16,7 +16,7 @@ import getOffset from "getoffset";
 import callfunc from "call-func";
 
 import navigationStore from "../../src/stores/navigationStore";
-import {navigationDispatch} from "../../src/navigationDispatcher";
+import { navigationDispatch } from "../../src/navigationDispatcher";
 
 const keys = Object.keys;
 
@@ -88,7 +88,7 @@ const DefaultIcon = ({
 
 const SideMenu = (props) => {
   const {
-    type = "default",
+    type,
     root,
     rootActiveClass,
     rootInactiveClass,
@@ -179,7 +179,7 @@ const SideMenu = (props) => {
         );
         const menuElement = build(component)(others, menuItems);
 
-        // setup thisDefaultOffIcon  
+        // setup thisDefaultOffIcon
         let defaultOff = isInit ? false : on;
         let thisDefaultOffIcon = defaultOffIcon;
         if (!thisDefaultOffIcon) {
@@ -193,7 +193,7 @@ const SideMenu = (props) => {
           hamburgerStyle,
         });
 
-        // setup thisDefaultOnIcon  
+        // setup thisDefaultOnIcon
         let thisDefaultOnIcon = null;
         if (!keepMini) {
           let defaultOn = isInit ? true : on;
@@ -232,6 +232,7 @@ const SideMenu = (props) => {
 };
 
 SideMenu.defaultProps = {
+  type: "default",
   component: SemanticUI,
   linkComponent: "a",
   menus: [],
