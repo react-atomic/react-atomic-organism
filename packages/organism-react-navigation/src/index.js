@@ -11,6 +11,9 @@ export { default as Breadcrumb } from "../ui/organisms/Breadcrumb";
 export { default as Tab } from "../ui/organisms/Tab";
 export { default as TabView } from "../ui/organisms/TabView";
 
+// template
+export { default as getDocTemplate } from "../ui/templates/getDocTemplate";
+
 /* Dropdown */
 export { default as Dropdown } from "../ui/organisms/Dropdown";
 export { default as Select, SelectField } from "../ui/organisms/Select";
