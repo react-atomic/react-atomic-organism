@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   min,
   mixClass,
@@ -228,7 +228,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     style,
     ...others
   }) => {
-    injects = lazyInject(injects, InjectStyles);
+    useEffect(() => (injects = lazyInject(injects, InjectStyles)), []);
     return (
       <Segment
         {...others}
