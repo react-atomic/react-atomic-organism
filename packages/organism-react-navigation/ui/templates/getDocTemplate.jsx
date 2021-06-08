@@ -228,7 +228,9 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     style,
     ...others
   }) => {
-    useEffect(() => (injects = lazyInject(injects, InjectStyles)), []);
+    useEffect(() => {
+      injects = lazyInject(injects, InjectStyles);
+    }, []);
     return (
       <Segment
         {...others}
