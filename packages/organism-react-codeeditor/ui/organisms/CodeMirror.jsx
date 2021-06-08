@@ -11,7 +11,7 @@ const reducer = (state, action) => {
   return state;
 };
 
-const CodeMirror = ({ onChange, model, children, ...props }) => {
+const CodeMirror = ({ onChange, model, children, codeMirrorVersion, ...props }) => {
   const oModel = models[model] || models.html;
   const [that, dispatch] = useReducer(reducer, {});
   const handleIframeRef = (el) => {
@@ -81,8 +81,8 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
     >
       <Unsafe>
         {`
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.css" />
-          <script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/lib/codemirror.min.js"></script>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@${codeMirrorVersion}/lib/codemirror.min.css" />
+          <script src="https://cdn.jsdelivr.net/npm/codemirror@${codeMirrorVersion}/lib/codemirror.min.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
           ${(oModel.libJS || [])
             .map((js) => '<script src="' + js + '"></script>')
@@ -90,7 +90,7 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
           ${(oModel.codeMirrorJS || [])
             .map(
               (js) =>
-                '<script src="https://cdn.jsdelivr.net/npm/codemirror@5.49.2/' +
+                `<script src="https://cdn.jsdelivr.net/npm/codemirror@${codeMirrorVersion}/` +
                 js +
                 '"></script>'
             )
@@ -105,6 +105,10 @@ const CodeMirror = ({ onChange, model, children, ...props }) => {
       />
     </Iframe>
   );
+};
+
+CodeMirror.defaultProps = {
+    codeMirrorVersion: '5.61'
 };
 
 export default CodeMirror;

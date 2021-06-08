@@ -1,11 +1,14 @@
 {
   "name": "organism-react-codeeditor",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React Simple Html Editor",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["react", "html-editor"],
+  "keywords": [
+    "react",
+    "html-editor"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -42,5 +45,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
