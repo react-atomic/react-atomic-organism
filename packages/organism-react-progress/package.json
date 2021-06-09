@@ -1,6 +1,6 @@
 {
   "name": "organism-react-progress",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -19,13 +19,13 @@
     "setimmediate": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.x",
+    "@babel/cli": "^7.14.3",
     "chai": "*",
     "enzyme": "*",
     "enzyme-adapter-react-16": "*",
     "jsdom": "*",
     "jsdom-global": "*",
-    "mocha": "*",
+    "mocha": "^9.0.0",
     "react": "^16.x",
     "react-dom": "^16.x",
     "react-test-renderer": "*",

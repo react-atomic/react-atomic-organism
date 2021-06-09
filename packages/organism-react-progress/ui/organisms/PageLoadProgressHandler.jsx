@@ -1,10 +1,7 @@
 import React, {
   forwardRef,
-  useState,
-  useRef,
   useEffect,
   useMemo,
-  useCallback,
   useImperativeHandle,
 } from "react";
 import { Progress } from "react-atomic-molecule";
@@ -12,78 +9,14 @@ import Return from "reshow-return";
 import { ajaxStore } from "organism-react-ajax";
 import { DisplayPopupEl } from "organism-react-popup";
 
+import useProgress from "../../src/useProgress";
+
 const PageLoadProgress = forwardRef((props, ref) => {
   const { name, zIndex, isFloat, isRunning, ajax } = props;
-  const [percent, setPercent] = useState(0);
-  const [opacity, setOpacity] = useState(0);
-  const lastPercent = useRef(0);
-  const _timer = useRef();
-  const _timerComplete = useRef();
-  const _timerReset = useRef();
 
-  const _start = (goToPercent) => {
-    if (!goToPercent || goToPercent > 100) {
-      goToPercent = 100;
-    }
-    let end = lastPercent.current + 5;
-    if (end >= goToPercent) {
-      end = goToPercent;
-      expose.pause();
-    }
-
-    if (end >= 100) {
-      return expose.complete();
-    } else {
-      setPercent(end);
-      setTimeout(() => setOpacity(1));
-    }
-  };
-
-  const expose = {
-    complete: () => {
-      expose.pause();
-      setPercent(100);
-      _timerComplete.current = setTimeout(() => {
-        expose.reset();
-      }, 500);
-    },
-    reset: () => {
-      setOpacity(0);
-      _timerReset.current = setTimeout(() => {
-        setPercent(0);
-      });
-    },
-    pause: () => {
-      if (_timer.current) {
-        clearInterval(_timer.current);
-      }
-      if (_timerComplete.current) {
-        clearTimeout(_timerComplete.current);
-      }
-      if (_timerReset.current) {
-        clearTimeout(_timerReset.current);
-      }
-    },
-    start: useCallback(
-      (goToPercent, delay) => {
-        if (_timer.current) {
-          clearInterval(_timer.current);
-        }
-        if (null == delay) {
-          delay = props.delay;
-        }
-        _timer.current = setInterval(() => {
-          _start(goToPercent);
-        }, delay);
-      },
-      [props.delay]
-    ),
-  };
-
+  const {expose, opacity, percent} = useProgress(props);
   useImperativeHandle(ref, () => expose);
-  useEffect(() => {
-    lastPercent.current = percent;
-  }, [percent]);
+
   useEffect(() => {
     if (ajax && null != isRunning) {
       if (isRunning) {
@@ -92,12 +25,7 @@ const PageLoadProgress = forwardRef((props, ref) => {
         expose.complete();
       }
     }
-  }, [isRunning, props.pause]);
-  useEffect(() => {
-    return () => {
-      expose.pause();
-    };
-  }, []);
+  }, [isRunning]);
 
   return useMemo(() => {
     const bar = (
@@ -137,6 +65,7 @@ const PageLoadProgressHandler = forwardRef((props, ref) => (
     <PageLoadProgress {...props} ref={ref} />
   </Return>
 ));
+
 PageLoadProgressHandler.displayName = "PageLoadProgressHandler";
 
 export default PageLoadProgressHandler;
