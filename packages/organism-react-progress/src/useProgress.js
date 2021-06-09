@@ -6,8 +6,8 @@ import React, {
   useCallback,
 } from "react";
 
-const useProgress = props => {
-  const [percent, setPercent] = useState(0);
+const useProgress = (props, propsPercent) => {
+  const [percent, setPercent] = useState(() => null != propsPercent ?  propsPercent : 0);
   const [opacity, setOpacity] = useState(0);
   const lastPercent = useRef(0);
   const _timer = useRef();
@@ -37,6 +37,12 @@ const useProgress = props => {
   }, [percent]);
 
   useEffect(() => {
+    if (null != propsPercent) {
+      setPercent(propsPercent);
+    }
+  }, [propsPercent]);
+
+  useEffect(() => {
     return () => {
       expose.pause();
     };
@@ -50,10 +56,11 @@ const useProgress = props => {
         expose.reset();
       }, 500);
     },
-    reset: () => {
-      setOpacity(0);
+    reset: (thisPercent) => {
+      thisPercent = thisPercent || 0;
+      setOpacity(thisPercent);
       _timerReset.current = setTimeout(() => {
-        setPercent(0);
+        setPercent(thisPercent);
       });
     },
     pause: () => {
