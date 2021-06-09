@@ -1,6 +1,8 @@
 import get, { getDefault } from "get-object-value";
 import nonWorker from "non-worker";
 import req from "superagent";
+import ini from "parse-ini-string";
+import { nest } from "object-nested";
 
 const keys = Object.keys;
 const arrWs = {};
@@ -24,9 +26,20 @@ const handleMessage = (e) => {
   }
 };
 
+const getJson = (text) => {
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch (e) {}
+  return json || {};
+};
+
 const oNonWorker = new nonWorker().onMessage(handleMessage);
 const post = (payload) => {
   const strWcb = get(payload, ["params", "workerCallback"]);
+  const parseIni = get(payload, ["params", "ini"]);
+  const text = get(payload, ["params", "text"]);
+  payload.params.json = parseIni ? nest(ini(text), "_") : getJson(text);
   if (strWcb) {
     const wcb = eval("(" + strWcb + ")");
     payload = wcb(payload);

@@ -170,14 +170,6 @@ class AjaxStore extends ReduceStore {
     return callback;
   }
 
-  getJson(text) {
-    let json;
-    try {
-      json = JSON.parse(text);
-    } catch (e) { }
-    return json || {};
-  }
-
   start() {
     setImmediate(() => ajaxDispatch({ isRunning: 1 }));
   }
@@ -325,7 +317,7 @@ class AjaxStore extends ReduceStore {
     const sourceType = get(params, ["sourceType"]);
     const response = get(params, ["response"]);
     const text = get(params, ["text"]);
-    let json = get(params, ["json"], () => this.getJson(text));
+    let json = get(params, ["json"]);
     const callback = this.getCallback(state, action, json, response);
     const type = get(json, ["type"]);
     let isRedirect = null;

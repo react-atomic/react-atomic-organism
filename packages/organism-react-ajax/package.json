@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.14.13",
+  "version": "0.14.14",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -19,6 +19,8 @@
     "get-random-id": "*",
     "immutable": "*",
     "non-worker": "*",
+    "object-nested": "*",
+    "parse-ini-string": "*",
     "reshow-build": "*",
     "reshow-flux": "*",
     "reshow-runtime": "*",
