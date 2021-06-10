@@ -69,10 +69,8 @@ class PopupModal extends PopupOverlay {
           if (domInfo.h + 30 > scrollNodeHeight) {
             maskStyle = Styles.flexAlignTop;
           }
-          const {
-            modalStyle: orgModalStyle,
-            maskStyle: orgMaskStyle,
-          } = this.state;
+          const { modalStyle: orgModalStyle, maskStyle: orgMaskStyle } =
+            this.state;
           if (
             this._mount &&
             (get(orgModalStyle, ["marginTop"]) !== marginTop ||
@@ -171,11 +169,10 @@ class PopupModal extends PopupOverlay {
   }
 
   shouldShow(show) {
+    const { modalStyle: stateModalStyle, maskStyle: stateMaskStyle } =
+      this.state;
     const {
-      modalStyle: stateModalStyle,
-      maskStyle: stateMaskStyle,
-    } = this.state;
-    const {
+      basic,
       disableClose,
       scrolling,
       appear,
@@ -229,7 +226,7 @@ class PopupModal extends PopupOverlay {
           <Dimmer
             {...others}
             isModal="true"
-            className={mixClass({ scrolling: scrolling }, modalClassName)}
+            className={mixClass({ scrolling, basic }, modalClassName)}
             show={show}
             contentStyle={contentStyle}
           />
