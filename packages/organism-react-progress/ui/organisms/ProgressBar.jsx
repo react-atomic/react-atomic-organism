@@ -3,7 +3,7 @@ import { Progress } from "react-atomic-molecule";
 import useProgress from "../../src/useProgress";
 
 const ProgressBar = forwardRef((props, ref) => {
-  const { delay, percent: propsPercent, ...otherProps } = props;
+  const { delay, percent: propsPercent, barProps, ...otherProps } = props;
   const { expose, percent } = useProgress(props, propsPercent);
   useImperativeHandle(ref, () => expose);
 
@@ -12,7 +12,11 @@ const ProgressBar = forwardRef((props, ref) => {
       {...otherProps}
       style={Styles.progress}
       barProps={{
-        style: Styles.bar,
+        ...barProps,
+        style: {
+          ...Styles.bar,
+          ...barProps.style
+        },
       }}
       percent={percent}
     />
