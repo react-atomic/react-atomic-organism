@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
-import { Progress } from "react-atomic-molecule";
+import { mergeDefaultValue, Progress } from "react-atomic-molecule";
 import useProgress from "../../src/useProgress";
 
 const ProgressBar = forwardRef((props, ref) => {
@@ -11,13 +11,7 @@ const ProgressBar = forwardRef((props, ref) => {
     <Progress
       {...otherProps}
       style={Styles.progress}
-      barProps={{
-        ...barProps,
-        style: {
-          ...Styles.bar,
-          ...barProps.style
-        },
-      }}
+      barProps={mergeDefaultValue(barProps, { style: Styles.bar })}
       percent={percent}
     />
   );

@@ -4,7 +4,7 @@ import React, {
   useMemo,
   useImperativeHandle,
 } from "react";
-import { Progress } from "react-atomic-molecule";
+import { mergeDefaultValue, Progress } from "react-atomic-molecule";
 import Return from "reshow-return";
 import { ajaxStore } from "organism-react-ajax";
 import { DisplayPopupEl } from "organism-react-popup";
@@ -12,7 +12,7 @@ import { DisplayPopupEl } from "organism-react-popup";
 import useProgress from "../../src/useProgress";
 
 const PageLoadProgress = forwardRef((props, ref) => {
-  const { name, zIndex, isFloat, isRunning, ajax } = props;
+  const { name, zIndex, isFloat, isRunning, ajax, barProps } = props;
 
   const {expose, opacity, percent} = useProgress(props);
   useImperativeHandle(ref, () => expose);
@@ -35,9 +35,7 @@ const PageLoadProgress = forwardRef((props, ref) => {
           opacity,
           zIndex,
         }}
-        barProps={{
-          style: Styles.bar,
-        }}
+        barProps={mergeDefaultValue(barProps, { style: Styles.bar })}
         percent={percent}
         name={name}
       />
