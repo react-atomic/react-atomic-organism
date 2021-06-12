@@ -1,6 +1,6 @@
 {
   "name": "organism-react-progress",
-  "version": "0.14.4",
+  "version": "0.14.5",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",
-    "reshow-unit": "*",
     "react": "^16.x",
-    "react-dom": "^16.x"
+    "react-dom": "^16.x",
+    "reshow-unit": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

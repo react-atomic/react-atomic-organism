@@ -14,7 +14,6 @@ describe("Test ProgressBar", () => {
     const wrap = mount(<VDom />);
     setTimeout(() => {
       const actual = wrap.html();
-      console.log({ actual });
       expect(actual).to.have.string("progress ui");
       done();
     }, 100);
