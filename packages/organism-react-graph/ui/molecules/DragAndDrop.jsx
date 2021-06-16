@@ -2,12 +2,12 @@ import React, {
   useImperativeHandle,
   useRef,
   useCallback,
+  useEffect,
   forwardRef,
 } from "react";
 import { build } from "react-atomic-molecule";
 import { d3DnD } from "d3-lib";
 import getOffset, { unifyTouch } from "getoffset";
-import get from "get-object-value";
 import callfunc from "call-func";
 import { doc } from "win-doc";
 
@@ -27,11 +27,21 @@ const DragAndDrop = forwardRef((props, ref) => {
   const startPoint = useRef();
   const lastPoint = useRef();
   const lastProps = useRef({});
-  lastProps.current = props;
   const thisEl = useRef();
+
+  useEffect(()=>{
+    const { absX, absY } = props;
+    if (isNaN(absX) || isNaN(absY)) {
+      console.warn("Assign wrong coordinate.", {absX, absY});
+    } else {
+      lastProps.current = props;
+    }
+  }, [props]);
+
   const handleStart = (d3Event) => {
     const { zoom } = lastProps.current;
-    const zoomK = get(callfunc(zoom), ["k"], 1);
+    lastProps.current = {...lastProps.current, absX: 0, absY: 0};
+    const zoomK = callfunc(zoom)?.k ?? 1;
     const { x: fromX, y: fromY, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(thisEl.current);
@@ -40,7 +50,7 @@ const DragAndDrop = forwardRef((props, ref) => {
       offset,
       fromX,
       fromY,
-      elStartX: elStartX - w,
+      elStartX,
       elStartY,
       zoomK,
     };
@@ -53,7 +63,7 @@ const DragAndDrop = forwardRef((props, ref) => {
     const { absX, absY, zoom } = lastProps.current;
     const { x, y, dx, dy, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
-    const zoomK = get(callfunc(zoom), ["k"], 1);
+    const zoomK = callfunc(zoom)?.k ?? 1;
     const nextAbsX = absX + dx / zoomK;
     const nextAbsY = absY + dy / zoomK;
     const destTarget = callfunc(
@@ -65,8 +75,9 @@ const DragAndDrop = forwardRef((props, ref) => {
     thisEvent.destTarget = destTarget;
     thisEvent.absX = nextAbsX;
     thisEvent.absY = nextAbsY;
+    thisEvent.startPoint = startPoint.current;
     lastPoint.current = thisEvent;
-    callfunc(onDrag, [thisEvent, startPoint.current]);
+    callfunc(onDrag, [thisEvent]);
   };
 
   const handleEnd = (d3Event) => {
@@ -97,7 +108,7 @@ const DragAndDrop = forwardRef((props, ref) => {
     getEl: () => thisEl.current,
   }));
 
-  const { style: compStyle, refCb: compRefcb } = get(component, ["props"], {});
+  const { style: compStyle, refCb: compRefcb } = component?.props || {};
   others.style = {
     ...Styles.container,
     ...style,
@@ -117,11 +128,6 @@ const DragAndDrop = forwardRef((props, ref) => {
 });
 
 DragAndDrop.displayName = "DragAndDrop";
-
-DragAndDrop.defaultProps = {
-  absX: 0,
-  absY: 0,
-};
 
 export default DragAndDrop;
 

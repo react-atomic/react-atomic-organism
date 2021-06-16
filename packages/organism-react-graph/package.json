@@ -1,11 +1,15 @@
 {
   "name": "organism-react-graph",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "React Graph",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["react", "graph", "d3"],
+  "keywords": [
+    "react",
+    "graph",
+    "d3"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -45,5 +49,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
