@@ -81,9 +81,10 @@ class BoxGroupDefaultLayout extends BaseLayout {
       onDel,
       onEdit,
       zoomK,
+      style,
     } = this.props;
     const { rectW, rectH, boxsPos } = this.state;
-    const graphStyle = { ...Styles.container };
+    const graphStyle = { ...Styles.container, ...style };
     const graphProps = {};
     const groupProps = {};
     let atom;
@@ -113,9 +114,6 @@ class BoxGroupDefaultLayout extends BaseLayout {
         }}
       />
     );
-    if (onEdit) {
-      graphStyle.cursor = "pointer";
-    }
     return (
       <Graph
         {...graphProps}

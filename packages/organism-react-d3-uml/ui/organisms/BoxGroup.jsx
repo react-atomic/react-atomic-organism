@@ -19,7 +19,8 @@ class BoxGroup extends Component {
 
   move = (x, y) => {
     if (this._mount) {
-      this.setState({ absX: x, absY: y });
+      this.el.setXY(x, y);
+      this.setState({absX: x, absY: y});
     }
   };
 
@@ -164,9 +165,8 @@ class BoxGroup extends Component {
     );
     return (
       <DragAndDrop
+        keepLastAbsXY
         ref={this.handleSetRef}
-        absX={absX}
-        absY={absY}
         zoom={host.getTransform}
         onDrag={this.handleDrag}
         onGetEl={this.handleGetEl}

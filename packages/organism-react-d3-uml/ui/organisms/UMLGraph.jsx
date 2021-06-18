@@ -558,7 +558,7 @@ const Styles = {
     position: "relative",
   },
   svg: {
-    cursor: "grabbing",
+    cursor: "crosshair",
     position: "absolute",
     top: 0,
     left: 0,

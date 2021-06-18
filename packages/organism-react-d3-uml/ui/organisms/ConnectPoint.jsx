@@ -260,8 +260,6 @@ class ConnectPoint extends Component {
       <DragAndDrop
         {...props}
         data-id={this.id}
-        absX={absX}
-        absY={absY}
         data-is-show={this.isShow()}
         onDragStart={this.handleDragStart}
         onDragEnd={this.handleDragEnd}
