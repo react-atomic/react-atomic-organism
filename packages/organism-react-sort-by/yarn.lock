@@ -1966,6 +1966,13 @@ object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
+object-nested@*:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/object-nested/-/object-nested-0.0.2.tgz#594048693a2eb4f85790cdefa43b1adb9341d53f"
+  integrity sha512-oGw1+I6ji8z6Wcuzm738T8xZAvRLQjugDBixyI5+yl7EXzmTFtS45QSq4e0g9phqXr7Zs7B/d9TtaJW799CsQQ==
+  dependencies:
+    set-object-value "*"
+
 object-visit@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/object-visit/-/object-visit-1.0.1.tgz#f79c4493af0c5377b59fe39d395e41042dd045bb"
@@ -2039,6 +2046,29 @@ optionator@^0.8.1:
     type-check "~0.3.2"
     word-wrap "~1.2.3"
 
+organism-react-ajax@*:
+  version "0.14.14"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.14.14.tgz#ca4e1dc25b255057fa900568ba2e6a42500bed6d"
+  integrity sha512-UxnosvPahjH10Nu4iC025ciaVYv0ckxZjIoq029avQVWdJuGf7N5Z6AR2MowW8dZg/dbUPg7dn81sbQ73YfsWg==
+  dependencies:
+    call-func "*"
+    es6-promise "4.2.5"
+    form-serialize-js "*"
+    get-object-value "*"
+    get-random-id "*"
+    immutable "*"
+    non-worker "*"
+    object-nested "*"
+    parse-ini-string "*"
+    reshow-build "*"
+    reshow-flux "*"
+    reshow-runtime "*"
+    set-object-value "*"
+    setimmediate "*"
+    smooth-scroll-to "*"
+    superagent "5.2.2"
+    win-doc "*"
+
 organism-react-ajax@^0.13.0-beta:
   version "0.13.0-beta.17"
   resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.13.0-beta.17.tgz#9f662b2d8ebe0dd1aa95f6f28a54fc79757ce8cd"
@@ -2107,6 +2137,11 @@ p-locate@^5.0.0:
   integrity sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==
   dependencies:
     p-limit "^3.0.2"
+
+parse-ini-string@*:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/parse-ini-string/-/parse-ini-string-0.1.1.tgz#1696341493deb1a9aee5409f9874700d64ddfdc5"
+  integrity sha512-uSqehUlAMkGQ8Lzj7V1df4wPB0yKf3tnVehs1A+Os2fMhVzp6ZKQFGlKK8njSfCKFsb0TQS2wweiHy7IfYypXw==
 
 parse5-htmlparser2-tree-adapter@^6.0.0:
   version "6.0.1"
@@ -2526,16 +2561,16 @@ reshow-url@*:
     reshow-flux "*"
     reshow-runtime "*"
 
-reshow@^0.13.0-beta:
-  version "0.13.0-beta.16"
-  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.13.0-beta.16.tgz#1dc52a71c1bf57b7fb81d5cbbbc5112dee30fdff"
-  integrity sha512-USj8frredD20aobJonkeDRwBvnDVl0+yuObZidbg++/EmoU0vLNnTzVPcfn+qouj64IDG8nTuvnILZH/kIuhiw==
+reshow@*:
+  version "0.14.9"
+  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.14.9.tgz#09284ff4c1530c739c1a2b8b4c11d1a0eb759add"
+  integrity sha512-UVxKDmfx0GlVC69E3plhoRAfzWiZgPQ1bdpuORPNVLA1LfO/0k1rXhtCXe8vBXJtKqOWg9bkEbcsgOM8D8cYgA==
   dependencies:
     call-func "*"
     get-storage "*"
     getoffset "*"
     memoize-one "*"
-    organism-react-ajax "^0.13.0-beta"
+    organism-react-ajax "*"
     organism-react-popup "*"
     react-atomic-molecule "*"
     reshow-flux "*"
@@ -3117,9 +3152,9 @@ wrappy@1:
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
 ws@^7.2.3:
-  version "7.4.3"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.3.tgz#1f9643de34a543b8edb124bdcbc457ae55a6e5cd"
-  integrity sha512-hr6vCR76GsossIRsr8OLR9acVVm1jyfEWvhbNjtgPOrfvAlKzvyeg/P6r8RuDjRyrcQoPQT7K0DGEPc7Ae6jzA==
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.5.0.tgz#0033bafea031fb9df041b2026fc72a571ca44691"
+  integrity sha512-6ezXvzOZupqKj4jUqbQ9tXuJNo+BR2gU8fFRk3XCP3e0G6WT414u5ELe6Y0vtp7kmSJ3F7YWObSNr1ESsgi4vw==
 
 xml-name-validator@^3.0.0:
   version "3.0.0"
