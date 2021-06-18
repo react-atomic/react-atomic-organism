@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useState,
   forwardRef,
 } from "react";
 import { build } from "react-atomic-molecule";
@@ -14,22 +15,31 @@ import { doc } from "win-doc";
 
 const useDragAndDrop = (props, ref) => {
   const startPoint = useRef();
-  const lastPoint = useRef();
+  const lastPoint = useRef({});
   const lastProps = useRef({});
   const thisEl = useRef();
+  const [isDraging, setIsDraging] = useState(false);
 
   useEffect(() => {
     lastProps.current = props;
   }, [props]);
 
   const handleStart = (d3Event) => {
-    const { zoom, onDragStart } = lastProps.current;
+    const { keepLastAbsXY, zoom, onDragStart } = lastProps.current;
     const zoomK = callfunc(zoom)?.k ?? 1;
     const { x: fromX, y: fromY, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(thisEl.current);
     const { left: elStartX, top: elStartY, w, h } = offset || {};
+    let absX = 0;
+    let absY = 0;
+    if (keepLastAbsXY) {
+      absX = lastPoint.current?.absX || 0;
+      absY = lastPoint.current?.absY || 0;
+    }
     thisEvent.start = {
+      absX,
+      absY,
       offset,
       fromX,
       fromY,
@@ -39,6 +49,7 @@ const useDragAndDrop = (props, ref) => {
     };
     startPoint.current = thisEvent.start;
     lastPoint.current = thisEvent.start;
+    setIsDraging(true);
     callfunc(onDragStart, [thisEvent]);
   };
 
@@ -48,7 +59,7 @@ const useDragAndDrop = (props, ref) => {
       return;
     }
     const { zoom, onDrag } = lastProps.current;
-    const { absX = 0, absY = 0 } = lastPoint.current;
+    const { absX, absY } = lastPoint.current;
     const thisEvent = unifyTouch(sourceEvent);
     const zoomK = callfunc(zoom)?.k ?? 1;
     const nextAbsX = absX + dx / zoomK;
@@ -75,6 +86,7 @@ const useDragAndDrop = (props, ref) => {
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.last = lastPoint.current;
     thisEvent.start = startPoint.current;
+    setIsDraging(false);
     callfunc(lastProps.current.onDragEnd, [thisEvent]);
   };
 
@@ -93,16 +105,22 @@ const useDragAndDrop = (props, ref) => {
 
   useImperativeHandle(ref, () => ({
     getEl: () => thisEl.current,
+    setXY: (x, y) => {
+      lastPoint.current.absX = x;
+      lastPoint.current.absY = y;
+    },
+    isDraging: () => isDraging,
   }));
 
-  return handleElChange;
+  return {handleElChange, isDraging};
 };
 
 const DragAndDrop = forwardRef((props, ref) => {
-  const handleElChange = useDragAndDrop(props, ref);
+  const {handleElChange, isDraging} = useDragAndDrop(props, ref);
 
   return useMemo(() => {
     const {
+      keepLastAbsXY,
       component,
       style,
       zoom,
@@ -115,6 +133,7 @@ const DragAndDrop = forwardRef((props, ref) => {
     const { style: compStyle, refCb: compRefcb } = component?.props || {};
     others.style = {
       ...Styles.container,
+      ...(isDraging ? Styles.drag : {}),
       ...style,
       ...compStyle,
     };
@@ -128,7 +147,7 @@ const DragAndDrop = forwardRef((props, ref) => {
       others.onGetEl = handleElChange;
     }
     return build(component)(others);
-  }, [props]);
+  }, [props, isDraging]);
 });
 
 DragAndDrop.displayName = "DragAndDrop";
@@ -140,4 +159,7 @@ const Styles = {
     cursor: "grab",
     pointerEvents: "all",
   },
+  drag: {
+    cursor: "grabbing",
+  }
 };
