@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import arraySearch, { arraySearchFirst } from "../index";
+import arraySearch, { arraySearchFirst } from "../arraySearch";
 
 describe("Test Array Search", () => {
   it("basic test", () => {
