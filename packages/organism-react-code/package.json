@@ -1,20 +1,23 @@
 {
   "name": "organism-react-code",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "React Code Example",
   "repository": "react-atomic/react-atomic-organism",
   "module": "./build/es/src/index.js",
   "main": "./build/src/index.js",
-  "keywords": ["react", "reactjs"],
+  "keywords": [
+    "react",
+    "reactjs"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "highlight.js": "*",
+    "call-func": "*",
+    "syntax-colorer": "*",
     "marked": "*",
     "organism-react-ajax": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
-    "call-func": "*",
     "ricon": "*"
   },
   "devDependencies": {
@@ -43,5 +46,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

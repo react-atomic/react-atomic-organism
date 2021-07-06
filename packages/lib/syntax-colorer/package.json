@@ -1,5 +1,5 @@
 {
-  "name": "syntax-colors",
+  "name": "syntax-colorer",
   "version": "0.0.0",
   "description": "Code syntax highlight",
   "repository": "react-atomic/react-atomic-organism",
@@ -9,9 +9,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "prismjs": "*",
-    "reshow-runtime": "*",
-    "win-doc": "*"
+    "prismjs": "^1.24.1",
+    "reshow-runtime": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
@@ -30,5 +29,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

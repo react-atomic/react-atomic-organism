@@ -8,5 +8,9 @@ Highlight library.
    * NPM
       * https://www.npmjs.com/package/syntax-colorer
 
+## CSS
+   * https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css
+   * https://cdn.jsdelivr.net/npm/prismjs/themes/prism-okaidia.css
+
 ## How to use?
 

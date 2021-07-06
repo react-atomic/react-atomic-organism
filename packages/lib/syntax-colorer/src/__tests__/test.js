@@ -1,16 +1,14 @@
-import {win, doc} from '../index';
 import {expect} from 'chai';
+import syntaxColorer from '../index';
 
-describe('Test doc', () => {
-  it('test doc', () => {
-    const d = doc();
-    expect(d).to.equal(document);
+describe('Test syntaxColorer', () => {
+  it('basicTest', () => {
+    const code ="var foo = 'bar';";
+    const result = syntaxColorer(
+      code,
+      "javascript"
+    );
+    expect(result).to.have.string('span');
   });
 });
 
-describe('Test win', () => {
-  it('test win', () => {
-    const w = win();
-    expect(w).to.equal(window);
-  });
-});

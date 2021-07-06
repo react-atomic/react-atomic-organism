@@ -6,27 +6,9 @@ import "prismjs/components/prism-json";
 import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-markup";
 import "prismjs/components/prism-tsx";
-import { doc } from "win-doc";
+import get from "get-object-value";
 
-let styleNode;
-let lightTheme;
-let darkTheme;
-let oDoc = doc();
-
-if (oDoc) {
-  lightTheme = require("prismjs/themes/prism.css");
-  darkTheme = require("prismjs/themes/prism-okaidia.css");
-  styleNode = oDoc.createElement("style");
-  styleNode.setAttribute("data-prism", "true");
-  styleNode.textContent = lightTheme;
-  oDoc.head.appendChild(styleNode);
-}
-
-const setPrismTheme = (theme) => {
-  styleNode.textContent = theme;
-};
-
-const highlight = (code, language) => {
+const syntaxColorer = (code, language) => {
   let prismLanguage;
   switch (language) {
     case "ts":
@@ -47,7 +29,7 @@ const highlight = (code, language) => {
       break;
 
     default:
-      prismLanguage = prism.languages[language];
+      prismLanguage = get(prism.languages, [language], prism.languages.jsx);
       break;
   }
 
@@ -62,5 +44,4 @@ const highlight = (code, language) => {
   return prism.highlight(code, prismLanguage);
 };
 
-export default highlight;
-export { lightTheme, darkTheme, setPrismTheme };
+export default syntaxColorer;
