@@ -64,4 +64,20 @@ describe("Test Array Search Index", () => {
     result.bar = "b";
     expect(arr[0]).to.deep.equal({foo: {bar: "b"}});
   });
+
+  it("test backfill", () => {
+    const arr = [
+      {
+        a: 1,
+      },
+      {
+        b: 2,
+      },
+      {
+        a: 3,
+      },
+    ];
+    const result = arraySearchIndex(arr, {backfill: true})(["a"]);
+    expect(result).to.deep.equal([1, undefined, 3]);
+  });
 });
