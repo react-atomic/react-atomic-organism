@@ -1,6 +1,6 @@
 {
   "name": "syntax-colorer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Code syntax highlight",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "prismjs": "^1.24.1",
+    "get-object-value": "*",
     "reshow-runtime": "*"
   },
   "devDependencies": {
