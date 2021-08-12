@@ -1,7 +1,6 @@
 import getScrollInfo from "get-scroll-info";
-import getOffset from "getoffset";
 import isOnScreen from "./isOnScreen";
-import getTargetElInfo from "./getTargetElInfo";
+import getDomPositionInfo from "./getDomPositionInfo";
 import pos from "./positions";
 
 const T = "T";
@@ -84,7 +83,7 @@ const getWindowOffset = (dom, debug) => {
     console.warn("getWindowOffset not assign dom");
     return false;
   }
-  const { fixedNode, scrollNode, domInfo: targetDomInfo } = getTargetElInfo(
+  const { fixedNode, scrollNode, domInfo: targetDomInfo } = getDomPositionInfo(
     dom
   );
 

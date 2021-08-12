@@ -2,7 +2,7 @@ import getOffset from "getoffset";
 import isFixed from "./isFixed";
 import isSetOverflow from "./isSetOverflow";
 
-const getTargetElInfo = (dom) => {
+const getDomPositionInfo = (dom) => {
   const fixedNode = isFixed(dom);
   const scrollNode = isSetOverflow(dom);
   const domInfo = getOffset(dom, fixedNode);
@@ -15,4 +15,4 @@ const getTargetElInfo = (dom) => {
   };
 };
 
-export default getTargetElInfo;
+export default getDomPositionInfo;

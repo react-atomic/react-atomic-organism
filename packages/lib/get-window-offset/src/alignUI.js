@@ -2,7 +2,7 @@ import getOffset from "getoffset";
 import getScrollInfo from "get-scroll-info";
 import get from "get-object-value";
 
-import getTargetElInfo from "./getTargetElInfo";
+import getDomPositionInfo from "./getDomPositionInfo";
 import getAfterMove from "./getAfterMove";
 import getWindowOffset from "./getWindowOffset";
 import alignWith from "./alignWith";
@@ -73,7 +73,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     if (winInfo) {
       targetInfo = winInfo.domInfo;
     } else {
-      targetInfo = getTargetElInfo(targetEl).domInfo;
+      targetInfo = getDomPositionInfo(targetEl).domInfo;
     }
   }
   if (!targetInfo) {
