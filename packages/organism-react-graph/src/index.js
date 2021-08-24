@@ -11,6 +11,7 @@ export { default as Text } from "../ui/organisms/Text";
 
 // molecules
 export { default as DragAndDrop } from "../ui/molecules/DragAndDrop";
+export { default as DDWraper, useDDWraper } from "../ui/molecules/DDWraper";
 export { default as Zoom } from "../ui/molecules/Zoom";
 export { default as Svg } from "../ui/molecules/Svg";
 export { default as Path } from "../ui/molecules/Path";
