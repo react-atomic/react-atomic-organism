@@ -1,19 +1,21 @@
 import React, { useCallback, useState, useEffect, useRef } from "react";
 
-import { build, useMounted } from "react-atomic-molecule";
+import { build } from "react-atomic-molecule";
+
+import { useMounted } from "reshow-hooks";
 
 import callfunc from "call-func";
 
 import DragAndDrop from "./DragAndDrop";
 
-const useDDWraper = (props) => {
+const useDDWrapper = (props) => {
   const { onDrag: propsOnDrag, onDragEnd: propsOnDragEnd } = props;
   const [state, setState] = useState(() => ({
     absX: 0,
     absY: 0,
     isDraging: false,
   }));
-  const { absX, absY, startPoint, isDraging, destTarget } = state;
+  const { absX, absY, startPoint, isDraging } = state;
   const isMount = useMounted();
   const dnd = useRef();
   const comp = useRef();
@@ -23,7 +25,6 @@ const useDDWraper = (props) => {
       absX,
       absY,
       startPoint,
-      destTarget,
       clientX,
       clientY,
       ...other
@@ -40,7 +41,6 @@ const useDDWraper = (props) => {
         absX,
         absY,
         startPoint,
-        destTarget,
       }));
       callfunc(propsOnDrag, [e]);
     }
@@ -64,11 +64,10 @@ const useDDWraper = (props) => {
     dnd,
     comp,
     isDraging,
-    destTarget,
   };
 };
 
-const DDWraper = (props) => {
+const DDWrapper = (props) => {
   const {
     handler,
     absX,
@@ -77,8 +76,7 @@ const DDWraper = (props) => {
     dnd,
     comp,
     isDraging,
-    destTarget,
-  } = useDDWraper(props);
+  } = useDDWrapper(props);
   const {
     refCb,
     type,
@@ -126,9 +124,9 @@ const DDWraper = (props) => {
   );
 };
 
-export default DDWraper;
+export default DDWrapper;
 
-export { useDDWraper };
+export { useDDWrapper };
 
 const Styles = {
   move: {
