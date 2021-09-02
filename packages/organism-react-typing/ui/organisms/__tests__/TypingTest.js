@@ -7,7 +7,7 @@ configure({ adapter: new Adapter() });
 
 import Typing from '../Typing';
 
-describe('Test Scroll Animate', ()=>{ 
+describe('Test Typing', ()=>{ 
   it('simple test', ()=>{
     const uDom = mount(<Typing />);
     const html = uDom.html(); 

@@ -1,15 +1,30 @@
-import React, { Component, PropTypes } from "react";
-import { lazyInject, reactStyle, SemanticUI } from "react-atomic-molecule";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useImperativeHandle,
+  useMemo,
+  forwardRef,
+} from "react";
+import {
+  build,
+  useLazyInject,
+  reactStyle,
+  SemanticUI,
+} from "react-atomic-molecule";
 import get from "get-object-value";
 
 const getTypingNextWordAniClassName = (el, sec) => {
-  const width = el.offsetWidth + 70;
-  const ssec = "" + sec;
-  const aniName = "typingNextWord-" + width + "-" + ssec.replace(".", "-");
+  const elWidth = el.offsetWidth;
+  if (elWidth <= 1) {
+    return null;
+  }
+  const elLen = get(el, ["textContent", "length"], 10);
+  const width = Math.floor(elWidth + elWidth / elLen);
+  const aniName = ("typingNextWord-" + width + "-" + sec).replace(".", "-");
   if (injects[aniName]) {
     return aniName;
   }
-  const elLen = get(el, ["textContent", "length"], 10);
   reactStyle(
     [
       {
@@ -24,7 +39,7 @@ const getTypingNextWordAniClassName = (el, sec) => {
   );
   reactStyle(
     {
-      animation: [`${aniName} ${sec}s steps(${elLen}) infinite alternate`],
+      animation: [`${aniName} ${sec}s steps(${elLen + 1}) infinite alternate`],
       visibility: "visible !important",
     },
     "." + aniName,
@@ -34,142 +49,108 @@ const getTypingNextWordAniClassName = (el, sec) => {
   return aniName;
 };
 
-class TypingItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      classes: null,
-    };
-  }
+const TypingItem = (props) => {
+  const { children, sec, ...others } = props;
+  const [classes, setClasses] = useState();
+  const lastClasses = useRef();
 
-  handleEl = (el) => {
-    this.setState((classes) => {
-      const next = getTypingNextWordAniClassName(el, this.props.sec);
-      if (next !== classes) {
-        return { classes: next };
-      } else {
-        return {};
+  const handleEl = (el) => {
+    if (el) {
+      const next = getTypingNextWordAniClassName(el, sec);
+      if (next && lastClasses.current !== next) {
+        lastClasses.current = next;
+        setClasses(next);
       }
-    });
+    }
   };
 
-  render() {
-    const { children, sec, background, ...others } = this.props;
-    const { classes } = this.state;
-    return (
-      <SemanticUI {...others}>
-        <div
-          className={classes}
-          ref={this.handleEl}
-          style={Styles.typingItemText}
-        >
-          {children} &nbsp;
-        </div>
-        <SemanticUI styles={injects.typingCursor}> | </SemanticUI>
+  return (
+    <SemanticUI {...others}>
+      <SemanticUI
+        className={classes}
+        style={Styles.typingItemText}
+        refCb={handleEl}
+      >
+        {children}
       </SemanticUI>
-    );
-  }
-}
+      <SemanticUI styles={injects.typingCursor}> | </SemanticUI>
+    </SemanticUI>
+  );
+};
 
-class Typing extends Component {
-  static defaultProps = {
-    height: 80,
-    color: "#000",
-    background: null,
-    sec: 2,
-    autoStart: true,
+const useTyping = (props) => {
+  injects = useLazyInject(InjectStyles);
+  const {
+    autoStart,
+    children,
+    height: propsHeight,
+    sec,
+    color,
+    background,
+  } = props;
+  const [isRun, setIsRun] = useState(autoStart);
+  const [typingItemStyles, setTypingItemStyles] = useState();
+  useEffect(() => {
+    const update = (props) => {
+      if (!children) {
+        return null;
+      }
+      const itemLength = children.length;
+      const height = parseInt(propsHeight, 10);
+      const aniName = "typingNextLine";
+      const styleId = aniName + "-" + itemLength + "-" + height;
+      const typingItemStyles = reactStyle(
+        {
+          position: "relative",
+          animation: [
+            `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
+          ],
+          height,
+        },
+        null,
+        false
+      );
+      reactStyle(
+        [{ top: 0 }, { top: 0 - height * itemLength }],
+        ["@keyframes " + styleId, "0%", "100%"],
+        styleId
+      );
+      setTypingItemStyles(typingItemStyles);
+    };
+    update(props);
+  }, [children?.length, propsHeight, sec]);
+  const expose = {
+    start: () => {
+      setIsRun(true);
+    },
+    stop: () => {
+      setIsRun(false);
+    },
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      typingItemStyles: null,
-      isRun: props.autoStart,
-    };
-    injects = lazyInject(injects, InjectStyles);
-  }
-
-  update(props) {
-    const { children, height: propsHeight, sec } = props;
-    if (!children) {
-      return null;
-    }
-    const itemLength = children.length;
-    const height = parseInt(propsHeight, 10);
-    const aniName = "typingNextLine";
-    const styleId = aniName + "-" + itemLength + "-" + height;
-    const typingItemStyles = reactStyle(
-      {
-        position: "relative",
-        animation: [
-          `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
-        ],
-        height,
-      },
-      null,
-      false
+  const items = [];
+  if (isRun && typingItemStyles) {
+    // need calculate offsetWidth
+    const typeItem = build(
+      <TypingItem sec={props.sec} styles={typingItemStyles} />
     );
-    reactStyle(
-      [{ top: 0 }, { top: 0 - height * itemLength }],
-      ["@keyframes " + styleId, "0%", "100%"],
-      styleId
-    );
-    this.setState({ typingItemStyles });
-  }
-
-  componentDidMount() {
-    this.update(this.props);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const { children, height, sec } = this.props;
-    if (
-      prevProps.children.length !== children.length ||
-      prevProps.height !== height ||
-      prevProps.sec !== sec
-    ) {
-      this.update(this.props);
-    }
-  }
-
-  start() {
-    this.setState({
-      isRun: true,
+    React.Children.forEach(children, (item, key) => {
+      items.push(typeItem({ key }, item.props.children));
     });
   }
 
-  stop() {
-    this.setState({
-      isRun: false,
-    });
-  }
+  return { expose, items };
+};
 
-  render() {
-    const props = this.props;
-    const { isRun, typingItemStyles } = this.state;
-    let items = [];
-    let atts = {
-      height: props.height,
+const Typing = forwardRef((props, ref) => {
+  const { items, expose } = useTyping(props);
+  useImperativeHandle(ref, () => expose);
+  return useMemo(() => {
+    const atts = {
       color: props.color,
+      background: props.background,
+      height: props.height,
     };
-    if (props.background) {
-      atts.background = props.background;
-    }
-    if (isRun && typingItemStyles) {
-      // need calculate offsetWidth
-      React.Children.map(props.children, (item, key) => {
-        items.push(
-          <TypingItem
-            key={key}
-            sec={props.sec}
-            styles={typingItemStyles}
-            {...atts}
-          >
-            {item.props.children}
-          </TypingItem>
-        );
-      });
-    }
     return (
       <SemanticUI
         className="react-typing"
@@ -181,9 +162,18 @@ class Typing extends Component {
         {items}
       </SemanticUI>
     );
-  }
-}
+  }, [items]);
+});
 
+Typing.defaultProps = {
+  height: 80,
+  color: "#000",
+  background: null,
+  sec: 2,
+  autoStart: true,
+};
+
+Typing.displayName = "Typing";
 export default Typing;
 
 const Styles = {
@@ -195,7 +185,6 @@ const Styles = {
     overflow: "hidden",
     visibility: "hidden",
     whiteSpace: "nowrap",
-    paddingRight: 1,
     boxSizing: "border-box",
   },
 };
