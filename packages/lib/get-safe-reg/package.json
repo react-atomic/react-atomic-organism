@@ -1,6 +1,6 @@
 {
   "name": "get-safe-reg",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "get safe regular-expression",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -24,5 +24,10 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build/cjs", "build/es", "package.json", "README.md"]
+  "files": [
+    "build/cjs",
+    "build/es",
+    "package.json",
+    "README.md"
+  ]
 }
