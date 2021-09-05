@@ -10,9 +10,9 @@ Get safe regular-expression
 ```
 import getSafeReg, {cacheReg} from 'get-safe-reg';
 
-const cache={};
-
 const getRegString = name => '(?:^|\\s+)'+ getSafeReg(name)+ '(?:\\s+|$)';
+
+const cache={};
 
 export default name => cacheReg(cache)(getRegString)(name);
 ```
