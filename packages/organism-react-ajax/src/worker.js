@@ -118,14 +118,8 @@ const ajaxPost = ({ url, action }) => {
       callReq = req.post(url);
       break;
   }
-  const {
-    id,
-    query,
-    isSendJson,
-    cookHeaders,
-    responseType,
-    ...params
-  } = cookParams(action, callReq);
+  const { id, query, isSendJson, cookHeaders, responseType, ...params } =
+    cookParams(action, callReq);
   let isSend = false;
   if (isSendJson) {
     isSend = true;

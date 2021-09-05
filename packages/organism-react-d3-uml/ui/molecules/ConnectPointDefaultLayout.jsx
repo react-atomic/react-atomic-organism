@@ -20,7 +20,7 @@ class ConnectPointDefaultLayout extends BaseLayout {
   render() {
     const { style, onGetEl, ...props } = this.props;
     const isShow = props["data-is-show"];
-    let thisStyle = { ...style, ...Styles.container  };
+    let thisStyle = { ...style, ...Styles.container };
     if (isShow) {
       thisStyle = { ...thisStyle, ...Styles.visible };
     }

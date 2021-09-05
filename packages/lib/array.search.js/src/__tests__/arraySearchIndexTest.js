@@ -16,8 +16,8 @@ describe("Test Array Search Index", () => {
     const store = {};
     const result = arraySearchIndex(arr)(["foo"], store);
     expect(store.current).to.deep.equal({
-        foo: "bar",
-        other: "fake",
+      foo: "bar",
+      other: "fake",
     });
     expect(result).to.equal("bar");
   });
@@ -37,32 +37,32 @@ describe("Test Array Search Index", () => {
       },
     ];
     const store = {};
-    const result = arraySearchIndex(arr, {all: true})(["foo"], store);
+    const result = arraySearchIndex(arr, { all: true })(["foo"], store);
     expect(result).to.deep.equal(["bar", "bar1"]);
   });
 
   it("test clone", () => {
     const arr = [
       {
-        foo: {bar: "a"},
+        foo: { bar: "a" },
       },
     ];
     const result = arraySearchIndex(arr)(["foo"]);
-    expect(result).to.deep.equal({bar: "a"});
+    expect(result).to.deep.equal({ bar: "a" });
     result.bar = "b";
-    expect(arr[0]).to.deep.equal({foo: {bar: "a"}});
+    expect(arr[0]).to.deep.equal({ foo: { bar: "a" } });
   });
 
   it("test not clone", () => {
     const arr = [
       {
-        foo: {bar: "a"},
+        foo: { bar: "a" },
       },
     ];
-    const result = arraySearchIndex(arr, {clone: false})(["foo"]);
-    expect(result).to.deep.equal({bar: "a"});
+    const result = arraySearchIndex(arr, { clone: false })(["foo"]);
+    expect(result).to.deep.equal({ bar: "a" });
     result.bar = "b";
-    expect(arr[0]).to.deep.equal({foo: {bar: "b"}});
+    expect(arr[0]).to.deep.equal({ foo: { bar: "b" } });
   });
 
   it("test backfill", () => {
@@ -77,7 +77,7 @@ describe("Test Array Search Index", () => {
         a: 3,
       },
     ];
-    const result = arraySearchIndex(arr, {backfill: true})(["a"]);
+    const result = arraySearchIndex(arr, { backfill: true })(["a"]);
     expect(result).to.deep.equal([1, undefined, 3]);
   });
 });

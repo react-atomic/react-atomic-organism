@@ -11,7 +11,13 @@ const reducer = (state, action) => {
   return state;
 };
 
-const CodeMirror = ({ onChange, model, children, codeMirrorVersion, ...props }) => {
+const CodeMirror = ({
+  onChange,
+  model,
+  children,
+  codeMirrorVersion,
+  ...props
+}) => {
   const oModel = models[model] || models.html;
   const [that, dispatch] = useReducer(reducer, {});
   const handleIframeRef = (el) => {
@@ -108,7 +114,7 @@ const CodeMirror = ({ onChange, model, children, codeMirrorVersion, ...props }) 
 };
 
 CodeMirror.defaultProps = {
-    codeMirrorVersion: '5.61'
+  codeMirrorVersion: "5.61",
 };
 
 export default CodeMirror;

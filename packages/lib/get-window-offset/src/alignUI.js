@@ -32,15 +32,11 @@ const getAlignWithLoc = (toLoc) => {
   return loc;
 };
 
-const fixFixedNode = (scrollInfo) => (move) => [
-  move[0] + scrollInfo.left,
-  move[1] + scrollInfo.top,
-];
+const fixFixedNode = (scrollInfo) => (move) =>
+  [move[0] + scrollInfo.left, move[1] + scrollInfo.top];
 
-const fixScrollNode = (scrollInfo) => (move) => [
-  move[0] - scrollInfo.left,
-  move[1] - scrollInfo.top,
-];
+const fixScrollNode = (scrollInfo) => (move) =>
+  [move[0] - scrollInfo.left, move[1] - scrollInfo.top];
 
 const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   let { toLoc, disableAutoLoc, positionFixed, exclude } = get(
@@ -105,7 +101,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   const floatInfo = getOffset(floatEl);
   locs.some((locItem) => {
     loc = locItem;
-    if ( exclude && -1 !== exclude.indexOf(loc)) {
+    if (exclude && -1 !== exclude.indexOf(loc)) {
       return false;
     }
     move = alignWith(targetInfo, floatInfo, loc);
@@ -125,7 +121,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     }
   });
   if (!move) {
-      return false;
+    return false;
   }
   const result = {
     loc,
@@ -133,7 +129,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     toLoc: toLoc || loc,
     locClassName: getPositionString(loc),
   };
-//   console.log(result, {locs, winInfo});
+  //   console.log(result, {locs, winInfo});
   return result;
 };
 

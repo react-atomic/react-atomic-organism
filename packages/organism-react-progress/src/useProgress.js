@@ -7,7 +7,9 @@ import React, {
 } from "react";
 
 const useProgress = (props, propsPercent) => {
-  const [percent, setPercent] = useState(() => null != propsPercent ?  propsPercent : 0);
+  const [percent, setPercent] = useState(() =>
+    null != propsPercent ? propsPercent : 0
+  );
   const [opacity, setOpacity] = useState(0);
   const lastPercent = useRef(0);
   const _timer = useRef();
@@ -90,8 +92,7 @@ const useProgress = (props, propsPercent) => {
     ),
   };
 
-  return {expose, opacity, percent};
-
+  return { expose, opacity, percent };
 };
 
 export default useProgress;

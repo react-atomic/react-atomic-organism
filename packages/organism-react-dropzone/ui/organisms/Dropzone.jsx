@@ -152,13 +152,8 @@ class Dropzone extends Component {
   }
 
   render() {
-    const {
-      children,
-      className,
-      style,
-      showFiletypeIcon,
-      acceptedFiles,
-    } = this.props;
+    const { children, className, style, showFiletypeIcon, acceptedFiles } =
+      this.props;
     const { files } = this.state;
     const classes = mixClass(className, "dropzone");
     let thisIcon = null;

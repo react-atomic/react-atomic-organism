@@ -5,14 +5,8 @@ const keys = Object.keys;
 const stripHttpReg = /^(http)?(s)?(\:)?(\/\/)/gi;
 
 const CDN = (props) => {
-  const {
-    src,
-    cdnHost,
-    rawLink,
-    linkComponent,
-    linkProps,
-    ...otherProps
-  } = props;
+  const { src, cdnHost, rawLink, linkComponent, linkProps, ...otherProps } =
+    props;
   const cdnProps = {};
   keys(otherProps).forEach((key) => {
     if ("cdn" === key.substr(0, 3)) {

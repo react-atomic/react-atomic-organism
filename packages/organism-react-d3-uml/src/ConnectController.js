@@ -205,7 +205,7 @@ class ConnectController {
     this.lineTimer = setTimeout(() => {
       const host = this.host;
       if (host.mount) {
-        host.lineList?.setLines({...this.queue});
+        host.lineList?.setLines({ ...this.queue });
         host.lineList?.addUpdateCb(() => {
           this.queue = null;
           this.updateCbQueue.forEach((cb) => cb());

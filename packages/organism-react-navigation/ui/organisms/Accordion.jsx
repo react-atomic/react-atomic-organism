@@ -49,14 +49,8 @@ class Accordion extends PureComponent {
   }
 
   render() {
-    const {
-      className,
-      items,
-      iconLocRight,
-      iconLocLeft,
-      iconOpen,
-      iconClose,
-    } = this.props;
+    const { className, items, iconLocRight, iconLocLeft, iconOpen, iconClose } =
+      this.props;
     const { isActives } = this.state;
     const classes = mixClass("accordion", className);
     return (

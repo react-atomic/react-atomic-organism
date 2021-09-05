@@ -331,7 +331,7 @@ class Suggestion extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {disabled} = this.props;
+    const { disabled } = this.props;
     if (null != disabled && prevProps.disabled !== disabled) {
       this.disabled(disabled);
     }

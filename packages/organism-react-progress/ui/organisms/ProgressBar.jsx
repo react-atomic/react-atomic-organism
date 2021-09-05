@@ -3,14 +3,20 @@ import { mergeDefaultValue, Progress } from "react-atomic-molecule";
 import useProgress from "../../src/useProgress";
 
 const ProgressBar = forwardRef((props, ref) => {
-  const { style, delay, percent: propsPercent, barProps, ...otherProps } = props;
+  const {
+    style,
+    delay,
+    percent: propsPercent,
+    barProps,
+    ...otherProps
+  } = props;
   const { expose, percent } = useProgress(props, propsPercent);
   useImperativeHandle(ref, () => expose);
 
   return (
     <Progress
       {...otherProps}
-      style={{...Styles.progress, ...style}}
+      style={{ ...Styles.progress, ...style }}
       barProps={mergeDefaultValue(barProps, { style: Styles.bar })}
       percent={percent}
     />

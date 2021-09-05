@@ -112,11 +112,11 @@ const useDragAndDrop = (props, ref) => {
     isDraging: () => isDraging,
   }));
 
-  return {handleElChange, isDraging};
+  return { handleElChange, isDraging };
 };
 
 const DragAndDrop = forwardRef((props, ref) => {
-  const {handleElChange, isDraging} = useDragAndDrop(props, ref);
+  const { handleElChange, isDraging } = useDragAndDrop(props, ref);
 
   return useMemo(() => {
     const {
@@ -161,5 +161,5 @@ const Styles = {
   },
   drag: {
     cursor: "grabbing",
-  }
+  },
 };

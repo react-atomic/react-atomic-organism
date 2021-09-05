@@ -70,7 +70,8 @@ class TagsController extends PureComponent {
   }
 
   maybeCreate() {
-    const { disabled, couldCreate, itemsLocator, itemLocator, results } = this.props;
+    const { disabled, couldCreate, itemsLocator, itemLocator, results } =
+      this.props;
     const value = this.sugg.getValue();
     if (value && !this.sugg.getSelIndex()) {
       let isContinue = true;

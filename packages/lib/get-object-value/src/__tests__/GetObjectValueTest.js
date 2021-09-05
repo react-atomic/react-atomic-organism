@@ -35,7 +35,6 @@ describe("Test Get Object Value", () => {
     expect(acture).to.equal(undefined);
   });
 
-
   it("test toMap", () => {
     const map = {
       a: {

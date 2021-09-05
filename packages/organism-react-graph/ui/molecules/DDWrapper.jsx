@@ -21,14 +21,7 @@ const useDDWrapper = (props) => {
   const comp = useRef();
 
   const move = (e) => {
-    const {
-      absX,
-      absY,
-      startPoint,
-      clientX,
-      clientY,
-      ...other
-    } = e;
+    const { absX, absY, startPoint, clientX, clientY, ...other } = e;
     let sortTarget;
     const floatXY = {
       x: clientX,
@@ -68,15 +61,8 @@ const useDDWrapper = (props) => {
 };
 
 const DDWrapper = (props) => {
-  const {
-    handler,
-    absX,
-    absY,
-    startPoint,
-    dnd,
-    comp,
-    isDraging,
-  } = useDDWrapper(props);
+  const { handler, absX, absY, startPoint, dnd, comp, isDraging } =
+    useDDWrapper(props);
   const {
     refCb,
     type,

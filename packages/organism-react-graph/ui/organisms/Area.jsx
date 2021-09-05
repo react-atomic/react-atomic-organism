@@ -10,14 +10,8 @@ class Area extends PureComponent {
   };
 
   render() {
-    const {
-      curve,
-      data,
-      xLocator,
-      y0Locator,
-      y1Locator,
-      ...props
-    } = this.props;
+    const { curve, data, xLocator, y0Locator, y1Locator, ...props } =
+      this.props;
     const d = hArea(data, xLocator, y0Locator, y1Locator, curve);
     return <SemanticUI ui={false} {...props} d={d} />;
   }

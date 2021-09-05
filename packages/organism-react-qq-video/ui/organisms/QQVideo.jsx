@@ -7,8 +7,7 @@ import { js } from "create-el";
 
 class Body extends PureComponent {
   static defaultProps = {
-    api:
-      "https://h5vv.video.qq.com/getinfo?otype=json&vids=[VIDEO_ID]&platform=11001",
+    api: "https://h5vv.video.qq.com/getinfo?otype=json&vids=[VIDEO_ID]&platform=11001",
     videoId: "",
     srcTpl: "http://[IP]/vlive.qqvideo.tc.qq.com/[NAME]?vkey=[KEY]",
     thumbTpl: "//shp.qpic.cn/qqvideo_ori/0/[VIDEO_ID]_496_280/0",
@@ -44,7 +43,7 @@ class Body extends PureComponent {
     if (iframe) {
       iframe.postHeight();
     }
-  }
+  };
 
   componentDidMount() {
     this.handleInitVideo();
@@ -69,7 +68,7 @@ class Body extends PureComponent {
     }
     return (
       <Video
-        refCb={(el) => setTimeout(()=>el.play())}
+        refCb={(el) => setTimeout(() => el.play())}
         showControllBar={true}
         mask={false}
         corp={0}
@@ -102,7 +101,7 @@ const QQVideo = (props) => {
 };
 
 QQVideo.defaultProps = {
-  mask: false
+  mask: false,
 };
 
 export default QQVideo;

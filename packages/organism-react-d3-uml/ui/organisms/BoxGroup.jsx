@@ -20,7 +20,7 @@ class BoxGroup extends Component {
   move = (x, y) => {
     if (this._mount) {
       this.el.setXY(x, y);
-      this.setState({absX: x, absY: y});
+      this.setState({ absX: x, absY: y });
     }
   };
 

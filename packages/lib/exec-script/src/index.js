@@ -8,43 +8,37 @@ let lastScript;
 const keys = Object.keys;
 const getLastScript = () => lastScript;
 
-const handleScriptOnload = ({
-  oWin,
-  errCb,
-  cb,
-  inlineScripts,
-  queueScripts,
-  lastScripts,
-  getScript,
-}) => (i, origScript) => {
-  if (inlineScripts[i] && inlineScripts[i].length) {
-    inlineScripts[i].forEach((script) => {
-      try {
-        lastScript = script;
-        oWin.eval("(" + FUNCTION + "(){" + script + "}.call(window))");
-      } catch (e) {
-        if (FUNCTION !== typeof errCb) {
-          throw e;
-        } else {
-          errCb(e, script);
+const handleScriptOnload =
+  ({ oWin, errCb, cb, inlineScripts, queueScripts, lastScripts, getScript }) =>
+  (i, origScript) => {
+    if (inlineScripts[i] && inlineScripts[i].length) {
+      inlineScripts[i].forEach((script) => {
+        try {
+          lastScript = script;
+          oWin.eval("(" + FUNCTION + "(){" + script + "}.call(window))");
+        } catch (e) {
+          if (FUNCTION !== typeof errCb) {
+            throw e;
+          } else {
+            errCb(e, script);
+          }
         }
-      }
-    });
-    delete inlineScripts[i];
-  }
-  const isContinue = callfunc(cb, [
-    { key: i, inlineScripts, queueScripts, lastScripts, origScript },
-  ]);
-  if (false === isContinue) {
-    return isContinue;
-  }
-  if (queueScripts.length) {
-    getScript(queueScripts.shift());
-  } else if (lastScripts.length) {
-    lastScripts.forEach((script) => getScript(script));
-    lastScripts = [];
-  }
-};
+      });
+      delete inlineScripts[i];
+    }
+    const isContinue = callfunc(cb, [
+      { key: i, inlineScripts, queueScripts, lastScripts, origScript },
+    ]);
+    if (false === isContinue) {
+      return isContinue;
+    }
+    if (queueScripts.length) {
+      getScript(queueScripts.shift());
+    } else if (lastScripts.length) {
+      lastScripts.forEach((script) => getScript(script));
+      lastScripts = [];
+    }
+  };
 
 const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   oWin = oWin || win();

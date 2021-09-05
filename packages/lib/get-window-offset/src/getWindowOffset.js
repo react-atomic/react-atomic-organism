@@ -36,7 +36,7 @@ const calWindowOffset = (domInfo, scrollInfo) => {
     top: domInfo.top - scrollInfo.top,
     right: scrollInfo.right - domInfo.right,
     bottom: scrollInfo.bottom - domInfo.bottom,
-    left: domInfo.left - scrollInfo.left
+    left: domInfo.left - scrollInfo.left,
   };
   const maxDistance = Math.max(
     distance.top,
@@ -83,9 +83,11 @@ const getWindowOffset = (dom, debug) => {
     console.warn("getWindowOffset not assign dom");
     return false;
   }
-  const { fixedNode, scrollNode, domInfo: targetDomInfo } = getDomPositionInfo(
-    dom
-  );
+  const {
+    fixedNode,
+    scrollNode,
+    domInfo: targetDomInfo,
+  } = getDomPositionInfo(dom);
 
   const scrollInfo = getScrollInfo();
   const cookScrollInfo = { ...scrollInfo };

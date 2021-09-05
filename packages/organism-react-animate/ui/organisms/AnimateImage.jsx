@@ -55,7 +55,7 @@ const AnimateImageComp = (props, ref) => {
 
 const AnimateImage = forwardRef(AnimateImageComp);
 
-AnimateImage.displayName = 'AnimateImage';
+AnimateImage.displayName = "AnimateImage";
 
 AnimateImage.defaultProps = {
   animate: {

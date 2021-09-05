@@ -51,5 +51,4 @@ describe("Test Router", () => {
     matchSameProtocol.fn();
     expect(cb.callCount).to.equal(2);
   });
-
 });

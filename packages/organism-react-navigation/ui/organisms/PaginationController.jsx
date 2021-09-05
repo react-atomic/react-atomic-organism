@@ -19,13 +19,8 @@ class PaginationController extends PureComponent {
       this.cal = new paginationCalculator();
     }
     const cal = this.cal;
-    const {
-      pageListNumber,
-      total,
-      begin,
-      currentPage,
-      perPageNum,
-    } = this.props;
+    const { pageListNumber, total, begin, currentPage, perPageNum } =
+      this.props;
     cal.set(TOTAL, toInt(total));
     if (null != perPageNum) {
       cal.set(PER_PAGE_NUM, toInt(perPageNum));

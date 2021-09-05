@@ -83,13 +83,8 @@ const EventContent = (props) => {
 
 const Event = (props) => {
   const classes = mixClass(props.className, "event pure-g");
-  const {
-    animate,
-    backgroundColor,
-    borderColor,
-    minHeight,
-    handleEventClick,
-  } = props;
+  const { animate, backgroundColor, borderColor, minHeight, handleEventClick } =
+    props;
   let content = <EventContent {...props} />;
   if (animate) {
     const aniProps = {

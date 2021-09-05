@@ -120,10 +120,8 @@ Asciidoc.defaultProps = {
   onLoadDelay: 1500,
   inlineCSS:
     "body {padding: 0; margin: 0; background: transparent !important;}",
-  js:
-    "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
-  css:
-    "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
+  js: "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
+  css: "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
   npmVersion: "2.2.0",
 };
 

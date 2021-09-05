@@ -291,7 +291,6 @@ const getZoom = (el) => d3_zoomTransform(d3Select(el).node());
 const toZoomTransform = ({ x, y, k }) =>
   d3_zoomIdentity.translate(x, y).scale(k);
 
-
 const d3Select = (el) => d3_select(el);
 
 export {

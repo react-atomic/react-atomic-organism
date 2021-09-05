@@ -30,7 +30,7 @@ class Tooltip extends PureComponent {
           style={{ ...modalStyle, zIndex: 99999 }}
           targetEl={targetEl}
           className={floatClassName}
-          alignParams={{positionFixed: true}}
+          alignParams={{ positionFixed: true }}
         >
           {children}
         </PopupFloatEl>

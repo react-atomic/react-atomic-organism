@@ -92,13 +92,8 @@ class BaseChart extends Component {
   }
 
   render() {
-    const {
-      isLoad,
-      crosshairX,
-      crosshairY,
-      hideCrosshairX,
-      hideCrosshairY,
-    } = this.state;
+    const { isLoad, crosshairX, crosshairY, hideCrosshairX, hideCrosshairY } =
+      this.state;
     if (!isLoad) {
       return false;
     }

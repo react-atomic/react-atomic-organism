@@ -30,12 +30,9 @@ const MultiCandlestick = ({
         const x = xScale.scaler(xValueLocator(d));
         const open = tradeOpenLocator(d);
         const close = tradeCloseLocator(d);
-        const arrY = [
-          tradeHighLocator(d),
-          tradeLowLocator(d),
-          open,
-          close,
-        ].map((y) => yScale.scaler(y));
+        const arrY = [tradeHighLocator(d), tradeLowLocator(d), open, close].map(
+          (y) => yScale.scaler(y)
+        );
         arrY.sort((a, b) => a - b);
         const classes = mixClass({
           positive: close > open,

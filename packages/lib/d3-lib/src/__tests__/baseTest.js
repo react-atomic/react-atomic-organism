@@ -111,4 +111,3 @@ describe("area", () => {
     expect(result).to.not.have.string("NaN");
   });
 });
-

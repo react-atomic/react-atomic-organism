@@ -20,15 +20,8 @@ const getFromTo = (from, to) => {
 const keys = Object.keys;
 
 const BasePage = (props) => {
-  const {
-    onPageChange,
-    component,
-    className,
-    children,
-    style,
-    url,
-    rel,
-  } = props;
+  const { onPageChange, component, className, children, style, url, rel } =
+    props;
   const classes = mixClass(
     get(component, ["props", "className"]),
     className,
@@ -154,7 +147,7 @@ const Pagination = (pg) => {
                 text={backwardText}
                 {...current.backward}
                 {...pageProps}
-                style={{...pageProps.style, display: "flex"}}
+                style={{ ...pageProps.style, display: "flex" }}
               />
             );
           }
@@ -164,7 +157,11 @@ const Pagination = (pg) => {
               {...pageProps}
               {...current}
               {...currentPageProps}
-              style={{...pageProps.style, ...currentPageProps.style, display: "flex"}}
+              style={{
+                ...pageProps.style,
+                ...currentPageProps.style,
+                display: "flex",
+              }}
             />
           );
           if (current.forward) {
@@ -174,7 +171,7 @@ const Pagination = (pg) => {
                 {...current.forward}
                 text={forwardText}
                 {...pageProps}
-                style={{...pageProps.style, display: "flex"}}
+                style={{ ...pageProps.style, display: "flex" }}
               />
             );
           }

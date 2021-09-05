@@ -177,7 +177,12 @@ const CarouselNavigation = (props) => {
 
     const thisChildren = [];
     thisChildren.push(
-      <CarouselList key="list" style={carouselListStyle} onLeft={handleLeft} onRight={handleRight}>
+      <CarouselList
+        key="list"
+        style={carouselListStyle}
+        onLeft={handleLeft}
+        onRight={handleRight}
+      >
         {build(activeChildren)(others)}
       </CarouselList>
     );

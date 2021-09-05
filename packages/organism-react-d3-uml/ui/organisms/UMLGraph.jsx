@@ -234,12 +234,8 @@ class UMLGraph extends Component {
   }
 
   edit = (name, payload) => {
-    const {
-      onEdit,
-      editToCenter,
-      editToCenterCb,
-      editToCenterDelay,
-    } = this.props;
+    const { onEdit, editToCenter, editToCenterCb, editToCenterDelay } =
+      this.props;
     this.zoom.disable();
     if (editToCenter) {
       setTimeout(() => this.center(payload, editToCenterCb), editToCenterDelay);
@@ -319,9 +315,8 @@ class UMLGraph extends Component {
       const fromBoxGroupId = this.getBoxGroupIdByName(fromBoxGroupName);
       const toBoxGroupId = this.getBoxGroupIdByName(toBoxGroupName);
       const lineId = oConn.addLine(conn); //add line will trigger box render need put before getBoxIdByName
-      const fromBoxId = this.getBoxGroup(fromBoxGroupId).getBoxIdByName(
-        fromBoxName
-      );
+      const fromBoxId =
+        this.getBoxGroup(fromBoxGroupId).getBoxIdByName(fromBoxName);
       const toBoxId = this.getBoxGroup(toBoxGroupId).getBoxIdByName(toBoxName);
       const fromBox = this.getBox(fromBoxId, fromBoxGroupId);
       const toBox = this.getBox(toBoxId, toBoxGroupId);

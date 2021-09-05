@@ -244,7 +244,7 @@ describe("Test formSerialize with checkbox", () => {
     });
   });
 
-  it("get value 0", ()=>{
+  it("get value 0", () => {
     const body = document.body;
     body.innerHTML = `
       <form>
@@ -253,7 +253,7 @@ describe("Test formSerialize with checkbox", () => {
     `;
     const fm = document.getElementsByTagName("form")[0];
     expect(formSerialize(fm)).to.deep.equal({
-      foo: "0"
+      foo: "0",
     });
   });
 });

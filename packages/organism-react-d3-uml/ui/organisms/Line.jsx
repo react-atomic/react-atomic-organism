@@ -40,7 +40,7 @@ const Line = forwardRef((props, ref) => {
     setEnd(propsEnd);
   }, [propsEnd]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const lineId = expose.getId();
     host.oConn.setLineObj(lineId, expose);
   }, []);

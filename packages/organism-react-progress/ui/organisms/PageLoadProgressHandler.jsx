@@ -14,7 +14,7 @@ import useProgress from "../../src/useProgress";
 const PageLoadProgress = forwardRef((props, ref) => {
   const { name, zIndex, isFloat, isRunning, ajax, barProps } = props;
 
-  const {expose, opacity, percent} = useProgress(props);
+  const { expose, opacity, percent } = useProgress(props);
   useImperativeHandle(ref, () => expose);
 
   useEffect(() => {

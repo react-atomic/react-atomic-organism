@@ -20,5 +20,4 @@ describe("Test", () => {
     const query = queryFrom(undefined);
     expect(query).to.be.false;
   });
-
 });

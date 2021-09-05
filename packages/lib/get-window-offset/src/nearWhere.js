@@ -10,16 +10,16 @@ const getNearLocation = (center, floatInfo) => {
     left: false,
     right: false,
   };
-  if ( floatInfo.x > center.x ) {
+  if (floatInfo.x > center.x) {
     loc.right = true;
-  } else if ( floatInfo.x < center.x ) {
+  } else if (floatInfo.x < center.x) {
     loc.left = true;
   } else {
     loc.center = true;
   }
-  if ( floatInfo.y > center.y ) {
+  if (floatInfo.y > center.y) {
     loc.bottom = true;
-  } else if ( floatInfo.y < center.y ) {
+  } else if (floatInfo.y < center.y) {
     loc.top = true;
   } else {
     loc.center = true;
@@ -34,7 +34,7 @@ const getNearLocation = (center, floatInfo) => {
 
 const nearWhere = (targetEl, floatEl) => {
   const tarCenter = getDomCenter(targetEl);
-  let floatXY; 
+  let floatXY;
   if (floatEl.nodeName) {
     const floatElInfo = getDomPositionInfo(floatEl)?.domInfo || {
       top: 0,
@@ -45,11 +45,8 @@ const nearWhere = (targetEl, floatEl) => {
   if (null == floatXY) {
     floatXY = floatEl;
   }
-  return getNearLocation(
-    { x: tarCenter[0], y: tarCenter[1] },
-    floatXY 
-  );
+  return getNearLocation({ x: tarCenter[0], y: tarCenter[1] }, floatXY);
 };
 
 export default nearWhere;
-export {getNearLocation};
+export { getNearLocation };

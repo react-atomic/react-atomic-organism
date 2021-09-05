@@ -217,15 +217,8 @@ class Step extends PureComponent {
   }
 
   initFloat() {
-    const {
-      type,
-      delay,
-      isReady,
-      before,
-      cook,
-      target,
-      onboardingBefore,
-    } = this.props;
+    const { type, delay, isReady, before, cook, target, onboardingBefore } =
+      this.props;
     const callback = () => {
       if (onboardingBefore) {
         onboardingBefore();

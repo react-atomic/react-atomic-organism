@@ -9,33 +9,35 @@ import React, {
 import { mixClass, build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 
-const handleTabPress = ({
-  disableSwitch,
-  nodeKey,
-  nodeProps,
-  setLastSelected,
-  thisSelected,
-  onTabItemPress,
-  onTabItemWillPress,
-}) => (e) => {
-  const isContinue =
-    false !==
-    callfunc(onTabItemWillPress, [
-      {
-        nodeKey,
-        selected: thisSelected.current,
-      },
-    ]);
-  if (!disableSwitch && isContinue) {
-    if (!nodeProps.disableSwitch) {
-      setLastSelected(nodeKey);
-      thisSelected.current = nodeKey;
+const handleTabPress =
+  ({
+    disableSwitch,
+    nodeKey,
+    nodeProps,
+    setLastSelected,
+    thisSelected,
+    onTabItemPress,
+    onTabItemWillPress,
+  }) =>
+  (e) => {
+    const isContinue =
+      false !==
+      callfunc(onTabItemWillPress, [
+        {
+          nodeKey,
+          selected: thisSelected.current,
+        },
+      ]);
+    if (!disableSwitch && isContinue) {
+      if (!nodeProps.disableSwitch) {
+        setLastSelected(nodeKey);
+        thisSelected.current = nodeKey;
+      }
     }
-  }
-  e.selected = thisSelected.current;
-  e.nodeKey = nodeKey;
-  callfunc(onTabItemPress, [thisSelected.current, e]);
-};
+    e.selected = thisSelected.current;
+    e.nodeKey = nodeKey;
+    callfunc(onTabItemPress, [thisSelected.current, e]);
+  };
 
 const handleSelected = ({
   children,
