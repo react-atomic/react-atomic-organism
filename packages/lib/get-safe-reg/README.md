@@ -5,7 +5,8 @@ Get safe regular-expression
    * NPM
       * https://www.npmjs.com/package/get-safe-reg 
 
-## !!Important!! Wrose case on compress code with cache currying
+## !!Important!! 
+__Wrose case on compress code with cache currying__
 * Bad (Do not use it in compresss code)
 ```
 import getSafeReg, {cacheReg} from 'get-safe-reg';
