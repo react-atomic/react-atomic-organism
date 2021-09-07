@@ -1,12 +1,12 @@
 import { doc } from "win-doc";
 import { toStringForOneArray } from "get-object-value";
+import { T_UNDEFINED, IS_ARRAY } from "reshow-constant";
 import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
 
 const uriReg =
   /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
-const isArray = Array.isArray;
-const defaultValue = undefined;
+const defaultValue = T_UNDEFINED;
 
 const getPath = (url, key, raw) => {
   const result = uriReg.exec(url);
@@ -32,7 +32,7 @@ const getUrl = (keys, origUrl) => {
       return toStringForOneArray(results);
     }
   };
-  if (isArray(keys)) {
+  if (IS_ARRAY(keys)) {
     const results = {};
     keys.forEach((key) => {
       results[key] = getOne(key);
@@ -69,7 +69,7 @@ const unsetUrl = (key, url) => {
 };
 
 const setUrl = (key, value, url, KeepRawValue) => {
-  const multi = isArray(value);
+  const multi = IS_ARRAY(value);
   url = unsetUrl(key, resetUrl(url));
   (multi ? value : [value]).forEach((vItem) => {
     if (!KeepRawValue) {

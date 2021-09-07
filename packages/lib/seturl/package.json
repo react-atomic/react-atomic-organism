@@ -1,6 +1,6 @@
 {
   "name": "seturl",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Use regularexpression to replace url query.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,6 +11,7 @@
   "dependencies": {
     "get-object-value": "*",
     "get-safe-reg": "*",
+    "reshow-constant": "*",
     "win-doc": "*"
   },
   "devDependencies": {
@@ -30,5 +31,10 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build/cjs", "build/es", "package.json", "README.md"]
+  "files": [
+    "build/cjs",
+    "build/es",
+    "package.json",
+    "README.md"
+  ]
 }
