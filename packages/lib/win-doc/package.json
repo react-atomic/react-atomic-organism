@@ -1,6 +1,6 @@
 {
   "name": "win-doc",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Simple to avoid global not found error",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -8,6 +8,9 @@
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
+  "dependencies": {
+    "reshow-constant": "*"
+  },
   "devDependencies": {
     "@babel/cli": "^7.x",
     "chai": "*",
