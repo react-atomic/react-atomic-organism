@@ -1,22 +1,25 @@
+import { getPath, getUrl } from "seturl";
+import { isRequired } from "call-func";
+import { safeMatch } from "get-safe-reg";
+import { KEYS as getKeys, STRING, T_NULL, T_UNDEFINED } from "reshow-constant";
+
 /**
  * Convert path to route object
  *
  * A string or RegExp should be passed,
- * will return { re, src, keys} obj
  *
- * @param  {String / RegExp} path
+ * @param  String|RegExp path
+ * @param  function callback
  * @return {Object}
  */
-
-import { getPath, getUrl } from "seturl";
-
 const Route = (path, fn) => {
-  const keys = [];
-  const srcArr = getPath(path, null, true);
-  const re = pathToRegExp(srcArr[6] || srcArr[16] ? srcArr[13] : path, keys);
+  const srcArr = getPath(path, T_NULL, true);
+  const { reg, keys } = pathToRegExp(
+    srcArr[6] || srcArr[16] ? srcArr[13] : path
+  );
   const src = path;
 
-  return { re, src, srcArr, keys, fn };
+  return { reg, src, srcArr, keys, fn };
 };
 
 /**
@@ -29,10 +32,14 @@ const Route = (path, fn) => {
  * For example "/user/:id" will contain ["id"].
  *
  * @param  {String} path
- * @param  {Array} keys
- * @return {RegExp}
+ * @return {reg, keys}
  */
-const pathToRegExp = (path, keys) => {
+const pathCache = {};
+const pathToRegExp = (path) => {
+  if (pathCache[path] != T_NULL) {
+    return pathCache[path];
+  }
+  const keys = [];
   const nextPath = (path || "")
     .replace(/\?/g, "<<?>>")
     .concat("/?")
@@ -41,7 +48,7 @@ const pathToRegExp = (path, keys) => {
       /(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g,
       (_, slash, format, key, capture, optional) => {
         if (_ === "*") {
-          keys && keys.push(undefined);
+          keys && keys.push(T_UNDEFINED);
           return _;
         }
 
@@ -62,20 +69,23 @@ const pathToRegExp = (path, keys) => {
     .replace(/([\/.])/g, "\\$1")
     .replace(/\*/g, "(.*)")
     .replace(/<<\?>>/g, ".+");
-  return new RegExp("^" + nextPath + "$", "i");
+  const regString = "^" + nextPath + "$";
+  const reg = new RegExp(regString, "i");
+  pathCache[path] = { reg, keys };
+  return pathCache[path];
 };
 
 const paraseParms = (captures, route) => {
   const { keys, src, fn } = route;
   const params = {};
   const splats = [];
-  Object.keys(captures).forEach((cKey, index) => {
+  getKeys(captures).forEach((cKey, index) => {
     if (!index || isNaN(cKey)) {
       return;
     }
     const item = captures[cKey];
     const key = keys[index - 1];
-    const val = "string" === typeof item ? decodeURI(item) : item;
+    const val = STRING === typeof item ? decodeURI(item) : item;
     if (key) {
       params[key] = val;
     } else {
@@ -101,7 +111,7 @@ const paraseParms = (captures, route) => {
  * @return {Object}
  */
 const match = (routes, uri) => {
-  const thisUriArr = getPath(uri, null, true);
+  const thisUriArr = getPath(uri, T_NULL, true);
   const thisUri = thisUriArr[13];
   const thisHost = thisUriArr[6];
   if (!thisUri) {
@@ -109,8 +119,8 @@ const match = (routes, uri) => {
   }
   let result;
   routes.some((route, index) => {
-    const { re, src, srcArr } = route;
-    const captures = thisUri.match(re);
+    const { reg, src, srcArr } = route;
+    const captures = safeMatch(thisUri, reg);
     if (captures) {
       const rtHost = srcArr[6];
       if (rtHost && thisHost !== rtHost) {
@@ -121,8 +131,8 @@ const match = (routes, uri) => {
         .split("&")
         .some((query) => {
           const queryArr = query.split("=");
-          const queryReg = pathToRegExp(queryArr[1]);
-          const queryMeet = getUrl(queryArr[0], uri).match(queryReg);
+          const { reg: queryReg } = pathToRegExp(queryArr[1]);
+          const queryMeet = safeMatch(getUrl(queryArr[0], uri), queryReg);
           if (!queryMeet) {
             return true;
           }
@@ -152,14 +162,8 @@ const match = (routes, uri) => {
 class Router {
   routes = [];
 
-  addRoute(path, fn) {
-    if (!path) {
-      throw new Error("Route requires a path");
-    }
-    if (!fn) {
-      throw new Error("Route " + path + " requires a callback");
-    }
-    this.routes.push(Route(path, fn));
+  addRoute(path = isRequired("path"), callback = isRequired("callback")) {
+    this.routes.push(Route(path, callback));
   }
 
   match(pathname, startAt) {
