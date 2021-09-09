@@ -482,12 +482,13 @@ class UMLGraph extends Component {
       onZoom,
       scaleExtent,
       lineDefaultProps,
+      style,
       ...props
     } = this.props;
     return (
       <SemanticUI
         className="d3-uml"
-        style={Styles.container}
+        style={{...Styles.container, ...style}}
         refCb={this.handleSetZoomEl}
       >
         <Graph refCb={this.handleSetVector} {...props} style={Styles.svg}>
