@@ -1,0 +1,58 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7.0
+
+jobs:
+  test:
+    parameters:
+      test-dir:
+        type: string
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/install:
+          lts: true
+          install-yarn: true
+          npm-version: "6"
+      - run:
+          name: "Display information"
+          command: |
+            echo "## Date: "
+            date
+            echo ""
+            echo "## Node Version: "
+            node -v
+            echo ""
+            echo "## NPM Version: "
+            npm -v
+            echo ""
+            echo "## YARN Version: "
+            yarn -v
+      - run:
+          name: Run YARN tests
+          command: |
+            npm config set scripts-prepend-node-path auto \
+            && yarn --ignore-engines \
+            && cd << parameters.test-dir >> \
+            && yarn --ignore-engines \
+            && yarn test
+
+workflows:
+  run-node-tests:
+    jobs:
+      - test:
+          matrix:
+            name: test-<< matrix.test-dir >>
+            parameters:
+              test-dir:
+                - "./"
+                - "packages/lib/to-percent-js"
+                - "packages/lib/getoffset"
+                - "packages/lib/array.merge"
+                - "packages/lib/get-object-value"
+                - "packages/lib/set-object-value"
+                - "packages/lib/get-cookie"
+                - "packages/organism-react-ajax"
+                - "packages/organism-react-animate"

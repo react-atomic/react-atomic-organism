@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/react-atomic/react-atomic-organism.svg?branch=master)](https://travis-ci.org/react-atomic/react-atomic-organism) 
+
+[![CircleCI](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/master.svg?style=svg)](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/master)
 
 # react-atomic-organism
 Atomic design in React (organisms)
