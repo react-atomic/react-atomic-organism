@@ -1,6 +1,6 @@
 {
   "name": "get-random-id",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Generate simple random keys",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -24,5 +24,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

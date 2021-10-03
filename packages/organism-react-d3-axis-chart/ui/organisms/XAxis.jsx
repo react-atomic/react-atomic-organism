@@ -6,7 +6,7 @@ import XAxisLabel from "../organisms/XAxisLabel";
 const XAxis = ({
   length,
   height,
-  textRotate,
+  textRotate = -90,
   transform,
   textAttr,
   lineAttr,
@@ -54,10 +54,6 @@ const XAxis = ({
   }
   params.textAttr = thisTextAttr;
   return createElement(Axis, params);
-};
-
-XAxis.defaultProps = {
-  textRotate: -90,
 };
 
 export default XAxis;

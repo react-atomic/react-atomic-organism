@@ -1,50 +1,38 @@
 import React from "react";
 
 import MultiHArea from "../molecules/MultiHArea";
-import BaseChartClass from "../molecules/BaseChartClass";
+import BaseAxisChart from "../molecules/BaseAxisChart";
 
 const yScaleMore = [0];
 
-class AreaChart extends BaseChartClass {
-  static defaultProps = {
-    areaY1Locator: () => 0,
-    yValueLocator: (d) => d.y,
-  };
+const AreaChart = (props) => {
+  const {
+    curve = true,
+    areaY1Locator = () => 0,
 
-  baseChartProps() {
-    return {
-      yScaleMore,
-    };
-  }
+    /*base props*/
+    xValueLocator,
+    yValueLocator = (d) => d.y,
+    children,
+    data,
+    valuesLocator,
+    attrsLocator,
+    ...others
+  } = props;
 
-  renderChart(baseChart) {
-    const {
-      areaY1Locator,
-
-      /*base props*/
-      xValueLocator,
-      yValueLocator,
-      children,
-      data,
-      valuesLocator,
-      attrsLocator,
-      ...others
-    } = this.props;
-    return (
+  return (
+    <BaseAxisChart {...props}>
       <MultiHArea
-        {...{
-          ...baseChart,
-          xValueLocator,
-          areaY0Locator: yValueLocator,
-          areaY1Locator,
-          data,
-          valuesLocator,
-          attrsLocator,
-          curve: true,
-        }}
+        xValueLocator={xValueLocator}
+        areaY0Locator={yValueLocator}
+        areaY1Locator={areaY1Locator}
+        data={data}
+        valuesLocator={valuesLocator}
+        attrsLocator={attrsLocator}
+        curve={curve}
       />
-    );
-  }
-}
+    </BaseAxisChart>
+  );
+};
 
 export default AreaChart;

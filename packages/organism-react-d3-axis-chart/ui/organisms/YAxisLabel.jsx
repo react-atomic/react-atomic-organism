@@ -9,9 +9,9 @@ import ArrowShape from "../molecules/ArrowShape";
 const textWidth = 6.5;
 const height = 16.5;
 
-const YAxisLabel = ({ color, invertedColor, children, value, ...props }) => {
+const YAxisLabel = ({ color="#454545", invertedColor, children, value, ...props }) => {
   const yPos = value - height / 2;
-  const width = textWidth * get(children, ["length"], 0);
+  const width = textWidth * get(children+'', ["length"], 0);
   return (
     <Group
       className="crosshair-label-y"
@@ -30,10 +30,6 @@ const YAxisLabel = ({ color, invertedColor, children, value, ...props }) => {
       </Text>
     </Group>
   );
-};
-
-YAxisLabel.defaultProps = {
-  color: "#454545",
 };
 
 export default YAxisLabel;
