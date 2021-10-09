@@ -1,4 +1,4 @@
-import { getPath, getUrl } from "seturl";
+import { parseUrl, getUrl } from "seturl";
 import { isRequired } from "call-func";
 import { safeMatch } from "get-safe-reg";
 import { KEYS as getKeys, STRING, T_NULL, T_UNDEFINED } from "reshow-constant";
@@ -8,18 +8,19 @@ import { KEYS as getKeys, STRING, T_NULL, T_UNDEFINED } from "reshow-constant";
  *
  * A string or RegExp should be passed,
  *
- * @param  String|RegExp path
+ * @param  String|RegExp routePath
  * @param  function callback
  * @return {Object}
  */
-const Route = (path, fn) => {
-  const srcArr = getPath(path, T_NULL, true);
-  const { reg, keys } = pathToRegExp(
-    srcArr[6] || srcArr[16] ? srcArr[13] : path
-  );
-  const src = path;
+const Route = (routePath, fn) => {
+  if (STRING === typeof routePath) {
+    const { host, query, path } = parseUrl(routePath);
+    const { reg, keys } = pathToRegExp(host || query ? path : routePath);
 
-  return { reg, src, srcArr, keys, fn };
+    return { reg, keys, fn, src: routePath, host, query, path };
+  } else {
+    return { reg: routePath, fn };
+  }
 };
 
 /**
@@ -111,22 +112,19 @@ const paraseParms = (captures, route) => {
  * @return {Object}
  */
 const match = (routes, uri) => {
-  const thisUriArr = getPath(uri, T_NULL, true);
-  const thisUri = thisUriArr[13];
-  const thisHost = thisUriArr[6];
+  const { host: thisHost, path: thisUri } = parseUrl(uri);
   if (!thisUri) {
     return false;
   }
   let result;
   routes.some((route, index) => {
-    const { reg, src, srcArr } = route;
+    const { reg, src, host: rtHost, query: rtQuery } = route;
     const captures = safeMatch(thisUri, reg);
     if (captures) {
-      const rtHost = srcArr[6];
       if (rtHost && thisHost !== rtHost) {
         return;
       }
-      const isQueryNotMatch = srcArr[16]
+      const isQueryNotMatch = rtQuery
         ?.replace("?", "")
         .split("&")
         .some((query) => {
