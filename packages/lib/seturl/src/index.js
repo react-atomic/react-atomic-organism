@@ -2,33 +2,32 @@ import { doc } from "win-doc";
 import { toStringForOneArray } from "get-object-value";
 import { T_UNDEFINED, IS_ARRAY } from "reshow-constant";
 import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
+import getUrlAnaly from "./getUrlAnaly";
 
-const uriReg =
-  /^(((([^:\/#\?]+:)?(?:(\/\/)((?:(([^:@\/#\?]+)(?:\:([^:@\/#\?]+))?)@)?(([^:\/#\?\]\[]+|\[[^\/\]@#?]+\])(?:\:([0-9]+))?))?)?)?((\/?(?:[^\/\?#]+\/+)*)([^\?#]*)))?(\?[^#]+)?)(#.*)?/;
 
 const defaultValue = T_UNDEFINED;
 
-const getPath = (url, key, raw) => {
-  const result = uriReg.exec(url);
-  if (raw) {
-    return result;
-  } else {
-    return result[key ?? 2];
-  }
+const parseUrl = (url) => {
+  const oUrl = getUrlAnaly(url);
+  return {
+    host: oUrl[11],
+    query: oUrl[16],
+    path: oUrl[13],
+  };
 };
 
 const resetUrl = (url) => (url ? url : doc().URL);
 
 const getUrl = (keys, origUrl) => {
-  const url = getPath(resetUrl(origUrl), 16) || "";
+  const { query = "" } = parseUrl(resetUrl(origUrl));
   const getOne = (key) => {
     const keyEq = key + "=";
-    if (url.indexOf(keyEq) === url.lastIndexOf(keyEq)) {
+    if (query.indexOf(keyEq) === query.lastIndexOf(keyEq)) {
       const reg = getKeyReg(key);
-      const exec = reg.exec(url);
+      const exec = reg.exec(query);
       return !exec ? defaultValue : decodeURIComponent(exec[3]);
     } else {
-      const results = getUrlArray(key, url);
+      const results = getUrlArray(key, query);
       return toStringForOneArray(results);
     }
   };
@@ -43,19 +42,19 @@ const getUrl = (keys, origUrl) => {
   }
 };
 
-const getMultiKey = (key, url) => {
+const getMultiKey = (key, query) => {
   const reg = getMultiMatchReg(key);
   const results = [];
   let exec;
-  while ((exec = reg.exec(url))) {
+  while ((exec = reg.exec(query))) {
     results.push(decodeURIComponent(exec[3]));
   }
   return results;
 };
 
 const getUrlArray = (key, origUrl) => {
-  const url = getPath(resetUrl(origUrl), 16) || "";
-  return getMultiKey(key, url);
+  const { query = "" } = parseUrl(resetUrl(origUrl));
+  return getMultiKey(key, query);
 };
 
 const unsetUrl = (key, url) => {
@@ -80,5 +79,5 @@ const setUrl = (key, value, url, KeepRawValue) => {
   return url;
 };
 
-export { getUrl, getUrlArray, getPath, unsetUrl };
+export { getUrl, getUrlArray, parseUrl, unsetUrl };
 export default setUrl;
