@@ -5,7 +5,7 @@ import yFormat from "../../src/yFormat";
 const BBandsWidthChart = ({
   data,
   xValueLocator,
-  bbandsWidthLocator,
+  bbandsWidthLocator = (d) => d.width,
   attrsLocator,
   bbandsLocator,
   ...others
@@ -27,9 +27,5 @@ const BBandsWidthChart = ({
     attrsLocator={attrsLocator}
   />
 );
-
-BBandsWidthChart.defaultProps = {
-  bbandsWidthLocator: (d) => d.width,
-};
 
 export default BBandsWidthChart;

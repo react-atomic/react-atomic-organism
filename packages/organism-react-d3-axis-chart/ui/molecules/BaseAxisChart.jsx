@@ -104,7 +104,7 @@ const useBaseAxisChart = (props) => {
 
   const mainDataValues = valuesLocator(mainChartDataLocator(data));
 
-  if (!mainDataValues) {
+  if (!mainDataValues || !mainDataValues.map) {
     return null;
   }
 

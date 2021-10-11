@@ -2,7 +2,7 @@ import React from "react";
 import get from "get-object-value";
 import { MultiHArea, MultiCandlestick } from "organism-react-d3-axis-chart";
 
-const AreasOverLay = ({
+const AreasOverlay = ({
   areasLocator,
   areasValuesLocator,
   areaXLocator,
@@ -36,8 +36,8 @@ const CandlestickOverlay = ({
     <MultiCandlestick
       {...others}
       data={data}
+      allDataLocator={tradeRowsLocator}
       xValueLocator={tradeDateLocator}
-      valuesLocator={tradeRowsLocator}
       tradeHighLocator={tradeHighLocator}
       tradeLowLocator={tradeLowLocator}
       tradeOpenLocator={tradeOpenLocator}
@@ -46,7 +46,9 @@ const CandlestickOverlay = ({
   );
 };
 
-export default {
-  areas: AreasOverLay,
+const overlays = {
+  areas: AreasOverlay,
   candlesticks: CandlestickOverlay,
 };
+
+export default overlays; 

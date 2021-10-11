@@ -1,7 +1,6 @@
 import "es6-promise/auto"; // [RESHOW] Need keep if use "new Promise"
 import "setimmediate";
-import { Map } from "immutable";
-import { ReduceStore } from "reshow-flux";
+import { ReduceStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
 import set from "set-object-value";
 import smoothScrollTo from "smooth-scroll-to";

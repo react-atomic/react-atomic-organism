@@ -16,15 +16,19 @@ const VolumesAttrsLocator = (openLocator) => (closeLocator) => (d) => {
 };
 
 const VolumeChart = ({
+  tradeRowsLocator,
   tradeOpenLocator,
   tradeCloseLocator,
   xAxisAttr,
   yAxisAttr,
+  data,
   ...props
 }) => {
   return (
     <BarChart
       {...resetProps(props)}
+      mainChartDataLocator={tradeRowsLocator}
+      data={data}
       xAxisAttr={{
         textRotate: -45,
         ...xAxisAttr,
@@ -38,10 +42,6 @@ const VolumeChart = ({
       attrsLocator={VolumesAttrsLocator(tradeOpenLocator)(tradeCloseLocator)}
     />
   );
-};
-
-VolumeChart.defaultProps = {
-  multiChart: "sub",
 };
 
 export default VolumeChart;

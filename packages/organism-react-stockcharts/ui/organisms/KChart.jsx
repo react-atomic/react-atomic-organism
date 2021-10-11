@@ -125,7 +125,6 @@ KChart.defaultProps = {
   linesValuesLocator: (d) => d.values,
   linesLocator: (d) => d.lines,
   areasLocator: (d) => d.areas,
-  multiChart: "main",
   kChartOverlays: {
     areas: {},
     candlesticks: {},

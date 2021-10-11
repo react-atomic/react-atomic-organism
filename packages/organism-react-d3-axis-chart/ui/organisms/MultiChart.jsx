@@ -44,43 +44,16 @@ const useMultiChart = (props) => {
 
   const lastEl = useRef();
 
-  const execResize = debounce(() => {
-    const { w, h } = getParentWH(lastEl.current);
-    setState((prev) => ({
-      ...prev,
-      scaleW: w,
-      scaleH: h,
-    }));
-  });
-
-  const handler = {
-    onMouseEnter: (e) => {
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairY: false,
-      }));
-    },
-    onMouseLeave: (e) => {
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairY: true,
-      }));
-    },
-    onMove: (e) => {
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairY: false,
-        crosshairX: get(e, ["point", 0]),
-      }));
-    },
-    handleEl: (el) => {
-      if (el) {
-        lastEl.current = el;
-      }
-    },
-  };
-
   useEffect(() => {
+    const execResize = debounce(() => {
+      const { w, h } = getParentWH(lastEl.current);
+      setState((prev) => ({
+        ...prev,
+        scaleW: w,
+        scaleH: h,
+      }));
+    });
+
     if (!win().__null) {
       import("d3-lib").then(({ scaleBand }) => {
         setState((prev) => ({
@@ -140,6 +113,33 @@ const useMultiChart = (props) => {
     mainChartScaleH = subChartScaleH;
     thisScaleH = (subChartScaleH + 20) * (subChartCount + 1);
   }
+
+  const handler = {
+    onMouseEnter: (e) => {
+      setState((prev) => ({
+        ...prev,
+        hideCrosshairY: false,
+      }));
+    },
+    onMouseLeave: (e) => {
+      setState((prev) => ({
+        ...prev,
+        hideCrosshairY: true,
+      }));
+    },
+    onMove: (e) => {
+      setState((prev) => ({
+        ...prev,
+        hideCrosshairY: false,
+        crosshairX: get(e, ["point", 0]),
+      }));
+    },
+    handleEl: (el) => {
+      if (el) {
+        lastEl.current = el;
+      }
+    },
+  };
 
   return {
     isLoad,

@@ -1,4 +1,4 @@
-import { round } from "topercent";
+import { round } from "to-percent-js";
 
 const yFormat = (d) => {
   const roundNum = round(d);
