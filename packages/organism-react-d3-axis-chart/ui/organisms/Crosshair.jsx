@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Line from "../molecules/Line";
 import Group from "../molecules/Group";
@@ -7,9 +7,8 @@ const CrossLine = (props) => (
   <Line {...props} strokeWidth="3" strokeDasharray="5,5" />
 );
 
-class Crosshair extends Component {
-  render() {
-    const { x, y, scaleW, scaleH, hideX, hideY } = this.props;
+const Crosshair = props => {
+    const { x, y, scaleW, scaleH, hideX, hideY } = props;
     let xline = null;
     let yline = null;
     if (!hideX && y) {
@@ -36,7 +35,6 @@ class Crosshair extends Component {
         {yline}
       </Group>
     );
-  }
 }
 
 export default Crosshair;

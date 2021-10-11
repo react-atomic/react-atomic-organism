@@ -1,48 +1,13 @@
 import React, { cloneElement, Children } from "react";
-import get from "get-object-value";
+import { mergeChildren } from "react-atomic-molecule";
 
 import MultiLine from "../molecules/MultiLine";
-import BaseChart from "../molecules/BaseChart";
+import BaseAxisChart from "../molecules/BaseAxisChart";
 
-const LineChart = ({
-  children,
-  data,
-  valuesLocator,
-  xValueLocator,
-  yValueLocator,
-  attrsLocator,
-  ...others
-}) =>
-  !data ? null : (
-    <BaseChart
-      {...others}
-      data={data}
-      valuesLocator={valuesLocator}
-      xValueLocator={xValueLocator}
-      yValueLocator={yValueLocator}
-    >
-      {(baseChart) => {
-        return [
-          <MultiLine
-            {...{
-              ...baseChart,
-              attrsLocator,
-              valuesLocator,
-              xValueLocator,
-              yValueLocator,
-              data,
-            }}
-          />,
-          Children.map(children, (c) =>
-            !c
-              ? null
-              : cloneElement(c, {
-                  ...baseChart,
-                })
-          ),
-        ];
-      }}
-    </BaseChart>
-  );
+const LineChart = (props) => (
+  <BaseAxisChart {...props} className="line-chart">
+    {mergeChildren(<MultiLine data={props.data} />, props.children)}
+  </BaseAxisChart>
+);
 
 export default LineChart;

@@ -10,32 +10,30 @@ const MultiRect = ({
   yScale,
   xValueLocator,
   yValueLocator,
-  valuesLocator,
+  allDataLocator,
   attrsLocator,
   scaleH,
-}) => (
-  <Group className="data-group barchart">
-    {valuesLocator(data).map((d, key) => {
-      const x = xScale.scaler(xValueLocator(d));
-      const y = yScale.scaler(yValueLocator(d));
-      const attrs = attrsLocator(d, x, y);
-      return (
-        <Rect
-          key={key}
-          x={x}
-          y={y}
-          width={xScale.length}
-          height={heightCallback(d, x, y)}
-          {...attrs}
-        />
-      );
-    })}
-  </Group>
-);
-
-MultiRect.defaultProps = {
-  valuesLocator: (d) => d.values,
-  attrsLocator: (d) => d.attrs,
+}) => {
+  const getHeightByScale = heightCallback(scaleH);
+  return (
+    <Group className="data-group multi-rect">
+      {allDataLocator(data).map((d, key) => {
+        const x = xScale.scaler(xValueLocator(d));
+        const y = yScale.scaler(yValueLocator(d));
+        const attrs = attrsLocator(d, x, y);
+        return (
+          <Rect
+            key={key}
+            x={x}
+            y={y}
+            width={xScale.length}
+            height={getHeightByScale(d, x, y)}
+            {...attrs}
+          />
+        );
+      })}
+    </Group>
+  );
 };
 
 export default MultiRect;

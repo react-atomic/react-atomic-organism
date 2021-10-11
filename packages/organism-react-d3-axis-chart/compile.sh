@@ -11,7 +11,7 @@ killBy(){
 
 stop(){
     DIR="$( cd "$(dirname "$0")" ; pwd -P )"
-    killBy ${DIR}/node_modules/.bin/babel 
+    killBy ${DIR}/node_modules/.bin/babel && echo "Stop done.";
 }
 
 watch(){

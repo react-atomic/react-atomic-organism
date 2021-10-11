@@ -1,11 +1,11 @@
 import React, { memo } from "react";
 import { Line as GraphLine } from "organism-react-graph";
 
-const Line = (props) => <GraphLine {...props} />;
+const Line = memo((props) => {
+  const { fill = "none", stroke = "#3182bd", ...others } = props;
+  return <GraphLine {...others} fill={fill} stroke={stroke} />;
+});
 
-Line.defaultProps = {
-  fill: "none",
-  stroke: "#3182bd",
-};
+Line.displayName = "ChartLine";
 
-export default memo(Line);
+export default Line;

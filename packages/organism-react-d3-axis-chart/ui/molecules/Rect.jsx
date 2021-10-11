@@ -3,11 +3,8 @@ import React from "react";
 import { SemanticUI } from "react-atomic-molecule";
 
 const Rect = (props) => {
-  return <SemanticUI {...props} />;
-};
-
-Rect.defaultProps = {
-  atom: "rect",
-};
+  const {atom = "rect", ...others} = props;
+  return <SemanticUI {...others} atom={atom}/>;
+}
 
 export default Rect;

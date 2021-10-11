@@ -1,58 +1,39 @@
 import React, { cloneElement, Children } from "react";
+import { mergeChildren } from "react-atomic-molecule";
 import get from "get-object-value";
 
 import MultiRect from "../molecules/MultiRect";
-import BaseChart from "../molecules/BaseChart";
+import BaseAxisChart from "../molecules/BaseAxisChart";
 
-const BarChart = ({
-  children,
-  data,
-  attrsLocator,
-  valuesLocator,
-  xValueLocator,
-  yValueLocator,
-  ...others
-}) =>
-  !valuesLocator(data) ? null : (
-    <BaseChart
-      {...others}
-      data={[data]}
-      valuesLocator={valuesLocator}
-      xValueLocator={xValueLocator}
-      yValueLocator={yValueLocator}
+const heightCallback = (scaleH) => (d, x, y) => {
+  return scaleH - y;
+};
+
+const BarChart = (props) => {
+  const {
+    data,
+    valuesLocator = (d) => d.values,
+    attrsLocator = (d) => ({ fill: "#4682B4" }),
+    mainChartDataLocator = (d) => get(d, [0], {}),
+  } = props;
+  const rectData = valuesLocator(mainChartDataLocator(data));
+  return (
+    <BaseAxisChart
+      {...props}
+      attrsLocator={attrsLocator}
+      mainChartDataLocator={mainChartDataLocator}
+      className="bar-chart"
     >
-      {(baseChart) => [
+      {mergeChildren(
         <MultiRect
-          {...{
-            ...baseChart,
-            attrsLocator,
-            valuesLocator,
-            xValueLocator,
-            yValueLocator,
-            data,
-            heightCallback: (d, x, y) => {
-              const { scaleH } = baseChart;
-              return scaleH - y;
-            },
-          }}
+          data={rectData}
+          attrsLocator={attrsLocator}
+          heightCallback={heightCallback}
         />,
-        Children.map(children, (c) =>
-          !c
-            ? null
-            : cloneElement(c, {
-                ...baseChart,
-              })
-        ),
-      ]}
-    </BaseChart>
+        props.children
+      )}
+    </BaseAxisChart>
   );
-
-BarChart.defaultProps = {
-  data: [],
-  xValueLocator: (d) => d.x,
-  yValueLocator: (d) => d.y,
-  valuesLocator: (d) => d.values,
-  attrsLocator: (d) => ({ fill: "#4682B4" }),
 };
 
 export default BarChart;

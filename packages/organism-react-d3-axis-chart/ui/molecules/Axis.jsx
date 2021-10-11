@@ -42,14 +42,14 @@ const Label = ({
 };
 
 const Axis = ({
-  color,
-  invertedColor,
+  color = "#454545",
+  invertedColor = "#fff",
   className,
   data,
   scale,
   path,
   transform,
-  format,
+  format = (i) => i,
   crosshairLabel,
   crosshairValue,
   hideCrosshair,
@@ -96,12 +96,6 @@ const Axis = ({
       {thisCrosshairLabel}
     </Group>
   );
-};
-
-Axis.defaultProps = {
-  format: (i) => i,
-  color: "#454545",
-  invertedColor: "#fff",
 };
 
 export default Axis;

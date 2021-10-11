@@ -1,6 +1,7 @@
 import React from "react";
 
 import Line from "../molecules/Line";
+import Group from "../molecules/Group";
 
 const MultiLine = ({
   data,
@@ -8,27 +9,24 @@ const MultiLine = ({
   xValueLocator,
   yValueLocator,
   attrsLocator,
+  allDataLocator,
   xScale,
   yScale,
   d3,
-}) =>
-  data.map((line, key) => {
-    const attr = attrsLocator(line);
-    const d = d3.curve(
-      valuesLocator(line),
-      xValueLocator,
-      yValueLocator,
-      xScale,
-      yScale
-    );
-    return <Line d={d} {...attr} key={key} />;
-  });
-
-MultiLine.defaultProps = {
-  xValueLocator: (d) => d.x,
-  yValueLocator: (d) => d.y,
-  valuesLocator: (d) => d.values,
-  attrsLocator: (d) => d.attrs,
-};
+}) => (
+  <Group className="data-group multi-line">
+    {allDataLocator(data).map((line, key) => {
+      const attr = attrsLocator(line);
+      const d = d3.curve(
+        valuesLocator(line),
+        xValueLocator,
+        yValueLocator,
+        xScale,
+        yScale
+      );
+      return <Line d={d} {...attr} key={key} />;
+    })}
+  </Group>
+);
 
 export default MultiLine;

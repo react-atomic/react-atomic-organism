@@ -1,188 +1,208 @@
-import React, { Component, Children, cloneElement } from "react";
-import { SemanticUI } from "react-atomic-molecule";
+import React, { useState, useRef, useEffect, Children } from "react";
+import { build } from "react-atomic-molecule";
 import get from "get-object-value";
 import getoffset from "getoffset";
+import { win } from "win-doc";
+import { debounce } from "call-func";
+
+import ChartElement from "../molecules/ChartElement";
+import resetProps from "../../src/resetProps";
 
 const adjustX = 60;
 
-class MultiChart extends Component {
-  d3 = {};
-  state = { isLoad: false };
-  xScale = false;
+const getParentWH = (el) => {
+  const parentEl = el.parentNode;
+  return getoffset(parentEl);
+};
 
-  handleMouseEnter = (e) => {
-    this.setState({
-      hideCrosshairY: false,
-    });
-  };
-
-  handleMouseLeave = (e) => {
-    this.setState({
-      hideCrosshairY: true,
-    });
-  };
-
-  handleMouseMove = (point) => {
-    this.setState({
-      hideCrosshairY: false,
-      crosshairX: point[0],
-    });
-  };
-
-  getParentWH() {
-    const parentEl = this.el.parentNode;
-    const { w, h } = getoffset(parentEl);
-    return { w, h };
-  }
-
-  resize = () => {
-    setTimeout(() => {
-      const { w, h } = this.getParentWH();
-      this.setState({
-        scaleW: w,
-        scaleH: h,
-      });
-    });
-  };
-
-  handleEl = (el) => {
-    const { autoScale } = this.props;
-    if (!this.el) {
-      this.el = el;
-      if (autoScale) {
-        window.addEventListener("resize", this.resize);
-        this.resize();
-      }
-    }
-  };
-
-  componentDidMount() {
-    import("d3-lib").then(({ scaleBand }) => {
-      this.d3 = { scaleBand };
-      this.setState({
-        isLoad: true,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.resize);
-  }
-
-  render() {
-    const {
+const useMultiChart = (props) => {
+  const [
+    {
       isLoad,
       crosshairX,
       hideCrosshairY,
+      d3,
       scaleW: stateScaleW,
       scaleH: stateScaleH,
-    } = this.state;
-    if (!isLoad) {
-      return null;
-    }
-    const {
-      style,
-      data,
-      children,
-      autoScale,
-      scaleW,
-      scaleH,
-      xAxisAttr,
-      xValueLocator,
-      valuesLocator,
-      extraViewBox,
-      subChartScaleH,
-      crosshair,
-      ...props
-    } = this.props;
-    let thisScaleW = scaleW;
-    let thisScaleH = scaleH;
-    if (autoScale) {
-      if (stateScaleW && stateScaleH) {
-        thisScaleH = stateScaleH;
-        thisScaleW = stateScaleW;
-      }
-    }
-    const xAxisData = get(xAxisAttr, ["data"], () =>
-      data ? valuesLocator(data) : null
-    );
-    if (xAxisData) {
-      if (xAxisData.map) {
-        this.xScale = this.d3.scaleBand(
-          xAxisData,
-          0,
-          thisScaleW,
-          xValueLocator
-        );
-      } else {
-        console.warn(["Assign wrong xAxisData", xAxisData]);
-      }
-    }
-    let thisExtraViewBox = extraViewBox;
-    let subChartCount = 0;
-    Children.forEach(children, (child) => {
-      if ("sub" === get(child, ["props", "multiChart"])) {
-        subChartCount++;
-      }
-    });
-    let mainChartScaleH =
-      thisScaleH - 20 - (subChartScaleH + 20) * subChartCount;
-    if (mainChartScaleH < subChartScaleH) {
-      mainChartScaleH = subChartScaleH;
-      thisScaleH = (subChartScaleH + 20) * (subChartCount + 1);
-    }
-    let high = 0;
-    return (
-      <SemanticUI
-        {...props}
-        viewBox={`0 0 ${Math.round(thisScaleW + thisExtraViewBox)} ${Math.round(
-          thisScaleH + thisExtraViewBox
-        )}`}
-        style={{ ...style, pointerEvents: "bounding-box" }}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        refCb={this.handleEl}
-      >
-        {Children.map(children, (child, key) => {
-          const params = {
-            key,
-            scaleW: thisScaleW,
-            crosshair,
-            crosshairX,
-            hideCrosshairY,
-            onMouseMove: this.handleMouseMove,
-            xScale: this.xScale,
-          };
-          if ("main" === child.props.multiChart) {
-            high += 20 + mainChartScaleH;
-            return cloneElement(child, {
-              ...params,
-              scaleH: mainChartScaleH,
-              transform: `translate(${adjustX}, ${high - mainChartScaleH})`,
-            });
-          } else {
-            high += 20 + subChartScaleH;
-            return cloneElement(child, {
-              ...params,
-              scaleH: subChartScaleH,
-              transform: `translate(${adjustX}, ${high - subChartScaleH})`,
-            });
-          }
-        })}
-      </SemanticUI>
-    );
-  }
-}
+    },
+    setState,
+  ] = useState({});
 
-MultiChart.defaultProps = {
-  valuesLocator: (d) => d.values,
-  atom: "svg",
-  preserveAspectRatio: "xMidYMid meet",
-  scaleW: 500,
-  scaleH: 500,
-  autoScale: true,
-  extraViewBox: 100,
-  subChartScaleH: 68,
+  const {
+    data,
+    subChartScaleH,
+    autoScale,
+    scaleW: propsScaleW,
+    scaleH: propsScaleH,
+    xValueLocator,
+    valuesLocator,
+    mainChartDataLocator,
+    children,
+    crosshair,
+    xAxisAttr,
+  } = resetProps(props);
+
+  const lastEl = useRef();
+
+  const execResize = debounce(() => {
+    const { w, h } = getParentWH(lastEl.current);
+    setState((prev) => ({
+      ...prev,
+      scaleW: w,
+      scaleH: h,
+    }));
+  });
+
+  const handler = {
+    onMouseEnter: (e) => {
+      setState((prev) => ({
+        ...prev,
+        hideCrosshairY: false,
+      }));
+    },
+    onMouseLeave: (e) => {
+      setState((prev) => ({
+        ...prev,
+        hideCrosshairY: true,
+      }));
+    },
+    onMove: (e) => {
+      setState((prev) => ({
+        ...prev,
+        hideCrosshairY: false,
+        crosshairX: get(e, ["point", 0]),
+      }));
+    },
+    handleEl: (el) => {
+      if (el) {
+        lastEl.current = el;
+      }
+    },
+  };
+
+  useEffect(() => {
+    if (!win().__null) {
+      import("d3-lib").then(({ scaleBand }) => {
+        setState((prev) => ({
+          ...prev,
+          d3: {
+            scaleBand,
+          },
+          isLoad: true,
+        }));
+        if (autoScale) {
+          win().addEventListener("resize", execResize);
+          execResize();
+        }
+      });
+    }
+    return () => {
+      if (autoScale) {
+        win().removeEventListener("resize", execResize);
+      }
+    };
+  }, []);
+
+  if (!isLoad) {
+    return null;
+  }
+
+  const mainDataValues = valuesLocator(mainChartDataLocator(data));
+
+  let thisScaleW = propsScaleW;
+  let thisScaleH = propsScaleH;
+  if (autoScale) {
+    if (stateScaleW && stateScaleH) {
+      thisScaleW = stateScaleW;
+      thisScaleH = stateScaleH;
+    }
+  }
+
+  const xAxisData = get(xAxisAttr, ["data"], () => mainDataValues || []);
+
+  let thisXScale;
+  if (xAxisData) {
+    if (xAxisData.map) {
+      thisXScale = d3.scaleBand(xAxisData, 0, thisScaleW, xValueLocator);
+    } else {
+      console.warn(["Assign wrong xAxisData", xAxisData]);
+    }
+  }
+
+  let subChartCount = 0;
+  Children.forEach(children, (child) => {
+    if ("sub" === get(child, ["props", "multiChart"])) {
+      subChartCount++;
+    }
+  });
+  let mainChartScaleH = thisScaleH - 20 - (subChartScaleH + 20) * subChartCount;
+  if (mainChartScaleH < subChartScaleH) {
+    mainChartScaleH = subChartScaleH;
+    thisScaleH = (subChartScaleH + 20) * (subChartCount + 1);
+  }
+
+  return {
+    isLoad,
+    scaleW: thisScaleW,
+    scaleH: thisScaleH,
+    mainChartScaleH,
+    subChartScaleH,
+    thisXScale,
+    handler,
+    children,
+    crosshair,
+    crosshairX,
+    hideCrosshairY,
+  };
+};
+
+const MultiChart = (props) => {
+  const {
+    isLoad,
+    scaleW,
+    scaleH,
+    mainChartScaleH,
+    subChartScaleH,
+    thisXScale,
+    handler,
+    children,
+    crosshair,
+    crosshairX,
+    hideCrosshairY,
+  } = useMultiChart(props) || {};
+
+  if (!isLoad) {
+    return null;
+  }
+
+  let high = 0;
+  return (
+    <ChartElement
+      {...props}
+      scaleW={scaleW}
+      scaleH={scaleH}
+      onMouseEnter={handler.onMouseEnter}
+      onMouseLeave={handler.onMouseLeave}
+      refCb={handler.handleEl}
+    >
+      {Children.map(children, (child, key) => {
+        const childScaleH =
+          "main" === child.props.multiChart ? mainChartScaleH : subChartScaleH;
+        high += 20 + childScaleH;
+        return build(child)({
+          scaleH: childScaleH,
+          transform: `translate(${adjustX}, ${high - childScaleH})`,
+          key,
+          scaleW,
+          crosshair,
+          crosshairX,
+          hideCrosshairY,
+          onMove: handler.onMove,
+          xScale: thisXScale,
+        });
+      })}
+    </ChartElement>
+  );
 };
 
 export default MultiChart;

@@ -1,10 +1,6 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-import { build, SemanticUI } from "react-atomic-molecule";
+import { build } from "react-atomic-molecule";
 import { mouse } from "getoffset";
 import get from "get-object-value";
 import { win } from "win-doc";
@@ -13,18 +9,74 @@ import callfunc from "call-func";
 import Line from "../molecules/Line";
 import Rect from "../molecules/Rect";
 import Group from "../molecules/Group";
+import ChartElement from "../molecules/ChartElement";
 import XAxis from "../organisms/XAxis";
 import YAxis from "../organisms/YAxis";
 import Crosshair from "../organisms/Crosshair";
+import resetProps from "../../src/resetProps";
 
 const adjustX = 60;
 const adjustY = 20;
 
 const useBaseAxisChart = (props) => {
   const [
-    { isLoad, crosshairX, crosshairY, hideCrosshairX, hideCrosshairY, d3 },
+    {
+      isLoad,
+      crosshairX,
+      crosshairY,
+      hideCrosshairX = true,
+      hideCrosshairY = true,
+      d3,
+    },
     setState,
   ] = useState({});
+
+  const {
+    valuesLocator,
+    xValueLocator,
+    yValueLocator,
+    attrsLocator,
+    allDataLocator,
+    mainChartDataLocator,
+    data,
+    onMove,
+
+    /*axis*/
+    thresholds,
+    xScale,
+    yScaleMore,
+    xAxisAttr,
+    yAxisAttr,
+    scaleW,
+    scaleH,
+
+    /*crosshair*/
+    crosshair,
+    crosshairX: propscCosshairX,
+    hideCrosshairX: propsHideCrosshairX,
+    hideCrosshairY: propsHideCrosshairY,
+    hideCrosshairXLabel,
+    hideCrosshairYLabel,
+    children,
+    multiChart,
+
+    /*layout*/
+    hideAxis,
+    color,
+    invertedColor,
+    transform,
+    style,
+  } = resetProps(props);
+
+  useEffect(() => {
+    if (hideCrosshairX) {
+      setState((prev) => ({
+        ...prev,
+        crosshairX: propscCosshairX,
+        hideCrosshairY: propsHideCrosshairY,
+      }));
+    }
+  }, [propscCosshairX, propsHideCrosshairY]);
 
   useEffect(() => {
     if (!win().__null) {
@@ -50,45 +102,18 @@ const useBaseAxisChart = (props) => {
     return null;
   }
 
-  const {
-    extraViewBox = 100,
-    valuesLocator = (d) => d.values,
-    xValueLocator = (d) => d.x,
-    yValueLocator = (d) => d.y,
-    data = [],
-    onMove,
+  const mainDataValues = valuesLocator(mainChartDataLocator(data));
 
-    /*axis*/
-    thresholds,
-    hideAxis = false,
-    xScale,
-    yScaleMore,
-    xAxisAttr,
-    yAxisAttr,
-    scaleW = 500,
-    scaleH = 500,
-
-    /*crosshair*/
-    hideCrosshairX: propsHideCrosshairX,
-    hideCrosshairY: propsHideCrosshairY,
-    hideCrosshairXLabel,
-    hideCrosshairYLabel,
-  } = props;
-
-  let finalExtraViewBox = extraViewBox;
-  if (hideAxis) {
-    finalExtraViewBox = adjustX;
+  if (!mainDataValues) {
+    return null;
   }
-
-  const dataFirstRow = get(data, [0], {});
 
   let thisXScale;
   if (xScale) {
     thisXScale = xScale;
   } else {
-    const xScaleData = get(xAxisAttr, ["data"], () =>
-      valuesLocator(dataFirstRow)
-    );
+    const xScaleData = get(xAxisAttr, ["data"], () => mainDataValues);
+
     if (!xScaleData?.map) {
       console.warn(["Assign wrong xScaleData", xScaleData]);
       return null;
@@ -100,7 +125,7 @@ const useBaseAxisChart = (props) => {
    * Handle yscale
    */
   const yScaleData = get(yAxisAttr, ["data"], () =>
-    valuesLocator(dataFirstRow).map((d) => yValueLocator(d))
+    mainDataValues.map((d) => yValueLocator(d))
   );
   if (!yScaleData) {
     return null;
@@ -140,6 +165,8 @@ const useBaseAxisChart = (props) => {
       callfunc(onMove, [e]);
       setState((prev) => ({
         ...prev,
+        hideCrosshairX: false,
+        hideCrosshairY: false,
         crosshairX: point[0],
         crosshairY: point[1],
       }));
@@ -147,9 +174,15 @@ const useBaseAxisChart = (props) => {
   };
 
   const expose = {
+    xValueLocator,
+    yValueLocator,
+    valuesLocator,
+    attrsLocator,
+    allDataLocator,
     d3,
     xScale: thisXScale,
     yScale,
+    scaleH,
   };
 
   return {
@@ -157,59 +190,63 @@ const useBaseAxisChart = (props) => {
     hideCrosshairY,
     hideCrosshairXLabel,
     hideCrosshairYLabel,
-    finalExtraViewBox,
-    handler,
+    handler: crosshair ? handler : null,
     isLoad,
     scaleW,
     scaleH,
     expose,
-    hideAxis,
+    crosshair,
     crosshairX,
     crosshairY,
+    xAxisAttr,
+    yAxisAttr,
+    thresholds,
+    children,
+    multiChart,
+
+    /*layout*/
+    hideAxis,
+    color,
+    invertedColor,
+    transform,
+    style,
   };
 };
 
 const BaseAxisChart = (props) => {
+  const state = useBaseAxisChart(props) || {};
   const {
-    finalExtraViewBox,
     isLoad,
     handler,
     scaleW,
     scaleH,
     expose,
-    hideAxis,
     hideCrosshairX,
     hideCrosshairY,
     hideCrosshairXLabel,
     hideCrosshairYLabel,
+    crosshair,
     crosshairX,
     crosshairY,
-  } = useBaseAxisChart(props) || {};
-  if (!isLoad) {
-    return null;
-  }
-  const {
-    atom = "svg",
-    width = "100%",
-    preserveAspectRatio = "xMidYMid meet",
-    style,
-
+    xAxisAttr,
+    yAxisAttr,
+    thresholds,
     children,
     multiChart,
 
-    /*axis*/
+    /*layout*/
+    hideAxis,
     color,
     invertedColor,
-    xAxisAttr,
-    yAxisAttr,
+    transform,
+  } = state;
 
-  } = props;
+  if (!isLoad) {
+    return null;
+  }
 
   let xaxis;
   let yaxis;
-  let thresholdLines;
-  let thisCrosshair;
-
   if (!hideAxis) {
     xaxis = (
       <XAxis
@@ -240,6 +277,44 @@ const BaseAxisChart = (props) => {
     );
   }
 
+  const thresholdLines = [];
+  if (thresholds) {
+    thresholds.forEach((threshold, key) => {
+      if (isNaN(threshold)) {
+        return;
+      }
+      const yThreshold = expose.yScale.scaler(threshold);
+      thresholdLines.push(
+        <Line
+          start={{ x: 0, y: yThreshold }}
+          end={{ x: scaleW, y: yThreshold }}
+          stroke="#f00"
+          strokeWidth="2"
+          strokeDasharray="5,5"
+          key={"threshold" + key}
+          style={{ opacity: ".5" }}
+        />
+      );
+    });
+  }
+
+  let thisCrosshair;
+  if (crosshair) {
+    thisCrosshair = (
+      <Crosshair
+        key="crosshair"
+        scaleW={scaleW}
+        scaleH={scaleH}
+        x={crosshairX}
+        y={crosshairY}
+        hideX={hideCrosshairX}
+        hideY={hideCrosshairY}
+        xScale={expose.xScale}
+        yScale={expose.yScale}
+      />
+    );
+  }
+
   const childArr = [
     build(children)({ key: "base-chart", ...expose }),
     xaxis,
@@ -256,23 +331,16 @@ const BaseAxisChart = (props) => {
       style={{ pointerEvents: "all", fill: "none" }}
     />,
   ];
+
   if (multiChart) {
-    return <Group {...props}>{childArr}</Group>;
+    return <Group transform={transform}>{childArr}</Group>;
   } else {
     return (
-      <SemanticUI
-        atom={atom}
-        width={width}
-        preserveAspectRatio={preserveAspectRatio}
-        style={style}
-        viewBox={`0 0 ${Math.round(scaleW + finalExtraViewBox)} ${Math.round(
-          scaleH + finalExtraViewBox
-        )}`}
-      >
+      <ChartElement {...state}>
         <Group transform={`translate(${adjustX}, ${adjustY})`}>
           {childArr}
         </Group>
-      </SemanticUI>
+      </ChartElement>
     );
   }
 };
