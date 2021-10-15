@@ -1,5 +1,5 @@
 import React from "react";
-import { mergeChildren } from "react-atomic-molecule";
+import { mixClass, mergeChildren } from "react-atomic-molecule";
 
 import MultiHArea from "../molecules/MultiHArea";
 import BaseAxisChart from "../molecules/BaseAxisChart";
@@ -17,7 +17,10 @@ const AreaChart = (props) => {
   } = props;
 
   return (
-    <BaseAxisChart {...props} className="area-chart">
+    <BaseAxisChart
+      {...props}
+      className={mixClass("area-chart", props.ClassName)}
+    >
       {mergeChildren(
         <MultiHArea
           data={data}

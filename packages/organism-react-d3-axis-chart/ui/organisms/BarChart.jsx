@@ -1,5 +1,5 @@
 import React, { cloneElement, Children } from "react";
-import { mergeChildren } from "react-atomic-molecule";
+import { mixClass, mergeChildren } from "react-atomic-molecule";
 import get from "get-object-value";
 
 import MultiRect from "../molecules/MultiRect";
@@ -22,7 +22,7 @@ const BarChart = (props) => {
       {...props}
       attrsLocator={attrsLocator}
       mainChartDataLocator={mainChartDataLocator}
-      className="bar-chart"
+      className={mixClass("bar-chart", props.ClassName)}
     >
       {mergeChildren(
         <MultiRect
