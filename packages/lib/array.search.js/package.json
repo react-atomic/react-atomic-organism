@@ -1,8 +1,9 @@
 {
   "name": "array.search.js",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "description": "array search",
   "repository": "react-atomic/react-atomic-organism",
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/array.search.js",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "keywords": [],

@@ -1,22 +1,23 @@
-import { FUNCTION, STRING } from "reshow-constant";
+import { FUNCTION, STRING, KEYS, T_NULL, T_FALSE } from "reshow-constant";
 import shouldBeString from "./shouldBeString";
 import toArray from "./toArray";
 
-// avoid Object.keys("foo") => ["0", "1", "2"]
-const keys = (o) => (null == o || STRING === typeof o ? [] : Object.keys(o));
+// avoid Object.keys("foo") --->> ["0", "1", "2"]
+const keys = (o) => (T_NULL == o || STRING === typeof o ? [] : KEYS(o));
 
 const defaultCb = (t) => t + "";
+
+const HAYSTACK = "haystack";
+
+const NEEDLE = "needle";
 
 const getHaystack = (haystack, needle) =>
   shouldBeString(needle) ? [haystack] : haystack;
 
-const keywordMatch = (haystack, needle) => {
-  return -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
-};
+const keywordMatch = (haystack, needle) =>
+  -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
 
-const exactMatch = (haystack, needle) => {
-  return haystack === needle;
-};
+const exactMatch = (haystack, needle) => haystack === needle;
 
 const doFilter = ({ a, matchFunc, needle, cb = defaultCb }) => {
   const thisNeedle = toArray(needle);
@@ -31,13 +32,13 @@ const doFilter = ({ a, matchFunc, needle, cb = defaultCb }) => {
           thisHaystack,
           thisNeedle,
           key,
-          type: "haystack",
+          type: HAYSTACK,
         }),
         cb(thisNeedle[key], {
           thisHaystack,
           thisNeedle,
           key,
-          type: "needle",
+          type: NEEDLE,
         })
       )
     )
@@ -49,7 +50,7 @@ const getMatchFunc = (exact) =>
 
 const arraySearchFirst = (arr, exact) => (needle, cb) => {
   const matchFunc = getMatchFunc(exact);
-  let result = false;
+  let result = T_FALSE;
   (arr && arr.some ? arr : []).some(
     (a) => doFilter({ a, matchFunc, needle, cb }) && (() => (result = a))()
   );
