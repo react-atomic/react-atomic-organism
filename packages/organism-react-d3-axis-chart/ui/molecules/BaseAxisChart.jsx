@@ -69,13 +69,11 @@ const useBaseAxisChart = (props) => {
   } = resetProps(props);
 
   useEffect(() => {
-    if (hideCrosshairX) {
-      setState((prev) => ({
-        ...prev,
-        crosshairX: propscCosshairX,
-        hideCrosshairY: propsHideCrosshairY,
-      }));
-    }
+    setState((prev) => ({
+      ...prev,
+      crosshairX: propscCosshairX,
+      hideCrosshairY: propsHideCrosshairY,
+    }));
   }, [propscCosshairX, propsHideCrosshairY]);
 
   useEffect(() => {
@@ -163,12 +161,17 @@ const useBaseAxisChart = (props) => {
       const point = mouse(e);
       e.point = point;
       callfunc(onMove, [e]);
+      const nextState = {
+        hideCrosshairX: false,
+        crosshairY: point[1],
+      };
+      if (null == propscCosshairX) {
+        nextState.hideCrosshairY = false;
+        nextState.crosshairX = point[0];
+      }
       setState((prev) => ({
         ...prev,
-        hideCrosshairX: false,
-        hideCrosshairY: false,
-        crosshairX: point[0],
-        crosshairY: point[1],
+        ...nextState,
       }));
     },
   };

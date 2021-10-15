@@ -4,6 +4,7 @@ import get from "get-object-value";
 import getoffset from "getoffset";
 import { win } from "win-doc";
 import { debounce } from "call-func";
+import { useMounted } from "reshow-hooks";
 
 import ChartElement from "../molecules/ChartElement";
 import resetProps from "../../src/resetProps";
@@ -27,6 +28,8 @@ const useMultiChart = (props) => {
     },
     setState,
   ] = useState({});
+
+  const isMounted = useMounted();
 
   const {
     data,
@@ -56,7 +59,7 @@ const useMultiChart = (props) => {
 
     if (!win().__null) {
       import("d3-lib").then(({ scaleBand }) => {
-        setState((prev) => ({
+        isMounted() && setState((prev) => ({
           ...prev,
           d3: {
             scaleBand,

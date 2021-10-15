@@ -87,6 +87,8 @@ const StockChart = (props) => {
           invertedColor,
           xAxisAttr,
           yAxisAttr,
+          data,
+          bbandsLocator,
           ...otherProps,
           ...subCharts[key],
         });
