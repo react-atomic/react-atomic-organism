@@ -1,12 +1,9 @@
-import { FUNCTION } from "reshow-constant";
-
-const callFunc = (func, args, scope) =>
-  FUNCTION === typeof func ? func.apply(scope, args) : func;
+import callfunc from "./callfunc";
 
 const defaultCall =
   (defaultFunc, func, scope) =>
   (...args) =>
-    callFunc(func || defaultFunc, args, scope);
+    callfunc(func || defaultFunc, args, scope);
 
 const isRequired = (name = "param") => {
   throw new Error(`${name} is required`);
@@ -15,11 +12,11 @@ const isRequired = (name = "param") => {
 /**
  * only run lasttime.
  */
-const debounce = (func, delay = 250) => {
+const debounce = (func, defaultDelay) => {
   let timer;
-  return () => {
+  return (delay = 250) => {
     clearTimeout(timer);
-    timer = setTimeout(func, delay);
+    timer = setTimeout(func, defaultDelay || delay);
   };
 };
 
@@ -31,7 +28,7 @@ const throttle = (func, threshhold = 250, needRunLast) => {
   let lastCall = false;
   const run = () => {
     lastCall = false;
-    callFunc(func);
+    callfunc(func);
   };
   return () => {
     lastCall = true;
@@ -48,5 +45,6 @@ const throttle = (func, threshhold = 250, needRunLast) => {
   };
 };
 
-export default callFunc;
+export default callfunc;
 export { defaultCall, isRequired, debounce, throttle };
+export { default as register, cleanAllRegister } from "./register";
