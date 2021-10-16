@@ -14,9 +14,13 @@ const isRequired = (name = "param") => {
  */
 const debounce = (func, defaultDelay) => {
   let timer;
-  return (delay = 250) => {
+  return (option) => {
+    const { delay = 250, args, scope } = option || {};
     clearTimeout(timer);
-    timer = setTimeout(func, defaultDelay || delay);
+    timer = setTimeout(
+      () => callfunc(func, args, scope),
+      defaultDelay || delay
+    );
   };
 };
 
@@ -26,19 +30,20 @@ const debounce = (func, defaultDelay) => {
 const throttle = (func, threshhold = 250, needRunLast) => {
   let waiting = false;
   let lastCall = false;
-  const run = () => {
+  const run = (option) => {
+    const { args, scope } = option || {};
     lastCall = false;
-    callfunc(func);
+    callfunc(func, args, scope);
   };
-  return () => {
+  return (option) => {
     lastCall = true;
     if (!waiting) {
       waiting = true;
-      run();
+      run(option);
       setTimeout(() => {
         waiting = false;
         if (needRunLast && lastCall) {
-          run();
+          run(option);
         }
       }, threshhold);
     }
