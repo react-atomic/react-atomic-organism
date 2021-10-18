@@ -21,7 +21,7 @@ const LineList = forwardRef((props, ref) => {
       setLinesCb.current.push(cb);
     },
   };
-  useImperativeHandle(ref, () => expose);
+  useImperativeHandle(ref, () => expose, []);
   useEffect(() => {
     lastLines.current = lines;
     setTimeout(() => {

@@ -30,7 +30,7 @@ const Line = forwardRef((props, ref) => {
     setEnd,
   };
 
-  useImperativeHandle(ref, () => expose);
+  useImperativeHandle(ref, () => expose, []);
 
   useEffect(() => {
     setStart(propsStart);

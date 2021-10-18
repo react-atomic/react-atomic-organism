@@ -31,7 +31,7 @@ const HTMLGraph = forwardRef((props, ref) => {
   const expose = {
     setTransform,
   };
-  useImperativeHandle(ref, () => expose);
+  useImperativeHandle(ref, () => expose, []);
   return <SemanticUI {...props} style={style} className="html-graph" />;
 });
 
