@@ -13,7 +13,7 @@ import getOffset, { unifyTouch } from "getoffset";
 import callfunc from "call-func";
 import { doc } from "win-doc";
 
-const useDragAndDrop = (props, ref) => {
+const useDragAndDrop = (props) => {
   const startPoint = useRef();
   const lastPoint = useRef({});
   const lastProps = useRef({});
@@ -103,20 +103,21 @@ const useDragAndDrop = (props, ref) => {
     return thisEl.current;
   }, []);
 
-  useImperativeHandle(ref, () => ({
+  const expose = {
     getEl: () => thisEl.current,
     setXY: (x, y) => {
       lastPoint.current.absX = x;
       lastPoint.current.absY = y;
     },
     isDraging: () => isDraging,
-  }));
+  };
 
-  return { handleElChange, isDraging };
+  return { handleElChange, isDraging, expose };
 };
 
 const DragAndDrop = forwardRef((props, ref) => {
-  const { handleElChange, isDraging } = useDragAndDrop(props, ref);
+  const { handleElChange, isDraging, expose } = useDragAndDrop(props);
+  useImperativeHandle(ref, () => expose, []);
 
   return useMemo(() => {
     const {

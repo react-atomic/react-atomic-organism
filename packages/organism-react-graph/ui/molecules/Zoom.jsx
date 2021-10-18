@@ -10,17 +10,33 @@ import callfunc from "call-func";
 
 import Group from "../molecules/Group";
 
-const Zoom = forwardRef((props, ref) => {
-  const { onGetEl, onZoom, scaleExtent, ...others } = props;
+const useZoom = (props) => {
+  const { onGetEl, onZoom, scaleExtent = [-1, 8], ...others } = props;
   const [transform, setTransform] = useState(null);
   const lastEvent = useRef();
   const lastTransform = useRef();
   const lastD3ZoomObject = useRef();
   const lastEnable = useRef();
+
   const getXYK = () => {
     const { x, y, k } = lastTransform.current || {};
     return { x, y, k };
   };
+
+  const handleTransform = (transformVal, e) => {
+    if (!e) {
+      e = { transform: transformVal };
+      const objD3Zoom = lastD3ZoomObject.current;
+      const el = d3Select(callfunc(onGetEl));
+      if (objD3Zoom && el) {
+        objD3Zoom.transform(el, transformVal);
+      }
+    }
+    e.zoom = expose;
+    lastEvent.current = e;
+    setTransform(transformVal);
+  };
+
   const expose = {
     getTransform: () => lastTransform.current,
     setTransform: (transform) => handleTransform(transform),
@@ -57,35 +73,26 @@ const Zoom = forwardRef((props, ref) => {
     },
     getEnabled: () => lastEnable.current,
   };
-  const handleTransform = (transformVal, e) => {
-    if (!e) {
-      e = { transform: transformVal };
-      const objD3Zoom = lastD3ZoomObject.current;
-      const el = d3Select(callfunc(onGetEl));
-      if (objD3Zoom && el) {
-        objD3Zoom.transform(el, transformVal);
-      }
-    }
-    e.zoom = expose;
-    lastEvent.current = e;
-    setTransform(transformVal);
-  };
-  useImperativeHandle(ref, () => expose);
+
   useEffect(() => {
     lastTransform.current = transform;
     lastEvent.current && callfunc(onZoom, [lastEvent.current]);
   }, [transform]);
+
   useEffect(() => {
     expose.enable();
   }, []);
-  return (
-    <Group name="zoom" {...others} transform={transform && transform + ""} />
-  );
-});
 
-Zoom.defaultProps = {
-  scaleExtent: [-1, 8],
+  return { expose, others, transform: transform ? transform + "" : transform };
 };
+
+const Zoom = forwardRef((props, ref) => {
+  const { expose, others, transform } = useZoom(props);
+
+  useImperativeHandle(ref, () => expose, []);
+
+  return <Group name="zoom" {...others} transform={transform} />;
+});
 
 Zoom.displayName = "Zoom";
 
