@@ -20,7 +20,7 @@ const AnimateImageComp = (props, ref) => {
 
   useImperativeHandle(ref, () => ({
     getImageObject: () => oImg.current,
-  }));
+  }), []);
 
   useEffect(() => {
     _mount.current = true;
