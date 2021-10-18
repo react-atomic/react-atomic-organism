@@ -11,27 +11,17 @@ import callfunc from "call-func";
 
 let iframeCount = 0;
 
-const IframeContainer = forwardRef((props, ref) => {
-  const { src, style, messageKey, ...others } = props;
+const useIframeContainer = (props) => {
+  const { src, style, messageKey = "iframeH", ...others } = props;
   const [iframeH, setIframeH] = useState("auto");
   const thisMessageKey = useRef();
-  const thisStyle = useRef();
-  useImperativeHandle(ref, () => ({
-    postHeight: (win) => {
-      setTimeout(() => {
-        win?.parent?.window.postMessage(
-          {
-            type: thisMessageKey.current,
-            h: win.document.body.offsetHeight,
-          },
-          "*"
-        );
-      });
-    },
-  }));
+
   useEffect(() => {
     thisMessageKey.current = messageKey + "-" + iframeCount;
     iframeCount++;
+  }, [messageKey]);
+
+  useEffect(() => {
     const handleMessage = (e) => {
       let data = e.data;
       if ("string" === typeof data) {
@@ -49,21 +39,44 @@ const IframeContainer = forwardRef((props, ref) => {
       window.removeEventListener("message", handleMessage, false);
     };
   }, []);
+
   if (src) {
     others.src = src;
   }
-  thisStyle.current = {
+
+  const thisStyle = {
     ...Styles.iframe,
     height: iframeH,
     minHeight: iframeH,
     ...style,
   };
-  return <SemanticUI {...others} style={thisStyle.current} atom="iframe" />;
-});
 
-IframeContainer.defaultProps = {
-  messageKey: "iframeH",
+  const expose = {
+    postHeight: (win) => {
+      setTimeout(() => {
+        win?.parent?.window.postMessage(
+          {
+            type: thisMessageKey.current,
+            h: win.document.body.offsetHeight,
+          },
+          "*"
+        );
+      });
+    },
+  };
+
+  return {
+    style: thisStyle,
+    others,
+    expose,
+  };
 };
+
+const IframeContainer = forwardRef((props, ref) => {
+  const { style, others, expose } = useIframeContainer(props);
+  useImperativeHandle(ref, () => expose, []);
+  return <SemanticUI {...others} style={style} atom="iframe" />;
+});
 
 export default IframeContainer;
 

@@ -3,9 +3,7 @@ import gJsdom from 'jsdom-global';
 import {ResourceLoader} from 'jsdom';
 
 import {expect} from 'chai';
-import {shallow, mount, configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-configure({adapter: new Adapter()});
+import {shallow, mount} from 'reshow-unit';
 
 import Iframe from '../Iframe';
 
