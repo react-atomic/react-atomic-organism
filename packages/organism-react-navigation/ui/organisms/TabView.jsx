@@ -99,18 +99,18 @@ const handleSelected = ({
   };
 };
 
-const TabView = forwardRef((props, ref) => {
+const useTabView = (props) => {
   const {
+    disableSwitch = false,
+    rwd = true,
+    selected: propsSelected = true,
+    menu = SemanticUI,
+    body = SemanticUI,
     id,
     style,
-    selected: propsSelected,
     children,
     contentStyle,
     menuStyle,
-    menu,
-    body,
-    disableSwitch,
-    rwd,
     leftMenu,
     rightMenu,
     bottom,
@@ -132,10 +132,6 @@ const TabView = forwardRef((props, ref) => {
       current: val,
     }));
 
-  useImperativeHandle(ref, () => ({
-    getSelected: () => thisSelected.current,
-  }));
-
   useEffect(() => {
     if (propsSelected !== lastPropsSelected.current) {
       lastPropsSelected.current = propsSelected;
@@ -154,7 +150,6 @@ const TabView = forwardRef((props, ref) => {
       });
     }
   }, [lastSelected]);
-
   let selectResult = handleSelected({
     nextSelect: lastSelected.current,
     children,
@@ -179,7 +174,6 @@ const TabView = forwardRef((props, ref) => {
     }
   }
   const { contentView, tabMenuItems } = selectResult;
-
   // Tab Menu
   if (leftMenu) {
     tabMenuItems.push(build(leftMenu)({ key: "l-menu" }));
@@ -193,6 +187,41 @@ const TabView = forwardRef((props, ref) => {
     vertical: left || right,
     stackable: rwd,
   };
+
+  const expose = {
+    getSelected: () => thisSelected.current,
+  };
+
+  return {
+    contentView,
+    tabMenuItems,
+    menuOpt,
+    menuStyle,
+    menu,
+    body,
+    contentStyle,
+    expose,
+    id,
+    style,
+  };
+};
+
+const TabView = forwardRef((props, ref) => {
+  const {
+    contentView,
+    tabMenuItems,
+    menuOpt,
+    menuStyle,
+    menu,
+    body,
+    contentStyle,
+    expose,
+    id,
+    style,
+  } = useTabView(props);
+
+  useImperativeHandle(ref, () => expose, []);
+
   const menuClasses = mixClass("attached tabular menu", menuOpt);
   const tabMenu = build(menu)(
     {
@@ -225,14 +254,6 @@ const TabView = forwardRef((props, ref) => {
     </SemanticUI>
   );
 });
-
-TabView.defaultProps = {
-  disableSwitch: false,
-  rwd: true,
-  selected: true,
-  body: SemanticUI,
-  menu: SemanticUI,
-};
 
 TabView.displayName = "TabView";
 
