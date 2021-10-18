@@ -15,7 +15,7 @@ const PageLoadProgress = forwardRef((props, ref) => {
   const { name, zIndex, isFloat, isRunning, ajax, barProps } = props;
 
   const { expose, opacity, percent } = useProgress(props);
-  useImperativeHandle(ref, () => expose);
+  useImperativeHandle(ref, () => expose, []);
 
   useEffect(() => {
     if (ajax && null != isRunning) {

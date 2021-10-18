@@ -11,7 +11,7 @@ const ProgressBar = forwardRef((props, ref) => {
     ...otherProps
   } = props;
   const { expose, percent } = useProgress(props, propsPercent);
-  useImperativeHandle(ref, () => expose);
+  useImperativeHandle(ref, () => expose, []);
 
   return (
     <Progress
