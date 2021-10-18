@@ -2,13 +2,13 @@ import React from "react";
 import { expect } from "chai";
 import { mount } from "reshow-unit";
 
-import AjaxForm from "../AjaxForm";
+import AjaxLink from "../AjaxLink";
 
-describe("AjaxForm Test", () => {
+describe("AjaxLink Test", () => {
   it("basic test", () => {
-    const vDom = <AjaxForm />;
+    const vDom = <AjaxLink />;
     const wrap = mount(vDom);
     const html = wrap.html();
-    expect(html).to.have.string("form");
+    expect(html).to.have.string("href");
   });
 });

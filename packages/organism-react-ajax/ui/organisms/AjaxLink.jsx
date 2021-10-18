@@ -11,18 +11,19 @@ import ajaxStore from "../../src/stores/ajaxStore";
 import { ajaxDispatch } from "../../src/ajaxDispatcher";
 import isRunAjax from "../../src/isRunAjax";
 
-const AjaxLink = forwardRef((props, ref) => {
+const useAjaxLink = (props) => {
   const {
+    updateUrl = true,
+    disableRandom = false,
+    component = "a",
     ajax,
     target,
-    component,
     callback,
     errorCallback,
     path,
     href,
-    updateUrl,
-    disableRandom,
     onClick,
+    onTouchStart,
     ...rest
   } = props;
 
@@ -49,47 +50,53 @@ const AjaxLink = forwardRef((props, ref) => {
     },
     [target]
   );
-  const go = useCallback(
-    (url) => {
-      const { href, callback, errorCallback, updateUrl, disableRandom } = props;
-      url = url || href;
-      ajaxDispatch("ajaxGet", {
-        disableAjax: !isRunAjax(props),
-        url,
-        updateUrl,
-        disableRandom,
-        callback,
-        errorCallback,
-      });
-    },
-    [props]
-  );
 
-  useImperativeHandle(ref, () => ({ go }));
+  const expose = {
+    go: useCallback(
+      (url) => {
+        url = url || href;
+        ajaxDispatch("ajaxGet", {
+          disableAjax: !isRunAjax({ ajax }),
+          url,
+          updateUrl,
+          disableRandom,
+          callback,
+          errorCallback,
+        });
+      },
+      [href, callback, errorCallback, updateUrl, disableRandom, ajax]
+    ),
+  };
 
-  const thisHref = ajaxStore.getRawUrl({
-    path,
-    url: href,
-  });
-  let onTouchStart = props.onTouchStart;
-  if (true === onTouchStart) {
-    onTouchStart = handleClick(onTouchStart)("touchStart");
-  }
+  return {
+    expose,
+    component,
+    rest,
+    target,
+    href: ajaxStore.getRawUrl({ path, url: href }),
+    onTouchStart:
+      true === onTouchStart
+        ? handleClick(onTouchStart)("touchStart")
+        : onTouchStart,
+    onClick: handleClick(onClick)("click"),
+  };
+};
+
+const AjaxLink = forwardRef((props, ref) => {
+  const { expose, component, rest, target, href, onTouchStart, onClick } =
+    useAjaxLink(props);
+
+  useImperativeHandle(ref, () => expose, []);
+
   return build(component)({
     ...rest,
-    target,
     ref,
-    href: thisHref,
+    target,
+    href,
     onTouchStart,
-    onClick: handleClick(onClick)("click"),
+    onClick,
   });
 });
-
-AjaxLink.defaultProps = {
-  updateUrl: true,
-  disableRandom: false,
-  component: "a",
-};
 
 AjaxLink.displayName = "AjaxLink";
 
