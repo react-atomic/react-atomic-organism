@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + chunkId + "." + "28410493ba7f1ca009b1" + ".bundle.js"
+/******/ 		return __webpack_require__.p + "" + chunkId + "." + "9ab88db1f3db68e0f90b" + ".bundle.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -344,11 +344,15 @@ var TypingItem = function TypingItem(props) {
 
 var useTyping = function useTyping(props) {
   injects = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["useLazyInject"])(InjectStyles);
-  var autoStart = props.autoStart,
+  var _props$autoStart = props.autoStart,
+      autoStart = _props$autoStart === void 0 ? true : _props$autoStart,
+      _props$sec = props.sec,
+      sec = _props$sec === void 0 ? 2 : _props$sec,
+      _props$color = props.color,
+      color = _props$color === void 0 ? "#000" : _props$color,
+      _props$height = props.height,
+      propsHeight = _props$height === void 0 ? 80 : _props$height,
       children = props.children,
-      propsHeight = props.height,
-      sec = props.sec,
-      color = props.color,
       background = props.background;
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(autoStart),
@@ -361,6 +365,7 @@ var useTyping = function useTyping(props) {
       typingItemStyles = _useState6[0],
       setTypingItemStyles = _useState6[1];
 
+  var height = parseInt(propsHeight, 10);
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
     var update = function update(props) {
       if (!children) {
@@ -368,7 +373,6 @@ var useTyping = function useTyping(props) {
       }
 
       var itemLength = children.length;
-      var height = parseInt(propsHeight, 10);
       var aniName = "typingNextLine";
       var styleId = aniName + "-" + itemLength + "-" + height;
       var typingItemStyles = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["reactStyle"])({
@@ -385,7 +389,7 @@ var useTyping = function useTyping(props) {
     };
 
     update(props);
-  }, [children === null || children === void 0 ? void 0 : children.length, propsHeight, sec]);
+  }, [children === null || children === void 0 ? void 0 : children.length, height, sec]);
   var expose = {
     start: function start() {
       setIsRun(true);
@@ -411,37 +415,35 @@ var useTyping = function useTyping(props) {
 
   return {
     expose: expose,
-    items: items
+    items: items,
+    color: color,
+    background: background,
+    height: height
   };
 };
 
 var Typing = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_3__["forwardRef"])(function (props, ref) {
   var _useTyping = useTyping(props),
       items = _useTyping.items,
-      expose = _useTyping.expose;
+      expose = _useTyping.expose,
+      color = _useTyping.color,
+      background = _useTyping.background,
+      height = _useTyping.height;
 
   Object(react__WEBPACK_IMPORTED_MODULE_3__["useImperativeHandle"])(ref, function () {
     return expose;
-  });
+  }, []);
   return Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
-    var atts = {
-      color: props.color,
-      background: props.background,
-      height: props.height
-    };
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["SemanticUI"], {
       className: "react-typing",
-      style: Object(reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Styles.typingContainer), atts)
+      style: Object(reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Styles.typingContainer), {}, {
+        color: color,
+        background: background,
+        height: height
+      })
     }, items);
-  }, [items]);
+  }, [items, color, background, height]);
 });
-Typing.defaultProps = {
-  height: 80,
-  color: "#000",
-  background: null,
-  sec: 2,
-  autoStart: true
-};
 Typing.displayName = "Typing";
 /* harmony default export */ __webpack_exports__["default"] = (Typing);
 var Styles = {

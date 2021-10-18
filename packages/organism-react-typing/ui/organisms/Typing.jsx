@@ -81,22 +81,23 @@ const TypingItem = (props) => {
 const useTyping = (props) => {
   injects = useLazyInject(InjectStyles);
   const {
-    autoStart,
+    autoStart = true,
+    sec = 2,
+    color = "#000",
+    height: propsHeight = 80,
     children,
-    height: propsHeight,
-    sec,
-    color,
     background,
   } = props;
   const [isRun, setIsRun] = useState(autoStart);
   const [typingItemStyles, setTypingItemStyles] = useState();
+  const height = parseInt(propsHeight, 10);
+
   useEffect(() => {
     const update = (props) => {
       if (!children) {
         return null;
       }
       const itemLength = children.length;
-      const height = parseInt(propsHeight, 10);
       const aniName = "typingNextLine";
       const styleId = aniName + "-" + itemLength + "-" + height;
       const typingItemStyles = reactStyle(
@@ -118,7 +119,8 @@ const useTyping = (props) => {
       setTypingItemStyles(typingItemStyles);
     };
     update(props);
-  }, [children?.length, propsHeight, sec]);
+  }, [children?.length, height, sec]);
+
   const expose = {
     start: () => {
       setIsRun(true);
@@ -139,39 +141,28 @@ const useTyping = (props) => {
     });
   }
 
-  return { expose, items };
+  return { expose, items, color, background, height };
 };
 
 const Typing = forwardRef((props, ref) => {
-  const { items, expose } = useTyping(props);
-  useImperativeHandle(ref, () => expose);
+  const { items, expose, color, background, height } = useTyping(props);
+  useImperativeHandle(ref, () => expose, []);
   return useMemo(() => {
-    const atts = {
-      color: props.color,
-      background: props.background,
-      height: props.height,
-    };
     return (
       <SemanticUI
         className="react-typing"
         style={{
           ...Styles.typingContainer,
-          ...atts,
+          color,
+          background,
+          height,
         }}
       >
         {items}
       </SemanticUI>
     );
-  }, [items]);
+  }, [items, color, background, height]);
 });
-
-Typing.defaultProps = {
-  height: 80,
-  color: "#000",
-  background: null,
-  sec: 2,
-  autoStart: true,
-};
 
 Typing.displayName = "Typing";
 export default Typing;
