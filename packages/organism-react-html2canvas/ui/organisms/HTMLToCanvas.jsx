@@ -41,7 +41,7 @@ const HTMLToCanvasComp = (props, ref) => {
 
   useImperativeHandle(ref, () => ({
     getCanvas: (onCanvas) => getCanvas(onCanvas),
-  }));
+  }), []);
 
   const getCanvas = (canvasCallback) => {
     const oIframe = iframe.current;

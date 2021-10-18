@@ -42,7 +42,7 @@ const HTMLToPDF = (props, ref) => {
     download: () => {
       canvas?.current?.getCanvas(execDownload);
     },
-  }));
+  }), []);
 
   return (
     <HTMLToCanvas
