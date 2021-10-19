@@ -29,6 +29,21 @@ const useAjaxLink = (props) => {
 
   const isAlreadyTouchStart = useRef(false);
 
+  const go = useCallback(
+    (url) => {
+      url = url || href;
+      ajaxDispatch("ajaxGet", {
+        disableAjax: !isRunAjax({ ajax }),
+        url,
+        updateUrl,
+        disableRandom,
+        callback,
+        errorCallback,
+      });
+    },
+    [href, callback, errorCallback, updateUrl, disableRandom, ajax]
+  );
+
   const handleClick = useCallback(
     (callback) => (type) => (e) => {
       if ("_blank" !== target) {
@@ -51,22 +66,7 @@ const useAjaxLink = (props) => {
     [target]
   );
 
-  const expose = {
-    go: useCallback(
-      (url) => {
-        url = url || href;
-        ajaxDispatch("ajaxGet", {
-          disableAjax: !isRunAjax({ ajax }),
-          url,
-          updateUrl,
-          disableRandom,
-          callback,
-          errorCallback,
-        });
-      },
-      [href, callback, errorCallback, updateUrl, disableRandom, ajax]
-    ),
-  };
+  const expose = { go };
 
   return {
     expose,
