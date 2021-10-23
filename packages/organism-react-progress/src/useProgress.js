@@ -6,15 +6,19 @@ import React, {
   useCallback,
 } from "react";
 
+import { useTimer } from "reshow-hooks";
+
 const useProgress = (props, propsPercent) => {
   const [percent, setPercent] = useState(() =>
     null != propsPercent ? propsPercent : 0
   );
   const [opacity, setOpacity] = useState(0);
   const lastPercent = useRef(0);
-  const _timer = useRef();
-  const _timerComplete = useRef();
-  const _timerReset = useRef();
+
+  const [runTick, stopTick] = useTimer(true);
+  const [runComplete, stopComplete] = useTimer();
+  const [runReset, stopReset] = useTimer();
+  const [runOpacity] = useTimer();
 
   const _start = (goToPercent) => {
     if (!goToPercent || goToPercent > 100) {
@@ -30,7 +34,7 @@ const useProgress = (props, propsPercent) => {
       return expose.complete();
     } else {
       setPercent(end);
-      setTimeout(() => setOpacity(1));
+      runOpacity(() => setOpacity(1));
     }
   };
 
@@ -44,49 +48,29 @@ const useProgress = (props, propsPercent) => {
     }
   }, [propsPercent]);
 
-  useEffect(() => {
-    return () => {
-      expose.pause();
-    };
-  }, []);
-
   const expose = {
     complete: () => {
       expose.pause();
       setPercent(100);
-      _timerComplete.current = setTimeout(() => {
-        expose.reset();
-      }, 500);
+      runComplete(() => expose.reset(), 500);
     },
     reset: (thisPercent) => {
       thisPercent = thisPercent || 0;
       setOpacity(thisPercent);
-      _timerReset.current = setTimeout(() => {
-        setPercent(thisPercent);
-      });
+      runReset(() => setPercent(thisPercent));
     },
     pause: () => {
-      if (_timer.current) {
-        clearInterval(_timer.current);
-      }
-      if (_timerComplete.current) {
-        clearTimeout(_timerComplete.current);
-      }
-      if (_timerReset.current) {
-        clearTimeout(_timerReset.current);
-      }
+      stopTick();
+      stopComplete();
+      stopReset();
     },
     start: useCallback(
       (goToPercent, delay) => {
-        if (_timer.current) {
-          clearInterval(_timer.current);
-        }
+        stopTick();
         if (null == delay) {
           delay = props.delay;
         }
-        _timer.current = setInterval(() => {
-          _start(goToPercent);
-        }, delay);
+        runTick(() => _start(goToPercent), delay);
       },
       [props.delay]
     ),
