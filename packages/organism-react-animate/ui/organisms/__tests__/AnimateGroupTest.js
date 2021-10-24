@@ -23,21 +23,23 @@ describe("Animate", () => {
 });
 
 describe("AnimateGroup", () => {
+  const comp = {AnimateGroup};
+
   before(() => {
-    sandbox.spy(AnimateGroup.prototype, "render");
+    sandbox.spy(comp);
   });
   after(() => {
     sandbox.restore();
   });
   it("Test handleExit", () => {
     let vDom = (
-      <AnimateGroup timeout={1000}>
+      <comp.AnimateGroup timeout={1000}>
         <div>abc</div>
-      </AnimateGroup>
+      </comp.AnimateGroup>
     );
     const html = mount(vDom);
-    expect(AnimateGroup.prototype.render.callCount).to.equal(1);
+    expect(comp.AnimateGroup.callCount).to.equal(1);
     html.setProps({ children: null });
-    expect(AnimateGroup.prototype.render.callCount).to.equal(2);
+    expect(comp.AnimateGroup.callCount).to.equal(2);
   });
 });
