@@ -11,11 +11,12 @@ killBy(){
 
 stop(){
     DIR="$( cd "$(dirname "$0")" ; pwd -P )"
-    killBy ${DIR}/node_modules/.bin/babel 
+    killBy ${DIR}/node_modules/.bin/babel && echo "Stop done" 
 }
 
 watch(){
     stop 
+    echo "Watch Mode";
     npm run build:cjs:ui -- --watch &
     npm run build:cjs:src -- --watch &
     npm run build:es:ui -- --watch &

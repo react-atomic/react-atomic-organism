@@ -1,10 +1,8 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import ParallaxBackground from "../organisms/ParallaxBackground";
 import { SemanticUI } from "react-atomic-molecule";
 
-class ParallaxBackgroundImage extends PureComponent {
-  render() {
-    const { backgroundImage, ...others } = this.props;
+const ParallaxBackgroundImage = ({backgroundImage, ...others}) => {
     let thisBackgroundImage = null;
     if (backgroundImage) {
       thisBackgroundImage = (
@@ -18,8 +16,7 @@ class ParallaxBackgroundImage extends PureComponent {
       );
     }
     return <ParallaxBackground {...others} background={thisBackgroundImage} />;
-  }
-}
+};
 
 export default ParallaxBackgroundImage;
 
