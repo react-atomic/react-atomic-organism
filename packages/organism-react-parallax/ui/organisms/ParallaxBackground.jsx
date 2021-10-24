@@ -163,7 +163,7 @@ const ParallaxContent = (props) => {
   );
 };
 
-const ParallaxBackgroundImage = ({
+const ParallaxBackground = ({
   container = ParallaxContent,
   noDelay = true,
   speed = 0.5,
@@ -179,7 +179,7 @@ const ParallaxBackgroundImage = ({
   />
 );
 
-export default ParallaxBackgroundImage;
+export default ParallaxBackground;
 
 const Styles = {
   content: {
