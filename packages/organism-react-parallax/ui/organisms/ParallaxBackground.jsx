@@ -78,15 +78,11 @@ const useParallax = (props) => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
+    if (scrollInfoTop) {
       const posY = calOffset(lastCalData.current);
       if (posY) {
         handleScrollAni(posY, setPosY);
       }
-    };
-
-    if (scrollInfoTop) {
-      handleScroll();
     }
   }, [isOnScreen, targetInfoTop, targetInfoH, scrollInfoTop, scrollNodeHeight]);
 

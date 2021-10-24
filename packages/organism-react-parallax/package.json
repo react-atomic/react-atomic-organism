@@ -1,6 +1,6 @@
 {
   "name": "organism-react-parallax",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "React parallax",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
