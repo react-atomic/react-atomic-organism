@@ -69,15 +69,15 @@ const useParallax = (props) => {
   const { top: scrollInfoTop, scrollNodeHeight } = scrollInfo || {};
 
   const [posY, setPosY] = useState(0);
-  const lastCalData = useRef();
-  lastCalData.current = {
-    ...lastCalData.current,
-    speed,
-    targetInfo,
-    scrollInfo,
-  };
+  const lastCalData = useRef({});
 
   useEffect(() => {
+    lastCalData.current = {
+      ...lastCalData.current,
+      speed,
+      targetInfo,
+      scrollInfo,
+    };
     if (scrollInfoTop) {
       const posY = calOffset(lastCalData.current);
       if (posY) {
