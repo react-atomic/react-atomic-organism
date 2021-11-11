@@ -13,9 +13,9 @@ jobs:
     steps:
       - checkout
       - node/install:
-          lts: true
+          node-version: "14"
           install-yarn: true
-          npm-version: "6"
+          install-npm: false
       - run:
           name: "Display information"
           command: |
@@ -44,7 +44,6 @@ workflows:
     jobs:
       - test:
           matrix:
-            name: test-<< matrix.test-dir >>
             parameters:
               test-dir:
                 - "./"
