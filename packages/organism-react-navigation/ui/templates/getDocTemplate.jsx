@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   min,
   mixClass,
   mergeStyleConfig,
-  lazyInject,
+  useLazyInject,
   Segment,
   SemanticUI,
 } from "react-atomic-molecule";
@@ -228,9 +228,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     style,
     ...others
   }) => {
-    useEffect(() => {
-      injects = lazyInject(injects, InjectStyles);
-    }, []);
+    injects = useLazyInject(InjectStyles, injects);
     return (
       <Segment
         {...others}
