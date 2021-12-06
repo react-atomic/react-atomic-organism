@@ -55,3 +55,4 @@ workflows:
                 - "packages/lib/get-cookie"
                 - "packages/organism-react-ajax"
                 - "packages/organism-react-animate"
+                - "packages/organism-react-navigation"
