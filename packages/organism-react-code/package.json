@@ -1,6 +1,6 @@
 {
   "name": "organism-react-code",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "description": "React Code Example",
   "repository": "react-atomic/react-atomic-organism",
   "module": "./build/es/src/index.js",
@@ -13,24 +13,18 @@
   "license": "MIT",
   "dependencies": {
     "call-func": "*",
-    "syntax-colorer": "*",
-    "marked": "*",
+    "marked": "^4.x",
     "organism-react-ajax": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
-    "ricon": "*"
+    "ricon": "*",
+    "syntax-colorer": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "enzyme": "*",
-    "enzyme-adapter-react-16": "*",
-    "jsdom": "*",
-    "jsdom-global": "*",
-    "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "reshow-unit": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

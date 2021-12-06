@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import marked from "marked";
+import { marked } from "marked";
 import { ajaxDispatch } from "organism-react-ajax";
 import { Segment, Unsafe } from "react-atomic-molecule";
 

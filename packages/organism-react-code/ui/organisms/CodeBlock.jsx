@@ -1,5 +1,5 @@
 import React from "react";
-import marked from "marked";
+import { marked } from "marked";
 import { Unsafe } from "react-atomic-molecule";
 import highlight from "syntax-colorer";
 
