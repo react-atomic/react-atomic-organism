@@ -1,5 +1,5 @@
 import { getScrollNode } from "get-scroll-info";
-import { easeInOutCubic, EasingProcessor } from "easing-lib";
+import { easeInOutCubic, aniTimer } from "easing-lib";
 
 let isRunning = false;
 
@@ -34,18 +34,20 @@ const smoothScrollTo = (to, duration, el, callback) => {
     cb();
     return;
   }
-  EasingProcessor({
-    duration,
-    isContinue: (elapsedTime) => {
-      const progress = easeInOutCubic(elapsedTime, from, go, duration);
-      scrollNode.scrollTop = progress;
-      if (isRunning) {
+  aniTimer(
+    {
+      isContinue: (elapsedTime) => {
+        const progress = easeInOutCubic(elapsedTime, from, go, duration);
+        scrollNode.scrollTop = progress;
+        if (isRunning) {
           return true;
-      }
+        }
+      },
+      cancel: () => (isRunning = false),
+      done: () => (isRunning = false),
     },
-    cancel: () => isRunning = false,
-    stop: () => isRunning = false
-  });
+    duration
+  );
   isRunning = true;
 };
 

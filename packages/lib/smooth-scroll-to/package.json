@@ -1,6 +1,6 @@
 {
   "name": "smooth-scroll-to",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "Smooth scroll to library",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -17,10 +17,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "jsdom": "*",
-    "jsdom-global": "*",
-    "mocha": "*"
+    "reshow-unit": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
@@ -30,7 +27,7 @@
     "mochaFor": "mocha -r jsdom-global/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
