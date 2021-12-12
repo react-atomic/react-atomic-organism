@@ -1,5 +1,5 @@
 import { getScrollNode } from "get-scroll-info";
-import { easeInOutCubic, EasingProcessor } from "easing-lib/easeInOutCubic";
+import { easeInOutCubic, EasingProcessor } from "easing-lib";
 
 let isRunning = false;
 
