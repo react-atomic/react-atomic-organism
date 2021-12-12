@@ -1,20 +1,12 @@
-React Animate 
+Parallax 
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-scroll-animate
+      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-parallax
    * NPM
-      * https://npm.im/organism-react-scroll-animate
+      * https://npm.im/organism-react-parallax
 
 ## Example Usage
 Demo Url:
-http://react-atomic.github.io/react-atomic-organism/packages/organism-react-scroll-animate/index.html
+https://react-atomic-ui.js.org/#/Parallax
 
-Code:
-https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-scroll-animate/ui/pages/index.jsx
-
-## Props
-* tell scrollSpy to handle event
-```
-monitorScroll: true 
-```
 

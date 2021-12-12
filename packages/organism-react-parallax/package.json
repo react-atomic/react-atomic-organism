@@ -1,6 +1,6 @@
 {
   "name": "organism-react-parallax",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "React parallax",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -15,7 +15,6 @@
   "license": "MIT",
   "dependencies": {
     "array.merge": "*",
-    "easing-lib": "*",
     "get-scroll-info": "*",
     "getoffset": "*",
     "organism-react-scroll-nav": "*",

@@ -6,7 +6,6 @@ import getOffset from "getoffset";
 import merge from "array.merge";
 import { win } from "win-doc";
 import callfunc from "call-func";
-import aniCal from "easing-lib/easeOutQuart";
 
 const calOffset = ({ el, speed, targetInfo, scrollInfo }) => {
   let elOffset;
@@ -15,36 +14,24 @@ const calOffset = ({ el, speed, targetInfo, scrollInfo }) => {
   } else {
     elOffset = targetInfo;
   }
-
   if (!elOffset) {
     return;
   }
-  const { top: scrollInfoTop, scrollNodeHeight } = scrollInfo || {};
   const { top: elOffsetTop = 0, h: elOffsetH } = elOffset;
-  const elViewTop = elOffsetTop - scrollInfoTop;
-  const scrollDist = (speed * (elOffsetH + scrollNodeHeight)) / 2;
-  const viewCenter =
-    1 - (2 * (scrollNodeHeight - elViewTop)) / (scrollNodeHeight + elOffsetH);
-  const posY = Math.abs(Math.round(scrollDist * viewCenter - elViewTop));
+
+  const posY = speed * (scrollInfo.top - elOffsetTop);
   return posY;
 };
 
-const handleScrollAni = (posY, setPosY) => {
-  let beginTimeStamp = 0;
+const handleScrollAni = (nextY, setPosY) => {
   const runScrollAni = (timeStamp) => {
-    beginTimeStamp = beginTimeStamp || timeStamp;
-    const elapsedTime = timeStamp - beginTimeStamp;
     setPosY((prevPosY) => {
-      const go = posY - prevPosY;
-      const duration = 1000;
-      const nextPosY = Math.round(aniCal(elapsedTime, posY, go, duration));
-      if (elapsedTime < duration && nextPosY !== posY) {
-        requestAnimationFrame(runScrollAni);
-      }
-      return nextPosY;
+      return {
+        val: nextY,
+      };
     });
   };
-  requestAnimationFrame(runScrollAni);
+  runScrollAni();
 };
 
 const useParallax = (props) => {
@@ -68,7 +55,7 @@ const useParallax = (props) => {
 
   const { top: scrollInfoTop, scrollNodeHeight } = scrollInfo || {};
 
-  const [posY, setPosY] = useState(0);
+  const [posY, setPosY] = useState({ val: 0 });
   const lastCalData = useRef({});
 
   useEffect(() => {
@@ -78,10 +65,10 @@ const useParallax = (props) => {
       targetInfo,
       scrollInfo,
     };
-    if (scrollInfoTop) {
-      const posY = calOffset(lastCalData.current);
-      if (posY) {
-        handleScrollAni(posY, setPosY);
+    if (!isNaN(scrollInfoTop)) {
+      const nextY = calOffset(lastCalData.current);
+      if (!isNaN(nextY)) {
+        handleScrollAni(nextY, setPosY);
       }
     }
   }, [isOnScreen, targetInfoTop, targetInfoH, scrollInfoTop, scrollNodeHeight]);
@@ -89,10 +76,8 @@ const useParallax = (props) => {
   useEffect(() => {
     const handleResize = () => {
       lastCalData.current.scrollInfo = getScrollInfo();
-      const posY = calOffset(lastCalData.current);
-      if (posY) {
-        setPosY(posY);
-      }
+      const nextY = calOffset(lastCalData.current);
+      setPosY({ val: nextY });
     };
     callfunc(win().addEventListener, ["resize", handleResize]);
     return () => {
@@ -124,21 +109,25 @@ const useParallax = (props) => {
   }, [style, styles]);
 
   const layerStyles = useMemo(() => {
-    return reactStyle(
-      {
-        ...Styles.backgroundLayer,
-        transform: [`translate3d(0, ${posY}px, 0)`],
-      },
-      false,
-      false
-    );
-  }, [posY]);
+    if (!isNaN(posY.val)) {
+      return reactStyle(
+        {
+          ...Styles.backgroundLayer,
+          transform: [`translate3d(0, ${posY.val}px, 0)`],
+        },
+        false,
+        false
+      );
+    }
+  }, [posY.val]);
+
+  const thisBackground = layerStyles ? background : null;
 
   return {
     handler,
     styles,
     layerStyles,
-    background,
+    background: thisBackground,
     children,
     others,
   };
@@ -185,7 +174,7 @@ const Styles = {
   },
   background: {
     position: "absolute",
-    top: "-60%",
+    top: 0,
     left: 0,
     zIndex: -1,
     willChange: "scroll-position",

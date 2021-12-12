@@ -26,8 +26,8 @@ const Styles = {
     backgroundPosition: "50% 50%",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
-    width: "100vw",
-    height: "150vh",
+    minWidth: "100vw",
+    minHeight: "100vh",
     willChange: "scroll-position",
   },
 };
