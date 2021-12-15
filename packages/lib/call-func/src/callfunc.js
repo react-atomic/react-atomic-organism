@@ -1,6 +1,6 @@
-import { FUNCTION } from "reshow-constant";
+import { FUNCTION, UNDEFINED } from "reshow-constant";
 
-const callFunc = (func, args, scope) =>
-  FUNCTION === typeof func ? func.apply(scope, args) : func;
+const callFunc = (func, args, scope, def) =>
+  FUNCTION === typeof func ? func.apply(scope, args) : (UNDEFINED !== typeof def) ? def : func;
 
 export default callFunc;
