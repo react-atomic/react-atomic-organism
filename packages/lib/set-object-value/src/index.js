@@ -10,20 +10,21 @@ const replaceValue = (obj, arrPath, val, isAppend, unSafe) => {
     throw "Contain un-safe key.";
   }
   const last = arrPath.pop();
+  let linkObj = obj;
   arrPath.forEach((k) => {
-    obj[k] = obj[k] ?? Object.create(null);
-    obj = obj[k];
+    linkObj[k] = linkObj[k] ?? Object.create(null);
+    linkObj = linkObj[k];
   });
-  if (isAppend && (!obj[last] || !obj[last].push)) {
-    if (!obj[last]) {
-      obj[last] = [val];
+  if (isAppend && (!linkObj[last] || !linkObj[last].push)) {
+    if (!linkObj[last]) {
+      linkObj[last] = [val];
     } else {
-      obj[last] = [obj[last], val];
+      linkObj[last] = [linkObj[last], val];
     }
-  } else if (isAppend && obj[last].push) {
-    obj[last].push(val);
+  } else if (isAppend && linkObj[last].push) {
+    linkObj[last].push(val);
   } else {
-    obj[last] = val;
+    linkObj[last] = val;
   }
 };
 

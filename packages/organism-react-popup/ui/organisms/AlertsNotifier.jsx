@@ -1,6 +1,8 @@
-import React, { PureComponent, Component } from "react";
+import React, { PureComponent, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Set } from "immutable";
+
+import { Set } from "reshow-flux";
+import { useTimer } from "reshow-hooks";
 import Animate from "organism-react-animate";
 import XIcon from "ricon/X";
 import { Message } from "react-atomic-molecule";
@@ -8,58 +10,57 @@ import callfunc from "call-func";
 
 const messageTypes = ["success", "info", "warning", "error"];
 
-class Alert extends Component {
-  state = {
-    hoverStyle: null,
-  };
-
-  handleMouseEnter = () => {
-    this.setState({
-      hoverStyle: {
-        opacity: ".9",
-      },
-    });
-  };
-
-  handleMouseLeave = () => {
-    this.setState({
-      hoverStyle: null,
-    });
-  };
-
-  handleClick = (e) => {
-    const { onClick, data } = this.props;
-    e.data = data;
-    onClick(e);
-  };
-
-  componentDidMount() {
-    const { duration, onClick, data } = this.props;
-    if (duration * 1 > 0) {
-      setTimeout(() => onClick({ data }), duration);
+const useAlert = (props) => {
+  const { onClick, data, header, message, messageType } = props;
+  const duration = props.duration * 1;
+  const [hoverStyle, setHoverStyle] = useState();
+  const [run] = useTimer();
+  useEffect(() => {
+    if (duration > 0) {
+      run(() => onClick({ data }), duration);
     }
-  }
+  }, []);
+  const handler = {
+    mouseEnter: () => {
+      setHoverStyle({
+        opacity: ".9",
+      });
+    },
+    mouseLeave: () => {
+      setHoverStyle(null);
+    },
+    click: (e) => {
+      e.data = data;
+      onClick(e);
+    },
+  };
+  return {
+    handler,
+    hoverStyle,
+    header,
+    message,
+    messageType,
+  };
+};
 
-  render() {
-    const { messageType, header, message, onClick } = this.props;
-    const { hoverStyle } = this.state;
-    return (
-      <Message messageType={messageType} header={header} style={Styles.message}>
-        {message}
-        <XIcon
-          style={{
-            ...Styles.xicon,
-            ...hoverStyle,
-          }}
-          weight=".1rem"
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-          onClick={this.handleClick}
-        />
-      </Message>
-    );
-  }
-}
+const Alert = (props) => {
+  const { handler, hoverStyle, header, message, messageType } = useAlert(props);
+  return (
+    <Message messageType={messageType} header={header} style={Styles.message}>
+      {message}
+      <XIcon
+        style={{
+          ...Styles.xicon,
+          ...hoverStyle,
+        }}
+        weight=".1rem"
+        onMouseEnter={handler.mouseEnter}
+        onMouseLeave={handler.mouseLeave}
+        onClick={handler.click}
+      />
+    </Message>
+  );
+};
 
 class AlertsNotifier extends PureComponent {
   state = {

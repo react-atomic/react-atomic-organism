@@ -6,7 +6,7 @@ import get from "get-object-value";
 
 import PopupOverlay from "../molecules/PopupOverlay";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
-import { popupDispatch } from "../../src/popupDispatcher";
+import { popupDispatch } from "../../src/stores/popupStore";
 
 class PopupClick extends Component {
   static defaultProps = {

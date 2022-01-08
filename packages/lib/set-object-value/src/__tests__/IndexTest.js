@@ -54,4 +54,10 @@ describe("Test append", () => {
     set(obj, ["a"], "a4", true);
     expect(obj).to.deep.equal({ a: ["a3", "a4"] });
   });
+
+  it("last is not array", () => {
+    const obj = { a: { b: "foo" } };
+    set(obj, ["a", "b"], "bar", true);
+    expect(obj.a.b).to.deep.equal(["foo", "bar"]);
+  });
 });

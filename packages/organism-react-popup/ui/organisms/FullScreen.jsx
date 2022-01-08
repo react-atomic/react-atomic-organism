@@ -6,7 +6,7 @@ import { mixClass } from "react-atomic-molecule";
 
 import PopupModal from "../molecules/PopupModal";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
-import { popupDispatch } from "../../src/popupDispatcher";
+import { popupDispatch } from "../../src/stores/popupStore";
 
 class FullScreen extends PureComponent {
   static defaultProps = {

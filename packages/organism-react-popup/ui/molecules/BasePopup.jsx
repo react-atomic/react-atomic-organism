@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { popupDispatch } from "../../src/popupDispatcher";
+import { popupDispatch } from "../../src/stores/popupStore";
 
 class BasePopup extends PureComponent {
   state = { hasError: false };

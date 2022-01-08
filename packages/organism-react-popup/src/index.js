@@ -17,7 +17,5 @@ export { default as PopupClick } from "../ui/organisms/PopupClick";
 export { default as PopupMonitor } from "../ui/organisms/PopupMonitor";
 
 // Stores
-export { default as popupStore } from "./stores/popupStore";
+export { default as popupStore, popupDispatch } from "./stores/popupStore";
 
-// Dispatch
-export { popupDispatch } from "./popupDispatcher";

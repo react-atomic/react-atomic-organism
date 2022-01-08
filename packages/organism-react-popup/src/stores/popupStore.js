@@ -1,22 +1,14 @@
-"use strict";
-
-import { Map } from "immutable";
-import { ReduceStore } from "reshow-flux";
+import { Map, ImmutableStore, mergeMap } from "reshow-flux";
 import get from "get-object-value";
 import set from "set-object-value";
-import dispatcher from "../popupDispatcher";
 
-let groups = {};
+const groups = {};
 const SHOW_KEY = "shows";
 const NODE_KEY = "nodes";
 const keys = Object.keys;
 const isArray = Array.isArray;
 
-class PopupStore extends ReduceStore {
-  getInitialState() {
-    return Map({ shows: Map(), nodes: Map() });
-  }
-
+class handlePopup {
   updateDom(state, action) {
     const popupNode = get(action, ["params", "popup"]);
     const key = get(popupNode, ["props", "name"], "default");
@@ -98,32 +90,31 @@ class PopupStore extends ReduceStore {
       return state;
     }
   }
-
-  reduce(state, action) {
-    switch (action.type) {
-      case "dom/update":
-        return this.updateDom(state, action);
-      case "dom/closeAll":
-        return this.closeAll(state, action);
-      case "dom/cleanAll":
-        return this.cleanAll(state, action);
-      case "dom/closeOne":
-        return this.closeOne(state, action);
-      case "dom/cleanOne":
-        return this.cleanOne(state, action);
-      case "dom/closeGroup":
-        return this.closeGroup(state, action);
-      case "dom/cleanGroup":
-        return this.cleanGroup(state, action);
-      case "config/set":
-        return state.merge(action.params);
-      default:
-        return state;
-    }
-  }
 }
 
-// Export a singleton instance of the store, could do this some other way if
-// you want to avoid singletons.
-const instance = new PopupStore(dispatcher);
-export default instance;
+const oPopup = new handlePopup();
+const [store, popupDispatch] = ImmutableStore((state, action) => {
+  switch (action.type) {
+    case "dom/update":
+      return oPopup.updateDom(state, action);
+    case "dom/closeAll":
+      return oPopup.closeAll(state, action);
+    case "dom/cleanAll":
+      return oPopup.cleanAll(state, action);
+    case "dom/closeOne":
+      return oPopup.closeOne(state, action);
+    case "dom/cleanOne":
+      return oPopup.cleanOne(state, action);
+    case "dom/closeGroup":
+      return oPopup.closeGroup(state, action);
+    case "dom/cleanGroup":
+      return oPopup.cleanGroup(state, action);
+    case "config/set":
+      return mergeMap(state, action.params);
+    default:
+      return state;
+  }
+}, Map({ shows: Map(), nodes: Map() }));
+
+export default store;
+export { popupDispatch };

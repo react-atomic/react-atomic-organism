@@ -1,6 +1,6 @@
 {
   "name": "set-object-value",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "set object nested value",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -24,5 +24,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

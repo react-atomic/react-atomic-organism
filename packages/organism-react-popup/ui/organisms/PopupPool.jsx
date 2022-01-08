@@ -23,7 +23,7 @@ const getPops = (nodes, name) => {
 };
 
 const PopupPool = ({ name, component, ...otherProps }) => (
-  <Return stores={[popupStore]} initStates={["nodes"]}>
+  <Return store={popupStore} initStates={["nodes"]}>
     {({ nodes }) => {
       const pops = getPops(nodes, name);
       if (pops.length) {

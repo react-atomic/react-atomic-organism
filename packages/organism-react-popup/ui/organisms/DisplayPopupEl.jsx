@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { popupDispatch } from "../../src/popupDispatcher";
+import { popupDispatch } from "../../src/stores/popupStore";
 
 const DisplayPopupEl = (props) => {
   const _mount = useRef(false);
