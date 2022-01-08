@@ -1,21 +1,19 @@
 import { getScrollNode } from "get-scroll-info";
+import callfunc from "call-func";
 import { easeInOutCubic, aniTimer } from "easing-lib";
 
 let isRunning = false;
-
-const _call = (func, scrollNode) => () => {
-  if ("function" !== typeof func) {
-    return;
-  }
-  func(scrollNode);
-};
 
 /**
  *  !!Important!! any logic change need take care isRunning
  */
 const smoothScrollTo = (to, duration, el, callback) => {
   const scrollNode = getScrollNode(el);
-  const cb = _call(callback, scrollNode);
+  const cb = () => {
+    isRunning = false;
+    callfunc(callback, [scrollNode]);
+  };
+
   if (isRunning) {
     isRunning = false;
     setTimeout(() => {
@@ -30,9 +28,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
   const from = scrollNode.scrollTop;
   const go = to - from;
   if (!go) {
-    isRunning = false;
-    cb();
-    return;
+    return cb();
   }
   aniTimer(
     {
@@ -43,8 +39,8 @@ const smoothScrollTo = (to, duration, el, callback) => {
           return true;
         }
       },
-      cancel: () => (isRunning = false),
-      done: () => (isRunning = false),
+      cancel: () => cb(),
+      done: () => cb(),
     },
     duration
   );

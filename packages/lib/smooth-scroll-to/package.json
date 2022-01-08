@@ -1,6 +1,6 @@
 {
   "name": "smooth-scroll-to",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Smooth scroll to library",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -12,6 +12,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "easing-lib": "*",
     "get-scroll-info": "*"
   },
