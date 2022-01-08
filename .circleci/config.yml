@@ -56,3 +56,4 @@ workflows:
                 - "packages/organism-react-ajax"
                 - "packages/organism-react-animate"
                 - "packages/organism-react-navigation"
+                - "packages/organism-react-popup"
