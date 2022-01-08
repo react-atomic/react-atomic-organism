@@ -67,7 +67,7 @@ class PopupOverlay extends BasePopup {
       return null;
     }
     return (
-      <Return stores={[popupStore]} initStates={["shows"]}>
+      <Return store={popupStore} initStates={["shows"]}>
         {({ shows }) => {
           const show = get(shows, [this.props.name]);
           return this.shouldShow(show);
