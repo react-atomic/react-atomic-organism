@@ -13,6 +13,6 @@ describe("Test AlertsNotifier", () => {
       const actual = oDom.html();
       expect(actual).to.have.string("div");
       done();
-    }, 300);
+    }, 30);
   });
 });

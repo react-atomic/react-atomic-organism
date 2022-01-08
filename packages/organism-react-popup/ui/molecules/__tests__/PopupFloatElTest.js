@@ -29,6 +29,6 @@ describe('Test PopupFloatEl', () => {
       const actual = oDom.html();
       expect(actual).to.have.string('id="my-float"');
       done();
-    },300);
+    });
   });
 });
