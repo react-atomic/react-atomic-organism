@@ -1,5 +1,5 @@
 
-[![CircleCI](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/master.svg?style=svg)](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/master)
+[![CircleCI](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/main.svg?style=svg)](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/main)
 
 # react-atomic-organism
 Atomic design in React (organisms)
