@@ -3,8 +3,7 @@ import formSerialize from "form-serialize-js";
 import build from "reshow-build";
 import callfunc from "call-func";
 
-import ajaxStore from "../../src/stores/ajaxStore";
-import { ajaxDispatch } from "../../src/ajaxDispatcher";
+import ajaxStore, { ajaxDispatch, getRawUrl } from "../../src/stores/ajaxStore";
 import isRunAjax from "../../src/isRunAjax";
 
 const AjaxForm = forwardRef((props, ref) => {
@@ -74,7 +73,7 @@ const AjaxForm = forwardRef((props, ref) => {
     },
     [props]
   );
-  const thisUrl = ajaxStore.getRawUrl({
+  const thisUrl = getRawUrl({
     url: action,
     path: path,
   });

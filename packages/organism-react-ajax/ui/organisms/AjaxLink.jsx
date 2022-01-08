@@ -7,8 +7,7 @@ import React, {
 import callfunc from "call-func";
 import build from "reshow-build";
 
-import ajaxStore from "../../src/stores/ajaxStore";
-import { ajaxDispatch } from "../../src/ajaxDispatcher";
+import ajaxStore, { ajaxDispatch, getRawUrl } from "../../src/stores/ajaxStore";
 import isRunAjax from "../../src/isRunAjax";
 
 const useAjaxLink = (props) => {
@@ -73,7 +72,7 @@ const useAjaxLink = (props) => {
     component,
     rest,
     target,
-    href: ajaxStore.getRawUrl({ path, url: href }),
+    href: getRawUrl({ path, url: href }),
     onTouchStart:
       true === onTouchStart
         ? handleClick(onTouchStart)("touchStart")

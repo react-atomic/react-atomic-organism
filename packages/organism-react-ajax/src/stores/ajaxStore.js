@@ -1,16 +1,14 @@
 import "es6-promise/auto"; // [RESHOW] Need keep if use "new Promise"
 import "setimmediate";
-import { ReduceStore, Map } from "reshow-flux";
+import { mergeMap, ImmutableStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
 import set from "set-object-value";
 import smoothScrollTo from "smooth-scroll-to";
 import getRandomId from "get-random-id";
 import callfunc from "call-func";
-
-import dispatcher, { ajaxDispatch } from "../ajaxDispatcher";
+import { KEYS } from "reshow-constant";
 
 const empty = () => {};
-const keys = Object.keys;
 let wsAuth = Map();
 let gWorker;
 let fakeWorker = false;
@@ -18,7 +16,7 @@ let isWorkerReady;
 let cbIndex = 0;
 const Callbacks = [];
 
-const initWorkerEvent = (worker) => {
+const initAjaxWorkerEvent = (worker) => {
   worker.addEventListener("message", (e) => {
     const sourceType = get(e, ["data", "type"]);
     switch (sourceType) {
@@ -42,7 +40,7 @@ const initWorkerEvent = (worker) => {
 const initFakeWorker = (cb) => {
   import("../../src/worker").then((workerObject) => {
     fakeWorker = getDefault(workerObject);
-    initWorkerEvent(fakeWorker);
+    initAjaxWorkerEvent(fakeWorker);
     if (!gWorker) {
       gWorker = fakeWorker;
     }
@@ -69,21 +67,24 @@ const handleUpdateNewUrl = (state, action, url) => {
   return state;
 };
 
-class AjaxStore extends ReduceStore {
-  queue = [];
-
-  getInitialState() {
-    const onUrlChange = (url) => {
-      ajaxDispatch({
-        type: "ajaxGet",
-        params: {
-          url,
-          scrollBack: true,
-        },
-      });
-    };
-    return Map({ onUrlChange });
+const getRawUrl = (params) => {
+  let { url, path } = get(params, null, {});
+  if (!url) {
+    if (path) {
+      let baseUrl = store.getState().get("baseUrl");
+      if (!baseUrl) {
+        baseUrl = "";
+      }
+      url = baseUrl + path;
+    } else {
+      url = "#";
+    }
   }
+  return url;
+};
+
+class handleAjax {
+  queue = [];
 
   cookAjaxUrl(params, ajaxUrl, globalHeaders) {
     if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
@@ -101,7 +102,7 @@ class AjaxStore extends ReduceStore {
 
     // <!-- Clean key for fixed superagent error
     if (query) {
-      keys(query).forEach((key) => {
+      KEYS(query).forEach((key) => {
         if ("undefined" === typeof query[key]) {
           delete query[key];
         }
@@ -112,22 +113,6 @@ class AjaxStore extends ReduceStore {
 
     return urls[0];
   }
-
-  getRawUrl = (params) => {
-    let { url, path } = get(params, null, {});
-    if (!url) {
-      if (path) {
-        let baseUrl = this.getState().get("baseUrl");
-        if (!baseUrl) {
-          baseUrl = "";
-        }
-        url = baseUrl + path;
-      } else {
-        url = "#";
-      }
-    }
-    return url;
-  };
 
   getCallback(state, action, json, response) {
     const params = get(action, ["params"], {});
@@ -170,11 +155,11 @@ class AjaxStore extends ReduceStore {
   }
 
   start() {
-    setImmediate(() => ajaxDispatch({ isRunning: 1 }));
+    ajaxDispatch({ isRunning: 1 });
   }
 
   done() {
-    setImmediate(() => ajaxDispatch({ isRunning: 0 }));
+    ajaxDispatch({ isRunning: 0 });
   }
 
   storeCallback(action) {
@@ -253,9 +238,9 @@ class AjaxStore extends ReduceStore {
   ajaxGet(state, action) {
     const self = this;
     const params = action.params;
-    const rawUrl = self.getRawUrl(params);
-    if (params.updateUrl && this.urlDispatch && rawUrl !== document.URL) {
-      this.urlDispatch({ type: "url", url: rawUrl });
+    const rawUrl = getRawUrl(params);
+    if (params.updateUrl && store.urlDispatch && rawUrl !== document.URL) {
+      store.urlDispatch({ type: "url", url: rawUrl });
     }
     if (params.disableAjax) {
       return this.applyCallback(state, {
@@ -294,7 +279,7 @@ class AjaxStore extends ReduceStore {
     if (!params.disableProgress) {
       self.start();
     }
-    const rawUrl = self.getRawUrl(params);
+    const rawUrl = getRawUrl(params);
     const ajaxUrl = self.cookAjaxUrl(
       params,
       rawUrl,
@@ -369,35 +354,51 @@ class AjaxStore extends ReduceStore {
       { params: { json: handleUpdateNewUrl(state, action, url) } }
     );
   }
+}
 
-  reduce(state, action) {
+const oAjax = new handleAjax();
+
+const [store, ajaxDispatch] = ImmutableStore(
+  (state, action) => {
     switch (action.type) {
       case "ws/init":
-        return this.initWs(state, action);
+        return oAjax.initWs(state, action);
       case "ws/close":
-        return this.closeWs(state, action);
+        return oAjax.closeWs(state, action);
       case "ajaxGet":
-        return this.ajaxGet(state, action);
+        return oAjax.ajaxGet(state, action);
       case "ajaxDelete":
       case "ajaxHead":
       case "ajaxPatch":
       case "ajaxPut":
         set(action, ["params", "method"], action.type.substr(4).toLowerCase());
       case "ajaxPost":
-        return this.ajaxPost(state, action);
+        return oAjax.ajaxPost(state, action);
       case "urlChange":
-        return this.handleUrlChange(state, action);
+        return oAjax.handleUrlChange(state, action);
       case "callback":
-        return this.applyCallback(state, action);
+        return oAjax.applyCallback(state, action);
       default:
-        if (keys(action)) {
-          return state.merge(action);
+        if (KEYS(action)) {
+          return mergeMap(state, action);
         } else {
           return state;
         }
     }
+  },
+  () => {
+    const onUrlChange = (url) => {
+      ajaxDispatch({
+        type: "ajaxGet",
+        params: {
+          url,
+          scrollBack: true,
+        },
+      });
+    };
+    return Map({ onUrlChange });
   }
-}
+);
 
-export default new AjaxStore(dispatcher);
-export { initWorkerEvent as initAjaxWorkerEvent };
+export default store;
+export { initAjaxWorkerEvent, ajaxDispatch, getRawUrl };

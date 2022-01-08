@@ -8,7 +8,7 @@ import React, {
 import build from "reshow-build";
 import { win as getWin } from "win-doc";
 
-import { ajaxDispatch } from "../../src/ajaxDispatcher";
+import { ajaxDispatch } from "../../src/stores/ajaxStore";
 
 const AjaxPage = ({ win, ...props }) => {
   win = win || getWin();
