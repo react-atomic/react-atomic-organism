@@ -15,8 +15,9 @@ import { queryOne } from "css-query-selector";
 import getOffset from "getoffset";
 import callfunc from "call-func";
 
-import navigationStore from "../../src/stores/navigationStore";
-import { navigationDispatch } from "../../src/navigationDispatcher";
+import navigationStore, {
+  navigationDispatch,
+} from "../../src/stores/navigationStore";
 
 const keys = Object.keys;
 
@@ -163,7 +164,7 @@ const SideMenu = (props) => {
   );
 
   return (
-    <Return stores={[navigationStore]} initStates={[type]}>
+    <Return store={navigationStore} initStates={[type]}>
       {({ [type]: settings }) => {
         const { on, activeMenu } = settings || {};
         if (lastOn.current !== on) {

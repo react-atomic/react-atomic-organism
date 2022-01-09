@@ -22,7 +22,5 @@ export { default as Select, SelectField } from "../ui/organisms/Select";
 export { default as paginationCalculator } from "./paginationCalculator";
 
 // Stores
-export { default as navigationStore } from "./stores/navigationStore";
+export { default as navigationStore, navigationDispatch } from "./stores/navigationStore";
 
-// Dispatch
-export { navigationDispatch } from "./navigationDispatcher";
