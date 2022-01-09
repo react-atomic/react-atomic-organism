@@ -1,6 +1,6 @@
 {
   "name": "organism-react-progress",
-  "version": "0.14.7",
+  "version": "0.15.1",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

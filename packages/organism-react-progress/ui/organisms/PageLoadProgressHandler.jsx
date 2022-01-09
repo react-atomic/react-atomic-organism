@@ -59,7 +59,7 @@ PageLoadProgress.defaultProps = {
 PageLoadProgress.displayName = "PageLoadProgress";
 
 const PageLoadProgressHandler = forwardRef((props, ref) => (
-  <Return stores={[ajaxStore]} initStates={["isRunning"]}>
+  <Return store={ajaxStore} initStates={["isRunning"]}>
     <PageLoadProgress {...props} ref={ref} />
   </Return>
 ));
