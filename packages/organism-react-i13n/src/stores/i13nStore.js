@@ -1,10 +1,7 @@
-require("setimmediate");
-
-import { Map } from "immutable";
 import get from "get-object-value";
 import { ajaxDispatch } from "organism-react-ajax";
-
-import { i13nDispatcher, BaseI13nStore } from "i13n";
+import { ImmutableStore, mergeMap } from "reshow-flux";
+import { BaseI13nStore, i13nStoreReAssign } from "i13n";
 
 const getDefaultActionCallback = (state) => (json, text) => {
   const iframe = get(state.get("iframe"));
@@ -14,10 +11,6 @@ const getDefaultActionCallback = (state) => (json, text) => {
 };
 
 class I13nStore extends BaseI13nStore {
-  getInitialState() {
-    return Map();
-  }
-
   sendBeacon(state, action) {
     const pvid = state.get("pvid");
     const src = state.get("src");
@@ -27,27 +20,34 @@ class I13nStore extends BaseI13nStore {
       // default cb for action
       return getDefaultActionCallback(state);
     });
-    setImmediate(() => {
-      ajaxDispatch({
-        type: "ajaxPost",
-        params: {
-          url: src + action.type,
-          query: {
-            pvid: pvid,
-            url: document.URL,
-            params: get(params, ["I13N"]),
-            ...query,
-          },
-          callback,
-          disableProgress: true,
+    ajaxDispatch({
+      type: "ajaxPost",
+      params: {
+        url: src + action.type,
+        query: {
+          pvid: pvid,
+          url: document.URL,
+          params: get(params, ["I13N"]),
+          ...query,
         },
-      });
+        callback,
+        disableProgress: true,
+      },
     });
     return state;
   }
 }
 
-// Export a singleton instance of the store, could do this some other way if
-// you want to avoid singletons.
-const instance = new I13nStore(i13nDispatcher);
-export default instance;
+const oI13n = new I13nStore();
+const [store, i13nDispatch] = ImmutableStore(
+  oI13n.reduce.bind(oI13n)
+);
+i13nStoreReAssign({
+  oI13n,
+  store,
+  i13nDispatch,
+  mergeMap
+});
+
+export default store;
+export { i13nDispatch };

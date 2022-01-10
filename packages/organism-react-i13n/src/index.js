@@ -5,7 +5,5 @@ export { default as I13nElement } from "../ui/organisms/I13nElement";
 export { default as I13nClick } from "../ui/organisms/I13nClick";
 
 // Stores
-export { default as i13nStore } from "./stores/i13nStore";
+export { default as i13nStore, i13nDispatch } from "./stores/i13nStore";
 
-// Dispatch
-export { i13nDispatch } from "i13n";
