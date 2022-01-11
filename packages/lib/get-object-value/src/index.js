@@ -1,7 +1,5 @@
-import { DEFAULT, FUNCTION, UNDEFINED } from "reshow-constant";
-
-const isArray = Array.isArray;
-const keys = Object.keys;
+import { DEFAULT, FUNCTION, UNDEFINED, KEYS, IS_ARRAY } from "reshow-constant";
+import toArray from "with-array";
 
 const getWebpack4Default = (o) =>
   get(o, [DEFAULT, DEFAULT], () => get(o, [DEFAULT], () => o));
@@ -11,12 +9,9 @@ const toJS = (v) => (v && v.toJS ? v.toJS() : v);
 const toMap = (a, path) => {
   const next = get(a, path, {});
   const nextMap = {};
-  keys(next).forEach((key) => (nextMap[key] = toJS(next[key])));
+  KEYS(next).forEach((key) => (nextMap[key] = toJS(next[key])));
   return nextMap;
 };
-
-const toArray = (maybeString) =>
-  isArray(maybeString) ? maybeString : [maybeString];
 
 const toStringForOneArray = (arr) =>
   arr.length > 1 ? arr : arr[0] ?? undefined;
@@ -31,24 +26,25 @@ const get = (o, path, defaultValue) => {
     return getDefaultValue(defaultValue, o);
   }
   let current = toJS(o);
-  if (!path || !isArray(path)) {
+  if (!path || !IS_ARRAY(path)) {
     return current;
   }
   try {
-    path.every((a) => {
-      if (current && UNDEFINED !== typeof current[a]) {
-        current = current[a];
+    let i = path.length;
+    const j = path.length - 1;
+    while(i--) {
+      const index = path[j - i]; 
+      if (current && UNDEFINED !== typeof current[index]) {
+        current = current[index];
         if (null == current) {
           current = getDefaultValue(defaultValue, current);
-          return false;
-        } else {
-          return true;
+          break;
         }
       } else {
         current = getDefaultValue(defaultValue);
-        return false;
+        break;
       }
-    });
+    }
   } catch (e) {
     console.warn({ e });
     current = getDefaultValue(defaultValue);

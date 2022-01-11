@@ -1,6 +1,6 @@
 {
   "name": "get-object-value",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Get Object Value",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "reshow-constant": "*",
-    "reshow-runtime": "*"
+    "reshow-runtime": "*",
+    "with-array": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
@@ -27,5 +28,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
