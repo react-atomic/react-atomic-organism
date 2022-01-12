@@ -1,6 +1,6 @@
 {
   "name": "ajax-save",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "A simple way to download in-memory content (ajax).",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
