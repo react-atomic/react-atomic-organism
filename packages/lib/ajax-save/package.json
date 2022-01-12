@@ -1,6 +1,6 @@
 {
   "name": "ajax-save",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple way to download in-memory content (ajax).",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -15,10 +15,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "jsdom": "*",
-    "jsdom-global": "*",
-    "mocha": "*"
+    "reshow-unit-dom": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

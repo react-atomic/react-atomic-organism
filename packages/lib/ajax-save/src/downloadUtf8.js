@@ -1,8 +1,12 @@
 import download from "./download";
 
-const downloadUtf8 = (text, fileName, option, isKeep) => {
+const downloadUtf8 = (text, fileName, option = {}, isKeep) => {
   text = "\ufeff" + text;
-  return execDownload(text, fileName, option, isKeep);
+  option = option || {};
+  if (!option.type) {
+    option.type = "text/plain;charset=utf-8";
+  }
+  return download(text, fileName, option, isKeep);
 };
 
 export default downloadUtf8;

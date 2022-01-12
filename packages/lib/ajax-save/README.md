@@ -12,3 +12,4 @@ A simple way to download in-memory content (ajax).
 
 ## Inspire
 * https://github.com/eligrey/FileSaver.js
+* https://github.com/eligrey/canvas-toBlob.js
