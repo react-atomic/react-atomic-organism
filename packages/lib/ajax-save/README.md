@@ -10,3 +10,5 @@ A simple way to download in-memory content (ajax).
 
 ## How to use?
 
+## Inspire
+* https://github.com/eligrey/FileSaver.js
