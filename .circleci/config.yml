@@ -47,9 +47,9 @@ workflows:
             parameters:
               test-dir:
                 - "./"
-                - "packages/lib/array.search.js"
-                - "packages/lib/array.merge"
                 - "packages/lib/ajax-save"
+                - "packages/lib/array.merge"
+                - "packages/lib/array.search.js"
                 - "packages/lib/getoffset"
                 - "packages/lib/get-object-value"
                 - "packages/lib/get-cookie"
