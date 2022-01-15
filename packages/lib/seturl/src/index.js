@@ -1,5 +1,5 @@
 import { doc } from "win-doc";
-import { toStringForOneArray } from "get-object-value";
+import { oneItemArrayToString } from "with-array";
 import { T_UNDEFINED, IS_ARRAY } from "reshow-constant";
 import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
 import getUrlAnaly from "./getUrlAnaly";
@@ -28,7 +28,7 @@ const getUrl = (keys, origUrl) => {
       return !exec ? defaultValue : decodeURIComponent(exec[3]);
     } else {
       const results = getUrlArray(key, query);
-      return toStringForOneArray(results);
+      return oneItemArrayToString(results);
     }
   };
   if (IS_ARRAY(keys)) {

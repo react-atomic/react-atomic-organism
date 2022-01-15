@@ -1,6 +1,6 @@
 {
   "name": "array.search.js",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "array search",
   "repository": "react-atomic/react-atomic-organism",
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/array.search.js",
@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "get-object-value": "*",
-    "reshow-constant": "*"
+    "reshow-constant": "*",
+    "with-array": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

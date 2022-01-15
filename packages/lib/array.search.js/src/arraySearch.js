@@ -1,6 +1,5 @@
 import { FUNCTION, STRING, KEYS, T_NULL, T_FALSE } from "reshow-constant";
-import shouldBeString from "./shouldBeString";
-import toArray from "./toArray";
+import { stringToArray, testString } from "with-array";
 
 // avoid Object.keys("foo") --->> ["0", "1", "2"]
 const keys = (o) => (T_NULL == o || STRING === typeof o ? [] : KEYS(o));
@@ -12,7 +11,7 @@ const HAYSTACK = "haystack";
 const NEEDLE = "needle";
 
 const getHaystack = (haystack, needle) =>
-  shouldBeString(needle) ? [haystack] : haystack;
+  testString(needle) ? [haystack] : haystack;
 
 const keywordMatch = (haystack, needle) =>
   -1 !== haystack.toLowerCase().indexOf(needle.toLowerCase());
@@ -20,7 +19,7 @@ const keywordMatch = (haystack, needle) =>
 const exactMatch = (haystack, needle) => haystack === needle;
 
 const doFilter = ({ a, matchFunc, needle, cb = defaultCb }) => {
-  const thisNeedle = toArray(needle);
+  const thisNeedle = stringToArray(needle);
   const thisHaystack = getHaystack(a, needle);
   const thisNeedleKeys = keys(thisNeedle);
   return (
