@@ -1868,9 +1868,9 @@ reshow-runtime@*, reshow-runtime@^0.16.0:
     reshow-constant "*"
 
 reshow@*:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.16.2.tgz#d21bd157201003cd050a79444a6f70f78652cc75"
-  integrity sha512-VLXo4dIMJLOyqIJNSxe1d0ORn+cAB25BnbW4/AsVI0NL3Ij6sZcnmbGk5HmszjyGZ+1ZUr/EYat249fgbtwVuw==
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/reshow/-/reshow-0.16.3.tgz#7faff3c0c6bb6073398d716ac0316f70d6af94e6"
+  integrity sha512-4zSJ/gGBZMCv1akN4C8nGiEaeItPyce2ybGEX0NTHgMcqLXfakayWpSOG0xBgPL3MAZNM4ArlWOgfwzcMn29qw==
   dependencies:
     call-func "*"
     get-storage "*"

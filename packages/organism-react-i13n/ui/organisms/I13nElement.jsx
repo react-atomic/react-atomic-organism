@@ -35,7 +35,7 @@ const MonitorBrowserBFContainer = (props) => {
   const toggleBfChange = useRef();
   const bfApplyUrl = useRef();
   return (
-    <Return initStates={["bfApplyUrl", "toggleBfChange"]} stores={[ajaxStore]}>
+    <Return initStates={["bfApplyUrl", "toggleBfChange"]} store={ajaxStore}>
       {({ bfApplyUrl: nextBfApplyUrl, toggleBfChange: nextToggleBfChange }) => {
         if (toggleBfChange.current !== nextToggleBfChange) {
           toggleBfChange.current = nextToggleBfChange;
@@ -94,7 +94,7 @@ const I13nElement = (props) => {
     }
     return (
       <SemanticUI>
-        <Return initStates={["pvid", "I13N"]} stores={[i13nStore]}>
+        <Return initStates={["pvid", "I13N"]} store={i13nStore}>
           {({ pvid: nextPvid, I13N }) => {
             if (pvid.current !== nextPvid) {
               pvid.current = nextPvid;
@@ -105,7 +105,7 @@ const I13nElement = (props) => {
               }
               setTimeout(() =>
                 process(() =>
-                  i13nDispatch("view", {
+                  i13nDispatch("impression", {
                     query,
                     I13N: get(I13N),
                     callback: (json, text) => {
