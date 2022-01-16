@@ -126,4 +126,10 @@ const InjectStyles = {
       transition: ["padding 500ms ease"],
     },
   ],
+  fitWidth: [
+    {
+      whiteSpace: "break-spaces",
+    },
+    "code",
+  ],
 };
