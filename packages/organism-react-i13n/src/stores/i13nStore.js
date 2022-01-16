@@ -1,7 +1,7 @@
 import get from "get-object-value";
 import { ajaxDispatch } from "organism-react-ajax";
 import { ImmutableStore, mergeMap } from "reshow-flux";
-import { BaseI13nStore, i13nStoreReAssign } from "i13n";
+import { BaseI13nReducer, i13nStoreReAssign } from "i13n";
 
 const getDefaultActionCallback = (state) => (json, text) => {
   const iframe = get(state.get("iframe"));
@@ -10,7 +10,7 @@ const getDefaultActionCallback = (state) => (json, text) => {
   }
 };
 
-class I13nStore extends BaseI13nStore {
+class I13nStore extends BaseI13nReducer {
   sendBeacon(state, action) {
     const pvid = state.get("pvid");
     const src = state.get("src");
