@@ -59,5 +59,6 @@ workflows:
                 - "packages/lib/with-array"
                 - "packages/organism-react-ajax"
                 - "packages/organism-react-animate"
+                - "packages/organism-react-i13n"
                 - "packages/organism-react-navigation"
                 - "packages/organism-react-popup"
