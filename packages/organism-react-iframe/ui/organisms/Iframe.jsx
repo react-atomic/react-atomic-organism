@@ -4,7 +4,6 @@ import React, {
   useImperativeHandle,
   useRef,
   useState,
-  useMemo,
   forwardRef,
 } from "react";
 import { createPortal } from "react-dom";
@@ -50,7 +49,7 @@ const useIframe = ({
   onLinkClick,
   onUnmount,
   refCb,
-  immutable: propsImmutable,
+  immutable,
   ...others
 }) => {
   const root = useRef();
@@ -60,8 +59,8 @@ const useIframe = ({
   const execStop = useRef();
   const thisIframe = useRef();
   const lastEl = useRef();
+  const renderCache = useRef();
   const [thisEl, setThisEl] = useState();
-  const [immutable, setImmutable] = useState(propsImmutable);
   const getRoot = () => root.current;
 
   useEffect(() => {
@@ -224,14 +223,24 @@ const useIframe = ({
     others.scrolling = "no";
   }
 
+  const renderCacheWrap = () => {
+    if (immutable) {
+      if (!renderCache.current) {
+        renderCache.current = renderIframe();
+      }
+      return renderCache.current;
+    } else {
+      return renderIframe();
+    }
+  };
+
   return {
     expose,
     others,
     thisIframe,
     handler,
     thisEl,
-    immutable,
-    renderIframe,
+    renderIframe: renderCacheWrap,
   };
 };
 
@@ -242,7 +251,6 @@ const Iframe = forwardRef((props, ref) => {
     thisIframe,
     handler,
     thisEl,
-    immutable,
     renderIframe,
   } = useIframe(props);
 
@@ -250,7 +258,7 @@ const Iframe = forwardRef((props, ref) => {
 
   return (
     <IframeContainer {...others} ref={thisIframe} refCb={handler.refCb}>
-      {thisEl && (immutable ? useMemo(renderIframe, []) : renderIframe())}
+      {thisEl && renderIframe()}
     </IframeContainer>
   );
 });
