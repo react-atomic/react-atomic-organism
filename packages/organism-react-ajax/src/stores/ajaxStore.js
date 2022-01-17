@@ -148,12 +148,13 @@ class handleAjax {
     return callback;
   }
 
-  start() {
-    ajaxDispatch({ isRunning: 1 });
+  start(state) {
+    return state.set("isRunning", 1);
   }
 
   done() {
-    ajaxDispatch({ isRunning: 0 });
+    // update progress should run very end.
+    setTimeout(() => ajaxDispatch({ isRunning: 0 }), 500);
   }
 
   storeCallback(action) {
@@ -230,7 +231,6 @@ class handleAjax {
   }
 
   ajaxGet(state, action) {
-    const self = this;
     const params = action.params;
     const rawUrl = getRawUrl(params);
     if (params.updateUrl && store.urlDispatch && rawUrl !== document.URL) {
@@ -245,10 +245,10 @@ class handleAjax {
       });
     }
     if (!params.disableProgress) {
-      self.start();
+      state = this.start(state);
     }
     setImmediate(() => {
-      const ajaxUrl = self.cookAjaxUrl(
+      const ajaxUrl = this.cookAjaxUrl(
         params,
         rawUrl,
         state.get("globalHeaders")
@@ -261,31 +261,30 @@ class handleAjax {
       } else {
         params.query["--r"] = state.get("staticVersion");
       }
-      self.worker({
+      this.worker({
         type: "ajaxGet",
         url: ajaxUrl,
-        action: self.storeCallback(action),
+        action: this.storeCallback(action),
       });
     });
     return state;
   }
 
   ajaxPost(state, action) {
-    const self = this;
     const params = action.params;
     if (!params.disableProgress) {
-      self.start();
+      state = this.start(state);
     }
     const rawUrl = getRawUrl(params);
-    const ajaxUrl = self.cookAjaxUrl(
+    const ajaxUrl = this.cookAjaxUrl(
       params,
       rawUrl,
       state.get("globalHeaders")
     );
-    self.worker({
+    this.worker({
       type: "ajaxPost",
       url: ajaxUrl,
-      action: self.storeCallback(action),
+      action: this.storeCallback(action),
     });
     return state;
   }

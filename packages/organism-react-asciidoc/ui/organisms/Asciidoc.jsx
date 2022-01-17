@@ -1,50 +1,48 @@
-import React, { PureComponent } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useMemo,
+  useImperativeHandle,
+  forwardRef,
+} from "react";
 import get from "get-object-value";
 import Iframe from "organism-react-iframe";
 import { Unsafe } from "react-atomic-molecule";
 import callfunc from "call-func";
 import windowOnload from "window-onload";
 import query from "css-query-selector";
+import { useTimer } from "reshow-hooks";
 
 const VERSION = "[VERSION]";
 
-class Asciidoc extends PureComponent {
-  handleIframe = (el) => {
-    this.iframe = el;
-  };
-
-  handleLoad = (el) => {
-    const { onLoad } = this.props;
-    this.iframe.postHeight();
-    callfunc(onLoad, [el]);
-  };
-
-  clear() {
-    if (this.clearWindowOnload) {
-      this.clearWindowOnload();
-    }
-    if (this.onloadTimer) {
-      clearTimeout(this.onloadTimer);
-    }
-  }
-
-  componentDidMount() {
-    const { onLoadDelay } = this.props;
-    const oWin = this.iframe.getWindow();
-
+const useAsciidoc = ({
+  onLoadDelay = 1500,
+  inlineCSS = "body {padding: 0; margin: 0; background: transparent !important;}",
+  js = "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
+  css = "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
+  npmVersion = "2.2.0",
+  onLoad,
+  options,
+  attributes,
+  children,
+}) => {
+  const lastIframe = useRef();
+  const [onloadTimer, cleanOnloadTimer] = useTimer();
+  useEffect(() => {
+    const oWin = lastIframe.current.getWindow();
+    let clearWindowOnload;
+    const handleLoad = (el) => {
+      lastIframe.current.postHeight();
+      callfunc(onLoad, [el]);
+    };
     oWin.onRender = (outputEl) => {
       const { close, process } = windowOnload({
         doc: oWin.document,
       });
-      this.clearWindowOnload = close;
+      clearWindowOnload = close;
       const run = () => {
-        if (this.onloadTimer) {
-          clearTimeout(this.onloadTimer);
-        }
-        this.onloadTimer = setTimeout(
-          () => this.handleLoad(outputEl),
-          onLoadDelay
-        );
+        cleanOnloadTimer();
+        onloadTimer(() => handleLoad(outputEl), onLoadDelay);
       };
       process(() => {
         const imgs = query.from(outputEl).all("img");
@@ -71,30 +69,32 @@ class Asciidoc extends PureComponent {
         run();
       });
     };
-  }
-
-  componentWillUnmount() {
-    this.clear();
-  }
-
-  render() {
-    const { js, css, inlineCSS, npmVersion, children, attributes } = this.props;
-    let { options } = this.props;
-    options = get(options, null, {});
-    options.attributes = {
-      ...get(options, ["attributes"], {}),
-      ...attributes,
+    return () => {
+      clearWindowOnload();
     };
+  }, []);
 
-    const thisJs = js.replace(VERSION, npmVersion);
-    const thisCss = css.replace(VERSION, npmVersion);
+  options = options || {};
+  options.attributes = {
+    ...get(options, ["attributes"], {}),
+    ...attributes,
+  };
 
-    const html = [
-      `<link rel="stylesheet" type="text/css" href="${thisCss}" />`,
-      `<script src="${thisJs}"></script>`,
-      '<div id="data" style="display:none;">' + children + "</div>",
-      '<div id="output"></div>',
-      `
+  const thisJs = js.replace(VERSION, npmVersion);
+  const thisCss = css.replace(VERSION, npmVersion);
+
+  const expose = {
+    getBody: () => lastIframe.current.getBody(),
+  };
+
+  const html = useMemo(
+    () =>
+      [
+        `<link rel="stylesheet" type="text/css" href="${thisCss}" />`,
+        `<script src="${thisJs}"></script>`,
+        '<div id="data" style="display:none;">' + children + "</div>",
+        '<div id="output"></div>',
+        `
         <script>
 	    var asciidoctor = Asciidoctor();
 	    var html = asciidoctor.convert(
@@ -106,23 +106,30 @@ class Asciidoc extends PureComponent {
             window.onRender(output);
         </script>
         `,
-    ].join("");
+      ].join(""),
+    [thisCss, thisJs, children, options]
+  );
 
-    return (
-      <Iframe ref={this.handleIframe} inlineCSS={inlineCSS} autoHeight>
-        <Unsafe>{html}</Unsafe>
-      </Iframe>
-    );
-  }
-}
-
-Asciidoc.defaultProps = {
-  onLoadDelay: 1500,
-  inlineCSS:
-    "body {padding: 0; margin: 0; background: transparent !important;}",
-  js: "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
-  css: "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
-  npmVersion: "2.2.0",
+  return {
+    expose,
+    inlineCSS,
+    lastIframe,
+    html,
+  };
 };
+
+const Asciidoc = forwardRef((props, ref) => {
+  const { expose, inlineCSS, lastIframe, html } = useAsciidoc(props);
+
+  useImperativeHandle(ref, () => expose, []);
+
+  return (
+    <Iframe ref={lastIframe} inlineCSS={inlineCSS} autoHeight>
+      <Unsafe>{html}</Unsafe>
+    </Iframe>
+  );
+});
+
+Asciidoc.displayName = "Asciidoc";
 
 export default Asciidoc;
