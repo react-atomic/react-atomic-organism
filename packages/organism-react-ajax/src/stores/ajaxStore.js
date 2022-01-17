@@ -50,19 +50,19 @@ const initFakeWorker = (cb) => {
 };
 
 const handleUpdateNewUrl = (state, action, url) => {
+  const params = get(action, ["params"], {});
   setImmediate(() => {
-    const params = get(action, ["params"], {});
     if (params.disableAjax && false !== params.scrollBack) {
       smoothScrollTo(0);
     }
   });
   const preUrl = state.get("currentLocation");
   if (preUrl !== url) {
-    const onUrlChange = state.get("onUrlChange");
-    state = state
-      .delete("themePath")
-      .set("currentLocation", url)
-      .merge(callfunc(onUrlChange, [url]));
+    const onUrlChange = params.disableAjax ? null : state.get("onUrlChange");
+    state = mergeMap(
+      state.delete("themePath").set("currentLocation", url),
+      callfunc(onUrlChange, [url])
+    );
   }
   return state;
 };
