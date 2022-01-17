@@ -49,19 +49,13 @@ const initFakeWorker = (cb) => {
   });
 };
 
-const handleUpdateNewUrl = (state, action, url) => {
-  const params = get(action, ["params"], {});
-  setImmediate(() => {
-    if (params.disableAjax && false !== params.scrollBack) {
-      smoothScrollTo(0);
-    }
-  });
-  const preUrl = state.get("currentLocation");
-  if (preUrl !== url) {
-    const onUrlChange = params.disableAjax ? null : state.get("onUrlChange");
+const handleUseNewUrl = (state, action, url) => {
+  const prevUrl = state.get("currentLocation");
+  if (prevUrl !== url) {
+    const onUrlChange = state.get("onUrlChange");
     state = mergeMap(
       state.delete("themePath").set("currentLocation", url),
-      callfunc(onUrlChange, [url])
+      callfunc(onUrlChange, [url, { state, action }])
     );
   }
   return state;
@@ -244,7 +238,10 @@ class handleAjax {
     }
     if (params.disableAjax) {
       return this.applyCallback(state, {
-        params: { json: handleUpdateNewUrl(state, action, rawUrl) },
+        params: {
+          json: handleUseNewUrl(state, action, rawUrl),
+          disableAjax: params.disableAjax,
+        },
       });
     }
     if (!params.disableProgress) {
@@ -301,7 +298,7 @@ class handleAjax {
     const sourceType = get(params, ["sourceType"]);
     const response = get(params, ["response"]);
     const text = get(params, ["text"]);
-    let json = get(params, ["json"]);
+    const json = get(params, ["json"], {});
     const callback = this.getCallback(state, action, json, response);
     const type = get(json, ["type"]);
     let isRedirect = null;
@@ -312,7 +309,8 @@ class handleAjax {
         break;
       default:
         if ("ws" === sourceType) {
-          json = { "--realTimeData--": json, "--realTimeUrl--": url };
+          json["--realTimeData--"] = json;
+          json["--realTimeUrl--"] = url;
         }
         isRedirect = callfunc(callback, [json, text, response]);
         break;
@@ -332,12 +330,13 @@ class handleAjax {
       }
     }
     if (
+      (params.disableAjax && false !== params.scrollBack) ||
       (params.updateUrl && false !== params.scrollBack) ||
       params.scrollBack
     ) {
       smoothScrollTo(0);
     }
-    return state;
+    return state.set("currentLocation", json.currentLocation);
   }
 
   handleUrlChange(state, action) {
@@ -351,7 +350,7 @@ class handleAjax {
       state
         .set("toggleBfChange", !state.get("toggleBfChange"))
         .set("bfApplyUrl", url),
-      { params: { json: handleUpdateNewUrl(state, action, url) } }
+      { params: { json: handleUseNewUrl(state, action, url) } }
     );
   }
 }
@@ -379,7 +378,7 @@ const [store, ajaxDispatch] = ImmutableStore(
       case "callback":
         return oAjax.applyCallback(state, action);
       default:
-        if (KEYS(action)) {
+        if (KEYS(action).length) {
           return mergeMap(state, action);
         } else {
           return state;
