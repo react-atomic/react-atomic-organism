@@ -48,7 +48,6 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     ],
     rail: [
       {
-        minHeight: "100vh",
         width: 0,
         overflow: "hidden",
       },
@@ -57,7 +56,6 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     /*RWD*/
     mdContainer: [
       {
-        minHeight: "100vh",
         padding: "0 " + rightWidth + "px 0 " + initSideWidth + " !important",
       },
       [min.md, "#" + docId],
