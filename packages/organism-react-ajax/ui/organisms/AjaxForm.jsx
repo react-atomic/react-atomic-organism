@@ -8,28 +8,20 @@ import isRunAjax from "../../src/isRunAjax";
 
 const AjaxForm = forwardRef((props, ref) => {
   const {
+    stop = false,
+    updateUrl = false,
+    component = "form",
     action,
     afterSubmit,
     beforeSubmit,
     callback,
-    component,
     errorCallback,
     path,
-    stop,
-    updateUrl,
     ...rest
   } = props;
 
   const handleSubmit = useCallback(
     (e) => {
-      const {
-        stop,
-        callback,
-        errorCallback,
-        updateUrl,
-        beforeSubmit,
-        afterSubmit,
-      } = props;
       if (stop) {
         return;
       }
@@ -71,24 +63,16 @@ const AjaxForm = forwardRef((props, ref) => {
 
       callfunc(afterSubmit, [e]);
     },
-    [props]
+    [stop, callback, errorCallback, updateUrl, beforeSubmit, afterSubmit]
   );
-  const thisUrl = getRawUrl({
-    url: action,
-    path: path,
-  });
+
   return build(component)({
-    action: thisUrl,
+    ref,
+    action: getRawUrl({ url: action, path }),
     onSubmit: handleSubmit,
     ...rest,
   });
 });
-
-AjaxForm.defaultProps = {
-  updateUrl: false,
-  stop: false,
-  component: "form",
-};
 
 AjaxForm.displayName = "AjaxForm";
 

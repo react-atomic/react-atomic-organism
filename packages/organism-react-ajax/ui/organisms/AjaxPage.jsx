@@ -10,17 +10,16 @@ import { win as getWin } from "win-doc";
 
 import { ajaxDispatch } from "../../src/stores/ajaxStore";
 
-const AjaxPage = ({ win, ...props }) => {
-  win = win || getWin();
-  const { themes, themePath, fallback, webSocketUrl } = props;
+const AjaxPage = ({ win = getWin(), ...props }) => {
+  const { ajax = true, themes = {}, themePath, fallback, webSocketUrl } = props;
 
-  const isInit = useRef(false);
   const lastThemePath = useRef();
 
-  if (!isInit.current) {
-    isInit.current = true;
+  useEffect(() => {
+    props.ajax = ajax;
+    props.themes = themes;
     ajaxDispatch(props);
-  }
+  }, []);
 
   useEffect(() => {
     if (win.WebSocket && webSocketUrl) {
@@ -60,12 +59,6 @@ const AjaxPage = ({ win, ...props }) => {
       }
     }
   }, [themePath]);
-};
-
-AjaxPage.defaultProps = {
-  ajax: true,
-  themes: {},
-  win: null,
 };
 
 export default AjaxPage;
