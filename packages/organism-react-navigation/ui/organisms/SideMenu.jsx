@@ -89,20 +89,20 @@ const DefaultIcon = ({
 
 const SideMenu = (props) => {
   const {
-    type,
+    type = "default",
+    component = SemanticUI,
+    linkComponent = "a",
+    menus = [],
+    rootActiveClass = "side-menu-active",
+    rootInactiveClass = "side-menu-inactive",
     root,
-    rootActiveClass,
-    rootInactiveClass,
     on: propsOn,
     onSwitch,
-    component,
-    linkComponent,
     defaultOnIcon,
     defaultOffIcon,
     iconStyle,
     hamburgerStyle,
     className,
-    menus,
     menuOrder,
     keepMini,
     ...others
@@ -181,7 +181,7 @@ const SideMenu = (props) => {
         const menuElement = build(component)(others, menuItems);
 
         // setup thisDefaultOffIcon
-        let defaultOff = isInit ? false : on;
+        const defaultOff = isInit ? false : on;
         let thisDefaultOffIcon = defaultOffIcon;
         if (!thisDefaultOffIcon) {
           thisDefaultOffIcon = <DefaultIcon />;
@@ -230,16 +230,6 @@ const SideMenu = (props) => {
       }}
     </Return>
   );
-};
-
-SideMenu.defaultProps = {
-  type: "default",
-  component: SemanticUI,
-  linkComponent: "a",
-  menus: [],
-  root: null,
-  rootActiveClass: "side-menu-active",
-  rootInactiveClass: "side-menu-inactive",
 };
 
 export default SideMenu;
