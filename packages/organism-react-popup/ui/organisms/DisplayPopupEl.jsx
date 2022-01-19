@@ -1,24 +1,25 @@
 import React, { useEffect, useRef } from "react";
+import { useMounted } from "reshow-hooks";
 import { popupDispatch } from "../../src/stores/popupStore";
 
 const DisplayPopupEl = (props) => {
-  const _mount = useRef(false);
-  const popup = useRef(props.children);
+  const _mounted = useMounted();
+  const popup = useRef();
   useEffect(() => {
-    _mount.current = true;
     return () => {
-      _mount.current = false;
-      popupDispatch({
-        type: "dom/cleanOne",
-        params: {
-          popup: popup.current,
-        },
-      });
+      if (popup.current) {
+        popupDispatch({
+          type: "dom/cleanOne",
+          params: {
+            popup: popup.current,
+          },
+        });
+      }
     };
   }, []);
   useEffect(() => {
     popup.current = props.children;
-    if (_mount.current) {
+    if (_mounted()) {
       popupDispatch({
         type: "dom/update",
         params: {
