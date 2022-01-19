@@ -1,97 +1,74 @@
-import React, { PureComponent } from "react";
+import React, { useState } from "react";
 import XIco from "ricon/X";
 import get from "get-object-value";
 import callfunc from "call-func";
 import { mixClass } from "react-atomic-molecule";
+import { useMounted } from "reshow-hooks";
 
 import PopupModal from "../molecules/PopupModal";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
 import { popupDispatch } from "../../src/stores/popupStore";
 
-class FullScreen extends PureComponent {
-  static defaultProps = {
-    name: "fullscreen",
-  };
+const DefaultXIcon = (props) => {
+  const [hoverStyle, setHoverStyle] = useState();
+  const _mounted = useMounted();
 
-  xIcoEnter = () => {
-    setTimeout(() => {
-      if (!this._mounted) {
-        return null;
-      }
-      this.setState({ xIcoHoverStyle: Styles.xIcoHover });
-    });
-  };
-
-  xIcoLeave = () => {
-    if (!this._mounted) {
-      return null;
-    }
-    this.setState({ xIcoHoverStyle: null });
-  };
-
-  handleClose = () => {
-    const { onClose, removeOnClose } = this.props;
-    callfunc(onClose);
-    if (removeOnClose) {
-      // use setTimeout to avoid call setState druing render
-      setTimeout(() =>
-        popupDispatch({
-          type: "dom/cleanOne",
-          params: {
-            popup: this,
-          },
-        })
-      );
+  const xIcoEnter = () => {
+    if (_mounted()) {
+      setHoverStyle(Styles.xIcoHover);
     }
   };
 
-  getDefaultXIcon() {
-    const { xIcoHoverStyle } = get(this, ["state"], {});
-    return (
-      <XIco
-        onMouseEnter={this.xIcoEnter}
-        onMouseLeave={this.xIcoLeave}
-        style={{
-          ...Styles.x,
-          ...xIcoHoverStyle,
-        }}
-        size="75px"
-        weight=".1rem"
+  const xIcoLeave = () => {
+    if (_mounted()) {
+      setHoverStyle(null);
+    }
+  };
+
+  return (
+    <XIco
+      {...props}
+      onMouseEnter={xIcoEnter}
+      onMouseLeave={xIcoLeave}
+      style={{
+        ...Styles.x,
+        ...props.style,
+        ...hoverStyle,
+      }}
+      size="75px"
+      weight=".1rem"
+    />
+  );
+};
+
+const FullScreen = ({
+  name = "fullscreen",
+  children,
+  className,
+  style,
+  onClose,
+  toPool,
+}) => {
+  const xico = <DefaultXIcon />;
+  return (
+    <DisplayPopupEl>
+      <PopupModal
+        name={name + " (modal)"}
+        appear="fadeIn-500"
+        enter="fadeIn-500"
+        className={mixClass("full-screen", className)}
+        scrolling={true}
+        style={{ ...Styles.container, ...style }}
+        modalClassName="basic"
+        modalStyle={Styles.modal}
+        modal={children}
+        closeEl={xico}
+        onClose={onClose}
+        toPool={toPool}
       />
-    );
-  }
-
-  componentDidMount() {
-    this._mounted = true;
-  }
-
-  componentWillUnmount() {
-    this._mounted = false;
-  }
-
-  render() {
-    const { name, children, className, style, onClose, toPool } = this.props;
-    const xico = this.getDefaultXIcon();
-    return (
-      <DisplayPopupEl>
-        <PopupModal
-          name={name + " (modal)"}
-          appear="fadeIn-500"
-          enter="fadeIn-500"
-          className={mixClass("full-screen", className)}
-          scrolling={true}
-          style={{ ...Styles.container, ...style }}
-          modalClassName="basic"
-          modalStyle={Styles.modal}
-          modal={children}
-          closeEl={xico}
-          onClose={this.handleClose}
-          toPool={toPool}
-        />
-      </DisplayPopupEl>
-    );
-  }
-}
+    </DisplayPopupEl>
+  );
+};
 
 export default FullScreen;
 

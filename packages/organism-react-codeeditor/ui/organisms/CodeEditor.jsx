@@ -40,6 +40,11 @@ class CodeEditor extends PureComponent {
   handleClose = () => {
     const { onClose } = this.props;
     callfunc(onClose, [this.getCode()]);
+    setTimeout(() => {
+      popupDispatch("dom/cleanOne", {
+        popup: this.props.name,
+      });
+    });
   };
 
   render() {
@@ -71,7 +76,6 @@ class CodeEditor extends PureComponent {
       <FullScreen
         onClose={this.handleClose}
         className={containerClasses}
-        removeOnClose
         {...otherProps}
         style={Styles.full}
       >
