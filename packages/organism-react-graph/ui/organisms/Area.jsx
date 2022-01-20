@@ -1,20 +1,36 @@
 import React, { PureComponent } from "react";
 import { SemanticUI } from "react-atomic-molecule";
-import { hArea } from "d3-lib";
+import { useD3 } from "d3-lib";
 
-class Area extends PureComponent {
-  static defaultProps = {
-    atom: "path",
-    fillOpacity: "0.1",
-    stroke: "none",
-  };
+const Area = (props) => {
+  const {
+    atom = "path",
+    fillOpacity = "0.1",
+    stroke = "none",
+    curve,
+    data,
+    xLocator,
+    y0Locator,
+    y1Locator,
+    ...otherProps
+  } = props;
 
-  render() {
-    const { curve, data, xLocator, y0Locator, y1Locator, ...props } =
-      this.props;
-    const d = hArea(data, xLocator, y0Locator, y1Locator, curve);
-    return <SemanticUI ui={false} {...props} d={d} />;
+  const [isLoad, d3] = useD3();
+  if (!isLoad) {
+    return null;
   }
-}
+
+  const d = d3.hArea(data, xLocator, y0Locator, y1Locator, curve);
+  return (
+    <SemanticUI
+      atom={atom}
+      fillOpacity={fillOpacity}
+      stroke={stroke}
+      ui={false}
+      {...otherProps}
+      d={d}
+    />
+  );
+};
 
 export default Area;

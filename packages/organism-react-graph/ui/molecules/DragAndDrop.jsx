@@ -8,12 +8,14 @@ import React, {
   forwardRef,
 } from "react";
 import { build } from "react-atomic-molecule";
-import { d3DnD } from "d3-lib";
+import { useD3 } from "d3-lib";
 import getOffset, { unifyTouch } from "getoffset";
 import callfunc from "call-func";
 import { doc } from "win-doc";
 
 const useDragAndDrop = (props) => {
+  const [isLoad, d3] = useD3();
+
   const startPoint = useRef();
   const lastPoint = useRef({});
   const lastProps = useRef({});
@@ -23,6 +25,10 @@ const useDragAndDrop = (props) => {
   useEffect(() => {
     lastProps.current = props;
   }, [props]);
+
+  if (!isLoad) {
+    return { isLoad };
+  }
 
   const handleStart = (d3Event) => {
     const { keepLastAbsXY, zoom, onDragStart } = lastProps.current;
@@ -90,10 +96,10 @@ const useDragAndDrop = (props) => {
     callfunc(lastProps.current.onDragEnd, [thisEvent]);
   };
 
-  const handleElChange = useCallback((el) => {
+  const handleElChange = (el) => {
     if (el && (!thisEl.current || !thisEl.current.isSameNode(el))) {
       thisEl.current = el;
-      d3DnD({
+      d3.d3DnD({
         el,
         start: handleStart,
         drag: handleDrag,
@@ -101,7 +107,7 @@ const useDragAndDrop = (props) => {
       });
     }
     return thisEl.current;
-  }, []);
+  };
 
   const expose = {
     getEl: () => thisEl.current,
@@ -112,14 +118,17 @@ const useDragAndDrop = (props) => {
     isDraging: () => isDraging,
   };
 
-  return { handleElChange, isDraging, expose };
+  return { isLoad, handleElChange, isDraging, expose };
 };
 
 const DragAndDrop = forwardRef((props, ref) => {
-  const { handleElChange, isDraging, expose } = useDragAndDrop(props);
+  const { isLoad, handleElChange, isDraging, expose } = useDragAndDrop(props);
   useImperativeHandle(ref, () => expose, []);
 
   return useMemo(() => {
+    if (!isLoad) {
+      return null;
+    }
     const {
       keepLastAbsXY,
       component,
@@ -148,7 +157,7 @@ const DragAndDrop = forwardRef((props, ref) => {
       others.onGetEl = handleElChange;
     }
     return build(component)(others);
-  }, [props, isDraging]);
+  }, [isLoad, props, isDraging]);
 });
 
 DragAndDrop.displayName = "DragAndDrop";

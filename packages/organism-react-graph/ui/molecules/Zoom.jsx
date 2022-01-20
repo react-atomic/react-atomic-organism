@@ -5,18 +5,34 @@ import React, {
   useState,
   forwardRef,
 } from "react";
-import { d3Select, d3Zoom, toZoomTransform } from "d3-lib";
+import { useD3 } from "d3-lib";
 import callfunc from "call-func";
 
 import Group from "../molecules/Group";
 
 const useZoom = (props) => {
-  const { onGetEl, onZoom, scaleExtent = [-1, 8], ...others } = props;
+  const [isLoad, d3] = useD3();
   const [transform, setTransform] = useState(null);
   const lastEvent = useRef();
   const lastTransform = useRef();
   const lastD3ZoomObject = useRef();
   const lastEnable = useRef();
+  useEffect(() => {
+    lastTransform.current = transform;
+    lastEvent.current && callfunc(onZoom, [lastEvent.current]);
+  }, [transform]);
+
+  useEffect(() => {
+    if (isLoad) {
+      expose.enable();
+    }
+  }, [isLoad]);
+
+  if (!isLoad) {
+    return { isLoad };
+  }
+
+  const { onGetEl, onZoom, scaleExtent = [-1, 8], ...others } = props;
 
   const getXYK = () => {
     const { x, y, k } = lastTransform.current || {};
@@ -27,7 +43,7 @@ const useZoom = (props) => {
     if (!e) {
       e = { transform: transformVal };
       const objD3Zoom = lastD3ZoomObject.current;
-      const el = d3Select(callfunc(onGetEl));
+      const el = d3.d3Select(callfunc(onGetEl));
       if (objD3Zoom && el) {
         objD3Zoom.transform(el, transformVal);
       }
@@ -46,13 +62,13 @@ const useZoom = (props) => {
       x = x ?? x1 ?? 0;
       y = y ?? y1 ?? 0;
       k = k ?? k1 ?? 1;
-      return handleTransform(toZoomTransform({ x, y, k }));
+      return handleTransform(d3.toZoomTransform({ x, y, k }));
     },
     getD3Zoom: () => lastD3ZoomObject.current,
     enable: () => {
       if (!lastEnable.current) {
         const el = callfunc(onGetEl);
-        lastD3ZoomObject.current = d3Zoom({
+        lastD3ZoomObject.current = d3.d3Zoom({
           el,
           scaleExtent,
           callback: (e) => handleTransform(e.transform, e),
@@ -63,7 +79,7 @@ const useZoom = (props) => {
     disable: () => {
       if (lastEnable.current) {
         const el = callfunc(onGetEl);
-        lastD3ZoomObject.current = d3Zoom({
+        lastD3ZoomObject.current = d3.d3Zoom({
           el,
           scaleExtent,
           callback: null,
@@ -74,22 +90,23 @@ const useZoom = (props) => {
     getEnabled: () => lastEnable.current,
   };
 
-  useEffect(() => {
-    lastTransform.current = transform;
-    lastEvent.current && callfunc(onZoom, [lastEvent.current]);
-  }, [transform]);
 
-  useEffect(() => {
-    expose.enable();
-  }, []);
-
-  return { expose, others, transform: transform ? transform + "" : transform };
+  return {
+    isLoad,
+    expose,
+    others,
+    transform: transform ? transform + "" : transform,
+  };
 };
 
 const Zoom = forwardRef((props, ref) => {
-  const { expose, others, transform } = useZoom(props);
+  const { isLoad, expose, others, transform } = useZoom(props);
 
   useImperativeHandle(ref, () => expose, []);
+
+  if (!isLoad) {
+    return null;
+  }
 
   return <Group name="zoom" {...others} transform={transform} />;
 });

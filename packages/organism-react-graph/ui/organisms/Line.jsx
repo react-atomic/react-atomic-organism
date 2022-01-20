@@ -1,30 +1,39 @@
-import React, { PureComponent } from "react";
+import React, { useImperativeHandle, forwardRef, useRef } from "react";
 import { SemanticUI } from "react-atomic-molecule";
-import { line } from "d3-lib";
+import { useD3 } from "d3-lib";
 
-class Line extends PureComponent {
-  getCenter() {
-    return this.center;
-  }
+const Line = forwardRef((props, ref) => {
+  const lastCenter = useRef();
 
-  render() {
-    const { start, end, svgLine, curve, ...props } = this.props;
-    const params = {};
-    if (start && end) {
-      if (svgLine) {
-        params.x1 = start.x;
-        params.y1 = start.y;
-        params.x2 = end.x;
-        params.y2 = end.y;
-      } else {
-        const { center, d } = line(start, end, curve);
-        params.d = d;
-        this.center = center;
+  const expose = {
+    getCenter: () => lastCenter.current,
+  };
+
+  useImperativeHandle(ref, () => expose, []);
+
+  const [isLoad, d3] = useD3();
+
+  const { start, end, svgLine, curve, ...otherProps } = props;
+  const params = {};
+  if (start && end) {
+    if (svgLine) {
+      params.x1 = start.x;
+      params.y1 = start.y;
+      params.x2 = end.x;
+      params.y2 = end.y;
+    } else {
+      if (!isLoad) {
+        return null;
       }
+      const { center, d } = d3.line(start, end, curve);
+      params.d = d;
+      lastCenter.current = center;
     }
-    params.atom = svgLine ? "line" : "path";
-    return <SemanticUI ui={false} {...props} {...params} />;
   }
-}
+  params.atom = svgLine ? "line" : "path";
+  return <SemanticUI ui={false} {...otherProps} {...params} />;
+});
+
+Line.displayName = "Line";
 
 export default Line;

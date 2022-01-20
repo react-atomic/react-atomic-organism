@@ -74,7 +74,7 @@ const remove = (dNode) => {
 
 const js = (base, isPrepend) => (callback) => (url, attrs) => {
   const dNode = create("script")(callback)(attrs);
-  if (base) {
+  if (false !== base) {
     inject(base, isPrepend)(dNode);
   }
   dNode.src = url;
@@ -87,7 +87,7 @@ const css = (base, isPrepend) => (callback) => (url, attrs) => {
     type: "text/css",
     ...attrs,
   });
-  if (base) {
+  if (false !== base) {
     inject(base, isPrepend)(dNode);
   }
   dNode.href = url;

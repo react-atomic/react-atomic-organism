@@ -1,4 +1,4 @@
-import { toZoomTransform } from "../index";
+import { toZoomTransform } from "../getD3";
 
 import { expect } from "chai";
 

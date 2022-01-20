@@ -1,6 +1,6 @@
 {
   "name": "d3-lib",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "D3 Library for data computing.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -10,11 +10,14 @@
   "license": "MIT",
   "dependencies": {
     "array.min.max": "*",
+    "create-el": "*",
     "d3": "^6.x",
     "d3-scale-chromatic": "*",
     "get-object-value": "*",
     "memoize-one": "*",
-    "reshow-runtime": "*"
+    "reshow-constant": "*",
+    "reshow-runtime": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",

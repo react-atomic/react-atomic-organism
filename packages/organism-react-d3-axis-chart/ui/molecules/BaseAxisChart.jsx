@@ -5,6 +5,7 @@ import { mouse } from "getoffset";
 import get from "get-object-value";
 import { win } from "win-doc";
 import callfunc from "call-func";
+import { useD3 } from "d3-lib";
 
 import Line from "../molecules/Line";
 import Rect from "../molecules/Rect";
@@ -19,14 +20,13 @@ const adjustX = 60;
 const adjustY = 20;
 
 const useBaseAxisChart = (props) => {
+  const [isLoad, d3] = useD3();
   const [
     {
-      isLoad,
       crosshairX,
       crosshairY,
       hideCrosshairX = true,
       hideCrosshairY = true,
-      d3,
     },
     setState,
   ] = useState({});
@@ -75,26 +75,6 @@ const useBaseAxisChart = (props) => {
       hideCrosshairY: propsHideCrosshairY,
     }));
   }, [propscCosshairX, propsHideCrosshairY]);
-
-  useEffect(() => {
-    if (!win().__null) {
-      import("d3-lib").then(
-        ({ stack, curve, scaleLinear, scaleBand, hArea }) => {
-          setState((prev) => ({
-            ...prev,
-            d3: {
-              stack,
-              curve,
-              scaleLinear,
-              scaleBand,
-              hArea,
-            },
-            isLoad: true,
-          }));
-        }
-      );
-    }
-  }, []);
 
   if (!isLoad) {
     return null;

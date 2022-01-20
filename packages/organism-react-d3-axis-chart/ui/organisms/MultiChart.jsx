@@ -5,6 +5,7 @@ import getoffset from "getoffset";
 import { win } from "win-doc";
 import { debounce } from "call-func";
 import { useMounted } from "reshow-hooks";
+import { useD3 } from "d3-lib";
 
 import ChartElement from "../molecules/ChartElement";
 import resetProps from "../../src/resetProps";
@@ -17,15 +18,9 @@ const getParentWH = (el) => {
 };
 
 const useMultiChart = (props) => {
+  const [isLoad, d3] = useD3();
   const [
-    {
-      isLoad,
-      crosshairX,
-      hideCrosshairY,
-      d3,
-      scaleW: stateScaleW,
-      scaleH: stateScaleH,
-    },
+    { crosshairX, hideCrosshairY, scaleW: stateScaleW, scaleH: stateScaleH },
     setState,
   ] = useState({});
 
@@ -57,27 +52,16 @@ const useMultiChart = (props) => {
       }));
     });
 
-    if (!win().__null) {
-      import("d3-lib").then(({ scaleBand }) => {
-        isMounted() && setState((prev) => ({
-          ...prev,
-          d3: {
-            scaleBand,
-          },
-          isLoad: true,
-        }));
-        if (autoScale) {
-          win().addEventListener("resize", execResize);
-          execResize();
-        }
-      });
+    if (isLoad && win().__null && autoScale) {
+      win().addEventListener("resize", execResize);
+      execResize();
     }
     return () => {
-      if (autoScale) {
+      if (isLoad && win().__null && autoScale) {
         win().removeEventListener("resize", execResize);
       }
     };
-  }, []);
+  }, [isLoad]);
 
   if (!isLoad) {
     return null;

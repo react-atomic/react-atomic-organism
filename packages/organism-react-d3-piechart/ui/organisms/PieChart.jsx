@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { SemanticUI } from "react-atomic-molecule";
-import { pie } from "d3-lib";
+import { useD3 } from "d3-lib";
 import get from "get-object-value";
 import { lightenColor } from "colorlib";
 import { Svg, Group } from "organism-react-graph";
@@ -164,7 +164,11 @@ const PieChart = ({
   unit,
   ...props
 }) => {
-  const pieData = pie(data, innerRadius, outerRadius);
+  const [isLoad, d3] = useD3();
+  if (!isLoad) {
+    return null;
+  }
+  const pieData = d3.pie(data, innerRadius, outerRadius);
   let wBoxSize = pieData.outerRadius * 2; //use final outerRadius, please don't use props one.
   let hBoxSize = pieData.outerRadius * 2;
   if (showOuterLabels) {

@@ -3,19 +3,19 @@ import React from "react";
 import { expect } from "chai";
 import { jsdom, mount } from "reshow-unit";
 
-import DragAndDrop from "../DragAndDrop";
+import PieChart from "../PieChart";
 
-describe("Test DragAndDrop", () => {
+describe("Test PieChart", () => {
   beforeEach(() => {
     jsdom(null, { runScripts: "dangerously", resources: "usable" });
   });
-  it("base test", (done) => {
-    const Comp = ({ onGetEl }) => <div ref={onGetEl} />;
-    const wrap = mount(<DragAndDrop component={Comp} />);
+
+  it("basic test", (done) => {
+    const wrap = mount(<PieChart />);
     setTimeout(() => {
       wrap.update();
       const html = wrap.html();
-      expect(html).to.have.string("div");
+      expect(html).to.have.string("svg");
       done();
     }, 500);
   });

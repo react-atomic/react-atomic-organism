@@ -1,4 +1,4 @@
-import { pie, arc } from "../index";
+import { pie, arc } from "../getD3";
 import { expect } from "chai";
 import get from "get-object-value";
 
