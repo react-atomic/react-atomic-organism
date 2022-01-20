@@ -1,8 +1,10 @@
 
 [![CircleCI](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/main.svg?style=svg)](https://circleci.com/gh/react-atomic/react-atomic-organism/tree/main)
 
-# react-atomic-organism
+Reshow Atomic Organism (React Component)
+===============
 Atomic design in React (organisms)
+
 * Live Demo: https://react-atomic-ui.js.org/
 
 ## NPM
