@@ -228,7 +228,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
   }) => {
     injects = useLazyInject(InjectStyles, injects);
     return (
-      <Segment
+      <SemanticUI
         {...others}
         className={mixClass(className, containerClass)}
         style={{ ...Styles.container, ...style }}
@@ -239,7 +239,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
         </SemanticUI>
         {menu}
         {right}
-      </Segment>
+      </SemanticUI>
     );
   };
 
