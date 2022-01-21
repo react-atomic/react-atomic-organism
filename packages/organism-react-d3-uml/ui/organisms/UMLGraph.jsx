@@ -1,5 +1,6 @@
 import React, {
   Component,
+  useEffect,
   useState,
   useImperativeHandle,
   forwardRef,
@@ -12,6 +13,7 @@ import getOffset, { mouse, getSvgMatrixXY } from "getoffset";
 import callfunc from "call-func";
 import { toInt } from "to-percent-js";
 import { UNDEFINED } from "reshow-constant";
+import { useD3 } from "d3-lib";
 
 import ArrowHead from "../molecules/ArrowHead";
 import BoxGroupDefaultLayout from "../molecules/BoxGroupDefaultLayout";
@@ -23,17 +25,22 @@ import ConnectController from "../../src/ConnectController";
 
 const keys = Object.keys;
 
-const HTMLGraph = forwardRef((props, ref) => {
+const HTMLGraph = forwardRef(({ d3OnLoad, ...props }, ref) => {
+  const [isD3Load] = useD3();
   const [transform, setTransform] = useState();
+  const expose = { setTransform };
+  useImperativeHandle(ref, () => expose, []);
+  useEffect(()=>{
+    if(isD3Load) {
+      setTimeout(()=>d3OnLoad());
+    }
+  }, [isD3Load]);
   const { k, x, y } = transform || {};
   const transformStyle = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
   const style = { ...Styles.htmlGraph, transform: transformStyle };
-  const expose = {
-    setTransform,
-  };
-  useImperativeHandle(ref, () => expose, []);
   return <SemanticUI {...props} style={style} className="html-graph" />;
 });
+HTMLGraph.displayName = "HTMLGraph";
 
 class UMLGraph extends Component {
   static defaultProps = {
@@ -280,7 +287,8 @@ class UMLGraph extends Component {
     this.handleAutoArrange(conns);
   }
 
-  syncPropConnects(autoArrange) {
+  syncPropConnects() {
+    const { autoArrange } = this.props;
     const oConn = this.oConn;
     const {
       data,
@@ -292,7 +300,6 @@ class UMLGraph extends Component {
       boxGroupsLocator,
       onConnAdd,
     } = this.props;
-
     const conns = connsLocator(data);
     if (!conns || !conns.length) {
       return;
@@ -329,12 +336,17 @@ class UMLGraph extends Component {
         );
       }
     });
+
     oConn.setState(null, () => {
       // fixed line not sync after initialize arrange
       if (autoArrange) {
-        setTimeout(() => this.arrange(), 100);
+        this.arrange();
       }
     });
+
+    if (!autoArrange) {
+      this.handleLoad();
+    }
   }
 
   handleBoxGroupDragEnd = (e) => {
@@ -431,14 +443,7 @@ class UMLGraph extends Component {
   };
 
   componentDidMount() {
-    const { autoArrange } = this.props;
     this.oConn = new ConnectController({ host: this });
-    setTimeout(() => {
-      this.syncPropConnects(autoArrange);
-      if (!autoArrange) {
-        this.handleLoad();
-      }
-    });
     this.mount = true;
   }
 
@@ -488,7 +493,7 @@ class UMLGraph extends Component {
     return (
       <SemanticUI
         className="d3-uml"
-        style={{...Styles.container, ...style}}
+        style={{ ...Styles.container, ...style }}
         refCb={this.handleSetZoomEl}
       >
         <Graph refCb={this.handleSetVector} {...props} style={Styles.svg}>
@@ -506,7 +511,11 @@ class UMLGraph extends Component {
             />
           </Zoom>
         </Graph>
-        <HTMLGraph refCb={this.handleSetHtmlEl} ref={this.handleSetHtmlObj}>
+        <HTMLGraph
+          refCb={this.handleSetHtmlEl}
+          ref={this.handleSetHtmlObj}
+          d3OnLoad={this.syncPropConnects.bind(this)}
+        >
           {
             /* !!Important!! BoxGroup need put in root component for get render position*/
             (boxGroupsLocator(data) || []).map((item) => {

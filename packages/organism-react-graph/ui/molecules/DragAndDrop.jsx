@@ -14,7 +14,7 @@ import callfunc from "call-func";
 import { doc } from "win-doc";
 
 const useDragAndDrop = (props) => {
-  const [isLoad, d3] = useD3();
+  const [isLoad, d3] = useD3(props.onD3Load);
 
   const startPoint = useRef();
   const lastPoint = useRef({});
@@ -26,8 +26,17 @@ const useDragAndDrop = (props) => {
     lastProps.current = props;
   }, [props]);
 
+  const expose = {
+    getEl: () => thisEl.current,
+    setXY: (x, y) => {
+      lastPoint.current.absX = x;
+      lastPoint.current.absY = y;
+    },
+    isDraging: () => isDraging,
+  };
+
   if (!isLoad) {
-    return { isLoad };
+    return { isLoad, expose };
   }
 
   const handleStart = (d3Event) => {
@@ -109,14 +118,6 @@ const useDragAndDrop = (props) => {
     return thisEl.current;
   };
 
-  const expose = {
-    getEl: () => thisEl.current,
-    setXY: (x, y) => {
-      lastPoint.current.absX = x;
-      lastPoint.current.absY = y;
-    },
-    isDraging: () => isDraging,
-  };
 
   return { isLoad, handleElChange, isDraging, expose };
 };
@@ -138,6 +139,7 @@ const DragAndDrop = forwardRef((props, ref) => {
       onDragStart,
       onDrag,
       onDragEnd,
+      onD3Load,
       ...others
     } = props;
     const { style: compStyle, refCb: compRefcb } = component?.props || {};

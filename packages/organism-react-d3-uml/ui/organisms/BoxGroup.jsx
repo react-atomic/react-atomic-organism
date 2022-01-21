@@ -60,7 +60,9 @@ class BoxGroup extends Component {
     onDel(name);
   };
 
-  handleSetRef = (el) => (this.el = el);
+  handleSetRef = (el) => {
+    el && (this.el = el);
+  }
 
   handleGetEl = () => this.getEl();
 

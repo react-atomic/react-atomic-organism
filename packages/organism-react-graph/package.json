@@ -1,6 +1,6 @@
 {
   "name": "organism-react-graph",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "React Graph",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",

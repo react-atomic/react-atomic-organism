@@ -863,6 +863,13 @@ reshow-constant@*:
   resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.16.0.tgz#2fe26deb6fbd1b45fa6ff5202bda7644156dce1a"
   integrity sha512-AKrU8A6EdFw7L5zHs8W8WNsdXbZwpgimvY92ZwobLhH5wC6mVG+L6H6zzS6/Y/DBqWXcuCsRGTg5hT1ahwZ6pQ==
 
+reshow-hooks@*:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/reshow-hooks/-/reshow-hooks-0.16.0.tgz#be20717d92e70c4f2dd7d4196fc7464a02aa6e1b"
+  integrity sha512-7N7fgInP/AnMJH1Pe3vSF5DkHW3to9xutskSKwDVCHwrCq0kQ+Snh8GoB2tWINrXZP2dwmqjfCa0pff/smZEnQ==
+  dependencies:
+    call-func "*"
+
 reshow-runtime@*:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.16.0.tgz#0c49f40ecfc18ea4b6ca6609c453f0e4b4065929"

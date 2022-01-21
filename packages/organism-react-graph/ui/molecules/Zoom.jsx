@@ -11,7 +11,8 @@ import callfunc from "call-func";
 import Group from "../molecules/Group";
 
 const useZoom = (props) => {
-  const [isLoad, d3] = useD3();
+  const { onGetEl, onZoom, onD3Load, scaleExtent = [-1, 8], ...others } = props;
+  const [isLoad, d3] = useD3(onD3Load);
   const [transform, setTransform] = useState(null);
   const lastEvent = useRef();
   const lastTransform = useRef();
@@ -27,31 +28,6 @@ const useZoom = (props) => {
       expose.enable();
     }
   }, [isLoad]);
-
-  if (!isLoad) {
-    return { isLoad };
-  }
-
-  const { onGetEl, onZoom, scaleExtent = [-1, 8], ...others } = props;
-
-  const getXYK = () => {
-    const { x, y, k } = lastTransform.current || {};
-    return { x, y, k };
-  };
-
-  const handleTransform = (transformVal, e) => {
-    if (!e) {
-      e = { transform: transformVal };
-      const objD3Zoom = lastD3ZoomObject.current;
-      const el = d3.d3Select(callfunc(onGetEl));
-      if (objD3Zoom && el) {
-        objD3Zoom.transform(el, transformVal);
-      }
-    }
-    e.zoom = expose;
-    lastEvent.current = e;
-    setTransform(transformVal);
-  };
 
   const expose = {
     getTransform: () => lastTransform.current,
@@ -90,6 +66,29 @@ const useZoom = (props) => {
     getEnabled: () => lastEnable.current,
   };
 
+  if (!isLoad) {
+    return { isLoad, expose };
+  }
+
+
+  const getXYK = () => {
+    const { x, y, k } = lastTransform.current || {};
+    return { x, y, k };
+  };
+
+  const handleTransform = (transformVal, e) => {
+    if (!e) {
+      e = { transform: transformVal };
+      const objD3Zoom = lastD3ZoomObject.current;
+      const el = d3.d3Select(callfunc(onGetEl));
+      if (objD3Zoom && el) {
+        objD3Zoom.transform(el, transformVal);
+      }
+    }
+    e.zoom = expose;
+    lastEvent.current = e;
+    setTransform(transformVal);
+  };
 
   return {
     isLoad,

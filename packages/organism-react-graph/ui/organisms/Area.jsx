@@ -12,10 +12,11 @@ const Area = (props) => {
     xLocator,
     y0Locator,
     y1Locator,
+    onD3Load,
     ...otherProps
   } = props;
 
-  const [isLoad, d3] = useD3();
+  const [isLoad, d3] = useD3(onD3Load);
   if (!isLoad) {
     return null;
   }

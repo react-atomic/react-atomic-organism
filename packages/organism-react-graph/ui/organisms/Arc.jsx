@@ -6,12 +6,6 @@ import Group from "../molecules/Group";
 import Path from "../molecules/Path";
 
 const Arc = (props) => {
-  const [isLoad, d3] = useD3();
-
-  if (!isLoad) {
-    return null;
-  }
-
   const {
     innerRadius,
     outerRadius,
@@ -20,8 +14,16 @@ const Arc = (props) => {
     endAngle,
     children,
     groupProps,
+    onD3Load,
     ...otherProps
   } = props;
+
+  const [isLoad, d3] = useD3(onD3Load);
+
+  if (!isLoad) {
+    return null;
+  }
+
 
   const angleData = [{ startAngle, endAngle }];
   const data = d3.arc(angleData, innerRadius, outerRadius, cornerRadius);

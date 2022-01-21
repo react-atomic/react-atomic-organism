@@ -11,12 +11,12 @@ describe("Test DragAndDrop", () => {
   });
   it("base test", (done) => {
     const Comp = ({ onGetEl }) => <div ref={onGetEl} />;
-    const wrap = mount(<DragAndDrop component={Comp} />);
-    setTimeout(() => {
+    const onD3Load = () => {
       wrap.update();
       const html = wrap.html();
       expect(html).to.have.string("div");
       done();
-    }, 500);
+    };
+    const wrap = mount(<DragAndDrop component={Comp} onD3Load={onD3Load}/>);
   });
 });

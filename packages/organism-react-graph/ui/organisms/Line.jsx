@@ -11,9 +11,9 @@ const Line = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => expose, []);
 
-  const [isLoad, d3] = useD3();
+  const { start, end, svgLine, curve, onD3Load, ...otherProps } = props;
+  const [isLoad, d3] = useD3(onD3Load);
 
-  const { start, end, svgLine, curve, ...otherProps } = props;
   const params = {};
   if (start && end) {
     if (svgLine) {

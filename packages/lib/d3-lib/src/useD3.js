@@ -2,29 +2,48 @@ import { useEffect, useState } from "react";
 import { js } from "create-el";
 import { win } from "win-doc";
 import { KEYS } from "reshow-constant";
+import { useMounted } from "reshow-hooks";
+import callfunc from "call-func";
 import * as d3Lib from "./d3lib";
 
 const d3js = "https://cdn.jsdelivr.net/npm/d3@6.5.0/dist/d3.min.js";
+const askQueue = [];
 let d3;
 
-const useD3 = (props) => {
+const useD3 = (onD3Load) => {
   const [isLoad, setIsLoad] = useState(false);
+  const _mounted = useMounted();
+  useEffect(() => {
+    if (isLoad) {
+      callfunc(onD3Load);
+    }
+  }, [isLoad]);
   useEffect(() => {
     const done = () => {
       const { handleGetD3, ...libs } = d3Lib;
-      handleGetD3(win().d3);
       d3 = libs;
-      setIsLoad(true);
+      handleGetD3(win().d3);
+      let i = askQueue.length;
+      while (i--) {
+        askQueue[i]();
+      }
+      askQueue.splice(0, askQueue.length);
     };
 
-    if (!win().__null && !d3) {
+    if (!win().__null) {
+      askQueue.push(() => {
+        if (_mounted()) {
+          setIsLoad(true);
+        }
+      });
       if (win().d3) {
         done();
       } else {
-        js()(done)(d3js);
+        if (false !== win().d3) {
+          win().d3 = false;
+          js()(done)(d3js);
+        }
       }
-    } else {
-      setIsLoad(true);
     }
   }, []);
   return [isLoad, d3];
