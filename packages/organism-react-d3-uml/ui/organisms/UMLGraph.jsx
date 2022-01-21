@@ -26,15 +26,10 @@ import ConnectController from "../../src/ConnectController";
 const keys = Object.keys;
 
 const HTMLGraph = forwardRef(({ d3OnLoad, ...props }, ref) => {
-  const [isD3Load] = useD3();
+  useD3(d3OnLoad);
   const [transform, setTransform] = useState();
   const expose = { setTransform };
   useImperativeHandle(ref, () => expose, []);
-  useEffect(()=>{
-    if(isD3Load) {
-      setTimeout(()=>d3OnLoad());
-    }
-  }, [isD3Load]);
   const { k, x, y } = transform || {};
   const transformStyle = `translate(${toInt(x)}px, ${toInt(y)}px) scale(${k})`;
   const style = { ...Styles.htmlGraph, transform: transformStyle };

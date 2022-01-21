@@ -67,3 +67,5 @@ workflows:
                 - "packages/organism-react-i13n"
                 - "packages/organism-react-navigation"
                 - "packages/organism-react-popup"
+                - "packages/organism-react-d3-uml"
+
