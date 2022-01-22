@@ -52,12 +52,14 @@ const useMultiChart = (props) => {
       }));
     });
 
-    if (isLoad && win().__null && autoScale) {
+    const needAutoScale = isLoad && !win().__null && autoScale;
+
+    if (needAutoScale) {
       win().addEventListener("resize", execResize);
       execResize();
     }
     return () => {
-      if (isLoad && win().__null && autoScale) {
+      if (needAutoScale) {
         win().removeEventListener("resize", execResize);
       }
     };

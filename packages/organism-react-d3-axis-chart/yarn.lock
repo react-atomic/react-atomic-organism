@@ -767,9 +767,9 @@ camelcase@^6.0.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001286:
-  version "1.0.30001300"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001300.tgz#11ab6c57d3eb6f964cba950401fd00a146786468"
-  integrity sha512-cVjiJHWGcNlJi8TZVKNMnvMid3Z3TTdDHmLDzlOdIiZq138Exvo0G+G0wTdVYolxKb4AYwC+38pxodiInVtJSA==
+  version "1.0.30001301"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001301.tgz#ebc9086026534cab0dab99425d9c3b4425e5f450"
+  integrity sha512-csfD/GpHMqgEL3V3uIgosvh+SVIQvCh43SNu9HRbP1lnxkKm1kjDG4f32PP571JplkLjfS+mg2p1gxR7MYrrIA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1210,17 +1210,19 @@ d3-hierarchy@2:
     d3-color "1 - 3"
 
 d3-lib@*:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.7.0.tgz#a1aa562c48899030eda92e191267dfc0f4fb43f4"
-  integrity sha512-swV2fkPra/9OdQQ/aJXY7sHRSCGTYN0qfTn9DQKl7qX8UuZChzkOJw4Bctw5QDEN9AqQmLhfwf+oGB7BOOOftw==
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/d3-lib/-/d3-lib-0.7.7.tgz#c4d180c42bbe1e54b155dc7e3c237c9414df5db7"
+  integrity sha512-JDBPMNxKgXu73yhFrVkBtYz8lGneUTl5lBo1bvwUXbg/bSGQ5GSx9tg28foum59w4DdYflnNS0kcvgMDfszVJQ==
   dependencies:
     array.min.max "*"
+    call-func "*"
     create-el "*"
     d3 "^6.x"
     d3-scale-chromatic "*"
     get-object-value "*"
     memoize-one "*"
     reshow-constant "*"
+    reshow-hooks "*"
     reshow-runtime "*"
     win-doc "*"
 
@@ -1516,9 +1518,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.4.17:
-  version "1.4.49"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.49.tgz#5b6a3dc032590beef4be485a4b0b3fe7d0e3dfd7"
-  integrity sha512-k/0t1TRfonHIp8TJKfjBu2cKj8MqYTiEpOhci+q7CVEE5xnCQnx1pTa+V8b/sdhe4S3PR4p4iceEQWhGrKQORQ==
+  version "1.4.50"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.50.tgz#edbeeca145494b1cd4a6a2aa1fe3d28abc0b08a4"
+  integrity sha512-g5X/6oVoqLyzKfsZ1HsJvxKoUAToFMCuq1USbmp/GPIwJDRYV1IEcv+plYTdh6h11hg140hycCBId0vf7rL0+Q==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -3201,9 +3203,9 @@ optionator@^0.9.1:
     word-wrap "^1.2.3"
 
 organism-react-graph@*:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.7.0.tgz#02016ddf978ba2532a27c1120329e93dc30ab059"
-  integrity sha512-+yCFWnRBt9QddPFjqpxobWSwSkX31WCJoUiPCr72pMKf4yL9tew3skLoSr5J6Wl9MDysDcKgVCfLIenwoOi5zQ==
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.7.1.tgz#8736d731d18630bbacdcb85f35c01ee0f2b92ec2"
+  integrity sha512-ctXV1v0VilyHaRi3o5GvYzZKlmZYUW2XVY9N1JzujpJp0MnTuXHtXLkeLVGF7AcKSi7ys23nMuj7k42s8uSDeA==
   dependencies:
     call-func "*"
     colorlib "*"
@@ -3544,9 +3546,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "2.9.7"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.9.7.tgz#9226a3e1ec5473c70ca190f88aeabe204d726bab"
-  integrity sha512-XAttMNO7MirCYPkplTBMHP/+O/bthlCuTQ2txFUg2ZIScCVnSWIREhzQfVbW42odX7ZvTsPnQr0EG30lf7JgNQ==
+  version "2.9.10"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.9.10.tgz#6a6734fb1c3198484410897b088feaf9d9ffcffc"
+  integrity sha512-KyyPEfYev7coHURVU2fBLcIh8vZJ1ooV7XQ8PIN2KB4C4ayhrMaI2MOtunHiViP6+2gB+6VaWp30Tj2Sy+S1pA==
   dependencies:
     array.merge "*"
     class-lib "*"

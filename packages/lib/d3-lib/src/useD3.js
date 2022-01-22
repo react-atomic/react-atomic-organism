@@ -11,7 +11,7 @@ const askQueue = [];
 let d3;
 
 const useD3 = (onD3Load) => {
-  const [isLoad, setIsLoad] = useState(false);
+  const [isLoad, setIsLoad] = useState(!!d3);
   const _mounted = useMounted();
   useEffect(() => {
     if (isLoad) {
@@ -24,13 +24,17 @@ const useD3 = (onD3Load) => {
       d3 = libs;
       handleGetD3(win().d3);
       let i = askQueue.length;
+      /**
+       * It should only run setIsLoad here,
+       * to avoid duplicate execution.
+       */
       while (i--) {
-        askQueue[i]();
+        askQueue[i] && askQueue[i]();
       }
       askQueue.splice(0, askQueue.length);
     };
 
-    if (!win().__null) {
+    if (!win().__null && !isLoad) {
       askQueue.push(() => {
         if (_mounted()) {
           setIsLoad(true);

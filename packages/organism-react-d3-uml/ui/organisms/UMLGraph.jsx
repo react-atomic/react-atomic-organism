@@ -344,6 +344,8 @@ class UMLGraph extends Component {
     }
   }
 
+  handleD3Load = () => setTimeout(() => this.syncPropConnects());
+
   handleBoxGroupDragEnd = (e) => {
     const { onDragEnd } = this.props;
     callfunc(onDragEnd, [e]);
@@ -509,7 +511,7 @@ class UMLGraph extends Component {
         <HTMLGraph
           refCb={this.handleSetHtmlEl}
           ref={this.handleSetHtmlObj}
-          d3OnLoad={this.syncPropConnects.bind(this)}
+          d3OnLoad={this.handleD3Load}
         >
           {
             /* !!Important!! BoxGroup need put in root component for get render position*/

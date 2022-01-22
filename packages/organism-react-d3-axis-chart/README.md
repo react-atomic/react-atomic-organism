@@ -7,8 +7,8 @@ D3 Axis Chart
       * https://www.npmjs.com/package/organism-react-d3-axis-chart 
 
 ## Example Usage
-Demo Url:
-https://react-atomic-ui.js.org/#/d3
+* Demo Url:
+   * https://react-atomic-ui.js.org/#/D3 
 <!--/hidden-->
 
 
