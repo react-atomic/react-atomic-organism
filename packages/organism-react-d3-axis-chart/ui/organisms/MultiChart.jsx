@@ -18,7 +18,7 @@ const getParentWH = (el) => {
 };
 
 const useMultiChart = (props) => {
-  const [isLoad, d3] = useD3();
+  const [isLoad, d3] = useD3(props.onD3Load);
   const [
     { crosshairX, hideCrosshairY, scaleW: stateScaleW, scaleH: stateScaleH },
     setState,
@@ -43,24 +43,24 @@ const useMultiChart = (props) => {
   const lastEl = useRef();
 
   useEffect(() => {
-    const execResize = debounce(() => {
+    const execResize = () => {
       const { w, h } = getParentWH(lastEl.current);
       setState((prev) => ({
         ...prev,
         scaleW: w,
         scaleH: h,
       }));
-    });
-
+    };
+    const debounceResize = debounce(execResize);
     const needAutoScale = isLoad && !win().__null && autoScale;
 
     if (needAutoScale) {
-      win().addEventListener("resize", execResize);
+      win().addEventListener("resize", debounceResize);
       execResize();
     }
     return () => {
       if (needAutoScale) {
-        win().removeEventListener("resize", execResize);
+        win().removeEventListener("resize", debounceResize);
       }
     };
   }, [isLoad]);

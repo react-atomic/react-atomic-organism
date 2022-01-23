@@ -10,12 +10,12 @@ describe("Test mulit chart", () => {
   });
 
   it("basic test", (done) => {
-    const wrap = mount(<MultiChart />);
-    setTimeout(() => {
+    const onD3Load = () => {
       wrap.update();
       const html = wrap.html();
       expect(html).to.have.string("svg");
       done();
-    }, 500);
+    };
+    const wrap = mount(<MultiChart onD3Load={onD3Load} />);
   });
 });
