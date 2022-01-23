@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import get from "get-object-value";
 import arrayMerge from "array.merge";
-import { lazyInject, mixClass, Field, SemanticUI } from "react-atomic-molecule";
+import { useCSS, lazyInject, mixClass, Field, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 
 let checkboxId = 0;
@@ -14,6 +14,7 @@ const InputWrapper = ({
   disabled,
   ...props
 }) => {
+  useCSS(["checkbox"], "semantic");
   const classes = mixClass("checkbox", {
     radio: type === "radio",
     toggle,
