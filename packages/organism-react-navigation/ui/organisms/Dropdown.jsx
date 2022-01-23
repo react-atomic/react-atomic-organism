@@ -23,16 +23,16 @@ import DropdownIcon from "ricon/Dropdown";
 
 const useDropdown = (props) => {
   const {
+    icon = true,
+    simple = true,
     list,
     listStyle: propsListStyle,
     titleStyle,
     iconStyle,
-    icon,
     children,
     style,
     className,
     textClassName,
-    simple,
     ...others
   } = props;
   const [titleTimer] = useTimer();
@@ -231,11 +231,6 @@ const Dropdown = (props) => {
       {thisList}
     </SemanticUI>
   );
-};
-
-Dropdown.defaultProps = {
-  icon: true,
-  simple: true,
 };
 
 export default Dropdown;
