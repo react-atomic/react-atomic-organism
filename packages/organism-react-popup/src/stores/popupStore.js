@@ -1,6 +1,7 @@
 import { Map, ImmutableStore, mergeMap } from "reshow-flux";
 import get from "get-object-value";
 import set from "set-object-value";
+import callfunc from "call-func";
 
 const groups = {};
 const SHOW_KEY = "shows";
@@ -8,14 +9,23 @@ const NODE_KEY = "nodes";
 const keys = Object.keys;
 const isArray = Array.isArray;
 
+const getName = (node, defaultVal = "default") => {
+  const name = get(node, ["props", "name"], () => {
+    return get(node, ["type", "displayName"], () => {
+      return get(node, ["type", "name"], defaultVal);
+    });
+  });
+  return name;
+};
+
 class handlePopup {
   updateDom(state, action) {
     const popupNode = get(action, ["params", "popup"]);
-    const key = get(popupNode, ["props", "name"], "default");
-    if (key !== get(popupNode, ["props", "name"])) {
+    const key = getName(popupNode);
+    if (key !== getName(popupNode, null)) {
       console.warn({
         Warn: "Popup Key not consistence, you use a default key. you should assign name to each specific popup element.",
-        PopUpKey: get(popupNode, ["props", "name"]),
+        PopUp: popupNode,
         ActualKey: key,
       });
     }
@@ -35,7 +45,7 @@ class handlePopup {
     const popup = get(action, ["params", "popup"], "default");
     let key;
     if ("object" === typeof popup) {
-      key = get(popup, ["props", "name"], popup);
+      key = getName(popup, popup);
     } else {
       key = popup;
     }

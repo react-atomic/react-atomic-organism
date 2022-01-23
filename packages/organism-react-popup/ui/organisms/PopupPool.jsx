@@ -22,7 +22,7 @@ const getPops = (nodes, name) => {
   return pops;
 };
 
-const PopupPool = ({ name, component, ...otherProps }) => (
+const PopupPool = ({ name, component = SemanticUI, ...otherProps }) => (
   <Return store={popupStore} initStates={["nodes"]}>
     {({ nodes }) => {
       const pops = getPops(nodes, name);
@@ -42,9 +42,5 @@ const PopupPool = ({ name, component, ...otherProps }) => (
     }}
   </Return>
 );
-
-PopupPool.defaultProps = {
-  component: SemanticUI,
-};
 
 export default PopupPool;

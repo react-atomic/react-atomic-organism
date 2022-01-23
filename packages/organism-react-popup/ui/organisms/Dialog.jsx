@@ -13,8 +13,10 @@ import callfunc from "call-func";
 
 import PopupModal from "../molecules/PopupModal";
 
+const defaultName = "dialog";
+
 const Dialog = ({
-  name = "dialog",
+  name = defaultName,
   i18nNegativeBtn = "No",
   i18nPositiveBtn = "Yes",
   size = "mini",
@@ -71,5 +73,7 @@ const Dialog = ({
     </PopupModal>
   );
 };
+
+Dialog.displayName = defaultName;
 
 export default Dialog;
