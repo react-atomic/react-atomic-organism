@@ -38,16 +38,16 @@
   integrity sha512-m7OkX0IdKLKPpBlJtF561YJal5y/jyI5fNfWbPxh2D/nbzzGI4qRyrD8xO2jB24u7l+5I2a43scCG2IrfjC50Q==
 
 "@babel/core@^7.7.5":
-  version "7.16.10"
-  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.16.10.tgz#ebd034f8e7ac2b6bfcdaa83a161141a646f74b50"
-  integrity sha512-pbiIdZbCiMx/MM6toR+OfXarYix3uz0oVsnNtfdAGTcCTu3w/JGF8JhirevXLBJUu0WguSZI12qpKnx7EeMyLA==
+  version "7.16.12"
+  resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.16.12.tgz#5edc53c1b71e54881315923ae2aedea2522bb784"
+  integrity sha512-dK5PtG1uiN2ikk++5OzSYsitZKny4wOCD0nrO4TqnW4BVBTQ2NGS3NgilvT/TEyxTST7LNyWV/T4tXDoD3fOgg==
   dependencies:
     "@babel/code-frame" "^7.16.7"
     "@babel/generator" "^7.16.8"
     "@babel/helper-compilation-targets" "^7.16.7"
     "@babel/helper-module-transforms" "^7.16.7"
     "@babel/helpers" "^7.16.7"
-    "@babel/parser" "^7.16.10"
+    "@babel/parser" "^7.16.12"
     "@babel/template" "^7.16.7"
     "@babel/traverse" "^7.16.10"
     "@babel/types" "^7.16.8"
@@ -170,10 +170,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.16.10", "@babel/parser@^7.16.7":
-  version "7.16.10"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.16.10.tgz#aba1b1cb9696a24a19f59c41af9cf17d1c716a88"
-  integrity sha512-Sm/S9Or6nN8uiFsQU1yodyDW3MWXQhFeqzMPM+t8MJjM+pLsnFVxFZzkpXKvUXh+Gz9cbMoYYs484+Jw/NTEFQ==
+"@babel/parser@^7.16.10", "@babel/parser@^7.16.12", "@babel/parser@^7.16.7":
+  version "7.16.12"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.16.12.tgz#9474794f9a650cf5e2f892444227f98e28cdf8b6"
+  integrity sha512-VfaV15po8RiZssrkPweyvbGVSe4x2y+aciFCgn0n0/SJMR22cwofRV1mtnJQYcSB1wUTaA/X1LnA3es66MCO5A==
 
 "@babel/template@^7.16.7":
   version "7.16.7"
@@ -1518,9 +1518,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.4.17:
-  version "1.4.50"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.50.tgz#edbeeca145494b1cd4a6a2aa1fe3d28abc0b08a4"
-  integrity sha512-g5X/6oVoqLyzKfsZ1HsJvxKoUAToFMCuq1USbmp/GPIwJDRYV1IEcv+plYTdh6h11hg140hycCBId0vf7rL0+Q==
+  version "1.4.51"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.51.tgz#a432f5a5d983ace79278a33057300cf949627e63"
+  integrity sha512-JNEmcYl3mk1tGQmy0EvL5eik/CKSBuzAyGP0QFdG6LIgxQe3II0BL1m2zKc2MZMf3uGqHWE1TFddJML0RpjSHQ==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -3021,6 +3021,15 @@ nearley@^2.7.10:
     railroad-diagrams "^1.0.0"
     randexp "0.4.6"
 
+need-css@*:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/need-css/-/need-css-0.0.0.tgz#d2975216d1f9b65a667d3115c896d8489098459b"
+  integrity sha512-Gstrb9ZJY+J3u0OGkebQmdRG+gtgGApANV8XoMbFPH9tljMnzPSotMVviP0o90Cy9UjpwyTtTyQHs1U3EZ78jw==
+  dependencies:
+    create-el "*"
+    get-object-value "*"
+    win-doc "*"
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
@@ -3546,9 +3555,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "2.9.10"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.9.10.tgz#6a6734fb1c3198484410897b088feaf9d9ffcffc"
-  integrity sha512-KyyPEfYev7coHURVU2fBLcIh8vZJ1ooV7XQ8PIN2KB4C4ayhrMaI2MOtunHiViP6+2gB+6VaWp30Tj2Sy+S1pA==
+  version "2.10.5"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-2.10.5.tgz#f635ea515b4a2a656e76cb3170b21b25fe2b6b0e"
+  integrity sha512-8PNdGD73ddvwwRuWZ+v7y7bQCVnItem5XYd8HtIPiyWG+IP2dEx+hvBZoPh8grt9XugAzWCvMp3ZAZklE4GUeA==
   dependencies:
     array.merge "*"
     class-lib "*"
@@ -3556,6 +3565,7 @@ react-atomic-molecule@*:
     css-query-selector "*"
     get-object-value "*"
     hyphenate-style-name "*"
+    need-css "*"
     react-atomic-atom "*"
     reshow-build "*"
     reshow-constant "*"

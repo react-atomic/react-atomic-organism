@@ -17,6 +17,21 @@ const getParentWH = (el) => {
   return getoffset(parentEl);
 };
 
+const execResize = debounce((lastEl, setState) => {
+  const { w, h } = getParentWH(lastEl.current);
+  setState((prev) => {
+    if (w !== prev.scaleW || h !== prev.scaleH) {
+      return {
+        ...prev,
+        scaleW: w,
+        scaleH: h,
+      };
+    } else {
+      return prev;
+    }
+  });
+}, 50);
+
 const useMultiChart = (props) => {
   const [isLoad, d3] = useD3(props.onD3Load);
   const [
@@ -43,24 +58,17 @@ const useMultiChart = (props) => {
   const lastEl = useRef();
 
   useEffect(() => {
-    const execResize = () => {
-      const { w, h } = getParentWH(lastEl.current);
-      setState((prev) => ({
-        ...prev,
-        scaleW: w,
-        scaleH: h,
-      }));
+    const handleResize = () => {
+      execResize({ args: [lastEl, setState] });
     };
-    const debounceResize = debounce(execResize);
     const needAutoScale = isLoad && !win().__null && autoScale;
 
     if (needAutoScale) {
-      win().addEventListener("resize", debounceResize);
-      execResize();
+      win().addEventListener("resize", handleResize);
     }
     return () => {
       if (needAutoScale) {
-        win().removeEventListener("resize", debounceResize);
+        win().removeEventListener("resize", handleResize);
       }
     };
   }, [isLoad]);
@@ -126,6 +134,7 @@ const useMultiChart = (props) => {
     handleEl: (el) => {
       if (el) {
         lastEl.current = el;
+        execResize({ args: [lastEl, setState] });
       }
     },
   };
