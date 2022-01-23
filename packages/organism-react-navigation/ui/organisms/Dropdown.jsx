@@ -5,22 +5,26 @@ import React, {
   useRef,
   useCallback,
 } from "react";
+
 import get from "get-object-value";
+
 import {
   build,
-  lazyInject,
+  useCSS,
+  useLazyInject,
   mixClass,
   SemanticUI,
   Icon,
   Item,
 } from "react-atomic-molecule";
-import DropdownIcon from "ricon/Dropdown";
+import { useTimer } from "reshow-hooks";
 import { doc } from "win-doc";
+import DropdownIcon from "ricon/Dropdown";
 
-const Dropdown = (props) => {
+const useDropdown = (props) => {
   const {
     list,
-    listStyle,
+    listStyle: propsListStyle,
     titleStyle,
     iconStyle,
     icon,
@@ -31,9 +35,8 @@ const Dropdown = (props) => {
     simple,
     ...others
   } = props;
-
-  const titleTimer = useRef();
-  const menuTimer = useRef();
+  const [titleTimer] = useTimer();
+  const [menuTimer] = useTimer();
   const handleClose = useRef();
   const thisEl = useRef();
   const listEl = useRef();
@@ -41,29 +44,8 @@ const Dropdown = (props) => {
   const isListClick = useRef();
   const [stateListStyle, setStateListStyle] = useState({});
   const [hideList, setHideList] = useState(false);
-
-  const expose = {
-    open: () => {
-      const listStyle = {};
-      if (simple) {
-        listStyle.visibility = "hidden";
-        titleTimer.current = setTimeout(() => {
-          listStyle.visibility = "inherit";
-          setStateListStyle({ ...listStyle });
-        }, 300);
-      }
-      doc().addEventListener("click", handleClose.current);
-      listStyle.display = "block";
-      isActive.current = true;
-      setStateListStyle(listStyle);
-    },
-    close: () => {
-      doc().removeEventListener("click", handleClose.current);
-      isActive.current = false;
-      setStateListStyle({});
-    },
-  };
-
+  injects = useLazyInject(InjectStyles, injects);
+  useCSS(["dropdown"], "semantic");
   useEffect(() => {
     handleClose.current = (e) => {
       const target = e.target;
@@ -72,82 +54,140 @@ const Dropdown = (props) => {
       }
       expose.close();
     };
-    injects = lazyInject(injects, InjectStyles);
     return () => {
-      if (titleTimer.current) {
-        clearTimeout(titleTimer.current);
-      }
-      if (menuTimer.current) {
-        clearTimeout(menuTimer.current);
-      }
       if (!simple) {
         doc().removeEventListener("click", handleClose.current);
       }
     };
   }, []);
 
-  const isOpen = () => {
-    if (simple) {
-      return get(listEl.current, ["style", "display"]) !== "";
-    } else {
-      return isActive.current;
-    }
-  };
-
-  const handleListTouchStart = (e) => {
-    if (!isOpen()) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
-
-  const handleListClick = (e) => {
-    if (simple) {
-      if (!isOpen()) {
-        setTimeout(() => {
-          setHideList(true);
-          menuTimer.current = setTimeout(() => setHideList(false), 500);
-        });
+  const expose = {
+    open: () => {
+      const runTimeListStyle = {};
+      if (simple) {
+        runTimeListStyle.visibility = "hidden";
+        titleTimer(() => {
+          runTimeListStyle.visibility = "inherit";
+          setStateListStyle({ ...runTimeListStyle });
+        }, 300);
       }
-    } else {
-      expose.close();
-    }
-    isListClick.current = true;
+      doc().addEventListener("click", handleClose.current);
+      runTimeListStyle.display = "block";
+      isActive.current = true;
+      setStateListStyle(runTimeListStyle);
+    },
+    close: () => {
+      doc().removeEventListener("click", handleClose.current);
+      isActive.current = false;
+      setStateListStyle({});
+    },
+    isOpen: () => {
+      if (simple) {
+        return get(listEl.current, ["style", "display"]) !== "";
+      } else {
+        return isActive.current;
+      }
+    },
   };
 
-  const handleDropdownClick = (e) => {
-    if (!isListClick.current) {
-      if (!isOpen()) {
-        expose.open();
+  const handler = {
+    thisEl: (el) => (thisEl.current = el),
+    listEl: (el) => (listEl.current = el),
+    dropdownClick: (e) => {
+      if (!isListClick.current) {
+        if (!expose.isOpen()) {
+          expose.open();
+        } else {
+          expose.close();
+        }
+      } else {
+        isListClick.current = false;
+      }
+    },
+    listClick: (e) => {
+      if (simple) {
+        if (!expose.isOpen()) {
+          setTimeout(() => {
+            setHideList(true);
+            menuTimer(() => setHideList(false), 500);
+          });
+        }
       } else {
         expose.close();
       }
-    } else {
-      isListClick.current = false;
-    }
+      isListClick.current = true;
+    },
+    touchStart: (e) => {
+      if (!expose.isOpen()) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
   };
 
-  const handleThisEl = (el) => {
-    thisEl.current = el;
-  };
+  return {
+    handler,
+    others,
 
-  const handleListEl = (el) => {
-    listEl.current = el;
-  };
+    /* Styles */
+    style,
+    titleStyle,
+    propsListStyle,
+    stateListStyle,
+    iconStyle,
 
-  let thisList = null;
-  if (!hideList && list) {
-    thisList = build(list)({
-      style: {
-        ...Styles.list,
-        ...listStyle,
-        ...stateListStyle,
-      },
-      refCb: handleListEl,
-      onClick: handleListClick,
-      onTouchStart: handleListTouchStart,
-    });
-  }
+    /* Classes */
+    className,
+    textClassName,
+
+    /* Status */
+    hideList,
+    simple,
+    isActive,
+
+    /* Component */
+    children,
+    icon,
+    list,
+  };
+};
+
+const Dropdown = (props) => {
+  const {
+    handler,
+    others,
+
+    /* Styles */
+    style,
+    titleStyle,
+    propsListStyle,
+    stateListStyle,
+    iconStyle,
+
+    /* Classes */
+    className,
+    textClassName,
+
+    /* Status */
+    hideList,
+    simple,
+    isActive,
+
+    /* Component */
+    children,
+    icon,
+    list,
+  } = useDropdown(props);
+
+  const textClasses = mixClass("text", textClassName);
+  const thisText = (
+    <SemanticUI
+      className={textClasses}
+      style={{ ...Styles.label, ...titleStyle }}
+    >
+      {children}
+    </SemanticUI>
+  );
   let thisIcon = null;
   if (icon) {
     if (!isValidElement(icon)) {
@@ -161,15 +201,19 @@ const Dropdown = (props) => {
       thisIcon = icon;
     }
   }
-  const textClasses = mixClass("text", textClassName);
-  const thisText = (
-    <SemanticUI
-      className={textClasses}
-      style={{ ...Styles.label, ...titleStyle }}
-    >
-      {children}
-    </SemanticUI>
-  );
+  let thisList = null;
+  if (!hideList && list) {
+    thisList = build(list)({
+      style: {
+        ...Styles.list,
+        ...propsListStyle,
+        ...stateListStyle,
+      },
+      refCb: handler.listEl,
+      onClick: handler.listClick,
+      onTouchStart: handler.touchStart,
+    });
+  }
   const classes = mixClass(className, "dropdown", {
     active: isActive.current,
     simple,
@@ -179,8 +223,8 @@ const Dropdown = (props) => {
       {...others}
       style={{ ...Styles.container, ...style }}
       className={classes}
-      refCb={handleThisEl}
-      onClick={handleDropdownClick}
+      refCb={handler.thisEl}
+      onClick={handler.dropdownClick}
     >
       {thisText}
       {thisIcon}

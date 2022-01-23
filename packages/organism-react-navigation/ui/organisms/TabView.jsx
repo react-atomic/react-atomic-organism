@@ -6,7 +6,7 @@ import React, {
   useRef,
   Children,
 } from "react";
-import { mixClass, build, SemanticUI } from "react-atomic-molecule";
+import { mixClass, build, useCSS, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 
 const handleTabPress =
@@ -120,6 +120,7 @@ const useTabView = (props) => {
     onTabItemPress,
     onChange,
   } = props;
+  useCSS(["tab"], "semantic");
   const [lastSelected, setHookLastSelected] = useState({
     current: propsSelected,
   });
