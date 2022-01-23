@@ -7,9 +7,11 @@ import "prismjs/components/prism-jsx";
 import "prismjs/components/prism-markup";
 import "prismjs/components/prism-tsx";
 import get from "get-object-value";
+import needCSS from "need-css";
 
 const syntaxColorer = (code, language) => {
   let prismLanguage;
+  needCSS(["prismjs"]);
   switch (language) {
     case "ts":
       prismLanguage = prism.languages.tsx;
@@ -29,7 +31,7 @@ const syntaxColorer = (code, language) => {
       break;
 
     default:
-      prismLanguage = get(prism.languages, [language], prism.languages.jsx);
+      prismLanguage = get(prism.languages, [language]);
       break;
   }
 

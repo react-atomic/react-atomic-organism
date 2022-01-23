@@ -1,6 +1,6 @@
 {
   "name": "syntax-colorer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Code syntax highlight",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -11,20 +11,18 @@
   "dependencies": {
     "prismjs": "^1.24.1",
     "get-object-value": "*",
-    "reshow-runtime": "*"
+    "reshow-runtime": "*",
+    "need-css": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "jsdom": "*",
-    "jsdom-global": "*",
-    "mocha": "*"
+    "reshow-unit-dom": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
     "mochaFor": "mocha -r jsdom-global/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
