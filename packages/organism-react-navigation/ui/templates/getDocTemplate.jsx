@@ -103,6 +103,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       `.active > #${menuId} ~ .hamburger-icon`,
     ],
   };
+
   if (miniSidebar) {
     const getMiniClass = (tpl) => {
       const c = [tpl.replace("[active]", "inactive")];
@@ -111,6 +112,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       }
       return c.join(", ");
     };
+
     InjectStyles = {
       ...InjectStyles,
       /* RWD Inactive */
@@ -180,6 +182,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
         [min.md, ".ui.rail>.hamburger-icon.default-on"],
       ],
     };
+
     if (fixedMini) {
       InjectStyles = {
         ...InjectStyles,
@@ -213,6 +216,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       };
     }
   }
+
   if (merge) {
     mergeStyleConfig(Styles, defaultStyles, InjectStyles);
   }

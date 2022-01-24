@@ -7,7 +7,7 @@ import {
   Rail,
   SemanticUI,
 } from "react-atomic-molecule";
-import Return from "reshow-return";
+import { useStore } from "reshow-flux";
 import Hamburger from "ricon/HamburgerToArrow";
 import get from "get-object-value";
 import { hasClass, removeClass } from "class-lib";
@@ -21,35 +21,50 @@ import navigationStore, {
 
 const keys = Object.keys;
 
-const getMenuByArray = (onClick) => (arr, component, active, menuOrder) => {
+const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
   if (!arr) {
     return null;
   }
   const results = [];
   const buildComp = build(component);
-  if (!menuOrder) {
-    menuOrder = keys(arr);
-  }
-  menuOrder.forEach((key) => {
-    const { href, text, className, ...others } = arr[key];
-    const classes = mixClass(className, "item", {
-      active: active === key,
-    });
+  (menuOrder || keys(arr)).forEach((key) => {
     results.push(
-      buildComp(
-        {
-          ...others,
-          key,
-          href,
-          name: key,
-          className: classes,
-          onClick,
-        },
-        text
-      )
+      <SideMenuItem
+        {...arr[key]}
+        key={key}
+        type={type}
+        name={key}
+        onClick={onClick}
+        buildComp={buildComp}
+      />
     );
   });
   return results;
+};
+
+const SideMenuItem = (props) => {
+  const { buildComp, className, name, text, type, ...others } = props;
+  const lastV = useRef();
+  const active = useStore(navigationStore, (setActive) => (state, action) => {
+    if (state) {
+      const { activeMenu } = get(state.get(type));
+      if (name !== activeMenu && lastV.current) {
+        setActive(false);
+      } else if (name === activeMenu) {
+        lastV.current = true;
+        setActive(true);
+      }
+    }
+  });
+  const classes = mixClass(className, "item", { active });
+  return buildComp(
+    {
+      ...others,
+      className: classes,
+      name,
+    },
+    text
+  );
 };
 
 const DefaultIcon = ({
@@ -87,7 +102,81 @@ const DefaultIcon = ({
   </Icon>
 );
 
-const SideMenu = (props) => {
+const SideMenuContainer = ({
+  children,
+  type,
+  onSwitch,
+  lastOn,
+  updateRoot,
+  defaultOnIcon,
+  defaultOffIcon,
+  iconStyle,
+  hamburgerStyle,
+  className,
+  keepMini,
+}) => {
+  const on = useStore(navigationStore, (setOn) => (state, action) => {
+    if (state) {
+      const { on } = get(state.get(type));
+      if (lastOn.current !== on) {
+        lastOn.current = on;
+        setOn(on);
+        updateRoot(on);
+      }
+    }
+  });
+  const isInit = null == on;
+
+  // setup thisDefaultOffIcon
+  const defaultOff = isInit ? false : on;
+  let thisDefaultOffIcon = defaultOffIcon;
+  if (!thisDefaultOffIcon) {
+    thisDefaultOffIcon = <DefaultIcon />;
+  }
+  thisDefaultOffIcon = build(thisDefaultOffIcon)({
+    on: defaultOff,
+    onClick: onSwitch(defaultOff),
+    className: "default-off",
+    iconStyle,
+    hamburgerStyle,
+  });
+
+  // setup thisDefaultOnIcon
+  let thisDefaultOnIcon = null;
+  if (!keepMini) {
+    let defaultOn = isInit ? true : on;
+    thisDefaultOnIcon = defaultOnIcon;
+    if (!thisDefaultOnIcon) {
+      thisDefaultOnIcon = <DefaultIcon />;
+    }
+    thisDefaultOnIcon = build(thisDefaultOnIcon)({
+      on: true,
+      right: !defaultOn,
+      onClick: onSwitch(defaultOn),
+      className: "default-on",
+      iconStyle,
+      hamburgerStyle,
+    });
+  }
+
+  const classes = mixClass(
+    {
+      active: on,
+      inactive: on === false,
+    },
+    "sidebar-menu",
+    className
+  );
+  return (
+    <Rail className={classes}>
+      {children}
+      {thisDefaultOnIcon}
+      {thisDefaultOffIcon}
+    </Rail>
+  );
+};
+
+const useSideMenu = (props) => {
   const {
     type = "default",
     component = SemanticUI,
@@ -107,7 +196,6 @@ const SideMenu = (props) => {
     keepMini,
     ...others
   } = props || {};
-
   const lastOn = useRef();
 
   useEffect(() => {
@@ -117,9 +205,6 @@ const SideMenu = (props) => {
   }, [propsOn]);
 
   useEffect(() => {
-    if (null != lastOn.current) {
-      updateRoot(lastOn.current);
-    }
     return () => {
       const thisRoot = getRoot();
       thisRoot.className = removeClass(thisRoot.className, rootActiveClass);
@@ -163,72 +248,65 @@ const SideMenu = (props) => {
     [type, onSwitch]
   );
 
+  return {
+    menus,
+    menuOrder,
+    linkComponent,
+    component,
+    type,
+    handleSwitch,
+    lastOn,
+    updateRoot,
+    defaultOnIcon,
+    defaultOffIcon,
+    iconStyle,
+    hamburgerStyle,
+    className,
+    keepMini,
+    others,
+  };
+};
+
+const SideMenu = (props) => {
+  const {
+    menus,
+    menuOrder,
+    linkComponent,
+    component,
+    type,
+    handleSwitch,
+    lastOn,
+    updateRoot,
+    defaultOnIcon,
+    defaultOffIcon,
+    iconStyle,
+    hamburgerStyle,
+    className,
+    keepMini,
+    others,
+  } = useSideMenu(props);
+  const menuItems = getMenuByArray(handleSwitch())(
+    get(menus),
+    linkComponent,
+    type,
+    get(menuOrder)
+  );
+  const menuElement = build(component)(others, menuItems);
   return (
-    <Return store={navigationStore} initStates={[type]}>
-      {({ [type]: settings }) => {
-        const { on, activeMenu } = settings || {};
-        if (lastOn.current !== on) {
-          updateRoot(on);
-          lastOn.current = on;
-        }
-        const isInit = null == on;
-        const menuItems = getMenuByArray(handleSwitch())(
-          get(menus),
-          linkComponent,
-          activeMenu,
-          get(menuOrder)
-        );
-        const menuElement = build(component)(others, menuItems);
-
-        // setup thisDefaultOffIcon
-        const defaultOff = isInit ? false : on;
-        let thisDefaultOffIcon = defaultOffIcon;
-        if (!thisDefaultOffIcon) {
-          thisDefaultOffIcon = <DefaultIcon />;
-        }
-        thisDefaultOffIcon = build(thisDefaultOffIcon)({
-          on: defaultOff,
-          onClick: handleSwitch(defaultOff),
-          className: "default-off",
-          iconStyle,
-          hamburgerStyle,
-        });
-
-        // setup thisDefaultOnIcon
-        let thisDefaultOnIcon = null;
-        if (!keepMini) {
-          let defaultOn = isInit ? true : on;
-          thisDefaultOnIcon = defaultOnIcon;
-          if (!thisDefaultOnIcon) {
-            thisDefaultOnIcon = <DefaultIcon />;
-          }
-          thisDefaultOnIcon = build(thisDefaultOnIcon)({
-            on: true,
-            right: !defaultOn,
-            onClick: handleSwitch(defaultOn),
-            className: "default-on",
-            iconStyle,
-            hamburgerStyle,
-          });
-        }
-
-        const classes = mixClass(
-          {
-            active: on,
-            inactive: on === false,
-          },
-          "sidebar-menu",
-          className
-        );
-        return (
-          <Rail className={classes}>
-            {menuElement}
-            {thisDefaultOnIcon}
-            {thisDefaultOffIcon}
-          </Rail>
-        );
-      }}
-    </Return>
+    <SideMenuContainer
+      type={type}
+      onSwitch={handleSwitch}
+      lastOn={lastOn}
+      updateRoot={updateRoot}
+      defaultOnIcon={defaultOnIcon}
+      defaultOffIcon={defaultOffIcon}
+      iconStyle={iconStyle}
+      hamburgerStyle={hamburgerStyle}
+      className={className}
+      keepMini={keepMini}
+    >
+      {menuElement}
+    </SideMenuContainer>
   );
 };
 
