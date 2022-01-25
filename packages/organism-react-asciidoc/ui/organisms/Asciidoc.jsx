@@ -18,16 +18,16 @@ const VERSION = "[VERSION]";
 const useAsciidoc = ({
   onLoadDelay = 1500,
   inlineCSS = "body {padding: 0; margin: 0; background: transparent !important;}",
-  js = "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
-  css = "//cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.css",
-  npmVersion = "2.2.0",
+  js = "https://cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/browser/asciidoctor.min.js",
+  css = "https://cdn.jsdelivr.net/npm/@asciidoctor/core@[VERSION]/dist/css/asciidoctor.min.css",
+  npmVersion = "2.2.6",
   onLoad,
   options,
   attributes,
   children,
 }) => {
   const lastIframe = useRef();
-  const [onloadTimer, cleanOnloadTimer] = useTimer();
+  const [onloadTimer] = useTimer();
   useEffect(() => {
     const oWin = lastIframe.current.getWindow();
     let clearWindowOnload;
@@ -41,7 +41,6 @@ const useAsciidoc = ({
       });
       clearWindowOnload = close;
       const run = () => {
-        cleanOnloadTimer();
         onloadTimer(() => handleLoad(outputEl), onLoadDelay);
       };
       process(() => {
@@ -67,6 +66,7 @@ const useAsciidoc = ({
           });
         }
         run();
+        lastIframe.current.postHeight();
       });
     };
     return () => {
