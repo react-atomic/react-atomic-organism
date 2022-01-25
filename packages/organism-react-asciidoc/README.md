@@ -2,7 +2,7 @@ React Asciidoc
 ===============
 <!--hidden-->
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-asciidoc 
+      * https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-asciidoc 
    * NPM
       * https://www.npmjs.com/package/organism-react-asciidoc 
 
