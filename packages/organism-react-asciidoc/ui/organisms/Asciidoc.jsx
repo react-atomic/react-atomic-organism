@@ -70,7 +70,7 @@ const useAsciidoc = ({
       });
     };
     return () => {
-      clearWindowOnload();
+      callfunc(clearWindowOnload);
     };
   }, []);
 
