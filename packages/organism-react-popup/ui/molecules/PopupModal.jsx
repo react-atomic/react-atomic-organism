@@ -139,13 +139,10 @@ class PopupModal extends PopupOverlay {
       return;
     }
 
-    /**
-     * closeCallback will deprecate
-     */
     if (hasClass(get(doc(), ["body", "className"]), "dimmed")) {
-      const { closeCallback, onClose } = this.props;
+      const { onClose } = this.props;
       //settimeout is for fixed cant setstate during render error
-      setTimeout(() => callfunc(onClose || closeCallback));
+      setTimeout(() => callfunc(onClose));
     }
 
     // do detach (need put after onClose else will make modal can't appear again)
@@ -189,10 +186,6 @@ class PopupModal extends PopupOverlay {
       backgroundScroll,
       toPool,
       closeEl,
-      /**
-       * closeCallback will deprecate
-       */
-      closeCallback,
       onClose,
       className,
       contentClassName,
