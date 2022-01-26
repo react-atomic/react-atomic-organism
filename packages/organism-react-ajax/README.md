@@ -12,8 +12,8 @@ callback(json, text, response)
    * https://cdn.jsdelivr.net/npm/organism-react-ajax/build/src/lib/dlog.min.js
 
 ## Example Usage
-Demo Url:
-https://react-atomic-ui.js.org/
+   * Demo Url:
+      * https://react-atomic-ui.js.org/#/Organisms#ajax 
 
 ## IE11 support
    * Worker
