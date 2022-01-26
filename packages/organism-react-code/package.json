@@ -1,8 +1,13 @@
 {
   "name": "organism-react-code",
-  "version": "0.15.0",
+  "version": "0.15.1",
   "description": "React Code Example",
-  "repository": "react-atomic/react-atomic-organism",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/organism-react-code"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-code",
   "module": "./build/es/src/index.js",
   "main": "./build/src/index.js",
   "keywords": [
@@ -28,12 +33,12 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
     "build:cjs:src": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
     "build:cjs:ui": "BABEL_ENV=cjs babel ui -d build/cjs/ui --root-mode upward",
-    "build:es": "npm run build:es:src && npm run build:es:ui",
+    "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
     "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
+    "build:es": "npm run build:es:src && npm run build:es:ui",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "mochaFor": "mocha -r jsdom-global/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",

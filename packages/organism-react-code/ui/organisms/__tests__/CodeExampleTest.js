@@ -1,16 +1,14 @@
-import React from 'react';
-import {expect} from 'chai';
-import {mount, configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-configure({adapter: new Adapter()});
+import React from "react";
+import { expect } from "chai";
 
-import CodeExample from '../CodeExample';
+import { mount } from "reshow-unit";
+import CodeExample from "../CodeExample";
 
-describe('CodeExample Test', () => {
-  it('basic test', () => {
+describe("CodeExample Test", () => {
+  it("basic test", () => {
     const vDom = <CodeExample />;
     const wrap = mount(vDom);
     const html = wrap.html();
-    expect(html).to.have.string('div');
+    expect(html).to.have.string("div");
   });
 });
