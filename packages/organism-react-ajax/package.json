@@ -1,10 +1,16 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.15.8",
+  "version": "0.15.9",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "repository": "react-atomic/react-atomic-organism",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/organism-react-ajax"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-ajax",
   "keywords": [
     "reactjs",
     "webworker"
