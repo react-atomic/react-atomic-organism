@@ -51,8 +51,23 @@ const arraySearchFirst = (arr, exact) => (needle, cb) => {
   const matchFunc = getMatchFunc(exact);
   let result = T_FALSE;
   (arr && arr.some ? arr : []).some(
-    (a) => doFilter({ a, matchFunc, needle, cb }) && (() => (result = a))()
+    (a) => doFilter({ a, matchFunc, needle, cb }) && (result = a)
   );
+  return result;
+};
+
+const arraySearchLast = (arr, exact) => (needle, cb) => {
+  const matchFunc = getMatchFunc(exact);
+  let result = T_FALSE;
+  if (arr && arr.some) {
+    let i = arr.length;
+    while (i--) {
+      if (doFilter({ a: arr[i], matchFunc, needle, cb })) {
+        result = arr[i];
+        break;
+      }
+    }
+  }
   return result;
 };
 
@@ -64,4 +79,4 @@ const arraySearch = (arr, exact) => (needle, cb) => {
 };
 
 export default arraySearch;
-export { arraySearchFirst };
+export { arraySearchFirst, arraySearchLast };

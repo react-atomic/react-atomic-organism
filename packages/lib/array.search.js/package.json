@@ -1,6 +1,6 @@
 {
   "name": "array.search.js",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "array search",
   "repository": "react-atomic/react-atomic-organism",
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/master/packages/lib/array.search.js",

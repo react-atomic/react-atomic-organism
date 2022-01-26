@@ -11,15 +11,36 @@ describe("Test Array Search Index", () => {
       },
       {
         foo: "bar1",
+        other: "bar2",
       },
     ];
     const store = {};
     const result = arraySearchIndex(arr)(["foo"], store);
     expect(store.current).to.deep.equal({
-      foo: "bar",
-      other: "fake",
+      foo: "bar1",
+      other: "bar2",
     });
-    expect(result).to.equal("bar");
+    expect(result).to.equal("bar1");
+  });
+
+  it("test type", () => {
+    const arr = [
+      {
+        foo: 111,
+        bar2: 333
+      },
+      {
+        foo: 111,
+        bar: "222",
+        bar2: "333"
+      },
+      {
+        foo: "111",
+        bar: "222"
+      },
+    ];
+    const result = arraySearchIndex(arr)("bar2");
+    expect(result).to.equal("333");
   });
 
   it("test search all", () => {

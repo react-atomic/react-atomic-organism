@@ -1,16 +1,16 @@
-import arraySearch, { arraySearchFirst } from "./arraySearch";
+import arraySearch, { arraySearchLast } from "./arraySearch";
 import get from "get-object-value";
-
-const defaultOptions = { all: false, clone: true, backfill: false };
+import { stringToArray } from "with-array";
 
 const arraySearchIndex =
   (arr, options) =>
   (keyArrPath, store = {}) => {
-    const { all, clone, backfill } = { ...defaultOptions, ...options };
+    const { all = false, clone = true, backfill = false } = options || {};
     const isGetAll = all || backfill;
-    const search = isGetAll ? arraySearch : arraySearchFirst;
+    const search = isGetAll ? arraySearch : arraySearchLast;
     const result = [];
-    store.current = search(arr, (haystack, needle) => {
+    keyArrPath = stringToArray(keyArrPath);
+    store.current = search(arr, (haystack) => {
       const found = get(haystack, keyArrPath);
       if (null != found) {
         const thisFund = clone ? JSON.parse(JSON.stringify(found)) : found;
