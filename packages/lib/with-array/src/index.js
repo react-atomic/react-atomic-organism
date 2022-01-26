@@ -14,11 +14,11 @@ const arrayToObject = (arr, key) => {
   return map;
 };
 
-const oneItemArrayToString = (arr) => {
-  if (IS_ARRAY(arr)) {
-    return arr.length > 1 ? arr : arr[0];
+const oneItemArrayToString = (maybeArray) => {
+  if (IS_ARRAY(maybeArray)) {
+    return maybeArray.length > 1 ? maybeArray : maybeArray[0];
   } else {
-    return arr;
+    return maybeArray;
   }
 };
 

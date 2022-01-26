@@ -7,4 +7,9 @@ describe("Test oneItemArrayToString", () => {
     const a = ["foo"];
     expect(oneItemArrayToString(a)).to.equal("foo");
   });
+
+  it("test keep string", () => {
+    const a = "bar";
+    expect(oneItemArrayToString(a)).to.equal("bar");
+  });
 });
