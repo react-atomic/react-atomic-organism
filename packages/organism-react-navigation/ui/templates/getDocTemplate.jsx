@@ -9,7 +9,6 @@ import {
 } from "react-atomic-molecule";
 import get from "get-object-value";
 
-const keys = Object.keys;
 let injects;
 
 const getDocTemplate = (params, Styles = {}, merge = true) => {
@@ -24,6 +23,13 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
 
   const miniSidebar = get(params, ["miniSidebar"]);
   const fixedMini = get(params, ["fixedMini"]);
+  const getMiniClass = (tpl, alwaysOn = fixedMini) => {
+    const c = [tpl.replace("[active]", "inactive")];
+    if (alwaysOn) {
+      c.push(tpl.replace("[active]", "active"));
+    }
+    return c.join(", ");
+  };
 
   let initSideWidth = fixedMini ? miniSidebarWidth : active ? sideWidth : 0;
   if (initSideWidth && !isNaN(initSideWidth)) {
@@ -36,7 +42,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     /*default*/
     defaultOnIcon: [
       {
-        display: "none !important",
+        display: "none",
       },
       ".ui.rail>.hamburger-icon.default-on",
     ],
@@ -53,7 +59,10 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       },
       `.ui.rail.left, #${menuId}`,
     ],
-    /*RWD*/
+
+    /**
+     * RWD
+     */
     mdContainer: [
       {
         padding: "0 " + rightWidth + "px 0 " + initSideWidth + " !important",
@@ -77,16 +86,42 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       },
       [min.md, ".ui.rail>.hamburger-icon.default-off"],
     ],
+    mdIconDefaultOn: [
+      {
+        left: sideWidth + " !important",
+        display: "block !important",
+      },
+      [min.md, ".ui.rail>.hamburger-icon.default-on"],
+    ],
+    mdInactiveContainer: [
+      {
+        padding: "0 !important",
+      },
+      [min.md, getMiniClass(`.side-menu-[active] #${docId}`)],
+    ],
+    mdInactiveMenu: [
+      {
+        maxWidth: 0,
+        overflowY: "hidden !important",
+      },
+      [min.md, getMiniClass(`.[active] #${menuId}`)],
+    ],
+    mdInactiveIconDefaultOn: [
+      {
+        left: 1 + "px !important",
+      },
+      [min.md, getMiniClass(".ui.rail.[active]>.hamburger-icon.default-on")],
+    ],
 
     /* Active */
-    containerActive: [
+    activeContainer: [
       {
         padding: "0 " + rightWidth + "px 0 " + sideWidth + " !important",
         overflow: "hidden",
       },
       `.side-menu-active #${docId}`,
     ],
-    menuActive: [
+    activeMenu: [
       {
         width: sideWidth + " !important",
       },
@@ -96,7 +131,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
         ".active.ui.rail.left .ui.vertical.menu",
       ].join(","),
     ],
-    iconActive: [
+    activeIcon: [
       {
         left: sideWidth + " !important",
       },
@@ -105,18 +140,10 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
   };
 
   if (miniSidebar) {
-    const getMiniClass = (tpl) => {
-      const c = [tpl.replace("[active]", "inactive")];
-      if (fixedMini) {
-        c.push(tpl.replace("[active]", "active"));
-      }
-      return c.join(", ");
-    };
-
     InjectStyles = {
       ...InjectStyles,
       /* RWD Inactive */
-      mdContainerInactive: [
+      mdInactiveContainer: [
         {
           padding: "0 0 0 " + miniSidebarWidth + "px !important",
         },
@@ -168,18 +195,11 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
         },
         [min.md, getMiniClass(`.[active] #${menuId} .item:hover > .menu`)],
       ],
-      mdIconDefaultOnInactive: [
+      mdInactiveIconDefaultOn: [
         {
           left: miniSidebarWidth + 1 + "px !important",
         },
         [min.md, getMiniClass(".ui.rail.[active]>.hamburger-icon.default-on")],
-      ],
-      mdIconDefaultOn: [
-        {
-          left: sideWidth + " !important",
-          display: "block !important",
-        },
-        [min.md, ".ui.rail>.hamburger-icon.default-on"],
       ],
     };
 
@@ -207,7 +227,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
           },
           getMiniClass(`.[active] #${menuId}`),
         ],
-        iconActive: [
+        activeIcon: [
           {
             left: miniSidebarWidth + "px !important",
           },

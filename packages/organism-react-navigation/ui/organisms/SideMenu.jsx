@@ -113,7 +113,7 @@ const SideMenuContainer = ({
   iconStyle,
   hamburgerStyle,
   className,
-  keepMini,
+  shrink,
 }) => {
   const on = useStore(navigationStore, (setOn) => (state, action) => {
     if (state) {
@@ -143,7 +143,7 @@ const SideMenuContainer = ({
 
   // setup thisDefaultOnIcon
   let thisDefaultOnIcon = null;
-  if (!keepMini) {
+  if (shrink) {
     let defaultOn = isInit ? true : on;
     thisDefaultOnIcon = defaultOnIcon;
     if (!thisDefaultOnIcon) {
@@ -193,7 +193,7 @@ const useSideMenu = (props) => {
     hamburgerStyle,
     className,
     menuOrder,
-    keepMini,
+    shrink,
     ...others
   } = props || {};
   const lastOn = useRef();
@@ -262,7 +262,7 @@ const useSideMenu = (props) => {
     iconStyle,
     hamburgerStyle,
     className,
-    keepMini,
+    shrink,
     others,
   };
 };
@@ -282,7 +282,7 @@ const SideMenu = (props) => {
     iconStyle,
     hamburgerStyle,
     className,
-    keepMini,
+    shrink,
     others,
   } = useSideMenu(props);
   const menuItems = getMenuByArray(handleSwitch())(
@@ -303,7 +303,7 @@ const SideMenu = (props) => {
       iconStyle={iconStyle}
       hamburgerStyle={hamburgerStyle}
       className={className}
-      keepMini={keepMini}
+      shrink={shrink}
     >
       {menuElement}
     </SideMenuContainer>
@@ -314,6 +314,7 @@ export default SideMenu;
 
 const Styles = {
   icon: {
+    display: null,
     background: "#000",
     padding: 5,
     width: 24,
