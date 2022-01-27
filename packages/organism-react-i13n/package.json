@@ -1,8 +1,13 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.15.2",
+  "version": "0.15.3",
   "description": "React I13N",
-  "repository": "react-atomic/react-atomic-organism",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/organism-react-i13n"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-i13n",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "keywords": [

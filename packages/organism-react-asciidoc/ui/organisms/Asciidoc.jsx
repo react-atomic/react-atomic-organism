@@ -36,7 +36,7 @@ const useAsciidoc = ({
       callfunc(onLoad, [el]);
     };
     oWin.onRender = (outputEl) => {
-      const { close, process } = windowOnload({
+      const [process, close] = windowOnload({
         doc: oWin.document,
       });
       clearWindowOnload = close;

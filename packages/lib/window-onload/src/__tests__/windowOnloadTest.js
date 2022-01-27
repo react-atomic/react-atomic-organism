@@ -16,7 +16,7 @@ describe("Test window onload", () => {
 
   it("basic test", (done) => {
     const load = windowOnLoad();
-    load.process(() => {
+    load[0](() => {
       done();
     });
   });
@@ -28,7 +28,7 @@ describe("Test window onload", () => {
       },
     });
     const load = windowOnLoad({ timeout: 1000 });
-    load.process((state) => {
+    load[0]((state) => {
       expect(state).to.equal(1000);
       done();
     });
@@ -43,8 +43,8 @@ describe("Test window onload", () => {
       },
     });
     const load = windowOnLoad();
-    load.process(() => {});
-    load.close();
+    load[0](() => {});
+    load[1]();
     setTimeout(() => {
       expect(i).to.equal(2);
       done();
@@ -68,10 +68,10 @@ describe("Test window onload", () => {
       bar = false;
     };
     reset();
-    load.process(() => {
+    load[0](() => {
       foo = true;
     });
-    load.process(() => {
+    load[0](() => {
       bar = true;
     });
     fakeStatus = "complete";
@@ -85,10 +85,10 @@ describe("Test window onload", () => {
         foo: false,
         bar: false,
       });
-      load.process(() => {
+      load[0](() => {
         foo = true;
       });
-      load.process(() => {
+      load[0](() => {
         bar = true;
       });
       expect({ foo, bar }).to.deep.equal({

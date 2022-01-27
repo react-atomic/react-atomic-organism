@@ -52,7 +52,7 @@ const windowOnLoad = (options) => {
       }
     }
   };
-  return { close, process };
+  return [process, close];
 };
 
 export default windowOnLoad;

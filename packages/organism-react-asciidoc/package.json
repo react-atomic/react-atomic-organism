@@ -1,6 +1,6 @@
 {
   "name": "organism-react-asciidoc",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Rendering asciidoc to iFrames with React",
   "repository": {
     "type": "git",

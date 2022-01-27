@@ -30,7 +30,7 @@ describe("Test Dom Ready", () => {
       },
     });
     const load = windowOnLoad({ domReady: true });
-    load.process((state) => {
+    load[0]((state) => {
       expect(state).to.equal("interactive");
       done();
     });
@@ -52,7 +52,7 @@ describe("Test Dom Ready", () => {
       },
     });
     const load = windowOnLoad({ domReady: true });
-    load.process((state) => {
+    load[0]((state) => {
       expect(state).to.equal("complete");
       done();
     });

@@ -12,7 +12,7 @@ import { getTimestamp } from "get-random-id";
 import i13nStore from "../../src/stores/i13nStore";
 import { i13nDispatch } from "../../src/index";
 
-const { close, process } = windowOnload();
+const [process, close] = windowOnload();
 const keys = Object.keys;
 const urlDecode = decodeURIComponent;
 

@@ -9,12 +9,12 @@ import callfunc from "call-func";
 import { KEYS } from "reshow-constant";
 
 const empty = () => {};
+const Callbacks = [];
 let wsAuth = Map();
 let gWorker;
 let fakeWorker = false;
 let isWorkerReady;
 let cbIndex = 0;
-const Callbacks = [];
 
 const initAjaxWorkerEvent = (worker) => {
   worker.addEventListener("message", (e) => {
@@ -77,6 +77,46 @@ const getRawUrl = (params) => {
   return url;
 };
 
+const getCallback = (state, action, json, response) => {
+  const params = get(action, ["params"], {});
+  let callback;
+  if (get(json, ["data", "errors"]) || !get(response, ["ok"])) {
+    if (params.errorCallback) {
+      callback = Callbacks[params.errorCallback];
+      delete Callbacks[params.errorCallback];
+    }
+  }
+  const debugs = json.debugs;
+  if (debugs) {
+    let bFail = false;
+    import("../lib/dlog").then((dlog) => {
+      dlog = getDefault(dlog);
+      const oLog = new dlog({ level: "trace" });
+      debugs.forEach((v) => {
+        const dump = get(oLog, [v[0]], () => oLog.info);
+        dump.call(oLog, v[1]);
+      });
+    });
+    debugs.forEach((v) => {
+      if ("error" === v[1]) {
+        bFail = true;
+      }
+    });
+    if (bFail) {
+      return empty;
+    }
+  }
+  if (!callback) {
+    if (params.callback) {
+      callback = Callbacks[params.callback];
+      delete Callbacks[params.callback];
+    } else {
+      callback = state.get("callback");
+    }
+  }
+  return callback;
+};
+
 class handleAjax {
   queue = [];
 
@@ -106,46 +146,6 @@ class handleAjax {
     // -->
 
     return urls[0];
-  }
-
-  getCallback(state, action, json, response) {
-    const params = get(action, ["params"], {});
-    let callback;
-    if (get(json, ["data", "errors"]) || !get(response, ["ok"])) {
-      if (params.errorCallback) {
-        callback = Callbacks[params.errorCallback];
-        delete Callbacks[params.errorCallback];
-      }
-    }
-    if (json.debugs) {
-      let debugs = json.debugs;
-      let bFail = false;
-      import("../lib/dlog").then((dlog) => {
-        dlog = getDefault(dlog);
-        const oLog = new dlog({ level: "trace" });
-        debugs.forEach((v) => {
-          const dump = get(oLog, [v[0]], () => oLog.info);
-          dump.call(oLog, v[1]);
-        });
-      });
-      debugs.forEach((v) => {
-        if ("error" === v[1]) {
-          bFail = true;
-        }
-      });
-      if (bFail) {
-        return empty;
-      }
-    }
-    if (!callback) {
-      if (params.callback) {
-        callback = Callbacks[params.callback];
-        delete Callbacks[params.callback];
-      } else {
-        callback = state.get("callback");
-      }
-    }
-    return callback;
   }
 
   start(state) {
@@ -298,7 +298,7 @@ class handleAjax {
     const response = get(params, ["response"]);
     const text = get(params, ["text"]);
     const json = get(params, ["json"], {});
-    const callback = this.getCallback(state, action, json, response);
+    const callback = getCallback(state, action, json, response);
     const type = get(json, ["type"]);
     let isRedirect = null;
     const url = get(params, ["url"]);
