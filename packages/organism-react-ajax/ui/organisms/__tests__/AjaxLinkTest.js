@@ -9,6 +9,6 @@ describe("AjaxLink Test", () => {
     const vDom = <AjaxLink />;
     const wrap = mount(vDom);
     const html = wrap.html();
-    expect(html).to.have.string("href");
+    expect(html).to.have.string("</a>");
   });
 });

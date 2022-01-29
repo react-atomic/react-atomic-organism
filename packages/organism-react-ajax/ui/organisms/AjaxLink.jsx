@@ -30,7 +30,7 @@ const useAjaxLink = (props) => {
 
   const go = useCallback(
     (url) => {
-      url = url || href;
+      url = url || getRawUrl({ path, url: href });
       ajaxDispatch("ajaxGet", {
         disableAjax: !isRunAjax({ ajax }),
         url,
@@ -40,7 +40,7 @@ const useAjaxLink = (props) => {
         errorCallback,
       });
     },
-    [href, callback, errorCallback, updateUrl, disableRandom, ajax]
+    [href, path, callback, errorCallback, updateUrl, disableRandom, ajax]
   );
 
   const handleClick = useCallback(
@@ -58,11 +58,11 @@ const useAjaxLink = (props) => {
       }
       callfunc(callback, [e]);
       if ("_blank" !== target) {
-        const thisHref = e.currentTarget.href;
+        const thisHref = e.currentTarget.href || getRawUrl({ path, url: href });
         go(thisHref);
       }
     },
-    [target]
+    [target, path, href]
   );
 
   const expose = { go };
@@ -72,7 +72,8 @@ const useAjaxLink = (props) => {
     component,
     rest,
     target,
-    href: getRawUrl({ path, url: href }),
+    href,
+    path,
     onTouchStart:
       true === onTouchStart
         ? handleClick(onTouchStart)("touchStart")
@@ -82,7 +83,7 @@ const useAjaxLink = (props) => {
 };
 
 const AjaxLink = forwardRef((props, ref) => {
-  const { expose, component, rest, target, href, onTouchStart, onClick } =
+  const { expose, component, rest, target, href, path, onTouchStart, onClick } =
     useAjaxLink(props);
 
   useImperativeHandle(ref, () => expose, []);
@@ -92,6 +93,7 @@ const AjaxLink = forwardRef((props, ref) => {
     ref,
     target,
     href,
+    "data-path": path,
     onTouchStart,
     onClick,
   });

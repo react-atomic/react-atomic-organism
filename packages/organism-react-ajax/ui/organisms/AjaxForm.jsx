@@ -33,8 +33,8 @@ const AjaxForm = forwardRef((props, ref) => {
         return false;
       }
 
-      let formDom = e.target;
-      let action = formDom.action;
+      const formDom = e.target;
+      const formAction = formDom.action || getRawUrl({ url: action, path });
       const formParams = formSerialize(formDom);
       let type;
       switch (formDom.method.toLowerCase()) {
@@ -54,7 +54,7 @@ const AjaxForm = forwardRef((props, ref) => {
       }
 
       ajaxDispatch(type, {
-        url: action,
+        url: formAction,
         query: formParams,
         callback,
         errorCallback,
@@ -63,12 +63,22 @@ const AjaxForm = forwardRef((props, ref) => {
 
       callfunc(afterSubmit, [e]);
     },
-    [stop, callback, errorCallback, updateUrl, beforeSubmit, afterSubmit]
+    [
+      path,
+      action,
+      stop,
+      callback,
+      errorCallback,
+      updateUrl,
+      beforeSubmit,
+      afterSubmit,
+    ]
   );
 
   return build(component)({
     ref,
-    action: getRawUrl({ url: action, path }),
+    action,
+    "data-path": path,
     onSubmit: handleSubmit,
     ...rest,
   });
