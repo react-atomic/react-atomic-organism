@@ -4,7 +4,7 @@ import { mergeMap, ImmutableStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
 import set from "set-object-value";
 import smoothScrollTo from "smooth-scroll-to";
-import getRandomId from "get-random-id";
+import getRandomId, { getTimestamp } from "get-random-id";
 import callfunc from "call-func";
 import { KEYS } from "reshow-constant";
 
@@ -117,35 +117,57 @@ const getCallback = (state, action, json, response) => {
   return callback;
 };
 
+const cookAjaxUrl = (params, ajaxUrl, globalHeaders) => {
+  if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
+    if (globalHeaders.toJS) {
+      params.globalHeaders = globalHeaders.toJS();
+    } else {
+      console.error("Global headers should be a map.", globalHeaders);
+    }
+  }
+  const urls = ajaxUrl.split("#");
+  const query = get(params, ["query"], {});
+  if (urls[1]) {
+    query["--hashState"] = urls[1];
+  }
+
+  // <!-- Clean key for fixed superagent error
+  if (query) {
+    KEYS(query).forEach((key) => {
+      if ("undefined" === typeof query[key]) {
+        delete query[key];
+      }
+    });
+    params.query = query;
+  }
+  // -->
+
+  return urls[0];
+};
+
 class handleAjax {
   queue = [];
 
-  cookAjaxUrl(params, ajaxUrl, globalHeaders) {
-    if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
-      if (globalHeaders.toJS) {
-        params.globalHeaders = globalHeaders.toJS();
-      } else {
-        console.error("Global headers should be a map.", globalHeaders);
-      }
-    }
-    const urls = ajaxUrl.split("#");
-    const query = get(params, ["query"], {});
-    if (urls[1]) {
-      query["--hashState"] = urls[1];
-    }
-
-    // <!-- Clean key for fixed superagent error
-    if (query) {
-      KEYS(query).forEach((key) => {
-        if ("undefined" === typeof query[key]) {
-          delete query[key];
-        }
+  worker(data) {
+    if (isWorkerReady && fakeWorker) {
+      setImmediate(() => {
+        const disableWebWorker = get(data, [
+          "action",
+          "params",
+          "disableWebWorker",
+        ]);
+        const run = disableWebWorker ? fakeWorker : gWorker;
+        run.postMessage(data);
       });
-      params.query = query;
+    } else {
+      if (false === fakeWorker) {
+        initFakeWorker(() => {
+          this.queue.forEach((d) => this.worker(d));
+        });
+        fakeWorker = null;
+      }
+      this.queue.push(data);
     }
-    // -->
-
-    return urls[0];
   }
 
   start(state) {
@@ -177,28 +199,6 @@ class handleAjax {
       action.params.workerCallback = wcb + "";
     }
     return action;
-  }
-
-  worker(data) {
-    if (isWorkerReady && fakeWorker) {
-      setImmediate(() => {
-        const disableWebWorker = get(data, [
-          "action",
-          "params",
-          "disableWebWorker",
-        ]);
-        const run = disableWebWorker ? fakeWorker : gWorker;
-        run.postMessage(data);
-      });
-    } else {
-      if (false === fakeWorker) {
-        initFakeWorker(() => {
-          this.queue.forEach((d) => this.worker(d));
-        });
-        fakeWorker = null;
-      }
-      this.queue.push(data);
-    }
   }
 
   setWsAuth(key, data) {
@@ -248,16 +248,14 @@ class handleAjax {
       state = this.start(state);
     }
     setImmediate(() => {
-      const ajaxUrl = this.cookAjaxUrl(
-        params,
-        rawUrl,
-        state.get("globalHeaders")
-      );
+      const ajaxUrl = cookAjaxUrl(params, rawUrl, state.get("globalHeaders"));
       if (!params.query) {
         params.query = {};
       }
       if (!params.disableCacheBusting) {
-        params.query["--r"] = getRandomId();
+        params.query["--r"] = params.randomCacheBusting
+          ? getRandomId()
+          : getTimestamp() / 60;
       } else {
         params.query["--r"] = state.get("staticVersion");
       }
@@ -276,11 +274,7 @@ class handleAjax {
       state = this.start(state);
     }
     const rawUrl = getRawUrl(params);
-    const ajaxUrl = this.cookAjaxUrl(
-      params,
-      rawUrl,
-      state.get("globalHeaders")
-    );
+    const ajaxUrl = cookAjaxUrl(params, rawUrl, state.get("globalHeaders"));
     this.worker({
       type: "ajaxPost",
       url: ajaxUrl,
