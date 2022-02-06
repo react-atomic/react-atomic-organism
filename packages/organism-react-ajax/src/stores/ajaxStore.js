@@ -255,7 +255,7 @@ class handleAjax {
       if (!params.disableCacheBusting) {
         params.query["--r"] = params.randomCacheBusting
           ? getRandomId()
-          : getTimestamp() / 60;
+          : Math.floor(getTimestamp() / 60000);
       } else {
         params.query["--r"] = state.get("staticVersion");
       }
