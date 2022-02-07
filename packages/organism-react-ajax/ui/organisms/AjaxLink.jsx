@@ -45,6 +45,8 @@ const useAjaxLink = (props) => {
 
   const handleClick = useCallback(
     (callback) => (type) => (e) => {
+      const thisHref = e.currentTarget.href || getRawUrl({ path, url: href });
+      e.currentTarget.href = thisHref;
       if ("_blank" !== target) {
         e.preventDefault();
       }
@@ -58,7 +60,6 @@ const useAjaxLink = (props) => {
       }
       callfunc(callback, [e]);
       if ("_blank" !== target) {
-        const thisHref = e.currentTarget.href || getRawUrl({ path, url: href });
         go(thisHref);
       }
     },
@@ -72,7 +73,7 @@ const useAjaxLink = (props) => {
     component,
     rest,
     target,
-    href,
+    href: href ? href : path ? "?" : null,
     path,
     onTouchStart:
       true === onTouchStart
