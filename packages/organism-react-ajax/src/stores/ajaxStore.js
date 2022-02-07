@@ -101,14 +101,10 @@ const getCallback = (state, action, json, response) => {
   return callback;
 };
 
-const getRawUrl = (params) => {
-  let { url, path } = get(params, null, {});
+const getRawUrl = ({ url, path, baseUrl } = {}) => {
   if (!url) {
     if (path) {
-      let baseUrl = store.getState().get("baseUrl");
-      if (!baseUrl) {
-        baseUrl = "";
-      }
+      baseUrl = baseUrl || store.getState().get("baseUrl") || "";
       url = baseUrl + path;
     } else {
       url = "#";

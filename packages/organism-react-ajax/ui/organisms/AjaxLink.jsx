@@ -10,6 +10,18 @@ import build from "reshow-build";
 import ajaxStore, { ajaxDispatch, getRawUrl } from "../../src/stores/ajaxStore";
 import isRunAjax from "../../src/isRunAjax";
 
+const getHref = ({ href, path }) => {
+  if (href) {
+    return href;
+  }
+  if (path) {
+    const baseUrl = ajaxStore.getState().get("baseUrl");
+    return baseUrl ? getRawUrl({ path, baseUrl }) : "#";
+  } else {
+    return null;
+  }
+};
+
 const useAjaxLink = (props) => {
   const {
     updateUrl = true,
@@ -83,7 +95,7 @@ const useAjaxLink = (props) => {
     component,
     rest,
     target,
-    href: href ? href : path ? "#" : null,
+    href: getHref({ href, path }),
     path,
     onTouchStart:
       true === onTouchStart
