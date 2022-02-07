@@ -45,8 +45,14 @@ const useAjaxLink = (props) => {
 
   const handleClick = useCallback(
     (callback) => (type) => (e) => {
-      const thisHref = e.currentTarget.href || getRawUrl({ path, url: href });
-      e.currentTarget.href = thisHref;
+      let thisHref = href;
+      if (!thisHref || "#" === thisHref || "?" === thisHref) {
+        const toBaseUrl = getRawUrl({ path, url: href });
+        if (toBaseUrl) {
+          thisHref = toBaseUrl;
+          e.currentTarget.href = thisHref;
+        }
+      }
       if ("_blank" !== target) {
         e.preventDefault();
       }
@@ -58,9 +64,13 @@ const useAjaxLink = (props) => {
           return;
         }
       }
-      callfunc(callback, [e]);
-      if ("_blank" !== target) {
-        go(thisHref);
+      const isContinue = callfunc(callback, [e]);
+      if ("_blank" !== target && false !== isContinue) {
+        /**
+         *  Must use e.currentTarget.href here
+         *  becaue it maybe change with callback
+         */
+        go(e.currentTarget.href);
       }
     },
     [target, path, href]
@@ -73,7 +83,7 @@ const useAjaxLink = (props) => {
     component,
     rest,
     target,
-    href: href ? href : path ? "?" : null,
+    href: href ? href : path ? "#" : null,
     path,
     onTouchStart:
       true === onTouchStart

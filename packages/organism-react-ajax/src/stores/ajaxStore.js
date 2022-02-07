@@ -61,22 +61,6 @@ const handleUseNewUrl = (state, action, url) => {
   return state;
 };
 
-const getRawUrl = (params) => {
-  let { url, path } = get(params, null, {});
-  if (!url) {
-    if (path) {
-      let baseUrl = store.getState().get("baseUrl");
-      if (!baseUrl) {
-        baseUrl = "";
-      }
-      url = baseUrl + path;
-    } else {
-      url = "#";
-    }
-  }
-  return url;
-};
-
 const getCallback = (state, action, json, response) => {
   const params = get(action, ["params"], {});
   let callback;
@@ -115,6 +99,22 @@ const getCallback = (state, action, json, response) => {
     }
   }
   return callback;
+};
+
+const getRawUrl = (params) => {
+  let { url, path } = get(params, null, {});
+  if (!url) {
+    if (path) {
+      let baseUrl = store.getState().get("baseUrl");
+      if (!baseUrl) {
+        baseUrl = "";
+      }
+      url = baseUrl + path;
+    } else {
+      url = "#";
+    }
+  }
+  return url;
 };
 
 const cookAjaxUrl = (params, ajaxUrl, globalHeaders) => {
