@@ -1,26 +1,16 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { UrlReturn } from "reshow-url";
-import { SortLink } from "react-atomic-organism";
+import SortLink from "../organisms/SortLink";
 
-class SortBy extends PureComponent {
-  static defaultProps = { sortKeyName: "sort" };
-
-  render() {
-    const { sort, sortKeyName, ...props } = this.props;
-    return (
-      <UrlReturn initStates={[sortKeyName]}>
-        {(uProps) => {
-          let sortBy = sort;
-          if (!sortBy) {
-            sortBy = uProps[sortKeyName];
-          }
-          return (
-            <SortLink {...props} sort={sortBy} sortKeyName={sortKeyName} />
-          );
-        }}
-      </UrlReturn>
-    );
-  }
-}
+const SortBy = ({ sortKeyName = "sort", sort, ...props }) => {
+  return (
+    <UrlReturn initStates={[sortKeyName]}>
+      {(uProps) => {
+        const sortBy = sort || uProps[sortKeyName];
+        return <SortLink {...props} sort={sortBy} sortKeyName={sortKeyName} />;
+      }}
+    </UrlReturn>
+  );
+};
 
 export default SortBy;
