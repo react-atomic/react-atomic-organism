@@ -38,7 +38,7 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
 const useIframe = ({
   disableSmoothScroll = false,
   keepTargetInIframe = false,
-  initialContent = "<html><body /></html>",
+  initialContent = "<!DOCTYPE html><html><body /></html>",
   autoHeight = false,
   loadDelay = 500,
   children,
