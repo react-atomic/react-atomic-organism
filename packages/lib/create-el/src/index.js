@@ -1,7 +1,6 @@
 import { doc } from "win-doc";
 import callfunc from "call-func";
-
-const keys = Object.keys;
+import { KEYS } from "reshow-constant";
 
 const inject = (base, isPrepend) => (dNode) => {
   base = callfunc(base);
@@ -42,7 +41,7 @@ const create = (tag) => (callback) => (attrs) => {
   if (d.createElement) {
     const dNode = d.createElement(tag);
     if (attrs) {
-      keys(attrs).forEach((key) => (dNode[key] = attrs[key]));
+      KEYS(attrs).forEach((key) => (dNode[key] = attrs[key]));
     }
     if (callback) {
       let _isRun;

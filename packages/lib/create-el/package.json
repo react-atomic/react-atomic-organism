@@ -1,7 +1,7 @@
 {
   "name": "create-el",
-  "version": "0.1.10",
-  "description": "create css or js",
+  "version": "0.1.11",
+  "description": "Create CSS or JS",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "call-func": "*",
+    "reshow-constant": "*",
     "reshow-runtime": "*",
     "win-doc": "*"
   },
@@ -30,5 +31,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
