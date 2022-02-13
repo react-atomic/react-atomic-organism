@@ -1,4 +1,4 @@
-import { win, doc } from "../index.js";
+import { win, doc, hasWin } from "../index.js";
 import { expect } from "chai";
 import jsdom from "jsdom-global";
 
@@ -29,8 +29,14 @@ describe("Test win in node", () => {
   });
 
   after(() => cleanup());
+
   it("test win", () => {
     const w = win();
     expect(w.__null).to.be.true;
+  });
+
+  it("test has win", () => {
+    const w = win();
+    expect(hasWin()).to.be.false;
   });
 });

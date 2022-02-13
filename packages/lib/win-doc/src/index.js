@@ -1,5 +1,4 @@
-
-import {UNDEFINED} from "reshow-constant";
+import { UNDEFINED } from "reshow-constant";
 
 const defaultObj = { __null: true };
 
@@ -8,11 +7,13 @@ const doc = (w, def = defaultObj) => {
   return UNDEFINED !== typeof w.document ? w.document : def;
 };
 
+const hasWin = (key) => !win()[key || "__null"];
+
 const win = (def = defaultObj) =>
-/**
- * !!Important!! do not use reshow-constant here
- * Bable will transpile it to double undefined
- */
+  /**
+   * !!Important!! do not use reshow-constant here
+   * Bable will transpile it to double undefined
+   */
   "undefined" !== typeof window ? window : def;
 
-export { doc, win };
+export { doc, win, hasWin };
