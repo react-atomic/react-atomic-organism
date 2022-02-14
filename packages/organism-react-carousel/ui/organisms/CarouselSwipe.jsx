@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { SemanticUI } from "react-atomic-molecule";
+import { mixClass, SemanticUI, List } from "react-atomic-molecule";
 
 class CarouselSwipe extends Component {
   dragging = false;
@@ -26,19 +26,21 @@ class CarouselSwipe extends Component {
   swipeEnd = (e) => {};
 
   componentDidMount() {
-    const height = this.el.offsetHeight;
     const { onHeight } = this.props;
     if (onHeight) {
-      onHeight(height);
+      setTimeout(() => {
+        const height = this.el.offsetHeight;
+        onHeight(height);
+      }, 700);
     }
   }
 
   render() {
-    const { onHeight, ...others } = this.props;
+    const { onHeight, className, ...others } = this.props;
     return (
       <SemanticUI style={Styles.container}>
-        <SemanticUI
-          className="carousel-swipe"
+        <List
+          className={mixClass("carousel-swipe", className)}
           style={Styles.inside}
           {...others}
           refCb={(el) => (this.el = el)}
