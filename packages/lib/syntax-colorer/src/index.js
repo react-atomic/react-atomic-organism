@@ -11,7 +11,7 @@ import needCSS from "need-css";
 
 const syntaxColorer = (code, language) => {
   let prismLanguage;
-  needCSS(["prismjs"]);
+  needCSS(["prism"]);
   switch (language) {
     case "ts":
       prismLanguage = prism.languages.tsx;
