@@ -201,10 +201,11 @@ class GrapesJsMjml extends Component {
     const html = `
       <link rel="stylesheet" href="${this.getAsset("grapes.min.css")}" />
       <style>
-      .gjs-pn-buttons {overflow: hidden}
-      .loading {display: none}
-      #root.hidden .loading {display: block; visibility: visible}
-      #root.hidden {visibility: hidden}
+        .gjs-pn-buttons {overflow: hidden}
+        .loading {display: none}
+        #root.hidden .loading {display: block; visibility: visible}
+        #root.hidden {visibility: hidden}
+        #root {height: 100vh;}
       </style>
       <script async src="${this.getAsset("mjml.js")}"></script>
       <script src="${this.getAsset("grapes.min.js")}"></script>

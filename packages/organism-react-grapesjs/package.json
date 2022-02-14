@@ -1,11 +1,13 @@
 {
   "name": "organism-react-grapesjs",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "grapesjs component",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["react"],
+  "keywords": [
+    "react"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -18,9 +20,10 @@
     "react-atomic-molecule": "*"
   },
   "devDependencies": {
+    "@babel/cli": "^7.x",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "reshow-app": "*"
+    "reshow-unit": "*"
   },
   "scripts": {
     "start": "ws",
@@ -39,5 +42,10 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["dist", "build", "package.json", "README.md"]
+  "files": [
+    "dist",
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

@@ -227,6 +227,7 @@ class GrapesJsEdm extends Component {
         .loading {display: none}
         #root.hidden .loading {display: block; visibility: visible}
         #root.hidden {visibility: hidden}
+        #root {height: 100vh;}
       </style>
       <script async src="${this.getAsset("sanitize-html")}"></script>
       <script async src="${this.getAsset("mjml.js")}"></script>
