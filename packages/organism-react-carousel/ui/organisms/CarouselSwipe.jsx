@@ -10,6 +10,8 @@ class CarouselSwipe extends Component {
     return posX;
   }
 
+  getEl = () => this.el;
+
   swipeStart = (e) => {
     this.dragging = true;
     this.startX = this.getX(e);
@@ -37,17 +39,16 @@ class CarouselSwipe extends Component {
 
   render() {
     const { onHeight, className, disableScroll, ...others } = this.props;
-    const containerStyle = {...Styles.container};
+    const containerStyle = { ...Styles.container };
     if (disableScroll) {
-      containerStyle.overflow = "hidden"; 
+      containerStyle.overflow = "hidden";
     }
     return (
-      <SemanticUI style={containerStyle}>
+      <SemanticUI style={containerStyle} refCb={(el) => (this.el = el)}>
         <List
           className={mixClass("carousel-swipe", className)}
           style={Styles.inside}
           {...others}
-          refCb={(el) => (this.el = el)}
           onMouseDown={this.swipeStart}
           onMouseMove={this.swipeMove}
           onMouseUp={this.swipeEnd}

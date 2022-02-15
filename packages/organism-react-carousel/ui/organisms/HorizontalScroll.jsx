@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, {
+  useState,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+} from "react";
 import { SemanticUI } from "react-atomic-molecule";
 
 import CarouselList from "../organisms/CarouselList";
 import CarouselSwipe from "../organisms/CarouselSwipe";
 
-const HorizontalScroll = ({ listClassName, ...props }) => {
+const HorizontalScroll = forwardRef(({ listClassName, ...props }, ref) => {
   const [height, setHeight] = useState("auto");
+  const listEl = useRef();
+  const expose = {
+    resetScroll: () => {
+      const el = listEl.current?.getEl();
+      if (el) {
+        el.scrollLeft = 0;
+      }
+    },
+  };
+  useImperativeHandle(ref, () => expose, []);
+
   const handleHeight = (height) => {
     setHeight(height);
   };
@@ -21,6 +37,7 @@ const HorizontalScroll = ({ listClassName, ...props }) => {
         innerContainer={
           <CarouselSwipe
             horizontal
+            ref={listEl}
             className={listClassName}
             onHeight={handleHeight}
             disableScroll={"auto" === height ? true : false}
@@ -29,8 +46,9 @@ const HorizontalScroll = ({ listClassName, ...props }) => {
       />
     </SemanticUI>
   );
-};
+});
 
+HorizontalScroll.displayName = "HorizontalScroll";
 export default HorizontalScroll;
 
 const Styles = {
