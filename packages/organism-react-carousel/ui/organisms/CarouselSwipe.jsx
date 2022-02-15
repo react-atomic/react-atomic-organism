@@ -36,9 +36,13 @@ class CarouselSwipe extends Component {
   }
 
   render() {
-    const { onHeight, className, ...others } = this.props;
+    const { onHeight, className, disableScroll, ...others } = this.props;
+    const containerStyle = {...Styles.container};
+    if (disableScroll) {
+      containerStyle.overflow = "hidden"; 
+    }
     return (
-      <SemanticUI style={Styles.container}>
+      <SemanticUI style={containerStyle}>
         <List
           className={mixClass("carousel-swipe", className)}
           style={Styles.inside}
@@ -62,8 +66,7 @@ export default CarouselSwipe;
 
 const Styles = {
   container: {
-    overflowX: "scroll",
-    overflowY: "hidden",
+    overflow: "scroll hidden",
     position: "relative",
     paddingBottom: 5,
     fontSize: "1rem",

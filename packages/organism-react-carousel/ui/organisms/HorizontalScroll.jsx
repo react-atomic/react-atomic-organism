@@ -18,7 +18,13 @@ const HorizontalScroll = (props) => {
     >
       <CarouselList
         {...props}
-        innerContainer={<CarouselSwipe horizontal onHeight={handleHeight} />}
+        innerContainer={
+          <CarouselSwipe
+            horizontal
+            onHeight={handleHeight}
+            disableScroll={"auto" === height ? true : false}
+          />
+        }
       />
     </SemanticUI>
   );
