@@ -4,7 +4,7 @@ import { SemanticUI } from "react-atomic-molecule";
 import CarouselList from "../organisms/CarouselList";
 import CarouselSwipe from "../organisms/CarouselSwipe";
 
-const HorizontalScroll = (props) => {
+const HorizontalScroll = ({ listClassName, ...props }) => {
   const [height, setHeight] = useState("auto");
   const handleHeight = (height) => {
     setHeight(height);
@@ -21,6 +21,7 @@ const HorizontalScroll = (props) => {
         innerContainer={
           <CarouselSwipe
             horizontal
+            className={listClassName}
             onHeight={handleHeight}
             disableScroll={"auto" === height ? true : false}
           />
