@@ -280,11 +280,11 @@ class handleAjax {
   }
 
   applyCallback(state, action) {
+    const sourceType = get(action, ["sourceType"]);
     const params = get(action, ["params"], {});
     if (!params.disableProgress) {
       this.done();
     }
-    const sourceType = get(params, ["sourceType"]);
     const response = get(params, ["response"]);
     const text = get(params, ["text"]);
     const json = get(params, ["json"], {});

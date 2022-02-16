@@ -1,6 +1,6 @@
 {
   "name": "organism-react-ajax",
-  "version": "0.15.22",
+  "version": "0.15.23",
   "description": "React Ajax with webworker",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
