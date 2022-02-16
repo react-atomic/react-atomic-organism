@@ -289,10 +289,9 @@ class handleAjax {
     const text = get(params, ["text"]);
     const json = get(params, ["json"], {});
     const callback = getCallback(state, action, json, response);
-    const type = get(json, ["type"]);
     let isRedirect = null;
     const url = get(params, ["url"]);
-    switch (type) {
+    switch (json.type) {
       case "ws-auth":
         this.setWsAuth(url, json);
         break;
@@ -305,9 +304,9 @@ class handleAjax {
         break;
     }
     if (false !== isRedirect) {
-      const loc = get(json, ["clientRedirectTo"]);
+      const loc = json.clientRedirectTo;
       if (loc) {
-        switch (get(json, ["clientRedirectType"])) {
+        switch (json.clientRedirectType) {
           case "href":
             location.href = loc;
             break;
