@@ -63,9 +63,10 @@ workflows:
                 - "packages/organism-react-animate"
                 - "packages/organism-react-d3-axis-chart"
                 - "packages/organism-react-d3-piechart"
+                - "packages/organism-react-d3-uml"
                 - "packages/organism-react-graph"
                 - "packages/organism-react-i13n"
                 - "packages/organism-react-navigation"
                 - "packages/organism-react-popup"
-                - "packages/organism-react-d3-uml"
+                - "packages/organism-react-sort-by"
 
