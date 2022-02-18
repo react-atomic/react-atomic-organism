@@ -6,7 +6,7 @@ import set from "set-object-value";
 import smoothScrollTo from "smooth-scroll-to";
 import getRandomId, { getTimestamp } from "get-random-id";
 import callfunc from "call-func";
-import { KEYS } from "reshow-constant";
+import { KEYS, REAL_TIME_URL, REAL_TIME_DATA_KEY } from "reshow-constant";
 
 const empty = () => {};
 const Callbacks = [];
@@ -297,8 +297,8 @@ class handleAjax {
         break;
       default:
         if ("ws" === sourceType) {
-          json["--realTimeData--"] = json;
-          json["--realTimeUrl--"] = url;
+          json[REAL_TIME_URL] = url;
+          json[REAL_TIME_DATA_KEY] = json;
         }
         isRedirect = callfunc(callback, [json, text, response]);
         break;
