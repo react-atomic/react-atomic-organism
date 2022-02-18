@@ -289,8 +289,8 @@ class handleAjax {
     const text = get(params, ["text"]);
     const json = get(params, ["json"], {});
     const callback = getCallback(state, action, json, response);
-    let isRedirect = null;
     const url = get(params, ["url"]);
+    let isRedirect = null;
     switch (json.type) {
       case "ws-auth":
         this.setWsAuth(url, json);
@@ -347,7 +347,8 @@ const oAjax = new handleAjax();
 
 const [store, ajaxDispatch] = ImmutableStore(
   (state, action) => {
-    switch (action.type) {
+    const type = action.type;
+    switch (type) {
       case "ws/init":
         return oAjax.initWs(state, action);
       case "ws/close":
@@ -358,7 +359,7 @@ const [store, ajaxDispatch] = ImmutableStore(
       case "ajaxHead":
       case "ajaxPatch":
       case "ajaxPut":
-        set(action, ["params", "method"], action.type.substr(4).toLowerCase());
+        set(action, ["params", "method"], type.substr(4).toLowerCase());
       case "ajaxPost":
         return oAjax.ajaxPost(state, action);
       case "urlChange":
