@@ -28,10 +28,28 @@ const useSortLink = (props) => {
     nextSort,
   };
 
-  others["data-sort"] = nextSort;
+  const isSorted = () => {
+    const { nextSort, currentSort } = lastProps.current;
+    return nextSort === currentSort;
+  };
+
+  const getNextDesc = (thisDesc) => {
+    thisDesc = thisDesc ?? lastProps.current.desc ?? getUrl("desc");
+    let nextDesc;
+    const bSorted = isSorted();
+    if (bSorted) {
+      nextDesc = 0 === thisDesc * 1 ? 1 : 0;
+    } else {
+      nextDesc = 1;
+    }
+    return nextDesc;
+  };
+
   const [{ href: stateHref, desc: stateDesc }, setState] = useState(() => {
-    return { href: "#" + nextSort, desc: null };
+    return { href: "#" + nextSort, desc: !getNextDesc() * 1 };
   });
+  others["data-sort"] = nextSort;
+  others["data-desc"] = stateDesc;
 
   const handler = {
     click: (e) => {
@@ -62,26 +80,9 @@ const useSortLink = (props) => {
         url = seturl("slice", slice, url);
       }
       target.href = url;
-      setState({href: url, desc: nextDesc});
+      setState({ href: url, desc: nextDesc });
       return isContinue;
     },
-  };
-
-  const isSorted = () => {
-    const { nextSort, currentSort } = lastProps.current;
-    return nextSort === currentSort;
-  };
-
-  const getNextDesc = (thisDesc) => {
-    thisDesc = thisDesc || lastProps.current.desc || getUrl("desc");
-    let nextDesc;
-    const bSorted = isSorted();
-    if (bSorted) {
-      nextDesc = 0 === thisDesc * 1 ? 1 : 0;
-    } else {
-      nextDesc = 1;
-    }
-    return nextDesc;
   };
 
   return {
@@ -115,7 +116,7 @@ const SortLink = (props) => {
   if (icon) {
     const bSorted = isSorted();
     const thisIcon = bSorted ? (
-      <Dropdown type={getNextDesc(desc) ? "up" : null} />
+      <Dropdown type={desc ? null : "up"} />
     ) : (
       <SortIcon style={{ ...Styles.sortIcon, ...iconStyle }} />
     );
