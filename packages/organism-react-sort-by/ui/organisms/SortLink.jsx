@@ -29,15 +29,16 @@ const useSortLink = (props) => {
   };
 
   others["data-sort"] = nextSort;
-  const [href, setHref] = useState(() => {
-    return "#" + nextSort;
+  const [{ href: stateHref, desc: stateDesc }, setState] = useState(() => {
+    return { href: "#" + nextSort, desc: null };
   });
 
   const handler = {
     click: (e) => {
       const { sortKeyName, onClick } = lastProps.current;
-      const nextDesc = getNextDesc();
       const target = e.currentTarget;
+      const nextDesc = getNextDesc(target.getAttribute("data-desc"));
+      target.setAttribute("data-desc", nextDesc);
       const nextSort = target.getAttribute("data-sort");
       const sort2 = target.getAttribute("data-sort2");
       const slice = target.getAttribute("data-slice");
@@ -61,7 +62,7 @@ const useSortLink = (props) => {
         url = seturl("slice", slice, url);
       }
       target.href = url;
-      setHref(url);
+      setState({href: url, desc: nextDesc});
       return isContinue;
     },
   };
@@ -71,8 +72,8 @@ const useSortLink = (props) => {
     return nextSort === currentSort;
   };
 
-  const getNextDesc = () => {
-    const thisDesc = lastProps.current.desc || getUrl("desc");
+  const getNextDesc = (thisDesc) => {
+    thisDesc = thisDesc || lastProps.current.desc || getUrl("desc");
     let nextDesc;
     const bSorted = isSorted();
     if (bSorted) {
@@ -84,12 +85,13 @@ const useSortLink = (props) => {
   };
 
   return {
+    children,
     component,
     handler,
-    href,
+    href: stateHref,
+    desc: stateDesc,
     icon,
     iconStyle,
-    children,
     isSorted,
     getNextDesc,
     others,
@@ -98,12 +100,13 @@ const useSortLink = (props) => {
 
 const SortLink = (props) => {
   const {
+    children,
     component,
     handler,
     href,
+    desc,
     icon,
     iconStyle,
-    children,
     isSorted,
     getNextDesc,
     others,
@@ -112,7 +115,7 @@ const SortLink = (props) => {
   if (icon) {
     const bSorted = isSorted();
     const thisIcon = bSorted ? (
-      <Dropdown type={getNextDesc() ? "up" : null} />
+      <Dropdown type={getNextDesc(desc) ? "up" : null} />
     ) : (
       <SortIcon style={{ ...Styles.sortIcon, ...iconStyle }} />
     );
