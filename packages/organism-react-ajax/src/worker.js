@@ -181,6 +181,12 @@ class WebSocketHelper {
     }
     const url = this.url;
     const params = this.params;
+
+    /**
+     * Can't try catch
+     * WebSocket connection to 'xxx' failed
+     * use onerror instead.
+     */
     const ws = new WebSocket(url);
     this.ws = ws;
     ws.onopen = (e) => {
@@ -193,6 +199,7 @@ class WebSocketHelper {
     };
     ws.onerror = (e) => {
       this.isWsConnect = false;
+      this.ping();
     };
     ws.onmessage = (e) => {
       switch (e.data) {
@@ -211,26 +218,34 @@ class WebSocketHelper {
     };
     ws.onclose = (e) => {
       this.isWsConnect = false;
-      console.warn("WS close", url);
+      console.warn("WS close.", url);
     };
   }
 
   close() {
     this.ws.close();
-    clearTimeout(this.pingTimeout);
+    this.clearPing();
   }
 
-  ping = () => {
+  clearPing() {
+    if (this.pingTimeout) {
+      clearTimeout(this.pingTimeout);
+      this.pingTimeout = null;
+    }
+  }
+
+  ping() {
+    this.clearPing();
     this.pingTimeout = setTimeout(() => {
       if (!this.isWsConnect) {
-        console.warn(this.url, "ajaxws-restore");
+        console.warn("Try restore ws connection.", this.url);
         this.open();
       } else {
         this.ws.send(JSON.stringify({ type: "ping" }));
       }
       this.ping();
     }, 15000);
-  };
+  }
 }
 
 const initWs = (url) => (params) => {
