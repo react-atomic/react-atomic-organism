@@ -41,6 +41,16 @@ const useSortLink = (props) => {
       const nextSort = target.getAttribute("data-sort");
       const sort2 = target.getAttribute("data-sort2");
       const slice = target.getAttribute("data-slice");
+
+      /**
+       * Call before get data-url
+       * because onclick possible change url.
+       */
+      e.nextSort = nextSort;
+      e.nextDesc = nextDesc;
+      const isContinue = callfunc(onClick, [e]);
+      // end call onClick --->
+
       let url = target.getAttribute("data-url") || doc().URL;
       if (nextSort) {
         url = seturl(sortKeyName, nextSort, url);
@@ -51,10 +61,8 @@ const useSortLink = (props) => {
         url = seturl("slice", slice, url);
       }
       target.href = url;
-      e.nextSort = nextSort;
-      e.nextDesc = nextDesc;
-      callfunc(onClick, [e]);
       setHref(url);
+      return isContinue;
     },
   };
 

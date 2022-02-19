@@ -1,6 +1,6 @@
 {
   "name": "organism-react-sort-by",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "React Sort By",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
