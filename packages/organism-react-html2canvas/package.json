@@ -1,6 +1,6 @@
 {
   "name": "organism-react-html2canvas",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "Use html2canvas with React",
   "repository": "react-atomic/react-atomic-organism",
   "module": "./build/es/src/index.js",

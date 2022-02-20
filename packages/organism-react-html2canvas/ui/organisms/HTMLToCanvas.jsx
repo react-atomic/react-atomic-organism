@@ -17,7 +17,7 @@ const getAsset = (file) => {
   return get(defaultAssets, [file]);
 };
 
-const initialContent = (jsArr) => `
+const initialContent = (jsArr) => `<!DOCTYPE html>
 <html>
 <body>
   <script src="${getAsset("html2canvas.min.js")}"></script>
@@ -39,9 +39,11 @@ const HTMLToCanvasComp = (props, ref) => {
   const preview = useRef();
   const _timer = useRef();
 
-  useImperativeHandle(ref, () => ({
+  const expose = {
     getCanvas: (onCanvas) => getCanvas(onCanvas),
-  }), []);
+  };
+
+  useImperativeHandle(ref, () => expose, []);
 
   const getCanvas = (canvasCallback) => {
     const oIframe = iframe.current;
@@ -52,6 +54,7 @@ const HTMLToCanvasComp = (props, ref) => {
     }
     html2canvas(oIframe.getRoot(), {
       useCORS: true,
+      logging: false,
     }).then((dCanvas) => {
       callfunc(canvasCallback, [
         {
