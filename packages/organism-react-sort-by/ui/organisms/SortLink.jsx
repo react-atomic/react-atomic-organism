@@ -9,11 +9,12 @@ import callfunc from "call-func";
 
 const useSortLink = (props) => {
   const {
+    inactiveStyle = { fill: "#fff" },
+    activeStyle = {},
     "data-sort": nextSort = "",
     component = "a",
     sortKeyName = "sort",
     icon = true,
-    iconStyle,
     children,
     onClick,
     sort: currentSort,
@@ -92,7 +93,8 @@ const useSortLink = (props) => {
     href: stateHref,
     desc: stateDesc,
     icon,
-    iconStyle,
+    inactiveStyle,
+    activeStyle,
     isSorted,
     getNextDesc,
     others,
@@ -107,7 +109,8 @@ const SortLink = (props) => {
     href,
     desc,
     icon,
-    iconStyle,
+    inactiveStyle,
+    activeStyle,
     isSorted,
     getNextDesc,
     others,
@@ -118,12 +121,13 @@ const SortLink = (props) => {
     const thisIcon = bSorted ? (
       <Dropdown type={desc ? null : "up"} />
     ) : (
-      <SortIcon style={{ ...Styles.sortIcon, ...iconStyle }} />
+      <SortIcon />
     );
+    const iconStyle = bSorted ? activeStyle : inactiveStyle;
     child = (
       <SemanticUI style={Styles.inner}>
         {children}
-        <Icon style={Styles.icon}>{thisIcon}</Icon>
+        <Icon style={{ ...Styles.icon, ...iconStyle }}>{thisIcon}</Icon>
       </SemanticUI>
     );
   }
@@ -140,12 +144,10 @@ const SortLink = (props) => {
 export default SortLink;
 
 const Styles = {
-  sortIcon: {
-    fill: "#ccc",
-  },
   icon: {
-    width: 12,
-    height: 12,
+    width: 20,
+    height: 20,
+    verticalAlign: "bottom",
   },
   inner: {
     whiteSpace: "nowrap",
