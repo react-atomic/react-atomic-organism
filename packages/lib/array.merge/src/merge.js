@@ -1,15 +1,15 @@
-const isArray = Array.isArray;
+import { IS_ARRAY } from "reshow-constant";
 
 const arrayMerge = (...args) => {
   let arg1 = args.shift();
-  if (!isArray(arg1)) {
+  if (!IS_ARRAY(arg1)) {
     arg1 = [arg1];
   }
   args.forEach((a) => {
-    if (null === a || "undefined" === typeof a) {
+    if (null == a) {
       return;
     }
-    if (isArray(a)) {
+    if (IS_ARRAY(a)) {
       arg1 = arg1.concat(a);
     } else {
       arg1.push(a);
