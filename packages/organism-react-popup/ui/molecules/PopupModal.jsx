@@ -45,11 +45,14 @@ class PopupModal extends PopupOverlay {
   _mount = false;
   _observer = null;
 
-  handleClick = () => this.close() && this.detach();
-
   handleModalRefCb = (el) => (this.el = el);
 
+  handleContainerClick = () => this.close() && this.unlockScreen();
+
   handleModalClick = (cb) => (e) => {
+    /**
+     * avoid trigger ContainerClick
+     */
     e.stopPropagation();
     callfunc(cb, [e]);
   };
@@ -132,7 +135,7 @@ class PopupModal extends PopupOverlay {
     }
   }
 
-  detach() {
+  unlockScreen() {
     if (this._locked) {
       this._locked = false;
     } else {
@@ -162,7 +165,7 @@ class PopupModal extends PopupOverlay {
 
   componentWillUnmount() {
     this._mount = false;
-    this.detach();
+    this.unlockScreen();
   }
 
   shouldShow(show) {
@@ -200,11 +203,11 @@ class PopupModal extends PopupOverlay {
       this.lockScreen();
       if (!closeEl) {
         if (!disableClose) {
-          containerClick = this.handleClick;
+          containerClick = this.handleContainerClick;
         }
       } else {
         thisCloseEl = build(closeEl)({
-          onClick: this.handleClick,
+          onClick: this.handleContainerClick,
           key: "close",
           style: {
             zIndex: 1001,
@@ -226,10 +229,10 @@ class PopupModal extends PopupOverlay {
         );
       }
       if (isValidElement(thisModal)) {
-        const orgModalOnClick = get(thisModal, ["props", "onClick"]);
+        const origModalOnClick = get(thisModal, ["props", "onClick"]);
         thisModal = build(thisModal)({
           refCb: this.handleModalRefCb,
-          onClick: this.handleModalClick(orgModalOnClick),
+          onClick: this.handleModalClick(origModalOnClick),
           styles: reactStyle(
             {
               ...Styles.modal,
@@ -267,7 +270,7 @@ class PopupModal extends PopupOverlay {
         content = thisModal;
       }
     } else {
-      this.detach();
+      this.unlockScreen();
     }
 
     return (
