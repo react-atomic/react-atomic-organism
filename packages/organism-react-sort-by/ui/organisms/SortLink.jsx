@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import seturl, { getUrl } from "seturl";
 import SortIcon from "ricon/Sort";
 import Dropdown from "ricon/Dropdown";
@@ -14,6 +14,9 @@ const useSortLink = (props) => {
     "data-sort": nextSort = "",
     component = "a",
     sortKeyName = "sort",
+    descKeyName = "desc",
+    sort2KeyName = "sortt2",
+    sliceKeyName = "slice",
     icon = true,
     children,
     onClick,
@@ -35,7 +38,7 @@ const useSortLink = (props) => {
   };
 
   const getNextDesc = (thisDesc) => {
-    thisDesc = thisDesc ?? lastProps.current.desc ?? getUrl("desc");
+    thisDesc = thisDesc ?? lastProps.current.desc ?? getUrl(descKeyName);
     let nextDesc;
     const bSorted = isSorted();
     if (bSorted) {
@@ -51,6 +54,12 @@ const useSortLink = (props) => {
   });
   others["data-sort"] = nextSort;
   others["data-desc"] = stateDesc;
+
+  useEffect(() => {
+    if (isSorted()) {
+      setState((prev) => ({ ...prev, desc }));
+    }
+  }, [desc]);
 
   const handler = {
     click: (e) => {
@@ -74,11 +83,11 @@ const useSortLink = (props) => {
       let url = target.getAttribute("data-url") || doc().URL;
       if (nextSort) {
         url = seturl(sortKeyName, nextSort, url);
-        url = seturl("desc", nextDesc, url);
+        url = seturl(descKeyName, nextDesc, url);
       }
       if (sort2) {
-        url = seturl("sort2", sort2, url);
-        url = seturl("slice", slice, url);
+        url = seturl(sort2KeyName, sort2, url);
+        url = seturl(sliceKeyName, slice, url);
       }
       target.href = url;
       setState({ href: url, desc: nextDesc });
@@ -91,7 +100,7 @@ const useSortLink = (props) => {
     component,
     handler,
     href: stateHref,
-    desc: stateDesc,
+    desc: getNextDesc(stateDesc) ? 0 : 1,
     icon,
     inactiveStyle,
     activeStyle,

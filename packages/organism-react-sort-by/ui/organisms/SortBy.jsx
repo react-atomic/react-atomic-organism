@@ -2,12 +2,19 @@ import React from "react";
 import { UrlReturn } from "reshow-url";
 import SortLink from "../organisms/SortLink";
 
-const SortBy = ({ sortKeyName = "sort", sort, ...props }) => {
+const SortBy = ({
+  sortKeyName = "sort",
+  sort,
+  descKeyName = "desc",
+  desc,
+  ...props
+}) => {
   return (
-    <UrlReturn initStates={[sortKeyName]}>
+    <UrlReturn initStates={[sortKeyName, descKeyName]}>
       {(uProps) => {
-        const sortBy = sort || uProps[sortKeyName];
-        return <SortLink {...props} sort={sortBy} sortKeyName={sortKeyName} />;
+        const curSort = sort || uProps[sortKeyName];
+        const curDesc = desc || uProps[descKeyName];
+        return <SortLink {...props} desc={curDesc} sort={curSort} sortKeyName={sortKeyName} />;
       }}
     </UrlReturn>
   );
