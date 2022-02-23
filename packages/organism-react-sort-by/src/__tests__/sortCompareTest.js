@@ -33,7 +33,7 @@ describe("SortCompare Test", () => {
     ]);
   });
   it("test desc sort", () => {
-    expect(d.sort(sortCompare("col", true))).to.deep.equal([
+    expect(d.sort(sortCompare("col", 1))).to.deep.equal([
       { col: 3 },
       { col: 2 },
       { col: 1 },
@@ -47,7 +47,7 @@ describe("SortCompare Test", () => {
     ]);
   });
   it("test desc sort with string", () => {
-    expect(s.sort(sortCompare("col", true))).to.deep.equal([
+    expect(s.sort(sortCompare("col", 1))).to.deep.equal([
       { col: "c" },
       { col: "b" },
       { col: "a" },

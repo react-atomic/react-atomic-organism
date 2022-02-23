@@ -9,6 +9,6 @@ describe('SortBy Test', () => {
     const vDom = <SortBy />;
     const wrap = mount(vDom);
     const html = wrap.html();
-    expect(html).to.have.string('<a data-sort="" data-desc="0" href="#">');
+    expect(html).to.have.string('<a data-sort="" data-desc="-1" href="#">');
   });
 });

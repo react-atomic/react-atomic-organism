@@ -8,10 +8,11 @@ const ascendingSort = (column) => (aL, aR) => {
   }
 };
 
-const sortCompare = (column, desc) => {
-  if (desc) {
+const sortCompare = (column, desc = -1) => {
+  desc = desc * 1;
+  if (desc > 0) {
     return (l, r) => ascendingSort(column)(r, l);
-  } else {
+  } else if (desc < 0) {
     return ascendingSort(column);
   }
 };

@@ -37,20 +37,23 @@ const useSortLink = (props) => {
     return nextSort === currentSort;
   };
 
-  const getNextDesc = (thisDesc) => {
+  const getNextDesc = (thisDesc, invert) => {
     thisDesc = thisDesc ?? lastProps.current.desc ?? getUrl(descKeyName);
     let nextDesc;
     const bSorted = isSorted();
     if (bSorted) {
-      nextDesc = 0 === thisDesc * 1 ? 1 : 0;
+      nextDesc = -1 === thisDesc * 1 ? 1 : -1;
     } else {
       nextDesc = 1;
+    }
+    if (invert) {
+      nextDesc = nextDesc > 0 ? -1 : 1;
     }
     return nextDesc;
   };
 
   const [{ href: stateHref, desc: stateDesc }, setState] = useState(() => {
-    return { href: "#" + nextSort, desc: !getNextDesc() * 1 };
+    return { href: "#" + nextSort, desc: getNextDesc(null, true) };
   });
   others["data-sort"] = nextSort;
   others["data-desc"] = stateDesc;
@@ -100,7 +103,7 @@ const useSortLink = (props) => {
     component,
     handler,
     href: stateHref,
-    desc: getNextDesc(stateDesc) ? 0 : 1,
+    desc: getNextDesc(stateDesc, true),
     icon,
     inactiveStyle,
     activeStyle,
@@ -128,7 +131,7 @@ const SortLink = (props) => {
   if (icon) {
     const bSorted = isSorted();
     const thisIcon = bSorted ? (
-      <Dropdown type={desc ? null : "up"} />
+      <Dropdown type={desc > 0 ? null : "up"} />
     ) : (
       <SortIcon />
     );
