@@ -6,7 +6,7 @@ import { useMounted } from "reshow-hooks";
 import callfunc from "call-func";
 import * as d3Lib from "./d3lib";
 
-const d3js = "https://cdn.jsdelivr.net/npm/d3@6.5.0/dist/d3.min.js";
+const d3js = "https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js";
 const askQueue = [];
 let d3;
 
