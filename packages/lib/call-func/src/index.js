@@ -5,8 +5,8 @@ const defaultCall =
   (...args) =>
     callfunc(func || defaultFunc, args, scope);
 
-const isRequired = (name = "param") => {
-  throw new Error(`${name} is required`);
+const isRequired = (name) => {
+  throw new Error(`${name || "param"} is required`);
 };
 
 /**
@@ -27,7 +27,8 @@ const debounce = (func, defaultDelay) => {
 /**
  * reduce run times.
  */
-const throttle = (func, threshhold = 250, needRunLast) => {
+const throttle = (func, threshhold, needRunLast) => {
+  threshhold = threshhold ?? 250;
   let waiting = false;
   let lastCall = false;
   const run = (option) => {

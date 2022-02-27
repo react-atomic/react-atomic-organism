@@ -6,7 +6,7 @@ const toPercent = (num) => percent(num) + "%";
 
 const percent = (num) => round(toNum(num) * 100);
 
-const round = (f, precision = 2) => toNum(f).toFixed(precision);
+const round = (f, precision) => toNum(f).toFixed(precision ?? 2);
 
 const toNum = (num) => {
   if (UNDEFINED === typeof num) {

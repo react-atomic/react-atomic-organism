@@ -28,8 +28,10 @@ const testString = (s) =>
 
 const stringToArray = (maybeString) => anyToArray(maybeString, testString);
 
-const anyToArray = (val, testFunc = (v) => !IS_ARRAY(v)) =>
-  testFunc(val) ? (val === T_UNDEFINED ? [] : [val]) : val;
+const anyToArray = (val, testFunc) => {
+  testFunc = testFunc || ((v) => !IS_ARRAY(v));
+  return testFunc(val) ? (val === T_UNDEFINED ? [] : [val]) : val;
+};
 
 export default anyToArray;
 
