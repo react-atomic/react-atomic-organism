@@ -21,8 +21,8 @@ const html = {
     "mode/javascript/javascript.min.js",
     "mode/css/css.min.js",
     "mode/htmlmixed/htmlmixed.min.js",
-    "addon/edit/matchtags.js",
-    "addon/fold/xml-fold.js",
+    "addon/edit/matchtags.min.js",
+    "addon/fold/xml-fold.min.js",
   ],
   preview: HtmlPreview,
 };

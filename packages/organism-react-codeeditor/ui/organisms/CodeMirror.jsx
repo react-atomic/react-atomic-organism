@@ -12,10 +12,10 @@ const reducer = (state, action) => {
 };
 
 const CodeMirror = ({
+  codeMirrorVersion = "5.65.2",
   onChange,
   model,
   children,
-  codeMirrorVersion,
   ...props
 }) => {
   const oModel = models[model] || models.html;
@@ -89,7 +89,7 @@ const CodeMirror = ({
         {`
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@${codeMirrorVersion}/lib/codemirror.min.css" />
           <script src="https://cdn.jsdelivr.net/npm/codemirror@${codeMirrorVersion}/lib/codemirror.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.min.js"></script>
           ${(oModel.libJS || [])
             .map((js) => '<script src="' + js + '"></script>')
             ?.join("")}
@@ -111,10 +111,6 @@ const CodeMirror = ({
       />
     </Iframe>
   );
-};
-
-CodeMirror.defaultProps = {
-  codeMirrorVersion: "5.61",
 };
 
 export default CodeMirror;
