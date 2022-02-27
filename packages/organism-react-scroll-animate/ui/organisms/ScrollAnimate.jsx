@@ -1,11 +1,12 @@
 import React, { useReducer, useCallback } from "react";
+import { build } from "react-atomic-molecule";
 import Animate from "organism-react-animate";
-import callfunc from "call-func";
 import {
   ScrollSpy,
   ScrollReceiver,
   scrollStore,
 } from "organism-react-scroll-nav";
+import callfunc from "call-func";
 
 const initialState = { isShown: false };
 
@@ -32,7 +33,7 @@ const Content = (props) => {
   } = props;
   const { isShown, isOnScreen, targetId } = targetInfo;
   if (once && state.isShown) {
-    const node = scrollStore.getNode(targetId);
+    const node = scrollStore.scroller.getNode(targetId);
     if (node && !node.props.monitorScroll) {
       node.detach();
     }
@@ -40,11 +41,7 @@ const Content = (props) => {
   let el = null;
   const thisStyle = {};
   if (isOnScreen || (once && isShown) || isKeep) {
-    if ("function" === typeof children) {
-      el = children();
-    } else {
-      el = children;
-    }
+    el = build(children, { doCallFunction: true })();
   }
   if (!el) {
     thisStyle.minHeight = minHeight;

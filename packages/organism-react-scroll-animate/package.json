@@ -1,6 +1,6 @@
 {
   "name": "organism-react-scroll-animate",
-  "version": "0.1.7",
+  "version": "0.15.0",
   "description": "React Animate When You Scroll",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
