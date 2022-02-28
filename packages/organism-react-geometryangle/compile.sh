@@ -1,22 +1,53 @@
 #!/bin/sh
-find ./assets -name "*.js" | xargs rm -rf
+DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+webpack='npm run webpack --'
 
-phpc=`DUMP=cli php -r "include('config/config.php');"`
+conf='{ "assetsRoot": "./assets/" }'
 
-production(){
-    echo "Production Mode";
-    NODE_ENV=production PHP_CONFIG=$phpc webpack -p 
+killBy(){
+    echo "kill $1"
+    ps auxwwww | grep $1 | grep -v grep | awk '{print $2}' | xargs -I{} kill -9 {}
+}
+
+stop(){
+    killBy ${DIR}/node_modules/.bin/babel 
+    cat webpack.pid | xargs -I{} kill -9 {}
+    npm run clean
+}
+
+startServer(){
+    DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+    killBy ${DIR}/node_modules/.bin/ws
+    yarn
+    if [ -z "$port" ] ; then
+        port=3000;
+    fi
+    echo "Start server";
+    npm run start -- -p $port -v
+}
+
+watch(){
+    stop 
+    npm run build:es:ui -- --watch &
+    npm run build:es:src -- --watch &
 }
 
 develop(){
+    stop
     echo "Develop Mode";
     npm run build
-    PHP_CONFIG=$phpc webpack
+    HOT_UPDATE=0 CONFIG=$conf $webpack
 }
 
 case "$1" in
-  p)
-    production
+  s)
+    startServer 
+    ;;
+  watch)
+    watch 
+    ;;
+  stop)
+    stop 
     ;;
   *)
     develop

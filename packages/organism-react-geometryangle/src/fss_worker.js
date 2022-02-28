@@ -132,46 +132,54 @@ const FSS_Worker = function (opt, element) {
     start = Date.now();
   var center = FSS.Vector3.create();
   var attractor = FSS.Vector3.create();
-  //var container = document.getElementById('container'); -- taken from JQuery element
-  /* 		var output = document.getElementById('output'); */
-  var ui = document.getElementById("ui");
   var renderer, scene, mesh, geometry, material;
-  var webglRenderer, canvasRenderer, svgRenderer;
   var gui, autopilotController;
 
   //------------------------------
   // Methods
   //------------------------------
+
+  const resize = (width, height) => {
+    if (typeof width == "undefined" || typeof width === undefined) {
+      width = self.width();
+    }
+    if (typeof height == "undefined" || typeof height === undefined) {
+      height = self.height();
+    }
+    var ratio_x = width / 1000;
+    var ratio_y = height / 1000;
+    var x_tiles = Math.round(ratio_x * 10) * MESH.zoom;
+    var y_tiles = Math.round(ratio_y * 10) * MESH.zoom;
+    MESH.columns = MESH.columns_auto === true ? x_tiles : MESH.columns;
+    MESH.rows = MESH.rows_auto === true ? y_tiles : MESH.rows;
+    renderer.setSize(width, height);
+    FSS.Vector3.set(center, renderer.halfWidth, renderer.halfHeight);
+    createMesh();
+  };
+
   function initialise() {
     createRenderer();
     createScene();
     createMesh();
     createLights();
     addEventListeners();
-    callbacks.resize(container.offsetWidth, container.offsetHeight);
+    resize(container.offsetWidth, container.offsetHeight);
     animate();
   }
 
   function createRenderer() {
-    webglRenderer = new FSS.WebGLRenderer();
-    canvasRenderer = new FSS.CanvasRenderer();
-    svgRenderer = new FSS.SVGRenderer();
-    setRenderer(RENDER.renderer);
-  }
-
-  function setRenderer(index) {
     if (renderer) {
-      /* 				output.removeChild(renderer.element); */
+      /* output.removeChild(renderer.element); */
     }
-    switch (index) {
+    switch (RENDER.renderer) {
       case WEBGL:
-        renderer = webglRenderer;
+        renderer = new FSS.WebGLRenderer();
         break;
       case CANVAS:
-        renderer = canvasRenderer;
+        renderer = new FSS.CanvasRenderer();
         break;
       case SVG:
-        renderer = svgRenderer;
+        renderer = new FSS.SVGRenderer();
         break;
     }
     renderer.setSize(container.offsetWidth, container.offsetHeight);
@@ -254,115 +262,14 @@ const FSS_Worker = function (opt, element) {
     }
   }
   let isRun = opt.autoStart;
-  var callbacks = {
-    resize: function (width, height) {
-      if (typeof width == "undefined" || typeof width === undefined) {
-        width = self.width();
-      }
-      if (typeof height == "undefined" || typeof height === undefined) {
-        height = self.height();
-      }
-      var ratio_x = width / 1000;
-      var ratio_y = height / 1000;
-      var x_tiles = Math.round(ratio_x * 10) * MESH.zoom;
-      var y_tiles = Math.round(ratio_y * 10) * MESH.zoom;
-      MESH.columns = MESH.columns_auto === true ? x_tiles : MESH.columns;
-      MESH.rows = MESH.rows_auto === true ? y_tiles : MESH.rows;
-      renderer.setSize(width, height);
-      FSS.Vector3.set(center, renderer.halfWidth, renderer.halfHeight);
-      createMesh();
-    },
-    update: function (opt) {
-      createValues(opt);
-      scene.vertex = VERTEX;
-      scene.line = LINE;
-      //Ambient
-      for (i = 0, l = scene.meshes.length; i < l; i++) {
-        scene.meshes[i].material.ambient.set(MESH.ambient);
-        scene.meshes[i].material.diffuse.set(MESH.diffuse);
-      }
-      //width
-      if (geometry.width !== MESH.width * renderer.width) {
-        createMesh();
-      }
-      if (geometry.height !== MESH.height * renderer.height) {
-        createMesh();
-      }
-      if (geometry.segments !== MESH.columns) {
-        createMesh();
-      }
-      if (geometry.slices !== MESH.rows) {
-        createMesh();
-      }
-
-      var light_index = 0;
-
-      for (l = 0; l < LIGHT.length; l++) {
-        for (var i = 0; i < LIGHT[l].count; i++) {
-          light = scene.lights[light_index];
-          light.ambient.set(LIGHT[l].ambient);
-
-          light = scene.lights[light_index];
-          light.diffuse.set(LIGHT[l].diffuse);
-
-          light_index++;
-        }
-      }
-
-      if (scene.lights.length !== light_index) {
-        createLights();
-      }
-    },
-    animateValues: function (colors) {
-      var body = document.body,
-        html = document.documentElement,
-        scrollTop =
-          (window.pageYOffset || html.scrollTop) - (html.clientTop || 0);
-
-      var height = Math.max(
-        body.scrollHeight,
-        body.offsetHeight,
-        html.clientHeight,
-        html.scrollHeight,
-        html.offsetHeight
-      );
-
-      var length = colors.length;
-      var height = Math.round(height / length); // Height of the segment between two colors
-      var i = Math.floor(scrollTop / height); // Start color index
-      var d = (scrollTop % height) / height; // Which part of the segment between start color and end color is passed
-      var c1 = colors[i]; // Start color
-      var c2 = colors[(i + 1) % length]; // End color
-      var result = [];
-      for (var i = 0; i < c1.length; i++) {
-        result[i] = c1[i] + (c2[i] - c1[i]) * d;
-        if (i !== 3) {
-          result[i] = Math.round(result[i]);
-        }
-      }
-      return result;
-    },
-    formatRGBA: function (a) {
-      var string = "rgba(" + a[0] + "," + a[1] + "," + a[2] + "," + a[3] + ")";
-      return string;
-    },
-    start: () => {
-      if (!isRun) {
-        isRun = true;
-        animate();
-      }
-    },
-    stop: () => {
-      isRun = false;
-    },
-  };
 
   function animate() {
     now = Date.now() - start;
     update();
     render();
     if (isRun) {
-      requestAnimationFrame(animate);
+      // requestAnimationFrame(animate);
+      setTimeout(animate, 150);
     }
   }
 
@@ -521,23 +428,33 @@ const FSS_Worker = function (opt, element) {
   //------------------------------
   function onMouseClick(event) {
     FSS.Vector3.set(attractor, event.x, event.y);
-    /* 			FSS.Vector3.subtract(attractor, center); */
+    /* FSS.Vector3.subtract(attractor, center); */
     LIGHT.autopilot = !LIGHT.autopilot;
   }
 
   function onMouseMove(event) {
     FSS.Vector3.set(attractor, event.x, event.y);
-    /* 			FSS.Vector3.subtract(attractor, center); */
+    /* FSS.Vector3.subtract(attractor, center); */
   }
 
   function onWindowResize(event) {
-    callbacks.resize(self.offsetWidth, self.offsetHeight);
+    resize(self.offsetWidth, self.offsetHeight);
     render();
   }
 
   // Let there be light!
   initialise();
-  return callbacks;
+  return {
+    start: () => {
+      if (!isRun) {
+        isRun = true;
+        animate();
+      }
+    },
+    stop: () => {
+      isRun = false;
+    },
+  };
 };
 
 export default FSS_Worker;
