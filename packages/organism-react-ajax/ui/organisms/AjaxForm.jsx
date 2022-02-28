@@ -6,6 +6,19 @@ import callfunc from "call-func";
 import ajaxStore, { ajaxDispatch, getRawUrl } from "../../src/stores/ajaxStore";
 import isRunAjax from "../../src/isRunAjax";
 
+const getFormAction = ({ action, path }) => {
+  if (action) {
+    return action;
+  }
+  if (path) {
+    const baseUrl = ajaxStore.getState().get("baseUrl");
+    if (baseUrl) {
+      return getRawUrl({ path, baseUrl });
+    }
+  }
+  return null;
+};
+
 const AjaxForm = forwardRef((props, ref) => {
   const {
     stop = false,
@@ -34,8 +47,11 @@ const AjaxForm = forwardRef((props, ref) => {
       }
 
       const formDom = e.target;
-      const formAction = formDom.action || getRawUrl({ url: action, path });
+      const formAction = formDom.action || getFormAction({ action, path });
       const formParams = formSerialize(formDom);
+      if (formAction) {
+        formDom.action = formAction;
+      }
       let type;
       switch (formDom.method.toLowerCase()) {
         case "post":
@@ -77,7 +93,7 @@ const AjaxForm = forwardRef((props, ref) => {
 
   return build(component)({
     ref,
-    action,
+    action: getFormAction({ action, path }),
     "data-path": path,
     onSubmit: handleSubmit,
     ...rest,
