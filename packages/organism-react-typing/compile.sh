@@ -2,8 +2,8 @@
 
 conf='{ "assetsRoot": "./assets/" }'
 
-PWD=`dirname $0`
-cd $PWD
+DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+cd $DIR
 webpack='npm run webpack --'
 
 analyzer(){
@@ -20,7 +20,6 @@ develop(){
 }
 
 startServer(){
-    DIR="$( cd "$(dirname "$0")" ; pwd -P )"
     killBy ${DIR}/node_modules/.bin/ws
     yarn
     if [ -z "$port" ] ; then
@@ -36,7 +35,6 @@ killBy(){
 }
 
 stop(){
-    DIR="$( cd "$(dirname "$0")" ; pwd -P )"
     killBy ${DIR}/node_modules/.bin/babel 
     cat webpack.pid | xargs -I{} kill -9 {}
     npm run clean

@@ -5,6 +5,7 @@ import React, {
   useImperativeHandle,
   useMemo,
   forwardRef,
+  Children,
 } from "react";
 import {
   build,
@@ -41,6 +42,7 @@ const getTypingNextWordAniClassName = (el, sec) => {
     {
       animation: [`${aniName} ${sec}s steps(${elLen + 1}) infinite alternate`],
       visibility: "visible !important",
+      transform: "translateZ(0)",
     },
     "." + aniName,
     aniName + "-ani"
@@ -53,19 +55,23 @@ const TypingItem = (props) => {
   const { children, sec, ...others } = props;
   const [classes, setClasses] = useState();
   const lastClasses = useRef();
+  const lastEl = useRef();
 
   const handleEl = (el) => {
     if (el) {
-      const next = getTypingNextWordAniClassName(el, sec);
-      if (next && lastClasses.current !== next) {
-        lastClasses.current = next;
-        setClasses(next);
+      if (!lastEl.current || !lastEl.current.isSameNode(el)) {
+        lastEl.current = el;
+        const next = getTypingNextWordAniClassName(el, sec);
+        if (next && lastClasses.current !== next) {
+          lastClasses.current = next;
+          setClasses(next);
+        }
       }
     }
   };
 
   return (
-    <SemanticUI {...others}>
+    <SemanticUI {...others} className="typing-item">
       <SemanticUI
         className={classes}
         style={Styles.typingItemText}
@@ -93,32 +99,30 @@ const useTyping = (props) => {
   const height = parseInt(propsHeight, 10);
 
   useEffect(() => {
-    const update = (props) => {
-      if (!children) {
-        return null;
-      }
-      const itemLength = children.length;
-      const aniName = "typingNextLine";
-      const styleId = aniName + "-" + itemLength + "-" + height;
-      const typingItemStyles = reactStyle(
-        {
-          position: "relative",
-          animation: [
-            `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
-          ],
-          height,
-        },
-        null,
-        false
-      );
-      reactStyle(
-        [{ top: 0 }, { top: 0 - height * itemLength }],
-        ["@keyframes " + styleId, "0%", "100%"],
-        styleId
-      );
-      setTypingItemStyles(typingItemStyles);
-    };
-    update(props);
+    if (!children) {
+      return;
+    }
+    const itemLength = children.length;
+    const aniName = "typingNextLine";
+    const styleId = aniName + "-" + itemLength + "-" + height;
+    const typingItemStyles = reactStyle(
+      {
+        position: "relative",
+        animation: [
+          `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
+        ],
+        height,
+        transform: "translateZ(0)",
+      },
+      null,
+      false
+    );
+    reactStyle(
+      [{ top: 0 }, { top: 0 - height * itemLength }],
+      ["@keyframes " + styleId, "0%", "100%"],
+      styleId
+    );
+    setTypingItemStyles(typingItemStyles);
   }, [children?.length, height, sec]);
 
   const expose = {
@@ -130,27 +134,44 @@ const useTyping = (props) => {
     },
   };
 
-  const items = [];
-  if (isRun && typingItemStyles) {
-    // need calculate offsetWidth
-    const typeItem = build(
-      <TypingItem sec={props.sec} styles={typingItemStyles} />
-    );
-    React.Children.forEach(children, (item, key) => {
-      items.push(typeItem({ key }, item.props.children));
-    });
-  }
-
-  return { expose, items, color, background, height };
+  return {
+    expose,
+    color,
+    background,
+    height,
+    isRun: isRun && typingItemStyles,
+    typingItemStyles,
+    children,
+    sec,
+  };
 };
 
 const Typing = forwardRef((props, ref) => {
-  const { items, expose, color, background, height } = useTyping(props);
+  const {
+    expose,
+    color,
+    background,
+    height,
+    isRun,
+    typingItemStyles,
+    children,
+    sec,
+  } = useTyping(props);
   useImperativeHandle(ref, () => expose, []);
   return useMemo(() => {
+    const items = [];
+    if (isRun) {
+      // need calculate offsetWidth
+      const typeItem = build(
+        <TypingItem sec={sec} styles={typingItemStyles} />
+      );
+      Children.forEach(children, (item, key) => {
+        items.push(typeItem({ key }, item.props.children));
+      });
+    }
     return (
       <SemanticUI
-        className="react-typing"
+        className="react-typing-comp"
         style={{
           ...Styles.typingContainer,
           color,
@@ -161,7 +182,7 @@ const Typing = forwardRef((props, ref) => {
         {items}
       </SemanticUI>
     );
-  }, [items, color, background, height]);
+  }, [isRun, color, background, height]);
 });
 
 Typing.displayName = "Typing";
@@ -190,6 +211,7 @@ const InjectStyles = {
       top: 1,
       verticalAlign: "top",
       animation: ["typingBlink 1s infinite"],
+      transform: "translateZ(0)",
     },
   ],
   typingBlink: [

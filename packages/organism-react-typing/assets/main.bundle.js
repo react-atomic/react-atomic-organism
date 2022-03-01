@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + chunkId + "." + "9ab88db1f3db68e0f90b" + ".bundle.js"
+/******/ 		return __webpack_require__.p + "" + chunkId + "." + "2b5c50b0330afc27498b" + ".bundle.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -268,12 +268,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectSpread2 */ "./node_modules/reshow-runtime/es/helpers/objectSpread2.js");
-/* harmony import */ var reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/slicedToArray */ "./node_modules/reshow-runtime/es/helpers/slicedToArray.js");
-/* harmony import */ var reshow_runtime_es_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectWithoutProperties */ "./node_modules/reshow-runtime/es/helpers/objectWithoutProperties.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-atomic-molecule */ "./node_modules/react-atomic-molecule/build/es/src/index.js");
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! get-object-value */ "./node_modules/get-object-value/build/es/src/index.js");
+/* harmony import */ var reshow_runtime_es_helpers_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/extends */ "./node_modules/reshow-runtime/es/helpers/extends.js");
+/* harmony import */ var reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-runtime/es/helpers/slicedToArray */ "./node_modules/reshow-runtime/es/helpers/slicedToArray.js");
+/* harmony import */ var reshow_runtime_es_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectWithoutProperties */ "./node_modules/reshow-runtime/es/helpers/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-atomic-molecule */ "./node_modules/react-atomic-molecule/build/es/src/index.js");
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! get-object-value */ "./node_modules/get-object-value/build/es/src/index.js");
+
 
 
 
@@ -289,7 +291,7 @@ var getTypingNextWordAniClassName = function getTypingNextWordAniClassName(el, s
     return null;
   }
 
-  var elLen = Object(get_object_value__WEBPACK_IMPORTED_MODULE_5__["default"])(el, ["textContent", "length"], 10);
+  var elLen = Object(get_object_value__WEBPACK_IMPORTED_MODULE_6__["default"])(el, ["textContent", "length"], 10);
   var width = Math.floor(elWidth + elWidth / elLen);
   var aniName = ("typingNextWord-" + width + "-" + sec).replace(".", "-");
 
@@ -297,14 +299,15 @@ var getTypingNextWordAniClassName = function getTypingNextWordAniClassName(el, s
     return aniName;
   }
 
-  Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["reactStyle"])([{
+  Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])([{
     maxWidth: 0
   }, {
     maxWidth: width
   }], ["@keyframes " + aniName, "0%", "100%"], aniName + "-keyframe");
-  Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["reactStyle"])({
+  Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])({
     animation: ["".concat(aniName, " ").concat(sec, "s steps(").concat(elLen + 1, ") infinite alternate")],
-    visibility: "visible !important"
+    visibility: "visible !important",
+    transform: "translateZ(0)"
   }, "." + aniName, aniName + "-ani");
   injects[aniName] = true;
   return aniName;
@@ -313,37 +316,43 @@ var getTypingNextWordAniClassName = function getTypingNextWordAniClassName(el, s
 var TypingItem = function TypingItem(props) {
   var children = props.children,
       sec = props.sec,
-      others = Object(reshow_runtime_es_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_2__["default"])(props, _excluded);
+      others = Object(reshow_runtime_es_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_3__["default"])(props, _excluded);
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(),
-      _useState2 = Object(reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(),
+      _useState2 = Object(reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
       classes = _useState2[0],
       setClasses = _useState2[1];
 
-  var lastClasses = Object(react__WEBPACK_IMPORTED_MODULE_3__["useRef"])();
+  var lastClasses = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])();
+  var lastEl = Object(react__WEBPACK_IMPORTED_MODULE_4__["useRef"])();
 
   var handleEl = function handleEl(el) {
     if (el) {
-      var next = getTypingNextWordAniClassName(el, sec);
+      if (!lastEl.current || !lastEl.current.isSameNode(el)) {
+        lastEl.current = el;
+        var next = getTypingNextWordAniClassName(el, sec);
 
-      if (next && lastClasses.current !== next) {
-        lastClasses.current = next;
-        setClasses(next);
+        if (next && lastClasses.current !== next) {
+          lastClasses.current = next;
+          setClasses(next);
+        }
       }
     }
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["SemanticUI"], others, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["SemanticUI"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["SemanticUI"], Object(reshow_runtime_es_helpers_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, others, {
+    className: "typing-item"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["SemanticUI"], {
     className: classes,
     style: Styles.typingItemText,
     refCb: handleEl
-  }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["SemanticUI"], {
+  }, children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["SemanticUI"], {
     styles: injects.typingCursor
   }, " | "));
 };
 
 var useTyping = function useTyping(props) {
-  injects = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["useLazyInject"])(InjectStyles);
+  injects = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["useLazyInject"])(InjectStyles);
   var _props$autoStart = props.autoStart,
       autoStart = _props$autoStart === void 0 ? true : _props$autoStart,
       _props$sec = props.sec,
@@ -355,40 +364,37 @@ var useTyping = function useTyping(props) {
       children = props.children,
       background = props.background;
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(autoStart),
-      _useState4 = Object(reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(autoStart),
+      _useState4 = Object(reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
       isRun = _useState4[0],
       setIsRun = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_3__["useState"])(),
-      _useState6 = Object(reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_4__["useState"])(),
+      _useState6 = Object(reshow_runtime_es_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
       typingItemStyles = _useState6[0],
       setTypingItemStyles = _useState6[1];
 
   var height = parseInt(propsHeight, 10);
-  Object(react__WEBPACK_IMPORTED_MODULE_3__["useEffect"])(function () {
-    var update = function update(props) {
-      if (!children) {
-        return null;
-      }
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
+    if (!children) {
+      return;
+    }
 
-      var itemLength = children.length;
-      var aniName = "typingNextLine";
-      var styleId = aniName + "-" + itemLength + "-" + height;
-      var typingItemStyles = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["reactStyle"])({
-        position: "relative",
-        animation: ["".concat(styleId, " ").concat(itemLength * 2 * sec, "s steps(").concat(itemLength, ") infinite")],
-        height: height
-      }, null, false);
-      Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["reactStyle"])([{
-        top: 0
-      }, {
-        top: 0 - height * itemLength
-      }], ["@keyframes " + styleId, "0%", "100%"], styleId);
-      setTypingItemStyles(typingItemStyles);
-    };
-
-    update(props);
+    var itemLength = children.length;
+    var aniName = "typingNextLine";
+    var styleId = aniName + "-" + itemLength + "-" + height;
+    var typingItemStyles = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])({
+      position: "relative",
+      animation: ["".concat(styleId, " ").concat(itemLength * 2 * sec, "s steps(").concat(itemLength, ") infinite")],
+      height: height,
+      transform: "translateZ(0)"
+    }, null, false);
+    Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])([{
+      top: 0
+    }, {
+      top: 0 - height * itemLength
+    }], ["@keyframes " + styleId, "0%", "100%"], styleId);
+    setTypingItemStyles(typingItemStyles);
   }, [children === null || children === void 0 ? void 0 : children.length, height, sec]);
   var expose = {
     start: function start() {
@@ -398,51 +404,59 @@ var useTyping = function useTyping(props) {
       setIsRun(false);
     }
   };
-  var items = [];
-
-  if (isRun && typingItemStyles) {
-    // need calculate offsetWidth
-    var typeItem = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["build"])( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(TypingItem, {
-      sec: props.sec,
-      styles: typingItemStyles
-    }));
-    react__WEBPACK_IMPORTED_MODULE_3___default.a.Children.forEach(children, function (item, key) {
-      items.push(typeItem({
-        key: key
-      }, item.props.children));
-    });
-  }
-
   return {
     expose: expose,
-    items: items,
     color: color,
     background: background,
-    height: height
+    height: height,
+    isRun: isRun && typingItemStyles,
+    typingItemStyles: typingItemStyles,
+    children: children,
+    sec: sec
   };
 };
 
-var Typing = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_3__["forwardRef"])(function (props, ref) {
+var Typing = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_4__["forwardRef"])(function (props, ref) {
+  var _TypingItem;
+
   var _useTyping = useTyping(props),
-      items = _useTyping.items,
       expose = _useTyping.expose,
       color = _useTyping.color,
       background = _useTyping.background,
-      height = _useTyping.height;
+      height = _useTyping.height,
+      isRun = _useTyping.isRun,
+      typingItemStyles = _useTyping.typingItemStyles,
+      children = _useTyping.children,
+      sec = _useTyping.sec;
 
-  Object(react__WEBPACK_IMPORTED_MODULE_3__["useImperativeHandle"])(ref, function () {
+  Object(react__WEBPACK_IMPORTED_MODULE_4__["useImperativeHandle"])(ref, function () {
     return expose;
   }, []);
-  return Object(react__WEBPACK_IMPORTED_MODULE_3__["useMemo"])(function () {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__["SemanticUI"], {
-      className: "react-typing",
+  return Object(react__WEBPACK_IMPORTED_MODULE_4__["useMemo"])(function () {
+    var items = [];
+
+    if (isRun) {
+      // need calculate offsetWidth
+      var typeItem = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["build"])(_TypingItem || (_TypingItem = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(TypingItem, {
+        sec: sec,
+        styles: typingItemStyles
+      })));
+      react__WEBPACK_IMPORTED_MODULE_4__["Children"].forEach(children, function (item, key) {
+        items.push(typeItem({
+          key: key
+        }, item.props.children));
+      });
+    }
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["SemanticUI"], {
+      className: "react-typing-comp",
       style: Object(reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])(Object(reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Styles.typingContainer), {}, {
         color: color,
         background: background,
         height: height
       })
     }, items);
-  }, [items, color, background, height]);
+  }, [isRun, color, background, height]);
 });
 Typing.displayName = "Typing";
 /* harmony default export */ __webpack_exports__["default"] = (Typing);
@@ -466,7 +480,8 @@ var InjectStyles = {
     marginLeft: 5,
     top: 1,
     verticalAlign: "top",
-    animation: ["typingBlink 1s infinite"]
+    animation: ["typingBlink 1s infinite"],
+    transform: "translateZ(0)"
   }],
   typingBlink: [[{
     opacity: "1"
