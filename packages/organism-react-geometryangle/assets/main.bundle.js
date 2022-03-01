@@ -113,7 +113,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "044eab662357ebb8b3be";
+/******/ 	var hotCurrentHash = "76f30cf6dbcb69ec2441";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2348,8 +2348,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var WEBGL = "webgl";
+var CANVAS = "canvas";
+var SVG = "svg";
 
 var FSS_Worker = function FSS_Worker(opt, element) {
+  var isRun = opt.autoStart;
+  var timer;
+  var self = element;
   opt = opt || {};
   var MESH = {},
       LIGHT = [{}],
@@ -2418,7 +2424,6 @@ var FSS_Worker = function FSS_Worker(opt, element) {
     bounds: _fss__WEBPACK_IMPORTED_MODULE_2__["default"].Vector3.create(),
     step: _fss__WEBPACK_IMPORTED_MODULE_2__["default"].Vector3.create(Math.randomInRange(0.2, 1.0), Math.randomInRange(0.2, 1.0), Math.randomInRange(0.2, 1.0))
   };
-  var self = element;
 
   var createValues = function createValues(opt) {
     opt.mesh = opt.mesh || MESH;
@@ -2451,9 +2456,6 @@ var FSS_Worker = function FSS_Worker(opt, element) {
   // Render Properties
   //------------------------------
 
-  var WEBGL = "webgl";
-  var CANVAS = "canvas";
-  var SVG = "svg";
   var RENDER = {
     renderer: CANVAS
   }; //------------------------------
@@ -2466,8 +2468,8 @@ var FSS_Worker = function FSS_Worker(opt, element) {
   // Global Properties
   //------------------------------
 
-  var now,
-      start = Date.now();
+  var start = Date.now();
+  var now;
   var center = _fss__WEBPACK_IMPORTED_MODULE_2__["default"].Vector3.create();
   var attractor = _fss__WEBPACK_IMPORTED_MODULE_2__["default"].Vector3.create();
   var renderer, scene, mesh, geometry, material;
@@ -2591,8 +2593,6 @@ var FSS_Worker = function FSS_Worker(opt, element) {
     }
   }
 
-  var isRun = opt.autoStart;
-
   function animate() {
     now = Date.now() - start;
     update();
@@ -2600,7 +2600,12 @@ var FSS_Worker = function FSS_Worker(opt, element) {
 
     if (isRun) {
       // requestAnimationFrame(animate);
-      setTimeout(animate, 150);
+      clearTimeout(timer);
+      timer = setTimeout(function () {
+        return animate();
+      }, 150);
+    } else {
+      clearTimeout(timer);
     }
   }
 
@@ -2608,7 +2613,6 @@ var FSS_Worker = function FSS_Worker(opt, element) {
     var ox,
         oy,
         oz,
-        l,
         light,
         v,
         vertex,
@@ -2616,7 +2620,7 @@ var FSS_Worker = function FSS_Worker(opt, element) {
     var light_index = 0;
     var render_vector = _fss__WEBPACK_IMPORTED_MODULE_2__["default"].Vector3.floor(_fss__WEBPACK_IMPORTED_MODULE_2__["default"].Vector3.create(renderer.halfWidth, renderer.halfHeight, 0)); // Animate Lights
 
-    for (l = 0; l < LIGHT.length; l++) {
+    for (var l = 0; l < LIGHT.length; l++) {
       for (var i = 0; i < LIGHT[l].count; i++) {
         light = scene.lights[light_index]; // Update Bounds
 
@@ -2702,9 +2706,9 @@ var FSS_Worker = function FSS_Worker(opt, element) {
             break;
 
           case SVG:
-            /* 							lx += renderer.halfWidth; */
+            /* lx += renderer.halfWidth; */
 
-            /* 							ly = renderer.halfHeight - ly; */
+            /* ly = renderer.halfHeight - ly; */
             light.core.setAttributeNS(null, "fill", light.diffuse);
             light.core.setAttributeNS(null, "cx", lx);
             light.core.setAttributeNS(null, "cy", ly);
@@ -2917,12 +2921,14 @@ var GeometryAngle = /*#__PURE__*/_s(Object(react__WEBPACK_IMPORTED_MODULE_0__["f
     return function () {
       expose.stop();
     };
-  }, [lastFss.current]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    ref: lastDom,
-    style: Styles.container
-  });
-}, "i+yduqpAg087ZxTlg/NeMmC3Zd0=")), "i+yduqpAg087ZxTlg/NeMmC3Zd0=");
+  }, []);
+  return Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      ref: lastDom,
+      style: Styles.container
+    });
+  }, []);
+}, "0GPRVs2n5aQeQ2DSn9bZXnibLt4=")), "0GPRVs2n5aQeQ2DSn9bZXnibLt4=");
 
 _c2 = GeometryAngle;
 GeometryAngle.displayName = "GeometryAngle";

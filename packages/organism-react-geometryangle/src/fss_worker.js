@@ -1,6 +1,13 @@
 import FSS from "./fss";
 
-const FSS_Worker = function (opt, element) {
+const WEBGL = "webgl";
+const CANVAS = "canvas";
+const SVG = "svg";
+
+const FSS_Worker = (opt, element) => {
+  let isRun = opt.autoStart;
+  let timer;
+  const self = element;
   opt = opt || {};
   var MESH = {},
     LIGHT = [{}],
@@ -77,9 +84,7 @@ const FSS_Worker = function (opt, element) {
     ),
   };
 
-  var self = element;
-
-  var createValues = function (opt) {
+  const createValues = function (opt) {
     opt.mesh = opt.mesh || MESH;
     opt.lights = opt.lights || LIGHT;
     opt.vertex = opt.vertex || VERTEX;
@@ -111,9 +116,6 @@ const FSS_Worker = function (opt, element) {
   //------------------------------
   // Render Properties
   //------------------------------
-  var WEBGL = "webgl";
-  var CANVAS = "canvas";
-  var SVG = "svg";
   var RENDER = {
     renderer: CANVAS,
   };
@@ -128,8 +130,8 @@ const FSS_Worker = function (opt, element) {
   //------------------------------
   // Global Properties
   //------------------------------
-  var now,
-    start = Date.now();
+  const start = Date.now();
+  let now;
   var center = FSS.Vector3.create();
   var attractor = FSS.Vector3.create();
   var renderer, scene, mesh, geometry, material;
@@ -261,7 +263,6 @@ const FSS_Worker = function (opt, element) {
       }
     }
   }
-  let isRun = opt.autoStart;
 
   function animate() {
     now = Date.now() - start;
@@ -269,7 +270,10 @@ const FSS_Worker = function (opt, element) {
     render();
     if (isRun) {
       // requestAnimationFrame(animate);
-      setTimeout(animate, 150);
+      clearTimeout(timer);
+      timer = setTimeout(() => animate(), 150);
+    } else {
+      clearTimeout(timer);
     }
   }
 
@@ -277,7 +281,6 @@ const FSS_Worker = function (opt, element) {
     var ox,
       oy,
       oz,
-      l,
       light,
       v,
       vertex,
@@ -288,8 +291,8 @@ const FSS_Worker = function (opt, element) {
     );
 
     // Animate Lights
-    for (l = 0; l < LIGHT.length; l++) {
-      for (var i = 0; i < LIGHT[l].count; i++) {
+    for (let l = 0; l < LIGHT.length; l++) {
+      for (let i = 0; i < LIGHT[l].count; i++) {
         light = scene.lights[light_index];
 
         // Update Bounds
@@ -397,8 +400,8 @@ const FSS_Worker = function (opt, element) {
             renderer.context.fill();
             break;
           case SVG:
-            /* 							lx += renderer.halfWidth; */
-            /* 							ly = renderer.halfHeight - ly; */
+            /* lx += renderer.halfWidth; */
+            /* ly = renderer.halfHeight - ly; */
             light.core.setAttributeNS(null, "fill", light.diffuse);
             light.core.setAttributeNS(null, "cx", lx);
             light.core.setAttributeNS(null, "cy", ly);

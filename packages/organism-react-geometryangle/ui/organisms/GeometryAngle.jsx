@@ -3,6 +3,7 @@ import React, {
   forwardRef,
   useRef,
   useEffect,
+  useMemo,
 } from "react";
 
 import FssWorker from "../../src/fss_worker";
@@ -123,8 +124,11 @@ const GeometryAngle = forwardRef(
       return () => {
         expose.stop();
       };
-    }, [lastFss.current]);
-    return <div ref={lastDom} style={Styles.container}></div>;
+    }, []);
+    return useMemo(
+      () => <div ref={lastDom} style={Styles.container}></div>,
+      []
+    );
   }
 );
 GeometryAngle.displayName = "GeometryAngle";

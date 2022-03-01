@@ -1,1 +1,0 @@
-{"version":3,"file":"16.8c3a759e1a53533b9ac7.bundle.js","sources":["webpack:///./node_modules/organism-react-ajax/build/es/src/worker.js?6359"],"sourcesContent":["export default function Worker_fn() {\n  return new Worker(__webpack_public_path__ + \"worker.bundle.worker.js\");\n}\n"],"mappings":";;;;;;;;;;AAAA;AAAA;AAAA;AACA;AACA;;;;;A","sourceRoot":""}
