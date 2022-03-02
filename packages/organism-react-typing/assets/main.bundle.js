@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + chunkId + "." + "2b5c50b0330afc27498b" + ".bundle.js"
+/******/ 		return __webpack_require__.p + "" + chunkId + "." + "8a482c8ea57574bbab4e" + ".bundle.js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -241,6 +241,47 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./build/es/src/genVerticalRollStyle.js":
+/*!**********************************************!*\
+  !*** ./build/es/src/genVerticalRollStyle.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-atomic-molecule */ "./node_modules/react-atomic-molecule/build/es/src/index.js");
+/* harmony import */ var with_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! with-array */ "./node_modules/with-array/build/es/src/index.js");
+
+
+
+var genVerticalRollStyle = function genVerticalRollStyle(rows, height, eachRowStaySec) {
+  var rowsLen = Object(with_array__WEBPACK_IMPORTED_MODULE_1__["default"])(rows).length;
+
+  if (!rowsLen) {
+    return;
+  }
+
+  var aniName = "verticalRoll";
+  var styleId = aniName + "-rows-" + rowsLen + "-height-" + height;
+  var aniStyle = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_0__["reactStyle"])({
+    position: "relative",
+    animation: ["".concat(styleId, " ").concat(rowsLen * 2 * eachRowStaySec, "s steps(").concat(rowsLen, ") infinite")],
+    height: height,
+    transform: ["rotateZ(360deg)"]
+  }, null, false);
+  Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_0__["reactStyle"])([{
+    top: 0
+  }, {
+    top: 0 - height * rowsLen
+  }], ["@keyframes " + styleId, "0%", "100%"], styleId);
+  return aniStyle;
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (genVerticalRollStyle);
+
+/***/ }),
+
 /***/ "./build/es/src/index.js":
 /*!*******************************!*\
   !*** ./build/es/src/index.js ***!
@@ -275,11 +316,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-atomic-molecule */ "./node_modules/react-atomic-molecule/build/es/src/index.js");
 /* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! get-object-value */ "./node_modules/get-object-value/build/es/src/index.js");
+/* harmony import */ var _src_genVerticalRollStyle__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../src/genVerticalRollStyle */ "./build/es/src/genVerticalRollStyle.js");
 
 
 
 
 var _excluded = ["children", "sec"];
+
 
 
 
@@ -307,7 +350,7 @@ var getTypingNextWordAniClassName = function getTypingNextWordAniClassName(el, s
   Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])({
     animation: ["".concat(aniName, " ").concat(sec, "s steps(").concat(elLen + 1, ") infinite alternate")],
     visibility: "visible !important",
-    transform: "translateZ(0)"
+    transform: ["rotateZ(360deg)"]
   }, "." + aniName, aniName + "-ani");
   injects[aniName] = true;
   return aniName;
@@ -375,27 +418,14 @@ var useTyping = function useTyping(props) {
       setTypingItemStyles = _useState6[1];
 
   var height = parseInt(propsHeight, 10);
+  var rowLen = children === null || children === void 0 ? void 0 : children.length;
   Object(react__WEBPACK_IMPORTED_MODULE_4__["useEffect"])(function () {
-    if (!children) {
-      return;
-    }
+    var aniStyle = Object(_src_genVerticalRollStyle__WEBPACK_IMPORTED_MODULE_7__["default"])(children, height, sec);
 
-    var itemLength = children.length;
-    var aniName = "typingNextLine";
-    var styleId = aniName + "-" + itemLength + "-" + height;
-    var typingItemStyles = Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])({
-      position: "relative",
-      animation: ["".concat(styleId, " ").concat(itemLength * 2 * sec, "s steps(").concat(itemLength, ") infinite")],
-      height: height,
-      transform: "translateZ(0)"
-    }, null, false);
-    Object(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_5__["reactStyle"])([{
-      top: 0
-    }, {
-      top: 0 - height * itemLength
-    }], ["@keyframes " + styleId, "0%", "100%"], styleId);
-    setTypingItemStyles(typingItemStyles);
-  }, [children === null || children === void 0 ? void 0 : children.length, height, sec]);
+    if (aniStyle) {
+      setTypingItemStyles(aniStyle);
+    }
+  }, [rowLen, height, sec]);
   var expose = {
     start: function start() {
       setIsRun(true);
@@ -480,8 +510,8 @@ var InjectStyles = {
     marginLeft: 5,
     top: 1,
     verticalAlign: "top",
-    animation: ["typingBlink 1s infinite"],
-    transform: "translateZ(0)"
+    animation: ["typingBlink 1s steps(2) infinite"],
+    transform: ["rotateZ(360deg)"]
   }],
   typingBlink: [[{
     opacity: "1"

@@ -1,17 +1,15 @@
 {
   "name": "organism-react-typing",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Typing animations with React",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": [
-    "react",
-    "reactjs"
-  ],
+  "keywords": ["react", "reactjs"],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "with-array": "*",
     "get-object-value": "*",
     "react-atomic-molecule": "*"
   },
@@ -36,9 +34,5 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": [
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["build", "package.json", "README.md"]
 }

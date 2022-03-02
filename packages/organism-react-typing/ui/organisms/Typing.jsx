@@ -15,6 +15,8 @@ import {
 } from "react-atomic-molecule";
 import get from "get-object-value";
 
+import genVerticalRollStyle from "../../src/genVerticalRollStyle";
+
 const getTypingNextWordAniClassName = (el, sec) => {
   const elWidth = el.offsetWidth;
   if (elWidth <= 1) {
@@ -42,7 +44,7 @@ const getTypingNextWordAniClassName = (el, sec) => {
     {
       animation: [`${aniName} ${sec}s steps(${elLen + 1}) infinite alternate`],
       visibility: "visible !important",
-      transform: "translateZ(0)",
+      transform: ["rotateZ(360deg)"],
     },
     "." + aniName,
     aniName + "-ani"
@@ -96,34 +98,15 @@ const useTyping = (props) => {
   } = props;
   const [isRun, setIsRun] = useState(autoStart);
   const [typingItemStyles, setTypingItemStyles] = useState();
-  const height = parseInt(propsHeight, 10);
 
+  const height = parseInt(propsHeight, 10);
+  const rowLen = children?.length;
   useEffect(() => {
-    if (!children) {
-      return;
+    const aniStyle = genVerticalRollStyle(children, height, sec);
+    if (aniStyle) {
+      setTypingItemStyles(aniStyle);
     }
-    const itemLength = children.length;
-    const aniName = "typingNextLine";
-    const styleId = aniName + "-" + itemLength + "-" + height;
-    const typingItemStyles = reactStyle(
-      {
-        position: "relative",
-        animation: [
-          `${styleId} ${itemLength * 2 * sec}s steps(${itemLength}) infinite`,
-        ],
-        height,
-        transform: "translateZ(0)",
-      },
-      null,
-      false
-    );
-    reactStyle(
-      [{ top: 0 }, { top: 0 - height * itemLength }],
-      ["@keyframes " + styleId, "0%", "100%"],
-      styleId
-    );
-    setTypingItemStyles(typingItemStyles);
-  }, [children?.length, height, sec]);
+  }, [rowLen, height, sec]);
 
   const expose = {
     start: () => {
@@ -210,8 +193,8 @@ const InjectStyles = {
       marginLeft: 5,
       top: 1,
       verticalAlign: "top",
-      animation: ["typingBlink 1s infinite"],
-      transform: "translateZ(0)",
+      animation: ["typingBlink 1s steps(2) infinite"],
+      transform: ["rotateZ(360deg)"],
     },
   ],
   typingBlink: [
