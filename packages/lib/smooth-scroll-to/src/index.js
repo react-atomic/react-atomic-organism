@@ -2,22 +2,23 @@ import { getScrollNode } from "get-scroll-info";
 import callfunc from "call-func";
 import { easeInOutCubic, aniTimer } from "easing-lib";
 
-let isRunning = false;
+const isRunning = [];
 
 /**
  *  !!Important!! any logic change need take care isRunning
  */
-const smoothScrollTo = (to, duration, el, callback) => {
+const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
+  scrollKey = scrollKey || "scrollTop";
   const scrollNode = getScrollNode(el);
   const cb = () => {
-    isRunning = false;
+    isRunning[scrollKey] = false;
     callfunc(callback, [scrollNode]);
   };
 
-  if (isRunning) {
-    isRunning = false;
+  if (isRunning[scrollKey]) {
+    isRunning[scrollKey] = false;
     setTimeout(() => {
-      scrollNode.scrollTop = to;
+      scrollNode[scrollKey] = to;
       cb();
     });
     return false;
@@ -25,7 +26,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
   if (!duration) {
     duration = 900;
   }
-  const from = scrollNode.scrollTop;
+  const from = scrollNode[scrollKey];
   const go = to - from;
   if (!go) {
     return cb();
@@ -34,8 +35,8 @@ const smoothScrollTo = (to, duration, el, callback) => {
     {
       isContinue: (elapsedTime) => {
         const progress = easeInOutCubic(elapsedTime, from, go, duration);
-        scrollNode.scrollTop = progress;
-        if (isRunning) {
+        scrollNode[scrollKey] = progress;
+        if (isRunning[scrollKey]) {
           return true;
         }
       },
@@ -44,7 +45,7 @@ const smoothScrollTo = (to, duration, el, callback) => {
     },
     duration
   );
-  isRunning = true;
+  isRunning[scrollKey] = true;
 };
 
 export default smoothScrollTo;
