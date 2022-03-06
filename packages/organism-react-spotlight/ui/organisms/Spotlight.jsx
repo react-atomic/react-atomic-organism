@@ -53,7 +53,7 @@ class SpotlightEl extends PureComponent {
 class Spotlight extends PureComponent {
   constructor(props) {
     super(props);
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(InjectStyles, injects);
   }
 
   render() {

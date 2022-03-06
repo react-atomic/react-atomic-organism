@@ -4,16 +4,16 @@ import {
   min,
   mixClass,
   reactStyle,
-  lazyInject,
+  useLazyInject,
   SemanticUI,
 } from "react-atomic-molecule";
 
 import Event from "../organisms/Event";
 
 const EventTimeline = (props) => {
-  injects = lazyInject(injects, InjectStyles);
+  injects = useLazyInject(InjectStyles, injects);
   const classes = mixClass(props.className, "feed timeline");
-  const { events, eventElement } = props;
+  const { events = [], eventElement } = props;
   let elProps = {};
   if (props.animate) {
     elProps.animate = props.animate;

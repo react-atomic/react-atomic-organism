@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import {
   build,
   mixClass,
-  lazyInject,
+  useLazyInject,
   getChildMapping,
 } from "react-atomic-molecule";
 import get from "get-object-value";
@@ -76,9 +76,10 @@ const AnimateGroup = (props) => {
   const mount = useRef(false);
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach((key) => delete otherProps[key]);
-  useEffect(() => {
-    injects = lazyInject(injects, InjectStyles({ statusKey }));
-  }, []);
+  injects[statusKey] = useLazyInject(
+    InjectStyles({ statusKey }),
+    injects[statusKey]
+  );
   useEffect(() => {
     let _exitTimeout;
     let _enterTimeout;
@@ -153,7 +154,7 @@ AnimateGroup.defaultProps = {
 
 export default AnimateGroup;
 
-let injects;
+const injects = {};
 const InjectStyles = ({ statusKey }) => ({
   init: [
     {

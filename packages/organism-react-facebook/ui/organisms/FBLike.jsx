@@ -9,10 +9,10 @@ import React, {
   cloneElement,
   isValidElement,
 } from "react";
-import FBIcon from "ricon/Facebook";
-import LinkIcon from "ricon/Link";
 import { lazyInject, Icon, SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
+import FBIcon from "ricon/Facebook";
+import LinkIcon from "ricon/Link";
 
 const keys = Object.keys;
 
@@ -26,7 +26,7 @@ class FBLike extends Component {
     this.state = {
       load: 0,
     };
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(InjectStyles, injects);
   }
 
   update() {

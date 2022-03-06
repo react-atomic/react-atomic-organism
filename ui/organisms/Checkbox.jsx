@@ -1,7 +1,13 @@
 import React, { PureComponent } from "react";
 import get from "get-object-value";
 import arrayMerge from "array.merge";
-import { useCSS, lazyInject, mixClass, Field, SemanticUI } from "react-atomic-molecule";
+import {
+  useCSS,
+  lazyInject,
+  mixClass,
+  Field,
+  SemanticUI,
+} from "react-atomic-molecule";
 import callfunc from "call-func";
 
 let checkboxId = 0;
@@ -29,7 +35,7 @@ class Checkbox extends PureComponent {
   state = {};
   constructor(props) {
     super(props);
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(InjectStyles, injects);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {

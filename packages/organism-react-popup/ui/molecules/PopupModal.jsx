@@ -160,7 +160,7 @@ class PopupModal extends PopupOverlay {
 
   componentDidMount() {
     this._mount = true;
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(InjectStyles, injects);
   }
 
   componentWillUnmount() {

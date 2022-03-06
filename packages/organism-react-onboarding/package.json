@@ -1,11 +1,16 @@
 {
   "name": "organism-react-onboarding",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "description": "Create guided tours with react.",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["react", "react-component", "organism", "atomic-ui"],
+  "keywords": [
+    "react",
+    "react-component",
+    "organism",
+    "atomic-ui"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -47,5 +52,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

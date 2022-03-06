@@ -134,7 +134,7 @@ class Dropzone extends Component {
    * Sets up dropzone.js with the component.
    */
   componentDidMount() {
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(InjectStyles, injects);
     import("../../src/dropzone").then((dropzone) => {
       dropzone = getDefault(dropzone);
       dropzone.autoDiscover = false;

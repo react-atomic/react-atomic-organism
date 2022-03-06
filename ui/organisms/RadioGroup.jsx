@@ -110,7 +110,7 @@ class RadioGroup extends PureComponent {
 
   constructor(props) {
     super(props);
-    injects = lazyInject(injects, InjectStyles);
+    injects = lazyInject(InjectStyles, injects);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {

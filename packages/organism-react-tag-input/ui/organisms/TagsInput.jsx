@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Suggestion } from "react-atomic-organism";
 import {
   build,
-  lazyInject,
+  useLazyInject,
   mixClass,
   List,
   Field,
@@ -10,7 +10,7 @@ import {
 import Tag from "../organisms/Tag";
 
 const TagInput = (props) => {
-  injects = lazyInject(injects, InjectStyles);
+  injects = useLazyInject( InjectStyles, injects );
   const {
     fluid,
     tags,

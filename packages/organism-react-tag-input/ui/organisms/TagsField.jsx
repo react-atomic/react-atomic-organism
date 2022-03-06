@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import { Suggestion } from "react-atomic-organism";
 import {
   build,
-  lazyInject,
   mixClass,
   List,
   Field,

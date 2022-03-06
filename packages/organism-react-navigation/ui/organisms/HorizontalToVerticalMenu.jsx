@@ -65,7 +65,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
 
     constructor(props) {
       super(props);
-      injects = lazyInject(injects, InjectStyles);
+      injects = lazyInject(InjectStyles, injects);
     }
 
     render() {

@@ -6,7 +6,7 @@ import {
   build,
   min,
   mixClass,
-  lazyInject,
+  useLazyInject,
   Item,
   Menu,
 } from "react-atomic-molecule";
@@ -95,7 +95,7 @@ const Ellipsis = (props) => (
 );
 
 const Pagination = (pg) => {
-  injects = lazyInject(injects, InjectStyles);
+  injects = useLazyInject( InjectStyles, injects );
   const {
     linkComponent,
     onPageChange,
