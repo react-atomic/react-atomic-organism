@@ -9,7 +9,7 @@ import callfunc from "call-func";
 
 const useSortLink = (props) => {
   const {
-    inactiveStyle = { fill: "#fff" },
+    inactiveStyle = { fill: "#ccc" },
     activeStyle = {},
     "data-sort": nextSort = "",
     component = "a",
