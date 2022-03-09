@@ -82,7 +82,7 @@ const Styles = {
     left: 0,
     height: 2,
     display: "inline-block",
-    background: "#77b6ff",
+    background: "#0969da",
     transition: ["width 500ms ease"],
     boxShadow: ["0 0 10px rgba(119,182,255,0.7)"],
   },
