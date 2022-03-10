@@ -7,19 +7,20 @@ Call Function
 
 
 ## `Event addEventListener wrapper`
-   * subscribe
+   * `subscribe`
 
+__HTML__
 ```html
 <button>Click</button>
 ```
-
+__JS__
 ```js
 import {register, cleanAllRegister} from "call-func";
 const oReg = register(document.querySelector("button"));
 const regId = oReg.addEventListener("click", ()=>{console.log("click")});
 ```
 
-   * unsubscribe 
+   * `unsubscribe` 
 ```js
 oReg.removeEventListener(regId);
 ```
