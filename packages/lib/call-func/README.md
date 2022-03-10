@@ -20,7 +20,7 @@ const oReg = register(document.querySelector("button"));
 const regId = oReg.addEventListener("click", ()=>{console.log("click")});
 ```
 
-   * `unsubscribe` 
+   * `unsubscribe` by id
 ```js
 // clean one
 oReg.removeEventListener(regId);
