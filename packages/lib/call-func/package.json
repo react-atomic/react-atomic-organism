@@ -1,11 +1,16 @@
 {
+  "version": "0.1.8",
   "name": "call-func",
-  "version": "0.1.6",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/lib/call-func"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/call-func",
   "description": "call function",
-  "repository": "react-atomic/react-atomic-organism",
+  "keywords": ["call-function", "dom-event-wrapper"],
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
