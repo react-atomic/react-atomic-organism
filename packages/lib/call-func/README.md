@@ -22,7 +22,11 @@ const regId = oReg.addEventListener("click", ()=>{console.log("click")});
 
    * `unsubscribe` 
 ```js
+// clean one
 oReg.removeEventListener(regId);
+
+// clean all
+cleanAllRegister();
 ```
 
    * [More Example](https://github.com/react-atomic/react-atomic-organism/blob/main/packages/lib/call-func/src/__tests__/registerTest.js)
