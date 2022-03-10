@@ -54,3 +54,4 @@ const throttle = (func, threshhold, needRunLast) => {
 export default callfunc;
 export { defaultCall, isRequired, debounce, throttle };
 export { default as register, cleanAllRegister } from "./register";
+export { default as delegate } from "./delegate";

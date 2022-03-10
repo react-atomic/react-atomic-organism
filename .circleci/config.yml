@@ -51,6 +51,7 @@ workflows:
                 - "packages/lib/array.merge"
                 - "packages/lib/array.search.js"
                 - "packages/lib/create-el"
+                - "packages/lib/call-func"
                 - "packages/lib/d3-lib"
                 - "packages/lib/getoffset"
                 - "packages/lib/get-object-value"
@@ -69,4 +70,3 @@ workflows:
                 - "packages/organism-react-navigation"
                 - "packages/organism-react-popup"
                 - "packages/organism-react-sort-by"
-

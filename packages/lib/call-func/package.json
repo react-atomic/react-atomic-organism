@@ -1,5 +1,5 @@
 {
-  "version": "0.1.8",
+  "version": "0.2.0",
   "name": "call-func",
   "repository": {
     "type": "git",
@@ -8,18 +8,22 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/call-func",
   "description": "call function",
-  "keywords": ["call-function", "dom-event-wrapper"],
+  "keywords": [
+    "call-function",
+    "dom-event-wrapper"
+  ],
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "css-query-selector": "*",
     "get-object-value": "*",
     "reshow-constant": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "reshow-unit": "*"
+    "reshow-unit-dom": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
