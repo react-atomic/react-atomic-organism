@@ -8,10 +8,9 @@ import React, {
 
 import { useTimer } from "reshow-hooks";
 
-const useProgress = (props, propsPercent) => {
-  const [percent, setPercent] = useState(() =>
-    null != propsPercent ? propsPercent : 0
-  );
+const useProgress = (propsDelay, propsPercent) => {
+  propsDelay = propsDelay ?? 200;
+  const [percent, setPercent] = useState(() => propsPercent ?? 0);
   const [opacity, setOpacity] = useState(0);
   const lastPercent = useRef(0);
 
@@ -56,8 +55,8 @@ const useProgress = (props, propsPercent) => {
     },
     reset: (thisPercent) => {
       thisPercent = thisPercent || 0;
-      setOpacity(thisPercent);
-      runReset(() => setPercent(thisPercent));
+      setOpacity(0);
+      runReset(() => setPercent(thisPercent), 300);
     },
     pause: () => {
       stopTick();
@@ -66,13 +65,11 @@ const useProgress = (props, propsPercent) => {
     },
     start: useCallback(
       (goToPercent, delay) => {
+        delay = delay ?? propsDelay;
         stopTick();
-        if (null == delay) {
-          delay = props.delay;
-        }
         runTick(() => _start(goToPercent), delay);
       },
-      [props.delay]
+      [propsDelay]
     ),
   };
 

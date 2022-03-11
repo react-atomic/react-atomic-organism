@@ -11,10 +11,20 @@ import { DisplayPopupEl } from "organism-react-popup";
 
 import useProgress from "../../src/useProgress";
 
-const PageLoadProgress = forwardRef((props, ref) => {
-  const { name, zIndex, isFloat, isRunning, ajax, barProps } = props;
+const displayName = "PageLoadProgress";
 
-  const { expose, opacity, percent } = useProgress(props);
+const PageLoadProgress = forwardRef((props, ref) => {
+  const {
+    name = displayName,
+    zIndex = 1,
+    isFloat = true,
+    ajax = false,
+    delay,
+    isRunning,
+    barProps,
+  } = props;
+
+  const { expose, opacity, percent } = useProgress(delay);
   useImperativeHandle(ref, () => expose, []);
 
   useEffect(() => {
@@ -48,15 +58,7 @@ const PageLoadProgress = forwardRef((props, ref) => {
   }, [opacity, percent]);
 });
 
-PageLoadProgress.defaultProps = {
-  name: "processBar",
-  delay: 200,
-  isFloat: true,
-  ajax: false,
-  zIndex: 1,
-};
-
-PageLoadProgress.displayName = "PageLoadProgress";
+PageLoadProgress.displayName = displayName;
 
 const PageLoadProgressHandler = forwardRef((props, ref) => (
   <Return store={ajaxStore} initStates={["isRunning"]}>

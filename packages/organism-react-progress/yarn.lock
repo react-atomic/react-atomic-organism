@@ -751,11 +751,12 @@ call-bind@^1.0.0, call-bind@^1.0.2:
     function-bind "^1.1.1"
     get-intrinsic "^1.0.2"
 
-call-func@*, call-func@^0.1.5:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.1.6.tgz#7bb6d330d12c101abcea17daf071e18d3598b0dc"
-  integrity sha512-KeEQimmWuLZ75abuHYKLVPOVGPQcSlPP2xBTpdy8wYVO3WqBGLd8n6P0rmKMIGxvfGtsllGDf1yC/YquNUM0eQ==
+call-func@*:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.2.0.tgz#847a2cbeb18ae9bcbb239c6b066932dcc00603f7"
+  integrity sha512-mfEKJYnraQLhrPOlh+NDW6tFxJby6709icSdZGUwL1Z22JK9nxD3jnbKmkg5aS2Xr76SJ3Oqp6TppHeFHgrOmA==
   dependencies:
+    css-query-selector "*"
     get-object-value "*"
     reshow-constant "*"
 
@@ -1242,9 +1243,9 @@ ecc-jsbn@~0.1.1:
     safer-buffer "^2.1.0"
 
 electron-to-chromium@^1.4.76:
-  version "1.4.77"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.77.tgz#c26e454cb8721d4ebdae3e276c57cd32e51c32ed"
-  integrity sha512-fiDxw8mO9Ph1Z0bjX2sFTPpi0J0QkOiwOJF+5Q0J0baNc/F9lLePAvDPlnoxvbUYYMizqrKPeotRRkJ9LtxAew==
+  version "1.4.81"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.81.tgz#a9ce8997232fb9fb0ec53de8931a85b18c0a7383"
+  integrity sha512-Gs7xVpIZ7tYYSDA+WgpzwpPvfGwUk3KSIjJ0akuj5XQHFdyQnsUoM76EA4CIHXNLPiVwTwOFay9RMb0ChG3OBw==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -3423,9 +3424,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-3.0.2.tgz#0ac82f2c660439c6b74336eda412d007eb41a230"
-  integrity sha512-7uefYedzftRjQET7x2FRDOkSmC4ASmFx6JKALGB8LjYY63A6FxlG3N0MZU4NlTVFeuWOTMKtmoeUGp+VcUo6cQ==
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-3.0.3.tgz#89b30450951d2c8edf7bea989beeba6ae39fca48"
+  integrity sha512-ZKqIpmXNFoBZcKVgsSoOqU3IcUczttWYGY/AR2xetaN7Ei4fqFPBoXq1zFXtqfkggzltCLPlH0e0blL4018RBA==
   dependencies:
     array.merge "*"
     call-func "*"
@@ -3595,11 +3596,11 @@ reshow-constant@*, reshow-constant@^0.16.0:
   integrity sha512-IEPAvcQhcVY4GS7XtIBwmrF5IZwK9XqfxTniiJRaY+1C60a3RvZ4tLhIfNEvfR2N+4FCWO8apmkoTHtCugArDg==
 
 reshow-flux-base@^0.16.0:
-  version "0.16.14"
-  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.16.14.tgz#0b0757568e0aed1c73f5fe4227dacf88bc61e03a"
-  integrity sha512-sp/AGRqIiWC8PnQ6gfXxcBWefEUD/ucT+s5a0ewWfXRup7AxNoumrrdaK6/6nnEA0YhLylVzsOENh/mSz2ixAA==
+  version "0.16.15"
+  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.16.15.tgz#b46422cde32cf074008ef3235268197ea1f87e3a"
+  integrity sha512-XrzCx/wHGkp/9eCi7oTdBIcUVniwTUKYefXTqEHNPjLw/Jn6O9EuYBFKVTIiKZ7Yewsy8p+o3i5xX+ehBuVcTw==
   dependencies:
-    call-func "^0.1.5"
+    call-func "*"
     reshow-constant "^0.16.0"
     reshow-runtime "^0.16.0"
 
@@ -3806,7 +3807,7 @@ set-object-value@*:
   resolved "https://registry.yarnpkg.com/set-object-value/-/set-object-value-0.0.8.tgz#1a1d29d97f627a9c0856c716ab407ac30f676f1e"
   integrity sha512-kcfYjGL3exfZLgOpN8vwv9uM4jyAhvMezXg0cuLMy0GOPOT0762AybSRX9ykzRHXAJTd73Dj1GUAgFVqIyFhlw==
 
-setimmediate@*, setimmediate@^1.0.5:
+setimmediate@*:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
   integrity sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU=

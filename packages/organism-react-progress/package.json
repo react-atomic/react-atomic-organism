@@ -1,6 +1,6 @@
 {
   "name": "organism-react-progress",
-  "version": "0.15.2",
+  "version": "0.15.5",
   "description": "React Progress",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -16,8 +16,7 @@
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
     "reshow-hooks": "*",
-    "reshow-return": "*",
-    "setimmediate": "^1.0.5"
+    "reshow-return": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",

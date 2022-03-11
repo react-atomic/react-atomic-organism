@@ -5,12 +5,12 @@ import useProgress from "../../src/useProgress";
 const ProgressBar = forwardRef((props, ref) => {
   const {
     style,
-    delay,
     percent: propsPercent,
     barProps,
+    delay,
     ...otherProps
   } = props;
-  const { expose, percent } = useProgress(props, propsPercent);
+  const { expose, percent } = useProgress(delay, propsPercent);
   useImperativeHandle(ref, () => expose, []);
 
   return (
@@ -22,10 +22,6 @@ const ProgressBar = forwardRef((props, ref) => {
     />
   );
 });
-
-ProgressBar.defaultProps = {
-  delay: 200,
-};
 
 ProgressBar.displayName = "ProgressBar";
 
