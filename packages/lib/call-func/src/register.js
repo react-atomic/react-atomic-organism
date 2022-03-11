@@ -3,8 +3,8 @@ import { initMap } from "get-object-value";
 import callfunc from "./callfunc";
 
 const count = {
-  el: 1,
-  opt: 1,
+  el: 0,
+  opt: 0,
 };
 const allWrapMap = {};
 const wrapKey = "data-event-wrap-id";
@@ -12,8 +12,7 @@ const wrapKey = "data-event-wrap-id";
 const initEventWrap = (el) => {
   let wrapId = el.getAttribute ? el.getAttribute(wrapKey) : el[wrapKey];
   if (!wrapId) {
-    wrapId = count.el;
-    count.el++;
+    wrapId = ++count.el;
     if (el.setAttribute) {
       el.setAttribute(wrapKey, wrapId);
     } else {
@@ -37,10 +36,9 @@ class EventWrap {
   }
 
   addEventListener = (type, func, ...options) => {
-    const thisOptId = count.opt;
+    const thisOptId = ++count.opt;
     const thisTypeMap = initMap(this.typeMap)(type, []);
     const optionMap = this.optionMap;
-    count.opt++;
     optionMap[thisOptId] = [type, func, ...options];
     thisTypeMap.push(thisOptId);
     callfunc(this.el.addEventListener, optionMap[thisOptId], this.el);
