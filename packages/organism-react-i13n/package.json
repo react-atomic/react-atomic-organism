@@ -1,6 +1,6 @@
 {
   "name": "organism-react-i13n",
-  "version": "0.15.3",
+  "version": "0.15.4",
   "description": "React I13N",
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*",
     "reshow-runtime": "*",
+    "call-func": "*",
     "win-doc": "*",
     "window-onload": "*"
   },

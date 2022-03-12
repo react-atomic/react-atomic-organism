@@ -1,6 +1,6 @@
 require("setimmediate");
 import React, { useRef, useMemo, useState, useEffect } from "react";
-import { pageStore, Return } from "reshow";
+import { Return } from "reshow";
 import { SemanticUI, Unsafe } from "react-atomic-molecule";
 import Iframe from "organism-react-iframe";
 import { ajaxStore } from "organism-react-ajax";
@@ -108,9 +108,7 @@ const I13nElement = (props) => {
                   i13nDispatch("impression", {
                     query,
                     I13N: get(I13N),
-                    callback: (json, text) => {
-                      setIframe(text);
-                    },
+                    callback: (json, text) => setIframe(text),
                   })
                 )
               );

@@ -1,41 +1,28 @@
-require("setimmediate");
-import React, { Component } from "react";
-import { SemanticUI } from "react-atomic-molecule";
+import React, { PureComponent } from "react";
+import { build, SemanticUI } from "react-atomic-molecule";
+import callfunc from "call-func";
 
 import { i13nDispatch } from "../../src/index";
 
-class I13nClick extends Component {
+class I13nClick extends PureComponent {
   static defaultProps = {
     component: SemanticUI,
   };
 
   handleClick = (e) => {
     const { onClick, I13N } = this.props;
-    if (onClick) {
-      onClick(e);
-    }
+    callfunc(onClick, [e]);
     i13nDispatch({
       type: "action",
-      params: {
-        I13N: I13N,
-      },
+      params: { I13N },
     });
   };
 
   render() {
     const { component, onClick, I13N, ...others } = this.props;
-    let build;
-    if (React.isValidElement(component)) {
-      build = React.cloneElement;
-    } else {
-      build = React.createElement;
-    }
-    let props = {
-      ...others,
-      onClick: this.handleClick,
-    };
+    others.onClick = this.handleClick;
 
-    return build(component, props);
+    return build(component)(others);
   }
 }
 
