@@ -1,40 +1,34 @@
-import React, { Component } from "react";
-import { SemanticUI } from "react-atomic-molecule";
+import React, { useState, useCallback } from "react";
+import { mixClass, SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
 
-class Carousel extends Component {
-  handleEnter = () => {
-    const hoverStyle = get(this.props, ["hoverStyle"]);
-    if (hoverStyle) {
-      this.setState({
-        hoverStyle: hoverStyle,
-      });
-    }
+const Carousel = (props) => {
+  const { hoverStyle: propsHoverStyle, className, style, ...others } = props;
+  const [hoverStyle, setHoverStyle] = useState({});
+  const handler = {
+    enter: useCallback(() => {
+      if (propsHoverStyle) {
+        setHoverStyle(propsHoverStyle);
+      }
+    }, [propsHoverStyle]),
+    leave: () => {
+      setHoverStyle({});
+    },
   };
-
-  handleLeave = () => {
-    this.setState({
-      hoverStyle: {},
-    });
-  };
-
-  render() {
-    const { style, hoverStyle, thumbContainer, ...others } = this.props;
-    const thisHoverStyle = get(this.state, ["hoverStyle"], {});
-    return (
-      <SemanticUI
-        {...others}
-        style={{
-          ...Styles.container,
-          ...style,
-          ...thisHoverStyle,
-        }}
-        onMouseEnter={this.handleEnter}
-        onMouseLeave={this.handleLeave}
-      />
-    );
-  }
-}
+  return (
+    <SemanticUI
+      {...others}
+      className={mixClass("carousel", className)}
+      style={{
+        ...Styles.container,
+        ...style,
+        ...hoverStyle,
+      }}
+      onMouseEnter={handler.enter}
+      onMouseLeave={handler.leave}
+    />
+  );
+};
 
 export default Carousel;
 

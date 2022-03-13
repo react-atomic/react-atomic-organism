@@ -1,6 +1,6 @@
 {
   "name": "organism-react-carousel",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "description": "React Carousel",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -20,16 +20,9 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "enzyme": "*",
-    "enzyme-adapter-react-16": "*",
-    "jsdom": "*",
-    "jsdom-global": "*",
-    "mocha": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*",
-    "sinon": "*"
+    "reshow-unit": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

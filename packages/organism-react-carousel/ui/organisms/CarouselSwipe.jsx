@@ -1,67 +1,78 @@
-import React, { Component } from "react";
+import React, {
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { mixClass, SemanticUI, List } from "react-atomic-molecule";
+import callfunc from "call-func";
 
-class CarouselSwipe extends Component {
-  dragging = false;
-  startX = null;
+const getX = (e) => {
+  const posX = e.touches !== undefined ? e.touches[0].pageX : e.clientX;
+  return posX;
+};
 
-  getX(e) {
-    const posX = e.touches !== undefined ? e.touches[0].pageX : e.clientX;
-    return posX;
-  }
-
-  getEl = () => this.el;
-
-  swipeStart = (e) => {
-    this.dragging = true;
-    this.startX = this.getX(e);
+const CarouselSwipe = forwardRef((props, ref) => {
+  const { onHeight, className, disableScroll, ...others } = props;
+  const lastEl = useRef();
+  const lastDragging = useRef();
+  const startX = useRef();
+  const expose = {
+    getEl: () => lastEl.current,
   };
-
-  swipeMove = (e) => {
-    if (!this.dragging) {
-      return false;
-    }
-    const posX = this.getX(e);
-    const move = this.startX - posX;
+  const handler = {
+    swipeStart: (e) => {
+      lastDragging.current = true;
+      startX.current = getX(e);
+    },
+    swipeMove: (e) => {
+      if (!lastDragging.current) {
+        return false;
+      }
+      const posX = getX(e);
+      const move = startX.current - posX;
+    },
+    swipeEnd: (e) => {
+      lastDragging.current = false;
+    },
   };
-
-  swipeEnd = (e) => {};
-
-  componentDidMount() {
-    const { onHeight } = this.props;
+  useImperativeHandle(ref, () => expose, []);
+  useEffect(() => {
+    let timer;
     if (onHeight) {
-      setTimeout(() => {
-        const height = this.el.offsetHeight;
-        onHeight(height);
-      }, 700);
+      timer = setTimeout(
+        () => callfunc(onHeight, [lastEl.current.offsetHeight]),
+        700
+      );
     }
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
+  }, []);
+  const containerStyle = { ...Styles.container };
+  if (disableScroll) {
+    containerStyle.overflow = "hidden";
   }
-
-  render() {
-    const { onHeight, className, disableScroll, ...others } = this.props;
-    const containerStyle = { ...Styles.container };
-    if (disableScroll) {
-      containerStyle.overflow = "hidden";
-    }
-    return (
-      <SemanticUI style={containerStyle} refCb={(el) => (this.el = el)}>
-        <List
-          className={mixClass("carousel-swipe", className)}
-          style={Styles.inside}
-          {...others}
-          onMouseDown={this.swipeStart}
-          onMouseMove={this.swipeMove}
-          onMouseUp={this.swipeEnd}
-          onMouseLeave={this.swipeMove}
-          onTouchStart={this.swipeStart}
-          onTouchMove={this.swipeMove}
-          onTouchEnd={this.swipeEnd}
-          onTouchCancel={this.swipeMove}
-        />
-      </SemanticUI>
-    );
-  }
-}
+  return (
+    <SemanticUI style={containerStyle} refCb={lastEl}>
+      <List
+        className={mixClass("carousel-swipe", className)}
+        style={Styles.inside}
+        {...others}
+        onMouseDown={handler.swipeStart}
+        onMouseMove={handler.swipeMove}
+        onMouseUp={handler.swipeEnd}
+        onMouseLeave={handler.swipeMove}
+        onTouchStart={handler.swipeStart}
+        onTouchMove={handler.swipeMove}
+        onTouchEnd={handler.swipeEnd}
+        onTouchCancel={handler.swipeMove}
+      />
+    </SemanticUI>
+  );
+});
 
 export default CarouselSwipe;
 
