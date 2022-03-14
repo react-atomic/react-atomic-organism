@@ -12,7 +12,8 @@ http://react-atomic.github.io/react-atomic-organism/packages/organism-react-typi
 Code:
 https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-typing/ui/pages/index.jsx
 
-
+## Inspiration
+https://javascript.plainenglish.io/how-to-make-a-typed-text-react-component-f92a035d194
 
 
 
