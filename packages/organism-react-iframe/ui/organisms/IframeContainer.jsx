@@ -12,7 +12,13 @@ import callfunc from "call-func";
 let iframeCount = 0;
 
 const useIframeContainer = (props) => {
-  const { src, style, messageKey = "iframeH", ...others } = props;
+  const {
+    src,
+    style,
+    messageKey = "iframeH",
+    loading = "lazy",
+    ...others
+  } = props;
   const [iframeH, setIframeH] = useState("auto");
   const thisMessageKey = useRef();
 
@@ -42,6 +48,9 @@ const useIframeContainer = (props) => {
 
   if (src) {
     others.src = src;
+  }
+  if (loading) {
+    others.loading = loading;
   }
 
   const thisStyle = {

@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.7.0
+  node: circleci/node@5.0.1
 
 jobs:
   test:
@@ -15,7 +15,7 @@ jobs:
       - node/install:
           node-version: "14"
           install-yarn: true
-          install-npm: false
+          yarn-version: "1.22.17"
       - run:
           name: "Display information"
           command: |
@@ -67,6 +67,7 @@ workflows:
                 - "packages/organism-react-d3-uml"
                 - "packages/organism-react-graph"
                 - "packages/organism-react-i13n"
+                - "packages/organism-react-iframe"
                 - "packages/organism-react-navigation"
                 - "packages/organism-react-popup"
                 - "packages/organism-react-sort-by"
