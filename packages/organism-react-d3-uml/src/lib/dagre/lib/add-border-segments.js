@@ -1,19 +1,26 @@
-import * as util from "./util";
-export default addBorderSegments;
+import { addDummyNode } from "./util";
 
-function addBorderSegments(g) {
-  function dfs(v) {
-    var children = g.children(v),
-      node = g.node(v);
-    if (children.length) {
-      children.forEach(dfs);
-    }
+const addBorderNode = (g, prop, prefix, sg, sgNode, rank) => {
+  const label = { width: 0, height: 0, rank: rank, borderType: prop };
+  const prev = sgNode[prop][rank - 1];
+  const curr = addDummyNode(g, "border", label, prefix);
+  sgNode[prop][rank] = curr;
+  g.setParent(curr, sg);
+  if (prev) {
+    g.setEdge(prev, curr, { weight: 1 });
+  }
+};
+
+const addBorderSegments = (g) => {
+  const dfs = (v) => {
+    const node = g.node(v);
+    g.children(v)?.forEach(dfs);
 
     if (node.minRank) {
       node.borderLeft = [];
       node.borderRight = [];
       for (
-        var rank = node.minRank, maxRank = node.maxRank + 1;
+        let rank = node.minRank, maxRank = node.maxRank + 1;
         rank < maxRank;
         ++rank
       ) {
@@ -21,18 +28,9 @@ function addBorderSegments(g) {
         addBorderNode(g, "borderRight", "_br", v, node, rank);
       }
     }
-  }
+  };
 
   g.children().forEach(dfs);
-}
+};
 
-function addBorderNode(g, prop, prefix, sg, sgNode, rank) {
-  var label = { width: 0, height: 0, rank: rank, borderType: prop },
-    prev = sgNode[prop][rank - 1],
-    curr = util.addDummyNode(g, "border", label, prefix);
-  sgNode[prop][rank] = curr;
-  g.setParent(curr, sg);
-  if (prev) {
-    g.setEdge(prev, curr, { weight: 1 });
-  }
-}
+export default addBorderSegments;

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 
 import layout from "../layout";
-import { Graph } from "../../../dagre";
+import { Graph } from "../graphlib";
 import { zipObject, pick } from "../../../lodash-lite";
 
 const extractCoordinates = (g) => {

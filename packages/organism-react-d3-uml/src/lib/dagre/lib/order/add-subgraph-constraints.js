@@ -1,8 +1,8 @@
 const addSubgraphConstraints = (g, cg, vs) => {
-  var prev = {},
-    rootPrev;
+  const prev = {};
+  let rootPrev;
 
-  vs.forEach(function (v) {
+  vs.forEach((v) => {
     var child = g.parent(v),
       parent,
       prevChild;
