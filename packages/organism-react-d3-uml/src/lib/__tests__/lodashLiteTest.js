@@ -35,3 +35,18 @@ describe("Test max", () => {
     expect(_.max(3, 5, 7)).to.eql(7);
   });
 });
+
+describe("Test isEmpty", () => {
+  it("is empty", () => {
+    [null, undefined, [], {}, 0, false, ""].forEach((a) => {
+      expect(_.isEmpty(a)).to.be.true;
+    });
+  });
+});
+
+describe("Test get uniqueId", () => {
+  it("get uniqueId", () => {
+    expect(_.uniqueId("foo")).to.equal("foo_0");
+    expect(_.uniqueId("foo")).to.equal("foo_1");
+  });
+});

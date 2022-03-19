@@ -1,4 +1,5 @@
-import { has, isArray } from "../../../lodash-lite";
+import toArray from "with-array";
+import { has } from "../../../lodash-lite";
 
 export default dfs;
 
@@ -11,15 +12,12 @@ export default dfs;
  * Order must be one of "pre" or "post".
  */
 function dfs(g, vs, order) {
-  if (!isArray(vs)) {
-    vs = [vs];
-  }
 
   var navigation = (g.isDirected() ? g.successors : g.neighbors).bind(g);
 
   var acc = [];
   var visited = {};
-  vs.forEach(function (v) {
+  toArray(vs).forEach(function (v) {
     if (!g.hasNode(v)) {
       throw new Error("Graph does not have node: " + v);
     }

@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -22,7 +22,8 @@
     "reshow-constant": "*",
     "set-object-value": "*",
     "to-percent-js": "*",
-    "win-doc": "*"
+    "win-doc": "*",
+    "with-array": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
