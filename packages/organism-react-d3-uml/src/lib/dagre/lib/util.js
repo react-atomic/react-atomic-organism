@@ -1,4 +1,4 @@
-import { range, uniqueId, zipObject, now, max, min } from "../../lodash-lite";
+import { range, uniqueId, zipObject, now, calMax, calMin } from "../../lodash-lite";
 import { Graph } from "./graphlib";
 
 export {
@@ -46,7 +46,7 @@ function simplify(g) {
       label = g.edge(e);
     simplified.setEdge(e.v, e.w, {
       weight: simpleLabel.weight + label.weight,
-      minlen: max(simpleLabel.minlen, label.minlen),
+      minlen: Math.max(simpleLabel.minlen, label.minlen),
     });
   });
   return simplified;
@@ -153,7 +153,7 @@ function buildLayerMatrix(g) {
  * rank(v) >= 0 and at least one node w has rank(w) = 0.
  */
 function normalizeRanks(g) {
-  var offset = min(g.nodes().map((v) => g.node(v).rank));
+  var offset = calMin(g.nodes().map((v) => g.node(v).rank));
   g.nodes().forEach(function (v) {
     var node = g.node(v);
     if ("undefined" !== typeof node.rank) {
@@ -164,7 +164,7 @@ function normalizeRanks(g) {
 
 function removeEmptyRanks(g) {
   // Ranks may not start at 0, so we need to offset them
-  var offset = min(g.nodes().map((v) => g.node(v).rank));
+  var offset = calMin(g.nodes().map((v) => g.node(v).rank));
 
   var layers = [];
   g.nodes().forEach(function (v) {
@@ -213,7 +213,7 @@ function maxRank(g, nodes) {
   if (!arr.length) {
     return 0;
   }
-  return max(arr);
+  return calMax(arr);
 }
 
 /*

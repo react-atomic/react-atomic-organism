@@ -1,4 +1,4 @@
-import { min } from "../../../lodash-lite";
+import { calMin } from "../../../lodash-lite";
 export { longestPath, slack };
 
 /*
@@ -32,7 +32,7 @@ function longestPath(g) {
     }
     visited[v] = true;
 
-    var rank = min(
+    var rank = calMin(
       g.outEdges(v).map(function (e) {
         return dfs(e.w) - g.edge(e).minlen;
       })

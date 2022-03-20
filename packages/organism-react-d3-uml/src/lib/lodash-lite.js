@@ -53,7 +53,7 @@ const minBy = (obj, func) => {
       arrMin[key] = v;
     }
   });
-  const thisMin = min(values(arrMin));
+  const thisMin = calMin(values(arrMin));
   let result = null;
   oKeys.some((key) => {
     if (thisMin === arrMin[key]) {
@@ -113,10 +113,10 @@ const now = () => win().Date.now();
 
 const values = (obj) => obj && KEYS(obj).map((key) => obj[key]);
 
-const max = (p1, ...other) =>
+const calMax = (p1, ...other) =>
   isNotEmptyArray(p1) ? Math.max(...p1) : Math.max(p1, ...other);
 
-const min = (p1, ...other) =>
+const calMin = (p1, ...other) =>
   isNotEmptyArray(p1) ? Math.min(...p1) : Math.min(p1, ...other);
 
 const has = (obj, key) => {
@@ -155,12 +155,12 @@ export {
   transform,
   has,
   values,
-  max,
-  min,
+  calMax,
+  calMin,
+  minBy,
   range,
   rangeStep,
   flattenDownDepth,
-  minBy,
   find,
   pick,
   mapValues,
