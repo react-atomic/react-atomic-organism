@@ -2,7 +2,6 @@
 export { default as CDN } from "../ui/organisms/CDN";
 export { default as Hero } from "../ui/organisms/Hero";
 export { default as Step } from "../ui/organisms/Step";
-export { default as Tappable } from "../ui/organisms/Tappable";
 
 // input
 export { default as Checkbox } from "../ui/organisms/Checkbox";

@@ -1,6 +1,6 @@
 {
   "name": "react-atomic-organism",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "description": "Atomic design in React (organisms)",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
@@ -41,19 +41,10 @@
     "babel-plugin-reshow-transform-runtime": "*",
     "babel-plugin-transform-react-pure-class-to-function": "*",
     "babel-plugin-transform-react-remove-prop-types": "*",
-    "chai": "*",
-    "enzyme": "*",
-    "enzyme-adapter-react-16": "*",
-    "jsdom": "*",
-    "jsdom-global": "*",
-    "mocha": "^6.x",
-    "prettier": "*",
-    "prettier-eslint": "*",
-    "prettier-eslint-cli": "*",
     "prop-types": "*",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "reshow-unit": "*"
   },
   "scripts": {
     "format": "prettier-eslint --write '**/src/**/*.js' '**/ui/**/*.jsx'",
