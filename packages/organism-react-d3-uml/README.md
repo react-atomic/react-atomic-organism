@@ -13,5 +13,5 @@ https://react-atomic-ui.js.org/#/D3
 
 
 ## library
-https://github.com/dagrejs/dagre
-curveStep: https://github.com/dagrejs/dagre/issues/286
+* https://github.com/dagrejs/dagre
+* curveStep: https://github.com/dagrejs/dagre/issues/286
