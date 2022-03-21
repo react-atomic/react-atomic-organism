@@ -56,6 +56,7 @@ workflows:
                 - "packages/lib/getoffset"
                 - "packages/lib/get-object-value"
                 - "packages/lib/get-cookie"
+                - "packages/lib/non-worker"
                 - "packages/lib/set-object-value"
                 - "packages/lib/seturl"
                 - "packages/lib/to-percent-js"

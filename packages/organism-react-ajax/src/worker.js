@@ -3,12 +3,20 @@ import nonWorker from "non-worker";
 import req from "superagent";
 import ini from "parse-ini-string";
 import { nest } from "object-nested";
+import { KEYS } from "reshow-constant";
 
-const keys = Object.keys;
 const arrWs = {};
 const arrReq = {};
 
-const handleMessage = (e) => {
+const getJson = (text) => {
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch (e) {}
+  return json || {};
+};
+
+const oNonWorker = new nonWorker((e) => {
   const data = get(e, ["data"]);
   switch (data.type) {
     case "initWs":
@@ -24,17 +32,7 @@ const handleMessage = (e) => {
       ajaxPost(data);
       break;
   }
-};
-
-const getJson = (text) => {
-  let json;
-  try {
-    json = JSON.parse(text);
-  } catch (e) {}
-  return json || {};
-};
-
-const oNonWorker = new nonWorker().onMessage(handleMessage);
+});
 const post = (payload) => {
   const strWcb = get(payload, ["params", "workerCallback"]);
   const parseIni = get(payload, ["params", "ini"]);
@@ -71,7 +69,7 @@ const cookParams = (action, callReq) => {
       superagent[key] = params[key];
     }
   });
-  keys(superagent).forEach((key) => {
+  KEYS(superagent).forEach((key) => {
     callReq = callReq[key].apply(callReq, superagent[key]);
   });
   return params;
@@ -125,7 +123,7 @@ const ajaxPost = ({ url, action }) => {
     isSend = true;
   } else {
     if (null == isSendJson && query) {
-      keys(query).every((key) => {
+      KEYS(query).every((key) => {
         if ("object" !== typeof query[key]) {
           return true;
         }
