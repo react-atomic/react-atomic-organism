@@ -44,9 +44,3 @@ describe("Test isEmpty", () => {
   });
 });
 
-describe("Test get uniqueId", () => {
-  it("get uniqueId", () => {
-    expect(_.uniqueId("foo")).to.equal("foo_0");
-    expect(_.uniqueId("foo")).to.equal("foo_1");
-  });
-});

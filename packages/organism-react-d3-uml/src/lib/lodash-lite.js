@@ -8,6 +8,7 @@ import {
 } from "reshow-constant";
 import { win } from "win-doc";
 import dedup from "array.dedup";
+import { getSN as uniqueId } from "get-random-id";
 
 const isNotEmptyArray = (arr) => IS_ARRAY(arr) && arr.length;
 
@@ -97,9 +98,6 @@ const mapValues = (obj, func) => {
   KEYS(obj).forEach((key) => (results[key] = func(obj[key], key)));
   return results;
 };
-
-let uniqueIdCount = 0;
-const uniqueId = (name) => name + "_" + uniqueIdCount++;
 
 const zipObject = (a1, a2) => {
   const result = {};

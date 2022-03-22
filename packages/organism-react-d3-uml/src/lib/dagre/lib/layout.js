@@ -1,3 +1,4 @@
+import { KEYS } from "reshow-constant";
 import * as acyclic from "./acyclic";
 import * as nestingGraph from "./nesting-graph";
 import * as coordinateSystem from "./coordinate-system";
@@ -12,7 +13,6 @@ import addBorderSegments from "./add-border-segments";
 import position from "./position";
 import { Graph } from "./graphlib";
 
-const keys = Object.keys;
 export default layout;
 
 function layout(g, opts) {
@@ -467,6 +467,6 @@ function selectNumberAttrs(obj, attrs) {
 
 function canonicalize(attrs) {
   var newAttrs = {};
-  keys(attrs).forEach((key) => (newAttrs[key.toLowerCase()] = attrs[key]));
+  KEYS(attrs || {}).forEach((key) => (newAttrs[key.toLowerCase()] = attrs[key]));
   return newAttrs;
 }

@@ -1,47 +1,53 @@
 import get from "get-object-value";
 import dedup from "array.dedup";
+import nonWorker from "non-worker";
+import { KEYS } from "reshow-constant";
 import * as dagre from "./lib/dagre";
 
-const keys = Object.keys;
+const oNonWorker = new nonWorker((e) => {
+  const { nodes, conns, queueId } = get(e, ["data"]);
+  const nextXY = dagreAutoLayout(nodes, conns);
+  post({ nextXY, queueId });
+});
+const post = (payload) => oNonWorker.post.call(this, payload);
+
+export default oNonWorker;
 
 const toInt = (d) => parseInt(d, 10);
-
 const dagreAutoLayout = (nodes, conns = {}) => {
   const graph = new dagre.graphlib.Graph()
     .setGraph({ rankdir: "LR" })
     .setDefaultEdgeLabel(() => ({}));
-  const nodeKeys = keys(nodes);
-  if (!nodeKeys || !nodeKeys.length) {
+  if (!nodes || !nodes.length) {
     console.warn("[Dagre] empty node");
   }
   let nodeConns = [];
-  get(keys(conns), null, {}).forEach((key) => {
+  KEYS(conns || {}).forEach((key) => {
     graph.setEdge(...conns[key]);
     nodeConns.push(...conns[key]);
   });
   nodeConns = dedup(nodeConns);
   const nodeNoConns = [];
-  nodeKeys.forEach((key) => {
-    if (-1 !== nodeConns.indexOf(toInt(key))) {
+
+  nodes.forEach((node) => {
+    const key = toInt(node.key);
+    if (-1 !== nodeConns.indexOf(key)) {
       graph.setNode(key, {
         label: key,
-        ...nodes[key].getWH(),
+        ...node,
       });
     } else {
       nodeNoConns.push(key);
     }
   });
   dagre.layout(graph);
-  const newWH = {};
-  graph.nodes().forEach((key) => (newWH[key] = graph.node(key)));
+  const nextXY = {};
+  graph.nodes().forEach((key) => (nextXY[key] = graph.node(key)));
   if (nodeNoConns.length) {
     let noConnStart = 1;
     nodeNoConns.forEach((key) => {
-      newWH[key] = { x: 10, y: noConnStart * 20 };
-      noConnStart++;
+      nextXY[key] = { x: 10, y: ++noConnStart * 20 };
     });
   }
-  return newWH;
+  return nextXY;
 };
-
-export default dagreAutoLayout;

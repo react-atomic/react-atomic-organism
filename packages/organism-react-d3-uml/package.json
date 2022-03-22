@@ -1,6 +1,6 @@
 {
   "name": "organism-react-d3-uml",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "React D3 UML",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -16,7 +16,9 @@
     "css-query-selector": "*",
     "d3-lib": "*",
     "get-object-value": "*",
+    "get-random-id": "*",
     "getoffset": "*",
+    "non-worker": "*",
     "organism-react-graph": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
@@ -27,15 +29,9 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "enzyme": "*",
-    "enzyme-adapter-react-16": "*",
-    "jsdom": "16.4.0",
-    "jsdom-global": "*",
-    "mocha": "*",
+    "reshow-unit": "*",
     "react": "^16.x",
-    "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "react-dom": "^16.x"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

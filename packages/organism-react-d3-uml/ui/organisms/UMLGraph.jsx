@@ -12,8 +12,9 @@ import set from "set-object-value";
 import getOffset, { mouse, getSvgMatrixXY } from "getoffset";
 import callfunc from "call-func";
 import { toInt } from "to-percent-js";
-import { UNDEFINED } from "reshow-constant";
+import { UNDEFINED, KEYS } from "reshow-constant";
 import { useD3 } from "d3-lib";
+import { getSN } from "get-random-id";
 
 import ArrowHead from "../molecules/ArrowHead";
 import BoxGroupDefaultLayout from "../molecules/BoxGroupDefaultLayout";
@@ -23,7 +24,53 @@ import Box from "../organisms/Box";
 import LineList from "../organisms/LineList";
 import ConnectController from "../../src/ConnectController";
 
-const keys = Object.keys;
+const gDagre = { current: null };
+const gDagreWorker = { current: null };
+const dagreQueue = {};
+const initDagre = (g, queueId) => (dagreWorker) => {
+  g.current = dagreWorker;
+  g.current.addEventListener("message", (e) => {
+    const data = e?.data || {};
+    switch (data.type) {
+      case "ready":
+        break;
+      default:
+        const { queueId, nextXY } = data;
+        dagreQueue[queueId].callback(nextXY);
+        delete dagreQueue[queueId];
+        break;
+    }
+  });
+  postDagre(queueId, g);
+};
+const postDagre = (queueId, g) => {
+  const queueData = dagreQueue[queueId];
+  if (queueData) {
+    g.current.postMessage({
+      queueId,
+      conns: queueData.conns,
+      nodes: queueData.nodes,
+    });
+  }
+};
+const callDagre = (queueId) => {
+  if (!gDagre.current) {
+    import("../../src/dagre").then((o) =>
+      initDagre(gDagre, queueId)(getDefault(o))
+    );
+  } else {
+    postDagre(queueId, gDagre);
+  }
+};
+const callDagreWorker = (queueId) => {
+  if (!gDagreWorker.current) {
+    import("worker-loader!../../src/dagre").then((workerObject) => {
+      initDagre(gDagreWorker, queueId)(new getDefault(workerObject)());
+    });
+  } else {
+    postDagre(queueId, gDagreWorker);
+  }
+};
 
 const HTMLGraph = forwardRef(({ d3OnLoad, ...props }, ref) => {
   useD3(d3OnLoad);
@@ -54,6 +101,7 @@ class UMLGraph extends Component {
     autoArrange: true,
     editToCenter: false,
     editToCenterDelay: 500,
+    disableDagreWorker: false,
   };
 
   boxGroupNameInvertMap = {};
@@ -100,7 +148,7 @@ class UMLGraph extends Component {
     const name = obj.getName();
     this.boxGroupNameInvertMap[name] = id;
     this.boxGroupMap[id] = obj;
-    keys(get(this.boxQueue[id], null, {})).forEach((boxName) => {
+    KEYS(this.boxQueue[id] || {}).forEach((boxName) => {
       const boxObj = this.boxQueue[id][boxName];
       const isAdd = this.addBox(boxObj);
     });
@@ -279,7 +327,31 @@ class UMLGraph extends Component {
 
   arrange() {
     const conns = this.oConn?.getUniqueFromTo();
-    this.handleAutoArrange(conns);
+    const nodes = KEYS(this.boxGroupMap || {}).map((key) => {
+      const oBoxGroup = this.boxGroupMap[key];
+      return {
+        key,
+        ...oBoxGroup.getWH(),
+      };
+    });
+    const queueId = getSN("dagre");
+    dagreQueue[queueId] = {
+      queueId,
+      conns,
+      nodes,
+      callback: (nextXY) => {
+        KEYS(nextXY || {}).forEach((key) => {
+          const oBoxGroup = this.getBoxGroup(key);
+          oBoxGroup.move(nextXY[key].x, nextXY[key].y);
+        });
+        this.handleLoad();
+      },
+    };
+    if (this.props.disableDagreWorker) {
+      callDagre(queueId);
+    } else {
+      callDagreWorker(queueId);
+    }
   }
 
   syncPropConnects() {
@@ -399,18 +471,6 @@ class UMLGraph extends Component {
     }
   };
 
-  handleAutoArrange = (conns) => {
-    import("../../src/dagre").then((dagreAutoLayout) => {
-      dagreAutoLayout = getDefault(dagreAutoLayout);
-      const newXY = dagreAutoLayout({ ...this.boxGroupMap }, conns);
-      get(keys(newXY), null, []).forEach((key) => {
-        const oBoxGroup = this.getBoxGroup(key);
-        oBoxGroup.move(newXY[key].x, newXY[key].y);
-      });
-      this.handleLoad();
-    });
-  };
-
   handleSetLineListRef = (el) => {
     this.lineList = el;
   };
@@ -453,6 +513,7 @@ class UMLGraph extends Component {
     const {
       autoArrange,
       arrowHeadComponent,
+      disableDagreWorker,
       data,
       uniqueBoxGroupNameLocator,
       boxNameLocator,
