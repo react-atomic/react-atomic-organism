@@ -5,11 +5,13 @@ import Iframe from "organism-react-iframe";
 import get from "get-object-value";
 import { js } from "create-el";
 
+const sourceType = 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"';
+
 class Body extends PureComponent {
   static defaultProps = {
     api: "https://h5vv.video.qq.com/getinfo?otype=json&vids=[VIDEO_ID]&platform=11001",
     videoId: "",
-    srcTpl: "http://[IP]/vlive.qqvideo.tc.qq.com/[NAME]?vkey=[KEY]",
+    srcTpl: "https://[IP]/vlive.qqvideo.tc.qq.com/[NAME]?vkey=[KEY]&fmt=shd",
     thumbTpl: "//shp.qpic.cn/qqvideo_ori/0/[VIDEO_ID]_496_280/0",
   };
 
@@ -34,7 +36,7 @@ class Body extends PureComponent {
         const subData = get(data, ["vl", "vi", 0]);
         const url = get(subData, ["ul", "ui", 0, "url"], "").split("/");
         const src = srcTpl
-          .replace("[IP]", get(url, [2]))
+          .replace("[IP]", "apd-9f28976740363721e53bdebab52f428c.v.smtcdns.com") // get(url, [2])
           .replace("[NAME]", get(subData, ["fn"]))
           .replace("[KEY]", get(subData, ["fvkey"]));
         this.setState({ curVideoId: videoId, src });
@@ -68,6 +70,7 @@ class Body extends PureComponent {
     }
     return (
       <Video
+        sourceType={sourceType}
         refCb={(el) => setTimeout(() => el.play())}
         showControllBar={true}
         mask={false}
