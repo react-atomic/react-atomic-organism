@@ -4,7 +4,7 @@ import { mergeMap, ImmutableStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
 import set from "set-object-value";
 import smoothScrollTo from "smooth-scroll-to";
-import getRandomId, { getTimestamp } from "get-random-id";
+import getRandomId, { getTimestamp, getSN } from "get-random-id";
 import callfunc from "call-func";
 import { KEYS, REAL_TIME_URL, REAL_TIME_DATA_KEY } from "reshow-constant";
 
@@ -14,7 +14,6 @@ let wsAuth = Map();
 let gWorker;
 let fakeWorker = false;
 let isWorkerReady;
-let cbIndex = 0;
 
 const initAjaxWorkerEvent = (worker) => {
   worker.addEventListener("message", (e) => {
@@ -178,17 +177,15 @@ class handleAjax {
   storeCallback(action) {
     const cb = get(action, ["params", "callback"]);
     if (cb) {
-      const cbKey = "cb" + cbIndex;
+      const cbKey = getSN("cb");
       Callbacks[cbKey] = cb;
       action.params.callback = cbKey;
-      cbIndex++;
     }
     const err = get(action, ["params", "errorCallback"]);
     if (err) {
-      const errCbKey = "err" + cbIndex;
+      const errCbKey = getSN("err");
       Callbacks[errCbKey] = err;
       action.params.errorCallback = errCbKey;
-      cbIndex++;
     }
     const wcb = get(action, ["params", "workerCallback"]);
     if (wcb) {

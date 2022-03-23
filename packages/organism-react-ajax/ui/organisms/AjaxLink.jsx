@@ -59,7 +59,11 @@ const useAjaxLink = (props) => {
     (callback) => (type) => (e) => {
       let thisHref = href;
       if (!thisHref || "#" === thisHref || "?" === thisHref) {
-        const toBaseUrl = getRawUrl({ path, url: href });
+        /**
+         * should pass empty url to getRawUrl for this case
+         * getRawUrl will tyr get url with baseUrl
+         */
+        const toBaseUrl = getRawUrl({ path });
         if (toBaseUrl) {
           thisHref = toBaseUrl;
           e.currentTarget.href = thisHref;
