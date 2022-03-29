@@ -29,9 +29,9 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "reshow-unit": "*",
     "react": "^16.x",
-    "react-dom": "^16.x"
+    "react-dom": "^16.x",
+    "reshow-unit": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

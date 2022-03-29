@@ -17,13 +17,13 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "call-func": "*",
     "get-random-id": "*",
     "i13n": "*",
     "organism-react-ajax": "*",
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*",
     "reshow-runtime": "*",
-    "call-func": "*",
     "win-doc": "*",
     "window-onload": "*"
   },

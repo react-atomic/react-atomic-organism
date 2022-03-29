@@ -17,8 +17,8 @@
     "chai": "*",
     "jsdom": "*",
     "jsdom-global": "*",
-    "sinon": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "sinon": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
@@ -30,5 +30,10 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build/cjs", "build/es", "package.json", "README.md"]
+  "files": [
+    "build/cjs",
+    "build/es",
+    "package.json",
+    "README.md"
+  ]
 }

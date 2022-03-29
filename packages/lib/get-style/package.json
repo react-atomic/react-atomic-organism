@@ -23,5 +23,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build/src", "package.json", "README.md"]
+  "files": [
+    "build/src",
+    "package.json",
+    "README.md"
+  ]
 }

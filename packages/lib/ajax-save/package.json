@@ -9,9 +9,9 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "win-doc": "*",
     "create-el": "*",
-    "get-random-id": "*"
+    "get-random-id": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
@@ -27,5 +27,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
