@@ -11,13 +11,16 @@ describe("Test Line Component", () => {
 
   it("base test", (done) => {
     let objLine;
+    let wrap;
     const onD3Load = () => {
-      expect(objLine.getCenter()).to.deep.equal({ x: 5, y: 0 });
-      const html = uDom.html();
-      expect(html).to.equal(
-        '<svg><path d="M0,0L0.8333333333333334,0C1.6666666666666667,0,3.3333333333333335,0,5,1.6666666666666667C6.666666666666667,3.3333333333333335,8.333333333333334,6.666666666666667,9.166666666666666,8.333333333333334L10,10"></path></svg>'
-      );
-      done();
+      setTimeout(() => {
+        expect(objLine.getCenter()).to.deep.equal({ x: 5, y: 0 });
+        const html = wrap.html();
+        expect(html).to.equal(
+          '<svg><path d="M0,0L0.8333333333333334,0C1.6666666666666667,0,3.3333333333333335,0,5,1.6666666666666667C6.666666666666667,3.3333333333333335,8.333333333333334,6.666666666666667,9.166666666666666,8.333333333333334L10,10"></path></svg>'
+        );
+        done();
+      });
     };
     const comp = (
       <svg>
@@ -30,6 +33,6 @@ describe("Test Line Component", () => {
         />
       </svg>
     );
-    const uDom = mount(comp);
+    wrap = mount(comp);
   });
 });

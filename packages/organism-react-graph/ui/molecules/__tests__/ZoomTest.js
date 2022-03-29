@@ -10,13 +10,15 @@ describe("Test Zoom", () => {
     jsdom(null, { runScripts: "dangerously", resources: "usable" });
   });
   it("base test", (done) => {
-    const onD3Load = ()=>{
-      expect(wrap.html()).to.have.string("zoom");
-      done();
+    const onD3Load = () => {
+      setTimeout(() => {
+        expect(wrap.html()).to.have.string("zoom");
+        done();
+      });
     };
     const vDom = (
       <svg>
-        <Zoom onD3Load={onD3Load}/>
+        <Zoom onD3Load={onD3Load} />
       </svg>
     );
     const wrap = mount(vDom);

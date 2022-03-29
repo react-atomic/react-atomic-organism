@@ -11,14 +11,16 @@ describe("Test Arc Component", () => {
   });
 
   it("base test", (done) => {
-    let objLine;
+    let wrap;
 
     const onD3Load = () => {
-      const html = wrap.html();
-      expect(html).to.equal(
-        '<svg><g class="arc"><path d="M3.061616997868383e-15,-50A50,50,0,1,1,3.061616997868383e-15,50L0,0Z"></path></g></svg>'
-      );
-      done();
+      setTimeout(() => {
+        const html = wrap.html();
+        expect(html).to.equal(
+          '<svg><g class="arc"><path d="M3.061616997868383e-15,-50A50,50,0,1,1,3.061616997868383e-15,50L0,0Z"></path></g></svg>'
+        );
+        done();
+      });
     };
 
     const comp = (
@@ -26,6 +28,6 @@ describe("Test Arc Component", () => {
         <Arc startAngle={0} endAngle={Math.PI} onD3Load={onD3Load} />
       </svg>
     );
-    const wrap = mount(comp);
+    wrap = mount(comp);
   });
 });
