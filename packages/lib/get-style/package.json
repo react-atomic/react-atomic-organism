@@ -1,6 +1,6 @@
 {
   "name": "get-style",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Get dom really style. (getComputedStyle cross browsers)",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -24,7 +24,7 @@
     "prepublishOnly": "npm run test"
   },
   "files": [
-    "build/src",
+    "build",
     "package.json",
     "README.md"
   ]

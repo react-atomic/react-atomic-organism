@@ -21,7 +21,9 @@ module.exports = function (api) {
           [
             "reshow-transform-runtime",
             {
+              // https://babel.dev/docs/en/babel-plugin-transform-runtime#regenerator
               regenerator: false,
+              // https://github.com/react-atomic/reshow/tree/main/packages/reshow-app
               version: "7.17.0",
             },
           ],
@@ -53,8 +55,10 @@ module.exports = function (api) {
           [
             "reshow-transform-runtime",
             {
+              // https://babel.dev/docs/en/babel-plugin-transform-runtime#regenerator
               regenerator: false,
               useESModules: true,
+              // https://github.com/react-atomic/reshow/tree/main/packages/reshow-app
               version: "7.17.0",
             },
           ],
