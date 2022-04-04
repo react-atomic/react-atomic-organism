@@ -1,27 +1,38 @@
-import React from "react";
+import { useState } from "react";
 
 import { expect } from "chai";
-import { shallow, mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { render, act } from "reshow-unit";
 
 import Suggestion from "../Suggestion";
 
 describe("Test Suggestion Component", () => {
   it("basic test", () => {
     const comp = <Suggestion />;
-    const wrapper = mount(comp);
+    const wrapper = render(comp);
     const html = wrapper.html();
     expect(html).to.have.string("div");
   });
 
-  it("test set default value", () => {
-    const comp = <Suggestion />;
-    const wrapper = mount(comp);
-    const instance = wrapper.instance();
-    wrapper.setProps({ defaultValue: "a" });
-    expect(instance.getValue()).to.equal("a");
-    wrapper.setProps({ defaultValue: "b" });
-    expect(instance.getValue()).to.equal("a");
+  it("test set default value", async () => {
+    let uFake;
+    let uFakeSet;
+    const Comp = (props) => {
+      const [state, setState] = useState();
+      uFakeSet = setState;
+      return (
+        <Suggestion
+          data-value={state}
+          ref={(el) => (uFake = el)}
+          defaultValue={state}
+        />
+      );
+    };
+
+    render(<Comp />);
+    await act(() => uFakeSet("a"));
+    expect(uFake.getValue()).to.equal("a");
+    await act(() => uFakeSet("b"));
+    expect(uFake.getValue()).to.equal("a");
+    expect(uFake.props["data-value"]).to.equal("b");
   });
 });

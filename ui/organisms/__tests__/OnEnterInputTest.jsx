@@ -1,19 +1,26 @@
-import React from "react";
-
 import { expect } from "chai";
-import { shallow, mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import {
+  render,
+  simulateEvent,
+  getSinon,
+  screen,
+  waitFor,
+  cleanIt,
+} from "reshow-unit";
 
 import OnEnterInput from "../OnEnterInput";
 
 describe("OnEnterInput test", () => {
-  it("simple test", (done) => {
-    const uTestOnEnter = (e) => {
-      expect(e.keyCode).to.equal(13);
-      done();
-    };
-    const wrapper = mount(<OnEnterInput onEnter={uTestOnEnter} />);
-    wrapper.find("input").simulate("keyDown", { keyCode: 13 });
+  afterEach(() => cleanIt());
+
+  it("simple test", async () => {
+    const uTestOnEnter = getSinon().spy((e) => {});
+    const wrapper = render(<OnEnterInput role="dom" onEnter={uTestOnEnter} />);
+    const dom = screen().getByRole("dom");
+    const user = simulateEvent();
+    await user.type(dom, "{enter}");
+    await waitFor(() => {
+      expect(uTestOnEnter.called).to.be.true;
+    });
   });
 });

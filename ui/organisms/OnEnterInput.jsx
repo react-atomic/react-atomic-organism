@@ -11,7 +11,9 @@ class OnEnterInput extends PureComponent {
   handleEnter = (e) => {
     const { onEnter } = this.props;
     const keyCode = get(e, ["keyCode"]);
-    switch (keyCode) {
+    const key = get(e, ["key"]);
+    switch (keyCode || key) {
+      case "Enter":
       case 13:
         e.component = this;
         e.preventDefault();

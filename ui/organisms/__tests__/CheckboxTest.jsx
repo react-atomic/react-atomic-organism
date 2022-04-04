@@ -1,30 +1,45 @@
-import React from "react";
-
 import { expect } from "chai";
-import { shallow, mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import {
+  render,
+  simulateEvent,
+  getSinon,
+  screen,
+  waitFor,
+  cleanIt,
+} from "reshow-unit";
 
 import Checkbox from "../Checkbox";
 
 describe("Test Checkbox Component", () => {
-  it("test disabled", (done) => {
-    const uTestClick = (e, before, after) => {
-      expect(before).to.equal(after);
-      done();
-    };
-    const wrapper = mount(
-      <Checkbox checked disabled afterClick={uTestClick} />
+  afterEach(() => cleanIt());
+
+  it("test without disabled", async () => {
+    const uTestClick = getSinon().spy((e, before, after) => {});
+    const wrapper = render(
+      <Checkbox checked afterClick={uTestClick} label="foo" />
     );
-    wrapper.find("input").simulate("click");
+    const user = simulateEvent();
+    const checkbox = screen().getByLabelText("foo");
+    expect(checkbox.checked).to.be.true;
+    await user.click(checkbox);
+    await waitFor(() => {
+      expect(uTestClick.called).to.be.true;
+      expect(checkbox.checked).to.be.false;
+    });
   });
 
-  it("test without disabled", (done) => {
-    const uTestClick = (e, before, after) => {
-      expect(before).not.equal(after);
-      done();
-    };
-    const wrapper = mount(<Checkbox afterClick={uTestClick} />);
-    wrapper.find("input").simulate("click");
+  it("test disabled", async () => {
+    const uTestClick = getSinon().spy((e, before, after) => {});
+    const wrapper = render(
+      <Checkbox checked disabled afterClick={uTestClick} label="foo" />
+    );
+    const user = simulateEvent();
+    const checkbox = screen().getByLabelText("foo");
+    expect(checkbox.checked).to.be.true;
+    await user.click(checkbox);
+    await waitFor(() => {
+      expect(uTestClick.called).to.be.false;
+      expect(checkbox.checked).to.be.true;
+    });
   });
 });
