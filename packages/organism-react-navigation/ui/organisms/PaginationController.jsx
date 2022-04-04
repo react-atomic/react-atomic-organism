@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import { SemanticUI } from "react-atomic-molecule";
 import { toInt } from "to-percent-js";
 import get from "get-object-value";

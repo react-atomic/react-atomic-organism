@@ -1,24 +1,22 @@
-import React, { PureComponent } from "react";
 import { expect } from "chai";
-import { mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { render, act } from "reshow-unit";
 
 import PaginationController from "../PaginationController";
 
-describe("Test Breadcrumb", () => {
+describe("Test PaginationController", () => {
   it("simple test", () => {
-    const wrap = mount(<PaginationController />);
+    const wrap = render(<PaginationController />);
     const html = wrap.html();
     expect(html).to.have.string("pagination");
   });
-  it("test hide only one", () => {
-    const wrap = mount(<PaginationController hideOnlyOne />);
+  it("test hide only one", async () => {
+    let wrap;
+    await act(() => (wrap = render(<PaginationController hideOnlyOne />)), 5);
     const html = wrap.html();
-    expect(html).to.be.null;
+    expect(html).to.equal("");
   });
   it("test have two pages with hideOnlyOne", () => {
-    const wrap = mount(<PaginationController hideOnlyOne total={20} />);
+    const wrap = render(<PaginationController hideOnlyOne total={20} />);
     const html = wrap.html();
     expect(html).to.have.string("11-20");
   });

@@ -1,14 +1,17 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import { expect } from "chai";
-import { mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { render, act } from "reshow-unit";
 
 import Select from "../Select";
 
 describe("Test Select", () => {
-  it("should reset value by assign empty string", () => {
+  it("should reset value by assign empty string", async () => {
+    let uFake;
     class TestComp extends PureComponent {
+      constructor(props) {
+        super(props);
+        uFake = this;
+      }
       state = { v: null };
       setv = (v) => this.setState({ v });
       render() {
@@ -16,15 +19,16 @@ describe("Test Select", () => {
         return <Select ref={(el) => (this.el = el)} value={v} />;
       }
     }
-    const wrap = mount(<TestComp />);
-    const instance = wrap.instance();
-    instance.el.handleSelect({
-      label: "mylabel",
-      value: "myvalue",
-    })();
-    expect(instance.el.state).to.deep.equal({ value: "myvalue" });
-    instance.setv("");
-    expect(instance.el.state).to.deep.equal({
+    const wrap = render(<TestComp />);
+    await act(() => {
+      uFake.el.handleSelect({
+        label: "mylabel",
+        value: "myvalue",
+      })();
+    }, 5);
+    expect(uFake.el.state).to.deep.equal({ value: "myvalue" });
+    await act(() => uFake.setv(""), 5);
+    expect(uFake.el.state).to.deep.equal({
       value: "",
       prevValue: "",
     });

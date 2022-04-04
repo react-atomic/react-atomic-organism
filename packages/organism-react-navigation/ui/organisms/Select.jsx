@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import { mixClass, Field, Menu, Item, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 

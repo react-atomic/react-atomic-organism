@@ -1,4 +1,4 @@
-import React, { isValidElement, Children, PureComponent } from "react";
+import { isValidElement, Children, PureComponent } from "react";
 import {
   build,
   min,

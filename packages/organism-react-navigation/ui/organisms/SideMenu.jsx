@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import {
   build,
   mixClass,
@@ -14,12 +14,11 @@ import { hasClass, removeClass } from "class-lib";
 import { queryOne } from "css-query-selector";
 import getOffset from "getoffset";
 import callfunc from "call-func";
+import { KEYS } from "reshow-constant";
 
 import navigationStore, {
   navigationDispatch,
 } from "../../src/stores/navigationStore";
-
-const keys = Object.keys;
 
 const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
   if (!arr) {
@@ -27,7 +26,7 @@ const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
   }
   const results = [];
   const buildComp = build(component);
-  (menuOrder || keys(arr)).forEach((key) => {
+  (menuOrder || KEYS(arr)).forEach((key) => {
     results.push(
       <SideMenuItem
         {...arr[key]}
@@ -45,14 +44,17 @@ const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
 const SideMenuItem = (props) => {
   const { buildComp, className, name, text, type, ...others } = props;
   const lastV = useRef();
-  const active = useStore(navigationStore, (setActive) => (state, action) => {
+  const active = useStore(navigationStore, (emit) => {
+    const { state, notify } = emit.current;
     if (state) {
       const { activeMenu } = get(state.get(type));
       if (name !== activeMenu && lastV.current) {
-        setActive(false);
+        emit.current.state = false;
+        notify();
       } else if (name === activeMenu) {
+        emit.current.state = true;
+        notify();
         lastV.current = true;
-        setActive(true);
       }
     }
   });
@@ -115,12 +117,14 @@ const SideMenuContainer = ({
   className,
   shrink,
 }) => {
-  const on = useStore(navigationStore, (setOn) => (state, action) => {
+  const on = useStore(navigationStore, (emit) => {
+    const { state, notify } = emit.current;
     if (state) {
       const { on } = get(state.get(type));
       if (lastOn.current !== on) {
+        emit.current.state = on;
+        notify();
         lastOn.current = on;
-        setOn(on);
         updateRoot(on);
       }
     }

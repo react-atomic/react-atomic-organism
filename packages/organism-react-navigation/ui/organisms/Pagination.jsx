@@ -1,4 +1,3 @@
-import React from "react";
 import callfunc from "call-func";
 import get from "get-object-value";
 
