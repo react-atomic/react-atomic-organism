@@ -1,45 +1,48 @@
-import React from "react";
+import { useState } from "react";
 import { expect } from "chai";
-import { mount } from "reshow-unit";
-import sinon from "sinon";
-const sandbox = sinon.createSandbox();
+import {
+  render,
+  act,
+  waitFor,
+  getRoleHtml,
+  hideConsoleError,
+  cleanIt,
+} from "reshow-unit";
 
 import Animate from "../Animate";
 import AnimateGroup from "../AnimateGroup";
 
-describe("Animate", () => {
-  it("constructor", () => {
-    let vDom = (
+describe("AnimateGroup Test", () => {
+  it("Animate Test", () => {
+    const vDom = (
       <Animate>
         <div>abc</div>
       </Animate>
     );
-    const html = mount(vDom);
-    const actual = html.html();
-    html.update();
-    html.setProps({ children: [<p>def</p>, <div>abc</div>] });
-    html.update();
+    const wrap = render(vDom);
+    expect(wrap.html()).to.have.string("animate-group-container");
+  });
+
+  it("Test handleExit", async () => {
+    let uFake;
+    const FakeComp = (props) => {
+      const [state, setState] = useState(() => <div role="child">abc</div>);
+      uFake = setState;
+      return (
+        <AnimateGroup role="ani" lazy={1} timeout={{ appear: 1 }}>
+          {state}
+        </AnimateGroup>
+      );
+    };
+    let wrap;
+    await act(() => (wrap = render(<FakeComp />)));
+    await waitFor(() => {
+      act(()=>expect(wrap.html()).to.have.string(`role="child"`));
+    });
+    await act(() => uFake());
+    await waitFor(() => {
+      act(()=>expect(wrap.html()).not.have.string(`role="child"`));
+    });
   });
 });
 
-describe("AnimateGroup", () => {
-  const comp = {AnimateGroup};
-
-  before(() => {
-    sandbox.spy(comp);
-  });
-  after(() => {
-    sandbox.restore();
-  });
-  it("Test handleExit", () => {
-    let vDom = (
-      <comp.AnimateGroup timeout={1000}>
-        <div>abc</div>
-      </comp.AnimateGroup>
-    );
-    const html = mount(vDom);
-    expect(comp.AnimateGroup.callCount).to.equal(1);
-    html.setProps({ children: null });
-    expect(comp.AnimateGroup.callCount).to.equal(2);
-  });
-});

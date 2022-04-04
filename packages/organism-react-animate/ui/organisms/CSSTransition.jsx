@@ -1,4 +1,3 @@
-import React from "react";
 import { mixClass, removeClass } from "class-lib";
 import get from "get-object-value";
 import callfunc from "call-func";

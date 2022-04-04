@@ -1,25 +1,21 @@
-import React from "react";
-import gJsdom from "jsdom-global";
 import { ResourceLoader } from "jsdom";
-
 import { expect } from "chai";
-import { mount } from "reshow-unit";
+import { render, jsdom, cleanIt } from "reshow-unit";
 
 import Iframe from "../Iframe";
 describe("Test Iframe", () => {
-  let reset;
   beforeEach(() => {
     const resourceLoader = new ResourceLoader({});
     resourceLoader.fetch = (url, options) =>
       Promise.resolve(Buffer.from('window.dlog = "fake-dlog";'));
-    reset = gJsdom("", {
+    jsdom("", {
       runScripts: "dangerously",
       resources: resourceLoader,
     });
   });
 
   afterEach(() => {
-    reset();
+    cleanIt();
   });
 
   it("simple test", (done) => {
@@ -31,7 +27,7 @@ describe("Test Iframe", () => {
     );
     const el = document.createElement("div");
     document.body.appendChild(el);
-    const wrap = mount(<Comp />, { attachTo: el });
+    const wrap = render(<Comp />, { attachTo: el });
     expect(wrap.html()).to.have.string(`loading="lazy"`);
     setTimeout(() => {
       const html = compEl.getBody().innerHTML;
@@ -49,7 +45,7 @@ describe("Test Iframe", () => {
     );
     const el = document.createElement("div");
     document.body.appendChild(el);
-    const wrap = mount(<Comp />, { attachTo: el });
+    const wrap = render(<Comp />, { attachTo: el });
     setTimeout(() => {
       const dlog = compEl.getWindow().dlog;
       expect(dlog).to.equal("fake-dlog");
@@ -57,8 +53,8 @@ describe("Test Iframe", () => {
     }, 300);
   });
 
-  it("unset loading", ()=>{
-    const wrap = mount(<Iframe loading={null} />);
+  it("unset loading", () => {
+    const wrap = render(<Iframe loading={null} />);
     expect(wrap.html()).to.not.have.string(`loading="lazy"`);
   });
 });

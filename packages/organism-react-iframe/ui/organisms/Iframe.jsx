@@ -1,4 +1,4 @@
-import React, {
+import {
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -245,14 +245,8 @@ const useIframe = ({
 };
 
 const Iframe = forwardRef((props, ref) => {
-  const {
-    expose,
-    others,
-    thisIframe,
-    handler,
-    thisEl,
-    renderIframe,
-  } = useIframe(props);
+  const { expose, others, thisIframe, handler, thisEl, renderIframe } =
+    useIframe(props);
 
   useImperativeHandle(ref, () => expose, []);
 

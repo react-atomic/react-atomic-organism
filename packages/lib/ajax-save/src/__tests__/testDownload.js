@@ -1,12 +1,17 @@
 import { expect } from "chai";
-import { jsdom } from "reshow-unit-dom";
+import { jsdom, getSinon, hideConsoleError } from "reshow-unit-dom";
 import download from "../download";
 import downloadUtf8 from "../downloadUtf8";
 
 describe("Test Download", () => {
   beforeEach(() => {
     jsdom();
-    window.URL.createObjectURL = () => {};
+    getSinon()
+      .stub(window, "URL")
+      .value({
+        createObjectURL: () => {},
+      });
+    hideConsoleError();
   });
 
   it("test download", () => {

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { reactStyle, SemanticUI } from "react-atomic-molecule";
 import getKeyframe from "keyframe-css";
 import { doc } from "win-doc";

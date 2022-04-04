@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   build,
   mixClass,
@@ -7,6 +7,7 @@ import {
 } from "react-atomic-molecule";
 import get from "get-object-value";
 import callfunc from "call-func";
+import { useMounted } from "reshow-hooks";
 
 import CSSTransition from "../organisms/CSSTransition";
 import { UNMOUNTED, ENTERSTART, EXITED } from "../organisms/Transition";
@@ -16,12 +17,12 @@ const keys = Object.keys;
 
 const getAniProps = (props, enterToAppear) => {
   const {
+    unmountOnExit = true,
     statusKey,
     timeout,
     delay,
     classNames,
     mountOnEnter,
-    unmountOnExit,
     enter,
     exit,
     addEndListener,
@@ -55,7 +56,7 @@ const getAniProps = (props, enterToAppear) => {
     onEntered,
     onExit,
     onExiting,
-    in: props.in,
+    in: null != props.in ? props.in : true,
   };
   return aniProps;
 };
@@ -64,16 +65,16 @@ const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = (props) => {
   const {
+    statusKey = dataStatusKey,
+    component = "div",
+    lazy = 150,
     className,
-    component,
-    lazy,
     onExited,
     style,
-    statusKey,
     ...otherProps
   } = props;
   const [children, setChildren] = useState();
-  const mount = useRef(false);
+  const _mount = useMounted();
   const aniProps = getAniProps(otherProps, true);
   keys(aniProps).forEach((key) => delete otherProps[key]);
   injects[statusKey] = useLazyInject(
@@ -83,11 +84,10 @@ const AnimateGroup = (props) => {
   useEffect(() => {
     let _exitTimeout;
     let _enterTimeout;
-    mount.current = true;
     const handleExited = (child) => (node) => {
       callfunc(onExited, [node]);
       _exitTimeout = setTimeout(() => {
-        if (mount.current) {
+        if (false !== _mount()) {
           setChildren((children) => {
             delete children[child.key];
             return { ...children };
@@ -131,7 +131,6 @@ const AnimateGroup = (props) => {
     return () => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
-      mount.current = false;
     };
   }, [props.children]);
   return useMemo(() => {
@@ -142,14 +141,6 @@ const AnimateGroup = (props) => {
       keys(children || {}).map((key) => children[key])
     );
   }, [children]);
-};
-
-AnimateGroup.defaultProps = {
-  statusKey: dataStatusKey,
-  lazy: 150,
-  component: "div",
-  unmountOnExit: true,
-  in: true,
 };
 
 export default AnimateGroup;

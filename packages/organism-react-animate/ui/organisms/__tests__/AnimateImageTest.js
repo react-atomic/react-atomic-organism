@@ -1,9 +1,6 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { expect } from "chai";
-import { mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
-import jsdom from "jsdom-global";
+import { jsdom, render, act, waitFor } from "reshow-unit";
 
 import AnimateImage from "../AnimateImage";
 
@@ -12,34 +9,30 @@ var options = {
   // requests to local files work correctly with CORS.
   url: "file://" + process.cwd() + "/",
   features: {
-    FetchExternalResources: ["img", "script"]
+    FetchExternalResources: ["img", "script"],
   },
-  resources: "usable"
+  resources: "usable",
 };
 
 describe("Test Animate Image", () => {
-  let reset;
   before(() => {
-    reset = new jsdom("", options);
+    jsdom("", options);
   });
 
-  it("basic test", done => {
-    const VDom = props => {
+  it("basic test", async () => {
+    const VDom = (props) => {
       const ref = useRef();
 
-      useEffect(()=>{
+      useEffect(() => {
         const oImg = ref.current.getImageObject();
         oImg.onload();
       });
 
       return <AnimateImage ref={ref} src="http://localhost/xxx.png" />;
     };
-    const wrap = mount(<VDom />);
-    setTimeout(() => {
-      wrap.update();
-      const html = wrap.html();
-      expect(html).to.have.string("xxx.png");
-      done();
-    }, 500);
+    const wrap = render(<VDom />);
+    await waitFor(()=>{
+      act(()=> expect(wrap.html()).to.have.string("xxx.png"));
+    });
   });
 });

@@ -1,4 +1,4 @@
-import React, { Children, PureComponent } from "react";
+import { Children, PureComponent } from "react";
 import callfunc from "call-func";
 import Change from "../organisms/Change";
 

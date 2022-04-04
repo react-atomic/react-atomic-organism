@@ -1,5 +1,5 @@
 {
-  "version": "0.0.5",
+  "version": "0.0.6",
   "name": "with-array",
   "repository": {
     "type": "git",
@@ -18,14 +18,14 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "reshow-unit": "*"
+    "reshow-unit-dom": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mochaFor": "mocha -r jsdom-global/register",
+    "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useMemo } from "react";
+import { useState, useEffect, useReducer, useMemo } from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 import { dataStatusKey } from "../../src/const";

@@ -1,6 +1,6 @@
 {
   "name": "array.merge",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Array Merge",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
@@ -16,15 +16,14 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "mocha": "*"
+    "reshow-unit-dom": "*"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "mochaFor": "mocha -r jsdom-global/register",
+    "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"

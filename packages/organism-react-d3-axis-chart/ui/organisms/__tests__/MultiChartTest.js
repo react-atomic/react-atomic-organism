@@ -1,6 +1,6 @@
 import React from "react";
 import { expect } from "chai";
-import { jsdom, mount } from "reshow-unit";
+import { jsdom, render, waitFor, act } from "reshow-unit";
 
 import MultiChart from "../MultiChart";
 
@@ -9,13 +9,19 @@ describe("Test mulit chart", () => {
     jsdom(null, { runScripts: "dangerously", resources: "usable" });
   });
 
-  it("basic test", (done) => {
-    const onD3Load = () => {
-      wrap.update();
-      const html = wrap.html();
-      expect(html).to.have.string("svg");
-      done();
+  it("basic test", async () => {
+    const Dom = (props) => {
+      return (
+        <div>
+          <MultiChart onD3Load={onD3Load} />
+        </div>
+      );
     };
-    const wrap = mount(<MultiChart onD3Load={onD3Load} />);
+    const onD3Load = () => {};
+    let wrap;
+    await act(() => (wrap = render(<Dom />)), 10);
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.have.string("svg"));
+    });
   });
 });
