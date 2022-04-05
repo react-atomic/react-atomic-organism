@@ -1,14 +1,15 @@
 import React from "react";
 import { expect } from "chai";
 
-import { mount } from "reshow-unit";
+import { render, waitFor, act } from "reshow-unit";
 import CodeReadme from "../CodeReadme";
 
 describe("CodeReadme Test", () => {
-  it("basic test", () => {
+  it("basic test", async () => {
     const vDom = <CodeReadme />;
-    const wrap = mount(vDom);
-    const html = wrap.html();
-    expect(html).to.be.null;
+    const wrap = render(vDom);
+    await waitFor(()=> {
+      act(()=>expect(wrap.html()).to.equal(""));
+    });
   });
 });

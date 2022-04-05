@@ -1,6 +1,6 @@
 {
   "name": "organism-react-code",
-  "version": "0.15.6",
+  "version": "0.17.2",
   "description": "React Code Example",
   "repository": {
     "type": "git",
@@ -27,8 +27,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "react": "^16.x",
-    "react-dom": "^16.x",
+    "react": "^18.x",
+    "react-dom": "^18.x",
     "reshow-unit": "*"
   },
   "scripts": {
@@ -40,7 +40,7 @@
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build:es": "npm run build:es:src && npm run build:es:ui",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mochaFor": "mocha -r jsdom-global/register",
+    "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"

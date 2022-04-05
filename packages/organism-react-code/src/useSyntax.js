@@ -4,10 +4,16 @@ let marked;
 
 const useSyntax = () => {
   const [syntax, setSyntax] = useState(() => marked || (() => {}));
-  import("./markdownLib").then((o) => {
-    marked = getDefault(o);
-    setSyntax(() => marked);
-  });
+  if (!marked) {
+    import("./markdownLib").then((o) => {
+      marked = getDefault(o);
+      /**
+       * Need use callback here,
+       * avoid call by set hook.
+       */
+      setSyntax(() => marked);
+    });
+  }
   return syntax;
 };
 
