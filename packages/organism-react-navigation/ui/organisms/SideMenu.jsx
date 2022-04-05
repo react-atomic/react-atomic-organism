@@ -44,8 +44,8 @@ const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
 const SideMenuItem = (props) => {
   const { buildComp, className, name, text, type, ...others } = props;
   const lastV = useRef();
-  const active = useStore(navigationStore, (emit) => {
-    const { state, notify } = emit.current;
+  const active = useStore(navigationStore, (emit = {}) => {
+    const { state, notify } = emit.current || {};
     if (state) {
       const { activeMenu } = get(state.get(type));
       if (name !== activeMenu && lastV.current) {
@@ -117,8 +117,8 @@ const SideMenuContainer = ({
   className,
   shrink,
 }) => {
-  const on = useStore(navigationStore, (emit) => {
-    const { state, notify } = emit.current;
+  const on = useStore(navigationStore, (emit = {}) => {
+    const { state, notify } = emit.current || {};
     if (state) {
       const { on } = get(state.get(type));
       if (lastOn.current !== on) {

@@ -1,10 +1,9 @@
 import { mixClass, removeClass } from "class-lib";
 import get from "get-object-value";
 import callfunc from "call-func";
+import { KEYS } from "reshow-constant";
 
 import Transition from "../organisms/Transition";
-
-const keys = Object.keys;
 
 const getIndex = (isAppear, isExit, { exit, appear, enter }) => {
   const index = isExit ? exit : isAppear ? appear : enter;
@@ -19,9 +18,7 @@ const getAction = (isDone, ing, { start, active, done }) => {
   }
 };
 
-const getValue = (arr, index, defaultValue) => {
-  return get(arr, [index], defaultValue);
-};
+const getValue = (arr, index, defaultValue) => get(arr, [index], defaultValue);
 
 const getClassName = (arr, index, action) => {
   const classes = getValue(arr, index);
@@ -82,7 +79,7 @@ const handleReset = (
 ) => {
   if (node) {
     const index = getIndex(isAppear, isExit, stepKeys);
-    keys(actionKeys).forEach((key) => {
+    KEYS(actionKeys).forEach((key) => {
       const action = actionKeys[key];
       const thisClass = getClassName(classNames, index, action);
       if (thisClass) {
@@ -94,10 +91,18 @@ const handleReset = (
 };
 
 const CSSTransition = ({
+  stepKeys = {
+    appear: "appear",
+    enter: "enter",
+    exit: "exit",
+  },
+  actionKeys = {
+    start: "",
+    active: "active",
+    done: "done",
+  },
   classNames,
   delay,
-  stepKeys,
-  actionKeys,
   onEnter,
   onEntering,
   onEntered,
@@ -122,18 +127,5 @@ const CSSTransition = ({
       resetExited={handleReset.bind(this, options, resetExited, true)}
     />
   );
-};
-CSSTransition.defaultProps = {
-  stepKeys: {
-    appear: "appear",
-    enter: "enter",
-    exit: "exit",
-  },
-  actionKeys: {
-    start: "",
-    active: "active",
-    done: "done",
-  },
-  in: true,
 };
 export default CSSTransition;

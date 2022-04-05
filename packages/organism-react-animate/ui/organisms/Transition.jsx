@@ -1,9 +1,9 @@
-import { useState, useEffect, useReducer, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
+import { useTimer } from "reshow-hooks";
 import { dataStatusKey } from "../../src/const";
-
-const keys = Object.keys;
+import { T_UNDEFINED } from "reshow-constant";
 
 export const UNMOUNTED = "unmounted";
 export const EXITSTART = "exit-start";
@@ -12,11 +12,6 @@ export const EXITED = "exited";
 export const ENTERSTART = "enter-start";
 export const ENTERING = "entering";
 export const ENTERED = "entered";
-
-const reducer = (state, action) => {
-  keys(action).forEach((key) => (state[key] = action[key]));
-  return state;
-};
 
 const getTimeouts = (timeout) => {
   let exit, enter, appear;
@@ -45,10 +40,10 @@ const setNextCallback = (callback) => {
   return nextCallback;
 };
 
-const cancelNextCallback = (state, dispatch) => {
-  if (state.nextCallback !== null) {
-    state.nextCallback.reset();
-    dispatch({ nextCallback: null });
+const cancelNextCallback = (lastData) => {
+  if (lastData.current.nextCallback !== null) {
+    lastData.current.nextCallback.reset();
+    lastData.current.nextCallback = null;
   }
 };
 
@@ -91,39 +86,35 @@ const perform = ({
 };
 
 const Transition = ({
-  component,
-  children,
-  mountOnEnter,
-  unmountOnExit,
-  appear,
-  enter,
-  exit,
-  timeout,
-  addEndListener,
-  getProps,
+  statusKey = dataStatusKey,
+  component = SemanticUI,
+  mountOnEnter = false,
+  unmountOnExit = false,
+
+  appear = false,
+  enter = true,
+  exit = true,
+
   onEnter,
   onEntering,
   onEntered,
   onExit,
   onExiting,
   onExited,
+
+  children,
+  timeout,
+  addEndListener,
+  getProps,
   resetEntered,
   resetExited,
-  statusKey,
   ...props
 }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    in: null,
-    callbackWith: null,
-    nextCallback: null,
-    init: false,
-    node: false,
-  });
-
+  const propsIn = null != props.in ? props.in : false;
   const [status, setStatus] = useState(() => {
     const thisAppear = appear;
     let initialStatus;
-    if (props.in) {
+    if (propsIn) {
       if (thisAppear) {
         initialStatus = EXITED;
       } else {
@@ -139,43 +130,47 @@ const Transition = ({
     return initialStatus;
   });
 
+  const lastNode = useRef();
+  const lastData = useRef({
+    in: null,
+    callbackWith: null,
+    nextCallback: null,
+    init: false,
+  });
+  const [TransitionEndTimer, StopTransitionEndTimer] = useTimer();
+
   useEffect(() => {
-    if (state.callbackWith === status) {
-      callfunc(state.nextCallback, [status]);
+    if (lastData.current.callbackWith === status) {
+      callfunc(lastData.current.nextCallback, [status]);
     }
 
     const safeSetState = (nextStatus, callback) => {
       // This shouldn't be necessary, but there are weird race conditions with
       // setState callbacks and unmounting in testing, so always make sure that
       // we can cancel any pending setState callbacks after we unmount.
-      dispatch({
-        callbackWith: nextStatus,
-        nextCallback: callback ? setNextCallback(callback) : null,
-      });
+      lastData.current.callbackWith = nextStatus;
+      lastData.current.nextCallback = callback
+        ? setNextCallback(callback)
+        : null;
       setStatus(nextStatus);
     };
 
     const onTransitionEnd = (node, timeout, handler) => {
-      if (state.timer) {
-        clearTimeout(state.timer);
-      }
       const callback = setNextCallback(() => {
         callfunc(handler);
-        callfunc(addEndListener, [{ node, state, status }]);
+        callfunc(addEndListener, [{ node, state: lastData.current, status }]);
       });
-      dispatch({
-        nextCallback: callback,
-        timer: setTimeout(
-          () => callfunc(state.nextCallback, ["onTransitionEnd"]),
-          timeout || 0
-        ),
-      });
+      lastData.current.nextCallback = callback;
+      TransitionEndTimer(
+        () => callfunc(lastData.current.nextCallback, ["onTransitionEnd"]),
+        timeout || 0
+      );
     };
 
     const updateStatus = (mounting, nextStatus) => {
       if (nextStatus !== null) {
         // nextStatus will always be ENTERING or EXITING.
-        cancelNextCallback(state, dispatch);
+        cancelNextCallback(lastData);
         const timeouts = getTimeouts(timeout);
         if (nextStatus === ENTERING) {
           perform({
@@ -188,7 +183,7 @@ const Transition = ({
             setUp: resetExited,
             tearDown: resetEntered,
             goToLast: (mounting && !appear) || (!mounting && !enter),
-            node: state.node,
+            node: lastNode.current,
             safeSetState,
             onTransitionEnd,
             isAppear: mounting,
@@ -205,7 +200,7 @@ const Transition = ({
             setUp: resetEntered,
             tearDown: resetExited,
             goToLast: !exit,
-            node: state.node,
+            node: lastNode.current,
             safeSetState,
             onTransitionEnd,
             timeout: timeouts.exit,
@@ -218,14 +213,14 @@ const Transition = ({
 
     let nextStatus = null;
     let mounting = null;
-    if (state.in !== props.in) {
+    if (lastData.current.in !== propsIn) {
       mounting = false;
-      dispatch({ in: props.in });
-      if (props.in) {
+      lastData.current.in = propsIn;
+      if (propsIn) {
         if (status !== ENTERING && status !== ENTERED) {
           nextStatus = ENTERING;
-        } else if (!state.init) {
-          dispatch({ init: true });
+        } else if (!lastData.current.init) {
+          lastData.current.init = true;
           if (appear) {
             nextStatus = ENTERING;
             mounting = true;
@@ -241,47 +236,22 @@ const Transition = ({
 
     return () => {
       // useEffect clean
-      if (state.timer) {
-        clearTimeout(state.timer);
-      }
+      StopTransitionEndTimer();
     };
-  }, [props.in, status]);
+  }, [propsIn, status]);
 
   return useMemo(() => {
-    let myChild = undefined;
+    let nextProps;
     if (status !== UNMOUNTED) {
-      const nextProps = { ...props };
-      delete nextProps.in;
-      myChild = build(children)(nextProps);
+      nextProps = { ...props, in: T_UNDEFINED };
+      nextProps.children = build(children)(nextProps);
     }
-    return build(component)(
-      {
-        [statusKey]: status,
-        refCb: (el) => dispatch({ node: el }),
-        ...(callfunc(getProps, [status]) || {}),
-      },
-      myChild
-    );
+    return build(component)({
+      [statusKey]: status,
+      refCb: lastNode,
+      ...(callfunc(getProps, [status, nextProps]) || nextProps),
+    });
   }, [props]);
-};
-
-Transition.defaultProps = {
-  statusKey: dataStatusKey,
-  component: SemanticUI,
-  in: false,
-  mountOnEnter: false,
-  unmountOnExit: false,
-  appear: false,
-  enter: true,
-  exit: true,
-
-  onEnter: null,
-  onEntering: null,
-  onEntered: null,
-
-  onExit: null,
-  onExiting: null,
-  onExited: null,
 };
 
 export default Transition;
