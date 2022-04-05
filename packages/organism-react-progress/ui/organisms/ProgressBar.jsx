@@ -18,6 +18,7 @@ const ProgressBar = forwardRef((props, ref) => {
       {...otherProps}
       style={{ ...Styles.progress, ...style }}
       barProps={mergeDefaultValue(barProps, { style: Styles.bar })}
+      data-percent={percent}
       percent={percent}
     />
   );

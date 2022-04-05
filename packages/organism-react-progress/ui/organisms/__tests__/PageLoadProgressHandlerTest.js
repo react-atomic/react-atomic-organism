@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { expect } from "chai";
-import { mount } from "reshow-unit";
+import { render, act, waitFor } from "reshow-unit";
 
 import { PopupPool } from "organism-react-popup";
 import PageLoadProgressHandler from "../PageLoadProgressHandler";
 
 describe("Test PageLoadProgressHandler", () => {
-  it("basic test", (done) => {
+  it("basic test", async () => {
     const VDom = (props) => {
       const [dom, setDom] = useState();
       useEffect(() => {
@@ -19,11 +19,11 @@ describe("Test PageLoadProgressHandler", () => {
         </div>
       );
     };
-    const wrap = mount(<VDom />);
-    setTimeout(() => {
-      const actual = wrap.html();
-      expect(actual).to.have.string("PageLoadProgress");
-      done();
-    }, 10);
+    const wrap = render(<VDom />);
+    await waitFor(() => {
+      act(() => {
+        expect(wrap.html()).to.have.string("PageLoadProgress");
+      });
+    });
   });
 });
