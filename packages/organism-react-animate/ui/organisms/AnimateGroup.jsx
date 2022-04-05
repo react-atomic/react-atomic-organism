@@ -4,6 +4,7 @@ import {
   mixClass,
   useLazyInject,
   getChildMapping,
+  SemanticUI,
 } from "react-atomic-molecule";
 import get from "get-object-value";
 import callfunc from "call-func";
@@ -66,7 +67,7 @@ const buildCSSTransition = build(CSSTransition);
 const AnimateGroup = (props) => {
   const {
     statusKey = dataStatusKey,
-    component = "div",
+    component = SemanticUI,
     lazy = 150,
     className,
     onExited,

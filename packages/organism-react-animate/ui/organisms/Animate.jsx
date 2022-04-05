@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { reactStyle, SemanticUI } from "react-atomic-molecule";
+import { reactStyle } from "react-atomic-molecule";
 import getKeyframe from "keyframe-css";
 import { doc } from "win-doc";
 
@@ -144,13 +144,6 @@ const Animate = (props) => {
       {...others}
     />
   ) : null;
-};
-
-Animate.defaultProps = {
-  component: SemanticUI,
-  appear: null,
-  enter: null,
-  leave: null,
 };
 
 export default Animate;

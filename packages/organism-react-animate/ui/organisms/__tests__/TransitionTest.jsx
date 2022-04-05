@@ -6,29 +6,36 @@ import { dataStatusKey } from "../../../src/const";
 import { SemanticUI } from "react-atomic-molecule";
 
 describe("Test Transition", () => {
-  it("basic test", () => {
-    return;
+  it("basic test", async () => {
     const vDom = (
       <Transition>
         <div />
       </Transition>
     );
     const wrap = render(vDom);
-    waitFor(() => {
-      expect(wrap.html()).to.have.string(`${dataStatusKey}="exited"`);
+    await waitFor(() => {
+      act(() => {
+        expect(wrap.html()).to.have.string(`${dataStatusKey}="exited"`);
+      });
     });
   });
 
-  it("test in=true", () => {
-    return;
+  it("test in=true", async () => {
     const vDom = (
       <Transition in>
         <div />
       </Transition>
     );
     const wrap = render(vDom);
-    waitFor(() => {
-      expect(wrap.html()).to.have.string(`${dataStatusKey}="entering"`);
+    await waitFor(() => {
+      act(() => {
+        expect(wrap.html()).to.have.string(`${dataStatusKey}="entered"`);
+      }, 5);
+    });
+    await waitFor(() => {
+      act(() => {
+        expect(wrap.html()).to.have.string(`${dataStatusKey}="entering"`);
+      });
     });
   });
 
@@ -46,7 +53,9 @@ describe("Test Transition", () => {
       );
     });
     await waitFor(() => {
-      expect(wrap.html()).to.have.string(`${dataStatusKey}="entered"`);
+      act(() =>
+        expect(wrap.html()).to.have.string(`${dataStatusKey}="entered"`)
+      );
     });
   });
 });
