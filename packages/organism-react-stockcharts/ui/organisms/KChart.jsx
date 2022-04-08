@@ -1,4 +1,4 @@
-import React, { createElement } from "react";
+import { createElement } from "react";
 import { LineChart } from "organism-react-d3-axis-chart";
 import get from "get-object-value";
 import arrayMinMax from "array.min.max";

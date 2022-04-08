@@ -1,4 +1,3 @@
-import React from "react";
 import { LineChart, resetProps } from "organism-react-d3-axis-chart";
 import yFormat from "../../src/yFormat";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import get from "get-object-value";
 import { MultiHArea, MultiCandlestick } from "organism-react-d3-axis-chart";
 

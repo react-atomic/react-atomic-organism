@@ -1,4 +1,3 @@
-import React from "react";
 import { Text, Span } from "organism-react-d3-axis-chart";
 import get from "get-object-value";
 

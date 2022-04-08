@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import get from "get-object-value";
 import {
   indicatorMovingAverage,

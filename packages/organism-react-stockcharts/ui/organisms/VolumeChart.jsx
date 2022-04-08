@@ -1,4 +1,3 @@
-import React from "react";
 import { BarChart, resetProps } from "organism-react-d3-axis-chart";
 import { mixClass } from "react-atomic-molecule";
 

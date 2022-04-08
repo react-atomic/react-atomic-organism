@@ -1,4 +1,3 @@
-import React from "react";
 import { MultiChart } from "organism-react-d3-axis-chart";
 import get from "get-object-value";
 import { useLazyInject, build } from "react-atomic-molecule";
@@ -13,7 +12,7 @@ const charts = {
 };
 
 const StockChart = (props) => {
-  useLazyInject(InjectStyles);
+  injects = useLazyInject(InjectStyles, injects);
   const {
     data,
     scaleW,
@@ -113,6 +112,7 @@ const StockChart = (props) => {
 
 export default StockChart;
 
+let injects;
 const InjectStyles = {
   negativeRect: [
     {
