@@ -57,6 +57,7 @@ workflows:
                 - "packages/lib/getoffset"
                 - "packages/lib/get-object-value"
                 - "packages/lib/get-style"
+                - "packages/lib/get-storage"
                 - "packages/lib/non-worker"
                 - "packages/lib/set-object-value"
                 - "packages/lib/seturl"

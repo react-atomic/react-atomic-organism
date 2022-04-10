@@ -1,5 +1,4 @@
 import get from "get-object-value";
-import Storage from "./Storage";
 import { win } from "win-doc";
 import { UNDEFINED } from "reshow-constant";
 
@@ -35,4 +34,5 @@ const localStorage = getStorage("localStorage");
 
 const sessionStorage = getStorage("sessionStorage");
 
-export { Storage, localStorage, sessionStorage };
+export { localStorage, sessionStorage };
+export { default as Storage } from "./Storage";

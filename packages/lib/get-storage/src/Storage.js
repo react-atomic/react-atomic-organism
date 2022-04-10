@@ -1,8 +1,26 @@
 import { toJS } from "get-object-value";
-import { OBJECT } from "reshow-constant";
+import { OBJECT, KEYS } from "reshow-constant";
 
-const keys = Object.keys;
 const toInt = (d) => parseInt(d, 10);
+
+const parseField = (s) => {
+  const iStar = s.indexOf(",");
+  const len = toInt(s.substring(0, iStar));
+  const val = s.substring(iStar + 1);
+  return [len, val];
+};
+
+const encode = (s) => {
+  const _v = JSON.stringify(toJS(s));
+  const vLen = _v.length;
+  const result = vLen + "," + _v;
+  return result;
+};
+
+const decode = (s) => {
+  const [vLen, value] = parseField(s);
+  return vLen === value.length ? JSON.parse(value) : null;
+};
 
 class Storage {
   constructor(_storage) {
@@ -10,9 +28,7 @@ class Storage {
   }
 
   set(k, v) {
-    const _v = JSON.stringify(toJS(v));
-    const vLen = _v.length;
-    const s = vLen + "," + _v;
+    const s = encode(v);
     this._storage(k)(s);
     return new Storage(this._storage);
   }
@@ -21,7 +37,7 @@ class Storage {
     if (!arr || OBJECT !== typeof arr) {
       return this;
     }
-    const pKeys = keys(arr);
+    const pKeys = KEYS(arr);
     if (!pKeys || !pKeys.length) {
       return this;
     }
@@ -34,11 +50,9 @@ class Storage {
     if (!s) {
       return;
     }
-    const iStar = s.indexOf(",");
-    const vLen = toInt(s.substring(0, iStar));
-    const value = s.substr(iStar + 1);
-    return vLen === value.length ? JSON.parse(value) : null;
+    return decode(s);
   }
 }
 
 export default Storage;
+export { parseField, encode, decode };
