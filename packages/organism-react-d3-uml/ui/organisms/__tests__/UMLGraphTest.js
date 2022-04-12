@@ -1,18 +1,13 @@
-import React from 'react';
-import {expect} from 'chai';
-import {mount, configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-configure({ adapter: new Adapter() });
+import { expect } from "chai";
+import { render } from "reshow-unit";
 
-import UMLGraph from '../UMLGraph';
+import UMLGraph from "../UMLGraph";
 
-describe('Test UMLGraph', ()=>{ 
-  it('simple test', ()=>{
-    const vDom = (
-      <UMLGraph />
-    );
-    const wrap = mount(vDom);
+describe("Test UMLGraph", () => {
+  it("simple test", () => {
+    const vDom = <UMLGraph />;
+    const wrap = render(vDom);
     const actual = wrap.html();
-    expect(actual).to.have.string('d3-uml');
+    expect(actual).to.have.string("d3-uml");
   });
 });

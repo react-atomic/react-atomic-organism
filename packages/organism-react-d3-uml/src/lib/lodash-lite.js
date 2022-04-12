@@ -4,6 +4,7 @@ import {
   FUNCTION,
   KEYS,
   IS_ARRAY,
+  HAS as has,
   OBJ_SIZE as size,
 } from "reshow-constant";
 import { win } from "win-doc";
@@ -116,10 +117,6 @@ const calMax = (p1, ...other) =>
 
 const calMin = (p1, ...other) =>
   isNotEmptyArray(p1) ? Math.min(...p1) : Math.min(p1, ...other);
-
-const has = (obj, key) => {
-  return obj && obj.hasOwnProperty(key);
-};
 
 const isFunction = (func) => FUNCTION === typeof func;
 
