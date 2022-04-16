@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import get, { toMap } from "../index.js";
+import get from "../get";
 
 describe("Test Get Object Value", () => {
   it("test get", () => {
@@ -33,20 +33,5 @@ describe("Test Get Object Value", () => {
     };
     const acture = get(a, ["foo", "bar"]);
     expect(acture).to.equal(undefined);
-  });
-
-  it("test toMap", () => {
-    const map = {
-      a: {
-        toJS: () => "foo",
-      },
-      b: {
-        toJS: () => "bar",
-      },
-    };
-    expect(toMap(map)).to.deep.equal({
-      a: "foo",
-      b: "bar",
-    });
   });
 });

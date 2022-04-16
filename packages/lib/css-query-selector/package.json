@@ -1,10 +1,14 @@
 {
   "name": "css-query-selector",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "CSS simple query alias function",
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -22,11 +26,11 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "mochaFor": "mocha -r jsdom-global/register",
-    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
+    "mochaFor": "mocha -r global-jsdom/register",
+    "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },

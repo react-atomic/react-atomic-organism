@@ -162,6 +162,15 @@ browser-stdout@1.3.1:
   resolved "https://registry.yarnpkg.com/browser-stdout/-/browser-stdout-1.3.1.tgz#baa559ee14ced73452229bad7326467c61fabd60"
   integrity sha512-qhAVI1+Av2X7qelOfAIYwXONood6XlZE/fXaBSmW/T5SzLAmCgzi+eiWE7fUvbHaeNBQH13UftjpXxsfLkMpgw==
 
+call-func@*:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.2.2.tgz#2f8547142984d4920e7759343b0ff50ae06b94c0"
+  integrity sha512-9YbhWJaCJcEjmR0dUDbdFW9GX2iheoPs72jVqx7fLCbbJyT/lEL3AHqiCt1rd0ia8SSBF/pEPHRlCHWd7CC5RQ==
+  dependencies:
+    css-query-selector "*"
+    get-object-value "*"
+    reshow-constant "*"
+
 camelcase@^6.0.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
@@ -252,6 +261,15 @@ convert-source-map@^1.1.0:
   integrity sha512-+OQdjP49zViI/6i7nIJpA8rAl4sV/JdPfU9nZs3VqOwGIgizICvuN2ru6fMd+4llL0tar18UYJXfZ/TWtmhUjA==
   dependencies:
     safe-buffer "~5.1.1"
+
+css-query-selector@*:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/css-query-selector/-/css-query-selector-0.3.1.tgz#29975367e21c7b4205ec9b07cc8b8a288d59ffe4"
+  integrity sha512-/BAubrioVveTJAsT1yZbQzZKyKpNVLiCTQ1IdMdIsYt5VOgtBQJIEQg3+CbYi/b8vWScOvMEqZ0FvrwHczL/Bg==
+  dependencies:
+    reshow-constant "*"
+    reshow-runtime "*"
+    win-doc "*"
 
 cssom@^0.5.0:
   version "0.5.0"
@@ -433,6 +451,14 @@ get-func-name@^2.0.0:
   resolved "https://registry.yarnpkg.com/get-func-name/-/get-func-name-2.0.0.tgz#ead774abee72e20409433a066366023dd6887a41"
   integrity sha1-6td0q+5y4gQJQzoGY2YCPdaIekE=
 
+get-object-value@*:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.4.0.tgz#264469f15ce929222896e56b03f81f7ebd848105"
+  integrity sha512-yZLdGMa8PYeOv4LLWCnbS8E5lbzWXvkZ3+eOb+422rrf1/D5mpHN9N2VSr/x72tGAROWCZPQSNaph4BYPzgtmg==
+  dependencies:
+    reshow-constant "*"
+    reshow-runtime "*"
+
 glob-parent@~5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -484,9 +510,9 @@ http-proxy-agent@^5.0.0:
     debug "4"
 
 https-proxy-agent@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-5.0.0.tgz#e2a90542abb68a762e0a0850f6c9edadfd8506b2"
-  integrity sha512-EkYm5BcKUGiduxzSt3Eppko+PiNWNEpa4ySk9vTC6wDsQJW9rHSa+UhGNJoRYp7bz6Ht1eaRIa6QaJqO5rCFbA==
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/https-proxy-agent/-/https-proxy-agent-5.0.1.tgz#c59ef224a04fe8b754f3db0063a25ea30d0005d6"
+  integrity sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==
   dependencies:
     agent-base "6"
     debug "4"
@@ -816,15 +842,28 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
+regenerator-runtime@^0.13.4:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+  integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
+
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
   integrity sha1-jGStX9MNqxyXbiNE/+f3kqam30I=
 
 reshow-constant@*:
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.16.5.tgz#5f972f6aa818df58f610f1dbf9a6489f20dfad10"
-  integrity sha512-ZoGJfwTOJHNzP9OGdi/m3dmVIBJz/I/h/RzgFGQk0Fu3KZZ+jS1TpuYJoDGV0cWCHdXmE0r0NCv1jijwWEpS+w==
+  version "0.16.7"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.16.7.tgz#6985f7795e78d2939497c6331084fca663de6975"
+  integrity sha512-zvxUCa7D2Jua6BZnFzrZ8v0ijJnJdu0vee7UKmJedcdWQTOJu65LWOv+H59PM3Cab3lGHgobag20VobQBrRGYA==
+
+reshow-runtime@*:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.17.0.tgz#a3e6c8c194b24fc7611153390f8945766f5c151f"
+  integrity sha512-hKSy7FITqk2Tw3PVFvmABRVNJ98M/I+B41aOioPi96DYNW5cJch8sjnNjGAWenO1vmXDuMu0nV1effW5ePmwXw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+    reshow-constant "*"
 
 safe-buffer@^5.1.0:
   version "5.2.1"
@@ -1000,6 +1039,14 @@ which@2.0.2:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
+
+win-doc@*:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.1.1.tgz#1dc8ed698a832c3be41e14a40062bea6bbc585f6"
+  integrity sha512-XYR10OWnt0jCejIzl6T0pzW+KxTa2sxysVo9g74CG1dKccCA/hhCSRXLXoQLi8cE3hG0PSKvelWh40XmsBpSEA==
+  dependencies:
+    reshow-constant "*"
+    reshow-runtime "*"
 
 word-wrap@~1.2.3:
   version "1.2.3"

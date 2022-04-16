@@ -59,12 +59,8 @@ const AjaxPage = (props) => {
       });
       return null;
     } else {
-      if (fallback) {
-        const fallbackEl = true === fallback ? "div" : fallback;
-        return <Suspense fallback={build(fallbackEl)()}>{builded}</Suspense>;
-      } else {
-        return builded;
-      }
+      const fallbackEl = fallback || "div";
+      return <Suspense fallback={build(fallbackEl)()}>{builded}</Suspense>;
     }
   }, [themePath]);
 };

@@ -1,15 +1,10 @@
-"use strict";
-
 import replaceValue from "set-object-value";
-
-const keys = Object.keys;
+import { KEYS } from "reshow-constant";
 
 const nest = (a, delimiter) => {
-  if (!delimiter) {
-    delimiter = ".";
-  }
-  let tree = {};
-  keys(a).forEach((k) => {
+  delimiter = delimiter || ".";
+  const tree = {};
+  KEYS(a).forEach((k) => {
     if (-1 === k.indexOf(delimiter)) {
       tree[k] = a[k];
       return;

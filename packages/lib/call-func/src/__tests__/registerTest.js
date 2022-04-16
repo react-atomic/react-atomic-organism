@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import jsdom from "jsdom-global";
+import { cleanIt } from "reshow-unit";
 import { create, inject } from "create-el";
 import query from "css-query-selector";
 
@@ -8,12 +8,8 @@ import register, { cleanAllRegister } from "../register";
 const keys = Object.keys;
 
 describe("Test Register", () => {
-  let reset;
-  beforeEach(() => {
-    reset = jsdom();
-  });
 
-  afterEach(() => reset());
+  afterEach(() => cleanIt());
 
   it("basic test", () => {
     const span = create("span")()({ id: "unit-span" });
@@ -23,11 +19,12 @@ describe("Test Register", () => {
     const evId = oReg.addEventListener("click", () => {
       i++;
     });
-    span.dispatchEvent(new Event("click"));
+    const click = new Event("click");
+    span.dispatchEvent(click);
     expect(i).to.equal(1);
-    span.dispatchEvent(new Event("click"));
+    span.dispatchEvent(click);
     oReg.removeEventListener(evId);
-    span.dispatchEvent(new Event("click"));
+    span.dispatchEvent(click);
     expect(i).to.equal(2);
   });
 

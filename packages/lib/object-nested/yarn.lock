@@ -537,6 +537,11 @@ require-directory@^2.1.1:
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
   integrity sha1-jGStX9MNqxyXbiNE/+f3kqam30I=
 
+reshow-constant@*:
+  version "0.16.7"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.16.7.tgz#6985f7795e78d2939497c6331084fca663de6975"
+  integrity sha512-zvxUCa7D2Jua6BZnFzrZ8v0ijJnJdu0vee7UKmJedcdWQTOJu65LWOv+H59PM3Cab3lGHgobag20VobQBrRGYA==
+
 safe-buffer@^5.1.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
@@ -560,9 +565,9 @@ serialize-javascript@6.0.0:
     randombytes "^2.1.0"
 
 set-object-value@*:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/set-object-value/-/set-object-value-0.0.8.tgz#1a1d29d97f627a9c0856c716ab407ac30f676f1e"
-  integrity sha512-kcfYjGL3exfZLgOpN8vwv9uM4jyAhvMezXg0cuLMy0GOPOT0762AybSRX9ykzRHXAJTd73Dj1GUAgFVqIyFhlw==
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/set-object-value/-/set-object-value-0.1.0.tgz#cd71f0fee9e98274954d7d06d3041e19e6a715c2"
+  integrity sha512-En9j/JShDQeC/Xtnxf86Q/Z0B7g4I/pC88qMdgw6HBug3pK75SzQXw8OgeCK2TYRd4WLoTiQnAgYTZzxuOMUDQ==
 
 slash@^2.0.0:
   version "2.0.0"

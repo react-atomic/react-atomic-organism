@@ -1,4 +1,3 @@
-import "es6-promise/auto"; // [RESHOW] Need keep if use "new Promise"
 import "setimmediate";
 import { mergeMap, ImmutableStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
@@ -37,7 +36,7 @@ const initAjaxWorkerEvent = (worker) => {
 };
 
 const initFakeWorker = (cb) => {
-  import("../../src/worker").then((workerObject) => {
+  import("../../../es/src/worker.mjs").then((workerObject) => {
     fakeWorker = getDefault(workerObject);
     initAjaxWorkerEvent(fakeWorker);
     if (!gWorker) {
@@ -72,7 +71,7 @@ const getCallback = (state, action, json, response) => {
   const debugs = json.debugs;
   if (debugs) {
     let bFail = false;
-    import("../lib/dlog").then((dlog) => {
+    import("../../../es/src/lib/dlog.mjs").then((dlog) => {
       dlog = getDefault(dlog);
       const oLog = new dlog({ level: "trace" });
       debugs.forEach((v) => {
