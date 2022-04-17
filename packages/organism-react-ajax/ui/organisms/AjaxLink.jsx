@@ -3,6 +3,8 @@ import React, {
   useImperativeHandle,
   useRef,
   useCallback,
+  useEffect,
+  useState,
 } from "react";
 import callfunc from "call-func";
 import build from "reshow-build";
@@ -27,18 +29,22 @@ const useAjaxLink = (props) => {
     updateUrl = true,
     disableRandom = false,
     component = "a",
+    href: propsHref,
     ajax,
     target,
     callback,
     errorCallback,
     path,
-    href,
     onClick,
     onTouchStart,
     ...rest
   } = props;
 
   const isAlreadyTouchStart = useRef(false);
+  const [href, setHref] = useState(propsHref);
+  useEffect(() => {
+    setHref(getHref({ href: propsHref, path }));
+  }, [propsHref, path]);
 
   const go = useCallback(
     (url) => {
@@ -52,7 +58,7 @@ const useAjaxLink = (props) => {
         errorCallback,
       });
     },
-    [href, path, callback, errorCallback, updateUrl, disableRandom, ajax]
+    [href, callback, errorCallback, updateUrl, disableRandom, ajax]
   );
 
   const handleClick = useCallback(
@@ -89,7 +95,7 @@ const useAjaxLink = (props) => {
         go(e.currentTarget.href);
       }
     },
-    [target, path, href]
+    [target, href]
   );
 
   const expose = { go };
@@ -99,7 +105,7 @@ const useAjaxLink = (props) => {
     component,
     rest,
     target,
-    href: getHref({ href, path }),
+    href,
     path,
     onTouchStart:
       true === onTouchStart

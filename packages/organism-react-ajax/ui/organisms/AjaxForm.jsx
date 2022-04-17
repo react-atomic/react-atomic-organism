@@ -1,4 +1,10 @@
-import React, { forwardRef, useRef, useCallback } from "react";
+import React, {
+  forwardRef,
+  useRef,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import formSerialize from "form-serialize-js";
 import build from "reshow-build";
 import callfunc from "call-func";
@@ -24,7 +30,7 @@ const AjaxForm = forwardRef((props, ref) => {
     stop = false,
     updateUrl = false,
     component = "form",
-    action,
+    action: propsAction,
     afterSubmit,
     beforeSubmit,
     callback,
@@ -32,6 +38,11 @@ const AjaxForm = forwardRef((props, ref) => {
     path,
     ...rest
   } = props;
+
+  const [action, setAction] = useState(propsAction);
+  useEffect(() => {
+    setAction(getFormAction({ action: propsAction, path }));
+  }, [propsAction, path]);
 
   const handleSubmit = useCallback(
     (e) => {
@@ -93,7 +104,7 @@ const AjaxForm = forwardRef((props, ref) => {
 
   return build(component)({
     ref,
-    action: getFormAction({ action, path }),
+    action,
     "data-path": path,
     onSubmit: handleSubmit,
     ...rest,
