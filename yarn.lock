@@ -2520,9 +2520,9 @@ babel-plugin-reshow-object-to-json-parse@*:
     "@babel/types" "^7.7.4"
 
 babel-plugin-reshow-transform-runtime@*:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-reshow-transform-runtime/-/babel-plugin-reshow-transform-runtime-0.17.1.tgz#04b7ace3cdf092083501a52c89142806ae6ed7e9"
-  integrity sha512-k25RlWmKz4fmLFmWsIUTbdwNYhsUvPQ78ZKzCb+Tdggr0k/EXLMZp7rEDb+fJAW2GyZwcCLDmHXUatMWOs72Wg==
+  version "0.17.3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-reshow-transform-runtime/-/babel-plugin-reshow-transform-runtime-0.17.3.tgz#82f72699dafdba8c5b8124d54ca369a04e08c35e"
+  integrity sha512-VBXksXfTKMIzyvWp6CpfXYRjfpXFLRGQ2iW3JwLJ6+ZB9ebR9b6zXGAdQMvwHvYpgftlDAlCtINPTxo4qe1t2g==
   dependencies:
     resolve "1.19.0"
     semver "5.6.0"
@@ -6796,9 +6796,9 @@ reshow-constant@*:
   integrity sha512-bFWtFqQ9yvwDblRdh3pCQim4jfAd8LaOrbOOvuZq8Rb08nQzCcV1lsPySSEElUY3aa1wtHFumnLxlPwt8coisg==
 
 reshow-runtime@*:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.17.1.tgz#ebf854ea9b477024040497e18ca04b051c9fdf81"
-  integrity sha512-NofEcaRQOmpo/8o+JM1v4GiAzFAp5eEaZ7bIYrj0CKdXHpHUto4NrSJZRudww5jwMNThUkLDTQmyqhKQRHBmIg==
+  version "0.17.3"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.17.3.tgz#17145a73bd4a45c73cb33ff73d39de328efb1b46"
+  integrity sha512-dDu2u91WDyi+qbNG6n6vpKSkGXkOuvDiULO+QS9YMQWbHuQ1jVVIX7m0gaL9vqRYQHWzCx2vclMqMi+7tZBQjA==
   dependencies:
     regenerator-runtime "^0.13.4"
     reshow-constant "*"
