@@ -1,34 +1,28 @@
-"use strict";
-
+import { KEYS, IS_ARRAY, STRING, NUMBER, OBJECT } from "reshow-constant";
 import dedup from "array.dedup";
 
-const isArray = Array.isArray;
-const keys = Object.keys;
+const strToArray = (maybeString) => (maybeString + "").split(" ");
 
-const mixClass = function () {
+const mixClass = (...args) => {
   const classes = [];
-  const args = arguments;
-  keys(args).forEach((key) => {
-    const arg = args[key];
+  args.forEach((arg) => {
     if (!arg) {
       return;
     }
     const argType = typeof arg;
-    if (argType === "string" || argType === "number") {
-      classes.push(arg);
-    } else if (isArray(arg)) {
+    if (argType === NUMBER || argType === STRING) {
+      classes.push(...strToArray(arg));
+    } else if (IS_ARRAY(arg)) {
       classes.push(mixClass.apply(null, arg));
-    } else if (argType === "object") {
-      keys(arg).forEach((k) => {
+    } else if (argType === OBJECT) {
+      KEYS(arg).forEach((k) => {
         if (arg[k]) {
-          classes.push(k);
+          classes.push(...strToArray(k));
         }
       });
     }
   });
-  let cookClasses = [];
-  classes.forEach((c) => (cookClasses = cookClasses.concat(c.split(" "))));
-  return dedup(cookClasses).join(" ");
+  return dedup(classes).join(" ");
 };
 
 export default mixClass;

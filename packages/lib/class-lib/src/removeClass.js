@@ -1,5 +1,3 @@
-"use strict";
-
 import getReg from "./getClassReg";
 import hasClass from "./hasClass";
 

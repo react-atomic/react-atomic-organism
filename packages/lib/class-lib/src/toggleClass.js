@@ -1,5 +1,3 @@
-"use strict";
-
 import hasClass from "./hasClass";
 import removeClass from "./removeClass";
 import mixClass from "./mixClass";
@@ -12,3 +10,5 @@ const toggleClass = (classes, name) => {
   }
   return classes;
 };
+
+export default toggleClass;

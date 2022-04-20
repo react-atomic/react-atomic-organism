@@ -1,11 +1,20 @@
 {
+  "version": "0.1.0",
   "name": "class-lib",
-  "version": "0.0.13",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/lib/class-lib"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/class-lib",
   "description": "ClassName Library",
-  "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/src/index.js",
-  "module": "./build/es/src/index.js",
   "keywords": [],
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -21,11 +30,11 @@
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
-    "mochaFor": "mocha -r jsdom-global/register",
-    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
+    "mochaFor": "mocha -r global-jsdom/register",
+    "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
