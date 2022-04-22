@@ -8,6 +8,7 @@ import {
 } from "react";
 import { Image } from "react-atomic-molecule";
 import { win } from "win-doc";
+import { useMounted } from "reshow-hooks";
 
 import Change from "../organisms/Change";
 
@@ -15,7 +16,7 @@ const AnimateImageComp = (props, ref) => {
   const { src, animate, ...otherProps } = props;
   const [image, setImage] = useState();
 
-  const _mount = useRef(false);
+  const _mount = useMounted();
   const oImg = useRef();
 
   useImperativeHandle(
@@ -27,20 +28,13 @@ const AnimateImageComp = (props, ref) => {
   );
 
   useEffect(() => {
-    _mount.current = true;
-    return () => {
-      _mount.current = false;
-    };
-  }, []);
-
-  useEffect(() => {
     const oWin = win();
     if (!oWin) {
       return null;
     }
     oImg.current = new oWin.Image();
     oImg.current.onload = () => {
-      if (_mount.current) {
+      if (_mount()) {
         setImage(<Image key={src} src={src} {...otherProps} />);
       }
     };

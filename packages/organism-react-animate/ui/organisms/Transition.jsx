@@ -2,8 +2,9 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 import { useTimer } from "reshow-hooks";
-import { dataStatusKey } from "../../src/const";
 import { T_UNDEFINED } from "reshow-constant";
+
+import { dataStatusKey } from "../../src/const";
 
 export const UNMOUNTED = "unmounted";
 export const EXITSTART = "exit-start";
