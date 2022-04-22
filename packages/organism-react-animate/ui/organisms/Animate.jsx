@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { reactStyle } from "react-atomic-molecule";
 import getKeyframe from "keyframe-css";
 import { doc } from "win-doc";
+import { useMounted } from "reshow-hooks";
 
 import AnimateGroup from "../organisms/AnimateGroup";
 
@@ -64,25 +65,18 @@ const Animate = (props) => {
   const { appear, enter, leave, ...others } = props;
   const [isLoad, setIsLoad] = useState(false);
   const [aniConf, setAniConf] = useState({});
-  const done = useRef([]);
-  const _mount = useRef(false);
-
-  useEffect(() => {
-    _mount.current = true;
-    return () => {
-      _mount.current = false;
-    };
-  }, []);
+  const lastRun = useRef([]);
+  const _mount = useMounted();
 
   useEffect(() => {
     const that = {};
     let data;
     const isDone = (key) => () => {
-      done.current = done.current.filter((val) => val !== key);
-      if (done.current.length) {
+      lastRun.current = lastRun.current.filter((val) => val !== key);
+      if (lastRun.current.length) {
         return;
       } else {
-        setTimeout(() => _mount.current && setIsLoad(true));
+        setTimeout(() => _mount() && setIsLoad(true));
       }
     };
     if (appear) {
@@ -92,7 +86,7 @@ const Animate = (props) => {
       that.appearTimeout = data.timeout;
       that.appearDelay = data.delay;
       that.appearClass = data.className;
-      done.current.push(appear);
+      lastRun.current.push(appear);
       init(that.appearKey, that.appear, that.appearTimeout, isDone(appear));
     }
     if (enter) {
@@ -102,7 +96,7 @@ const Animate = (props) => {
       that.enterTimeout = data.timeout;
       that.enterDelay = data.delay;
       that.enterClass = data.className;
-      done.current.push(enter);
+      lastRun.current.push(enter);
       init(that.enterKey, that.enter, that.enterTimeout, isDone(enter));
     }
     if (leave) {
@@ -112,7 +106,7 @@ const Animate = (props) => {
       that.leaveTimeout = data.timeout;
       that.leaveDelay = data.delay;
       that.leaveClass = data.className;
-      done.current.push(leave);
+      lastRun.current.push(leave);
       init(that.leaveKey, that.leave, that.leaveTimeout, isDone(leave));
     }
     if (!appear && !enter && !leave) {

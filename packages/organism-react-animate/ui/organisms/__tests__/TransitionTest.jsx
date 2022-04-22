@@ -57,5 +57,6 @@ describe("Test Transition", () => {
         expect(wrap.html()).to.have.string(`${dataStatusKey}="entered"`)
       );
     });
+    wrap.unmount();
   });
 });

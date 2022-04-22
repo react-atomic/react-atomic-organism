@@ -34,15 +34,14 @@ describe("AnimateGroup Test", () => {
         </AnimateGroup>
       );
     };
-    let wrap;
-    await act(() => (wrap = render(<FakeComp />)));
+    const wrap = render(<FakeComp />);
     await waitFor(() => {
-      act(()=>expect(wrap.html()).to.have.string(`role="child"`));
+      act(() => expect(wrap.html()).to.have.string(`role="child"`));
     });
-    await act(() => uFake());
+    await act(() => uFake(), 10);
     await waitFor(() => {
-      act(()=>expect(wrap.html()).not.have.string(`role="child"`));
+      act(() => expect(wrap.html()).not.have.string(`role="child"`));
     });
+    wrap.unmount();
   });
 });
-

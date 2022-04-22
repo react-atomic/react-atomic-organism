@@ -7,7 +7,7 @@ import AnimateImage from "../AnimateImage";
 var options = {
   // Use the current working directory as the document's origin, so
   // requests to local files work correctly with CORS.
-  url: "file://" + process.cwd() + "/",
+  url: "http://" + process.cwd() + "/",
   features: {
     FetchExternalResources: ["img", "script"],
   },
