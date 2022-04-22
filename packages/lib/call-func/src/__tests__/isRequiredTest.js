@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { isRequired } from "../index.js";
+import isRequired from "../isRequired";
 
 describe("Test isRequired", () => {
   it("basic test", () => {

@@ -2,7 +2,7 @@ import query from "css-query-selector";
 import { IS_ARRAY } from "reshow-constant";
 
 import callfunc from "./callfunc";
-import register from "./register";
+import { register } from "./register";
 
 const delegate = (el, type, childs, defaultFunc) => {
   if (!el || !childs || !childs.length) {

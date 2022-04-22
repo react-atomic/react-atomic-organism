@@ -88,5 +88,4 @@ const cleanAllRegister = (type) => {
   });
 };
 
-export default register;
-export { cleanAllRegister };
+export { register, cleanAllRegister };

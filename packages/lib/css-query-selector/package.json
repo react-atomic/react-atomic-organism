@@ -1,15 +1,20 @@
 {
+  "version": "0.3.3",
   "name": "css-query-selector",
-  "version": "0.3.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/lib/css-query-selector"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/css-query-selector",
   "description": "CSS simple query alias function",
-  "repository": "react-atomic/react-atomic-organism",
+  "keywords": [],
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
   "exports": {
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
-  "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {

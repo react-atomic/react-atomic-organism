@@ -3,12 +3,11 @@ import { cleanIt } from "reshow-unit";
 import { create, inject } from "create-el";
 import query from "css-query-selector";
 
-import register, { cleanAllRegister } from "../register";
+import { register, cleanAllRegister } from "../register";
 
 const keys = Object.keys;
 
 describe("Test Register", () => {
-
   afterEach(() => cleanIt());
 
   it("basic test", () => {
