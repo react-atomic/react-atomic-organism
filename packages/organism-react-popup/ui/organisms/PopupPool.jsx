@@ -1,46 +1,54 @@
-import React from "react";
-import { build, SemanticUI } from "react-atomic-molecule";
-import get from "get-object-value";
-import Return from "reshow-return";
+import { useState, useEffect, useMemo } from "react";
+import { build, mixClass, SemanticUI } from "react-atomic-molecule";
+import Return, { useReturn } from "reshow-return";
+import { equal, Map, useReduceStore } from "reshow-flux";
 
-import popupStore from "../../src/stores/popupStore";
-
-const keys = Object.keys;
+import popupStore, { SHOW_ONE, NODE_KEY } from "../../src/stores/popupStore";
 
 const getPops = (nodes, name) => {
-  nodes = get(nodes) || {};
-  const pops = [];
-  keys(nodes).map((key) => {
-    const node = nodes[key];
-    const nodeProps = get(node, ["props"], {});
-    const toPool = nodeProps.toPool;
+  let pops = nodes;
+  nodes.forEach((v, k, item) => {
+    const toPool = v.props?.toPool;
     if ((name || toPool) && toPool !== name) {
-      return;
+      pops = pops.delete(k);
     }
-    pops.push(build(node)({ key }));
   });
   return pops;
 };
 
-const PopupPool = ({ name, component = SemanticUI, ...otherProps }) => (
-  <Return store={popupStore} initStates={["nodes"]}>
-    {({ nodes }) => {
-      const pops = getPops(nodes, name);
-      if (pops.length) {
-        return build(component)(
-          {
-            "data-name": name,
-            className: "popup-pool",
-            ui: false,
-            ...otherProps,
-          },
-          pops
-        );
-      } else {
-        return null;
-      }
-    }}
-  </Return>
-);
+const PopupPool = ({ name, component = SemanticUI, ...otherProps }) => {
+  const [poolStore, setPoolStore] = useReduceStore(
+    (poolState, action) => poolState.set(action.type, action.params),
+    Map()
+  );
+  const [pops, setPops] = useState();
+  const state = useReturn([NODE_KEY, SHOW_ONE], popupStore);
+  useEffect(() => {
+    const nextPops = getPops(state[NODE_KEY], name);
+    const popsKeys = nextPops.keySeq();
+    setPops((prev) => (!equal(prev, popsKeys) ? popsKeys : prev));
+    const updateKey = state[SHOW_ONE];
+    if (nextPops.has(updateKey)) {
+      setPoolStore(updateKey, nextPops.get(updateKey));
+    }
+  }, [state[NODE_KEY]]);
+  return useMemo(() => {
+    const buildReturn = build(build(Return)({ store: poolStore }));
+    return build(component)(
+      {
+        name,
+        className: mixClass(name, "popup-pool"),
+        ui: false,
+        ...otherProps,
+      },
+      (pops || []).map((name) =>
+        buildReturn(
+          { key: name, name, initStates: [name] },
+          (props) => props[props.name] || null
+        )
+      )
+    );
+  }, [pops]);
+};
 
 export default PopupPool;

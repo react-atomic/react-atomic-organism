@@ -54,6 +54,9 @@ class PopupFloatEl extends PopupOverlay {
   };
 
   calPos = () => {
+    if (!this._mount) {
+      return;
+    }
     const faultPos = {
       top: -9999,
       left: -9999,

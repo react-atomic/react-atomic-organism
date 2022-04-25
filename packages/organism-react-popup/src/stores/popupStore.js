@@ -2,12 +2,12 @@ import { Map, ImmutableStore, mergeMap } from "reshow-flux";
 import get from "get-object-value";
 import set from "set-object-value";
 import callfunc from "call-func";
+import { KEYS, IS_ARRAY, OBJECT } from "reshow-constant";
 
 const groups = {};
+const SHOW_ONE = "show_one";
 const SHOW_KEY = "shows";
 const NODE_KEY = "nodes";
-const keys = Object.keys;
-const isArray = Array.isArray;
 
 const getName = (node, defaultVal = "default") => {
   const name = get(node, ["props", "name"], () => {
@@ -33,18 +33,18 @@ class handlePopup {
     const nodes = state.get(NODE_KEY).set(key, popupNode);
     let nodeGroups = get(popupNode, ["props", "group"]);
     if (nodeGroups) {
-      if (!isArray(nodeGroups)) {
+      if (!IS_ARRAY(nodeGroups)) {
         nodeGroups = [nodeGroups];
       }
       nodeGroups.forEach((nodegroup) => set(groups, [nodegroup, key], true));
     }
-    return state.set(SHOW_KEY, shows).set(NODE_KEY, nodes);
+    return state.set(SHOW_KEY, shows).set(NODE_KEY, nodes).set(SHOW_ONE, key);
   }
 
   getKey(action) {
     const popup = get(action, ["params", "popup"], "default");
     let key;
-    if ("object" === typeof popup) {
+    if (OBJECT === typeof popup) {
       key = getName(popup, popup);
     } else {
       key = popup;
@@ -67,7 +67,7 @@ class handlePopup {
     const group = get(groups, [groupKey]);
     let shows = state.get(SHOW_KEY);
     if (group) {
-      keys(group).forEach((key) => {
+      KEYS(group).forEach((key) => {
         shows = shows.delete(key);
       });
     }
@@ -91,7 +91,7 @@ class handlePopup {
     if (group) {
       let nodes = state.get(NODE_KEY);
       let shows = state.get(SHOW_KEY);
-      keys(group).forEach((key) => {
+      KEYS(group).forEach((key) => {
         nodes = nodes.delete(key);
         shows = shows.delete(key);
       });
@@ -127,4 +127,4 @@ const [store, popupDispatch] = ImmutableStore((state, action) => {
 }, Map({ shows: Map(), nodes: Map() }));
 
 export default store;
-export { popupDispatch };
+export { popupDispatch, SHOW_ONE, SHOW_KEY, NODE_KEY };

@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {expect} from 'chai';
-import { mount } from "reshow-unit";
+import { useState, useEffect } from "react";
+import { expect } from "chai";
+import { act, render, waitFor } from "reshow-unit";
 
-import PopupModal from '../PopupModal';
-import DisplayPopupEl from '../../organisms/DisplayPopupEl';
-import PopupPool from '../../organisms/PopupPool';
+import PopupModal from "../PopupModal";
+import DisplayPopupEl from "../../organisms/DisplayPopupEl";
+import PopupPool from "../../organisms/PopupPool";
 
-describe('Test PopupModal', () => {
-  it('basic test', done => {
-    const VDom = props => {
+describe("Test PopupModal", () => {
+  it("basic test", async () => {
+    const VDom = (props) => {
       const [dom, setDom] = useState();
       useEffect(() => {
         setDom(
           <DisplayPopupEl>
             <PopupModal id="my-id" />
-          </DisplayPopupEl>,
+          </DisplayPopupEl>
         );
       });
       return (
@@ -24,11 +24,9 @@ describe('Test PopupModal', () => {
         </div>
       );
     };
-    const oDom = mount(<VDom />);
-    setTimeout(() => {
-      const actual = oDom.html();
-      expect(actual).to.have.string('id="my-id"');
-      done();
+    const wrap = render(<VDom />);
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.have.string('id="my-id"'));
     });
   });
 });

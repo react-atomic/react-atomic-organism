@@ -1,6 +1,5 @@
-import React from "react";
 import Return from "reshow-return";
-import { mixClass, SemanticUI } from "react-atomic-molecule";
+import { build, mixClass, SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
 import getStyle from "get-style";
 
@@ -63,17 +62,21 @@ class PopupOverlay extends BasePopup {
   }
 
   render() {
-    if (this.state.hasError) {
-      return null;
-    }
-    return (
-      <Return store={popupStore} initStates={["shows"]}>
-        {({ shows }) => {
-          const show = get(shows, [this.props.name]);
-          return this.shouldShow(show);
-        }}
-      </Return>
-    );
+    /**
+     * Use build + anonymous function to suppress render.
+     */
+    return this.state.hasError
+      ? null
+      : build(Return)(
+          {
+            store: popupStore,
+            initStates: ["shows"],
+          },
+          ({ shows }) => {
+            const show = get(shows, [this.props.name]);
+            return this.shouldShow(show);
+          }
+        );
   }
 }
 

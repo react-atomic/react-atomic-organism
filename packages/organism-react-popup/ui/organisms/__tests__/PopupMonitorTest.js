@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { expect } from "chai";
-import { mount } from "reshow-unit";
+import { act, render, waitFor } from "reshow-unit";
 
 import PopupMonitor from "../PopupMonitor";
 import PopupPool from "../PopupPool";
@@ -13,16 +13,15 @@ describe("Test PopupMonitor", () => {
   });
 
   it("basic test", () => {
-    const wrap = mount(
+    const wrap = render(
       <PopupMonitor>
         <div />
       </PopupMonitor>
     );
-    const actual = wrap.html();
-    expect(actual).to.have.string("popup-monitor");
+    expect(wrap.html()).to.have.string("popup-monitor");
   });
 
-  it("feature test", (done) => {
+  it("feature test", async () => {
     const expectedWithoutPopup =
       '<div><div class="popup-monitor ui">Test Monitor</div></div>';
     const FakeDom = (props) => {
@@ -52,17 +51,22 @@ describe("Test PopupMonitor", () => {
         </div>
       );
     };
-    const wrap = mount(<FakeDom />);
-    expect(wrap.html()).to.equal(expectedWithoutPopup);
-    setTimeout(() => {
-      wrap.update();
-      expect(wrap.html()).to.have.string("test-popup");
-      wrap.setProps({ ids: [] });
-      setTimeout(() => {
-        wrap.update();
-        expect(wrap.html()).to.equal(expectedWithoutPopup);
-        done();
-      }, 10);
-    }, 10);
+    let gSet;
+    const Comp = () => {
+      const [props, setProps] = useState();
+      gSet = setProps;
+      return <FakeDom {...props} />;
+    };
+
+    const wrap = render(<Comp />);
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.have.string("test-popup"));
+    });
+    await act(() => {
+      gSet({ ids: [] });
+    });
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.equal(expectedWithoutPopup));
+    });
   });
 });

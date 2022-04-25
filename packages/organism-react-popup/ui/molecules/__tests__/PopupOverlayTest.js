@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from 'react';
-import {expect} from 'chai';
-import { mount } from "reshow-unit";
+import React, { useState, useEffect } from "react";
+import { expect } from "chai";
+import { act, render, waitFor } from "reshow-unit";
 
-import PopupOverlay from '../PopupOverlay';
-import DisplayPopupEl from '../../organisms/DisplayPopupEl';
-import PopupPool from '../../organisms/PopupPool';
+import PopupOverlay from "../PopupOverlay";
+import DisplayPopupEl from "../../organisms/DisplayPopupEl";
+import PopupPool from "../../organisms/PopupPool";
 
-describe('Test PopupOverlay', () => {
-  it('basic test', done => {
-    const VDom = props => {
+describe("Test PopupOverlay", () => {
+  it("basic test", async () => {
+    const VDom = (props) => {
       const [dom, setDom] = useState();
       useEffect(() => {
         setDom(
           <DisplayPopupEl>
             <PopupOverlay id="my-overlay" />
-          </DisplayPopupEl>,
+          </DisplayPopupEl>
         );
       });
       return (
@@ -24,11 +24,9 @@ describe('Test PopupOverlay', () => {
         </div>
       );
     };
-    const oDom = mount(<VDom />);
-    setTimeout(() => {
-      const actual = oDom.html();
-      expect(actual).to.have.string('id="my-overlay"');
-      done();
+    const wrap = render(<VDom />);
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.have.string('id="my-overlay"'));
     });
   });
 });

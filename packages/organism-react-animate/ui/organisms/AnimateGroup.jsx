@@ -102,7 +102,6 @@ const AnimateGroup = (props) => {
       (child, key) =>
         buildCSSTransition(
           {
-            ...child.props,
             ...aniProps,
             key: get(child, ["props", "name"], key),
             onExited: handleExited(child),

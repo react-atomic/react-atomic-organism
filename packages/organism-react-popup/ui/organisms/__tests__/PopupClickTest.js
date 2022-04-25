@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {expect} from 'chai';
-import { mount } from "reshow-unit";
+import { render, waitFor } from "reshow-unit";
 
 import PopupClick from '../PopupClick';
 
 describe('Test PopupClick', () => {
-  it('basic test', () => {
-    const wrap = mount(<PopupClick />);
-    const actual = wrap.html(); 
-    expect(actual).to.have.string('popup-click');
+  it('basic test', async () => {
+    const wrap = render(<PopupClick />);
+    await waitFor(() => {
+      expect(wrap.html()).to.have.string("popup-click");
+    });
   });
 });

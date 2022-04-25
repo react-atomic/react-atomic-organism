@@ -11,7 +11,7 @@ import getScrollInfo from "get-scroll-info";
 import getOffset from "getoffset";
 import get from "get-object-value";
 import arrayMerge from "array.merge";
-import callfunc from "call-func";
+import callfunc, { getEventKey } from "call-func";
 import { removeClass, hasClass, mixClass } from "class-lib";
 import { win, doc } from "win-doc";
 import { UNDEFINED } from "reshow-constant";
@@ -43,11 +43,21 @@ class PopupModal extends PopupOverlay {
 
   _timer = null;
   _mount = false;
+  _locked = false;
   _observer = null;
 
   handleModalRefCb = (el) => (this.el = el);
 
-  handleContainerClick = () => this.close() && this.unlockScreen();
+  handleClose = () => this.close() && this.unlockScreen();
+  handleKeyUp = (e) => {
+    switch (getEventKey(e)) {
+      case 27:
+      case "Escape":
+        const disableClose = this.props.disableClose;
+        !disableClose && this.handleClose();
+        break;
+    }
+  };
 
   handleModalClick = (cb) => (e) => {
     /**
@@ -74,23 +84,25 @@ class PopupModal extends PopupOverlay {
           }
           const { modalStyle: orgModalStyle, maskStyle: orgMaskStyle } =
             this.state;
-          if (
-            this._mount &&
-            (get(orgModalStyle, ["marginTop"]) !== marginTop ||
-              get(orgMaskStyle, ["justifyContent"]) !==
-                maskStyle.justifyContent)
-          ) {
-            this.setState(({ modalStyle }) => {
-              modalStyle = {
-                ...modalStyle,
-                marginTop,
-              };
-              return {
-                maskStyle,
-                modalStyle,
-              };
-            });
-          }
+          setTimeout(() => {
+            if (
+              this._mount &&
+              (get(orgModalStyle, ["marginTop"]) !== marginTop ||
+                get(orgMaskStyle, ["justifyContent"]) !==
+                  maskStyle.justifyContent)
+            ) {
+              this.setState(({ modalStyle }) => {
+                modalStyle = {
+                  ...modalStyle,
+                  marginTop,
+                };
+                return {
+                  maskStyle,
+                  modalStyle,
+                };
+              });
+            }
+          });
         }
       }
     });
@@ -110,10 +122,15 @@ class PopupModal extends PopupOverlay {
   }
 
   lockScreen() {
-    this._locked = true;
+    if (!this._locked) {
+      this._locked = true;
+    } else {
+      return;
+    }
     const { modal, toPool, maskScroll, backgroundScroll } = this.props;
     const oDoc = doc();
     win().addEventListener("resize", this.reCalculate);
+    win().addEventListener("keyup", this.handleKeyUp);
     const body = oDoc.body;
     const addBodyClass = mixClass(
       body.className,
@@ -152,6 +169,7 @@ class PopupModal extends PopupOverlay {
     clearTimeout(this._timer);
     this.resetBodyClassName();
     win().removeEventListener("resize", this.reCalculate);
+    win().removeEventListener("keyup", this.handleKeyUp);
     if (this._observer) {
       this._observer.disconnect();
       this._observer = null;
@@ -198,16 +216,16 @@ class PopupModal extends PopupOverlay {
     } = this.props;
     let containerClick = null;
     let thisCloseEl;
-    let content = "";
+    let content = null;
     if (show) {
       this.lockScreen();
       if (!closeEl) {
         if (!disableClose) {
-          containerClick = this.handleContainerClick;
+          containerClick = this.handleClose;
         }
       } else {
         thisCloseEl = build(closeEl)({
-          onClick: this.handleContainerClick,
+          onClick: this.handleClose,
           key: "close",
           style: {
             zIndex: 1001,
@@ -225,6 +243,7 @@ class PopupModal extends PopupOverlay {
             className={mixClass({ scrolling, basic }, modalClassName)}
             show={show}
             contentStyle={contentStyle}
+            key="model"
           />
         );
       }
@@ -255,13 +274,13 @@ class PopupModal extends PopupOverlay {
         );
         content = (
           <Dimmer
+            key="modals"
             className={mixClass("page modals", contentClassName)}
             show={show}
             center={false}
             styles={thisStyles}
             styleOrder={1}
             onClick={containerClick}
-            key="modals"
           >
             {thisModal}
           </Dimmer>
@@ -272,10 +291,11 @@ class PopupModal extends PopupOverlay {
     } else {
       this.unlockScreen();
     }
-
     return (
       <SemanticUI ui={false} className={className} name={name} id={id}>
-        <Animate {...{ appear, enter, leave }}>{content}</Animate>
+        <Animate appear={appear} enter={enter} leave={leave}>
+          {content}
+        </Animate>
         {thisCloseEl}
       </SemanticUI>
     );

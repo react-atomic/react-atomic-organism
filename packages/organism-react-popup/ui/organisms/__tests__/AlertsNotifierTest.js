@@ -1,18 +1,14 @@
 import React, { Component } from "react";
 import { expect } from "chai";
-import { mount } from "reshow-unit";
+import { act, render, waitFor } from "reshow-unit";
 
 import AlertsNotifier from "../AlertsNotifier";
 
 describe("Test AlertsNotifier", () => {
-  it("simple test", (done) => {
-    const vDom = <AlertsNotifier alerts={['1']} />;
-    const oDom = mount(vDom);
-    setTimeout(() => {
-      oDom.update();
-      const actual = oDom.html();
-      expect(actual).to.have.string("div");
-      done();
-    }, 30);
+  it("simple test", async () => {
+    const wrap = render(<AlertsNotifier alerts={["1"]} />);
+    await waitFor(() => {
+      act(()=>expect(wrap.html()).to.have.string("div"));
+    });
   });
 });
