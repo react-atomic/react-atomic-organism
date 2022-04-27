@@ -1,5 +1,4 @@
-import React, { cloneElement } from "react";
-import { mixClass, SemanticUI } from "react-atomic-molecule";
+import { build, mixClass, SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
 
 import Text from "../molecules/Text";
@@ -51,28 +50,24 @@ const Axis = ({
   transform,
   format = (i) => i,
   crosshairLabel,
-  crosshairValue,
   hideCrosshair,
   hideCrosshairLabel,
+  reducer,
+  subReducer,
   ...props
 }) => {
-  const { list, scaler } = scale;
+  const { list } = scale;
   let thisCrosshairLabel = null;
-  if (
-    !hideCrosshairLabel &&
-    !hideCrosshair &&
-    crosshairValue &&
-    crosshairLabel
-  ) {
-    thisCrosshairLabel = cloneElement(
-      crosshairLabel,
-      {
-        value: crosshairValue,
-        color,
-        invertedColor,
-      },
-      format(scaler.invert(crosshairValue))
-    );
+  if (crosshairLabel) {
+    thisCrosshairLabel = build(crosshairLabel)({
+      color,
+      invertedColor,
+      hideCrosshairLabel,
+      scale,
+      format,
+      reducer,
+      subReducer,
+    });
   }
   return (
     <Group

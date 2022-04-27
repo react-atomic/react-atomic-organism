@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useReduceStore, Map } from "reshow-flux";
 
 import { build } from "react-atomic-molecule";
 import { mouse } from "getoffset";
@@ -21,15 +22,7 @@ const adjustY = 20;
 
 const useBaseAxisChart = (props) => {
   const [isLoad, d3] = useD3();
-  const [
-    {
-      crosshairX,
-      crosshairY,
-      hideCrosshairX = true,
-      hideCrosshairY = true,
-    },
-    setState,
-  ] = useState({});
+  const subReducer = useReduceStore(null, () => Map({ hideCrosshairX: true }));
 
   const {
     valuesLocator,
@@ -59,6 +52,7 @@ const useBaseAxisChart = (props) => {
     hideCrosshairYLabel,
     children,
     multiChart,
+    reducer,
 
     /*layout*/
     hideAxis,
@@ -69,11 +63,10 @@ const useBaseAxisChart = (props) => {
   } = resetProps(props);
 
   useEffect(() => {
-    setState((prev) => ({
-      ...prev,
+    reducer[1]({
       crosshairX: propscCosshairX,
       hideCrosshairY: propsHideCrosshairY,
-    }));
+    });
   }, [propscCosshairX, propsHideCrosshairY]);
 
   if (!isLoad) {
@@ -122,37 +115,40 @@ const useBaseAxisChart = (props) => {
     onMouseEnter: () => {
       const hideX = propsHideCrosshairX || false;
       const hideY = propsHideCrosshairY || false;
-      setState((prev) => ({
-        ...prev,
+      subReducer[1]({
         hideCrosshairX: hideX,
+      });
+      reducer[1]({
         hideCrosshairY: hideY,
-      }));
+      });
     },
     onMouseLeave: () => {
       const hideX = propsHideCrosshairX || true;
       const hideY = propsHideCrosshairY || true;
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairX: hideX,
+      setTimeout(() =>
+        subReducer[1]({
+          hideCrosshairX: hideX,
+        })
+      );
+      reducer[1]({
         hideCrosshairY: hideY,
-      }));
+      });
     },
     onMouseMove: (e) => {
       const point = mouse(e);
       e.point = point;
       callfunc(onMove, [e]);
       const nextState = {
-        hideCrosshairX: false,
         crosshairY: point[1],
       };
       if (null == propscCosshairX) {
         nextState.hideCrosshairY = false;
         nextState.crosshairX = point[0];
       }
-      setState((prev) => ({
-        ...prev,
-        ...nextState,
-      }));
+      subReducer[1]({
+        hideCrosshairX: false,
+      });
+      reducer[1](nextState);
     },
   };
 
@@ -169,18 +165,17 @@ const useBaseAxisChart = (props) => {
   };
 
   return {
-    hideCrosshairX,
-    hideCrosshairY,
     hideCrosshairXLabel,
     hideCrosshairYLabel,
+    crosshair,
+    subReducer,
+    reducer,
+
     handler: crosshair ? handler : null,
     isLoad,
     scaleW,
     scaleH,
     expose,
-    crosshair,
-    crosshairX,
-    crosshairY,
     xAxisAttr,
     yAxisAttr,
     thresholds,
@@ -199,18 +194,17 @@ const useBaseAxisChart = (props) => {
 const BaseAxisChart = (props) => {
   const state = useBaseAxisChart(props) || {};
   const {
+    hideCrosshairXLabel,
+    hideCrosshairYLabel,
+    crosshair,
+    subReducer,
+    reducer,
+
     isLoad,
     handler,
     scaleW,
     scaleH,
     expose,
-    hideCrosshairX,
-    hideCrosshairY,
-    hideCrosshairXLabel,
-    hideCrosshairYLabel,
-    crosshair,
-    crosshairX,
-    crosshairY,
     xAxisAttr,
     yAxisAttr,
     thresholds,
@@ -240,8 +234,7 @@ const BaseAxisChart = (props) => {
         invertedColor={invertedColor}
         {...xAxisAttr}
         key="xaxis"
-        crosshairValue={crosshairX}
-        hideCrosshair={hideCrosshairY}
+        reducer={reducer}
         hideCrosshairLabel={hideCrosshairXLabel}
       />
     );
@@ -253,8 +246,8 @@ const BaseAxisChart = (props) => {
         invertedColor={invertedColor}
         {...yAxisAttr}
         key="yaxis"
-        crosshairValue={crosshairY}
-        hideCrosshair={hideCrosshairX}
+        reducer={reducer}
+        subReducer={subReducer}
         hideCrosshairLabel={hideCrosshairYLabel}
       />
     );
@@ -288,12 +281,10 @@ const BaseAxisChart = (props) => {
         key="crosshair"
         scaleW={scaleW}
         scaleH={scaleH}
-        x={crosshairX}
-        y={crosshairY}
-        hideX={hideCrosshairX}
-        hideY={hideCrosshairY}
         xScale={expose.xScale}
         yScale={expose.yScale}
+        subReducer={subReducer}
+        reducer={reducer}
       />
     );
   }

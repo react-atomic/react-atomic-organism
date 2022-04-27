@@ -108,16 +108,38 @@ class PopupModal extends PopupOverlay {
     });
   };
 
-  resetBodyClassName() {
+  getBodyResetClass() {
+    const body = doc().body;
+    let bodyClass = body.className;
+    bodyClass = removeClass(bodyClass, "dimmable");
+    bodyClass = removeClass(bodyClass, "scrolling");
+    bodyClass = removeClass(bodyClass, "dimmed");
+    bodyClass = removeClass(bodyClass, "dimmed-bg-scrolling");
+    return bodyClass;
+  }
+
+  resetBodyCssClass() {
     const { toPool } = this.props;
     const body = doc().body;
     if (!toPool && body) {
-      let bodyClass = body.className;
-      bodyClass = removeClass(bodyClass, "dimmable");
-      bodyClass = removeClass(bodyClass, "scrolling");
-      bodyClass = removeClass(bodyClass, "dimmed");
-      bodyClass = removeClass(bodyClass, "dimmed-bg-scrolling");
-      body.className = bodyClass;
+      body.className = this.getBodyResetClass();
+    }
+  }
+
+  setBodyCssClass() {
+    const { toPool, maskScroll, backgroundScroll } = this.props;
+    const body = doc().body;
+    if (!toPool && body) {
+      const addBodyClass = mixClass(
+        this.getBodyResetClass(),
+        {
+          scrolling: maskScroll,
+          "dimmed-bg-scrolling": backgroundScroll,
+        },
+        "dimmable",
+        "dimmed"
+      );
+      body.className = addBodyClass;
     }
   }
 
@@ -127,24 +149,13 @@ class PopupModal extends PopupOverlay {
     } else {
       return;
     }
-    const { modal, toPool, maskScroll, backgroundScroll } = this.props;
-    const oDoc = doc();
     win().addEventListener("resize", this.reCalculate);
     win().addEventListener("keyup", this.handleKeyUp);
-    const body = oDoc.body;
-    const addBodyClass = mixClass(
-      body.className,
-      {
-        scrolling: maskScroll,
-        "dimmed-bg-scrolling": backgroundScroll,
-      },
-      "dimmable",
-      "dimmed"
-    );
-    if (!toPool) {
-      body.className = addBodyClass;
-    }
-    setTimeout(this.reCalculate, 300);
+    this.setBodyCssClass();
+    setTimeout(() => {
+      this.reCalculate();
+      this.setBodyCssClass();
+    }, 300);
     const MutationObserver = win().MutationObserver;
     if (MutationObserver && this.el && !this._observer) {
       this._observer = new MutationObserver(this.reCalculate);
@@ -167,7 +178,7 @@ class PopupModal extends PopupOverlay {
 
     // do detach (need put after onClose else will make modal can't appear again)
     clearTimeout(this._timer);
-    this.resetBodyClassName();
+    this.resetBodyCssClass();
     win().removeEventListener("resize", this.reCalculate);
     win().removeEventListener("keyup", this.handleKeyUp);
     if (this._observer) {

@@ -1,10 +1,11 @@
-import React, { useState, useRef, useEffect, Children } from "react";
+import { useState, useRef, useEffect, Children } from "react";
 import { build } from "react-atomic-molecule";
+import { useMounted } from "reshow-hooks";
+import { useReduceStore } from "reshow-flux";
 import get from "get-object-value";
 import getoffset from "getoffset";
 import { win } from "win-doc";
 import { debounce } from "call-func";
-import { useMounted } from "reshow-hooks";
 import { useD3 } from "d3-lib";
 
 import ChartElement from "../molecules/ChartElement";
@@ -34,12 +35,9 @@ const execResize = debounce((lastEl, setState) => {
 
 const useMultiChart = (props) => {
   const [isLoad, d3] = useD3(props.onD3Load);
-  const [
-    { crosshairX, hideCrosshairY, scaleW: stateScaleW, scaleH: stateScaleH },
-    setState,
-  ] = useState({});
-
+  const [{ scaleW: stateScaleW, scaleH: stateScaleH }, setState] = useState({});
   const isMounted = useMounted();
+  const reducer = useReduceStore();
 
   const {
     data,
@@ -113,23 +111,13 @@ const useMultiChart = (props) => {
 
   const handler = {
     onMouseEnter: (e) => {
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairY: false,
-      }));
+      reducer[1]({ hideCrosshairY: false });
     },
     onMouseLeave: (e) => {
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairY: true,
-      }));
+      reducer[1]({ hideCrosshairY: true });
     },
     onMove: (e) => {
-      setState((prev) => ({
-        ...prev,
-        hideCrosshairY: false,
-        crosshairX: get(e, ["point", 0]),
-      }));
+      reducer[1]({ crosshairX: get(e, ["point", 0]) });
     },
     handleEl: (el) => {
       if (el) {
@@ -149,8 +137,7 @@ const useMultiChart = (props) => {
     handler,
     children,
     crosshair,
-    crosshairX,
-    hideCrosshairY,
+    reducer,
   };
 };
 
@@ -165,8 +152,7 @@ const MultiChart = (props) => {
     handler,
     children,
     crosshair,
-    crosshairX,
-    hideCrosshairY,
+    reducer,
   } = useMultiChart(props) || {};
 
   if (!isLoad) {
@@ -193,8 +179,7 @@ const MultiChart = (props) => {
           key,
           scaleW,
           crosshair,
-          crosshairX,
-          hideCrosshairY,
+          reducer,
           onMove: handler.onMove,
           xScale: thisXScale,
         });

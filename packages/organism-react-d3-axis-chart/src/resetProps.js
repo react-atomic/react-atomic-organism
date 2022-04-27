@@ -1,4 +1,5 @@
 import get from "get-object-value";
+import { useReduceStore } from "reshow-flux";
 
 const resetProps = ({
   autoScale = true,
@@ -6,11 +7,9 @@ const resetProps = ({
   scaleW = 500,
   subChartScaleH = 68,
   multiChart,
+  reducer = useReduceStore(),
   crosshair,
-  crosshairX,
   hideAxis = false,
-  hideCrosshairX,
-  hideCrosshairY,
   hideCrosshairXLabel,
   hideCrosshairYLabel,
   xValueLocator = (d) => d.x,
@@ -40,11 +39,9 @@ const resetProps = ({
   subChartScaleH,
   transform,
   multiChart,
+  reducer,
   crosshair,
-  crosshairX,
   hideAxis,
-  hideCrosshairX,
-  hideCrosshairY,
   hideCrosshairXLabel,
   hideCrosshairYLabel,
   xValueLocator,

@@ -1,4 +1,4 @@
-import React, { createElement } from "react";
+import { build } from "react-atomic-molecule";
 
 import Axis from "../molecules/Axis";
 import XAxisLabel from "../organisms/XAxisLabel";
@@ -21,7 +21,7 @@ const XAxis = ({
       end: { x: 0, y: 6 },
       ...lineAttr,
     },
-    crosshairLabel: <XAxisLabel />,
+    crosshairLabel: XAxisLabel,
     className: "x-axis",
     ...props,
   };
@@ -53,7 +53,7 @@ const XAxis = ({
     };
   }
   params.textAttr = thisTextAttr;
-  return createElement(Axis, params);
+  return build(Axis)(params);
 };
 
 export default XAxis;

@@ -1,14 +1,24 @@
 {
+  "version": "0.5.8",
   "name": "organism-react-d3-axis-chart",
-  "version": "0.5.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/organism-react-d3-axis-chart"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-d3-axis-chart",
   "description": "D3 Axis Chart",
-  "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
-    "react-component"
+    "d3",
+    "axis"
   ],
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -17,7 +27,9 @@
     "getoffset": "*",
     "organism-react-graph": "*",
     "react-atomic-molecule": "*",
+    "reshow-flux": "*",
     "reshow-hooks": "*",
+    "reshow-return": "*",
     "to-percent-js": "*"
   },
   "devDependencies": {

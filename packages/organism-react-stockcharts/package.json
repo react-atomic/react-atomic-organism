@@ -1,16 +1,25 @@
 {
+  "version": "0.2.1",
   "name": "organism-react-stockcharts",
-  "version": "0.2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/organism-react-stockcharts"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-stockcharts",
   "description": "React stockcharts",
-  "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
-    "react-component",
-    "organism",
-    "atomic-ui"
+    "d3",
+    "stock",
+    "chart"
   ],
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -19,6 +28,7 @@
     "get-object-value": "*",
     "organism-react-d3-axis-chart": "*",
     "react-atomic-molecule": "*",
+    "reshow-return": "*",
     "to-percent-js": "*"
   },
   "devDependencies": {

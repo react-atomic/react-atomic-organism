@@ -1,22 +1,42 @@
-import React from "react";
+import { useReturn } from "reshow-return";
 import get from "get-object-value";
 
 import Group from "../molecules/Group";
 import Rect from "../molecules/Rect";
 import Text from "../molecules/Text";
 
-const textWidth = 7.2;
+const XAxisLabel = ({
+  fontSize = 18,
+  color,
+  invertedColor,
+  reducer,
+  subReducer,
+  hideCrosshairLabel,
+  scale,
+  format,
+  ...props
+}) => {
+  const { crosshairX: value, hideCrosshairY: hideCrosshair } = useReturn(
+    ["crosshairX", "hideCrosshairY"],
+    reducer[0]
+  );
+  if (hideCrosshairLabel || hideCrosshair || value == null) {
+    return null;
+  }
 
-const XAxisLabel = ({ color, invertedColor, children, value, ...props }) => {
-  const width = textWidth * get(children, ["length"], 0);
+  const displayText = format(scale.scaler.invert(value));
+
+  const textWidth = (fontSize / 2) * 1.2;
+  const width = textWidth * get(displayText, ["length"], 0);
   const halfWidth = width / 2;
-  if (value >= halfWidth) {
-    value -= halfWidth;
+  let posValue = value;
+  if (posValue >= halfWidth) {
+    posValue -= halfWidth;
   }
   return (
     <Group
       className="crosshair-label-x"
-      transform={`translate(${value}, 0)`}
+      transform={`translate(${posValue}, 0)`}
       {...props}
     >
       <Rect fill={color} x="0" height="16" width={width} />
@@ -26,8 +46,9 @@ const XAxisLabel = ({ color, invertedColor, children, value, ...props }) => {
         fill={invertedColor}
         textAnchor="middle"
         alignmentBaseline="central"
+        style={{ fontSize }}
       >
-        {children}
+        {displayText}
       </Text>
     </Group>
   );
