@@ -34,4 +34,17 @@ describe("Test Get Object Value", () => {
     const acture = get(a, ["foo", "bar"]);
     expect(acture).to.equal(undefined);
   });
+
+  it("test get map", ()=>{
+    const a = {
+      get: () => ({b: {
+        c: {
+          get: () => "d"
+        } 
+      }})
+    };
+    const acture = get(a, ["foo-any", "b", "c", "foo-any"]);
+    expect(acture).to.equal("d");
+  });
+
 });

@@ -1,12 +1,14 @@
-import {  UNDEFINED, IS_ARRAY } from "reshow-constant";
+import { UNDEFINED, IS_ARRAY } from "reshow-constant";
+import callfunc from "call-func";
 import getDefaultValue from "./getDefaultValue";
-import toJS from "./toJS";
+
+const getter = (o, k) => callfunc(o.get, [k]) || o[k];
 
 const get = (o, path, defaultValue) => {
   if (null == o) {
     return getDefaultValue(defaultValue, o);
   }
-  let current = toJS(o);
+  let current = o;
   if (!path || !IS_ARRAY(path)) {
     return current;
   }
@@ -15,10 +17,12 @@ const get = (o, path, defaultValue) => {
     const j = path.length - 1;
     while (i--) {
       const index = path[j - i];
-      if (current && UNDEFINED !== typeof current[index]) {
-        current = current[index];
-        if (null == current) {
-          current = getDefaultValue(defaultValue, current);
+      if (null != current) {
+        const next = getter(current, index);
+        if (UNDEFINED !== typeof next) {
+          current = next;
+        } else {
+          current = getDefaultValue(defaultValue, next);
           break;
         }
       } else {
