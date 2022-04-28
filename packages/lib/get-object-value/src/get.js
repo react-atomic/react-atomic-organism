@@ -2,7 +2,7 @@ import { UNDEFINED, IS_ARRAY } from "reshow-constant";
 import callfunc from "call-func";
 import getDefaultValue from "./getDefaultValue";
 
-const getter = (o, k) => callfunc(o.get, [k], o) || o[k];
+const getter = (o, k) => callfunc(o.get, [k], o) ?? o[k];
 
 const get = (o, path, defaultValue) => {
   if (null == o) {
