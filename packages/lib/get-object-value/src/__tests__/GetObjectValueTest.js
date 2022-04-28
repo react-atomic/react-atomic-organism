@@ -41,9 +41,11 @@ describe("Test Get Object Value", () => {
         b: {
           c: {
             get: () => "d",
+            size: 1,
           },
         },
       }),
+      size: 1,
     };
     const acture = get(a, ["foo-any", "b", "c", "foo-any"]);
     expect(acture).to.equal("d");
