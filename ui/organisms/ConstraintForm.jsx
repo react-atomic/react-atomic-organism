@@ -60,10 +60,13 @@ class ConstraintField extends PureComponent {
 
   handleDisplayError(el, message, nativeMessage) {
     const { onDisplayError, hideMessageComponent } = this.props;
+    const hideMessage =
+      el.form.getAttribute("data-hide-message-component") ||
+      hideMessageComponent;
     if ("" !== message) {
       this.setState({
         "data-message-type": "error",
-        "data-message": hideMessageComponent ? null : message,
+        "data-message": hideMessage ? null : message,
       });
     } else {
       this.setState({
