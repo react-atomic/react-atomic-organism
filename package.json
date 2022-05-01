@@ -1,12 +1,14 @@
 {
+  "version": "0.14.3",
   "name": "react-atomic-organism",
-  "version": "0.14.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism"
+  },
   "description": "Atomic design in React (organisms)",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.js",
-  "repository": "react-atomic/react-atomic-organism",
   "keywords": [
-    "reactjs"
+    "react-atomic",
+    "react-atomic-ui"
   ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -27,6 +29,12 @@
     "react": "^18.x",
     "react-dom": "^18.x",
     "reshow-unit": "*"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
   },
   "scripts": {
     "format": "prettier-eslint --write '**/src/**/*.js' '**/ui/**/*.jsx'",
