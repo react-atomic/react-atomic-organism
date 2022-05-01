@@ -1,5 +1,5 @@
 {
-  "version": "0.2.6",
+  "version": "0.2.7",
   "name": "call-func",
   "repository": {
     "type": "git",
@@ -22,7 +22,6 @@
   "license": "MIT",
   "dependencies": {
     "css-query-selector": "*",
-    "get-object-value": "*",
     "reshow-constant": "*"
   },
   "devDependencies": {

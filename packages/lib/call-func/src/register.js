@@ -1,5 +1,4 @@
 import { KEYS } from "reshow-constant";
-import { initMap } from "get-object-value";
 import callfunc from "./callfunc";
 
 const count = {
@@ -37,10 +36,12 @@ class EventWrap {
 
   addEventListener = (type, func, ...options) => {
     const thisOptId = ++count.opt;
-    const thisTypeMap = initMap(this.typeMap)(type, []);
     const optionMap = this.optionMap;
     optionMap[thisOptId] = [type, func, ...options];
-    thisTypeMap.push(thisOptId);
+    if (!this.typeMap[type]) {
+      this.typeMap[type] = [];
+    }
+    this.typeMap[type].push(thisOptId);
     callfunc(this.el.addEventListener, optionMap[thisOptId], this.el);
     return thisOptId;
   };
@@ -58,7 +59,7 @@ class EventWrap {
     callfunc(this.el.removeEventListener, thisOptions, this.el);
     if (id) {
       const type = thisOptions[0];
-      const thisTypeMap = initMap(this.typeMap)(type, []);
+      const thisTypeMap = this.typeMap[type] || [];
       this.typeMap[type] = thisTypeMap.filter((item) => item != id);
       delete optionMap[id];
     }
