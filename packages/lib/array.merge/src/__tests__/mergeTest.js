@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import merge from "../index.js";
+import merge from "../index";
 
 describe("test array merge", () => {
   it("should return array, when only one is string", () => {

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { parseUrl } from "../index.js";
+import { parseUrl } from "../index";
 import getUrlAnaly from "../getUrlAnaly";
 
 describe("test url analy", () => {

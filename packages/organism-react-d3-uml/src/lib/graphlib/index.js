@@ -28,8 +28,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import * as lib from "./lib";
-import * as alg from "./lib/alg";
+import * as lib from "./lib/index";
+import * as alg from "./lib/alg/index";
 const { Graph, version } = lib;
 
 export { Graph, version, alg };

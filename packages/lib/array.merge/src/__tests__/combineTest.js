@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { combine, combineSub, getAllCombine } from "../index.js";
+import { combine, combineSub, getAllCombine } from "../index";
 
 describe("Test array combine", () => {
   it("test combine", () => {

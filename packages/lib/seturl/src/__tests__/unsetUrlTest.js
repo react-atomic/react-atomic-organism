@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import gjsdom from "jsdom-global";
 
-import { unsetUrl } from "../index.js";
+import { unsetUrl } from "../index";
 
 describe("test clean url", () => {
   let reset;

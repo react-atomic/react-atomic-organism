@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import gjsdom from "jsdom-global";
 
-import set from "../index.js";
+import set from "../index";
 
 describe("test set url", () => {
   let reset;

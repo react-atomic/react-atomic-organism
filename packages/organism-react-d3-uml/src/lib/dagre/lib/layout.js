@@ -4,13 +4,13 @@ import * as nestingGraph from "./nesting-graph";
 import * as coordinateSystem from "./coordinate-system";
 import * as normalize from "./normalize";
 import * as util from "./util";
-import rank from "./rank";
-import order from "./order";
+import rank from "./rank/index";
+import order from "./order/index";
+import position from "./position/index";
 import { pick, mapValues } from "../../lodash-lite";
 const { normalizeRanks, removeEmptyRanks } = util;
 import parentDummyChains from "./parent-dummy-chains";
 import addBorderSegments from "./add-border-segments";
-import position from "./position";
 import { Graph } from "./graphlib";
 
 export default layout;

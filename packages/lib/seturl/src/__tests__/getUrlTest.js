@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import gjsdom from "jsdom-global";
 
-import { getUrl } from "../index.js";
+import { getUrl } from "../index";
 
 describe("test get url", () => {
   let reset;

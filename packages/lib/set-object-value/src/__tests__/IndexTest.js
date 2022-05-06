@@ -1,5 +1,5 @@
-import set, { unsafeSet } from "../index.js";
 import { expect } from "chai";
+import set, { unsafeSet } from "../index";
 
 describe("Test set", () => {
   it("check set result", () => {

@@ -1,1 +1,1 @@
-export { Graph, alg } from "../../graphlib";
+export { Graph, alg } from "../../graphlib/index";

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { removeEmpty } from "../index.js";
+import { removeEmpty } from "../index";
 
 describe("Test remove empty", () => {
   it("test array", () => {
