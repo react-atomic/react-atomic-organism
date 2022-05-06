@@ -2,7 +2,7 @@ import get from "get-object-value";
 import dedup from "array.dedup";
 import nonWorker from "non-worker";
 import { KEYS } from "reshow-constant";
-import * as dagre from "./lib/dagre";
+import * as dagre from "./lib/dagre/index";
 
 const oNonWorker = new nonWorker((e) => {
   const { nodes, conns, queueId } = get(e, ["data"]);

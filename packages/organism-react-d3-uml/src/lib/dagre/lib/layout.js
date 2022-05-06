@@ -1,18 +1,18 @@
 import { KEYS } from "reshow-constant";
-import * as acyclic from "./acyclic";
-import * as nestingGraph from "./nesting-graph";
-import * as coordinateSystem from "./coordinate-system";
-import * as normalize from "./normalize";
-import * as util from "./util";
+import { pick, mapValues } from "../../lodash-lite";
 import rank from "./rank/index";
 import order from "./order/index";
 import position from "./position/index";
-import { pick, mapValues } from "../../lodash-lite";
-const { normalizeRanks, removeEmptyRanks } = util;
-import parentDummyChains from "./parent-dummy-chains";
+import * as acyclic from "./acyclic";
 import addBorderSegments from "./add-border-segments";
+import * as coordinateSystem from "./coordinate-system";
 import { Graph } from "./graphlib";
+import * as nestingGraph from "./nesting-graph";
+import * as normalize from "./normalize";
+import parentDummyChains from "./parent-dummy-chains";
+import * as util from "./util";
 
+const { normalizeRanks, removeEmptyRanks } = util;
 export default layout;
 
 function layout(g, opts) {
