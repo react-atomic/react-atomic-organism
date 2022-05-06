@@ -1,10 +1,8 @@
 {
   "name": "organism-react-typing",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Typing animations with React",
   "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.js",
   "keywords": [
     "react",
     "reactjs"
@@ -21,6 +19,12 @@
     "react-dom": "^18.x",
     "reshow-app": "*"
   },
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
   "scripts": {
     "start": "ws",
     "webpack": "webpack",
@@ -32,7 +36,7 @@
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --out-file-extension .mjs --root-mode upward",
     "build:es": "npm run build:es:src && npm run build:es:ui",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mochaFor": "mocha -r jsdom-global/register",
+    "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"

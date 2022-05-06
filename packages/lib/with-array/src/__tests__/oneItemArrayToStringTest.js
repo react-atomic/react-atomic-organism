@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { oneItemArrayToString } from "../index.js";
+import { oneItemArrayToString } from "../index";
 
 describe("Test oneItemArrayToString", () => {
   it("basic test", () => {
