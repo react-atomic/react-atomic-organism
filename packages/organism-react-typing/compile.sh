@@ -9,7 +9,7 @@ webpack='npm run webpack --'
 analyzer(){
     echo "Analyzer Mode";
     npm run build
-    CONFIG=$conf BUNDLE='{}' $webpack --display-used-exports
+    CONFIG=$conf BUNDLE='{}' $webpack
 }
 
 develop(){
