@@ -38,9 +38,6 @@ const handleStart = (
   }
   const index = getIndex(isAppear, isExit, stepKeys);
   const action = getAction(false, ing, actionKeys);
-  if (!isExit && !ing) {
-    node.style.visibility = "hidden";
-  }
   const thisDelay = getValue(delay, index, 0);
   setTimeout(() => {
     const thisClass = getClassName(classNames, index, action);
@@ -74,10 +71,14 @@ const handleReset = (
   { classNames, delay, stepKeys, actionKeys },
   handler,
   isExit,
+  isDone,
   node,
   isAppear
 ) => {
   if (node) {
+    if (!isExit && !isDone) {
+      node.style.visibility = "hidden";
+    }
     const index = getIndex(isAppear, isExit, stepKeys);
     KEYS(actionKeys).forEach((key) => {
       const action = actionKeys[key];
@@ -103,28 +104,32 @@ const CSSTransition = ({
   },
   classNames,
   delay,
+  beforeEnter,
+  afterEnter,
   onEnter,
   onEntering,
   onEntered,
+  beforeExit,
+  afterExit,
   onExit,
   onExiting,
   onExited,
-  resetEntered,
-  resetExited,
   ...props
 }) => {
   const options = { classNames, delay, stepKeys, actionKeys };
   return (
     <Transition
       {...props}
+      beforeEnter={handleReset.bind(this, options, beforeEnter, false, false)}
+      afterEnter={handleReset.bind(this, options, afterEnter, false, true)}
       onEnter={handleStart.bind(this, options, onEnter, false, false)}
       onEntering={handleStart.bind(this, options, onEntering, false, true)}
       onEntered={handleFinish.bind(this, options, onEntered, false)}
-      resetEntered={handleReset.bind(this, options, resetEntered, false)}
+      beforeExit={handleReset.bind(this, options, beforeExit, true, false)}
+      afterExit={handleReset.bind(this, options, afterExit, true, true)}
       onExit={handleStart.bind(this, options, onExit, true, false)}
       onExiting={handleStart.bind(this, options, onExiting, true, true)}
       onExited={handleFinish.bind(this, options, onExited, true)}
-      resetExited={handleReset.bind(this, options, resetExited, true)}
     />
   );
 };

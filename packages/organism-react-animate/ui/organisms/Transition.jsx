@@ -96,9 +96,13 @@ const Transition = ({
   enter = true,
   exit = true,
 
+  beforeEnter,
+  afterEnter,
   onEnter,
   onEntering,
   onEntered,
+  beforeExit,
+  afterExit,
   onExit,
   onExiting,
   onExited,
@@ -107,8 +111,6 @@ const Transition = ({
   timeout,
   addEndListener,
   getProps,
-  resetEntered,
-  resetExited,
   ...props
 }) => {
   const propsIn = null != props.in ? props.in : false;
@@ -175,14 +177,14 @@ const Transition = ({
         const timeouts = getTimeouts(timeout);
         if (nextStatus === ENTERING) {
           perform({
+            setUp: beforeEnter,
+            tearDown: afterEnter,
             step1: ENTERSTART,
             step1Cb: onEnter,
             step2: ENTERING,
             step2Cb: onEntering,
             step3: ENTERED,
             step3Cb: onEntered,
-            setUp: resetExited,
-            tearDown: resetEntered,
             goToLast: (mounting && !appear) || (!mounting && !enter),
             node: lastNode.current,
             safeSetState,
@@ -192,14 +194,14 @@ const Transition = ({
           });
         } else {
           perform({
+            setUp: beforeExit,
+            tearDown: afterExit,
             step1: EXITSTART,
             step1Cb: onExit,
             step2: EXITING,
             step2Cb: onExiting,
             step3: EXITED,
             step3Cb: onExited,
-            setUp: resetEntered,
-            tearDown: resetExited,
             goToLast: !exit,
             node: lastNode.current,
             safeSetState,
