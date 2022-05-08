@@ -12,8 +12,14 @@ import { useMounted } from "reshow-hooks";
 import { KEYS } from "reshow-constant";
 
 import CSSTransition from "../organisms/CSSTransition";
-import { UNMOUNTED, ENTERSTART, EXITED } from "../organisms/Transition";
-import { dataStatusKey } from "../../src/const";
+import {
+  dataStatusKey,
+  aniTransitioning,
+  UNMOUNTED,
+  ENTERSTART,
+  ENTERING,
+  EXITED,
+} from "../../src/const";
 
 const getAniProps = (props, enterToAppear) => {
   const {
@@ -142,18 +148,19 @@ export default AnimateGroup;
 
 const injects = {};
 const InjectStyles = ({ statusKey }) => ({
-  init: [
+  hide: [
     {
       visibility: "hidden",
     },
-    [`[${statusKey}="${UNMOUNTED}"]`, `[${statusKey}="${ENTERSTART}"]`].join(
-      ","
-    ),
+    [
+      `[${statusKey}="${ENTERSTART}"]`,
+      `[${statusKey}="${ENTERING}"]:not(.${aniTransitioning})`,
+    ].join(","),
   ],
   exit: [
     {
       display: "none",
     },
-    `[${statusKey}="${EXITED}"]`,
+    [`[${statusKey}="${EXITED}"]`, `[${statusKey}="${UNMOUNTED}"]`].join(","),
   ],
 });

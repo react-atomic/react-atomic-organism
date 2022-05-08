@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useMemo } from "react";
 import callfunc from "call-func";
+import { useMounted } from "reshow-hooks";
 import Animate from "../organisms/Animate";
 
 const Change = (props) => {
@@ -11,13 +12,13 @@ const Change = (props) => {
     ...otherProps
   } = props;
   const [children, setChildren] = useState(propsChildren);
-  const mount = useRef(false);
+  const _mount = useMounted();
   const nextChildren = useRef(propsChildren);
   const isRunning = useRef(false);
   const nextCall = useRef(false);
 
   const handleExited = (node, isAppear) => {
-    if (mount.current && nextChildren.current) {
+    if (_mount() && nextChildren.current) {
       setChildren(nextChildren.current);
       callfunc(onExited, [node, isAppear]);
     }
@@ -25,14 +26,15 @@ const Change = (props) => {
 
   const handleEntered = (node, isAppear) => {
     isRunning.current = false;
-    if (nextCall.current) {
-      callfunc(nextCall.current);
+    if (_mount()) {
+      if (nextCall.current) {
+        callfunc(nextCall.current);
+      }
+      callfunc(onEntered, [node, isAppear]);
     }
-    setTimeout(() => mount.current && callfunc(onEntered, [node, isAppear]));
   };
 
   useEffect(() => {
-    mount.current = true;
     const setNext = (willChild) => {
       const reset = () => {
         nextCall.current = () => setNext(willChild);
@@ -55,9 +57,7 @@ const Change = (props) => {
     };
     setNext(propsChildren);
 
-    return () => {
-      mount.current = false;
-    };
+    return () => {};
   }, [propsChildren]);
 
   return useMemo(

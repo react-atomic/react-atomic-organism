@@ -4,6 +4,7 @@ import callfunc from "call-func";
 import { KEYS } from "reshow-constant";
 
 import Transition from "../organisms/Transition";
+import { aniTransitioning } from "../../src/const";
 
 const getIndex = (isAppear, isExit, { exit, appear, enter }) => {
   const index = isExit ? exit : isAppear ? appear : enter;
@@ -37,10 +38,10 @@ const handleStart = (
   const action = getAction(false, ing, actionKeys);
   const thisDelay = getValue(delay, index, 0);
   setTimeout(() => {
-    if (node) {
+    if (node && ing) {
       const thisClass = getClassName(classNames, index, action);
       if (thisClass) {
-        node.className = mixClass(node.className, thisClass);
+        node.className = mixClass(node.className, thisClass, aniTransitioning);
       }
       callfunc(handler, [node, isAppear]);
     }
@@ -79,7 +80,11 @@ const handleReset = (
       const action = actionKeys[key];
       const thisClass = getClassName(classNames, index, action);
       if (thisClass) {
-        node.className = removeClass(node.className, thisClass);
+        node.className = removeClass(
+          node.className,
+          thisClass,
+          aniTransitioning
+        );
       }
     });
   }

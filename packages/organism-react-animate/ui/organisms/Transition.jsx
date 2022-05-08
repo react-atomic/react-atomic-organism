@@ -4,15 +4,16 @@ import callfunc from "call-func";
 import { useTimer } from "reshow-hooks";
 import { T_UNDEFINED } from "reshow-constant";
 
-import { dataStatusKey } from "../../src/const";
-
-export const EXITSTART = "exit-start";
-export const EXITING = "exiting";
-export const EXITED = "exited";
-export const UNMOUNTED = "unmounted";
-export const ENTERSTART = "enter-start";
-export const ENTERING = "entering";
-export const ENTERED = "entered";
+import {
+  dataStatusKey,
+  EXITSTART,
+  EXITING,
+  EXITED,
+  UNMOUNTED,
+  ENTERSTART,
+  ENTERING,
+  ENTERED,
+} from "../../src/const";
 
 const getTimeouts = (timeout) => {
   let exit, enter, appear;
@@ -216,7 +217,7 @@ const useTransition = ({
     if (lastData.current.callbackWith === status) {
       const moreProps = callfunc(lastData.current.nextCallback, [status]);
       if (moreProps) {
-        otherProps = {...otherProps, ...moreProps};
+        otherProps = { ...otherProps, ...moreProps };
       }
     }
 
