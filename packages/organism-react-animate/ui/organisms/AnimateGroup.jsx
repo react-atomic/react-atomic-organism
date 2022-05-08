@@ -9,21 +9,18 @@ import {
 import get from "get-object-value";
 import callfunc from "call-func";
 import { useMounted } from "reshow-hooks";
+import { KEYS } from "reshow-constant";
 
 import CSSTransition from "../organisms/CSSTransition";
 import { UNMOUNTED, ENTERSTART, EXITED } from "../organisms/Transition";
 import { dataStatusKey } from "../../src/const";
 
-const keys = Object.keys;
-
 const getAniProps = (props, enterToAppear) => {
   const {
-    unmountOnExit = true,
     statusKey,
     timeout,
     delay,
     classNames,
-    mountOnEnter,
     enter,
     exit,
     addEndListener,
@@ -46,8 +43,6 @@ const getAniProps = (props, enterToAppear) => {
     timeout,
     delay,
     classNames,
-    mountOnEnter,
-    unmountOnExit,
     appear,
     enter,
     exit,
@@ -77,7 +72,7 @@ const AnimateGroup = (props) => {
   const [children, setChildren] = useState();
   const _mount = useMounted();
   const aniProps = getAniProps(otherProps, true);
-  keys(aniProps).forEach((key) => delete otherProps[key]);
+  KEYS(aniProps).forEach((key) => delete otherProps[key]);
   injects[statusKey] = useLazyInject(
     InjectStyles({ statusKey }),
     injects[statusKey]
@@ -110,7 +105,7 @@ const AnimateGroup = (props) => {
         )
     );
     const allChildMapping = { ...prevChildMapping, ...nextChildMapping };
-    keys(allChildMapping).forEach((key) => {
+    KEYS(allChildMapping).forEach((key) => {
       const child = allChildMapping[key];
       const hasPrev = key in prevChildMapping;
       const hasNext = key in nextChildMapping;
@@ -138,7 +133,7 @@ const AnimateGroup = (props) => {
     otherProps.className = mixClass(className, "animate-group-container");
     return build(component)(
       otherProps,
-      keys(children || {}).map((key) => children[key])
+      KEYS(children || {}).map((key) => children[key])
     );
   }, [children]);
 };

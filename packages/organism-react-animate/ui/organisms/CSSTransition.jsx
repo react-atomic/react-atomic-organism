@@ -44,7 +44,6 @@ const handleStart = (
     if (thisClass) {
       node.className = mixClass(node.className, thisClass);
     }
-    node.style.visibility = "inherit";
     callfunc(handler, [node, isAppear]);
   }, thisDelay);
 };
@@ -76,9 +75,6 @@ const handleReset = (
   isAppear
 ) => {
   if (node) {
-    if (!isExit && !isDone) {
-      node.style.visibility = "hidden";
-    }
     const index = getIndex(isAppear, isExit, stepKeys);
     KEYS(actionKeys).forEach((key) => {
       const action = actionKeys[key];

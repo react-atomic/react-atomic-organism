@@ -6,10 +6,10 @@ import { T_UNDEFINED } from "reshow-constant";
 
 import { dataStatusKey } from "../../src/const";
 
-export const UNMOUNTED = "unmounted";
 export const EXITSTART = "exit-start";
 export const EXITING = "exiting";
 export const EXITED = "exited";
+export const UNMOUNTED = "unmounted";
 export const ENTERSTART = "enter-start";
 export const ENTERING = "entering";
 export const ENTERED = "entered";
@@ -86,9 +86,9 @@ const perform = ({
   }
 };
 
-const Transition = ({
-  statusKey = dataStatusKey,
+const useTransition = ({
   component = SemanticUI,
+  statusKey = dataStatusKey,
   mountOnEnter = false,
   unmountOnExit = false,
 
@@ -111,9 +111,9 @@ const Transition = ({
   timeout,
   addEndListener,
   getProps,
-  ...props
+  ...otherProps
 }) => {
-  const propsIn = null != props.in ? props.in : false;
+  const propsIn = null != otherProps.in ? otherProps.in : false;
   const [status, setStatus] = useState(() => {
     const thisAppear = appear;
     let initialStatus;
@@ -143,10 +143,6 @@ const Transition = ({
   const [TransitionEndTimer, StopTransitionEndTimer] = useTimer();
 
   useEffect(() => {
-    if (lastData.current.callbackWith === status) {
-      callfunc(lastData.current.nextCallback, [status]);
-    }
-
     const safeSetState = (nextStatus, callback) => {
       // This shouldn't be necessary, but there are weird race conditions with
       // setState callbacks and unmounting in testing, so always make sure that
@@ -210,9 +206,13 @@ const Transition = ({
           });
         }
       } else if (unmountOnExit && status === EXITED) {
-        safeSetState(UNMOUNTED);
+        setStatus(UNMOUNTED);
       }
     };
+
+    if (lastData.current.callbackWith === status) {
+      callfunc(lastData.current.nextCallback, [status]);
+    }
 
     let nextStatus = null;
     let mounting = null;
@@ -242,19 +242,36 @@ const Transition = ({
       StopTransitionEndTimer();
     };
   }, [propsIn, status]);
+  return {
+    status,
+    otherProps,
+    component,
+    children,
+    statusKey,
+    lastNode,
+    getProps,
+  };
+};
 
-  return useMemo(() => {
-    let nextProps;
-    if (status !== UNMOUNTED) {
-      nextProps = { ...props, in: T_UNDEFINED };
-      nextProps.children = build(children)(nextProps);
-    }
-    return build(component)({
-      [statusKey]: status,
-      refCb: lastNode,
-      ...(callfunc(getProps, [status, nextProps]) || nextProps),
-    });
-  }, [props]);
+const Transition = (props) => {
+  const {
+    status,
+    otherProps,
+    component,
+    children,
+    statusKey,
+    lastNode,
+    getProps,
+  } = useTransition(props);
+  const nextProps = { ...otherProps, in: T_UNDEFINED };
+  if (status !== UNMOUNTED) {
+    nextProps.children = children;
+  }
+  return build(component)({
+    [statusKey]: status,
+    refCb: lastNode,
+    ...(callfunc(getProps, [status, nextProps]) || nextProps),
+  });
 };
 
 export default Transition;
