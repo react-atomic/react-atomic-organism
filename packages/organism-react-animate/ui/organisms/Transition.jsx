@@ -65,12 +65,16 @@ const perform = ({
   timeout,
 }) => {
   const last = () => {
-    onTransitionEnd(node, timeout, () => {
-      safeSetState(step3, () => {
-        callfunc(step3Cb, [node, isAppear]);
-        setTimeout(() => callfunc(tearDown, [node, isAppear]));
-      });
-    });
+    onTransitionEnd(
+      () => {
+        safeSetState(step3, () => {
+          callfunc(step3Cb, [node, isAppear]);
+          setTimeout(() => callfunc(tearDown, [node, isAppear]));
+        });
+      },
+      timeout,
+      node
+    );
   };
   callfunc(setUp, [node, isAppear]);
   if (goToLast) {
@@ -154,7 +158,7 @@ const useTransition = ({
       setStatus(nextStatus);
     };
 
-    const onTransitionEnd = (node, timeout, handler) => {
+    const onTransitionEnd = (handler, timeout, node) => {
       const callback = setNextCallback(() => {
         callfunc(handler);
         callfunc(addEndListener, [{ node, state: lastData.current, status }]);

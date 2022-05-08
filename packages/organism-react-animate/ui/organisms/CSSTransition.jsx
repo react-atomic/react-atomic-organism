@@ -33,18 +33,17 @@ const handleStart = (
   node,
   isAppear
 ) => {
-  if (!node || !node.style) {
-    return;
-  }
   const index = getIndex(isAppear, isExit, stepKeys);
   const action = getAction(false, ing, actionKeys);
   const thisDelay = getValue(delay, index, 0);
   setTimeout(() => {
-    const thisClass = getClassName(classNames, index, action);
-    if (thisClass) {
-      node.className = mixClass(node.className, thisClass);
+    if (node) {
+      const thisClass = getClassName(classNames, index, action);
+      if (thisClass) {
+        node.className = mixClass(node.className, thisClass);
+      }
+      callfunc(handler, [node, isAppear]);
     }
-    callfunc(handler, [node, isAppear]);
   }, thisDelay);
 };
 
