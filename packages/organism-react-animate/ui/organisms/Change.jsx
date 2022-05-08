@@ -4,10 +4,10 @@ import Animate from "../organisms/Animate";
 
 const Change = (props) => {
   const {
+    keyEqualer = (item1, item2) => item1?.key === item2?.key,
     children: propsChildren,
     onExited,
     onEntered,
-    keyEqualer,
     ...otherProps
   } = props;
   const [children, setChildren] = useState(propsChildren);
@@ -72,11 +72,6 @@ const Change = (props) => {
     ),
     [children]
   );
-};
-
-Change.defaultProps = {
-  unmountOnExit: false,
-  keyEqualer: (item1, item2) => item1?.key === item2?.key,
 };
 
 export default Change;

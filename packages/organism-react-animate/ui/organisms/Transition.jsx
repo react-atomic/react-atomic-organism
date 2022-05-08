@@ -114,7 +114,6 @@ const useTransition = ({
   children,
   timeout,
   addEndListener,
-  getProps,
   ...otherProps
 }) => {
   const propsIn = null != otherProps.in ? otherProps.in : false;
@@ -215,7 +214,10 @@ const useTransition = ({
     };
 
     if (lastData.current.callbackWith === status) {
-      callfunc(lastData.current.nextCallback, [status]);
+      const moreProps = callfunc(lastData.current.nextCallback, [status]);
+      if (moreProps) {
+        otherProps = {...otherProps, ...moreProps};
+      }
     }
 
     let nextStatus = null;
@@ -253,20 +255,12 @@ const useTransition = ({
     children,
     statusKey,
     lastNode,
-    getProps,
   };
 };
 
 const Transition = (props) => {
-  const {
-    status,
-    otherProps,
-    component,
-    children,
-    statusKey,
-    lastNode,
-    getProps,
-  } = useTransition(props);
+  const { status, otherProps, component, children, statusKey, lastNode } =
+    useTransition(props);
   const nextProps = { ...otherProps, in: T_UNDEFINED };
   if (status !== UNMOUNTED) {
     nextProps.children = children;
@@ -274,7 +268,7 @@ const Transition = (props) => {
   return build(component)({
     [statusKey]: status,
     refCb: lastNode,
-    ...(callfunc(getProps, [status, nextProps]) || nextProps),
+    ...nextProps,
   });
 };
 
