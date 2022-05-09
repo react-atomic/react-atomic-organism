@@ -5,14 +5,13 @@ import getDefaultValue from "./getDefaultValue";
  * const o = {};
  *
  * Before:
- * if (!o[k]) { // <-- u need do it, before every set.
- *  o[k] = {x:[], y:[]};
+ * if (!o["foo"]) { // <-- u need do it, before every set.
+ *  o["foo"] = [];
  * } 
- * o.k.x.push('z');
+ * o.foo.push('bar');
  *
  * After:
- * initMap(o)(k, {x:[], y:[]});
- * o.k.x.push('z');
+ * initMap(o)("foo", []).push('bar');
  */
 const initMap = (o) => (k, defaultValue) =>
   o[k] || (o[k] = getDefaultValue(defaultValue));
