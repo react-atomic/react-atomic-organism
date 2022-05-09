@@ -56,8 +56,17 @@ describe("Storage", () => {
       fakeSetter(fakeStore)
     );
     const result = fakeStorage.merge({foo: "bar"});
+    expect(fakeStore).to.deep.equal({ foo: '5,"bar"' });
     expect(result.get('foo')).to.equal("bar");
     const result2 = result.merge({foo: "bar1"});
     expect(result === result2).to.be.false;
+  });
+  it("test disable encode", ()=>{
+    const fakeStore = {};
+    const fakeStorage = new Storage(
+      fakeSetter(fakeStore), true
+    );
+    fakeStorage.merge({foo: "bar"});
+    expect(fakeStore).to.deep.equal({foo: "bar"});
   });
 });

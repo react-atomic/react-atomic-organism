@@ -23,16 +23,17 @@ const decode = (s) => {
 };
 
 class Storage {
-  constructor(_storage) {
+  constructor(_storage, _disableEncode) {
     this._storage = _storage;
+    this._disableEncode = _disableEncode;
   }
 
   set(k, v) {
     const origV = this.get(k);
     if (v !== origV) {
-      const s = encode(v);
+      const s = this._disableEncode ? v : encode(v);
       this._storage(k)(s);
-      return new Storage(this._storage);
+      return new Storage(this._storage, this._disableEncode);
     } else {
       return this;
     }
@@ -56,7 +57,7 @@ class Storage {
     if (!s) {
       return;
     }
-    return decode(s);
+    return this._disableEncode ? s : decode(s);
   }
 }
 
