@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { reactStyle } from "react-atomic-molecule";
-import getKeyframe from "keyframe-css";
 import { doc } from "win-doc";
 import { useMounted } from "reshow-hooks";
+import getKeyframe from "keyframe-css";
+import { initMap } from "get-object-value";
 
 import AnimateGroup from "../organisms/AnimateGroup";
 
@@ -10,31 +11,28 @@ const inject = {};
 const injectDone = {};
 const injectCb = {};
 const init = (key, ani, timeout, callback) => {
-  if (!injectCb[ani]) {
-    injectCb[ani] = [];
-  }
-  if (!injectDone[ani]) {
-    injectCb[ani].push(callback);
-  } else {
-    callback();
-  }
+  injectDone[ani] ? callback() : initMap(injectCb)(ani, []).push(callback);
   if (inject[key] || doc().__null) {
     return;
   }
-  reactStyle(
-    {
-      animationName: [ani],
-      animationDuration: [timeout * 1 + 30 + "ms"],
-      ...Styles.linear,
-    },
-    "." + key,
-    key
-  );
+  const buildAniStyle = () => {
+    reactStyle(
+      {
+        animationName: [ani],
+        animationDuration: [timeout + 1 + "ms"],
+        animationIterationCount: [1],
+        animationTimingFunction: [`steps(${Math.floor(timeout / 30)}, end)`],
+      },
+      "." + key,
+      key
+    );
+  };
+  injectDone[ani] ? buildAniStyle(injectDone[ani]) : injectCb[ani].push(buildAniStyle);
 
   // Need locate after reactStyle, for inject latest style in getKeyframe function
   getKeyframe(ani, () => {
     injectDone[ani] = true;
-    injectCb[ani].forEach((cb) => cb());
+    injectCb[ani].forEach((cb) => cb(injectDone[ani]));
   });
   inject[key] = true;
 };
@@ -141,10 +139,3 @@ const Animate = (props) => {
 };
 
 export default Animate;
-
-const Styles = {
-  linear: {
-    animationIterationCount: [1],
-    animationTimingFunction: ["linear"],
-  },
-};
