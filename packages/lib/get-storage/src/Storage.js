@@ -28,9 +28,14 @@ class Storage {
   }
 
   set(k, v) {
-    const s = encode(v);
-    this._storage(k)(s);
-    return new Storage(this._storage);
+    const origV = this.get(k);
+    if (v !== origV) {
+      const s = encode(v);
+      this._storage(k)(s);
+      return new Storage(this._storage);
+    } else {
+      return this;
+    }
   }
 
   merge(arr) {
@@ -41,8 +46,9 @@ class Storage {
     if (!pKeys || !pKeys.length) {
       return this;
     }
-    pKeys.forEach((key) => this.set(key, arr[key]));
-    return new Storage(this._storage);
+    let nextObj;
+    pKeys.forEach((key) => (nextObj = this.set(key, arr[key])));
+    return nextObj;
   }
 
   get(k) {

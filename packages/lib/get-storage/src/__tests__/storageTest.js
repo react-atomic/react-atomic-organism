@@ -27,7 +27,7 @@ describe("Storage", () => {
     expect(sEncode).to.equal('13,{"foo":"bar"}');
     expect(decode(sEncode)).to.deep.equal(o);
   });
-  it("test storage", () => {
+  it("test storage / set, get", () => {
     const fakeStore = {};
     const fakeStorage = new Storage(
       fakeSetter(fakeStore)
@@ -39,5 +39,25 @@ describe("Storage", () => {
       { foo: '5,"bar"' }
     );
     expect(foo.get('foo')).to.equal("bar");
+  });
+  it("test merge / merge same value", ()=>{
+    const fakeStore = {};
+    const fakeStorage = new Storage(
+      fakeSetter(fakeStore)
+    );
+    const result = fakeStorage.merge({foo: "bar"});
+    expect(result.get('foo')).to.equal("bar");
+    const result2 = result.merge({foo: "bar"});
+    expect(result === result2).to.be.true;
+  });
+  it("test merge / merge different value", ()=>{
+    const fakeStore = {};
+    const fakeStorage = new Storage(
+      fakeSetter(fakeStore)
+    );
+    const result = fakeStorage.merge({foo: "bar"});
+    expect(result.get('foo')).to.equal("bar");
+    const result2 = result.merge({foo: "bar1"});
+    expect(result === result2).to.be.false;
   });
 });
