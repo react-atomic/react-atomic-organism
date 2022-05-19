@@ -1,7 +1,6 @@
-"use strict";
-
-import randKey, { getSN } from "../index.js";
 import { expect } from "chai";
+
+import randKey, { getSN } from "../index";
 
 describe("Test rand key", () => {
   it("get key", () => {
