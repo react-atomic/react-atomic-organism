@@ -1,16 +1,15 @@
 import { expect } from "chai";
-import sinon from "sinon";
+import { getSinon as sinon, cleanIt } from "reshow-unit";
 
-import {getTimestamp, expireCallback} from "../index";
+import { getTimestamp, expireCallback } from "../index";
 
 describe("Test expireCallback", () => {
-  let clock;
   beforeEach(() => {
-    clock = sinon.useFakeTimers();
+    sinon({useFakeTimers: true}).useFakeTimers();
   });
 
   afterEach(() => {
-    clock.restore();
+    cleanIt();
   });
 
   it("test run", () => {
@@ -32,7 +31,6 @@ describe("Test expireCallback", () => {
     );
     expect(acture).to.equal("bar");
   });
-
 
   it("test create time not valid", () => {
     const acture = expireCallback(
