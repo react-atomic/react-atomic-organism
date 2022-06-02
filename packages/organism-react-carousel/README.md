@@ -9,8 +9,9 @@ React carousel
 ## Example Usage
 Demo Url:
 https://react-atomic-ui.js.org/#/organisms
-<!--/hidden-->
 
 ## Todo
    * scroll-snap-type
       * https://web.dev/css-scroll-snap/
+
+<!--/hidden-->
