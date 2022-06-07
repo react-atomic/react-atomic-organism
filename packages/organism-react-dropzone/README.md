@@ -13,3 +13,6 @@ http://www.dropzonejs.com/#configuration-options
 
 ## Dropzone events
 http://www.dropzonejs.com/#events
+
+## inspire
+https://github.com/felixrieseberg/React-Dropzone-Component
