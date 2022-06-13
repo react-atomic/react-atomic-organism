@@ -12,12 +12,6 @@
     "reactjs",
     "webworker"
   ],
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.mjs",
-  "exports": {
-    "require": "./build/cjs/src/index.js",
-    "import": "./build/es/src/index.mjs"
-  },
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -45,6 +39,12 @@
     "react-dom": "^18.x",
     "reshow-unit": "*"
   },
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
   "scripts": {
     "build:dlog": "cat build/es/src/lib/dlog.mjs | sed 's/export default dlog;//' > build/dlog.js",
     "clean": "find ./build -name '*.*' | xargs rm -rf",
@@ -58,7 +58,7 @@
     "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
-    "prepublishOnly": "npm run test && npm run build"
+    "prepublishOnly": "npm run test"
   },
   "files": [
     "build",
