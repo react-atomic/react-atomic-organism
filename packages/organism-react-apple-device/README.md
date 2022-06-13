@@ -1,4 +1,4 @@
-React Animate 
+React Apple Device 
 ===============
    * GIT
       * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-apple-device 

@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import { render } from "reshow-unit";
 
-import EventTimeline from "../EventTimeline";
+import Browser from "../Browser";
 
-describe("EventTimeline Test", () => {
+describe("Browser Test", () => {
   it("basic test", () => {
-    const wrap = render(<EventTimeline />);
+    const wrap = render(<Browser />);
     expect(wrap.html()).to.have.string("div");
   });
 });
