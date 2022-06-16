@@ -88,7 +88,7 @@ const Event = (props) => {
     color = "#000",
     backgroundColor = "#fff",
     borderColor = "#0f87cd",
-    minHeight = 100,
+    minHeight = 150,
     animate,
     handleEventClick,
   } = props;

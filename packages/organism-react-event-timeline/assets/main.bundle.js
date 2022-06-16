@@ -141,7 +141,7 @@ var Event = function Event(props) {
       _props$borderColor = props.borderColor,
       borderColor = _props$borderColor === void 0 ? "#0f87cd" : _props$borderColor,
       _props$minHeight = props.minHeight,
-      minHeight = _props$minHeight === void 0 ? 100 : _props$minHeight,
+      minHeight = _props$minHeight === void 0 ? 150 : _props$minHeight,
       animate = props.animate,
       handleEventClick = props.handleEventClick;
 
@@ -574,7 +574,7 @@ var Index = function Index(props) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("642a028034f296ee72e6")
+/******/ 		__webpack_require__.h = () => ("5c782ad9e1e3556bffe5")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
