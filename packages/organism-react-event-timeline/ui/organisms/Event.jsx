@@ -11,6 +11,7 @@ import {
   Label,
   Header,
   Meta,
+  Row,
   SemanticUI,
 } from "react-atomic-molecule";
 
@@ -67,8 +68,8 @@ const EventContent = (props) => {
       style={{
         borderColor: backgroundColor,
         backgroundColor: lightenColor(backgroundColor, 60, 500),
-        color: color,
-        minHeight: minHeight,
+        color,
+        minHeight,
         ...Styles.content,
       }}
     >
@@ -82,13 +83,27 @@ const EventContent = (props) => {
 };
 
 const Event = (props) => {
-  const classes = mixClass(props.className, "event pure-g");
-  const { animate, backgroundColor, borderColor, minHeight, handleEventClick } =
-    props;
-  let content = <EventContent {...props} />;
+  const classes = mixClass(props.className, "event");
+  const {
+    color = "#000",
+    backgroundColor = "#fff",
+    borderColor = "#0f87cd",
+    minHeight = 100,
+    animate,
+    handleEventClick,
+  } = props;
+  let content = (
+    <EventContent
+      {...props}
+      color={color}
+      backgroundColor={backgroundColor}
+      borderColor={borderColor}
+      minHeight={minHeight}
+    />
+  );
   if (animate) {
     const aniProps = {
-      minHeight: minHeight,
+      minHeight,
       style: { width: "100%" },
       ...animate,
     };
@@ -99,7 +114,7 @@ const Event = (props) => {
     containerStyle.cursor = "pointer";
   }
   return (
-    <SemanticUI
+    <Row
       className={classes}
       style={containerStyle}
       onClick={(e) => {
@@ -124,16 +139,10 @@ const Event = (props) => {
         }}
       />
       {content}
-    </SemanticUI>
+    </Row>
   );
 };
 
-Event.defaultProps = {
-  color: "#000",
-  backgroundColor: "#fff",
-  borderColor: "#0f87cd",
-  minHeight: 180,
-};
 export default Event;
 
 const Styles = {
@@ -171,6 +180,7 @@ const Styles = {
     fontSize: "1.5rem",
     textTransform: "capitalize",
     fontWeight: 700,
+    textDecoration: "underline"
   },
   content: {
     position: "relative",
