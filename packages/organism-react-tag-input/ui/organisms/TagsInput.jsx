@@ -10,7 +10,7 @@ import {
 import Tag from "../organisms/Tag";
 
 const TagInput = (props) => {
-  injects = useLazyInject( InjectStyles, injects );
+  injects = useLazyInject(InjectStyles, injects);
   const {
     fluid,
     tags,

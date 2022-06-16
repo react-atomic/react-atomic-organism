@@ -7,7 +7,7 @@ import getDefaultValue from "./getDefaultValue";
  * Before:
  * if (!o["foo"]) { // <-- u need do it, before every set.
  *  o["foo"] = [];
- * } 
+ * }
  * o.foo.push('bar');
  *
  * After:

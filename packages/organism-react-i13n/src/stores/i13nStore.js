@@ -39,14 +39,12 @@ class I13nStore extends BaseI13nReducer {
 }
 
 const oI13n = new I13nStore();
-const [store, i13nDispatch] = ImmutableStore(
-  oI13n.reduce.bind(oI13n)
-);
+const [store, i13nDispatch] = ImmutableStore(oI13n.reduce.bind(oI13n));
 i13nStoreReAssign({
   oI13n,
   store,
   i13nDispatch,
-  mergeMap
+  mergeMap,
 });
 
 export default store;

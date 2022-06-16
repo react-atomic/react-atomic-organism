@@ -59,7 +59,7 @@ const D3JS = {
   schemeYlGn: null,
   schemeYlGnBu: null,
   schemeYlOrBr: null,
-  schemeYlOrRd: null
+  schemeYlOrRd: null,
 };
 
 const handleGetD3 = (d3js) => {

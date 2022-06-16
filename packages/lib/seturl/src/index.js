@@ -4,7 +4,6 @@ import { T_UNDEFINED, IS_ARRAY } from "reshow-constant";
 import getKeyReg, { getMultiMatchReg } from "./getKeyReg";
 import getUrlAnaly from "./getUrlAnaly";
 
-
 const defaultValue = T_UNDEFINED;
 
 const parseUrl = (url) => {

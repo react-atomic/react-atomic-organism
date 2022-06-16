@@ -5,7 +5,7 @@ import { getTimestamp, expireCallback } from "../index";
 
 describe("Test expireCallback", () => {
   beforeEach(() => {
-    sinon({useFakeTimers: true});
+    sinon({ useFakeTimers: true });
   });
 
   afterEach(() => {
