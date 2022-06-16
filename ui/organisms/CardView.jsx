@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import {
+  build,
   reactStyle,
   mixClass,
   Item,
@@ -13,30 +13,35 @@ import {
 } from "react-atomic-molecule";
 
 const CardView = (props) => {
-  let {
-    header,
+  const {
     headerProps,
-    meta,
-    description,
+    metaProps,
     dimmer,
-    content,
-    image,
-    imageAttr,
-    imageContainer,
+    imageProps,
     imageSrc,
-    imageWrapper,
     imageWrapperAttr,
     href,
     item,
     lineAtom,
-    ...others
+    ...letProps
   } = props;
+
+  let {
+    image,
+    content,
+    header,
+    meta,
+    description,
+    imageWrapper,
+    imageContainer,
+    ...others
+  } = letProps;
 
   if (header) {
     header = <Header {...headerProps}>{header}</Header>;
   }
   if (meta) {
-    meta = <Meta>{meta}</Meta>;
+    meta = <Meta {...metaProps}>{meta}</Meta>;
   }
   if (description) {
     description = <Description lineAtom={lineAtom}>{description}</Description>;
@@ -54,19 +59,18 @@ const CardView = (props) => {
     if (!imageContainer) {
       imageContainer = <Image />;
     }
-    image = React.cloneElement(
-      imageWrapper,
+    image = build(imageWrapper)(
       {
         className: "image-wrapper",
         href: href,
         style: Styles.imgWrapper,
         ...imageWrapperAttr,
       },
-      React.cloneElement(imageContainer, {
+      buuild(imageContainer)({
         styles: reactStyle(Styles.image, null, false),
         src: imageSrc,
         className: "rounded",
-        ...imageAttr,
+        ...imageProps,
       })
     );
     // fixed can't use padding with % in firefox and edge
@@ -99,10 +103,6 @@ const CardView = (props) => {
       {dimmer}
     </View>
   );
-};
-
-CardView.defaultProps = {
-  imageAttr: {},
 };
 
 export default CardView;
