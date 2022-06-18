@@ -34,6 +34,7 @@ class BasePopup extends PureComponent {
         popup: this,
       },
     });
+    return true;
   }
 }
 

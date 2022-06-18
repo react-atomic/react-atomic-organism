@@ -26,7 +26,7 @@ describe("Test PopupOverlay", () => {
     };
     const wrap = render(<VDom />);
     await waitFor(() => {
-      act(() => expect(wrap.html()).to.have.string('id="my-overlay"'));
+      expect(wrap.html()).to.have.string('id="my-overlay"');
     });
   });
 });

@@ -105,7 +105,7 @@ class PopupModal extends PopupOverlay {
           });
         }
       }
-    });
+    }, 300);
   };
 
   getBodyResetClass() {
@@ -152,10 +152,7 @@ class PopupModal extends PopupOverlay {
     win().addEventListener("resize", this.reCalculate);
     win().addEventListener("keyup", this.handleKeyUp);
     this.setBodyCssClass();
-    setTimeout(() => {
-      this.reCalculate();
-      this.setBodyCssClass();
-    }, 300);
+    this.reCalculate();
     const MutationObserver = win().MutationObserver;
     if (MutationObserver && this.el && !this._observer) {
       this._observer = new MutationObserver(this.reCalculate);

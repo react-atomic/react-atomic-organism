@@ -26,7 +26,7 @@ describe("Test PopupFloatEl", () => {
     };
     const wrap = render(<VDom />);
     await waitFor(() => {
-      act(()=>expect(wrap.html()).to.have.string('id="my-float"'));
+      expect(wrap.html()).to.have.string('id="my-float"');
     });
   });
 });

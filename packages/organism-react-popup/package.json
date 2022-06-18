@@ -1,5 +1,5 @@
 {
-  "version": "0.15.20",
+  "version": "0.15.22",
   "name": "organism-react-popup",
   "repository": {
     "type": "git",
@@ -8,12 +8,6 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-popup",
   "description": "React Atomic Organism Popup",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.mjs",
-  "exports": {
-    "require": "./build/cjs/src/index.js",
-    "import": "./build/es/src/index.mjs"
-  },
   "keywords": [
     "react",
     "react-component",
@@ -50,6 +44,12 @@
     "react-dom": "^18.x",
     "reshow-unit": "*"
   },
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs:src": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
@@ -59,7 +59,7 @@
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --out-file-extension .mjs --root-mode upward",
     "build:es": "npm run build:es:src && npm run build:es:ui",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mochaFor": "mocha -r global-jsdom/register",
+    "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
