@@ -1,11 +1,11 @@
 import { js, create } from "create-el";
 import { win, doc } from "win-doc";
-import { FUNCTION, STRING, SCRIPT } from "reshow-constant";
+import { FUNCTION, STRING, SCRIPT, KEYS } from "reshow-constant";
 import callfunc from "call-func";
+import { getSN } from "get-random-id";
 
 let scriptCount = 0;
 let lastScript;
-const keys = Object.keys;
 const getLastScript = () => lastScript;
 
 const handleScriptOnload =
@@ -74,13 +74,8 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   });
   const thisEl = STRING === typeof el ? create("div")()({ innerHTML: el }) : el;
   const scripts = thisEl.getElementsByTagName(SCRIPT);
-  const getNewKey = () => {
-    const k = "id-" + scriptCount;
-    scriptCount++;
-    return k;
-  };
-  let key = getNewKey();
-  let first = key;
+  let key = getSN("script");
+  const firstKey = key;
   for (let i = 0, len = scripts.length; i < len; i++) {
     const script = scripts[i];
     const src = script.src;
@@ -93,7 +88,7 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
         script.attributes.asyncKey = key;
         lastScripts.push(script);
       } else {
-        key = getNewKey();
+        key = getSN("script");
         script.attributes.key = key;
         queueScripts.push(script);
       }
@@ -104,7 +99,7 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
       inlineScripts[key].push(script.innerHTML);
     }
   }
-  onLoad(first);
+  onLoad(firstKey);
   return () => (bStop = true);
 };
 

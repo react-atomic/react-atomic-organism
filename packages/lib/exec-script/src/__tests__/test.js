@@ -1,17 +1,16 @@
 import { expect } from "chai";
-import gJsdom from "jsdom-global";
-
-import exec from "../index.js";
+import { jsdom, cleanIt } from "reshow-unit-dom";
 import callfunc from "call-func";
 
+import exec from "../index";
+
 describe("Exec Script", () => {
-  let jsdom;
   beforeEach(() => {
-    jsdom = gJsdom("", { runScripts: "dangerously" });
+    jsdom("", { runScripts: "dangerously" });
   });
 
   afterEach(() => {
-    jsdom();
+    cleanIt();
   });
 
   it("simple", () => {
@@ -29,7 +28,7 @@ describe("Exec Script", () => {
   it("syntax error without callback", () => {
     var test = () => exec("<script>window.a = (</script>");
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#Error_types
-    expect(test).to.throw("Unexpected token }");
+    expect(test).to.throw("Unexpected token");
   });
 
   it("test order", (done) => {
@@ -42,8 +41,8 @@ describe("Exec Script", () => {
     `;
     const expected = [
       { a: 111, src: undefined },
-      { a: 333, src: "//xxx/1.js" },
-      { a: "", src: "//xxx/2.js" },
+      { a: 333, src: "http://xxx/1.js" },
+      { a: "", src: "http://xxx/2.js" },
     ];
     exec(
       html,
@@ -69,7 +68,7 @@ describe("Exec Script", () => {
       <script>window.a = 333;</script>
       <script async src="//xxx/2.js"></script> 
     `;
-    const expected = ["//xxx/1.js", "//xxx/2.js"];
+    const expected = ["http://xxx/1.js", "http://xxx/2.js"];
     exec(
       html,
       window,
@@ -96,7 +95,7 @@ describe("Exec Script", () => {
       <script src="//xxx/3.js"></script> 
       <script>window.a = 333;</script>
     `;
-    const expected = ["//xxx/2.js", "//xxx/3.js", "//xxx/1.js"];
+    const expected = ["http://xxx/2.js", "http://xxx/3.js", "http://xxx/1.js"];
     const expectedA = [222, 333];
     exec(
       html,
