@@ -1,12 +1,14 @@
-import { UNDEFINED, STRING } from "reshow-constant";
+import { UNDEFINED, STRING, NUMBER } from "reshow-constant";
 
-const numTypes = `|number|${STRING}|`;
+const numTypes = `|${NUMBER}|${STRING}|`;
 
 const toPercent = (num) => percent(num) + "%";
 
 const percent = (num) => round(toNum(num) * 100);
 
 const round = (f, precision) => toNum(f).toFixed(precision ?? 2);
+
+const ERROR_INFO = "Get number fail.";
 
 const toNum = (num) => {
   if (UNDEFINED === typeof num) {
@@ -36,7 +38,7 @@ const toNum = (num) => {
             willNum = maybeString;
           }
         }
-        console.warn("Can not change to number well.", {
+        console.warn(ERROR_INFO, {
           willNum,
           maybeString,
           num,
@@ -56,7 +58,7 @@ const getNum = (s) => {
   }
   const match = s.replace(",", "").match(numReg);
   if (!match) {
-    console.warn("Get number fail", s);
+    console.warn(ERROR_INFO, s);
     return 0;
   } else {
     return toNum(match[0]);

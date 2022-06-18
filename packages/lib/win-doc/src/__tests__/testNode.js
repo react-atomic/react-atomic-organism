@@ -1,17 +1,16 @@
-import { win, doc, hasWin } from "../index.js";
 import { expect } from "chai";
-import jsdom from "jsdom-global";
+import { jsdom, cleanIt } from "reshow-unit-dom";
+import { win, doc, hasWin } from "../index";
 
 describe("Test doc in node", () => {
-  let cleanup;
 
   before(() => {
-    cleanup = jsdom();
+    jsdom();
     document = undefined;
     window = undefined;
   });
 
-  after(() => cleanup());
+  after(() => cleanIt());
 
   it("test doc", () => {
     const d = doc();
@@ -20,15 +19,14 @@ describe("Test doc in node", () => {
 });
 
 describe("Test win in node", () => {
-  let cleanup;
 
   before(() => {
-    cleanup = jsdom();
+    jsdom();
     document = undefined;
     window = undefined;
   });
 
-  after(() => cleanup());
+  after(() => cleanIt());
 
   it("test win", () => {
     const w = win();

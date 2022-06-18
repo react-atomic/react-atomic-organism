@@ -1,5 +1,5 @@
-import { win, doc, hasWin } from "../index";
 import { expect } from "chai";
+import { win, doc, hasWin } from "../index";
 
 describe("Test doc", () => {
   it("test doc", () => {

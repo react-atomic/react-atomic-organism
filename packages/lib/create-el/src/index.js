@@ -1,5 +1,5 @@
-import { doc } from "win-doc";
 import callfunc from "call-func";
+import { doc } from "win-doc";
 import { KEYS } from "reshow-constant";
 
 const inject = (base, isPrepend) => (dNode) => {
