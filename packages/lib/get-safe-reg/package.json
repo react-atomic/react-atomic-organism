@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.4.1",
   "name": "get-safe-reg",
   "repository": {
     "type": "git",
@@ -9,19 +9,18 @@
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/get-safe-reg",
   "description": "get safe regular-expression",
   "keywords": [],
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.mjs",
-  "exports": {
-    "require": "./build/cjs/src/index.js",
-    "import": "./build/es/src/index.mjs"
-  },
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "mocha": "*"
+    "reshow-unit-dom": "*"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",

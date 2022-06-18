@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { safeMatch } from "../index.js";
+import { safeMatch } from "../index";
 
 describe("test safe match", () => {
   it("basic test", () => {

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import getCookie, { setCookie, getCookieSetStr } from "../index.js";
+import getCookie, { setCookie, getCookieSetStr } from "../index";
 
 describe("test set cookie", () => {
   it("simple test", () => {

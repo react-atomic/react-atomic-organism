@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import getSafeReg from "../index.js";
+import getSafeReg from "../index";
 
 describe("test get safe reg", () => {
   let n;

@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import getCookie, { getCookieRegString, getCookieReg } from "../index.js";
+import getCookie, { getCookieRegString, getCookieReg } from "../index";
 
 describe("test get cookie", () => {
   it("get cookie string", () => {

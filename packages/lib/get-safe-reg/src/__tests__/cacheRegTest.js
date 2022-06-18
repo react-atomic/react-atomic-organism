@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import getSafeReg, { cacheReg } from "../index.js";
+import getSafeReg, { cacheReg } from "../index";
 
 describe("test cache reg", () => {
   const getRegString = (name) => "(([#?&])" + getSafeReg(name) + "=)([^&#]*)";
