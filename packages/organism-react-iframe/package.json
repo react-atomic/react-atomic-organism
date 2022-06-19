@@ -1,5 +1,5 @@
 {
-  "version": "0.11.0",
+  "version": "0.11.1",
   "name": "organism-react-iframe",
   "repository": {
     "type": "git",
@@ -24,7 +24,6 @@
     "react-atomic-molecule": "*",
     "reshow-hooks": "*",
     "reshow-runtime": "*",
-    "setimmediate": "^1.0.5",
     "smooth-scroll-to": "*",
     "win-doc": "*"
   },
