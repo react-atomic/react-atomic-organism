@@ -4,16 +4,11 @@ import React, {
   useState,
   useImperativeHandle,
 } from "react";
-
-import get from "get-object-value";
 import ratio from "ratio-js";
 
 import HTMLToCanvas from "../organisms/HTMLToCanvas";
+import getAsset from "../../src/getAsset";
 
-const defaultAssets = {
-  jspdf: "https://cdn.jsdelivr.net/npm/jspdf@2.1.0/dist/jspdf.umd.min.js",
-};
-const getAsset = (file) => get(defaultAssets, [file]);
 
 const HTMLToPDF = (props, ref) => {
   const canvas = useRef();

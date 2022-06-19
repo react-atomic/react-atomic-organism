@@ -1,21 +1,7 @@
-import React, {
-  forwardRef,
-  useRef,
-  useState,
-  useImperativeHandle,
-} from "react";
+import { forwardRef, useRef, useState, useImperativeHandle } from "react";
 import Iframe from "organism-react-iframe";
-import get from "get-object-value";
 import callfunc from "call-func";
-
-const defaultAssets = {
-  "html2canvas.min.js":
-    "https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.7/dist/html2canvas.min.js",
-};
-
-const getAsset = (file) => {
-  return get(defaultAssets, [file]);
-};
+import getAsset from "../../src/getAsset";
 
 const initialContent = (jsArr) => `<!DOCTYPE html>
 <html>
@@ -26,12 +12,12 @@ const initialContent = (jsArr) => `<!DOCTYPE html>
 </html>
 `;
 
-const HTMLToCanvasComp = (props, ref) => {
+const HTMLToCanvas = forwardRef((props, ref) => {
   const {
+    preview: hasPreview = false,
+    hideHtml = false,
     children,
     jsArr,
-    preview: hasPreview,
-    hideHtml,
     autoGenCanvas,
     onCanvas,
   } = props;
@@ -107,13 +93,8 @@ const HTMLToCanvasComp = (props, ref) => {
       {oPreview}
     </>
   );
-};
+});
 
-const HTMLToCanvas = forwardRef(HTMLToCanvasComp);
-
-HTMLToCanvas.defaultProps = {
-  preview: false,
-  hideHtml: false,
-};
+HTMLToCanvas.displayName = "HTMLToCanvas";
 
 export default HTMLToCanvas;
