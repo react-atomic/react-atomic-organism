@@ -27,16 +27,16 @@ describe("Test Array Search Index", () => {
     const arr = [
       {
         foo: 111,
-        bar2: 333
+        bar2: 333,
       },
       {
         foo: 111,
         bar: "222",
-        bar2: "333"
+        bar2: "333",
       },
       {
         foo: "111",
-        bar: "222"
+        bar: "222",
       },
     ];
     const result = arraySearchIndex(arr)("bar2");

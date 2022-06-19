@@ -43,11 +43,11 @@ describe("Test call func", () => {
     const func = (...p) => p;
     expect(callfunc(func, ["foo", "bar"])).to.deep.equal(["foo", "bar"]);
   });
-  
-  it("test return null", ()=>{
-    const actual1 = callfunc('foo');
-    expect(actual1).to.equal('foo');
-    const actual2 = callfunc('foo', null, null, null);
+
+  it("test return null", () => {
+    const actual1 = callfunc("foo");
+    expect(actual1).to.equal("foo");
+    const actual2 = callfunc("foo", null, null, null);
     expect(actual2).to.be.null;
   });
 
@@ -55,4 +55,3 @@ describe("Test call func", () => {
     expect(callfunc(undefined)).to.be.undefined;
   });
 });
-

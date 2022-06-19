@@ -1,6 +1,6 @@
 import React from "react";
 import { expect } from "chai";
-import {mount} from "reshow-unit";
+import { mount } from "reshow-unit";
 
 import Carousel from "../Carousel";
 

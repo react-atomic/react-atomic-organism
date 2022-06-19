@@ -180,7 +180,7 @@ const Styles = {
     fontSize: "1.5rem",
     textTransform: "capitalize",
     fontWeight: 700,
-    textDecoration: "underline"
+    textDecoration: "underline",
   },
   content: {
     position: "relative",

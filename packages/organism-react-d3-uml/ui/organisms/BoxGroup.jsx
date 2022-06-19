@@ -62,7 +62,7 @@ class BoxGroup extends Component {
 
   handleSetRef = (el) => {
     el && (this.el = el);
-  }
+  };
 
   handleGetEl = () => this.getEl();
 

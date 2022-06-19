@@ -27,7 +27,9 @@ const init = (key, ani, timeout, callback) => {
       key
     );
   };
-  injectDone[ani] ? buildAniStyle(injectDone[ani]) : injectCb[ani].push(buildAniStyle);
+  injectDone[ani]
+    ? buildAniStyle(injectDone[ani])
+    : injectCb[ani].push(buildAniStyle);
 
   // Need locate after reactStyle, for inject latest style in getKeyframe function
   getKeyframe(ani, () => {

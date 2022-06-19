@@ -38,11 +38,15 @@ const HTMLToPDF = (props, ref) => {
     }
   };
 
-  useImperativeHandle(ref, () => ({
-    download: () => {
-      canvas?.current?.getCanvas(execDownload);
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      download: () => {
+        canvas?.current?.getCanvas(execDownload);
+      },
+    }),
+    []
+  );
 
   return (
     <HTMLToCanvas

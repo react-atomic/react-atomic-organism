@@ -94,7 +94,7 @@ const Ellipsis = (props) => (
 );
 
 const Pagination = (pg) => {
-  injects = useLazyInject( InjectStyles, injects );
+  injects = useLazyInject(InjectStyles, injects);
   const {
     linkComponent,
     onPageChange,

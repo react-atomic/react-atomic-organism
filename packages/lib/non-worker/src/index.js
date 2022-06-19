@@ -23,7 +23,7 @@ class NonWorker {
       try {
         const post = postMessage;
         if (post) {
-          // only trigger for worker 
+          // only trigger for worker
           // use case: https://github.com/react-atomic/react-atomic-organism/blob/main/packages/organism-react-ajax/src/stores/ajaxStore.js#L23-L27
           post({ type: "ready" });
           /**

@@ -2741,9 +2741,9 @@ which@2.0.2, which@^2.0.1:
     isexe "^2.0.0"
 
 win-doc@*:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.1.1.tgz#1dc8ed698a832c3be41e14a40062bea6bbc585f6"
-  integrity sha512-XYR10OWnt0jCejIzl6T0pzW+KxTa2sxysVo9g74CG1dKccCA/hhCSRXLXoQLi8cE3hG0PSKvelWh40XmsBpSEA==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.2.0.tgz#4cca1a640f32a026d9a03c25574ed1417a746a72"
+  integrity sha512-riNSB5rgobVudVdjeKgr9Rlle3cqqRr1kCxNkF1eD67EQoYQjGRxgFE/5PUFHaBaCl7BIBijc+SvxsYdJ8YRrQ==
   dependencies:
     reshow-constant "*"
     reshow-runtime "*"

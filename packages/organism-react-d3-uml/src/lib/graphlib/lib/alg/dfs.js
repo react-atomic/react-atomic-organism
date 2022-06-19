@@ -12,7 +12,6 @@ export default dfs;
  * Order must be one of "pre" or "post".
  */
 function dfs(g, vs, order) {
-
   var navigation = (g.isDirected() ? g.successors : g.neighbors).bind(g);
 
   var acc = [];

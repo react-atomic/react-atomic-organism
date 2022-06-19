@@ -70,7 +70,6 @@ const useZoom = (props) => {
     return { isLoad, expose };
   }
 
-
   const getXYK = () => {
     const { x, y, k } = lastTransform.current || {};
     return { x, y, k };

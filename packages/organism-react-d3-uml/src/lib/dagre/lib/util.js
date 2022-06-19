@@ -1,4 +1,11 @@
-import { range, uniqueId, zipObject, now, calMax, calMin } from "../../lodash-lite";
+import {
+  range,
+  uniqueId,
+  zipObject,
+  now,
+  calMax,
+  calMin,
+} from "../../lodash-lite";
 import { Graph } from "./graphlib";
 
 export {

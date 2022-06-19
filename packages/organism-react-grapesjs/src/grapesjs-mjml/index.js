@@ -79,13 +79,9 @@ export default (editor, opt = {}) => {
   // Doesn't work without inline styling
   config.avoidInlineStyle = 0;
 
-  [
-    loadBlocks,
-    loadComponents,
-    loadCommands,
-    loadButtons,
-    loadStyle,
-  ].forEach((module) => module(editor, opts));
+  [loadBlocks, loadComponents, loadCommands, loadButtons, loadStyle].forEach(
+    (module) => module(editor, opts)
+  );
 
   // Update devices
   if (opts.resetDevices) {

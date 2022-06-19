@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import {arrayToObject} from "../index";
+import { arrayToObject } from "../index";
 
 describe("Test arrayToObject", () => {
   it("test arrayToObject", () => {

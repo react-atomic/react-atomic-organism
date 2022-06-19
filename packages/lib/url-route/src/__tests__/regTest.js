@@ -3,7 +3,7 @@ import sinon from "sinon";
 import Router from "../index";
 
 describe("Test Router with reg", () => {
-  it("basic test", ()=>{
+  it("basic test", () => {
     const cb = sinon.spy(() => {});
     const router = new Router();
     router.addRoute(/abc/, cb);
@@ -12,4 +12,3 @@ describe("Test Router with reg", () => {
     expect(cb.callCount).to.equal(1);
   });
 });
-

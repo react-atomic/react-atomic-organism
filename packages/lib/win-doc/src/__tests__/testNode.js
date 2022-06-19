@@ -3,7 +3,6 @@ import { jsdom, cleanIt } from "reshow-unit-dom";
 import { win, doc, hasWin } from "../index";
 
 describe("Test doc in node", () => {
-
   before(() => {
     jsdom();
     document = undefined;
@@ -19,7 +18,6 @@ describe("Test doc in node", () => {
 });
 
 describe("Test win in node", () => {
-
   before(() => {
     jsdom();
     document = undefined;

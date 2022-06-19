@@ -37,6 +37,7 @@
     "import": "./build/es/src/index.mjs"
   },
   "scripts": {
+    "yarn-up-all": "lerna exec yarn upgrade",
     "format": "prettier-eslint --write '**/src/**/*.js' '**/ui/**/*.jsx'",
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs:src": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__",

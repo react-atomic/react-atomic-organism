@@ -24,7 +24,6 @@ const Arc = (props) => {
     return null;
   }
 
-
   const angleData = [{ startAngle, endAngle }];
   const data = d3.arc(angleData, innerRadius, outerRadius, cornerRadius);
   const d = get(data, ["items", 0, "path"]);

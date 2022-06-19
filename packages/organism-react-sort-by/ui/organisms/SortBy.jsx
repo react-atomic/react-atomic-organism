@@ -14,7 +14,14 @@ const SortBy = ({
       {(uProps) => {
         const curSort = sort || uProps[sortKeyName];
         const curDesc = desc || uProps[descKeyName];
-        return <SortLink {...props} desc={curDesc} sort={curSort} sortKeyName={sortKeyName} />;
+        return (
+          <SortLink
+            {...props}
+            desc={curDesc}
+            sort={curSort}
+            sortKeyName={sortKeyName}
+          />
+        );
       }}
     </UrlReturn>
   );

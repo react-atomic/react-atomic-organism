@@ -50,4 +50,4 @@ const overlays = {
   candlesticks: CandlestickOverlay,
 };
 
-export default overlays; 
+export default overlays;

@@ -43,4 +43,3 @@ describe("Test isEmpty", () => {
     });
   });
 });
-

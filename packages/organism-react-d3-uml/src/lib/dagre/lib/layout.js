@@ -467,6 +467,8 @@ function selectNumberAttrs(obj, attrs) {
 
 function canonicalize(attrs) {
   var newAttrs = {};
-  KEYS(attrs || {}).forEach((key) => (newAttrs[key.toLowerCase()] = attrs[key]));
+  KEYS(attrs || {}).forEach(
+    (key) => (newAttrs[key.toLowerCase()] = attrs[key])
+  );
   return newAttrs;
 }

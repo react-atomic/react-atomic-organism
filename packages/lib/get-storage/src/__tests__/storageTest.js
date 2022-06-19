@@ -29,44 +29,34 @@ describe("Storage", () => {
   });
   it("test storage / set, get", () => {
     const fakeStore = {};
-    const fakeStorage = new Storage(
-      fakeSetter(fakeStore)
-    );
-    let foo = fakeStorage.get('foo');
+    const fakeStorage = new Storage(fakeSetter(fakeStore));
+    let foo = fakeStorage.get("foo");
     expect(foo).to.be.undefined;
-    foo = fakeStorage.set('foo', 'bar');
-    expect(fakeStore).to.deep.equal(
-      { foo: '5,"bar"' }
-    );
-    expect(foo.get('foo')).to.equal("bar");
+    foo = fakeStorage.set("foo", "bar");
+    expect(fakeStore).to.deep.equal({ foo: '5,"bar"' });
+    expect(foo.get("foo")).to.equal("bar");
   });
-  it("test merge / merge same value", ()=>{
+  it("test merge / merge same value", () => {
     const fakeStore = {};
-    const fakeStorage = new Storage(
-      fakeSetter(fakeStore)
-    );
-    const result = fakeStorage.merge({foo: "bar"});
-    expect(result.get('foo')).to.equal("bar");
-    const result2 = result.merge({foo: "bar"});
+    const fakeStorage = new Storage(fakeSetter(fakeStore));
+    const result = fakeStorage.merge({ foo: "bar" });
+    expect(result.get("foo")).to.equal("bar");
+    const result2 = result.merge({ foo: "bar" });
     expect(result === result2).to.be.true;
   });
-  it("test merge / merge different value", ()=>{
+  it("test merge / merge different value", () => {
     const fakeStore = {};
-    const fakeStorage = new Storage(
-      fakeSetter(fakeStore)
-    );
-    const result = fakeStorage.merge({foo: "bar"});
+    const fakeStorage = new Storage(fakeSetter(fakeStore));
+    const result = fakeStorage.merge({ foo: "bar" });
     expect(fakeStore).to.deep.equal({ foo: '5,"bar"' });
-    expect(result.get('foo')).to.equal("bar");
-    const result2 = result.merge({foo: "bar1"});
+    expect(result.get("foo")).to.equal("bar");
+    const result2 = result.merge({ foo: "bar1" });
     expect(result === result2).to.be.false;
   });
-  it("test disable encode", ()=>{
+  it("test disable encode", () => {
     const fakeStore = {};
-    const fakeStorage = new Storage(
-      fakeSetter(fakeStore), true
-    );
-    fakeStorage.merge({foo: "bar"});
-    expect(fakeStore).to.deep.equal({foo: "bar"});
+    const fakeStorage = new Storage(fakeSetter(fakeStore), true);
+    fakeStorage.merge({ foo: "bar" });
+    expect(fakeStore).to.deep.equal({ foo: "bar" });
   });
 });

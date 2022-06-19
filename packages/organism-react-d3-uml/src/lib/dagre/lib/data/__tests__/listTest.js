@@ -7,11 +7,11 @@ describe("dagre/data/List", () => {
     list = new List();
   });
   describe("dequeue", () => {
-    it("returns undefined with an empty list",  () => {
+    it("returns undefined with an empty list", () => {
       expect(list.dequeue()).to.be.undefined;
     });
 
-    it("unlinks and returns the first entry",  () => {
+    it("unlinks and returns the first entry", () => {
       const obj = {};
       list.enqueue(obj);
       expect(list.dequeue()).to.equal(obj);

@@ -10,6 +10,6 @@ describe("Test getStyle", () => {
     expect(getStyle(d, "padding-top")).to.equal("1px");
     expect(getStyle(d, "padding-right")).to.equal("2px");
     expect(getStyle(d, "padding-bottom")).to.equal("3px");
-    expect(getStyle(d, "padding-left")).to.equal("2px");;
+    expect(getStyle(d, "padding-left")).to.equal("2px");
   });
 });
