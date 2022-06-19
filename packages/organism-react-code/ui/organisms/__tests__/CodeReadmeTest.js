@@ -8,8 +8,8 @@ describe("CodeReadme Test", () => {
   it("basic test", async () => {
     const vDom = <CodeReadme />;
     const wrap = render(vDom);
-    await waitFor(()=> {
-      act(()=>expect(wrap.html()).to.equal(""));
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.equal(""));
     });
   });
 });

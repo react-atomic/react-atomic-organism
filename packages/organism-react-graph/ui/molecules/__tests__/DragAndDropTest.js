@@ -1,7 +1,5 @@
-import React from "react";
-
 import { expect } from "chai";
-import { jsdom, mount } from "reshow-unit";
+import { jsdom, render, waitFor } from "reshow-unit";
 
 import DragAndDrop from "../DragAndDrop";
 
@@ -9,14 +7,15 @@ describe("Test DragAndDrop", () => {
   beforeEach(() => {
     jsdom(null, { runScripts: "dangerously", resources: "usable" });
   });
-  it("base test", (done) => {
+
+  it("base test", async () => {
     const Comp = ({ onGetEl }) => <div ref={onGetEl} />;
-    const onD3Load = () => {
-      wrap.update();
+    const onD3Load = () => {};
+    const wrap = render(<DragAndDrop component={Comp} onD3Load={onD3Load} />);
+
+    await waitFor(() => {
       const html = wrap.html();
       expect(html).to.have.string("div");
-      done();
-    };
-    const wrap = mount(<DragAndDrop component={Comp} onD3Load={onD3Load}/>);
+    });
   });
 });

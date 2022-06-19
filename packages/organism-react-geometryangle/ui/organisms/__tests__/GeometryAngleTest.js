@@ -5,8 +5,7 @@ import { mount, cleanIt } from "reshow-unit";
 import GeometryAngle from "../GeometryAngle";
 
 describe("GeometryAngle Test", () => {
-
-  after(()=>cleanIt());
+  after(() => cleanIt());
 
   it("basic test", () => {
     const vDom = <GeometryAngle />;

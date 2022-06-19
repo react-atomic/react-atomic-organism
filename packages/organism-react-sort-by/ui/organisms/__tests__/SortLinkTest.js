@@ -1,13 +1,12 @@
-import React from 'react';
-import {expect} from 'chai';
-import {mount} from "reshow-unit";
+import { expect } from "chai";
+import { render } from "reshow-unit";
 
-import SortLink from '../SortLink';
+import SortLink from "../SortLink";
 
-describe('SortLink Test', () => {
-  it('basic test', () => {
+describe("SortLink Test", () => {
+  it("basic test", () => {
     const vDom = <SortLink />;
-    const wrap = mount(vDom);
+    const wrap = render(vDom);
     const html = wrap.html();
     expect(html).to.have.string('<a data-sort="" data-desc="-1" href="#">');
   });

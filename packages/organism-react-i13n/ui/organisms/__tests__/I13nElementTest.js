@@ -1,25 +1,19 @@
-import React, {Component} from 'react';
+import { expect } from "chai";
+import { render, jsdom, cleanIt } from "reshow-unit";
 
-import {expect} from 'chai';
-import {mount, configure} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-configure({ adapter: new Adapter() });
+import I13nElement from "../I13nElement";
 
-import jsdom from "jsdom-global";
-
-import I13nElement from '../I13nElement';
-
-
-describe('I13nElement test', ()=>{ 
-  let reset;
-
-  before(()=>{
-    reset = jsdom(null, {url: "https://localhost"});
+describe("I13nElement test", () => {
+  before(() => {
+    jsdom(null, { url: "https://localhost" });
   });
 
-  it('basic test', ()=>{
-    const wrap = mount(<I13nElement />);
-    expect(wrap.html()).to.have.string('div');
+  afterEach(() => {
+    cleanIt();
+  });
+
+  it("basic test", () => {
+    const wrap = render(<I13nElement />);
+    expect(wrap.html()).to.have.string("div");
   });
 });
-

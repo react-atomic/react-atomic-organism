@@ -8,7 +8,7 @@ describe("Test AlertsNotifier", () => {
   it("simple test", async () => {
     const wrap = render(<AlertsNotifier alerts={["1"]} />);
     await waitFor(() => {
-      act(()=>expect(wrap.html()).to.have.string("div"));
+      act(() => expect(wrap.html()).to.have.string("div"));
     });
   });
 });

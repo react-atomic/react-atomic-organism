@@ -1,4 +1,4 @@
-require("setimmediate");
+import "setimmediate";
 import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Return } from "reshow";
 import { SemanticUI, Unsafe } from "react-atomic-molecule";

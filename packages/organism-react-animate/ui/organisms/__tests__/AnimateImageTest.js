@@ -31,8 +31,8 @@ describe("Test Animate Image", () => {
       return <AnimateImage ref={ref} src="http://localhost/xxx.png" />;
     };
     const wrap = render(<VDom />);
-    await waitFor(()=>{
-      act(()=> expect(wrap.html()).to.have.string("xxx.png"));
+    await waitFor(() => {
+      act(() => expect(wrap.html()).to.have.string("xxx.png"));
     });
   });
 });

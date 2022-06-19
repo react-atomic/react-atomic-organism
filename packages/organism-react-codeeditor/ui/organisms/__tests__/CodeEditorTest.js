@@ -18,11 +18,11 @@ describe("Test CodeEditor", () => {
 
   beforeEach(() => {
     reset = jsdom("", {
-      resources: "usable"
+      resources: "usable",
     });
   });
 
-  afterEach(done => {
+  afterEach((done) => {
     popupDispatch("dom/cleanAll");
     wrapper.unmount();
     setTimeout(() => {
@@ -31,7 +31,7 @@ describe("Test CodeEditor", () => {
     }, 300);
   });
 
-  it("simple test", done => {
+  it("simple test", (done) => {
     const dom = <PopupPool />;
     wrapper = mount(dom);
     openCodeEditor();
@@ -43,10 +43,10 @@ describe("Test CodeEditor", () => {
     }, 100);
   });
 
-  it("test set html", done => {
+  it("test set html", (done) => {
     const dom = <PopupPool />;
     wrapper = mount(dom);
-    openCodeEditor("<div />", html => {
+    openCodeEditor("<div />", (html) => {
       expect(html).to.equal("");
       done();
     });

@@ -1,11 +1,11 @@
-import {expect} from 'chai';
-import {render} from "reshow-unit";
+import { expect } from "chai";
+import { render } from "reshow-unit";
 
-import Typing from '../Typing';
+import Typing from "../Typing";
 
-describe('Test Typing', ()=>{ 
-  it('simple test', ()=>{
+describe("Test Typing", () => {
+  it("simple test", () => {
     const wrap = render(<Typing />);
-    expect(wrap.html()).to.have.string('react-typing');
+    expect(wrap.html()).to.have.string("react-typing");
   });
 });
