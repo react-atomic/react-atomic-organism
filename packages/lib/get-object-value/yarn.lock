@@ -566,14 +566,14 @@ require-directory@^2.1.1:
   integrity sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==
 
 reshow-constant@*:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.1.tgz#eca587c58442c5b805b27fe08a9c56ce6bbd003a"
-  integrity sha512-boZMA+BHvFXQuJJDud0lo+r8efSKWEiIzgtI3x/DPUWPcpLxq8pWqi/AQKpKqP0a/0sDzP5FvTd11G2oEBBqBw==
+  version "0.17.2"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.2.tgz#eb8c650b40cae425ab2a32e3aa431baf410ec9dc"
+  integrity sha512-bCQQ0rHVPZfWl3PzVcfVZ2ocGmNqKZ0Oc53iRJR3QzcYJJXW3ghy8idL8gtdlW63RQ2XG66yU2ulbjjE+0wsSA==
 
 reshow-runtime@*:
-  version "0.17.9"
-  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.17.9.tgz#6bdb9e92dbe7609ad05eac230e34bb92302ad044"
-  integrity sha512-JXeITx+QBYOmfMnrmPctITQMequ6prukMLf5t02lwVVb8UAWZcGay6x2RbxbBel5OLN7r+yGu3eDsor7JEh4SQ==
+  version "0.17.13"
+  resolved "https://registry.yarnpkg.com/reshow-runtime/-/reshow-runtime-0.17.13.tgz#742ea948c560a319db8534dfc86f7edde37d04b1"
+  integrity sha512-Q6+CCMKHndogH719MCa7inIu11BrEf82/jH4KOOejicRJf51ZNhewqSrpNxHoWb+bSSqIBXK4TkK7zSbmOImaw==
   dependencies:
     regenerator-runtime "^0.13.4"
     reshow-constant "*"

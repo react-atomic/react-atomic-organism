@@ -2,6 +2,9 @@ import { UNDEFINED, IS_ARRAY } from "reshow-constant";
 import callfunc from "call-func";
 import getDefaultValue from "./getDefaultValue";
 
+/**
+ * @see https://github.com/react-atomic/reshow/issues/123
+ */
 const getter = (o, k) => (o.size && callfunc(o.get, [k], o)) ?? o[k];
 
 const get = (o, path, defaultValue) => {
