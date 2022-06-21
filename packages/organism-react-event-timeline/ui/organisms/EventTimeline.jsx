@@ -27,8 +27,8 @@ const EventTimeline = (props) => {
   if (props.borderColor) {
     elProps.borderColor = props.borderColor;
   }
-  if (props.handleEventClick) {
-    elProps.handleEventClick = props.handleEventClick;
+  if (props.onEventClick) {
+    elProps.onEventClick = props.onEventClick;
   }
   return (
     <SemanticUI className={classes} style={Styles.container}>
