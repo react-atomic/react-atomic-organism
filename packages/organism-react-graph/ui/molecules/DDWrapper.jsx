@@ -10,18 +10,17 @@ import DragAndDrop from "./DragAndDrop";
 
 const useDDWrapper = (props) => {
   const { onDrag: propsOnDrag, onDragEnd: propsOnDragEnd } = props;
-  const [state, setState] = useState(() => ({
+  const [{ absX, absY, startPoint, isDraging }, setState] = useState(() => ({
     absX: 0,
     absY: 0,
     isDraging: false,
   }));
-  const { absX, absY, startPoint, isDraging } = state;
   const isMount = useMounted();
   const dnd = useRef();
   const comp = useRef();
 
   const move = (e) => {
-    const { absX, absY, startPoint, clientX, clientY, ...other } = e;
+    const { absX, absY, start, clientX, clientY, ...other } = e;
     let sortTarget;
     const floatXY = {
       x: clientX,
@@ -33,7 +32,7 @@ const useDDWrapper = (props) => {
         isDraging: true,
         absX,
         absY,
-        startPoint,
+        startPoint: start,
       }));
       callfunc(propsOnDrag, [e]);
     }
