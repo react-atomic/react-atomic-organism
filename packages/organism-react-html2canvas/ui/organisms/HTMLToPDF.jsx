@@ -9,10 +9,8 @@ import ratio from "ratio-js";
 import HTMLToCanvas from "../organisms/HTMLToCanvas";
 import getAsset from "../../src/getAsset";
 
-
 const HTMLToPDF = (props, ref) => {
   const canvas = useRef();
-  const handleRefCanvas = (el) => (canvas.current = el);
   const execDownload = (payload) => {
     const { iframe, canvas: dCanvas } = payload;
     const iframeWindow = iframe.getWindow();
@@ -28,28 +26,25 @@ const HTMLToPDF = (props, ref) => {
         595.28,
         841.89
       );
-      doc.addImage(image, "JPEG", newWHLoc.x, newWHLoc.y, newWH.w, newWH.h);
+      doc.addImage(
+        image,
+        "JPEG",
+        newWHLoc.x || 0,
+        0,
+        newWH.w || 1,
+        newWH.h || 1
+      );
       doc.save("test.pdf");
     }
   };
+  const expose = {
+    download: (el) => {
+      canvas?.current?.getCanvas(execDownload, el);
+    },
+  };
+  useImperativeHandle(ref, () => expose, []);
 
-  useImperativeHandle(
-    ref,
-    () => ({
-      download: () => {
-        canvas?.current?.getCanvas(execDownload);
-      },
-    }),
-    []
-  );
-
-  return (
-    <HTMLToCanvas
-      {...props}
-      ref={handleRefCanvas}
-      jsArr={[getAsset("jspdf")]}
-    />
-  );
+  return <HTMLToCanvas {...props} ref={canvas} jsArr={[getAsset("jspdf")]} />;
 };
 
 export default forwardRef(HTMLToPDF);

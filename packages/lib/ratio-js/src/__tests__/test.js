@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import ratio from "../index.js";
+import ratio from "../index";
 
 describe("Test to percent", () => {
   it("basic test", () => {

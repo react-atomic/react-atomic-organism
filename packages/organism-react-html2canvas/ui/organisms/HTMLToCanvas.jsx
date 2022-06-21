@@ -25,20 +25,15 @@ const HTMLToCanvas = forwardRef((props, ref) => {
   const preview = useRef();
   const _timer = useRef();
 
-  const expose = {
-    getCanvas: (onCanvas) => getCanvas(onCanvas),
-  };
-
-  useImperativeHandle(ref, () => expose, []);
-
-  const getCanvas = (canvasCallback) => {
+  const getCanvas = (canvasCallback, htmlEl) => {
     const oIframe = iframe.current;
     const oIframwWindow = oIframe?.getWindow();
     const html2canvas = oIframwWindow?.html2canvas;
     if (!html2canvas) {
       return;
     }
-    html2canvas(oIframe.getRoot(), {
+
+    html2canvas(htmlEl || oIframe.getRoot(), {
       useCORS: true,
       logging: false,
     }).then((dCanvas) => {
@@ -54,6 +49,9 @@ const HTMLToCanvas = forwardRef((props, ref) => {
       }
     });
   };
+
+  const expose = { getCanvas };
+  useImperativeHandle(ref, () => expose, []);
 
   const handleLoad = () => {
     if (autoGenCanvas) {
