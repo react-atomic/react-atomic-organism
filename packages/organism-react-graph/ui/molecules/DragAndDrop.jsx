@@ -81,16 +81,16 @@ const useDragAndDrop = (props) => {
     const zoomK = callfunc(zoom)?.k ?? 1;
     const nextAbsX = absX + dx / zoomK;
     const nextAbsY = absY + dy / zoomK;
-    const destTarget = callfunc(
-      doc().elementFromPoint,
-      [thisEvent.clientX - startPoint.current.offsetX, thisEvent.clientY - startPoint.current.offsetY],
-      doc()
-    );
+    const destPoint = (e) => () =>
+      [e.clientX - e.start.offsetX, e.clientY - e.start.offsetY];
+    const destTarget = (e) => () =>
+      callfunc(doc().elementFromPoint, e.destPoint(), doc());
+    thisEvent.start = startPoint.current;
+    thisEvent.destPoint = destPoint(thisEvent);
+    thisEvent.destTarget = destTarget(thisEvent);
     thisEvent.sourceEvent = sourceEvent;
-    thisEvent.destTarget = destTarget;
     thisEvent.absX = nextAbsX;
     thisEvent.absY = nextAbsY;
-    thisEvent.startPoint = startPoint.current;
     lastPoint.current = thisEvent;
     callfunc(onDrag, [thisEvent]);
   };
