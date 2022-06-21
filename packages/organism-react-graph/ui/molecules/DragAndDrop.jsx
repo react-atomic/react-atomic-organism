@@ -61,6 +61,8 @@ const useDragAndDrop = (props) => {
       elStartX,
       elStartY,
       zoomK,
+      offsetX: thisEvent.offsetX,
+      offsetY: thisEvent.offsetY,
     };
     startPoint.current = thisEvent.start;
     lastPoint.current = thisEvent.start;
@@ -81,7 +83,7 @@ const useDragAndDrop = (props) => {
     const nextAbsY = absY + dy / zoomK;
     const destTarget = callfunc(
       doc().elementFromPoint,
-      [thisEvent.clientX, thisEvent.clientY],
+      [thisEvent.clientX - startPoint.current.offsetX, thisEvent.clientY - startPoint.current.offsetY],
       doc()
     );
     thisEvent.sourceEvent = sourceEvent;
