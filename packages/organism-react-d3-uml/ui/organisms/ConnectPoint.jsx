@@ -60,7 +60,7 @@ class ConnectPoint extends Component {
     const end = mouse(sourceEvent, hostEl);
     const { lineId, center } = this.state.start;
     let endXY;
-    const target = e.destTarget;
+    const target = e.destTarget();
     if (target) {
       let targetId = target.getAttribute("data-id");
       let targetGroup = target.getAttribute("data-group");
