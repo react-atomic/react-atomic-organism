@@ -2,21 +2,21 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 232:
+/***/ 211:
 /*!*********************************!*\
   !*** ./build/es/src/client.mjs ***!
   \*********************************/
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
-/* harmony import */ var reshow_app_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-app/client */ 233);
-/* harmony import */ var _ui_pages_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/pages/index.mjs */ 331);
+/* harmony import */ var reshow_app_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-app/client */ 212);
+/* harmony import */ var _ui_pages_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/pages/index.mjs */ 305);
 
 
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = ((0,reshow_app_client__WEBPACK_IMPORTED_MODULE_0__["default"])(_ui_pages_index_mjs__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
-/***/ 332:
+/***/ 306:
 /*!********************************!*\
   !*** ./build/es/src/index.mjs ***!
   \********************************/
@@ -26,8 +26,8 @@
 /* harmony export */   "Event": () => (/* reexport safe */ _ui_organisms_Event_mjs__WEBPACK_IMPORTED_MODULE_0__["default"]),
 /* harmony export */   "EventTimeline": () => (/* reexport safe */ _ui_organisms_EventTimeline_mjs__WEBPACK_IMPORTED_MODULE_1__["default"])
 /* harmony export */ });
-/* harmony import */ var _ui_organisms_Event_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/organisms/Event.mjs */ 110);
-/* harmony import */ var _ui_organisms_EventTimeline_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/organisms/EventTimeline.mjs */ 231);
+/* harmony import */ var _ui_organisms_Event_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ui/organisms/Event.mjs */ 90);
+/* harmony import */ var _ui_organisms_EventTimeline_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ui/organisms/EventTimeline.mjs */ 210);
 // Default
 
 
@@ -36,7 +36,7 @@
 
 /***/ }),
 
-/***/ 110:
+/***/ 90:
 /*!*****************************************!*\
   !*** ./build/es/ui/organisms/Event.mjs ***!
   \*****************************************/
@@ -46,11 +46,11 @@
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectSpread2 */ 0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ 2);
-/* harmony import */ var colorlib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! colorlib */ 76);
-/* harmony import */ var organism_react_scroll_animate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! organism-react-scroll-animate */ 333);
+/* harmony import */ var colorlib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! colorlib */ 68);
+/* harmony import */ var organism_react_scroll_animate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! organism-react-scroll-animate */ 307);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! call-func */ 6);
 /* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-atomic-molecule */ 10);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ 3);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ 2);
 
 
 
@@ -112,7 +112,7 @@ var EventContent = function EventContent(props) {
     className: "pure-u-1 pure-u-md-11-24",
     style: (0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({
       borderColor: backgroundColor,
-      backgroundColor: (0,colorlib__WEBPACK_IMPORTED_MODULE_2__.lightenColor)(backgroundColor, 60, 500),
+      backgroundColor: (0,colorlib__WEBPACK_IMPORTED_MODULE_1__.lightenColor)(backgroundColor, 60, 500),
       color: color,
       minHeight: minHeight
     }, Styles.content),
@@ -143,7 +143,7 @@ var Event = function Event(props) {
       _props$minHeight = props.minHeight,
       minHeight = _props$minHeight === void 0 ? 150 : _props$minHeight,
       animate = props.animate,
-      handleEventClick = props.handleEventClick;
+      onEventClick = props.onEventClick;
 
   var content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(EventContent, (0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])((0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, props), {}, {
     color: color,
@@ -160,14 +160,14 @@ var Event = function Event(props) {
       }
     }, animate);
 
-    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(organism_react_scroll_animate__WEBPACK_IMPORTED_MODULE_3__["default"], (0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])((0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, aniProps), {}, {
+    content = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(organism_react_scroll_animate__WEBPACK_IMPORTED_MODULE_2__["default"], (0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])((0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, aniProps), {}, {
       children: content
     }));
   }
 
   var containerStyle = (0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({}, Styles.container);
 
-  if (handleEventClick) {
+  if (onEventClick) {
     containerStyle.cursor = "pointer";
   }
 
@@ -175,14 +175,15 @@ var Event = function Event(props) {
     className: classes,
     style: containerStyle,
     onClick: function onClick(e) {
-      if (handleEventClick) {
-        handleEventClick(e, props);
+      if (onEventClick) {
+        e.data = props;
+        (0,call_func__WEBPACK_IMPORTED_MODULE_3__["default"])(onEventClick, [e]);
       }
     },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__.SemanticUI, {
       className: "line",
       style: (0,reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__["default"])({
-        background: (0,colorlib__WEBPACK_IMPORTED_MODULE_2__.hexToRgba)(backgroundColor, ".3")
+        background: (0,colorlib__WEBPACK_IMPORTED_MODULE_1__.hexToRgba)(backgroundColor, ".3")
       }, Styles.line)
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_atomic_molecule__WEBPACK_IMPORTED_MODULE_4__.Label, {
       ui: false,
@@ -263,7 +264,7 @@ var Styles = {
 
 /***/ }),
 
-/***/ 231:
+/***/ 210:
 /*!*************************************************!*\
   !*** ./build/es/ui/organisms/EventTimeline.mjs ***!
   \*************************************************/
@@ -273,10 +274,10 @@ var Styles = {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectSpread2 */ 0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ 2);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ 3);
 /* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-atomic-molecule */ 10);
-/* harmony import */ var _organisms_Event_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../organisms/Event.mjs */ 110);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ 3);
+/* harmony import */ var _organisms_Event_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../organisms/Event.mjs */ 90);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ 2);
 
 
 
@@ -370,7 +371,7 @@ var InjectStyles = {
 
 /***/ }),
 
-/***/ 331:
+/***/ 305:
 /*!*************************************!*\
   !*** ./build/es/ui/pages/index.mjs ***!
   \*************************************/
@@ -379,9 +380,9 @@ var InjectStyles = {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ 2);
-/* harmony import */ var _src_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../src/index.mjs */ 332);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ 3);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ 3);
+/* harmony import */ var _src_index_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../src/index.mjs */ 306);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ 2);
 var _Event;
 
 
@@ -574,7 +575,7 @@ var Index = function Index(props) {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("5c782ad9e1e3556bffe5")
+/******/ 		__webpack_require__.h = () => ("91d8b9206d9b061a7929")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/global */
@@ -760,7 +761,7 @@ var Index = function Index(props) {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [0,2], () => (__webpack_require__(232)))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, [0,2], () => (__webpack_require__(211)))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

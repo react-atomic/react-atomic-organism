@@ -2,21 +2,6 @@
 /* 0 */,
 /* 1 */,
 /* 2 */
-/*!*************************************!*\
-  !*** ./node_modules/react/index.js ***!
-  \*************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-"use strict";
-
-
-if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react.development.js */ 78);
-}
-
-
-/***/ }),
-/* 3 */
 /*!*******************************************!*\
   !*** ./node_modules/react/jsx-runtime.js ***!
   \*******************************************/
@@ -26,7 +11,22 @@ if (false) {} else {
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-jsx-runtime.development.js */ 247);
+  module.exports = __webpack_require__(/*! ./cjs/react-jsx-runtime.development.js */ 226);
+}
+
+
+/***/ }),
+/* 3 */
+/*!*************************************!*\
+  !*** ./node_modules/react/index.js ***!
+  \*************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/react.development.js */ 70);
 }
 
 
@@ -34,6 +34,36 @@ if (false) {} else {
 /* 4 */,
 /* 5 */,
 /* 6 */
+/*!*******************************************************!*\
+  !*** ./node_modules/call-func/build/es/src/index.mjs ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "debounce": () => (/* reexport safe */ _debounce_mjs__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "default": () => (/* reexport safe */ _callfunc_mjs__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "getEventKey": () => (/* reexport safe */ _getEventKey_mjs__WEBPACK_IMPORTED_MODULE_6__["default"])
+/* harmony export */ });
+/* harmony import */ var _isRequired_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isRequired.mjs */ 219);
+/* harmony import */ var _throttle_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./throttle.mjs */ 220);
+/* harmony import */ var _debounce_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./debounce.mjs */ 134);
+/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./callfunc.mjs */ 24);
+/* harmony import */ var _defaultCall_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./defaultCall.mjs */ 221);
+/* harmony import */ var _delegate_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./delegate.mjs */ 222);
+/* harmony import */ var _getEventKey_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getEventKey.mjs */ 135);
+/* harmony import */ var _register_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./register.mjs */ 97);
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 7 */
 /*!**************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/index.mjs ***!
   \**************************************************************/
@@ -46,41 +76,11 @@ if (false) {} else {
 /* harmony export */   "initMap": () => (/* reexport safe */ _initMap_mjs__WEBPACK_IMPORTED_MODULE_4__["default"]),
 /* harmony export */   "toJS": () => (/* reexport safe */ _toJS_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
-/* harmony import */ var _get_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./get.mjs */ 50);
-/* harmony import */ var _getImportDefault_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getImportDefault.mjs */ 159);
-/* harmony import */ var _toJS_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toJS.mjs */ 80);
-/* harmony import */ var _toMap_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toMap.mjs */ 246);
-/* harmony import */ var _initMap_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./initMap.mjs */ 160);
-
-
-
-
-
-
-/***/ }),
-/* 7 */
-/*!*******************************************************!*\
-  !*** ./node_modules/call-func/build/es/src/index.mjs ***!
-  \*******************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "debounce": () => (/* reexport safe */ _debounce_mjs__WEBPACK_IMPORTED_MODULE_2__["default"]),
-/* harmony export */   "default": () => (/* reexport safe */ _callfunc_mjs__WEBPACK_IMPORTED_MODULE_3__["default"]),
-/* harmony export */   "getEventKey": () => (/* reexport safe */ _getEventKey_mjs__WEBPACK_IMPORTED_MODULE_6__["default"])
-/* harmony export */ });
-/* harmony import */ var _isRequired_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isRequired.mjs */ 240);
-/* harmony import */ var _throttle_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./throttle.mjs */ 241);
-/* harmony import */ var _debounce_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./debounce.mjs */ 156);
-/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./callfunc.mjs */ 27);
-/* harmony import */ var _defaultCall_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./defaultCall.mjs */ 242);
-/* harmony import */ var _delegate_mjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./delegate.mjs */ 243);
-/* harmony import */ var _getEventKey_mjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./getEventKey.mjs */ 157);
-/* harmony import */ var _register_mjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./register.mjs */ 117);
-
-
-
+/* harmony import */ var _get_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./get.mjs */ 45);
+/* harmony import */ var _getImportDefault_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getImportDefault.mjs */ 137);
+/* harmony import */ var _toJS_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toJS.mjs */ 72);
+/* harmony import */ var _toMap_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toMap.mjs */ 225);
+/* harmony import */ var _initMap_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./initMap.mjs */ 138);
 
 
 
@@ -100,10 +100,10 @@ if (false) {} else {
 /* harmony export */   "mixClass": () => (/* reexport safe */ _mixClass_mjs__WEBPACK_IMPORTED_MODULE_0__["default"]),
 /* harmony export */   "removeClass": () => (/* reexport safe */ _removeClass_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
-/* harmony import */ var _mixClass_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixClass.mjs */ 99);
-/* harmony import */ var _hasClass_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hasClass.mjs */ 57);
-/* harmony import */ var _removeClass_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./removeClass.mjs */ 100);
-/* harmony import */ var _toggleClass_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toggleClass.mjs */ 273);
+/* harmony import */ var _mixClass_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixClass.mjs */ 78);
+/* harmony import */ var _hasClass_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hasClass.mjs */ 48);
+/* harmony import */ var _removeClass_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./removeClass.mjs */ 79);
+/* harmony import */ var _toggleClass_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./toggleClass.mjs */ 252);
 
 
 
@@ -113,21 +113,18 @@ if (false) {} else {
 /* 9 */,
 /* 10 */,
 /* 11 */
-/*!****************************************************!*\
-  !*** ./node_modules/win-doc/build/es/src/index.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/*!*****************************************************!*\
+  !*** ./node_modules/win-doc/build/es/src/index.mjs ***!
+  \*****************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "doc": () => (/* binding */ doc),
 /* harmony export */   "hasWin": () => (/* binding */ hasWin),
 /* harmony export */   "win": () => (/* binding */ win)
 /* harmony export */ });
-/* harmony import */ var reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/typeof */ 37);
-/* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-constant */ 1);
-
+/* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-constant */ 1);
 
 var defaultObj = {
   __null: true
@@ -135,7 +132,7 @@ var defaultObj = {
 
 var doc = function doc(w, def) {
   w = w || win();
-  return reshow_constant__WEBPACK_IMPORTED_MODULE_1__.UNDEFINED !== (0,reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(w.document) ? w.document : def || defaultObj;
+  return reshow_constant__WEBPACK_IMPORTED_MODULE_0__.UNDEFINED !== typeof w.document ? w.document : def || defaultObj;
 };
 
 var hasWin = function hasWin(key) {
@@ -167,32 +164,7 @@ var win = function win(def) {
 /* 21 */,
 /* 22 */,
 /* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */
-/*!**********************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/callfunc.js ***!
-  \**********************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var callFunc = function callFunc(func, args, scope, def) {
-  return _reshowConstant.FUNCTION === typeof func ? func.apply(scope, args) : _reshowConstant.UNDEFINED !== typeof def ? def : func;
-};
-
-var _default = callFunc;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 27 */
+/* 24 */
 /*!**********************************************************!*\
   !*** ./node_modules/call-func/build/es/src/callfunc.mjs ***!
   \**********************************************************/
@@ -212,9 +184,9 @@ var callFunc = function callFunc(func, args, scope, def) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (callFunc);
 
 /***/ }),
-/* 28 */,
-/* 29 */,
-/* 30 */
+/* 25 */,
+/* 26 */,
+/* 27 */
 /*!************************************************************!*\
   !*** ./node_modules/get-scroll-info/build/es/src/index.js ***!
   \************************************************************/
@@ -225,7 +197,7 @@ var callFunc = function callFunc(func, args, scope, def) {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "getScrollNode": () => (/* binding */ getScrollNode)
 /* harmony export */ });
-/* harmony import */ var reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/typeof */ 37);
+/* harmony import */ var reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/typeof */ 54);
 /* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-constant */ 1);
 
@@ -334,8 +306,8 @@ var getScrollInfo = function getScrollInfo(el, margin) {
 
 
 /***/ }),
-/* 31 */,
-/* 32 */
+/* 28 */,
+/* 29 */
 /*!******************************************************!*\
   !*** ./node_modules/getoffset/build/es/src/index.js ***!
   \******************************************************/
@@ -346,9 +318,9 @@ var getScrollInfo = function getScrollInfo(el, margin) {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* unused harmony exports mouse, toSvgXY, getSvgMatrixXY, unifyTouch */
-/* harmony import */ var reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/typeof */ 37);
-/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-scroll-info */ 30);
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 6);
+/* harmony import */ var reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/typeof */ 54);
+/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-scroll-info */ 27);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 7);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reshow-constant */ 1);
 
 
@@ -516,14 +488,13 @@ var getOffset = function getOffset(dom, scrollNode) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getOffset);
 
 /***/ }),
+/* 30 */,
+/* 31 */,
+/* 32 */,
 /* 33 */,
 /* 34 */,
 /* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */
+/* 36 */
 /*!******************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/positions.js ***!
   \******************************************************************/
@@ -555,82 +526,9 @@ var positions = {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (positions);
 
 /***/ }),
-/* 41 */,
-/* 42 */
-/*!************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/get.js ***!
-  \************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var _callFunc = _interopRequireDefault(__webpack_require__(/*! call-func */ 266));
-
-var _getDefaultValue = _interopRequireDefault(__webpack_require__(/*! ./getDefaultValue */ 55));
-
-var getter = function getter(o, k) {
-  var _ref;
-
-  return (_ref = o.size && (0, _callFunc["default"])(o.get, [k], o)) !== null && _ref !== void 0 ? _ref : o[k];
-};
-
-var get = function get(o, path, defaultValue) {
-  if (null == o) {
-    return (0, _getDefaultValue["default"])(defaultValue, o);
-  }
-
-  var current = o;
-
-  if (!path || !(0, _reshowConstant.IS_ARRAY)(path)) {
-    return current;
-  }
-
-  try {
-    var i = path.length;
-    var j = path.length - 1;
-
-    while (i--) {
-      var index = path[j - i];
-
-      if (null != current) {
-        var next = getter(current, index);
-
-        if (_reshowConstant.UNDEFINED !== typeof next) {
-          current = next;
-        } else {
-          current = (0, _getDefaultValue["default"])(defaultValue, next);
-          break;
-        }
-      } else {
-        current = (0, _getDefaultValue["default"])(defaultValue);
-        break;
-      }
-    }
-  } catch (e) {
-    console.warn({
-      e: e
-    });
-    current = (0, _getDefaultValue["default"])(defaultValue);
-  }
-
-  return current;
-};
-
-var _default = get;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 43 */,
-/* 44 */
+/* 37 */,
+/* 38 */,
+/* 39 */
 /*!***********************************************************!*\
   !*** ./node_modules/get-random-id/build/es/src/index.mjs ***!
   \***********************************************************/
@@ -643,7 +541,7 @@ module.exports = exports.default;
 /* harmony export */   "getTimestamp": () => (/* binding */ getTimestamp)
 /* harmony export */ });
 /* unused harmony exports expireCallback, getDateObject */
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! call-func */ 7);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! call-func */ 6);
 
 
 var getDateObject = function getDateObject(t) {
@@ -688,7 +586,7 @@ var getRandom = function getRandom() {
 
 
 /***/ }),
-/* 45 */
+/* 40 */
 /*!***************************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/getDomPositionInfo.js ***!
   \***************************************************************************/
@@ -698,9 +596,9 @@ var getRandom = function getRandom() {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var getoffset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! getoffset */ 32);
-/* harmony import */ var _isFixed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isFixed */ 147);
-/* harmony import */ var _isSetOverflow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isSetOverflow */ 317);
+/* harmony import */ var getoffset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! getoffset */ 29);
+/* harmony import */ var _isFixed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isFixed */ 126);
+/* harmony import */ var _isSetOverflow__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isSetOverflow */ 291);
 
 
 
@@ -721,10 +619,10 @@ var getDomPositionInfo = function getDomPositionInfo(dom) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getDomPositionInfo);
 
 /***/ }),
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
   \*****************************************/
@@ -917,7 +815,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 50 */
+/* 45 */
 /*!************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/get.mjs ***!
   \************************************************************/
@@ -928,11 +826,14 @@ process.umask = function() { return 0; };
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! call-func */ 7);
-/* harmony import */ var _getDefaultValue_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getDefaultValue.mjs */ 119);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! call-func */ 6);
+/* harmony import */ var _getDefaultValue_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./getDefaultValue.mjs */ 99);
 
 
 
+/**
+ * @see https://github.com/react-atomic/reshow/issues/123
+ */
 
 var getter = function getter(o, k) {
   var _ref;
@@ -985,7 +886,7 @@ var get = function get(o, path, defaultValue) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (get);
 
 /***/ }),
-/* 51 */
+/* 46 */
 /*!**************************************************************!*\
   !*** ./node_modules/set-object-value/build/es/src/index.mjs ***!
   \**************************************************************/
@@ -1038,7 +939,7 @@ var unsafeSet = function unsafeSet(obj, arrPath, val, isAppend) {
 
 
 /***/ }),
-/* 52 */
+/* 47 */
 /*!*****************************************************!*\
   !*** ./node_modules/array.dedup/build/src/index.js ***!
   \*****************************************************/
@@ -1063,53 +964,7 @@ exports["default"] = dedup;
 module.exports = exports['default'];
 
 /***/ }),
-/* 53 */,
-/* 54 */,
-/* 55 */
-/*!************************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/getDefaultValue.js ***!
-  \************************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var getDefaultValue = function getDefaultValue(v, cur) {
-  return _reshowConstant.FUNCTION === typeof v ? v(cur) : v !== null && v !== void 0 ? v : cur;
-};
-
-var _default = getDefaultValue;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 56 */
-/*!*************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/toJS.js ***!
-  \*************************************************************/
-/***/ ((module, exports) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var toJS = function toJS(v) {
-  return v && v.toJS ? v.toJS() : v;
-};
-
-var _default = toJS;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 57 */
+/* 48 */
 /*!**********************************************************!*\
   !*** ./node_modules/class-lib/build/es/src/hasClass.mjs ***!
   \**********************************************************/
@@ -1119,7 +974,7 @@ module.exports = exports.default;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _getClassReg_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getClassReg.mjs */ 132);
+/* harmony import */ var _getClassReg_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getClassReg.mjs */ 112);
 
 
 var hasClass = function hasClass(classes, name) {
@@ -1129,15 +984,15 @@ var hasClass = function hasClass(classes, name) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (hasClass);
 
 /***/ }),
-/* 58 */,
-/* 59 */,
-/* 60 */
+/* 49 */,
+/* 50 */,
+/* 51 */
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
   \***************************************************/
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ 49);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ 44);
 (function (global, undefined) {
     "use strict";
 
@@ -1327,7 +1182,7 @@ var hasClass = function hasClass(classes, name) {
 
 
 /***/ }),
-/* 61 */
+/* 52 */
 /*!****************************************************************!*\
   !*** ./node_modules/css-query-selector/build/es/src/index.mjs ***!
   \****************************************************************/
@@ -1338,7 +1193,7 @@ var hasClass = function hasClass(classes, name) {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* unused harmony exports queryAll, queryAncestor, queryEl, queryOne */
-/* harmony import */ var _queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./queryFrom.mjs */ 244);
+/* harmony import */ var _queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./queryFrom.mjs */ 223);
 
 _queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.defaultQuery.from = _queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__["default"];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.defaultQuery);
@@ -1349,7 +1204,7 @@ var queryAll = _queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.defaultQuery.all,
 
 
 /***/ }),
-/* 62 */
+/* 53 */
 /*!*************************************************************!*\
   !*** ./node_modules/smooth-scroll-to/build/es/src/index.js ***!
   \*************************************************************/
@@ -1359,9 +1214,9 @@ var queryAll = _queryFrom_mjs__WEBPACK_IMPORTED_MODULE_0__.defaultQuery.all,
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-scroll-info */ 30);
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! call-func */ 7);
-/* harmony import */ var easing_lib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! easing-lib */ 252);
+/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-scroll-info */ 27);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! call-func */ 6);
+/* harmony import */ var easing_lib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! easing-lib */ 231);
 
 
 
@@ -1421,16 +1276,17 @@ var smoothScrollTo = function smoothScrollTo(to, duration, el, callback, scrollK
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (smoothScrollTo);
 
 /***/ }),
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
 /* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */
+/* 64 */
 /*!*************************************************************!*\
   !*** ./node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
   \*************************************************************/
@@ -1452,7 +1308,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 73 */
+/* 65 */
 /*!********************************************!*\
   !*** ./node_modules/prop-types/lib/has.js ***!
   \********************************************/
@@ -1462,12 +1318,12 @@ module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
 
 
 /***/ }),
-/* 74 */,
-/* 75 */
-/*!******************************************************!*\
-  !*** ./node_modules/get-style/build/es/src/index.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/* 66 */,
+/* 67 */
+/*!*******************************************************!*\
+  !*** ./node_modules/get-style/build/es/src/index.mjs ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -1497,7 +1353,7 @@ var getStyle = function getStyle(el, styleKey) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getStyle);
 
 /***/ }),
-/* 76 */
+/* 68 */
 /*!**************************************************!*\
   !*** ./node_modules/colorlib/build/src/index.js ***!
   \**************************************************/
@@ -1511,15 +1367,15 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.lightenColor = exports.hexToRgba = exports.hexToDec = undefined;
 
-var _hexToDec2 = __webpack_require__(/*! ./hexToDec */ 111);
+var _hexToDec2 = __webpack_require__(/*! ./hexToDec */ 91);
 
 var _hexToDec3 = _interopRequireDefault(_hexToDec2);
 
-var _hexToRgba2 = __webpack_require__(/*! ./hexToRgba */ 112);
+var _hexToRgba2 = __webpack_require__(/*! ./hexToRgba */ 92);
 
 var _hexToRgba3 = _interopRequireDefault(_hexToRgba2);
 
-var _lightenColor2 = __webpack_require__(/*! ./lightenColor */ 113);
+var _lightenColor2 = __webpack_require__(/*! ./lightenColor */ 93);
 
 var _lightenColor3 = _interopRequireDefault(_lightenColor2);
 
@@ -1530,7 +1386,7 @@ exports.hexToRgba = _hexToRgba3.default;
 exports.lightenColor = _lightenColor3.default;
 
 /***/ }),
-/* 77 */
+/* 69 */
 /*!*************************************************************!*\
   !*** ./node_modules/scheduler/cjs/scheduler.development.js ***!
   \*************************************************************/
@@ -2174,7 +2030,7 @@ if (
 
 
 /***/ }),
-/* 78 */
+/* 70 */
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
   \*****************************************************/
@@ -2207,36 +2063,26 @@ if (
 ) {
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
 }
-          var ReactVersion = '18.1.0';
-
-// -----------------------------------------------------------------------------
-
-var enableScopeAPI = false; // Experimental Create Event Handle API.
-var enableCacheElement = false;
-var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-// stuff. Intended to enable React core members to more easily debug scheduling
-// issues in DEV builds.
-
-var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
+          var ReactVersion = '18.2.0';
 
 // ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
-var MAYBE_ITERATOR_SYMBOL =  Symbol.iterator;
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
 function getIteratorFn(maybeIterable) {
   if (maybeIterable === null || typeof maybeIterable !== 'object') {
@@ -2327,6 +2173,18 @@ function setExtraStackFrame(stack) {
     return stack;
   };
 }
+
+// -----------------------------------------------------------------------------
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+var enableCacheElement = false;
+var enableTransitionTracing = false; // No known bugs, but needs performance testing
+
+var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
+// stuff. Intended to enable React core members to more easily debug scheduling
+// issues in DEV builds.
+
+var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
 
 var ReactSharedInternals = {
   ReactCurrentDispatcher: ReactCurrentDispatcher,
@@ -4922,13 +4780,13 @@ if (
 
 
 /***/ }),
-/* 79 */
+/* 71 */
 /*!******************************************************!*\
   !*** ./node_modules/es6-promise/dist/es6-promise.js ***!
   \******************************************************/
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ 49);
+/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ 44);
 /*!
  * @overview es6-promise - a tiny implementation of Promises/A+.
  * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
@@ -6114,7 +5972,7 @@ return Promise$1;
 
 
 /***/ }),
-/* 80 */
+/* 72 */
 /*!*************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/toJS.mjs ***!
   \*************************************************************/
@@ -6131,366 +5989,12 @@ var toJS = function toJS(v) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (toJS);
 
 /***/ }),
-/* 81 */,
-/* 82 */,
-/* 83 */
-/*!************************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/isRequired.js ***!
-  \************************************************************/
-/***/ ((module, exports) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var isRequired = function isRequired(name) {
-  throw new Error((name || "param") + " is required");
-};
-
-var _default = isRequired;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 84 */
-/*!**********************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/throttle.js ***!
-  \**********************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _callfunc = _interopRequireDefault(__webpack_require__(/*! ./callfunc */ 26));
-
-/**
- * reduce run times.
- */
-var throttle = function throttle(func, threshhold, needRunLast) {
-  var _threshhold;
-
-  threshhold = (_threshhold = threshhold) !== null && _threshhold !== void 0 ? _threshhold : 250;
-  var waiting = false;
-  var lastCall = false;
-
-  var run = function run(option) {
-    var _ref = option || {},
-        args = _ref.args,
-        scope = _ref.scope;
-
-    lastCall = false;
-    (0, _callfunc["default"])(func, args, scope);
-  };
-
-  return function (option) {
-    lastCall = true;
-
-    if (!waiting) {
-      waiting = true;
-      run(option);
-      setTimeout(function () {
-        waiting = false;
-
-        if (needRunLast && lastCall) {
-          run(option);
-        }
-      }, threshhold);
-    }
-  };
-};
-
-var _default = throttle;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 85 */
-/*!**********************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/debounce.js ***!
-  \**********************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _callfunc = _interopRequireDefault(__webpack_require__(/*! ./callfunc */ 26));
-
-/**
- * only run lasttime.
- */
-var debounce = function debounce(func, defaultDelay) {
-  var timer;
-  return function (option) {
-    var _ref = option || {},
-        _ref$delay = _ref.delay,
-        delay = _ref$delay === void 0 ? 250 : _ref$delay,
-        args = _ref.args,
-        scope = _ref.scope;
-
-    clearTimeout(timer);
-    timer = setTimeout(function () {
-      return (0, _callfunc["default"])(func, args, scope);
-    }, defaultDelay || delay);
-  };
-};
-
-var _default = debounce;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 86 */
-/*!*************************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/defaultCall.js ***!
-  \*************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _callfunc = _interopRequireDefault(__webpack_require__(/*! ./callfunc */ 26));
-
-var defaultCall = function defaultCall(defaultFunc, func, scope) {
-  return function () {
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return (0, _callfunc["default"])(func || defaultFunc, args, scope);
-  };
-};
-
-var _default = defaultCall;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 87 */
-/*!**********************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/delegate.js ***!
-  \**********************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _cssQuerySelector = _interopRequireDefault(__webpack_require__(/*! css-query-selector */ 267));
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var _callfunc = _interopRequireDefault(__webpack_require__(/*! ./callfunc */ 26));
-
-var _register = __webpack_require__(/*! ./register */ 131);
-
-var delegate = function delegate(el, type, childs, defaultFunc) {
-  if (!el || !childs || !childs.length) {
-    return;
-  }
-
-  if (!(0, _reshowConstant.IS_ARRAY)(childs)) {
-    childs = [{
-      select: childs
-    }];
-  }
-
-  (0, _register.register)(_cssQuerySelector["default"].el(el)).addEventListener(type, function (e) {
-    var tar = e.target;
-    childs.some(function (_ref) {
-      var select = _ref.select,
-          _ref$func = _ref.func,
-          func = _ref$func === void 0 ? defaultFunc : _ref$func;
-
-      if ("debug" === select) {
-        return (0, _callfunc["default"])(func, [e]);
-      } else {
-        var doms = _cssQuerySelector["default"].from(el).all(select) || [];
-        var i = doms.length;
-
-        while (i--) {
-          var childEl = doms[i];
-
-          if (tar.isSameNode(childEl) || childEl.contains(tar)) {
-            return (0, _callfunc["default"])(func, [{
-              type: e.type,
-              target: e.target,
-              currentTarget: childEl,
-              nativeEvent: e
-            }]);
-          }
-        }
-      }
-    });
-  });
-};
-
-var _default = delegate;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */
-/*!*************************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/getEventKey.js ***!
-  \*************************************************************/
-/***/ ((module, exports) => {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-/**
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
- * @see https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key
- */
-var getEventKey = function getEventKey(e) {
-  var _e$key;
-
-  return (_e$key = e.key) !== null && _e$key !== void 0 ? _e$key : e.keyCode;
-};
-
-var _default = getEventKey;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 93 */
-/*!*************************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/getImportDefault.js ***!
-  \*************************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var _get = _interopRequireDefault(__webpack_require__(/*! ./get */ 42));
-
-var getImportDefault = function getImportDefault(o) {
-  return (0, _get["default"])(o, [_reshowConstant.DEFAULT, _reshowConstant.DEFAULT], function () {
-    return (0, _get["default"])(o, [_reshowConstant.DEFAULT], function () {
-      return o;
-    });
-  });
-};
-
-var _default = getImportDefault;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 94 */
-/*!**************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/toMap.js ***!
-  \**************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var _get = _interopRequireDefault(__webpack_require__(/*! ./get */ 42));
-
-var _toJS = _interopRequireDefault(__webpack_require__(/*! ./toJS */ 56));
-
-var toMap = function toMap(a, path) {
-  var next = (0, _get["default"])(a, path, {});
-  var nextMap = {};
-  (0, _reshowConstant.KEYS)(next).forEach(function (key) {
-    return nextMap[key] = (0, _toJS["default"])(next[key]);
-  });
-  return nextMap;
-};
-
-var _default = toMap;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 95 */
-/*!****************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/initMap.js ***!
-  \****************************************************************/
-/***/ ((module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports["default"] = void 0;
-
-var _getDefaultValue = _interopRequireDefault(__webpack_require__(/*! ./getDefaultValue */ 55));
-
-/**
- * Why need initMap?
- * const o = {};
- *
- * Before:
- * if (!o[k]) { // <-- u need do it, before every set.
- *  o[k] = {x:[], y:[]};
- * } 
- * o.k.x.push('z');
- *
- * After:
- * initMap(o)(k, {x:[], y:[]});
- * o.k.x.push('z');
- */
-var initMap = function initMap(o) {
-  return function (k, defaultValue) {
-    return o[k] || (o[k] = (0, _getDefaultValue["default"])(defaultValue));
-  };
-};
-
-var _default = initMap;
-exports["default"] = _default;
-module.exports = exports.default;
-
-/***/ }),
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */
 /*!**********************************************************!*\
   !*** ./node_modules/class-lib/build/es/src/mixClass.mjs ***!
   \**********************************************************/
@@ -6500,9 +6004,9 @@ module.exports = exports.default;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var reshow_runtime_es_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/toConsumableArray */ 29);
+/* harmony import */ var reshow_runtime_es_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/toConsumableArray */ 26);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var array_dedup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! array.dedup */ 52);
+/* harmony import */ var array_dedup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! array.dedup */ 47);
 
 
 
@@ -6543,7 +6047,7 @@ var mixClass = function mixClass() {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mixClass);
 
 /***/ }),
-/* 100 */
+/* 79 */
 /*!*************************************************************!*\
   !*** ./node_modules/class-lib/build/es/src/removeClass.mjs ***!
   \*************************************************************/
@@ -6553,8 +6057,8 @@ var mixClass = function mixClass() {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _getClassReg_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getClassReg.mjs */ 132);
-/* harmony import */ var _hasClass_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hasClass.mjs */ 57);
+/* harmony import */ var _getClassReg_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getClassReg.mjs */ 112);
+/* harmony import */ var _hasClass_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hasClass.mjs */ 48);
 
 
 
@@ -6574,13 +6078,13 @@ var removeClass = function removeClass(classes, name) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (removeClass);
 
 /***/ }),
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */
 /*!************************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/getWindowOffset.js ***!
   \************************************************************************/
@@ -6591,11 +6095,11 @@ var removeClass = function removeClass(classes, name) {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectSpread2 */ 0);
-/* harmony import */ var reshow_runtime_es_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/defineProperty */ 13);
-/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-scroll-info */ 30);
-/* harmony import */ var _isOnScreen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isOnScreen */ 108);
-/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getDomPositionInfo */ 45);
-/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./positions */ 40);
+/* harmony import */ var reshow_runtime_es_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/defineProperty */ 15);
+/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-scroll-info */ 27);
+/* harmony import */ var _isOnScreen__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isOnScreen */ 87);
+/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getDomPositionInfo */ 40);
+/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./positions */ 36);
 
 
 
@@ -6723,7 +6227,7 @@ var getWindowOffset = function getWindowOffset(dom, debug) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getWindowOffset);
 
 /***/ }),
-/* 108 */
+/* 87 */
 /*!*******************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/isOnScreen.js ***!
   \*******************************************************************/
@@ -6746,7 +6250,7 @@ var isOnScreen = function isOnScreen(domInfo, scrollInfo) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isOnScreen);
 
 /***/ }),
-/* 109 */
+/* 88 */
 /*!**************************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/getPositionString.js ***!
   \**************************************************************************/
@@ -6756,7 +6260,7 @@ var isOnScreen = function isOnScreen(domInfo, scrollInfo) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 6);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 7);
 
 var position = {
   tl: "top left",
@@ -6781,8 +6285,9 @@ var getPositionString = function getPositionString(loc) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getPositionString);
 
 /***/ }),
-/* 110 */,
-/* 111 */
+/* 89 */,
+/* 90 */,
+/* 91 */
 /*!*****************************************************!*\
   !*** ./node_modules/colorlib/build/src/hexToDec.js ***!
   \*****************************************************/
@@ -6811,7 +6316,7 @@ exports["default"] = hexToDec;
 module.exports = exports['default'];
 
 /***/ }),
-/* 112 */
+/* 92 */
 /*!******************************************************!*\
   !*** ./node_modules/colorlib/build/src/hexToRgba.js ***!
   \******************************************************/
@@ -6824,7 +6329,7 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 
-var _index = __webpack_require__(/*! ./index */ 76);
+var _index = __webpack_require__(/*! ./index */ 68);
 
 var hexToRgba = function hexToRgba(hex, opacity) {
     var rgba = 'rgba(';
@@ -6838,7 +6343,7 @@ exports["default"] = hexToRgba;
 module.exports = exports['default'];
 
 /***/ }),
-/* 113 */
+/* 93 */
 /*!*********************************************************!*\
   !*** ./node_modules/colorlib/build/src/lightenColor.js ***!
   \*********************************************************/
@@ -6851,7 +6356,7 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 
-var _index = __webpack_require__(/*! ./index */ 76);
+var _index = __webpack_require__(/*! ./index */ 68);
 
 var lightenColor = function lightenColor(hex, lum, threshold) {
     var rgb = '#';
@@ -6884,9 +6389,9 @@ exports["default"] = lightenColor;
 module.exports = exports['default'];
 
 /***/ }),
-/* 114 */,
-/* 115 */,
-/* 116 */
+/* 94 */,
+/* 95 */,
+/* 96 */
 /*!******************************************!*\
   !*** ./node_modules/es6-promise/auto.js ***!
   \******************************************/
@@ -6896,11 +6401,11 @@ module.exports = exports['default'];
 // This file can be required in Browserify and Node.js for automatic polyfill
 // To use it:  require('es6-promise/auto');
 
-module.exports = (__webpack_require__(/*! ./ */ 79).polyfill)();
+module.exports = (__webpack_require__(/*! ./ */ 71).polyfill)();
 
 
 /***/ }),
-/* 117 */
+/* 97 */
 /*!**********************************************************!*\
   !*** ./node_modules/call-func/build/es/src/register.mjs ***!
   \**********************************************************/
@@ -6911,11 +6416,11 @@ module.exports = (__webpack_require__(/*! ./ */ 79).polyfill)();
 /* harmony export */   "register": () => (/* binding */ register)
 /* harmony export */ });
 /* unused harmony export cleanAllRegister */
-/* harmony import */ var reshow_runtime_es_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/classCallCheck */ 16);
-/* harmony import */ var reshow_runtime_es_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/createClass */ 17);
-/* harmony import */ var reshow_runtime_es_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-runtime/es/helpers/defineProperty */ 13);
+/* harmony import */ var reshow_runtime_es_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/classCallCheck */ 13);
+/* harmony import */ var reshow_runtime_es_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/createClass */ 14);
+/* harmony import */ var reshow_runtime_es_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-runtime/es/helpers/defineProperty */ 15);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./callfunc.mjs */ 27);
+/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./callfunc.mjs */ 24);
 
 
 
@@ -7050,7 +6555,7 @@ var cleanAllRegister = function cleanAllRegister(type) {
 
 
 /***/ }),
-/* 118 */
+/* 98 */
 /*!*********************************************************!*\
   !*** ./node_modules/array.merge/build/es/src/index.mjs ***!
   \*********************************************************/
@@ -7061,15 +6566,15 @@ var cleanAllRegister = function cleanAllRegister(type) {
 /* harmony export */   "default": () => (/* reexport safe */ _merge_mjs__WEBPACK_IMPORTED_MODULE_0__["default"]),
 /* harmony export */   "removeEmpty": () => (/* reexport safe */ _removeEmpty_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
-/* harmony import */ var _merge_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./merge.mjs */ 158);
-/* harmony import */ var _combine_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./combine.mjs */ 245);
-/* harmony import */ var _removeEmpty_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./removeEmpty.mjs */ 161);
+/* harmony import */ var _merge_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./merge.mjs */ 136);
+/* harmony import */ var _combine_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./combine.mjs */ 224);
+/* harmony import */ var _removeEmpty_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./removeEmpty.mjs */ 139);
 
 
 
 
 /***/ }),
-/* 119 */
+/* 99 */
 /*!************************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/getDefaultValue.mjs ***!
   \************************************************************************/
@@ -7089,10 +6594,10 @@ var getDefaultValue = function getDefaultValue(v, cur) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getDefaultValue);
 
 /***/ }),
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */
 /*!**************************************************************!*\
   !*** ./node_modules/form-serialize-js/build/es/src/index.js ***!
   \**************************************************************/
@@ -7102,8 +6607,8 @@ var getDefaultValue = function getDefaultValue(v, cur) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var reshow_runtime_es_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/toConsumableArray */ 29);
-/* harmony import */ var set_object_value__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! set-object-value */ 51);
+/* harmony import */ var reshow_runtime_es_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/toConsumableArray */ 26);
+/* harmony import */ var set_object_value__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! set-object-value */ 46);
 
 
 
@@ -7204,7 +6709,8 @@ var formSerialize = function formSerialize(formEl, arrayMode) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (formSerialize);
 
 /***/ }),
-/* 124 */
+/* 104 */,
+/* 105 */
 /*!********************************************************!*\
   !*** ./node_modules/with-array/build/es/src/index.mjs ***!
   \********************************************************/
@@ -7268,7 +6774,7 @@ var anyToArray = function anyToArray(val, testFunc) {
 
 
 /***/ }),
-/* 125 */
+/* 106 */
 /*!**********************************************************!*\
   !*** ./node_modules/get-safe-reg/build/es/src/index.mjs ***!
   \**********************************************************/
@@ -7311,53 +6817,49 @@ var safeMatch = function safeMatch(testText, reg) {
 
 
 /***/ }),
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */
 /*!*********************************************************!*\
-  !*** ./node_modules/get-storage/build/cjs/src/index.js ***!
+  !*** ./node_modules/get-storage/build/es/src/index.mjs ***!
   \*********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-var __webpack_unused_export__;
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Storage": () => (/* reexport safe */ _Storage_mjs__WEBPACK_IMPORTED_MODULE_3__["default"]),
+/* harmony export */   "localStorage": () => (/* binding */ localStorage),
+/* harmony export */   "sessionStorage": () => (/* binding */ sessionStorage)
+/* harmony export */ });
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 7);
+/* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
+/* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-constant */ 1);
+/* harmony import */ var _Storage_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Storage.mjs */ 151);
 
 
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
 
-__webpack_unused_export__ = true;
-exports.sessionStorage = exports.localStorage = exports.Storage = void 0;
-
-var _getObjectValue = _interopRequireDefault(__webpack_require__(/*! get-object-value */ 130));
-
-var _winDoc = __webpack_require__(/*! win-doc */ 11);
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var _Storage = _interopRequireDefault(__webpack_require__(/*! ./Storage.js */ 269));
-
-exports.Storage = _Storage["default"];
 var notSupport = {};
 
 var getStorage = function getStorage(storageType) {
   return function (key) {
     return function (value) {
-      var oWin = (0, _winDoc.win)();
+      var oWin = (0,win_doc__WEBPACK_IMPORTED_MODULE_1__.win)();
 
       if (!oWin || notSupport[storageType]) {
         return;
       }
 
-      var store = (0, _getObjectValue["default"])(oWin, [storageType]);
+      var store = (0,get_object_value__WEBPACK_IMPORTED_MODULE_0__["default"])(oWin, [storageType]);
 
-      if (_reshowConstant.UNDEFINED === typeof store) {
+      if (reshow_constant__WEBPACK_IMPORTED_MODULE_2__.UNDEFINED === typeof store) {
         console.warn("Not support. [" + storageType + "]");
         notSupport[storageType] = true;
         return;
       }
 
-      if (_reshowConstant.UNDEFINED === typeof value) {
+      if (reshow_constant__WEBPACK_IMPORTED_MODULE_2__.UNDEFINED === typeof value) {
         return store.getItem(key);
       } else {
         try {
@@ -7376,196 +6878,12 @@ var getStorage = function getStorage(storageType) {
 };
 
 var localStorage = getStorage("localStorage");
-exports.localStorage = localStorage;
 var sessionStorage = getStorage("sessionStorage");
-exports.sessionStorage = sessionStorage;
+
+
 
 /***/ }),
-/* 130 */
-/*!**************************************************************!*\
-  !*** ./node_modules/get-object-value/build/cjs/src/index.js ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports.toMap = exports.toJS = exports.initMap = exports.getDefault = exports["default"] = void 0;
-
-var _get = _interopRequireDefault(__webpack_require__(/*! ./get */ 42));
-
-exports["default"] = _get["default"];
-
-var _getImportDefault = _interopRequireDefault(__webpack_require__(/*! ./getImportDefault */ 93));
-
-exports.getDefault = _getImportDefault["default"];
-
-var _toJS = _interopRequireDefault(__webpack_require__(/*! ./toJS */ 56));
-
-exports.toJS = _toJS["default"];
-
-var _toMap = _interopRequireDefault(__webpack_require__(/*! ./toMap */ 94));
-
-exports.toMap = _toMap["default"];
-
-var _initMap = _interopRequireDefault(__webpack_require__(/*! ./initMap */ 95));
-
-exports.initMap = _initMap["default"];
-
-/***/ }),
-/* 131 */
-/*!**********************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/register.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports.register = exports.cleanAllRegister = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! reshow-runtime/helpers/classCallCheck */ 53));
-
-var _createClass2 = _interopRequireDefault(__webpack_require__(/*! reshow-runtime/helpers/createClass */ 54));
-
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! reshow-runtime/helpers/defineProperty */ 91));
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var _callfunc = _interopRequireDefault(__webpack_require__(/*! ./callfunc */ 26));
-
-var count = {
-  el: 0,
-  opt: 0
-};
-var allWrapMap = {};
-var wrapKey = "data-event-wrap-id";
-
-var initEventWrap = function initEventWrap(el) {
-  var wrapId = el.getAttribute ? el.getAttribute(wrapKey) : el[wrapKey];
-
-  if (!wrapId) {
-    wrapId = ++count.el;
-
-    if (el.setAttribute) {
-      el.setAttribute(wrapKey, wrapId);
-    } else {
-      el[wrapKey] = wrapId;
-    }
-  }
-
-  var obj = allWrapMap[wrapId];
-
-  if (!obj) {
-    obj = new EventWrap(wrapId, el);
-    allWrapMap[wrapId] = obj;
-  }
-
-  return obj;
-};
-
-var EventWrap = /*#__PURE__*/function () {
-  function EventWrap(_id, el) {
-    var _this = this;
-
-    (0, _classCallCheck2["default"])(this, EventWrap);
-    (0, _defineProperty2["default"])(this, "optionMap", {});
-    (0, _defineProperty2["default"])(this, "typeMap", {});
-    (0, _defineProperty2["default"])(this, "addEventListener", function (type, func) {
-      var thisOptId = ++count.opt;
-      var optionMap = _this.optionMap;
-
-      for (var _len = arguments.length, options = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-        options[_key - 2] = arguments[_key];
-      }
-
-      optionMap[thisOptId] = [type, func].concat(options);
-
-      if (!_this.typeMap[type]) {
-        _this.typeMap[type] = [];
-      }
-
-      _this.typeMap[type].push(thisOptId);
-
-      (0, _callfunc["default"])(_this.el.addEventListener, optionMap[thisOptId], _this.el);
-      return thisOptId;
-    });
-    (0, _defineProperty2["default"])(this, "removeEventListener", function (typeOrId, func) {
-      var optionMap = _this.optionMap;
-      var thisOptions;
-      var id;
-
-      if (!isNaN(typeOrId) && optionMap[typeOrId]) {
-        id = typeOrId;
-        thisOptions = optionMap[id];
-      } else {
-        for (var _len2 = arguments.length, options = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-          options[_key2 - 2] = arguments[_key2];
-        }
-
-        thisOptions = [typeOrId, func].concat(options);
-      }
-
-      (0, _callfunc["default"])(_this.el.removeEventListener, thisOptions, _this.el);
-
-      if (id) {
-        var type = thisOptions[0];
-        var thisTypeMap = _this.typeMap[type] || [];
-        _this.typeMap[type] = thisTypeMap.filter(function (item) {
-          return item != id;
-        });
-        delete optionMap[id];
-      }
-    });
-    this.id = _id;
-    this.el = el;
-  }
-
-  (0, _createClass2["default"])(EventWrap, [{
-    key: "cleanAll",
-    value: function cleanAll(type) {
-      var _this2 = this;
-
-      var optionMap = this.optionMap;
-
-      if (null != type) {
-        if (this.typeMap[type]) {
-          this.typeMap[type].forEach(function (key) {
-            _this2.removeEventListener(key);
-          });
-        }
-      } else {
-        (0, _reshowConstant.KEYS)(optionMap).forEach(function (key) {
-          _this2.removeEventListener(key);
-        });
-      }
-    }
-  }]);
-  return EventWrap;
-}();
-
-var register = function register(el) {
-  return initEventWrap(el);
-};
-
-exports.register = register;
-
-var cleanAllRegister = function cleanAllRegister(type) {
-  (0, _reshowConstant.KEYS)(allWrapMap).forEach(function (key) {
-    allWrapMap[key].cleanAll(type);
-  });
-};
-
-exports.cleanAllRegister = cleanAllRegister;
-
-/***/ }),
-/* 132 */
+/* 112 */
 /*!*************************************************************!*\
   !*** ./node_modules/class-lib/build/es/src/getClassReg.mjs ***!
   \*************************************************************/
@@ -7575,7 +6893,7 @@ exports.cleanAllRegister = cleanAllRegister;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var get_safe_reg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-safe-reg */ 125);
+/* harmony import */ var get_safe_reg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-safe-reg */ 106);
 
 
 var getRegString = function getRegString(name) {
@@ -7588,7 +6906,7 @@ var cache = (0,get_safe_reg__WEBPACK_IMPORTED_MODULE_0__.cacheReg)({})(getRegStr
 });
 
 /***/ }),
-/* 133 */
+/* 113 */
 /*!*******************************************************!*\
   !*** ./node_modules/ucfirst-js/build/es/src/index.js ***!
   \*******************************************************/
@@ -7608,11 +6926,11 @@ var ucfirst = function ucfirst(s) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ucfirst);
 
 /***/ }),
-/* 134 */
-/*!******************************************************!*\
-  !*** ./node_modules/create-el/build/es/src/index.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/* 114 */
+/*!*******************************************************!*\
+  !*** ./node_modules/create-el/build/es/src/index.mjs ***!
+  \*******************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
@@ -7622,8 +6940,8 @@ var ucfirst = function ucfirst(s) {
 /* harmony export */ });
 /* unused harmony exports js, remove */
 /* harmony import */ var reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectSpread2 */ 0);
-/* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! call-func */ 7);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! call-func */ 6);
+/* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! win-doc */ 11);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reshow-constant */ 1);
 
 
@@ -7632,7 +6950,7 @@ var ucfirst = function ucfirst(s) {
 
 var inject = function inject(base, isPrepend) {
   return function (dNode) {
-    base = (0,call_func__WEBPACK_IMPORTED_MODULE_2__["default"])(base);
+    base = (0,call_func__WEBPACK_IMPORTED_MODULE_1__["default"])(base);
 
     if (base && (base.nodeName === "BODY" || base.nodeName === "HEAD")) {
       if (isPrepend && base.firstChild) {
@@ -7643,7 +6961,7 @@ var inject = function inject(base, isPrepend) {
         return;
       }
     } else {
-      var d = (0,win_doc__WEBPACK_IMPORTED_MODULE_1__.doc)();
+      var d = (0,win_doc__WEBPACK_IMPORTED_MODULE_2__.doc)();
 
       if (!base) {
         base = d.currentScript ? d.currentScript : d.body;
@@ -7674,7 +6992,7 @@ var inject = function inject(base, isPrepend) {
 var create = function create(tag) {
   return function (callback) {
     return function (attrs) {
-      var d = (0,win_doc__WEBPACK_IMPORTED_MODULE_1__.doc)();
+      var d = (0,win_doc__WEBPACK_IMPORTED_MODULE_2__.doc)();
 
       if (d.createElement) {
         var dNode = d.createElement(tag);
@@ -7751,7 +7069,7 @@ var css = function css(base, isPrepend) {
 
 
 /***/ }),
-/* 135 */
+/* 115 */
 /*!******************************************************!*\
   !*** ./node_modules/need-css/build/es/src/index.mjs ***!
   \******************************************************/
@@ -7761,10 +7079,10 @@ var css = function css(base, isPrepend) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var create_el__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! create-el */ 134);
+/* harmony import */ var create_el__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! create-el */ 114);
 /* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 6);
-/* harmony import */ var css_query_selector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! css-query-selector */ 61);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 7);
+/* harmony import */ var css_query_selector__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! css-query-selector */ 52);
 
 
 
@@ -7848,10 +7166,9 @@ var needCSS = function needCSS(mods, groupKey) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (needCSS);
 
 /***/ }),
-/* 136 */,
-/* 137 */,
-/* 138 */,
-/* 139 */
+/* 116 */,
+/* 117 */,
+/* 118 */
 /*!**********************************************!*\
   !*** ./node_modules/ricon/build/es/ui/X.mjs ***!
   \**********************************************/
@@ -7863,10 +7180,10 @@ var needCSS = function needCSS(mods, groupKey) {
 /* harmony export */ });
 /* harmony import */ var reshow_runtime_es_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectSpread2 */ 0);
 /* harmony import */ var reshow_runtime_es_helpers_objectWithoutPropertiesLoose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/objectWithoutPropertiesLoose */ 5);
-/* harmony import */ var _SemanticUI_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SemanticUI.mjs */ 311);
-/* harmony import */ var _useLazyInject_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useLazyInject.mjs */ 312);
-/* harmony import */ var _mixClass_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mixClass.mjs */ 313);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ 3);
+/* harmony import */ var _SemanticUI_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SemanticUI.mjs */ 285);
+/* harmony import */ var _useLazyInject_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./useLazyInject.mjs */ 286);
+/* harmony import */ var _mixClass_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mixClass.mjs */ 287);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ 2);
 
 
 var _excluded = ["position", "weight", "size", "color", "className", "style"];
@@ -7945,7 +7262,7 @@ var InjectStyles = {
 };
 
 /***/ }),
-/* 140 */
+/* 119 */
 /*!****************************************************************!*\
   !*** ./node_modules/prop-types/node_modules/react-is/index.js ***!
   \****************************************************************/
@@ -7955,12 +7272,12 @@ var InjectStyles = {
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ 314);
+  module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ 288);
 }
 
 
 /***/ }),
-/* 141 */
+/* 120 */
 /*!************************************************************!*\
   !*** ./node_modules/prop-types/factoryWithTypeCheckers.js ***!
   \************************************************************/
@@ -7976,12 +7293,12 @@ if (false) {} else {
 
 
 
-var ReactIs = __webpack_require__(/*! react-is */ 140);
-var assign = __webpack_require__(/*! object-assign */ 142);
+var ReactIs = __webpack_require__(/*! react-is */ 119);
+var assign = __webpack_require__(/*! object-assign */ 121);
 
-var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 72);
-var has = __webpack_require__(/*! ./lib/has */ 73);
-var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ 143);
+var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 64);
+var has = __webpack_require__(/*! ./lib/has */ 65);
+var checkPropTypes = __webpack_require__(/*! ./checkPropTypes */ 122);
 
 var printWarning = function() {};
 
@@ -8580,7 +7897,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 /***/ }),
-/* 142 */
+/* 121 */
 /*!*********************************************!*\
   !*** ./node_modules/object-assign/index.js ***!
   \*********************************************/
@@ -8680,7 +7997,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 143 */
+/* 122 */
 /*!***************************************************!*\
   !*** ./node_modules/prop-types/checkPropTypes.js ***!
   \***************************************************/
@@ -8699,9 +8016,9 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 var printWarning = function() {};
 
 if (true) {
-  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 72);
+  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ 64);
   var loggedTypeFailures = {};
-  var has = __webpack_require__(/*! ./lib/has */ 73);
+  var has = __webpack_require__(/*! ./lib/has */ 65);
 
   printWarning = function(text) {
     var message = 'Warning: ' + text;
@@ -8793,9 +8110,9 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 144 */,
-/* 145 */,
-/* 146 */
+/* 123 */,
+/* 124 */,
+/* 125 */
 /*!**************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/index.js ***!
   \**************************************************************/
@@ -8808,13 +8125,13 @@ module.exports = checkPropTypes;
 /* harmony export */   "getPositionString": () => (/* reexport safe */ _getPositionString__WEBPACK_IMPORTED_MODULE_3__["default"]),
 /* harmony export */   "isOnScreen": () => (/* reexport safe */ _isOnScreen__WEBPACK_IMPORTED_MODULE_4__["default"])
 /* harmony export */ });
-/* harmony import */ var _getWindowOffset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getWindowOffset */ 107);
-/* harmony import */ var _alignUI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alignUI */ 228);
-/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./positions */ 40);
-/* harmony import */ var _getPositionString__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getPositionString */ 109);
-/* harmony import */ var _isOnScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./isOnScreen */ 108);
-/* harmony import */ var _isFixed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isFixed */ 147);
-/* harmony import */ var _nearWhere__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nearWhere */ 322);
+/* harmony import */ var _getWindowOffset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getWindowOffset */ 86);
+/* harmony import */ var _alignUI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./alignUI */ 207);
+/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./positions */ 36);
+/* harmony import */ var _getPositionString__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getPositionString */ 88);
+/* harmony import */ var _isOnScreen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./isOnScreen */ 87);
+/* harmony import */ var _isFixed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isFixed */ 126);
+/* harmony import */ var _nearWhere__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./nearWhere */ 296);
 
 
 
@@ -8825,7 +8142,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 147 */
+/* 126 */
 /*!****************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/isFixed.js ***!
   \****************************************************************/
@@ -8835,7 +8152,7 @@ module.exports = checkPropTypes;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var get_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-style */ 75);
+/* harmony import */ var get_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-style */ 67);
 
 
 var isFixed = function isFixed(node) {
@@ -8862,10 +8179,9 @@ var isFixed = function isFixed(node) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isFixed);
 
 /***/ }),
-/* 148 */,
-/* 149 */,
-/* 150 */,
-/* 151 */
+/* 127 */,
+/* 128 */,
+/* 129 */
 /*!******************************************!*\
   !*** ./node_modules/prop-types/index.js ***!
   \******************************************/
@@ -8879,18 +8195,18 @@ var isFixed = function isFixed(node) {
  */
 
 if (true) {
-  var ReactIs = __webpack_require__(/*! react-is */ 140);
+  var ReactIs = __webpack_require__(/*! react-is */ 119);
 
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ 141)(ReactIs.isElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(/*! ./factoryWithTypeCheckers */ 120)(ReactIs.isElement, throwOnDirectAccess);
 } else {}
 
 
 /***/ }),
-/* 152 */,
-/* 153 */
+/* 130 */,
+/* 131 */
 /*!*****************************************************!*\
   !*** ./node_modules/immutable/dist/immutable.es.js ***!
   \*****************************************************/
@@ -14834,8 +14150,8 @@ var Iterable = Collection;
 
 
 /***/ }),
-/* 154 */,
-/* 155 */
+/* 132 */,
+/* 133 */
 /*!***********************************************************!*\
   !*** ./node_modules/array.polyfill/build/es/src/index.js ***!
   \***********************************************************/
@@ -14906,7 +14222,7 @@ if (!String.prototype.includes) {
 }
 
 /***/ }),
-/* 156 */
+/* 134 */
 /*!**********************************************************!*\
   !*** ./node_modules/call-func/build/es/src/debounce.mjs ***!
   \**********************************************************/
@@ -14916,7 +14232,7 @@ if (!String.prototype.includes) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callfunc.mjs */ 27);
+/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callfunc.mjs */ 24);
 
 /**
  * only run lasttime.
@@ -14941,7 +14257,7 @@ var debounce = function debounce(func, defaultDelay) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (debounce);
 
 /***/ }),
-/* 157 */
+/* 135 */
 /*!*************************************************************!*\
   !*** ./node_modules/call-func/build/es/src/getEventKey.mjs ***!
   \*************************************************************/
@@ -14964,7 +14280,7 @@ var getEventKey = function getEventKey(e) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getEventKey);
 
 /***/ }),
-/* 158 */
+/* 136 */
 /*!*********************************************************!*\
   !*** ./node_modules/array.merge/build/es/src/merge.mjs ***!
   \*********************************************************/
@@ -15005,7 +14321,7 @@ var arrayMerge = function arrayMerge() {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (arrayMerge);
 
 /***/ }),
-/* 159 */
+/* 137 */
 /*!*************************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/getImportDefault.mjs ***!
   \*************************************************************************/
@@ -15016,7 +14332,7 @@ var arrayMerge = function arrayMerge() {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var _get_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get.mjs */ 50);
+/* harmony import */ var _get_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get.mjs */ 45);
 
 
 
@@ -15031,7 +14347,7 @@ var getImportDefault = function getImportDefault(o) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getImportDefault);
 
 /***/ }),
-/* 160 */
+/* 138 */
 /*!****************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/initMap.mjs ***!
   \****************************************************************/
@@ -15041,21 +14357,20 @@ var getImportDefault = function getImportDefault(o) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _getDefaultValue_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDefaultValue.mjs */ 119);
+/* harmony import */ var _getDefaultValue_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDefaultValue.mjs */ 99);
 
 /**
  * Why need initMap?
  * const o = {};
  *
  * Before:
- * if (!o[k]) { // <-- u need do it, before every set.
- *  o[k] = {x:[], y:[]};
- * } 
- * o.k.x.push('z');
+ * if (!o["foo"]) { // <-- u need do it, before every set.
+ *  o["foo"] = [];
+ * }
+ * o.foo.push('bar');
  *
  * After:
- * initMap(o)(k, {x:[], y:[]});
- * o.k.x.push('z');
+ * initMap(o)("foo", []).push('bar');
  */
 
 var initMap = function initMap(o) {
@@ -15067,7 +14382,7 @@ var initMap = function initMap(o) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (initMap);
 
 /***/ }),
-/* 161 */
+/* 139 */
 /*!***************************************************************!*\
   !*** ./node_modules/array.merge/build/es/src/removeEmpty.mjs ***!
   \***************************************************************/
@@ -15118,13 +14433,13 @@ var removeEmpty = function removeEmpty(arr, undefinedOnly, excludeKey) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (removeEmpty);
 
 /***/ }),
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */
 /*!****************************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/easeInOutCubic.js ***!
   \****************************************************************/
@@ -15145,7 +14460,7 @@ var easeInOutCubic = function easeInOutCubic(t, b, c, d) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (easeInOutCubic);
 
 /***/ }),
-/* 169 */
+/* 147 */
 /*!**********************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/aniTimer.js ***!
   \**********************************************************/
@@ -15155,7 +14470,7 @@ var easeInOutCubic = function easeInOutCubic(t, b, c, d) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! call-func */ 7);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! call-func */ 6);
 /* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
 
 
@@ -15188,6 +14503,138 @@ var aniTimer = function aniTimer(_ref, duration) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (aniTimer);
 
 /***/ }),
+/* 148 */,
+/* 149 */,
+/* 150 */,
+/* 151 */
+/*!***********************************************************!*\
+  !*** ./node_modules/get-storage/build/es/src/Storage.mjs ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* unused harmony exports parseField, encode, decode */
+/* harmony import */ var reshow_runtime_es_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/classCallCheck */ 13);
+/* harmony import */ var reshow_runtime_es_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-runtime/es/helpers/createClass */ 14);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 7);
+/* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reshow-constant */ 1);
+
+
+
+
+
+var toInt = function toInt(d) {
+  return parseInt(d, 10);
+};
+
+var parseField = function parseField(s) {
+  var iStar = s.indexOf(",");
+  var len = toInt(s.substring(0, iStar));
+  var val = s.substring(iStar + 1);
+  return [len, val];
+};
+
+var encode = function encode(s) {
+  var _v = JSON.stringify((0,get_object_value__WEBPACK_IMPORTED_MODULE_2__.toJS)(s));
+
+  var vLen = _v.length;
+  var result = vLen + "," + _v;
+  return result;
+};
+
+var decode = function decode(s) {
+  var _parseField = parseField(s),
+      vLen = _parseField[0],
+      value = _parseField[1];
+
+  return vLen === value.length ? JSON.parse(value) : null;
+};
+
+var Storage = /*#__PURE__*/function () {
+  function Storage(_storage, _disableEncode) {
+    (0,reshow_runtime_es_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__["default"])(this, Storage);
+
+    this._storage = _storage;
+    this._de = _disableEncode;
+  }
+
+  (0,reshow_runtime_es_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__["default"])(Storage, [{
+    key: "set",
+    value: function set(k, v) {
+      var origV = this.get(k);
+
+      if (v !== origV) {
+        var s = this._de ? v : encode(v);
+
+        this._storage(k)(s);
+
+        return new Storage(this._storage, this._de);
+      } else {
+        return this;
+      }
+    }
+  }, {
+    key: "merge",
+    value: function merge(arr) {
+      var _this = this;
+
+      if (!arr || reshow_constant__WEBPACK_IMPORTED_MODULE_3__.OBJECT !== typeof arr) {
+        return this;
+      }
+
+      var pKeys = (0,reshow_constant__WEBPACK_IMPORTED_MODULE_3__.KEYS)(arr);
+
+      if (!pKeys || !pKeys.length) {
+        return this;
+      }
+
+      var nextObj;
+      pKeys.forEach(function (key) {
+        return nextObj = _this.set(key, arr[key]);
+      });
+      return nextObj;
+    }
+  }, {
+    key: "get",
+    value: function get(k) {
+      var s = this._storage(k)();
+
+      if (!s) {
+        return;
+      }
+
+      return this._de ? s : decode(s);
+    }
+  }]);
+
+  return Storage;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Storage);
+
+
+/***/ }),
+/* 152 */,
+/* 153 */,
+/* 154 */,
+/* 155 */,
+/* 156 */,
+/* 157 */,
+/* 158 */,
+/* 159 */,
+/* 160 */,
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */,
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
 /* 170 */,
 /* 171 */,
 /* 172 */,
@@ -15225,28 +14672,7 @@ var aniTimer = function aniTimer(_ref, duration) {
 /* 204 */,
 /* 205 */,
 /* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */
+/* 207 */
 /*!****************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/alignUI.js ***!
   \****************************************************************/
@@ -15256,16 +14682,16 @@ var aniTimer = function aniTimer(_ref, duration) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var getoffset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! getoffset */ 32);
-/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-scroll-info */ 30);
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 6);
-/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getDomPositionInfo */ 45);
-/* harmony import */ var _getAfterMove__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getAfterMove */ 318);
-/* harmony import */ var _getWindowOffset__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getWindowOffset */ 107);
-/* harmony import */ var _alignWith__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./alignWith */ 319);
-/* harmony import */ var _isFullOnScreen__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./isFullOnScreen */ 321);
-/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./positions */ 40);
-/* harmony import */ var _getPositionString__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./getPositionString */ 109);
+/* harmony import */ var getoffset__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! getoffset */ 29);
+/* harmony import */ var get_scroll_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! get-scroll-info */ 27);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! get-object-value */ 7);
+/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getDomPositionInfo */ 40);
+/* harmony import */ var _getAfterMove__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getAfterMove */ 292);
+/* harmony import */ var _getWindowOffset__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getWindowOffset */ 86);
+/* harmony import */ var _alignWith__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./alignWith */ 293);
+/* harmony import */ var _isFullOnScreen__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./isFullOnScreen */ 295);
+/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./positions */ 36);
+/* harmony import */ var _getPositionString__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./getPositionString */ 88);
 
 
 
@@ -15440,12 +14866,12 @@ var alignUI = function alignUI(targetEl, floatEl, alignParams, winInfo) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (alignUI);
 
 /***/ }),
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */
 /*!******************************************!*\
   !*** ./node_modules/react-dom/client.js ***!
   \******************************************/
@@ -15454,7 +14880,7 @@ var alignUI = function alignUI(targetEl, floatEl, alignParams, winInfo) {
 "use strict";
 
 
-var m = __webpack_require__(/*! react-dom */ 235);
+var m = __webpack_require__(/*! react-dom */ 214);
 if (false) {} else {
   var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
   exports.createRoot = function(c, o) {
@@ -15477,7 +14903,7 @@ if (false) {} else {
 
 
 /***/ }),
-/* 235 */
+/* 214 */
 /*!*****************************************!*\
   !*** ./node_modules/react-dom/index.js ***!
   \*****************************************/
@@ -15515,12 +14941,12 @@ function checkDCE() {
 }
 
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ 236);
+  module.exports = __webpack_require__(/*! ./cjs/react-dom.development.js */ 215);
 }
 
 
 /***/ }),
-/* 236 */
+/* 215 */
 /*!*************************************************************!*\
   !*** ./node_modules/react-dom/cjs/react-dom.development.js ***!
   \*************************************************************/
@@ -15552,8 +14978,8 @@ if (
 ) {
   __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
 }
-          var React = __webpack_require__(/*! react */ 2);
-var Scheduler = __webpack_require__(/*! scheduler */ 237);
+          var React = __webpack_require__(/*! react */ 3);
+var Scheduler = __webpack_require__(/*! scheduler */ 216);
 
 var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 
@@ -15955,6 +15381,7 @@ function shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag) 
   }
 
   if (isCustomComponentTag) {
+
     return false;
   }
 
@@ -16269,7 +15696,7 @@ function getValueForProperty(node, name, expected, propertyInfo) {
  * attributes have multiple equivalent values.
  */
 
-function getValueForAttribute(node, name, expected) {
+function getValueForAttribute(node, name, expected, isCustomComponentTag) {
   {
     if (!isAttributeNameSafe(name)) {
       return;
@@ -16309,7 +15736,7 @@ function setValueForProperty(node, name, value, isCustomComponentTag) {
 
   if (shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag)) {
     value = null;
-  } // If the prop isn't in the special list, treat it as a simple attribute.
+  }
 
 
   if (isCustomComponentTag || propertyInfo === null) {
@@ -16386,26 +15813,28 @@ function setValueForProperty(node, name, value, isCustomComponentTag) {
 }
 
 // ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_SCOPE_TYPE =  Symbol.for('react.scope');
-var REACT_DEBUG_TRACING_MODE_TYPE =  Symbol.for('react.debug_trace_mode');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
-var REACT_LEGACY_HIDDEN_TYPE =  Symbol.for('react.legacy_hidden');
-var REACT_CACHE_TYPE =  Symbol.for('react.cache');
-var REACT_TRACING_MARKER_TYPE =  Symbol.for('react.tracing_marker');
-var MAYBE_ITERATOR_SYMBOL =  Symbol.iterator;
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_SCOPE_TYPE = Symbol.for('react.scope');
+var REACT_DEBUG_TRACING_MODE_TYPE = Symbol.for('react.debug_trace_mode');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+var REACT_LEGACY_HIDDEN_TYPE = Symbol.for('react.legacy_hidden');
+var REACT_CACHE_TYPE = Symbol.for('react.cache');
+var REACT_TRACING_MARKER_TYPE = Symbol.for('react.tracing_marker');
+var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
 function getIteratorFn(maybeIterable) {
   if (maybeIterable === null || typeof maybeIterable !== 'object') {
@@ -26704,10 +26133,8 @@ function clearContainer(container) {
   if (container.nodeType === ELEMENT_NODE) {
     container.textContent = '';
   } else if (container.nodeType === DOCUMENT_NODE) {
-    var body = container.body;
-
-    if (body != null) {
-      body.textContent = '';
+    if (container.documentElement) {
+      container.removeChild(container.documentElement);
     }
   }
 } // -------------------
@@ -26742,6 +26169,38 @@ function isSuspenseInstancePending(instance) {
 }
 function isSuspenseInstanceFallback(instance) {
   return instance.data === SUSPENSE_FALLBACK_START_DATA;
+}
+function getSuspenseInstanceFallbackErrorDetails(instance) {
+  var dataset = instance.nextSibling && instance.nextSibling.dataset;
+  var digest, message, stack;
+
+  if (dataset) {
+    digest = dataset.dgst;
+
+    {
+      message = dataset.msg;
+      stack = dataset.stck;
+    }
+  }
+
+  {
+    return {
+      message: message,
+      digest: digest,
+      stack: stack
+    };
+  } // let value = {message: undefined, hash: undefined};
+  // const nextSibling = instance.nextSibling;
+  // if (nextSibling) {
+  //   const dataset = ((nextSibling: any): HTMLTemplateElement).dataset;
+  //   value.message = dataset.msg;
+  //   value.hash = dataset.hash;
+  //   if (true) {
+  //     value.stack = dataset.stack;
+  //   }
+  // }
+  // return value;
+
 }
 function registerSuspenseInstanceRetry(instance, callback) {
   instance._reactRetry = callback;
@@ -27559,6 +27018,682 @@ function flushSyncCallbacks() {
   return null;
 }
 
+// TODO: Use the unified fiber stack module instead of this local one?
+// Intentionally not using it yet to derisk the initial implementation, because
+// the way we push/pop these values is a bit unusual. If there's a mistake, I'd
+// rather the ids be wrong than crash the whole reconciler.
+var forkStack = [];
+var forkStackIndex = 0;
+var treeForkProvider = null;
+var treeForkCount = 0;
+var idStack = [];
+var idStackIndex = 0;
+var treeContextProvider = null;
+var treeContextId = 1;
+var treeContextOverflow = '';
+function isForkedChild(workInProgress) {
+  warnIfNotHydrating();
+  return (workInProgress.flags & Forked) !== NoFlags;
+}
+function getForksAtLevel(workInProgress) {
+  warnIfNotHydrating();
+  return treeForkCount;
+}
+function getTreeId() {
+  var overflow = treeContextOverflow;
+  var idWithLeadingBit = treeContextId;
+  var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
+  return id.toString(32) + overflow;
+}
+function pushTreeFork(workInProgress, totalChildren) {
+  // This is called right after we reconcile an array (or iterator) of child
+  // fibers, because that's the only place where we know how many children in
+  // the whole set without doing extra work later, or storing addtional
+  // information on the fiber.
+  //
+  // That's why this function is separate from pushTreeId — it's called during
+  // the render phase of the fork parent, not the child, which is where we push
+  // the other context values.
+  //
+  // In the Fizz implementation this is much simpler because the child is
+  // rendered in the same callstack as the parent.
+  //
+  // It might be better to just add a `forks` field to the Fiber type. It would
+  // make this module simpler.
+  warnIfNotHydrating();
+  forkStack[forkStackIndex++] = treeForkCount;
+  forkStack[forkStackIndex++] = treeForkProvider;
+  treeForkProvider = workInProgress;
+  treeForkCount = totalChildren;
+}
+function pushTreeId(workInProgress, totalChildren, index) {
+  warnIfNotHydrating();
+  idStack[idStackIndex++] = treeContextId;
+  idStack[idStackIndex++] = treeContextOverflow;
+  idStack[idStackIndex++] = treeContextProvider;
+  treeContextProvider = workInProgress;
+  var baseIdWithLeadingBit = treeContextId;
+  var baseOverflow = treeContextOverflow; // The leftmost 1 marks the end of the sequence, non-inclusive. It's not part
+  // of the id; we use it to account for leading 0s.
+
+  var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
+  var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
+  var slot = index + 1;
+  var length = getBitLength(totalChildren) + baseLength; // 30 is the max length we can store without overflowing, taking into
+  // consideration the leading 1 we use to mark the end of the sequence.
+
+  if (length > 30) {
+    // We overflowed the bitwise-safe range. Fall back to slower algorithm.
+    // This branch assumes the length of the base id is greater than 5; it won't
+    // work for smaller ids, because you need 5 bits per character.
+    //
+    // We encode the id in multiple steps: first the base id, then the
+    // remaining digits.
+    //
+    // Each 5 bit sequence corresponds to a single base 32 character. So for
+    // example, if the current id is 23 bits long, we can convert 20 of those
+    // bits into a string of 4 characters, with 3 bits left over.
+    //
+    // First calculate how many bits in the base id represent a complete
+    // sequence of characters.
+    var numberOfOverflowBits = baseLength - baseLength % 5; // Then create a bitmask that selects only those bits.
+
+    var newOverflowBits = (1 << numberOfOverflowBits) - 1; // Select the bits, and convert them to a base 32 string.
+
+    var newOverflow = (baseId & newOverflowBits).toString(32); // Now we can remove those bits from the base id.
+
+    var restOfBaseId = baseId >> numberOfOverflowBits;
+    var restOfBaseLength = baseLength - numberOfOverflowBits; // Finally, encode the rest of the bits using the normal algorithm. Because
+    // we made more room, this time it won't overflow.
+
+    var restOfLength = getBitLength(totalChildren) + restOfBaseLength;
+    var restOfNewBits = slot << restOfBaseLength;
+    var id = restOfNewBits | restOfBaseId;
+    var overflow = newOverflow + baseOverflow;
+    treeContextId = 1 << restOfLength | id;
+    treeContextOverflow = overflow;
+  } else {
+    // Normal path
+    var newBits = slot << baseLength;
+
+    var _id = newBits | baseId;
+
+    var _overflow = baseOverflow;
+    treeContextId = 1 << length | _id;
+    treeContextOverflow = _overflow;
+  }
+}
+function pushMaterializedTreeId(workInProgress) {
+  warnIfNotHydrating(); // This component materialized an id. This will affect any ids that appear
+  // in its children.
+
+  var returnFiber = workInProgress.return;
+
+  if (returnFiber !== null) {
+    var numberOfForks = 1;
+    var slotIndex = 0;
+    pushTreeFork(workInProgress, numberOfForks);
+    pushTreeId(workInProgress, numberOfForks, slotIndex);
+  }
+}
+
+function getBitLength(number) {
+  return 32 - clz32(number);
+}
+
+function getLeadingBit(id) {
+  return 1 << getBitLength(id) - 1;
+}
+
+function popTreeContext(workInProgress) {
+  // Restore the previous values.
+  // This is a bit more complicated than other context-like modules in Fiber
+  // because the same Fiber may appear on the stack multiple times and for
+  // different reasons. We have to keep popping until the work-in-progress is
+  // no longer at the top of the stack.
+  while (workInProgress === treeForkProvider) {
+    treeForkProvider = forkStack[--forkStackIndex];
+    forkStack[forkStackIndex] = null;
+    treeForkCount = forkStack[--forkStackIndex];
+    forkStack[forkStackIndex] = null;
+  }
+
+  while (workInProgress === treeContextProvider) {
+    treeContextProvider = idStack[--idStackIndex];
+    idStack[idStackIndex] = null;
+    treeContextOverflow = idStack[--idStackIndex];
+    idStack[idStackIndex] = null;
+    treeContextId = idStack[--idStackIndex];
+    idStack[idStackIndex] = null;
+  }
+}
+function getSuspendedTreeContext() {
+  warnIfNotHydrating();
+
+  if (treeContextProvider !== null) {
+    return {
+      id: treeContextId,
+      overflow: treeContextOverflow
+    };
+  } else {
+    return null;
+  }
+}
+function restoreSuspendedTreeContext(workInProgress, suspendedContext) {
+  warnIfNotHydrating();
+  idStack[idStackIndex++] = treeContextId;
+  idStack[idStackIndex++] = treeContextOverflow;
+  idStack[idStackIndex++] = treeContextProvider;
+  treeContextId = suspendedContext.id;
+  treeContextOverflow = suspendedContext.overflow;
+  treeContextProvider = workInProgress;
+}
+
+function warnIfNotHydrating() {
+  {
+    if (!getIsHydrating()) {
+      error('Expected to be hydrating. This is a bug in React. Please file ' + 'an issue.');
+    }
+  }
+}
+
+// This may have been an insertion or a hydration.
+
+var hydrationParentFiber = null;
+var nextHydratableInstance = null;
+var isHydrating = false; // This flag allows for warning supression when we expect there to be mismatches
+// due to earlier mismatches or a suspended fiber.
+
+var didSuspendOrErrorDEV = false; // Hydration errors that were thrown inside this boundary
+
+var hydrationErrors = null;
+
+function warnIfHydrating() {
+  {
+    if (isHydrating) {
+      error('We should not be hydrating here. This is a bug in React. Please file a bug.');
+    }
+  }
+}
+
+function markDidThrowWhileHydratingDEV() {
+  {
+    didSuspendOrErrorDEV = true;
+  }
+}
+function didSuspendOrErrorWhileHydratingDEV() {
+  {
+    return didSuspendOrErrorDEV;
+  }
+}
+
+function enterHydrationState(fiber) {
+
+  var parentInstance = fiber.stateNode.containerInfo;
+  nextHydratableInstance = getFirstHydratableChildWithinContainer(parentInstance);
+  hydrationParentFiber = fiber;
+  isHydrating = true;
+  hydrationErrors = null;
+  didSuspendOrErrorDEV = false;
+  return true;
+}
+
+function reenterHydrationStateFromDehydratedSuspenseInstance(fiber, suspenseInstance, treeContext) {
+
+  nextHydratableInstance = getFirstHydratableChildWithinSuspenseInstance(suspenseInstance);
+  hydrationParentFiber = fiber;
+  isHydrating = true;
+  hydrationErrors = null;
+  didSuspendOrErrorDEV = false;
+
+  if (treeContext !== null) {
+    restoreSuspendedTreeContext(fiber, treeContext);
+  }
+
+  return true;
+}
+
+function warnUnhydratedInstance(returnFiber, instance) {
+  {
+    switch (returnFiber.tag) {
+      case HostRoot:
+        {
+          didNotHydrateInstanceWithinContainer(returnFiber.stateNode.containerInfo, instance);
+          break;
+        }
+
+      case HostComponent:
+        {
+          var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+          didNotHydrateInstance(returnFiber.type, returnFiber.memoizedProps, returnFiber.stateNode, instance, // TODO: Delete this argument when we remove the legacy root API.
+          isConcurrentMode);
+          break;
+        }
+
+      case SuspenseComponent:
+        {
+          var suspenseState = returnFiber.memoizedState;
+          if (suspenseState.dehydrated !== null) didNotHydrateInstanceWithinSuspenseInstance(suspenseState.dehydrated, instance);
+          break;
+        }
+    }
+  }
+}
+
+function deleteHydratableInstance(returnFiber, instance) {
+  warnUnhydratedInstance(returnFiber, instance);
+  var childToDelete = createFiberFromHostInstanceForDeletion();
+  childToDelete.stateNode = instance;
+  childToDelete.return = returnFiber;
+  var deletions = returnFiber.deletions;
+
+  if (deletions === null) {
+    returnFiber.deletions = [childToDelete];
+    returnFiber.flags |= ChildDeletion;
+  } else {
+    deletions.push(childToDelete);
+  }
+}
+
+function warnNonhydratedInstance(returnFiber, fiber) {
+  {
+    if (didSuspendOrErrorDEV) {
+      // Inside a boundary that already suspended. We're currently rendering the
+      // siblings of a suspended node. The mismatch may be due to the missing
+      // data, so it's probably a false positive.
+      return;
+    }
+
+    switch (returnFiber.tag) {
+      case HostRoot:
+        {
+          var parentContainer = returnFiber.stateNode.containerInfo;
+
+          switch (fiber.tag) {
+            case HostComponent:
+              var type = fiber.type;
+              var props = fiber.pendingProps;
+              didNotFindHydratableInstanceWithinContainer(parentContainer, type);
+              break;
+
+            case HostText:
+              var text = fiber.pendingProps;
+              didNotFindHydratableTextInstanceWithinContainer(parentContainer, text);
+              break;
+          }
+
+          break;
+        }
+
+      case HostComponent:
+        {
+          var parentType = returnFiber.type;
+          var parentProps = returnFiber.memoizedProps;
+          var parentInstance = returnFiber.stateNode;
+
+          switch (fiber.tag) {
+            case HostComponent:
+              {
+                var _type = fiber.type;
+                var _props = fiber.pendingProps;
+                var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+                didNotFindHydratableInstance(parentType, parentProps, parentInstance, _type, _props, // TODO: Delete this argument when we remove the legacy root API.
+                isConcurrentMode);
+                break;
+              }
+
+            case HostText:
+              {
+                var _text = fiber.pendingProps;
+
+                var _isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+
+                didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, _text, // TODO: Delete this argument when we remove the legacy root API.
+                _isConcurrentMode);
+                break;
+              }
+          }
+
+          break;
+        }
+
+      case SuspenseComponent:
+        {
+          var suspenseState = returnFiber.memoizedState;
+          var _parentInstance = suspenseState.dehydrated;
+          if (_parentInstance !== null) switch (fiber.tag) {
+            case HostComponent:
+              var _type2 = fiber.type;
+              var _props2 = fiber.pendingProps;
+              didNotFindHydratableInstanceWithinSuspenseInstance(_parentInstance, _type2);
+              break;
+
+            case HostText:
+              var _text2 = fiber.pendingProps;
+              didNotFindHydratableTextInstanceWithinSuspenseInstance(_parentInstance, _text2);
+              break;
+          }
+          break;
+        }
+
+      default:
+        return;
+    }
+  }
+}
+
+function insertNonHydratedInstance(returnFiber, fiber) {
+  fiber.flags = fiber.flags & ~Hydrating | Placement;
+  warnNonhydratedInstance(returnFiber, fiber);
+}
+
+function tryHydrate(fiber, nextInstance) {
+  switch (fiber.tag) {
+    case HostComponent:
+      {
+        var type = fiber.type;
+        var props = fiber.pendingProps;
+        var instance = canHydrateInstance(nextInstance, type);
+
+        if (instance !== null) {
+          fiber.stateNode = instance;
+          hydrationParentFiber = fiber;
+          nextHydratableInstance = getFirstHydratableChild(instance);
+          return true;
+        }
+
+        return false;
+      }
+
+    case HostText:
+      {
+        var text = fiber.pendingProps;
+        var textInstance = canHydrateTextInstance(nextInstance, text);
+
+        if (textInstance !== null) {
+          fiber.stateNode = textInstance;
+          hydrationParentFiber = fiber; // Text Instances don't have children so there's nothing to hydrate.
+
+          nextHydratableInstance = null;
+          return true;
+        }
+
+        return false;
+      }
+
+    case SuspenseComponent:
+      {
+        var suspenseInstance = canHydrateSuspenseInstance(nextInstance);
+
+        if (suspenseInstance !== null) {
+          var suspenseState = {
+            dehydrated: suspenseInstance,
+            treeContext: getSuspendedTreeContext(),
+            retryLane: OffscreenLane
+          };
+          fiber.memoizedState = suspenseState; // Store the dehydrated fragment as a child fiber.
+          // This simplifies the code for getHostSibling and deleting nodes,
+          // since it doesn't have to consider all Suspense boundaries and
+          // check if they're dehydrated ones or not.
+
+          var dehydratedFragment = createFiberFromDehydratedFragment(suspenseInstance);
+          dehydratedFragment.return = fiber;
+          fiber.child = dehydratedFragment;
+          hydrationParentFiber = fiber; // While a Suspense Instance does have children, we won't step into
+          // it during the first pass. Instead, we'll reenter it later.
+
+          nextHydratableInstance = null;
+          return true;
+        }
+
+        return false;
+      }
+
+    default:
+      return false;
+  }
+}
+
+function shouldClientRenderOnMismatch(fiber) {
+  return (fiber.mode & ConcurrentMode) !== NoMode && (fiber.flags & DidCapture) === NoFlags;
+}
+
+function throwOnHydrationMismatch(fiber) {
+  throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
+}
+
+function tryToClaimNextHydratableInstance(fiber) {
+  if (!isHydrating) {
+    return;
+  }
+
+  var nextInstance = nextHydratableInstance;
+
+  if (!nextInstance) {
+    if (shouldClientRenderOnMismatch(fiber)) {
+      warnNonhydratedInstance(hydrationParentFiber, fiber);
+      throwOnHydrationMismatch();
+    } // Nothing to hydrate. Make it an insertion.
+
+
+    insertNonHydratedInstance(hydrationParentFiber, fiber);
+    isHydrating = false;
+    hydrationParentFiber = fiber;
+    return;
+  }
+
+  var firstAttemptedInstance = nextInstance;
+
+  if (!tryHydrate(fiber, nextInstance)) {
+    if (shouldClientRenderOnMismatch(fiber)) {
+      warnNonhydratedInstance(hydrationParentFiber, fiber);
+      throwOnHydrationMismatch();
+    } // If we can't hydrate this instance let's try the next one.
+    // We use this as a heuristic. It's based on intuition and not data so it
+    // might be flawed or unnecessary.
+
+
+    nextInstance = getNextHydratableSibling(firstAttemptedInstance);
+    var prevHydrationParentFiber = hydrationParentFiber;
+
+    if (!nextInstance || !tryHydrate(fiber, nextInstance)) {
+      // Nothing to hydrate. Make it an insertion.
+      insertNonHydratedInstance(hydrationParentFiber, fiber);
+      isHydrating = false;
+      hydrationParentFiber = fiber;
+      return;
+    } // We matched the next one, we'll now assume that the first one was
+    // superfluous and we'll delete it. Since we can't eagerly delete it
+    // we'll have to schedule a deletion. To do that, this node needs a dummy
+    // fiber associated with it.
+
+
+    deleteHydratableInstance(prevHydrationParentFiber, firstAttemptedInstance);
+  }
+}
+
+function prepareToHydrateHostInstance(fiber, rootContainerInstance, hostContext) {
+
+  var instance = fiber.stateNode;
+  var shouldWarnIfMismatchDev = !didSuspendOrErrorDEV;
+  var updatePayload = hydrateInstance(instance, fiber.type, fiber.memoizedProps, rootContainerInstance, hostContext, fiber, shouldWarnIfMismatchDev); // TODO: Type this specific to this type of component.
+
+  fiber.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
+  // is a new ref we mark this as an update.
+
+  if (updatePayload !== null) {
+    return true;
+  }
+
+  return false;
+}
+
+function prepareToHydrateHostTextInstance(fiber) {
+
+  var textInstance = fiber.stateNode;
+  var textContent = fiber.memoizedProps;
+  var shouldUpdate = hydrateTextInstance(textInstance, textContent, fiber);
+
+  if (shouldUpdate) {
+    // We assume that prepareToHydrateHostTextInstance is called in a context where the
+    // hydration parent is the parent host component of this host text.
+    var returnFiber = hydrationParentFiber;
+
+    if (returnFiber !== null) {
+      switch (returnFiber.tag) {
+        case HostRoot:
+          {
+            var parentContainer = returnFiber.stateNode.containerInfo;
+            var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
+            didNotMatchHydratedContainerTextInstance(parentContainer, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
+            isConcurrentMode);
+            break;
+          }
+
+        case HostComponent:
+          {
+            var parentType = returnFiber.type;
+            var parentProps = returnFiber.memoizedProps;
+            var parentInstance = returnFiber.stateNode;
+
+            var _isConcurrentMode2 = (returnFiber.mode & ConcurrentMode) !== NoMode;
+
+            didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
+            _isConcurrentMode2);
+            break;
+          }
+      }
+    }
+  }
+
+  return shouldUpdate;
+}
+
+function prepareToHydrateHostSuspenseInstance(fiber) {
+
+  var suspenseState = fiber.memoizedState;
+  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
+
+  if (!suspenseInstance) {
+    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
+  }
+
+  hydrateSuspenseInstance(suspenseInstance, fiber);
+}
+
+function skipPastDehydratedSuspenseInstance(fiber) {
+
+  var suspenseState = fiber.memoizedState;
+  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
+
+  if (!suspenseInstance) {
+    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
+  }
+
+  return getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance);
+}
+
+function popToNextHostParent(fiber) {
+  var parent = fiber.return;
+
+  while (parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent) {
+    parent = parent.return;
+  }
+
+  hydrationParentFiber = parent;
+}
+
+function popHydrationState(fiber) {
+
+  if (fiber !== hydrationParentFiber) {
+    // We're deeper than the current hydration context, inside an inserted
+    // tree.
+    return false;
+  }
+
+  if (!isHydrating) {
+    // If we're not currently hydrating but we're in a hydration context, then
+    // we were an insertion and now need to pop up reenter hydration of our
+    // siblings.
+    popToNextHostParent(fiber);
+    isHydrating = true;
+    return false;
+  } // If we have any remaining hydratable nodes, we need to delete them now.
+  // We only do this deeper than head and body since they tend to have random
+  // other nodes in them. We also ignore components with pure text content in
+  // side of them. We also don't delete anything inside the root container.
+
+
+  if (fiber.tag !== HostRoot && (fiber.tag !== HostComponent || shouldDeleteUnhydratedTailInstances(fiber.type) && !shouldSetTextContent(fiber.type, fiber.memoizedProps))) {
+    var nextInstance = nextHydratableInstance;
+
+    if (nextInstance) {
+      if (shouldClientRenderOnMismatch(fiber)) {
+        warnIfUnhydratedTailNodes(fiber);
+        throwOnHydrationMismatch();
+      } else {
+        while (nextInstance) {
+          deleteHydratableInstance(fiber, nextInstance);
+          nextInstance = getNextHydratableSibling(nextInstance);
+        }
+      }
+    }
+  }
+
+  popToNextHostParent(fiber);
+
+  if (fiber.tag === SuspenseComponent) {
+    nextHydratableInstance = skipPastDehydratedSuspenseInstance(fiber);
+  } else {
+    nextHydratableInstance = hydrationParentFiber ? getNextHydratableSibling(fiber.stateNode) : null;
+  }
+
+  return true;
+}
+
+function hasUnhydratedTailNodes() {
+  return isHydrating && nextHydratableInstance !== null;
+}
+
+function warnIfUnhydratedTailNodes(fiber) {
+  var nextInstance = nextHydratableInstance;
+
+  while (nextInstance) {
+    warnUnhydratedInstance(fiber, nextInstance);
+    nextInstance = getNextHydratableSibling(nextInstance);
+  }
+}
+
+function resetHydrationState() {
+
+  hydrationParentFiber = null;
+  nextHydratableInstance = null;
+  isHydrating = false;
+  didSuspendOrErrorDEV = false;
+}
+
+function upgradeHydrationErrorsToRecoverable() {
+  if (hydrationErrors !== null) {
+    // Successfully completed a forced client render. The errors that occurred
+    // during the hydration attempt are now recovered. We will log them in
+    // commit phase, once the entire tree has finished.
+    queueRecoverableErrors(hydrationErrors);
+    hydrationErrors = null;
+  }
+}
+
+function getIsHydrating() {
+  return isHydrating;
+}
+
+function queueHydrationError(error) {
+  if (hydrationErrors === null) {
+    hydrationErrors = [error];
+  } else {
+    hydrationErrors.push(error);
+  }
+}
+
 var ReactCurrentBatchConfig$1 = ReactSharedInternals.ReactCurrentBatchConfig;
 var NoTransition = null;
 function requestCurrentTransition() {
@@ -28104,30 +28239,27 @@ function readContext(context) {
   return value;
 }
 
-// An array of all update queues that received updates during the current
 // render. When this render exits, either because it finishes or because it is
 // interrupted, the interleaved updates will be transferred onto the main part
 // of the queue.
-var interleavedQueues = null;
-function pushInterleavedQueue(queue) {
-  if (interleavedQueues === null) {
-    interleavedQueues = [queue];
+
+var concurrentQueues = null;
+function pushConcurrentUpdateQueue(queue) {
+  if (concurrentQueues === null) {
+    concurrentQueues = [queue];
   } else {
-    interleavedQueues.push(queue);
+    concurrentQueues.push(queue);
   }
 }
-function hasInterleavedUpdates() {
-  return interleavedQueues !== null;
-}
-function enqueueInterleavedUpdates() {
+function finishQueueingConcurrentUpdates() {
   // Transfer the interleaved updates onto the main queue. Each queue has a
   // `pending` field and an `interleaved` field. When they are not null, they
   // point to the last node in a circular linked list. We need to append the
   // interleaved list to the end of the pending list by joining them into a
   // single, circular list.
-  if (interleavedQueues !== null) {
-    for (var i = 0; i < interleavedQueues.length; i++) {
-      var queue = interleavedQueues[i];
+  if (concurrentQueues !== null) {
+    for (var i = 0; i < concurrentQueues.length; i++) {
+      var queue = concurrentQueues[i];
       var lastInterleavedUpdate = queue.interleaved;
 
       if (lastInterleavedUpdate !== null) {
@@ -28145,7 +28277,108 @@ function enqueueInterleavedUpdates() {
       }
     }
 
-    interleavedQueues = null;
+    concurrentQueues = null;
+  }
+}
+function enqueueConcurrentHookUpdate(fiber, queue, update, lane) {
+  var interleaved = queue.interleaved;
+
+  if (interleaved === null) {
+    // This is the first update. Create a circular list.
+    update.next = update; // At the end of the current render, this queue's interleaved updates will
+    // be transferred to the pending queue.
+
+    pushConcurrentUpdateQueue(queue);
+  } else {
+    update.next = interleaved.next;
+    interleaved.next = update;
+  }
+
+  queue.interleaved = update;
+  return markUpdateLaneFromFiberToRoot(fiber, lane);
+}
+function enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane) {
+  var interleaved = queue.interleaved;
+
+  if (interleaved === null) {
+    // This is the first update. Create a circular list.
+    update.next = update; // At the end of the current render, this queue's interleaved updates will
+    // be transferred to the pending queue.
+
+    pushConcurrentUpdateQueue(queue);
+  } else {
+    update.next = interleaved.next;
+    interleaved.next = update;
+  }
+
+  queue.interleaved = update;
+}
+function enqueueConcurrentClassUpdate(fiber, queue, update, lane) {
+  var interleaved = queue.interleaved;
+
+  if (interleaved === null) {
+    // This is the first update. Create a circular list.
+    update.next = update; // At the end of the current render, this queue's interleaved updates will
+    // be transferred to the pending queue.
+
+    pushConcurrentUpdateQueue(queue);
+  } else {
+    update.next = interleaved.next;
+    interleaved.next = update;
+  }
+
+  queue.interleaved = update;
+  return markUpdateLaneFromFiberToRoot(fiber, lane);
+}
+function enqueueConcurrentRenderForLane(fiber, lane) {
+  return markUpdateLaneFromFiberToRoot(fiber, lane);
+} // Calling this function outside this module should only be done for backwards
+// compatibility and should always be accompanied by a warning.
+
+var unsafe_markUpdateLaneFromFiberToRoot = markUpdateLaneFromFiberToRoot;
+
+function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
+  // Update the source fiber's lanes
+  sourceFiber.lanes = mergeLanes(sourceFiber.lanes, lane);
+  var alternate = sourceFiber.alternate;
+
+  if (alternate !== null) {
+    alternate.lanes = mergeLanes(alternate.lanes, lane);
+  }
+
+  {
+    if (alternate === null && (sourceFiber.flags & (Placement | Hydrating)) !== NoFlags) {
+      warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
+    }
+  } // Walk the parent path to the root and update the child lanes.
+
+
+  var node = sourceFiber;
+  var parent = sourceFiber.return;
+
+  while (parent !== null) {
+    parent.childLanes = mergeLanes(parent.childLanes, lane);
+    alternate = parent.alternate;
+
+    if (alternate !== null) {
+      alternate.childLanes = mergeLanes(alternate.childLanes, lane);
+    } else {
+      {
+        if ((parent.flags & (Placement | Hydrating)) !== NoFlags) {
+          warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
+        }
+      }
+    }
+
+    node = parent;
+    parent = parent.return;
+  }
+
+  if (node.tag === HostRoot) {
+    var root = node.stateNode;
+    return root;
+  } else {
+    return null;
   }
 }
 
@@ -28211,27 +28444,22 @@ function enqueueUpdate(fiber, update, lane) {
 
   if (updateQueue === null) {
     // Only occurs if the fiber has been unmounted.
-    return;
+    return null;
   }
 
   var sharedQueue = updateQueue.shared;
 
-  if (isInterleavedUpdate(fiber)) {
-    var interleaved = sharedQueue.interleaved;
+  {
+    if (currentlyProcessingQueue === sharedQueue && !didWarnUpdateInsideUpdate) {
+      error('An update (setState, replaceState, or forceUpdate) was scheduled ' + 'from inside an update function. Update functions should be pure, ' + 'with zero side-effects. Consider using componentDidUpdate or a ' + 'callback.');
 
-    if (interleaved === null) {
-      // This is the first update. Create a circular list.
-      update.next = update; // At the end of the current render, this queue's interleaved updates will
-      // be transferred to the pending queue.
-
-      pushInterleavedQueue(sharedQueue);
-    } else {
-      update.next = interleaved.next;
-      interleaved.next = update;
+      didWarnUpdateInsideUpdate = true;
     }
+  }
 
-    sharedQueue.interleaved = update;
-  } else {
+  if (isUnsafeClassRenderPhaseUpdate()) {
+    // This is an unsafe render phase update. Add directly to the update
+    // queue so we can process it immediately during the current render.
     var pending = sharedQueue.pending;
 
     if (pending === null) {
@@ -28242,15 +28470,14 @@ function enqueueUpdate(fiber, update, lane) {
       pending.next = update;
     }
 
-    sharedQueue.pending = update;
-  }
+    sharedQueue.pending = update; // Update the childLanes even though we're most likely already rendering
+    // this fiber. This is for backwards compatibility in the case where you
+    // update a different component during render phase than the one that is
+    // currently renderings (a pattern that is accompanied by a warning).
 
-  {
-    if (currentlyProcessingQueue === sharedQueue && !didWarnUpdateInsideUpdate) {
-      error('An update (setState, replaceState, or forceUpdate) was scheduled ' + 'from inside an update function. Update functions should be pure, ' + 'with zero side-effects. Consider using componentDidUpdate or a ' + 'callback.');
-
-      didWarnUpdateInsideUpdate = true;
-    }
+    return unsafe_markUpdateLaneFromFiberToRoot(fiber, lane);
+  } else {
+    return enqueueConcurrentClassUpdate(fiber, sharedQueue, update, lane);
   }
 }
 function entangleTransitions(root, fiber, lane) {
@@ -28789,10 +29016,10 @@ var classComponentUpdater = {
       update.callback = callback;
     }
 
-    enqueueUpdate(fiber, update);
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueUpdate(fiber, update, lane);
 
     if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitions(root, fiber, lane);
     }
 
@@ -28816,10 +29043,10 @@ var classComponentUpdater = {
       update.callback = callback;
     }
 
-    enqueueUpdate(fiber, update);
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueUpdate(fiber, update, lane);
 
     if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitions(root, fiber, lane);
     }
 
@@ -28842,10 +29069,10 @@ var classComponentUpdater = {
       update.callback = callback;
     }
 
-    enqueueUpdate(fiber, update);
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueUpdate(fiber, update, lane);
 
     if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitions(root, fiber, lane);
     }
 
@@ -29476,677 +29703,6 @@ function updateClassInstance(current, workInProgress, ctor, newProps, renderLane
   instance.state = newState;
   instance.context = nextContext;
   return shouldUpdate;
-}
-
-// TODO: Use the unified fiber stack module instead of this local one?
-// Intentionally not using it yet to derisk the initial implementation, because
-// the way we push/pop these values is a bit unusual. If there's a mistake, I'd
-// rather the ids be wrong than crash the whole reconciler.
-var forkStack = [];
-var forkStackIndex = 0;
-var treeForkProvider = null;
-var treeForkCount = 0;
-var idStack = [];
-var idStackIndex = 0;
-var treeContextProvider = null;
-var treeContextId = 1;
-var treeContextOverflow = '';
-function isForkedChild(workInProgress) {
-  warnIfNotHydrating();
-  return (workInProgress.flags & Forked) !== NoFlags;
-}
-function getForksAtLevel(workInProgress) {
-  warnIfNotHydrating();
-  return treeForkCount;
-}
-function getTreeId() {
-  var overflow = treeContextOverflow;
-  var idWithLeadingBit = treeContextId;
-  var id = idWithLeadingBit & ~getLeadingBit(idWithLeadingBit);
-  return id.toString(32) + overflow;
-}
-function pushTreeFork(workInProgress, totalChildren) {
-  // This is called right after we reconcile an array (or iterator) of child
-  // fibers, because that's the only place where we know how many children in
-  // the whole set without doing extra work later, or storing addtional
-  // information on the fiber.
-  //
-  // That's why this function is separate from pushTreeId — it's called during
-  // the render phase of the fork parent, not the child, which is where we push
-  // the other context values.
-  //
-  // In the Fizz implementation this is much simpler because the child is
-  // rendered in the same callstack as the parent.
-  //
-  // It might be better to just add a `forks` field to the Fiber type. It would
-  // make this module simpler.
-  warnIfNotHydrating();
-  forkStack[forkStackIndex++] = treeForkCount;
-  forkStack[forkStackIndex++] = treeForkProvider;
-  treeForkProvider = workInProgress;
-  treeForkCount = totalChildren;
-}
-function pushTreeId(workInProgress, totalChildren, index) {
-  warnIfNotHydrating();
-  idStack[idStackIndex++] = treeContextId;
-  idStack[idStackIndex++] = treeContextOverflow;
-  idStack[idStackIndex++] = treeContextProvider;
-  treeContextProvider = workInProgress;
-  var baseIdWithLeadingBit = treeContextId;
-  var baseOverflow = treeContextOverflow; // The leftmost 1 marks the end of the sequence, non-inclusive. It's not part
-  // of the id; we use it to account for leading 0s.
-
-  var baseLength = getBitLength(baseIdWithLeadingBit) - 1;
-  var baseId = baseIdWithLeadingBit & ~(1 << baseLength);
-  var slot = index + 1;
-  var length = getBitLength(totalChildren) + baseLength; // 30 is the max length we can store without overflowing, taking into
-  // consideration the leading 1 we use to mark the end of the sequence.
-
-  if (length > 30) {
-    // We overflowed the bitwise-safe range. Fall back to slower algorithm.
-    // This branch assumes the length of the base id is greater than 5; it won't
-    // work for smaller ids, because you need 5 bits per character.
-    //
-    // We encode the id in multiple steps: first the base id, then the
-    // remaining digits.
-    //
-    // Each 5 bit sequence corresponds to a single base 32 character. So for
-    // example, if the current id is 23 bits long, we can convert 20 of those
-    // bits into a string of 4 characters, with 3 bits left over.
-    //
-    // First calculate how many bits in the base id represent a complete
-    // sequence of characters.
-    var numberOfOverflowBits = baseLength - baseLength % 5; // Then create a bitmask that selects only those bits.
-
-    var newOverflowBits = (1 << numberOfOverflowBits) - 1; // Select the bits, and convert them to a base 32 string.
-
-    var newOverflow = (baseId & newOverflowBits).toString(32); // Now we can remove those bits from the base id.
-
-    var restOfBaseId = baseId >> numberOfOverflowBits;
-    var restOfBaseLength = baseLength - numberOfOverflowBits; // Finally, encode the rest of the bits using the normal algorithm. Because
-    // we made more room, this time it won't overflow.
-
-    var restOfLength = getBitLength(totalChildren) + restOfBaseLength;
-    var restOfNewBits = slot << restOfBaseLength;
-    var id = restOfNewBits | restOfBaseId;
-    var overflow = newOverflow + baseOverflow;
-    treeContextId = 1 << restOfLength | id;
-    treeContextOverflow = overflow;
-  } else {
-    // Normal path
-    var newBits = slot << baseLength;
-
-    var _id = newBits | baseId;
-
-    var _overflow = baseOverflow;
-    treeContextId = 1 << length | _id;
-    treeContextOverflow = _overflow;
-  }
-}
-function pushMaterializedTreeId(workInProgress) {
-  warnIfNotHydrating(); // This component materialized an id. This will affect any ids that appear
-  // in its children.
-
-  var returnFiber = workInProgress.return;
-
-  if (returnFiber !== null) {
-    var numberOfForks = 1;
-    var slotIndex = 0;
-    pushTreeFork(workInProgress, numberOfForks);
-    pushTreeId(workInProgress, numberOfForks, slotIndex);
-  }
-}
-
-function getBitLength(number) {
-  return 32 - clz32(number);
-}
-
-function getLeadingBit(id) {
-  return 1 << getBitLength(id) - 1;
-}
-
-function popTreeContext(workInProgress) {
-  // Restore the previous values.
-  // This is a bit more complicated than other context-like modules in Fiber
-  // because the same Fiber may appear on the stack multiple times and for
-  // different reasons. We have to keep popping until the work-in-progress is
-  // no longer at the top of the stack.
-  while (workInProgress === treeForkProvider) {
-    treeForkProvider = forkStack[--forkStackIndex];
-    forkStack[forkStackIndex] = null;
-    treeForkCount = forkStack[--forkStackIndex];
-    forkStack[forkStackIndex] = null;
-  }
-
-  while (workInProgress === treeContextProvider) {
-    treeContextProvider = idStack[--idStackIndex];
-    idStack[idStackIndex] = null;
-    treeContextOverflow = idStack[--idStackIndex];
-    idStack[idStackIndex] = null;
-    treeContextId = idStack[--idStackIndex];
-    idStack[idStackIndex] = null;
-  }
-}
-function getSuspendedTreeContext() {
-  warnIfNotHydrating();
-
-  if (treeContextProvider !== null) {
-    return {
-      id: treeContextId,
-      overflow: treeContextOverflow
-    };
-  } else {
-    return null;
-  }
-}
-function restoreSuspendedTreeContext(workInProgress, suspendedContext) {
-  warnIfNotHydrating();
-  idStack[idStackIndex++] = treeContextId;
-  idStack[idStackIndex++] = treeContextOverflow;
-  idStack[idStackIndex++] = treeContextProvider;
-  treeContextId = suspendedContext.id;
-  treeContextOverflow = suspendedContext.overflow;
-  treeContextProvider = workInProgress;
-}
-
-function warnIfNotHydrating() {
-  {
-    if (!getIsHydrating()) {
-      error('Expected to be hydrating. This is a bug in React. Please file ' + 'an issue.');
-    }
-  }
-}
-
-// This may have been an insertion or a hydration.
-
-var hydrationParentFiber = null;
-var nextHydratableInstance = null;
-var isHydrating = false; // This flag allows for warning supression when we expect there to be mismatches
-// due to earlier mismatches or a suspended fiber.
-
-var didSuspendOrErrorDEV = false; // Hydration errors that were thrown inside this boundary
-
-var hydrationErrors = null;
-
-function warnIfHydrating() {
-  {
-    if (isHydrating) {
-      error('We should not be hydrating here. This is a bug in React. Please file a bug.');
-    }
-  }
-}
-
-function markDidThrowWhileHydratingDEV() {
-  {
-    didSuspendOrErrorDEV = true;
-  }
-}
-
-function enterHydrationState(fiber) {
-
-  var parentInstance = fiber.stateNode.containerInfo;
-  nextHydratableInstance = getFirstHydratableChildWithinContainer(parentInstance);
-  hydrationParentFiber = fiber;
-  isHydrating = true;
-  hydrationErrors = null;
-  didSuspendOrErrorDEV = false;
-  return true;
-}
-
-function reenterHydrationStateFromDehydratedSuspenseInstance(fiber, suspenseInstance, treeContext) {
-
-  nextHydratableInstance = getFirstHydratableChildWithinSuspenseInstance(suspenseInstance);
-  hydrationParentFiber = fiber;
-  isHydrating = true;
-  hydrationErrors = null;
-  didSuspendOrErrorDEV = false;
-
-  if (treeContext !== null) {
-    restoreSuspendedTreeContext(fiber, treeContext);
-  }
-
-  return true;
-}
-
-function warnUnhydratedInstance(returnFiber, instance) {
-  {
-    switch (returnFiber.tag) {
-      case HostRoot:
-        {
-          didNotHydrateInstanceWithinContainer(returnFiber.stateNode.containerInfo, instance);
-          break;
-        }
-
-      case HostComponent:
-        {
-          var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-          didNotHydrateInstance(returnFiber.type, returnFiber.memoizedProps, returnFiber.stateNode, instance, // TODO: Delete this argument when we remove the legacy root API.
-          isConcurrentMode);
-          break;
-        }
-
-      case SuspenseComponent:
-        {
-          var suspenseState = returnFiber.memoizedState;
-          if (suspenseState.dehydrated !== null) didNotHydrateInstanceWithinSuspenseInstance(suspenseState.dehydrated, instance);
-          break;
-        }
-    }
-  }
-}
-
-function deleteHydratableInstance(returnFiber, instance) {
-  warnUnhydratedInstance(returnFiber, instance);
-  var childToDelete = createFiberFromHostInstanceForDeletion();
-  childToDelete.stateNode = instance;
-  childToDelete.return = returnFiber;
-  var deletions = returnFiber.deletions;
-
-  if (deletions === null) {
-    returnFiber.deletions = [childToDelete];
-    returnFiber.flags |= ChildDeletion;
-  } else {
-    deletions.push(childToDelete);
-  }
-}
-
-function warnNonhydratedInstance(returnFiber, fiber) {
-  {
-    if (didSuspendOrErrorDEV) {
-      // Inside a boundary that already suspended. We're currently rendering the
-      // siblings of a suspended node. The mismatch may be due to the missing
-      // data, so it's probably a false positive.
-      return;
-    }
-
-    switch (returnFiber.tag) {
-      case HostRoot:
-        {
-          var parentContainer = returnFiber.stateNode.containerInfo;
-
-          switch (fiber.tag) {
-            case HostComponent:
-              var type = fiber.type;
-              var props = fiber.pendingProps;
-              didNotFindHydratableInstanceWithinContainer(parentContainer, type);
-              break;
-
-            case HostText:
-              var text = fiber.pendingProps;
-              didNotFindHydratableTextInstanceWithinContainer(parentContainer, text);
-              break;
-          }
-
-          break;
-        }
-
-      case HostComponent:
-        {
-          var parentType = returnFiber.type;
-          var parentProps = returnFiber.memoizedProps;
-          var parentInstance = returnFiber.stateNode;
-
-          switch (fiber.tag) {
-            case HostComponent:
-              {
-                var _type = fiber.type;
-                var _props = fiber.pendingProps;
-                var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-                didNotFindHydratableInstance(parentType, parentProps, parentInstance, _type, _props, // TODO: Delete this argument when we remove the legacy root API.
-                isConcurrentMode);
-                break;
-              }
-
-            case HostText:
-              {
-                var _text = fiber.pendingProps;
-
-                var _isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-
-                didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, _text, // TODO: Delete this argument when we remove the legacy root API.
-                _isConcurrentMode);
-                break;
-              }
-          }
-
-          break;
-        }
-
-      case SuspenseComponent:
-        {
-          var suspenseState = returnFiber.memoizedState;
-          var _parentInstance = suspenseState.dehydrated;
-          if (_parentInstance !== null) switch (fiber.tag) {
-            case HostComponent:
-              var _type2 = fiber.type;
-              var _props2 = fiber.pendingProps;
-              didNotFindHydratableInstanceWithinSuspenseInstance(_parentInstance, _type2);
-              break;
-
-            case HostText:
-              var _text2 = fiber.pendingProps;
-              didNotFindHydratableTextInstanceWithinSuspenseInstance(_parentInstance, _text2);
-              break;
-          }
-          break;
-        }
-
-      default:
-        return;
-    }
-  }
-}
-
-function insertNonHydratedInstance(returnFiber, fiber) {
-  fiber.flags = fiber.flags & ~Hydrating | Placement;
-  warnNonhydratedInstance(returnFiber, fiber);
-}
-
-function tryHydrate(fiber, nextInstance) {
-  switch (fiber.tag) {
-    case HostComponent:
-      {
-        var type = fiber.type;
-        var props = fiber.pendingProps;
-        var instance = canHydrateInstance(nextInstance, type);
-
-        if (instance !== null) {
-          fiber.stateNode = instance;
-          hydrationParentFiber = fiber;
-          nextHydratableInstance = getFirstHydratableChild(instance);
-          return true;
-        }
-
-        return false;
-      }
-
-    case HostText:
-      {
-        var text = fiber.pendingProps;
-        var textInstance = canHydrateTextInstance(nextInstance, text);
-
-        if (textInstance !== null) {
-          fiber.stateNode = textInstance;
-          hydrationParentFiber = fiber; // Text Instances don't have children so there's nothing to hydrate.
-
-          nextHydratableInstance = null;
-          return true;
-        }
-
-        return false;
-      }
-
-    case SuspenseComponent:
-      {
-        var suspenseInstance = canHydrateSuspenseInstance(nextInstance);
-
-        if (suspenseInstance !== null) {
-          var suspenseState = {
-            dehydrated: suspenseInstance,
-            treeContext: getSuspendedTreeContext(),
-            retryLane: OffscreenLane
-          };
-          fiber.memoizedState = suspenseState; // Store the dehydrated fragment as a child fiber.
-          // This simplifies the code for getHostSibling and deleting nodes,
-          // since it doesn't have to consider all Suspense boundaries and
-          // check if they're dehydrated ones or not.
-
-          var dehydratedFragment = createFiberFromDehydratedFragment(suspenseInstance);
-          dehydratedFragment.return = fiber;
-          fiber.child = dehydratedFragment;
-          hydrationParentFiber = fiber; // While a Suspense Instance does have children, we won't step into
-          // it during the first pass. Instead, we'll reenter it later.
-
-          nextHydratableInstance = null;
-          return true;
-        }
-
-        return false;
-      }
-
-    default:
-      return false;
-  }
-}
-
-function shouldClientRenderOnMismatch(fiber) {
-  return (fiber.mode & ConcurrentMode) !== NoMode && (fiber.flags & DidCapture) === NoFlags;
-}
-
-function throwOnHydrationMismatch(fiber) {
-  throw new Error('Hydration failed because the initial UI does not match what was ' + 'rendered on the server.');
-}
-
-function tryToClaimNextHydratableInstance(fiber) {
-  if (!isHydrating) {
-    return;
-  }
-
-  var nextInstance = nextHydratableInstance;
-
-  if (!nextInstance) {
-    if (shouldClientRenderOnMismatch(fiber)) {
-      warnNonhydratedInstance(hydrationParentFiber, fiber);
-      throwOnHydrationMismatch();
-    } // Nothing to hydrate. Make it an insertion.
-
-
-    insertNonHydratedInstance(hydrationParentFiber, fiber);
-    isHydrating = false;
-    hydrationParentFiber = fiber;
-    return;
-  }
-
-  var firstAttemptedInstance = nextInstance;
-
-  if (!tryHydrate(fiber, nextInstance)) {
-    if (shouldClientRenderOnMismatch(fiber)) {
-      warnNonhydratedInstance(hydrationParentFiber, fiber);
-      throwOnHydrationMismatch();
-    } // If we can't hydrate this instance let's try the next one.
-    // We use this as a heuristic. It's based on intuition and not data so it
-    // might be flawed or unnecessary.
-
-
-    nextInstance = getNextHydratableSibling(firstAttemptedInstance);
-    var prevHydrationParentFiber = hydrationParentFiber;
-
-    if (!nextInstance || !tryHydrate(fiber, nextInstance)) {
-      // Nothing to hydrate. Make it an insertion.
-      insertNonHydratedInstance(hydrationParentFiber, fiber);
-      isHydrating = false;
-      hydrationParentFiber = fiber;
-      return;
-    } // We matched the next one, we'll now assume that the first one was
-    // superfluous and we'll delete it. Since we can't eagerly delete it
-    // we'll have to schedule a deletion. To do that, this node needs a dummy
-    // fiber associated with it.
-
-
-    deleteHydratableInstance(prevHydrationParentFiber, firstAttemptedInstance);
-  }
-}
-
-function prepareToHydrateHostInstance(fiber, rootContainerInstance, hostContext) {
-
-  var instance = fiber.stateNode;
-  var shouldWarnIfMismatchDev = !didSuspendOrErrorDEV;
-  var updatePayload = hydrateInstance(instance, fiber.type, fiber.memoizedProps, rootContainerInstance, hostContext, fiber, shouldWarnIfMismatchDev); // TODO: Type this specific to this type of component.
-
-  fiber.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
-  // is a new ref we mark this as an update.
-
-  if (updatePayload !== null) {
-    return true;
-  }
-
-  return false;
-}
-
-function prepareToHydrateHostTextInstance(fiber) {
-
-  var textInstance = fiber.stateNode;
-  var textContent = fiber.memoizedProps;
-  var shouldUpdate = hydrateTextInstance(textInstance, textContent, fiber);
-
-  if (shouldUpdate) {
-    // We assume that prepareToHydrateHostTextInstance is called in a context where the
-    // hydration parent is the parent host component of this host text.
-    var returnFiber = hydrationParentFiber;
-
-    if (returnFiber !== null) {
-      switch (returnFiber.tag) {
-        case HostRoot:
-          {
-            var parentContainer = returnFiber.stateNode.containerInfo;
-            var isConcurrentMode = (returnFiber.mode & ConcurrentMode) !== NoMode;
-            didNotMatchHydratedContainerTextInstance(parentContainer, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
-            isConcurrentMode);
-            break;
-          }
-
-        case HostComponent:
-          {
-            var parentType = returnFiber.type;
-            var parentProps = returnFiber.memoizedProps;
-            var parentInstance = returnFiber.stateNode;
-
-            var _isConcurrentMode2 = (returnFiber.mode & ConcurrentMode) !== NoMode;
-
-            didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, textContent, // TODO: Delete this argument when we remove the legacy root API.
-            _isConcurrentMode2);
-            break;
-          }
-      }
-    }
-  }
-
-  return shouldUpdate;
-}
-
-function prepareToHydrateHostSuspenseInstance(fiber) {
-
-  var suspenseState = fiber.memoizedState;
-  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
-
-  if (!suspenseInstance) {
-    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
-  }
-
-  hydrateSuspenseInstance(suspenseInstance, fiber);
-}
-
-function skipPastDehydratedSuspenseInstance(fiber) {
-
-  var suspenseState = fiber.memoizedState;
-  var suspenseInstance = suspenseState !== null ? suspenseState.dehydrated : null;
-
-  if (!suspenseInstance) {
-    throw new Error('Expected to have a hydrated suspense instance. ' + 'This error is likely caused by a bug in React. Please file an issue.');
-  }
-
-  return getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance);
-}
-
-function popToNextHostParent(fiber) {
-  var parent = fiber.return;
-
-  while (parent !== null && parent.tag !== HostComponent && parent.tag !== HostRoot && parent.tag !== SuspenseComponent) {
-    parent = parent.return;
-  }
-
-  hydrationParentFiber = parent;
-}
-
-function popHydrationState(fiber) {
-
-  if (fiber !== hydrationParentFiber) {
-    // We're deeper than the current hydration context, inside an inserted
-    // tree.
-    return false;
-  }
-
-  if (!isHydrating) {
-    // If we're not currently hydrating but we're in a hydration context, then
-    // we were an insertion and now need to pop up reenter hydration of our
-    // siblings.
-    popToNextHostParent(fiber);
-    isHydrating = true;
-    return false;
-  } // If we have any remaining hydratable nodes, we need to delete them now.
-  // We only do this deeper than head and body since they tend to have random
-  // other nodes in them. We also ignore components with pure text content in
-  // side of them. We also don't delete anything inside the root container.
-
-
-  if (fiber.tag !== HostRoot && (fiber.tag !== HostComponent || shouldDeleteUnhydratedTailInstances(fiber.type) && !shouldSetTextContent(fiber.type, fiber.memoizedProps))) {
-    var nextInstance = nextHydratableInstance;
-
-    if (nextInstance) {
-      if (shouldClientRenderOnMismatch(fiber)) {
-        warnIfUnhydratedTailNodes(fiber);
-        throwOnHydrationMismatch();
-      } else {
-        while (nextInstance) {
-          deleteHydratableInstance(fiber, nextInstance);
-          nextInstance = getNextHydratableSibling(nextInstance);
-        }
-      }
-    }
-  }
-
-  popToNextHostParent(fiber);
-
-  if (fiber.tag === SuspenseComponent) {
-    nextHydratableInstance = skipPastDehydratedSuspenseInstance(fiber);
-  } else {
-    nextHydratableInstance = hydrationParentFiber ? getNextHydratableSibling(fiber.stateNode) : null;
-  }
-
-  return true;
-}
-
-function hasUnhydratedTailNodes() {
-  return isHydrating && nextHydratableInstance !== null;
-}
-
-function warnIfUnhydratedTailNodes(fiber) {
-  var nextInstance = nextHydratableInstance;
-
-  while (nextInstance) {
-    warnUnhydratedInstance(fiber, nextInstance);
-    nextInstance = getNextHydratableSibling(nextInstance);
-  }
-}
-
-function resetHydrationState() {
-
-  hydrationParentFiber = null;
-  nextHydratableInstance = null;
-  isHydrating = false;
-  didSuspendOrErrorDEV = false;
-}
-
-function upgradeHydrationErrorsToRecoverable() {
-  if (hydrationErrors !== null) {
-    // Successfully completed a forced client render. The errors that occurred
-    // during the hydration attempt are now recovered. We will log them in
-    // commit phase, once the entire tree has finished.
-    queueRecoverableErrors(hydrationErrors);
-    hydrationErrors = null;
-  }
-}
-
-function getIsHydrating() {
-  return isHydrating;
-}
-
-function queueHydrationError(error) {
-  if (hydrationErrors === null) {
-    hydrationErrors = [error];
-  } else {
-    hydrationErrors.push(error);
-  }
 }
 
 var didWarnAboutMaps;
@@ -32370,7 +31926,11 @@ function checkIfSnapshotChanged(inst) {
 }
 
 function forceStoreRerender(fiber) {
-  scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+  var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+  if (root !== null) {
+    scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+  }
 }
 
 function mountState(initialState) {
@@ -32840,11 +32400,11 @@ function dispatchReducerAction(fiber, queue, action) {
   if (isRenderPhaseUpdate(fiber)) {
     enqueueRenderPhaseUpdate(queue, update);
   } else {
-    enqueueUpdate$1(fiber, queue, update);
-    var eventTime = requestEventTime();
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueConcurrentHookUpdate(fiber, queue, update, lane);
 
     if (root !== null) {
+      var eventTime = requestEventTime();
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitionUpdate(root, queue, lane);
     }
   }
@@ -32871,7 +32431,6 @@ function dispatchSetState(fiber, queue, action) {
   if (isRenderPhaseUpdate(fiber)) {
     enqueueRenderPhaseUpdate(queue, update);
   } else {
-    enqueueUpdate$1(fiber, queue, update);
     var alternate = fiber.alternate;
 
     if (fiber.lanes === NoLanes && (alternate === null || alternate.lanes === NoLanes)) {
@@ -32903,6 +32462,8 @@ function dispatchSetState(fiber, queue, action) {
             // It's still possible that we'll need to rebase this update later,
             // if the component re-renders for a different reason and by that
             // time the reducer has changed.
+            // TODO: Do we still need to entangle transitions in this case?
+            enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane);
             return;
           }
         } catch (error) {// Suppress the error. It will throw again in the render phase.
@@ -32914,10 +32475,11 @@ function dispatchSetState(fiber, queue, action) {
       }
     }
 
-    var eventTime = requestEventTime();
-    var root = scheduleUpdateOnFiber(fiber, lane, eventTime);
+    var root = enqueueConcurrentHookUpdate(fiber, queue, update, lane);
 
     if (root !== null) {
+      var eventTime = requestEventTime();
+      scheduleUpdateOnFiber(root, fiber, lane, eventTime);
       entangleTransitionUpdate(root, queue, lane);
     }
   }
@@ -32946,38 +32508,8 @@ function enqueueRenderPhaseUpdate(queue, update) {
   }
 
   queue.pending = update;
-}
+} // TODO: Move to ReactFiberConcurrentUpdates?
 
-function enqueueUpdate$1(fiber, queue, update, lane) {
-  if (isInterleavedUpdate(fiber)) {
-    var interleaved = queue.interleaved;
-
-    if (interleaved === null) {
-      // This is the first update. Create a circular list.
-      update.next = update; // At the end of the current render, this queue's interleaved updates will
-      // be transferred to the pending queue.
-
-      pushInterleavedQueue(queue);
-    } else {
-      update.next = interleaved.next;
-      interleaved.next = update;
-    }
-
-    queue.interleaved = update;
-  } else {
-    var pending = queue.pending;
-
-    if (pending === null) {
-      // This is the first update. Create a circular list.
-      update.next = update;
-    } else {
-      update.next = pending.next;
-      pending.next = update;
-    }
-
-    queue.pending = update;
-  }
-}
 
 function entangleTransitionUpdate(root, queue, lane) {
   if (isTransitionLane(lane)) {
@@ -34030,13 +33562,22 @@ function transferActualDuration(fiber) {
   }
 }
 
-function createCapturedValue(value, source) {
+function createCapturedValueAtFiber(value, source) {
   // If the value is an error, call this function immediately after it is thrown
   // so the stack is accurate.
   return {
     value: value,
     source: source,
-    stack: getStackByFiberInDevAndProd(source)
+    stack: getStackByFiberInDevAndProd(source),
+    digest: null
+  };
+}
+function createCapturedValue(value, digest, stack) {
+  return {
+    value: value,
+    source: null,
+    stack: stack != null ? stack : null,
+    digest: digest != null ? digest : null
   };
 }
 
@@ -34347,7 +33888,7 @@ function markSuspenseBoundaryShouldCapture(suspenseBoundary, returnFiber, source
           // prevent a bail out.
           var update = createUpdate(NoTimestamp, SyncLane);
           update.tag = ForceUpdate;
-          enqueueUpdate(sourceFiber, update);
+          enqueueUpdate(sourceFiber, update, SyncLane);
         }
       } // The source fiber did not complete. Mark it with Sync priority to
       // indicate that it still has pending work.
@@ -34487,17 +34028,17 @@ function throwException(root, returnFiber, sourceFiber, value, rootRenderLanes) 
         markSuspenseBoundaryShouldCapture(_suspenseBoundary, returnFiber, sourceFiber, root, rootRenderLanes); // Even though the user may not be affected by this error, we should
         // still log it so it can be fixed.
 
-        queueHydrationError(value);
+        queueHydrationError(createCapturedValueAtFiber(value, sourceFiber));
         return;
       }
     }
-  } // We didn't find a boundary that could handle this type of exception. Start
+  }
+
+  value = createCapturedValueAtFiber(value, sourceFiber);
+  renderDidError(value); // We didn't find a boundary that could handle this type of exception. Start
   // over and traverse parent path again, this time treating the exception
   // as an error.
 
-
-  renderDidError(value);
-  value = createCapturedValue(value, sourceFiber);
   var workInProgress = returnFiber;
 
   do {
@@ -34543,918 +34084,6 @@ function getSuspendedCache() {
   {
     return null;
   } // This function is called when a Suspense boundary suspends. It returns the
-}
-
-function markUpdate(workInProgress) {
-  // Tag the fiber with an update effect. This turns a Placement into
-  // a PlacementAndUpdate.
-  workInProgress.flags |= Update;
-}
-
-function markRef(workInProgress) {
-  workInProgress.flags |= Ref;
-
-  {
-    workInProgress.flags |= RefStatic;
-  }
-}
-
-var appendAllChildren;
-var updateHostContainer;
-var updateHostComponent;
-var updateHostText;
-
-{
-  // Mutation mode
-  appendAllChildren = function (parent, workInProgress, needsVisibilityToggle, isHidden) {
-    // We only have the top Fiber that was created but we need recurse down its
-    // children to find all the terminal nodes.
-    var node = workInProgress.child;
-
-    while (node !== null) {
-      if (node.tag === HostComponent || node.tag === HostText) {
-        appendInitialChild(parent, node.stateNode);
-      } else if (node.tag === HostPortal) ; else if (node.child !== null) {
-        node.child.return = node;
-        node = node.child;
-        continue;
-      }
-
-      if (node === workInProgress) {
-        return;
-      }
-
-      while (node.sibling === null) {
-        if (node.return === null || node.return === workInProgress) {
-          return;
-        }
-
-        node = node.return;
-      }
-
-      node.sibling.return = node.return;
-      node = node.sibling;
-    }
-  };
-
-  updateHostContainer = function (current, workInProgress) {// Noop
-  };
-
-  updateHostComponent = function (current, workInProgress, type, newProps, rootContainerInstance) {
-    // If we have an alternate, that means this is an update and we need to
-    // schedule a side-effect to do the updates.
-    var oldProps = current.memoizedProps;
-
-    if (oldProps === newProps) {
-      // In mutation mode, this is sufficient for a bailout because
-      // we won't touch this node even if children changed.
-      return;
-    } // If we get updated because one of our children updated, we don't
-    // have newProps so we'll have to reuse them.
-    // TODO: Split the update API as separate for the props vs. children.
-    // Even better would be if children weren't special cased at all tho.
-
-
-    var instance = workInProgress.stateNode;
-    var currentHostContext = getHostContext(); // TODO: Experiencing an error where oldProps is null. Suggests a host
-    // component is hitting the resume path. Figure out why. Possibly
-    // related to `hidden`.
-
-    var updatePayload = prepareUpdate(instance, type, oldProps, newProps, rootContainerInstance, currentHostContext); // TODO: Type this specific to this type of component.
-
-    workInProgress.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
-    // is a new ref we mark this as an update. All the work is done in commitWork.
-
-    if (updatePayload) {
-      markUpdate(workInProgress);
-    }
-  };
-
-  updateHostText = function (current, workInProgress, oldText, newText) {
-    // If the text differs, mark it as an update. All the work in done in commitWork.
-    if (oldText !== newText) {
-      markUpdate(workInProgress);
-    }
-  };
-}
-
-function cutOffTailIfNeeded(renderState, hasRenderedATailFallback) {
-  if (getIsHydrating()) {
-    // If we're hydrating, we should consume as many items as we can
-    // so we don't leave any behind.
-    return;
-  }
-
-  switch (renderState.tailMode) {
-    case 'hidden':
-      {
-        // Any insertions at the end of the tail list after this point
-        // should be invisible. If there are already mounted boundaries
-        // anything before them are not considered for collapsing.
-        // Therefore we need to go through the whole tail to find if
-        // there are any.
-        var tailNode = renderState.tail;
-        var lastTailNode = null;
-
-        while (tailNode !== null) {
-          if (tailNode.alternate !== null) {
-            lastTailNode = tailNode;
-          }
-
-          tailNode = tailNode.sibling;
-        } // Next we're simply going to delete all insertions after the
-        // last rendered item.
-
-
-        if (lastTailNode === null) {
-          // All remaining items in the tail are insertions.
-          renderState.tail = null;
-        } else {
-          // Detach the insertion after the last node that was already
-          // inserted.
-          lastTailNode.sibling = null;
-        }
-
-        break;
-      }
-
-    case 'collapsed':
-      {
-        // Any insertions at the end of the tail list after this point
-        // should be invisible. If there are already mounted boundaries
-        // anything before them are not considered for collapsing.
-        // Therefore we need to go through the whole tail to find if
-        // there are any.
-        var _tailNode = renderState.tail;
-        var _lastTailNode = null;
-
-        while (_tailNode !== null) {
-          if (_tailNode.alternate !== null) {
-            _lastTailNode = _tailNode;
-          }
-
-          _tailNode = _tailNode.sibling;
-        } // Next we're simply going to delete all insertions after the
-        // last rendered item.
-
-
-        if (_lastTailNode === null) {
-          // All remaining items in the tail are insertions.
-          if (!hasRenderedATailFallback && renderState.tail !== null) {
-            // We suspended during the head. We want to show at least one
-            // row at the tail. So we'll keep on and cut off the rest.
-            renderState.tail.sibling = null;
-          } else {
-            renderState.tail = null;
-          }
-        } else {
-          // Detach the insertion after the last node that was already
-          // inserted.
-          _lastTailNode.sibling = null;
-        }
-
-        break;
-      }
-  }
-}
-
-function bubbleProperties(completedWork) {
-  var didBailout = completedWork.alternate !== null && completedWork.alternate.child === completedWork.child;
-  var newChildLanes = NoLanes;
-  var subtreeFlags = NoFlags;
-
-  if (!didBailout) {
-    // Bubble up the earliest expiration time.
-    if ( (completedWork.mode & ProfileMode) !== NoMode) {
-      // In profiling mode, resetChildExpirationTime is also used to reset
-      // profiler durations.
-      var actualDuration = completedWork.actualDuration;
-      var treeBaseDuration = completedWork.selfBaseDuration;
-      var child = completedWork.child;
-
-      while (child !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(child.lanes, child.childLanes));
-        subtreeFlags |= child.subtreeFlags;
-        subtreeFlags |= child.flags; // When a fiber is cloned, its actualDuration is reset to 0. This value will
-        // only be updated if work is done on the fiber (i.e. it doesn't bailout).
-        // When work is done, it should bubble to the parent's actualDuration. If
-        // the fiber has not been cloned though, (meaning no work was done), then
-        // this value will reflect the amount of time spent working on a previous
-        // render. In that case it should not bubble. We determine whether it was
-        // cloned by comparing the child pointer.
-
-        actualDuration += child.actualDuration;
-        treeBaseDuration += child.treeBaseDuration;
-        child = child.sibling;
-      }
-
-      completedWork.actualDuration = actualDuration;
-      completedWork.treeBaseDuration = treeBaseDuration;
-    } else {
-      var _child = completedWork.child;
-
-      while (_child !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child.lanes, _child.childLanes));
-        subtreeFlags |= _child.subtreeFlags;
-        subtreeFlags |= _child.flags; // Update the return pointer so the tree is consistent. This is a code
-        // smell because it assumes the commit phase is never concurrent with
-        // the render phase. Will address during refactor to alternate model.
-
-        _child.return = completedWork;
-        _child = _child.sibling;
-      }
-    }
-
-    completedWork.subtreeFlags |= subtreeFlags;
-  } else {
-    // Bubble up the earliest expiration time.
-    if ( (completedWork.mode & ProfileMode) !== NoMode) {
-      // In profiling mode, resetChildExpirationTime is also used to reset
-      // profiler durations.
-      var _treeBaseDuration = completedWork.selfBaseDuration;
-      var _child2 = completedWork.child;
-
-      while (_child2 !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child2.lanes, _child2.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
-        // so we should bubble those up even during a bailout. All the other
-        // flags have a lifetime only of a single render + commit, so we should
-        // ignore them.
-
-        subtreeFlags |= _child2.subtreeFlags & StaticMask;
-        subtreeFlags |= _child2.flags & StaticMask;
-        _treeBaseDuration += _child2.treeBaseDuration;
-        _child2 = _child2.sibling;
-      }
-
-      completedWork.treeBaseDuration = _treeBaseDuration;
-    } else {
-      var _child3 = completedWork.child;
-
-      while (_child3 !== null) {
-        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child3.lanes, _child3.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
-        // so we should bubble those up even during a bailout. All the other
-        // flags have a lifetime only of a single render + commit, so we should
-        // ignore them.
-
-        subtreeFlags |= _child3.subtreeFlags & StaticMask;
-        subtreeFlags |= _child3.flags & StaticMask; // Update the return pointer so the tree is consistent. This is a code
-        // smell because it assumes the commit phase is never concurrent with
-        // the render phase. Will address during refactor to alternate model.
-
-        _child3.return = completedWork;
-        _child3 = _child3.sibling;
-      }
-    }
-
-    completedWork.subtreeFlags |= subtreeFlags;
-  }
-
-  completedWork.childLanes = newChildLanes;
-  return didBailout;
-}
-
-function completeWork(current, workInProgress, renderLanes) {
-  var newProps = workInProgress.pendingProps; // Note: This intentionally doesn't check if we're hydrating because comparing
-  // to the current tree provider fiber is just as fast and less error-prone.
-  // Ideally we would have a special version of the work loop only
-  // for hydration.
-
-  popTreeContext(workInProgress);
-
-  switch (workInProgress.tag) {
-    case IndeterminateComponent:
-    case LazyComponent:
-    case SimpleMemoComponent:
-    case FunctionComponent:
-    case ForwardRef:
-    case Fragment:
-    case Mode:
-    case Profiler:
-    case ContextConsumer:
-    case MemoComponent:
-      bubbleProperties(workInProgress);
-      return null;
-
-    case ClassComponent:
-      {
-        var Component = workInProgress.type;
-
-        if (isContextProvider(Component)) {
-          popContext(workInProgress);
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case HostRoot:
-      {
-        var fiberRoot = workInProgress.stateNode;
-        popHostContainer(workInProgress);
-        popTopLevelContextObject(workInProgress);
-        resetWorkInProgressVersions();
-
-        if (fiberRoot.pendingContext) {
-          fiberRoot.context = fiberRoot.pendingContext;
-          fiberRoot.pendingContext = null;
-        }
-
-        if (current === null || current.child === null) {
-          // If we hydrated, pop so that we can delete any remaining children
-          // that weren't hydrated.
-          var wasHydrated = popHydrationState(workInProgress);
-
-          if (wasHydrated) {
-            // If we hydrated, then we'll need to schedule an update for
-            // the commit side-effects on the root.
-            markUpdate(workInProgress);
-          } else {
-            if (current !== null) {
-              var prevState = current.memoizedState;
-
-              if ( // Check if this is a client root
-              !prevState.isDehydrated || // Check if we reverted to client rendering (e.g. due to an error)
-              (workInProgress.flags & ForceClientRender) !== NoFlags) {
-                // Schedule an effect to clear this container at the start of the
-                // next commit. This handles the case of React rendering into a
-                // container with previous children. It's also safe to do for
-                // updates too, because current.child would only be null if the
-                // previous render was null (so the container would already
-                // be empty).
-                workInProgress.flags |= Snapshot; // If this was a forced client render, there may have been
-                // recoverable errors during first hydration attempt. If so, add
-                // them to a queue so we can log them in the commit phase.
-
-                upgradeHydrationErrorsToRecoverable();
-              }
-            }
-          }
-        }
-
-        updateHostContainer(current, workInProgress);
-        bubbleProperties(workInProgress);
-
-        return null;
-      }
-
-    case HostComponent:
-      {
-        popHostContext(workInProgress);
-        var rootContainerInstance = getRootHostContainer();
-        var type = workInProgress.type;
-
-        if (current !== null && workInProgress.stateNode != null) {
-          updateHostComponent(current, workInProgress, type, newProps, rootContainerInstance);
-
-          if (current.ref !== workInProgress.ref) {
-            markRef(workInProgress);
-          }
-        } else {
-          if (!newProps) {
-            if (workInProgress.stateNode === null) {
-              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
-            } // This can happen when we abort work.
-
-
-            bubbleProperties(workInProgress);
-            return null;
-          }
-
-          var currentHostContext = getHostContext(); // TODO: Move createInstance to beginWork and keep it on a context
-          // "stack" as the parent. Then append children as we go in beginWork
-          // or completeWork depending on whether we want to add them top->down or
-          // bottom->up. Top->down is faster in IE11.
-
-          var _wasHydrated = popHydrationState(workInProgress);
-
-          if (_wasHydrated) {
-            // TODO: Move this and createInstance step into the beginPhase
-            // to consolidate.
-            if (prepareToHydrateHostInstance(workInProgress, rootContainerInstance, currentHostContext)) {
-              // If changes to the hydrated node need to be applied at the
-              // commit-phase we mark this as such.
-              markUpdate(workInProgress);
-            }
-          } else {
-            var instance = createInstance(type, newProps, rootContainerInstance, currentHostContext, workInProgress);
-            appendAllChildren(instance, workInProgress, false, false);
-            workInProgress.stateNode = instance; // Certain renderers require commit-time effects for initial mount.
-            // (eg DOM renderer supports auto-focus for certain elements).
-            // Make sure such renderers get scheduled for later work.
-
-            if (finalizeInitialChildren(instance, type, newProps, rootContainerInstance)) {
-              markUpdate(workInProgress);
-            }
-          }
-
-          if (workInProgress.ref !== null) {
-            // If there is a ref on a host node we need to schedule a callback
-            markRef(workInProgress);
-          }
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case HostText:
-      {
-        var newText = newProps;
-
-        if (current && workInProgress.stateNode != null) {
-          var oldText = current.memoizedProps; // If we have an alternate, that means this is an update and we need
-          // to schedule a side-effect to do the updates.
-
-          updateHostText(current, workInProgress, oldText, newText);
-        } else {
-          if (typeof newText !== 'string') {
-            if (workInProgress.stateNode === null) {
-              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
-            } // This can happen when we abort work.
-
-          }
-
-          var _rootContainerInstance = getRootHostContainer();
-
-          var _currentHostContext = getHostContext();
-
-          var _wasHydrated2 = popHydrationState(workInProgress);
-
-          if (_wasHydrated2) {
-            if (prepareToHydrateHostTextInstance(workInProgress)) {
-              markUpdate(workInProgress);
-            }
-          } else {
-            workInProgress.stateNode = createTextInstance(newText, _rootContainerInstance, _currentHostContext, workInProgress);
-          }
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case SuspenseComponent:
-      {
-        popSuspenseContext(workInProgress);
-        var nextState = workInProgress.memoizedState;
-
-        if (hasUnhydratedTailNodes() && (workInProgress.mode & ConcurrentMode) !== NoMode && (workInProgress.flags & DidCapture) === NoFlags) {
-          warnIfUnhydratedTailNodes(workInProgress);
-          resetHydrationState();
-          workInProgress.flags |= ForceClientRender | Incomplete | ShouldCapture;
-          return workInProgress;
-        }
-
-        if (nextState !== null && nextState.dehydrated !== null) {
-          // We might be inside a hydration state the first time we're picking up this
-          // Suspense boundary, and also after we've reentered it for further hydration.
-          var _wasHydrated3 = popHydrationState(workInProgress);
-
-          if (current === null) {
-            if (!_wasHydrated3) {
-              throw new Error('A dehydrated suspense component was completed without a hydrated node. ' + 'This is probably a bug in React.');
-            }
-
-            prepareToHydrateHostSuspenseInstance(workInProgress);
-            bubbleProperties(workInProgress);
-
-            {
-              if ((workInProgress.mode & ProfileMode) !== NoMode) {
-                var isTimedOutSuspense = nextState !== null;
-
-                if (isTimedOutSuspense) {
-                  // Don't count time spent in a timed out Suspense subtree as part of the base duration.
-                  var primaryChildFragment = workInProgress.child;
-
-                  if (primaryChildFragment !== null) {
-                    // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
-                    workInProgress.treeBaseDuration -= primaryChildFragment.treeBaseDuration;
-                  }
-                }
-              }
-            }
-
-            return null;
-          } else {
-            // We might have reentered this boundary to hydrate it. If so, we need to reset the hydration
-            // state since we're now exiting out of it. popHydrationState doesn't do that for us.
-            resetHydrationState();
-
-            if ((workInProgress.flags & DidCapture) === NoFlags) {
-              // This boundary did not suspend so it's now hydrated and unsuspended.
-              workInProgress.memoizedState = null;
-            } // If nothing suspended, we need to schedule an effect to mark this boundary
-            // as having hydrated so events know that they're free to be invoked.
-            // It's also a signal to replay events and the suspense callback.
-            // If something suspended, schedule an effect to attach retry listeners.
-            // So we might as well always mark this.
-
-
-            workInProgress.flags |= Update;
-            bubbleProperties(workInProgress);
-
-            {
-              if ((workInProgress.mode & ProfileMode) !== NoMode) {
-                var _isTimedOutSuspense = nextState !== null;
-
-                if (_isTimedOutSuspense) {
-                  // Don't count time spent in a timed out Suspense subtree as part of the base duration.
-                  var _primaryChildFragment = workInProgress.child;
-
-                  if (_primaryChildFragment !== null) {
-                    // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
-                    workInProgress.treeBaseDuration -= _primaryChildFragment.treeBaseDuration;
-                  }
-                }
-              }
-            }
-
-            return null;
-          }
-        } // Successfully completed this tree. If this was a forced client render,
-        // there may have been recoverable errors during first hydration
-        // attempt. If so, add them to a queue so we can log them in the
-        // commit phase.
-
-
-        upgradeHydrationErrorsToRecoverable();
-
-        if ((workInProgress.flags & DidCapture) !== NoFlags) {
-          // Something suspended. Re-render with the fallback children.
-          workInProgress.lanes = renderLanes; // Do not reset the effect list.
-
-          if ( (workInProgress.mode & ProfileMode) !== NoMode) {
-            transferActualDuration(workInProgress);
-          } // Don't bubble properties in this case.
-
-
-          return workInProgress;
-        }
-
-        var nextDidTimeout = nextState !== null;
-        var prevDidTimeout = false;
-
-        if (current === null) {
-          popHydrationState(workInProgress);
-        } else {
-          var _prevState = current.memoizedState;
-          prevDidTimeout = _prevState !== null;
-        }
-        // a passive effect, which is when we process the transitions
-
-
-        if (nextDidTimeout !== prevDidTimeout) {
-          // an effect to toggle the subtree's visibility. When we switch from
-          // fallback -> primary, the inner Offscreen fiber schedules this effect
-          // as part of its normal complete phase. But when we switch from
-          // primary -> fallback, the inner Offscreen fiber does not have a complete
-          // phase. So we need to schedule its effect here.
-          //
-          // We also use this flag to connect/disconnect the effects, but the same
-          // logic applies: when re-connecting, the Offscreen fiber's complete
-          // phase will handle scheduling the effect. It's only when the fallback
-          // is active that we have to do anything special.
-
-
-          if (nextDidTimeout) {
-            var _offscreenFiber2 = workInProgress.child;
-            _offscreenFiber2.flags |= Visibility; // TODO: This will still suspend a synchronous tree if anything
-            // in the concurrent tree already suspended during this render.
-            // This is a known bug.
-
-            if ((workInProgress.mode & ConcurrentMode) !== NoMode) {
-              // TODO: Move this back to throwException because this is too late
-              // if this is a large tree which is common for initial loads. We
-              // don't know if we should restart a render or not until we get
-              // this marker, and this is too late.
-              // If this render already had a ping or lower pri updates,
-              // and this is the first time we know we're going to suspend we
-              // should be able to immediately restart from within throwException.
-              var hasInvisibleChildContext = current === null && (workInProgress.memoizedProps.unstable_avoidThisFallback !== true || !enableSuspenseAvoidThisFallback);
-
-              if (hasInvisibleChildContext || hasSuspenseContext(suspenseStackCursor.current, InvisibleParentSuspenseContext)) {
-                // If this was in an invisible tree or a new render, then showing
-                // this boundary is ok.
-                renderDidSuspend();
-              } else {
-                // Otherwise, we're going to have to hide content so we should
-                // suspend for longer if possible.
-                renderDidSuspendDelayIfPossible();
-              }
-            }
-          }
-        }
-
-        var wakeables = workInProgress.updateQueue;
-
-        if (wakeables !== null) {
-          // Schedule an effect to attach a retry listener to the promise.
-          // TODO: Move to passive phase
-          workInProgress.flags |= Update;
-        }
-
-        bubbleProperties(workInProgress);
-
-        {
-          if ((workInProgress.mode & ProfileMode) !== NoMode) {
-            if (nextDidTimeout) {
-              // Don't count time spent in a timed out Suspense subtree as part of the base duration.
-              var _primaryChildFragment2 = workInProgress.child;
-
-              if (_primaryChildFragment2 !== null) {
-                // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
-                workInProgress.treeBaseDuration -= _primaryChildFragment2.treeBaseDuration;
-              }
-            }
-          }
-        }
-
-        return null;
-      }
-
-    case HostPortal:
-      popHostContainer(workInProgress);
-      updateHostContainer(current, workInProgress);
-
-      if (current === null) {
-        preparePortalMount(workInProgress.stateNode.containerInfo);
-      }
-
-      bubbleProperties(workInProgress);
-      return null;
-
-    case ContextProvider:
-      // Pop provider fiber
-      var context = workInProgress.type._context;
-      popProvider(context, workInProgress);
-      bubbleProperties(workInProgress);
-      return null;
-
-    case IncompleteClassComponent:
-      {
-        // Same as class component case. I put it down here so that the tags are
-        // sequential to ensure this switch is compiled to a jump table.
-        var _Component = workInProgress.type;
-
-        if (isContextProvider(_Component)) {
-          popContext(workInProgress);
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case SuspenseListComponent:
-      {
-        popSuspenseContext(workInProgress);
-        var renderState = workInProgress.memoizedState;
-
-        if (renderState === null) {
-          // We're running in the default, "independent" mode.
-          // We don't do anything in this mode.
-          bubbleProperties(workInProgress);
-          return null;
-        }
-
-        var didSuspendAlready = (workInProgress.flags & DidCapture) !== NoFlags;
-        var renderedTail = renderState.rendering;
-
-        if (renderedTail === null) {
-          // We just rendered the head.
-          if (!didSuspendAlready) {
-            // This is the first pass. We need to figure out if anything is still
-            // suspended in the rendered set.
-            // If new content unsuspended, but there's still some content that
-            // didn't. Then we need to do a second pass that forces everything
-            // to keep showing their fallbacks.
-            // We might be suspended if something in this render pass suspended, or
-            // something in the previous committed pass suspended. Otherwise,
-            // there's no chance so we can skip the expensive call to
-            // findFirstSuspended.
-            var cannotBeSuspended = renderHasNotSuspendedYet() && (current === null || (current.flags & DidCapture) === NoFlags);
-
-            if (!cannotBeSuspended) {
-              var row = workInProgress.child;
-
-              while (row !== null) {
-                var suspended = findFirstSuspended(row);
-
-                if (suspended !== null) {
-                  didSuspendAlready = true;
-                  workInProgress.flags |= DidCapture;
-                  cutOffTailIfNeeded(renderState, false); // If this is a newly suspended tree, it might not get committed as
-                  // part of the second pass. In that case nothing will subscribe to
-                  // its thenables. Instead, we'll transfer its thenables to the
-                  // SuspenseList so that it can retry if they resolve.
-                  // There might be multiple of these in the list but since we're
-                  // going to wait for all of them anyway, it doesn't really matter
-                  // which ones gets to ping. In theory we could get clever and keep
-                  // track of how many dependencies remain but it gets tricky because
-                  // in the meantime, we can add/remove/change items and dependencies.
-                  // We might bail out of the loop before finding any but that
-                  // doesn't matter since that means that the other boundaries that
-                  // we did find already has their listeners attached.
-
-                  var newThenables = suspended.updateQueue;
-
-                  if (newThenables !== null) {
-                    workInProgress.updateQueue = newThenables;
-                    workInProgress.flags |= Update;
-                  } // Rerender the whole list, but this time, we'll force fallbacks
-                  // to stay in place.
-                  // Reset the effect flags before doing the second pass since that's now invalid.
-                  // Reset the child fibers to their original state.
-
-
-                  workInProgress.subtreeFlags = NoFlags;
-                  resetChildFibers(workInProgress, renderLanes); // Set up the Suspense Context to force suspense and immediately
-                  // rerender the children.
-
-                  pushSuspenseContext(workInProgress, setShallowSuspenseContext(suspenseStackCursor.current, ForceSuspenseFallback)); // Don't bubble properties in this case.
-
-                  return workInProgress.child;
-                }
-
-                row = row.sibling;
-              }
-            }
-
-            if (renderState.tail !== null && now() > getRenderTargetTime()) {
-              // We have already passed our CPU deadline but we still have rows
-              // left in the tail. We'll just give up further attempts to render
-              // the main content and only render fallbacks.
-              workInProgress.flags |= DidCapture;
-              didSuspendAlready = true;
-              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
-              // to get it started back up to attempt the next item. While in terms
-              // of priority this work has the same priority as this current render,
-              // it's not part of the same transition once the transition has
-              // committed. If it's sync, we still want to yield so that it can be
-              // painted. Conceptually, this is really the same as pinging.
-              // We can use any RetryLane even if it's the one currently rendering
-              // since we're leaving it behind on this node.
-
-              workInProgress.lanes = SomeRetryLane;
-            }
-          } else {
-            cutOffTailIfNeeded(renderState, false);
-          } // Next we're going to render the tail.
-
-        } else {
-          // Append the rendered row to the child list.
-          if (!didSuspendAlready) {
-            var _suspended = findFirstSuspended(renderedTail);
-
-            if (_suspended !== null) {
-              workInProgress.flags |= DidCapture;
-              didSuspendAlready = true; // Ensure we transfer the update queue to the parent so that it doesn't
-              // get lost if this row ends up dropped during a second pass.
-
-              var _newThenables = _suspended.updateQueue;
-
-              if (_newThenables !== null) {
-                workInProgress.updateQueue = _newThenables;
-                workInProgress.flags |= Update;
-              }
-
-              cutOffTailIfNeeded(renderState, true); // This might have been modified.
-
-              if (renderState.tail === null && renderState.tailMode === 'hidden' && !renderedTail.alternate && !getIsHydrating() // We don't cut it if we're hydrating.
-              ) {
-                  // We're done.
-                  bubbleProperties(workInProgress);
-                  return null;
-                }
-            } else if ( // The time it took to render last row is greater than the remaining
-            // time we have to render. So rendering one more row would likely
-            // exceed it.
-            now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes !== OffscreenLane) {
-              // We have now passed our CPU deadline and we'll just give up further
-              // attempts to render the main content and only render fallbacks.
-              // The assumption is that this is usually faster.
-              workInProgress.flags |= DidCapture;
-              didSuspendAlready = true;
-              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
-              // to get it started back up to attempt the next item. While in terms
-              // of priority this work has the same priority as this current render,
-              // it's not part of the same transition once the transition has
-              // committed. If it's sync, we still want to yield so that it can be
-              // painted. Conceptually, this is really the same as pinging.
-              // We can use any RetryLane even if it's the one currently rendering
-              // since we're leaving it behind on this node.
-
-              workInProgress.lanes = SomeRetryLane;
-            }
-          }
-
-          if (renderState.isBackwards) {
-            // The effect list of the backwards tail will have been added
-            // to the end. This breaks the guarantee that life-cycles fire in
-            // sibling order but that isn't a strong guarantee promised by React.
-            // Especially since these might also just pop in during future commits.
-            // Append to the beginning of the list.
-            renderedTail.sibling = workInProgress.child;
-            workInProgress.child = renderedTail;
-          } else {
-            var previousSibling = renderState.last;
-
-            if (previousSibling !== null) {
-              previousSibling.sibling = renderedTail;
-            } else {
-              workInProgress.child = renderedTail;
-            }
-
-            renderState.last = renderedTail;
-          }
-        }
-
-        if (renderState.tail !== null) {
-          // We still have tail rows to render.
-          // Pop a row.
-          var next = renderState.tail;
-          renderState.rendering = next;
-          renderState.tail = next.sibling;
-          renderState.renderingStartTime = now();
-          next.sibling = null; // Restore the context.
-          // TODO: We can probably just avoid popping it instead and only
-          // setting it the first time we go from not suspended to suspended.
-
-          var suspenseContext = suspenseStackCursor.current;
-
-          if (didSuspendAlready) {
-            suspenseContext = setShallowSuspenseContext(suspenseContext, ForceSuspenseFallback);
-          } else {
-            suspenseContext = setDefaultShallowSuspenseContext(suspenseContext);
-          }
-
-          pushSuspenseContext(workInProgress, suspenseContext); // Do a pass over the next row.
-          // Don't bubble properties in this case.
-
-          return next;
-        }
-
-        bubbleProperties(workInProgress);
-        return null;
-      }
-
-    case ScopeComponent:
-      {
-
-        break;
-      }
-
-    case OffscreenComponent:
-    case LegacyHiddenComponent:
-      {
-        popRenderLanes(workInProgress);
-        var _nextState = workInProgress.memoizedState;
-        var nextIsHidden = _nextState !== null;
-
-        if (current !== null) {
-          var _prevState2 = current.memoizedState;
-          var prevIsHidden = _prevState2 !== null;
-
-          if (prevIsHidden !== nextIsHidden && ( // LegacyHidden doesn't do any hiding — it only pre-renders.
-          !enableLegacyHidden )) {
-            workInProgress.flags |= Visibility;
-          }
-        }
-
-        if (!nextIsHidden || (workInProgress.mode & ConcurrentMode) === NoMode) {
-          bubbleProperties(workInProgress);
-        } else {
-          // Don't bubble properties for hidden children unless we're rendering
-          // at offscreen priority.
-          if (includesSomeLane(subtreeRenderLanes, OffscreenLane)) {
-            bubbleProperties(workInProgress);
-
-            {
-              // Check if there was an insertion or update in the hidden subtree.
-              // If so, we need to hide those nodes in the commit phase, so
-              // schedule a visibility effect.
-              if ( workInProgress.subtreeFlags & (Placement | Update)) {
-                workInProgress.flags |= Visibility;
-              }
-            }
-          }
-        }
-        return null;
-      }
-
-    case CacheComponent:
-      {
-
-        return null;
-      }
-
-    case TracingMarkerComponent:
-      {
-
-        return null;
-      }
-  }
-
-  throw new Error("Unknown unit of work tag (" + workInProgress.tag + "). This error is likely caused by a bug in " + 'React. Please file an issue.');
 }
 
 var ReactCurrentOwner$1 = ReactSharedInternals.ReactCurrentOwner;
@@ -35826,11 +34455,9 @@ function updateOffscreenComponent(current, workInProgress, renderLanes) {
     pushRenderLanes(workInProgress, _subtreeRenderLanes);
   }
 
-  {
-    reconcileChildren(current, workInProgress, nextChildren, renderLanes);
-    return workInProgress.child;
-  }
-}
+  reconcileChildren(current, workInProgress, nextChildren, renderLanes);
+  return workInProgress.child;
+} // Note: These happen to have identical begin phases, for now. We shouldn't hold
 
 function updateFragment(current, workInProgress, renderLanes) {
   var nextChildren = workInProgress.pendingProps;
@@ -35863,7 +34490,7 @@ function updateProfiler(current, workInProgress, renderLanes) {
   return workInProgress.child;
 }
 
-function markRef$1(current, workInProgress) {
+function markRef(current, workInProgress) {
   var ref = workInProgress.ref;
 
   if (current === null && ref !== null || current !== null && current.ref !== ref) {
@@ -35971,7 +34598,7 @@ function updateClassComponent(current, workInProgress, Component, nextProps, ren
           var lane = pickArbitraryLane(renderLanes);
           workInProgress.lanes = mergeLanes(workInProgress.lanes, lane); // Schedule the error boundary to re-render using updated state
 
-          var update = createClassErrorUpdate(workInProgress, createCapturedValue(error$1, workInProgress), lane);
+          var update = createClassErrorUpdate(workInProgress, createCapturedValueAtFiber(error$1, workInProgress), lane);
           enqueueCapturedUpdate(workInProgress, update);
           break;
         }
@@ -36006,17 +34633,7 @@ function updateClassComponent(current, workInProgress, Component, nextProps, ren
   var shouldUpdate;
 
   if (instance === null) {
-    if (current !== null) {
-      // A class component without an instance only mounts if it suspended
-      // inside a non-concurrent tree, in an inconsistent state. We want to
-      // treat it like a new mount, even though an empty version of it already
-      // committed. Disconnect the alternate pointers.
-      current.alternate = null;
-      workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-      workInProgress.flags |= Placement;
-    } // In the initial pass we might need to construct the instance.
-
+    resetSuspendedCurrentOnMountInLegacyMode(current, workInProgress); // In the initial pass we might need to construct the instance.
 
     constructClassInstance(workInProgress, Component, nextProps);
     mountClassInstance(workInProgress, Component, nextProps, renderLanes);
@@ -36047,7 +34664,7 @@ function updateClassComponent(current, workInProgress, Component, nextProps, ren
 
 function finishClassComponent(current, workInProgress, Component, shouldUpdate, hasContext, renderLanes) {
   // Refs should update even if shouldComponentUpdate returns false
-  markRef$1(current, workInProgress);
+  markRef(current, workInProgress);
   var didCaptureError = (workInProgress.flags & DidCapture) !== NoFlags;
 
   if (!shouldUpdate && !didCaptureError) {
@@ -36179,10 +34796,10 @@ function updateHostRoot(current, workInProgress, renderLanes) {
     if (workInProgress.flags & ForceClientRender) {
       // Something errored during a previous attempt to hydrate the shell, so we
       // forced a client render.
-      var recoverableError = new Error('There was an error while hydrating. Because the error happened outside ' + 'of a Suspense boundary, the entire root will switch to ' + 'client rendering.');
+      var recoverableError = createCapturedValueAtFiber(new Error('There was an error while hydrating. Because the error happened outside ' + 'of a Suspense boundary, the entire root will switch to ' + 'client rendering.'), workInProgress);
       return mountHostRootWithoutHydrating(current, workInProgress, nextChildren, renderLanes, recoverableError);
     } else if (nextChildren !== prevChildren) {
-      var _recoverableError = new Error('This root received an early update, before anything was able ' + 'hydrate. Switched the entire root to client rendering.');
+      var _recoverableError = createCapturedValueAtFiber(new Error('This root received an early update, before anything was able ' + 'hydrate. Switched the entire root to client rendering.'), workInProgress);
 
       return mountHostRootWithoutHydrating(current, workInProgress, nextChildren, renderLanes, _recoverableError);
     } else {
@@ -36228,7 +34845,7 @@ function mountHostRootWithoutHydrating(current, workInProgress, nextChildren, re
   return workInProgress.child;
 }
 
-function updateHostComponent$1(current, workInProgress, renderLanes) {
+function updateHostComponent(current, workInProgress, renderLanes) {
   pushHostContext(workInProgress);
 
   if (current === null) {
@@ -36253,12 +34870,12 @@ function updateHostComponent$1(current, workInProgress, renderLanes) {
     workInProgress.flags |= ContentReset;
   }
 
-  markRef$1(current, workInProgress);
+  markRef(current, workInProgress);
   reconcileChildren(current, workInProgress, nextChildren, renderLanes);
   return workInProgress.child;
 }
 
-function updateHostText$1(current, workInProgress) {
+function updateHostText(current, workInProgress) {
   if (current === null) {
     tryToClaimNextHydratableInstance(workInProgress);
   } // Nothing to do here. This is terminal. We'll do the completion step
@@ -36269,17 +34886,7 @@ function updateHostText$1(current, workInProgress) {
 }
 
 function mountLazyComponent(_current, workInProgress, elementType, renderLanes) {
-  if (_current !== null) {
-    // A lazy component only mounts if it suspended inside a non-
-    // concurrent tree, in an inconsistent state. We want to treat it like
-    // a new mount, even though an empty version of it already committed.
-    // Disconnect the alternate pointers.
-    _current.alternate = null;
-    workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-    workInProgress.flags |= Placement;
-  }
-
+  resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress);
   var props = workInProgress.pendingProps;
   var lazyComponent = elementType;
   var payload = lazyComponent._payload;
@@ -36357,17 +34964,7 @@ function mountLazyComponent(_current, workInProgress, elementType, renderLanes) 
 }
 
 function mountIncompleteClassComponent(_current, workInProgress, Component, nextProps, renderLanes) {
-  if (_current !== null) {
-    // An incomplete component only mounts if it suspended inside a non-
-    // concurrent tree, in an inconsistent state. We want to treat it like
-    // a new mount, even though an empty version of it already committed.
-    // Disconnect the alternate pointers.
-    _current.alternate = null;
-    workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-    workInProgress.flags |= Placement;
-  } // Promote the fiber to a class and try rendering again.
-
+  resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress); // Promote the fiber to a class and try rendering again.
 
   workInProgress.tag = ClassComponent; // The rest of this function is a fork of `updateClassComponent`
   // Push context providers early to prevent context stack mismatches.
@@ -36390,17 +34987,7 @@ function mountIncompleteClassComponent(_current, workInProgress, Component, next
 }
 
 function mountIndeterminateComponent(_current, workInProgress, Component, renderLanes) {
-  if (_current !== null) {
-    // An indeterminate component only mounts if it suspended inside a non-
-    // concurrent tree, in an inconsistent state. We want to treat it like
-    // a new mount, even though an empty version of it already committed.
-    // Disconnect the alternate pointers.
-    _current.alternate = null;
-    workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
-
-    workInProgress.flags |= Placement;
-  }
-
+  resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress);
   var props = workInProgress.pendingProps;
   var context;
 
@@ -36686,6 +35273,7 @@ function updateSuspenseComponent(current, workInProgress, renderLanes) {
 
   if (current === null) {
     // Initial mount
+    // Special path for hydration
     // If we're currently hydrating, try to hydrate this boundary.
     tryToClaimNextHydratableInstance(workInProgress); // This could've been a dehydrated suspense component.
 
@@ -36714,92 +35302,35 @@ function updateSuspenseComponent(current, workInProgress, renderLanes) {
     }
   } else {
     // This is an update.
-    // If the current fiber has a SuspenseState, that means it's already showing
-    // a fallback.
+    // Special path for hydration
     var prevState = current.memoizedState;
 
     if (prevState !== null) {
-      // The current tree is already showing a fallback
-      // Special path for hydration
       var _dehydrated = prevState.dehydrated;
 
       if (_dehydrated !== null) {
-        if (!didSuspend) {
-          return updateDehydratedSuspenseComponent(current, workInProgress, _dehydrated, prevState, renderLanes);
-        } else if (workInProgress.flags & ForceClientRender) {
-          // Something errored during hydration. Try again without hydrating.
-          workInProgress.flags &= ~ForceClientRender;
-          return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, new Error('There was an error while hydrating this Suspense boundary. ' + 'Switched to client rendering.'));
-        } else if (workInProgress.memoizedState !== null) {
-          // Something suspended and we should still be in dehydrated mode.
-          // Leave the existing child in place.
-          workInProgress.child = current.child; // The dehydrated completion pass expects this flag to be there
-          // but the normal suspense pass doesn't.
-
-          workInProgress.flags |= DidCapture;
-          return null;
-        } else {
-          // Suspended but we should no longer be in dehydrated mode.
-          // Therefore we now have to render the fallback.
-          var _nextPrimaryChildren = nextProps.children;
-          var _nextFallbackChildren = nextProps.fallback;
-          var fallbackChildFragment = mountSuspenseFallbackAfterRetryWithoutHydrating(current, workInProgress, _nextPrimaryChildren, _nextFallbackChildren, renderLanes);
-          var _primaryChildFragment2 = workInProgress.child;
-          _primaryChildFragment2.memoizedState = mountSuspenseOffscreenState(renderLanes);
-          workInProgress.memoizedState = SUSPENDED_MARKER;
-          return fallbackChildFragment;
-        }
+        return updateDehydratedSuspenseComponent(current, workInProgress, didSuspend, nextProps, _dehydrated, prevState, renderLanes);
       }
+    }
 
-      if (showFallback) {
-        var _nextFallbackChildren2 = nextProps.fallback;
-        var _nextPrimaryChildren2 = nextProps.children;
+    if (showFallback) {
+      var _nextFallbackChildren = nextProps.fallback;
+      var _nextPrimaryChildren = nextProps.children;
+      var fallbackChildFragment = updateSuspenseFallbackChildren(current, workInProgress, _nextPrimaryChildren, _nextFallbackChildren, renderLanes);
+      var _primaryChildFragment2 = workInProgress.child;
+      var prevOffscreenState = current.child.memoizedState;
+      _primaryChildFragment2.memoizedState = prevOffscreenState === null ? mountSuspenseOffscreenState(renderLanes) : updateSuspenseOffscreenState(prevOffscreenState, renderLanes);
 
-        var _fallbackChildFragment = updateSuspenseFallbackChildren(current, workInProgress, _nextPrimaryChildren2, _nextFallbackChildren2, renderLanes);
-
-        var _primaryChildFragment3 = workInProgress.child;
-        var prevOffscreenState = current.child.memoizedState;
-        _primaryChildFragment3.memoizedState = prevOffscreenState === null ? mountSuspenseOffscreenState(renderLanes) : updateSuspenseOffscreenState(prevOffscreenState, renderLanes);
-
-        _primaryChildFragment3.childLanes = getRemainingWorkInPrimaryTree(current, renderLanes);
-        workInProgress.memoizedState = SUSPENDED_MARKER;
-        return _fallbackChildFragment;
-      } else {
-        var _nextPrimaryChildren3 = nextProps.children;
-
-        var _primaryChildFragment4 = updateSuspensePrimaryChildren(current, workInProgress, _nextPrimaryChildren3, renderLanes);
-
-        workInProgress.memoizedState = null;
-        return _primaryChildFragment4;
-      }
+      _primaryChildFragment2.childLanes = getRemainingWorkInPrimaryTree(current, renderLanes);
+      workInProgress.memoizedState = SUSPENDED_MARKER;
+      return fallbackChildFragment;
     } else {
-      // The current tree is not already showing a fallback.
-      if (showFallback) {
-        // Timed out.
-        var _nextFallbackChildren3 = nextProps.fallback;
-        var _nextPrimaryChildren4 = nextProps.children;
+      var _nextPrimaryChildren2 = nextProps.children;
 
-        var _fallbackChildFragment2 = updateSuspenseFallbackChildren(current, workInProgress, _nextPrimaryChildren4, _nextFallbackChildren3, renderLanes);
+      var _primaryChildFragment3 = updateSuspensePrimaryChildren(current, workInProgress, _nextPrimaryChildren2, renderLanes);
 
-        var _primaryChildFragment5 = workInProgress.child;
-        var _prevOffscreenState = current.child.memoizedState;
-        _primaryChildFragment5.memoizedState = _prevOffscreenState === null ? mountSuspenseOffscreenState(renderLanes) : updateSuspenseOffscreenState(_prevOffscreenState, renderLanes);
-        _primaryChildFragment5.childLanes = getRemainingWorkInPrimaryTree(current, renderLanes);
-        // fallback children.
-
-
-        workInProgress.memoizedState = SUSPENDED_MARKER;
-        return _fallbackChildFragment2;
-      } else {
-        // Still haven't timed out. Continue rendering the children, like we
-        // normally do.
-        var _nextPrimaryChildren5 = nextProps.children;
-
-        var _primaryChildFragment6 = updateSuspensePrimaryChildren(current, workInProgress, _nextPrimaryChildren5, renderLanes);
-
-        workInProgress.memoizedState = null;
-        return _primaryChildFragment6;
-      }
+      workInProgress.memoizedState = null;
+      return _primaryChildFragment3;
     }
   }
 }
@@ -36933,17 +35464,16 @@ function updateSuspenseFallbackChildren(current, workInProgress, primaryChildren
       primaryChildFragment.actualStartTime = -1;
       primaryChildFragment.selfBaseDuration = currentPrimaryChildFragment.selfBaseDuration;
       primaryChildFragment.treeBaseDuration = currentPrimaryChildFragment.treeBaseDuration;
-    }
+    } // The fallback fiber was added as a deletion during the first pass.
     // However, since we're going to remain on the fallback, we no longer want
     // to delete it.
 
 
     workInProgress.deletions = null;
   } else {
-    primaryChildFragment = updateWorkInProgressOffscreenFiber(currentPrimaryChildFragment, primaryChildProps);
+    primaryChildFragment = updateWorkInProgressOffscreenFiber(currentPrimaryChildFragment, primaryChildProps); // Since we're reusing a current tree, we need to reuse the flags, too.
     // (We don't do this in legacy mode, because in legacy mode we don't re-use
     // the current tree; see previous branch.)
-
 
     primaryChildFragment.subtreeFlags = currentPrimaryChildFragment.subtreeFlags & StaticMask;
   }
@@ -37047,89 +35577,141 @@ function mountDehydratedSuspenseComponent(workInProgress, suspenseInstance, rend
   return null;
 }
 
-function updateDehydratedSuspenseComponent(current, workInProgress, suspenseInstance, suspenseState, renderLanes) {
-  // We should never be hydrating at this point because it is the first pass,
-  // but after we've already committed once.
-  warnIfHydrating();
+function updateDehydratedSuspenseComponent(current, workInProgress, didSuspend, nextProps, suspenseInstance, suspenseState, renderLanes) {
+  if (!didSuspend) {
+    // This is the first render pass. Attempt to hydrate.
+    // We should never be hydrating at this point because it is the first pass,
+    // but after we've already committed once.
+    warnIfHydrating();
 
-  if ((workInProgress.mode & ConcurrentMode) === NoMode) {
-    return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: When we delete legacy mode, we should make this error argument
-    // required — every concurrent mode path that causes hydration to
-    // de-opt to client rendering should have an error message.
-    null);
-  }
+    if ((workInProgress.mode & ConcurrentMode) === NoMode) {
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: When we delete legacy mode, we should make this error argument
+      // required — every concurrent mode path that causes hydration to
+      // de-opt to client rendering should have an error message.
+      null);
+    }
 
-  if (isSuspenseInstanceFallback(suspenseInstance)) {
-    // This boundary is in a permanent fallback state. In this case, we'll never
-    // get an update and we'll never be able to hydrate the final content. Let's just try the
-    // client side render instead.
-    return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, // TODO: The server should serialize the error message so we can log it
-    // here on the client. Or, in production, a hash/id that corresponds to
-    // the error.
-    new Error('The server could not finish this Suspense boundary, likely ' + 'due to an error during server rendering. Switched to ' + 'client rendering.'));
-  }
-  // any context has changed, we need to treat is as if the input might have changed.
+    if (isSuspenseInstanceFallback(suspenseInstance)) {
+      // This boundary is in a permanent fallback state. In this case, we'll never
+      // get an update and we'll never be able to hydrate the final content. Let's just try the
+      // client side render instead.
+      var digest, message, stack;
 
+      {
+        var _getSuspenseInstanceF = getSuspenseInstanceFallbackErrorDetails(suspenseInstance);
 
-  var hasContextChanged = includesSomeLane(renderLanes, current.childLanes);
-
-  if (didReceiveUpdate || hasContextChanged) {
-    // This boundary has changed since the first render. This means that we are now unable to
-    // hydrate it. We might still be able to hydrate it using a higher priority lane.
-    var root = getWorkInProgressRoot();
-
-    if (root !== null) {
-      var attemptHydrationAtLane = getBumpedLaneForHydration(root, renderLanes);
-
-      if (attemptHydrationAtLane !== NoLane && attemptHydrationAtLane !== suspenseState.retryLane) {
-        // Intentionally mutating since this render will get interrupted. This
-        // is one of the very rare times where we mutate the current tree
-        // during the render phase.
-        suspenseState.retryLane = attemptHydrationAtLane; // TODO: Ideally this would inherit the event time of the current render
-
-        var eventTime = NoTimestamp;
-        scheduleUpdateOnFiber(current, attemptHydrationAtLane, eventTime);
+        digest = _getSuspenseInstanceF.digest;
+        message = _getSuspenseInstanceF.message;
+        stack = _getSuspenseInstanceF.stack;
       }
-    } // If we have scheduled higher pri work above, this will probably just abort the render
-    // since we now have higher priority work, but in case it doesn't, we need to prepare to
-    // render something, if we time out. Even if that requires us to delete everything and
-    // skip hydration.
-    // Delay having to do this as long as the suspense timeout allows us.
+
+      var error;
+
+      if (message) {
+        // eslint-disable-next-line react-internal/prod-error-codes
+        error = new Error(message);
+      } else {
+        error = new Error('The server could not finish this Suspense boundary, likely ' + 'due to an error during server rendering. Switched to ' + 'client rendering.');
+      }
+
+      var capturedValue = createCapturedValue(error, digest, stack);
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, capturedValue);
+    }
+    // any context has changed, we need to treat is as if the input might have changed.
 
 
-    renderDidSuspendDelayIfPossible();
-    return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, new Error('This Suspense boundary received an update before it finished ' + 'hydrating. This caused the boundary to switch to client rendering. ' + 'The usual way to fix this is to wrap the original update ' + 'in startTransition.'));
-  } else if (isSuspenseInstancePending(suspenseInstance)) {
-    // This component is still pending more data from the server, so we can't hydrate its
-    // content. We treat it as if this component suspended itself. It might seem as if
-    // we could just try to render it client-side instead. However, this will perform a
-    // lot of unnecessary work and is unlikely to complete since it often will suspend
-    // on missing data anyway. Additionally, the server might be able to render more
-    // than we can on the client yet. In that case we'd end up with more fallback states
-    // on the client than if we just leave it alone. If the server times out or errors
-    // these should update this boundary to the permanent Fallback state instead.
-    // Mark it as having captured (i.e. suspended).
-    workInProgress.flags |= DidCapture; // Leave the child in place. I.e. the dehydrated fragment.
+    var hasContextChanged = includesSomeLane(renderLanes, current.childLanes);
 
-    workInProgress.child = current.child; // Register a callback to retry this boundary once the server has sent the result.
+    if (didReceiveUpdate || hasContextChanged) {
+      // This boundary has changed since the first render. This means that we are now unable to
+      // hydrate it. We might still be able to hydrate it using a higher priority lane.
+      var root = getWorkInProgressRoot();
 
-    var retry = retryDehydratedSuspenseBoundary.bind(null, current);
-    registerSuspenseInstanceRetry(suspenseInstance, retry);
-    return null;
+      if (root !== null) {
+        var attemptHydrationAtLane = getBumpedLaneForHydration(root, renderLanes);
+
+        if (attemptHydrationAtLane !== NoLane && attemptHydrationAtLane !== suspenseState.retryLane) {
+          // Intentionally mutating since this render will get interrupted. This
+          // is one of the very rare times where we mutate the current tree
+          // during the render phase.
+          suspenseState.retryLane = attemptHydrationAtLane; // TODO: Ideally this would inherit the event time of the current render
+
+          var eventTime = NoTimestamp;
+          enqueueConcurrentRenderForLane(current, attemptHydrationAtLane);
+          scheduleUpdateOnFiber(root, current, attemptHydrationAtLane, eventTime);
+        }
+      } // If we have scheduled higher pri work above, this will probably just abort the render
+      // since we now have higher priority work, but in case it doesn't, we need to prepare to
+      // render something, if we time out. Even if that requires us to delete everything and
+      // skip hydration.
+      // Delay having to do this as long as the suspense timeout allows us.
+
+
+      renderDidSuspendDelayIfPossible();
+
+      var _capturedValue = createCapturedValue(new Error('This Suspense boundary received an update before it finished ' + 'hydrating. This caused the boundary to switch to client rendering. ' + 'The usual way to fix this is to wrap the original update ' + 'in startTransition.'));
+
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, _capturedValue);
+    } else if (isSuspenseInstancePending(suspenseInstance)) {
+      // This component is still pending more data from the server, so we can't hydrate its
+      // content. We treat it as if this component suspended itself. It might seem as if
+      // we could just try to render it client-side instead. However, this will perform a
+      // lot of unnecessary work and is unlikely to complete since it often will suspend
+      // on missing data anyway. Additionally, the server might be able to render more
+      // than we can on the client yet. In that case we'd end up with more fallback states
+      // on the client than if we just leave it alone. If the server times out or errors
+      // these should update this boundary to the permanent Fallback state instead.
+      // Mark it as having captured (i.e. suspended).
+      workInProgress.flags |= DidCapture; // Leave the child in place. I.e. the dehydrated fragment.
+
+      workInProgress.child = current.child; // Register a callback to retry this boundary once the server has sent the result.
+
+      var retry = retryDehydratedSuspenseBoundary.bind(null, current);
+      registerSuspenseInstanceRetry(suspenseInstance, retry);
+      return null;
+    } else {
+      // This is the first attempt.
+      reenterHydrationStateFromDehydratedSuspenseInstance(workInProgress, suspenseInstance, suspenseState.treeContext);
+      var primaryChildren = nextProps.children;
+      var primaryChildFragment = mountSuspensePrimaryChildren(workInProgress, primaryChildren); // Mark the children as hydrating. This is a fast path to know whether this
+      // tree is part of a hydrating tree. This is used to determine if a child
+      // node has fully mounted yet, and for scheduling event replaying.
+      // Conceptually this is similar to Placement in that a new subtree is
+      // inserted into the React tree here. It just happens to not need DOM
+      // mutations because it already exists.
+
+      primaryChildFragment.flags |= Hydrating;
+      return primaryChildFragment;
+    }
   } else {
-    // This is the first attempt.
-    reenterHydrationStateFromDehydratedSuspenseInstance(workInProgress, suspenseInstance, suspenseState.treeContext);
-    var nextProps = workInProgress.pendingProps;
-    var primaryChildren = nextProps.children;
-    var primaryChildFragment = mountSuspensePrimaryChildren(workInProgress, primaryChildren); // Mark the children as hydrating. This is a fast path to know whether this
-    // tree is part of a hydrating tree. This is used to determine if a child
-    // node has fully mounted yet, and for scheduling event replaying.
-    // Conceptually this is similar to Placement in that a new subtree is
-    // inserted into the React tree here. It just happens to not need DOM
-    // mutations because it already exists.
+    // This is the second render pass. We already attempted to hydrated, but
+    // something either suspended or errored.
+    if (workInProgress.flags & ForceClientRender) {
+      // Something errored during hydration. Try again without hydrating.
+      workInProgress.flags &= ~ForceClientRender;
 
-    primaryChildFragment.flags |= Hydrating;
-    return primaryChildFragment;
+      var _capturedValue2 = createCapturedValue(new Error('There was an error while hydrating this Suspense boundary. ' + 'Switched to client rendering.'));
+
+      return retrySuspenseComponentWithoutHydrating(current, workInProgress, renderLanes, _capturedValue2);
+    } else if (workInProgress.memoizedState !== null) {
+      // Something suspended and we should still be in dehydrated mode.
+      // Leave the existing child in place.
+      workInProgress.child = current.child; // The dehydrated completion pass expects this flag to be there
+      // but the normal suspense pass doesn't.
+
+      workInProgress.flags |= DidCapture;
+      return null;
+    } else {
+      // Suspended but we should no longer be in dehydrated mode.
+      // Therefore we now have to render the fallback.
+      var nextPrimaryChildren = nextProps.children;
+      var nextFallbackChildren = nextProps.fallback;
+      var fallbackChildFragment = mountSuspenseFallbackAfterRetryWithoutHydrating(current, workInProgress, nextPrimaryChildren, nextFallbackChildren, renderLanes);
+      var _primaryChildFragment4 = workInProgress.child;
+      _primaryChildFragment4.memoizedState = mountSuspenseOffscreenState(renderLanes);
+      workInProgress.memoizedState = SUSPENDED_MARKER;
+      return fallbackChildFragment;
+    }
   }
 }
 
@@ -37590,6 +36172,21 @@ function markWorkInProgressReceivedUpdate() {
   didReceiveUpdate = true;
 }
 
+function resetSuspendedCurrentOnMountInLegacyMode(current, workInProgress) {
+  if ((workInProgress.mode & ConcurrentMode) === NoMode) {
+    if (current !== null) {
+      // A lazy component only mounts if it suspended inside a non-
+      // concurrent tree, in an inconsistent state. We want to treat it like
+      // a new mount, even though an empty version of it already committed.
+      // Disconnect the alternate pointers.
+      current.alternate = null;
+      workInProgress.alternate = null; // Since this is conceptually a new fiber, schedule a Placement effect
+
+      workInProgress.flags |= Placement;
+    }
+  }
+}
+
 function bailoutOnAlreadyFinishedWork(current, workInProgress, renderLanes) {
   if (current !== null) {
     // Reuse previous dependencies
@@ -37968,10 +36565,10 @@ function beginWork(current, workInProgress, renderLanes) {
       return updateHostRoot(current, workInProgress, renderLanes);
 
     case HostComponent:
-      return updateHostComponent$1(current, workInProgress, renderLanes);
+      return updateHostComponent(current, workInProgress, renderLanes);
 
     case HostText:
-      return updateHostText$1(current, workInProgress);
+      return updateHostText(current, workInProgress);
 
     case SuspenseComponent:
       return updateSuspenseComponent(current, workInProgress, renderLanes);
@@ -38055,6 +36652,936 @@ function beginWork(current, workInProgress, renderLanes) {
     case OffscreenComponent:
       {
         return updateOffscreenComponent(current, workInProgress, renderLanes);
+      }
+  }
+
+  throw new Error("Unknown unit of work tag (" + workInProgress.tag + "). This error is likely caused by a bug in " + 'React. Please file an issue.');
+}
+
+function markUpdate(workInProgress) {
+  // Tag the fiber with an update effect. This turns a Placement into
+  // a PlacementAndUpdate.
+  workInProgress.flags |= Update;
+}
+
+function markRef$1(workInProgress) {
+  workInProgress.flags |= Ref;
+
+  {
+    workInProgress.flags |= RefStatic;
+  }
+}
+
+var appendAllChildren;
+var updateHostContainer;
+var updateHostComponent$1;
+var updateHostText$1;
+
+{
+  // Mutation mode
+  appendAllChildren = function (parent, workInProgress, needsVisibilityToggle, isHidden) {
+    // We only have the top Fiber that was created but we need recurse down its
+    // children to find all the terminal nodes.
+    var node = workInProgress.child;
+
+    while (node !== null) {
+      if (node.tag === HostComponent || node.tag === HostText) {
+        appendInitialChild(parent, node.stateNode);
+      } else if (node.tag === HostPortal) ; else if (node.child !== null) {
+        node.child.return = node;
+        node = node.child;
+        continue;
+      }
+
+      if (node === workInProgress) {
+        return;
+      }
+
+      while (node.sibling === null) {
+        if (node.return === null || node.return === workInProgress) {
+          return;
+        }
+
+        node = node.return;
+      }
+
+      node.sibling.return = node.return;
+      node = node.sibling;
+    }
+  };
+
+  updateHostContainer = function (current, workInProgress) {// Noop
+  };
+
+  updateHostComponent$1 = function (current, workInProgress, type, newProps, rootContainerInstance) {
+    // If we have an alternate, that means this is an update and we need to
+    // schedule a side-effect to do the updates.
+    var oldProps = current.memoizedProps;
+
+    if (oldProps === newProps) {
+      // In mutation mode, this is sufficient for a bailout because
+      // we won't touch this node even if children changed.
+      return;
+    } // If we get updated because one of our children updated, we don't
+    // have newProps so we'll have to reuse them.
+    // TODO: Split the update API as separate for the props vs. children.
+    // Even better would be if children weren't special cased at all tho.
+
+
+    var instance = workInProgress.stateNode;
+    var currentHostContext = getHostContext(); // TODO: Experiencing an error where oldProps is null. Suggests a host
+    // component is hitting the resume path. Figure out why. Possibly
+    // related to `hidden`.
+
+    var updatePayload = prepareUpdate(instance, type, oldProps, newProps, rootContainerInstance, currentHostContext); // TODO: Type this specific to this type of component.
+
+    workInProgress.updateQueue = updatePayload; // If the update payload indicates that there is a change or if there
+    // is a new ref we mark this as an update. All the work is done in commitWork.
+
+    if (updatePayload) {
+      markUpdate(workInProgress);
+    }
+  };
+
+  updateHostText$1 = function (current, workInProgress, oldText, newText) {
+    // If the text differs, mark it as an update. All the work in done in commitWork.
+    if (oldText !== newText) {
+      markUpdate(workInProgress);
+    }
+  };
+}
+
+function cutOffTailIfNeeded(renderState, hasRenderedATailFallback) {
+  if (getIsHydrating()) {
+    // If we're hydrating, we should consume as many items as we can
+    // so we don't leave any behind.
+    return;
+  }
+
+  switch (renderState.tailMode) {
+    case 'hidden':
+      {
+        // Any insertions at the end of the tail list after this point
+        // should be invisible. If there are already mounted boundaries
+        // anything before them are not considered for collapsing.
+        // Therefore we need to go through the whole tail to find if
+        // there are any.
+        var tailNode = renderState.tail;
+        var lastTailNode = null;
+
+        while (tailNode !== null) {
+          if (tailNode.alternate !== null) {
+            lastTailNode = tailNode;
+          }
+
+          tailNode = tailNode.sibling;
+        } // Next we're simply going to delete all insertions after the
+        // last rendered item.
+
+
+        if (lastTailNode === null) {
+          // All remaining items in the tail are insertions.
+          renderState.tail = null;
+        } else {
+          // Detach the insertion after the last node that was already
+          // inserted.
+          lastTailNode.sibling = null;
+        }
+
+        break;
+      }
+
+    case 'collapsed':
+      {
+        // Any insertions at the end of the tail list after this point
+        // should be invisible. If there are already mounted boundaries
+        // anything before them are not considered for collapsing.
+        // Therefore we need to go through the whole tail to find if
+        // there are any.
+        var _tailNode = renderState.tail;
+        var _lastTailNode = null;
+
+        while (_tailNode !== null) {
+          if (_tailNode.alternate !== null) {
+            _lastTailNode = _tailNode;
+          }
+
+          _tailNode = _tailNode.sibling;
+        } // Next we're simply going to delete all insertions after the
+        // last rendered item.
+
+
+        if (_lastTailNode === null) {
+          // All remaining items in the tail are insertions.
+          if (!hasRenderedATailFallback && renderState.tail !== null) {
+            // We suspended during the head. We want to show at least one
+            // row at the tail. So we'll keep on and cut off the rest.
+            renderState.tail.sibling = null;
+          } else {
+            renderState.tail = null;
+          }
+        } else {
+          // Detach the insertion after the last node that was already
+          // inserted.
+          _lastTailNode.sibling = null;
+        }
+
+        break;
+      }
+  }
+}
+
+function bubbleProperties(completedWork) {
+  var didBailout = completedWork.alternate !== null && completedWork.alternate.child === completedWork.child;
+  var newChildLanes = NoLanes;
+  var subtreeFlags = NoFlags;
+
+  if (!didBailout) {
+    // Bubble up the earliest expiration time.
+    if ( (completedWork.mode & ProfileMode) !== NoMode) {
+      // In profiling mode, resetChildExpirationTime is also used to reset
+      // profiler durations.
+      var actualDuration = completedWork.actualDuration;
+      var treeBaseDuration = completedWork.selfBaseDuration;
+      var child = completedWork.child;
+
+      while (child !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(child.lanes, child.childLanes));
+        subtreeFlags |= child.subtreeFlags;
+        subtreeFlags |= child.flags; // When a fiber is cloned, its actualDuration is reset to 0. This value will
+        // only be updated if work is done on the fiber (i.e. it doesn't bailout).
+        // When work is done, it should bubble to the parent's actualDuration. If
+        // the fiber has not been cloned though, (meaning no work was done), then
+        // this value will reflect the amount of time spent working on a previous
+        // render. In that case it should not bubble. We determine whether it was
+        // cloned by comparing the child pointer.
+
+        actualDuration += child.actualDuration;
+        treeBaseDuration += child.treeBaseDuration;
+        child = child.sibling;
+      }
+
+      completedWork.actualDuration = actualDuration;
+      completedWork.treeBaseDuration = treeBaseDuration;
+    } else {
+      var _child = completedWork.child;
+
+      while (_child !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child.lanes, _child.childLanes));
+        subtreeFlags |= _child.subtreeFlags;
+        subtreeFlags |= _child.flags; // Update the return pointer so the tree is consistent. This is a code
+        // smell because it assumes the commit phase is never concurrent with
+        // the render phase. Will address during refactor to alternate model.
+
+        _child.return = completedWork;
+        _child = _child.sibling;
+      }
+    }
+
+    completedWork.subtreeFlags |= subtreeFlags;
+  } else {
+    // Bubble up the earliest expiration time.
+    if ( (completedWork.mode & ProfileMode) !== NoMode) {
+      // In profiling mode, resetChildExpirationTime is also used to reset
+      // profiler durations.
+      var _treeBaseDuration = completedWork.selfBaseDuration;
+      var _child2 = completedWork.child;
+
+      while (_child2 !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child2.lanes, _child2.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
+        // so we should bubble those up even during a bailout. All the other
+        // flags have a lifetime only of a single render + commit, so we should
+        // ignore them.
+
+        subtreeFlags |= _child2.subtreeFlags & StaticMask;
+        subtreeFlags |= _child2.flags & StaticMask;
+        _treeBaseDuration += _child2.treeBaseDuration;
+        _child2 = _child2.sibling;
+      }
+
+      completedWork.treeBaseDuration = _treeBaseDuration;
+    } else {
+      var _child3 = completedWork.child;
+
+      while (_child3 !== null) {
+        newChildLanes = mergeLanes(newChildLanes, mergeLanes(_child3.lanes, _child3.childLanes)); // "Static" flags share the lifetime of the fiber/hook they belong to,
+        // so we should bubble those up even during a bailout. All the other
+        // flags have a lifetime only of a single render + commit, so we should
+        // ignore them.
+
+        subtreeFlags |= _child3.subtreeFlags & StaticMask;
+        subtreeFlags |= _child3.flags & StaticMask; // Update the return pointer so the tree is consistent. This is a code
+        // smell because it assumes the commit phase is never concurrent with
+        // the render phase. Will address during refactor to alternate model.
+
+        _child3.return = completedWork;
+        _child3 = _child3.sibling;
+      }
+    }
+
+    completedWork.subtreeFlags |= subtreeFlags;
+  }
+
+  completedWork.childLanes = newChildLanes;
+  return didBailout;
+}
+
+function completeDehydratedSuspenseBoundary(current, workInProgress, nextState) {
+  if (hasUnhydratedTailNodes() && (workInProgress.mode & ConcurrentMode) !== NoMode && (workInProgress.flags & DidCapture) === NoFlags) {
+    warnIfUnhydratedTailNodes(workInProgress);
+    resetHydrationState();
+    workInProgress.flags |= ForceClientRender | Incomplete | ShouldCapture;
+    return false;
+  }
+
+  var wasHydrated = popHydrationState(workInProgress);
+
+  if (nextState !== null && nextState.dehydrated !== null) {
+    // We might be inside a hydration state the first time we're picking up this
+    // Suspense boundary, and also after we've reentered it for further hydration.
+    if (current === null) {
+      if (!wasHydrated) {
+        throw new Error('A dehydrated suspense component was completed without a hydrated node. ' + 'This is probably a bug in React.');
+      }
+
+      prepareToHydrateHostSuspenseInstance(workInProgress);
+      bubbleProperties(workInProgress);
+
+      {
+        if ((workInProgress.mode & ProfileMode) !== NoMode) {
+          var isTimedOutSuspense = nextState !== null;
+
+          if (isTimedOutSuspense) {
+            // Don't count time spent in a timed out Suspense subtree as part of the base duration.
+            var primaryChildFragment = workInProgress.child;
+
+            if (primaryChildFragment !== null) {
+              // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
+              workInProgress.treeBaseDuration -= primaryChildFragment.treeBaseDuration;
+            }
+          }
+        }
+      }
+
+      return false;
+    } else {
+      // We might have reentered this boundary to hydrate it. If so, we need to reset the hydration
+      // state since we're now exiting out of it. popHydrationState doesn't do that for us.
+      resetHydrationState();
+
+      if ((workInProgress.flags & DidCapture) === NoFlags) {
+        // This boundary did not suspend so it's now hydrated and unsuspended.
+        workInProgress.memoizedState = null;
+      } // If nothing suspended, we need to schedule an effect to mark this boundary
+      // as having hydrated so events know that they're free to be invoked.
+      // It's also a signal to replay events and the suspense callback.
+      // If something suspended, schedule an effect to attach retry listeners.
+      // So we might as well always mark this.
+
+
+      workInProgress.flags |= Update;
+      bubbleProperties(workInProgress);
+
+      {
+        if ((workInProgress.mode & ProfileMode) !== NoMode) {
+          var _isTimedOutSuspense = nextState !== null;
+
+          if (_isTimedOutSuspense) {
+            // Don't count time spent in a timed out Suspense subtree as part of the base duration.
+            var _primaryChildFragment = workInProgress.child;
+
+            if (_primaryChildFragment !== null) {
+              // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
+              workInProgress.treeBaseDuration -= _primaryChildFragment.treeBaseDuration;
+            }
+          }
+        }
+      }
+
+      return false;
+    }
+  } else {
+    // Successfully completed this tree. If this was a forced client render,
+    // there may have been recoverable errors during first hydration
+    // attempt. If so, add them to a queue so we can log them in the
+    // commit phase.
+    upgradeHydrationErrorsToRecoverable(); // Fall through to normal Suspense path
+
+    return true;
+  }
+}
+
+function completeWork(current, workInProgress, renderLanes) {
+  var newProps = workInProgress.pendingProps; // Note: This intentionally doesn't check if we're hydrating because comparing
+  // to the current tree provider fiber is just as fast and less error-prone.
+  // Ideally we would have a special version of the work loop only
+  // for hydration.
+
+  popTreeContext(workInProgress);
+
+  switch (workInProgress.tag) {
+    case IndeterminateComponent:
+    case LazyComponent:
+    case SimpleMemoComponent:
+    case FunctionComponent:
+    case ForwardRef:
+    case Fragment:
+    case Mode:
+    case Profiler:
+    case ContextConsumer:
+    case MemoComponent:
+      bubbleProperties(workInProgress);
+      return null;
+
+    case ClassComponent:
+      {
+        var Component = workInProgress.type;
+
+        if (isContextProvider(Component)) {
+          popContext(workInProgress);
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case HostRoot:
+      {
+        var fiberRoot = workInProgress.stateNode;
+        popHostContainer(workInProgress);
+        popTopLevelContextObject(workInProgress);
+        resetWorkInProgressVersions();
+
+        if (fiberRoot.pendingContext) {
+          fiberRoot.context = fiberRoot.pendingContext;
+          fiberRoot.pendingContext = null;
+        }
+
+        if (current === null || current.child === null) {
+          // If we hydrated, pop so that we can delete any remaining children
+          // that weren't hydrated.
+          var wasHydrated = popHydrationState(workInProgress);
+
+          if (wasHydrated) {
+            // If we hydrated, then we'll need to schedule an update for
+            // the commit side-effects on the root.
+            markUpdate(workInProgress);
+          } else {
+            if (current !== null) {
+              var prevState = current.memoizedState;
+
+              if ( // Check if this is a client root
+              !prevState.isDehydrated || // Check if we reverted to client rendering (e.g. due to an error)
+              (workInProgress.flags & ForceClientRender) !== NoFlags) {
+                // Schedule an effect to clear this container at the start of the
+                // next commit. This handles the case of React rendering into a
+                // container with previous children. It's also safe to do for
+                // updates too, because current.child would only be null if the
+                // previous render was null (so the container would already
+                // be empty).
+                workInProgress.flags |= Snapshot; // If this was a forced client render, there may have been
+                // recoverable errors during first hydration attempt. If so, add
+                // them to a queue so we can log them in the commit phase.
+
+                upgradeHydrationErrorsToRecoverable();
+              }
+            }
+          }
+        }
+
+        updateHostContainer(current, workInProgress);
+        bubbleProperties(workInProgress);
+
+        return null;
+      }
+
+    case HostComponent:
+      {
+        popHostContext(workInProgress);
+        var rootContainerInstance = getRootHostContainer();
+        var type = workInProgress.type;
+
+        if (current !== null && workInProgress.stateNode != null) {
+          updateHostComponent$1(current, workInProgress, type, newProps, rootContainerInstance);
+
+          if (current.ref !== workInProgress.ref) {
+            markRef$1(workInProgress);
+          }
+        } else {
+          if (!newProps) {
+            if (workInProgress.stateNode === null) {
+              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
+            } // This can happen when we abort work.
+
+
+            bubbleProperties(workInProgress);
+            return null;
+          }
+
+          var currentHostContext = getHostContext(); // TODO: Move createInstance to beginWork and keep it on a context
+          // "stack" as the parent. Then append children as we go in beginWork
+          // or completeWork depending on whether we want to add them top->down or
+          // bottom->up. Top->down is faster in IE11.
+
+          var _wasHydrated = popHydrationState(workInProgress);
+
+          if (_wasHydrated) {
+            // TODO: Move this and createInstance step into the beginPhase
+            // to consolidate.
+            if (prepareToHydrateHostInstance(workInProgress, rootContainerInstance, currentHostContext)) {
+              // If changes to the hydrated node need to be applied at the
+              // commit-phase we mark this as such.
+              markUpdate(workInProgress);
+            }
+          } else {
+            var instance = createInstance(type, newProps, rootContainerInstance, currentHostContext, workInProgress);
+            appendAllChildren(instance, workInProgress, false, false);
+            workInProgress.stateNode = instance; // Certain renderers require commit-time effects for initial mount.
+            // (eg DOM renderer supports auto-focus for certain elements).
+            // Make sure such renderers get scheduled for later work.
+
+            if (finalizeInitialChildren(instance, type, newProps, rootContainerInstance)) {
+              markUpdate(workInProgress);
+            }
+          }
+
+          if (workInProgress.ref !== null) {
+            // If there is a ref on a host node we need to schedule a callback
+            markRef$1(workInProgress);
+          }
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case HostText:
+      {
+        var newText = newProps;
+
+        if (current && workInProgress.stateNode != null) {
+          var oldText = current.memoizedProps; // If we have an alternate, that means this is an update and we need
+          // to schedule a side-effect to do the updates.
+
+          updateHostText$1(current, workInProgress, oldText, newText);
+        } else {
+          if (typeof newText !== 'string') {
+            if (workInProgress.stateNode === null) {
+              throw new Error('We must have new props for new mounts. This error is likely ' + 'caused by a bug in React. Please file an issue.');
+            } // This can happen when we abort work.
+
+          }
+
+          var _rootContainerInstance = getRootHostContainer();
+
+          var _currentHostContext = getHostContext();
+
+          var _wasHydrated2 = popHydrationState(workInProgress);
+
+          if (_wasHydrated2) {
+            if (prepareToHydrateHostTextInstance(workInProgress)) {
+              markUpdate(workInProgress);
+            }
+          } else {
+            workInProgress.stateNode = createTextInstance(newText, _rootContainerInstance, _currentHostContext, workInProgress);
+          }
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case SuspenseComponent:
+      {
+        popSuspenseContext(workInProgress);
+        var nextState = workInProgress.memoizedState; // Special path for dehydrated boundaries. We may eventually move this
+        // to its own fiber type so that we can add other kinds of hydration
+        // boundaries that aren't associated with a Suspense tree. In anticipation
+        // of such a refactor, all the hydration logic is contained in
+        // this branch.
+
+        if (current === null || current.memoizedState !== null && current.memoizedState.dehydrated !== null) {
+          var fallthroughToNormalSuspensePath = completeDehydratedSuspenseBoundary(current, workInProgress, nextState);
+
+          if (!fallthroughToNormalSuspensePath) {
+            if (workInProgress.flags & ShouldCapture) {
+              // Special case. There were remaining unhydrated nodes. We treat
+              // this as a mismatch. Revert to client rendering.
+              return workInProgress;
+            } else {
+              // Did not finish hydrating, either because this is the initial
+              // render or because something suspended.
+              return null;
+            }
+          } // Continue with the normal Suspense path.
+
+        }
+
+        if ((workInProgress.flags & DidCapture) !== NoFlags) {
+          // Something suspended. Re-render with the fallback children.
+          workInProgress.lanes = renderLanes; // Do not reset the effect list.
+
+          if ( (workInProgress.mode & ProfileMode) !== NoMode) {
+            transferActualDuration(workInProgress);
+          } // Don't bubble properties in this case.
+
+
+          return workInProgress;
+        }
+
+        var nextDidTimeout = nextState !== null;
+        var prevDidTimeout = current !== null && current.memoizedState !== null;
+        // a passive effect, which is when we process the transitions
+
+
+        if (nextDidTimeout !== prevDidTimeout) {
+          // an effect to toggle the subtree's visibility. When we switch from
+          // fallback -> primary, the inner Offscreen fiber schedules this effect
+          // as part of its normal complete phase. But when we switch from
+          // primary -> fallback, the inner Offscreen fiber does not have a complete
+          // phase. So we need to schedule its effect here.
+          //
+          // We also use this flag to connect/disconnect the effects, but the same
+          // logic applies: when re-connecting, the Offscreen fiber's complete
+          // phase will handle scheduling the effect. It's only when the fallback
+          // is active that we have to do anything special.
+
+
+          if (nextDidTimeout) {
+            var _offscreenFiber2 = workInProgress.child;
+            _offscreenFiber2.flags |= Visibility; // TODO: This will still suspend a synchronous tree if anything
+            // in the concurrent tree already suspended during this render.
+            // This is a known bug.
+
+            if ((workInProgress.mode & ConcurrentMode) !== NoMode) {
+              // TODO: Move this back to throwException because this is too late
+              // if this is a large tree which is common for initial loads. We
+              // don't know if we should restart a render or not until we get
+              // this marker, and this is too late.
+              // If this render already had a ping or lower pri updates,
+              // and this is the first time we know we're going to suspend we
+              // should be able to immediately restart from within throwException.
+              var hasInvisibleChildContext = current === null && (workInProgress.memoizedProps.unstable_avoidThisFallback !== true || !enableSuspenseAvoidThisFallback);
+
+              if (hasInvisibleChildContext || hasSuspenseContext(suspenseStackCursor.current, InvisibleParentSuspenseContext)) {
+                // If this was in an invisible tree or a new render, then showing
+                // this boundary is ok.
+                renderDidSuspend();
+              } else {
+                // Otherwise, we're going to have to hide content so we should
+                // suspend for longer if possible.
+                renderDidSuspendDelayIfPossible();
+              }
+            }
+          }
+        }
+
+        var wakeables = workInProgress.updateQueue;
+
+        if (wakeables !== null) {
+          // Schedule an effect to attach a retry listener to the promise.
+          // TODO: Move to passive phase
+          workInProgress.flags |= Update;
+        }
+
+        bubbleProperties(workInProgress);
+
+        {
+          if ((workInProgress.mode & ProfileMode) !== NoMode) {
+            if (nextDidTimeout) {
+              // Don't count time spent in a timed out Suspense subtree as part of the base duration.
+              var primaryChildFragment = workInProgress.child;
+
+              if (primaryChildFragment !== null) {
+                // $FlowFixMe Flow doesn't support type casting in combination with the -= operator
+                workInProgress.treeBaseDuration -= primaryChildFragment.treeBaseDuration;
+              }
+            }
+          }
+        }
+
+        return null;
+      }
+
+    case HostPortal:
+      popHostContainer(workInProgress);
+      updateHostContainer(current, workInProgress);
+
+      if (current === null) {
+        preparePortalMount(workInProgress.stateNode.containerInfo);
+      }
+
+      bubbleProperties(workInProgress);
+      return null;
+
+    case ContextProvider:
+      // Pop provider fiber
+      var context = workInProgress.type._context;
+      popProvider(context, workInProgress);
+      bubbleProperties(workInProgress);
+      return null;
+
+    case IncompleteClassComponent:
+      {
+        // Same as class component case. I put it down here so that the tags are
+        // sequential to ensure this switch is compiled to a jump table.
+        var _Component = workInProgress.type;
+
+        if (isContextProvider(_Component)) {
+          popContext(workInProgress);
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case SuspenseListComponent:
+      {
+        popSuspenseContext(workInProgress);
+        var renderState = workInProgress.memoizedState;
+
+        if (renderState === null) {
+          // We're running in the default, "independent" mode.
+          // We don't do anything in this mode.
+          bubbleProperties(workInProgress);
+          return null;
+        }
+
+        var didSuspendAlready = (workInProgress.flags & DidCapture) !== NoFlags;
+        var renderedTail = renderState.rendering;
+
+        if (renderedTail === null) {
+          // We just rendered the head.
+          if (!didSuspendAlready) {
+            // This is the first pass. We need to figure out if anything is still
+            // suspended in the rendered set.
+            // If new content unsuspended, but there's still some content that
+            // didn't. Then we need to do a second pass that forces everything
+            // to keep showing their fallbacks.
+            // We might be suspended if something in this render pass suspended, or
+            // something in the previous committed pass suspended. Otherwise,
+            // there's no chance so we can skip the expensive call to
+            // findFirstSuspended.
+            var cannotBeSuspended = renderHasNotSuspendedYet() && (current === null || (current.flags & DidCapture) === NoFlags);
+
+            if (!cannotBeSuspended) {
+              var row = workInProgress.child;
+
+              while (row !== null) {
+                var suspended = findFirstSuspended(row);
+
+                if (suspended !== null) {
+                  didSuspendAlready = true;
+                  workInProgress.flags |= DidCapture;
+                  cutOffTailIfNeeded(renderState, false); // If this is a newly suspended tree, it might not get committed as
+                  // part of the second pass. In that case nothing will subscribe to
+                  // its thenables. Instead, we'll transfer its thenables to the
+                  // SuspenseList so that it can retry if they resolve.
+                  // There might be multiple of these in the list but since we're
+                  // going to wait for all of them anyway, it doesn't really matter
+                  // which ones gets to ping. In theory we could get clever and keep
+                  // track of how many dependencies remain but it gets tricky because
+                  // in the meantime, we can add/remove/change items and dependencies.
+                  // We might bail out of the loop before finding any but that
+                  // doesn't matter since that means that the other boundaries that
+                  // we did find already has their listeners attached.
+
+                  var newThenables = suspended.updateQueue;
+
+                  if (newThenables !== null) {
+                    workInProgress.updateQueue = newThenables;
+                    workInProgress.flags |= Update;
+                  } // Rerender the whole list, but this time, we'll force fallbacks
+                  // to stay in place.
+                  // Reset the effect flags before doing the second pass since that's now invalid.
+                  // Reset the child fibers to their original state.
+
+
+                  workInProgress.subtreeFlags = NoFlags;
+                  resetChildFibers(workInProgress, renderLanes); // Set up the Suspense Context to force suspense and immediately
+                  // rerender the children.
+
+                  pushSuspenseContext(workInProgress, setShallowSuspenseContext(suspenseStackCursor.current, ForceSuspenseFallback)); // Don't bubble properties in this case.
+
+                  return workInProgress.child;
+                }
+
+                row = row.sibling;
+              }
+            }
+
+            if (renderState.tail !== null && now() > getRenderTargetTime()) {
+              // We have already passed our CPU deadline but we still have rows
+              // left in the tail. We'll just give up further attempts to render
+              // the main content and only render fallbacks.
+              workInProgress.flags |= DidCapture;
+              didSuspendAlready = true;
+              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
+              // to get it started back up to attempt the next item. While in terms
+              // of priority this work has the same priority as this current render,
+              // it's not part of the same transition once the transition has
+              // committed. If it's sync, we still want to yield so that it can be
+              // painted. Conceptually, this is really the same as pinging.
+              // We can use any RetryLane even if it's the one currently rendering
+              // since we're leaving it behind on this node.
+
+              workInProgress.lanes = SomeRetryLane;
+            }
+          } else {
+            cutOffTailIfNeeded(renderState, false);
+          } // Next we're going to render the tail.
+
+        } else {
+          // Append the rendered row to the child list.
+          if (!didSuspendAlready) {
+            var _suspended = findFirstSuspended(renderedTail);
+
+            if (_suspended !== null) {
+              workInProgress.flags |= DidCapture;
+              didSuspendAlready = true; // Ensure we transfer the update queue to the parent so that it doesn't
+              // get lost if this row ends up dropped during a second pass.
+
+              var _newThenables = _suspended.updateQueue;
+
+              if (_newThenables !== null) {
+                workInProgress.updateQueue = _newThenables;
+                workInProgress.flags |= Update;
+              }
+
+              cutOffTailIfNeeded(renderState, true); // This might have been modified.
+
+              if (renderState.tail === null && renderState.tailMode === 'hidden' && !renderedTail.alternate && !getIsHydrating() // We don't cut it if we're hydrating.
+              ) {
+                  // We're done.
+                  bubbleProperties(workInProgress);
+                  return null;
+                }
+            } else if ( // The time it took to render last row is greater than the remaining
+            // time we have to render. So rendering one more row would likely
+            // exceed it.
+            now() * 2 - renderState.renderingStartTime > getRenderTargetTime() && renderLanes !== OffscreenLane) {
+              // We have now passed our CPU deadline and we'll just give up further
+              // attempts to render the main content and only render fallbacks.
+              // The assumption is that this is usually faster.
+              workInProgress.flags |= DidCapture;
+              didSuspendAlready = true;
+              cutOffTailIfNeeded(renderState, false); // Since nothing actually suspended, there will nothing to ping this
+              // to get it started back up to attempt the next item. While in terms
+              // of priority this work has the same priority as this current render,
+              // it's not part of the same transition once the transition has
+              // committed. If it's sync, we still want to yield so that it can be
+              // painted. Conceptually, this is really the same as pinging.
+              // We can use any RetryLane even if it's the one currently rendering
+              // since we're leaving it behind on this node.
+
+              workInProgress.lanes = SomeRetryLane;
+            }
+          }
+
+          if (renderState.isBackwards) {
+            // The effect list of the backwards tail will have been added
+            // to the end. This breaks the guarantee that life-cycles fire in
+            // sibling order but that isn't a strong guarantee promised by React.
+            // Especially since these might also just pop in during future commits.
+            // Append to the beginning of the list.
+            renderedTail.sibling = workInProgress.child;
+            workInProgress.child = renderedTail;
+          } else {
+            var previousSibling = renderState.last;
+
+            if (previousSibling !== null) {
+              previousSibling.sibling = renderedTail;
+            } else {
+              workInProgress.child = renderedTail;
+            }
+
+            renderState.last = renderedTail;
+          }
+        }
+
+        if (renderState.tail !== null) {
+          // We still have tail rows to render.
+          // Pop a row.
+          var next = renderState.tail;
+          renderState.rendering = next;
+          renderState.tail = next.sibling;
+          renderState.renderingStartTime = now();
+          next.sibling = null; // Restore the context.
+          // TODO: We can probably just avoid popping it instead and only
+          // setting it the first time we go from not suspended to suspended.
+
+          var suspenseContext = suspenseStackCursor.current;
+
+          if (didSuspendAlready) {
+            suspenseContext = setShallowSuspenseContext(suspenseContext, ForceSuspenseFallback);
+          } else {
+            suspenseContext = setDefaultShallowSuspenseContext(suspenseContext);
+          }
+
+          pushSuspenseContext(workInProgress, suspenseContext); // Do a pass over the next row.
+          // Don't bubble properties in this case.
+
+          return next;
+        }
+
+        bubbleProperties(workInProgress);
+        return null;
+      }
+
+    case ScopeComponent:
+      {
+
+        break;
+      }
+
+    case OffscreenComponent:
+    case LegacyHiddenComponent:
+      {
+        popRenderLanes(workInProgress);
+        var _nextState = workInProgress.memoizedState;
+        var nextIsHidden = _nextState !== null;
+
+        if (current !== null) {
+          var _prevState = current.memoizedState;
+          var prevIsHidden = _prevState !== null;
+
+          if (prevIsHidden !== nextIsHidden && ( // LegacyHidden doesn't do any hiding — it only pre-renders.
+          !enableLegacyHidden )) {
+            workInProgress.flags |= Visibility;
+          }
+        }
+
+        if (!nextIsHidden || (workInProgress.mode & ConcurrentMode) === NoMode) {
+          bubbleProperties(workInProgress);
+        } else {
+          // Don't bubble properties for hidden children unless we're rendering
+          // at offscreen priority.
+          if (includesSomeLane(subtreeRenderLanes, OffscreenLane)) {
+            bubbleProperties(workInProgress);
+
+            {
+              // Check if there was an insertion or update in the hidden subtree.
+              // If so, we need to hide those nodes in the commit phase, so
+              // schedule a visibility effect.
+              if ( workInProgress.subtreeFlags & (Placement | Update)) {
+                workInProgress.flags |= Visibility;
+              }
+            }
+          }
+        }
+        return null;
+      }
+
+    case CacheComponent:
+      {
+
+        return null;
+      }
+
+    case TracingMarkerComponent:
+      {
+
+        return null;
       }
   }
 
@@ -38910,6 +38437,7 @@ function commitLayoutEffectOnFiber(finishedRoot, current, finishedWork, committe
       case ScopeComponent:
       case OffscreenComponent:
       case LegacyHiddenComponent:
+      case TracingMarkerComponent:
         {
           break;
         }
@@ -39888,8 +39416,12 @@ function commitMutationEffectsOnFiber(finishedWork, root, lanes) {
         var offscreenFiber = finishedWork.child;
 
         if (offscreenFiber.flags & Visibility) {
+          var offscreenInstance = offscreenFiber.stateNode;
           var newState = offscreenFiber.memoizedState;
-          var isHidden = newState !== null;
+          var isHidden = newState !== null; // Track the current state on the Offscreen instance so we can
+          // read it during an event
+
+          offscreenInstance.isHidden = isHidden;
 
           if (isHidden) {
             var wasHidden = offscreenFiber.alternate !== null && offscreenFiber.alternate.memoizedState !== null;
@@ -39934,17 +39466,15 @@ function commitMutationEffectsOnFiber(finishedWork, root, lanes) {
         commitReconciliationEffects(finishedWork);
 
         if (flags & Visibility) {
+          var _offscreenInstance = finishedWork.stateNode;
           var _newState = finishedWork.memoizedState;
 
           var _isHidden = _newState !== null;
 
-          var offscreenBoundary = finishedWork;
+          var offscreenBoundary = finishedWork; // Track the current state on the Offscreen instance so we can
+          // read it during an event
 
-          {
-            // TODO: This needs to run whenever there's an insertion or update
-            // inside a hidden Offscreen tree.
-            hideOrUnhideAllChildren(offscreenBoundary, _isHidden);
-          }
+          _offscreenInstance.isHidden = _isHidden;
 
           {
             if (_isHidden) {
@@ -39961,6 +39491,12 @@ function commitMutationEffectsOnFiber(finishedWork, root, lanes) {
                 }
               }
             }
+          }
+
+          {
+            // TODO: This needs to run whenever there's an insertion or update
+            // inside a hidden Offscreen tree.
+            hideOrUnhideAllChildren(offscreenBoundary, _isHidden);
           }
         }
 
@@ -40885,19 +40421,13 @@ function requestRetryLane(fiber) {
   return claimNextRetryLane();
 }
 
-function scheduleUpdateOnFiber(fiber, lane, eventTime) {
+function scheduleUpdateOnFiber(root, fiber, lane, eventTime) {
   checkForNestedUpdates();
 
   {
     if (isRunningInsertionEffect) {
       error('useInsertionEffect must not schedule updates.');
     }
-  }
-
-  var root = markUpdateLaneFromFiberToRoot(fiber, lane);
-
-  if (root === null) {
-    return null;
   }
 
   {
@@ -40928,7 +40458,6 @@ function scheduleUpdateOnFiber(fiber, lane, eventTime) {
     warnIfUpdatesNotWrappedWithActDEV(fiber);
 
     if (root === workInProgressRoot) {
-      // TODO: Consolidate with `isInterleavedUpdate` check
       // Received an update to a tree that's in the middle of rendering. Mark
       // that there was an interleaved update work on this root. Unless the
       // `deferRenderPhaseUpdateToNextBatch` flag is off and this is a render
@@ -40962,8 +40491,6 @@ function scheduleUpdateOnFiber(fiber, lane, eventTime) {
       flushSyncCallbacksOnlyInLegacyMode();
     }
   }
-
-  return root;
 }
 function scheduleInitialHydrationOnRoot(root, lane, eventTime) {
   // This is a special fork of scheduleUpdateOnFiber that is only used to
@@ -40979,70 +40506,13 @@ function scheduleInitialHydrationOnRoot(root, lane, eventTime) {
   current.lanes = lane;
   markRootUpdated(root, lane, eventTime);
   ensureRootIsScheduled(root, eventTime);
-} // This is split into a separate function so we can mark a fiber with pending
-// work without treating it as a typical update that originates from an event;
-// e.g. retrying a Suspense boundary isn't an update, but it does schedule work
-// on a fiber.
-
-function markUpdateLaneFromFiberToRoot(sourceFiber, lane) {
-  // Update the source fiber's lanes
-  sourceFiber.lanes = mergeLanes(sourceFiber.lanes, lane);
-  var alternate = sourceFiber.alternate;
-
-  if (alternate !== null) {
-    alternate.lanes = mergeLanes(alternate.lanes, lane);
-  }
-
-  {
-    if (alternate === null && (sourceFiber.flags & (Placement | Hydrating)) !== NoFlags) {
-      warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
-    }
-  } // Walk the parent path to the root and update the child lanes.
-
-
-  var node = sourceFiber;
-  var parent = sourceFiber.return;
-
-  while (parent !== null) {
-    parent.childLanes = mergeLanes(parent.childLanes, lane);
-    alternate = parent.alternate;
-
-    if (alternate !== null) {
-      alternate.childLanes = mergeLanes(alternate.childLanes, lane);
-    } else {
-      {
-        if ((parent.flags & (Placement | Hydrating)) !== NoFlags) {
-          warnAboutUpdateOnNotYetMountedFiberInDEV(sourceFiber);
-        }
-      }
-    }
-
-    node = parent;
-    parent = parent.return;
-  }
-
-  if (node.tag === HostRoot) {
-    var root = node.stateNode;
-    return root;
-  } else {
-    return null;
-  }
 }
-
-function isInterleavedUpdate(fiber, lane) {
-  return (// TODO: Optimize slightly by comparing to root that fiber belongs to.
-    // Requires some refactoring. Not a big deal though since it's rare for
-    // concurrent apps to have more than a single root.
-    (workInProgressRoot !== null || // If the interleaved updates queue hasn't been cleared yet, then
-    // we should treat this as an interleaved update, too. This is also a
-    // defensive coding measure in case a new update comes in between when
-    // rendering has finished and when the interleaved updates are transferred
-    // to the main queue.
-    hasInterleavedUpdates()) && (fiber.mode & ConcurrentMode) !== NoMode && ( // If this is a render phase update (i.e. UNSAFE_componentWillReceiveProps),
-    // then don't treat this as an interleaved update. This pattern is
-    // accompanied by a warning but we haven't fully deprecated it yet. We can
-    // remove once the deferRenderPhaseUpdateToNextBatch flag is enabled.
-     (executionContext & RenderContext) === NoContext)
+function isUnsafeClassRenderPhaseUpdate(fiber) {
+  // Check if this is a render phase update. Only called by class components,
+  // which special (deprecated) behavior for UNSAFE_componentWillReceive props.
+  return (// TODO: Remove outdated deferRenderPhaseUpdateToNextBatch experiment. We
+    // decided not to enable it.
+     (executionContext & RenderContext) !== NoContext
   );
 } // Use this function to schedule a task for a root. There's only one task per
 // root; if a task was already scheduled, we'll check to make sure the priority
@@ -41125,9 +40595,9 @@ function ensureRootIsScheduled(root, currentTime) {
           // https://github.com/facebook/react/issues/22459
           // We don't support running callbacks in the middle of render
           // or commit so we need to check against that.
-          if (executionContext === NoContext) {
-            // It's only safe to do this conditionally because we always
-            // check for pending work before we exit the task.
+          if ((executionContext & (RenderContext | CommitContext)) === NoContext) {
+            // Note that this would still prematurely flush the callbacks
+            // if this happens outside render or commit phase (e.g. in an event).
             flushSyncCallbacks();
           }
         });
@@ -41731,7 +41201,7 @@ function prepareFreshStack(root, lanes) {
   workInProgressRootPingedLanes = NoLanes;
   workInProgressRootConcurrentErrors = null;
   workInProgressRootRecoverableErrors = null;
-  enqueueInterleavedUpdates();
+  finishQueueingConcurrentUpdates();
 
   {
     ReactStrictModeWarnings.discardPendingWarnings();
@@ -42387,7 +41857,12 @@ function commitRootImpl(root, recoverableErrors, transitions, renderPriorityLeve
 
     for (var i = 0; i < recoverableErrors.length; i++) {
       var recoverableError = recoverableErrors[i];
-      onRecoverableError(recoverableError);
+      var componentStack = recoverableError.stack;
+      var digest = recoverableError.digest;
+      onRecoverableError(recoverableError.value, {
+        componentStack: componentStack,
+        digest: digest
+      });
     }
   }
 
@@ -42585,11 +42060,10 @@ function prepareToThrowUncaughtError(error) {
 var onUncaughtError = prepareToThrowUncaughtError;
 
 function captureCommitPhaseErrorOnRoot(rootFiber, sourceFiber, error) {
-  var errorInfo = createCapturedValue(error, sourceFiber);
+  var errorInfo = createCapturedValueAtFiber(error, sourceFiber);
   var update = createRootErrorUpdate(rootFiber, errorInfo, SyncLane);
-  enqueueUpdate(rootFiber, update);
+  var root = enqueueUpdate(rootFiber, update, SyncLane);
   var eventTime = requestEventTime();
-  var root = markUpdateLaneFromFiberToRoot(rootFiber, SyncLane);
 
   if (root !== null) {
     markRootUpdated(root, SyncLane, eventTime);
@@ -42625,11 +42099,10 @@ function captureCommitPhaseError(sourceFiber, nearestMountedAncestor, error$1) {
       var instance = fiber.stateNode;
 
       if (typeof ctor.getDerivedStateFromError === 'function' || typeof instance.componentDidCatch === 'function' && !isAlreadyFailedLegacyErrorBoundary(instance)) {
-        var errorInfo = createCapturedValue(error$1, sourceFiber);
+        var errorInfo = createCapturedValueAtFiber(error$1, sourceFiber);
         var update = createClassErrorUpdate(fiber, errorInfo, SyncLane);
-        enqueueUpdate(fiber, update);
+        var root = enqueueUpdate(fiber, update, SyncLane);
         var eventTime = requestEventTime();
-        var root = markUpdateLaneFromFiberToRoot(fiber, SyncLane);
 
         if (root !== null) {
           markRootUpdated(root, SyncLane, eventTime);
@@ -42699,7 +42172,7 @@ function retryTimedOutBoundary(boundaryFiber, retryLane) {
 
 
   var eventTime = requestEventTime();
-  var root = markUpdateLaneFromFiberToRoot(boundaryFiber, retryLane);
+  var root = enqueueConcurrentRenderForLane(boundaryFiber, retryLane);
 
   if (root !== null) {
     markRootUpdated(root, retryLane, eventTime);
@@ -42839,7 +42312,6 @@ function invokeEffectsInDev(firstChild, fiberFlags, invokeEffectFn) {
 }
 
 var didWarnStateUpdateForNotYetMountedComponent = null;
-
 function warnAboutUpdateOnNotYetMountedFiberInDEV(fiber) {
   {
     if ((executionContext & RenderContext) !== NoContext) {
@@ -42887,7 +42359,6 @@ function warnAboutUpdateOnNotYetMountedFiberInDEV(fiber) {
     }
   }
 }
-
 var beginWork$1;
 
 {
@@ -42904,8 +42375,9 @@ var beginWork$1;
     try {
       return beginWork(current, unitOfWork, lanes);
     } catch (originalError) {
-      if (originalError !== null && typeof originalError === 'object' && typeof originalError.then === 'function') {
-        // Don't replay promises. Treat everything else like an error.
+      if (didSuspendOrErrorWhileHydratingDEV() || originalError !== null && typeof originalError === 'object' && typeof originalError.then === 'function') {
+        // Don't replay promises.
+        // Don't replay errors if we are hydrating and have already suspended or handled an error
         throw originalError;
       } // Keep this code in sync with handleError; any changes here must have
       // corresponding changes there.
@@ -43346,7 +42818,11 @@ function scheduleFibersWithFamiliesRecursively(fiber, updatedFamilies, staleFami
     }
 
     if (needsRemount || needsRender) {
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var _root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (_root !== null) {
+        scheduleUpdateOnFiber(_root, fiber, SyncLane, NoTimestamp);
+      }
     }
 
     if (child !== null && !needsRemount) {
@@ -43988,7 +43464,9 @@ function createFiberFromOffscreen(pendingProps, mode, lanes, key) {
   var fiber = createFiber(OffscreenComponent, pendingProps, key, mode);
   fiber.elementType = REACT_OFFSCREEN_TYPE;
   fiber.lanes = lanes;
-  var primaryChildInstance = {};
+  var primaryChildInstance = {
+    isHidden: false
+  };
   fiber.stateNode = primaryChildInstance;
   return fiber;
 }
@@ -44154,7 +43632,7 @@ identifierPrefix, onRecoverableError, transitionCallbacks) {
   return root;
 }
 
-var ReactVersion = '18.1.0';
+var ReactVersion = '18.2.0';
 
 function createPortal(children, containerInfo, // TODO: figure out the API for cross-renderer implementation.
 implementation) {
@@ -44273,7 +43751,7 @@ callback, containerInfo, tag, hydrationCallbacks, isStrictMode, concurrentUpdate
   var lane = requestUpdateLane(current);
   var update = createUpdate(eventTime, lane);
   update.callback = callback !== undefined && callback !== null ? callback : null;
-  enqueueUpdate(current, update);
+  enqueueUpdate(current, update, lane);
   scheduleInitialHydrationOnRoot(root, lane, eventTime);
   return root;
 }
@@ -44324,10 +43802,10 @@ function updateContainer(element, container, parentComponent, callback) {
     update.callback = callback;
   }
 
-  enqueueUpdate(current$1, update);
-  var root = scheduleUpdateOnFiber(current$1, lane, eventTime);
+  var root = enqueueUpdate(current$1, update, lane);
 
   if (root !== null) {
+    scheduleUpdateOnFiber(root, current$1, lane, eventTime);
     entangleTransitions(root, current$1, lane);
   }
 
@@ -44351,27 +43829,35 @@ function getPublicRootInstance(container) {
 function attemptSynchronousHydration$1(fiber) {
   switch (fiber.tag) {
     case HostRoot:
-      var root = fiber.stateNode;
+      {
+        var root = fiber.stateNode;
 
-      if (isRootDehydrated(root)) {
-        // Flush the first scheduled "update".
-        var lanes = getHighestPriorityPendingLanes(root);
-        flushRoot(root, lanes);
+        if (isRootDehydrated(root)) {
+          // Flush the first scheduled "update".
+          var lanes = getHighestPriorityPendingLanes(root);
+          flushRoot(root, lanes);
+        }
+
+        break;
       }
 
-      break;
-
     case SuspenseComponent:
-      var eventTime = requestEventTime();
-      flushSync(function () {
-        return scheduleUpdateOnFiber(fiber, SyncLane, eventTime);
-      }); // If we're still blocked after this, we need to increase
-      // the priority of any promises resolving within this
-      // boundary so that they next attempt also has higher pri.
+      {
+        flushSync(function () {
+          var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
 
-      var retryLane = SyncLane;
-      markRetryLaneIfNotHydrated(fiber, retryLane);
-      break;
+          if (root !== null) {
+            var eventTime = requestEventTime();
+            scheduleUpdateOnFiber(root, fiber, SyncLane, eventTime);
+          }
+        }); // If we're still blocked after this, we need to increase
+        // the priority of any promises resolving within this
+        // boundary so that they next attempt also has higher pri.
+
+        var retryLane = SyncLane;
+        markRetryLaneIfNotHydrated(fiber, retryLane);
+        break;
+      }
   }
 }
 
@@ -44401,9 +43887,14 @@ function attemptContinuousHydration$1(fiber) {
     return;
   }
 
-  var eventTime = requestEventTime();
   var lane = SelectiveHydrationLane;
-  scheduleUpdateOnFiber(fiber, lane, eventTime);
+  var root = enqueueConcurrentRenderForLane(fiber, lane);
+
+  if (root !== null) {
+    var eventTime = requestEventTime();
+    scheduleUpdateOnFiber(root, fiber, lane, eventTime);
+  }
+
   markRetryLaneIfNotHydrated(fiber, lane);
 }
 function attemptHydrationAtCurrentPriority$1(fiber) {
@@ -44413,9 +43904,14 @@ function attemptHydrationAtCurrentPriority$1(fiber) {
     return;
   }
 
-  var eventTime = requestEventTime();
   var lane = requestUpdateLane(fiber);
-  scheduleUpdateOnFiber(fiber, lane, eventTime);
+  var root = enqueueConcurrentRenderForLane(fiber, lane);
+
+  if (root !== null) {
+    var eventTime = requestEventTime();
+    scheduleUpdateOnFiber(root, fiber, lane, eventTime);
+  }
+
   markRetryLaneIfNotHydrated(fiber, lane);
 }
 function findHostInstanceWithNoPortals(fiber) {
@@ -44561,7 +44057,11 @@ var setSuspenseHandler = null;
       // Shallow cloning props works as a workaround for now to bypass the bailout check.
 
       fiber.memoizedProps = assign({}, fiber.memoizedProps);
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (root !== null) {
+        scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+      }
     }
   };
 
@@ -44578,7 +44078,11 @@ var setSuspenseHandler = null;
       // Shallow cloning props works as a workaround for now to bypass the bailout check.
 
       fiber.memoizedProps = assign({}, fiber.memoizedProps);
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (root !== null) {
+        scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+      }
     }
   };
 
@@ -44595,7 +44099,11 @@ var setSuspenseHandler = null;
       // Shallow cloning props works as a workaround for now to bypass the bailout check.
 
       fiber.memoizedProps = assign({}, fiber.memoizedProps);
-      scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+      var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+      if (root !== null) {
+        scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+      }
     }
   }; // Support DevTools props for function components, forwardRef, memo, host components, etc.
 
@@ -44607,7 +44115,11 @@ var setSuspenseHandler = null;
       fiber.alternate.pendingProps = fiber.pendingProps;
     }
 
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   overridePropsDeletePath = function (fiber, path) {
@@ -44617,7 +44129,11 @@ var setSuspenseHandler = null;
       fiber.alternate.pendingProps = fiber.pendingProps;
     }
 
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   overridePropsRenamePath = function (fiber, oldPath, newPath) {
@@ -44627,11 +44143,19 @@ var setSuspenseHandler = null;
       fiber.alternate.pendingProps = fiber.pendingProps;
     }
 
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   scheduleUpdate = function (fiber) {
-    scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp);
+    var root = enqueueConcurrentRenderForLane(fiber, SyncLane);
+
+    if (root !== null) {
+      scheduleUpdateOnFiber(root, fiber, SyncLane, NoTimestamp);
+    }
   };
 
   setErrorHandler = function (newShouldErrorImpl) {
@@ -45295,7 +44819,7 @@ if (
 
 
 /***/ }),
-/* 237 */
+/* 216 */
 /*!*****************************************!*\
   !*** ./node_modules/scheduler/index.js ***!
   \*****************************************/
@@ -45305,14 +44829,14 @@ if (
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(/*! ./cjs/scheduler.development.js */ 77);
+  module.exports = __webpack_require__(/*! ./cjs/scheduler.development.js */ 69);
 }
 
 
 /***/ }),
-/* 238 */,
-/* 239 */,
-/* 240 */
+/* 217 */,
+/* 218 */,
+/* 219 */
 /*!************************************************************!*\
   !*** ./node_modules/call-func/build/es/src/isRequired.mjs ***!
   \************************************************************/
@@ -45326,14 +44850,14 @@ var isRequired = function isRequired(name) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (isRequired);
 
 /***/ }),
-/* 241 */
+/* 220 */
 /*!**********************************************************!*\
   !*** ./node_modules/call-func/build/es/src/throttle.mjs ***!
   \**********************************************************/
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callfunc.mjs */ 27);
+/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callfunc.mjs */ 24);
 
 /**
  * reduce run times.
@@ -45375,14 +44899,14 @@ var throttle = function throttle(func, threshhold, needRunLast) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (throttle);
 
 /***/ }),
-/* 242 */
+/* 221 */
 /*!*************************************************************!*\
   !*** ./node_modules/call-func/build/es/src/defaultCall.mjs ***!
   \*************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callfunc.mjs */ 27);
+/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./callfunc.mjs */ 24);
 
 
 var defaultCall = function defaultCall(defaultFunc, func, scope) {
@@ -45398,17 +44922,17 @@ var defaultCall = function defaultCall(defaultFunc, func, scope) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (defaultCall);
 
 /***/ }),
-/* 243 */
+/* 222 */
 /*!**********************************************************!*\
   !*** ./node_modules/call-func/build/es/src/delegate.mjs ***!
   \**********************************************************/
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var css_query_selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! css-query-selector */ 61);
+/* harmony import */ var css_query_selector__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! css-query-selector */ 52);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./callfunc.mjs */ 27);
-/* harmony import */ var _register_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./register.mjs */ 117);
+/* harmony import */ var _callfunc_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./callfunc.mjs */ 24);
+/* harmony import */ var _register_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./register.mjs */ 97);
 
 
 
@@ -45458,7 +44982,7 @@ var delegate = function delegate(el, type, childs, defaultFunc) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (delegate);
 
 /***/ }),
-/* 244 */
+/* 223 */
 /*!********************************************************************!*\
   !*** ./node_modules/css-query-selector/build/es/src/queryFrom.mjs ***!
   \********************************************************************/
@@ -45469,7 +44993,7 @@ var delegate = function delegate(el, type, childs, defaultFunc) {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "defaultQuery": () => (/* binding */ defaultQuery)
 /* harmony export */ });
-/* harmony import */ var reshow_runtime_es_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/toConsumableArray */ 29);
+/* harmony import */ var reshow_runtime_es_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/toConsumableArray */ 26);
 /* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-constant */ 1);
 
@@ -45572,7 +45096,7 @@ var defaultQuery = queryFrom(win_doc__WEBPACK_IMPORTED_MODULE_1__.doc);
 
 
 /***/ }),
-/* 245 */
+/* 224 */
 /*!***********************************************************!*\
   !*** ./node_modules/array.merge/build/es/src/combine.mjs ***!
   \***********************************************************/
@@ -45580,7 +45104,7 @@ var defaultQuery = queryFrom(win_doc__WEBPACK_IMPORTED_MODULE_1__.doc);
 
 "use strict";
 /* unused harmony exports combineSub, getAllCombine */
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 6);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 7);
 
 var keys = Object.keys;
 
@@ -45638,7 +45162,7 @@ var combineSub = function combineSub(arr, subArr, key, subObjKey) {
 
 
 /***/ }),
-/* 246 */
+/* 225 */
 /*!**************************************************************!*\
   !*** ./node_modules/get-object-value/build/es/src/toMap.mjs ***!
   \**************************************************************/
@@ -45646,14 +45170,14 @@ var combineSub = function combineSub(arr, subArr, key, subObjKey) {
 
 "use strict";
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var _get_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get.mjs */ 50);
-/* harmony import */ var _toJS_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toJS.mjs */ 80);
+/* harmony import */ var _get_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get.mjs */ 45);
+/* harmony import */ var _toJS_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./toJS.mjs */ 72);
 
 
 
 
 var toMap = function toMap(a, path) {
-  var next = (0,_get_mjs__WEBPACK_IMPORTED_MODULE_1__["default"])(a, path, {});
+  var next = (0,_toJS_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])((0,_get_mjs__WEBPACK_IMPORTED_MODULE_1__["default"])(a, path, {}));
   var nextMap = {};
   (0,reshow_constant__WEBPACK_IMPORTED_MODULE_0__.KEYS)(next).forEach(function (key) {
     return nextMap[key] = (0,_toJS_mjs__WEBPACK_IMPORTED_MODULE_2__["default"])(next[key]);
@@ -45664,7 +45188,7 @@ var toMap = function toMap(a, path) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (toMap);
 
 /***/ }),
-/* 247 */
+/* 226 */
 /*!*****************************************************************!*\
   !*** ./node_modules/react/cjs/react-jsx-runtime.development.js ***!
   \*****************************************************************/
@@ -45688,36 +45212,26 @@ if (true) {
   (function() {
 'use strict';
 
-var React = __webpack_require__(/*! react */ 2);
-
-// -----------------------------------------------------------------------------
-
-var enableScopeAPI = false; // Experimental Create Event Handle API.
-var enableCacheElement = false;
-var enableTransitionTracing = false; // No known bugs, but needs performance testing
-
-var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
-// stuff. Intended to enable React core members to more easily debug scheduling
-// issues in DEV builds.
-
-var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
+var React = __webpack_require__(/*! react */ 3);
 
 // ATTENTION
-
-var REACT_ELEMENT_TYPE =  Symbol.for('react.element');
-var REACT_PORTAL_TYPE =  Symbol.for('react.portal');
-var REACT_FRAGMENT_TYPE =  Symbol.for('react.fragment');
-var REACT_STRICT_MODE_TYPE =  Symbol.for('react.strict_mode');
-var REACT_PROFILER_TYPE =  Symbol.for('react.profiler');
-var REACT_PROVIDER_TYPE =  Symbol.for('react.provider');
-var REACT_CONTEXT_TYPE =  Symbol.for('react.context');
-var REACT_FORWARD_REF_TYPE =  Symbol.for('react.forward_ref');
-var REACT_SUSPENSE_TYPE =  Symbol.for('react.suspense');
-var REACT_SUSPENSE_LIST_TYPE =  Symbol.for('react.suspense_list');
-var REACT_MEMO_TYPE =  Symbol.for('react.memo');
-var REACT_LAZY_TYPE =  Symbol.for('react.lazy');
-var REACT_OFFSCREEN_TYPE =  Symbol.for('react.offscreen');
-var MAYBE_ITERATOR_SYMBOL =  Symbol.iterator;
+// When adding new symbols to this file,
+// Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
+// The Symbol used to tag the ReactElement-like types.
+var REACT_ELEMENT_TYPE = Symbol.for('react.element');
+var REACT_PORTAL_TYPE = Symbol.for('react.portal');
+var REACT_FRAGMENT_TYPE = Symbol.for('react.fragment');
+var REACT_STRICT_MODE_TYPE = Symbol.for('react.strict_mode');
+var REACT_PROFILER_TYPE = Symbol.for('react.profiler');
+var REACT_PROVIDER_TYPE = Symbol.for('react.provider');
+var REACT_CONTEXT_TYPE = Symbol.for('react.context');
+var REACT_FORWARD_REF_TYPE = Symbol.for('react.forward_ref');
+var REACT_SUSPENSE_TYPE = Symbol.for('react.suspense');
+var REACT_SUSPENSE_LIST_TYPE = Symbol.for('react.suspense_list');
+var REACT_MEMO_TYPE = Symbol.for('react.memo');
+var REACT_LAZY_TYPE = Symbol.for('react.lazy');
+var REACT_OFFSCREEN_TYPE = Symbol.for('react.offscreen');
+var MAYBE_ITERATOR_SYMBOL = Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator';
 function getIteratorFn(maybeIterable) {
   if (maybeIterable === null || typeof maybeIterable !== 'object') {
@@ -45771,6 +45285,18 @@ function printWarning(level, format, args) {
     Function.prototype.apply.call(console[level], console, argsWithFormat);
   }
 }
+
+// -----------------------------------------------------------------------------
+
+var enableScopeAPI = false; // Experimental Create Event Handle API.
+var enableCacheElement = false;
+var enableTransitionTracing = false; // No known bugs, but needs performance testing
+
+var enableLegacyHidden = false; // Enables unstable_avoidThisFallback feature in Fiber
+// stuff. Intended to enable React core members to more easily debug scheduling
+// issues in DEV builds.
+
+var enableDebugTracing = false; // Track which Fiber(s) schedule render work.
 
 var REACT_MODULE_REFERENCE;
 
@@ -46987,11 +46513,11 @@ exports.jsxs = jsxs;
 
 
 /***/ }),
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */
 /*!*******************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/index.js ***!
   \*******************************************************/
@@ -47002,13 +46528,13 @@ exports.jsxs = jsxs;
 /* harmony export */   "aniTimer": () => (/* reexport safe */ _aniTimer__WEBPACK_IMPORTED_MODULE_6__["default"]),
 /* harmony export */   "easeInOutCubic": () => (/* reexport safe */ _easeInOutCubic__WEBPACK_IMPORTED_MODULE_2__["default"])
 /* harmony export */ });
-/* harmony import */ var _easeInBack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./easeInBack */ 253);
-/* harmony import */ var _easeInExpo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./easeInExpo */ 254);
-/* harmony import */ var _easeInOutCubic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./easeInOutCubic */ 168);
-/* harmony import */ var _easeInOutQuad__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./easeInOutQuad */ 255);
-/* harmony import */ var _easeOutQuart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./easeOutQuart */ 256);
-/* harmony import */ var _easeOutQuint__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./easeOutQuint */ 257);
-/* harmony import */ var _aniTimer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./aniTimer */ 169);
+/* harmony import */ var _easeInBack__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./easeInBack */ 232);
+/* harmony import */ var _easeInExpo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./easeInExpo */ 233);
+/* harmony import */ var _easeInOutCubic__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./easeInOutCubic */ 146);
+/* harmony import */ var _easeInOutQuad__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./easeInOutQuad */ 234);
+/* harmony import */ var _easeOutQuart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./easeOutQuart */ 235);
+/* harmony import */ var _easeOutQuint__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./easeOutQuint */ 236);
+/* harmony import */ var _aniTimer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./aniTimer */ 147);
 
 
 
@@ -47018,7 +46544,7 @@ exports.jsxs = jsxs;
 
 
 /***/ }),
-/* 253 */
+/* 232 */
 /*!************************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/easeInBack.js ***!
   \************************************************************/
@@ -47036,7 +46562,7 @@ var easeInBack = function easeInBack(t, b, c, d, s) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (easeInBack);
 
 /***/ }),
-/* 254 */
+/* 233 */
 /*!************************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/easeInExpo.js ***!
   \************************************************************/
@@ -47050,7 +46576,7 @@ var easeInExpo = function easeInExpo(t, b, c, d) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (easeInExpo);
 
 /***/ }),
-/* 255 */
+/* 234 */
 /*!***************************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/easeInOutQuad.js ***!
   \***************************************************************/
@@ -47068,7 +46594,7 @@ var easeInOutQuad = function easeInOutQuad(t, b, c, d) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (easeInOutQuad);
 
 /***/ }),
-/* 256 */
+/* 235 */
 /*!**************************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/easeOutQuart.js ***!
   \**************************************************************/
@@ -47082,7 +46608,7 @@ var easeOutQuart = function easeOutQuart(t, b, c, d) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (easeOutQuart);
 
 /***/ }),
-/* 257 */
+/* 236 */
 /*!**************************************************************!*\
   !*** ./node_modules/easing-lib/build/es/src/easeOutQuint.js ***!
   \**************************************************************/
@@ -47096,15 +46622,15 @@ var easeOutQuint = function easeOutQuint(t, b, c, d) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (easeOutQuint);
 
 /***/ }),
-/* 258 */,
-/* 259 */
+/* 237 */,
+/* 238 */
 /*!***********************************************************!*\
   !*** ./node_modules/window-onload/build/es/src/index.mjs ***!
   \***********************************************************/
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! call-func */ 7);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! call-func */ 6);
 /* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! win-doc */ 11);
 
 
@@ -47175,8 +46701,7 @@ var windowOnLoad = function windowOnLoad(options) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (windowOnLoad);
 
 /***/ }),
-/* 260 */,
-/* 261 */
+/* 239 */
 /*!****************************************************!*\
   !*** ./node_modules/seturl/build/es/src/index.mjs ***!
   \****************************************************/
@@ -47188,12 +46713,12 @@ var windowOnLoad = function windowOnLoad(options) {
 /* harmony export */   "getUrl": () => (/* binding */ getUrl),
 /* harmony export */   "unsetUrl": () => (/* binding */ unsetUrl)
 /* harmony export */ });
-/* unused harmony exports getUrlArray, parseUrl */
+/* unused harmony exports getUrlArray, parseUrl, url */
 /* harmony import */ var win_doc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! win-doc */ 11);
-/* harmony import */ var with_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! with-array */ 124);
+/* harmony import */ var with_array__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! with-array */ 105);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reshow-constant */ 1);
-/* harmony import */ var _getKeyReg_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getKeyReg.mjs */ 262);
-/* harmony import */ var _getUrlAnaly_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getUrlAnaly.mjs */ 263);
+/* harmony import */ var _getKeyReg_mjs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getKeyReg.mjs */ 240);
+/* harmony import */ var _getUrlAnaly_mjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getUrlAnaly.mjs */ 241);
 
 
 
@@ -47292,7 +46817,7 @@ var setUrl = function setUrl(key, value, url, KeepRawValue) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (setUrl);
 
 /***/ }),
-/* 262 */
+/* 240 */
 /*!********************************************************!*\
   !*** ./node_modules/seturl/build/es/src/getKeyReg.mjs ***!
   \********************************************************/
@@ -47303,7 +46828,7 @@ var setUrl = function setUrl(key, value, url, KeepRawValue) {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "getMultiMatchReg": () => (/* binding */ getMultiMatchReg)
 /* harmony export */ });
-/* harmony import */ var get_safe_reg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-safe-reg */ 125);
+/* harmony import */ var get_safe_reg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-safe-reg */ 106);
 
 
 var getRegString = function getRegString(name) {
@@ -47323,7 +46848,7 @@ var getMultiMatchReg = function getMultiMatchReg(name) {
 
 
 /***/ }),
-/* 263 */
+/* 241 */
 /*!**********************************************************!*\
   !*** ./node_modules/seturl/build/es/src/getUrlAnaly.mjs ***!
   \**********************************************************/
@@ -47347,333 +46872,26 @@ var getUrlAnaly = function getUrlAnaly(url) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getUrlAnaly);
 
 /***/ }),
-/* 264 */,
-/* 265 */,
-/* 266 */
-/*!*******************************************************!*\
-  !*** ./node_modules/call-func/build/cjs/src/index.js ***!
-  \*******************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports.throttle = exports.register = exports.isRequired = exports.getEventKey = exports.delegate = exports.defaultCall = exports["default"] = exports.debounce = exports.cleanAllRegister = void 0;
-
-var _isRequired = _interopRequireDefault(__webpack_require__(/*! ./isRequired */ 83));
-
-exports.isRequired = _isRequired["default"];
-
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ./throttle */ 84));
-
-exports.throttle = _throttle["default"];
-
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ./debounce */ 85));
-
-exports.debounce = _debounce["default"];
-
-var _callfunc = _interopRequireDefault(__webpack_require__(/*! ./callfunc */ 26));
-
-exports["default"] = _callfunc["default"];
-
-var _defaultCall = _interopRequireDefault(__webpack_require__(/*! ./defaultCall */ 86));
-
-exports.defaultCall = _defaultCall["default"];
-
-var _delegate = _interopRequireDefault(__webpack_require__(/*! ./delegate */ 87));
-
-exports.delegate = _delegate["default"];
-
-var _getEventKey = _interopRequireDefault(__webpack_require__(/*! ./getEventKey */ 92));
-
-exports.getEventKey = _getEventKey["default"];
-
-var _register = __webpack_require__(/*! ./register */ 131);
-
-exports.register = _register.register;
-exports.cleanAllRegister = _register.cleanAllRegister;
-
-/***/ }),
-/* 267 */
-/*!****************************************************************!*\
-  !*** ./node_modules/css-query-selector/build/cjs/src/index.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireWildcard = __webpack_require__(/*! reshow-runtime/helpers/interopRequireWildcard */ 88);
-
-exports.__esModule = true;
-exports.queryOne = exports.queryEl = exports.queryAncestor = exports.queryAll = exports["default"] = void 0;
-
-var _queryFrom = _interopRequireWildcard(__webpack_require__(/*! ./queryFrom */ 268));
-
-exports.queryFrom = _queryFrom["default"];
-_queryFrom.defaultQuery.from = _queryFrom["default"];
-var _default = _queryFrom.defaultQuery;
-exports["default"] = _default;
-var queryAll = _queryFrom.defaultQuery.all,
-    queryAncestor = _queryFrom.defaultQuery.ancestor,
-    queryEl = _queryFrom.defaultQuery.el,
-    queryOne = _queryFrom.defaultQuery.one;
-exports.queryOne = queryOne;
-exports.queryEl = queryEl;
-exports.queryAncestor = queryAncestor;
-exports.queryAll = queryAll;
-
-/***/ }),
-/* 268 */
-/*!********************************************************************!*\
-  !*** ./node_modules/css-query-selector/build/cjs/src/queryFrom.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports.defaultQuery = exports["default"] = void 0;
-
-var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! reshow-runtime/helpers/toConsumableArray */ 90));
-
-var _winDoc = __webpack_require__(/*! win-doc */ 11);
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var arrayFrom = function arrayFrom(a) {
-  return a ? (0, _toConsumableArray2["default"])(a) : [];
-};
-
-var findHit = function findHit(all, el) {
-  var hit;
-
-  var setHit = function setHit(p) {
-    return hit = p;
-  };
-
-  all.some(function (p) {
-    return p.contains(el) && !p.isSameNode(el) ? setHit(p) : false;
-  });
-  return hit;
-};
-
-var queryFrom = function queryFrom(base) {
-  if (!base) {
-    return false;
-  }
-
-  var myBase = _reshowConstant.FUNCTION === typeof base ? base : function () {
-    return defaultQuery.el(base);
-  };
-
-  var queryOne = function queryOne(sel) {
-    var _myBase;
-
-    return (_myBase = myBase()) === null || _myBase === void 0 ? void 0 : _myBase.querySelector(sel);
-  };
-
-  var _all = function _all(sel) {
-    var _myBase2;
-
-    return arrayFrom((_myBase2 = myBase()) === null || _myBase2 === void 0 ? void 0 : _myBase2.querySelectorAll(sel));
-  };
-
-  var queryAll = function queryAll(sel) {
-    return sel && (sel.reduce ? sel.reduce(function (accumulator, currentValue) {
-      return accumulator.concat(_all(currentValue));
-    }, []) : _all(sel));
-  };
-
-  var queryEl = function queryEl(el) {
-    return _reshowConstant.STRING === typeof el ? queryOne(el) : el;
-  };
-
-  var _queryAncestorPolyfill = function _queryAncestorPolyfill(el, ancestor) {
-    var lastHit;
-    var hit;
-
-    var all = _all(ancestor);
-
-    if (all) {
-      hit = findHit(all, el);
-    }
-
-    while (hit) {
-      lastHit = hit;
-      all = hit.querySelectorAll(ancestor);
-
-      if (all) {
-        hit = findHit(arrayFrom(all), el);
-      } else {
-        break;
-      }
-    }
-
-    return lastHit;
-  };
-
-  var queryAncestor = function queryAncestor(el, ancestor) {
-    el = queryEl(el);
-
-    if (!el) {
-      console.warn("Element is empty.");
-      return false;
-    }
-
-    return el.closest ? el.closest(ancestor) : _queryAncestorPolyfill(el, ancestor);
-  };
-
-  return {
-    all: queryAll,
-    ancestor: queryAncestor,
-    el: queryEl,
-    one: queryOne
-  };
-};
-
-var defaultQuery = queryFrom(_winDoc.doc);
-exports.defaultQuery = defaultQuery;
-var _default = queryFrom;
-exports["default"] = _default;
-
-/***/ }),
-/* 269 */
-/*!***********************************************************!*\
-  !*** ./node_modules/get-storage/build/cjs/src/Storage.js ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! reshow-runtime/helpers/interopRequireDefault */ 15);
-
-exports.__esModule = true;
-exports.parseField = exports.encode = exports["default"] = exports.decode = void 0;
-
-var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! reshow-runtime/helpers/classCallCheck */ 53));
-
-var _createClass2 = _interopRequireDefault(__webpack_require__(/*! reshow-runtime/helpers/createClass */ 54));
-
-var _getObjectValue = __webpack_require__(/*! get-object-value */ 130);
-
-var _reshowConstant = __webpack_require__(/*! reshow-constant */ 19);
-
-var toInt = function toInt(d) {
-  return parseInt(d, 10);
-};
-
-var parseField = function parseField(s) {
-  var iStar = s.indexOf(",");
-  var len = toInt(s.substring(0, iStar));
-  var val = s.substring(iStar + 1);
-  return [len, val];
-};
-
-exports.parseField = parseField;
-
-var encode = function encode(s) {
-  var _v = JSON.stringify((0, _getObjectValue.toJS)(s));
-
-  var vLen = _v.length;
-  var result = vLen + "," + _v;
-  return result;
-};
-
-exports.encode = encode;
-
-var decode = function decode(s) {
-  var _parseField = parseField(s),
-      vLen = _parseField[0],
-      value = _parseField[1];
-
-  return vLen === value.length ? JSON.parse(value) : null;
-};
-
-exports.decode = decode;
-
-var Storage = /*#__PURE__*/function () {
-  function Storage(_storage, _disableEncode) {
-    (0, _classCallCheck2["default"])(this, Storage);
-    this._storage = _storage;
-    this._disableEncode = _disableEncode;
-  }
-
-  (0, _createClass2["default"])(Storage, [{
-    key: "set",
-    value: function set(k, v) {
-      var origV = this.get(k);
-
-      if (v !== origV) {
-        var s = this._disableEncode ? v : encode(v);
-
-        this._storage(k)(s);
-
-        return new Storage(this._storage, this._disableEncode);
-      } else {
-        return this;
-      }
-    }
-  }, {
-    key: "merge",
-    value: function merge(arr) {
-      var _this = this;
-
-      if (!arr || _reshowConstant.OBJECT !== typeof arr) {
-        return this;
-      }
-
-      var pKeys = (0, _reshowConstant.KEYS)(arr);
-
-      if (!pKeys || !pKeys.length) {
-        return this;
-      }
-
-      var nextObj;
-      pKeys.forEach(function (key) {
-        return nextObj = _this.set(key, arr[key]);
-      });
-      return nextObj;
-    }
-  }, {
-    key: "get",
-    value: function get(k) {
-      var s = this._storage(k)();
-
-      if (!s) {
-        return;
-      }
-
-      return this._disableEncode ? s : decode(s);
-    }
-  }]);
-  return Storage;
-}();
-
-var _default = Storage;
-exports["default"] = _default;
-
-/***/ }),
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */
 /*!*************************************************************!*\
   !*** ./node_modules/class-lib/build/es/src/toggleClass.mjs ***!
   \*************************************************************/
 /***/ ((__unused_webpack___webpack_module__, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
 "use strict";
-/* harmony import */ var _hasClass_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasClass.mjs */ 57);
-/* harmony import */ var _removeClass_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./removeClass.mjs */ 100);
-/* harmony import */ var _mixClass_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixClass.mjs */ 99);
+/* harmony import */ var _hasClass_mjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hasClass.mjs */ 48);
+/* harmony import */ var _removeClass_mjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./removeClass.mjs */ 79);
+/* harmony import */ var _mixClass_mjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixClass.mjs */ 78);
 
 
 
@@ -47691,34 +46909,34 @@ var toggleClass = function toggleClass(classes, name) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (toggleClass);
 
 /***/ }),
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
 /* 274 */,
 /* 275 */,
 /* 276 */,
 /* 277 */,
 /* 278 */,
 /* 279 */,
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */
+/* 280 */
 /*!**********************************************************!*\
   !*** ./node_modules/keyframe-css/build/es/src/index.mjs ***!
   \**********************************************************/
@@ -47728,9 +46946,9 @@ var toggleClass = function toggleClass(classes, name) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 6);
+/* harmony import */ var get_object_value__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-object-value */ 7);
 /* harmony import */ var react_atomic_molecule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-atomic-molecule */ 10);
-/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! call-func */ 7);
+/* harmony import */ var call_func__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! call-func */ 6);
 /* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! reshow-constant */ 1);
 
 
@@ -47766,59 +46984,59 @@ var getKeyframeCss = function getKeyframeCss(key, cb) {
 
   switch (key) {
     case "candleInTheWind":
-      __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(__webpack_require__, /*! ./candleInTheWind.mjs */ 348)).then(callback);
+      __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(__webpack_require__, /*! ./candleInTheWind.mjs */ 322)).then(callback);
       break;
 
     case "fadeIn":
-      __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeIn.mjs */ 349)).then(callback);
+      __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeIn.mjs */ 323)).then(callback);
       break;
 
     case "fadeInUp":
-      __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInUp.mjs */ 350)).then(callback);
+      __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInUp.mjs */ 324)).then(callback);
       break;
 
     case "fadeInUpBig":
-      __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInUpBig.mjs */ 351)).then(callback);
+      __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInUpBig.mjs */ 325)).then(callback);
       break;
 
     case "fadeInRight":
-      __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInRight.mjs */ 352)).then(callback);
+      __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInRight.mjs */ 326)).then(callback);
       break;
 
     case "fadeInDown":
-      __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInDown.mjs */ 353)).then(callback);
+      __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInDown.mjs */ 327)).then(callback);
       break;
 
     case "fadeInLeft":
-      __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInLeft.mjs */ 354)).then(callback);
+      __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeInLeft.mjs */ 328)).then(callback);
       break;
 
     case "fadeOut":
-      __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOut.mjs */ 355)).then(callback);
+      __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOut.mjs */ 329)).then(callback);
       break;
 
     case "fadeOutUp":
-      __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutUp.mjs */ 356)).then(callback);
+      __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutUp.mjs */ 330)).then(callback);
       break;
 
     case "fadeOutRight":
-      __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutRight.mjs */ 357)).then(callback);
+      __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutRight.mjs */ 331)).then(callback);
       break;
 
     case "fadeOutDown":
-      __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutDown.mjs */ 358)).then(callback);
+      __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutDown.mjs */ 332)).then(callback);
       break;
 
     case "fadeOutLeft":
-      __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutLeft.mjs */ 359)).then(callback);
+      __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(__webpack_require__, /*! ./fadeOutLeft.mjs */ 333)).then(callback);
       break;
 
     case "pulsate":
-      __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(__webpack_require__, /*! ./pulsate.mjs */ 360)).then(callback);
+      __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(__webpack_require__, /*! ./pulsate.mjs */ 334)).then(callback);
       break;
 
     case "spin":
-      __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(__webpack_require__, /*! ./spin.mjs */ 361)).then(callback);
+      __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(__webpack_require__, /*! ./spin.mjs */ 335)).then(callback);
       break;
   }
 
@@ -47828,16 +47046,11 @@ var getKeyframeCss = function getKeyframeCss(key, cb) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getKeyframeCss);
 
 /***/ }),
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */
 /*!*******************************************************!*\
   !*** ./node_modules/ricon/build/es/ui/SemanticUI.mjs ***!
   \*******************************************************/
@@ -47851,7 +47064,7 @@ var getKeyframeCss = function getKeyframeCss(key, cb) {
 
 
 /***/ }),
-/* 312 */
+/* 286 */
 /*!**********************************************************!*\
   !*** ./node_modules/ricon/build/es/ui/useLazyInject.mjs ***!
   \**********************************************************/
@@ -47865,7 +47078,7 @@ var getKeyframeCss = function getKeyframeCss(key, cb) {
 
 
 /***/ }),
-/* 313 */
+/* 287 */
 /*!*****************************************************!*\
   !*** ./node_modules/ricon/build/es/ui/mixClass.mjs ***!
   \*****************************************************/
@@ -47879,7 +47092,7 @@ var getKeyframeCss = function getKeyframeCss(key, cb) {
 
 
 /***/ }),
-/* 314 */
+/* 288 */
 /*!***********************************************************************************!*\
   !*** ./node_modules/prop-types/node_modules/react-is/cjs/react-is.development.js ***!
   \***********************************************************************************/
@@ -48070,9 +47283,9 @@ exports.typeOf = typeOf;
 
 
 /***/ }),
-/* 315 */,
-/* 316 */,
-/* 317 */
+/* 289 */,
+/* 290 */,
+/* 291 */
 /*!**********************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/isSetOverflow.js ***!
   \**********************************************************************/
@@ -48082,7 +47295,7 @@ exports.typeOf = typeOf;
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var get_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-style */ 75);
+/* harmony import */ var get_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! get-style */ 67);
 
 
 var isSetOverflow = function isSetOverflow(node) {
@@ -48110,7 +47323,7 @@ var isSetOverflow = function isSetOverflow(node) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isSetOverflow);
 
 /***/ }),
-/* 318 */
+/* 292 */
 /*!*********************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/getAfterMove.js ***!
   \*********************************************************************/
@@ -48135,7 +47348,7 @@ var getAfterMove = function getAfterMove(domInfo, moveXY) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getAfterMove);
 
 /***/ }),
-/* 319 */
+/* 293 */
 /*!******************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/alignWith.js ***!
   \******************************************************************/
@@ -48145,8 +47358,8 @@ var getAfterMove = function getAfterMove(domInfo, moveXY) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _getAlignTargetXY__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getAlignTargetXY */ 320);
-/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./positions */ 40);
+/* harmony import */ var _getAlignTargetXY__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getAlignTargetXY */ 294);
+/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./positions */ 36);
 
 
 
@@ -48220,7 +47433,7 @@ var alignWith = function alignWith(targetInfo, floatElInfo, loc) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (alignWith);
 
 /***/ }),
-/* 320 */
+/* 294 */
 /*!*************************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/getAlignTargetXY.js ***!
   \*************************************************************************/
@@ -48230,7 +47443,7 @@ var alignWith = function alignWith(targetInfo, floatElInfo, loc) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./positions */ 40);
+/* harmony import */ var _positions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./positions */ 36);
 
 
 var getAlignTargetXY = function getAlignTargetXY(domInfo, loc) {
@@ -48290,7 +47503,7 @@ var getAlignTargetXY = function getAlignTargetXY(domInfo, loc) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getAlignTargetXY);
 
 /***/ }),
-/* 321 */
+/* 295 */
 /*!***********************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/isFullOnScreen.js ***!
   \***********************************************************************/
@@ -48308,7 +47521,7 @@ var isFullOnScreen = function isFullOnScreen(domInfo, scrollInfo) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (isFullOnScreen);
 
 /***/ }),
-/* 322 */
+/* 296 */
 /*!******************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/nearWhere.js ***!
   \******************************************************************/
@@ -48316,8 +47529,8 @@ var isFullOnScreen = function isFullOnScreen(domInfo, scrollInfo) {
 
 "use strict";
 /* unused harmony export getNearLocation */
-/* harmony import */ var _getDomCenter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDomCenter */ 323);
-/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDomPositionInfo */ 45);
+/* harmony import */ var _getDomCenter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDomCenter */ 297);
+/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getDomPositionInfo */ 40);
 
 
 
@@ -48387,7 +47600,7 @@ var nearWhere = function nearWhere(targetEl, floatEl) {
 
 
 /***/ }),
-/* 323 */
+/* 297 */
 /*!*********************************************************************!*\
   !*** ./node_modules/get-window-offset/build/es/src/getDomCenter.js ***!
   \*********************************************************************/
@@ -48397,7 +47610,7 @@ var nearWhere = function nearWhere(targetEl, floatEl) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDomPositionInfo */ 45);
+/* harmony import */ var _getDomPositionInfo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getDomPositionInfo */ 40);
 
 
 var calDomCenter = function calDomCenter(left, top, width, height) {
@@ -48421,22 +47634,20 @@ var getDomCenter = function getDomCenter(dom) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getDomCenter);
 
 /***/ }),
-/* 324 */
-/*!**********************************************************!*\
-  !*** ./node_modules/to-percent-js/build/es/src/index.js ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/* 298 */
+/*!***********************************************************!*\
+  !*** ./node_modules/to-percent-js/build/es/src/index.mjs ***!
+  \***********************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "toInt": () => (/* binding */ toInt)
 /* harmony export */ });
 /* unused harmony exports round, percent, toNum, getNum */
-/* harmony import */ var reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-runtime/es/helpers/typeof */ 37);
-/* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reshow-constant */ 1);
+/* harmony import */ var reshow_constant__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! reshow-constant */ 1);
 
-
-var numTypes = "|number|".concat(reshow_constant__WEBPACK_IMPORTED_MODULE_1__.STRING, "|");
+var numTypes = "|" + reshow_constant__WEBPACK_IMPORTED_MODULE_0__.NUMBER + "|" + reshow_constant__WEBPACK_IMPORTED_MODULE_0__.STRING + "|";
 
 var toPercent = function toPercent(num) {
   return percent(num) + "%";
@@ -48450,10 +47661,12 @@ var round = function round(f, precision) {
   return toNum(f).toFixed(precision !== null && precision !== void 0 ? precision : 2);
 };
 
+var ERROR_INFO = "Get number fail.";
+
 var toNum = function toNum(num) {
-  if (reshow_constant__WEBPACK_IMPORTED_MODULE_1__.UNDEFINED === (0,reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(num)) {
+  if (reshow_constant__WEBPACK_IMPORTED_MODULE_0__.UNDEFINED === typeof num) {
     return 0;
-  } else if (-1 === numTypes.indexOf("|" + (0,reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(num) + "|") || !num) {
+  } else if (-1 === numTypes.indexOf("|" + typeof num + "|") || !num) {
     var maybeNaN = Number(num);
     return isNaN(maybeNaN) ? 0 : maybeNaN;
   } else {
@@ -48478,7 +47691,7 @@ var toNum = function toNum(num) {
           }
         }
 
-        console.warn("Can not change to number well.", {
+        console.warn(ERROR_INFO, {
           willNum: willNum,
           maybeString: maybeString,
           num: num
@@ -48496,14 +47709,14 @@ var toInt = function toInt(num) {
 var numReg = /(\-)?(\d+)(\.)?(\d+)?/g;
 
 var getNum = function getNum(s) {
-  if (reshow_constant__WEBPACK_IMPORTED_MODULE_1__.STRING !== (0,reshow_runtime_es_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(s)) {
+  if (reshow_constant__WEBPACK_IMPORTED_MODULE_0__.STRING !== typeof s) {
     return toNum(s);
   }
 
   var match = s.replace(",", "").match(numReg);
 
   if (!match) {
-    console.warn("Get number fail", s);
+    console.warn(ERROR_INFO, s);
     return 0;
   } else {
     return toNum(match[0]);
@@ -48514,25 +47727,25 @@ var getNum = function getNum(s) {
 /* unused harmony default export */ var __WEBPACK_DEFAULT_EXPORT__ = (toPercent);
 
 /***/ }),
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */
 /*!**********************************************************!*\
   !*** ./node_modules/memoize-one/dist/memoize-one.esm.js ***!
   \**********************************************************/
@@ -48596,7 +47809,7 @@ function memoizeOne(resultFn, isEqual) {
 
 
 /***/ }),
-/* 344 */
+/* 318 */
 /*!****************************************************!*\
   !*** ./node_modules/hyphenate-style-name/index.js ***!
   \****************************************************/

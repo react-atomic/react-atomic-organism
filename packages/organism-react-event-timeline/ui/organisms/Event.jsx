@@ -1,6 +1,6 @@
-import React from "react";
 import { lightenColor, hexToRgba } from "colorlib";
 import Animate from "organism-react-scroll-animate";
+import callfunc from "call-func";
 
 import {
   mixClass,
@@ -90,7 +90,7 @@ const Event = (props) => {
     borderColor = "#0f87cd",
     minHeight = 150,
     animate,
-    handleEventClick,
+    onEventClick,
   } = props;
   let content = (
     <EventContent
@@ -110,7 +110,7 @@ const Event = (props) => {
     content = <Animate {...aniProps}>{content}</Animate>;
   }
   const containerStyle = { ...Styles.container };
-  if (handleEventClick) {
+  if (onEventClick) {
     containerStyle.cursor = "pointer";
   }
   return (
@@ -118,8 +118,9 @@ const Event = (props) => {
       className={classes}
       style={containerStyle}
       onClick={(e) => {
-        if (handleEventClick) {
-          handleEventClick(e, props);
+        if (onEventClick) {
+          e.data = props;
+          callfunc(onEventClick, [e]);
         }
       }}
     >

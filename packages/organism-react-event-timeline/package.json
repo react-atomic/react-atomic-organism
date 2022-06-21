@@ -1,5 +1,5 @@
 {
-  "version": "0.2.2",
+  "version": "0.2.3",
   "name": "organism-react-event-timeline",
   "repository": {
     "type": "git",
@@ -31,9 +31,11 @@
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.mjs",
   "scripts": {
-    "start": "ws",
+    "update-compile-sh": "yo reshow:compile-sh",
     "webpack": "webpack",
-    "clean": "find ./build ./assets -name '*.*' | xargs rm -rf && rm -rf workbox-*.js",
+    "start": "ws",
+    "clean:webpack": "find ./assets -name '*.*' | xargs rm -rf && rm -rf workbox-*.js",
+    "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs:src": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
     "build:cjs:ui": "BABEL_ENV=cjs babel ui -d build/cjs/ui --ignore /**/__tests__ --root-mode upward",
     "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
