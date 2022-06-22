@@ -194,7 +194,7 @@ class ConnectPoint extends Component {
   isShow() {
     let { show } = this.props;
     const isHover = this.state.isHover;
-    if (null == show) {
+    if (!show) {
       if (this.state.start) {
         show = true;
       }
