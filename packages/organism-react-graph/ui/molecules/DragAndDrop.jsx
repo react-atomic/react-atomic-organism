@@ -44,7 +44,7 @@ const useDragAndDrop = (props) => {
     const { x: fromX, y: fromY, sourceEvent } = d3Event;
     const thisEvent = unifyTouch(sourceEvent);
     const offset = getOffset(thisEl.current);
-    const { left: elStartX, top: elStartY, w, h } = offset || {};
+    const { x: elStartX, y: elStartY, w, h } = offset || {};
     let absX = 0;
     let absY = 0;
     if (keepLastAbsXY) {
@@ -80,11 +80,13 @@ const useDragAndDrop = (props) => {
     const zoomK = callfunc(zoom)?.k ?? 1;
     const nextAbsX = absX + dx / zoomK;
     const nextAbsY = absY + dy / zoomK;
-    const destPoint = (e) => () =>
+    const pointerXY = (e) => () =>
       [e.clientX - e.start.offsetX, e.clientY - e.start.offsetY];
     const destTarget = (e) => (point) => {
-      const thisPoint = null != point ? point : e.destPoint();
-      return callfunc(doc().elementFromPoint, thisPoint, doc());
+      const thisPoint = null != point ? point : e.pointerXY();
+      const tarEl = callfunc(doc().elementFromPoint, thisPoint, doc());
+      tarEl.pointerXY = thisPoint;
+      return tarEl;
     };
     const clientTarget =
       (e) =>
@@ -93,7 +95,7 @@ const useDragAndDrop = (props) => {
         return e.destTarget(thisPoint);
       };
     thisEvent.start = startPoint.current;
-    thisEvent.destPoint = destPoint(thisEvent);
+    thisEvent.pointerXY = pointerXY(thisEvent);
     thisEvent.destTarget = destTarget(thisEvent);
     thisEvent.clientTarget = clientTarget(thisEvent);
     thisEvent.sourceEvent = sourceEvent;
@@ -106,8 +108,7 @@ const useDragAndDrop = (props) => {
   const handleEnd = (d3Event) => {
     const sourceEvent = d3Event.sourceEvent;
     const thisEvent = unifyTouch(sourceEvent);
-    const offset = getOffset(thisEl.current);
-    lastPoint.current.offset = offset;
+    lastPoint.current.offset = getOffset(thisEl.current);
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.last = lastPoint.current;
     thisEvent.start = startPoint.current;

@@ -2583,9 +2583,9 @@ get-intrinsic@^1.0.2, get-intrinsic@^1.1.1:
     has-symbols "^1.0.3"
 
 get-object-value@*:
-  version "0.5.6"
-  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.5.6.tgz#edbd23397b4be62ad9473b6df14011c0658d83cb"
-  integrity sha512-qL/3nt3L838JlZa6iK0tXPVgFW+U8rPk2ge6s4LpcR+1Kf+UgY5+xcRN/kLzIrjy322QZUO4j3TWnJsX5yEQlg==
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.5.7.tgz#a9b33d891d2a23b27a27886e5a085f678a8431a7"
+  integrity sha512-ia7XHcyjvszXda//jP5UU2Qtv/41/hgv6mfSRboWKMrcALSMmjSQ2TgxFCrW8hUrcqTYghQB26UiCrDaN0eI2A==
   dependencies:
     call-func "*"
     reshow-constant "*"
@@ -2609,9 +2609,9 @@ get-safe-reg@*:
   integrity sha512-F5u7MrIg/DAQAzneIJwaOBVAiHQSi6mc+0FGb/X32fDh/rqVCsSJr8axNRhIu9yOJ5fQq80ISVOAyEUusD7PWQ==
 
 get-scroll-info@*:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.2.1.tgz#0213411467678b8cb8edb38068dc5d401fbd4dcf"
-  integrity sha512-1GCECZVdMfMb78oanUcsZJlIhJFPxKNNNIAFjjYUmxWigPeyOaJ0nZuF/kxVTsCYlemN3MVXpzJ4hm0yQFJYlw==
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.3.1.tgz#0d9d6cf7d6f3ae25cb4b6809ac2331bf78f06b14"
+  integrity sha512-iDzfZ5NlrNwuqaBRc7rShGs1kRpGfZBGXalUUI0v7T8KvKkv+QhuYT+pAednJJgOonzdeerBcVHcDJ7N2VU1VA==
   dependencies:
     reshow-constant "*"
     reshow-runtime "*"
@@ -2623,9 +2623,9 @@ get-stdin@^7.0.0:
   integrity sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==
 
 getoffset@*:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.3.1.tgz#ad4f97ca1d4d8f53b5108b7dfe003957be9f710f"
-  integrity sha512-F/gSF5nEpX6d2QP1Xxfu8Y5FaOzBtSxuCXPrUeBkEWOpm9kDS+HAhYn2X39lMM7Wxa2m4rTc8JiwBc6VWYm0bQ==
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.4.0.tgz#5fa7fe38d50d8da175511658af1b3700f8100bbb"
+  integrity sha512-pYa7dc46UGFjIDUuRVmNIOpJGs4oazeFuuf2b2Ro1UwXWbbjGO4FaRTA+WMUJ3/gSS1kkclDJkUGRGA4icwFDA==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
