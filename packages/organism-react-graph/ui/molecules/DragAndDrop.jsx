@@ -32,7 +32,6 @@ const useDragAndDrop = (props) => {
       lastPoint.current.absX = x;
       lastPoint.current.absY = y;
     },
-    isDraging: () => isDraging,
   };
 
   if (!isLoad) {
@@ -83,11 +82,20 @@ const useDragAndDrop = (props) => {
     const nextAbsY = absY + dy / zoomK;
     const destPoint = (e) => () =>
       [e.clientX - e.start.offsetX, e.clientY - e.start.offsetY];
-    const destTarget = (e) => () =>
-      callfunc(doc().elementFromPoint, e.destPoint(), doc());
+    const destTarget = (e) => (point) => {
+      const thisPoint = null != point ? point : e.destPoint();
+      return callfunc(doc().elementFromPoint, thisPoint, doc());
+    };
+    const clientTarget =
+      (e) =>
+      (point = {}) => {
+        const thisPoint = [point.x ?? e.clientX, point.y ?? e.clientY];
+        return e.destTarget(thisPoint);
+      };
     thisEvent.start = startPoint.current;
     thisEvent.destPoint = destPoint(thisEvent);
     thisEvent.destTarget = destTarget(thisEvent);
+    thisEvent.clientTarget = clientTarget(thisEvent);
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.absX = nextAbsX;
     thisEvent.absY = nextAbsY;
