@@ -32,18 +32,18 @@ const getNearLocation = (center, floatInfo) => {
   return loc;
 };
 
-const nearWhere = (targetEl, floatEl) => {
+const nearWhere = (targetEl, floatElOrFloatXY) => {
   const tarCenter = getDomCenter(targetEl);
   let floatXY;
-  if (floatEl.nodeName) {
-    const floatElInfo = getDomPositionInfo(floatEl)?.domInfo || {
+  if (floatElOrFloatXY.nodeName) {
+    const floatElInfo = getDomPositionInfo(floatElOrFloatXY)?.domInfo || {
       top: 0,
       left: 0,
     };
     floatXY = { x: floatElInfo.left, y: floatElInfo.top };
   }
   if (null == floatXY) {
-    floatXY = floatEl;
+    floatXY = floatElOrFloatXY;
   }
   return getNearLocation({ x: tarCenter[0], y: tarCenter[1] }, floatXY);
 };
