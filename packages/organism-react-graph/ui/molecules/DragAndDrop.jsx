@@ -80,24 +80,26 @@ const useDragAndDrop = (props) => {
     const zoomK = callfunc(zoom)?.k ?? 1;
     const nextAbsX = absX + dx / zoomK;
     const nextAbsY = absY + dy / zoomK;
-    const pointerXY = (e) => () =>
+    const getPointerXY = (e) => () =>
       [e.clientX - e.start.offsetX, e.clientY - e.start.offsetY];
-    const destTarget = (e) => (point) => {
-      const thisPoint = null != point ? point : e.pointerXY();
+    const getPointerTarget = (e) => (point) => {
+      const thisPoint = null != point ? point : e.getPointerXY();
       const tarEl = callfunc(doc().elementFromPoint, thisPoint, doc());
-      tarEl.pointerXY = thisPoint;
-      return tarEl;
+      if (tarEl) {
+        tarEl.pointXY = thisPoint;
+        return tarEl;
+      }
     };
-    const clientTarget =
+    const getClientPointerTarget =
       (e) =>
       (point = {}) => {
         const thisPoint = [point.x ?? e.clientX, point.y ?? e.clientY];
-        return e.destTarget(thisPoint);
+        return e.getPointerTarget(thisPoint);
       };
     thisEvent.start = startPoint.current;
-    thisEvent.pointerXY = pointerXY(thisEvent);
-    thisEvent.destTarget = destTarget(thisEvent);
-    thisEvent.clientTarget = clientTarget(thisEvent);
+    thisEvent.getPointerXY = getPointerXY(thisEvent);
+    thisEvent.getPointerTarget = getPointerTarget(thisEvent);
+    thisEvent.getClientPointerTarget = getClientPointerTarget(thisEvent);
     thisEvent.sourceEvent = sourceEvent;
     thisEvent.absX = nextAbsX;
     thisEvent.absY = nextAbsY;

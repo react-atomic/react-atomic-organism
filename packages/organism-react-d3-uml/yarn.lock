@@ -3472,9 +3472,9 @@ optionator@^0.9.1:
     word-wrap "^1.2.3"
 
 organism-react-graph@*:
-  version "0.8.6"
-  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.8.6.tgz#ced4a5df2c96842a72244f66abc1944526418e20"
-  integrity sha512-UGGGbTTSmlSDf05UTxI7622+qfbZZm7uY3AUd/kJmteR0yJoZcGaILsObsWa2vxzX9Lu7bpwFSUoFoekeCDBHQ==
+  version "0.8.9"
+  resolved "https://registry.yarnpkg.com/organism-react-graph/-/organism-react-graph-0.8.9.tgz#f3633c24e50e4fbf302318fa1e0a961527a315c3"
+  integrity sha512-smlpi72f7Ub3SsH+YyJG+z4Lrkl/c3e8BkDNurwtpqazXhNMdanNYRLzOruh7juusllkX6DhjtPFIgShPky4xA==
   dependencies:
     call-func "*"
     colorlib "*"
