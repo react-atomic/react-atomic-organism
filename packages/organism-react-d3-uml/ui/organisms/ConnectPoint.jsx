@@ -60,7 +60,7 @@ class ConnectPoint extends Component {
     const end = mouse(sourceEvent, hostEl);
     const { lineId, center } = this.state.start;
     let endXY;
-    const target = e.destTarget();
+    const target = e.clientTarget();
     if (target) {
       let targetId = target.getAttribute("data-id");
       let targetGroup = target.getAttribute("data-group");
@@ -111,6 +111,20 @@ class ConnectPoint extends Component {
       oConn.deleteLine(lineId);
     }
     callfunc(onDragStart, [false]);
+  };
+
+  handleEl = (el) => {
+    if (el) {
+      this.dnd = el;
+    }
+  };
+
+  handleMouseEnter = () => {
+    this.setState({ isHover: true });
+  };
+
+  handleMouseLeave = () => {
+    this.setState({ isHover: false });
   };
 
   setLine(id, type) {
@@ -179,6 +193,7 @@ class ConnectPoint extends Component {
 
   isShow() {
     let { show } = this.props;
+    const isHover = this.state.isHover;
     if (null == show) {
       if (this.state.start) {
         show = true;
@@ -188,14 +203,8 @@ class ConnectPoint extends Component {
         show = true;
       }
     }
-    return show;
+    return isHover || show;
   }
-
-  handleEl = (el) => {
-    if (el) {
-      this.dnd = el;
-    }
-  };
 
   constructor(props) {
     super(props);
@@ -259,6 +268,8 @@ class ConnectPoint extends Component {
     return (
       <DragAndDrop
         {...props}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         data-id={this.id}
         data-is-show={this.isShow()}
         onDragStart={this.handleDragStart}
