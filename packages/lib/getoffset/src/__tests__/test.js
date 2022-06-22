@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import getOffset from "../index.js";
+import getOffset from "../index";
 
 describe("Get Offset", () => {
   const html = `<div id="dom">unit</div>`;

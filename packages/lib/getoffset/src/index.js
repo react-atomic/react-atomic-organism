@@ -18,6 +18,11 @@ const mouse = (e, dom, scrollNode) => {
     return [svgX, svgY];
   } else {
     const domXY = getOffset(dom, scrollNode);
+    /**
+     * dom.clientLeft
+     *
+     * https://www.w3schools.com/jsref/prop_element_clientleft.asp
+     */
     return [x - domXY.left - dom.clientLeft, y - domXY.top - dom.clientTop];
   }
 };
@@ -114,6 +119,8 @@ const getOffset = (dom, scrollNode) => {
     bottom: top + h,
     left,
     rect,
+    x: left,
+    y: top,
   };
   return result;
 };
