@@ -16,4 +16,10 @@ describe("Test toMap", () => {
       b: "bar",
     });
   });
+
+  it("test with immutable map", () => {
+    const map = [{ toJS: () => "foo" }, { toJS: () => "bar" }];
+    const actual = toMap(map);
+    expect(actual).to.deep.equal({ 0: "foo", 1: "bar" });
+  });
 });

@@ -3,9 +3,13 @@ import get from "./get";
 import toJS from "./toJS";
 
 const toMap = (a, path) => {
-  const next = toJS(get(a, path, {}));
+  const next = get(a, path, {});
   const nextMap = {};
-  KEYS(next).forEach((key) => (nextMap[key] = toJS(next[key])));
+  if (next.forEach) {
+    next.forEach((v, k) => (nextMap[k] = toJS(v)));
+  } else {
+    KEYS(next).forEach((k) => (nextMap[k] = toJS(next[k])));
+  }
   return nextMap;
 };
 
