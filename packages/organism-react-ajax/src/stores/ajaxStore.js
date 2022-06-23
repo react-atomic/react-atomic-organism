@@ -1,4 +1,3 @@
-import "setimmediate";
 import { mergeMap, ImmutableStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
 import set from "set-object-value";
@@ -144,15 +143,13 @@ class handleAjax {
 
   worker(data) {
     if (isWorkerReady && fakeWorker) {
-      setImmediate(() => {
-        const disableWebWorker = get(data, [
-          "action",
-          "params",
-          "disableWebWorker",
-        ]);
-        const run = disableWebWorker ? fakeWorker : gWorker;
-        run.postMessage(data);
-      });
+      const disableWebWorker = get(data, [
+        "action",
+        "params",
+        "disableWebWorker",
+      ]);
+      const run = disableWebWorker ? fakeWorker : gWorker;
+      run.postMessage(data);
     } else {
       if (false === fakeWorker) {
         initFakeWorker(() => {
@@ -239,23 +236,21 @@ class handleAjax {
     if (!params.disableProgress) {
       state = this.start(state);
     }
-    setImmediate(() => {
-      const ajaxUrl = cookAjaxUrl(params, rawUrl, state.get("globalHeaders"));
-      if (!params.query) {
-        params.query = {};
-      }
-      if (!params.disableCacheBusting) {
-        params.query["--r"] = params.randomCacheBusting
-          ? getRandomId()
-          : Math.floor(getTimestamp() / 60000);
-      } else {
-        params.query["--r"] = state.get("staticVersion");
-      }
-      this.worker({
-        type: "ajaxGet",
-        url: ajaxUrl,
-        action: this.storeCallback(action),
-      });
+    const ajaxUrl = cookAjaxUrl(params, rawUrl, state.get("globalHeaders"));
+    if (!params.query) {
+      params.query = {};
+    }
+    if (!params.disableCacheBusting) {
+      params.query["--r"] = params.randomCacheBusting
+        ? getRandomId()
+        : Math.floor(getTimestamp() / 60000);
+    } else {
+      params.query["--r"] = state.get("staticVersion");
+    }
+    this.worker({
+      type: "ajaxGet",
+      url: ajaxUrl,
+      action: this.storeCallback(action),
     });
     return state;
   }
