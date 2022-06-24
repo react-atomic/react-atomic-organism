@@ -33,7 +33,7 @@ const HTMLToCanvas = forwardRef((props, ref) => {
       return;
     }
 
-    html2canvas(htmlEl || oIframe.getRoot(), {
+    return html2canvas(htmlEl || oIframe.getRoot(), {
       useCORS: true,
       logging: false,
     }).then((dCanvas) => {
