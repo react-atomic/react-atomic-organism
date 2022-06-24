@@ -71,6 +71,7 @@ workflows:
                 - "packages/organism-react-d3-piechart"
                 - "packages/organism-react-d3-uml"
                 - "packages/organism-react-graph"
+                - "packages/organism-react-html2canvas"
                 - "packages/organism-react-i13n"
                 - "packages/organism-react-iframe"
                 - "packages/organism-react-navigation"
