@@ -34,6 +34,7 @@ const useAjaxLink = (props) => {
     target,
     callback,
     errorCallback,
+    scrollBack,
     path,
     onClick,
     onTouchStart,
@@ -56,6 +57,7 @@ const useAjaxLink = (props) => {
         disableRandom,
         callback,
         errorCallback,
+        scrollBack,
       });
     },
     [href, callback, errorCallback, updateUrl, disableRandom, ajax]

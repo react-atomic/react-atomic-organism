@@ -230,6 +230,7 @@ class handleAjax {
         params: {
           json: handleUseNewUrl(state, action, rawUrl),
           disableAjax: params.disableAjax,
+          scrollBack: params.scrollBack,
         },
       });
     }
