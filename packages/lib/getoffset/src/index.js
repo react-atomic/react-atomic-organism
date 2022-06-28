@@ -110,17 +110,18 @@ const getOffset = (dom, scrollNode) => {
     }
   }
   const result = {
+    rect,
+    scrollInfo,
     w,
     h,
     width: w,
     height: h,
+    x: left,
+    y: top,
     top,
     right: left + w,
     bottom: top + h,
     left,
-    rect,
-    x: left,
-    y: top,
   };
   return result;
 };
