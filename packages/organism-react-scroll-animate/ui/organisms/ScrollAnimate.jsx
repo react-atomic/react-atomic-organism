@@ -1,105 +1,98 @@
-import React, { useReducer, useCallback } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { build } from "react-atomic-molecule";
 import Animate from "organism-react-animate";
-import {
-  ScrollSpy,
-  ScrollReceiver,
-  scrollStore,
-} from "organism-react-scroll-nav";
+import { ScrollInfo, scrollStore } from "organism-react-scroll-nav";
 import callfunc from "call-func";
 
-const initialState = { isShown: false };
-
-const reducer = (state, action) => {
-  state.isShown = action;
-  return state;
-};
-
-const Content = (props) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const useScrollContent = (props) => {
   const {
+    once = true,
+    isKeep = false,
+    minHeight = 155, //need great than browser minHeigh 150px
     children,
-    appear,
-    enter,
-    leave,
-    once,
-    isKeep,
-    minHeight,
     targetInfo,
     style,
-    monitorScroll,
     onEntered,
-    ...others
+    ...otherProps
   } = props;
   const { isShown, isOnScreen, targetId } = targetInfo;
-  if (once && state.isShown) {
-    const node = scrollStore.scroller.getNode(targetId);
-    if (node && !node.props.monitorScroll) {
-      node.detach();
-    }
+  const lastShown = useRef();
+  const lastOnScreen = useRef();
+  const lastOnScreenTimer = useRef();
+
+  const setLazyOnScreen = (val) => {
+    clearTimeout(lastOnScreenTimer.current);
+    lastOnScreenTimer.current = setTimeout(() => {
+      lastOnScreen.current = val;
+    }, 500);
+  };
+
+  if (isOnScreen && !lastOnScreen.current) {
+    lastOnScreen.current = true;
+  } else {
+    setLazyOnScreen(isOnScreen);
   }
-  let el = null;
-  const thisStyle = {};
-  if (isOnScreen || (once && isShown) || isKeep) {
+  useEffect(() => {
+    if (once && (lastShown.current || isShown)) {
+      const node = scrollStore.scroller.getNode(targetId);
+      if (node && !callfunc(node.getMonitorScroll)) {
+        node.detach();
+      }
+    }
+  }, [once, isShown, targetId]);
+
+  const handler = {
+    entered: useCallback(
+      (node, isAppear) => {
+        setTimeout(() => {
+          callfunc(onEntered, [node, isAppear]);
+          if (once && !lastShown.current) {
+            lastShown.current = true;
+          }
+        });
+      },
+      [once, onEntered]
+    ),
+  };
+
+  /*handle el*/
+  let el;
+  const thisStyle = { ...style };
+  if (lastOnScreen.current || (once && isShown) || isKeep) {
     el = build(children, { doCallFunction: true })();
   }
   if (!el) {
     thisStyle.minHeight = minHeight;
   }
-  const isIn = (el && !isShown) || (!once && !isOnScreen) ? false : true;
-  const thisOnEntered = useCallback(
-    (node, isAppear) => {
-      setTimeout(() => {
-        callfunc(onEntered, [node, isAppear]);
-        if (once) {
-          dispatch(true);
-        }
-      });
-    },
-    [once]
-  );
+  otherProps.in =
+    (el && !isShown) || (!once && !lastOnScreen.current) ? false : true;
+  return {
+    otherProps,
+    handler,
+    el,
+    style: thisStyle,
+  };
+};
+
+const ScrollContent = (props) => {
+  const { otherProps, handler, el, style } = useScrollContent(props);
+
   return (
-    <Animate
-      {...others}
-      style={{ ...thisStyle, ...style }}
-      appear={appear}
-      enter={enter}
-      leave={leave}
-      onEntered={thisOnEntered}
-      in={isIn}
-    >
+    <Animate {...otherProps} style={style} onEntered={handler.entered}>
       {el}
     </Animate>
   );
 };
 
 const ScrollAnimate = ({
-  appear,
-  enter,
-  leave,
-  once,
-  minHeight,
+  monitorScroll = false,
+  container = ScrollContent,
   children,
   ...others
 }) => (
-  <ScrollSpy {...others}>
-    <ScrollReceiver
-      appear={appear}
-      enter={enter}
-      leave={leave}
-      once={once}
-      minHeight={minHeight}
-    >
-      {children}
-    </ScrollReceiver>
-  </ScrollSpy>
+  <ScrollInfo {...others} monitorScroll={monitorScroll} container={container}>
+    {children}
+  </ScrollInfo>
 );
 
-ScrollAnimate.defaultProps = {
-  container: <Content />,
-  isKeep: false,
-  once: true,
-  monitorScroll: false,
-  minHeight: 155, //need great than browser minHeigh 150px
-};
 export default ScrollAnimate;

@@ -38,41 +38,42 @@ class Index extends Component {
     return (
       <div>
         <div style={Styles.row}>
-          <BlackCircle once={false} enter="fadeInRight-1000">
-            Fade in right
+          <BlackCircle key={0} once={false} enter="fadeInRight-1000">
+            0 Right
           </BlackCircle>
-          <WhiteCircle once={false} enter="fadeInLeft-1000">
-            Fade in left
+          <WhiteCircle key={1} once={false} enter="fadeInLeft-1000">
+            1 Left
           </WhiteCircle>
-          <BlackCircle once={false} enter="fadeInUp-1000">
-            Fade in up !!!
+          <BlackCircle key={2} once={false} enter="fadeInUp-1000">
+            2 Up
           </BlackCircle>
         </div>
         <div style={Styles.row}>
-          <BlackCircle once={true} enter="fadeInLeft-1000">
-            Fade in left (once)
+          <BlackCircle key={3} once={true} enter="fadeInLeft-1000">
+            3 Left (once)
           </BlackCircle>
-          <WhiteCircle once={false} enter="fadeInDown-1000">
-            Fade in down
+          <WhiteCircle key={4} once={false} enter="fadeInDown-1000">
+            4 Down
           </WhiteCircle>
-          <BlackCircle once={true} enter="fadeInRight-1000">
-            Right (once) 2
+          <BlackCircle key={5} once={true} enter="fadeInRight-1000">
+            5 Right (once)
           </BlackCircle>
         </div>
         <div style={Styles.row}>
           <BlackCircle
+            key={6}
             once={false}
             enter="fadeOutRight-1000"
             id="last"
             isKeep={true}
           >
-            Fade out right
+            6 Right (Keep)
           </BlackCircle>
-          <WhiteCircle once={false} enter="fadeOutUp-1000">
-            Fade out up
+          <WhiteCircle key={7} once={false} enter="fadeOutUp-1000">
+            7 Up
           </WhiteCircle>
-          <BlackCircle once={false} enter="fadeOutLeft-1000">
-            Out left 333
+          <BlackCircle key={8} once={false} enter="fadeOutLeft-1000">
+            8 Left 
           </BlackCircle>
         </div>
       </div>
