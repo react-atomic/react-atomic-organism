@@ -72,7 +72,6 @@ const AnimateGroup = (props) => {
     lazy = 150,
     className,
     onExited,
-    style,
     ...otherProps
   } = props;
   const [children, setChildren] = useState();
@@ -135,7 +134,12 @@ const AnimateGroup = (props) => {
     };
   }, [props.children]);
   return useMemo(() => {
-    otherProps.style = { overflow: "hidden", ...style };
+    /**
+     * Should not setup style={overflow:hidden} here,
+     * 
+     * for reduce animation effect.
+     * you could assign it by yourself.
+     */
     otherProps.className = mixClass(className, "animate-group-container");
     return build(component)(
       otherProps,
