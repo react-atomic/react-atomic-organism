@@ -25,6 +25,9 @@ const useDropdown = (props) => {
   const {
     icon = true,
     simple = true,
+    right,
+    upward,
+    item,
     list,
     listStyle: propsListStyle,
     titleStyle,
@@ -125,6 +128,14 @@ const useDropdown = (props) => {
     },
   };
 
+  others.className = mixClass(className, "dropdown", {
+    active: isActive.current,
+    simple,
+    right,
+    upward,
+    item,
+  });
+
   return {
     handler,
     others,
@@ -137,13 +148,10 @@ const useDropdown = (props) => {
     iconStyle,
 
     /* Classes */
-    className,
     textClassName,
 
     /* Status */
     hideList,
-    simple,
-    isActive,
 
     /* Component */
     children,
@@ -165,13 +173,10 @@ const Dropdown = (props) => {
     iconStyle,
 
     /* Classes */
-    className,
     textClassName,
 
     /* Status */
     hideList,
-    simple,
-    isActive,
 
     /* Component */
     children,
@@ -214,15 +219,10 @@ const Dropdown = (props) => {
       onTouchStart: handler.touchStart,
     });
   }
-  const classes = mixClass(className, "dropdown", {
-    active: isActive.current,
-    simple,
-  });
   return (
     <SemanticUI
       {...others}
       style={{ ...Styles.container, ...style }}
-      className={classes}
       refCb={handler.thisEl}
       onClick={handler.dropdownClick}
     >
@@ -240,6 +240,7 @@ const Styles = {
     border: "none",
     boxShadow: "none",
     minHeight: "auto",
+    boxSizing: "border-box",
   },
   label: {
     display: "inline-block",
@@ -285,6 +286,24 @@ const InjectStyles = {
     [
       ".ui.simple.dropdown.active>.menu",
       ".ui.simple.dropdown:hover>.menu",
+    ].join(","),
+  ],
+  /*https://github.com/fomantic/Fomantic-UI/pull/1209/files*/
+  fixMinHeight: [
+    {
+      boxSizing: "inherit",
+    },
+    ".ui.dropdown .menu>.item",
+  ],
+  /*upward*/
+  upward: [
+    {
+      top: "auto",
+    },
+    [
+      ".ui.simple.upward.dropdown .menu",
+      ".ui.simple.upward.active.dropdown>.menu",
+      ".ui.simple.upward.dropdown:hover>.menu",
     ].join(","),
   ],
 };
