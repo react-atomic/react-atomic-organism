@@ -20,7 +20,7 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
     setTimeout(() => {
       scrollNode[scrollKey] = to;
       cb();
-    });
+    }, 50);
     return false;
   }
   if (!duration) {
