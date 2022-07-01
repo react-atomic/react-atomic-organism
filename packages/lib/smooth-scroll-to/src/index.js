@@ -11,17 +11,21 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   scrollKey = scrollKey || "scrollTop";
   const scrollNode = getScrollNode(el);
   const cb = () => {
+    if (isRunning[scrollKey]) {
+      isRunning[scrollKey] = false;
+      callfunc(callback, [scrollNode]);
+    }
+  };
+  const cancel = () => {
     isRunning[scrollKey] = false;
-    callfunc(callback, [scrollNode]);
   };
 
   if (isRunning[scrollKey]) {
-    isRunning[scrollKey] = false;
     setTimeout(() => {
       scrollNode[scrollKey] = to;
       cb();
     }, 50);
-    return false;
+    return cancel;
   }
   if (!duration) {
     duration = 900;
@@ -29,7 +33,9 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   const from = scrollNode[scrollKey];
   const go = to - from;
   if (!go) {
-    return cb();
+    isRunning[scrollKey] = true;
+    cb();
+    return () => {};
   }
   aniTimer(
     {
@@ -46,6 +52,7 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
     duration
   );
   isRunning[scrollKey] = true;
+  return cancel;
 };
 
 export default smoothScrollTo;
