@@ -1,7 +1,7 @@
 import { doc, win } from "win-doc";
 import { UNDEFINED } from "reshow-constant";
 
-const lastScrollStore = {};
+const lastScrollStore = Object.create(null);
 let oDoc;
 let oWin;
 let isWebkit;
