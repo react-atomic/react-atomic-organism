@@ -2,7 +2,7 @@ import { getScrollNode } from "get-scroll-info";
 import callfunc from "call-func";
 import { easeInOutCubic, aniTimer } from "easing-lib";
 
-const isRunning = [];
+const isRunning = Object.create(null);
 
 /**
  *  !!Important!! any logic change need take care isRunning
