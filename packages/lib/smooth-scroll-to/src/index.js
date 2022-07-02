@@ -13,7 +13,7 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   const cb = () => {
     if (isRunning[scrollKey]) {
       isRunning[scrollKey] = false;
-      callfunc(callback, [scrollNode]);
+      callfunc(callback, [{ scrollNode, from, to, go }]);
     }
   };
   const cancel = () => {
@@ -24,7 +24,7 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
     setTimeout(() => {
       scrollNode[scrollKey] = to;
       cb();
-    }, 50);
+    });
     return cancel;
   }
   if (!duration) {
@@ -33,16 +33,14 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   const from = scrollNode[scrollKey];
   const go = to - from;
   if (!go) {
-    isRunning[scrollKey] = true;
-    cb();
     return () => {};
   }
   aniTimer(
     {
       isContinue: (elapsedTime) => {
-        const progress = easeInOutCubic(elapsedTime, from, go, duration);
-        scrollNode[scrollKey] = progress;
         if (isRunning[scrollKey]) {
+          const progress = easeInOutCubic(elapsedTime, from, go, duration);
+          scrollNode[scrollKey] = progress;
           return true;
         }
       },
