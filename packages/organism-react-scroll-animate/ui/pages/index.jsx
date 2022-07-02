@@ -73,7 +73,7 @@ class Index extends Component {
             7 Up
           </WhiteCircle>
           <BlackCircle key={8} once={false} enter="fadeOutLeft-1000">
-            8 Left 
+            8 Left
           </BlackCircle>
         </div>
       </div>

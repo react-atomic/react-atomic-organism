@@ -47,7 +47,7 @@ const HTMLToPDF = ({ downloadFileName = "html.pdf", ...props }, ref) => {
       doc.current = null;
       const multiEl = queryFrom(el).all("[data-pdf-page]");
       const arrEl = OBJ_SIZE(multiEl) ? multiEl : [el];
-      for (let i = 0, j = arrEl.length; i < j; i++ ) {
+      for (let i = 0, j = arrEl.length; i < j; i++) {
         await canvas?.current?.getCanvas(execDownload(i), arrEl[i]);
       }
       doc.current.save(downloadFileName);

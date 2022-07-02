@@ -136,7 +136,7 @@ const AnimateGroup = (props) => {
   return useMemo(() => {
     /**
      * Should not setup style={overflow:hidden} here,
-     * 
+     *
      * for reduce animation effect.
      * you could assign it by yourself.
      */
