@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkorganism_react_typing=self.webpackChunkorganism_react_typing||[]).push([[15],{66(c,a,b){b.r(a),b.d(a,{default:()=>d});let d={fadeOutDown:[[{opacity:1},{opacity:0,transform:["translate3d(0, 100%, 0)"]}],["@keyframes fadeOutDown","from","to"]]}}}])

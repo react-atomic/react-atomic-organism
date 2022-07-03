@@ -53,31 +53,25 @@ const getTypingNextWordAniClassName = (el, sec) => {
   return aniName;
 };
 
-const TypingItem = (props) => {
-  const { children, sec, ...others } = props;
+const TypingItem = ({ children, sec, ...restProps }) => {
   const [classes, setClasses] = useState();
   const lastClasses = useRef();
   const lastEl = useRef();
 
-  const handleEl = (el) => {
-    if (el) {
-      if (!lastEl.current || !lastEl.current.isSameNode(el)) {
-        lastEl.current = el;
-        const next = getTypingNextWordAniClassName(el, sec);
-        if (next && lastClasses.current !== next) {
-          lastClasses.current = next;
-          setClasses(next);
-        }
-      }
+  useEffect(() => {
+    const next = getTypingNextWordAniClassName(lastEl.current, sec);
+    if (next && lastClasses.current !== next) {
+      lastClasses.current = next;
+      setClasses(next);
     }
-  };
+  }, [lastEl.current, sec]);
 
   return (
-    <SemanticUI {...others} className="typing-item">
+    <SemanticUI {...restProps} className="typing-item">
       <SemanticUI
         className={classes}
         style={Styles.typingItemText}
-        refCb={handleEl}
+        refCb={lastEl}
       >
         {children}
       </SemanticUI>
@@ -87,7 +81,7 @@ const TypingItem = (props) => {
 };
 
 const useTyping = (props) => {
-  injects = useLazyInject(InjectStyles);
+  injects = useLazyInject(InjectStyles, injects);
   const {
     autoStart = true,
     sec = 2,
