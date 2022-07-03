@@ -94,8 +94,8 @@ const useDropdown = (props) => {
   };
 
   const handler = {
-    thisEl: (el) => (thisEl.current = el),
-    listEl: (el) => (listEl.current = el),
+    thisEl,
+    listEl,
     dropdownClick: (e) => {
       if (!isListClick.current) {
         if (!expose.isOpen()) {
