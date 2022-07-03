@@ -246,7 +246,6 @@ const Styles = {
     display: "inline-block",
   },
   list: {
-    marginTop: -1, //aviod not expected hover out
     boxSizing: "inherit",
     maxHeight: "50vh",
     overflow: "auto",
