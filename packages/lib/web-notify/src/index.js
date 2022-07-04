@@ -1,8 +1,7 @@
-"use strict";
-
+import { win, hasWin } from "win-doc";
+import { FUNCTION } from "reshow-constant";
 const PERMISSION_GRANTED = "granted";
 const PERMISSION_DENIED = "denied";
-let win;
 
 const getChromeVersion = () => {
   const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
@@ -19,7 +18,7 @@ const isSupport = () => {
       return false;
     }
   }
-  if ("Notification" in win) {
+  if ("Notification" in win()) {
     return true;
   } else {
     console.log("Not support Notification!");
@@ -31,7 +30,7 @@ const request = (grantedCallback, deniedCallback) => {
   if (!isSupport()) {
     return false;
   }
-  if (typeof deniedCallback !== "function") {
+  if (typeof deniedCallback !== FUNCTION) {
     deniedCallback = (permission) => {
       console.error("Permission denied. [" + permission + "]");
     };
@@ -48,18 +47,17 @@ const request = (grantedCallback, deniedCallback) => {
   });
 };
 
-const notify = (text, params, callback) => {
-  request((permission) => {
+const notify = (text, params, callback, reqPermission = request) => {
+  reqPermission((permission) => {
     const notification = new Notification(text, params);
-    if (typeof callback === "function") {
+    if (typeof callback === FUNCTION) {
       callback(notification, permission);
     }
   });
 };
 
-if ("undefined" !== typeof window) {
-  win = window;
-  win.webNotify = notify;
+if (hasWin()) {
+  win().webNotify = notify;
 }
 
 export default notify;
