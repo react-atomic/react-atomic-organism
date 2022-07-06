@@ -9,7 +9,7 @@ const VolumesAttrsLocator = (openLocator) => (closeLocator) => (d) => {
   const className = mixClass({
     positive: close > open,
     negative: close < open,
-    neutral: close === open,
+    neutral: close === open || null == close || null == open,
   });
   return { className };
 };
