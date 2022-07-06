@@ -3,6 +3,15 @@ import Iframe from "organism-react-iframe";
 import callfunc from "call-func";
 import getAsset from "../../src/getAsset";
 
+/**
+ * https://html2canvas.hertzen.com/configuration
+ */
+const DEFAULT_OPTIONS = {
+  allowTaint: true,
+  useCORS: true,
+  logging: false,
+};
+
 const initialContent = (jsArr) => `<!DOCTYPE html>
 <html>
 <body>
@@ -25,7 +34,7 @@ const HTMLToCanvas = forwardRef((props, ref) => {
   const preview = useRef();
   const _timer = useRef();
 
-  const getCanvas = (canvasCallback, htmlEl) => {
+  const getCanvas = (canvasCallback, htmlEl, options = DEFAULT_OPTIONS) => {
     const oIframe = iframe.current;
     const oIframwWindow = oIframe?.getWindow();
     const html2canvas = oIframwWindow?.html2canvas;
@@ -33,10 +42,7 @@ const HTMLToCanvas = forwardRef((props, ref) => {
       return;
     }
 
-    return html2canvas(htmlEl || oIframe.getRoot(), {
-      useCORS: true,
-      logging: false,
-    }).then((dCanvas) => {
+    return html2canvas(htmlEl || oIframe.getRoot(), options).then((dCanvas) => {
       callfunc(canvasCallback, [
         {
           iframe: oIframe,
