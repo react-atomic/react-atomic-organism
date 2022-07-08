@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "name": "object-nested",
   "repository": {
     "type": "git",
@@ -9,15 +9,10 @@
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/object-nested",
   "description": "Translate flattened object to nested",
   "keywords": [],
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.mjs",
-  "exports": {
-    "require": "./build/cjs/src/index.js",
-    "import": "./build/es/src/index.mjs"
-  },
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "reshow-runtime": "*",
     "reshow-constant": "*",
     "set-object-value": "*"
   },
@@ -26,6 +21,12 @@
     "chai": "*",
     "mocha": "*"
   },
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
