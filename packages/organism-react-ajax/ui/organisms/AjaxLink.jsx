@@ -44,7 +44,12 @@ const useAjaxLink = (props) => {
   const isAlreadyTouchStart = useRef(false);
   const [href, setHref] = useState(propsHref);
   useEffect(() => {
-    setHref(getHref({ href: propsHref, path }));
+    const nextHref = getHref({ href: propsHref, path });
+    if (href && (!nextHref || "#" === nextHref)) {
+      return;
+    } else {
+      setHref(nextHref);
+    }
   }, [propsHref, path]);
 
   const go = useCallback(
@@ -95,6 +100,7 @@ const useAjaxLink = (props) => {
          *  becaue it maybe change with callback
          */
         go(e.currentTarget.href);
+        setHref(e.currentTarget.href);
       }
     },
     [target, href]
