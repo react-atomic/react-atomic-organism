@@ -1,5 +1,5 @@
 {
-  "version": "0.2.7",
+  "version": "0.3.0",
   "name": "call-func",
   "repository": {
     "type": "git",
@@ -15,7 +15,6 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "css-query-selector": "*",
     "reshow-constant": "*"
   },
   "devDependencies": {
