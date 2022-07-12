@@ -2,7 +2,6 @@ import React, {
   useImperativeHandle,
   useRef,
   useCallback,
-  useEffect,
   useMemo,
   useState,
   forwardRef,
@@ -22,9 +21,9 @@ const useDragAndDrop = (props) => {
   const thisEl = useRef();
   const [isDraging, setIsDraging] = useState(false);
 
-  useEffect(() => {
+  if (lastProps.current !== props) {
     lastProps.current = props;
-  }, [props]);
+  }
 
   const expose = {
     getEl: () => thisEl.current,
