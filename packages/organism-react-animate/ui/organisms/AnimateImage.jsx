@@ -1,44 +1,30 @@
-import {
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Image } from "react-atomic-molecule";
 import { win } from "win-doc";
 import { useMounted } from "reshow-hooks";
 
 import Change from "../organisms/Change";
 
-const AnimateImageComp = (props, ref) => {
-  const { src, animate, ...otherProps } = props;
+const AnimateImage = (props) => {
+  const {
+    src,
+    animate = {
+      enter: "fadeIn-300",
+      leave: "fadeOut-300",
+    },
+    ...restProps
+  } = props;
   const [image, setImage] = useState();
-
   const _mount = useMounted();
-  const oImg = useRef();
-
-  useImperativeHandle(
-    ref,
-    () => ({
-      getImageObject: () => oImg.current,
-    }),
-    []
-  );
 
   useEffect(() => {
-    const oWin = win();
-    if (!oWin) {
-      return null;
-    }
-    oImg.current = new oWin.Image();
-    oImg.current.onload = () => {
+    const oImg = new win().Image();
+    oImg.onload = () => {
       if (_mount()) {
-        setImage(<Image key={src} src={src} {...otherProps} />);
+        setImage(<Image key={src} src={src} {...restProps} />);
       }
     };
-    oImg.current.src = src;
+    oImg.src = src;
   }, [src]);
 
   return useMemo(
@@ -49,17 +35,6 @@ const AnimateImageComp = (props, ref) => {
     ),
     [image, animate]
   );
-};
-
-const AnimateImage = forwardRef(AnimateImageComp);
-
-AnimateImage.displayName = "AnimateImage";
-
-AnimateImage.defaultProps = {
-  animate: {
-    enter: "fadeIn-300",
-    leave: "fadeOut-300",
-  },
 };
 
 export default AnimateImage;

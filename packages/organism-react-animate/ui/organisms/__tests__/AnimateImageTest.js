@@ -21,14 +21,7 @@ describe("Test Animate Image", () => {
 
   it("basic test", async () => {
     const VDom = (props) => {
-      const ref = useRef();
-
-      useEffect(() => {
-        const oImg = ref.current.getImageObject();
-        oImg.onload();
-      });
-
-      return <AnimateImage ref={ref} src="http://localhost/xxx.png" />;
+      return <AnimateImage src="http://localhost/xxx.png" />;
     };
     const wrap = render(<VDom />);
     await waitFor(() => {
