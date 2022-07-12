@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useRef, useState, useMemo } from "react";
 import callfunc from "call-func";
-import { useMounted } from "reshow-hooks";
+import { useMounted, usePrevious } from "reshow-hooks";
 import Animate from "../organisms/Animate";
 
 const Change = (props) => {
@@ -13,13 +13,14 @@ const Change = (props) => {
   } = props;
   const [children, setChildren] = useState(propsChildren);
   const _mount = useMounted();
-  const nextChildren = useRef(propsChildren);
+  const scheduleChildren = useRef();
   const isRunning = useRef(false);
   const nextCall = useRef(false);
+  const prevPropsChildren = usePrevious(propsChildren);
 
   const handleExited = (node, isAppear) => {
-    if (_mount() && nextChildren.current) {
-      setChildren(nextChildren.current);
+    if (_mount() && scheduleChildren.current) {
+      setChildren(scheduleChildren.current);
       callfunc(onExited, [node, isAppear]);
     }
   };
@@ -27,38 +28,35 @@ const Change = (props) => {
   const handleEntered = (node, isAppear) => {
     isRunning.current = false;
     if (_mount()) {
-      if (nextCall.current) {
-        callfunc(nextCall.current);
-      }
+      callfunc(nextCall.current);
       callfunc(onEntered, [node, isAppear]);
     }
   };
 
-  useEffect(() => {
-    const setNext = (willChild) => {
-      const reset = () => {
-        nextCall.current = () => setNext(willChild);
-      };
-      if (
-        nextChildren.current !== willChild &&
-        !keyEqualer(children, willChild)
-      ) {
-        if (willChild && !isRunning.current) {
-          nextChildren.current = willChild;
-          nextCall.current = false;
-          children ? setChildren(null) : setChildren(willChild);
-          isRunning.current = true;
-        } else {
-          reset();
-        }
+  const setNext = (nextChild) => {
+    const reset = () => {
+      nextCall.current = () => setNext(nextChild);
+    };
+    if (
+      scheduleChildren.current !== nextChild &&
+      !keyEqualer(children, nextChild)
+    ) {
+      if (nextChild && !isRunning.current) {
+        scheduleChildren.current = nextChild;
+        nextCall.current = false;
+        children ? setChildren(null) : setChildren(nextChild);
+        isRunning.current = true;
       } else {
         reset();
       }
-    };
-    setNext(propsChildren);
+    } else {
+      reset();
+    }
+  };
 
-    return () => {};
-  }, [propsChildren]);
+  if (prevPropsChildren !== propsChildren) {
+    setNext(propsChildren);
+  }
 
   return useMemo(
     () => (
