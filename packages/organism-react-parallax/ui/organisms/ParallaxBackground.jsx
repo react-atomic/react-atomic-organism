@@ -6,9 +6,11 @@ import getOffset from "getoffset";
 import merge from "array.merge";
 import { win } from "win-doc";
 import callfunc from "call-func";
+import { usePrevious, useSyncChange } from "reshow-hooks";
 
-const calOffset = ({ el, speed, targetInfo, scrollInfo }) => {
+const calOffset = ({ lastEl, speed, targetInfo, scrollInfo }) => {
   let elOffset;
+  const el = lastEl.current;
   if (el) {
     elOffset = getOffset(el);
   } else {
@@ -23,20 +25,9 @@ const calOffset = ({ el, speed, targetInfo, scrollInfo }) => {
   return posY;
 };
 
-const handleScrollAni = (nextY, setPosY) => {
-  const runScrollAni = (timeStamp) => {
-    setPosY((prevPosY) => {
-      return {
-        val: nextY,
-      };
-    });
-  };
-  runScrollAni();
-};
-
 const useParallax = (props) => {
   const {
-    refCb,
+    refCb, // pass from ScrollInfo (ScrollSpy)
     speed,
     style,
     styles: propStyles,
@@ -54,24 +45,24 @@ const useParallax = (props) => {
   } = targetInfo || {};
 
   const { top: scrollInfoTop, scrollNodeHeight } = scrollInfo || {};
+  const prevScrollInfoTop = usePrevious(scrollInfoTop);
 
   const [posY, setPosY] = useState({ val: 0 });
   const lastCalData = useRef({});
 
-  useEffect(() => {
+  if (!isNaN(scrollInfoTop) && prevScrollInfoTop !== scrollInfoTop) {
     lastCalData.current = {
       ...lastCalData.current,
+      lastEl: refCb,
       speed,
       targetInfo,
       scrollInfo,
     };
-    if (!isNaN(scrollInfoTop)) {
-      const nextY = calOffset(lastCalData.current);
-      if (!isNaN(nextY)) {
-        handleScrollAni(nextY, setPosY);
-      }
+    const nextY = calOffset(lastCalData.current);
+    if (!isNaN(nextY)) {
+      setPosY({val: nextY});
     }
-  }, [isOnScreen, targetInfoTop, targetInfoH, scrollInfoTop, scrollNodeHeight]);
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -79,19 +70,15 @@ const useParallax = (props) => {
       const nextY = calOffset(lastCalData.current);
       setPosY({ val: nextY });
     };
-    callfunc(win().addEventListener, ["resize", handleResize]);
+    const oWin = win();
+    oWin.addEventListener("resize", handleResize);
     return () => {
-      callfunc(win().removeEventListener, ["resize", handleResize]);
+      oWin.removeEventListener("resize", handleResize);
     };
   }, []);
 
   const handler = {
-    el: (el) => {
-      if (el) {
-        refCb(el);
-        lastCalData.current.el = el;
-      }
-    },
+    el: refCb,
   };
 
   const styles = useMemo(() => {
