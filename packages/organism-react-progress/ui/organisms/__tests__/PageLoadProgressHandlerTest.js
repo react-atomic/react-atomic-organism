@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { expect } from "chai";
-import { render, act, waitFor } from "reshow-unit";
+import { render, waitFor } from "reshow-unit";
 
 import { PopupPool } from "organism-react-popup";
 import PageLoadProgressHandler from "../PageLoadProgressHandler";
@@ -21,9 +21,7 @@ describe("Test PageLoadProgressHandler", () => {
     };
     const wrap = render(<VDom />);
     await waitFor(() => {
-      act(() => {
-        expect(wrap.html()).to.have.string("PageLoadProgress");
-      });
+      expect(wrap.html()).to.have.string("PageLoadProgress");
     });
   });
 });

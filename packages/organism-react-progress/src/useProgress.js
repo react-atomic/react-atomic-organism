@@ -1,18 +1,13 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useState, useRef, useMemo, useCallback } from "react";
 
-import { useTimer } from "reshow-hooks";
+import { useTimer, useSyncChange, useSyncState } from "reshow-hooks";
 
 const useProgress = (propsDelay, propsPercent) => {
   propsDelay = propsDelay ?? 200;
-  const [percent, setPercent] = useState(() => propsPercent ?? 0);
+  propsPercent = propsPercent ?? 0;
+  const [percent, setPercent, lastPercent] = useSyncState(propsPercent);
+  useSyncChange(propsPercent, setPercent);
   const [opacity, setOpacity] = useState(0);
-  const lastPercent = useRef(0);
 
   const [runTick, stopTick] = useTimer(true);
   const [runComplete, stopComplete] = useTimer();
@@ -23,7 +18,7 @@ const useProgress = (propsDelay, propsPercent) => {
     if (!goToPercent || goToPercent > 100) {
       goToPercent = 100;
     }
-    let end = lastPercent.current + 5;
+    let end = lastPercent() + 5;
     if (end >= goToPercent) {
       end = goToPercent;
       expose.pause();
@@ -36,16 +31,6 @@ const useProgress = (propsDelay, propsPercent) => {
       runOpacity(() => setOpacity(1));
     }
   };
-
-  useEffect(() => {
-    lastPercent.current = percent;
-  }, [percent]);
-
-  useEffect(() => {
-    if (null != propsPercent) {
-      setPercent(propsPercent);
-    }
-  }, [propsPercent]);
 
   const expose = {
     complete: () => {
