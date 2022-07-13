@@ -10,7 +10,7 @@ const debounce = (func, defaultDelay) => {
     clearTimeout(timer);
     timer = setTimeout(
       () => callfunc(func, args, scope),
-      defaultDelay || delay
+      defaultDelay ?? delay
     );
   };
 };
