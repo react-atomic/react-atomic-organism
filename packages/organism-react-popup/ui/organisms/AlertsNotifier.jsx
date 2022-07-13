@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import { getSN } from "get-random-id";
-import { useTimer } from "reshow-hooks";
+import { useTimer, usePrevious } from "reshow-hooks";
 import Animate from "organism-react-animate";
 import XIcon from "ricon/X";
 import { build, Message } from "react-atomic-molecule";
@@ -76,11 +76,11 @@ const AlertsNotifier = (props) => {
     alerts,
     onDismiss,
   } = props || {};
+  const prevAlerts = usePrevious(props.alerts);
   const [dismissedAlerts, setDismissedAlerts] = useState({});
   const [alertArr, setAlertArr] = useState([]);
-  useEffect(() => {
-    const nextAlertArr = [];
-    (alerts || []).forEach((item, key) => {
+  if (prevAlerts !== props.alerts) {
+    const nextAlertArr = (alerts || []).map((item) => {
       const thisItem = "string" === typeof item ? { message: item } : item;
       if (-1 === messageTypes.indexOf(thisItem.type)) {
         thisItem.type = "info";
@@ -88,21 +88,21 @@ const AlertsNotifier = (props) => {
       if (!thisItem.id) {
         thisItem.id = getSN("alert");
       }
-      nextAlertArr.push(thisItem);
+      return thisItem;
     });
     setAlertArr(nextAlertArr);
-  }, [props]);
-  const handleDismiss = (e) => {
-    const isContinue = callfunc(onDismiss, [e]);
-    if (false !== isContinue) {
-      // if no callback for dismissal, just update our state
-      setDismissedAlerts((dismissedAlerts) => {
-        dismissedAlerts[e.data.id] = e.data;
-        return { ...dismissedAlerts };
-      });
-    }
-  };
+  }
   return useMemo(() => {
+    const handleDismiss = (e) => {
+      const isContinue = callfunc(onDismiss, [e]);
+      if (false !== isContinue) {
+        // if no callback for dismissal, just update our state
+        setDismissedAlerts((dismissedAlerts) => {
+          dismissedAlerts[e.data.id] = e.data;
+          return { ...dismissedAlerts };
+        });
+      }
+    };
     const positionStyle = {};
     if ("top" === position) {
       positionStyle.top = 5;
