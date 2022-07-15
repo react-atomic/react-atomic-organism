@@ -1,4 +1,3 @@
-import "setimmediate";
 import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Return } from "reshow";
 import { SemanticUI, Unsafe } from "react-atomic-molecule";
@@ -8,12 +7,12 @@ import get from "get-object-value";
 import { win } from "win-doc";
 import windowOnload from "window-onload";
 import { getTimestamp } from "get-random-id";
+import { usePrevious } from "reshow-hooks";
 
 import i13nStore from "../../src/stores/i13nStore";
 import { i13nDispatch } from "../../src/index";
 
 const [process, close] = windowOnload();
-const keys = Object.keys;
 const urlDecode = decodeURIComponent;
 
 const MonitorPvidContainer = (props) => {
@@ -31,31 +30,24 @@ const MonitorPvidContainer = (props) => {
   );
 };
 
-const MonitorBrowserBFContainer = (props) => {
-  const toggleBfChange = useRef();
+const MonitorBrowserBFContainer = ({
+  bfApplyUrl: nextBfApplyUrl,
+  toggleBfChange: nextToggleBfChange,
+}) => {
+  const prevToggleBfChange = usePrevious(nextToggleBfChange);
   const bfApplyUrl = useRef();
-  return (
-    <Return initStates={["bfApplyUrl", "toggleBfChange"]} store={ajaxStore}>
-      {({ bfApplyUrl: nextBfApplyUrl, toggleBfChange: nextToggleBfChange }) => {
-        if (toggleBfChange.current !== nextToggleBfChange) {
-          toggleBfChange.current = nextToggleBfChange;
-          setImmediate(() => {
-            const i13nState = i13nStore.getState();
-            i13nDispatch("action", {
-              I13N: {
-                action: "bfChange",
-                before: urlDecode(get(i13nState.get("lastUrl"), null, "")),
-                after: urlDecode(nextBfApplyUrl),
-                last: urlDecode(get(bfApplyUrl.current, null, "")),
-              },
-            });
-            bfApplyUrl.current = nextBfApplyUrl;
-          });
-        }
-        return null;
-      }}
-    </Return>
-  );
+  if (prevToggleBfChange !== nextToggleBfChange) {
+    i13nDispatch("action", {
+      I13N: {
+        action: "bfChange",
+        before: urlDecode(get(i13nStore.getState().get("lastUrl"), null, "")),
+        after: urlDecode(nextBfApplyUrl),
+        last: urlDecode(get(bfApplyUrl.current, null, "")),
+      },
+    });
+    bfApplyUrl.current = nextBfApplyUrl;
+  }
+  return null;
 };
 
 const handleIframe = (iframe) => {
@@ -117,7 +109,9 @@ const I13nElement = (props) => {
           }}
         </Return>
         <MonitorPvidContainer />
-        <MonitorBrowserBFContainer />
+        <Return initStates={["bfApplyUrl", "toggleBfChange"]} store={ajaxStore}>
+          <MonitorBrowserBFContainer />
+        </Return>
         {dIframe}
       </SemanticUI>
     );

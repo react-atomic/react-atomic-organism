@@ -1,5 +1,5 @@
 {
-  "version": "0.16.0",
+  "version": "0.16.1",
   "name": "organism-react-i13n",
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
     "i13n": "*",
     "organism-react-ajax": "*",
     "organism-react-iframe": "*",
-    "reshow": "*",
     "react-atomic-molecule": "*",
+    "reshow": "*",
     "reshow-runtime": "*",
     "win-doc": "*",
     "window-onload": "*"
