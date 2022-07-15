@@ -1,4 +1,5 @@
 import {
+  build,
   min,
   mixClass,
   mergeStyleConfig,
@@ -257,11 +258,11 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
         style={{ ...Styles.container, ...style }}
       >
         <SemanticUI className="doc-body" style={Styles.docBody}>
-          {body}
-          {footer}
+          {body && build(body)()}
+          {footer && build(footer)()}
         </SemanticUI>
-        {menu}
-        {right}
+        {menu && build(menu)()}
+        {right && build(right)()}
       </SemanticUI>
     );
   };
