@@ -20,7 +20,7 @@ const AnimateImage = (props) => {
   useEffect(() => {
     const oImg = new (win().Image)();
     oImg.onload = () => {
-      if (_mount()) {
+      if (false !== _mount()) {
         setImage(<Image key={src} src={src} {...restProps} />);
       }
     };

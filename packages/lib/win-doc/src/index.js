@@ -3,8 +3,8 @@ import { UNDEFINED } from "reshow-constant";
 const defaultObj = { __null: true };
 
 const doc = (w, def) => {
-  w = w || win();
-  return UNDEFINED !== typeof w.document ? w.document : def || defaultObj;
+  const oDoc = (w || win()).document;
+  return UNDEFINED !== typeof oDoc ? oDoc : def || defaultObj;
 };
 
 const hasWin = (key) => !win()[key || "__null"];
