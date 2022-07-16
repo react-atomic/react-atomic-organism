@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   build,
   min,
@@ -242,34 +243,57 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
   }
 
   const DocTemplate = ({
-    className,
+    className = "basic",
+    id = docId,
     menu,
     right,
     body,
     footer,
     style,
-    ...others
+    ...restProps
   }) => {
     injects = useLazyInject(InjectStyles, injects);
-    return (
-      <SemanticUI
-        {...others}
-        className={mixClass(className, containerClass)}
-        style={{ ...Styles.container, ...style }}
-      >
-        <SemanticUI className="doc-body" style={Styles.docBody}>
-          {body && build(body)()}
-          {footer && build(footer)()}
-        </SemanticUI>
-        {menu && build(menu)()}
-        {right && build(right)()}
-      </SemanticUI>
+    const thisBody = useMemo(
+      () => (body ? build(body)({ key: "body" }) : null),
+      [body]
     );
-  };
+    const thisFooter = useMemo(
+      () => (footer ? build(footer)({ key: "footer" }) : null),
+      [footer]
+    );
+    const thisMenu = useMemo(
+      () => (menu ? build(menu)({ key: "menu" }) : null),
+      [menu]
+    );
+    const thisRight = useMemo(
+      () => (right ? build(right)({ key: "right" }) : null),
+      [right]
+    );
+    const thisStyle = useMemo(
+      () => ({ ...Styles.container, ...style }),
+      [style]
+    );
 
-  DocTemplate.defaultProps = {
-    className: "basic",
-    id: docId,
+    return build(SemanticUI)(
+      {
+        ...restProps,
+        className: mixClass(className, containerClass),
+        style: thisStyle,
+        id,
+      },
+      [
+        build(SemanticUI)(
+          {
+            key: "doc-body",
+            className: "doc-body",
+            style: Styles.docBody,
+          },
+          [thisBody, thisFooter]
+        ),
+        thisMenu,
+        thisRight,
+      ]
+    );
   };
 
   return DocTemplate;
