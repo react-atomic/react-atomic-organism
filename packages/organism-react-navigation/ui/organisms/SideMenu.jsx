@@ -9,7 +9,7 @@ import {
 } from "react-atomic-molecule";
 import { useStore } from "reshow-flux";
 import Hamburger from "ricon/HamburgerToArrow";
-import get from "get-object-value";
+import { toJS } from "get-object-value";
 import { hasClass, removeClass } from "class-lib";
 import { queryOne } from "css-query-selector";
 import getOffset from "getoffset";
@@ -45,9 +45,9 @@ const SideMenuItem = (props) => {
   const { buildComp, className, name, text, type, ...others } = props;
   const lastV = useRef();
   const active = useStore(navigationStore, (emit = {}) => {
-    const { state, notify } = emit.current || {};
-    if (state) {
-      const { activeMenu } = get(state.get(type));
+    const { storeState, notify } = emit.current || {};
+    if (emit.current) {
+      const { activeMenu } = storeState.get(type);
       if (name !== activeMenu && lastV.current) {
         emit.current.state = false;
         notify();
@@ -56,6 +56,8 @@ const SideMenuItem = (props) => {
         notify();
         lastV.current = true;
       }
+    } else {
+      return false;
     }
   });
   const classes = mixClass(className, "item", { active });
@@ -118,15 +120,17 @@ const SideMenuContainer = ({
   shrink,
 }) => {
   const on = useStore(navigationStore, (emit = {}) => {
-    const { state, notify } = emit.current || {};
-    if (state) {
-      const { on } = get(state.get(type));
+    const { storeState, notify } = emit.current || {};
+    if (emit.current) {
+      const { on } = storeState.get(type);
       if (lastOn.current !== on) {
         emit.current.state = on;
         notify();
         lastOn.current = on;
         updateRoot(on);
       }
+    } else {
+      return lastOn.current;
     }
   });
   const isInit = null == on;
@@ -252,10 +256,15 @@ const useSideMenu = (props) => {
     [type, onSwitch]
   );
 
-  return {
-    menus,
-    menuOrder,
+  const menuItems = getMenuByArray(handleSwitch())(
+    toJS(menus),
     linkComponent,
+    type,
+    toJS(menuOrder)
+  );
+
+  return {
+    menuItems,
     component,
     type,
     handleSwitch,
@@ -273,9 +282,7 @@ const useSideMenu = (props) => {
 
 const SideMenu = (props) => {
   const {
-    menus,
-    menuOrder,
-    linkComponent,
+    menuItems,
     component,
     type,
     handleSwitch,
@@ -289,12 +296,6 @@ const SideMenu = (props) => {
     shrink,
     others,
   } = useSideMenu(props);
-  const menuItems = getMenuByArray(handleSwitch())(
-    get(menus),
-    linkComponent,
-    type,
-    get(menuOrder)
-  );
   const menuElement = build(component)(others, menuItems);
   return (
     <SideMenuContainer
