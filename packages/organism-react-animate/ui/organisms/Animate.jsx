@@ -1,18 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import { reactStyle } from "react-atomic-molecule";
-import { doc } from "win-doc";
 import { useMounted } from "reshow-hooks";
+import { NEW_OBJ } from "reshow-constant";
 import getKeyframe from "keyframe-css";
 import { initMap } from "get-object-value";
 
 import AnimateGroup from "../organisms/AnimateGroup";
 
-const inject = {};
-const injectDone = {};
-const injectCb = {};
+const inject = NEW_OBJ();
+const injectDone = NEW_OBJ();
+const injectCb = NEW_OBJ();
 const init = (key, ani, timeout, callback) => {
   injectDone[ani] ? callback() : initMap(injectCb)(ani, []).push(callback);
-  if (inject[key] || doc().__null) {
+  if (inject[key]) {
     return;
   }
   const buildAniStyle = () => {
