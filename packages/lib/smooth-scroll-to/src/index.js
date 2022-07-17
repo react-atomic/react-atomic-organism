@@ -1,8 +1,9 @@
 import { getScrollNode } from "get-scroll-info";
 import callfunc from "call-func";
 import { easeInOutCubic, aniTimer } from "easing-lib";
+import { NEW_OBJ } from "reshow-constant";
 
-const isRunning = Object.create(null);
+const isRunning = NEW_OBJ();
 
 /**
  *  !!Important!! any logic change need take care isRunning
@@ -12,16 +13,18 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   const scrollNode = getScrollNode(el);
   const cb = () => {
     if (isRunning[scrollKey]) {
-      isRunning[scrollKey] = false;
+      cancel();
       callfunc(callback, [{ scrollNode, from, to, go }]);
     }
   };
   const cancel = () => {
+    clearTimeout(isRunning[scrollKey]);
     isRunning[scrollKey] = false;
   };
 
   if (isRunning[scrollKey]) {
-    setTimeout(() => {
+    clearTimeout(isRunning[scrollKey]);
+    isRunning[scrollKey] = setTimeout(() => {
       scrollNode[scrollKey] = to;
       cb();
     });
