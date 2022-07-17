@@ -3432,9 +3432,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "4.3.7"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-4.3.7.tgz#61dffc77b43fc7114d893c7aa2b496e56cd8af86"
-  integrity sha512-LLJbH8fdCiAeHGTT1gbhQcLQP2Q+IeA3ZVEwzNR0tOpdLTpYjOfzg4qFUqssa1xPi/qtZ3rtiZXzcPr/JNiP9Q==
+  version "4.3.8"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-4.3.8.tgz#2f6758dc2d9d90b93659cb51e645dcf585d78677"
+  integrity sha512-ev3EEQx3zV3tU3UpOPBM2bDuWcBdkuuTR7tVfS7UkxQd8QkI5h0Ea23jJMl0olu+z9ajz3QxPKR+tizq3q+PVw==
   dependencies:
     array.merge "*"
     call-func "*"

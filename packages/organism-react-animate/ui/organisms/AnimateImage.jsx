@@ -14,14 +14,20 @@ const AnimateImage = (props) => {
     },
     ...restProps
   } = props;
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(() => <Image src={src} {...restProps} />);
   const _mount = useMounted();
 
   useEffect(() => {
     const oImg = new (win().Image)();
     oImg.onload = () => {
       if (false !== _mount()) {
-        setImage(<Image key={src} src={src} {...restProps} />);
+        setImage(<Image src={src} {...restProps} />);
+      }
+    };
+    oImg.onerror = () => {
+      console.warn(`Get image failed. [${src}]`);
+      if (false !== _mount()) {
+        setImage(null);
       }
     };
     oImg.src = src;
