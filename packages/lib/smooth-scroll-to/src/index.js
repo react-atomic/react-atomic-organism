@@ -12,8 +12,8 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   scrollKey = scrollKey || "scrollTop";
   const scrollNode = getScrollNode(el);
   const cb = () => {
+    cancel();
     if (isRunning[scrollKey]) {
-      cancel();
       callfunc(callback, [{ scrollNode, from, to, go }]);
     }
   };
