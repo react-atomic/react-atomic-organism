@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { reactStyle } from "react-atomic-molecule";
+import { build, reactStyle } from "react-atomic-molecule";
 import { useMounted } from "reshow-hooks";
 import { NEW_OBJ } from "reshow-constant";
 import getKeyframe from "keyframe-css";
@@ -62,7 +62,7 @@ const parseAniValue = (s) => {
 };
 
 const Animate = (props) => {
-  const { appear, enter, leave, ...others } = props;
+  const { appear, enter, leave, ...restProps } = props;
   const [isLoad, setIsLoad] = useState(false);
   const [aniConf, setAniConf] = useState({});
   const lastRun = useRef([]);
@@ -115,6 +115,7 @@ const Animate = (props) => {
     setAniConf(that);
   }, [appear, enter, leave]);
 
+  restProps.isLoad = isLoad;
   return isLoad ? (
     <AnimateGroup
       timeout={{
@@ -135,9 +136,11 @@ const Animate = (props) => {
       appear={!!appear}
       enter={!!enter}
       exit={!!leave}
-      {...others}
+      {...restProps}
     />
-  ) : null;
+  ) : (
+    build(AnimateGroup)(restProps)
+  );
 };
 
 export default Animate;

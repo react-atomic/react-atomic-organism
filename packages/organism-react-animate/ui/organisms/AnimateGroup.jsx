@@ -67,39 +67,40 @@ const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = (props) => {
   const {
+    isLoad = true,
     statusKey = dataStatusKey,
     component = SemanticUI,
     lazy = 150,
+    children: propsChildren,
     className,
     onExited,
-    ...otherProps
+    ...restProps
   } = props;
   const [children, setChildren] = useState();
   const _mount = useMounted();
-  const aniProps = getAniProps(otherProps, true);
-  KEYS(aniProps).forEach((key) => delete otherProps[key]);
   injects[statusKey] = useLazyInject(
     InjectStyles({ statusKey }),
     injects[statusKey]
   );
+  const aniProps = getAniProps(restProps, true);
+  KEYS(aniProps).forEach((key) => delete restProps[key]);
   useEffect(() => {
     let _exitTimeout;
     let _enterTimeout;
-    const handleExited = (child) => (node) => {
-      callfunc(onExited, [node]);
-      _exitTimeout = setTimeout(() => {
-        if (false !== _mount()) {
-          setChildren((children) => {
-            delete children[child.key];
-            return { ...children };
-          });
-        }
-      });
-    };
-    const prevChildMapping = children || {};
-    const nextChildMapping = getChildMapping(
-      otherProps.children,
-      (child, key) =>
+    if (isLoad) {
+      const handleExited = (child) => (node) => {
+        callfunc(onExited, [node]);
+        _exitTimeout = setTimeout(() => {
+          if (false !== _mount()) {
+            setChildren((children) => {
+              delete children[child.key];
+              return { ...children };
+            });
+          }
+        });
+      };
+      const prevChildMapping = children || {};
+      const nextChildMapping = getChildMapping(propsChildren, (child, key) =>
         buildCSSTransition(
           {
             ...aniProps,
@@ -108,44 +109,49 @@ const AnimateGroup = (props) => {
           },
           child
         )
-    );
-    const allChildMapping = { ...prevChildMapping, ...nextChildMapping };
-    KEYS(allChildMapping).forEach((key) => {
-      const child = allChildMapping[key];
-      const hasPrev = key in prevChildMapping;
-      const hasNext = key in nextChildMapping;
-      const prevChild = prevChildMapping[key];
-      const isLeaving = !get(prevChild, ["props", "in"]);
-      if (!hasNext && hasPrev) {
-        // Will Exit
-        if (!isLeaving) {
-          allChildMapping[key] = build(child)({ in: false });
+      );
+      const allChildMapping = { ...prevChildMapping, ...nextChildMapping };
+      KEYS(allChildMapping).forEach((key) => {
+        const child = allChildMapping[key];
+        const hasPrev = key in prevChildMapping;
+        const hasNext = key in nextChildMapping;
+        const prevChild = prevChildMapping[key];
+        const isLeaving = !get(prevChild, ["props", "in"]);
+        if (!hasNext && hasPrev) {
+          // Will Exit
+          if (!isLeaving) {
+            allChildMapping[key] = build(child)({ in: false });
+          }
         }
+      });
+      if (!children) {
+        _enterTimeout = setTimeout(() => setChildren(allChildMapping), lazy);
+      } else {
+        setChildren(allChildMapping);
       }
-    });
-    if (!children) {
-      _enterTimeout = setTimeout(() => setChildren(allChildMapping), lazy);
-    } else {
-      setChildren(allChildMapping);
     }
     return () => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
     };
-  }, [props.children]);
+  }, [props.children, isLoad]);
   return useMemo(() => {
+    if (!isLoad) {
+      return build(component)(restProps);
+    }
+
     /**
      * Should not setup style={overflow:hidden} here,
      *
      * for reduce animation effect.
      * you could assign it by yourself.
      */
-    otherProps.className = mixClass(className, "animate-group-container");
+    restProps.className = mixClass(className, "animate-group-container");
     return build(component)(
-      otherProps,
+      restProps,
       KEYS(children || {}).map((key) => children[key])
     );
-  }, [children]);
+  }, [children, isLoad]);
 };
 
 export default AnimateGroup;
