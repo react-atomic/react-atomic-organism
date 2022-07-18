@@ -30,8 +30,8 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
     });
     return cancel;
   }
-  if (!duration) {
-    duration = 900;
+  if (null == duration) {
+    duration = 500;
   }
   const from = scrollNode[scrollKey];
   const go = to - from;
