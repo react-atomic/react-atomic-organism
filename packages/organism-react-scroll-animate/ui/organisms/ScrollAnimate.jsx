@@ -18,20 +18,7 @@ const useScrollContent = (props) => {
   const { isShown, isOnScreen, targetId } = targetInfo;
   const lastShown = useRef();
   const lastOnScreen = useRef();
-  const lastOnScreenTimer = useRef();
 
-  const setLazyOnScreen = (val) => {
-    clearTimeout(lastOnScreenTimer.current);
-    lastOnScreenTimer.current = setTimeout(() => {
-      lastOnScreen.current = val;
-    }, 500);
-  };
-
-  if (isOnScreen && !lastOnScreen.current) {
-    lastOnScreen.current = true;
-  } else {
-    setLazyOnScreen(isOnScreen);
-  }
   useEffect(() => {
     if (once && (lastShown.current || isShown)) {
       const node = scrollStore.scroller.getNode(targetId);
@@ -40,6 +27,12 @@ const useScrollContent = (props) => {
       }
     }
   }, [once, isShown, targetId]);
+
+  if (isOnScreen && !lastOnScreen.current) {
+    lastOnScreen.current = true;
+  } else {
+    lastOnScreen.current = isOnScreen;
+  }
 
   const handler = {
     entered: useCallback(
