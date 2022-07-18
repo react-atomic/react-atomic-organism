@@ -8,6 +8,7 @@ import Change from "../organisms/Change";
 const AnimateImage = (props) => {
   const {
     src,
+    aniProps,
     animate = {
       enter: "fadeIn-300",
       leave: "fadeOut-300",
@@ -35,7 +36,7 @@ const AnimateImage = (props) => {
 
   return useMemo(
     () => (
-      <Change className="animate-image" {...animate}>
+      <Change className="animate-image" {...animate} {...aniProps}>
         {image}
       </Change>
     ),
