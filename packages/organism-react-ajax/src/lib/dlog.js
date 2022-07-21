@@ -71,17 +71,36 @@ dlog.prototype.log = function (level, data) {
   }
 };
 
-dlog.prototype.isAllObj = function (arr) {
-  //do each element of arr is a obj ?
-  for (var i = 0, j = arr.length; i < j; i++) {
-    if (!isNaN(arr[i] * 1)) {
-      return false;
-    }
-  }
-  return true;
-};
-
 dlog.prototype.show = function (level, data) {
+  const isArray = function (a) {
+    const keys = Object.keys(a);
+    for (let i = 0, j = keys.length; i < j; i++) {
+      if (isNaN(keys[i])) {
+        return false;
+      }
+    }
+    return true;
+  };
+  const jsonParse = function (s) {
+    if ("string" === typeof s) {
+      try {
+        return JSON.parse(s, function (k, v) {
+          if (v && typeof v === "object") {
+            const nextObj = Object.create(null);
+            Object.keys(v).forEach(function (k) {
+              nextObj[k] = v[k];
+            });
+            return nextObj;
+          }
+          return v;
+        });
+      } catch (e) {
+        return s;
+      }
+    } else {
+      return s;
+    }
+  };
   console.info(
     "%c [%s] %c %s %c %s:",
     this.getCSS(),
@@ -99,7 +118,8 @@ dlog.prototype.show = function (level, data) {
   } else if (level === "debug") {
     level = "log"; // avoid message hidden when chrome verbose not checked.
   }
-  if (Array.isArray(data[0]) && this.isAllObj(data[0])) {
+  data[0] = jsonParse(data[0]);
+  if (isArray(data[0])) {
     console.table(data[0]);
   } else {
     console[level].apply(console, data);
