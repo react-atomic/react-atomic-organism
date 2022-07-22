@@ -1,16 +1,12 @@
 import { expect } from "chai";
-import sinon from "sinon";
+import { getSinon } from "reshow-unit";
 import req from "superagent";
-const sandbox = sinon.createSandbox();
 
 import worker from "../worker";
 
-describe("Worker  Test", () => {
-  afterEach(() => {
-    sandbox.restore();
-  });
+describe("Worker Test", () => {
   it("test pass method", () => {
-    sandbox.spy(req, "put");
+    getSinon().spy(req, "put");
     worker.postMessage({
       type: "ajaxPost",
       url: "http://localhost",

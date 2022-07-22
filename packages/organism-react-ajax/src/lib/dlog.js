@@ -7,7 +7,7 @@ function dlog(opts) {
     return new dlog(opts);
   }
 
-  opts = opts ? opts : {};
+  opts = opts || {};
 
   //default name = DLOG
   this.setName(opts.name);
@@ -20,7 +20,7 @@ function dlog(opts) {
 }
 
 dlog.prototype.setName = function (name) {
-  this.name = name ? name : "DLOG";
+  this.name = name || "DLOG";
   return this.name;
 };
 
@@ -72,10 +72,18 @@ dlog.prototype.log = function (level, data) {
 };
 
 dlog.prototype.show = function (level, data) {
-  const isArray = function (a) {
-    const keys = Object.keys(a);
-    for (let i = 0, j = keys.length; i < j; i++) {
-      if (!keys[i] || isNaN(keys[i])) {
+  const keys = function (o) {
+    o = o || {};
+    return Object.keys(o);
+  };
+  const isDataSet = function (a) {
+    const arrKey = keys(a);
+    for (let i = 0, j = arrKey.length; i < j; i++) {
+      const key = arrKey[i];
+      if (!key || isNaN(key)) {
+        return false;
+      }
+      if ("string" === typeof a[key] || !keys(a[key]).length) {
         return false;
       }
     }
@@ -87,7 +95,7 @@ dlog.prototype.show = function (level, data) {
         return JSON.parse(s, function (k, v) {
           if (v && typeof v === "object") {
             const nextObj = Object.create(null);
-            Object.keys(v).forEach(function (k) {
+            keys(v).forEach(function (k) {
               nextObj[k] = v[k];
             });
             return nextObj;
@@ -119,7 +127,7 @@ dlog.prototype.show = function (level, data) {
     level = "log"; // avoid message hidden when chrome verbose not checked.
   }
   data[0] = jsonParse(data[0]);
-  if (isArray(data[0])) {
+  if (isDataSet(data[0])) {
     console.table(data[0]);
   } else {
     console[level].apply(console, data);
