@@ -75,7 +75,7 @@ dlog.prototype.show = function (level, data) {
   const isArray = function (a) {
     const keys = Object.keys(a);
     for (let i = 0, j = keys.length; i < j; i++) {
-      if (isNaN(keys[i])) {
+      if (!keys[i] || isNaN(keys[i])) {
         return false;
       }
     }
