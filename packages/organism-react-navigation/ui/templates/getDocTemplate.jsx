@@ -109,7 +109,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     ],
     mdInactiveIconDefaultOn: [
       {
-        left: 1 + "px !important",
+        left: 0 + " !important",
       },
       [min.md, getMiniClass(".ui.rail.[active]>.hamburger-icon.default-on")],
     ],
@@ -198,7 +198,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       ],
       mdInactiveIconDefaultOn: [
         {
-          left: miniSidebarWidth + 1 + "px !important",
+          left: `${miniSidebarWidth + 1} px !important`,
         },
         [min.md, getMiniClass(".ui.rail.[active]>.hamburger-icon.default-on")],
       ],
