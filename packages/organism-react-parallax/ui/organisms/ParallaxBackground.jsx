@@ -47,7 +47,7 @@ const useParallax = (props) => {
   const { top: scrollInfoTop, scrollNodeHeight } = scrollInfo || {};
   const prevScrollInfoTop = usePrevious(scrollInfoTop);
 
-  const [posY, setPosY] = useState({ val: 0 });
+  const [posY, setPosY] = useState(0);
   const lastCalData = useRef({});
 
   if (!isNaN(scrollInfoTop) && prevScrollInfoTop !== scrollInfoTop) {
@@ -60,7 +60,7 @@ const useParallax = (props) => {
     };
     const nextY = calOffset(lastCalData.current);
     if (!isNaN(nextY)) {
-      setPosY({val: nextY});
+      setPosY(nextY);
     }
   }
 
@@ -68,7 +68,9 @@ const useParallax = (props) => {
     const handleResize = () => {
       lastCalData.current.scrollInfo = getScrollInfo();
       const nextY = calOffset(lastCalData.current);
-      setPosY({ val: nextY });
+      if (!isNaN(nextY)) {
+        setPosY(nextY);
+      }
     };
     const oWin = win();
     oWin.addEventListener("resize", handleResize);
@@ -91,22 +93,22 @@ const useParallax = (props) => {
         false,
         false
       ),
-      styles
+      propStyles
     );
-  }, [style, styles]);
+  }, [style, propStyles]);
 
-  const layerStyles = useMemo(() => {
-    if (!isNaN(posY.val)) {
-      return reactStyle(
+  const layerStyles = useMemo(
+    () =>
+      reactStyle(
         {
           ...Styles.backgroundLayer,
-          transform: [`translate3d(0, ${posY.val}px, 0)`],
+          transform: [`translate3d(0, ${posY}px, 0)`],
         },
         false,
         false
-      );
-    }
-  }, [posY.val]);
+      ),
+    [posY]
+  );
 
   const thisBackground = layerStyles ? background : null;
 
