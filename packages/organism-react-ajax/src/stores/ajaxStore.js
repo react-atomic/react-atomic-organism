@@ -13,6 +13,8 @@ let gWorker;
 let fakeWorker = false;
 let isWorkerReady;
 
+const hasUrl = (s) => s && "#" !== s && "?" !== s;
+
 const initAjaxWorkerEvent = (worker) => {
   worker.addEventListener("message", (e) => {
     const sourceType = get(e, ["data", "type"]);
@@ -99,7 +101,7 @@ const getCallback = (state, action, json, response) => {
 };
 
 const getRawUrl = ({ url, path, baseUrl } = {}) => {
-  if (!url) {
+  if (!hasUrl(url)) {
     if (path) {
       baseUrl = baseUrl || store.getState().get("baseUrl") || "";
       url = baseUrl + path;
@@ -381,4 +383,4 @@ const [store, ajaxDispatch] = ImmutableStore(
 );
 
 export default store;
-export { initAjaxWorkerEvent, ajaxDispatch, getRawUrl };
+export { initAjaxWorkerEvent, ajaxDispatch, getRawUrl, hasUrl };

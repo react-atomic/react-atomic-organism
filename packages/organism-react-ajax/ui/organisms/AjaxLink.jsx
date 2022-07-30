@@ -9,11 +9,15 @@ import React, {
 import callfunc from "call-func";
 import build from "reshow-build";
 
-import ajaxStore, { ajaxDispatch, getRawUrl } from "../../src/stores/ajaxStore";
+import ajaxStore, {
+  ajaxDispatch,
+  getRawUrl,
+  hasUrl,
+} from "../../src/stores/ajaxStore";
 import isRunAjax from "../../src/isRunAjax";
 
 const getHref = ({ href, path }) => {
-  if (href) {
+  if (hasUrl(href)) {
     return href;
   }
   if (path) {
@@ -45,7 +49,7 @@ const useAjaxLink = (props) => {
   const [href, setHref] = useState(propsHref);
   useEffect(() => {
     const nextHref = getHref({ href: propsHref, path });
-    if (href && (!nextHref || "#" === nextHref)) {
+    if (hasUrl(href) && !hasUrl(nextHref)) {
       return;
     } else {
       setHref(nextHref);
@@ -71,7 +75,7 @@ const useAjaxLink = (props) => {
   const handleClick = useCallback(
     (callback) => (type) => (e) => {
       let thisHref = href;
-      if (!thisHref || "#" === thisHref || "?" === thisHref) {
+      if (!hasUrl(thisHref)) {
         /**
          * should pass empty url to getRawUrl for this case
          * getRawUrl will tyr get url with baseUrl
