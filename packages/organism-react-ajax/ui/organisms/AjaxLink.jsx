@@ -29,7 +29,7 @@ const useAjaxLink = (props) => {
     updateUrl = true,
     disableRandom = false,
     component = "a",
-    href: propsHref,
+    href: propsHref = "#",
     ajax,
     target,
     callback,
