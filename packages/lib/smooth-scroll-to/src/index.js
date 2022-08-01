@@ -11,12 +11,14 @@ const isRunning = NEW_OBJ();
 const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   scrollKey = scrollKey || "scrollTop";
   const scrollNode = getScrollNode(el);
+
   const cb = () => {
-    cancel();
     if (isRunning[scrollKey]) {
       callfunc(callback, [{ scrollNode, from, to, go }]);
+      isRunning[scrollKey] = false;
     }
   };
+
   const cancel = () => {
     clearTimeout(isRunning[scrollKey]);
     isRunning[scrollKey] = false;
@@ -38,6 +40,7 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
   if (!go) {
     return () => {};
   }
+
   aniTimer(
     {
       isContinue: (elapsedTime) => {
