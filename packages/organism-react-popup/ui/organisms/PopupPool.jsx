@@ -1,7 +1,7 @@
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { build, mixClass, SemanticUI } from "react-atomic-molecule";
-import Return, { useReturn } from "reshow-return";
-import { equal, useReduceStore } from "reshow-flux";
+import { useReturn, useParticalRender } from "reshow-return";
+import { equal } from "reshow-flux";
 
 import popupStore, { SHOW_ONE, NODE_KEY } from "../../src/stores/popupStore";
 
@@ -16,36 +16,34 @@ const getPops = (nodes, name) => {
   return pops;
 };
 
-const PopupPool = ({ name, component = SemanticUI, ...otherProps }) => {
-  const [poolStore, setPoolStore] = useReduceStore();
-  const [pops, setPops] = useState();
+const PopupPool = ({ component = SemanticUI, name, ...restProps }) => {
+  const [renderComponent, particalRender, setRenderKeys] = useParticalRender();
+
   const state = useReturn([NODE_KEY, SHOW_ONE], popupStore);
+
   useEffect(() => {
     const nextPops = getPops(state[NODE_KEY], name);
     const popsKeys = nextPops.keySeq();
-    setPops((prev) => (!equal(prev, popsKeys) ? popsKeys : prev));
+    setRenderKeys((prev) => (!equal(prev, popsKeys) ? popsKeys : prev));
     const updateKey = state[SHOW_ONE];
     if (nextPops.has(updateKey)) {
-      setPoolStore({ [updateKey]: nextPops.get(updateKey) });
+      particalRender({ [updateKey]: nextPops.get(updateKey) });
     }
   }, [state[NODE_KEY]]);
-  return useMemo(() => {
-    const buildReturn = build(build(Return)({ store: poolStore }));
-    return build(component)(
-      {
-        name,
-        className: mixClass(name, "popup-pool"),
-        ui: false,
-        ...otherProps,
-      },
-      (pops || []).map((name) =>
-        buildReturn(
-          { key: name, name, initStates: [name] },
-          (props) => props[props.name] || null
-        )
-      )
-    );
-  }, [pops]);
+
+  return useMemo(
+    () =>
+      build(component)(
+        {
+          ...restProps,
+          name,
+          className: mixClass(name, "popup-pool"),
+          ui: false,
+        },
+        renderComponent
+      ),
+    [renderComponent]
+  );
 };
 
 export default PopupPool;
