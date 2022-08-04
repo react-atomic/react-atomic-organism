@@ -25,7 +25,7 @@ describe("Test PopupModal", () => {
       );
     };
     const wrap = render(<VDom />);
-    await waitFor(()=>{
+    await waitFor(() => {
       expect(wrap.html()).to.have.string('id="my-id"');
     });
     wrap.unmount();
