@@ -84,14 +84,17 @@ class RadioGroup extends PureComponent {
     let current = null;
     if (ref) {
       if (ref.props.disabled) {
-        return;
+        return false;
       }
       current = ref;
     }
     const value = current.getValue();
-    this.setState({ current, value }, () => {
-      callfunc(onChange, [value, current]);
-    });
+    e.current = current;
+    const isContinue = callfunc(onChange, [value, e]);
+    if (isContinue) {
+      this.setState({ current, value });
+    }
+    return false;
   };
 
   handleError(e) {
@@ -176,7 +179,7 @@ class RadioGroup extends PureComponent {
             {...item.props}
             label={labelLocator(item)}
             value={this.altValue(item)}
-            afterClick={this.handleClick}
+            beforeClick={this.handleClick}
             checked={this.isChecked(item, value, current)}
           />
         ))}

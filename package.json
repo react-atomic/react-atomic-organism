@@ -1,5 +1,5 @@
 {
-  "version": "0.14.6",
+  "version": "0.15.0",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "win-doc": "*"
   },
   "devDependencies": {
-    "lerna": "^4.0.0",
+    "lerna": "^5.0.0",
     "prop-types": "*",
     "react": "^18.x",
     "react-dom": "^18.x",
