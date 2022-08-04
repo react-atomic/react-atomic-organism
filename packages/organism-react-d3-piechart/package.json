@@ -1,11 +1,12 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "name": "organism-react-d3-piechart",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-atomic/react-atomic-organism",
     "directory": "packages/organism-react-d3-piechart"
   },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-d3-piechart",
   "description": "D3 Piechart",
   "keywords": [
     "react",
