@@ -1,5 +1,5 @@
 {
-  "version": "0.15.0",
+  "version": "0.15.1",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "call-func": "*",
     "form-serialize-js": "*",
     "get-object-value": "*",
+    "get-random-id": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
     "ricon": "*",

@@ -1,8 +1,13 @@
 {
-  "name": "get-random-id",
   "version": "0.2.1",
+  "name": "get-random-id",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/lib/get-random-id"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/get-random-id",
   "description": "Generate simple random keys",
-  "repository": "react-atomic/react-atomic-organism",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
