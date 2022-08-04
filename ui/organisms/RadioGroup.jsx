@@ -90,8 +90,10 @@ class RadioGroup extends PureComponent {
     }
     const value = current.getValue();
     e.current = current;
+    e.value = value;
+    e.prevValue = this.getValue();
     const isContinue = callfunc(onChange, [value, e]);
-    if (isContinue) {
+    if (false !== isContinue) {
       this.setState({ current, value });
     }
     return false;
