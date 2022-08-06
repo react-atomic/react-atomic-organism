@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { build, mixClass, SemanticUI } from "react-atomic-molecule";
-import { useReturn, useParticalRender } from "reshow-return";
+import { useReturn, usePartialRender } from "reshow-return";
 import { equal } from "reshow-flux";
 
 import popupStore, { SHOW_ONE, NODE_KEY } from "../../src/stores/popupStore";
@@ -17,7 +17,7 @@ const getPops = (nodes, name) => {
 };
 
 const PopupPool = ({ component = SemanticUI, name, ...restProps }) => {
-  const [renderComponent, particalRender, setRenderKeys] = useParticalRender();
+  const [renderComponent, partialRender, setRenderKeys] = usePartialRender();
 
   const state = useReturn([NODE_KEY, SHOW_ONE], popupStore);
 
@@ -27,7 +27,7 @@ const PopupPool = ({ component = SemanticUI, name, ...restProps }) => {
     setRenderKeys((prev) => (!equal(prev, popsKeys) ? popsKeys : prev));
     const updateKey = state[SHOW_ONE];
     if (nextPops.has(updateKey)) {
-      particalRender({ [updateKey]: nextPops.get(updateKey) });
+      partialRender({ [updateKey]: nextPops.get(updateKey) });
     }
   }, [state[NODE_KEY]]);
 
