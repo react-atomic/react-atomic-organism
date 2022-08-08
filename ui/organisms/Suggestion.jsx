@@ -7,8 +7,6 @@ import { UNDEFINED, FUNCTION } from "reshow-constant";
 
 import SearchBox from "../organisms/SearchBox";
 
-const body = () => doc().body;
-
 const defaultItemFilter = (d, value) =>
   value &&
   d &&
@@ -58,12 +56,12 @@ class Suggestion extends PureComponent {
     if (isOpen || disabled) {
       return;
     }
-    body().addEventListener("click", this.handleClose);
+    doc()?.addEventListener("click", this.handleClose);
     this.setValue(undefined, e, true);
   }
 
   close() {
-    body().removeEventListener("click", this.handleClose);
+    doc()?.removeEventListener("click", this.handleClose);
     this.setState({ isOpen: false });
   }
 

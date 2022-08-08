@@ -6,6 +6,7 @@ import {
   mixClass,
   List,
   Field,
+  SemanticUI,
 } from "react-atomic-molecule";
 import Tag from "../organisms/Tag";
 
@@ -58,6 +59,7 @@ const TagInput = (props) => {
       compHd={thisTags}
       ref={onGetSugg}
       className={classes}
+      inputComponent={SemanticUI}
       style={Styles.input}
       wrapStyle={Styles.wrap}
       onItemClick={onItemClick}

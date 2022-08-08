@@ -1,11 +1,18 @@
 import React, { isValidElement, cloneElement } from "react";
 import { FUNCTION } from "reshow-constant";
-import { mixClass, SemanticUI, List } from "react-atomic-molecule";
+import {
+  build,
+  mixClass,
+  InputBox,
+  SemanticUI,
+  List,
+} from "react-atomic-molecule";
 import { win } from "win-doc";
 import callfunc from "call-func";
 import get from "get-object-value";
 
 const SearchBox = ({
+  inputComponent = InputBox,
   className,
   compHd,
   wrapRefCb,
@@ -15,9 +22,10 @@ const SearchBox = ({
   onItemClick,
   itemLocator,
   itemsLocator,
+  inputWrapStyle,
   resultsStyle,
   selIndex,
-  ...props
+  ...restProps
 }) => {
   const classes = mixClass(className, "search");
   if (results && results.length) {
@@ -54,7 +62,13 @@ const SearchBox = ({
     >
       {compHd}
       {/*className: prompt is for semantic-ui. https://semantic-ui.com/modules/search.html*/}
-      <SemanticUI atom="input" className="prompt" type="text" {...props} />
+      {build(inputComponent)({
+        wrapStyle: inputWrapStyle,
+        atom: "input",
+        className: "prompt",
+        type: "text",
+        ...restProps,
+      })}
       {results}
     </SemanticUI>
   );
