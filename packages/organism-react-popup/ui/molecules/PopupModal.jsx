@@ -213,6 +213,7 @@ class PopupModal extends PopupOverlay {
       mask,
       maskScroll,
       backgroundScroll,
+      backgroundOpacity,
       toPool,
       closeEl,
       onClose,
@@ -272,6 +273,9 @@ class PopupModal extends PopupOverlay {
         });
       }
       if (mask) {
+        if (backgroundOpacity) {
+          style.backgroundColor = `rgba(0,0,0,${backgroundOpacity})`;
+        }
         const thisStyles = arrayMerge(
           reactStyle(
             { ...Styles.background, ...style, ...stateMaskStyle },

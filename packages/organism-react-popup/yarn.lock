@@ -1217,9 +1217,9 @@
     "@types/react" "*"
 
 "@types/react@*":
-  version "18.0.15"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.15.tgz#d355644c26832dc27f3e6cbf0c4f4603fc4ab7fe"
-  integrity sha512-iz3BtLuIYH1uWdsv6wXYdhozhqj20oD4/Hk2DNXIn1kFsmp9x8d9QB6FnPhfkbhd2PgEONt9Q1x/ebkwjfFLow==
+  version "18.0.16"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.16.tgz#8de9bf7feebfa520777e8d30815070b39cb663c0"
+  integrity sha512-3vX1dzVucqc2nhXtzyaParTIIRZeNbisRqLE7QdeLomVybEyeiuAouzZXgz71P+2kbJOqj3dy0fzoATg2I06GQ==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3711,9 +3711,9 @@ reshow-hooks@*:
     reshow-constant "*"
 
 reshow-return@*:
-  version "0.17.24"
-  resolved "https://registry.yarnpkg.com/reshow-return/-/reshow-return-0.17.24.tgz#af71c025cd031654191e94476fd21aa44629cd8a"
-  integrity sha512-K4dSGtzNkyKiTIK2dxogb8vi2AjMHP591cCBxmhE5bkVdtaWm/9bXLIYZU8QK93jHxPpKu7AxNGmufgScRogbw==
+  version "0.17.28"
+  resolved "https://registry.yarnpkg.com/reshow-return/-/reshow-return-0.17.28.tgz#54aa5d8abb96da31c5cef12dad5b4108de1c7bbc"
+  integrity sha512-BPsSmka28kdr/6oOvpqnslgEVVqrYKXBuEf+gwCep6nUFAplmKQ38oKkkQ7k7DzVr+YwsXbiAn5NKQJ/pewHGw==
   dependencies:
     call-func "*"
     get-object-value "*"
