@@ -135,7 +135,8 @@ class Suggestion extends PureComponent {
     this.setState(nextState, () => {
       const { onChange, name } = this.props;
       e.inputName = name;
-      callfunc(onChange, [e, this.getValue(), name, this]);
+      e.value = this.getValue();
+      callfunc(onChange, [e, e.value, name, this]);
     });
   }
 
@@ -241,6 +242,7 @@ class Suggestion extends PureComponent {
   handleItemClick = (e, item) => {
     e.persist();
     const { itemClickToClose, onItemClick } = this.props;
+    e.item = item;
     const isContinue = callfunc(onItemClick, [e, item, this]);
     if (itemClickToClose && false !== isContinue) {
       this.setValue(this.valueLocator(item));
