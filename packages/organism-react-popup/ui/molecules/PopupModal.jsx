@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import { isValidElement } from "react";
 import {
   build,
   reactStyle,
@@ -28,14 +28,12 @@ const observerConfig = {
  * 1. if you need trace show: true
  * it extend from PopupOverlay
  *
- * 2. if you don't auto append Content component
+ * 2. if you don't need append <Content /> component
  * you could pass center or content to equla false
  */
 class PopupModal extends PopupOverlay {
   static defaultProps = {
     mask: true,
-    maskScroll: false,
-    scrolling: false,
     backgroundScroll: false,
     name: "modal",
     disableClose: false,
@@ -68,6 +66,7 @@ class PopupModal extends PopupOverlay {
   };
 
   reCalculate = () => {
+    this.setBodyCssClass();
     this._timer = setTimeout(() => {
       if (this.el) {
         const domInfo = getOffset(this.el);
@@ -127,13 +126,12 @@ class PopupModal extends PopupOverlay {
   }
 
   setBodyCssClass() {
-    const { toPool, maskScroll, backgroundScroll } = this.props;
+    const { toPool, backgroundScroll } = this.props;
     const body = doc().body;
     if (!toPool && body) {
       const addBodyClass = mixClass(
         this.getBodyResetClass(),
         {
-          scrolling: maskScroll,
           "dimmed-bg-scrolling": backgroundScroll,
         },
         "dimmable",
@@ -144,19 +142,16 @@ class PopupModal extends PopupOverlay {
   }
 
   lockScreen() {
+    this.reCalculate();
     if (!this._locked) {
       this._locked = true;
-    } else {
-      return;
-    }
-    win().addEventListener("resize", this.reCalculate);
-    win().addEventListener("keyup", this.handleKeyUp);
-    this.setBodyCssClass();
-    this.reCalculate();
-    const MutationObserver = win().MutationObserver;
-    if (MutationObserver && this.el && !this._observer) {
-      this._observer = new MutationObserver(this.reCalculate);
-      this._observer.observe(this.el, observerConfig);
+      win().addEventListener("resize", this.reCalculate);
+      win().addEventListener("keyup", this.handleKeyUp);
+      const MutationObserver = win().MutationObserver;
+      if (MutationObserver && this.el && !this._observer) {
+        this._observer = new MutationObserver(this.reCalculate);
+        this._observer.observe(this.el, observerConfig);
+      }
     }
   }
 
@@ -200,7 +195,6 @@ class PopupModal extends PopupOverlay {
     const {
       basic,
       disableClose,
-      scrolling,
       appear,
       enter,
       leave,
@@ -211,7 +205,6 @@ class PopupModal extends PopupOverlay {
       modalClassName,
       modalStyle,
       mask,
-      maskScroll,
       backgroundScroll,
       backgroundOpacity,
       toPool,
@@ -221,7 +214,7 @@ class PopupModal extends PopupOverlay {
       contentClassName,
       name,
       id,
-      ...others
+      ...restProps
     } = this.props;
     let containerClick = null;
     let thisCloseEl;
@@ -239,28 +232,30 @@ class PopupModal extends PopupOverlay {
           style: {
             zIndex: 1001,
             position: "fixed",
-            ...closeEl.props.style,
+            ...closeEl.props?.style,
           },
         });
       }
-      let thisModal = modal;
-      if (UNDEFINED === typeof thisModal) {
-        thisModal = (
-          <Dimmer
-            {...others}
-            isModal="true"
-            className={mixClass({ scrolling, basic }, modalClassName)}
-            show={show}
-            contentStyle={contentStyle}
-            key="model"
-          />
-        );
-      }
+
+      let thisModal = modal ?? (
+        <Dimmer
+          isModal="true"
+          show={show}
+          contentStyle={contentStyle}
+          key="model"
+        />
+      );
+
       if (isValidElement(thisModal)) {
-        const origModalOnClick = get(thisModal, ["props", "onClick"]);
         thisModal = build(thisModal)({
+          ...restProps,
           refCb: this.handleModalRefCb,
-          onClick: this.handleModalClick(origModalOnClick),
+          onClick: this.handleModalClick(get(thisModal, ["props", "onClick"])),
+          className: mixClass(
+            { basic },
+            modalClassName,
+            get(thisModal, ["props", "className"])
+          ),
           styles: reactStyle(
             {
               ...Styles.modal,
@@ -272,6 +267,7 @@ class PopupModal extends PopupOverlay {
           ),
         });
       }
+
       if (mask) {
         if (backgroundOpacity) {
           style.backgroundColor = `rgba(0,0,0,${backgroundOpacity})`;

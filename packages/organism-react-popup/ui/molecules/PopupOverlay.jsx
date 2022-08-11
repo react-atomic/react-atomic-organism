@@ -4,7 +4,7 @@ import get from "get-object-value";
 import getStyle from "get-style";
 
 import BasePopup from "../molecules/BasePopup";
-import popupStore from "../../src/stores/popupStore";
+import popupStore, { SHOW_KEY } from "../../src/stores/popupStore";
 
 class PopupOverlay extends BasePopup {
   resetStyle(key, thisStyle) {
@@ -70,10 +70,11 @@ class PopupOverlay extends BasePopup {
       : build(Return)(
           {
             store: popupStore,
-            initStates: ["shows"],
+            initStates: [SHOW_KEY],
           },
-          ({ shows }) => {
-            const show = get(shows, [this.props.name]);
+          (props) => {
+            const name = this.props.name;
+            const show = get(props[SHOW_KEY], [name]);
             return this.shouldShow(show);
           }
         );

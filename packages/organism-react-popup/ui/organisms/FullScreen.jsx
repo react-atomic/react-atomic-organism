@@ -43,26 +43,38 @@ const DefaultXIcon = (props) => {
 
 const FullScreen = ({
   name = "fullscreen",
+  xico = DefaultXIcon,
+  scrolling = false,
+  page = true,
   children,
   className,
   style,
   onClose,
   toPool,
+  ...restProps
 }) => {
-  const xico = <DefaultXIcon />;
+  let closeEl;
+  let thisStyle = style;
+  if (page) {
+    closeEl = xico;
+    thisStyle = { ...Styles.container, ...style };
+    if (scrolling) {
+      thisStyle.display = "block";
+    }
+  }
   return (
     <DisplayPopupEl>
       <PopupModal
+        {...restProps}
         name={name + " (modal)"}
         appear="fadeIn-500"
         enter="fadeIn-500"
         className={mixClass("full-screen", className)}
-        scrolling={true}
-        style={{ ...Styles.container, ...style }}
+        style={thisStyle}
         modalClassName="basic"
         modalStyle={Styles.modal}
         modal={children}
-        closeEl={xico}
+        closeEl={closeEl}
         onClose={onClose}
         toPool={toPool}
       />

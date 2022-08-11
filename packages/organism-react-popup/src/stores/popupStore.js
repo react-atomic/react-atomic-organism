@@ -5,7 +5,7 @@ import callfunc from "call-func";
 import { KEYS, IS_ARRAY, OBJECT } from "reshow-constant";
 
 const groups = {};
-const SHOW_ONE = "show_one";
+const SHOW_NEXT = "show_next";
 const SHOW_KEY = "shows";
 const NODE_KEY = "nodes";
 
@@ -38,7 +38,7 @@ class handlePopup {
       }
       nodeGroups.forEach((nodegroup) => set(groups, [nodegroup, key], true));
     }
-    return state.set(SHOW_KEY, shows).set(NODE_KEY, nodes).set(SHOW_ONE, key);
+    return state.set(SHOW_KEY, shows).set(NODE_KEY, nodes).set(SHOW_NEXT, key);
   }
 
   getKey(action) {
@@ -127,4 +127,4 @@ const [store, popupDispatch] = ImmutableStore((state, action) => {
 }, Map({ shows: Map(), nodes: Map() }));
 
 export default store;
-export { popupDispatch, SHOW_ONE, SHOW_KEY, NODE_KEY };
+export { popupDispatch, SHOW_NEXT, SHOW_KEY, NODE_KEY };
