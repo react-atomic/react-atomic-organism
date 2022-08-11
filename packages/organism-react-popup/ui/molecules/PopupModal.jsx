@@ -34,9 +34,7 @@ const observerConfig = {
 class PopupModal extends PopupOverlay {
   static defaultProps = {
     mask: true,
-    backgroundScroll: false,
     name: "modal",
-    disableClose: false,
   };
 
   _timer = null;
@@ -51,8 +49,8 @@ class PopupModal extends PopupOverlay {
     switch (getEventKey(e)) {
       case 27:
       case "Escape":
-        const disableClose = this.props.disableClose;
-        !disableClose && this.handleClose();
+        const { disableClose, disableEscClose } = this.props;
+        !disableClose && !disableEscClose && this.handleClose();
         break;
     }
   };
@@ -195,6 +193,8 @@ class PopupModal extends PopupOverlay {
     const {
       basic,
       disableClose,
+      disableClickClose,
+      disableEscClose,
       appear,
       enter,
       leave,
@@ -222,7 +222,7 @@ class PopupModal extends PopupOverlay {
     if (show) {
       this.lockScreen();
       if (!closeEl) {
-        if (!disableClose) {
+        if (!disableClose && !disableClickClose) {
           containerClick = this.handleClose;
         }
       } else {
