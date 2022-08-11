@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import { useState, useEffect } from "react";
 import { FullScreen } from "organism-react-popup";
 import { Button, SemanticUI } from "react-atomic-molecule";
 
@@ -13,61 +13,50 @@ const getLastHash = () => {
 
 const updateUrl = (url) => history.pushState("", "", url);
 
-class FullScreenExample extends PureComponent {
-  static defaultProps = { button: "Open full screen" };
+const FullScreenExample = ({
+  button = "Open full screen",
+  children,
+  id,
+  onClose,
+  ...restProps
+}) => {
+  const [showFullScreen, setShowFullScreen] = useState();
 
-  state = {
-    showFullScreen: false,
-  };
+  useEffect(() => {
+    const last = getLastHash();
+    if (id === last) {
+      setShowFullScreen(true);
+    }
+  }, []);
 
-  handleClick = () => {
-    const { id } = this.props;
+  const handleClick = () => {
     const last = getLastHash();
     if (id && id !== last) {
       updateUrl(document.URL + "#" + id);
     }
-    this.setState({
-      showFullScreen: true,
-    });
+    setShowFullScreen(true);
   };
 
-  handleClose = () => {
-    const { id, onClose } = this.props;
+  const handleClose = () => {
     const url = document.URL;
     const idIndex = url.lastIndexOf("#" + id);
     if (-1 !== idIndex) {
       updateUrl(url.substring(0, idIndex));
     }
     callfunc(onClose);
-    this.setState({ showFullScreen: false });
+    setShowFullScreen(false);
   };
 
-  componentDidMount() {
-    const { id } = this.props;
-    const last = getLastHash();
-    if (id === last) {
-      this.setState({
-        showFullScreen: true,
-      });
-    }
+  let thisFullScreen = null;
+  if (showFullScreen) {
+    thisFullScreen = <FullScreen {...restProps} onClose={handleClose}>{children}</FullScreen>;
   }
-
-  render() {
-    const { button, children } = this.props;
-    const { showFullScreen } = this.state;
-    let thisFullScreen = null;
-    if (showFullScreen) {
-      thisFullScreen = (
-        <FullScreen onClose={this.handleClose}>{children}</FullScreen>
-      );
-    }
-    return (
-      <SemanticUI>
-        <Button onClick={this.handleClick}>{button}</Button>
-        {thisFullScreen}
-      </SemanticUI>
-    );
-  }
-}
+  return (
+    <>
+      <Button onClick={handleClick}>{button}</Button>
+      {thisFullScreen}
+    </>
+  );
+};
 
 export default FullScreenExample;
