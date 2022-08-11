@@ -68,6 +68,7 @@ workflows:
                 - "packages/lib/with-array"
                 - "packages/organism-react-ajax"
                 - "packages/organism-react-animate"
+                - "packages/organism-react-code"
                 - "packages/organism-react-d3-axis-chart"
                 - "packages/organism-react-d3-piechart"
                 - "packages/organism-react-d3-uml"
@@ -78,3 +79,4 @@ workflows:
                 - "packages/organism-react-navigation"
                 - "packages/organism-react-popup"
                 - "packages/organism-react-sort-by"
+                - "packages/organism-react-tag-input"
