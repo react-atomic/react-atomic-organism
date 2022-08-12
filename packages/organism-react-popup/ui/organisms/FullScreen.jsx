@@ -71,7 +71,6 @@ const FullScreen = ({
         enter="fadeIn-500"
         className={mixClass("full-screen", className)}
         style={thisStyle}
-        modalClassName="basic"
         modalStyle={Styles.modal}
         modal={children}
         closeEl={closeEl}
