@@ -1,4 +1,3 @@
-import { isValidElement } from "react";
 import {
   build,
   reactStyle,
@@ -14,7 +13,7 @@ import arrayMerge from "array.merge";
 import callfunc, { getEventKey } from "call-func";
 import { removeClass, hasClass, mixClass } from "class-lib";
 import { win, doc } from "win-doc";
-import { UNDEFINED } from "reshow-constant";
+import { STRING } from "reshow-constant";
 
 import PopupOverlay from "../molecules/PopupOverlay";
 
@@ -45,6 +44,13 @@ class PopupModal extends PopupOverlay {
   handleModalRefCb = (el) => (this.el = el);
 
   handleClose = () => this.close() && this.unlockScreen();
+  handleContainerClick = (e) => {
+    const t = e.target;
+    const cur = e.currentTarget;
+    if (cur.isSameNode(t)) {
+      this.handleClose();
+    }
+  };
   handleKeyUp = (e) => {
     switch (getEventKey(e)) {
       case 27:
@@ -53,14 +59,6 @@ class PopupModal extends PopupOverlay {
         !disableClose && !disableEscClose && this.handleClose();
         break;
     }
-  };
-
-  handleModalClick = (cb) => (e) => {
-    /**
-     * avoid trigger ContainerClick
-     */
-    e.stopPropagation();
-    callfunc(cb, [e]);
   };
 
   reCalculate = () => {
@@ -223,7 +221,7 @@ class PopupModal extends PopupOverlay {
       this.lockScreen();
       if (!closeEl) {
         if (!disableClose && !disableClickClose) {
-          containerClick = this.handleClose;
+          containerClick = this.handleContainerClick;
         }
       } else {
         thisCloseEl = build(closeEl)({
@@ -245,12 +243,10 @@ class PopupModal extends PopupOverlay {
           key="model"
         />
       );
-
-      if (isValidElement(thisModal)) {
+      if (STRING !== typeof thisModal) {
         thisModal = build(thisModal)({
           ...restProps,
           refCb: this.handleModalRefCb,
-          onClick: this.handleModalClick(get(thisModal, ["props", "onClick"])),
           className: mixClass(
             { basic },
             modalClassName,
