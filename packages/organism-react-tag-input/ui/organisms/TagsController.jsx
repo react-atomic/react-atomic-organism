@@ -2,9 +2,21 @@ import React, { PureComponent } from "react";
 import callfunc from "call-func";
 import get, { initMap } from "get-object-value";
 import { build } from "react-atomic-molecule";
+import { KEYS, NEW_OBJ } from "reshow-constant";
 
 const EXCEED_MAX_TAGS = "exceed max tags";
-const keys = Object.keys;
+
+const dedupTags = (tags, group) => {
+  const nextTags = [];
+  const tMap = NEW_OBJ();
+  tags.forEach((t) => {
+    if (!tMap[t] && group[t].num !== 0) {
+      nextTags.push(t + "");
+      tMap[t] = 1;
+    }
+  });
+  return nextTags;
+};
 
 const groupingTags = ({ tags, tagData, tagsLocator, tagLocator }) => {
   const group = {};
@@ -22,12 +34,12 @@ const groupingTags = ({ tags, tagData, tagsLocator, tagLocator }) => {
       }
     });
   }
-  const thisTags = tags != null ? tags : keys(group);
+  const thisTags = tags != null ? tags : KEYS(group);
   thisTags.forEach((tag) => {
     initGroup(tag, { data: [], num: 0 });
     group[tag].num++;
   });
-  return { tags: keys(group).filter((tag) => group[tag].num !== 0), group };
+  return { tags: dedupTags(thisTags, group), group };
 };
 
 class TagsController extends PureComponent {
@@ -38,6 +50,7 @@ class TagsController extends PureComponent {
     couldDuplicate: false,
     createOnBlur: true,
     itemsLocator: (d) => get(d, null, []),
+    itemLocator: (d) => d,
     tagsLocator: (d) => d || [],
     tagLocator: (d) => d,
     maxTags: -1,
@@ -107,6 +120,7 @@ class TagsController extends PureComponent {
   };
 
   handleAdd(tag) {
+    tag = tag + "";
     const { maxTags, couldDuplicate } = this.props;
     let { tags: prevTags } = this.state;
     const tags = prevTags || [];
@@ -152,20 +166,33 @@ class TagsController extends PureComponent {
       () => {
         this.disableError();
         const { onDel } = this.props;
-        callfunc(onDel);
+        callfunc(onDel, [delTag, this.state.tags]);
       }
     );
   };
 
   handleKey = (e) => {
-    const { couldCreate, itemsLocator, itemLocator, results } = this.props;
+    const {
+      couldCreate,
+      itemsLocator,
+      itemLocator,
+      results,
+      tagData,
+      tagsLocator,
+      tagLocator,
+    } = this.props;
     const { tags } = this.state;
     const value = this.sugg.getValue();
     const keyCode = get(e, ["keyCode"]);
     switch (keyCode) {
       case 8:
         if (!(value || "").length) {
-          const lastTag = [...tags].pop();
+          const lastTag = groupingTags({
+            tags,
+            tagData,
+            tagsLocator,
+            tagLocator,
+          }).tags.pop();
           this.handleDel(lastTag)();
         }
         break;
@@ -184,7 +211,10 @@ class TagsController extends PureComponent {
     this.blurTimer = setTimeout(() => {
       if (!this.isFocus) {
         if (this.props.createOnBlur) {
-          this.maybeCreate();
+          const value = this.sugg.getValue();
+          if (value) {
+            this.maybeCreate();
+          }
         }
       }
     }, delay);
@@ -194,10 +224,10 @@ class TagsController extends PureComponent {
     this.isFocus = true;
   };
 
-  handleItemClick = (e, itemData) => {
+  handleItemClick = (e) => {
     const { itemLocator } = this.props;
-    const item = itemLocator(itemData);
-    return this.handleAdd(item);
+    const item = itemLocator(get(e, ["item"]));
+    return item && this.handleAdd(item);
   };
 
   handleItems = (d) => {
