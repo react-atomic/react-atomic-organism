@@ -1,6 +1,5 @@
-import React, { PureComponent } from "react";
 import { Suggestion } from "react-atomic-organism";
-import { build, mixClass, List, Field } from "react-atomic-molecule";
+import { Field } from "react-atomic-molecule";
 import callfunc from "call-func";
 
 import TagsInput from "../organisms/TagsInput";
