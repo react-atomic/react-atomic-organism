@@ -13,6 +13,7 @@ const SelectFilter = forwardRef((props, ref) => {
     valueLocator = defaultValueLocator,
     couldCreate = false,
     options,
+    ...restProps
   } = props;
 
   const select = (
@@ -20,11 +21,11 @@ const SelectFilter = forwardRef((props, ref) => {
       hideTitle
       search
       options={options}
-      onChange={(value, e) => {}}
     />
   );
   return (
     <Suggestion
+      {...restProps}
       ref={ref}
       filter
       couldCreate={couldCreate}

@@ -1,4 +1,6 @@
 import { SelectField, SelectUI } from "organism-react-navigation";
+import { useCallback } from "react";
+import callfunc from "call-func";
 
 const SelectFilterUI = (props) => {
   const {
@@ -10,15 +12,27 @@ const SelectFilterUI = (props) => {
     onFocus,
     onBlur,
     onKeyUp,
+    inputProps,
     ...restProps
   } = props;
+
+  const handleItemClick = useCallback(
+    (e, item) => {
+      e.item = item;
+      return callfunc(onItemClick, [e]);
+    },
+    [onItemClick]
+  );
+
+  const handleSelect = (item) => (e) => handleItemClick(e, item);
+
   return (
     <SelectField
       {...restProps}
       selectComponent={SelectUI}
-      inputProps={{ onChange, onFocus, onBlur, onKeyUp }}
+      inputProps={{ ...inputProps, onChange, onFocus, onBlur, onKeyUp }}
       active={results && results.length}
-      onSelect={(item) => (e) => onItemClick(e, item)}
+      onSelect={handleSelect}
       options={results || options}
     />
   );

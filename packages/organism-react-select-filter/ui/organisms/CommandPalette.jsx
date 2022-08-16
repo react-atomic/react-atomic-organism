@@ -1,10 +1,17 @@
-import { useImperativeHandle, forwardRef, useState } from "react";
+import {
+  useImperativeHandle,
+  forwardRef,
+  useState,
+  useRef,
+  useEffect,
+} from "react";
 import { popupDispatch, FullScreen } from "organism-react-popup";
 import { SemanticUI } from "react-atomic-molecule";
 import { Suggestion } from "react-atomic-organism";
-import callfunc from "call-func";
+import callfunc, { getEventKey } from "call-func";
+import { win } from "win-doc";
 
-import Select from "../molecules/SelectFilterUI";
+import SelectFilter from "../organisms/SelectFilter";
 
 const defaultCommandLocator = (item) => item.command;
 
@@ -15,6 +22,9 @@ const CommandPalette = forwardRef((props, ref) => {
     onChange,
     onlyCallCommand,
   } = props;
+
+  const lastSel = useRef();
+
   const [show, setShow] = useState();
   const expose = {
     open: () => setShow(true),
@@ -22,34 +32,60 @@ const CommandPalette = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => expose, []);
 
+  useEffect(() => {
+    if (show) {
+      setTimeout(() => {
+        lastSel.current?.focus();
+      }, 300);
+    }
+  }, [show]);
+
+  useEffect(() => {
+    const keyArr = [];
+    const handleKeydown = (e) => {
+      const key = e.key;
+      keyArr.push(key);
+    };
+    const handleKeyup = (e) => {
+      console.log(JSON.stringify(keyArr));
+      keyArr.splice(0, keyArr.length);
+      console.log(JSON.stringify(keyArr));
+    };
+    win().addEventListener("keydown", handleKeydown);
+    win().addEventListener("keyup", handleKeyup);
+    return () => {
+      win().removeEventListener("keydown", handleKeydown);
+      win().removeEventListener("keyup", handleKeyup);
+    };
+  }, []);
+
   let commandEl = null;
 
   if (show) {
-    const select = (
-      <Select
-        hideTitle
-        search
-        alwaysOpen
-        icon={false}
-        options={commands}
-        style={Styles.container}
-        onChange={(value, e) => {
-          const item = e.item;
-          const command = commandLocator(item);
-          if (onlyCallCommand) {
-            return command
-              ? callfunc(command, [item])
-              : callfunc(onChange, [item]);
-          } else {
-            callfunc(onChange, [item]);
-            return callfunc(command, [item]);
-          }
-        }}
-      />
-    );
     commandEl = (
       <FullScreen page={false} onClose={() => setShow(false)}>
-        <Suggestion component={select} />
+        <SelectFilter
+          ref={lastSel}
+          inputProps={{ type: "text" }}
+          alwaysOpen
+          icon={false}
+          options={commands}
+          style={Styles.container}
+          onItemClick={(e) => {
+            const item = e.item;
+            if (!item) {
+              return;
+            }
+            const command = commandLocator(item);
+            if (onlyCallCommand) {
+              callfunc(command || onChange, [item]);
+            } else {
+              callfunc(onChange, [item]);
+              callfunc(command, [item]);
+            }
+            setShow(false);
+          }}
+        />
       </FullScreen>
     );
   }

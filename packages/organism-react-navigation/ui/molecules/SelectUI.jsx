@@ -84,7 +84,7 @@ const SelectUI = (props) => {
       refCb={refCb}
       name={name}
       value={value || ""}
-      {...{ ...inputProps, ...inputAttr }}
+      {...{ ...inputAttr, ...inputProps }}
     />
   );
 

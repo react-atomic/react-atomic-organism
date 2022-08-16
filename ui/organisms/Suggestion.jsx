@@ -118,11 +118,13 @@ class Suggestion extends PureComponent {
 
   setValue(value, e, isOpen) {
     const input = this.input;
-    let nextState = { value, selIndex: 0 };
+    const nextState = {
+      value,
+      selIndex: 0,
+      prevValue: value && this.state.value,
+    };
     if (UNDEFINED === typeof value) {
-      nextState = {
-        value: input.value,
-      };
+      nextState.value = input.value;
     }
     if (!e) {
       e = { target: input, currentTarget: input };
@@ -234,10 +236,12 @@ class Suggestion extends PureComponent {
 
   handleItemClick = (e = {}, item) => {
     const { itemClickToClose, onItemClick } = this.props;
-    e.item = item;
+    if (item) {
+      e.item = item;
+    }
     const isContinue = callfunc(onItemClick, [e, item, this]);
     if (itemClickToClose && false !== isContinue) {
-      this.setValue(this.valueLocator(item));
+      this.setValue(this.valueLocator(e.item));
       this.handleSubmit(e);
     }
   };
@@ -262,6 +266,14 @@ class Suggestion extends PureComponent {
             this.results.length <= selIndex
           ) {
             selIndex = 0;
+          }
+          break;
+        case 27:
+        case "Escape":
+          if (this.state.prevValue || this.state.value) {
+            e.preventDefault();
+            e.stopPropagation();
+            setTimeout(() => this.setValue(""));
           }
           break;
         case 39:
