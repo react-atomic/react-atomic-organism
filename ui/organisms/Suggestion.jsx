@@ -167,8 +167,8 @@ class Suggestion extends PureComponent {
 
   handleClose = (e) => {
     const target = e.target;
-    const sbox = this.searchbox;
-    if (sbox.contains(target)) {
+    const wrap = this.inputWrap;
+    if (wrap.contains(target)) {
       return;
     }
     this.close();
@@ -283,7 +283,7 @@ class Suggestion extends PureComponent {
 
   handleRefCb = (el) => (this.input = el);
 
-  handleWrapRefCb = (el) => (this.searchbox = el);
+  handleWrapRefCb = (el) => (this.inputWrap = el);
 
   handlePreview(results) {
     const { value } = this.state;
