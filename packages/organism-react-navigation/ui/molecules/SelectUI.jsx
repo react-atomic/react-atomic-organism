@@ -1,0 +1,112 @@
+import DropdownUI from "../molecules/DropdownUI";
+import { build, mixClass, Menu, Item, SemanticUI } from "react-atomic-molecule";
+
+const SelectUI = (props) => {
+  const {
+    dropdownComponent = DropdownUI,
+    labelLocator = (d) => d.label,
+    valueLocator = (d) => d.value,
+    itemLocator = (d) => d,
+    itemsLocator = (d) => d,
+    onSelect = () => {},
+    alwaysOpen,
+    active,
+    hideTitle,
+    search,
+    defaultValue,
+    value,
+    placeholder,
+    options,
+    name,
+    onBeforeChange,
+    onChange,
+    wrapRefCb,
+    refCb,
+    inputProps,
+    ...restProps
+  } = props;
+  let thisList = null;
+  let thisPlaceholder = null;
+  let thisSelected = value;
+  if (placeholder) {
+    thisPlaceholder = (
+      <SemanticUI style={Styles.dropdownPlaceholder}>{placeholder}</SemanticUI>
+    );
+  }
+  if (options) {
+    thisList = (
+      <Menu>
+        {itemsLocator(options).map((l, key) => {
+          l = itemLocator(l);
+          const optionValue = valueLocator(l);
+          const optionText = labelLocator(l);
+          let active = null;
+          if (value === optionValue) {
+            thisSelected = optionText;
+            active = true;
+          }
+          return (
+            <Item
+              onClick={onSelect(l)}
+              data-v={optionValue}
+              key={key}
+              className={mixClass({
+                active,
+                selected: restProps["data-selected-index"] === key,
+              })}
+            >
+              {optionText}
+            </Item>
+          );
+        })}
+      </Menu>
+    );
+  }
+  const title = thisSelected || thisPlaceholder;
+  let inputAttr;
+  if (search) {
+    inputAttr = {
+      className: "search",
+      placeholder: "Type or search a command",
+      style: { border: "none" },
+      type: "search",
+    };
+  } else {
+    inputAttr = {
+      type: "hidden",
+    };
+  }
+
+  const placeholderHd = (
+    <SemanticUI
+      key="input"
+      atom="input"
+      refCb={refCb}
+      name={name}
+      value={value || ""}
+      {...{ ...inputProps, ...inputAttr }}
+    />
+  );
+
+  return build(dropdownComponent)(
+    {
+      ...restProps,
+      refCb: wrapRefCb,
+      list: thisList,
+      placeholderHd,
+      className: mixClass(props.className, "selection", {
+        search,
+        active: alwaysOpen || active,
+      }),
+    },
+    hideTitle ? null : title
+  );
+};
+
+export default SelectUI;
+
+const Styles = {
+  dropdownPlaceholder: {
+    color: "#ccc",
+  },
+};

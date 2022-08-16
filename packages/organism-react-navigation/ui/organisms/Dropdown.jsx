@@ -1,42 +1,24 @@
-import {
-  isValidElement,
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 import get from "get-object-value";
 
-import {
-  build,
-  useCSS,
-  useLazyInject,
-  mixClass,
-  SemanticUI,
-  Icon,
-  Item,
-} from "react-atomic-molecule";
+import { mixClass } from "react-atomic-molecule";
 import { useTimer } from "reshow-hooks";
 import { doc } from "win-doc";
-import DropdownIcon from "ricon/Dropdown";
+
+import DropdownUI from "../molecules/DropdownUI";
 
 const useDropdown = (props) => {
   const {
-    icon = true,
     simple = true,
+    alwaysOpen,
     right,
     upward,
     item,
     list,
     listStyle: propsListStyle,
-    titleStyle,
-    iconStyle,
-    children,
-    style,
     className,
-    textClassName,
-    ...others
+    ...restProps
   } = props;
   const [titleTimer] = useTimer();
   const [menuTimer] = useTimer();
@@ -47,8 +29,6 @@ const useDropdown = (props) => {
   const isListClick = useRef();
   const [stateListStyle, setStateListStyle] = useState({});
   const [hideList, setHideList] = useState(false);
-  injects = useLazyInject(InjectStyles, injects);
-  useCSS(["dropdown"], "semantic");
   useEffect(() => {
     handleClose.current = (e) => {
       const target = e.target;
@@ -57,6 +37,9 @@ const useDropdown = (props) => {
       }
       expose.close();
     };
+    if (alwaysOpen) {
+      expose.open();
+    }
     return () => {
       if (!simple) {
         doc().removeEventListener("click", handleClose.current);
@@ -79,7 +62,10 @@ const useDropdown = (props) => {
       isActive.current = true;
       setStateListStyle(runTimeListStyle);
     },
-    close: () => {
+    close: (force) => {
+      if (alwaysOpen && !force) {
+        return;
+      }
       doc().removeEventListener("click", handleClose.current);
       isActive.current = false;
       setStateListStyle({});
@@ -128,7 +114,7 @@ const useDropdown = (props) => {
     },
   };
 
-  others.className = mixClass(className, "dropdown", {
+  const thisClass = mixClass(className, {
     active: isActive.current,
     simple,
     right,
@@ -137,172 +123,22 @@ const useDropdown = (props) => {
   });
 
   return {
+    ...restProps,
     handler,
-    others,
+    className: thisClass,
 
     /* Styles */
-    style,
-    titleStyle,
     propsListStyle,
     stateListStyle,
-    iconStyle,
-
-    /* Classes */
-    textClassName,
 
     /* Status */
     hideList,
 
     /* Component */
-    children,
-    icon,
     list,
   };
 };
 
-const Dropdown = (props) => {
-  const {
-    handler,
-    others,
-
-    /* Styles */
-    style,
-    titleStyle,
-    propsListStyle,
-    stateListStyle,
-    iconStyle,
-
-    /* Classes */
-    textClassName,
-
-    /* Status */
-    hideList,
-
-    /* Component */
-    children,
-    icon,
-    list,
-  } = useDropdown(props);
-
-  const textClasses = mixClass("text", textClassName);
-  const thisText = (
-    <SemanticUI
-      className={textClasses}
-      style={{ ...Styles.label, ...titleStyle }}
-    >
-      {children}
-    </SemanticUI>
-  );
-  let thisIcon = null;
-  if (icon) {
-    if (!isValidElement(icon)) {
-      thisIcon = (
-        <Icon
-          className="dropdown-default-icon dropdown icon"
-          style={iconStyle}
-        ></Icon>
-      );
-    } else {
-      thisIcon = icon;
-    }
-  }
-  let thisList = null;
-  if (!hideList && list) {
-    thisList = build(list)({
-      style: {
-        ...Styles.list,
-        ...propsListStyle,
-        ...stateListStyle,
-      },
-      refCb: handler.listEl,
-      onClick: handler.listClick,
-      onTouchStart: handler.touchStart,
-    });
-  }
-  return (
-    <SemanticUI
-      {...others}
-      style={{ ...Styles.container, ...style }}
-      refCb={handler.thisEl}
-      onClick={handler.dropdownClick}
-    >
-      {thisText}
-      {thisIcon}
-      {thisList}
-    </SemanticUI>
-  );
-};
+const Dropdown = (props) => <DropdownUI {...useDropdown(props)} />;
 
 export default Dropdown;
-
-const Styles = {
-  container: {
-    border: "none",
-    boxShadow: "none",
-    minHeight: "auto",
-    boxSizing: "border-box",
-  },
-  label: {
-    display: "inline-block",
-  },
-  list: {
-    boxSizing: "inherit",
-    maxHeight: "50vh",
-    overflow: "auto",
-  },
-};
-
-let injects;
-const InjectStyles = {
-  resetSelectionBorderColor: [
-    {
-      borderColor: "inherit",
-    },
-    [
-      ".selection.active.dropdown .menu.ui",
-      ".ui.selection.active.dropdown:hover .menu.ui",
-    ].join(","),
-  ],
-  defaultIcon: [
-    {
-      transform: ["rotate(180deg)"],
-    },
-    [
-      ".ui.simple.dropdown:hover .dropdown-default-icon",
-      ".ui.dropdown.active .dropdown-default-icon",
-    ].join(","),
-  ],
-  initMenu: [
-    {
-      display: "none !important",
-    },
-    ".ui.simple.dropdown .menu",
-  ],
-  hoverMenu: [
-    {
-      display: "block !important",
-    },
-    [
-      ".ui.simple.dropdown.active>.menu",
-      ".ui.simple.dropdown:hover>.menu",
-    ].join(","),
-  ],
-  /*https://github.com/fomantic/Fomantic-UI/pull/1209/files*/
-  fixMinHeight: [
-    {
-      boxSizing: "inherit",
-    },
-    ".ui.dropdown .menu>.item",
-  ],
-  /*upward*/
-  upward: [
-    {
-      top: "auto",
-    },
-    [
-      ".ui.simple.upward.dropdown .menu",
-      ".ui.simple.upward.active.dropdown>.menu",
-      ".ui.simple.upward.dropdown:hover>.menu",
-    ].join(","),
-  ],
-};

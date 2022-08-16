@@ -16,7 +16,9 @@ export { default as getDocTemplate } from "../ui/templates/getDocTemplate";
 
 /* Dropdown */
 export { default as Dropdown } from "../ui/organisms/Dropdown";
-export { default as Select, SelectField } from "../ui/organisms/Select";
+export { default as Select } from "../ui/organisms/Select";
+export { default as SelectField } from "../ui/molecules/SelectField";
+export { default as SelectUI } from "../ui/molecules/SelectUI";
 
 // library
 export { default as paginationCalculator } from "./paginationCalculator";

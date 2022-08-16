@@ -1,8 +1,8 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
 import { build, mixClass } from "react-atomic-molecule";
 import get from "get-object-value";
 import { doc } from "win-doc";
-import callfunc from "call-func";
+import callfunc, { getEventKey } from "call-func";
 import { UNDEFINED, FUNCTION } from "reshow-constant";
 
 import SearchBox from "../organisms/SearchBox";
@@ -93,7 +93,7 @@ class Suggestion extends PureComponent {
   shouldRenderSuggestions() {
     const { shouldRenderSuggestions } = this.props;
     return !shouldRenderSuggestions
-      ? true
+      ? this.state.isOpen
       : callfunc(shouldRenderSuggestions, [this]);
   }
 
@@ -119,7 +119,7 @@ class Suggestion extends PureComponent {
   setValue(value, e, isOpen) {
     const input = this.input;
     let nextState = { value, selIndex: 0 };
-    if ("undefined" === typeof value) {
+    if (UNDEFINED === typeof value) {
       nextState = {
         value: input.value,
       };
@@ -139,7 +139,6 @@ class Suggestion extends PureComponent {
   }
 
   handleChange = (e) => {
-    e.persist();
     const { isOpen } = this.state;
     const value = get(e, ["target", "value"], "");
     this.setValue(value, e);
@@ -203,9 +202,6 @@ class Suggestion extends PureComponent {
   };
 
   handleFocus = (e) => {
-    if (e && e.persist) {
-      e.persist();
-    }
     const { onFocus, couldCreate } = this.props;
     this.open(e);
     this.focus();
@@ -217,7 +213,6 @@ class Suggestion extends PureComponent {
   };
 
   handleBlur = (e) => {
-    e.persist();
     const { onBlur } = this.props;
     this.clearTimer();
     this.timerCouldCreate = setTimeout(() => {
@@ -237,8 +232,7 @@ class Suggestion extends PureComponent {
     callfunc(this.props.onWrapClick, [e]);
   };
 
-  handleItemClick = (e, item) => {
-    e.persist();
+  handleItemClick = (e = {}, item) => {
     const { itemClickToClose, onItemClick } = this.props;
     e.item = item;
     const isContinue = callfunc(onItemClick, [e, item, this]);
@@ -249,32 +243,36 @@ class Suggestion extends PureComponent {
   };
 
   handleKeyUp = (e) => {
-    const { keyCode } = e;
     const { onItemClick } = this.props;
-    e.persist();
     this.setState(({ selIndex }) => {
-      switch (keyCode) {
+      switch (getEventKey(e)) {
         case 38:
+        case "ArrowUp":
           selIndex--;
           if (selIndex < 0) {
             selIndex = 0;
           }
           break;
         case 40:
+        case "ArrowDown":
           selIndex++;
           if (
             !this.results ||
             !this.results.length ||
-            this.results.length < selIndex
+            this.results.length <= selIndex
           ) {
             selIndex = 0;
           }
           break;
+        case 39:
+        case "ArrowRight":
         case 13:
+        case "Enter":
           e.preventDefault();
-          e.persist();
-          if (selIndex && this.results) {
-            this.handleItemClick(e, get(this.results, [selIndex - 1], {}));
+          if (this.results && this.results.length) {
+            setTimeout(() =>
+              this.handleItemClick(e, get(this.results, [selIndex]))
+            );
           } else {
             this.handleSubmit(e);
           }
@@ -310,7 +308,7 @@ class Suggestion extends PureComponent {
 
   handleResults() {
     let results = null;
-    if (this.state.isOpen && this.shouldRenderSuggestions()) {
+    if (this.shouldRenderSuggestions()) {
       results = this.handleFilter(this.props.results);
     }
     return results;
@@ -380,7 +378,7 @@ class Suggestion extends PureComponent {
       value,
       name: isOpen ? null : name, // disalbe autofill
       "data-name": name,
-      selIndex,
+      "data-selected-index": selIndex,
       className: classes,
       refCb: this.handleRefCb,
       wrapRefCb: this.handleWrapRefCb,

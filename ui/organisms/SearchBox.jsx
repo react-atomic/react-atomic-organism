@@ -24,7 +24,6 @@ const SearchBox = ({
   itemsLocator,
   inputWrapStyle,
   resultsStyle,
-  selIndex,
   ...restProps
 }) => {
   const classes = mixClass(className, "search");
@@ -37,7 +36,7 @@ const SearchBox = ({
             get(item, ["props", "className"]),
             "result",
             {
-              active: selIndex - 1 === key,
+              active: restProps["data-selected-index"] === key,
             }
           );
           const itemNextProps = { className: itemClasses, key };
