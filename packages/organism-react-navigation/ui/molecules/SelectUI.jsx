@@ -1,9 +1,12 @@
 import DropdownUI from "../molecules/DropdownUI";
 import { build, mixClass, Menu, Item, SemanticUI } from "react-atomic-molecule";
 
+const SelectMenu = (props) => <Menu {...props} />;
+
 const SelectUI = (props) => {
   const {
     dropdownComponent = DropdownUI,
+    menuComponent = SelectMenu,
     labelLocator = (d) => d.label,
     valueLocator = (d) => d.value,
     itemLocator = (d) => d,
@@ -25,44 +28,43 @@ const SelectUI = (props) => {
     inputProps,
     ...restProps
   } = props;
-  let thisList = null;
   let thisPlaceholder = null;
-  let thisSelected = value;
   if (placeholder) {
     thisPlaceholder = (
       <SemanticUI style={Styles.dropdownPlaceholder}>{placeholder}</SemanticUI>
     );
   }
+  let thisSelected = value;
+  let thisList = null;
   if (options) {
-    thisList = (
-      <Menu>
-        {itemsLocator(options).map((l, key) => {
-          l = itemLocator(l);
-          const optionValue = valueLocator(l);
-          const optionText = labelLocator(l);
-          let active = null;
-          if (value === optionValue) {
-            thisSelected = optionText;
-            active = true;
-          }
-          return (
-            <Item
-              onClick={onSelect(l)}
-              data-v={optionValue}
-              key={key}
-              className={mixClass({
-                active,
-                selected: restProps["data-selected-index"] === key,
-              })}
-            >
-              {optionText}
-            </Item>
-          );
-        })}
-      </Menu>
+    thisList = build(SelectMenu)(
+      null,
+      itemsLocator(options).map((l, key) => {
+        l = itemLocator(l);
+        const optionValue = valueLocator(l);
+        const optionText = labelLocator(l);
+        let active = null;
+        if (value === optionValue) {
+          thisSelected = optionText;
+          active = true;
+        }
+        return (
+          <Item
+            onClick={onSelect(l)}
+            data-v={optionValue}
+            key={key}
+            className={mixClass({
+              active,
+              selected: restProps["data-selected-index"] === key,
+            })}
+          >
+            {optionText}
+          </Item>
+        );
+      })
     );
   }
-  const title = thisSelected || thisPlaceholder;
+
   let inputAttr;
   if (search) {
     inputAttr = {
@@ -99,7 +101,7 @@ const SelectUI = (props) => {
         active: alwaysOpen || active,
       }),
     },
-    hideTitle ? null : title
+    hideTitle ? null : thisSelected || thisPlaceholder
   );
 };
 
