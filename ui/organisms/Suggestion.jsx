@@ -136,7 +136,8 @@ class Suggestion extends PureComponent {
       const { onChange, name } = this.props;
       e.inputName = name;
       e.value = this.getValue();
-      callfunc(onChange, [e, e.value, name, this]);
+      e.suggestion = this;
+      callfunc(onChange, [e]);
     });
   }
 
@@ -230,8 +231,9 @@ class Suggestion extends PureComponent {
   };
 
   handleWrapClick = (e) => {
-    this.handleFocus();
-    callfunc(this.props.onWrapClick, [e]);
+    const { wrapClickToFocus, onWrapClick } = this.props;
+    wrapClickToFocus && this.handleFocus();
+    callfunc(onWrapClick, [e]);
   };
 
   handleItemClick = (e = {}, item) => {
@@ -239,7 +241,8 @@ class Suggestion extends PureComponent {
     if (item) {
       e.item = item;
     }
-    const isContinue = callfunc(onItemClick, [e, item, this]);
+    e.suggestion = this;
+    const isContinue = callfunc(onItemClick, [e]);
     if (itemClickToClose && false !== isContinue) {
       this.setValue(this.valueLocator(e.item));
       this.handleSubmit(e);
@@ -354,16 +357,17 @@ class Suggestion extends PureComponent {
 
   render() {
     const {
+      results,
       component,
       couldCreate,
       className,
+      wrapClickToFocus,
       wrapRefCb,
       onWrapClick,
       onChange,
       onFocus,
       onBlur,
       onSubmit,
-      results,
       onItemClick,
       itemClickToClose,
       itemsLocator,
@@ -382,9 +386,13 @@ class Suggestion extends PureComponent {
       return null;
     }
     this.results = this.handleResults();
-    const classes = mixClass(className, {
-      disabled,
-    });
+    const classes = mixClass(
+      className,
+      get(component, ["props", "className"]),
+      {
+        disabled,
+      }
+    );
     return build(component)({
       ...props,
       value,
