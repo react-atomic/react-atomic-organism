@@ -12,13 +12,18 @@ import callfunc, { getEventKey } from "call-func";
 import { win } from "win-doc";
 
 import SelectFilter from "../organisms/SelectFilter";
+import NotFoundComponent from "../molecules/NotFoundComponent";
 
 const defaultCommandLocator = (item) => item.command;
 
+const arrEq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+
 const CommandPalette = forwardRef((props, ref) => {
   const {
-    commands,
+    notFoundComponent = NotFoundComponent,
     commandLocator = defaultCommandLocator,
+    hotkey,
+    commands,
     onChange,
     onlyCallCommand,
   } = props;
@@ -41,22 +46,23 @@ const CommandPalette = forwardRef((props, ref) => {
   }, [show]);
 
   useEffect(() => {
-    const keyArr = [];
-    const handleKeydown = (e) => {
-      const key = e.key;
-      keyArr.push(key);
-    };
-    const handleKeyup = (e) => {
-      console.log(JSON.stringify(keyArr));
-      keyArr.splice(0, keyArr.length);
-      console.log(JSON.stringify(keyArr));
-    };
-    win().addEventListener("keydown", handleKeydown);
-    win().addEventListener("keyup", handleKeyup);
-    return () => {
-      win().removeEventListener("keydown", handleKeydown);
-      win().removeEventListener("keyup", handleKeyup);
-    };
+    if (hotkey) {
+      const keyArr = [];
+      const handleKeydown = (e) => {
+        const key = e.key;
+        keyArr.push(key);
+        if (arrEq(keyArr, hotkey)) {
+          setShow(true);
+        }
+      };
+      const handleKeyup = (e) => keyArr.splice(0, keyArr.length);
+      win().addEventListener("keydown", handleKeydown);
+      win().addEventListener("keyup", handleKeyup);
+      return () => {
+        win().removeEventListener("keydown", handleKeydown);
+        win().removeEventListener("keyup", handleKeyup);
+      };
+    }
   }, []);
 
   let commandEl = null;
@@ -65,6 +71,7 @@ const CommandPalette = forwardRef((props, ref) => {
     commandEl = (
       <FullScreen page={false} onClose={() => setShow(false)}>
         <SelectFilter
+          notFoundComponent={notFoundComponent}
           ref={lastSel}
           inputProps={{ type: "text" }}
           alwaysOpen
@@ -76,12 +83,13 @@ const CommandPalette = forwardRef((props, ref) => {
             if (!item) {
               return;
             }
+            e.value = item;
             const command = commandLocator(item);
             if (onlyCallCommand) {
-              callfunc(command || onChange, [item]);
+              callfunc(command || onChange, [e]);
             } else {
-              callfunc(onChange, [item]);
-              callfunc(command, [item]);
+              callfunc(onChange, [e]);
+              callfunc(command, [e]);
             }
             setShow(false);
           }}

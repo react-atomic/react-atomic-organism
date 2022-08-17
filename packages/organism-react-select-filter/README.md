@@ -13,3 +13,7 @@
 ```
 
 ```
+
+## UI Inheritance
+
+CommandPalette -> SelectFilter -> SelectFilterUI -> SelectField -> SelectUI -> DropdownUI

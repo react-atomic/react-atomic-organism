@@ -14,9 +14,15 @@
   "author": "Hill <hill@kimo.com>",
   "license": "ISC",
   "dependencies": {
+    "call-func": "*",
+    "organism-react-navigation": "*",
+    "organism-react-popup": "*",
+    "react-atomic-molecule": "*",
     "react-atomic-organism": "*",
     "reshow-constant": "*",
-    "reshow-runtime": "*"
+    "reshow-runtime": "*",
+    "ricon": "*",
+    "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
