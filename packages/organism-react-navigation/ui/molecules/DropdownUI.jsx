@@ -34,8 +34,9 @@ const DropdownUI = (props) => {
     titleStyle,
     iconStyle,
     textClassName,
-    placeholderHd,
-    placeholderFt,
+    compHd,
+    compBd,
+    compFt,
     className,
     refCb,
     ...otherProps
@@ -84,11 +85,12 @@ const DropdownUI = (props) => {
       refCb={handler.thisEl || refCb}
       onClick={handler.dropdownClick}
     >
-      {placeholderHd}
+      {compHd}
       {thisText}
       {thisIcon}
-      {placeholderFt}
+      {compBd}
       {thisList}
+      {compFt}
     </SemanticUI>
   );
 };
