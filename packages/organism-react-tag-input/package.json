@@ -1,5 +1,5 @@
 {
-  "version": "0.3.4",
+  "version": "0.4.0",
   "name": "organism-react-tag-input",
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
     "get-object-value": "*",
     "react-atomic-molecule": "*",
     "react-atomic-organism": "*",
+    "reshow-flux": "*",
     "reshow-runtime": "*"
   },
   "devDependencies": {

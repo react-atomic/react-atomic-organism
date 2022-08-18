@@ -79,7 +79,7 @@ const SelectUI = (props) => {
     };
   }
 
-  const placeholderHd = (
+  const compHd = (
     <SemanticUI
       key="input"
       atom="input"
@@ -95,7 +95,7 @@ const SelectUI = (props) => {
       ...restProps,
       refCb: wrapRefCb,
       list: thisList,
-      placeholderHd,
+      compHd,
       className: mixClass(props.className, "selection", {
         search,
         active: alwaysOpen || active,

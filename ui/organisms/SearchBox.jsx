@@ -15,6 +15,8 @@ const SearchBox = ({
   inputComponent = InputBox,
   className,
   compHd,
+  compBd,
+  compFt,
   wrapRefCb,
   wrapStyle,
   onWrapClick,
@@ -68,7 +70,9 @@ const SearchBox = ({
         type: "text",
         ...restProps,
       })}
+      {compBd}
       {results}
+      {compFt}
     </SemanticUI>
   );
 };
