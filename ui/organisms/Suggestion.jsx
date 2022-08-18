@@ -132,7 +132,7 @@ class Suggestion extends PureComponent {
     if (isOpen || false === isOpen) {
       nextState.isOpen = isOpen;
     }
-    this.setState(nextState, () => {
+    return this.setState(nextState, () => {
       const { onChange, name } = this.props;
       e.inputName = name;
       e.value = this.getValue();

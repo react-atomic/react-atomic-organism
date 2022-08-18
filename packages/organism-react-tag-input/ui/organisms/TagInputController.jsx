@@ -32,6 +32,7 @@ class TagInputController extends PureComponent {
 
   enableError(errorMsg, errorProps) {
     const { onError } = this.props;
+    console.log(errorMsg);
     this.sugg.disabled(true);
     this.hasError = true;
     callfunc(onError, [errorMsg, errorProps]);
@@ -57,7 +58,7 @@ class TagInputController extends PureComponent {
         );
       }
       if (isContinue && !disabled) {
-        this.getTagList().add(value) && this.sugg.setValue("");
+        this.getTagList().add(value) && this.sugg.setValue("") && this.disableError();
       }
     }
   }

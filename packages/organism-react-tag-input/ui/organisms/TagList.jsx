@@ -40,6 +40,7 @@ const useTags = ({
   lastTags.current = {
     tags: tagState.get("tags") || [],
     group: tagState.get("group") || {},
+    maxTags,
   };
 
   const getTags = () => lastTags.current;
@@ -51,7 +52,7 @@ const useTags = ({
         return;
       }
       tag = tag + "";
-      const { tags } = getTags();
+      const { tags, maxTags } = getTags();
       if (-1 !== maxTags && tags && tags.length >= maxTags) {
         return callfunc(onAddError, [
           {
