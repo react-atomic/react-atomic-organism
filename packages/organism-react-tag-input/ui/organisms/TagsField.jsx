@@ -2,8 +2,9 @@ import { Suggestion } from "react-atomic-organism";
 import { Field } from "react-atomic-molecule";
 import callfunc from "call-func";
 
-import TagsInput from "../organisms/TagsInput";
-import TagsController from "../organisms/TagsController";
+import TagInputUI from "../organisms/TagInputUI";
+import TagList from "../organisms/TagList";
+import TagInputController from "../organisms/TagInputController";
 
 const TagsField = (props) => {
   const {
@@ -18,13 +19,16 @@ const TagsField = (props) => {
     createOnBlur,
     maxTags,
     onAdd,
+    onAddError,
     onDel,
     onError,
     onController,
     onItemClick,
     name,
+    disabled,
     ...otherProps
   } = props;
+
   let controller;
   const onClick = (e) => {
     controller.handleClick(e);
@@ -34,8 +38,30 @@ const TagsField = (props) => {
     callfunc(onController, [el]);
   };
 
+  const tagList = (
+    <TagList
+      {...{
+        onAdd,
+        onAddError,
+        onDel,
+        couldDuplicate,
+        disabled,
+        tagComponent,
+        tagData,
+        tagsLocator,
+        tagLocator,
+        maxTags,
+      }}
+    />
+  );
+
   const input = (
-    <TagsController {...props} component={TagsInput} ref={handleController} />
+    <TagInputController
+      {...props}
+      component={TagInputUI}
+      tagList={tagList}
+      ref={handleController}
+    />
   );
 
   return (
