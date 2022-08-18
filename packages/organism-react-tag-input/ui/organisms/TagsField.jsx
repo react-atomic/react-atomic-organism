@@ -9,24 +9,25 @@ import TagInputController from "../organisms/TagInputController";
 const TagsField = (props) => {
   const {
     itemsLocator,
-    tagData,
-    tagsLocator,
-    tagLocator,
-    tagComponent,
     fluid,
     couldCreate,
-    couldDuplicate,
     createOnBlur,
-    maxTags,
-    onAdd,
-    onAddError,
-    onDel,
     onError,
     onController,
     onItemClick,
     name,
     disabled,
-    ...otherProps
+
+    onAdd,
+    onAddError,
+    onDel,
+    tagComponent,
+    tagData,
+    tagsLocator,
+    tagLocator,
+    maxTags,
+    couldDuplicate,
+    ...restProps
   } = props;
 
   let controller;
@@ -44,13 +45,13 @@ const TagsField = (props) => {
         onAdd,
         onAddError,
         onDel,
-        couldDuplicate,
-        disabled,
         tagComponent,
         tagData,
         tagsLocator,
         tagLocator,
         maxTags,
+        couldDuplicate,
+        disabled,
       }}
     />
   );
@@ -65,7 +66,7 @@ const TagsField = (props) => {
   );
 
   return (
-    <Field {...otherProps} inputComponent={input} fieldProps={{ onClick }} />
+    <Field {...restProps} inputComponent={input} fieldProps={{ onClick }} />
   );
 };
 
