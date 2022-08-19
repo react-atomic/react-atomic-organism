@@ -76,6 +76,7 @@ const CommandPalette = forwardRef((props, ref) => {
           inputProps={{ type: "text" }}
           alwaysOpen
           icon={false}
+          onSubmit={false}
           options={commands}
           style={Styles.container}
           onItemClick={(e) => {
