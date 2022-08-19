@@ -26,9 +26,9 @@ const SelectFilterUI = ({
 
   const active = results && results.length;
 
-  let placeholderFt;
+  let compBd;
   if (!active && notFoundComponent) {
-    placeholderFt = build(notFoundComponent)();
+    compBd = build(notFoundComponent)();
   }
 
   return (
@@ -39,7 +39,7 @@ const SelectFilterUI = ({
       active={active}
       onSelect={handleSelect}
       options={results || options}
-      placeholderFt={placeholderFt}
+      compBd={compBd}
     />
   );
 };
