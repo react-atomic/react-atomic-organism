@@ -10,6 +10,9 @@ const keys = Object.keys;
 describe("Test Register", () => {
   afterEach(() => cleanIt());
 
+  // https://github.com/jsdom/jsdom/issues/3331
+  const Event = window.Event;
+
   it("basic test", () => {
     const span = create("span")()({ id: "unit-span" });
     inject()(span);
