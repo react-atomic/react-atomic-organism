@@ -18,6 +18,8 @@ const defaultCommandLocator = (item) => item.command;
 
 const arrEq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
+const shouldRenderSuggestions = () => true;
+
 const CommandPalette = forwardRef((props, ref) => {
   const {
     notFoundComponent = NotFoundComponent,
@@ -74,8 +76,9 @@ const CommandPalette = forwardRef((props, ref) => {
           notFoundComponent={notFoundComponent}
           ref={lastSel}
           inputProps={{ type: "text" }}
-          alwaysOpen
+          shouldRenderSuggestions={shouldRenderSuggestions}
           icon={false}
+          onSubmit={false}
           options={commands}
           style={Styles.container}
           onItemClick={(e) => {

@@ -19,9 +19,6 @@ class TagInputController extends PureComponent {
     itemLocator: (d) => d,
   };
 
-  isFocus = false;
-
-  blurTimer = null;
   clickTimer = null;
 
   getTags() {
@@ -58,16 +55,14 @@ class TagInputController extends PureComponent {
         );
       }
       if (isContinue && !disabled) {
-        this.getTagList().add(value) && this.sugg.setValue("") && this.disableError();
+        this.getTagList().add(value) &&
+          this.sugg.setValue("") &&
+          this.disableError();
       }
     }
   }
 
   clearTimer() {
-    if (this.blurTimer) {
-      clearTimeout(this.blurTimer);
-      this.blurTimer = null;
-    }
     if (this.clickTimer) {
       clearTimeout(this.clickTimer);
       this.clickTimer = null;
@@ -77,7 +72,7 @@ class TagInputController extends PureComponent {
   handleClick = () => {
     clearTimeout(this.clickTimer);
     this.clickTimer = setTimeout(() => {
-      if (!this.isFocus) {
+      if (!this.sugg.getIsOpen()) {
         this.disableError();
       }
     }, 100);
@@ -102,24 +97,12 @@ class TagInputController extends PureComponent {
   };
 
   handleBlur = (e) => {
-    this.isFocus = false;
-    this.clearTimer();
-    const suggResults = this.sugg?.results;
-    const delay = suggResults && suggResults.length ? 300 : 50;
-    this.blurTimer = setTimeout(() => {
-      if (!this.isFocus) {
-        if (this.props.createOnBlur) {
-          const value = this.sugg.getValue();
-          if (value) {
-            this.maybeCreate();
-          }
-        }
+    if (this.props.createOnBlur) {
+      const value = this.sugg.getValue();
+      if (value) {
+        this.maybeCreate();
       }
-    }, delay);
-  };
-
-  handleFocus = (e) => {
-    this.isFocus = true;
+    }
   };
 
   handleItemClick = (e) => {
@@ -177,7 +160,6 @@ class TagInputController extends PureComponent {
       onItemClick: this.handleItemClick,
       onKeyDown: this.handleKeyDown,
       onBlur: this.handleBlur,
-      onFocus: this.handleFocus,
       onGetSugg: this.handleGetSugg,
     });
   }

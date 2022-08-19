@@ -24,6 +24,6 @@ const Styles = {
   },
   text: {
     fontSize: "1.5rem",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 };

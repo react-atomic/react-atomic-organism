@@ -18,7 +18,14 @@ const SelectFilter = forwardRef(
     },
     ref
   ) => {
-    const select = <SelectFilterUI hideTitle search options={options} fieldClassName="select-filter" />;
+    const select = (
+      <SelectFilterUI
+        hideTitle
+        search
+        options={options}
+        fieldClassName="select-filter"
+      />
+    );
     return (
       <Suggestion
         {...restProps}

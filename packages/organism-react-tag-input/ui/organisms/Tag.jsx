@@ -41,6 +41,6 @@ const Styles = {
     position: "absolute",
     top: 0,
     height: "100%",
-    cursor: "pointer"
+    cursor: "pointer",
   },
 };
