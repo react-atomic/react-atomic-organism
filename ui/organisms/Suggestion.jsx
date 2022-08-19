@@ -69,10 +69,6 @@ class Suggestion extends PureComponent {
     callfunc(this.input.focus, null, this.input);
   }
 
-  getValue() {
-    return this.state.value;
-  }
-
   valueLocator(rawItem) {
     const { valueLocator, itemLocator } = this.props;
     let value = itemLocator(rawItem);
@@ -80,14 +76,6 @@ class Suggestion extends PureComponent {
       value = callfunc(valueLocator, [value]);
     }
     return value;
-  }
-
-  getSelIndex() {
-    return this.state.selIndex;
-  }
-
-  getIsOpen() {
-    return this.state.isOpen;
   }
 
   shouldRenderSuggestions() {
@@ -114,6 +102,18 @@ class Suggestion extends PureComponent {
       clearTimeout(this.timerResetValue);
       this.timerResetValue = null;
     }
+  }
+
+  getValue() {
+    return this.state.value;
+  }
+
+  getSelIndex() {
+    return this.state.selIndex;
+  }
+
+  getIsOpen() {
+    return this.state.isOpen;
   }
 
   setValue(value, e, isOpen) {
@@ -216,7 +216,6 @@ class Suggestion extends PureComponent {
   };
 
   handleBlur = (e) => {
-    const { onBlur } = this.props;
     this.clearTimer();
     this.timerCouldCreate = setTimeout(() => {
       const { isOpen } = this.state;
@@ -225,9 +224,9 @@ class Suggestion extends PureComponent {
         if (!next.value) {
           this.handleResetValue(next.originalValue, e);
         }
+        callfunc(this.props.onBlur, [e]);
       }
     }, 200);
-    callfunc(onBlur, [e]);
   };
 
   handleWrapClick = (e) => {

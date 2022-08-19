@@ -1202,9 +1202,9 @@
   integrity sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig==
 
 "@types/eslint@^8.4.2":
-  version "8.4.5"
-  resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-8.4.5.tgz#acdfb7dd36b91cc5d812d7c093811a8f3d9b31e4"
-  integrity sha512-dhsC09y1gpJWnK+Ff4SGvCuSnk9DaU0BJZSzOwa6GVSg65XtTugLBITDAAzRU5duGBoXBHpdR/9jHGxJjNflJQ==
+  version "8.4.6"
+  resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-8.4.6.tgz#7976f054c1bccfcf514bff0564c0c41df5c08207"
+  integrity sha512-/fqTbjxyFUaYNO7VcW5g+4npmqVACz1bB7RTHYuLj+PRjw9hrCwrUXVQFpChUS0JsyEFvMZ7U/PfmvWgxJhI9g==
   dependencies:
     "@types/estree" "*"
     "@types/json-schema" "*"
@@ -1993,9 +1993,9 @@ domexception@^4.0.0:
     webidl-conversions "^7.0.0"
 
 electron-to-chromium@^1.4.202:
-  version "1.4.224"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.224.tgz#ecf2eed395cfedcbbe634658ccc4b457f7b254c3"
-  integrity sha512-dOujC5Yzj0nOVE23iD5HKqrRSDj2SD7RazpZS/b/WX85MtO6/LzKDF4TlYZTBteB+7fvSg5JpWh0sN7fImNF8w==
+  version "1.4.225"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.225.tgz#3e27bdd157cbaf19768141f2e0f0f45071e52338"
+  integrity sha512-ICHvGaCIQR3P88uK8aRtx8gmejbVJyC6bB4LEC3anzBrIzdzC7aiZHY4iFfXhN4st6I7lMO0x4sgBHf/7kBvRw==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -2240,9 +2240,9 @@ flat@^5.0.2:
   integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
 
 flatted@^3.1.0:
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.6.tgz#022e9218c637f9f3fc9c35ab9c9193f05add60b2"
-  integrity sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
+  integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
 foreground-child@^2.0.0:
   version "2.0.0"
@@ -3457,9 +3457,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-5.0.2.tgz#832e015c4bd767030daefe28ada605b0c9cbbe31"
-  integrity sha512-pPuEYWO05KTl9fhPy+ZbKLPUdutlID1n/QvmabGkwwimdKvy7YJka+0LaoRgEvQuLPpLbeqJ7+pAnct927uLCA==
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-5.0.4.tgz#a8506a098f0b462fdbb98e688d47a99c17c8ce73"
+  integrity sha512-WXb8NVjZaat3PLd4gg6hVwFr7jcWVQxi1CLQ6kA7xTaL1DBnSkT1DKlsmIQExxBAfMDk8QBNyLPLztpK57X8Gg==
   dependencies:
     array.merge "*"
     call-func "*"
@@ -3477,9 +3477,9 @@ react-atomic-molecule@*:
     win-doc "*"
 
 react-atomic-organism@*:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.16.0.tgz#bc89a118802f9f7166a5cfc8b21a434fe995b5b9"
-  integrity sha512-pXOkZxjurZCTjE5zmIzplLjbV817gY3YaKomLJgXsEITnakrUPkEiz2eAc2Iw2WzcVDMz1IvTieWatO3hL8Mvw==
+  version "0.16.3"
+  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.16.3.tgz#4a138672755ceeb9e04939b2d01ede2511db51a9"
+  integrity sha512-E+o8P0Ri2L67NL89Z80tsFIBICdqYhyQ6F2vIYLU7UJf8Fxc7Z8AyfEDl4Dm+EQ8u3XPErsX/WCvbqsuC+w+XQ==
   dependencies:
     array.merge "*"
     call-func "*"

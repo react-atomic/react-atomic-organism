@@ -5,14 +5,12 @@ import Select from "../organisms/Select";
 const SelectField = ({ selectComponent = Select, inputProps, ...props }) => (
   <Field
     {...props}
-    inputComponent={
-      build(selectComponent)({
-        inputProps,
-        titleStyle: Styles.dropdownTitle,
-        style: Styles.dropdown,
-        iconStyle: Styles.dropdownIcon
-      })
-    }
+    inputComponent={build(selectComponent)({
+      inputProps,
+      titleStyle: Styles.dropdownTitle,
+      style: Styles.dropdown,
+      iconStyle: Styles.dropdownIcon,
+    })}
   />
 );
 

@@ -49,7 +49,11 @@ const FullScreenExample = ({
 
   let thisFullScreen = null;
   if (showFullScreen) {
-    thisFullScreen = <FullScreen {...restProps} onClose={handleClose}>{children}</FullScreen>;
+    thisFullScreen = (
+      <FullScreen {...restProps} onClose={handleClose}>
+        {children}
+      </FullScreen>
+    );
   }
   return (
     <>
