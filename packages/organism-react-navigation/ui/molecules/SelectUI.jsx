@@ -18,7 +18,7 @@ const SelectMenu = (props) => <Menu {...props} />;
 const SelectItem = ({ icon, children, header, divider, ...props }) => {
   let thisIcon;
   if (icon) {
-    thisIcon = <Icon>{icon}</Icon>;
+    thisIcon = <Icon>{build(icon)()}</Icon>;
   }
   const comp = [
     <Item key="item" {...props}>
