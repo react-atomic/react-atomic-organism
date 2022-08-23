@@ -22,6 +22,7 @@ export { default as SelectUI } from "../ui/molecules/SelectUI";
 
 // library
 export { default as paginationCalculator } from "./paginationCalculator";
+export { default as defaultLocator } from "./defaultLocator";
 
 // Stores
 export {

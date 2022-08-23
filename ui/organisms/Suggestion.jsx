@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-import { build, mixClass } from "react-atomic-molecule";
+import { build, mixClass, mergeRef } from "react-atomic-molecule";
 import get from "get-object-value";
 import { doc } from "win-doc";
 import callfunc, { getEventKey } from "call-func";
@@ -14,7 +14,7 @@ const defaultItemFilter = (d, value) =>
 
 const defaultItemLocator = (d) => d || "";
 
-const defaultItemsLocator = (d) => get(d, null, []);
+const defaultItemsLocator = (d) => d ?? [];
 
 class Suggestion extends PureComponent {
   static defaultProps = {
@@ -295,9 +295,11 @@ class Suggestion extends PureComponent {
     });
   };
 
-  handleRefCb = (el) => (this.input = el);
+  handleRefCb = (el) =>
+    mergeRef(el, [(el) => (this.input = el), this.props.refCb]);
 
-  handleWrapRefCb = (el) => (this.inputWrap = el);
+  handleWrapRefCb = (el) =>
+    mergeRef(el, [(el) => (this.inputWrap = el), this.props.wrapRefCb]);
 
   handlePreview(results) {
     const { value } = this.state;

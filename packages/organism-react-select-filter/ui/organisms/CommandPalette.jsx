@@ -13,6 +13,7 @@ import { win } from "win-doc";
 
 import SelectFilter from "../organisms/SelectFilter";
 import NotFoundComponent from "../molecules/NotFoundComponent";
+import useScrollToSelect from "../../src/useScrollToSelect";
 
 const defaultCommandLocator = (item) => item.command;
 
@@ -72,31 +73,37 @@ const CommandPalette = forwardRef((props, ref) => {
   if (show) {
     commandEl = (
       <FullScreen page={false} onClose={() => setShow(false)}>
-        <SelectFilter
-          notFoundComponent={notFoundComponent}
-          ref={lastSel}
-          inputProps={{ type: "text" }}
-          shouldRenderSuggestions={shouldRenderSuggestions}
-          icon={false}
-          onSubmit={false}
-          options={commands}
-          style={Styles.container}
-          onItemClick={(e) => {
-            const item = e.item;
-            if (!item) {
-              return;
-            }
-            e.value = item;
-            const command = commandLocator(item);
-            if (onlyCallCommand) {
-              callfunc(command || onChange, [e]);
-            } else {
-              callfunc(onChange, [e]);
-              callfunc(command, [e]);
-            }
-            setShow(false);
-          }}
-        />
+        {({ refCb, ...props }) => (
+          <SelectFilter
+            {...props}
+            fieldProps={{ refCb }}
+            fieldStyle={{ height: 300 }}
+            useScrollToSelect={useScrollToSelect}
+            notFoundComponent={notFoundComponent}
+            ref={lastSel}
+            inputProps={{ type: "text" }}
+            shouldRenderSuggestions={shouldRenderSuggestions}
+            icon={false}
+            onSubmit={false}
+            options={commands}
+            style={Styles.container}
+            onItemClick={(e) => {
+              const item = e.item;
+              if (!item) {
+                return;
+              }
+              e.value = item;
+              const command = commandLocator(item);
+              if (onlyCallCommand) {
+                callfunc(command || onChange, [e]);
+              } else {
+                callfunc(onChange, [e]);
+                callfunc(command, [e]);
+              }
+              setShow(false);
+            }}
+          />
+        )}
       </FullScreen>
     );
   }

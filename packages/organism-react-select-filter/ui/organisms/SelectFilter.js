@@ -1,17 +1,17 @@
 import { forwardRef } from "react";
 import { Suggestion } from "react-atomic-organism";
+import { defaultLocator } from "organism-react-navigation";
 
 import SelectFilterUI from "../molecules/SelectFilterUI";
 
 const defaultItemFilter = (d, value) =>
   d && -1 !== (d + "").toLowerCase().indexOf((value + "").toLowerCase());
 
-const defaultValueLocator = (d) => d.value;
-
 const SelectFilter = forwardRef(
   (
     {
-      valueLocator = defaultValueLocator,
+      itemFilter = defaultItemFilter,
+      valueLocator = defaultLocator.value,
       couldCreate = false,
       options,
       ...restProps
@@ -35,7 +35,7 @@ const SelectFilter = forwardRef(
         component={select}
         results={options}
         valueLocator={valueLocator}
-        itemFilter={defaultItemFilter}
+        itemFilter={itemFilter}
       />
     );
   }

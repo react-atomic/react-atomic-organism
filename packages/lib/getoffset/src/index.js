@@ -83,6 +83,9 @@ const getRectWithElOffset = (dom) => {
 };
 
 const getOffset = (dom, scrollNode) => {
+  if (!dom) {
+    return;
+  }
   let top = 0;
   let left = 0;
   let w;
