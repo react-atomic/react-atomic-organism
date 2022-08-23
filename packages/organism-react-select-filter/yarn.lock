@@ -2334,6 +2334,11 @@ functional-red-black-tree@^1.0.1:
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
   integrity sha512-dsKNQNdj6xA3T+QlADDA7mOSlX0qiMINjn0cgr+eGHGsbSHzTabcIogz2+p/iqP1Xs6EP/sS2SbqH+brGTbq0g==
 
+fzf@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/fzf/-/fzf-0.5.1.tgz#1c941f81e219d38f9093826661397ab484e2c9b4"
+  integrity sha512-AJ9BBt/3K/IyCF+pQjdG194kVSS1hU/v/RnZgiCtYZzA0rj2OBVwwjBRUOclo9yJl2ovjtdw3C31/8/rnT0uug==
+
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
@@ -3587,9 +3592,9 @@ react-atomic-molecule@*:
     win-doc "*"
 
 react-atomic-organism@*:
-  version "0.16.5"
-  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.16.5.tgz#97269c89a499ca1035e787be5a1f5cf5e045eb39"
-  integrity sha512-9/r+jlOfSDdDGKSSnC4oXU9zFstosWWEg6qbJvipRAuDuZjk/2GF4eF+MtCzGCy9l12fwz1U4pfY+5k2b+RWdw==
+  version "0.16.7"
+  resolved "https://registry.yarnpkg.com/react-atomic-organism/-/react-atomic-organism-0.16.7.tgz#a6316cb8192e80bed297d6262ca1007a464e563f"
+  integrity sha512-fvl/pZc2uERzfIxMpiNf5+XlVCXsngJfOH/MuOrLDnsEny8qaIR/p0rl+3OlFS56HMdc0q2ba66FQHTP/rFXMQ==
   dependencies:
     array.merge "*"
     call-func "*"

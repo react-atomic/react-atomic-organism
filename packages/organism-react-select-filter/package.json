@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "name": "organism-react-select-filter",
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
   "dependencies": {
     "call-func": "*",
     "css-query-selector": "*",
+    "fzf": "0.5.1",
     "getoffset": "*",
     "organism-react-navigation": "*",
     "organism-react-popup": "*",

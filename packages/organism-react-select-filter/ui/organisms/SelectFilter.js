@@ -1,11 +1,19 @@
 import { forwardRef } from "react";
 import { Suggestion } from "react-atomic-organism";
 import { defaultLocator } from "organism-react-navigation";
+import { Fzf } from "fzf";
 
 import SelectFilterUI from "../molecules/SelectFilterUI";
 
-const defaultItemFilter = (d, value) =>
-  d && -1 !== (d + "").toLowerCase().indexOf((value + "").toLowerCase());
+const defaultItemFilter = (arr, currentValue, selector) => {
+  if (null == currentValue || !arr) {
+    return arr;
+  } else {
+    const fzf = new Fzf(arr, { selector });
+    const entries = fzf.find(currentValue);
+    return entries.map((entry) => entry.item);
+  }
+};
 
 const SelectFilter = forwardRef(
   (
