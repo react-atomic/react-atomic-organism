@@ -7,10 +7,13 @@ import { UNDEFINED, FUNCTION } from "reshow-constant";
 
 import SearchBox from "../organisms/SearchBox";
 
-const defaultItemFilter = (d, value) =>
-  value &&
-  d &&
-  -1 !== (d + "").toLowerCase().indexOf((value + "").toLowerCase());
+const defaultItemFilter = (arr, currentValue, itemLocator) => {
+  const doFilter = (d, value) =>
+    value &&
+    d &&
+    -1 !== (d + "").toLowerCase().indexOf((value + "").toLowerCase());
+  return arr.filter((d) => doFilter(itemLocator(d), currentValue));
+};
 
 const defaultItemLocator = (d) => d || "";
 
@@ -69,14 +72,14 @@ class Suggestion extends PureComponent {
     callfunc(this.input.focus, null, this.input);
   }
 
-  valueLocator(rawItem) {
+  valueLocator = (rawItem) => {
     const { valueLocator, itemLocator } = this.props;
     let value = itemLocator(rawItem);
     if (valueLocator) {
       value = callfunc(valueLocator, [value]);
     }
     return value;
-  }
+  };
 
   shouldRenderSuggestions() {
     const { shouldRenderSuggestions } = this.props;
@@ -312,7 +315,7 @@ class Suggestion extends PureComponent {
       const previewNum = "number" !== typeof preview ? 5 : preview;
       arr = arr.slice(0, previewNum);
     } else {
-      arr = arr.filter((d) => itemFilter(this.valueLocator(d), value));
+      arr = itemFilter(arr, value, this.valueLocator);
     }
     return arr;
   }
