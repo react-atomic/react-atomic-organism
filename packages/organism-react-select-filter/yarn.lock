@@ -3572,9 +3572,9 @@ react-atomic-atom@*:
     reshow-runtime "*"
 
 react-atomic-molecule@*:
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-5.0.6.tgz#e087d8890f42b47b2875ab9d150742d8ecd9e548"
-  integrity sha512-+tvtQl6NPWp3am0wIndaBrKvHCuZlNVl0GsiXkCEBRXj6CfqDACAmREZ3BLpwnf0QXv1HUOmlnMn5mG25rhO6Q==
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-atomic-molecule/-/react-atomic-molecule-5.1.0.tgz#5fd20410d4d7e7090d1fa6d810eb810cac281c2e"
+  integrity sha512-g/tqMFqddU3iYTUyfnTjwkb5WG2UwE7WZ28Lua1G/EPL3Nf1McJAgvZ5KWJrDZAOHfBqgdllPFM8DObapeQ1LQ==
   dependencies:
     array.merge "*"
     call-func "*"
@@ -3875,9 +3875,9 @@ reusify@^1.0.4:
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
 
 ricon@*:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.4.4.tgz#3a252841642641afbc4e3b5dd317e747064622e8"
-  integrity sha512-RvrroofxrkFxWQkflvqWfRjkfY2BkyIjsgXHRP5oyrBJ5mGBm5UdCgB9Z8yEvQRhHCsnpzQoUbQEpn+paeFrhQ==
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/ricon/-/ricon-0.4.5.tgz#caab835670f2faf12c6f004b9ba41cfd7e5cc8c4"
+  integrity sha512-5Mcofxp5WP6y6AfdXpnt++AyHZ3yc93TqDqZ50YmFXNTb8yjaq0xpFEWEicxgFEy2dSG5vSnrBPOUPQS6CnCaQ==
   dependencies:
     keyframe-css "*"
     react-atomic-molecule "*"
