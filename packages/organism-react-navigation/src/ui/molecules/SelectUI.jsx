@@ -12,7 +12,7 @@ import {
 import callfunc from "call-func";
 
 import DropdownUI from "../molecules/DropdownUI";
-import defaultLocator from "../../src/defaultLocator";
+import defaultLocator from "../../defaultLocator";
 
 const SelectMenu = (props) => <Menu {...props} />;
 const SelectItem = ({ icon, children, header, divider, ...props }) => {
@@ -51,6 +51,7 @@ const SelectUI = (props) => {
     dividerLocator = defaultLocator.divider,
     itemLocator = defaultLocator.item,
     itemsLocator = defaultLocator.items,
+    highlighter = d => d,
     onSelect = () => {},
     useScrollToSelect = [],
     alwaysOpen,
@@ -114,7 +115,7 @@ const SelectUI = (props) => {
             header: thisHeader,
             divider,
           },
-          optionText
+          highlighter(optionText, optionValue, l)
         );
       })
     );

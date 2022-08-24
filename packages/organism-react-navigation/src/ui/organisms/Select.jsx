@@ -4,7 +4,7 @@ import callfunc from "call-func";
 
 import SelectUI from "../molecules/SelectUI";
 import Dropdown from "../organisms/Dropdown";
-import defaultLocator from "../../src/defaultLocator";
+import defaultLocator from "../../defaultLocator";
 
 class Select extends PureComponent {
   static defaultProps = {

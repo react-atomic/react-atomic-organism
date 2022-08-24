@@ -18,7 +18,7 @@ import { KEYS } from "reshow-constant";
 
 import navigationStore, {
   navigationDispatch,
-} from "../../src/stores/navigationStore";
+} from "../../stores/navigationStore";
 
 const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
   if (!arr) {
