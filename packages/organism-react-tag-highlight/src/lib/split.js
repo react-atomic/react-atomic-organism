@@ -7,9 +7,9 @@ const split = (s, delimiter) => {
   if (!delimiter) {
     delimiter = "*";
   }
-  let raw = s.split(delimiter);
+  const raw = s.split(delimiter);
   const len = raw.length - 1;
-  let cook = raw.map((item, i) => {
+  const cook = raw.map((item, i) => {
     if (i % 2 === 0 || i === len) {
       return [0, item];
     } else {

@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import { Suggestion } from "react-atomic-organism";
 import { defaultLocator } from "organism-react-navigation";
 import { Fzf } from "fzf";
+import Highlight from "organism-react-tag-highlight";
 
 import SelectFilterUI from "../molecules/SelectFilterUI";
 import defaultUseScrollToSelect from "../../useScrollToSelect";
@@ -12,8 +13,25 @@ const defaultItemFilter = (arr, currentValue, selector) => {
   } else {
     const fzf = new Fzf(arr, { selector });
     const entries = fzf.find(currentValue);
-    return entries.map((entry) => entry.item);
+    return entries.map((entry) => {
+      entry.item._rank = entry;
+      return entry.item;
+    });
   }
+};
+
+const defaultHighlighter = (text, value, l) => {
+  if (text === value && l._rank) {
+    const { start, end } = l._rank;
+    if (-1 !== start && -1 !== end) {
+      return (
+        <Highlight start={start} end={end}>
+          {value}
+        </Highlight>
+      );
+    }
+  }
+  return text;
 };
 
 const SelectFilter = forwardRef(
@@ -33,6 +51,7 @@ const SelectFilter = forwardRef(
         hideTitle
         search
         useScrollToSelect={useScrollToSelect}
+        highlighter={defaultHighlighter}
         options={options}
         fieldClassName="select-filter"
       />

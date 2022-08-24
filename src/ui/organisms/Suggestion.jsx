@@ -251,7 +251,7 @@ class Suggestion extends PureComponent {
     }
   };
 
-  handleKeyUp = (e) => {
+  handleKeyDown = (e) => {
     const { onItemClick } = this.props;
     this.setState(({ selIndex }) => {
       switch (getEventKey(e)) {
@@ -411,7 +411,7 @@ class Suggestion extends PureComponent {
       onChange: this.handleChange,
       onFocus: this.handleFocus,
       onBlur: this.handleBlur,
-      onKeyUp: this.handleKeyUp,
+      onKeyDown: this.handleKeyDown,
       results: this.results,
       itemsLocator,
       itemLocator,

@@ -1,14 +1,11 @@
-import React from "react";
-
 import { expect } from "chai";
 import { render } from "reshow-unit";
 
-import Hero from "../Hero";
+import SelectUI from "../SelectUI";
 
-describe("Test Hero Component", () => {
+describe("SelectUI Test", () => {
   it("basic test", () => {
-    const comp = <Hero />;
-    const wrap = render(comp);
+    const wrap = render(<SelectUI />);
     expect(wrap.html()).to.have.string("div");
   });
 });

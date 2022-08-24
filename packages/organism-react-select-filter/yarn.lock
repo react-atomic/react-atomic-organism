@@ -3255,9 +3255,9 @@ organism-react-animate@*:
     win-doc "*"
 
 organism-react-navigation@*:
-  version "0.17.16"
-  resolved "https://registry.yarnpkg.com/organism-react-navigation/-/organism-react-navigation-0.17.16.tgz#e429fb1c0020122ba9ba25defd268f603a75f77e"
-  integrity sha512-mncWSeRs+gEU3OGYULK4JIkbC6LQ3GQ6FeOgVHsu3EJCCQPIJzwLiHmG8THdXn5AmIGWGqhrTjtUwQVnXOFVHw==
+  version "0.17.18"
+  resolved "https://registry.yarnpkg.com/organism-react-navigation/-/organism-react-navigation-0.17.18.tgz#e559b3903b746c25ccd636aaabec789da6d15139"
+  integrity sha512-KOAP6SXoTyow4q/W+jFDDdd/aQiEjvvkgz5hdzziUq356aUpQ5W/m2edGV8fzv5T6ZCckLlYuyhgwq/kYis3TQ==
   dependencies:
     call-func "*"
     class-lib "*"
@@ -3296,6 +3296,13 @@ organism-react-popup@*:
     set-object-value "*"
     to-percent-js "*"
     win-doc "*"
+
+organism-react-tag-highlight@*:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/organism-react-tag-highlight/-/organism-react-tag-highlight-0.1.0.tgz#47329af6eafbf607dec7fdefca2abdf4b3fff561"
+  integrity sha512-0b0iIwTxQrAzc41816H/m0yV+jsVdjQk6KWfiEkHkE0KWHbIuzo0U2NyTQoQUfeemGDXAhGiHspYWoCjT8+B8A==
+  dependencies:
+    react-atomic-molecule "*"
 
 p-limit@^2.0.0, p-limit@^2.2.0:
   version "2.3.0"

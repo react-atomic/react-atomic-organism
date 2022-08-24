@@ -1,6 +1,6 @@
 const defaultLocator = {
   value: (d) => d.value ?? d.label,
-  label: (d) => d.label,
+  label: (d) => d.label ?? d.value,
   icon: (d) => d.icon,
   header: (d) => d.header,
   divider: (d) => d.divider,

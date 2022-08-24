@@ -1,5 +1,5 @@
 {
-  "version": "0.16.7",
+  "version": "0.16.9",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
@@ -41,12 +41,8 @@
     "yarn-up-all": "lerna exec yarn upgrade",
     "format": "prettier-eslint --write '**/src/**/*.js' '**/ui/**/*.js*'",
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs:src": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__",
-    "build:cjs:ui": "BABEL_ENV=cjs babel ui -d build/cjs/ui --ignore /**/__tests__",
-    "build:cjs": "npm run build:cjs:src && npm run build:cjs:ui",
-    "build:es:src": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs",
-    "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --out-file-extension .mjs",
-    "build:es": "npm run build:es:src && npm run build:es:ui",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "mochaFor": "STRICT_MODE=1 mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",

@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { mixClass, Dimmer } from "react-atomic-molecule";
-import { CardView } from "../../src/index";
+import CardView from "../organisms/CardView";
 
 class HoverDimmerCardView extends PureComponent {
   constructor(props) {

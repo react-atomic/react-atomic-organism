@@ -9,7 +9,7 @@ import paginationCalculator, {
   BEGIN,
   CURRENT_PAGE,
   PER_PAGE_NUM,
-} from "../../src/paginationCalculator";
+} from "../../paginationCalculator";
 
 class PaginationController extends PureComponent {
   static defaultProps = { perPageNum: 10 };

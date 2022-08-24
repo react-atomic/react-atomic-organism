@@ -1,5 +1,5 @@
 {
-  "version": "0.0.6",
+  "version": "0.0.7",
   "name": "organism-react-select-filter",
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "getoffset": "*",
     "organism-react-navigation": "*",
     "organism-react-popup": "*",
+    "organism-react-tag-highlight": "*",
     "react-atomic-molecule": "*",
     "react-atomic-organism": "*",
     "reshow-constant": "*",
