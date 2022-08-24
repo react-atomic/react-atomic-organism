@@ -6,6 +6,6 @@ import CommandPalette from "../CommandPalette";
 describe("CommandPalette Test", () => {
   it("basic test", () => {
     const wrap = render(<CommandPalette />);
-    expect(wrap.html()).to.equal("");
+    expect(wrap.html()).to.have.string("button");
   });
 });

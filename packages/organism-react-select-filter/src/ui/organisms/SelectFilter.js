@@ -4,6 +4,7 @@ import { defaultLocator } from "organism-react-navigation";
 import { Fzf } from "fzf";
 
 import SelectFilterUI from "../molecules/SelectFilterUI";
+import defaultUseScrollToSelect from "../../useScrollToSelect";
 
 const defaultItemFilter = (arr, currentValue, selector) => {
   if (null == currentValue || !arr) {
@@ -18,6 +19,7 @@ const defaultItemFilter = (arr, currentValue, selector) => {
 const SelectFilter = forwardRef(
   (
     {
+      useScrollToSelect = defaultUseScrollToSelect,
       itemFilter = defaultItemFilter,
       valueLocator = defaultLocator.value,
       couldCreate = false,
@@ -30,6 +32,7 @@ const SelectFilter = forwardRef(
       <SelectFilterUI
         hideTitle
         search
+        useScrollToSelect={useScrollToSelect}
         options={options}
         fieldClassName="select-filter"
       />

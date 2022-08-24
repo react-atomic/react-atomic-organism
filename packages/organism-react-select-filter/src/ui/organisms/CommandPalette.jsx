@@ -13,7 +13,7 @@ import { win } from "win-doc";
 
 import SelectFilter from "../organisms/SelectFilter";
 import NotFoundComponent from "../molecules/NotFoundComponent";
-import useScrollToSelect from "../../src/useScrollToSelect";
+import SearchButton from "../molecules/SearchButton";
 
 const defaultCommandLocator = (item) => item.command;
 
@@ -78,7 +78,6 @@ const CommandPalette = forwardRef((props, ref) => {
             {...props}
             fieldProps={{ refCb }}
             fieldStyle={{ height: 300 }}
-            useScrollToSelect={useScrollToSelect}
             notFoundComponent={notFoundComponent}
             ref={lastSel}
             inputProps={{ type: "text" }}
@@ -108,7 +107,16 @@ const CommandPalette = forwardRef((props, ref) => {
     );
   }
 
-  return <>{commandEl}</>;
+  const handleClick = () => {
+    expose.open();
+  };
+
+  return (
+    <>
+      <SearchButton keys={hotkey} onClick={handleClick} />
+      {commandEl}
+    </>
+  );
 });
 
 CommandPalette.displayName = "CommandPalette";
