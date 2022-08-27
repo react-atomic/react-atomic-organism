@@ -4,8 +4,8 @@ import { useImmutable, mergeMap } from "reshow-flux";
 import callfunc from "call-func";
 
 import TagComponent from "../organisms/Tag";
-import getTagData from "../../src/getTagData";
-import groupingTags from "../../src/groupingTags";
+import getTagData from "../../getTagData";
+import groupingTags from "../../groupingTags";
 
 const ERROR_EXCEED_MAX_TAGS = 1;
 const ERROR_DUPLICATE_TAG = 2;
