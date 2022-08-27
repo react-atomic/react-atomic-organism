@@ -252,7 +252,11 @@ class Suggestion extends PureComponent {
   };
 
   handleKeyDown = (e) => {
-    const { onItemClick } = this.props;
+    const { onItemClick, onKeyDown } = this.props;
+    const isContinue = callfunc(onKeyDown, [e]);
+    if (false === isContinue) {
+      return isContinue;
+    }
     this.setState(({ selIndex }) => {
       switch (getEventKey(e)) {
         case 38:

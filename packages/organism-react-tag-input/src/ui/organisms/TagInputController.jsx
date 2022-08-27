@@ -1,5 +1,5 @@
 import { PureComponent } from "react";
-import callfunc from "call-func";
+import callfunc, { getEventKey } from "call-func";
 import get, { initMap } from "get-object-value";
 import { build } from "react-atomic-molecule";
 
@@ -81,18 +81,19 @@ class TagInputController extends PureComponent {
 
   handleKeyDown = (e) => {
     const value = this.sugg.getValue();
-    const keyCode = get(e, ["keyCode"]);
-    switch (keyCode) {
+    switch (getEventKey(e)) {
       case 8:
+      case "Backspace":
         if (!(value || "").length) {
           this.getTagList().delLast();
         }
-        break;
+        return false;
       case 13:
+      case "Enter":
         e.stopPropagation();
         e.preventDefault();
         this.maybeCreate();
-        break;
+        return false;
     }
   };
 
