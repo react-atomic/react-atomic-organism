@@ -3,7 +3,7 @@ import { build, mixClass, SemanticUI } from "react-atomic-molecule";
 import { useReturn, usePartialRender } from "reshow-return";
 import { equal } from "reshow-flux";
 
-import popupStore, { SHOW_NEXT, NODE_KEY } from "../../src/stores/popupStore";
+import popupStore, { SHOW_NEXT, NODE_KEY } from "../../stores/popupStore";
 
 const getPops = (nodes, name) => {
   let pops = nodes;

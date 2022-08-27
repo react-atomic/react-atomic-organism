@@ -4,7 +4,7 @@ import get from "get-object-value";
 import getStyle from "get-style";
 
 import BasePopup from "../molecules/BasePopup";
-import popupStore, { SHOW_KEY } from "../../src/stores/popupStore";
+import popupStore, { SHOW_KEY } from "../../stores/popupStore";
 
 class PopupOverlay extends BasePopup {
   resetStyle(key, thisStyle) {

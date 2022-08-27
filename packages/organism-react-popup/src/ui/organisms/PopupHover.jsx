@@ -3,9 +3,9 @@ import { build, SemanticUI } from "react-atomic-molecule";
 import { getTimestamp } from "get-random-id";
 import callfunc from "call-func";
 
-import { popupDispatch } from "../../src/stores/popupStore";
 import PopupFloatEl from "../molecules/PopupFloatEl";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
+import { popupDispatch } from "../../stores/popupStore";
 
 let closeTimer = {};
 
