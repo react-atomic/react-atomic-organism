@@ -2,7 +2,7 @@
 
 import { expect } from "chai";
 
-import dedup from "../index.js";
+import dedup from "../index";
 
 describe("test dedup", () => {
   it("should dedup with a,b,a", () => {
@@ -24,5 +24,13 @@ describe("test dedup", () => {
     const a = ["b", "a", "a"];
     const acture = dedup(a);
     expect(acture).to.deep.equal(["b", "a"]);
+  });
+
+  describe("test dedup reverse", () => {
+    it("should dedup with a,b,a", () => {
+      const a = ["a", "b", "a"];
+      const acture = dedup(a, true);
+      expect(acture).to.deep.equal(["b", "a"]);
+    });
   });
 });

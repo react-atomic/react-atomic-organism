@@ -49,6 +49,7 @@ workflows:
                 - "./"
                 - "packages/lib/ajax-save"
                 - "packages/lib/array.merge"
+                - "packages/lib/array.dedup"
                 - "packages/lib/array.search.js"
                 - "packages/lib/create-el"
                 - "packages/lib/call-func"

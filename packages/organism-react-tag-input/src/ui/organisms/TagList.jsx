@@ -38,9 +38,15 @@ const useTags = ({
 
   const lastTags = useRef();
   lastTags.current = {
+    uniqueTags: tagState.get("uniqueTags") || [],
     tags: tagState.get("tags") || [],
     group: tagState.get("group") || {},
     maxTags,
+  };
+  const lastOpt = useRef();
+  lastOpt.current = {
+    couldDuplicate,
+    disabled,
   };
 
   const getTags = () => lastTags.current;
@@ -48,7 +54,7 @@ const useTags = ({
   const expose = {
     getTags,
     add: (tag) => {
-      if (disabled) {
+      if (lastOpt.current.disabled) {
         return;
       }
       tag = tag + "";
@@ -63,7 +69,7 @@ const useTags = ({
           },
         ]);
       }
-      if (-1 === tags.indexOf(tag) || couldDuplicate) {
+      if (-1 === tags.indexOf(tag) || lastOpt.current.couldDuplicate) {
         return setTagState((prev) => {
           const tags = prev.get("tags");
           tags.push(tag);
@@ -85,20 +91,19 @@ const useTags = ({
       }
     },
     del: (delTag) => {
-      if (disabled) {
+      if (lastOpt.current.disabled) {
         return;
       }
       return setTagState((prev) => {
         const tags = prev.get("tags");
-        if (couldDuplicate) {
-          tags.some((tag, key) => {
-            if (tag === delTag) {
-              tags.splice(key, 1);
-              return true;
-            } else {
-              return false;
+        if (lastOpt.current.couldDuplicate) {
+          let tLen = tags.length;
+          while(tLen--){
+            if (tags[tLen] === delTag) {
+              tags.splice(tLen, 1);
+              break; 
             }
-          });
+          }
         } else {
           tags.forEach((tag, key) => {
             if (tag === delTag) {
@@ -115,7 +120,7 @@ const useTags = ({
     },
     delLast: () => {
       const { tags } = getTags();
-      expose.del(tags.pop());
+      expose.del(tags[tags.length-1]);
     },
   };
 
@@ -145,13 +150,14 @@ const useTags = ({
 };
 
 const TagList = forwardRef((props, ref) => {
-  const { expose, handler, tags, group, restProps } = useTags(props);
+  const { expose, handler, uniqueTags, group, restProps } = useTags(props);
+
   const { name, tagComponent = TagComponent } = restProps;
   useImperativeHandle(ref, () => expose, []);
   const buildTag = build(tagComponent);
   return (
     <List style={Styles.list} ui={false} atom="ul" className="horizontal">
-      {tags.map((tag) =>
+      {uniqueTags.map((tag, key) =>
         buildTag(
           {
             onDel: handler.del(tag),
