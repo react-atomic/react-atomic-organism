@@ -34,6 +34,7 @@ class PopupModal extends PopupOverlay {
   static defaultProps = {
     mask: true,
     name: "modal",
+    modalClassName: "modal active", // let has chance clean modal className
   };
 
   _timer = null;
@@ -252,15 +253,11 @@ class PopupModal extends PopupOverlay {
             modalClassName,
             get(thisModal, ["props", "className"])
           ),
-          styles: reactStyle(
-            {
-              ...Styles.modal,
-              ...modalStyle,
-              ...stateModalStyle,
-            },
-            false,
-            false
-          ),
+          style: {
+            ...Styles.modal,
+            ...modalStyle,
+            ...stateModalStyle,
+          },
         });
       }
 
@@ -323,7 +320,7 @@ const Styles = {
     boxSizing: "border-box",
     right: "auto",
     bottom: "auto",
-    transition: ["all 500ms ease"],
+    transition: "all 500ms ease",
   },
 };
 

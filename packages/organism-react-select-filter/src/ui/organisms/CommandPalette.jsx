@@ -5,9 +5,9 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { popupDispatch, FullScreen } from "organism-react-popup";
-import { SemanticUI } from "react-atomic-molecule";
+import { mixClass, SemanticUI } from "react-atomic-molecule";
 import { Suggestion } from "react-atomic-organism";
+import { popupDispatch, FullScreen } from "organism-react-popup";
 import callfunc, { getEventKey } from "call-func";
 import { win } from "win-doc";
 
@@ -73,36 +73,38 @@ const CommandPalette = forwardRef((props, ref) => {
   if (show) {
     commandEl = (
       <FullScreen page={false} onClose={() => setShow(false)}>
-        {({ refCb, ...props }) => (
-          <SelectFilter
-            {...props}
-            fieldProps={{ refCb }}
-            fieldStyle={{ height: 300 }}
-            notFoundComponent={notFoundComponent}
-            ref={lastSel}
-            inputProps={{ type: "text" }}
-            shouldRenderSuggestions={shouldRenderSuggestions}
-            icon={false}
-            onSubmit={false}
-            options={commands}
-            style={Styles.container}
-            onItemClick={(e) => {
-              const item = e.item;
-              if (!item) {
-                return;
-              }
-              e.value = item;
-              const command = commandLocator(item);
-              if (onlyCallCommand) {
-                callfunc(command || onChange, [e]);
-              } else {
-                callfunc(onChange, [e]);
-                callfunc(command, [e]);
-              }
-              setShow(false);
-            }}
-          />
-        )}
+        {({ refCb, style, className, ...props }) => {
+          return (
+            <SelectFilter
+              {...props}
+              fieldProps={{ refCb }}
+              fieldStyle={{ ...style, height: 125 }}
+              fieldClassName={mixClass(className)}
+              notFoundComponent={notFoundComponent}
+              ref={lastSel}
+              inputProps={{ type: "text" }}
+              shouldRenderSuggestions={shouldRenderSuggestions}
+              icon={false}
+              onSubmit={false}
+              options={commands}
+              onItemClick={(e) => {
+                const item = e.item;
+                if (!item) {
+                  return;
+                }
+                e.value = item;
+                const command = commandLocator(item);
+                if (onlyCallCommand) {
+                  callfunc(command || onChange, [e]);
+                } else {
+                  callfunc(onChange, [e]);
+                  callfunc(command, [e]);
+                }
+                setShow(false);
+              }}
+            />
+          );
+        }}
       </FullScreen>
     );
   }
@@ -122,9 +124,3 @@ const CommandPalette = forwardRef((props, ref) => {
 CommandPalette.displayName = "CommandPalette";
 
 export default CommandPalette;
-
-const Styles = {
-  container: {
-    width: 500,
-  },
-};

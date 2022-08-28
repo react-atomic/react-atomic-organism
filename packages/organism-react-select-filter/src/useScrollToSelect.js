@@ -2,21 +2,27 @@ import { useRef, useEffect } from "react";
 import { queryFrom } from "css-query-selector";
 import getoffset from "getoffset";
 
-const scrollToSelect = (selectEl, menuEl) => {
+const scrollToSelect = (selectEl, menuEl, isTop) => {
   if (selectEl) {
     const selOffset = getoffset(selectEl, menuEl);
-    menuEl.scrollTop = selOffset.top - selOffset.scrollInfo.scrollNodeHeight;
+    if (isTop) {
+      menuEl.scrollTop = 0;
+    } else {
+      menuEl.scrollTop = selOffset.top - selOffset.scrollInfo.scrollNodeHeight;
+    }
   }
 };
 
 const useScrollToSelect = (props = []) => {
   const lastRoot = useRef();
+  const selIndex = props["data-selected-index"];
   useEffect(() => {
     scrollToSelect(
       queryFrom(lastRoot.current).one(".selected"),
-      queryFrom(lastRoot.current).one(".menu")
+      queryFrom(lastRoot.current).one(".menu"),
+      !selIndex
     );
-  }, [props["data-selected-index"]]);
+  }, [selIndex]);
   return [lastRoot];
 };
 
