@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import needCSS from "need-css";
-import { popupDispatch } from "../../src/stores/popupStore";
+import { popupDispatch } from "../../stores/popupStore";
 
 class BasePopup extends PureComponent {
   state = { hasError: false };

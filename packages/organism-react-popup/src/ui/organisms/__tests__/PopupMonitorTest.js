@@ -4,7 +4,7 @@ import { act, render, waitFor } from "reshow-unit";
 
 import PopupMonitor from "../PopupMonitor";
 import PopupPool from "../PopupPool";
-import popupStore, { popupDispatch } from "../../../src/stores/popupStore";
+import popupStore, { popupDispatch } from "../../../stores/popupStore";
 
 describe("Test PopupMonitor", () => {
   beforeEach(() => {

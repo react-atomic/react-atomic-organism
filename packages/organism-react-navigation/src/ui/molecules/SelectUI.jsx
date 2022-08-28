@@ -51,7 +51,7 @@ const SelectUI = (props) => {
     dividerLocator = defaultLocator.divider,
     itemLocator = defaultLocator.item,
     itemsLocator = defaultLocator.items,
-    highlighter = d => d,
+    highlighter = (d) => d,
     onSelect = () => {},
     useScrollToSelect = [],
     alwaysOpen,
@@ -79,7 +79,7 @@ const SelectUI = (props) => {
   let thisSelected = value;
   let thisList = null;
   const [lastRoot] = callfunc(useScrollToSelect, [props]);
-  if (options) {
+  if (options && options.length) {
     let prevHeader;
     thisList = build(menuComponent)(
       null,
@@ -126,7 +126,7 @@ const SelectUI = (props) => {
     inputAttr = {
       className: "search",
       placeholder: "Type or search a command",
-      style: { border: "none" },
+      style: { border: "none", boxSizing: "border-box" },
       type: "search",
     };
   } else {

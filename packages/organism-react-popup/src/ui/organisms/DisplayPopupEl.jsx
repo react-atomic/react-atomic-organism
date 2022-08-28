@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useMounted } from "reshow-hooks";
-import { popupDispatch } from "../../src/stores/popupStore";
+import { popupDispatch } from "../../stores/popupStore";
 
 const DisplayPopupEl = (props) => {
   const _mounted = useMounted();

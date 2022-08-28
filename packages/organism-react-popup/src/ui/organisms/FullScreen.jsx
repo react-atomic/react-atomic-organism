@@ -7,7 +7,7 @@ import { useMounted } from "reshow-hooks";
 
 import PopupModal from "../molecules/PopupModal";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
-import { popupDispatch } from "../../src/stores/popupStore";
+import { popupDispatch } from "../../stores/popupStore";
 
 const DefaultXIcon = (props) => {
   const [hoverStyle, setHoverStyle] = useState();
@@ -42,6 +42,8 @@ const DefaultXIcon = (props) => {
 };
 
 const FullScreen = ({
+  appear = "fadeIn-500",
+  enter = "fadeIn-500",
   name = "fullscreen",
   xico = DefaultXIcon,
   scrolling = false,
@@ -49,8 +51,6 @@ const FullScreen = ({
   children,
   className,
   style,
-  onClose,
-  toPool,
   ...restProps
 }) => {
   let closeEl;
@@ -67,15 +67,11 @@ const FullScreen = ({
       <PopupModal
         {...restProps}
         name={name + " (modal)"}
-        appear="fadeIn-500"
-        enter="fadeIn-500"
         className={mixClass("full-screen", className)}
         style={thisStyle}
         modalStyle={Styles.modal}
         modal={children}
         closeEl={closeEl}
-        onClose={onClose}
-        toPool={toPool}
       />
     </DisplayPopupEl>
   );

@@ -36,7 +36,7 @@ const SelectFilterUI = ({
       {...restProps}
       selectComponent={SelectUI}
       inputProps={{ ...inputProps, onChange, onFocus, onBlur, onKeyUp }}
-      active={active}
+      active={active || compBd}
       onSelect={handleSelect}
       options={results || options}
       compBd={compBd}
