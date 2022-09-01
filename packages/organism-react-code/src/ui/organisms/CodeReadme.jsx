@@ -3,7 +3,7 @@ import { ajaxDispatch } from "organism-react-ajax";
 import { Segment, Unsafe } from "react-atomic-molecule";
 import { useMounted } from "reshow-hooks";
 
-import useSyntax from "../../src/useSyntax";
+import useSyntax from "../../useSyntax";
 
 const CodeReadme = ({ url }) => {
   const _mounted = useMounted();

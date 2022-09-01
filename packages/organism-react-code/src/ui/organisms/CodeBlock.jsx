@@ -1,6 +1,6 @@
 import React from "react";
 import { Unsafe } from "react-atomic-molecule";
-import useSyntax from "../../src/useSyntax";
+import useSyntax from "../../useSyntax";
 
 const DEFAULT_LANG = "js";
 
