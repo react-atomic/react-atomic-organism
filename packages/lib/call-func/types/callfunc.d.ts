@@ -6,4 +6,4 @@ export default callFunc;
  * @param {any} def
  * @returns {any}
  */
-declare function callFunc(maybeFunc: Function | any, args: any[], scope: any, def: any): any;
+declare function callFunc(maybeFunc: Function | any, args?: any[], scope?: any, def?: any): any;
