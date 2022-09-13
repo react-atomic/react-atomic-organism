@@ -1,3 +1,5 @@
+// @ts-check
+
 import { mergeMap, ImmutableStore, Map } from "reshow-flux";
 import get, { getDefault } from "get-object-value";
 import set from "set-object-value";
@@ -37,7 +39,7 @@ const initAjaxWorkerEvent = (worker) => {
 };
 
 const initFakeWorker = (cb) => {
-  import("../../../es/src/worker.mjs").then((workerObject) => {
+  import("../worker").then((workerObject) => {
     fakeWorker = getDefault(workerObject);
     initAjaxWorkerEvent(fakeWorker);
     if (!gWorker) {
@@ -72,9 +74,9 @@ const getCallback = (state, action, json, response) => {
   const debugs = json.debugs;
   if (debugs) {
     let bFail = false;
-    import("../../../es/src/lib/dlog.mjs").then((dlog) => {
-      dlog = getDefault(dlog);
-      const oLog = new dlog({ level: "trace" });
+    import("../lib/dlog").then((dlog) => {
+      const DLOG = getDefault(dlog);
+      const oLog = new DLOG({ level: "trace" });
       debugs.forEach((v) => {
         const dump = get(oLog, [v[0]], () => oLog.info);
         dump.call(oLog, v[1]);
@@ -100,7 +102,7 @@ const getCallback = (state, action, json, response) => {
   return callback;
 };
 
-const getRawUrl = ({ url, path, baseUrl } = {}) => {
+const getRawUrl = ({ url = null, path = null, baseUrl = null } = {}) => {
   if (!hasUrl(url)) {
     if (path) {
       baseUrl = baseUrl || store.getState().get("baseUrl") || "";

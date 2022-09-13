@@ -9,8 +9,8 @@ import formSerialize from "form-serialize-js";
 import build from "reshow-build";
 import callfunc from "call-func";
 
-import ajaxStore, { ajaxDispatch, getRawUrl } from "../../src/stores/ajaxStore";
-import isRunAjax from "../../src/isRunAjax";
+import ajaxStore, { ajaxDispatch, getRawUrl } from "../../stores/ajaxStore";
+import isRunAjax from "../../isRunAjax";
 
 const getFormAction = ({ action, path }) => {
   if (action) {

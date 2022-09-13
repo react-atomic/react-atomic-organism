@@ -34,18 +34,24 @@ const defaultHighlighter = (text, value, l) => {
   return text;
 };
 
+const SelectFilterPropTypes = {};
+
+/**
+ * @type React.FC<SelectFilterPropTypes>
+ */
 const SelectFilter = forwardRef(
   (
-    {
+    props,
+    ref
+  ) => {
+    const {
       useScrollToSelect = defaultUseScrollToSelect,
       itemFilter = defaultItemFilter,
       valueLocator = defaultLocator.value,
       couldCreate = false,
       options,
       ...restProps
-    },
-    ref
-  ) => {
+    } = props;
     const select = (
       <SelectFilterUI
         hideTitle

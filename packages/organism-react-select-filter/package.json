@@ -1,5 +1,5 @@
 {
-  "version": "0.0.8",
+  "version": "0.0.9",
   "name": "organism-react-select-filter",
   "repository": {
     "type": "git",
@@ -18,6 +18,7 @@
     "css-query-selector": "*",
     "fzf": "0.5.1",
     "getoffset": "*",
+    "organism-react-ajax": "*",
     "organism-react-navigation": "*",
     "organism-react-popup": "*",
     "organism-react-tag-highlight": "*",
@@ -43,17 +44,20 @@
   "scripts": {
     "update-compile-sh": "yo reshow:compile-sh",
     "start": "ws",
-    "format": "prettier-eslint --write 'src/**/*.js' 'ui/**/*.js*'",
-    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "format": "prettier-eslint --write 'src/**/*.js'",
+    "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
-    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:type": "npx -p typescript tsc src/index.js src/**/*.js src/ui/**/*.jsx --jsx react-jsx --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
+  "types": "./types/index.d.ts",
   "files": [
+    "types",
     "build",
     "package.json",
     "README.md"
