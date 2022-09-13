@@ -1,3 +1,4 @@
+// @ts-check
 import {
   useImperativeHandle,
   forwardRef,
@@ -5,10 +6,9 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { mixClass, SemanticUI } from "react-atomic-molecule";
-import { Suggestion } from "react-atomic-organism";
-import { popupDispatch, FullScreen } from "organism-react-popup";
-import callfunc, { getEventKey } from "call-func";
+import { mixClass } from "react-atomic-molecule";
+import { FullScreen } from "organism-react-popup";
+import callfunc from "call-func";
 import { win } from "win-doc";
 
 import SelectFilter from "../organisms/SelectFilter";
@@ -21,6 +21,11 @@ const arrEq = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
 const shouldRenderSuggestions = () => true;
 
+const CommandPalettePropTypes = {};
+
+/**
+ * @type React.FC<CommandPalettePropTypes>
+ */
 const CommandPalette = forwardRef((props, ref) => {
   const {
     notFoundComponent = NotFoundComponent,
@@ -31,8 +36,18 @@ const CommandPalette = forwardRef((props, ref) => {
     onlyCallCommand,
   } = props;
 
-  const lastSel = useRef();
+  const lastSel = useRef(null);
 
+  /**
+   * @typedef {Boolean} show
+   */
+  /**
+   * @typedef {Function} setShow
+   */
+
+  /**
+   * @type {[show, setShow]}
+   */
   const [show, setShow] = useState();
   const expose = {
     open: () => setShow(true),

@@ -3,7 +3,7 @@ import SearchIcon from "ricon/Search";
 
 import KeyButton from "../molecules/KeyButton";
 
-const SearchButton = ({ keys = [], style, ...restProps }) => {
+const SearchButton = ({ keys = [], style = {}, ...restProps }) => {
   injects = useLazyInject(InjectStyles, injects);
   return (
     <SemanticUI
