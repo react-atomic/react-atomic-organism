@@ -3326,9 +3326,9 @@ optionator@^0.9.1:
     word-wrap "^1.2.3"
 
 organism-react-ajax@*:
-  version "0.17.10"
-  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.17.10.tgz#a5927748091a75134003b327af8085349e31c3fd"
-  integrity sha512-D57gzn5Cr5CzeI+/oJaLFh0F/dkvrHe4bGgObdJ/NYcGcaZRCeNFmJydCe/BXo1s4wkW2P2XjUhcszjgt8iP9A==
+  version "0.17.11"
+  resolved "https://registry.yarnpkg.com/organism-react-ajax/-/organism-react-ajax-0.17.11.tgz#cb95dfcd4859f47c7e0d86bbb28419d477ff6d54"
+  integrity sha512-30UdTUdHhKluR5Vm/p4hlM0qmdQPUfHVPzpwtyqUGkzUlFDc2Pn3X3I1iKeLONQAJ8EdxL0QBr0Bp/Ce2vsoyg==
   dependencies:
     call-func "*"
     es6-promise "4.2.5"
@@ -3890,18 +3890,18 @@ reshow-constant@*:
   integrity sha512-5kt9x6HNWWKX6jnQZlbp5EBDH/ZTowwmLrAG3pvYOI5KvvkSd8yNE5wfQUHiohzyaltqgg8uJyK2qMri+0yEUw==
 
 reshow-flux-base@*:
-  version "0.17.11"
-  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.17.11.tgz#0984e7e5d15011b8aa7a76f95d452fefd515fab4"
-  integrity sha512-Q/NSWus0R2PMCeOzVsNara/8slYWKkAfq4cf9rxlovEKUr3bUO29IVwH/sv7hZMBf0UzmtlWL6ZghY7XqHIz3A==
+  version "0.17.13"
+  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.17.13.tgz#2b923ce8747122411a222c8df7243463538ee58a"
+  integrity sha512-SE6ItgC6Y039ncrM6HiGdCjuewXwm/2zafW3alWNTcMZ8VCGbZitc7uX1jCS4id8QFAJtTa5YxGNRCGO9+ZtQQ==
   dependencies:
     call-func "*"
     reshow-constant "*"
     reshow-runtime "*"
 
 reshow-flux@*:
-  version "0.17.25"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.17.25.tgz#6e3ae5acf233ded35826d3edb42ab41a2204f8a6"
-  integrity sha512-MWbxSqvrYRd94eWApMme1o/fQa765Ne8WqKiMfPvfLgd40H/lJDKfa6QUW6PSwqntUYnZo7CGmXcsQYH2u4ktw==
+  version "0.17.27"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.17.27.tgz#1c53103d88e71be06d3a22fdb660bc75aa87ab33"
+  integrity sha512-4+x99kL6MKbphG3DKHDO4KLe8kzXnzDb9OKK/QtLpaA2ZBSbJ/eAuvVHTsQ1KwL+XbJzbPt278WsNUsoFe7mSw==
   dependencies:
     array.dedup "*"
     array.merge "*"
@@ -4458,9 +4458,9 @@ universalify@^0.2.0:
   integrity sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==
 
 update-browserslist-db@^1.0.5:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.8.tgz#2f0b711327668eee01bbecddcf4a7c7954a7f8e2"
-  integrity sha512-GHg7C4M7oJSJYW/ED/5QOJ7nL/E0lwTOBGsOorA7jqHr8ExUhPfwAotIAmdSw/LWv3SMLSNpzTAgeLG9zaZKTA==
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.0.9.tgz#2924d3927367a38d5c555413a7ce138fc95fcb18"
+  integrity sha512-/xsqn21EGVdXI3EXSum1Yckj3ZVZugqyOZQ/CxYPBD/R+ko9NSUScf8tFF4dOKY+2pvSSJA/S+5B8s4Zr4kyvg==
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"

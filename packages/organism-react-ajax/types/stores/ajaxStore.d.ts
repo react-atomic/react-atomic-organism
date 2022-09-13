@@ -1,7 +1,7 @@
 export default store;
 declare const store: any;
 export function initAjaxWorkerEvent(worker: any): void;
-export const ajaxDispatch: any;
+export const ajaxDispatch: (action: string | object | Function, actionParams?: object) => any;
 export function getRawUrl({ url, path, baseUrl }?: {
     url?: any;
     path?: any;
