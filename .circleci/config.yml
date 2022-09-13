@@ -15,7 +15,7 @@ jobs:
       - node/install:
           node-version: "14"
           install-yarn: true
-          yarn-version: "1.22.17"
+#          yarn-version: "1.22.18"
       - run:
           name: "Display information"
           command: |
