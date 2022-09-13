@@ -1,2 +1,7 @@
 export default openLink;
-declare function openLink(link: any, bOpenToNew: any): void;
+/**
+ * @param {string} link
+ * @param {boolean} bOpenToNew
+ * @returns void
+ */
+declare function openLink(link: string, bOpenToNew?: boolean): void;
