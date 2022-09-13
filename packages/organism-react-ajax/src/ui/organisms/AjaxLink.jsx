@@ -13,8 +13,8 @@ import ajaxStore, {
   ajaxDispatch,
   getRawUrl,
   hasUrl,
-} from "../../src/stores/ajaxStore";
-import isRunAjax from "../../src/isRunAjax";
+} from "../../stores/ajaxStore";
+import isRunAjax from "../../isRunAjax";
 
 const getHref = ({ href, path }) => {
   if (hasUrl(href)) {
