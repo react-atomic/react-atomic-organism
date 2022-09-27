@@ -1,7 +1,10 @@
-import React, { PureComponent } from "react";
+import { PureComponent } from "react";
+import { KEYS } from "reshow-constant";
 
-const keys = Object.keys;
-
+/**
+ * @extends {React.PureComponent<Props>}
+ * @return {React.ReactElement} - React component
+ */
 class BaseString extends PureComponent {
   state = {};
 
@@ -45,7 +48,7 @@ class BaseString extends PureComponent {
       if (parentHeight && parentHeight !== prevParentHeight) {
         nextState.y = parentHeight / 2;
       }
-      if (keys(nextState).length) {
+      if (KEYS(nextState).length) {
         this.setState(nextState);
       }
     }
