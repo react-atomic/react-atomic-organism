@@ -4,7 +4,7 @@ export function getHorizontalToVerticalMenu(Styles: any, merge: any): {
             on: boolean;
         };
         handleOn: () => void;
-        render(): any;
+        render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>[];
         context: unknown;
         setState<K extends string | number | symbol>(state: any, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;
@@ -39,7 +39,7 @@ declare const _default: {
             on: boolean;
         };
         handleOn: () => void;
-        render(): any;
+        render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>> | import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>[];
         context: unknown;
         setState<K extends string | number | symbol>(state: any, callback?: () => void): void;
         forceUpdate(callback?: () => void): void;

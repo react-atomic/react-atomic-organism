@@ -1,5 +1,11 @@
 export default getDocTemplate;
-declare function getDocTemplate(params: any, Styles?: {}, merge?: boolean): ({ className, id, menu, right, body, footer, style, ...restProps }: {
+/**
+ * @param {object} params
+ * @param {object} Styles
+ * @param {boolean} merge
+ * @returns {DocTemplate}
+ */
+declare function getDocTemplate(params: object, Styles?: object, merge?: boolean): ({ className, id, menu, right, body, footer, style, ...restProps }: {
     [x: string]: any;
     className?: string;
     id?: any;
@@ -8,4 +14,4 @@ declare function getDocTemplate(params: any, Styles?: {}, merge?: boolean): ({ c
     body: any;
     footer: any;
     style: any;
-}) => any;
+}) => React.ReactElement | React.ReactElement[];
