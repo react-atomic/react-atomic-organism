@@ -9,7 +9,7 @@ import Return from "reshow-return";
 import { ajaxStore } from "organism-react-ajax";
 import { DisplayPopupEl } from "organism-react-popup";
 
-import useProgress from "../../src/useProgress";
+import useProgress from "../../useProgress";
 
 const displayName = "PageLoadProgress";
 

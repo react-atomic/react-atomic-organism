@@ -1,2 +1,2 @@
-export PageLoadProgressHandler from "../ui/organisms/PageLoadProgressHandler";
-export ProgressBar from "../ui/organisms/ProgressBar";
+export { defalut as PageLoadProgressHandler } from "./ui/organisms/PageLoadProgressHandler";
+export { default as ProgressBar } from "./ui/organisms/ProgressBar";
