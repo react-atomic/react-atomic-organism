@@ -1,18 +1,29 @@
-import { UNDEFINED, IS_ARRAY } from "reshow-constant";
+//@ts-check
+
+import { UNDEFINED, IS_ARRAY, T_UNDEFINED } from "reshow-constant";
 import callfunc from "call-func";
 import getDefaultValue from "./getDefaultValue";
 
 /**
  * @see https://github.com/react-atomic/reshow/issues/123
+ * @param {object} o
+ * @param {string} k
+ * @returns {any}
  */
 const getter = (o, k) => (o.size && callfunc(o.get, [k], o)) ?? o[k];
 
-const get = (o, path, defaultValue) => {
+/**
+ * @param {any} o
+ * @param {string[]} path 
+ * @param {any} defaultValue
+ * @returns {any}
+ */
+const get = (o, path = [], defaultValue = T_UNDEFINED) => {
   if (null == o) {
     return getDefaultValue(defaultValue, o);
   }
   let current = o;
-  if (!path || !IS_ARRAY(path)) {
+  if (!path || !IS_ARRAY(path) || !path.length) {
     return current;
   }
   try {

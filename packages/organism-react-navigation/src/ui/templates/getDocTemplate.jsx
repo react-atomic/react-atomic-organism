@@ -1,3 +1,5 @@
+//@ts-check
+
 import { useMemo } from "react";
 import {
   build,
@@ -5,7 +7,6 @@ import {
   mixClass,
   mergeStyleConfig,
   useLazyInject,
-  Segment,
   SemanticUI,
 } from "react-atomic-molecule";
 import get from "get-object-value";
