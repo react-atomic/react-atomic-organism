@@ -264,11 +264,11 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
   const DocTemplate = ({
     className = "basic",
     id = docId,
-    menu,
-    right,
+    menu = null,
+    right = null,
+    footer = null,
+    style = {},
     body,
-    footer,
-    style,
     ...restProps
   }) => {
     injects = useLazyInject(InjectStyles, injects);

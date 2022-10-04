@@ -5,13 +5,13 @@ export default getDocTemplate;
  * @param {boolean} merge
  * @returns {DocTemplate}
  */
-declare function getDocTemplate(params: object, Styles?: object, merge?: boolean): ({ className, id, menu, right, body, footer, style, ...restProps }: {
+declare function getDocTemplate(params: object, Styles?: object, merge?: boolean): ({ className, id, menu, right, footer, style, body, ...restProps }: {
     [x: string]: any;
     className?: string;
     id?: any;
-    menu: any;
-    right: any;
+    menu?: any;
+    right?: any;
+    footer?: any;
+    style?: {};
     body: any;
-    footer: any;
-    style: any;
 }) => React.ReactElement | React.ReactElement[];
