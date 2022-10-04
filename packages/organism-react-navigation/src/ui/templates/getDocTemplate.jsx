@@ -259,7 +259,7 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
   }
 
   /**
-   * @returns {React.ReactElement|React.ReactElement[]}
+   * @returns {React.ReactComponentElement}
    */
   const DocTemplate = ({
     className = "basic",
@@ -293,25 +293,29 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       [style]
     );
 
-    return build(SemanticUI)(
-      {
-        ...restProps,
-        className: mixClass(className, containerClass),
-        style: thisStyle,
-        id,
-      },
-      [
-        build(SemanticUI)(
+    return (
+      <>
+        {build(SemanticUI)(
           {
-            key: "doc-body",
-            className: "doc-body",
-            style: Styles.docBody,
+            ...restProps,
+            className: mixClass(className, containerClass),
+            style: thisStyle,
+            id,
           },
-          [thisBody, thisFooter]
-        ),
-        thisMenu,
-        thisRight,
-      ]
+          [
+            build(SemanticUI)(
+              {
+                key: "doc-body",
+                className: "doc-body",
+                style: Styles.docBody,
+              },
+              [thisBody, thisFooter]
+            ),
+            thisMenu,
+            thisRight,
+          ]
+        )}
+      </>
     );
   };
 
