@@ -1,9 +1,6 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useMemo,
-  useImperativeHandle,
-} from "react";
+//@ts-check
+
+import { forwardRef, useEffect, useMemo, useImperativeHandle } from "react";
 import { mergeDefaultValue, Progress } from "react-atomic-molecule";
 import Return from "reshow-return";
 import { ajaxStore } from "organism-react-ajax";
@@ -13,6 +10,11 @@ import useProgress from "../../useProgress";
 
 const displayName = "PageLoadProgress";
 
+const PageLoadProgressPropTypes = {};
+
+/**
+ * @type React.FC<PageLoadProgressPropTypes>
+ */
 const PageLoadProgress = forwardRef((props, ref) => {
   const {
     name = displayName,
@@ -22,7 +24,7 @@ const PageLoadProgress = forwardRef((props, ref) => {
     delay,
     isRunning,
     barProps,
-  } = props;
+  } = props || {};
 
   const { expose, opacity, percent } = useProgress(delay);
   useImperativeHandle(ref, () => expose, []);
