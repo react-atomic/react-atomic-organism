@@ -293,29 +293,25 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
       [style]
     );
 
-    return (
-      <>
-        {build(SemanticUI)(
+    return build(SemanticUI)(
+      {
+        ...restProps,
+        className: mixClass(className, containerClass),
+        style: thisStyle,
+        id,
+      },
+      [
+        build(SemanticUI)(
           {
-            ...restProps,
-            className: mixClass(className, containerClass),
-            style: thisStyle,
-            id,
+            key: "doc-body",
+            className: "doc-body",
+            style: Styles.docBody,
           },
-          [
-            build(SemanticUI)(
-              {
-                key: "doc-body",
-                className: "doc-body",
-                style: Styles.docBody,
-              },
-              [thisBody, thisFooter]
-            ),
-            thisMenu,
-            thisRight,
-          ]
-        )}
-      </>
+          [thisBody, thisFooter]
+        ),
+        thisMenu,
+        thisRight,
+      ]
     );
   };
 
