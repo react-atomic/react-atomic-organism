@@ -10,20 +10,31 @@ import useProgress from "../../useProgress";
 
 const displayName = "PageLoadProgress";
 
-const PageLoadProgressPropTypes = {};
+/**
+ * @typedef {object} PageLoadProgressProps
+ * @property {string} [name=null]
+ * @property {boolean} [isFloat=null]
+ * @property {boolean} [ajax=null]
+ * @property {boolean} [isRunning=null]
+ * @property {number} [delay=null]
+ * @property {number} [zIndex=null]
+ * @property {Object} [barProps=null]
+ * @property {Object} [ref=null]
+ */
 
 /**
- * @type React.FC<PageLoadProgressPropTypes>
+ * @type React.FC<PageLoadProgressProps>
  */
-const PageLoadProgress = forwardRef((props, ref) => {
+const PageLoadProgress = forwardRef(
+  (props, ref) => {
   const {
     name = displayName,
     zIndex = 1,
     isFloat = true,
     ajax = false,
-    delay,
-    isRunning,
-    barProps,
+    delay = null,
+    isRunning = null,
+    barProps = {},
   } = props || {};
 
   const { expose, opacity, percent } = useProgress(delay);
@@ -62,6 +73,9 @@ const PageLoadProgress = forwardRef((props, ref) => {
 
 PageLoadProgress.displayName = displayName;
 
+/**
+ * @type React.FC<PageLoadProgressProps>
+ */
 const PageLoadProgressHandler = forwardRef((props, ref) => (
   <Return store={ajaxStore} initStates={["isRunning"]}>
     <PageLoadProgress {...props} ref={ref} />
