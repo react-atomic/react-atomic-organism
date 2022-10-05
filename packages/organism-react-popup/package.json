@@ -1,5 +1,5 @@
 {
-  "version": "0.17.9",
+  "version": "0.17.10",
   "name": "organism-react-popup",
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "organism-react-animate": "*",
     "prop-types": "*",
     "react-atomic-molecule": "*",
+    "reshow-build": "*",
     "reshow-constant": "*",
     "reshow-flux": "*",
     "reshow-hooks": "*",

@@ -9,5 +9,6 @@ declare class PopupClick extends Component<any, any, any> {
     open(): void;
     close(): void;
     componentDidMount(): void;
+    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
 }
 import { Component } from "react";
