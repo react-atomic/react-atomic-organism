@@ -1,3 +1,5 @@
+//@ts-check
+
 import { useMemo } from "react";
 import {
   build,
@@ -5,13 +7,18 @@ import {
   mixClass,
   mergeStyleConfig,
   useLazyInject,
-  Segment,
   SemanticUI,
 } from "react-atomic-molecule";
 import get from "get-object-value";
 
 let injects;
 
+/**
+ * @param {object} params
+ * @param {object} Styles
+ * @param {boolean} merge
+ * @returns {DocTemplate}
+ */
 const getDocTemplate = (params, Styles = {}, merge = true) => {
   /* Defined containerClass */
   let sideWidth = get(params, ["sideWidth"], 300);
@@ -24,13 +31,19 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
 
   const miniSidebar = get(params, ["miniSidebar"]);
   const fixedMini = get(params, ["fixedMini"]);
-  const getMiniClass = (tpl, alwaysOn = fixedMini) => {
-    const c = [tpl.replace("[active]", "inactive")];
-    if (alwaysOn) {
-      c.push(tpl.replace("[active]", "active"));
-    }
-    return c.join(", ");
-  };
+
+  const getMiniClass =
+    /**
+     * @param {string} tpl
+     * @returns {string}
+     */
+    (tpl, alwaysOn = fixedMini) => {
+      const c = [tpl.replace("[active]", "inactive")];
+      if (alwaysOn) {
+        c.push(tpl.replace("[active]", "active"));
+      }
+      return c.join(", ");
+    };
 
   let initSideWidth = fixedMini ? miniSidebarWidth : active ? sideWidth : 0;
   if (initSideWidth && !isNaN(initSideWidth)) {
@@ -221,6 +234,9 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
           },
           getMiniClass(`.[active] #${menuId}:hover`),
         ],
+        /**
+         * @type any
+         */
         mdInactiveMenu: [
           {
             maxWidth: miniSidebarWidth,
@@ -242,14 +258,17 @@ const getDocTemplate = (params, Styles = {}, merge = true) => {
     mergeStyleConfig(Styles, defaultStyles, InjectStyles);
   }
 
+  /**
+   * @returns {React.ReactComponentElement}
+   */
   const DocTemplate = ({
     className = "basic",
     id = docId,
-    menu,
-    right,
+    menu = null,
+    right = null,
+    footer = null,
+    style = {},
     body,
-    footer,
-    style,
     ...restProps
   }) => {
     injects = useLazyInject(InjectStyles, injects);

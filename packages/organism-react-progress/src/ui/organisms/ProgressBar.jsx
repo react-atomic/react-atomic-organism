@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { mergeDefaultValue, Progress } from "react-atomic-molecule";
-import useProgress from "../../src/useProgress";
+import useProgress from "../../useProgress";
 
 const ProgressBar = forwardRef((props, ref) => {
   const {

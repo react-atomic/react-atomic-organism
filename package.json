@@ -1,5 +1,5 @@
 {
-  "version": "0.16.10",
+  "version": "0.16.11",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
@@ -43,13 +43,16 @@
     "clean": "find ./build -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs",
-    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:type": "npx -p typescript tsc src/index.js src/ui/**/*.jsx --jsx react-jsx --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "STRICT_MODE=1 mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
+  "types": "./types/index.d.ts",
   "files": [
+    "types",
     "build",
     "package.json",
     "README.md"

@@ -1,28 +1,41 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useMemo,
-  useImperativeHandle,
-} from "react";
+//@ts-check
+
+import { forwardRef, useEffect, useMemo, useImperativeHandle } from "react";
 import { mergeDefaultValue, Progress } from "react-atomic-molecule";
 import Return from "reshow-return";
 import { ajaxStore } from "organism-react-ajax";
 import { DisplayPopupEl } from "organism-react-popup";
 
-import useProgress from "../../src/useProgress";
+import useProgress from "../../useProgress";
 
 const displayName = "PageLoadProgress";
 
-const PageLoadProgress = forwardRef((props, ref) => {
+/**
+ * @typedef {object} PageLoadProgressProps
+ * @property {string} [name=null]
+ * @property {boolean} [isFloat=null]
+ * @property {boolean} [ajax=null]
+ * @property {boolean} [isRunning=null]
+ * @property {number} [delay=null]
+ * @property {number} [zIndex=null]
+ * @property {Object} [barProps=null]
+ * @property {Object} [ref=null]
+ */
+
+/**
+ * @type React.FC<PageLoadProgressProps>
+ */
+const PageLoadProgress = forwardRef(
+  (props, ref) => {
   const {
     name = displayName,
     zIndex = 1,
     isFloat = true,
     ajax = false,
-    delay,
-    isRunning,
-    barProps,
-  } = props;
+    delay = null,
+    isRunning = null,
+    barProps = {},
+  } = props || {};
 
   const { expose, opacity, percent } = useProgress(delay);
   useImperativeHandle(ref, () => expose, []);
@@ -60,6 +73,9 @@ const PageLoadProgress = forwardRef((props, ref) => {
 
 PageLoadProgress.displayName = displayName;
 
+/**
+ * @type React.FC<PageLoadProgressProps>
+ */
 const PageLoadProgressHandler = forwardRef((props, ref) => (
   <Return store={ajaxStore} initStates={["isRunning"]}>
     <PageLoadProgress {...props} ref={ref} />
