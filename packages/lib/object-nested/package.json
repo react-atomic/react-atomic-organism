@@ -12,8 +12,8 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "reshow-runtime": "*",
     "reshow-constant": "*",
+    "reshow-runtime": "*",
     "set-object-value": "*"
   },
   "devDependencies": {

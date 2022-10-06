@@ -2034,9 +2034,9 @@ domexception@^4.0.0:
     webidl-conversions "^7.0.0"
 
 electron-to-chromium@^1.4.251:
-  version "1.4.272"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.272.tgz#cedebaeec5d9879da85b127e65a55c6b4c58344e"
-  integrity sha512-KS6gPPGNrzpVv9HzFVq+Etd0AjZEPr5pvaTBn2yD6KV4+cKW4I0CJoJNgmTG6gUQPAMZ4wIPtcOuoou3qFAZCA==
+  version "1.4.274"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.274.tgz#74369ac6f020c3cea7c77ec040ddf159fe226233"
+  integrity sha512-Fgn7JZQzq85I81FpKUNxVLAzoghy8JZJ4NIue+YfUYBbu1AkpgzFvNwzF/ZNZH9ElkmJD0TSWu1F2gTpw/zZlg==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -3680,9 +3680,9 @@ reshow-hooks@*:
     reshow-constant "*"
 
 reshow-return@*:
-  version "0.17.30"
-  resolved "https://registry.yarnpkg.com/reshow-return/-/reshow-return-0.17.30.tgz#f491ba0b986bac973d0770bb288b6edc7be0705c"
-  integrity sha512-ieHLuwVby1wU6wSF4dlKHGpw7jApbZWxa75hjYl8N++eZUueHEz2Mau7GUbIxq6owz03QqElj3znEPXsoG86MA==
+  version "0.17.31"
+  resolved "https://registry.yarnpkg.com/reshow-return/-/reshow-return-0.17.31.tgz#f2da8733ad3934004d0d6f2e7e841a69c7c2d814"
+  integrity sha512-+fbzfhHjehqIgUuoHp3g+wPlUrYpg2qdSQQD1tOFNKWXSKlTReYjZ0l3zOYEp61FrL+HFr5iSBq18tR/XDhdgQ==
   dependencies:
     call-func "*"
     get-object-value "*"
@@ -4257,9 +4257,9 @@ which@2.0.2, which@^2.0.1:
     isexe "^2.0.0"
 
 win-doc@*:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.2.1.tgz#c05028de3842f247e979a7951185c63c4faebcd0"
-  integrity sha512-oAsk9GPAwkhZmMUzJExJLyz6g1PKLTb/Z9T8hIM71Bd9kAa88ZnNk7dI2qzLtAkNdJbH5rhiWXVlh9bUnf/D3Q==
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.3.1.tgz#4abcc95d8b4c573b7bbd45c2ed34a4617086579c"
+  integrity sha512-dX73IFfEVQb7m6hkxcdTqbANAOFuaDy8HFEij3FabNht7rgCdnDGSG0KN5DNvBA7OMPOraAiN0w5jGKUKTNhnA==
   dependencies:
     reshow-constant "*"
     reshow-runtime "*"
