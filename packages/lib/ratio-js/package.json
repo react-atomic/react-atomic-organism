@@ -8,7 +8,9 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/ratio-js",
   "description": "A tool for calculate ratio size. (width and height)",
-  "keywords": ["ratio"],
+  "keywords": [
+    "ratio"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {

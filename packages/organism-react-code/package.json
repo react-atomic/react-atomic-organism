@@ -15,12 +15,12 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "reshow-url": "*",
     "call-func": "*",
     "marked": "^4.x",
     "organism-react-ajax": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
+    "reshow-url": "*",
     "ricon": "*",
     "syntax-colorer": "*"
   },
