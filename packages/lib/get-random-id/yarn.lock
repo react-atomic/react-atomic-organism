@@ -433,6 +433,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
+"@types/mocha@*":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-10.0.0.tgz#3d9018c575f0e3f7386c1de80ee66cc21fbb7a52"
+  integrity sha512-rADY+HtTOA52l9VZWtgQfn4p+UDVM2eDVkMZT1I6syp0YKxW2F9v+0pbRZLsvskhQv/vMb6ZfCay81GHbz5SHg==
+
 "@types/prettier@^2.6.0":
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.7.1.tgz#dfd20e2dc35f027cdd6c1908e80a5ddc7499670e"
@@ -2314,10 +2319,11 @@ reshow-runtime@*:
     reshow-constant "*"
 
 reshow-unit-dom@*:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/reshow-unit-dom/-/reshow-unit-dom-0.1.4.tgz#c8c31896bd1279c81a6fd0a2a2e6b756e3bf3529"
-  integrity sha512-PZPuRyVp42hxh3zH4x0KwCvQVWqKklE/rUjcZuGxesdBinJ0KVhxUaBPZoZzr+vw5Hrqo/IKtYagO5VOYZjWaQ==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/reshow-unit-dom/-/reshow-unit-dom-0.2.0.tgz#94f17e320c07d6bdc40bf9284f55f734a18e5bb0"
+  integrity sha512-zL5NZgTZKLmKLAawlCR2Ctd90VL+G9QJ4CDUKFfilFsEYq+77nhGYkUyu+Q1yX2vaqKwhVjxonbv5jFCxUq3+A==
   dependencies:
+    "@types/mocha" "*"
     chai "*"
     global-jsdom "*"
     jsdom "^19.0.0"
