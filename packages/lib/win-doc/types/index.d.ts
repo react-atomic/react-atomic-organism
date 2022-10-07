@@ -1,14 +1,14 @@
 /**
  * @param {object|undefined} w
  * @param {object} def
- * @returns {Object}
+ * @returns {document}
  */
-export function doc(w?: object | undefined, def?: object): any;
+export function doc(w?: object | undefined, def?: object): Document;
 /**
  * @param {object} def
- * @returns {Object}
+ * @returns {window}
  */
-export function win(def?: object): any;
+export function win(def?: object): Window & typeof globalThis;
 /**
  * @param {string} key
  * @returns {boolean}
