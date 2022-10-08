@@ -19,7 +19,7 @@ import {
   ENTERSTART,
   ENTERING,
   EXITED,
-} from "../../src/const";
+} from "../../const";
 
 const getAniProps = (props, enterToAppear) => {
   const {

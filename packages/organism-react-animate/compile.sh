@@ -17,10 +17,7 @@ stop(){
 watch(){
     stop 
     echo "Watch Mode";
-    npm run build:cjs:ui -- --watch &
-    npm run build:cjs:src -- --watch &
-    npm run build:es:ui -- --watch &
-    npm run build:es:src -- --watch &
+    npm run build:es -- --watch &
 }
 
 case "$1" in

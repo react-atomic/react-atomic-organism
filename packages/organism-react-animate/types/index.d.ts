@@ -1,4 +1,3 @@
-// Default
 export { default } from "./ui/organisms/Animate";
 export { default as Image } from "./ui/organisms/AnimateImage";
 export { default as AnimateGroup } from "./ui/organisms/AnimateGroup";

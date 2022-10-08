@@ -4,7 +4,7 @@ import callfunc from "call-func";
 import { KEYS } from "reshow-constant";
 
 import Transition from "../organisms/Transition";
-import { aniTransitioning } from "../../src/const";
+import { aniTransitioning } from "../../const";
 
 const getIndex = (isAppear, isExit, { exit, appear, enter }) => {
   const index = isExit ? exit : isAppear ? appear : enter;

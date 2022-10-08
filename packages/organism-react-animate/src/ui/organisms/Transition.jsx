@@ -13,7 +13,7 @@ import {
   ENTERSTART,
   ENTERING,
   ENTERED,
-} from "../../src/const";
+} from "../../const";
 
 const getTimeouts = (timeout) => {
   let exit, enter, appear;

@@ -2,7 +2,7 @@ import { expect } from "chai";
 import { render, act, waitFor } from "reshow-unit";
 
 import Transition from "../Transition";
-import { dataStatusKey } from "../../../src/const";
+import { dataStatusKey } from "../../../const";
 import { SemanticUI } from "react-atomic-molecule";
 
 describe("Test Transition", () => {
