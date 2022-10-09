@@ -1,5 +1,4 @@
 import { Children, PureComponent } from "react";
-import callfunc from "call-func";
 import Change from "../organisms/Change";
 
 class Replace extends PureComponent {
