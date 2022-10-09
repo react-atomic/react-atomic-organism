@@ -20,7 +20,7 @@ describe("AnimateGroup Test", () => {
       </Animate>
     );
     const wrap = render(vDom);
-    expect(wrap.html()).to.have.string("animate-group-container");
+    expect(wrap.html()).to.have.string("animate-group");
   });
 
   it("Test handleExit", async () => {
