@@ -49,7 +49,7 @@ const handleStart = (
 };
 
 const handleFinish = (
-  { classNames, delay, stepKeys, actionKeys },
+  { classNames, stepKeys, actionKeys },
   handler,
   isExit,
   node,
@@ -67,7 +67,7 @@ const handleFinish = (
 };
 
 const handleReset = (
-  { classNames, delay, stepKeys, actionKeys },
+  { classNames, stepKeys, actionKeys },
   handler,
   isExit,
   isDone,
@@ -82,13 +82,12 @@ const handleReset = (
       if (thisClass) {
         node.className = removeClass(
           node.className,
-          thisClass,
-          aniTransitioning
+          [thisClass, aniTransitioning].join(" ")
         );
       }
     });
   }
-  callfunc(handler, [node, isAppear]);
+  callfunc(handler, [node, isAppear, isDone]);
 };
 
 const CSSTransition = ({

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 import { useTimer } from "reshow-hooks";
@@ -100,6 +100,7 @@ const useTransition = ({
   appear = false,
   enter = true,
   exit = true,
+  in: propsIn = false,
 
   beforeEnter,
   afterEnter,
@@ -117,7 +118,6 @@ const useTransition = ({
   addEndListener,
   ...otherProps
 }) => {
-  const propsIn = null != otherProps.in ? otherProps.in : false;
   const [status, setStatus] = useState(() => {
     const thisAppear = appear;
     let initialStatus;
@@ -215,10 +215,7 @@ const useTransition = ({
     };
 
     if (lastData.current.callbackWith === status) {
-      const moreProps = callfunc(lastData.current.nextCallback, [status]);
-      if (moreProps) {
-        otherProps = { ...otherProps, ...moreProps };
-      }
+      callfunc(lastData.current.nextCallback, [status]);
     }
 
     let nextStatus = null;
@@ -248,7 +245,8 @@ const useTransition = ({
       // useEffect clean
       StopTransitionEndTimer();
     };
-  }, [propsIn, status]);
+  }, [propsIn, status]); //end useEffect
+
   return {
     status,
     otherProps,
@@ -262,15 +260,12 @@ const useTransition = ({
 const Transition = (props) => {
   const { status, otherProps, component, children, statusKey, lastNode } =
     useTransition(props);
-  const nextProps = { ...otherProps, in: T_UNDEFINED };
   if (status !== UNMOUNTED) {
-    nextProps.children = children;
+    otherProps.children = children;
   }
-  return build(component)({
-    [statusKey]: status,
-    refCb: lastNode,
-    ...nextProps,
-  });
+  otherProps[statusKey] = status;
+  otherProps.refCb = lastNode;
+  return build(component)(otherProps);
 };
 
 export default Transition;

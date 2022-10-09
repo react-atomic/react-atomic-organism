@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   build,
   mixClass,
@@ -15,6 +15,7 @@ import CSSTransition from "../organisms/CSSTransition";
 import {
   dataStatusKey,
   aniTransitioning,
+  animateGroupClass,
   UNMOUNTED,
   ENTERSTART,
   ENTERING,
@@ -146,7 +147,7 @@ const AnimateGroup = (props) => {
      * for reduce animation effect.
      * you could assign it by yourself.
      */
-    restProps.className = mixClass(className, "animate-group-container");
+    restProps.className = mixClass(className, animateGroupClass);
     return build(component)(
       restProps,
       KEYS(children || {}).map((key) => children[key])
@@ -163,14 +164,14 @@ const InjectStyles = ({ statusKey }) => ({
       visibility: "hidden",
     },
     [
-      `[${statusKey}="${ENTERSTART}"]`,
-      `[${statusKey}="${ENTERING}"]:not(.${aniTransitioning})`,
+      `.${animateGroupClass} [${statusKey}="${ENTERSTART}"]`,
+      `.${animateGroupClass} [${statusKey}="${ENTERING}"]:not(.${aniTransitioning})`,
     ].join(","),
   ],
   exit: [
     {
       display: "none",
     },
-    [`[${statusKey}="${EXITED}"]`, `[${statusKey}="${UNMOUNTED}"]`].join(","),
+    [`.${animateGroupClass} [${statusKey}="${EXITED}"]`, `.${animateGroupClass} [${statusKey}="${UNMOUNTED}"]`].join(","),
   ],
 });
