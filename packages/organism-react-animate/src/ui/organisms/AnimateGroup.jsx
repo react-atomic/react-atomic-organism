@@ -130,7 +130,7 @@ const AnimateGroup = (props) => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
     };
-  }, [props.children, isLoad]);
+  }, [props.children, isLoad, props.in]);
   return useMemo(() => {
     if (!isLoad) {
       return build(component)(restProps);
