@@ -53,7 +53,7 @@ const getAniProps = (props, copyEnterToAppear) => {
     onEntered,
     onExit,
     onExiting,
-    in: null != props.in ? props.in : true,
+    in: true,
   };
   return aniProps;
 };
@@ -130,7 +130,7 @@ const AnimateGroup = (props) => {
       clearTimeout(_exitTimeout);
       clearTimeout(_enterTimeout);
     };
-  }, [props.children, isLoad, props.in]);
+  }, [props.children, isLoad]);
   return useMemo(() => {
     if (!isLoad) {
       return build(component)(restProps);
