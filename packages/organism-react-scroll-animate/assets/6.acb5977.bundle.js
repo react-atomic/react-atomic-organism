@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkorganism_react_scroll_animate=self.webpackChunkorganism_react_scroll_animate||[]).push([[6],{61(d,a,b){b.r(a),b.d(a,{aniName:()=>c,default:()=>e});var c="breath";let e={[c]:[[{transform:["scale(1)"]},{opacity:.7,transform:["scale(.75)"]},{opacity:.9,transform:["scale(1)"]}],["@keyframes "+c,"0%","45%","100%"]]}}}])

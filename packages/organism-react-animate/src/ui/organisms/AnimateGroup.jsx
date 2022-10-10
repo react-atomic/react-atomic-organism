@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   build,
   mixClass,
@@ -12,16 +12,11 @@ import { useMounted } from "reshow-hooks";
 import { KEYS } from "reshow-constant";
 
 import CSSTransition from "../organisms/CSSTransition";
-import {
-  dataStatusKey,
-  aniTransitioning,
-  UNMOUNTED,
-  ENTERSTART,
-  ENTERING,
-  EXITED,
-} from "../../const";
+import { dataStatusKey, animateGroupClass } from "../../const";
+import { InjectStyles } from "../../initAniStyle";
 
-const getAniProps = (props, enterToAppear) => {
+const injects = {};
+const getAniProps = (props, copyEnterToAppear) => {
   const {
     statusKey,
     timeout,
@@ -37,7 +32,7 @@ const getAniProps = (props, enterToAppear) => {
     onExiting,
   } = props;
   let appear = props.appear;
-  if (enterToAppear && classNames && classNames.enter) {
+  if (copyEnterToAppear && classNames && classNames.enter) {
     classNames.appear = classNames.enter;
     delay.appear = delay.enter;
     timeout.appear = timeout.enter;
@@ -58,7 +53,7 @@ const getAniProps = (props, enterToAppear) => {
     onEntered,
     onExit,
     onExiting,
-    in: null != props.in ? props.in : true,
+    in: true,
   };
   return aniProps;
 };
@@ -67,6 +62,7 @@ const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = (props) => {
   const {
+    copyEnterToAppear = true,
     isLoad = true,
     statusKey = dataStatusKey,
     component = SemanticUI,
@@ -82,7 +78,7 @@ const AnimateGroup = (props) => {
     InjectStyles({ statusKey }),
     injects[statusKey]
   );
-  const aniProps = getAniProps(restProps, true);
+  const aniProps = getAniProps(restProps, copyEnterToAppear);
   KEYS(aniProps).forEach((key) => delete restProps[key]);
   useEffect(() => {
     let _exitTimeout;
@@ -146,7 +142,7 @@ const AnimateGroup = (props) => {
      * for reduce animation effect.
      * you could assign it by yourself.
      */
-    restProps.className = mixClass(className, "animate-group-container");
+    restProps.className = mixClass(className, animateGroupClass);
     return build(component)(
       restProps,
       KEYS(children || {}).map((key) => children[key])
@@ -155,22 +151,3 @@ const AnimateGroup = (props) => {
 };
 
 export default AnimateGroup;
-
-const injects = {};
-const InjectStyles = ({ statusKey }) => ({
-  hide: [
-    {
-      visibility: "hidden",
-    },
-    [
-      `[${statusKey}="${ENTERSTART}"]`,
-      `[${statusKey}="${ENTERING}"]:not(.${aniTransitioning})`,
-    ].join(","),
-  ],
-  exit: [
-    {
-      display: "none",
-    },
-    [`[${statusKey}="${EXITED}"]`, `[${statusKey}="${UNMOUNTED}"]`].join(","),
-  ],
-});

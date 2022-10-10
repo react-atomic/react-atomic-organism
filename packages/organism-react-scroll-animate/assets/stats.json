@@ -1,23 +1,31 @@
 {
   "chunks": {
     "main": [
-      {
-        "name": "main.bundle.js",
-        "publicPath": "./assets/main.bundle.js?576e313"
-      }
+      "main.acb5977.bundle.js"
     ],
     "lib": [
-      {
-        "name": "lib.bundle.js",
-        "publicPath": "./assets/lib.bundle.js?576e313"
-      }
+      "lib.acb5977.bundle.js"
     ],
     "vendor": [
-      {
-        "name": "vendor.bundle.js",
-        "publicPath": "./assets/vendor.bundle.js?576e313"
-      }
+      "vendor.acb5977.bundle.js"
     ]
+  },
+  "assets": {
+    "main.acb5977.bundle.js": {
+      "name": "main.acb5977.bundle.js",
+      "publicPath": "./assets/main.acb5977.bundle.js?acb5977",
+      "path": "/Users/hill/git/react-atomic-organism/packages/organism-react-scroll-animate/assets/main.acb5977.bundle.js"
+    },
+    "lib.acb5977.bundle.js": {
+      "name": "lib.acb5977.bundle.js",
+      "publicPath": "./assets/lib.acb5977.bundle.js?acb5977",
+      "path": "/Users/hill/git/react-atomic-organism/packages/organism-react-scroll-animate/assets/lib.acb5977.bundle.js"
+    },
+    "vendor.acb5977.bundle.js": {
+      "name": "vendor.acb5977.bundle.js",
+      "publicPath": "./assets/vendor.acb5977.bundle.js?acb5977",
+      "path": "/Users/hill/git/react-atomic-organism/packages/organism-react-scroll-animate/assets/vendor.acb5977.bundle.js"
+    }
   },
   "publicPath": "./assets/",
   "status": "done"

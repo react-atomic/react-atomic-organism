@@ -1,2 +1,4 @@
-// Default
-export { default } from "../ui/organisms/ScrollAnimate";
+//@ts-check
+
+export { default } from "./ui/organisms/ScrollAnimate";
+export { default as useIntersectionObserver } from "./useIntersectionObserver";

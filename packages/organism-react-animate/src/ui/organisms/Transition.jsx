@@ -1,20 +1,32 @@
-import { useState, useEffect, useMemo, useRef } from "react";
+//@ts-check
+
+import { useState, useEffect, useRef } from "react";
 import { build, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 import { useTimer } from "reshow-hooks";
-import { T_UNDEFINED } from "reshow-constant";
 
 import {
   dataStatusKey,
-  EXITSTART,
-  EXITING,
-  EXITED,
-  UNMOUNTED,
   ENTERSTART,
   ENTERING,
   ENTERED,
+  UNMOUNTED,
+  EXITSTART,
+  EXITING,
+  EXITED,
 } from "../../const";
 
+/**
+ * @typedef {object} TimeoutType
+ * @property {number} exit
+ * @property {number} enter
+ * @property {number} appear
+ */
+
+/**
+ * @param {Object} timeout
+ * @returns {TimeoutType}
+ */
 const getTimeouts = (timeout) => {
   let exit, enter, appear;
 
@@ -28,8 +40,14 @@ const getTimeouts = (timeout) => {
   return { exit, enter, appear };
 };
 
+/**
+ * @param {function} callback
+ */
 const setNextCallback = (callback) => {
   let active = true;
+  /**
+   * @param {string} event
+   */
   const nextCallback = (event) => {
     if (active) {
       callfunc(callback, [event]);
@@ -42,6 +60,9 @@ const setNextCallback = (callback) => {
   return nextCallback;
 };
 
+/**
+ * @param {Object} lastData
+ */
 const cancelNextCallback = (lastData) => {
   if (lastData.current.nextCallback !== null) {
     lastData.current.nextCallback.reset();
@@ -50,6 +71,7 @@ const cancelNextCallback = (lastData) => {
 };
 
 const perform = ({
+  isAppear,
   step1,
   step1Cb,
   step2,
@@ -61,7 +83,6 @@ const perform = ({
   onTransitionEnd,
   tearDown,
   goToLast,
-  isAppear,
   node,
   timeout,
 }) => {
@@ -100,6 +121,7 @@ const useTransition = ({
   appear = false,
   enter = true,
   exit = true,
+  in: propsIn = false,
 
   beforeEnter,
   afterEnter,
@@ -117,13 +139,11 @@ const useTransition = ({
   addEndListener,
   ...otherProps
 }) => {
-  const propsIn = null != otherProps.in ? otherProps.in : false;
   const [status, setStatus] = useState(() => {
-    const thisAppear = appear;
     let initialStatus;
     if (propsIn) {
-      if (thisAppear) {
-        initialStatus = EXITED;
+      if (appear) {
+        initialStatus = ENTERING;
       } else {
         initialStatus = ENTERED;
       }
@@ -147,6 +167,10 @@ const useTransition = ({
   const [TransitionEndTimer, StopTransitionEndTimer] = useTimer();
 
   useEffect(() => {
+    /**
+     * @param {string} nextStatus
+     * @param {function} callback
+     */
     const safeSetState = (nextStatus, callback) => {
       // This shouldn't be necessary, but there are weird race conditions with
       // setState callbacks and unmounting in testing, so always make sure that
@@ -158,6 +182,11 @@ const useTransition = ({
       setStatus(nextStatus);
     };
 
+    /**
+     * @param {function} handler
+     * @param {number} timeout
+     * @param {HTMLElement} node
+     */
     const onTransitionEnd = (handler, timeout, node) => {
       const callback = setNextCallback(() => {
         callfunc(handler);
@@ -170,6 +199,10 @@ const useTransition = ({
       );
     };
 
+    /**
+     * @param {boolean} mounting
+     * @param {string} nextStatus
+     */
     const updateStatus = (mounting, nextStatus) => {
       if (nextStatus !== null) {
         // nextStatus will always be ENTERING or EXITING.
@@ -206,6 +239,7 @@ const useTransition = ({
             node: lastNode.current,
             safeSetState,
             onTransitionEnd,
+            isAppear: mounting,
             timeout: timeouts.exit,
           });
         }
@@ -215,16 +249,12 @@ const useTransition = ({
     };
 
     if (lastData.current.callbackWith === status) {
-      const moreProps = callfunc(lastData.current.nextCallback, [status]);
-      if (moreProps) {
-        otherProps = { ...otherProps, ...moreProps };
-      }
+      callfunc(lastData.current.nextCallback, [status]);
     }
 
-    let nextStatus = null;
-    let mounting = null;
     if (lastData.current.in !== propsIn) {
-      mounting = false;
+      let nextStatus = null;
+      let mounting = false;
       lastData.current.in = propsIn;
       if (propsIn) {
         if (status !== ENTERING && status !== ENTERED) {
@@ -241,14 +271,15 @@ const useTransition = ({
           nextStatus = EXITING;
         }
       }
+      updateStatus(mounting, nextStatus);
     }
-    updateStatus(mounting, nextStatus);
 
     return () => {
       // useEffect clean
       StopTransitionEndTimer();
     };
-  }, [propsIn, status]);
+  }, [propsIn, status]); //end useEffect
+
   return {
     status,
     otherProps,
@@ -259,18 +290,22 @@ const useTransition = ({
   };
 };
 
+/**
+ * @typedef {Object} TransitionProps
+ */
+
+/**
+ * @type React.FC<TransitionProps>
+ */
 const Transition = (props) => {
   const { status, otherProps, component, children, statusKey, lastNode } =
     useTransition(props);
-  const nextProps = { ...otherProps, in: T_UNDEFINED };
   if (status !== UNMOUNTED) {
-    nextProps.children = children;
+    otherProps.children = children;
   }
-  return build(component)({
-    [statusKey]: status,
-    refCb: lastNode,
-    ...nextProps,
-  });
+  otherProps[statusKey] = status;
+  otherProps.refCb = lastNode;
+  return build(component)(otherProps);
 };
 
 export default Transition;

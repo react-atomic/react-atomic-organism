@@ -1,65 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { build, reactStyle } from "react-atomic-molecule";
+import { build } from "react-atomic-molecule";
 import { useMounted } from "reshow-hooks";
-import { NEW_OBJ } from "reshow-constant";
-import getKeyframe from "keyframe-css";
-import { initMap } from "get-object-value";
 
 import AnimateGroup from "../organisms/AnimateGroup";
-
-const inject = NEW_OBJ();
-const injectDone = NEW_OBJ();
-const injectCb = NEW_OBJ();
-const init = (key, ani, timeout, callback) => {
-  injectDone[ani] ? callback() : initMap(injectCb)(ani, []).push(callback);
-  if (inject[key]) {
-    return;
-  }
-  const buildAniStyle = () => {
-    reactStyle(
-      {
-        animationName: [ani],
-        animationDuration: [timeout + 1 + "ms"],
-        animationIterationCount: [1],
-        animationTimingFunction: [`steps(${Math.floor(timeout / 30)}, end)`],
-      },
-      "." + key,
-      key
-    );
-  };
-  injectDone[ani]
-    ? buildAniStyle(injectDone[ani])
-    : injectCb[ani].push(buildAniStyle);
-
-  // Need locate after reactStyle, for inject latest style in getKeyframe function
-  getKeyframe(ani, () => {
-    injectDone[ani] = true;
-    injectCb[ani].forEach((cb) => cb(injectDone[ani]));
-  });
-  inject[key] = true;
-};
-
-const parseAniValue = (s) => {
-  const data = s.split("-");
-  const name = data[0];
-  let timeout = 500;
-  let delay = 0;
-  if (!isNaN(data[1])) {
-    timeout = parseInt(data[1], 10);
-  }
-  if (!isNaN(data[2])) {
-    delay = parseInt(data[2], 10);
-    timeout += delay;
-  }
-  const key = [name, timeout, delay].join("-");
-  return {
-    className: key + " " + name,
-    key,
-    name,
-    timeout,
-    delay,
-  };
-};
+import { initAni, parseAniValue } from "../../aniUtil";
 
 const Animate = (props) => {
   const { appear, enter, leave, ...restProps } = props;
@@ -87,7 +31,7 @@ const Animate = (props) => {
       that.appearDelay = data.delay;
       that.appearClass = data.className;
       lastRun.current.push(appear);
-      init(that.appearKey, that.appear, that.appearTimeout, isDone(appear));
+      initAni(that.appearKey, that.appear, that.appearTimeout, isDone(appear));
     }
     if (enter) {
       data = parseAniValue(enter);
@@ -97,7 +41,7 @@ const Animate = (props) => {
       that.enterDelay = data.delay;
       that.enterClass = data.className;
       lastRun.current.push(enter);
-      init(that.enterKey, that.enter, that.enterTimeout, isDone(enter));
+      initAni(that.enterKey, that.enter, that.enterTimeout, isDone(enter));
     }
     if (leave) {
       data = parseAniValue(leave);
@@ -107,7 +51,7 @@ const Animate = (props) => {
       that.leaveDelay = data.delay;
       that.leaveClass = data.className;
       lastRun.current.push(leave);
-      init(that.leaveKey, that.leave, that.leaveTimeout, isDone(leave));
+      initAni(that.leaveKey, that.leave, that.leaveTimeout, isDone(leave));
     }
     if (!appear && !enter && !leave) {
       setIsLoad(true);

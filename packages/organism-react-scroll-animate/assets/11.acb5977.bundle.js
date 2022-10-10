@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkorganism_react_scroll_animate=self.webpackChunkorganism_react_scroll_animate||[]).push([[11],{66(c,a,b){b.r(a),b.d(a,{default:()=>d});let d={fadeInRight:[[{opacity:0,transform:["translate3d(100%, 0, 0)"]},{opacity:1,transform:["none"]}],["@keyframes fadeInRight","from","to"]]}}}])

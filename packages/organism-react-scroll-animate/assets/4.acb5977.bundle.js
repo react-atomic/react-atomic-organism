@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkorganism_react_scroll_animate=self.webpackChunkorganism_react_scroll_animate||[]).push([[4],{54(c,a,b){function d(){return new Worker(b.p+"worker.b2c2794.bundle.worker.js")}b.r(a),b.d(a,{default:()=>d})}}])
