@@ -1,7 +1,7 @@
-React Animate 
+organism-react-scroll-animate 
 ===============
    * GIT
-      * https://github.com/react-atomic/react-atomic-organism/tree/master/packages/organism-react-scroll-animate
+      * https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-scroll-animate
    * NPM
       * https://npm.im/organism-react-scroll-animate
 
