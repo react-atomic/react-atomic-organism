@@ -12,17 +12,11 @@ import { useMounted } from "reshow-hooks";
 import { KEYS } from "reshow-constant";
 
 import CSSTransition from "../organisms/CSSTransition";
-import {
-  dataStatusKey,
-  aniTransitioning,
-  animateGroupClass,
-  UNMOUNTED,
-  ENTERSTART,
-  ENTERING,
-  EXITED,
-} from "../../const";
+import { dataStatusKey, animateGroupClass } from "../../const";
+import { InjectStyles } from "../../initAniStyle";
 
-const getAniProps = (props, enterToAppear) => {
+const injects = {};
+const getAniProps = (props, copyEnterToAppear) => {
   const {
     statusKey,
     timeout,
@@ -38,7 +32,7 @@ const getAniProps = (props, enterToAppear) => {
     onExiting,
   } = props;
   let appear = props.appear;
-  if (enterToAppear && classNames && classNames.enter) {
+  if (copyEnterToAppear && classNames && classNames.enter) {
     classNames.appear = classNames.enter;
     delay.appear = delay.enter;
     timeout.appear = timeout.enter;
@@ -68,6 +62,7 @@ const buildCSSTransition = build(CSSTransition);
 
 const AnimateGroup = (props) => {
   const {
+    copyEnterToAppear = true,
     isLoad = true,
     statusKey = dataStatusKey,
     component = SemanticUI,
@@ -83,7 +78,7 @@ const AnimateGroup = (props) => {
     InjectStyles({ statusKey }),
     injects[statusKey]
   );
-  const aniProps = getAniProps(restProps, true);
+  const aniProps = getAniProps(restProps, copyEnterToAppear);
   KEYS(aniProps).forEach((key) => delete restProps[key]);
   useEffect(() => {
     let _exitTimeout;
@@ -156,22 +151,3 @@ const AnimateGroup = (props) => {
 };
 
 export default AnimateGroup;
-
-const injects = {};
-const InjectStyles = ({ statusKey }) => ({
-  hide: [
-    {
-      visibility: "hidden",
-    },
-    [
-      `.${animateGroupClass} [${statusKey}="${ENTERSTART}"]`,
-      `.${animateGroupClass} [${statusKey}="${ENTERING}"]:not(.${aniTransitioning})`,
-    ].join(","),
-  ],
-  exit: [
-    {
-      display: "none",
-    },
-    [`.${animateGroupClass} [${statusKey}="${EXITED}"]`, `.${animateGroupClass} [${statusKey}="${UNMOUNTED}"]`].join(","),
-  ],
-});

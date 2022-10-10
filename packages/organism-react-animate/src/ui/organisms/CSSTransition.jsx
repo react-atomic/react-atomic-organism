@@ -7,15 +7,18 @@ import Transition from "../organisms/Transition";
 import { aniTransitioning } from "../../const";
 
 const getIndex = (isAppear, isExit, { exit, appear, enter }) => {
-  const index = isExit ? exit : isAppear ? appear : enter;
-  return index;
+  if (isExit) {
+    return exit;
+  } else {
+    return isAppear ? appear : enter;
+  }
 };
 
 const getAction = (isDone, ing, { start, active, done }) => {
-  if (!ing) {
-    return isDone ? done : start;
-  } else {
+  if (ing) {
     return active;
+  } else {
+    return isDone ? done : start;
   }
 };
 
