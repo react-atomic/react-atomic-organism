@@ -7,14 +7,14 @@ import getDefaultValue from "./getDefaultValue";
 /**
  * @see https://github.com/react-atomic/reshow/issues/123
  * @param {object} o
- * @param {string} k
+ * @param {string|number} k
  * @returns {any}
  */
 const getter = (o, k) => (o.size && callfunc(o.get, [k], o)) ?? o[k];
 
 /**
  * @param {any} o
- * @param {string[]} path 
+ * @param {(string | number)[]} path 
  * @param {any} defaultValue
  * @returns {any}
  */

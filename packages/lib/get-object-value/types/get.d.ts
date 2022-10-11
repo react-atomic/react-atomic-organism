@@ -1,8 +1,8 @@
 export default get;
 /**
  * @param {any} o
- * @param {string[]} path
+ * @param {(string | number)[]} path
  * @param {any} defaultValue
  * @returns {any}
  */
-declare function get(o: any, path?: string[], defaultValue?: any): any;
+declare function get(o: any, path?: (string | number)[], defaultValue?: any): any;

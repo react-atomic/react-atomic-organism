@@ -1,4 +1,3 @@
-//@ts-check
 export { default } from "./getWindowOffset";
 export { default as alignUI } from "./alignUI";
 export { default as positions } from "./positions";
