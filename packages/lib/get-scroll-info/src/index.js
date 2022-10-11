@@ -1,7 +1,16 @@
-import { doc, win } from "win-doc";
-import { UNDEFINED } from "reshow-constant";
+// @ts-check
 
-const lastScrollStore = Object.create(null);
+import { doc, win } from "win-doc";
+import { UNDEFINED, NEW_OBJ } from "reshow-constant";
+
+const lastScrollStore = NEW_OBJ();
+/**
+ * @typedef {object & Document} ThisDocument
+ * @propert {function} webkitIsFullScreen
+ */
+/**
+ * @type ThisDocument
+ */
 let oDoc;
 let oWin;
 let isWebkit;
@@ -15,6 +24,10 @@ const initDoc = () => {
   docEl = oDoc.documentElement;
 };
 
+/**
+ * @param {HTMLElement} el
+ * @returns {HTMLElement}
+ */
 const getScrollNode = (el) => {
   if (!oDoc) {
     initDoc();
@@ -35,11 +48,31 @@ const getScrollNode = (el) => {
   return el;
 };
 
-const getScrollInfo = (el, margin) => {
+/**
+ * @typedef {object} InfoType 
+ * @property {boolean} atTop
+ * @property {boolean} atRight
+ * @property {boolean} atBottom 
+ * @property {boolean} atLeft 
+ * @property {boolean} isScrollUp 
+ * @property {boolean} isScrollRight 
+ * @property {boolean} isScrollDown 
+ * @property {boolean} isScrollLeft
+ * @property {number} scrollWidth 
+ * @property {number} scrollHeight 
+ * @property {number} scrollNodeWidth 
+ * @property {number} scrollNodeHeight 
+ * @property {number} top
+ * @property {number} right 
+ * @property {number} bottom 
+ * @property {number} left 
+ */
+
+/**
+ * @returns {InfoType}
+ */
+const getScrollInfo = (el = null, margin = 50) => {
   el = getScrollNode(el);
-  if (!margin) {
-    margin = 50;
-  }
   let w;
   let h;
   const nodeName = (el.nodeName || "").toLowerCase();
@@ -79,10 +112,10 @@ const getScrollInfo = (el, margin) => {
     atBottom: scrollBottom > scrollHeight - margin,
     atLeft: scrollLeft < margin,
 
+    isScrollUp: lastScroll && scrollTop < lastScroll.top,
+    isScrollRight: lastScroll && scrollLeft > lastScroll.left,
     isScrollDown: lastScroll && scrollTop > lastScroll.top,
     isScrollLeft: lastScroll && scrollLeft < lastScroll.left,
-    isScrollRight: lastScroll && scrollLeft > lastScroll.left,
-    isScrollUp: lastScroll && scrollTop < lastScroll.top,
 
     scrollWidth,
     scrollHeight,

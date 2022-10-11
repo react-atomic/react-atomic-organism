@@ -7,9 +7,21 @@ const isRunning = NEW_OBJ();
 
 /**
  *  !!Important!! any logic change need take care isRunning
+ *
+ *  @param {number} to
+ *  @param {number} duration
+ *  @param {HTMLElement} el
+ *  @param {function} callback 
+ *  @param {string} scrollKey 
+ *  @returns {function} cancel handler
  */
-const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
-  scrollKey = scrollKey || "scrollTop";
+const smoothScrollTo = (
+  to,
+  duration = 500,
+  el = null,
+  callback = null,
+  scrollKey = "scrollTop"
+) => {
   const scrollNode = getScrollNode(el);
 
   const cb = () => {
@@ -31,9 +43,6 @@ const smoothScrollTo = (to, duration, el, callback, scrollKey) => {
       cb();
     });
     return cancel;
-  }
-  if (null == duration) {
-    duration = 500;
   }
   const from = scrollNode[scrollKey];
   const go = to - from;
