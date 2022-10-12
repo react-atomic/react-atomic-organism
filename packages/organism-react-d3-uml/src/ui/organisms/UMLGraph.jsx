@@ -22,7 +22,7 @@ import BoxDefaultLayout from "../molecules/BoxDefaultLayout";
 import BoxGroup from "../organisms/BoxGroup";
 import Box from "../organisms/Box";
 import LineList from "../organisms/LineList";
-import ConnectController from "../../src/ConnectController";
+import ConnectController from "../../ConnectController";
 
 const gDagre = { current: null };
 const gDagreWorker = { current: null };
@@ -55,7 +55,7 @@ const postDagre = (queueId, g) => {
 };
 const callDagre = (queueId) => {
   if (!gDagre.current) {
-    import("../../src/dagre").then((o) =>
+    import("../../dagre").then((o) =>
       initDagre(gDagre, queueId)(getDefault(o))
     );
   } else {
@@ -64,7 +64,7 @@ const callDagre = (queueId) => {
 };
 const callDagreWorker = (queueId) => {
   if (!gDagreWorker.current) {
-    import("worker-loader!../../src/dagre").then((workerObject) => {
+    import("worker-loader!../../dagre").then((workerObject) => {
       initDagre(gDagreWorker, queueId)(new getDefault(workerObject)());
     });
   } else {
