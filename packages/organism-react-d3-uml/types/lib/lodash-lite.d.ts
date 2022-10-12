@@ -16,6 +16,7 @@ export function flattenDownDepth(array: any, result: any, depth: any): any;
 export function find(obj: any, func: any): undefined;
 export function pick(obj: any, arr: any): {};
 export function mapValues(obj: any, func: any): {};
+import { getSN as uniqueId } from "get-random-id";
 export function zipObject(a1: any, a2: any): {};
-export function now(): any;
+export function now(): number;
 export { size, has, uniqueId };

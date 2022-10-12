@@ -1,4 +1,4 @@
-export function addDummyNode(g: any, type: any, attrs: any, name: any): any;
+export function addDummyNode(g: any, type: any, attrs: any, name: any): string;
 export function simplify(g: any): import("../../graphlib/lib/graph").default;
 export function asNonCompoundGraph(g: any): import("../../graphlib/lib/graph").default;
 export function successorWeights(g: any): {};
@@ -10,7 +10,7 @@ export function intersectRect(rect: any, point: any): {
 export function buildLayerMatrix(g: any): any[][];
 export function normalizeRanks(g: any): void;
 export function removeEmptyRanks(g: any): void;
-export function addBorderNode(g: any, prefix: any, rank: any, order: any, ...args: any[]): any;
+export function addBorderNode(g: any, prefix: any, rank: any, order: any, ...args: any[]): string;
 export function maxRank(g: any, nodes: any): number;
 export function partition(collection: any, fn: any): {
     lhs: any[];

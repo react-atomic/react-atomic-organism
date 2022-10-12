@@ -14,28 +14,21 @@ declare class UMLGraph extends Component<any, any, any> {
         connToBoxGroupLocator: (d: any) => any;
         connFromBoxLocator: (d: any) => any;
         connToBoxLocator: (d: any) => any;
-        arrowHeadComponent: import("react").MemoExoticComponent<{
-            ({ multi, id, ...others }: {
-                [x: string]: any;
-                multi: any;
-                id: any;
-            }): JSX.Element;
-            defaultProps: {
-                multi: {
-                    "": {};
-                };
-                id: string;
-                viewBox: string;
-                d: string;
-                refX: number;
-                refY: number;
-                markerUnits: string;
-                markerWidth: number;
-                markerHeight: number;
-                orient: string;
-                fill: string;
+        arrowHeadComponent: import("react").MemoExoticComponent<({ multi, id, viewBox, d, refX, refY, markerUnits, markerWidth, markerHeight, orient, fill, }: {
+            multi?: {
+                "": {};
             };
-        }>;
+            id?: string;
+            viewBox?: string;
+            d?: string;
+            refX?: number;
+            refY?: number;
+            markerUnits?: string;
+            markerWidth?: number;
+            markerHeight?: number;
+            orient?: string;
+            fill?: string;
+        }) => JSX.Element>;
         autoArrange: boolean;
         editToCenter: boolean;
         editToCenterDelay: number;
@@ -52,8 +45,8 @@ declare class UMLGraph extends Component<any, any, any> {
     oConn: any;
     mount: boolean;
     addLazyMoveWithMouseEvent(boxGroupName: any, e: any, dnd: any): {
-        x: any;
-        y: any;
+        x: number;
+        y: number;
     };
     addLazyMove(boxGroupName: any, x: any, y: any): void;
     add(payload: any): void;
@@ -69,7 +62,7 @@ declare class UMLGraph extends Component<any, any, any> {
     getBoxComponent(name: any, groupName: any): any;
     getBoxGroupComponent(name: any): any;
     getVectorEl(): any;
-    getBoundingClientRect(): any;
+    getBoundingClientRect(): import("getoffset").Offset;
     getConnectStartPoint(): any;
     getConnectEndPoint(): any;
     getTransform: () => any;
@@ -83,8 +76,8 @@ declare class UMLGraph extends Component<any, any, any> {
     insideVector: (el: any) => any;
     isOnGraph: (el: any) => boolean;
     applyXY: (pX: any, pY: any, dom: any) => {
-        x: any;
-        y: any;
+        x: number;
+        y: number;
     };
     arrange(): void;
     syncPropConnects(): void;

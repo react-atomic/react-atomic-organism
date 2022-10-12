@@ -1,5 +1,5 @@
 {
-  "version": "0.9.0",
+  "version": "0.9.1",
   "name": "organism-react-d3-uml",
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
     "organism-react-graph": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
+    "ricon": "*",
     "set-object-value": "*",
     "to-percent-js": "*",
     "win-doc": "*",

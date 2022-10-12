@@ -28,8 +28,8 @@ declare class BoxGroup extends Component<any, any, any> {
     getBoxIdByName(name: any): any;
     getBox(id: any): any;
     getWH(): {
-        width: any;
-        height: any;
+        width: number;
+        height: number;
     };
     getName(): any;
     getId(): number;
