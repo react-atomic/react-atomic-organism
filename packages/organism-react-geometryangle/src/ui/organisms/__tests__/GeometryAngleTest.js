@@ -5,7 +5,7 @@ import { render, hideConsoleError } from "reshow-unit";
 import GeometryAngle from "../GeometryAngle";
 
 describe("GeometryAngle Test", () => {
-  before(()=>hideConsoleError());
+  before(() => hideConsoleError());
   it("basic test", () => {
     const vDom = <GeometryAngle />;
     const wrap = render(vDom);

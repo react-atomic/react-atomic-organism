@@ -3,7 +3,7 @@ const dedup = (array, reverse) => {
     return array;
   }
   // This way could keep array in same position
-  if (reverse) { 
+  if (reverse) {
     return array.filter((item, pos, arr) => arr.lastIndexOf(item) === pos);
   } else {
     return array.filter((item, pos, arr) => arr.indexOf(item) === pos);

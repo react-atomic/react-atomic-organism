@@ -11,8 +11,8 @@ const isRunning = NEW_OBJ();
  *  @param {number} to
  *  @param {number} duration
  *  @param {HTMLElement} el
- *  @param {function} callback 
- *  @param {string} scrollKey 
+ *  @param {function} callback
+ *  @param {string} scrollKey
  *  @returns {function} cancel handler
  */
 const smoothScrollTo = (

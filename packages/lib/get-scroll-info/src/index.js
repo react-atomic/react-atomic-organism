@@ -49,23 +49,23 @@ const getScrollNode = (el) => {
 };
 
 /**
- * @typedef {object} InfoType 
+ * @typedef {object} InfoType
  * @property {boolean} atTop
  * @property {boolean} atRight
- * @property {boolean} atBottom 
- * @property {boolean} atLeft 
- * @property {boolean} isScrollUp 
- * @property {boolean} isScrollRight 
- * @property {boolean} isScrollDown 
+ * @property {boolean} atBottom
+ * @property {boolean} atLeft
+ * @property {boolean} isScrollUp
+ * @property {boolean} isScrollRight
+ * @property {boolean} isScrollDown
  * @property {boolean} isScrollLeft
- * @property {number} scrollWidth 
- * @property {number} scrollHeight 
- * @property {number} scrollNodeWidth 
- * @property {number} scrollNodeHeight 
+ * @property {number} scrollWidth
+ * @property {number} scrollHeight
+ * @property {number} scrollNodeWidth
+ * @property {number} scrollNodeHeight
  * @property {number} top
- * @property {number} right 
- * @property {number} bottom 
- * @property {number} left 
+ * @property {number} right
+ * @property {number} bottom
+ * @property {number} left
  */
 
 /**

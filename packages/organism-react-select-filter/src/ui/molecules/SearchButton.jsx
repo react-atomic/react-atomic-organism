@@ -10,7 +10,7 @@ const SearchButton = ({ keys = [], style = {}, ...restProps }) => {
       {...restProps}
       ui={false}
       atom="button"
-      style={{...Styles.button, ...style}}
+      style={{ ...Styles.button, ...style }}
       className="search-button"
     >
       <Icon>
@@ -43,9 +43,9 @@ let injects;
 const InjectStyles = {
   hover: [
     {
-      boxShadow:  
+      boxShadow:
         "0 8px 22px 0 rgb(37 44 97 / 15%), 0 4px 6px 0 rgb(93 100 148 / 20%) !important",
     },
-    ".search-button:hover"
+    ".search-button:hover",
   ],
 };

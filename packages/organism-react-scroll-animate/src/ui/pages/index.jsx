@@ -4,7 +4,7 @@ import React, { Component } from "react";
  * Production please use
  * import ScrollAnimate from "organism-react-scroll-animate"
  */
-import ScrollAnimate from "../organisms/ScrollAnimate"
+import ScrollAnimate from "../organisms/ScrollAnimate";
 
 const BlackCircle = (props) => (
   <ScrollAnimate {...props} style={Styles.block}>

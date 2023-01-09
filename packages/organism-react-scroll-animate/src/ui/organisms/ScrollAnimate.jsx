@@ -6,7 +6,7 @@ import callfunc from "call-func";
 
 const useScrollContent = (props) => {
   const {
-    once = true, //will not update monitorScroll 
+    once = true, //will not update monitorScroll
     isKeep = false, // will keep update monitorScroll if monitorScroll set to true
     minHeight = 155, //need great than browser minHeigh 150px
     children,

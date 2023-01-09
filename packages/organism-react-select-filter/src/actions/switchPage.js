@@ -2,7 +2,7 @@
 import { ajaxDispatch } from "organism-react-ajax";
 
 /**
- * @param {string} url 
+ * @param {string} url
  */
 const switchPage = (url) => {
   ajaxDispatch("ajaxGet", {

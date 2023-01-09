@@ -30,4 +30,4 @@ const InjectStyles = ({ statusKey }) => ({
   ],
 });
 
-export {InjectStyles};
+export { InjectStyles };

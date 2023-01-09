@@ -41,7 +41,7 @@ const FullScreenExample = ({
     if ("#" + id === lastAnchor) {
       setShowFullScreen(true);
     } else {
-      setShowFullScreen(prev => {
+      setShowFullScreen((prev) => {
         if (prev) {
           lastTrigger.current = "path";
         }
