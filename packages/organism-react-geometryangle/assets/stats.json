@@ -1,17 +1,31 @@
 {
   "chunks": {
     "main": [
-      {
-        "name": "main.bundle.js",
-        "publicPath": "./assets/main.bundle.js?76f30cf6dbcb69ec2441"
-      }
+      "main.bundle.js"
+    ],
+    "lib": [
+      "lib.bundle.js"
     ],
     "vendor": [
-      {
-        "name": "vendor.bundle.js",
-        "publicPath": "./assets/vendor.bundle.js?76f30cf6dbcb69ec2441"
-      }
+      "vendor.bundle.js"
     ]
+  },
+  "assets": {
+    "main.bundle.js": {
+      "name": "main.bundle.js",
+      "publicPath": "./assets/main.bundle.js?add4b4b",
+      "path": "/Users/hill/git/react-atomic-organism/packages/organism-react-geometryangle/assets/main.bundle.js"
+    },
+    "lib.bundle.js": {
+      "name": "lib.bundle.js",
+      "publicPath": "./assets/lib.bundle.js?add4b4b",
+      "path": "/Users/hill/git/react-atomic-organism/packages/organism-react-geometryangle/assets/lib.bundle.js"
+    },
+    "vendor.bundle.js": {
+      "name": "vendor.bundle.js",
+      "publicPath": "./assets/vendor.bundle.js?add4b4b",
+      "path": "/Users/hill/git/react-atomic-organism/packages/organism-react-geometryangle/assets/vendor.bundle.js"
+    }
   },
   "publicPath": "./assets/",
   "status": "done"
