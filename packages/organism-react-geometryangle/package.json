@@ -5,7 +5,10 @@
   "repository": "react-atomic/react-atomic-organism",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.js",
-  "keywords": ["react", "reactjs"],
+  "keywords": [
+    "react",
+    "reactjs"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "devDependencies": {
@@ -27,5 +30,9 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "files": ["build", "package.json", "README.md"]
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
