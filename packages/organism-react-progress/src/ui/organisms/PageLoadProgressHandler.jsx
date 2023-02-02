@@ -25,8 +25,7 @@ const displayName = "PageLoadProgress";
 /**
  * @type React.FC<PageLoadProgressProps>
  */
-const PageLoadProgress = forwardRef(
-  (props, ref) => {
+const PageLoadProgress = forwardRef((props, ref) => {
   const {
     name = displayName,
     zIndex = 1,

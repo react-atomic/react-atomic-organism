@@ -341,7 +341,39 @@ class handleAjax {
 
 const oAjax = new handleAjax();
 
-const [store, ajaxDispatch] = ImmutableStore(
+/**
+ * @typedef {object} StateType
+ * @property {function} get
+ * @property {function} set
+ */
+
+/**
+ * @typedef {StateType|Object} MaybeMapType
+ */
+
+/**
+ * @typedef {Object} AjaxStore
+ * @property {function} urlDispatch
+ */
+
+/**
+ * @callback ReducerType
+ * @param {StateType} state
+ * @param {MaybeMapType} action
+ * @returns {StateType}
+ */
+
+/**
+ * @param {ReducerType} reduce
+ * @param {MaybeMapType|function} initState
+ * @returns {[store & AjaxStore, dispatch]}
+ */
+const AjaxStore = (reduce, initState) => {
+  const [store, dispatch] = ImmutableStore(reduce, initState);
+  return [{ ...store, urlDispatch: () => {} }, dispatch];
+};
+
+const [store, ajaxDispatch] = AjaxStore(
   (state, action) => {
     const type = action.type;
     switch (type) {

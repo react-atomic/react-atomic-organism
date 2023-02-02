@@ -14,7 +14,7 @@ const getter = (o, k) => (o.size && callfunc(o.get, [k], o)) ?? o[k];
 
 /**
  * @param {any} o
- * @param {(string | number)[]} path 
+ * @param {(string | number)[]} path
  * @param {any} defaultValue
  * @returns {any}
  */

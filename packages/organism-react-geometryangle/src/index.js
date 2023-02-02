@@ -1,2 +1,2 @@
 // Default
-export { default } from "../ui/organisms/GeometryAngle";
+export { default } from "./ui/organisms/GeometryAngle";

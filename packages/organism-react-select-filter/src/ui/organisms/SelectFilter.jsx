@@ -39,43 +39,38 @@ const SelectFilterPropTypes = {};
 /**
  * @type React.FC<SelectFilterPropTypes>
  */
-const SelectFilter = forwardRef(
-  (
-    props,
-    ref
-  ) => {
-    const {
-      useScrollToSelect = defaultUseScrollToSelect,
-      itemFilter = defaultItemFilter,
-      valueLocator = defaultLocator.value,
-      couldCreate = false,
-      options,
-      ...restProps
-    } = props;
-    const select = (
-      <SelectFilterUI
-        hideTitle
-        search
-        useScrollToSelect={useScrollToSelect}
-        highlighter={defaultHighlighter}
-        options={options}
-        fieldClassName="select-filter"
-      />
-    );
-    return (
-      <Suggestion
-        {...restProps}
-        ref={ref}
-        filter
-        couldCreate={couldCreate}
-        component={select}
-        results={options}
-        valueLocator={valueLocator}
-        itemFilter={itemFilter}
-      />
-    );
-  }
-);
+const SelectFilter = forwardRef((props, ref) => {
+  const {
+    useScrollToSelect = defaultUseScrollToSelect,
+    itemFilter = defaultItemFilter,
+    valueLocator = defaultLocator.value,
+    couldCreate = false,
+    options,
+    ...restProps
+  } = props;
+  const select = (
+    <SelectFilterUI
+      hideTitle
+      search
+      useScrollToSelect={useScrollToSelect}
+      highlighter={defaultHighlighter}
+      options={options}
+      fieldClassName="select-filter"
+    />
+  );
+  return (
+    <Suggestion
+      {...restProps}
+      ref={ref}
+      filter
+      couldCreate={couldCreate}
+      component={select}
+      results={options}
+      valueLocator={valueLocator}
+      itemFilter={itemFilter}
+    />
+  );
+});
 
 SelectFilter.displayName = "SelectFilter";
 

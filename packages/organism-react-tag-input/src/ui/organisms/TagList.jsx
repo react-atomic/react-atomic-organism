@@ -98,10 +98,10 @@ const useTags = ({
         const tags = prev.get("tags");
         if (lastOpt.current.couldDuplicate) {
           let tLen = tags.length;
-          while(tLen--){
+          while (tLen--) {
             if (tags[tLen] === delTag) {
               tags.splice(tLen, 1);
-              break; 
+              break;
             }
           }
         } else {
@@ -120,7 +120,7 @@ const useTags = ({
     },
     delLast: () => {
       const { tags } = getTags();
-      expose.del(tags[tags.length-1]);
+      expose.del(tags[tags.length - 1]);
     },
   };
 

@@ -1,4 +1,7 @@
-let FSS = {
+/**
+ * @type object
+ */
+const FSS = {
   FRONT: 0,
   BACK: 1,
   DOUBLE: 2,
@@ -771,13 +774,13 @@ FSS.CanvasRenderer.prototype.setSize = function (width, height) {
   FSS.Renderer.prototype.setSize.call(this, width, height);
   this.element.width = width;
   this.element.height = height;
-  this.context.setTransform(1, 0, 0, 1, 0, 0);
+  this.context?.setTransform(1, 0, 0, 1, 0, 0);
   return this;
 };
 
 FSS.CanvasRenderer.prototype.clear = function () {
   FSS.Renderer.prototype.clear.call(this);
-  this.context.clearRect(0, 0, this.width, this.height);
+  this.context?.clearRect(0, 0, this.width, this.height);
   return this;
 };
 
@@ -791,6 +794,9 @@ FSS.CanvasRenderer.prototype.render = function (scene) {
   this.clear();
 
   // Configure Context
+  if (null == this.context) {
+    return;
+  }
   this.context.lineJoin = "round";
   this.context.lineWidth = 0;
 

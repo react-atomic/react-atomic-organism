@@ -29,7 +29,7 @@ const ChangeAnimation = ({
   children,
   ...otherProps
 }) => {
-  const defaultAniProps = {in: false};
+  const defaultAniProps = { in: false };
   const [aniProps, setAniProps] = useState(defaultAniProps);
   const lastAnimation = useRef({ init: false, animation: null });
   injects[statusKey] = useLazyInject(

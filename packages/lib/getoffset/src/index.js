@@ -2,7 +2,7 @@
 import getScrollInfo from "get-scroll-info";
 
 import get from "get-object-value";
-import { UNDEFINED } from "reshow-constant";
+import { UNDEFINED, OBJ_SIZE } from "reshow-constant";
 
 /**
  * @typedef {object} Coordinate
@@ -30,7 +30,7 @@ const mouse = (e, dom, scrollNode) => {
   const x = e.clientX;
   const y = e.clientY;
   const svgXY = toSvgXY(dom)(x, y);
-  if (false !== svgXY) {
+  if (OBJ_SIZE(svgXY)) {
     const { x: svgX, y: svgY } = svgXY;
     return [svgX, svgY];
   } else {

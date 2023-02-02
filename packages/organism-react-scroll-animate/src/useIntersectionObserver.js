@@ -10,11 +10,7 @@ import { win } from "win-doc";
  * @param {object} options
  * @returns {React.ReactElement}
  */
-const useIntersectionObserver = (
-  component,
-  onIntersect,
-  options = {}
-) => {
+const useIntersectionObserver = (component, onIntersect, options = {}) => {
   const lastEl = useRef();
   const el = build(component)({ ref: lastEl });
   useEffect(() => {
