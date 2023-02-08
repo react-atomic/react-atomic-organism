@@ -1,2 +1,7 @@
 export default removeClass;
-declare function removeClass(classes: any, name: any): any;
+/**
+ * @param {string} classes
+ * @param {string} name
+ * @returns {string}
+ */
+declare function removeClass(classes: string, name: string): string;

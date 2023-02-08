@@ -1,2 +1,7 @@
 export default hasClass;
-declare function hasClass(classes: any, name: any): any;
+/**
+ * @param {string} classes
+ * @param {string} name
+ * @returns {boolean}
+ */
+declare function hasClass(classes: string, name: string): boolean;

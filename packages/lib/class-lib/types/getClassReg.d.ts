@@ -1,2 +1,1 @@
-declare function _default(name: any): any;
-export default _default;
+export function getClassReg(name: any): any;

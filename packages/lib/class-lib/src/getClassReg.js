@@ -4,4 +4,4 @@ const getRegString = (name) => "(?:^|\\s+)" + getSafeReg(name) + "(?:\\s+|$)";
 
 const cache = cacheReg({})(getRegString);
 
-export default (name) => cache(name);
+export const getClassReg = (name) => cache(name);
