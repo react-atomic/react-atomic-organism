@@ -1,13 +1,13 @@
 /**
- * @param {Element} base
+ * @param {Element|boolean} base
  * @param {boolean} isPrepend
  */
-export function js(base: Element, isPrepend?: boolean): (callback?: CallableFunction) => (url: string, attrs?: object) => HTMLScriptElement;
+export function js(base: Element | boolean, isPrepend?: boolean): (callback?: CallableFunction) => (url: string, attrs?: object) => HTMLScriptElement;
 /**
- * @param {Element} base
+ * @param {Element|boolean} base
  * @param {boolean} isPrepend
  */
-export function css(base: Element, isPrepend?: boolean): (callback?: CallableFunction) => (url: string, attrs?: object) => HTMLLinkElement;
+export function css(base: Element | boolean, isPrepend?: boolean): (callback?: CallableFunction) => (url: string, attrs?: object) => HTMLLinkElement;
 /**
  * @param {Element|function} baseInput
  * @param {boolean} isPrepend
