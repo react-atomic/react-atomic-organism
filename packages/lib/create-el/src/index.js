@@ -9,7 +9,7 @@ import { KEYS } from "reshow-constant";
  * @param {boolean} isPrepend
  */
 const inject =
-  (base, isPrepend) =>
+  (base, isPrepend = null) =>
   /**
    * @param {Element} dNode
    */
@@ -55,12 +55,12 @@ const create =
   /**
    * @param {CallableFunction} callback
    */
-  (callback) =>
+  (callback = null) =>
   /**
    * @param {object} attrs
    * @returns {Element}
    */
-  (attrs) => {
+  (attrs = {}) => {
     const d = doc();
     if (d.createElement) {
       const dNode = d.createElement(tag);
@@ -111,17 +111,17 @@ const toScript = (v) => v;
  * @param {boolean} isPrepend
  */
 const js =
-  (base, isPrepend) =>
+  (base, isPrepend = null) =>
   /**
    * @param {CallableFunction} callback
    */
-  (callback) =>
+  (callback = null) =>
   /**
    * @param {string} url
    * @param {object} attrs
    * @returns {HTMLScriptElement}
    */
-  (url, attrs) => {
+  (url, attrs = {}) => {
     const oNode = create("script")(callback)(attrs);
     if (null != base) {
       inject(base, isPrepend)(oNode);
@@ -142,17 +142,17 @@ const toCss = (v) => v;
  * @param {boolean} isPrepend
  */
 const css =
-  (base, isPrepend) =>
+  (base, isPrepend = null) =>
   /**
    * @param {CallableFunction} callback
    */
-  (callback) =>
+  (callback = null) =>
   /**
    * @param {string} url
    * @param {object} attrs
    * @returns {HTMLLinkElement}
    */
-  (url, attrs) => {
+  (url, attrs = {}) => {
     const oNode = create("link")(callback)({
       rel: "stylesheet",
       type: "text/css",
