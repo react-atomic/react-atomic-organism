@@ -1,5 +1,5 @@
 export function cacheReg(cache: object): (getRegCallback?: CallableFunction, flags?: string) => (regString: string) => any;
-export function safeMatch(testText: string, reg: RegExp): RegExpMatchArray;
+export function safeMatch(testText: string, reg: RegExp): object;
 export function pathToRegExp(path: string): RegInput;
 export function searchRegPath(testString: string, path: string): object | boolean;
 export default getSafeReg;

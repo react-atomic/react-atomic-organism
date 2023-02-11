@@ -42,6 +42,7 @@ export const cacheReg =
 /**
  * @param {string} testText
  * @param {RegExp} reg
+ * @returns {object}
  */
 export const safeMatch = (testText, reg) => text(testText).match(reg);
 

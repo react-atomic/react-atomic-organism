@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import gjsdom from "jsdom-global";
+import { jsdom as gjsdom } from "reshow-unit-dom";
 
 import { unsetUrl } from "../index";
 

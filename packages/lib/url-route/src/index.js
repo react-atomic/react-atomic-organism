@@ -1,45 +1,74 @@
+//@ts-check
+
 import { parseUrl, getUrl } from "seturl";
 import { isRequired } from "call-func";
-import { safeMatch } from "get-safe-reg";
-import { KEYS as getKeys, STRING } from "reshow-constant";
+import { safeMatch, pathToRegExp } from "get-safe-reg";
+import { KEYS as getKeys, STRING, castToStr } from "reshow-constant";
+
+/**
+ * @typedef {object} RouteProps
+ * @property {RegExp} reg
+ * @property {CallableFunction} fn
+ * @property {string[]} [keys=null]
+ * @property {string} [src=null] original route string path
+ * @property {string} [host=null]
+ * @property {string} [query=null]
+ * @property {string} [path=null]
+ */
+
+/**
+ * @param {any} v
+ * @returns {RegExp}
+ */
+const toReg = (v) => v;
 
 /**
  * Convert path to route object
  *
  * A string or RegExp should be passed,
  *
- * @param  String|RegExp routePath
- * @param  function callback
- * @return {Object}
+ * @param  {(string|RegExp)} routePath
+ * @param  {function} fn
+ * @return {RouteProps}
  */
 const Route = (routePath, fn) => {
   if (STRING === typeof routePath) {
     const { host, query, path } = parseUrl(routePath);
     const { reg, keys } = pathToRegExp(host || query ? path : routePath);
 
-    return { reg, keys, fn, src: routePath, host, query, path };
+    return { reg, keys, fn, src: castToStr(routePath), host, query, path };
   } else {
-    return { reg: routePath, fn };
+    return { reg: toReg(routePath), fn };
   }
 };
 
+/**
+ * @param {object} captures
+ * @param {RouteProps} route
+ */
 const paraseParms = (captures, route) => {
   const { keys, src, fn } = route;
   const params = {};
   const splats = [];
-  getKeys(captures).forEach((cKey, index) => {
-    if (!index || isNaN(cKey)) {
-      return;
+  getKeys(captures).forEach(
+    /**
+     * @param {any} cKey
+     * @param {number} index
+     */
+    (cKey, index) => {
+      if (!index || isNaN(cKey)) {
+        return;
+      }
+      const item = captures[cKey];
+      const key = keys[index - 1];
+      const val = STRING === typeof item ? decodeURI(item) : item;
+      if (key) {
+        params[key] = val;
+      } else {
+        splats.push(val);
+      }
     }
-    const item = captures[cKey];
-    const key = keys[index - 1];
-    const val = STRING === typeof item ? decodeURI(item) : item;
-    if (key) {
-      params[key] = val;
-    } else {
-      splats.push(val);
-    }
-  });
+  );
   const result = {
     fn,
     params,
@@ -54,8 +83,8 @@ const paraseParms = (captures, route) => {
  * one of the routes. When successful
  * a  {fn, params, splats} obj is returned
  *
- * @param  {Array} routes
- * @param  {String} uri
+ * @param  {RouteProps[]} routes
+ * @param  {string} uri
  * @return {Object}
  */
 const match = (routes, uri) => {
@@ -105,12 +134,19 @@ const match = (routes, uri) => {
  */
 
 class Router {
+  /**
+   * @type {RouteProps[]}
+   */
   routes = [];
 
   addRoute(path = isRequired("path"), callback = isRequired("callback")) {
     this.routes.push(Route(path, callback));
   }
 
+  /**
+   * @param {string} pathname
+   * @param {number} startAt
+   */
   match(pathname, startAt) {
     startAt = startAt || 0;
     const routes = this.routes.slice(startAt);
