@@ -1,13 +1,25 @@
 export default queryFrom;
-declare function queryFrom(base: any): false | {
-    all: (sel: any) => any;
-    ancestor: (el: any, ancestor: any) => any;
-    el: (el: any) => any;
-    one: (sel: any) => any;
+export type QueryUtil = {
+    all: Function;
+    ancestor: Function;
+    el: Function;
+    one: Function;
 };
-export const defaultQuery: false | {
-    all: (sel: any) => any;
-    ancestor: (el: any, ancestor: any) => any;
-    el: (el: any) => any;
-    one: (sel: any) => any;
-};
+/**
+ * @typedef {object} QueryUtil
+ * @property {Function} all
+ * @property {Function} ancestor
+ * @property {Function} el
+ * @property {Function} one
+ */
+/**
+ * @param {any} base
+ * @returns {QueryUtil}
+ */
+declare function queryFrom(base: any): QueryUtil;
+export namespace defaultQuery {
+    const all: Function;
+    const ancestor: Function;
+    const el: Function;
+    const one: Function;
+}

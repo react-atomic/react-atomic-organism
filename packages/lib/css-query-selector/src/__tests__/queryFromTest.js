@@ -18,6 +18,6 @@ describe("Test", () => {
 
   it("test base is undefined", () => {
     const query = queryFrom(undefined);
-    expect(query).to.be.false;
+    expect(query).to.be.undefined;
   });
 });
