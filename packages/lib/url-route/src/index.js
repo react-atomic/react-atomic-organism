@@ -14,6 +14,8 @@ import { KEYS as getKeys, STRING, castToStr } from "reshow-constant";
  * @property {string} [host=null]
  * @property {string} [query=null]
  * @property {string} [path=null]
+ * @property {number} [nextIndex=null]
+ * @property {RouteProps} [next=null]
  */
 
 /**
@@ -43,7 +45,7 @@ const Route = (routePath, fn) => {
 };
 
 /**
- * @param {object} captures
+ * @param {RegExpMatchArray} captures
  * @param {RouteProps} route
  */
 const paraseParms = (captures, route) => {
@@ -85,12 +87,12 @@ const paraseParms = (captures, route) => {
  *
  * @param  {RouteProps[]} routes
  * @param  {string} uri
- * @return {Object}
+ * @return {RouteProps}
  */
 const match = (routes, uri) => {
   const { host: thisHost, path: thisUri } = parseUrl(uri);
   if (!thisUri) {
-    return false;
+    return;
   }
   let result;
   routes.some((route, index) => {
@@ -146,6 +148,7 @@ class Router {
   /**
    * @param {string} pathname
    * @param {number} startAt
+   * @returns {RouteProps}
    */
   match(pathname, startAt) {
     startAt = startAt || 0;

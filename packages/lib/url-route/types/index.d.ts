@@ -10,6 +10,8 @@ export type RouteProps = {
     host?: string;
     query?: string;
     path?: string;
+    nextIndex?: number;
+    next?: RouteProps;
 };
 /**
  * Default "normal" router constructor.
@@ -27,6 +29,7 @@ declare class Router {
     /**
      * @param {string} pathname
      * @param {number} startAt
+     * @returns {RouteProps}
      */
-    match(pathname: string, startAt: number): any;
+    match(pathname: string, startAt: number): RouteProps;
 }

@@ -28,6 +28,7 @@ export const cacheReg =
   (getRegCallback = T_UNDEFINED, flags = T_UNDEFINED) =>
   /**
    * @param {string} regString
+   * @returns {RegExpMatchArray}
    */
   (regString) => {
     if (!cache[regString]) {
@@ -42,7 +43,7 @@ export const cacheReg =
 /**
  * @param {string} testText
  * @param {RegExp} reg
- * @returns {object}
+ * @returns {RegExpMatchArray}
  */
 export const safeMatch = (testText, reg) => text(testText).match(reg);
 
