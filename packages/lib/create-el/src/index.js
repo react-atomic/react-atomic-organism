@@ -5,16 +5,16 @@ import { doc } from "win-doc";
 import { KEYS } from "reshow-constant";
 
 /**
- * @param {Element} base
+ * @param {Element|function} baseInput
  * @param {boolean} isPrepend
  */
 const inject =
-  (base, isPrepend = null) =>
+  (baseInput, isPrepend = null) =>
   /**
    * @param {Element} dNode
    */
   (dNode) => {
-    base = callfunc(base);
+    let base = callfunc(baseInput);
     if (base && (base.nodeName === "BODY" || base.nodeName === "HEAD")) {
       if (isPrepend && base.firstChild) {
         base.insertBefore(dNode, base.firstChild);

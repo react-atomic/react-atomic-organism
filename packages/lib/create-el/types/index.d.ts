@@ -9,10 +9,10 @@ export function js(base: Element, isPrepend?: boolean): (callback?: CallableFunc
  */
 export function css(base: Element, isPrepend?: boolean): (callback?: CallableFunction) => (url: string, attrs?: object) => HTMLLinkElement;
 /**
- * @param {Element} base
+ * @param {Element|function} baseInput
  * @param {boolean} isPrepend
  */
-export function inject(base: Element, isPrepend?: boolean): (dNode: Element) => void;
+export function inject(baseInput: Element | Function, isPrepend?: boolean): (dNode: Element) => void;
 /**
  * @param {string} tag
  */
