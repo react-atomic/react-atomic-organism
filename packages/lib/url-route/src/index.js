@@ -2,7 +2,7 @@
 
 import { parseUrl, getUrl } from "seturl";
 import { isRequired } from "call-func";
-import { safeMatch, pathToRegExp } from "get-safe-reg";
+import { safeMatch, wildcardToRegExp } from "get-safe-reg";
 import { KEYS as getKeys, STRING, castToStr } from "reshow-constant";
 
 /**
@@ -36,7 +36,7 @@ const toReg = (v) => v;
 const Route = (routePath, fn) => {
   if (STRING === typeof routePath) {
     const { host, query, path } = parseUrl(routePath);
-    const { reg, keys } = pathToRegExp(host || query ? path : routePath);
+    const { reg, keys } = wildcardToRegExp(host || query ? path : routePath);
 
     return { reg, keys, fn, src: castToStr(routePath), host, query, path };
   } else {
@@ -107,7 +107,7 @@ const match = (routes, uri) => {
         .split("&")
         .some((query) => {
           const queryArr = query.split("=");
-          const { reg: queryReg } = pathToRegExp(queryArr[1]);
+          const { reg: queryReg } = wildcardToRegExp(queryArr[1]);
           const queryMeet = safeMatch(getUrl(queryArr[0], uri), queryReg);
           if (!queryMeet) {
             return true;

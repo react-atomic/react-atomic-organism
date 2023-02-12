@@ -3,7 +3,7 @@
 import { IS_ARRAY, NEW_OBJ, T_NULL, T_UNDEFINED } from "reshow-constant";
 
 const esc = /[|\\{}()[\]^$+*?.]/g;
-const pathEscReg = /[|{}()^$+.]/g;
+const pathEscReg = /[|{}()^$+]/g;
 const bracketsEscReg = /[|\\{}()[\]^$+.]/g;
 
 /**

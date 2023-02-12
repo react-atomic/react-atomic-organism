@@ -46,4 +46,23 @@ describe("test searchRegPath", () => {
     const actual = wildcardSearch("/ddd/cccc/a.13/", "/*/a.[0-1]3");
     expect(actual).to.deep.equals({ undefined: "ddd/cccc" });
   });
+
+  it("test pointer .", () => {
+    const notMatch = wildcardSearch("/aaa/../1/", "/aaa/./[1]/");
+    expect(notMatch).to.be.false;
+    const shouldMatch = wildcardSearch("/aaa/../1/", "/aaa/../[1]/");
+    expect(shouldMatch).to.be.true;
+    const withBracketsEscNotMatch = wildcardSearch(
+      "/aaa/../[1]/",
+      "/aaa/./[:id]/",
+      { type: "bracketsEsc" }
+    );
+    expect(withBracketsEscNotMatch).to.be.false;
+    const withBracketsEscShouldMatch = wildcardSearch(
+      "/aaa/../[1]/",
+      "/aaa/../[:id]/",
+      { type: "bracketsEsc" }
+    );
+    expect(withBracketsEscShouldMatch).to.deep.equals({ id: "1" });
+  });
 });
