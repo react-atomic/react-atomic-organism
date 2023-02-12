@@ -14,11 +14,15 @@ export type RouteProps = {
     next?: RouteProps;
 };
 /**
- * Default "normal" router constructor.
- * accepts path, fn tuples via addRoute
- * returns {fn, params, splats, route} via match
- *
- * @return {Object}
+ * const router = new Router();
+ * router.addRoute("/xxx*", ()=>{});
+ * router.addRoute("/yyy*", ()=>{});
+ * let match = router.match("/xxx/foo");
+ * if (match) {
+ *  match.fn()
+ * } else if (match.next) {
+ *  match = match.next("/xxx/foo");
+ * }
  */
 declare class Router {
     /**
