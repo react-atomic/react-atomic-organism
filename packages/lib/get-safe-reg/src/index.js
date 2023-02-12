@@ -1,9 +1,10 @@
 //@ts-check
 
-import { IS_ARRAY, T_NULL, T_UNDEFINED } from "reshow-constant";
+import { IS_ARRAY, NEW_OBJ, T_NULL, T_UNDEFINED } from "reshow-constant";
 
 const esc = /[|\\{}()[\]^$+*?.]/g;
-const pathEsc = /[|\\{}()[\]^$+]/g;
+const pathEscReg = /[|{}()^$+.]/g;
+const bracketsEscReg = /[|\\{}()[\]^$+.]/g;
 
 /**
  * @param {any} txt
@@ -53,7 +54,15 @@ export const safeMatch = (testText, reg) => text(testText).match(reg);
  * @property {string[]} keys
  */
 
-const pathCache = {};
+/**
+ * @typedef {object} wildcardToRegExpOptional
+ * @property {('bracketsEsc'|'')} [type=null]
+ */
+
+const pathCache = {
+  "": NEW_OBJ(),
+  bracketsEsc: NEW_OBJ(),
+};
 /**
  * Normalize the given path string,
  * returning a regular expression.
@@ -64,56 +73,57 @@ const pathCache = {};
  * For example "/user/:id" will contain ["id"].
  *
  * @param  {string} path
+ * @param  {wildcardToRegExpOptional} wildcardOptional
  * @return {RegInput}
  */
-export const pathToRegExp = (path) => {
-  if (pathCache[path] != T_NULL) {
-    return pathCache[path];
-  }
-  const keys = [];
-  const nextPath = (path || "")
-    .replace(pathEsc, "\\$&")
-    .replace(/\?/g, "<<?>>")
-    .concat("/?")
-    .replace(/\/\(/g, "(?:/")
-    .replace(
-      /(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g,
-      (_, slash, format, key, capture, optional) => {
-        if (_ === "*") {
-          keys && keys.push(T_UNDEFINED);
-          return _;
+export const wildcardToRegExp = (path, { type = "" } = {}) => {
+  if (pathCache[type][path] == T_NULL) {
+    const escReg = type === "bracketsEsc" ? bracketsEscReg : pathEscReg;
+    const keys = [];
+    const nextPath = (path || "")
+      .replace(escReg, "\\$&")
+      .replace(/\?/g, "<<?>>")
+      .concat("/?")
+      .replace(/\/\(/g, "(?:/")
+      .replace(
+        /(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g,
+        (_, slash, format, key, capture, optional) => {
+          if (_ === "*") {
+            keys && keys.push(T_UNDEFINED);
+            return _;
+          }
+          keys && keys.push(key);
+          slash = slash || "";
+          return (
+            "" +
+            (optional ? "" : slash) +
+            "(?:" +
+            (optional ? slash : "") +
+            (format || "") +
+            (capture || "([^/]+?)") +
+            ")" +
+            (optional || "")
+          );
         }
-        keys && keys.push(key);
-        slash = slash || "";
-        return (
-          "" +
-          (optional ? "" : slash) +
-          "(?:" +
-          (optional ? slash : "") +
-          (format || "") +
-          (capture || "([^/]+?)") +
-          ")" +
-          (optional || "")
-        );
-      }
-    )
-    .replace(/([\/.])/g, "\\$1")
-    .replace(/\*/g, "(.*)")
-    .replace(/<<\?>>/g, ".+");
+      )
+      .replace(/\*/g, "(.*)")
+      .replace(/<<\?>>/g, ".+");
 
-  const regString = "^" + nextPath + "$";
-  const reg = new RegExp(regString, "i");
-  pathCache[path] = { reg, keys };
-  return pathCache[path];
+    const regString = "^" + nextPath + "$";
+    const reg = new RegExp(regString, "i");
+    pathCache[type][path] = { reg, keys };
+  }
+  return pathCache[type][path];
 };
 
 /**
  * @param {string} testString
  * @param {string} path
+ * @param  {wildcardToRegExpOptional} wildcardOptional
  * @returns {object|boolean}
  */
-export const searchRegPath = (testString, path) => {
-  const pathToReg = pathToRegExp(path);
+export const wildcardSearch = (testString, path, wildcardOptional) => {
+  const pathToReg = wildcardToRegExp(path, wildcardOptional);
   const o = testString.match(pathToReg.reg);
   if (o && pathToReg.keys.length) {
     const arr = {};

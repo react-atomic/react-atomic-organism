@@ -1,11 +1,14 @@
 export function cacheReg(cache: object): (getRegCallback?: CallableFunction, flags?: string) => (regString: string) => RegExpMatchArray;
 export function safeMatch(testText: string, reg: RegExp): RegExpMatchArray;
-export function pathToRegExp(path: string): RegInput;
-export function searchRegPath(testString: string, path: string): object | boolean;
+export function wildcardToRegExp(path: string, { type }?: wildcardToRegExpOptional): RegInput;
+export function wildcardSearch(testString: string, path: string, wildcardOptional: wildcardToRegExpOptional): object | boolean;
 export default getSafeReg;
 export type RegInput = {
     reg: RegExp;
     keys: string[];
+};
+export type wildcardToRegExpOptional = {
+    type?: ('bracketsEsc' | '');
 };
 /**
  * @param {string} regString
