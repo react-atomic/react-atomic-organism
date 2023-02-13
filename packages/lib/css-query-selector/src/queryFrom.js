@@ -1,19 +1,13 @@
 //@ts-check
 
 import { doc } from "win-doc";
-import { FUNCTION, STRING, castToArr, castToStr } from "reshow-constant";
+import { FUNCTION, STRING } from "reshow-constant";
 
 /**
  * @param {any} a
  * @returns {any[]}
  */
 const arrayFrom = (a) => (a ? [...a] : []);
-
-/**
- * @param {any} el
- * @returns {HTMLElement}
- */
-const toEl = (el) => el;
 
 /**
  * @param {HTMLElement[]} all
@@ -72,8 +66,8 @@ const queryFrom = (base) => {
   const queryAll = (sel) =>
     sel &&
     (STRING === typeof sel
-      ? _all(castToStr(sel))
-      : castToArr(sel).reduce(
+      ? _all(/** @type {string}*/ (sel))
+      : /** @type {string[]}*/ (sel).reduce(
           /**
            * @param {HTMLElement[]} accumulator
            * @param {string} currentValue
@@ -87,7 +81,9 @@ const queryFrom = (base) => {
    * @returns {HTMLElement}
    */
   const queryEl = (el) =>
-    STRING === typeof el ? queryOne(castToStr(el)) : toEl(el);
+    STRING === typeof el
+      ? queryOne(/** @type {string}*/ (el))
+      : /** @type {HTMLElement}*/ (el);
 
   /**
    * @param {HTMLElement} el
