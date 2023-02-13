@@ -3,7 +3,7 @@
 import { parseUrl, getUrl } from "seturl";
 import { isRequired } from "call-func";
 import { safeMatch, wildcardToRegExp } from "get-safe-reg";
-import { KEYS as getKeys, STRING, castToStr } from "reshow-constant";
+import { KEYS as getKeys, STRING } from "reshow-constant";
 
 /**
  * @typedef {object} RouteProps
@@ -19,12 +19,6 @@ import { KEYS as getKeys, STRING, castToStr } from "reshow-constant";
  */
 
 /**
- * @param {any} v
- * @returns {RegExp}
- */
-const toReg = (v) => v;
-
-/**
  * Convert path to route object
  *
  * A string or RegExp should be passed,
@@ -38,9 +32,17 @@ const Route = (routePath, fn) => {
     const { host, query, path } = parseUrl(routePath);
     const { reg, keys } = wildcardToRegExp(host || query ? path : routePath);
 
-    return { reg, keys, fn, src: castToStr(routePath), host, query, path };
+    return {
+      reg,
+      keys,
+      fn,
+      src: /** @type {string} */ (routePath),
+      host,
+      query,
+      path,
+    };
   } else {
-    return { reg: toReg(routePath), fn };
+    return { reg: /** @type {RegExp} */ (routePath), fn };
   }
 };
 

@@ -8,7 +8,6 @@ import {
   List,
 } from "react-atomic-molecule";
 import { win } from "win-doc";
-import callfunc from "call-func";
 import get from "get-object-value";
 
 const SearchBox = ({
