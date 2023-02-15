@@ -29,6 +29,7 @@ export type FilterProps = {
     component: any;
     ref?: React.Ref<any>;
     disabled?: boolean;
+    builtInOnly?: boolean;
     itemClickToClose?: boolean;
     wrapperClickToFocus?: boolean;
     couldCreate?: boolean;

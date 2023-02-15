@@ -169,6 +169,7 @@ const useFilterResult = (props) => {
  * @property {any} component
  * @property {React.Ref<any>} [ref]
  * @property {boolean} [disabled]
+ * @property {boolean} [builtInOnly]
  * @property {boolean} [itemClickToClose]
  * @property {boolean} [wrapperClickToFocus]
  * @property {boolean} [couldCreate]
@@ -200,6 +201,7 @@ const useFilterResult = (props) => {
 const useFilter = (props) => {
   const lastProps = useRef(props);
   const {
+    builtInOnly,
     component,
     name,
     onChange,
@@ -476,18 +478,23 @@ const useFilter = (props) => {
     },
 
     /**
-     * @param {HTMLInputElement} el
+     * @param {HTMLInputElement|HTMLElement} el
      */
-    refCb: (el) =>
+    refCb: (el) => {
+      if (el && el.nodeName?.toLowerCase() !== "input") {
+        el = el.querySelector("input");
+      }
       mergeRef(el, [
         /**
-         * @param {HTMLInputElement} el
+         * @param {HTMLInputElement|HTMLElement} el
          */
         (el) => {
-          /** @type {HTMLInputElement} */ (thisInput.current) = el;
+          /** @type {HTMLInputElement} */ (thisInput.current) =
+            /** @type {HTMLInputElement} */ (el);
         },
         refCb,
-      ]),
+      ]);
+    },
 
     /**
      * @param {HTMLElement} el
@@ -500,7 +507,7 @@ const useFilter = (props) => {
         (el) => {
           /** @type {HTMLElement} */ (thisInputWrapper.current) = el;
         },
-        refCb,
+        wrapperRefCb,
       ]),
 
     /**
@@ -630,6 +637,33 @@ const useFilter = (props) => {
     valueLocator: handler.valueLocator,
   });
 
+  const builtInProps = {
+    "data-name": name,
+    "data-value": lastState.current.value,
+    className: classes,
+    onChange: handler.change,
+    onFocus: handler.focus,
+    onBlur: handler.blur,
+  };
+
+  const nextProps = builtInOnly
+    ? builtInProps
+    : {
+        ...builtInProps,
+        value: lastState.current.value,
+        wrapperRefCb: handler.wrapperRefCb,
+        onWrapperClick: handler.wrapperClick,
+        onItemClick: handler.itemClick,
+        onKeyDown: handler.keyDown,
+        results: lastResults.current,
+        itemLocator,
+        itemsLocator,
+      };
+  if (builtInOnly) {
+    nextProps.ref = handler.refCb;
+  } else {
+    nextProps.refCb = handler.refCb;
+  }
   return {
     handler,
     expose,
@@ -637,23 +671,7 @@ const useFilter = (props) => {
     name,
     otherProps,
     isOpen: stateIsOpen,
-    nextProps: {
-      value: lastState.current.value,
-      "data-name": name,
-      "data-value": lastState.current.value,
-      className: classes,
-      onChange: handler.change,
-      onFocus: handler.focus,
-      onBlur: handler.blur,
-      refCb: handler.refCb,
-      wrapperRefCb: handler.wrapperRefCb,
-      onWrapperClick: handler.wrapperClick,
-      onItemClick: handler.itemClick,
-      onKeyDown: handler.keyDown,
-      results: lastResults.current,
-      itemLocator,
-      itemsLocator,
-    },
+    nextProps,
   };
 };
 
