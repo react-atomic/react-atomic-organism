@@ -10,7 +10,7 @@ import build, { mergeRef } from "reshow-build";
 import get from "get-object-value";
 import { mixClass } from "class-lib";
 import callfunc, { getEventKey } from "call-func";
-import { UNDEFINED } from "reshow-constant";
+import { OBJ_SIZE, UNDEFINED } from "reshow-constant";
 import { doc } from "win-doc";
 import { useTimer } from "reshow-hooks";
 
@@ -90,9 +90,9 @@ const useFilterResult = (props) => {
   const {
     bShouldRenderSuggestions,
     value,
+    valueLocator,
     itemsLocator = defaultItemsLocator,
     itemFilter = defaultItemFilter,
-    valueLocator,
     preview: propsPreview,
     filter: propsFilter,
     results: propsResults,
@@ -115,7 +115,7 @@ const useFilterResult = (props) => {
       itemFilter,
       value,
     }) => {
-      let arr = itemsLocator(propsResults);
+      let arr = callfunc(itemsLocator, [propsResults]);
       if (!arr || !arr.length) {
         return [];
       }
@@ -199,7 +199,17 @@ const useFilterResult = (props) => {
  * @param {FilterProps} props
  */
 const useFilter = (props) => {
-  const lastProps = useRef(props);
+  const lastProps = useRef(/** @type {FilterProps}*/ ({}));
+  if (!OBJ_SIZE(lastProps.current)) {
+    lastProps.current = {
+      itemLocator: defaultItemLocator,
+      itemsLocator: defaultItemsLocator,
+      itemFilter: defaultItemFilter,
+      ...props,
+    };
+  } else {
+    lastProps.current = props;
+  }
   const {
     builtInOnly,
     component,
@@ -300,7 +310,7 @@ const useFilter = (props) => {
     valueLocator: (rawItem) => {
       const { valueLocator, itemLocator = defaultItemLocator } =
         lastProps.current;
-      let itemValue = itemLocator(rawItem);
+      let itemValue = callfunc(itemLocator, [rawItem]);
       if (valueLocator) {
         itemValue = callfunc(valueLocator, [itemValue]);
       }
@@ -374,7 +384,7 @@ const useFilter = (props) => {
       const { value: originalValue } = lastState.current;
       let value = originalValue;
       if (!couldCreate) {
-        const arr = itemsLocator(results);
+        const arr = callfunc(itemsLocator, [results]);
         if (arr && arr.length) {
           const isIn = arr.some((/** @type {any}*/ a) => {
             if (handler.valueLocator(a) === value) {
