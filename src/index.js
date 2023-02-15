@@ -7,6 +7,7 @@ export { default as Step } from "./ui/organisms/Step";
 export { default as Checkbox } from "./ui/organisms/Checkbox";
 export { default as RadioGroup } from "./ui/organisms/RadioGroup";
 export { default as SearchBox } from "./ui/organisms/SearchBox";
+export { Filter } from "./ui/organisms/Filter";
 export { default as Suggestion } from "./ui/organisms/Suggestion";
 export { default as OnEnterInput } from "./ui/organisms/OnEnterInput";
 export {

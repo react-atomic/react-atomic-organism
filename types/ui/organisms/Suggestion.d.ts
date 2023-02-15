@@ -80,7 +80,8 @@ declare class Suggestion extends PureComponent<any, any, any> {
     handlePreview(results: any): any;
     handleFilter(results: any): any;
     handleResults(): any;
-    componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void;
+    componentDidUpdate(prevProps: any): void;
     componentWillUnmount(): void;
+    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
 }
 import { PureComponent } from "react";

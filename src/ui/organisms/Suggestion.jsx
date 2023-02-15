@@ -3,7 +3,7 @@ import { build, mixClass, mergeRef } from "react-atomic-molecule";
 import get from "get-object-value";
 import { doc } from "win-doc";
 import callfunc, { getEventKey } from "call-func";
-import { UNDEFINED, FUNCTION } from "reshow-constant";
+import { UNDEFINED } from "reshow-constant";
 
 import SearchBox from "../organisms/SearchBox";
 
@@ -252,7 +252,7 @@ class Suggestion extends PureComponent {
   };
 
   handleKeyDown = (e) => {
-    const { onItemClick, onKeyDown } = this.props;
+    const { onKeyDown } = this.props;
     const isContinue = callfunc(onKeyDown, [e]);
     if (false === isContinue) {
       return isContinue;
@@ -351,7 +351,7 @@ class Suggestion extends PureComponent {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     const { disabled } = this.props;
     if (null != disabled && prevProps.disabled !== disabled) {
       this.disabled(disabled);

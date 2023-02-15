@@ -15,9 +15,10 @@ export class ConstraintField extends PureComponent<any, any, any> {
     compRef: any;
     handleEl: (el: any) => void;
     el: any;
-    getConstraintId(): any;
-    constraintId: any;
+    getConstraintId(): string;
+    constraintId: string;
     componentWillUnmount(): void;
+    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
 }
 declare class ConstraintForm extends PureComponent<any, any, any> {
     static defaultProps: {
@@ -39,6 +40,7 @@ declare class ConstraintForm extends PureComponent<any, any, any> {
     handleRefCb: (el: any) => void;
     form: any;
     handleSubmit: (e: any) => void;
+    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
 }
 import { PureComponent } from "react";
 import { Field } from "react-atomic-molecule";
