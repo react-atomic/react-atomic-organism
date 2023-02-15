@@ -4,13 +4,26 @@
  */
 export const Filter: React.FC<FilterProps>;
 export type FilterEvent = {
-    item: any;
-    suggestion: object;
-    inputValue: string;
+    item?: any;
+    suggestion?: object;
+    inputValue?: string;
+    inputName?: string;
 };
-export type CreateData = {
+export type ValueData = {
     value: string;
-    originalValue: string;
+    prevValue: string;
+    selIndex: number;
+    event: FilterEvent;
+};
+export type FilterResultProps = {
+    value?: string;
+    results?: object;
+    filter?: boolean;
+    preview?: number;
+    bShouldRenderSuggestions?: boolean;
+    itemsLocator?: CallableFunction;
+    itemFilter?: CallableFunction;
+    valueLocator?: CallableFunction;
 };
 export type FilterProps = {
     component: any;
@@ -37,14 +50,4 @@ export type FilterProps = {
     itemLocator?: Function;
     valueLocator?: Function;
     itemFilter?: Function;
-};
-export type FilterResultProps = {
-    value?: string;
-    results?: object;
-    filter?: boolean;
-    preview?: number;
-    bShouldRenderSuggestions?: boolean;
-    itemsLocator?: CallableFunction;
-    itemFilter?: CallableFunction;
-    valueLocator?: CallableFunction;
 };

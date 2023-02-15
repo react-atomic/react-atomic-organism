@@ -16,50 +16,27 @@ import { useTimer } from "reshow-hooks";
 
 /**
  * @typedef {object} FilterEvent
- * @property {any} item
- * @property {object} suggestion
- * @property {string} inputValue
+ * @property {any} [item]
+ * @property {object} [suggestion]
+ * @property {string} [inputValue]
+ * @property {string} [inputName]
  */
 
 /**
- * @typedef {object} CreateData
+ * @typedef {object} ValueData
  * @property {string} value
- * @property {string} originalValue
+ * @property {string} prevValue 
+ * @property {number} selIndex 
+ * @property {FilterEvent} event 
  */
 
 /**
- * @typedef {object} FilterProps
- * @property {any} component
- * @property {boolean} [disabled]
- * @property {boolean} [itemClickToClose]
- * @property {boolean} [wrapperClickToFocus]
- * @property {boolean} [couldCreate]
- * @property {CallableFunction} [refCb]
- * @property {CallableFunction} [wrapperRefCb]
- * @property {string} [className]
- * @property {string} [name]
- * @property {CallableFunction} [shouldRenderSuggestions]
- * @property {CallableFunction} [onChange]
- * @property {CallableFunction} [onFocus]
- * @property {CallableFunction} [onBlur]
- * @property {CallableFunction} [onKeyDown]
- * @property {CallableFunction} [onItemClick]
- * @property {CallableFunction} [onWrapperClick]
- * @property {CallableFunction|boolean} [onSubmit]
- *
- * @property {boolean} [filter]
- * @property {number} [preview]
- * @property {object} [results]
- * @property {function} [itemsLocator]
- * @property {function} [itemLocator]
- * @property {function} [valueLocator]
- * @property {function} [itemFilter]
+ * @type {ValueData}
  */
-
 const defaultValueData = {
   value: "",
-  selIndex: 0,
   prevValue: "",
+  selIndex: 0,
   event: {},
 };
 
@@ -188,6 +165,35 @@ const useFilterResult = (props) => {
 };
 
 /**
+ * @typedef {object} FilterProps
+ * @property {any} component
+ * @property {boolean} [disabled]
+ * @property {boolean} [itemClickToClose]
+ * @property {boolean} [wrapperClickToFocus]
+ * @property {boolean} [couldCreate]
+ * @property {CallableFunction} [refCb]
+ * @property {CallableFunction} [wrapperRefCb]
+ * @property {string} [className]
+ * @property {string} [name]
+ * @property {CallableFunction} [shouldRenderSuggestions]
+ * @property {CallableFunction} [onChange]
+ * @property {CallableFunction} [onFocus]
+ * @property {CallableFunction} [onBlur]
+ * @property {CallableFunction} [onKeyDown]
+ * @property {CallableFunction} [onItemClick]
+ * @property {CallableFunction} [onWrapperClick]
+ * @property {CallableFunction|boolean} [onSubmit]
+ *
+ * @property {boolean} [filter]
+ * @property {number} [preview]
+ * @property {object} [results]
+ * @property {function} [itemsLocator]
+ * @property {function} [itemLocator]
+ * @property {function} [valueLocator]
+ * @property {function} [itemFilter]
+ */
+
+/**
  * @param {FilterProps} props
  */
 const useFilter = (props) => {
@@ -252,7 +258,7 @@ const useFilter = (props) => {
     const { onChange, name } = lastProps.current;
     const { event } = stateValueData;
     event.inputName = name;
-    event.value = expose.getValue();
+    event.inputValue = expose.getValue();
     event.suggestion = this;
     callfunc(onChange, [event]);
   }, [stateValueData]);
