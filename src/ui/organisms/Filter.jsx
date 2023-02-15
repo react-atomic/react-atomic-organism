@@ -25,9 +25,9 @@ import { useTimer } from "reshow-hooks";
 /**
  * @typedef {object} ValueData
  * @property {string} value
- * @property {string} prevValue 
- * @property {number} selIndex 
- * @property {FilterEvent} event 
+ * @property {string} prevValue
+ * @property {number} selIndex
+ * @property {FilterEvent} event
  */
 
 /**
@@ -167,6 +167,7 @@ const useFilterResult = (props) => {
 /**
  * @typedef {object} FilterProps
  * @property {any} component
+ * @property {React.Ref<any>} [ref]
  * @property {boolean} [disabled]
  * @property {boolean} [itemClickToClose]
  * @property {boolean} [wrapperClickToFocus]
@@ -255,6 +256,10 @@ const useFilter = (props) => {
     lastState.current.isOpen = stateIsOpen;
   }, [stateIsOpen]);
   useEffect(() => {
+    lastState.current = {
+      ...lastState.current,
+      ...stateValueData,
+    };
     const { onChange, name } = lastProps.current;
     const { event } = stateValueData;
     event.inputName = name;
@@ -637,13 +642,13 @@ const useFilter = (props) => {
       "data-name": name,
       "data-value": lastState.current.value,
       className: classes,
+      onChange: handler.change,
+      onFocus: handler.focus,
+      onBlur: handler.blur,
       refCb: handler.refCb,
       wrapperRefCb: handler.wrapperRefCb,
       onWrapperClick: handler.wrapperClick,
       onItemClick: handler.itemClick,
-      onChange: handler.change,
-      onFocus: handler.focus,
-      onBlur: handler.blur,
       onKeyDown: handler.keyDown,
       results: lastResults.current,
       itemLocator,

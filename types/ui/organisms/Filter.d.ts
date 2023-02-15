@@ -27,6 +27,7 @@ export type FilterResultProps = {
 };
 export type FilterProps = {
     component: any;
+    ref?: React.Ref<any>;
     disabled?: boolean;
     itemClickToClose?: boolean;
     wrapperClickToFocus?: boolean;

@@ -1,15 +1,12 @@
 {
-  "version": "0.16.13",
+  "version": "0.16.16",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-atomic/react-atomic-organism"
   },
   "description": "Atomic design in React (organisms)",
-  "keywords": [
-    "react-atomic",
-    "react-atomic-ui"
-  ],
+  "keywords": ["react-atomic", "react-atomic-ui"],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -52,10 +49,5 @@
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
-  "files": [
-    "types",
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["types", "build", "package.json", "README.md"]
 }
