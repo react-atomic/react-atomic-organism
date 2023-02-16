@@ -78,9 +78,9 @@ const defaultItemsLocator = (d) => d ?? [];
  * @property {boolean} [filter]
  * @property {number} [preview]
  * @property {boolean} [bShouldRenderSuggestions]
- * @property {CallableFunction} [itemsLocator]
- * @property {CallableFunction} [itemFilter]
- * @property {CallableFunction} [valueLocator]
+ * @property {Function} [itemsLocator]
+ * @property {Function} [itemFilter]
+ * @property {Function} [valueLocator]
  */
 /**
  * @param {FilterResultProps} props
@@ -151,6 +151,7 @@ const useFilterResult = (props) => {
       return results;
     },
   };
+
   lastResults.current = bShouldRenderSuggestions
     ? handler.results({
         itemsLocator,
@@ -173,26 +174,26 @@ const useFilterResult = (props) => {
  * @property {boolean} [itemClickToClose]
  * @property {boolean} [wrapperClickToFocus]
  * @property {boolean} [couldCreate]
- * @property {CallableFunction} [refCb]
- * @property {CallableFunction} [wrapperRefCb]
+ * @property {React.RefCallback<any>} [refCb]
+ * @property {React.RefCallback<any>} [wrapperRefCb]
  * @property {string} [className]
  * @property {string} [name]
- * @property {CallableFunction} [shouldRenderSuggestions]
- * @property {CallableFunction} [onChange]
- * @property {CallableFunction} [onFocus]
- * @property {CallableFunction} [onBlur]
- * @property {CallableFunction} [onKeyDown]
- * @property {CallableFunction} [onItemClick]
- * @property {CallableFunction} [onWrapperClick]
- * @property {CallableFunction|boolean} [onSubmit]
+ * @property {Function|boolean} [shouldRenderSuggestions]
+ * @property {EventListener} [onChange]
+ * @property {EventListener} [onFocus]
+ * @property {EventListener} [onBlur]
+ * @property {EventListener} [onKeyDown]
+ * @property {EventListener} [onItemClick]
+ * @property {EventListener} [onWrapperClick]
+ * @property {EventListener|boolean} [onSubmit]
  *
  * @property {boolean} [filter]
  * @property {number} [preview]
  * @property {object} [results]
- * @property {function} [itemsLocator]
- * @property {function} [itemLocator]
- * @property {function} [valueLocator]
- * @property {function} [itemFilter]
+ * @property {Function} [itemsLocator]
+ * @property {Function} [itemLocator]
+ * @property {Function} [valueLocator]
+ * @property {Function} [itemFilter]
  */
 
 /**
@@ -666,13 +667,15 @@ const useFilter = (props) => {
         onItemClick: handler.itemClick,
         onKeyDown: handler.keyDown,
         results: lastResults.current,
+        refCb: handler.refCb,
         itemLocator,
         itemsLocator,
       };
   if (builtInOnly) {
     nextProps.ref = handler.refCb;
-  } else {
-    nextProps.refCb = handler.refCb;
+    nextProps["data-results"] = lastResults.current?.length
+      ? JSON.stringify(lastResults.current)
+      : "";
   }
   return {
     handler,
