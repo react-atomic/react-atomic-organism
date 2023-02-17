@@ -26,7 +26,7 @@ export function getHorizontalToVerticalMenu(Styles: any, merge: any): {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
     };
     defaultProps: {
-        component: typeof SemanticUI;
+        component: import("react").FC<any>;
         brand: any;
         nav: any;
         height: number;
@@ -61,7 +61,7 @@ declare const _default: {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<any>, nextState: Readonly<any>, nextContext: any): void;
     };
     defaultProps: {
-        component: typeof SemanticUI;
+        component: import("react").FC<any>;
         brand: any;
         nav: any;
         height: number;
@@ -69,4 +69,3 @@ declare const _default: {
     contextType?: import("react").Context<any>;
 };
 export default _default;
-import { SemanticUI } from "react-atomic-molecule";

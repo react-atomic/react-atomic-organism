@@ -15,15 +15,15 @@ describe("Test Filter Component", () => {
     expect(html).to.have.string("div");
   });
 
-  it("test ref", ()=>{
+  it("test ref", () => {
     const Comp = () => <div />;
     const FComp = () => {
       const el = useRef();
-      useEffect(()=>{
+      useEffect(() => {
         expect(null != el.current).to.be.true;
       }, []);
       return <Filter component={Comp} ref={el} />;
-    }
+    };
     const wrapper = render(<FComp />);
     const html = wrapper.html();
     expect(html).to.have.string("div");

@@ -237,7 +237,7 @@ const useFilter = (props) => {
     preview: propsPreview,
     filter: propsFilter,
     results: propsResults,
-    ...otherProps
+    ...restProps
   } = lastProps.current;
 
   const [runResetValue, stopResetValue] = useTimer();
@@ -682,7 +682,7 @@ const useFilter = (props) => {
     expose,
     component,
     name,
-    otherProps,
+    restProps,
     isOpen: stateIsOpen,
     nextProps,
   };
@@ -693,11 +693,11 @@ const useFilter = (props) => {
  * @returns {React.ReactElement}
  */
 export const Filter = forwardRef((props, ref) => {
-  const { expose, component, name, isOpen, nextProps, otherProps } =
+  const { expose, component, name, isOpen, nextProps, restProps } =
     useFilter(props);
   useImperativeHandle(ref, () => expose, []);
   return build(component)({
-    ...otherProps,
+    ...restProps,
     ...nextProps,
     name: isOpen ? null : name, // disalbe autofill
   });

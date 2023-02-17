@@ -1,3 +1,5 @@
+// @ts-check
+
 // Component
 export { default as Accordion } from "./ui/organisms/Accordion";
 export { default as SideMenu } from "./ui/organisms/SideMenu";
@@ -15,6 +17,7 @@ export { default as TabView } from "./ui/organisms/TabView";
 export { default as getDocTemplate } from "./ui/templates/getDocTemplate";
 
 /* Dropdown */
+export { useDropdown } from "./hooks/useDropdown";
 export { default as Dropdown } from "./ui/organisms/Dropdown";
 export { default as Select } from "./ui/organisms/Select";
 export { default as SelectField } from "./ui/molecules/SelectField";

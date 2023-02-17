@@ -1,4 +1,5 @@
 import { isValidElement } from "react";
+import { mergeRef } from "reshow-build";
 
 import {
   build,
@@ -19,8 +20,7 @@ const DropdownUI = (props) => {
 
     /* Styles */
     boxSizing = "border-box",
-    propsListStyle,
-    stateListStyle,
+    listStyle,
 
     /* Status */
     hideList,
@@ -68,8 +68,7 @@ const DropdownUI = (props) => {
     thisList = build(list)({
       style: {
         ...Styles.list,
-        ...propsListStyle,
-        ...stateListStyle,
+        ...listStyle,
       },
       refCb: handler.listEl,
       onClick: handler.listClick,
@@ -82,7 +81,7 @@ const DropdownUI = (props) => {
       {...otherProps}
       style={{ ...Styles.container, ...style, boxSizing }}
       className={thisClass}
-      refCb={handler.thisEl || refCb}
+      refCb={(el) => mergeRef(el, [handler.thisEl, refCb])}
       onClick={handler.dropdownClick}
     >
       {compHd}

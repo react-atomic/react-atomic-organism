@@ -1,2 +1,6 @@
 export default Dropdown;
-declare function Dropdown(props: any): JSX.Element;
+/**
+ * @param {any} props
+ * @returns {React.ReactElement}
+ */
+declare function Dropdown(props: any): React.ReactElement;

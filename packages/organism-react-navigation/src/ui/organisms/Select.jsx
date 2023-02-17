@@ -1,5 +1,4 @@
 import { PureComponent } from "react";
-import { mixClass, Menu, Item, SemanticUI } from "react-atomic-molecule";
 import callfunc from "call-func";
 
 import SelectUI from "../molecules/SelectUI";
