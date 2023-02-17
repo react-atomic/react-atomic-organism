@@ -18,10 +18,27 @@ import get from "get-object-value";
  */
 
 /**
+ * @typedef {object} DropdownExpose
+ * @property {Function} open
+ * @property {Function} close
+ * @property {Function} isOpen
+ */
+
+/**
+ * @typedef {object} DropdownHandler
+ * @property {React.Ref<any>} thisEl
+ * @property {React.Ref<any>} listEl
+ * @property {Function} dropdownClick
+ * @property {Function} listClick
+ * @property {Function} touchStart
+ */
+
+/**
  * @typedef {object} DropdownData
  * @property {string} className
  * @property {object} listStyle
- * @property {object} handler
+ * @property {DropdownHandler} handler
+ * @property {DropdownExpose} expose
  * @property {boolean} hideList
  * @property {object} restProps
  */
@@ -69,13 +86,6 @@ export const useDropdown = (props) => {
   }, []);
 
   /**
-   * @typedef {object} DropdownExpose
-   * @property {Function} open
-   * @property {Function} close
-   * @property {Function} isOpen
-   */
-
-  /**
    * @type DropdownExpose
    */
   const expose = {
@@ -112,15 +122,6 @@ export const useDropdown = (props) => {
       }
     },
   };
-
-  /**
-   * @typedef {object} DropdownHandler
-   * @property {React.Ref<any>} thisEl
-   * @property {React.Ref<any>} listEl
-   * @property {Function} dropdownClick
-   * @property {Function} listClick
-   * @property {Function} touchStart
-   */
 
   /**
    * @type DropdownHandler
@@ -179,6 +180,7 @@ export const useDropdown = (props) => {
       ...stateListStyle,
     },
     handler,
+    expose,
     hideList,
   };
 };

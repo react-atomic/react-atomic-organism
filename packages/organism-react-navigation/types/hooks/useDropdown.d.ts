@@ -8,10 +8,23 @@ export type DropdownProps = {
     className?: string;
     listStyle?: object;
 };
+export type DropdownExpose = {
+    open: Function;
+    close: Function;
+    isOpen: Function;
+};
+export type DropdownHandler = {
+    thisEl: React.Ref<any>;
+    listEl: React.Ref<any>;
+    dropdownClick: Function;
+    listClick: Function;
+    touchStart: Function;
+};
 export type DropdownData = {
     className: string;
     listStyle: object;
-    handler: object;
+    handler: DropdownHandler;
+    expose: DropdownExpose;
     hideList: boolean;
     restProps: object;
 };

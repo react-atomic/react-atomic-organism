@@ -17,6 +17,7 @@ const DropdownUI = (props) => {
   const {
     /*useDropdown*/
     handler = {},
+    expose = {},
 
     /* Styles */
     boxSizing = "border-box",
