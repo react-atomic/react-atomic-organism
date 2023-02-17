@@ -18,6 +18,7 @@ export { default as getDocTemplate } from "./ui/templates/getDocTemplate";
 
 /* Dropdown */
 export { useDropdown } from "./hooks/useDropdown";
+export { useSelect } from "./hooks/useSelect";
 export { default as Dropdown } from "./ui/organisms/Dropdown";
 export { default as Select } from "./ui/organisms/Select";
 export { default as SelectField } from "./ui/molecules/SelectField";

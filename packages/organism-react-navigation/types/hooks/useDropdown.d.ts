@@ -1,24 +1,16 @@
 export function useDropdown(props: DropdownProps): DropdownData;
-export type DropdownProps = {
-    simple?: boolean;
-    alwaysOpen?: boolean;
-    right?: boolean;
-    upward?: boolean;
-    item?: boolean;
-    className?: string;
-    listStyle?: object;
+export type DropdownHandler = {
+    thisEl: React.Ref<any> & import("react").MutableRefObject<any>;
+    listEl: React.Ref<any> & import("react").MutableRefObject<any>;
+    isActive: import("react").MutableRefObject<any>;
+    dropdownClick: import("react").MouseEventHandler;
+    listClick: Function;
+    touchStart: Function;
 };
 export type DropdownExpose = {
     open: Function;
     close: Function;
     isOpen: Function;
-};
-export type DropdownHandler = {
-    thisEl: React.Ref<any>;
-    listEl: React.Ref<any>;
-    dropdownClick: Function;
-    listClick: Function;
-    touchStart: Function;
 };
 export type DropdownData = {
     className: string;
@@ -27,4 +19,13 @@ export type DropdownData = {
     expose: DropdownExpose;
     hideList: boolean;
     restProps: object;
+};
+export type DropdownProps = {
+    simple?: boolean;
+    alwaysOpen?: boolean;
+    right?: boolean;
+    upward?: boolean;
+    item?: boolean;
+    className?: string;
+    listStyle?: object;
 };

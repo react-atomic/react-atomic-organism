@@ -7,14 +7,13 @@ import { useState, useEffect, useRef } from "react";
 import get from "get-object-value";
 
 /**
- * @typedef {object} DropdownProps
- * @property {boolean} [simple]
- * @property {boolean} [alwaysOpen]
- * @property {boolean} [right]
- * @property {boolean} [upward]
- * @property {boolean} [item]
- * @property {string} [className]
- * @property {object} [listStyle]
+ * @typedef {object} DropdownHandler
+ * @property {React.Ref<any>&import("react").MutableRefObject} thisEl
+ * @property {React.Ref<any>&import("react").MutableRefObject} listEl
+ * @property {import("react").MutableRefObject} isActive
+ * @property {import("react").MouseEventHandler} dropdownClick
+ * @property {Function} listClick
+ * @property {Function} touchStart
  */
 
 /**
@@ -22,15 +21,6 @@ import get from "get-object-value";
  * @property {Function} open
  * @property {Function} close
  * @property {Function} isOpen
- */
-
-/**
- * @typedef {object} DropdownHandler
- * @property {React.Ref<any>} thisEl
- * @property {React.Ref<any>} listEl
- * @property {Function} dropdownClick
- * @property {Function} listClick
- * @property {Function} touchStart
  */
 
 /**
@@ -44,12 +34,23 @@ import get from "get-object-value";
  */
 
 /**
+ * @typedef {object} DropdownProps
+ * @property {boolean} [simple]
+ * @property {boolean} [alwaysOpen]
+ * @property {boolean} [right]
+ * @property {boolean} [upward]
+ * @property {boolean} [item]
+ * @property {string} [className]
+ * @property {object} [listStyle]
+ */
+
+/**
  * @param {DropdownProps} props
  * @returns {DropdownData}
  */
 export const useDropdown = (props) => {
   const {
-    simple = true,
+    simple,
     alwaysOpen,
     right,
     upward,
@@ -129,6 +130,7 @@ export const useDropdown = (props) => {
   const handler = {
     thisEl,
     listEl,
+    isActive,
     dropdownClick: () => {
       if (!isListClick.current) {
         if (!expose.isOpen()) {

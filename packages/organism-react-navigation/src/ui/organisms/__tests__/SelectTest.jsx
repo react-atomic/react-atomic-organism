@@ -21,16 +21,13 @@ describe("Test Select", () => {
     }
     const wrap = render(<TestComp />);
     await act(() => {
-      uFake.el.handleSelect({
+      uFake.el.select({
         label: "mylabel",
         value: "myvalue",
       })();
     }, 5);
-    expect(uFake.el.state).to.deep.equal({ value: "myvalue" });
+    expect(uFake.el.getValue()).to.equal("myvalue");
     await act(() => uFake.setv(""), 5);
-    expect(uFake.el.state).to.deep.equal({
-      value: "",
-      prevValue: "",
-    });
+    expect(uFake.el.getValue()).to.equal("");
   });
 });
