@@ -68,7 +68,7 @@ export const useSelect = (props) => {
   }, [thisValue]);
   useEffect(() => {
     lastValue.current = value;
-    if (lastValue.current != null) {
+    if (lastEvent.current != null) {
       callfunc(onChange, [lastEvent.current]);
     }
   }, [value]);
