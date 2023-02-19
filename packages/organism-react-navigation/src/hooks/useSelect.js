@@ -7,8 +7,8 @@ import defaultLocator from "../defaultLocator";
 /**
  * @typedef {object} SelectBaseEvent
  * @property {string} [value]
- * @property {object} [selected]
- * @property {object} [item]
+ * @property {Object} [selected]
+ * @property {Object} [item]
  */
 
 /**

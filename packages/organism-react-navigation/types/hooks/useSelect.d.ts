@@ -1,8 +1,8 @@
 export function useSelect(props: SelectProps): SelectData;
 export type SelectBaseEvent = {
     value?: string;
-    selected?: object;
-    item?: object;
+    selected?: any;
+    item?: any;
 };
 export type SelectEvent = SelectBaseEvent | (SelectBaseEvent & Event);
 export type SelectHandler = {
