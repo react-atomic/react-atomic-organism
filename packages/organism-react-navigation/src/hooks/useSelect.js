@@ -5,10 +5,14 @@ import callfunc from "call-func";
 import defaultLocator from "../defaultLocator";
 
 /**
- * @typedef {object & Event} SelectEvent
- * @property {any} [value]
- * @property {any} [selected]
- * @property {any} [item]
+ * @typedef {object} SelectBaseEvent
+ * @property {string} [value]
+ * @property {object} [selected]
+ * @property {object} [item]
+ */
+
+/**
+ * @typedef {SelectBaseEvent | Event} SelectEvent
  */
 
 /**
@@ -57,7 +61,7 @@ export const useSelect = (props) => {
   } = props;
   const thisValue = propsValue ?? defaultValue;
   const lastEvent = useRef(/** @type SelectEvent*/ (null));
-  const lastValue = useRef(/** @type any*/ (null));
+  const lastValue = useRef(null);
   const [value, setValue] = useState();
   useEffect(() => {
     setValue(thisValue);
@@ -78,9 +82,9 @@ export const useSelect = (props) => {
       (/** @type SelectEvent*/ e = {}) => {
         const value = valueLocator(item);
         const selected = labelLocator(item);
-        e.value = value;
-        e.selected = selected;
-        e.item = item;
+        /** @type SelectBaseEvent*/ (e).value = value;
+        /** @type SelectBaseEvent*/ (e).selected = selected;
+        /** @type SelectBaseEvent*/ (e).item = item;
         lastEvent.current = e;
         const isContinue = callfunc(onBeforeChange, [e]);
         if (false !== isContinue) {

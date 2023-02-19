@@ -1,5 +1,10 @@
 export function useSelect(props: SelectProps): SelectData;
-export type SelectEvent = object & Event;
+export type SelectBaseEvent = {
+    value?: string;
+    selected?: object;
+    item?: object;
+};
+export type SelectEvent = SelectBaseEvent | Event;
 export type SelectHandler = {
     select: Function;
 };

@@ -1710,9 +1710,9 @@ camelcase@^6.0.0, camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001449:
-  version "1.0.30001452"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001452.tgz#dff7b8bb834b3a91808f0a9ff0453abb1fbba02a"
-  integrity sha512-Lkp0vFjMkBB3GTpLR8zk4NwW5EdRdnitwYJHDOOKIU85x4ckYCPQ+9WlVvSVClHxVReefkUMtWZH2l9KGlD51w==
+  version "1.0.30001456"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001456.tgz#734ec1dbfa4f3abe6e435b78ecf40d68e8c32ce4"
+  integrity sha512-XFHJY5dUgmpMV25UqaD4kVq2LsiaU5rS8fb0f17pCoXQiQslzmFgnfOxfvo1bTpTqf7dwG/N/05CnLCnOEKmzA==
 
 chai@*:
   version "4.3.7"
@@ -2070,9 +2070,9 @@ domexception@^4.0.0:
     webidl-conversions "^7.0.0"
 
 electron-to-chromium@^1.4.284:
-  version "1.4.298"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.298.tgz#d6f91a170c67e5e9d55d526e74c1649f388c9125"
-  integrity sha512-dJZurgxDeaqn90VmS23Xz+QPQQl84BxnlAfwCDFNjfEhqO2yLMDkeaDoJ1yPXAbmiqTi+hd5TpB5zi1N4hwBuQ==
+  version "1.4.302"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.302.tgz#5770646ffe7051677b489226144aad9386d420f2"
+  integrity sha512-Uk7C+7aPBryUR1Fwvk9VmipBcN9fVsqBO57jV2ZjTm+IZ6BMNqu7EDVEg2HxCNufk6QcWlFsBkhQyQroB2VWKw==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -2216,9 +2216,9 @@ esprima@^4.0.0, esprima@^4.0.1:
   integrity sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==
 
 esquery@^1.4.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.4.1.tgz#ddb8e1e2666750113b78c15f59e977564f52b116"
-  integrity sha512-3ZggxvMv5EEY1ssUVyHSVt0oPreyBfbUi1XikJVfjFiBeBDLdrb0IWoDiEwqT/2sUQi0TGaWtFhOGDD8RTpXgQ==
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/esquery/-/esquery-1.4.2.tgz#c6d3fee05dd665808e2ad870631f221f5617b1d1"
+  integrity sha512-JVSoLdTlTDkmjFmab7H/9SL9qGSyjElT3myyKp7krqjVFQCDLmj1QFaCLRFBszBKI0XVZaiiXvuPIX3ZwHe1Ng==
   dependencies:
     estraverse "^5.1.0"
 
@@ -2436,9 +2436,9 @@ get-random-id@*:
     call-func "*"
 
 get-safe-reg@*:
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.5.5.tgz#ad85adf7fbc16973f8e95fd1cad835c28d371ed7"
-  integrity sha512-ueAtln8CchFfoDGWu/9ul7oDCNZS/M32laBMxTOOC/TyQZpkn7Ej1P9GgbgZDwib7/95sp9t5P8JPIKbMqT9fw==
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.5.6.tgz#e1f336e51100a93730cb06379a73c7efa6932a2d"
+  integrity sha512-jC8hT0ZPeIezZr7+vYdOUmIa/77iwdVMHyxklLOCB0JrDTMwNGsy1UoBSaPThCKFuBajptLFVZwx8BJvPlEevQ==
 
 get-scroll-info@*:
   version "0.4.0"
@@ -3827,9 +3827,9 @@ regexpp@^3.2.0:
   integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
 
 regexpu-core@^5.2.1:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/regexpu-core/-/regexpu-core-5.3.0.tgz#4d0d044b76fedbad6238703ae84bfdedee2cf074"
-  integrity sha512-ZdhUQlng0RoscyW7jADnUZ25F5eVtHdMyXSb2PiwafvteRAOJUjFoUPEYZSIfP99fBIs3maLIRfpEddT78wAAQ==
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/regexpu-core/-/regexpu-core-5.3.1.tgz#66900860f88def39a5cb79ebd9490e84f17bcdfb"
+  integrity sha512-nCOzW2V/X15XpLsK2rlgdwrysrBq+AauCn+omItIz4R1pIcmeot5zvjdmOBRLzEH/CkC6IxMJVmxDe3QcMuNVQ==
   dependencies:
     "@babel/regjsgen" "^0.8.0"
     regenerate "^1.4.2"
@@ -3886,9 +3886,9 @@ reshow-constant@*, reshow-constant@^0.17.4:
   integrity sha512-pCjlBFmzOJ6iCNxX4SIycHsTEaFQOVfCM/kQh56w0n3Yy99e4EmzCMxtuixVJm5xRlI8ytrcR7OAJzT/nSVwUg==
 
 reshow-flux-base@*:
-  version "0.17.15"
-  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.17.15.tgz#b6017b5c8e01fb9d78b66efb06d3886a4acc0716"
-  integrity sha512-eS66MYfWtmnergXWBMX7qyO/BKnxTKjqbTNQOuG/TAIav84vfJWgJpysxdkhvCGd1tmGpINaE+wdWP71wIFWAA==
+  version "0.17.22"
+  resolved "https://registry.yarnpkg.com/reshow-flux-base/-/reshow-flux-base-0.17.22.tgz#5d35222ad46827e0c81fc970584e764ae4748b2e"
+  integrity sha512-BmppB/YEgvBtq+uAhr9sGa6myEFEv6iz1GUCoS2dHWS+8sIDXO7ETg9aJrYntMpDsoJ7INjHn6VUbOjaHFRZsA==
   dependencies:
     call-func "*"
     get-object-value "*"
@@ -3896,9 +3896,9 @@ reshow-flux-base@*:
     reshow-runtime "*"
 
 reshow-flux@*:
-  version "0.17.29"
-  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.17.29.tgz#7a53afa6e886b857a0b2c748fb89b72509e84511"
-  integrity sha512-dQpNJJiOMrKsyDBslg9340ZEJL/+tEOiVtSrVHKyyYv2gzhAZUAqThYaxjiL609tWXwMMlsuSPZCcwBm86kp5A==
+  version "0.17.31"
+  resolved "https://registry.yarnpkg.com/reshow-flux/-/reshow-flux-0.17.31.tgz#2a13c8e56af80073f656134d38901e19bb356c45"
+  integrity sha512-D64k4dEQ2ai+1Ka6tziYmm7/8OKe+u2rJh6TlWLmUq/iz9ztQ72/QWVuymygRvToxt2ewFQ3vdhgFxdSE+MWzw==
   dependencies:
     array.dedup "*"
     array.merge "*"
