@@ -29,7 +29,7 @@ export const cacheReg =
   (getRegCallback = T_UNDEFINED, flags = T_UNDEFINED) =>
   /**
    * @param {string} regString
-   * @returns {RegExpMatchArray}
+   * @returns {RegExp}
    */
   (regString) => {
     if (!cache[regString]) {

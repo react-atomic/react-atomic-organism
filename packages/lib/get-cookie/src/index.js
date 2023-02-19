@@ -1,14 +1,28 @@
+//@ts-check
+
 import getSafeReg, { cacheReg } from "get-safe-reg";
 import { doc } from "win-doc";
 
 let isCookieSupport = true;
 
+/**
+ * @param {string} name
+ * @returns {string}
+ */
 const getRegString = (name) => "(?:^|;)\\s?" + getSafeReg(name) + "=([^;]+)";
 
 const cache = cacheReg({})(getRegString);
 
+/**
+ * @param {string} name
+ * @returns {RegExp}
+ */
 const getCookieReg = (name) => cache(name);
 
+/**
+ * @param {string} [cookie]
+ * @returns {string}
+ */
 const docCookie = (cookie) => {
   if (cookie) {
     return cookie;
@@ -26,17 +40,31 @@ const docCookie = (cookie) => {
   }
 };
 
+/**
+ * @param {Error} e
+ */
 const notSupport = (e) => {
   console.warn("cookie not support", { e });
   isCookieSupport = false;
 };
 
+/**
+ * @param {string} [name]
+ * @param {string} [cookie]
+ */
 const getCookie = (name, cookie) => {
   cookie = docCookie(cookie);
   const value = getCookieReg(name).exec(cookie);
   return value !== null ? decodeURIComponent(value[1]) : null;
 };
 
+/**
+ * @param {string} cname
+ * @param {string} cvalue
+ * @param {number} [exdays]
+ * @param {string} [domain]
+ * @returns {string}
+ */
 const getCookieSetStr = (cname, cvalue, exdays, domain) => {
   exdays = exdays || 0;
   domain = domain || "";
@@ -53,6 +81,12 @@ const getCookieSetStr = (cname, cvalue, exdays, domain) => {
   return cStr;
 };
 
+/**
+ * @param {string} cname
+ * @param {string} cvalue
+ * @param {number} [exdays]
+ * @param {string} [domain]
+ */
 const setCookie = (cname, cvalue, exdays, domain) => {
   if (isCookieSupport) {
     try {
