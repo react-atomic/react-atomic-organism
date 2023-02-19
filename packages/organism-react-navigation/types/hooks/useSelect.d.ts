@@ -4,7 +4,7 @@ export type SelectBaseEvent = {
     selected?: object;
     item?: object;
 };
-export type SelectEvent = SelectBaseEvent | Event;
+export type SelectEvent = SelectBaseEvent | (SelectBaseEvent & Event);
 export type SelectHandler = {
     select: Function;
 };

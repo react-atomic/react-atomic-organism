@@ -12,7 +12,7 @@ import defaultLocator from "../defaultLocator";
  */
 
 /**
- * @typedef {SelectBaseEvent | Event} SelectEvent
+ * @typedef {SelectBaseEvent | SelectBaseEvent & Event} SelectEvent
  */
 
 /**
@@ -82,9 +82,9 @@ export const useSelect = (props) => {
       (/** @type SelectEvent*/ e = {}) => {
         const value = valueLocator(item);
         const selected = labelLocator(item);
-        /** @type SelectBaseEvent*/ (e).value = value;
-        /** @type SelectBaseEvent*/ (e).selected = selected;
-        /** @type SelectBaseEvent*/ (e).item = item;
+        e.value = value;
+        e.selected = selected;
+        e.item = item;
         lastEvent.current = e;
         const isContinue = callfunc(onBeforeChange, [e]);
         if (false !== isContinue) {
