@@ -174,6 +174,8 @@ const useFilterResult = (props) => {
  * @property {boolean} [itemClickToClose]
  * @property {boolean} [wrapperClickToFocus]
  * @property {boolean} [couldCreate]
+ * @property {boolean} [doNotResetValue]
+ * @property {boolean} [shouldJsonEncode]
  * @property {React.RefCallback<any>} [refCb]
  * @property {React.RefCallback<any>} [wrapperRefCb]
  * @property {string} [className]
@@ -231,6 +233,7 @@ const useFilter = (props) => {
     valueLocator,
     couldCreate,
     shouldRenderSuggestions,
+    shouldJsonEncode,
     itemClickToClose,
     wrapperClickToFocus,
     disabled: propsDisabled,
@@ -292,7 +295,7 @@ const useFilter = (props) => {
    * @property {function} blur
    * @property {function} focus
    * @property {function} resetValue
-   * @property {function} couldCreate
+   * @property {function():{okToCreate: boolean; originalValue: any}} checkCouldCreate
    * @property {function} wrapperClick
    * @property {function} itemClick
    * @property {function} keyDown
@@ -344,10 +347,10 @@ const useFilter = (props) => {
       handler.clearTimer();
       runCouldCreate(() => {
         const isOpen = lastState.current.isOpen;
-        const onBlur = lastProps.current.onBlur;
+        const { onBlur, doNotResetValue } = lastProps.current;
         if (!isOpen) {
-          const next = handler.couldCreate();
-          if (!next.value) {
+          const next = handler.checkCouldCreate();
+          if (next.okToCreate && !doNotResetValue) {
             handler.resetValue(next.originalValue, e);
           }
           callfunc(onBlur, [e]);
@@ -359,10 +362,10 @@ const useFilter = (props) => {
      * @param {Event} e
      */
     focus: (e) => {
-      const { onFocus, couldCreate } = lastProps.current;
+      const { onFocus } = lastProps.current;
       expose.open(e);
       expose.focus();
-      if (!couldCreate && lastOriginalValue.current) {
+      if (lastOriginalValue.current) {
         expose.setValue(lastOriginalValue.current, e);
         lastOriginalValue.current = null;
       }
@@ -380,29 +383,29 @@ const useFilter = (props) => {
       });
     },
 
-    couldCreate: () => {
+    checkCouldCreate: () => {
       const { couldCreate, results, itemsLocator } = lastProps.current;
       const { value: originalValue } = lastState.current;
-      let value = originalValue;
+      let okToCreate = false;
       if (!couldCreate) {
         const arr = callfunc(itemsLocator, [results]);
         if (arr && arr.length) {
-          const isIn = arr.some((/** @type {any}*/ a) => {
-            if (handler.valueLocator(a) === value) {
+          const isValueInList = arr.some((/** @type {any}*/ a) => {
+            if (handler.valueLocator(a) === originalValue) {
               return true;
             } else {
               return false;
             }
           });
-          if (!isIn) {
-            value = "";
+          if (!isValueInList) {
+            okToCreate = true;
           }
         } else {
-          value = "";
+          okToCreate = true;
         }
       }
       return {
-        value,
+        okToCreate,
         originalValue,
       };
     },
@@ -674,7 +677,9 @@ const useFilter = (props) => {
   if (builtInOnly) {
     nextProps.ref = handler.refCb;
     nextProps["data-results"] = lastResults.current?.length
-      ? JSON.stringify(lastResults.current)
+      ? shouldJsonEncode
+        ? JSON.stringify(lastResults.current)
+        : lastResults.current
       : "";
   }
   return {

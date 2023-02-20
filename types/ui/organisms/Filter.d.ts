@@ -33,6 +33,8 @@ export type FilterProps = {
     itemClickToClose?: boolean;
     wrapperClickToFocus?: boolean;
     couldCreate?: boolean;
+    doNotResetValue?: boolean;
+    shouldJsonEncode?: boolean;
     refCb?: React.RefCallback<any>;
     wrapperRefCb?: React.RefCallback<any>;
     className?: string;
