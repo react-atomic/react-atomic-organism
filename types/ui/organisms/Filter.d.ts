@@ -3,6 +3,18 @@
  * @returns {React.ReactElement}
  */
 export const Filter: React.FC<FilterProps>;
+export type FilterExpose = {
+    submit: Function;
+    disabled: Function;
+    close: Function;
+    open: Function;
+    getValue: Function;
+    getSelIndex: Function;
+    getIsOpen: Function;
+    blur: Function;
+    focus: Function;
+    setValue: Function;
+};
 export type FilterEvent = {
     item?: any;
     suggestion?: object;

@@ -15,6 +15,20 @@ import { doc } from "win-doc";
 import { useTimer } from "reshow-hooks";
 
 /**
+ * @typedef {object} FilterExpose
+ * @property {function} submit
+ * @property {function} disabled
+ * @property {function} close
+ * @property {function} open
+ * @property {function} getValue
+ * @property {function} getSelIndex
+ * @property {function} getIsOpen
+ * @property {function} blur
+ * @property {function} focus
+ * @property {function} setValue
+ */
+
+/**
  * @typedef {object} FilterEvent
  * @property {any} [item]
  * @property {object} [suggestion]
@@ -536,20 +550,6 @@ const useFilter = (props) => {
       expose.close();
     },
   };
-
-  /**
-   * @typedef {object} FilterExpose
-   * @property {function} submit
-   * @property {function} disabled
-   * @property {function} close
-   * @property {function} open
-   * @property {function} getValue
-   * @property {function} getSelIndex
-   * @property {function} getIsOpen
-   * @property {function} blur
-   * @property {function} focus
-   * @property {function} setValue
-   */
 
   /**
    * @type {FilterExpose}
