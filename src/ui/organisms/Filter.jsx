@@ -138,8 +138,7 @@ const useFilterResult = (props) => {
       propsFilter,
       value,
     }) => {
-      let results = null;
-      results = propsFilter
+      const results = propsFilter
         ? handler.preview({
             propsPreview,
             propsResults,
@@ -214,6 +213,7 @@ const useFilter = (props) => {
     lastProps.current = props;
   }
   const {
+    doNotResetValue,
     builtInOnly,
     component,
     name,
@@ -676,11 +676,9 @@ const useFilter = (props) => {
       };
   if (builtInOnly) {
     nextProps.ref = handler.refCb;
-    nextProps["data-results"] = lastResults.current?.length
-      ? shouldJsonEncode
-        ? JSON.stringify(lastResults.current)
-        : lastResults.current
-      : "";
+    nextProps["data-results"] = shouldJsonEncode
+      ? JSON.stringify(lastResults.current)
+      : lastResults.current;
   }
   return {
     handler,
