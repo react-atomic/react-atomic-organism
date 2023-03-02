@@ -74,7 +74,7 @@ const defaultItemsLocator = (d) => d ?? [];
 /**
  * @typedef {object} FilterResultProps
  * @property {string} [value]
- * @property {object} [results]
+ * @property {object|boolean} [results]
  * @property {boolean} [filter]
  * @property {number} [preview]
  * @property {boolean} [bShouldRenderSuggestions]
@@ -190,7 +190,7 @@ const useFilterResult = (props) => {
  *
  * @property {boolean} [filter]
  * @property {number} [preview]
- * @property {object} [results]
+ * @property {object|boolean} [results]
  * @property {Function} [itemsLocator]
  * @property {Function} [itemLocator]
  * @property {Function} [valueLocator]

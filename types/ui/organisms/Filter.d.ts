@@ -17,7 +17,7 @@ export type ValueData = {
 };
 export type FilterResultProps = {
     value?: string;
-    results?: object;
+    results?: object | boolean;
     filter?: boolean;
     preview?: number;
     bShouldRenderSuggestions?: boolean;
@@ -49,7 +49,7 @@ export type FilterProps = {
     onSubmit?: EventListener | boolean;
     filter?: boolean;
     preview?: number;
-    results?: object;
+    results?: object | boolean;
     itemsLocator?: Function;
     itemLocator?: Function;
     valueLocator?: Function;
