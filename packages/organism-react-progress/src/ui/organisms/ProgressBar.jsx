@@ -1,7 +1,21 @@
-import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+//@ts-check
+
+import { forwardRef, useImperativeHandle } from "react";
 import { mergeDefaultValue, Progress } from "react-atomic-molecule";
 import useProgress from "../../useProgress";
 
+/**
+ * @typedef {object} ProgressBarProps
+ * @property {object} [style]
+ * @property {number} [percent]
+ * @property {object} [barProps]
+ * @property {number} [delay]
+ */
+
+/**
+ * @type React.FC<ProgressBarProps>
+ * @returns {React.ReactElement}
+ */
 const ProgressBar = forwardRef((props, ref) => {
   const {
     style,

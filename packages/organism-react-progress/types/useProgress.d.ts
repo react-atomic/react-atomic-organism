@@ -1,11 +1,18 @@
 export default useProgress;
-declare function useProgress(propsDelay: any, propsPercent: any): {
-    expose: {
-        complete: () => void;
-        reset: (thisPercent: any) => void;
-        pause: () => void;
-        start: (goToPercent: any, delay: any) => void;
-    };
+export type UseProgressReturn = {
+    expose: object;
     opacity: number;
-    percent: any;
+    percent: number;
 };
+/**
+ * @typedef {object} UseProgressReturn
+ * @property {object} expose
+ * @property {number} opacity
+ * @property {number} percent
+ */
+/**
+ * @param {number} [propsDelay]
+ * @param {number} [propsPercent]
+ * @returns {UseProgressReturn}
+ */
+declare function useProgress(propsDelay?: number, propsPercent?: number): UseProgressReturn;
