@@ -1,11 +1,23 @@
+//@ts-check
+
 import callfunc from "call-func";
 
+/**
+ * @param {number|string} t
+ */
 const getDateObject = (t) => (null != t ? new Date(t) : new Date());
 
+/**
+ * @param {number|string} [t]
+ */
 const getTimestamp = (t) => +getDateObject(t);
 
 /**
  * milliseconds (thousandths of a second)
+ * @param {number} createTime
+ * @param {number} expireMilliseconds
+ * @param {function} run
+ * @param {function} expireCb
  */
 const expireCallback = (createTime, expireMilliseconds, run, expireCb) => {
   const now = getTimestamp();
@@ -20,6 +32,9 @@ const expireCallback = (createTime, expireMilliseconds, run, expireCb) => {
 
 const sn = {};
 
+/**
+ * @param {string} [name]
+ */
 const getSN = (name) => {
   sn[name] = sn[name] ?? 0;
   return (name || "") + "_" + sn[name]++;
