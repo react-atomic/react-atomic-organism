@@ -544,7 +544,7 @@ const useFilter = (props) => {
     close: (e) => {
       const target = /** @type {HTMLElement} */ (e.target);
       const wrapper = /** @type {HTMLElement} */ (thisInputWrapper.current);
-      if (wrapper.contains(target)) {
+      if (wrapper && wrapper.contains(target)) {
         return;
       }
       expose.close();
