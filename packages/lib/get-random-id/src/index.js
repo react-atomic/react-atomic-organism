@@ -16,8 +16,8 @@ const getTimestamp = (t) => +getDateObject(t);
  * milliseconds (thousandths of a second)
  * @param {number} createTime
  * @param {number} expireMilliseconds
- * @param {function} run
- * @param {function} expireCb
+ * @param {function|null} run
+ * @param {function|null} expireCb
  */
 const expireCallback = (createTime, expireMilliseconds, run, expireCb) => {
   const now = getTimestamp();

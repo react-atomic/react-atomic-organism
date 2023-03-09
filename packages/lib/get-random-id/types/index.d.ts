@@ -4,10 +4,10 @@ declare function getRandom(): string;
  * milliseconds (thousandths of a second)
  * @param {number} createTime
  * @param {number} expireMilliseconds
- * @param {function} run
- * @param {function} expireCb
+ * @param {function|null} run
+ * @param {function|null} expireCb
  */
-export function expireCallback(createTime: number, expireMilliseconds: number, run: Function, expireCb: Function): any;
+export function expireCallback(createTime: number, expireMilliseconds: number, run: Function | null, expireCb: Function | null): any;
 /**
  * @param {number|string} t
  */
