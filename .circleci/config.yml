@@ -37,7 +37,7 @@ jobs:
             && yarn --ignore-engines \
             && cd << parameters.test-dir >> \
             && yarn --ignore-engines \
-            && yarn test -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml
+            && yarn test
       - store_test_results:
           path: test_output
 
