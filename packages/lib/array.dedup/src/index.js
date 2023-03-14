@@ -1,3 +1,10 @@
+// @ts-check
+
+/**
+ * @param {any[]} array
+ * @param {boolean} [reverse]
+ * @returns {any[]}
+ */
 const dedup = (array, reverse) => {
   if (!array || !array.filter) {
     return array;
