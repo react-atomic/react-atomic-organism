@@ -4,8 +4,16 @@ import { useState, useCallback } from "react";
 import { useTimer, useSyncChange, useSyncState } from "reshow-hooks";
 
 /**
+ * @typedef {object} UseProgressExpose
+ * @property {Function} complete
+ * @property {Function} reset
+ * @property {Function} pause
+ * @property {Function} start
+ */
+
+/**
  * @typedef {object} UseProgressReturn
- * @property {object} expose
+ * @property {UseProgressExpose} expose
  * @property {number} opacity
  * @property {number} percent
  */
@@ -48,6 +56,9 @@ const useProgress = (propsDelay, propsPercent) => {
     }
   };
 
+  /**
+   * @type UseProgressExpose
+   */
   const expose = {
     complete: () => {
       expose.pause();

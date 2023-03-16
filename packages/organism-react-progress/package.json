@@ -1,5 +1,5 @@
 {
-  "version": "0.17.7",
+  "version": "0.17.8",
   "name": "organism-react-progress",
   "repository": {
     "type": "git",
@@ -41,7 +41,8 @@
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
-    "test": "npm run build && npm run mocha",
+    "test": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
+    "test:run": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
