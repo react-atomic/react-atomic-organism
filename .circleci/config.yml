@@ -39,7 +39,7 @@ jobs:
             && yarn --ignore-engines \
             && yarn test
       - store_test_results:
-          path: test_output
+          path: << parameters.test-dir >>/test_output
 
 workflows:
   run-node-tests:
