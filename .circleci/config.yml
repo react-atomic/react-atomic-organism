@@ -37,7 +37,9 @@ jobs:
             && yarn --ignore-engines \
             && cd << parameters.test-dir >> \
             && yarn --ignore-engines \
-            && yarn test
+            && grep -q '"test:report":' ./package.json \
+            && yarn run test:report \
+            || yarn test
       - store_test_results:
           path: << parameters.test-dir >>/test_output
 
