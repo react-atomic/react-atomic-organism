@@ -652,6 +652,11 @@ array-union@^2.1.0:
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-2.1.0.tgz#b798420adbeb1de828d84acd8a2e23d3efe85e8d"
   integrity sha512-HGyxoOTYUyCM6stUe6EJgnd4EoewAI7zMdfqO+kGjnlZmBDz/cR5pf8r/cR4Wq60sL/p0IkcjUEEPwS3GFrIyw==
 
+array.dedup@*:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/array.dedup/-/array.dedup-0.1.3.tgz#e0df5d7987603cb664b0a9482d03427e13ccb951"
+  integrity sha512-46rWgLXKksff40h/uCVT5StcBcDPmo5xvhc1XuvxvJrwjRLrK5peGC2/Nl/J5vb1p0o1LvJdk9NciQrzhupTig==
+
 arrify@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-2.0.1.tgz#c9655e9331e0abcd588d2a7cad7e9956f66701fa"
@@ -726,14 +731,6 @@ caching-transform@^4.0.0:
     make-dir "^3.0.0"
     package-hash "^4.0.0"
     write-file-atomic "^3.0.0"
-
-call-func@*:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.3.6.tgz#4bb83295bf3e6de8627782baf1a228ca30eef806"
-  integrity sha512-Z+Ud67Fhechaos4Dvwk4Y/15ns6x7WUYXKifS+KPg/jiHLZ4KdnsygtVp9+RF0rYmfaNXYq2ehWyceaoJJJhCQ==
-  dependencies:
-    reshow-constant "*"
-    reshow-runtime "*"
 
 callsites@^3.0.0:
   version "3.1.0"
@@ -923,16 +920,6 @@ core-js@^3.24.1:
   version "3.29.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.29.1.tgz#40ff3b41588b091aaed19ca1aa5cb111803fa9a6"
   integrity sha512-+jwgnhg6cQxKYIIjGtAHq2nwUOolo9eoFZ4sHfUH09BLXBgxnH4gA0zEd+t+BO2cNB8idaBtZFcFTRjQJRJmAw==
-
-create-el@*:
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/create-el/-/create-el-0.2.5.tgz#43fd34fb3d8c3238ee7381fc4fc4b52c3ef11447"
-  integrity sha512-8wdZOBU+ipkyyA1juzXYV/fAwMM8ZoLx+q7T88uLdiKjQMl/FSyhfwd9BnosQkUQ1DzEXD6Wktt3kcYSSVAtdA==
-  dependencies:
-    call-func "*"
-    reshow-constant "*"
-    reshow-runtime "*"
-    win-doc "*"
 
 cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
   version "7.0.3"
@@ -1360,6 +1347,11 @@ get-package-type@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
+
+get-safe-reg@*:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.5.6.tgz#e1f336e51100a93730cb06379a73c7efa6932a2d"
+  integrity sha512-jC8hT0ZPeIezZr7+vYdOUmIa/77iwdVMHyxklLOCB0JrDTMwNGsy1UoBSaPThCKFuBajptLFVZwx8BJvPlEevQ==
 
 get-stdin@^8.0.0:
   version "8.0.0"
@@ -2839,14 +2831,6 @@ which@2.0.2, which@^2.0.1:
   integrity sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==
   dependencies:
     isexe "^2.0.0"
-
-win-doc@*:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/win-doc/-/win-doc-0.3.2.tgz#591363f22c3b638384cc677b8764b03950111f20"
-  integrity sha512-KEd3mvJWeF4hNAbspUctccFZ+5NlUaHTVeKBuNoHXBcUPvpnADHKszAVksUwWoyubG2HY0nSokGul/x9Fzbi/A==
-  dependencies:
-    reshow-constant "*"
-    reshow-runtime "*"
 
 word-wrap@^1.2.3, word-wrap@~1.2.3:
   version "1.2.3"
