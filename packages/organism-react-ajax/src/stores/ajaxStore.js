@@ -8,36 +8,60 @@ import getRandomId, { getTimestamp, getSN } from "get-random-id";
 import callfunc from "call-func";
 import { KEYS, REAL_TIME_URL, REAL_TIME_DATA_KEY } from "reshow-constant";
 
+/**
+ * @typedef {import("reshow-flux-base").ActionObject} ActionObject
+ * @typedef {import("reshow-flux").StateMap} StateMap
+ */
+
 const empty = () => {};
 const Callbacks = [];
 let wsAuth = Map();
 let gWorker;
+/**
+ * @type {null|boolean}
+ */
 let fakeWorker = false;
 let isWorkerReady;
 
-const hasUrl = (s) => s && "#" !== s && "?" !== s;
+/**
+ * @param {any} s
+ * @returns {boolean}
+ */
+const hasUrl = (s) => !!s && "#" !== s && "?" !== s;
 
+/**
+ * @param {any} worker
+ */
 const initAjaxWorkerEvent = (worker) => {
-  worker.addEventListener("message", (e) => {
-    const sourceType = get(e, ["data", "type"]);
-    switch (sourceType) {
-      case "ready":
-        // fakeWorker will not run this
-        gWorker = worker;
-        isWorkerReady = true;
-        break;
-      default:
-        const nextState = {
-          ...e.data,
-          sourceType,
-          type: "callback",
-        };
-        ajaxDispatch(nextState);
-        break;
+  worker.addEventListener(
+    "message",
+    /**
+     * @param {MessageEvent} e
+     */
+    (e) => {
+      const sourceType = get(e, ["data", "type"]);
+      switch (sourceType) {
+        case "ready":
+          // fakeWorker will not run this
+          gWorker = worker;
+          isWorkerReady = true;
+          break;
+        default:
+          const nextState = {
+            ...e.data,
+            sourceType,
+            type: "callback",
+          };
+          ajaxDispatch(nextState);
+          break;
+      }
     }
-  });
+  );
 };
 
+/**
+ * @param {function} cb
+ */
 const initFakeWorker = (cb) => {
   import("../worker").then((workerObject) => {
     fakeWorker = getDefault(workerObject);
@@ -50,7 +74,12 @@ const initFakeWorker = (cb) => {
   });
 };
 
-const handleUseNewUrl = (state, action, url) => {
+/**
+ * @param {any} state
+ * @param {any} action
+ * @param {string} url
+ */
+const handleNewUrl = (state, action, url) => {
   const prevUrl = state.get("currentLocation");
   if (prevUrl !== url) {
     const onUrlChange = state.get("onUrlChange");
@@ -62,6 +91,12 @@ const handleUseNewUrl = (state, action, url) => {
   return state;
 };
 
+/**
+ * @param {any} state
+ * @param {any} action
+ * @param {any} json
+ * @param {any} response
+ */
 const getCallback = (state, action, json, response) => {
   const params = get(action, ["params"], {});
   let callback;
@@ -77,16 +112,26 @@ const getCallback = (state, action, json, response) => {
     import("../lib/dlog").then((dlog) => {
       const DLOG = getDefault(dlog);
       const oLog = new DLOG({ level: "trace" });
-      debugs.forEach((v) => {
-        const dump = get(oLog, [v[0]], () => oLog.info);
-        dump.call(oLog, v[1]);
-      });
+      debugs.forEach(
+        /**
+         * @param {[string, string]} v
+         */
+        (v) => {
+          const dump = get(oLog, [v[0]], () => oLog.info);
+          dump.call(oLog, v[1]);
+        }
+      );
     });
-    debugs.forEach((v) => {
-      if ("error" === v[1]) {
-        bFail = true;
+    debugs.forEach(
+      /**
+       * @param {[string, string]} v
+       */
+      (v) => {
+        if ("error" === v[1]) {
+          bFail = true;
+        }
       }
-    });
+    );
     if (bFail) {
       return empty;
     }
@@ -102,7 +147,19 @@ const getCallback = (state, action, json, response) => {
   return callback;
 };
 
-const getRawUrl = ({ url = null, path = null, baseUrl = null } = {}) => {
+/**
+ * @typedef {object} GetRawUrlProps
+ * @property {string} [url]
+ * @property {string} [path]
+ * @property {string} [baseUrl]
+ */
+
+/**
+ * @param {GetRawUrlProps} props
+ * @returns{string}
+ */
+const getRawUrl = (props) => {
+  let { url, path, baseUrl } = props || {};
   if (!hasUrl(url)) {
     if (path) {
       baseUrl = baseUrl || store.getState().get("baseUrl") || "";
@@ -111,9 +168,15 @@ const getRawUrl = ({ url = null, path = null, baseUrl = null } = {}) => {
       url = "#";
     }
   }
-  return url;
+  return /** @type string*/ (url);
 };
 
+/**
+ * @param {any} params
+ * @param {string} ajaxUrl
+ * @param {any} globalHeaders
+ * @returns {string}
+ */
 const cookAjaxUrl = (params, ajaxUrl, globalHeaders) => {
   if (globalHeaders && !get(params, ["ignoreGlobalHeaders"])) {
     if (globalHeaders.toJS) {
@@ -143,8 +206,14 @@ const cookAjaxUrl = (params, ajaxUrl, globalHeaders) => {
 };
 
 class handleAjax {
+  /**
+   * @type {ActionObject[]}
+   */
   queue = [];
 
+  /**
+   * @param {ActionObject} data
+   */
   worker(data) {
     if (isWorkerReady && fakeWorker) {
       const disableWebWorker = get(data, [
@@ -165,6 +234,9 @@ class handleAjax {
     }
   }
 
+  /**
+   * @param {StateMap} state
+   */
   start(state) {
     return state.set("isRunning", 1);
   }
@@ -174,30 +246,44 @@ class handleAjax {
     setTimeout(() => ajaxDispatch({ isRunning: 0 }), 500);
   }
 
-  storeCallback(action) {
+  /**
+   * @param {ActionObject} action
+   * @param {string} url
+   * @returns {ActionObject}
+   */
+  storeCallback(action, url) {
+    set(action, ["params", "url"], url);
     const cb = get(action, ["params", "callback"]);
     if (cb) {
       const cbKey = getSN("cb");
       Callbacks[cbKey] = cb;
-      action.params.callback = cbKey;
+      /** @type object*/ (action.params).callback = cbKey;
     }
     const err = get(action, ["params", "errorCallback"]);
     if (err) {
       const errCbKey = getSN("err");
       Callbacks[errCbKey] = err;
-      action.params.errorCallback = errCbKey;
+      /** @type object*/ (action.params).errorCallback = errCbKey;
     }
     const wcb = get(action, ["params", "workerCallback"]);
     if (wcb) {
-      action.params.workerCallback = wcb + "";
+      /** @type object*/ (action.params).workerCallback = wcb + "";
     }
     return action;
   }
 
+  /**
+   * @param {string} key
+   * @param {any} data
+   */
   setWsAuth(key, data) {
     wsAuth = wsAuth.set(key, data);
   }
 
+  /**
+   * @param {string} key
+   * @returns{any}
+   */
   getWsAuth(key) {
     if (!key) {
       return wsAuth.toJS();
@@ -206,25 +292,36 @@ class handleAjax {
     }
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   initWs(state, action) {
     const params = get(action, ["params"], {});
-    const { url } = params;
-    if (url) {
-      this.worker({ params, ws: url, type: "initWs" });
+    if (params.url) {
+      this.worker({ params, type: "initWs" });
     }
     return state;
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   closeWs(state, action) {
     const url = get(action, ["params", "url"]);
     if (url) {
-      this.worker({ ws: url, type: "closeWs" });
+      this.worker({ params: { url }, type: "closeWs" });
     }
     return state;
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   ajaxGet(state, action) {
-    const params = action.params;
+    const params = /** @type any */ (action.params);
     const rawUrl = getRawUrl(params);
     if (params.updateUrl && store.urlDispatch && rawUrl !== document.URL) {
       store.urlDispatch({ type: "url", url: rawUrl });
@@ -232,7 +329,7 @@ class handleAjax {
     if (params.disableAjax) {
       return this.applyCallback(state, {
         params: {
-          json: handleUseNewUrl(state, action, rawUrl),
+          json: handleNewUrl(state, action, rawUrl),
           disableAjax: params.disableAjax,
           scrollBack: params.scrollBack,
         },
@@ -252,29 +349,29 @@ class handleAjax {
     } else {
       params.query["--r"] = state.get("staticVersion");
     }
-    this.worker({
-      type: "ajaxGet",
-      url: ajaxUrl,
-      action: this.storeCallback(action),
-    });
+    this.worker(this.storeCallback(action, ajaxUrl));
     return state;
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   ajaxPost(state, action) {
-    const params = action.params;
+    const params = /** @type any */ (action.params);
     if (!params.disableProgress) {
       state = this.start(state);
     }
     const rawUrl = getRawUrl(params);
     const ajaxUrl = cookAjaxUrl(params, rawUrl, state.get("globalHeaders"));
-    this.worker({
-      type: "ajaxPost",
-      url: ajaxUrl,
-      action: this.storeCallback(action),
-    });
+    this.worker(this.storeCallback(action, ajaxUrl));
     return state;
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   applyCallback(state, action) {
     const sourceType = get(action, ["sourceType"]);
     const params = get(action, ["params"], {});
@@ -323,6 +420,10 @@ class handleAjax {
     return state.set("currentLocation", json.currentLocation);
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   handleUrlChange(state, action) {
     const url = get(action, ["params", "url"], document.URL);
     /**
@@ -334,7 +435,7 @@ class handleAjax {
       state
         .set("toggleBfChange", !state.get("toggleBfChange"))
         .set("bfApplyUrl", url),
-      { params: { json: handleUseNewUrl(state, action, url) } }
+      { params: { json: handleNewUrl(state, action, url) } }
     );
   }
 }
@@ -342,30 +443,13 @@ class handleAjax {
 const oAjax = new handleAjax();
 
 /**
- * @typedef {object} StateType
- * @property {function} get
- * @property {function} set
- */
-
-/**
- * @typedef {StateType|Object} MaybeMapType
- */
-
-/**
  * @typedef {Object} AjaxStore
  * @property {function} urlDispatch
  */
 
 /**
- * @callback ReducerType
- * @param {StateType} state
- * @param {MaybeMapType} action
- * @returns {StateType}
- */
-
-/**
- * @param {ReducerType} reduce
- * @param {MaybeMapType|function} initState
+ * @param {import("reshow-flux").ReducerTypeWithMap} reduce
+ * @param {import("reshow-flux").InitStateWithMap<any>} initState
  * @returns {[store & AjaxStore, dispatch]}
  */
 const AjaxStore = (reduce, initState) => {
@@ -387,7 +471,7 @@ const [store, ajaxDispatch] = AjaxStore(
       case "ajaxHead":
       case "ajaxPatch":
       case "ajaxPut":
-        set(action, ["params", "method"], type.substr(4).toLowerCase());
+        set(action, ["params", "method"], type.substring(4).toLowerCase());
       case "ajaxPost":
         return oAjax.ajaxPost(state, action);
       case "urlChange":
@@ -403,6 +487,9 @@ const [store, ajaxDispatch] = AjaxStore(
     }
   },
   () => {
+    /**
+     * @param {string} url
+     */
     const onUrlChange = (url) => {
       ajaxDispatch({
         type: "ajaxGet",

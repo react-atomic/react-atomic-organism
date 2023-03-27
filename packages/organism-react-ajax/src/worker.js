@@ -1,4 +1,4 @@
-import get, { getDefault } from "get-object-value";
+import get from "get-object-value";
 import nonWorker from "non-worker";
 import req from "superagent";
 import ini from "parse-ini-string";
@@ -20,10 +20,10 @@ const oNonWorker = new nonWorker((e) => {
   const data = get(e, ["data"]);
   switch (data.type) {
     case "initWs":
-      initWs(data.ws)(data.params);
+      initWs(data.params.url)(data.params);
       break;
     case "closeWs":
-      closeWs(data.ws);
+      closeWs(data.params.url);
       break;
     case "ajaxGet":
       ajaxGet(data);
@@ -75,13 +75,14 @@ const cookParams = (action, callReq) => {
   return params;
 };
 
-const ajaxGet = ({ url, action }) => {
+const ajaxGet = (action) => {
+  const url = get(action, ["params", "url"]);
   let callReq = req.get(url);
   const { query, cookHeaders, id } = cookParams(action, callReq);
   callReq
     .query(query)
     .set(cookHeaders)
-    .end((err, res) => {
+    .end((_err, res) => {
       if (res) {
         if (arrReq[id]) {
           delete arrWs[id];
@@ -97,7 +98,8 @@ const ajaxGet = ({ url, action }) => {
     });
 };
 
-const ajaxPost = ({ url, action }) => {
+const ajaxPost = (action) => {
+  const url = get(action, ["params", "url"]);
   let callReq;
   switch (get(action, ["params", "method"])) {
     case "delete":
@@ -116,8 +118,7 @@ const ajaxPost = ({ url, action }) => {
       callReq = req.post(url);
       break;
   }
-  const { id, query, isSendJson, cookHeaders, responseType, ...params } =
-    cookParams(action, callReq);
+  const { id, query, isSendJson, cookHeaders } = cookParams(action, callReq);
   let isSend = false;
   if (isSendJson) {
     isSend = true;
@@ -138,7 +139,7 @@ const ajaxPost = ({ url, action }) => {
   callReq
     .send(query)
     .set(cookHeaders)
-    .end((err, res) => {
+    .end((_err, res) => {
       if (res) {
         if (arrReq[id]) {
           delete arrWs[id];
@@ -187,7 +188,7 @@ class WebSocketHelper {
      */
     const ws = new WebSocket(url);
     this.ws = ws;
-    ws.onopen = (e) => {
+    ws.onopen = () => {
       this.isWsConnect = true;
       this.ping();
       const { messages } = params;
@@ -195,7 +196,7 @@ class WebSocketHelper {
         messages.forEach((m) => ws.send(JSON.stringify(m)));
       }
     };
-    ws.onerror = (e) => {
+    ws.onerror = () => {
       this.isWsConnect = false;
       this.ping();
     };
@@ -214,7 +215,7 @@ class WebSocketHelper {
           break;
       }
     };
-    ws.onclose = (e) => {
+    ws.onclose = () => {
       this.isWsConnect = false;
       console.warn("WS close.", url);
     };

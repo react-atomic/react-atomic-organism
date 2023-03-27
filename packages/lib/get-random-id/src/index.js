@@ -10,7 +10,7 @@ const getDateObject = (t) => (null != t ? new Date(t) : new Date());
 /**
  * @param {number|string} [t]
  */
-const getTimestamp = (t) => +getDateObject(t);
+const getTimestamp = (t) => +getDateObject(/** @type {number|string}*/ (t));
 
 /**
  * milliseconds (thousandths of a second)

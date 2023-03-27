@@ -1,6 +1,13 @@
+// @ts-check
+
 import replaceValue from "set-object-value";
 import { KEYS } from "reshow-constant";
 
+/**
+ * @param {any} a
+ * @param {string} delimiter
+ * @returns {any}
+ */
 const nest = (a, delimiter) => {
   delimiter = delimiter || ".";
   const tree = {};

@@ -1,5 +1,5 @@
 {
-  "version": "0.17.12",
+  "version": "0.17.13",
   "name": "organism-react-ajax",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "form-serialize-js": "*",
     "get-object-value": "*",
     "get-random-id": "*",
-    "non-worker": "^0.2",
+    "non-worker": "*",
     "object-nested": "*",
     "parse-ini-string": "*",
     "reshow-build": "*",
@@ -53,6 +53,7 @@
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type && npm run build:dlog",
     "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
+    "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },

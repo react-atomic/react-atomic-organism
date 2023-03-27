@@ -1,3 +1,9 @@
+// @ts-check
+
+/**
+ * @param {string[]} arrPath
+ * @returns {boolean}
+ */
 const isPrototypePolluted = (arrPath) => {
   const joinPath = `|${arrPath.join("|")}|`;
   return ["__proto__", "constructor", "prototype"].some(
@@ -5,11 +11,21 @@ const isPrototypePolluted = (arrPath) => {
   );
 };
 
+/**
+ * @param {any} obj
+ * @param {string[]} arrPath
+ * @param {any} val
+ * @param {boolean} [isAppend]
+ * @param {boolean} [unSafe]
+ */
 const replaceValue = (obj, arrPath, val, isAppend, unSafe) => {
   if (!unSafe && isPrototypePolluted(arrPath)) {
     throw "Contain un-safe key.";
   }
-  const last = arrPath.pop();
+  /**
+   * @type string
+   */
+  const last = /** @type string */ (arrPath.pop());
   let linkObj = obj;
   arrPath.forEach((k) => {
     linkObj[k] = linkObj[k] ?? Object.create(null);
@@ -28,6 +44,12 @@ const replaceValue = (obj, arrPath, val, isAppend, unSafe) => {
   }
 };
 
+/**
+ * @param {any} obj
+ * @param {string[]} arrPath
+ * @param {any} val
+ * @param {boolean} [isAppend]
+ */
 const unsafeSet = (obj, arrPath, val, isAppend) =>
   replaceValue(obj, arrPath, val, isAppend, true);
 

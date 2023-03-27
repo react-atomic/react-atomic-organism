@@ -1,2 +1,3 @@
 export default oNonWorker;
-declare const oNonWorker: any;
+declare const oNonWorker: nonWorker;
+import nonWorker from "non-worker";

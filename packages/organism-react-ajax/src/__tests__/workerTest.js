@@ -9,11 +9,9 @@ describe("Worker Test", () => {
     getSinon().spy(req, "put");
     worker.postMessage({
       type: "ajaxPost",
-      url: "http://localhost",
-      action: {
-        params: {
-          method: "put",
-        },
+      params: {
+        url: "http://localhost",
+        method: "put",
       },
     });
     expect(req.put.callCount).to.equal(1);

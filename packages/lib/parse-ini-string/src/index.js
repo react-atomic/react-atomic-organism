@@ -1,9 +1,14 @@
+// @ts-check
+
 const commentReg = /^\s*[;]/;
 const kvReg = /^\[([^\]]*)\]$|^([^=]+)(=(.*))?$/i;
 const linesReg = /[\r\n]+/g;
 const stripQuoteReg = /\\"/g;
 const isArray = Array.isArray;
 
+/**
+ * @param {string} s
+ */
 const isQuoted = (s) => {
   if (s.length <= 1) {
     return false;
@@ -15,11 +20,17 @@ const isQuoted = (s) => {
   );
 };
 
+/**
+ * @param {string} s
+ */
 const stripQuote = (s) =>
   s
     .replace(stripQuoteReg, '"')
     .substring(1, s.length - (s.slice(-1) === ";" ? 2 : 1));
 
+/**
+ * @param {string} s
+ */
 const isMultiLine = (s) => {
   const n = s.trim();
   if (isQuoted(n)) {
@@ -28,6 +39,9 @@ const isMultiLine = (s) => {
   return n.charAt(0) === '"' ? true : false;
 };
 
+/**
+ * @param {string} s
+ */
 const parse = (s) => {
   const lines = s.split(linesReg);
   let value = "";

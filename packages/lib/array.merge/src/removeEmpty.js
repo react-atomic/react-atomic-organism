@@ -1,7 +1,14 @@
+// @ts-check
 import { FUNCTION, UNDEFINED } from "reshow-constant";
 const keys = Object.keys;
 const isArray = Array.isArray;
 
+/**
+ * @param {any} [arr]
+ * @param {boolean|function(any):boolean} [undefinedOnly]
+ * @param {any[]} [excludeKey]
+ * @returns {any}
+ */
 const removeEmpty = (arr, undefinedOnly, excludeKey) => {
   if (!arr) {
     return arr;
@@ -15,7 +22,10 @@ const removeEmpty = (arr, undefinedOnly, excludeKey) => {
     if (excludeKey && excludeKey.length && -1 !== excludeKey.indexOf(key)) {
       return;
     }
-    if (value || (undefinedOnly && undefinedOnly(value))) {
+    if (
+      value ||
+      (undefinedOnly && /** @type function*/ (undefinedOnly)(value))
+    ) {
       result[key] = value;
     }
   });

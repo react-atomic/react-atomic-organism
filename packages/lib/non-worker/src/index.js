@@ -1,11 +1,20 @@
+// @ts-check
 import "array.polyfill";
-import { win } from "win-doc";
+import { hasWin } from "win-doc";
+
 class NonWorker {
+  /**
+   * @type {function[]}
+   */
   callbacks = [];
 
+  /**
+   * @param {any} callback
+   */
   constructor(callback) {
     /**
      * Call from inside worker
+     * @param {any} data
      */
     this.post = (data) => {
       const e = { data };
@@ -14,7 +23,7 @@ class NonWorker {
 
     this.onmessage = callback;
 
-    if (win().__null) {
+    if (!hasWin()) {
       try {
         onmessage = callback;
       } catch (e) {
@@ -39,11 +48,14 @@ class NonWorker {
 
   /**
    * Register for outside
+   * @param {string} _type
+   * @param {function} callback
    */
-  addEventListener = (type, callback) => this.callbacks.push(callback);
+  addEventListener = (_type, callback) => this.callbacks.push(callback);
 
   /**
    * Call from outside worker
+   * @param {any} data
    */
   postMessage = (data) => {
     const e = { data };

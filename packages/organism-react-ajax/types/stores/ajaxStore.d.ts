@@ -1,19 +1,33 @@
 export default store;
-export type StateType = {
-    get: Function;
-    set: Function;
+export type ActionObject = import("reshow-flux-base").ActionObject;
+export type StateMap = import("reshow-flux").StateMap;
+export type GetRawUrlProps = {
+    url?: string;
+    path?: string;
+    baseUrl?: string;
 };
-export type MaybeMapType = StateType | any;
 export type AjaxStore = {
     urlDispatch: Function;
 };
-export type ReducerType = (state: StateType, action: MaybeMapType) => StateType;
-declare const store: import("reshow-flux-base/types/createReducer").Store & import("reshow-flux/types/ImmutableStore").ImmutableStore & AjaxStore;
+declare const store: any;
+/**
+ * @param {any} worker
+ */
 export function initAjaxWorkerEvent(worker: any): void;
-export const ajaxDispatch: (action: string | object | Function, actionParams?: object) => any;
-export function getRawUrl({ url, path, baseUrl }?: {
-    url?: any;
-    path?: any;
-    baseUrl?: any;
-}): any;
+export const ajaxDispatch: (action: import("reshow-flux/node_modules/reshow-flux-base/types/createReducer").DispatchAction, actionParams?: import("reshow-flux/node_modules/reshow-flux-base/types/createReducer").Payload) => any;
+/**
+ * @typedef {object} GetRawUrlProps
+ * @property {string} [url]
+ * @property {string} [path]
+ * @property {string} [baseUrl]
+ */
+/**
+ * @param {GetRawUrlProps} props
+ * @returns{string}
+ */
+export function getRawUrl(props: GetRawUrlProps): string;
+/**
+ * @param {any} s
+ * @returns {boolean}
+ */
 export function hasUrl(s: any): boolean;
