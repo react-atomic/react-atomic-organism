@@ -1,9 +1,9 @@
 import get from "get-object-value";
 import nonWorker from "non-worker";
-import req from "superagent";
 import ini from "parse-ini-string";
 import { nest } from "object-nested";
 import { KEYS } from "reshow-constant";
+import superagent from "superagent";
 
 const arrWs = {};
 const arrReq = {};
@@ -62,22 +62,22 @@ const cookParams = (action, callReq) => {
     Accept: get(params, ["accept"], "application/json"),
   };
   params.cookHeaders = cookHeaders;
-  const superagent = params.superagent || {};
+  const superagentParams = params.superagent || {};
   const syncKeys = ["responseType"];
   syncKeys.forEach((key) => {
     if (params[key]) {
-      superagent[key] = params[key];
+      superagentParams[key] = params[key];
     }
   });
-  KEYS(superagent).forEach((key) => {
-    callReq = callReq[key].apply(callReq, superagent[key]);
+  KEYS(superagentParams).forEach((key) => {
+    callReq = callReq[key].apply(callReq, superagentParams[key]);
   });
   return params;
 };
 
 const ajaxGet = (action) => {
   const url = get(action, ["params", "url"]);
-  let callReq = req.get(url);
+  let callReq = superagent.get(url);
   const { query, cookHeaders, id } = cookParams(action, callReq);
   callReq
     .query(query)
@@ -103,19 +103,19 @@ const ajaxPost = (action) => {
   let callReq;
   switch (get(action, ["params", "method"])) {
     case "delete":
-      callReq = req.del(url);
+      callReq = superagent.del(url);
       break;
     case "head":
-      callReq = req.head(url);
+      callReq = superagent.head(url);
       break;
     case "patch":
-      callReq = req.patch(url);
+      callReq = superagent.patch(url);
       break;
     case "put":
-      callReq = req.put(url);
+      callReq = superagent.put(url);
       break;
     default:
-      callReq = req.post(url);
+      callReq = superagent.post(url);
       break;
   }
   const { id, query, isSendJson, cookHeaders } = cookParams(action, callReq);

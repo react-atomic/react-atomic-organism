@@ -1,5 +1,5 @@
 {
-  "version": "0.17.8",
+  "version": "0.17.9",
   "name": "organism-react-progress",
   "repository": {
     "type": "git",
@@ -15,7 +15,6 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
-    "organism-react-ajax": "*",
     "organism-react-popup": "*",
     "react-atomic-molecule": "*",
     "reshow-hooks": "*",
@@ -25,6 +24,7 @@
     "@babel/cli": "^7.x",
     "react": "^18.x",
     "react-dom": "^18.x",
+    "reshow-flux-base": "*",
     "reshow-unit": "*"
   },
   "exports": {
@@ -41,8 +41,8 @@
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
-    "test": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
-    "test:run": "npm run build && npm run mocha",
+    "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
+    "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",

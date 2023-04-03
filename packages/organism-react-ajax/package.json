@@ -1,5 +1,5 @@
 {
-  "version": "0.17.15",
+  "version": "0.17.17",
   "name": "organism-react-ajax",
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "reshow-runtime": "*",
     "set-object-value": "*",
     "smooth-scroll-to": "*",
-    "superagent": "8.0.9",
+    "superagent": "5.3.1",
     "win-doc": "*"
   },
   "devDependencies": {

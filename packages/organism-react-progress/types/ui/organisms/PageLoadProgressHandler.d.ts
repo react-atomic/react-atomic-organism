@@ -1,15 +1,19 @@
 export default PageLoadProgressHandler;
+export type StoreProps = {
+    store: import("reshow-flux-base").StoreObject;
+};
 export type PageLoadProgressProps = {
     name?: string;
     isFloat?: boolean;
     ajax?: boolean;
-    isRunning?: boolean;
     delay?: number;
     zIndex?: number;
     barProps?: any;
     ref?: any;
+    isRunningKey?: string;
 };
 /**
- * @type React.FC<PageLoadProgressProps>
+ * @type React.FC<PageLoadProgressProps&StoreProps>
  */
-declare const PageLoadProgressHandler: React.FC<PageLoadProgressProps>;
+declare const PageLoadProgressHandler: React.FC<PageLoadProgressProps & StoreProps>;
+import * as React from "react";

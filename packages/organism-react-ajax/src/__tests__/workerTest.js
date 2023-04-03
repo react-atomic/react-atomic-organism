@@ -1,12 +1,13 @@
-import { expect } from "chai";
 import { getSinon } from "reshow-unit";
-import req from "superagent";
+import { expect } from "chai";
+import superagent from "superagent";
+
 
 import worker from "../worker";
 
 describe("Worker Test", () => {
   it("test pass method", () => {
-    getSinon().spy(req, "put");
+    getSinon().spy(superagent, "put");
     worker.postMessage({
       type: "ajaxPost",
       params: {
@@ -14,6 +15,6 @@ describe("Worker Test", () => {
         method: "put",
       },
     });
-    expect(req.put.callCount).to.equal(1);
+    expect(superagent.put.callCount).to.equal(1);
   });
 });
