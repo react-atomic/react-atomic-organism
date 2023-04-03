@@ -1,5 +1,5 @@
 {
-  "version": "0.17.13",
+  "version": "0.17.14",
   "name": "organism-react-ajax",
   "repository": {
     "type": "git",
@@ -29,14 +29,14 @@
     "reshow-runtime": "*",
     "set-object-value": "*",
     "smooth-scroll-to": "*",
-    "superagent": "5.2.2",
     "win-doc": "*"
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
     "react": "^18.x",
     "react-dom": "^18.x",
-    "reshow-unit": "*"
+    "reshow-unit": "*",
+    "superagent": "*"
   },
   "exports": {
     "require": "./build/cjs/src/index.js",
