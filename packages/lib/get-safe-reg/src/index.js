@@ -119,7 +119,7 @@ export const wildcardToRegExp = (path, { type = "" } = {}) => {
 /**
  * @param {string} testString
  * @param {string} path
- * @param  {wildcardToRegExpOptional} wildcardOptional
+ * @param  {wildcardToRegExpOptional} [wildcardOptional]
  * @returns {object|boolean}
  */
 export const wildcardSearch = (testString, path, wildcardOptional) => {

@@ -60,8 +60,9 @@ export const useSelect = (props) => {
     ...restProps
   } = props;
   const thisValue = propsValue ?? defaultValue;
-  const lastEvent = useRef(/** @type SelectEvent*/ (null));
-  const lastValue = useRef(null);
+  /** @type {React.MutableRefObject<SelectEvent | unknown>} */
+  const lastEvent = useRef();
+  const lastValue = useRef();
   const [value, setValue] = useState();
   useEffect(() => {
     setValue(thisValue);

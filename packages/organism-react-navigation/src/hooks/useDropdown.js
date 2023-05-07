@@ -61,17 +61,22 @@ export const useDropdown = (props) => {
   } = props;
   const [titleTimer] = useTimer();
   const [menuTimer] = useTimer();
-  const handleClose = useRef(/** @type EventListener*/ (null));
-  const thisEl = useRef(/** @type HTMLElement*/ (null));
-  const listEl = useRef(/** @type HTMLElement*/ (null));
-  const isActive = useRef(/** @type Boolean*/ (null));
-  const isListClick = useRef(/** @type Boolean*/ (null));
+  /** @type {React.MutableRefObject<EventListener | unknown>} */
+  const handleClose = useRef();
+  /** @type {React.MutableRefObject<HTMLElement | unknown>} */
+  const thisEl = useRef();
+  /** @type {React.MutableRefObject<HTMLElement | unknown>} */
+  const listEl = useRef();
+  /** @type {React.MutableRefObject<Boolean | unknown>} */
+  const isActive = useRef();
+  /** @type {React.MutableRefObject<Boolean | unknown>} */
+  const isListClick = useRef();
   const [stateListStyle, setStateListStyle] = useState({});
   const [hideList, setHideList] = useState(false);
   useEffect(() => {
-    handleClose.current = (e) => {
+    handleClose.current = (/** @type Event */e) => {
       const target = e.target;
-      if (thisEl.current.contains(/** @type HTMLElement*/ (target))) {
+      if (/** @type HTMLElement */(thisEl.current).contains(/** @type HTMLElement*/ (target))) {
         return;
       }
       expose.close();
@@ -81,7 +86,7 @@ export const useDropdown = (props) => {
     }
     return () => {
       if (!simple) {
-        doc().removeEventListener("click", handleClose.current);
+        doc().removeEventListener("click", /** @type EventListener*/ (handleClose.current));
       }
     };
   }, []);
@@ -99,7 +104,7 @@ export const useDropdown = (props) => {
           setStateListStyle({ ...runTimeListStyle });
         }, 300);
       }
-      doc().addEventListener("click", handleClose.current);
+      doc().addEventListener("click", /** @type EventListener*/ (handleClose.current));
       runTimeListStyle.display = "block";
       isActive.current = true;
       setStateListStyle(runTimeListStyle);
@@ -111,7 +116,7 @@ export const useDropdown = (props) => {
       if (alwaysOpen && !force) {
         return;
       }
-      doc().removeEventListener("click", handleClose.current);
+      doc().removeEventListener("click", /** @type EventListener*/ (handleClose.current));
       isActive.current = false;
       setStateListStyle({});
     },

@@ -1,8 +1,8 @@
 export default Accordion;
 declare class Accordion extends PureComponent<any, any, any> {
     static defaultProps: {
-        iconOpen: JSX.Element;
-        iconClose: JSX.Element;
+        iconOpen: import("react/jsx-runtime").JSX.Element;
+        iconClose: import("react/jsx-runtime").JSX.Element;
         iconLocRight: boolean;
         iconLocLeft: boolean;
     };
@@ -12,6 +12,6 @@ declare class Accordion extends PureComponent<any, any, any> {
         isActives: {};
     };
     handleClick(name: any): void;
-    render(): JSX.Element;
+    render(): import("react/jsx-runtime").JSX.Element;
 }
 import { PureComponent } from "react";

@@ -9,7 +9,7 @@ declare class PaginationController extends PureComponent<any, any, any> {
         currentPage: any;
     };
     cal: paginationCalculator;
-    render(): JSX.Element;
+    render(): import("react/jsx-runtime").JSX.Element;
 }
 import { PureComponent } from "react";
 import paginationCalculator from "../../paginationCalculator";
