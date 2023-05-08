@@ -1,2 +1,2 @@
 export default mixClass;
-declare function mixClass(...args: any[]): any;
+declare function mixClass(...args: any[]): string;

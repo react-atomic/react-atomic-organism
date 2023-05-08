@@ -23,10 +23,10 @@ const getSafeReg = (regString) => text(regString).replace(esc, "\\$&");
 export const cacheReg =
   (cache) =>
   /**
-   * @param {CallableFunction} getRegCallback
-   * @param {string} flags
+   * @param {CallableFunction} [getRegCallback]
+   * @param {string} [flags]
    */
-  (getRegCallback = T_UNDEFINED, flags = T_UNDEFINED) =>
+  (getRegCallback, flags) =>
   /**
    * @param {string} regString
    * @returns {RegExp}
@@ -44,7 +44,7 @@ export const cacheReg =
 /**
  * @param {string} testText
  * @param {RegExp} reg
- * @returns {RegExpMatchArray}
+ * @returns {RegExpMatchArray|null}
  */
 export const safeMatch = (testText, reg) => text(testText).match(reg);
 
@@ -120,7 +120,7 @@ export const wildcardToRegExp = (path, { type = "" } = {}) => {
  * @param {string} testString
  * @param {string} path
  * @param  {wildcardToRegExpOptional} [wildcardOptional]
- * @returns {object|boolean}
+ * @returns { {[key: string]: any} | boolean }
  */
 export const wildcardSearch = (testString, path, wildcardOptional) => {
   const pathToReg = wildcardToRegExp(path, wildcardOptional);

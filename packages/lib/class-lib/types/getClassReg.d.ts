@@ -1,1 +1,1 @@
-export function getClassReg(name: any): any;
+export function getClassReg(name: any): RegExp;
