@@ -6,7 +6,7 @@ const defaultObj = { __null: true };
 
 /**
  * @param {object|undefined} w
- * @param {object} def
+ * @param {any} def
  * @returns {document}
  */
 const doc = (w = T_UNDEFINED, def = defaultObj) => {
@@ -21,7 +21,7 @@ const doc = (w = T_UNDEFINED, def = defaultObj) => {
 const hasWin = (key = "__null") => !win()[key];
 
 /**
- * @param {object} def
+ * @param {any} def
  * @returns {window}
  */
 const win = (def = defaultObj) =>
