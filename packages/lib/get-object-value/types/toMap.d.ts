@@ -1,2 +1,7 @@
 export default toMap;
-declare function toMap(a: any, path: any): object;
+/**
+ * @param {any} a
+ * @param {any[]} path
+ * @returns {any}
+ */
+declare function toMap(a: any, path: any[]): any;

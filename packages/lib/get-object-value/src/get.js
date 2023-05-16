@@ -36,7 +36,13 @@ const get = (o, path = [], defaultValue = T_UNDEFINED) => {
         if (UNDEFINED !== typeof next) {
           current = next;
         } else {
-          current = getDefaultValue(defaultValue, next);
+          current = getDefaultValue(defaultValue, {
+            obj: o,
+            prev: current,
+            next,
+            nextIndex: index,
+            path
+          });
           break;
         }
       } else {
