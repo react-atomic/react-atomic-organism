@@ -1,10 +1,13 @@
 {
+  "version": "0.1.1",
   "name": "ajax-save",
-  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/lib/ajax-save"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/ajax-save",
   "description": "A simple way to download in-memory content (ajax).",
-  "repository": "react-atomic/react-atomic-organism",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.js",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -17,17 +20,27 @@
     "@babel/cli": "^7.x",
     "reshow-unit-dom": "*"
   },
+  "exports": {
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
   "scripts": {
-    "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
+    "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
+    "build:type": "npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
-    "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
+    "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
+    "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
+  "types": "./types/index.d.ts",
   "files": [
+    "types",
     "build",
     "package.json",
     "README.md"
