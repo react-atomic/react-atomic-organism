@@ -5,17 +5,11 @@ import { doc } from "win-doc";
 import { KEYS } from "reshow-constant";
 
 /**
- * @param {any} v
- * @returns {Element}
- */
-const toEl = (v) => v;
-
-/**
- * @param {Element|function} baseInput
- * @param {boolean} isPrepend
+ * @param {Element|function} [baseInput]
+ * @param {boolean} [isPrepend]
  */
 const inject =
-  (baseInput, isPrepend = null) =>
+  (baseInput, isPrepend) =>
   /**
    * @param {Element} dNode
    */
@@ -59,12 +53,12 @@ const inject =
 const create =
   (tag) =>
   /**
-   * @param {CallableFunction} callback
+   * @param {Function} [callback]
    */
-  (callback = null) =>
+  (callback) =>
   /**
    * @param {object} attrs
-   * @returns {Element}
+   * @returns {Element|undefined}
    */
   (attrs = {}) => {
     const d = doc();
@@ -100,8 +94,7 @@ const create =
 const remove = (dNode) => {
   if (dNode) {
     try {
-      dNode.parentNode.removeChild(dNode);
-      dNode = null;
+      /** @type {Element} */ (dNode.parentNode).removeChild(dNode);
     } catch (e) {}
   }
 };
@@ -113,15 +106,15 @@ const remove = (dNode) => {
 const toScript = (v) => v;
 
 /**
- * @param {Element|boolean} base
- * @param {boolean} isPrepend
+ * @param {Element|boolean} [base]
+ * @param {boolean} [isPrepend]
  */
 const js =
-  (base, isPrepend = null) =>
+  (base, isPrepend) =>
   /**
-   * @param {CallableFunction} callback
+   * @param {Function} [callback]
    */
-  (callback = null) =>
+  (callback) =>
   /**
    * @param {string} url
    * @param {object} attrs
@@ -130,7 +123,10 @@ const js =
   (url, attrs = {}) => {
     const oNode = create("script")(callback)(attrs);
     if (false !== base) {
-      inject(toEl(base), isPrepend)(oNode);
+      inject(
+        /**@type {Element}*/ (base),
+        isPrepend
+      )(/** @type {Element} */ (oNode));
     }
     const dNode = toScript(oNode);
     dNode.src = url;
@@ -144,15 +140,15 @@ const js =
 const toCss = (v) => v;
 
 /**
- * @param {Element|boolean} base
- * @param {boolean} isPrepend
+ * @param {Element|boolean} [base]
+ * @param {boolean} [isPrepend]
  */
 const css =
-  (base, isPrepend = null) =>
+  (base, isPrepend) =>
   /**
-   * @param {CallableFunction} callback
+   * @param {Function} [callback]
    */
-  (callback = null) =>
+  (callback) =>
   /**
    * @param {string} url
    * @param {object} attrs
@@ -165,7 +161,10 @@ const css =
       ...attrs,
     });
     if (false !== base) {
-      inject(toEl(base), isPrepend)(oNode);
+      inject(
+        /**@type {Element}*/ (base),
+        isPrepend
+      )(/** @type {Element} */ (oNode));
     }
     const dNode = toCss(oNode);
     dNode.href = url;
