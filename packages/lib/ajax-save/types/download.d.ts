@@ -1,8 +1,8 @@
 export default execDownload;
 /**
- * @param {string} text
- * @param {string} fileName
- * @param {any} option
- * @param {boolean} isKeep
+ * @param {string|Blob} textOrBlob
+ * @param {string} [fileName]
+ * @param {any} [option]
+ * @param {boolean} [isKeep]
  */
-declare function execDownload(text: string, fileName: string, option: any, isKeep: boolean): void;
+declare function execDownload(textOrBlob: string | Blob, fileName?: string, option?: any, isKeep?: boolean): void;

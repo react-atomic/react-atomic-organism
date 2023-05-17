@@ -12,14 +12,14 @@ const isBlob = (o) =>
   o instanceof Blob || Object.prototype.toString.call(o) === "[object Blob]";
 
 /**
- * @param {string} text
- * @param {string} fileName
- * @param {any} option
- * @param {boolean} isKeep
+ * @param {string|Blob} textOrBlob
+ * @param {string} [fileName]
+ * @param {any} [option]
+ * @param {boolean} [isKeep]
  */
-const execDownload = (text, fileName, option, isKeep) => {
+const execDownload = (textOrBlob, fileName, option, isKeep) => {
   const URL = win().URL;
-  const blob = isBlob(text) ? text : new Blob([text], option);
+  const blob = isBlob(textOrBlob) ? textOrBlob : new Blob([textOrBlob], option);
   const url = URL.createObjectURL(/** @type {Blob}*/ (blob));
   const link = /** @type {HTMLLinkElement}*/ (
     create("a")()({
