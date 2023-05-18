@@ -3,9 +3,10 @@ export type Coordinate = {
     x?: number;
     y?: number;
 };
-export type Offset = {
+export type ScrollInfoType = import("get-scroll-info").ScrollInfoType;
+export type OffsetType = {
     rect: object;
-    scrollInfo: object;
+    scrollInfo: ScrollInfoType;
     w: number;
     h: number;
     width: number;
@@ -26,14 +27,14 @@ export type Offset = {
 export function mouse(e: object, dom: HTMLElement, scrollNode: HTMLElement): [number, number];
 /**
  * @param {object} dom
- * @param {object} zoom
+ * @param {object} [zoom]
  */
-export function toSvgXY(dom: object, zoom: object): (x: number, y: number) => Coordinate;
+export function toSvgXY(dom: object, zoom?: object): (x: number, y: number) => Coordinate;
 /**
  * @param {object} dom
  * @param {object} zoom
  */
-export function getSvgMatrixXY(dom: object, zoom: object): (x: number, y: number) => Coordinate;
+export function getSvgMatrixXY(dom: object, zoom: object): (x: number, y: number) => Coordinate | undefined;
 /**
  * @typedef {object} Coordinate
  * @property {number} [x]
@@ -44,9 +45,12 @@ export function getSvgMatrixXY(dom: object, zoom: object): (x: number, y: number
  */
 export function unifyTouch(e: object): any;
 /**
- * @typedef {object} Offset
+ * @typedef {import("get-scroll-info").ScrollInfoType} ScrollInfoType
+ */
+/**
+ * @typedef {object} OffsetType
  * @property {object} rect
- * @property {object} scrollInfo
+ * @property {ScrollInfoType} scrollInfo
  * @property {number} w
  * @property {number} h
  * @property {number} width
@@ -60,7 +64,7 @@ export function unifyTouch(e: object): any;
  */
 /**
  * @param {HTMLElement} dom
- * @param {HTMLElement|number} scrollNode
- * @returns {Offset}
+ * @param {HTMLElement|number} [scrollNode]
+ * @returns {OffsetType|undefined}
  */
-declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | number): Offset;
+declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | number): OffsetType | undefined;

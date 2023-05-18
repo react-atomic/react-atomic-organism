@@ -2,6 +2,7 @@
 
 import { doc, win } from "win-doc";
 import { UNDEFINED, NEW_OBJ } from "reshow-constant";
+import { getSN } from "get-random-id";
 
 const lastScrollStore = NEW_OBJ();
 /**
@@ -15,7 +16,6 @@ let oDoc;
 let oWin;
 let isWebkit;
 let docEl;
-let domCount = 0;
 
 const initDoc = () => {
   oDoc = doc();
@@ -25,7 +25,7 @@ const initDoc = () => {
 };
 
 /**
- * @param {HTMLElement} el
+ * @param {HTMLElement} [el]
  * @returns {HTMLElement}
  */
 const getScrollNode = (el) => {
@@ -41,37 +41,38 @@ const getScrollNode = (el) => {
       el = docEl;
     }
   }
-  if (!el.id) {
-    el.id = "scroll-info-" + domCount;
-    domCount++;
+  const htmlEl = /** @type {HTMLElement}*/ (el);
+  if (!htmlEl.id) {
+    htmlEl.id = getSN("scroll-info-");
   }
-  return el;
+  return htmlEl;
 };
 
 /**
- * @typedef {object} InfoType
- * @property {boolean} atTop
- * @property {boolean} atRight
- * @property {boolean} atBottom
- * @property {boolean} atLeft
- * @property {boolean} isScrollUp
- * @property {boolean} isScrollRight
- * @property {boolean} isScrollDown
- * @property {boolean} isScrollLeft
- * @property {number} scrollWidth
- * @property {number} scrollHeight
- * @property {number} scrollNodeWidth
- * @property {number} scrollNodeHeight
+ * @typedef {object} ScrollInfoType
  * @property {number} top
- * @property {number} right
- * @property {number} bottom
  * @property {number} left
+ * @property {boolean} [atTop]
+ * @property {boolean} [atRight]
+ * @property {boolean} [atBottom]
+ * @property {boolean} [atLeft]
+ * @property {boolean} [isScrollUp]
+ * @property {boolean} [isScrollRight]
+ * @property {boolean} [isScrollDown]
+ * @property {boolean} [isScrollLeft]
+ * @property {number} [scrollWidth]
+ * @property {number} [scrollHeight]
+ * @property {number} [scrollNodeWidth]
+ * @property {number} [scrollNodeHeight]
+ * @property {number} [right]
+ * @property {number} [bottom]
  */
 
 /**
- * @returns {InfoType}
+ * @param {HTMLElement} [el]
+ * @returns {ScrollInfoType}
  */
-const getScrollInfo = (el = null, margin = 50) => {
+const getScrollInfo = (el, margin = 50) => {
   el = getScrollNode(el);
   let w;
   let h;

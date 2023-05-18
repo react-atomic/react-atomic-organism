@@ -32,9 +32,9 @@ const mouse = (e, dom, scrollNode) => {
   const svgXY = toSvgXY(dom)(x, y);
   if (OBJ_SIZE(svgXY)) {
     const { x: svgX, y: svgY } = svgXY;
-    return [svgX, svgY];
+    return [/** @type {number}*/ (svgX), /** @type {number}*/ (svgY)];
   } else {
-    const domXY = getOffset(dom, scrollNode);
+    const domXY = /** @type {OffsetType} */(getOffset(dom, scrollNode));
     /**
      * dom.clientLeft
      *
@@ -46,7 +46,7 @@ const mouse = (e, dom, scrollNode) => {
 
 /**
  * @param {object} dom
- * @param {object} zoom
+ * @param {object} [zoom]
  */
 const toSvgXY =
   (dom, zoom) =>
@@ -77,7 +77,7 @@ const getSvgMatrixXY =
   /**
    * @param {number} x
    * @param {number} y
-   * @returns {Coordinate}
+   * @returns {Coordinate|undefined}
    */
   (x, y) => {
     const svg = dom.ownerSVGElement || dom;
@@ -136,9 +136,13 @@ const getRectWithElOffset = (dom) => {
 };
 
 /**
- * @typedef {object} Offset
+ * @typedef {import("get-scroll-info").ScrollInfoType} ScrollInfoType
+ */
+
+/**
+ * @typedef {object} OffsetType
  * @property {object} rect
- * @property {object} scrollInfo
+ * @property {ScrollInfoType} scrollInfo
  * @property {number} w
  * @property {number} h
  * @property {number} width
@@ -153,10 +157,10 @@ const getRectWithElOffset = (dom) => {
 
 /**
  * @param {HTMLElement} dom
- * @param {HTMLElement|number} scrollNode
- * @returns {Offset}
+ * @param {HTMLElement|number} [scrollNode]
+ * @returns {OffsetType|undefined}
  */
-const getOffset = (dom, scrollNode = null) => {
+const getOffset = (dom, scrollNode) => {
   if (!dom) {
     return;
   }
@@ -165,8 +169,11 @@ const getOffset = (dom, scrollNode = null) => {
   let w;
   let h;
   let rect;
+  /**
+   * @type {ScrollInfoType}
+   */
   const scrollInfo =
-    0 === scrollNode ? { top: 0, left: 0 } : getScrollInfo(scrollNode);
+    0 === scrollNode ? { top: 0, left: 0 } : getScrollInfo(/** @type {HTMLElement}*/(scrollNode));
   if (UNDEFINED !== typeof SVGElement && dom instanceof SVGElement) {
     rect = dom.getBoundingClientRect();
     top = rect.top + scrollInfo.top;
@@ -182,8 +189,8 @@ const getOffset = (dom, scrollNode = null) => {
       left = (rect.left + scrollInfo.left) * 1;
     } else {
       const rectOffset = getRectWithElOffset(dom);
-      top = rectOffset.y;
-      left = rectOffset.x;
+      top = /** @type {number} */ (rectOffset.y);
+      left = /** @type {number} */ (rectOffset.x);
     }
   }
   const result = {
