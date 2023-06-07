@@ -1,14 +1,9 @@
 {
   "version": "0.2.0",
   "name": "parse-ini-string",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/react-atomic/react-atomic-organism",
-    "directory": "packages/lib/parse-ini-string"
-  },
+  "repository": "react-atomic/react-atomic-organism",
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/parse-ini-string",
   "description": "PHP parse-ini-string like library, support multi line",
-  "repository": "react-atomic/react-atomic-organism",
   "keywords": [
     "ini"
   ],
