@@ -1,3 +1,4 @@
 repositoryName=react-atomic-organism
 repositoryOrgName=react-atomic
-babelRootMode=true
+babelRootMode=" --root-mode upward"
+
