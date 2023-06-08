@@ -162,8 +162,7 @@ const getRawUrl = (props) => {
   let { url, path, baseUrl } = props || {};
   if (!hasUrl(url)) {
     if (path) {
-      baseUrl = baseUrl || store.getState().get("baseUrl") || "";
-      url = baseUrl + path;
+      url = (baseUrl || store.getState().get("baseUrl") || "") + path;
     } else {
       url = "#";
     }
@@ -328,6 +327,7 @@ class handleAjax {
     }
     if (params.disableAjax) {
       return this.applyCallback(state, {
+        type: "callback",
         params: {
           json: handleNewUrl(state, action, rawUrl),
           disableAjax: params.disableAjax,
@@ -435,7 +435,10 @@ class handleAjax {
       state
         .set("toggleBfChange", !state.get("toggleBfChange"))
         .set("bfApplyUrl", url),
-      { params: { json: handleNewUrl(state, action, url) } }
+      {
+        type: "callback",
+        params: { json: handleNewUrl(state, action, url) },
+      }
     );
   }
 }
@@ -448,8 +451,9 @@ const oAjax = new handleAjax();
  */
 
 /**
+ * @template StateType
  * @param {import("reshow-flux").ReducerTypeWithMap} reduce
- * @param {import("reshow-flux").InitStateWithMap<any>} initState
+ * @param {import("reshow-flux-base").InitStateType<StateType>} initState
  * @returns {[store & AjaxStore, dispatch]}
  */
 const AjaxStore = (reduce, initState) => {
