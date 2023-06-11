@@ -36,7 +36,7 @@ export const longCache = {
 };
 
 /**
- * @typedef {object} GetGqlClientOptions
+ * @typedef {object} GqlClientOptions
  * @property {string} url
  * @property {boolean} [cache]
  * @property {Function} [fetch]
@@ -44,7 +44,7 @@ export const longCache = {
  */
 
 /**
- * @param {GetGqlClientOptions} props
+ * @param {GqlClientOptions} props
  * @param {SSRCacheType} [cacheObj]
  */
 export const getGqlClient = ({ url, cache, fetch }, cacheObj) => {
@@ -100,74 +100,71 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
  */
 
 /**
- * @param {GetGqlClientOptions} clientOptions
- * @param {any} query
- * @param {any} [variables]
- * @param {GqlResultOptions} [options]
+ * @typedef {import("@urql/core").OperationResult<any, any>} OperationResult
  */
-export const getGqlResult = async (
-  clientOptions,
-  query,
-  variables = {},
-  options
-) => {
-  const {
-    isVerbose = false,
-    dataExpireSecs = 60,
-    errorExpireSecs = 10,
-    failExpireSecs = 86400,
-    cookResult = (/** @type any*/v) => v,
-  } = options || {};
-  const rawResult = await getGqlClient(clientOptions, ssrCache)
-    .query(query, variables)
-    .toPromise();
-  const next = cookResult(rawResult);
-  const nextKey = next.operation.key;
-  const now = getTimestamp();
-  if (next.error) {
-    resetCache(nextKey, now, errorExpireSecs, ssrCache);
-    if (longCache.current.has(nextKey)) {
-      expireCallback(
-        longCache.createTime[nextKey],
-        failExpireSecs * 1000,
-        null,
-        () => {
-          longCache.current.delete(nextKey);
-          delete longCache.createTime[nextKey];
-        }
-      );
-      if (longCache.createTime[nextKey]) {
-        const failBack = longCache.current.get(nextKey);
-        return isVerbose ? failBack : failBack?.data;
-      }
-    }
-  } else {
-    longCache.current.set(nextKey, next);
-    longCache.createTime[nextKey] = now;
-    resetCache(next.operation.key, now, dataExpireSecs, ssrCache);
-  }
-  return isVerbose ? next : next?.data;
-};
 
 /**
- * @param {GetGqlClientOptions} clientOptions
- * @param {any} query
- * @param {any} [variables]
+ * @callback handleGqlCallback
+ * @param {import("@urql/core").TypedDocumentNode<any, import("@urql/core").AnyVariables>} query
+ * @param {{[key: string]: any}} [variables]
  * @param {GqlResultOptions} [options]
+ * @returns {{execute: Function, results: Function}}}
  */
-export const getGqlExecute = async (
-  clientOptions,
-  query,
-  variables = {},
-  options
-) => {
-  const {
-    isVerbose = false,
-    cookResult = (/** @type any*/v) => v,
-  } = options || {};
-  const rawResult = await getGqlClient(clientOptions, ssrCache)
-    .mutation(query, variables)
-    .toPromise();
-  const next = cookResult(rawResult);
-  return isVerbose ? next : next?.data;
-}
+
+/**
+ * @param {GqlClientOptions} clientOptions
+ * @param {GqlResultOptions} [defaultGqlResultOptions]
+ * @returns {handleGqlCallback}
+ */
+export const handleGql =
+  (clientOptions, defaultGqlResultOptions) =>
+  (query, variables = {}, options) => {
+    const {
+      isVerbose = false,
+      dataExpireSecs = 60,
+      errorExpireSecs = 10,
+      failExpireSecs = 86400,
+      cookResult = (/** @type OperationResult*/ v) => v,
+    } = { ...defaultGqlResultOptions, ...options };
+    const clinet = getGqlClient(clientOptions, ssrCache);
+    /**
+     * @param {{data:any}} next
+     */
+    const toVerbose = (next) => (isVerbose ? next : next?.data);
+
+    return {
+      execute: async () => {
+        const rawResult = await clinet.mutation(query, variables).toPromise();
+        return toVerbose(cookResult(rawResult));
+      },
+      results: async () => {
+        const rawResult = await clinet.query(query, variables).toPromise();
+        const next = cookResult(rawResult);
+        const nextKey = next.operation.key;
+        const now = getTimestamp();
+        if (next.error) {
+          resetCache(nextKey, now, errorExpireSecs, ssrCache);
+          if (longCache.current.has(nextKey)) {
+            expireCallback(
+              longCache.createTime[nextKey],
+              failExpireSecs * 1000,
+              null,
+              () => {
+                longCache.current.delete(nextKey);
+                delete longCache.createTime[nextKey];
+              }
+            );
+            if (longCache.createTime[nextKey]) {
+              const failBack = longCache.current.get(nextKey);
+              return toVerbose(failBack);
+            }
+          }
+        } else {
+          longCache.current.set(nextKey, next);
+          longCache.createTime[nextKey] = now;
+          resetCache(next.operation.key, now, dataExpireSecs, ssrCache);
+        }
+        return toVerbose(next);
+      },
+    };
+  };

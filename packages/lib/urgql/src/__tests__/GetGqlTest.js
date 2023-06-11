@@ -1,9 +1,8 @@
 //@ts-check
 
+import "whatwg-fetch";
 import { expect } from "chai";
-
-import { getGqlResult, longCache, getGqlExecute } from "../getGql";
-
+import { handleGql, longCache } from "../getGql";
 import { gql } from "@urql/core";
 
 const queryGql = gql`
@@ -31,10 +30,8 @@ const mutationGql = gql`
 
 describe("Execute Test", () => {
   it("query test", async () => {
-    const actual = await getGqlResult(
+    const actual = await handleGql(
       { url: "http://0.0.0.0" },
-      queryGql,
-      {},
       {
         isVerbose: true,
         cookResult: (v) => {
@@ -42,15 +39,13 @@ describe("Execute Test", () => {
           return v;
         },
       }
-    );
+    )(queryGql).results();
     expect(null != longCache.current.get(actual.operation.key)).to.be.true;
   });
 
   it("mutation test", async () => {
-    const actual = await getGqlExecute(
+    const actual = await handleGql(
       { url: "http://0.0.0.0" },
-      mutationGql,
-      {},
       {
         isVerbose: true,
         cookResult: (v) => {
@@ -58,7 +53,7 @@ describe("Execute Test", () => {
           return v;
         },
       }
-    );
+    )(mutationGql).execute();
     expect(null != actual.operation.key).to.be.true;
   });
 });
