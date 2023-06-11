@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.2",
   "name": "urgql",
   "repository": {
     "type": "git",
@@ -8,20 +8,23 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/urgql",
   "description": "TODO: description",
-  "keywords": ["urgql"],
+  "keywords": [
+    "urgql"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "ISC",
   "dependencies": {
     "@urql/core": "4.0.10",
     "@urql/exchange-graphcache": "6.1.1",
-    "reshow-constant": "*",
-    "reshow-runtime": "*"
+    "get-random-id": "^0.3.3",
+    "reshow-constant": "^0.17.6",
+    "reshow-runtime": "^0.17.15"
   },
   "devDependencies": {
-    "whatwg-fetch": "3.6.2",
-    "@babel/cli": "^7.x",
-    "react-atomic-atom": "*",
-    "reshow-unit-dom": "*"
+    "@babel/cli": "^7.22.5",
+    "react-atomic-atom": "^3.0.4",
+    "reshow-unit-dom": "^0.2.3",
+    "whatwg-fetch": "3.6.2"
   },
   "exports": {
     "require": "./build/cjs/src/index.js",
@@ -48,5 +51,10 @@
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
-  "files": ["types", "build", "package.json", "README.md"]
+  "files": [
+    "types",
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }
