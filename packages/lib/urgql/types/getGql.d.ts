@@ -30,6 +30,6 @@ export type OperationResult = import("@urql/core").OperationResult<any, any>;
 export type handleGqlCallback = (query: import("@urql/core").TypedDocumentNode<any, import("@urql/core").AnyVariables>, variables?: {
     [key: string]: any;
 }, options?: GqlResultOptions) => {
-    execute: Function;
-    results: Function;
+    execute: () => Promise<OperationResult>;
+    results: () => Promise<OperationResult>;
 };

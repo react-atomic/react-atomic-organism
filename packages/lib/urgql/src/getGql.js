@@ -108,7 +108,7 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
  * @param {import("@urql/core").TypedDocumentNode<any, import("@urql/core").AnyVariables>} query
  * @param {{[key: string]: any}} [variables]
  * @param {GqlResultOptions} [options]
- * @returns {{execute: Function, results: Function}}}
+ * @returns {{execute: function():Promise<OperationResult>, results: function():Promise<OperationResult>}}}
  */
 
 /**
