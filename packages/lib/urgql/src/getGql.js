@@ -104,6 +104,10 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
  */
 
 /**
+ * @typedef {OperationResult|OperationResult["data"]} OperationResultOrData
+ */
+
+/**
  * @typedef {import("@urql/core").AnyVariables} UrGqlVariables
  * @typedef {import("@urql/core").TypedDocumentNode<any, UrGqlVariables>} UrGqlQuery
  */
@@ -113,7 +117,7 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
  * @param {UrGqlQuery} query
  * @param {UrGqlVariables} [variables]
  * @param {GqlResultOptions} [options]
- * @returns {{execute: function():Promise<OperationResult>, results: function():Promise<OperationResult>}}}
+ * @returns {{execute: function():Promise<OperationResultOrData>, results: function():Promise<OperationResultOrData>}}}
  */
 
 /**
@@ -134,6 +138,7 @@ export const handleGql =
     const clinet = getGqlClient(clientOptions, ssrCache);
     /**
      * @param {{data:any}} next
+     * @returns {OperationResultOrData}
      */
     const toVerbose = (next) => (isVerbose ? next : next?.data);
 
