@@ -27,9 +27,9 @@ export type GqlResultOptions = {
     cookResult?: (arg0: any) => any;
 };
 export type OperationResult = import("@urql/core").OperationResult<any, any>;
-export type handleGqlCallback = (query: import("@urql/core").TypedDocumentNode<any, import("@urql/core").AnyVariables>, variables?: {
-    [key: string]: any;
-}, options?: GqlResultOptions) => {
+export type UrGqlVariables = import("@urql/core").AnyVariables;
+export type UrGqlQuery = import("@urql/core").TypedDocumentNode<any, UrGqlVariables>;
+export type handleGqlCallback = (query: UrGqlQuery, variables?: UrGqlVariables, options?: GqlResultOptions) => {
     execute: () => Promise<OperationResult>;
     results: () => Promise<OperationResult>;
 };
