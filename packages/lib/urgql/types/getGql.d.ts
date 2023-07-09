@@ -3,7 +3,7 @@
  * @type {LongCacheType}
  */
 export const longCache: LongCacheType;
-export function getGqlClient({ url, cache, fetch }: GqlClientOptions, cacheObj?: SSRCacheType): import("@urql/core/dist/urql-core-chunk").Client;
+export function getGqlClient({ cache, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCacheType): Client;
 export function handleGql(clientOptions: GqlClientOptions, defaultGqlResultOptions?: GqlResultOptions): handleGqlCallback;
 export type SSRCacheType = {
     current: import("@urql/core").SSRExchange;
@@ -16,6 +16,7 @@ export type LongCacheType = {
 export type GqlClientOptions = {
     url: string;
     cache?: boolean;
+    debug?: boolean;
     fetch?: Function;
     cacheObj?: SSRCacheType;
 };
@@ -34,3 +35,4 @@ export type handleGqlCallback = (query: UrGqlQuery, variables?: UrGqlVariables, 
     execute: () => Promise<OperationResultOrData>;
     results: () => Promise<OperationResultOrData>;
 };
+import { Client } from "@urql/core";

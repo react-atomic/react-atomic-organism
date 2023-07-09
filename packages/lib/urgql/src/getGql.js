@@ -1,6 +1,6 @@
 // @ts-check
 
-import { createClient, ssrExchange, fetchExchange } from "@urql/core";
+import { Client, ssrExchange, fetchExchange, debugExchange } from "@urql/core";
 import { cacheExchange } from "@urql/exchange-graphcache";
 import { getTimestamp, expireCallback } from "get-random-id";
 import { NEW_OBJ } from "reshow-constant";
@@ -39,6 +39,7 @@ export const longCache = {
  * @typedef {object} GqlClientOptions
  * @property {string} url
  * @property {boolean} [cache]
+ * @property {boolean} [debug]
  * @property {Function} [fetch]
  * @property {SSRCacheType} [cacheObj]
  */
@@ -46,22 +47,31 @@ export const longCache = {
 /**
  * @param {GqlClientOptions} props
  * @param {SSRCacheType} [cacheObj]
+ * @returns {Client}
  */
-export const getGqlClient = ({ url, cache, fetch }, cacheObj) => {
+export const getGqlClient = ({ cache = true, url, fetch, debug }, cacheObj) => {
   const options = {
     url,
-    exchanges: [fetchExchange],
+    exchanges: [],
   };
+  const exchanges = [];
+  if (debug) {
+    // Debug must at first item.
+    exchanges.push(debugExchange);
+  }
   if (null !== fetch) {
     options.fetch = fetch;
   }
   if (cache) {
-    options.exchanges.push(
+    exchanges.push(
       cacheExchange({}),
       /**@type SSRCacheType */ (cacheObj).current
     );
   }
-  const client = createClient(options);
+  // SSRCacheType must in front of the `fetchExchange
+  exchanges.push(fetchExchange);
+  /** @type import("@urql/core").Exchange[]*/ (options.exchanges) = exchanges;
+  const client = new Client(options);
   return client;
 };
 
@@ -172,7 +182,7 @@ export const handleGql =
         } else {
           longCache.current.set(nextKey, next);
           longCache.createTime[nextKey] = now;
-          resetCache(next.operation.key, now, dataExpireSecs, ssrCache);
+          resetCache(nextKey, now, dataExpireSecs, ssrCache);
         }
         return toVerbose(next);
       },
