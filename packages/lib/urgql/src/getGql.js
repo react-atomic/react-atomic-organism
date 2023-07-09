@@ -39,6 +39,7 @@ export const longCache = {
  * @typedef {object} GqlClientOptions
  * @property {string} url
  * @property {boolean} [cache]
+ * @property {import("@urql/exchange-graphcache").KeyingConfig} [keys]
  * @property {boolean} [debug]
  * @property {Function} [fetch]
  * @property {SSRCacheType} [cacheObj]
@@ -49,7 +50,10 @@ export const longCache = {
  * @param {SSRCacheType} [cacheObj]
  * @returns {Client}
  */
-export const getGqlClient = ({ cache = true, url, fetch, debug }, cacheObj) => {
+export const getGqlClient = (
+  { cache = true, keys = {}, url, fetch, debug },
+  cacheObj
+) => {
   const options = {
     url,
     exchanges: [],
@@ -64,7 +68,7 @@ export const getGqlClient = ({ cache = true, url, fetch, debug }, cacheObj) => {
   }
   if (cache) {
     exchanges.push(
-      cacheExchange({}),
+      cacheExchange({ keys }),
       /**@type SSRCacheType */ (cacheObj).current
     );
   }
