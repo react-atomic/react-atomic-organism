@@ -148,7 +148,10 @@ export const handleGql =
       errorExpireSecs = 10,
       failExpireSecs = 86400,
       cookResult = (/** @type OperationResult*/ v) => v,
-    } = { ...defaultGqlResultOptions, ...options };
+    } = {
+      ...defaultGqlResultOptions,
+      ...options,
+    };
     const clinet = getGqlClient(clientOptions, ssrCache);
     /**
      * @param {{data:any}} next
