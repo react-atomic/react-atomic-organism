@@ -1,3 +1,4 @@
+// @ts-check
 import Return from "reshow-return";
 import { build, mixClass, SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
@@ -7,6 +8,10 @@ import BasePopup from "../molecules/BasePopup";
 import popupStore, { SHOW_KEY } from "../../stores/popupStore";
 
 class PopupOverlay extends BasePopup {
+  /**
+   * @param {string} key
+   * @param {object} thisStyle
+   */
   resetStyle(key, thisStyle) {
     const value = get(this.state, [key], () => get(this.props, [key]));
     if ("undefined" !== typeof value) {
@@ -14,12 +19,18 @@ class PopupOverlay extends BasePopup {
     }
   }
 
+  /**
+   * @param {any} props
+   */
   renderOverlay(props) {
-    const { className, ...others } = props;
+    const { className, component = SemanticUI, ...others } = props;
     const classes = mixClass("popup", className);
-    return <SemanticUI {...others} className={classes} />;
+    return build(component)({ ...others, className: classes });
   }
 
+  /**
+   * @param {boolean} show
+   */
   shouldShow(show) {
     if (!show) {
       return null;
@@ -35,6 +46,7 @@ class PopupOverlay extends BasePopup {
       group,
       ...others
     } = this.props;
+    const nextProps = { ...others };
 
     /* <!-- Handle Style */
     const thisStyle = { ...style };
@@ -45,20 +57,20 @@ class PopupOverlay extends BasePopup {
     if (targetEl && isFollowTransform) {
       thisStyle.transform = getStyle(targetEl, "transform");
     }
-    others.style = thisStyle;
+    nextProps.style = thisStyle;
     /*  Handle Style --> */
 
     const refCb = get(this.state, ["refCb"], () => get(this.props, ["refCb"]));
     if (refCb) {
-      others.refCb = refCb;
+      nextProps.refCb = refCb;
     }
 
-    others.className = mixClass(
+    nextProps.className = mixClass(
       className,
       get(this, ["state", "className"]),
       "visible"
     );
-    return this.renderOverlay(others);
+    return this.renderOverlay(nextProps);
   }
 
   render() {
@@ -72,6 +84,9 @@ class PopupOverlay extends BasePopup {
             store: popupStore,
             initStates: [SHOW_KEY],
           },
+          /**
+           * @param {any} props
+           */
           (props) => {
             const name = this.props.name;
             const show = get(props[SHOW_KEY], [name]);

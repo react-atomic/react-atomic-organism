@@ -1,3 +1,5 @@
+// @ts-check
+import * as React from "react";
 import {
   build,
   reactStyle,
@@ -37,22 +39,35 @@ class PopupModal extends PopupOverlay {
     modalClassName: "modal active", // let has chance clean modal className
   };
 
-  _timer = null;
+  /**
+   * @type any
+   */
+  _timer;
   _mount = false;
   _locked = false;
-  _observer = null;
+  /**
+   * @type any
+   */
+  _observer;
 
+  /**
+   * @param {HTMLElement} el
+   */
   handleModalRefCb = (el) => (this.el = el);
 
   handleClose = () => this.close() && this.unlockScreen();
+
+  /**
+   * @param {React.MouseEvent} e
+   */
   handleContainerClick = (e) => {
     const t = e.target;
     const cur = e.currentTarget;
-    if (cur.isSameNode(t)) {
+    if (cur.isSameNode(/** @type Node*/(t))) {
       this.handleClose();
     }
   };
-  handleKeyUp = (e) => {
+  handleKeyUp = (/** @type KeyboardEvent*/ e) => {
     switch (getEventKey(e)) {
       case 27:
       case "Escape":
@@ -186,6 +201,9 @@ class PopupModal extends PopupOverlay {
     this.unlockScreen();
   }
 
+  /**
+   * @param {boolean} show
+   */
   shouldShow(show) {
     const { modalStyle: stateModalStyle, maskStyle: stateMaskStyle } =
       this.state;
@@ -238,7 +256,7 @@ class PopupModal extends PopupOverlay {
 
       let thisModal = modal ?? (
         <Dimmer
-          isModal="true"
+          isModal={true}
           show={show}
           contentStyle={contentStyle}
           key="model"

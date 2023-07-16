@@ -11,7 +11,7 @@ declare function Dialog({ name, i18nNegativeBtn, i18nPositiveBtn, size, disableC
     header: any;
     children: any;
     onClick: any;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
 declare namespace Dialog {
     export { defaultName as displayName };
 }

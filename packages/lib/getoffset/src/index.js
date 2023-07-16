@@ -4,11 +4,16 @@ import getScrollInfo from "get-scroll-info";
 import get from "get-object-value";
 import { UNDEFINED, OBJ_SIZE } from "reshow-constant";
 
-/**
- * @typedef {object} Coordinate
- * @property {number} [x]
- * @property {number} [y]
- */
+class Coordinate {
+  /**
+   * @type number
+   */
+  x;
+  /**
+   * @type number
+   */
+  y;
+}
 
 /**
  * @param {object} e
@@ -31,10 +36,10 @@ const mouse = (e, dom, scrollNode) => {
   const y = e.clientY;
   const svgXY = toSvgXY(dom)(x, y);
   if (OBJ_SIZE(svgXY)) {
-    const { x: svgX, y: svgY } = svgXY;
-    return [/** @type {number}*/ (svgX), /** @type {number}*/ (svgY)];
+    const { x: svgX, y: svgY } = /** @type Coordinate */ (svgXY);
+    return [svgX, svgY];
   } else {
-    const domXY = /** @type {OffsetType} */(getOffset(dom, scrollNode));
+    const domXY = /** @type {OffsetType} */ (getOffset(dom, scrollNode));
     /**
      * dom.clientLeft
      *
@@ -53,7 +58,7 @@ const toSvgXY =
   /**
    * @param {number} x
    * @param {number} y
-   * @returns {Coordinate}
+   * @returns {Coordinate|undefined}
    */
   (x, y) => {
     const svg = dom.ownerSVGElement || dom;
@@ -63,8 +68,6 @@ const toSvgXY =
       point.y = y;
       point = point.matrixTransform(dom.getScreenCTM().inverse());
       return getZoomXY(zoom)(point.x, point.y);
-    } else {
-      return {};
     }
   };
 
@@ -139,21 +142,67 @@ const getRectWithElOffset = (dom) => {
  * @typedef {import("get-scroll-info").ScrollInfoType} ScrollInfoType
  */
 
-/**
- * @typedef {object} OffsetType
- * @property {object} rect
- * @property {ScrollInfoType} scrollInfo
- * @property {number} w
- * @property {number} h
- * @property {number} width
- * @property {number} height
- * @property {number} x
- * @property {number} y
- * @property {number} top
- * @property {number} right
- * @property {number} bottom
- * @property {number} left
- */
+export class SimpleScrollInfoType {
+  /**
+   * @type {number}
+   */
+  top;
+  /**
+   * @type {number}
+   */
+  left;
+}
+
+export class OffsetType {
+  /**
+   * @type DOMRect
+   */
+  rect;
+  /**
+   * @type ScrollInfoType|SimpleScrollInfoType
+   */
+  scrollInfo;
+  /**
+   * @type number
+   */
+  w;
+  /**
+   * @type number
+   */
+  h;
+  /**
+   * @type number
+   */
+  width;
+  /**
+   * @type number
+   */
+  height;
+  /**
+   * @type number
+   */
+  x;
+  /**
+   * @type number
+   */
+  y;
+  /**
+   * @type number
+   */
+  top;
+  /**
+   * @type number
+   */
+  right;
+  /**
+   * @type number
+   */
+  bottom;
+  /**
+   * @type number
+   */
+  left;
+}
 
 /**
  * @param {HTMLElement} dom
@@ -168,12 +217,17 @@ const getOffset = (dom, scrollNode) => {
   let left = 0;
   let w;
   let h;
+  /**
+   * @type DOMRect | any
+   */
   let rect;
   /**
-   * @type {ScrollInfoType}
+   * @type {ScrollInfoType|SimpleScrollInfoType}
    */
   const scrollInfo =
-    0 === scrollNode ? { top: 0, left: 0 } : getScrollInfo(/** @type {HTMLElement}*/(scrollNode));
+    0 === scrollNode
+      ? { top: 0, left: 0 }
+      : getScrollInfo(/** @type {HTMLElement}*/ (scrollNode));
   if (UNDEFINED !== typeof SVGElement && dom instanceof SVGElement) {
     rect = dom.getBoundingClientRect();
     top = rect.top + scrollInfo.top;

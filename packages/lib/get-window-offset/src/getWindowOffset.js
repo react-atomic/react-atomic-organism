@@ -1,6 +1,8 @@
-import getScrollInfo from "get-scroll-info";
+// @ts-check
+
+import getScrollInfo, { ScrollInfoType } from "get-scroll-info";
 import isOnScreen from "./isOnScreen";
-import getDomPositionInfo from "./getDomPositionInfo";
+import getDomPositionInfo, { DomInfoType } from "./getDomPositionInfo";
 import pos from "./positions";
 
 const T = "T";
@@ -9,6 +11,10 @@ const B = "B";
 const L = "L";
 const C = "C";
 
+/**
+ * @param {string} fromLoc
+ * @returns {string}
+ */
 const getRevertLoc = (fromLoc) => {
   let loc;
   switch (fromLoc) {
@@ -31,6 +37,26 @@ const getRevertLoc = (fromLoc) => {
   return loc;
 };
 
+class CalWindowOffsetResult {
+  /**
+   * @type string[]
+   */
+  locs;
+  /**
+   * @type string
+   */
+  firstKey;
+  /**
+   * @type string
+   */
+  secondKey;
+}
+
+/**
+ * @param {DomInfoType} domInfo
+ * @param {import("get-scroll-info").ScrollInfoType} scrollInfo
+ * @returns {CalWindowOffsetResult}
+ */
 const calWindowOffset = (domInfo, scrollInfo) => {
   const distance = {
     top: domInfo.top - scrollInfo.top,
@@ -78,10 +104,26 @@ const calWindowOffset = (domInfo, scrollInfo) => {
   };
 };
 
+export class WindowOffsetType extends CalWindowOffsetResult {
+  /**
+   * @type {DomInfoType}
+   */
+  domInfo;
+  /**
+   * @type {ScrollInfoType}
+   */
+  scrollInfo;
+}
+
+/**
+ * @param {HTMLElement} dom
+ * @param {boolean} [debug]
+ * @returns {WindowOffsetType|undefined}
+ */
 const getWindowOffset = (dom, debug) => {
   if (!dom) {
     console.warn("getWindowOffset not assign dom");
-    return false;
+    return;
   }
   const {
     fixedNode,
@@ -92,16 +134,24 @@ const getWindowOffset = (dom, debug) => {
   const scrollInfo = getScrollInfo();
   const cookScrollInfo = { ...scrollInfo };
   if (fixedNode) {
-    const fixedScrollInfo = getScrollInfo(fixedNode);
+    const fixedScrollInfo = getScrollInfo(/** @type HTMLElement */ (fixedNode));
     cookScrollInfo.top = fixedScrollInfo.top;
     cookScrollInfo.right = scrollInfo.scrollNodeWidth;
     cookScrollInfo.bottom = scrollInfo.scrollNodeHeight;
     cookScrollInfo.left = fixedScrollInfo.left;
   } else if (scrollNode) {
-    const scrollNodeScrollInfo = getScrollInfo(scrollNode);
+    const scrollNodeScrollInfo = getScrollInfo(
+      /** @type HTMLElement */ (scrollNode)
+    );
     cookScrollInfo.top += scrollNodeScrollInfo.top;
-    cookScrollInfo.right += scrollNodeScrollInfo.left;
-    cookScrollInfo.bottom += scrollNodeScrollInfo.top;
+    /**
+     * @type number
+     */
+    (cookScrollInfo.right) += scrollNodeScrollInfo.left;
+    /**
+     * @type number
+     */
+    (cookScrollInfo.bottom) += scrollNodeScrollInfo.top;
     cookScrollInfo.left += scrollNodeScrollInfo.left;
   }
   const domInfo = isOnScreen(targetDomInfo, cookScrollInfo);

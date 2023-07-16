@@ -1,9 +1,24 @@
-import React from "react";
-import { mixClass, SemanticUI } from "react-atomic-molecule";
+// @ts-check
+
 import getWindowOffset, { alignUI, getPositionString } from "get-window-offset";
 import { toInt } from "to-percent-js";
 
 import PopupOverlay from "../molecules/PopupOverlay";
+
+class PositionInfo {
+  /**
+   * @type number
+   */
+  top;
+  /**
+   * @type number
+   */
+  left;
+  /**
+   * @type string 
+   */
+  className;
+}
 
 class PopupFloatEl extends PopupOverlay {
   _mount = true;
@@ -33,26 +48,28 @@ class PopupFloatEl extends PopupOverlay {
     if (!document.body.contains(targetEl)) {
       return;
     }
-    const pos = this.calPos();
+    /**
+     * @type PositionInfo
+     */
+    const pos = /** @type PositionInfo*/ (this.calPos());
     const diffTop = Math.abs(pos.top - toInt(this.floatTop));
     const diffLeft = Math.abs(pos.left - toInt(this.floatLeft));
     if (
       1 >= diffTop &&
       1 >= diffLeft &&
-      pos.width === this.floatWidth &&
-      pos.height === this.floatHeight &&
       pos.className === this.floatClassName
     ) {
       return;
     }
     this.floatTop = pos.top;
     this.floatLeft = pos.left;
-    this.floatWidth = pos.width;
-    this.floatHeight = pos.height;
     this.floatClassName = pos.className;
     this.setState(pos);
   };
 
+  /**
+   * @returns {PositionInfo|undefined}
+   */
   calPos = () => {
     if (!this._mount) {
       return;
@@ -60,6 +77,7 @@ class PopupFloatEl extends PopupOverlay {
     const faultPos = {
       top: -9999,
       left: -9999,
+      className: ""
     };
     const { targetEl, alignParams } = this.props;
     if (!this.floatEl || !targetEl) {
@@ -87,6 +105,9 @@ class PopupFloatEl extends PopupOverlay {
     return result;
   };
 
+  /**
+   * @param {React.ReactElement} el
+   */
   setFloatEl = (el) => {
     if (el) {
       this.floatEl = el;
@@ -105,6 +126,9 @@ class PopupFloatEl extends PopupOverlay {
     return this.floatEl;
   }
 
+  /**
+   * @param {any} props
+   */
   constructor(props) {
     super(props);
     // Need exted state form parent class (PopupOverlay)
@@ -118,7 +142,7 @@ class PopupFloatEl extends PopupOverlay {
     window.addEventListener("resize", this.handleResize);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate() {
     this.handleMoveTo();
   }
 

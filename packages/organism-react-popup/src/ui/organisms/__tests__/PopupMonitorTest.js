@@ -65,6 +65,7 @@ describe("Test PopupMonitor", () => {
     await act(() => {
       gSet({ ids: [] });
     });
+    await act();
     await waitFor(() => {
       act(() => expect(wrap.html()).to.equal(expectedWithoutPopup));
     });

@@ -1,10 +1,23 @@
+// @ts-check
+
 import getStyle from "get-style";
 
+/**
+ * @typedef {import("./MaybeHTMLElement").MaybeHTMLElement} MaybeHTMLElement 
+ */
+
+/**
+ * @param {HTMLElement} node
+ * @returns {MaybeHTMLElement}
+ */
 const isSetOverflow = (node) => {
   if (!document.body.contains(node)) {
     console.warn(["Dom not exists in body", node]);
     return false;
   }
+  /**
+   * @type any
+   */
   let thisParent = node;
   while (thisParent.nodeName != "BODY") {
     const overflowX = getStyle(thisParent, "overflow-x");

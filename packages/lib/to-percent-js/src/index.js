@@ -1,15 +1,34 @@
+// @ts-check
+
 import { UNDEFINED, STRING, NUMBER } from "reshow-constant";
 
 const numTypes = `|${NUMBER}|${STRING}|`;
 
+/**
+ * @param {any} num
+ * @returns {string}
+ */
 const toPercent = (num) => percent(num) + "%";
 
+/**
+ * @param {any} num
+ * @returns {string}
+ */
 const percent = (num) => round(toNum(num) * 100);
 
+/**
+ * @param {number} f
+ * @param {number} [precision]
+ * @returns {string}
+ */
 const round = (f, precision) => toNum(f).toFixed(precision ?? 2);
 
 const ERROR_INFO = "Get number fail.";
 
+/**
+ * @param {any} num
+ * @returns {number}
+ */
 const toNum = (num) => {
   if (UNDEFINED === typeof num) {
     return 0;
@@ -49,9 +68,18 @@ const toNum = (num) => {
   }
 };
 
+/**
+ * @param {any} num
+ * @returns {number}
+ */
 const toInt = (num) => toNum(round(num, 0));
 
 const numReg = /(\-)?(\d+)(\.)?(\d+)?/g;
+
+/**
+ * @param {any} s
+ * @returns {number}
+ */
 const getNum = (s) => {
   if (STRING !== typeof s) {
     return toNum(s);

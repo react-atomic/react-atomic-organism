@@ -15,31 +15,42 @@ declare class PopupFloatEl extends PopupOverlay {
      */
     handleResize: () => void;
     handleMoveTo: () => void;
-    floatTop: any;
-    floatLeft: any;
-    floatWidth: any;
-    floatHeight: any;
-    floatClassName: any;
-    calPos: () => {
-        top: number;
-        left: number;
-    } | {
-        top: any;
-        left: any;
-        className: any;
-    };
-    setFloatEl: (el: any) => void;
-    floatEl: any;
+    floatTop: number;
+    floatLeft: number;
+    floatClassName: string;
+    /**
+     * @returns {PositionInfo|undefined}
+     */
+    calPos: () => PositionInfo | undefined;
+    /**
+     * @param {React.ReactElement} el
+     */
+    setFloatEl: (el: React.ReactElement) => void;
+    floatEl: import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
     /**
      * For extend class
      */
-    getFloatEl(): any;
+    getFloatEl(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
     state: {
-        refCb: (el: any) => void;
+        refCb: (el: React.ReactElement) => void;
         hasError: boolean;
     };
     componentDidMount(): void;
-    componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void;
+    componentDidUpdate(): void;
     componentWillUnmount(): void;
 }
 import PopupOverlay from "../molecules/PopupOverlay";
+declare class PositionInfo {
+    /**
+     * @type number
+     */
+    top: number;
+    /**
+     * @type number
+     */
+    left: number;
+    /**
+     * @type string
+     */
+    className: string;
+}

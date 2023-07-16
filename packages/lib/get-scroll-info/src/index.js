@@ -48,25 +48,72 @@ const getScrollNode = (el) => {
   return htmlEl;
 };
 
-/**
- * @typedef {object} ScrollInfoType
- * @property {number} top
- * @property {number} left
- * @property {boolean} [atTop]
- * @property {boolean} [atRight]
- * @property {boolean} [atBottom]
- * @property {boolean} [atLeft]
- * @property {boolean} [isScrollUp]
- * @property {boolean} [isScrollRight]
- * @property {boolean} [isScrollDown]
- * @property {boolean} [isScrollLeft]
- * @property {number} [scrollWidth]
- * @property {number} [scrollHeight]
- * @property {number} [scrollNodeWidth]
- * @property {number} [scrollNodeHeight]
- * @property {number} [right]
- * @property {number} [bottom]
- */
+export class ScrollInfoType {
+  /**
+   * @type number 
+   */
+  top;
+  /**
+   * @type number 
+   */
+  right;
+  /**
+   * @type number 
+   */
+  bottom;
+  /**
+   * @type number 
+   */
+  left;
+  /**
+   * @type number 
+   */
+  scrollWidth;
+  /**
+   * @type number 
+   */
+  scrollHeight;
+  /**
+   * @type number 
+   */
+  scrollNodeWidth;
+  /**
+   * @type number 
+   */
+  scrollNodeHeight;
+  /**
+   * @type boolean 
+   */
+  atTop;
+  /**
+   * @type boolean 
+   */
+  atRight;
+  /**
+   * @type boolean 
+   */
+  atBottom;
+  /**
+   * @type boolean 
+   */
+  atLeft;
+  /**
+   * @type boolean 
+   */
+  isScrollUp;
+  /**
+   * @type boolean 
+   */
+  isScrollRight;
+  /**
+   * @type boolean 
+   */
+  isScrollDown;
+  /**
+   * @type boolean 
+   */
+  isScrollLeft;
+}
 
 /**
  * @param {HTMLElement} [el]

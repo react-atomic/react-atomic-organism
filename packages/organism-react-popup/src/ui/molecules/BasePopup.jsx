@@ -1,6 +1,9 @@
-import React, { PureComponent } from "react";
+// @ts-check
+
+import { PureComponent } from "react";
 import needCSS from "need-css";
 import { popupDispatch } from "../../stores/popupStore";
+import callfunc from "call-func";
 
 class BasePopup extends PureComponent {
   state = { hasError: false };
@@ -8,15 +11,25 @@ class BasePopup extends PureComponent {
     name: "default",
   };
 
+  /**
+   * @param {any} props
+   */
   constructor(props) {
     super(props);
     needCSS(["popup", "modal"], "semantic");
   }
 
-  static getDerivedStateFromError(error) {
+  /**
+   * @param {any} _error
+   */
+  static getDerivedStateFromError(_error) {
     return { hasError: true };
   }
 
+  /**
+   * @param {any} error
+   * @param {any} info
+   */
   componentDidCatch(error, info) {
     const { onError } = this.props;
     if (onError) {

@@ -24,6 +24,7 @@
     "get-style": "*",
     "get-window-offset": "*",
     "getoffset": "*",
+    "need-css": "*",
     "organism-react-animate": "*",
     "prop-types": "*",
     "react-atomic-molecule": "*",

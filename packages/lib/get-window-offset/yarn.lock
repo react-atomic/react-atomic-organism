@@ -1363,9 +1363,9 @@ get-random-id@*:
     call-func "*"
 
 get-scroll-info@*:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.4.2.tgz#d30c20a08e7b53523bc833cba0945ecb4d52eb27"
-  integrity sha512-JSBbqnHSRJxQ2C1C5Dk8H14FEdvwRnMt/dmX7fUIIYclBSxskeIscpQn0huRpndinoJJK6saaNWsfT7lvA4tjQ==
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.4.3.tgz#480517eb8f89645451be3d503af65f3e81b82558"
+  integrity sha512-IgVf5noq5zD6fz9ocl5c28gDYp/lKs5ZKbpy6aJGT1vU6RX/Jl/4KOtndiKCOALpD8DisoAe94XxheIzENj65A==
   dependencies:
     get-random-id "*"
     reshow-constant "*"
@@ -1378,14 +1378,17 @@ get-stdin@^8.0.0:
   integrity sha512-sY22aA6xchAzprjyqmSEQv4UbAAzRN0L2dQB0NlN5acTTK9Don6nhoc3eAbUnpZiCANAMfd/+40kVdKfFygohg==
 
 get-style@*:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.1.0.tgz#27d15357cacbea4fad0af683f036f24391c5adf5"
-  integrity sha512-uLWLhu9tkI2vHLV9aTYs5qlBXg5nPgdeN4hOcOsNx4Jm37gcUg5pIEsGVtYvCQefPIzZvda4/XusTEKXEc2/KA==
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/get-style/-/get-style-0.2.0.tgz#533313d772dc127c265b6f0b6476cd9e9bfd2e21"
+  integrity sha512-rdRcoZ3+eVoRIYO5LOh+ohRHgp63GTRrChdGD1OGWaUcaiA8QgHO5bmaXIgCHOgCCBVeZsTYsvunFnHc3GQQ8g==
+  dependencies:
+    reshow-constant "*"
+    win-doc "*"
 
 getoffset@*:
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.5.3.tgz#74bcff681e9d9daf371691f54a20e000b9224431"
-  integrity sha512-9U0kPcmLtNW0LZG491QVfukKqiI86YP0uXIXiJJxSe7dzOswZSeIV6eRQsrp3ptoo8u3N+irbu9ShUF0XFDIPA==
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/getoffset/-/getoffset-0.6.0.tgz#f83ebb762a3533acd6bb41c0c1d9366e27bfa00c"
+  integrity sha512-kB+j4tUXjZDMuF2a0FzVNNR1R6PNLXd+vnm+wO+h7gMycwUhqxUm6k2WsBl3l1CnoetU2MW583+RyNmpUzE1Kw==
   dependencies:
     get-object-value "*"
     get-scroll-info "*"
@@ -2373,9 +2376,9 @@ requires-port@^1.0.0:
   integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
 
 reshow-constant@*:
-  version "0.17.6"
-  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.6.tgz#b9a99b57f9830a66c947ae860d92c9b6c0746acf"
-  integrity sha512-ZzMUsidjnlr3uYC6O2ThqhqiIaUOeghpjUlJ0TWh/PzOzklyzB7CngDP0sjcVqx3C4XS4u9O7dKO2cGVDWwKSA==
+  version "0.17.7"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.7.tgz#730be586f3b96082678af46eb2de86a16b86d4c2"
+  integrity sha512-xvfUxstImvnvQg2ACm0PMidphCJOxYAn/Nm+pAdOPSBD/0Eq1qylwi7wAN+kY18VMv46h7ZogWPodJNFwcxC+A==
 
 reshow-runtime@*:
   version "0.17.15"

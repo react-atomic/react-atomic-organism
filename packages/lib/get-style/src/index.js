@@ -1,13 +1,23 @@
+// @ts-check
+
+import { win, doc, hasWin } from "win-doc";
+
+/**
+ * @param {HTMLElement} el
+ * @param {string} styleKey
+ * @returns {undefined|string|number}
+ */
 const getStyle = (el, styleKey) => {
-  if ("undefined" === typeof document) {
+  if (!hasWin()) {
     return;
   }
-  const doc = document;
+  const oDoc = doc();
+  const currentStyle = win()?.getComputedStyle(el, null);
   let styleValue = "";
-  if (el.currentStyle) {
-    styleValue = el.currentStyle[styleKey];
-  } else if (doc.defaultView && doc.defaultView.getComputedStyle) {
-    styleValue = doc.defaultView
+  if (currentStyle) {
+    styleValue = currentStyle[styleKey];
+  } else if (oDoc.defaultView && oDoc.defaultView.getComputedStyle) {
+    styleValue = oDoc.defaultView
       .getComputedStyle(el, null)
       .getPropertyValue(styleKey);
   }

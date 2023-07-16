@@ -3,13 +3,23 @@ declare class BasePopup extends PureComponent<any, any, any> {
     static defaultProps: {
         name: string;
     };
-    static getDerivedStateFromError(error: any): {
+    /**
+     * @param {any} _error
+     */
+    static getDerivedStateFromError(_error: any): {
         hasError: boolean;
     };
+    /**
+     * @param {any} props
+     */
     constructor(props: any);
     state: {
         hasError: boolean;
     };
+    /**
+     * @param {any} error
+     * @param {any} info
+     */
     componentDidCatch(error: any, info: any): void;
     close(): boolean;
 }

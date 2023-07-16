@@ -1,23 +1,68 @@
-export default getOffset;
-export type Coordinate = {
-    x?: number;
-    y?: number;
-};
-export type ScrollInfoType = import("get-scroll-info").ScrollInfoType;
-export type OffsetType = {
-    rect: object;
-    scrollInfo: ScrollInfoType;
-    w: number;
-    h: number;
-    width: number;
-    height: number;
-    x: number;
-    y: number;
+/**
+ * @typedef {import("get-scroll-info").ScrollInfoType} ScrollInfoType
+ */
+export class SimpleScrollInfoType {
+    /**
+     * @type {number}
+     */
     top: number;
-    right: number;
-    bottom: number;
+    /**
+     * @type {number}
+     */
     left: number;
-};
+}
+export class OffsetType {
+    /**
+     * @type DOMRect
+     */
+    rect: DOMRect;
+    /**
+     * @type ScrollInfoType|SimpleScrollInfoType
+     */
+    scrollInfo: ScrollInfoType | SimpleScrollInfoType;
+    /**
+     * @type number
+     */
+    w: number;
+    /**
+     * @type number
+     */
+    h: number;
+    /**
+     * @type number
+     */
+    width: number;
+    /**
+     * @type number
+     */
+    height: number;
+    /**
+     * @type number
+     */
+    x: number;
+    /**
+     * @type number
+     */
+    y: number;
+    /**
+     * @type number
+     */
+    top: number;
+    /**
+     * @type number
+     */
+    right: number;
+    /**
+     * @type number
+     */
+    bottom: number;
+    /**
+     * @type number
+     */
+    left: number;
+}
+export default getOffset;
+export type ScrollInfoType = import("get-scroll-info").ScrollInfoType;
 /**
  * @param {object} e
  * @param {HTMLElement} dom
@@ -29,42 +74,29 @@ export function mouse(e: object, dom: HTMLElement, scrollNode: HTMLElement): [nu
  * @param {object} dom
  * @param {object} [zoom]
  */
-export function toSvgXY(dom: object, zoom?: object): (x: number, y: number) => Coordinate;
+export function toSvgXY(dom: object, zoom?: object): (x: number, y: number) => Coordinate | undefined;
 /**
  * @param {object} dom
  * @param {object} zoom
  */
 export function getSvgMatrixXY(dom: object, zoom: object): (x: number, y: number) => Coordinate | undefined;
 /**
- * @typedef {object} Coordinate
- * @property {number} [x]
- * @property {number} [y]
- */
-/**
  * @param {object} e
  */
 export function unifyTouch(e: object): any;
-/**
- * @typedef {import("get-scroll-info").ScrollInfoType} ScrollInfoType
- */
-/**
- * @typedef {object} OffsetType
- * @property {object} rect
- * @property {ScrollInfoType} scrollInfo
- * @property {number} w
- * @property {number} h
- * @property {number} width
- * @property {number} height
- * @property {number} x
- * @property {number} y
- * @property {number} top
- * @property {number} right
- * @property {number} bottom
- * @property {number} left
- */
 /**
  * @param {HTMLElement} dom
  * @param {HTMLElement|number} [scrollNode]
  * @returns {OffsetType|undefined}
  */
 declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | number): OffsetType | undefined;
+declare class Coordinate {
+    /**
+     * @type number
+     */
+    x: number;
+    /**
+     * @type number
+     */
+    y: number;
+}

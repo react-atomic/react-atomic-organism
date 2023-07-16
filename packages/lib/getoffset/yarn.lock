@@ -1363,9 +1363,9 @@ get-random-id@*:
     call-func "*"
 
 get-scroll-info@*:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.4.2.tgz#d30c20a08e7b53523bc833cba0945ecb4d52eb27"
-  integrity sha512-JSBbqnHSRJxQ2C1C5Dk8H14FEdvwRnMt/dmX7fUIIYclBSxskeIscpQn0huRpndinoJJK6saaNWsfT7lvA4tjQ==
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.4.3.tgz#480517eb8f89645451be3d503af65f3e81b82558"
+  integrity sha512-IgVf5noq5zD6fz9ocl5c28gDYp/lKs5ZKbpy6aJGT1vU6RX/Jl/4KOtndiKCOALpD8DisoAe94XxheIzENj65A==
   dependencies:
     get-random-id "*"
     reshow-constant "*"
@@ -2358,9 +2358,9 @@ requires-port@^1.0.0:
   integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
 
 reshow-constant@*:
-  version "0.17.6"
-  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.6.tgz#b9a99b57f9830a66c947ae860d92c9b6c0746acf"
-  integrity sha512-ZzMUsidjnlr3uYC6O2ThqhqiIaUOeghpjUlJ0TWh/PzOzklyzB7CngDP0sjcVqx3C4XS4u9O7dKO2cGVDWwKSA==
+  version "0.17.7"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.7.tgz#730be586f3b96082678af46eb2de86a16b86d4c2"
+  integrity sha512-xvfUxstImvnvQg2ACm0PMidphCJOxYAn/Nm+pAdOPSBD/0Eq1qylwi7wAN+kY18VMv46h7ZogWPodJNFwcxC+A==
 
 reshow-runtime@*:
   version "0.17.15"

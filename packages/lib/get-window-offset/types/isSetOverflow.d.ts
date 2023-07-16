@@ -1,2 +1,10 @@
 export default isSetOverflow;
-declare function isSetOverflow(node: any): any;
+export type MaybeHTMLElement = import("./MaybeHTMLElement").MaybeHTMLElement;
+/**
+ * @typedef {import("./MaybeHTMLElement").MaybeHTMLElement} MaybeHTMLElement
+ */
+/**
+ * @param {HTMLElement} node
+ * @returns {MaybeHTMLElement}
+ */
+declare function isSetOverflow(node: HTMLElement): MaybeHTMLElement;
