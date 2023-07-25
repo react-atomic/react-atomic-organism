@@ -78,8 +78,6 @@ class PopupHover extends PureComponent {
             toPool={toPool}
             name={name}
             alignParams={alignParams}
-            onMouseEnter={this.floatMouseOver}
-            onMouseLeave={this.floatMouseOut}
           >
             {popup}
           </PopupFloatEl>

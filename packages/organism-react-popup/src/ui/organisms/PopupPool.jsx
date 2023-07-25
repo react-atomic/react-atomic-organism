@@ -23,7 +23,7 @@ const getPops = (nodes, name) => {
   return pops;
 };
 
-const PopupPool = ({ component = SemanticUI, name = null, ...restProps }) => {
+const PopupPool = ({ component = SemanticUI, name = "", ...restProps }) => {
   const [renderComponent, partialRender, setRenderKeys] = usePartialRender();
 
   const state = useReturn([NODE_KEY, SHOW_NEXT], popupStore);

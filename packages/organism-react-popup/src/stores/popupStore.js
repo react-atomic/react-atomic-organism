@@ -1,7 +1,7 @@
+// @ts-check
 import { Map, ImmutableStore, mergeMap } from "reshow-flux";
 import get from "get-object-value";
 import set from "set-object-value";
-import callfunc from "call-func";
 import { KEYS, IS_ARRAY, OBJECT } from "reshow-constant";
 
 const groups = {};
@@ -9,6 +9,11 @@ const SHOW_NEXT = "show_next";
 const SHOW_KEY = "shows";
 const NODE_KEY = "nodes";
 
+/**
+ * @param {any} node
+ * @param {string|null} defaultVal
+ * @returns {string}
+ */
 const getName = (node, defaultVal = "default") => {
   const name = get(node, ["props", "name"], () => {
     return get(node, ["type", "displayName"], () => {
@@ -120,7 +125,7 @@ const [store, popupDispatch] = ImmutableStore((state, action) => {
     case "dom/cleanGroup":
       return oPopup.cleanGroup(state, action);
     case "config/set":
-      return mergeMap(state, action.params);
+      return mergeMap(state, /** @type object */(action.params));
     default:
       return state;
   }
