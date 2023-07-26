@@ -1,13 +1,15 @@
-import React, { PureComponent } from "react";
+// @ts-check
+
+import * as React from "react";
+const { PureComponent } = React;
 import { build, SemanticUI } from "react-atomic-molecule";
 import { getTimestamp } from "get-random-id";
 import callfunc from "call-func";
 
 import PopupFloatEl from "../molecules/PopupFloatEl";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
-import { popupDispatch } from "../../stores/popupStore";
 
-let closeTimer = {};
+const closeTimer = {};
 
 class PopupHover extends PureComponent {
   static defaultProps = {
@@ -55,6 +57,9 @@ class PopupHover extends PureComponent {
     });
   }
 
+  /**
+   * @param {HTMLElement} dom
+   */
   handleDom = (dom) => (this.dom = dom);
 
   render() {

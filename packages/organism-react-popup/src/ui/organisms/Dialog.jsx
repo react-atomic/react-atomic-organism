@@ -1,4 +1,6 @@
-import React, { useRef } from "react";
+// @ts-check
+import * as React from "react";
+const { useRef } = React;
 
 import {
   build,
@@ -15,6 +17,18 @@ import PopupModal from "../molecules/PopupModal";
 
 const defaultName = "dialog";
 
+/**
+ * @typedef {object} DialogExtraEvent
+ * @property {any} button
+ */
+
+/**
+ * @typedef {DialogExtraEvent & React.MouseEvent} DialogEvent
+ */
+
+/**
+ * @param {any} props
+ */
 const Dialog = ({
   name = defaultName,
   i18nNegativeBtn = "No",
@@ -28,14 +42,18 @@ const Dialog = ({
   onClick,
   ...props
 }) => {
+  /**
+   * @type any
+   */
   const thisPopup = useRef();
 
-  const handleClick = (button) => (e) => {
-    // Locate befor this.popup.close()
-    // because need trigger befor onClose
-    (e.button = button) && callfunc(onClick, [e]);
-    thisPopup.current.close();
-  };
+  const handleClick =
+    (/** @type React.ReactElement*/ button) => (/** @type DialogEvent*/ e) => {
+      // Locate befor this.popup.close()
+      // because need trigger befor onClose
+      (e.button = button) && callfunc(onClick, [e]);
+      thisPopup.current.close();
+    };
 
   let thisHeader = null;
   if (header) {
@@ -52,7 +70,7 @@ const Dialog = ({
       </Button>,
     ];
   }
-  thisButtons = thisButtons.map((button) =>
+  thisButtons = thisButtons.map((/** @type React.ReactElement*/ button) =>
     build(button)({
       onClick: handleClick(button),
     })

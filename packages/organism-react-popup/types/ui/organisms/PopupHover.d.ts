@@ -1,5 +1,5 @@
 export default PopupHover;
-declare class PopupHover extends PureComponent<any, any, any> {
+declare class PopupHover extends React.PureComponent<any, any, any> {
     static defaultProps: {
         name: string;
         component: typeof SemanticUI;
@@ -13,9 +13,12 @@ declare class PopupHover extends PureComponent<any, any, any> {
     mouseOut: () => void;
     open(): void;
     close(): void;
-    handleDom: (dom: any) => any;
-    dom: any;
-    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    /**
+     * @param {HTMLElement} dom
+     */
+    handleDom: (dom: HTMLElement) => HTMLElement;
+    dom: HTMLElement;
+    render(): React.ReactElement<any, string | React.JSXElementConstructor<any>>;
 }
-import { PureComponent } from "react";
+import * as React from "react";
 import { SemanticUI } from "react-atomic-molecule";
