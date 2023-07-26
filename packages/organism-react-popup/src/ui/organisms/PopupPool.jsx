@@ -1,7 +1,7 @@
 // @ts-check
 
 import { useEffect, useMemo } from "react";
-import { build, mixClass, SemanticUI } from "react-atomic-molecule";
+import { build, mixClass } from "react-atomic-molecule";
 import { useReturn, usePartialRender } from "reshow-return";
 import { equal } from "reshow-flux";
 
@@ -23,7 +23,14 @@ const getPops = (nodes, name) => {
   return pops;
 };
 
-const PopupPool = ({ component = SemanticUI, name = "", ...restProps }) => {
+/**
+ * @typedef {import('reshow-build').Component} Component
+ */
+
+/**
+ * @param {{component?: Component, name?: string}} props
+ */
+const PopupPool = ({ component = "div", name = "", ...restProps }) => {
   const [renderComponent, partialRender, setRenderKeys] = usePartialRender();
 
   const state = useReturn([NODE_KEY, SHOW_NEXT], popupStore);
@@ -43,19 +50,16 @@ const PopupPool = ({ component = SemanticUI, name = "", ...restProps }) => {
     }
   }, [state[NODE_KEY]]);
 
-  return useMemo(
-    () =>
-      build(component)(
-        {
-          ...restProps,
-          name,
-          className: mixClass(name, "popup-pool"),
-          ui: false,
-        },
-        renderComponent
-      ),
-    [renderComponent]
-  );
+  return useMemo(() => {
+    return build(component)(
+      {
+        ...restProps,
+        name,
+        className: mixClass(name, "popup-pool"),
+      },
+      renderComponent
+    );
+  }, [renderComponent]);
 };
 
 export default PopupPool;

@@ -1,3 +1,4 @@
+//@ts-check
 import get from "get-object-value";
 
 const position = {
@@ -16,6 +17,10 @@ const position = {
   cc: "center",
 };
 
-const getPositionString = (loc) => get(position, [loc]);
+/**
+ * @param {string} [loc]
+ * @returns {string}
+ */
+const getPositionString = (loc) => get(position, [/**@type string*/ (loc)]);
 
 export default getPositionString;

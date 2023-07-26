@@ -1,2 +1,8 @@
 export default isFullOnScreen;
-declare function isFullOnScreen(domInfo: any, scrollInfo: any): boolean;
+/**
+ * @param {SimplePosType} domInfo
+ * @param {SimplePosType} scrollInfo
+ * @returns {boolean}
+ */
+declare function isFullOnScreen(domInfo: SimplePosType, scrollInfo: SimplePosType): boolean;
+import { SimplePosType } from "./type";

@@ -1,2 +1,6 @@
 export default getPositionString;
-declare function getPositionString(loc: any): any;
+/**
+ * @param {string} [loc]
+ * @returns {string}
+ */
+declare function getPositionString(loc?: string): string;

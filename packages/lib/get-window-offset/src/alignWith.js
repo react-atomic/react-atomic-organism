@@ -1,6 +1,15 @@
+// @ts-check
+
+import { OffsetType } from "getoffset";
 import getAlignTargetXY from "./getAlignTargetXY";
 import pos from "./positions";
 
+/**
+ * @param {OffsetType} targetInfo
+ * @param {OffsetType} floatElInfo
+ * @param {string} loc
+ * @returns {[number, number]}
+ */
 const alignWith = (targetInfo, floatElInfo, loc) => {
   const xy = getAlignTargetXY(targetInfo, loc);
   const width = floatElInfo.right - floatElInfo.left;
@@ -50,7 +59,7 @@ const alignWith = (targetInfo, floatElInfo, loc) => {
       console.error("Not support align type.");
       break;
   }
-  return moveXY;
+  return /** @type [number, number]*/(moveXY);
 };
 
 export default alignWith;

@@ -1,49 +1,71 @@
-import getOffset from "getoffset";
-import getScrollInfo from "get-scroll-info";
-import get from "get-object-value";
+// @ts-check
+
+import getOffset, { OffsetType } from "getoffset";
+import getScrollInfo, { ScrollInfoType } from "get-scroll-info";
 
 import getDomPositionInfo from "./getDomPositionInfo";
 import getAfterMove from "./getAfterMove";
 import getWindowOffset from "./getWindowOffset";
 import alignWith from "./alignWith";
 import isFullOnScreen from "./isFullOnScreen";
-import pos from "./positions";
 import getPositionString from "./getPositionString";
+import { WindowOffsetType } from "./type";
 
-const getAlignWithLoc = (toLoc) => {
-  let loc;
-  switch (toLoc) {
-    case pos.TR:
-      loc = pos.TL;
-      break;
-    case pos.TL:
-      loc = pos.TR;
-      break;
-    case pos.RB:
-      loc = pos.BL;
-      break;
-    case pos.BL:
-      loc = pos.RB;
-      break;
-    default:
-      loc = toLoc;
-      break;
-  }
-  return loc;
-};
+const fixFixedNode =
+  (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) =>
+    [move[0] + scrollInfo.left, move[1] + scrollInfo.top];
 
-const fixFixedNode = (scrollInfo) => (move) =>
-  [move[0] + scrollInfo.left, move[1] + scrollInfo.top];
+const fixScrollNode =
+  (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) =>
+    [move[0] - scrollInfo.left, move[1] - scrollInfo.top];
 
-const fixScrollNode = (scrollInfo) => (move) =>
-  [move[0] - scrollInfo.left, move[1] - scrollInfo.top];
+class AlignParamsType {
+  /**
+   * @type string
+   */
+  toLoc;
+  /**
+   * @type boolean
+   */
+  disableAutoLoc;
+  /**
+   * @type boolean
+   */
+  positionFixed;
+  /**
+   * @type string[]
+   */
+  exclude;
+}
 
+class AlignUIResultType {
+  /**
+   * @type string|undefined
+   */
+  loc;
+  /**
+   * @type [number, number]
+   */
+  move;
+  /**
+   * @type string|undefined
+   */
+  toLoc;
+  /**
+   * @type string|undefined
+   */
+  locClassName;
+}
+
+/**
+ * @param {HTMLElement} targetEl
+ * @param {HTMLElement} floatEl
+ * @param {AlignParamsType} alignParams
+ * @param {WindowOffsetType} winInfo
+ * @returns {AlignUIResultType|false}
+ */
 const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
-  let { toLoc, disableAutoLoc, positionFixed, exclude } = get(
-    alignParams,
-    null,
-    {}
-  );
+  const { toLoc, disableAutoLoc, positionFixed, exclude } = alignParams || {};
   if (!targetEl) {
     console.warn("targetEl was empty", { targetEl });
     return false;
@@ -78,8 +100,14 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   }
 
   let adjustMove;
-  const scrollNode = targetInfo.scrollNode;
-  const fixedNode = targetInfo.fixedNode;
+  /**
+   * @type HTMLElement
+   */
+  const scrollNode = /**@type HTMLElement*/ (targetInfo.scrollNode);
+  /**
+   * @type HTMLElement
+   */
+  const fixedNode = /**@type HTMLElement*/ (targetInfo.fixedNode);
 
   if (fixedNode) {
     if (fixedNode.contains(floatEl)) {
@@ -98,8 +126,14 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   }
   let loc;
   let move;
-  const floatInfo = getOffset(floatEl);
+  /**
+   * @type OffsetType
+   */
+  const floatInfo = /** @type OffsetType*/ (getOffset(floatEl));
   locs.some((locItem) => {
+    /**
+     * @type string
+     */
     loc = locItem;
     if (exclude && -1 !== exclude.indexOf(loc)) {
       return false;

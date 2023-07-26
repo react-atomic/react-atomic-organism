@@ -1,7 +1,8 @@
 export default getAfterMove;
-declare function getAfterMove(domInfo: any, moveXY: any): {
-    top: any;
-    right: any;
-    bottom: any;
-    left: any;
-};
+/**
+ * @param {SimplePosType} domInfo
+ * @param {[number, number]} moveXY
+ * @returns {SimplePosType}
+ */
+declare function getAfterMove(domInfo: SimplePosType, moveXY: [number, number]): SimplePosType;
+import { SimplePosType } from "./type";

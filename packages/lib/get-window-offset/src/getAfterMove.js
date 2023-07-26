@@ -1,3 +1,12 @@
+// @ts-check
+
+import { SimplePosType } from "./type";
+
+/**
+ * @param {SimplePosType} domInfo
+ * @param {[number, number]} moveXY
+ * @returns {SimplePosType}
+ */
 const getAfterMove = (domInfo, moveXY) => {
   const width = domInfo.right - domInfo.left;
   const height = domInfo.bottom - domInfo.top;

@@ -3,7 +3,7 @@
 import getStyle from "get-style";
 
 /**
- * @typedef {import("./MaybeHTMLElement").MaybeHTMLElement} MaybeHTMLElement 
+ * @typedef {import("./type").MaybeHTMLElement} MaybeHTMLElement 
  */
 
 /**

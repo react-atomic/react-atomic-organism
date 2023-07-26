@@ -1,7 +1,7 @@
 export default isSetOverflow;
-export type MaybeHTMLElement = import("./MaybeHTMLElement").MaybeHTMLElement;
+export type MaybeHTMLElement = import("./type").MaybeHTMLElement;
 /**
- * @typedef {import("./MaybeHTMLElement").MaybeHTMLElement} MaybeHTMLElement
+ * @typedef {import("./type").MaybeHTMLElement} MaybeHTMLElement
  */
 /**
  * @param {HTMLElement} node

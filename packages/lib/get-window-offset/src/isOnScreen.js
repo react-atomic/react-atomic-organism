@@ -1,15 +1,38 @@
+//@ts-check
+
+import { ScrollInfoType } from "get-scroll-info";
+import { DomInfoType } from "./type";
+
+/**
+ * @typedef {object} IsOnScreenExtraType
+ * @property {boolean} isOnScreen
+ */
+
+/**
+ * @typedef {IsOnScreenExtraType & ScrollInfoType & DomInfoType} IsOnScreenType
+ */
+
+/**
+ * @param {DomInfoType} domInfo
+ * @param {ScrollInfoType} scrollInfo
+ * @returns {IsOnScreenType}
+ */
 const isOnScreen = (domInfo, scrollInfo, margin = 0) => {
-  domInfo.atTop = domInfo.bottom <= scrollInfo.top + margin;
-  domInfo.atRight = domInfo.left >= scrollInfo.right - margin;
-  domInfo.atBottom = domInfo.top >= scrollInfo.bottom - margin;
-  domInfo.atLeft = domInfo.right <= scrollInfo.left + margin;
-  domInfo.isOnScreen = !(
-    domInfo.atTop ||
-    domInfo.atRight ||
-    domInfo.atBottom ||
-    domInfo.atLeft
+  /**
+   * @type any 
+   */
+  const nextDomInfo = {...domInfo};
+  nextDomInfo.atTop = domInfo.bottom <= scrollInfo.top + margin;
+  nextDomInfo.atRight = domInfo.left >= scrollInfo.right - margin;
+  nextDomInfo.atBottom = domInfo.top >= scrollInfo.bottom - margin;
+  nextDomInfo.atLeft = domInfo.right <= scrollInfo.left + margin;
+  nextDomInfo.isOnScreen = !(
+    nextDomInfo.atTop ||
+    nextDomInfo.atRight ||
+    nextDomInfo.atBottom ||
+    nextDomInfo.atLeft
   );
-  return domInfo;
+  return nextDomInfo;
 };
 
 export default isOnScreen;

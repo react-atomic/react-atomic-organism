@@ -52,6 +52,9 @@ class PopupFloatEl extends PopupOverlay {
      * @type PositionInfo
      */
     const pos = /** @type PositionInfo*/ (this.calPos());
+
+    console.log({pos});
+
     const diffTop = Math.abs(pos.top - toInt(this.floatTop));
     const diffLeft = Math.abs(pos.left - toInt(this.floatLeft));
     if (
@@ -139,6 +142,7 @@ class PopupFloatEl extends PopupOverlay {
   }
 
   componentDidMount() {
+    this._mount = true;
     window.addEventListener("resize", this.handleResize);
   }
 

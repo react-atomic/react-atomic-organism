@@ -8,7 +8,7 @@ import PopupPool from "../../organisms/PopupPool";
 
 describe("Test PopupOverlay", () => {
   it("basic test", async () => {
-    const VDom = (props) => {
+    const VDom = () => {
       const [dom, setDom] = useState();
       useEffect(() => {
         setDom(
@@ -25,6 +25,7 @@ describe("Test PopupOverlay", () => {
       );
     };
     const wrap = render(<VDom />);
+    await act();
     await waitFor(() => {
       expect(wrap.html()).to.have.string('id="my-overlay"');
     });

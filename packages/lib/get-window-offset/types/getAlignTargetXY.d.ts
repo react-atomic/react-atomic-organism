@@ -1,2 +1,8 @@
 export default getAlignTargetXY;
-declare function getAlignTargetXY(domInfo: any, loc: any): any[];
+/**
+ * @param {OffsetType} domInfo
+ * @param {string} loc
+ * @returns {[number, number]}
+ */
+declare function getAlignTargetXY(domInfo: OffsetType, loc: string): [number, number];
+import { OffsetType } from "getoffset";

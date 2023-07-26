@@ -1107,9 +1107,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@eslint-community/regexpp@^4.4.0":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@eslint-community/regexpp/-/regexpp-4.6.1.tgz#0b371c118b8e4ebf9dbddb56120ab4befd791211"
-  integrity sha512-O7x6dMstWLn2ktjcoiNLDkAGG2EjveHL+Vvc+n0fXumkJYAcSqcVYKtwDU+hDZ0uDUsnUagSYaZrOLAYE8un1A==
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@eslint-community/regexpp/-/regexpp-4.6.2.tgz#1816b5f6948029c5eaacb0703b850ee0cb37d8f8"
+  integrity sha512-pPTNuaAG3QMH+buKyBIGJs3g/S5y0caxw0ygM3YyE6yJFySwiGGSzA+mM3KJ8QQvzeLh3blwgSonkFjgQdxzMw==
 
 "@eslint/eslintrc@^2.1.0":
   version "2.1.0"
@@ -2203,9 +2203,9 @@ domexception@^4.0.0:
     webidl-conversions "^7.0.0"
 
 electron-to-chromium@^1.4.431:
-  version "1.4.470"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.470.tgz#0e932816be8d5f2b491ad2aa449ea47db4785398"
-  integrity sha512-zZM48Lmy2FKWgqyvsX9XK+J6FfP7aCDUFLmgooLJzA7v1agCs/sxSoBpTIwDLhmbhpx9yJIxj2INig/ncjJRqg==
+  version "1.4.471"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.471.tgz#14cb056d0ce4bfa99df57946d57fe46c2330dac3"
+  integrity sha512-GpmGRC1vTl60w/k6YpQ18pSiqnmr0j3un//5TV1idPi6aheNfkT1Ye71tMEabWyNDO6sBMgAR+95Eb0eUUr1tA==
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -4056,9 +4056,9 @@ requires-port@^1.0.0:
   integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
 
 reshow-build@*, reshow-build@^0.17.16:
-  version "0.17.21"
-  resolved "https://registry.yarnpkg.com/reshow-build/-/reshow-build-0.17.21.tgz#98f875218864595ea7311acc1760bbcfd79c8fed"
-  integrity sha512-ITs7H/9MQ3NkQjhyw5OnCtKLSdQOsaeWEcMtMDuzvr5kN6MNN1cqjSKprnpJZvwCgT48BNHUOOEravWOL1fbOQ==
+  version "0.17.22"
+  resolved "https://registry.yarnpkg.com/reshow-build/-/reshow-build-0.17.22.tgz#5b869196fba9465ad58d506f3e49b49ae8d3bf93"
+  integrity sha512-QD9oHiKhf+dxcTor4YFp885aXmDHZnxMelIFVRFjalQpyBO9vbSID6CQ5wzlwWnXDOEFc2VJ5VbxGYJyDGZmJg==
   dependencies:
     array.merge "*"
     reshow-constant "*"
@@ -4095,9 +4095,9 @@ reshow-flux@*:
     reshow-runtime "*"
 
 reshow-hooks@*:
-  version "0.17.29"
-  resolved "https://registry.yarnpkg.com/reshow-hooks/-/reshow-hooks-0.17.29.tgz#e8bf621bf262d2e833d340e10349292113b20754"
-  integrity sha512-1IypJl2HE437J1htfMA07Wi4cN3nd875c0vHAyNIuAKwSMrCIY9FaLj+yjIGDzqkP/FN2m7j9kGAlmyQ+iEjiw==
+  version "0.17.38"
+  resolved "https://registry.yarnpkg.com/reshow-hooks/-/reshow-hooks-0.17.38.tgz#efe66aebe6c4a63d659d4b08de27d05f6eb7a9fd"
+  integrity sha512-KrpbcPQ0cHWmxo/JUMjDQfDieI71JnXbQaJIrbWBsVIKTqPD47b7IHaxRry+XdLV5lKqHnJ4ewbJI+pRiTKYOw==
   dependencies:
     call-func "*"
     reshow-build "*"

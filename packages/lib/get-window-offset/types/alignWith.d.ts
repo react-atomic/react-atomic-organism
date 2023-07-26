@@ -1,2 +1,9 @@
 export default alignWith;
-declare function alignWith(targetInfo: any, floatElInfo: any, loc: any): any[];
+/**
+ * @param {OffsetType} targetInfo
+ * @param {OffsetType} floatElInfo
+ * @param {string} loc
+ * @returns {[number, number]}
+ */
+declare function alignWith(targetInfo: OffsetType, floatElInfo: OffsetType, loc: string): [number, number];
+import { OffsetType } from "getoffset";

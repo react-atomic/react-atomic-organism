@@ -1,9 +1,14 @@
 // @ts-check
 
-import getScrollInfo, { ScrollInfoType } from "get-scroll-info";
+import getScrollInfo from "get-scroll-info";
 import isOnScreen from "./isOnScreen";
-import getDomPositionInfo, { DomInfoType } from "./getDomPositionInfo";
+import getDomPositionInfo from "./getDomPositionInfo";
 import pos from "./positions";
+import { CalWindowOffsetResult, WindowOffsetType } from "./type";
+
+/**
+ * @typedef {import('./isOnScreen').IsOnScreenType} IsOnScreenType
+ */
 
 const T = "T";
 const R = "R";
@@ -37,23 +42,8 @@ const getRevertLoc = (fromLoc) => {
   return loc;
 };
 
-class CalWindowOffsetResult {
-  /**
-   * @type string[]
-   */
-  locs;
-  /**
-   * @type string
-   */
-  firstKey;
-  /**
-   * @type string
-   */
-  secondKey;
-}
-
 /**
- * @param {DomInfoType} domInfo
+ * @param {IsOnScreenType} domInfo
  * @param {import("get-scroll-info").ScrollInfoType} scrollInfo
  * @returns {CalWindowOffsetResult}
  */
@@ -91,6 +81,7 @@ const calWindowOffset = (domInfo, scrollInfo) => {
     };
     secondKey = distanceFlip[Math.max(distance.top, distance.bottom)];
   }
+
   const locs = [
     getRevertLoc(pos[firstKey + secondKey]),
     pos[firstKey + C],
@@ -103,17 +94,6 @@ const calWindowOffset = (domInfo, scrollInfo) => {
     secondKey,
   };
 };
-
-export class WindowOffsetType extends CalWindowOffsetResult {
-  /**
-   * @type {DomInfoType}
-   */
-  domInfo;
-  /**
-   * @type {ScrollInfoType}
-   */
-  scrollInfo;
-}
 
 /**
  * @param {HTMLElement} dom
