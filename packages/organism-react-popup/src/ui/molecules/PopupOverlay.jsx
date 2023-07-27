@@ -24,7 +24,11 @@ class PopupOverlay extends BasePopup {
    */
   renderOverlay(props) {
     const { className, component = SemanticUI, ...others } = props;
-    const classes = mixClass("popup", className);
+    const classes = mixClass(
+      "popup",
+      className,
+      get(component, ["props", "className"])
+    );
     return build(component)({ ...others, className: classes });
   }
 

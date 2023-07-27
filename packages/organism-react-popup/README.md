@@ -20,9 +20,6 @@ https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organ
    * [Click](https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/organisms/PopupClick.jsx)
    * [Hover](https://github.com/react-atomic/react-atomic-organism/blob/master/packages/organism-react-popup/ui/organisms/PopupHover.jsx)
 
-## Toast
-   * https://github.com/jackbsteinberg/std-toast
-
 ## Troubleshooting
 ### Popup not show
    * check the name props

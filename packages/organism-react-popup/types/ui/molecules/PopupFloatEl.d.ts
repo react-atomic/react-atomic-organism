@@ -31,10 +31,6 @@ declare class PopupFloatEl extends PopupOverlay {
      * For extend class
      */
     getFloatEl(): HTMLElement;
-    state: {
-        refCb: (el: HTMLElement) => void;
-        hasError: boolean;
-    };
     componentDidMount(): void;
     componentDidUpdate(): void;
     componentWillUnmount(): void;
