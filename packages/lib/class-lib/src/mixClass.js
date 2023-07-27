@@ -1,8 +1,18 @@
+//@ts-check
+
 import { KEYS, IS_ARRAY, STRING, NUMBER, OBJECT } from "reshow-constant";
 import dedup from "array.dedup";
 
+/**
+ * @param {any} maybeString
+ * @returns {string[]}
+ */
 const strToArray = (maybeString) => (maybeString + "").split(" ");
 
+/**
+ * @param {any[]} args
+ * @returns {string}
+ */
 const mixClass = (...args) => {
   const classes = [];
   args.forEach((arg) => {

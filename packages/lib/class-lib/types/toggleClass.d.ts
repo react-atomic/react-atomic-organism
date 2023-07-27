@@ -1,2 +1,7 @@
 export default toggleClass;
-declare function toggleClass(classes: any, name: any): any;
+/**
+ * @param {string} classes
+ * @param {string} name
+ * @returns {string}
+ */
+declare function toggleClass(classes: string, name: string): string;
