@@ -30,6 +30,6 @@ declare class RadioGroup extends PureComponent<any, any, any> {
     handleClick: (e: any, before: any, after: any, ref: any) => boolean;
     handleError(e: any): any;
     handleDisplayError(el: any, error: any): void;
-    render(): JSX.Element;
+    render(): import("react/jsx-runtime").JSX.Element;
 }
 import { PureComponent } from "react";

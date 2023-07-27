@@ -38,8 +38,8 @@ import { useTimer } from "reshow-hooks";
 
 /**
  * @typedef {object} ValueData
- * @property {string} value
- * @property {string} prevValue
+ * @property {string} [value]
+ * @property {string} [prevValue]
  * @property {number} selIndex
  * @property {FilterEvent} event
  */
@@ -67,9 +67,11 @@ const defaultItemFilter = (arr, currentValue, itemLocator) => {
    * @returns {boolean}
    */
   const doFilter = (d, value) =>
-    value &&
-    d &&
-    -1 !== (d + "").toLowerCase().indexOf((value + "").toLowerCase());
+    /**@type boolean*/ (
+      value &&
+        d &&
+        -1 !== (d + "").toLowerCase().indexOf((value + "").toLowerCase())
+    );
   return arr.filter((d) => doFilter(itemLocator(d), currentValue));
 };
 
@@ -270,7 +272,13 @@ const useFilter = (props) => {
     ...defaultValueData,
   });
   const lastOriginalValue = useRef("");
+  /**
+   * @type any
+   */
   const thisInput = useRef();
+  /**
+   * @type any
+   */
   const thisInputWrapper = useRef();
   useEffect(() => {
     if (lastState.current.disabled !== propsDisabled) {
@@ -381,7 +389,7 @@ const useFilter = (props) => {
       expose.focus();
       if (lastOriginalValue.current) {
         expose.setValue(lastOriginalValue.current, e);
-        lastOriginalValue.current = null;
+        lastOriginalValue.current = "";
       }
       callfunc(onFocus, [e]);
     },
@@ -506,7 +514,7 @@ const useFilter = (props) => {
     },
 
     /**
-     * @param {HTMLInputElement|HTMLElement} el
+     * @param {HTMLInputElement|HTMLElement|null} el
      */
     refCb: (el) => {
       if (el && el.nodeName?.toLowerCase() !== "input") {
@@ -601,10 +609,10 @@ const useFilter = (props) => {
     getSelIndex: () => lastState.current.selIndex,
     getIsOpen: () => lastState.current.isOpen,
     blur: () => {
-      /** @type {HTMLElement}*/ (thisInput.current)?.blur();
+      /** @type {HTMLElement|undefined}*/ (thisInput.current)?.blur();
     },
     focus: () => {
-      /** @type {HTMLElement}*/ (thisInput.current)?.focus();
+      /** @type {HTMLElement|undefined}*/ (thisInput.current)?.focus();
     },
     /**
      * @param {string} [value]

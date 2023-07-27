@@ -15,7 +15,7 @@ class PopupOverlay extends BasePopup {
   resetStyle(key, thisStyle) {
     const value = get(this.state, [key], () => get(this.props, [key]));
     if ("undefined" !== typeof value) {
-      thisStyle[key] = value + "px";
+      thisStyle[key] = value;
     }
   }
 
@@ -44,6 +44,7 @@ class PopupOverlay extends BasePopup {
       className,
       style,
       group,
+      builtInOnly,
       ...others
     } = this.props;
     const nextProps = { ...others };
@@ -62,7 +63,11 @@ class PopupOverlay extends BasePopup {
 
     const refCb = get(this.state, ["refCb"], () => get(this.props, ["refCb"]));
     if (refCb) {
-      nextProps.refCb = refCb;
+      if (builtInOnly) {
+        nextProps.ref = refCb;
+      } else {
+        nextProps.refCb = refCb;
+      }
     }
 
     nextProps.className = mixClass(

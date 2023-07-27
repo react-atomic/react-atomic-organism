@@ -23,16 +23,16 @@ declare class PopupFloatEl extends PopupOverlay {
      */
     calPos: () => PositionInfo | undefined;
     /**
-     * @param {React.ReactElement} el
+     * @param {HTMLElement} el
      */
-    setFloatEl: (el: React.ReactElement) => void;
-    floatEl: import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    setFloatEl: (el: HTMLElement) => void;
+    floatEl: HTMLElement;
     /**
      * For extend class
      */
-    getFloatEl(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    getFloatEl(): HTMLElement;
     state: {
-        refCb: (el: React.ReactElement) => void;
+        refCb: (el: HTMLElement) => void;
         hasError: boolean;
     };
     componentDidMount(): void;

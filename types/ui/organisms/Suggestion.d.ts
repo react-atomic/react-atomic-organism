@@ -20,7 +20,7 @@ declare class Suggestion extends PureComponent<any, any, any> {
                 itemsLocator: any;
                 inputWrapStyle: any;
                 resultsStyle: any;
-            }): JSX.Element;
+            }): import("react/jsx-runtime").JSX.Element;
             defaultProps: {
                 autoComplete: string;
             };

@@ -15,7 +15,7 @@ declare function SearchBox({ inputComponent, className, compHd, compBd, compFt, 
     itemsLocator: any;
     inputWrapStyle: any;
     resultsStyle: any;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
 declare namespace SearchBox {
     namespace defaultProps {
         const autoComplete: string;

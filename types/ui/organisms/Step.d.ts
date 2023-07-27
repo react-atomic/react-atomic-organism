@@ -4,4 +4,4 @@ declare function Step({ icon, title, description, ...props }: {
     icon: any;
     title: any;
     description: any;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

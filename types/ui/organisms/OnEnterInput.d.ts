@@ -6,6 +6,6 @@ declare class OnEnterInput extends PureComponent<any, any, any> {
     constructor(props: any);
     constructor(props: any, context: any);
     handleEnter: (e: any) => void;
-    render(): JSX.Element;
+    render(): import("react/jsx-runtime").JSX.Element;
 }
 import { PureComponent } from "react";

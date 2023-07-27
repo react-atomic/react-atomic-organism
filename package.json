@@ -1,5 +1,5 @@
 {
-  "version": "0.16.30",
+  "version": "0.16.31",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
@@ -50,7 +50,7 @@
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
-    "prepublishOnly": "npm run test:run"
+    "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
   "files": [

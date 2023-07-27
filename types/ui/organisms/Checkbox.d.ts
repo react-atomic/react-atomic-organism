@@ -17,7 +17,7 @@ declare class Checkbox extends PureComponent<any, any, any> {
     handleClick: (e: any) => void;
     processChange(checked: any): void;
     handleChange: (e: any) => void;
-    render(): JSX.Element;
+    render(): import("react/jsx-runtime").JSX.Element;
     el: any;
 }
 declare namespace Checkbox {

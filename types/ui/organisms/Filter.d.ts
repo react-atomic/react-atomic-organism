@@ -22,8 +22,8 @@ export type FilterEvent = {
     inputName?: string;
 };
 export type ValueData = {
-    value: string;
-    prevValue: string;
+    value?: string;
+    prevValue?: string;
     selIndex: number;
     event: FilterEvent;
 };

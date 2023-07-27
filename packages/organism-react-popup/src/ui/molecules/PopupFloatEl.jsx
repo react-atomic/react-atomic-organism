@@ -53,8 +53,6 @@ class PopupFloatEl extends PopupOverlay {
      */
     const pos = /** @type PositionInfo*/ (this.calPos());
 
-    console.log({pos});
-
     const diffTop = Math.abs(pos.top - toInt(this.floatTop));
     const diffLeft = Math.abs(pos.left - toInt(this.floatLeft));
     if (
@@ -109,7 +107,7 @@ class PopupFloatEl extends PopupOverlay {
   };
 
   /**
-   * @param {React.ReactElement} el
+   * @param {HTMLElement} el
    */
   setFloatEl = (el) => {
     if (el) {
@@ -135,10 +133,7 @@ class PopupFloatEl extends PopupOverlay {
   constructor(props) {
     super(props);
     // Need exted state form parent class (PopupOverlay)
-    this.state = {
-      ...this.state,
-      refCb: this.setFloatEl,
-    };
+    this.state.refCb = this.setFloatEl
   }
 
   componentDidMount() {
