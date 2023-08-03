@@ -1,9 +1,9 @@
 export default callFunc;
 /**
  * @param {Function|any} maybeFunc
- * @param {Array} args
- * @param {any} scope
- * @param {any} def
+ * @param {any[]|null} [functionArguments]
+ * @param {any} [scope]
+ * @param {any} [defaultReturns]
  * @returns {any}
  */
-declare function callFunc(maybeFunc: Function | any, args?: any[], scope?: any, def?: any): any;
+declare function callFunc(maybeFunc: Function | any, functionArguments?: any[] | null, scope?: any, defaultReturns?: any): any;

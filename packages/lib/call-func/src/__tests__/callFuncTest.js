@@ -1,3 +1,5 @@
+// @ts-check
+
 import { expect } from "chai";
 
 import callfunc from "../callfunc";
@@ -14,7 +16,7 @@ describe("Test call func", () => {
 
   it("test call with params", () => {
     let check = false;
-    const a = (p) => {
+    const a = (/**@type any*/p) => {
       check = p;
     };
     const result = callfunc(a, ["foo"]);
@@ -23,10 +25,8 @@ describe("Test call func", () => {
   });
 
   it("test call with scope", () => {
-    let check = false;
     class uObj {
-      a(p, hasThis) {
-        check = p;
+      a(/**@type any*/_p, /**@type any*/hasThis) {
         if (hasThis) {
           expect(this).to.deep.equal({});
         } else {
@@ -40,7 +40,7 @@ describe("Test call func", () => {
   });
 
   it("test with return", () => {
-    const func = (...p) => p;
+    const func = (/**@type any*/...p) => p;
     expect(callfunc(func, ["foo", "bar"])).to.deep.equal(["foo", "bar"]);
   });
 
