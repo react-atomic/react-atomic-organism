@@ -1,3 +1,5 @@
+// @ts-check
+
 import { getScrollNode } from "get-scroll-info";
 import callfunc from "call-func";
 import { easeInOutCubic, aniTimer } from "easing-lib";
@@ -9,17 +11,17 @@ const isRunning = NEW_OBJ();
  *  !!Important!! any logic change need take care isRunning
  *
  *  @param {number} to
- *  @param {number} duration
- *  @param {HTMLElement} el
- *  @param {function} callback
- *  @param {string} scrollKey
+ *  @param {number} [duration]
+ *  @param {HTMLElement} [el]
+ *  @param {function} [callback]
+ *  @param {string} [scrollKey]
  *  @returns {function} cancel handler
  */
 const smoothScrollTo = (
   to,
   duration = 500,
-  el = null,
-  callback = null,
+  el,
+  callback,
   scrollKey = "scrollTop"
 ) => {
   const scrollNode = getScrollNode(el);
@@ -52,7 +54,7 @@ const smoothScrollTo = (
 
   aniTimer(
     {
-      isContinue: (elapsedTime) => {
+      isContinue: (/**@type number*/elapsedTime) => {
         if (isRunning[scrollKey]) {
           const progress = easeInOutCubic(elapsedTime, from, go, duration);
           scrollNode[scrollKey] = progress;
