@@ -14,7 +14,7 @@ const getter = (o, k) => (o.size && callfunc(o.get, [k], o)) ?? o[k];
 
 /**
  * @param {any} o
- * @param {(string | number)[]} path
+ * @param {(string | number | undefined)[]} path
  * @param {any} defaultValue
  * @returns {any}
  */
@@ -32,7 +32,7 @@ const get = (o, path = [], defaultValue = T_UNDEFINED) => {
     while (i--) {
       const index = path[j - i];
       if (null != current) {
-        const next = getter(current, index);
+        const next = getter(current, /** @type any*/ (index));
         if (UNDEFINED !== typeof next) {
           current = next;
         } else {
@@ -41,7 +41,7 @@ const get = (o, path = [], defaultValue = T_UNDEFINED) => {
             prev: current,
             next,
             nextIndex: index,
-            path
+            path,
           });
           break;
         }
