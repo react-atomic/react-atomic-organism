@@ -13,7 +13,7 @@ const getDomPositionInfo = (dom) => {
   const fixedNode = isFixed(dom);
   const scrollNode = isSetOverflow(dom);
   const domInfo = /** @type DomInfoType*/ (
-    getOffset(dom, /** @type undefined|HTMLElement */ (fixedNode))
+    getOffset(dom, /** @type undefined|HTMLElement */ (fixedNode || scrollNode))
   );
   domInfo.scrollNode = scrollNode;
   domInfo.fixedNode = fixedNode;

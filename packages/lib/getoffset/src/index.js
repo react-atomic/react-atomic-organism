@@ -206,7 +206,7 @@ export class OffsetType {
 
 /**
  * @param {HTMLElement} dom
- * @param {HTMLElement|number} [scrollNode]
+ * @param {HTMLElement|import('reshow-constant').SAFE_UNDEFINED} [scrollNode]
  * @returns {OffsetType|undefined}
  */
 const getOffset = (dom, scrollNode) => {
@@ -241,6 +241,13 @@ const getOffset = (dom, scrollNode) => {
       rect = dom.getBoundingClientRect();
       top = (rect.top + scrollInfo.top) * 1;
       left = (rect.left + scrollInfo.left) * 1;
+      if (scrollNode) {
+        const scrollRect = /**@type HTMLElement*/ (
+          scrollNode
+        ).getBoundingClientRect();
+        top -= scrollRect.top;
+        left -= scrollRect.left;
+      }
     } else {
       const rectOffset = getRectWithElOffset(dom);
       top = /** @type {number} */ (rectOffset.y);

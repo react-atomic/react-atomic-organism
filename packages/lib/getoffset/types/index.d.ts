@@ -86,10 +86,10 @@ export function getSvgMatrixXY(dom: object, zoom: object): (x: number, y: number
 export function unifyTouch(e: object): any;
 /**
  * @param {HTMLElement} dom
- * @param {HTMLElement|number} [scrollNode]
+ * @param {HTMLElement|import('reshow-constant').SAFE_UNDEFINED} [scrollNode]
  * @returns {OffsetType|undefined}
  */
-declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | number): OffsetType | undefined;
+declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | import('reshow-constant').SAFE_UNDEFINED): OffsetType | undefined;
 declare class Coordinate {
     /**
      * @type number

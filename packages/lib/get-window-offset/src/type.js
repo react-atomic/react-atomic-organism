@@ -3,7 +3,7 @@ import { OffsetType } from "getoffset";
 import { ScrollInfoType } from "get-scroll-info";
 
 /**
- * @typedef {undefined|boolean|HTMLElement} MaybeHTMLElement 
+ * @typedef {undefined|false|HTMLElement} MaybeHTMLElement
  */
 /**
  * @typedef {import('./isOnScreen').IsOnScreenType} IsOnScreenType
@@ -38,7 +38,7 @@ export class DomInfoType extends OffsetType {
    */
   fixedNode;
   /**
-   * @type boolean 
+   * @type boolean
    */
   isOnScreen;
 }

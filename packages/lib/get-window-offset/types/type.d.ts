@@ -1,5 +1,5 @@
 /**
- * @typedef {undefined|boolean|HTMLElement} MaybeHTMLElement
+ * @typedef {undefined|false|HTMLElement} MaybeHTMLElement
  */
 /**
  * @typedef {import('./isOnScreen').IsOnScreenType} IsOnScreenType
@@ -74,7 +74,7 @@ export class WindowOffsetType extends CalWindowOffsetResult {
      */
     scrollInfo: ScrollInfoType;
 }
-export type MaybeHTMLElement = undefined | boolean | HTMLElement;
+export type MaybeHTMLElement = undefined | false | HTMLElement;
 export type IsOnScreenType = import('./isOnScreen').IsOnScreenType;
 import { OffsetType } from "getoffset";
 import { ScrollInfoType } from "get-scroll-info";

@@ -108,7 +108,7 @@ const getWindowOffset = (dom, debug) => {
   const {
     fixedNode,
     scrollNode,
-    domInfo: targetDomInfo,
+    domInfo: domInfoWithoutIsOnScreen,
   } = getDomPositionInfo(dom);
 
   const scrollInfo = getScrollInfo();
@@ -134,7 +134,7 @@ const getWindowOffset = (dom, debug) => {
     (cookScrollInfo.bottom) += scrollNodeScrollInfo.top;
     cookScrollInfo.left += scrollNodeScrollInfo.left;
   }
-  const domInfo = isOnScreen(targetDomInfo, cookScrollInfo);
+  const domInfo = isOnScreen(domInfoWithoutIsOnScreen, cookScrollInfo);
   if (!domInfo.isOnScreen && false !== debug) {
     // should not break function here
     // not use return here
