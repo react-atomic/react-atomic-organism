@@ -21,6 +21,7 @@ export type GqlClientOptions = {
     fetch?: Function;
     cacheObj?: SSRCacheType;
 };
+export type Exchange = import("@urql/core").Exchange;
 export type GqlResultOptions = {
     isVerbose?: boolean;
     dataExpireSecs?: number;
@@ -32,8 +33,9 @@ export type OperationResult = import("@urql/core").OperationResult<any, any>;
 export type OperationResultOrData = OperationResult | OperationResult["data"];
 export type UrGqlVariables = import("@urql/core").AnyVariables;
 export type UrGqlQuery = import("@urql/core").TypedDocumentNode<any, UrGqlVariables>;
+export type GqlResultCallback = (isDebug?: boolean, isVerbose?: boolean) => Promise<OperationResultOrData>;
 export type handleGqlCallback = (query: UrGqlQuery, variables?: UrGqlVariables, options?: GqlResultOptions) => {
-    execute: () => Promise<OperationResultOrData>;
-    results: () => Promise<OperationResultOrData>;
+    execute: GqlResultCallback;
+    results: GqlResultCallback;
 };
 import { Client } from "@urql/core";

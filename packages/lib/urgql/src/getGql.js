@@ -46,6 +46,10 @@ export const longCache = {
  */
 
 /**
+ * @typedef {import("@urql/core").Exchange} Exchange
+ */
+
+/**
  * @param {GqlClientOptions} props
  * @param {SSRCacheType} [cacheObj]
  * @returns {Client}
@@ -54,11 +58,14 @@ export const getGqlClient = (
   { cache = true, keys = {}, url, fetch, debug },
   cacheObj
 ) => {
+  /**
+   * @type Exchange[]
+   */
+  const exchanges = [];
   const options = {
     url,
-    exchanges: [],
+    exchanges,
   };
-  const exchanges = [];
   if (debug) {
     // Debug must at first item.
     exchanges.push(debugExchange);
@@ -74,7 +81,7 @@ export const getGqlClient = (
   }
   // SSRCacheType must in front of the `fetchExchange
   exchanges.push(fetchExchange);
-  /** @type import("@urql/core").Exchange[]*/ (options.exchanges) = exchanges;
+  options.exchanges = exchanges;
   const client = new Client(options);
   return client;
 };
@@ -127,11 +134,18 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
  */
 
 /**
+ * @callback GqlResultCallback
+ * @param {boolean} [isDebug]
+ * @param {boolean} [isVerbose]
+ * @returns {Promise<OperationResultOrData>}
+ */
+
+/**
  * @callback handleGqlCallback
  * @param {UrGqlQuery} query
  * @param {UrGqlVariables} [variables]
  * @param {GqlResultOptions} [options]
- * @returns {{execute: function():Promise<OperationResultOrData>, results: function():Promise<OperationResultOrData>}}}
+ * @returns {{execute: GqlResultCallback, results: GqlResultCallback}}
  */
 
 /**
@@ -152,19 +166,33 @@ export const handleGql =
       ...defaultGqlResultOptions,
       ...options,
     };
-    const clinet = getGqlClient(clientOptions, ssrCache);
+    let shouldVerbose = isVerbose;
     /**
      * @param {{data:any}} next
      * @returns {OperationResultOrData}
      */
-    const toVerbose = (next) => (isVerbose ? next : next?.data);
+    const toVerbose = (next) => (shouldVerbose ? next : next?.data);
 
     return {
-      execute: async () => {
+      execute: async (isDebug = false, isVerbose = false) => {
+        if (isDebug) {
+          clientOptions.debug = true;
+        }
+        if (isVerbose) {
+          shouldVerbose = true;
+        }
+        const clinet = getGqlClient(clientOptions, ssrCache);
         const rawResult = await clinet.mutation(query, variables).toPromise();
         return toVerbose(cookResult(rawResult));
       },
-      results: async () => {
+      results: async (isDebug = false, isVerbose = false) => {
+        if (isDebug) {
+          clientOptions.debug = true;
+        }
+        if (isVerbose) {
+          shouldVerbose = true;
+        }
+        const clinet = getGqlClient(clientOptions, ssrCache);
         const rawResult = await clinet.query(query, variables).toPromise();
         const next = cookResult(rawResult);
         const nextKey = next.operation.key;
