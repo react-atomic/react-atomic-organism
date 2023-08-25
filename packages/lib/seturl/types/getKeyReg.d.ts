@@ -1,3 +1,3 @@
-declare function _default(name: any): any;
+declare function _default(name: any): RegExp;
 export default _default;
-export function getMultiMatchReg(name: any): any;
+export function getMultiMatchReg(name: any): RegExp;

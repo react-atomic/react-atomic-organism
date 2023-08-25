@@ -1,5 +1,5 @@
 {
-  "version": "0.5.2",
+  "version": "0.6.0",
   "name": "seturl",
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
+    "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },

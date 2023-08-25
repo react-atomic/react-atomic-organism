@@ -1,3 +1,4 @@
+// @ts-check
 import { doc } from "win-doc";
 import { oneItemArrayToString } from "with-array";
 import { T_UNDEFINED, IS_ARRAY } from "reshow-constant";
@@ -6,6 +7,31 @@ import getUrlAnaly from "./getUrlAnaly";
 
 const defaultValue = T_UNDEFINED;
 
+/**
+ * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
+ */
+
+
+class URLType {
+  /**
+   * @type string
+   */
+  host;
+  /**
+   * @type string
+   */
+  query;
+  /**
+   * @type string
+   */
+  path;
+}
+
+
+/**
+ * @param {string} url
+ * @returns {URLType}
+ */
 const parseUrl = (url) => {
   const oUrl = getUrlAnaly(url);
   return {
@@ -15,11 +41,19 @@ const parseUrl = (url) => {
   };
 };
 
+/**
+ * @param {string|SAFE_UNDEFINED} url
+ * @returns {string}
+ */
 const resetUrl = (url) => (url ? url : doc().URL);
 
+/**
+ * @param {string|string[]} keys
+ * @param {string} [origUrl]
+ */
 const getUrl = (keys, origUrl) => {
   const { query = "" } = parseUrl(resetUrl(origUrl));
-  const getOne = (key) => {
+  const getOne = (/**@type string*/key) => {
     const keyEq = key + "=";
     if (query.indexOf(keyEq) === query.lastIndexOf(keyEq)) {
       const reg = getKeyReg(key);
@@ -41,6 +75,10 @@ const getUrl = (keys, origUrl) => {
   }
 };
 
+/**
+ * @param {string} key
+ * @param {string} query 
+ */
 const getMultiKey = (key, query) => {
   const reg = getMultiMatchReg(key);
   const results = [];
@@ -51,11 +89,20 @@ const getMultiKey = (key, query) => {
   return results;
 };
 
+/**
+ * @param {string} key
+ * @param {string} origUrl 
+ */
 const getUrlArray = (key, origUrl) => {
   const { query = "" } = parseUrl(resetUrl(origUrl));
   return getMultiKey(key, query);
 };
 
+/**
+ * @param {string|number} key
+ * @param {string} [url] 
+ * @returns {string}
+ */
 const unsetUrl = (key, url) => {
   url = resetUrl(url);
   const reg = getKeyReg(key);
@@ -66,6 +113,12 @@ const unsetUrl = (key, url) => {
   return url;
 };
 
+/**
+ * @param {string|number} key
+ * @param {string|number} value 
+ * @param {string} url 
+ * @param {boolean} KeepRawValue 
+ */
 const setUrl = (key, value, url, KeepRawValue) => {
   const multi = IS_ARRAY(value);
   url = unsetUrl(key, resetUrl(url));

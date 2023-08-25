@@ -1,5 +1,5 @@
 {
-  "version": "0.0.7",
+  "version": "0.1.0",
   "name": "with-array",
   "repository": {
     "type": "git",
@@ -8,8 +8,6 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/with-array",
   "description": "always change string to array",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.mjs",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "ISC",
@@ -24,17 +22,23 @@
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
   "scripts": {
-    "clean": "find ./build -name '*.*' | xargs rm -rf",
+    "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
-    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "build:type": "npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
+    "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
+  "types": "./types/index.d.ts",
   "files": [
+    "types",
     "build",
     "package.json",
     "README.md"
