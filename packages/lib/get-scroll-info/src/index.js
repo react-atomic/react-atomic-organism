@@ -50,67 +50,67 @@ const getScrollNode = (el) => {
 
 export class ScrollInfoType {
   /**
-   * @type number 
+   * @type number
    */
   top;
   /**
-   * @type number 
+   * @type number
    */
   right;
   /**
-   * @type number 
+   * @type number
    */
   bottom;
   /**
-   * @type number 
+   * @type number
    */
   left;
   /**
-   * @type number 
+   * @type number
    */
   scrollWidth;
   /**
-   * @type number 
+   * @type number
    */
   scrollHeight;
   /**
-   * @type number 
+   * @type number
    */
   scrollNodeWidth;
   /**
-   * @type number 
+   * @type number
    */
   scrollNodeHeight;
   /**
-   * @type boolean 
+   * @type boolean
    */
   atTop;
   /**
-   * @type boolean 
+   * @type boolean
    */
   atRight;
   /**
-   * @type boolean 
+   * @type boolean
    */
   atBottom;
   /**
-   * @type boolean 
+   * @type boolean
    */
   atLeft;
   /**
-   * @type boolean 
+   * @type boolean
    */
   isScrollUp;
   /**
-   * @type boolean 
+   * @type boolean
    */
   isScrollRight;
   /**
-   * @type boolean 
+   * @type boolean
    */
   isScrollDown;
   /**
-   * @type boolean 
+   * @type boolean
    */
   isScrollLeft;
 }
@@ -143,8 +143,8 @@ const getScrollInfo = (el, margin = 50) => {
       w = el.clientWidth;
     }
   } else {
-    w = el.clientWidth;
-    h = el.clientHeight;
+    w = el.scrollWidth ?? el.clientWidth;
+    h = el.scrollHeight ?? el.clientHeight;
   }
 
   const scrollLeft = el.scrollLeft;
