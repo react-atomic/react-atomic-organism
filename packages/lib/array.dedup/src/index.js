@@ -1,9 +1,9 @@
 // @ts-check
 
 /**
- * @param {any[]} array
+ * @param {any} array
  * @param {boolean} [reverse]
- * @returns {any[]}
+ * @returns {any}
  */
 const dedup = (array, reverse) => {
   if (!array || !array.filter) {
@@ -11,9 +11,9 @@ const dedup = (array, reverse) => {
   }
   // This way could keep array in same position
   if (reverse) {
-    return array.filter((item, pos, arr) => arr.lastIndexOf(item) === pos);
+    return /**@type any[]*/(array).filter((item, pos, arr) => arr.lastIndexOf(item) === pos);
   } else {
-    return array.filter((item, pos, arr) => arr.indexOf(item) === pos);
+    return /**@type any[]*/(array).filter((item, pos, arr) => arr.indexOf(item) === pos);
   }
 };
 

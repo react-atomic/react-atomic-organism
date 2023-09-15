@@ -1,7 +1,7 @@
 export default dedup;
 /**
- * @param {any[]} array
+ * @param {any} array
  * @param {boolean} [reverse]
- * @returns {any[]}
+ * @returns {any}
  */
-declare function dedup(array: any[], reverse?: boolean): any[];
+declare function dedup(array: any, reverse?: boolean): any;
