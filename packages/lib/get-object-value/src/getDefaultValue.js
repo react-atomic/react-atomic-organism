@@ -20,5 +20,5 @@ const getDefaultValue = (
     nextIndex: T_UNDEFINED,
     path: [],
   }
-) => (FUNCTION === typeof v ? v(options) : v ?? options.next);
+) => (FUNCTION === typeof v ? v(options) : v ?? options?.next);
 export default getDefaultValue;

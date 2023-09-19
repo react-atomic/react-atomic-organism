@@ -20,7 +20,7 @@ const getter = (o, k) => (o.size && callfunc(o.get, [k], o)) ?? o[k];
  */
 const get = (o, path = [], defaultValue = T_UNDEFINED) => {
   if (null == o) {
-    return getDefaultValue(defaultValue, o);
+    return getDefaultValue(defaultValue, { obj: o });
   }
   let current = o;
   if (!path || !IS_ARRAY(path) || !path.length) {
