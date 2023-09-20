@@ -18,5 +18,6 @@ export function getDateObject(t: number | string): Date;
 export function getTimestamp(t?: number | string): number;
 /**
  * @param {string} [name]
+ * @param {string} [separator]
  */
-export function getSN(name?: string): string;
+export function getSN(name?: string, separator?: string): string;

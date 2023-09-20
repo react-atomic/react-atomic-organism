@@ -34,10 +34,11 @@ const sn = {};
 
 /**
  * @param {string} [name]
+ * @param {string} [separator]
  */
-const getSN = (name) => {
+const getSN = (name, separator = "_") => {
   sn[name] = sn[name] ?? 0;
-  return (name || "") + "_" + sn[name]++;
+  return (name || "") + separator + sn[name]++;
 };
 
 const getRandom = () => getTimestamp() + "" + Math.random();
