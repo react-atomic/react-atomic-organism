@@ -3,7 +3,8 @@ import getScrollInfo from "../index";
 
 describe("Test", () => {
   it("sample test", () => {
-    expect(getScrollInfo()).to.deep.equal({
+    const {scrollEl, ...rest} = getScrollInfo();
+    expect(rest).to.deep.equal({
       atTop: true,
       atRight: true,
       atBottom: true,

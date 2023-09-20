@@ -43,7 +43,7 @@ const getScrollNode = (el) => {
   }
   const htmlEl = /** @type {HTMLElement}*/ (el);
   if (!htmlEl.id) {
-    htmlEl.id = getSN("scroll-info-");
+    htmlEl.id = getSN("scroll-info", "-");
   }
   return htmlEl;
 };
@@ -113,16 +113,20 @@ export class ScrollInfoType {
    * @type boolean
    */
   isScrollLeft;
+  /**
+   * @type HTMLElement
+   */
+  scrollEl;
 }
 
 /**
- * @param {HTMLElement} [el]
+ * @param {HTMLElement} [inputEl]
  * @returns {ScrollInfoType}
  */
-const getScrollInfo = (el, margin = 50) => {
-  el = getScrollNode(el);
+const getScrollInfo = (inputEl, margin = 50) => {
   let w;
   let h;
+  const el = getScrollNode(inputEl);
   const nodeName = (el.nodeName || "").toLowerCase();
   const isRoot = "body" === nodeName || "html" === nodeName;
 
@@ -174,6 +178,8 @@ const getScrollInfo = (el, margin = 50) => {
     right: scrollRight,
     bottom: scrollBottom,
     left: scrollLeft,
+
+    scrollEl: el,
   };
   lastScrollStore[elId] = info;
   return info;

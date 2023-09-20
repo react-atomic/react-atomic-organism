@@ -63,14 +63,18 @@ export class ScrollInfoType {
      * @type boolean
      */
     isScrollLeft: boolean;
+    /**
+     * @type HTMLElement
+     */
+    scrollEl: HTMLElement;
 }
 export default getScrollInfo;
 export type ThisDocument = object & Document;
 /**
- * @param {HTMLElement} [el]
+ * @param {HTMLElement} [inputEl]
  * @returns {ScrollInfoType}
  */
-declare function getScrollInfo(el?: HTMLElement, margin?: number): ScrollInfoType;
+declare function getScrollInfo(inputEl?: HTMLElement, margin?: number): ScrollInfoType;
 /**
  * @param {HTMLElement} [el]
  * @returns {HTMLElement}
