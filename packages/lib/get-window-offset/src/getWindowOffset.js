@@ -132,7 +132,7 @@ const getWindowOffset = (dom, debug) => {
   );
   domInfoWithScreen.isOnScreen =
     domInfoWithScreen.isOnScreen && domOverflowInfoWithScreen.isOnScreen;
-  if (false !== debug) {
+  if ((!domInfoWithScreen.isOnScreen && false !== debug) || true === debug) {
     // should not break function here
     // not use return here
     console.warn(
