@@ -1,5 +1,4 @@
 export default getWindowOffset;
-export type IsOnScreenType = import('./isOnScreen').IsOnScreenType;
 /**
  * @param {HTMLElement} dom
  * @param {boolean} [debug]

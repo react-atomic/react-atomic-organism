@@ -1,16 +1,7 @@
 //@ts-check
 
 import { ScrollInfoType } from "get-scroll-info";
-import { DomInfoType } from "./type";
-
-/**
- * @typedef {object} IsOnScreenExtraType
- * @property {boolean} isOnScreen
- */
-
-/**
- * @typedef {IsOnScreenExtraType & ScrollInfoType & DomInfoType} IsOnScreenType
- */
+import { DomInfoType, IsOnScreenType } from "./type";
 
 /**
  * @param {DomInfoType} domInfo
@@ -19,9 +10,16 @@ import { DomInfoType } from "./type";
  */
 const isOnScreen = (domInfo, scrollInfo, margin = 0) => {
   /**
-   * @type any 
+   * @type IsOnScreenType
    */
-  const nextDomInfo = {...domInfo};
+  const nextDomInfo = {
+    ...domInfo,
+    atTop: domInfo.bottom <= scrollInfo.top + margin,
+    atRight: domInfo.left >= scrollInfo.right - margin,
+    atBottom: domInfo.top >= scrollInfo.bottom - margin,
+    atLeft: domInfo.right <= scrollInfo.left + margin,
+    isOnScreen: false,
+  };
   nextDomInfo.atTop = domInfo.bottom <= scrollInfo.top + margin;
   nextDomInfo.atRight = domInfo.left >= scrollInfo.right - margin;
   nextDomInfo.atBottom = domInfo.top >= scrollInfo.bottom - margin;

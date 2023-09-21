@@ -4,11 +4,7 @@ import getScrollInfo from "get-scroll-info";
 import isOnScreen from "./isOnScreen";
 import getDomPositionInfo from "./getDomPositionInfo";
 import pos from "./positions";
-import { CalWindowOffsetResult, WindowOffsetType } from "./type";
-
-/**
- * @typedef {import('./isOnScreen').IsOnScreenType} IsOnScreenType
- */
+import { CalWindowOffsetResult, WindowOffsetType, DomInfoType } from "./type";
 
 const T = "T";
 const R = "R";
@@ -43,7 +39,7 @@ const getRevertLoc = (fromLoc) => {
 };
 
 /**
- * @param {IsOnScreenType} domInfo
+ * @param {DomInfoType} domInfo
  * @param {import("get-scroll-info").ScrollInfoType} scrollInfo
  * @returns {CalWindowOffsetResult}
  */
@@ -105,11 +101,8 @@ const getWindowOffset = (dom, debug) => {
     console.warn("getWindowOffset not assign dom");
     return;
   }
-  const {
-    fixedNode,
-    scrollNode,
-    domInfo: domInfoWithoutIsOnScreen,
-  } = getDomPositionInfo(dom);
+  const { fixedNode, overflowNode, domInfo, domOverflowInfo } =
+    getDomPositionInfo(dom);
 
   const scrollInfo = getScrollInfo();
   const cookScrollInfo = { ...scrollInfo };
@@ -119,34 +112,44 @@ const getWindowOffset = (dom, debug) => {
     cookScrollInfo.right = scrollInfo.scrollNodeWidth;
     cookScrollInfo.bottom = scrollInfo.scrollNodeHeight;
     cookScrollInfo.left = fixedScrollInfo.left;
-  } else if (scrollNode) {
-    const scrollNodeScrollInfo = getScrollInfo(
-      /** @type HTMLElement */ (scrollNode)
-    );
-    cookScrollInfo.top += scrollNodeScrollInfo.top;
+  } else if (overflowNode) {
+    const overflowNodeScrollInfo = getScrollInfo(overflowNode);
+    cookScrollInfo.top += overflowNodeScrollInfo.top;
     /**
      * @type number
      */
-    (cookScrollInfo.right) += scrollNodeScrollInfo.left;
+    (cookScrollInfo.right) += overflowNodeScrollInfo.left;
     /**
      * @type number
      */
-    (cookScrollInfo.bottom) += scrollNodeScrollInfo.top;
-    cookScrollInfo.left += scrollNodeScrollInfo.left;
+    (cookScrollInfo.bottom) += overflowNodeScrollInfo.top;
+    cookScrollInfo.left += overflowNodeScrollInfo.left;
   }
-  const domInfo = isOnScreen(domInfoWithoutIsOnScreen, cookScrollInfo);
-  if (!domInfo.isOnScreen && false !== debug) {
+  const domInfoWithScreen = isOnScreen(domInfo, cookScrollInfo);
+  const domOverflowInfoWithScreen = isOnScreen(
+    domOverflowInfo,
+    getScrollInfo(domOverflowInfo.domScroller)
+  );
+  domInfoWithScreen.isOnScreen =
+    domInfoWithScreen.isOnScreen && domOverflowInfoWithScreen.isOnScreen;
+  if (false !== debug) {
     // should not break function here
     // not use return here
-    console.warn("Dom is not in screen", {
-      dom,
-      domInfo,
-      scrollInfo,
-      cookScrollInfo,
-    });
+    console.warn(
+      domInfoWithScreen.isOnScreen
+        ? "Dom is in screen"
+        : "Dom is not in screen",
+      {
+        dom,
+        domInfo,
+        scrollInfo,
+        cookScrollInfo,
+      }
+    );
   }
   const result = {
-    domInfo,
+    domInfo: domInfoWithScreen,
+    domOverflowInfo: domOverflowInfoWithScreen,
     scrollInfo,
     ...calWindowOffset(domInfo, cookScrollInfo),
   };

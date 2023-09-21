@@ -1,6 +1,38 @@
-import getDomCenter from "./getDomCenter";
-import getDomPositionInfo from "./getDomPositionInfo";
+// @ts-check
 
+import getDomPositionInfo from "./getDomPositionInfo";
+import { Coordinate, NearLocType } from "./type";
+
+/**
+ * @param {number} left
+ * @param {number} top
+ * @param {number} width
+ * @param {number} height
+ * @returns {Coordinate}
+ */
+const calDomCenter = (left, top, width, height) => {
+  const xy = {
+    x: left + Math.floor(width / 2),
+    y: top + Math.floor(height / 2),
+  };
+  return xy;
+};
+
+/**
+ * @param {HTMLElement} dom
+ * @returns {Coordinate}
+ */
+const getDomCenter = (dom) => {
+  const { left, top, width, height } = getDomPositionInfo(dom)?.domInfo || {};
+  const domCenter = calDomCenter(left, top, width, height);
+  return domCenter;
+};
+
+/**
+ * @param {Coordinate} center
+ * @param {Coordinate} floatInfo
+ * @returns {NearLocType}
+ */
 const getNearLocation = (center, floatInfo) => {
   const loc = {
     center: false,
@@ -32,20 +64,26 @@ const getNearLocation = (center, floatInfo) => {
   return loc;
 };
 
+/**
+ * @param {HTMLElement} targetEl
+ * @param {HTMLElement|Coordinate} floatElOrFloatXY
+ * @returns {NearLocType}
+ */
 const nearWhere = (targetEl, floatElOrFloatXY) => {
   const tarCenter = getDomCenter(targetEl);
   let floatXY;
-  if (floatElOrFloatXY.nodeName) {
-    const floatElInfo = getDomPositionInfo(floatElOrFloatXY)?.domInfo || {
+  const floatEl = /**@type HTMLElement*/ (floatElOrFloatXY);
+  if (floatEl.nodeName) {
+    const floatElInfo = getDomPositionInfo(floatEl)?.domInfo || {
       top: 0,
       left: 0,
     };
     floatXY = { x: floatElInfo.left, y: floatElInfo.top };
   }
   if (null == floatXY) {
-    floatXY = floatElOrFloatXY;
+    floatXY = /**@type Coordinate*/ (floatElOrFloatXY);
   }
-  return getNearLocation({ x: tarCenter[0], y: tarCenter[1] }, floatXY);
+  return getNearLocation(tarCenter, floatXY);
 };
 
 export default nearWhere;

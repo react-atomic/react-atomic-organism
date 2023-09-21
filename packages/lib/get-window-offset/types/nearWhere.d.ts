@@ -1,17 +1,15 @@
 export default nearWhere;
-declare function nearWhere(targetEl: any, floatElOrFloatXY: any): {
-    center: boolean;
-    centerCenter: boolean;
-    top: boolean;
-    bottom: boolean;
-    left: boolean;
-    right: boolean;
-};
-export function getNearLocation(center: any, floatInfo: any): {
-    center: boolean;
-    centerCenter: boolean;
-    top: boolean;
-    bottom: boolean;
-    left: boolean;
-    right: boolean;
-};
+/**
+ * @param {HTMLElement} targetEl
+ * @param {HTMLElement|Coordinate} floatElOrFloatXY
+ * @returns {NearLocType}
+ */
+declare function nearWhere(targetEl: HTMLElement, floatElOrFloatXY: HTMLElement | Coordinate): NearLocType;
+/**
+ * @param {Coordinate} center
+ * @param {Coordinate} floatInfo
+ * @returns {NearLocType}
+ */
+export function getNearLocation(center: Coordinate, floatInfo: Coordinate): NearLocType;
+import { Coordinate } from "./type";
+import { NearLocType } from "./type";

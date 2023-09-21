@@ -126,7 +126,7 @@ export class ScrollInfoType {
 }
 
 /**
- * @param {HTMLElement} [inputEl]
+ * @param {SAFE_UNDEFINED|HTMLElement} [inputEl]
  * @returns {ScrollInfoType}
  */
 const getScrollInfo = (inputEl, margin = 50) => {

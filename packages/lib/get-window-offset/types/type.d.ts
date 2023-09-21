@@ -1,9 +1,45 @@
 /**
- * @typedef {undefined|false|HTMLElement} MaybeHTMLElement
+ * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
  */
 /**
- * @typedef {import('./isOnScreen').IsOnScreenType} IsOnScreenType
+ * @typedef {SAFE_UNDEFINED|HTMLElement} MaybeHTMLElement
  */
+export class NearLocType {
+    /**
+     * @type boolean
+     */
+    center: boolean;
+    /**
+     * @type boolean
+     */
+    centerCenter: boolean;
+    /**
+     * @type boolean
+     */
+    top: boolean;
+    /**
+     * @type boolean
+     */
+    bottom: boolean;
+    /**
+     * @type boolean
+     */
+    left: boolean;
+    /**
+     * @type boolean
+     */
+    right: boolean;
+}
+export class Coordinate {
+    /**
+     * @type number
+     */
+    x: number;
+    /**
+     * @type number
+     */
+    y: number;
+}
 export class SimplePosType {
     /**
      * @type number
@@ -26,17 +62,43 @@ export class DomInfoType extends OffsetType {
     /**
      * @type MaybeHTMLElement
      */
-    scrollNode: MaybeHTMLElement;
+    domScroller: MaybeHTMLElement;
     /**
      * @type MaybeHTMLElement
      */
     fixedNode: MaybeHTMLElement;
     /**
+     * @type MaybeHTMLElement
+     */
+    overflowNode: MaybeHTMLElement;
+}
+export class IsOnScreenType extends DomInfoType {
+    /**
      * @type boolean
      */
     isOnScreen: boolean;
+    /**
+     * @type boolean
+     */
+    atTop: boolean;
+    /**
+     * @type boolean
+     */
+    atRight: boolean;
+    /**
+     * @type boolean
+     */
+    atBottom: boolean;
+    /**
+     * @type boolean
+     */
+    atLeft: boolean;
 }
 export class DomPositionInfoType {
+    /**
+     * @type DomInfoType
+     */
+    domOverflowInfo: DomInfoType;
     /**
      * @type DomInfoType
      */
@@ -48,7 +110,7 @@ export class DomPositionInfoType {
     /**
      * @type MaybeHTMLElement
      */
-    scrollNode: MaybeHTMLElement;
+    overflowNode: MaybeHTMLElement;
 }
 export class CalWindowOffsetResult {
     /**
@@ -66,15 +128,19 @@ export class CalWindowOffsetResult {
 }
 export class WindowOffsetType extends CalWindowOffsetResult {
     /**
-     * @type {IsOnScreenType}
+     * @type IsOnScreenType
+     */
+    domOverflowInfo: IsOnScreenType;
+    /**
+     * @type IsOnScreenType
      */
     domInfo: IsOnScreenType;
     /**
-     * @type {ScrollInfoType}
+     * @type ScrollInfoType
      */
     scrollInfo: ScrollInfoType;
 }
-export type MaybeHTMLElement = undefined | false | HTMLElement;
-export type IsOnScreenType = import('./isOnScreen').IsOnScreenType;
+export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
+export type MaybeHTMLElement = SAFE_UNDEFINED | HTMLElement;
 import { OffsetType } from "getoffset";
 import { ScrollInfoType } from "get-scroll-info";

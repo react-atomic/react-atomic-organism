@@ -3,11 +3,50 @@ import { OffsetType } from "getoffset";
 import { ScrollInfoType } from "get-scroll-info";
 
 /**
- * @typedef {undefined|false|HTMLElement} MaybeHTMLElement
+ * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
  */
+
 /**
- * @typedef {import('./isOnScreen').IsOnScreenType} IsOnScreenType
+ * @typedef {SAFE_UNDEFINED|HTMLElement} MaybeHTMLElement
  */
+
+export class NearLocType {
+  /**
+   * @type boolean
+   */
+  center;
+  /**
+   * @type boolean
+   */
+  centerCenter;
+  /**
+   * @type boolean
+   */
+  top;
+  /**
+   * @type boolean
+   */
+  bottom;
+  /**
+   * @type boolean
+   */
+  left;
+  /**
+   * @type boolean
+   */
+  right;
+}
+
+export class Coordinate {
+  /**
+   * @type number
+   */
+  x;
+  /**
+   * @type number
+   */
+  y;
+}
 
 export class SimplePosType {
   /**
@@ -32,18 +71,48 @@ export class DomInfoType extends OffsetType {
   /**
    * @type MaybeHTMLElement
    */
-  scrollNode;
+  domScroller;
   /**
    * @type MaybeHTMLElement
    */
   fixedNode;
   /**
+   * @type MaybeHTMLElement
+   */
+  overflowNode;
+}
+
+export class IsOnScreenType extends DomInfoType {
+  /**
    * @type boolean
    */
   isOnScreen;
+  /**
+   * @type boolean
+   */
+  atTop;
+  /**
+   * @type boolean
+   */
+  atRight;
+  /**
+   * @type boolean
+   */
+  atBottom;
+  /**
+   * @type boolean
+   */
+  atLeft;
+  /**
+   * @type boolean
+   */
 }
 
 export class DomPositionInfoType {
+  /**
+   * @type DomInfoType
+   */
+  domOverflowInfo;
   /**
    * @type DomInfoType
    */
@@ -55,7 +124,7 @@ export class DomPositionInfoType {
   /**
    * @type MaybeHTMLElement
    */
-  scrollNode;
+  overflowNode;
 }
 
 export class CalWindowOffsetResult {
@@ -75,11 +144,15 @@ export class CalWindowOffsetResult {
 
 export class WindowOffsetType extends CalWindowOffsetResult {
   /**
-   * @type {IsOnScreenType}
+   * @type IsOnScreenType
+   */
+  domOverflowInfo;
+  /**
+   * @type IsOnScreenType
    */
   domInfo;
   /**
-   * @type {ScrollInfoType}
+   * @type ScrollInfoType
    */
   scrollInfo;
 }

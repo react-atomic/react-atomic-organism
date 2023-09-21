@@ -11,16 +11,21 @@ import { DomPositionInfoType, DomInfoType } from "./type";
  */
 const getDomPositionInfo = (dom) => {
   const fixedNode = isFixed(dom);
-  const scrollNode = isSetOverflow(dom);
-  const domInfo = /** @type DomInfoType*/ (
-    getOffset(dom, /** @type undefined|HTMLElement */ (fixedNode || scrollNode))
-  );
-  domInfo.scrollNode = scrollNode;
-  domInfo.fixedNode = fixedNode;
+  const overflowNode = isSetOverflow(dom);
+  const domScroller = /** @type HTMLElement */ (fixedNode || overflowNode);
+
+  const domOverflowInfo = /** @type DomInfoType*/ (getOffset(dom, domScroller));
+  domOverflowInfo.domScroller = domScroller;
+  domOverflowInfo.fixedNode = domScroller;
+  domOverflowInfo.overflowNode = domScroller;
+
+  const domInfo = /** @type DomInfoType*/ (getOffset(dom));
+
   return {
     domInfo,
+    domOverflowInfo,
     fixedNode,
-    scrollNode,
+    overflowNode,
   };
 };
 

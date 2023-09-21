@@ -70,7 +70,6 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     console.warn("targetEl was empty", { targetEl });
     return false;
   }
-  let targetInfo;
   let locs = [];
   if (toLoc) {
     locs.push(toLoc);
@@ -87,13 +86,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     console.warn("Not set any locs", { toLoc });
     return false;
   }
-  if (!targetInfo) {
-    if (winInfo) {
-      targetInfo = winInfo.domInfo;
-    } else {
-      targetInfo = getDomPositionInfo(targetEl).domInfo;
-    }
-  }
+  const targetInfo = winInfo ? winInfo.domOverflowInfo : getDomPositionInfo(targetEl).domOverflowInfo;
   if (!targetInfo) {
     console.warn("[alertUI] can't get target info.", { targetEl, winInfo });
     return false;
@@ -103,7 +96,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   /**
    * @type HTMLElement
    */
-  const scrollNode = /**@type HTMLElement*/ (targetInfo.scrollNode);
+  const overflowNode = /**@type HTMLElement*/ (targetInfo.overflowNode);
   /**
    * @type HTMLElement
    */
@@ -121,8 +114,8 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
         adjustMove = fixFixedNode(getScrollInfo());
       }
     }
-  } else if (scrollNode) {
-    adjustMove = fixScrollNode(getScrollInfo(scrollNode));
+  } else if (overflowNode) {
+    adjustMove = fixScrollNode(getScrollInfo(overflowNode));
   }
   let loc;
   let move;
