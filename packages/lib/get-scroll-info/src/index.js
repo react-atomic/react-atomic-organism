@@ -5,10 +5,16 @@ import { UNDEFINED, NEW_OBJ } from "reshow-constant";
 import { getSN } from "get-random-id";
 
 const lastScrollStore = NEW_OBJ();
+
+/**
+ * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
+ */
+
 /**
  * @typedef {object & Document} ThisDocument
- * @propert {function} webkitIsFullScreen
+ * @property {function} webkitIsFullScreen
  */
+
 /**
  * @type ThisDocument
  */
@@ -25,7 +31,7 @@ const initDoc = () => {
 };
 
 /**
- * @param {HTMLElement} [el]
+ * @param {SAFE_UNDEFINED|HTMLElement} [el]
  * @returns {HTMLElement}
  */
 const getScrollNode = (el) => {

@@ -69,6 +69,7 @@ export class ScrollInfoType {
     scrollEl: HTMLElement;
 }
 export default getScrollInfo;
+export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
 export type ThisDocument = object & Document;
 /**
  * @param {HTMLElement} [inputEl]
@@ -76,7 +77,7 @@ export type ThisDocument = object & Document;
  */
 declare function getScrollInfo(inputEl?: HTMLElement, margin?: number): ScrollInfoType;
 /**
- * @param {HTMLElement} [el]
+ * @param {SAFE_UNDEFINED|HTMLElement} [el]
  * @returns {HTMLElement}
  */
-export function getScrollNode(el?: HTMLElement): HTMLElement;
+export function getScrollNode(el?: SAFE_UNDEFINED | HTMLElement): HTMLElement;
