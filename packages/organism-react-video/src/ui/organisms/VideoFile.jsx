@@ -1,10 +1,21 @@
-import React from "react";
+// @ts-check
+import * as React from "react";
 import { SemanticUI } from "react-atomic-molecule";
 import { KEYS } from "reshow-constant";
 
-// sourceType: "video/mp4"
-const VideoFile = (props) => {
-  const { src, sourceType, otherSources, ...others } = props;
+/**
+ * @typedef {object} VideoFileProps
+ * @property {string} src
+ * @property {string} sourceType
+ * @property {{[key: string]: string}} otherSources
+ */
+
+/**
+ * @param {VideoFileProps} props
+ *
+ * sourceType: "video/mp4"
+ */
+const VideoFile = ({ src, sourceType, otherSources, ...restProps }) => {
   let thisOtherSources = null;
   if (otherSources) {
     thisOtherSources = KEYS(otherSources).map((key) => {
@@ -13,7 +24,7 @@ const VideoFile = (props) => {
     });
   }
   return (
-    <SemanticUI atom="video" controls {...others}>
+    <SemanticUI atom="video" controls {...restProps}>
       <SemanticUI atom="source" src={src} type={sourceType} />
       {thisOtherSources}
     </SemanticUI>
