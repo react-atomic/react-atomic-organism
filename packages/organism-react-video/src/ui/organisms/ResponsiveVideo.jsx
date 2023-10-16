@@ -1,9 +1,20 @@
-import React, { cloneElement } from "react";
+//@ts-check
+
+import * as React from "react";
+const {cloneElement} = React; 
 import { SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
 
-const ResponsiveVideo = (props) => {
-  const { mask, children, corp, showControllBar, restart } = props;
+/**
+ * @param {any} props
+ */
+const ResponsiveVideo = ({
+  mask = true,
+  corp = 23,
+  showControllBar = false,
+  children,
+  restart,
+}) => {
   const thisRestart = "function" === typeof restart ? restart : () => {};
   let thisMask = null;
   if (mask) {
@@ -44,14 +55,11 @@ const ResponsiveVideo = (props) => {
   );
 };
 
-ResponsiveVideo.defaultProps = {
-  showControllBar: false,
-  mask: true,
-  corp: 23,
-};
-
 export default ResponsiveVideo;
 
+/**
+ * @type {{[key: string]: React.CSSProperties}}
+ */
 const Styles = {
   container: {
     overflow: "hidden",

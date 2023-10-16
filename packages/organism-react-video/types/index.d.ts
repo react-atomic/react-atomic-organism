@@ -1,5 +1,3 @@
-// @ts-check
-
 export { default as ResponsiveVideo } from "./ui/organisms/ResponsiveVideo";
 export { default as Video } from "./ui/organisms/Video";
 export { default as VideoFile } from "./ui/organisms/VideoFile";

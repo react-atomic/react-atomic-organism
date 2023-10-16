@@ -1,3 +1,4 @@
+// @ts-check
 import callfunc from "call-func";
 const defaultSourceType = 'video/mp4; codecs="avc1.42E01E,mp4a.40.2"';
 const getMediaSource = ({ url, onUpdate, sourceType = defaultSourceType }) => {
@@ -18,7 +19,7 @@ const getMediaSource = ({ url, onUpdate, sourceType = defaultSourceType }) => {
           // Append the data into the new sourceBuffer.
           sourceBuffer.appendBuffer(data);
         })
-        .catch((error) => {});
+        .catch(() => {});
     },
     { once: true }
   );
