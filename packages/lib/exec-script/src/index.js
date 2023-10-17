@@ -1,18 +1,22 @@
+// @ts-check
 import { js, create } from "create-el";
 import { win, doc } from "win-doc";
-import { FUNCTION, STRING, SCRIPT, KEYS } from "reshow-constant";
+import { FUNCTION, STRING, SCRIPT } from "reshow-constant";
 import callfunc from "call-func";
 import { getSN } from "get-random-id";
 
-let scriptCount = 0;
 let lastScript;
 const getLastScript = () => lastScript;
 
 const handleScriptOnload =
   ({ oWin, errCb, cb, inlineScripts, queueScripts, lastScripts, getScript }) =>
+  /**
+   * @param {any} i
+   * @param {HTMLScriptElement} [origScript]
+   */
   (i, origScript) => {
     if (inlineScripts[i] && inlineScripts[i].length) {
-      inlineScripts[i].forEach((script) => {
+      inlineScripts[i].forEach((/**@type string*/ script) => {
         try {
           lastScript = script;
           oWin.eval("(" + FUNCTION + "(){" + script + "}.call(window))");
@@ -35,11 +39,21 @@ const handleScriptOnload =
     if (queueScripts.length) {
       getScript(queueScripts.shift());
     } else if (lastScripts.length) {
-      lastScripts.forEach((script) => getScript(script));
+      lastScripts.forEach((/** @type HTMLScriptElement*/ script) =>
+        getScript(script)
+      );
       lastScripts = [];
     }
   };
 
+/**
+ * @param {HTMLScriptElement} el
+ * @param {window} [oWin]
+ * @param {Element} [jsBase]
+ * @param {Function} [errCb]
+ * @param {Function} [cb]
+ * @param {Function} [getScriptCb]
+ */
 const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   oWin = oWin || win();
   jsBase = jsBase || doc(oWin).body;
@@ -47,9 +61,10 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
   const queueScripts = [];
   let lastScripts = [];
   let bStop = false;
-  const getScript = (origScript) => {
-    const { key, asyncKey } = origScript.attributes;
-    let callback = null;
+  const getScript = (/** @type HTMLScriptElement*/ origScript) => {
+    const key = origScript.getAttribute("key");
+    const asyncKey = origScript.getAttribute("asyncKey");
+    let callback = () => {};
     if (key) {
       callback = () => onLoad(key, origScript);
     }
@@ -73,33 +88,35 @@ const execScript = (el, oWin, jsBase, errCb, cb, getScriptCb) => {
     getScript,
   });
   const thisEl = STRING === typeof el ? create("div")()({ innerHTML: el }) : el;
-  const scripts = thisEl.getElementsByTagName(SCRIPT);
-  let key = getSN("script");
-  const firstKey = key;
-  for (let i = 0, len = scripts.length; i < len; i++) {
-    const script = scripts[i];
-    const src = script.src;
-    if (src) {
-      const { async, defer } = script.attributes || {};
-      if (async) {
-        script.attributes.asyncKey = key;
-        getScript(script);
-      } else if (defer) {
-        script.attributes.asyncKey = key;
-        lastScripts.push(script);
+  const scripts = thisEl?.getElementsByTagName(SCRIPT);
+  if (scripts && scripts.length) {
+    let key = getSN("script");
+    const firstKey = key;
+    for (let i = 0, len = scripts.length; i < len; i++) {
+      const script = scripts[i];
+      const src = script.src;
+      if (src) {
+        const { async, defer } = /**@type any*/ (script.attributes || {});
+        if (async) {
+          script.setAttribute("asyncKey", key);
+          getScript(script);
+        } else if (defer) {
+          script.setAttribute("asyncKey", key);
+          lastScripts.push(script);
+        } else {
+          key = getSN("script");
+          script.setAttribute("key", key);
+          queueScripts.push(script);
+        }
       } else {
-        key = getSN("script");
-        script.attributes.key = key;
-        queueScripts.push(script);
+        if (!inlineScripts[key]) {
+          inlineScripts[key] = [];
+        }
+        inlineScripts[key].push(script.innerHTML);
       }
-    } else {
-      if (!inlineScripts[key]) {
-        inlineScripts[key] = [];
-      }
-      inlineScripts[key].push(script.innerHTML);
     }
+    onLoad(firstKey);
   }
-  onLoad(firstKey);
   return () => (bStop = true);
 };
 

@@ -1,6 +1,5 @@
 import { expect } from "chai";
 import { jsdom, cleanIt } from "reshow-unit-dom";
-import callfunc from "call-func";
 
 import exec from "../index";
 
@@ -19,7 +18,7 @@ describe("Exec Script", () => {
   });
 
   it("syntax error with callback", (done) => {
-    exec("<script>window.a = (</script>", null, null, (err, js) => {
+    exec("<script>window.a = (</script>", null, null, (err) => {
       expect(err.message).to.have.string("Unexpected token");
       done();
     });
@@ -49,7 +48,7 @@ describe("Exec Script", () => {
       window,
       null,
       null,
-      ({ key, origScript, queueScripts }) => {
+      ({ origScript, queueScripts }) => {
         expect({ a: window.a, src: (origScript || {}).src }).to.deep.equal(
           expected.shift()
         );
@@ -57,7 +56,9 @@ describe("Exec Script", () => {
           done();
         }
       },
-      ({ loadScript }) => loadScript.onreadystatechange()
+      ({ loadScript }) => {
+        loadScript.onload();
+      }
     );
   });
 
@@ -74,7 +75,7 @@ describe("Exec Script", () => {
       window,
       null,
       null,
-      ({ key, origScript, queueScripts }) => {
+      ({ queueScripts }) => {
         expect(window.a).to.equal(333);
         if (!queueScripts.length) {
           done();
@@ -102,14 +103,14 @@ describe("Exec Script", () => {
       window,
       null,
       null,
-      ({ key, origScript, queueScripts }) => {
+      ({ queueScripts }) => {
         expect(window.a).to.equal(expectedA.shift());
         if (!queueScripts.length) {
           done();
         }
       },
       ({ origScript, loadScript }) => {
-        callfunc(loadScript.onreadystatechange);
+        loadScript.onload();
         expect(origScript.src).to.equal(expected.shift());
       }
     );

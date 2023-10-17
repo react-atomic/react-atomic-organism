@@ -2,12 +2,13 @@ export default VideoFile;
 export type Component = import('reshow-build').Component;
 export type VideoFileProps = {
     src: string;
-    sourceType: string;
-    otherSources: {
+    sourceType?: string;
+    otherSources?: {
         [key: string]: string;
     };
-    sourceComponent: Component;
-    videoComponent: Component;
+    sourceComponent?: Component;
+    videoComponent?: Component;
+    className?: string;
 };
 /**
  * @typedef {import('reshow-build').Component} Component
@@ -15,14 +16,13 @@ export type VideoFileProps = {
 /**
  * @typedef {object} VideoFileProps
  * @property {string} src
- * @property {string} sourceType
- * @property {{[key: string]: string}} otherSources
- * @property {Component} sourceComponent
- * @property {Component} videoComponent
+ * @property {string} [sourceType]
+ * @property {{[key: string]: string}} [otherSources]
+ * @property {Component} [sourceComponent]
+ * @property {Component} [videoComponent]
+ * @property {string} [className]
  */
 /**
  * @param {VideoFileProps} props
- *
- * sourceType: "video/mp4"
  */
-declare function VideoFile({ src, sourceType, otherSources, sourceComponent, videoComponent, ...restProps }: VideoFileProps): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+declare function VideoFile({ src, otherSources, sourceComponent, videoComponent, sourceType, ...restProps }: VideoFileProps): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;

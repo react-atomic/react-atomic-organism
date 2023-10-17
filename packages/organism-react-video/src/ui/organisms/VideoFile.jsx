@@ -9,23 +9,22 @@ import build from "reshow-build";
 /**
  * @typedef {object} VideoFileProps
  * @property {string} src
- * @property {string} sourceType
- * @property {{[key: string]: string}} otherSources
- * @property {Component} sourceComponent
- * @property {Component} videoComponent
+ * @property {string} [sourceType]
+ * @property {{[key: string]: string}} [otherSources]
+ * @property {Component} [sourceComponent]
+ * @property {Component} [videoComponent]
+ * @property {string} [className]
  */
 
 /**
  * @param {VideoFileProps} props
- *
- * sourceType: "video/mp4"
  */
 const VideoFile = ({
   src,
-  sourceType,
   otherSources,
   sourceComponent = "source",
   videoComponent = "video",
+  sourceType  = "video/mp4",
   ...restProps
 }) => {
   const sourceEl = build(sourceComponent);

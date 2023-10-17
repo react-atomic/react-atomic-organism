@@ -1,5 +1,4 @@
 import {
-  useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
@@ -251,7 +250,7 @@ const Iframe = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => expose, []);
 
   return (
-    <IframeContainer {...others} ref={thisIframe} refCb={handler.refCb}>
+    <IframeContainer component={<SemanticUI atom="iframe" />} {...others} ref={thisIframe} refCb={handler.refCb}>
       {thisEl && renderIframe()}
     </IframeContainer>
   );

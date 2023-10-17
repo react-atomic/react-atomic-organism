@@ -1,3 +1,5 @@
+//@ts-check
+import build from "reshow-build";
 import {
   useEffect,
   useImperativeHandle,
@@ -6,21 +8,36 @@ import {
   forwardRef,
 } from "react";
 import get from "get-object-value";
-import { SemanticUI } from "react-atomic-molecule";
-import callfunc from "call-func";
 
 let iframeCount = 0;
 
+/**
+ * @typedef {object} IframeContainerProps
+ * @property {string} [src]
+ * @property {string} [messageKey]
+ * @property {string} [loading]
+ * @property {string} [allow]
+ * @property {Function} [onLoad]
+ * @property {React.CSSProperties} [style]
+ * @property {any} [ref]
+ * @property {any} [refCb]
+ * @property {import("reshow-build").Component} [component]
+ */
+
+/**
+ * @param {IframeContainerProps} props
+ */
 const useIframeContainer = (props) => {
   const {
     src,
     style,
     messageKey = "iframeH",
     loading = "lazy",
-    ...others
+    component = "iframe",
+    ...restProps
   } = props;
   const [iframeH, setIframeH] = useState("auto");
-  const thisMessageKey = useRef();
+  const thisMessageKey = /**@type any*/ (useRef());
 
   useEffect(() => {
     thisMessageKey.current = messageKey + "-" + iframeCount;
@@ -28,11 +45,11 @@ const useIframeContainer = (props) => {
   }, [messageKey]);
 
   useEffect(() => {
-    const handleMessage = (e) => {
+    const handleMessage = (/**@type MessageEvent*/ e) => {
       let data = e.data;
       if ("string" === typeof data) {
         try {
-          data = JSON.parse(get(data, null, "{}"));
+          data = JSON.parse(get(data, undefined, "{}"));
         } catch (ex) {}
       }
       const { type, h } = data;
@@ -45,12 +62,12 @@ const useIframeContainer = (props) => {
       window.removeEventListener("message", handleMessage, false);
     };
   }, []);
-
+  const nextRestProps = /**@type any*/ ({ ...restProps });
   if (src) {
-    others.src = src;
+    nextRestProps.src = src;
   }
   if (loading) {
-    others.loading = loading;
+    nextRestProps.loading = loading;
   }
 
   const thisStyle = {
@@ -61,7 +78,7 @@ const useIframeContainer = (props) => {
   };
 
   const expose = {
-    postHeight: (win) => {
+    postHeight: (/**@type window*/ win) => {
       setTimeout(() => {
         win?.parent?.window.postMessage(
           {
@@ -76,15 +93,23 @@ const useIframeContainer = (props) => {
 
   return {
     style: thisStyle,
-    others,
+    restProps: nextRestProps,
     expose,
+    component,
   };
 };
 
+/**
+ * @type React.FC<IframeContainerProps>
+ */
 const IframeContainer = forwardRef((props, ref) => {
-  const { style, others, expose } = useIframeContainer(props);
+  const { style, restProps, component, expose } = useIframeContainer(props);
   useImperativeHandle(ref, () => expose, []);
-  return <SemanticUI {...others} style={style} atom="iframe" />;
+  if (component === "iframe") {
+    restProps.ref = restProps.refCb || ref;
+    delete restProps.refCb;
+  }
+  return build(component)({ ...restProps, style });
 });
 
 export default IframeContainer;

@@ -1,12 +1,16 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
+// @ts-check
+import * as React from "react";
+const { useEffect, useImperativeHandle, forwardRef, useRef, useState } = React;
 import { IframeContainer } from "organism-react-iframe";
 import { doc } from "win-doc";
+import { KEYS } from "reshow-constant";
 
 import ResponsiveVideo from "../organisms/ResponsiveVideo";
 
-const keys = Object.keys;
-
+/**
+ * @param {string} func
+ * @param {any[]} args
+ */
 const message = (func, args) =>
   JSON.stringify({
     event: "command",
@@ -14,100 +18,125 @@ const message = (func, args) =>
     args,
   });
 
+const defaultVideoParams = {
+  autoplay: 1,
+  loop: 1,
+  showinfo: 0,
+  controls: 0,
+  rel: 0,
+  mute: 1,
+  modestbranding: 1,
+  iv_load_policy: 3,
+  enablejsapi: 1,
+};
+
 /**
- * YouTube Embedded Players
- *
+ * @param {YoutubeRWDProps} props
+ */
+const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
+  const nextVideoParams = { ...videoParams };
+  if (nextVideoParams["enablejsapi"]) {
+    nextVideoParams["origin"] = hostname;
+  }
+  const aParams = [];
+  KEYS(nextVideoParams).forEach((key) =>
+    aParams.push(key + "=" + encodeURIComponent(nextVideoParams[key]))
+  );
+  const src =
+    "https://www.youtube.com/embed/" + videoId + "?" + aParams.join("&");
+  return src;
+};
+
+class YoutubeRWDProps {
+  /**
+   * @type {string?}
+   */
+  videoId;
+
+  /**
+   * @type {{[key: string]: any}?}
+   */
+  videoParams;
+
+  /**
+   * @type {string?}
+   */
+  hostname;
+}
+
+/**
+ * @param {YoutubeRWDProps} props
+ */
+const useYoutubeRWD = (props) => {
+  const { videoId, videoParams, ...restProps } = props;
+  const [state, setState] = useState({ load: false, hostname: "" });
+  useEffect(() => {
+    const loc = doc().location;
+    setState({ load: true, hostname: loc.protocol + "//" + loc.hostname });
+  }, []);
+
+  /**
+   * @type {React.MutableRefObject<HTMLIFrameElement>?}
+   */
+  const lastIframe = /**@type any*/ (useRef());
+  const expose = {
+    restart: () => {
+      expose.exec("playVideo");
+    },
+    /**
+     * @param {string} cmd
+     * @param {any[]} args
+     */
+    exec: (cmd, args = []) => {
+      if (!lastIframe?.current) {
+        return;
+      }
+      const thisCmd = message(cmd, args);
+      lastIframe.current?.contentWindow?.postMessage(thisCmd, "*");
+    },
+  };
+  const handler = {
+    load: () => {
+      expose.restart();
+    },
+  };
+  return {
+    expose,
+    handler,
+    restProps,
+    lastIframe,
+    state,
+    src: state.load
+      ? getYoutubeUrl({
+          videoId,
+          videoParams: { ...defaultVideoParams, ...videoParams },
+          hostname: state.hostname,
+        })
+      : undefined,
+  };
+};
+
+/**
+ * @type React.FC<YoutubeRWDProps>
  * https://developers.google.com/youtube/player_parameters
  */
-class YoutubeRWD extends PureComponent {
-  static propTypes = {
-    videoId: PropTypes.string.isRequired,
-  };
-
-  static defaultProps = {
-    defaultVideoParams: {
-      autoplay: 1,
-      loop: 1,
-      showinfo: 0,
-      controls: 0,
-      rel: 0,
-      mute: 1,
-      modestbranding: 1,
-      iv_load_policy: 3,
-      enablejsapi: 1,
-    },
-    videoParams: {},
-  };
-
-  state = {
-    load: 0,
-  };
-
-  iframe = null;
-
-  exec(cmd, args = []) {
-    if (!this.iframe) {
-      return;
-    }
-    const thisCmd = message(cmd, args);
-    this.iframe.contentWindow.postMessage(thisCmd, "*");
+const YoutubeRWD = forwardRef((props, ref) => {
+  const { expose, handler, restProps, lastIframe, state, src } =
+    useYoutubeRWD(props);
+  if (state.load) {
+    return null;
   }
-
-  handleEl = (el) => {
-    this.iframe = el;
-    this.restart();
-  };
-
-  restart = () => {
-    this.exec("playVideo");
-  };
-
-  handleLoad = () => {
-    this.restart();
-  };
-
-  componentDidMount() {
-    const loc = doc().location;
-    this.setState({
-      load: 1,
-      hostname: loc.protocol + "//" + loc.hostname,
-    });
-  }
-
-  render() {
-    const { load, hostname } = this.state;
-    if (!load) {
-      return null;
-    }
-    const { defaultVideoParams, videoId, videoParams, ...others } = this.props;
-    const aParams = [];
-    const thisVideoParams = {
-      ...defaultVideoParams,
-      ...videoParams,
-    };
-    if (thisVideoParams["enablejsapi"]) {
-      thisVideoParams["origin"] = hostname;
-    }
-    keys(thisVideoParams).forEach((key) =>
-      aParams.push(key + "=" + encodeURIComponent(thisVideoParams[key]))
-    );
-    if (thisVideoParams["loop"] && !thisVideoParams["playlist"]) {
-      aParams.push("playlist=" + videoId);
-    }
-    const src =
-      "https://www.youtube.com/embed/" + videoId + "?" + aParams.join("&");
-
-    return (
-      <ResponsiveVideo {...others} restart={this.restart}>
-        <IframeContainer
-          allow="autoplay; fullscreen; encrypted-media"
-          src={src}
-          refCb={this.handleEl}
-          onLoad={this.handleLoad}
-        />
-      </ResponsiveVideo>
-    );
-  }
-}
+  useImperativeHandle(ref, () => expose, []);
+  return (
+    <ResponsiveVideo {...restProps} restart={expose.restart}>
+      <IframeContainer
+        allow="autoplay; fullscreen; encrypted-media"
+        src={src}
+        ref={lastIframe}
+        onLoad={handler.load}
+      />
+    </ResponsiveVideo>
+  );
+});
 
 export default YoutubeRWD;
