@@ -1,2 +1,5 @@
 export default readUpload;
-declare function readUpload(file: any): any;
+/**
+ * @param {Blob} file
+ */
+declare function readUpload(file: Blob): Promise<any>;

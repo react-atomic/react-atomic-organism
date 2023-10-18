@@ -1,7 +1,11 @@
+// @ts-check
+/**
+ * @param {Blob} file
+ */
 const readUpload = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new window.FileReader();
-    reader.onload = () => resolve(reader.result);
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.addEventListener("loadend", () => resolve(reader.result));
     reader.readAsText(file);
   });
 };

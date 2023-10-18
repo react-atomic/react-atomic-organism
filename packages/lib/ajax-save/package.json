@@ -14,6 +14,7 @@
   "dependencies": {
     "create-el": "*",
     "get-random-id": "*",
+    "jsdom": "20.0.3",
     "win-doc": "*"
   },
   "devDependencies": {
@@ -30,7 +31,7 @@
     "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
-    "build:type": "npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build:type": "npx -p typescript tsc src/*.js src/**/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types --lib es2015,dom",
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
