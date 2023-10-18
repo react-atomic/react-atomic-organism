@@ -13,18 +13,21 @@ import build from "reshow-build";
  * @property {{[key: string]: string}} [otherSources]
  * @property {Component} [sourceComponent]
  * @property {Component} [videoComponent]
+ * @property {{[key:string]:any}} [videoParams]
  * @property {string} [className]
  */
 
 /**
  * @param {VideoFileProps} props
+ * https://www.w3schools.com/tags/tag_video.asp
  */
 const VideoFile = ({
   src,
   otherSources,
+  videoParams,
   sourceComponent = "source",
   videoComponent = "video",
-  sourceType  = "video/mp4",
+  sourceType = "video/mp4",
   ...restProps
 }) => {
   const sourceEl = build(sourceComponent);
@@ -38,7 +41,11 @@ const VideoFile = ({
       })
     );
   }
-  return videoEl({ controls: true, ...restProps }, thisSources);
+  videoParams = videoParams || { controls: true };
+  if (videoParams["autoPlay"]) {
+    videoParams["muted"] = true;
+  }
+  return videoEl({ ...videoParams, ...restProps }, thisSources);
 };
 
 export default VideoFile;

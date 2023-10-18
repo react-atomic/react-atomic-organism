@@ -1,7 +1,7 @@
 //@ts-check
 
 import * as React from "react";
-const {cloneElement} = React; 
+const { cloneElement } = React;
 import { SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
 

@@ -8,6 +8,9 @@ export type VideoFileProps = {
     };
     sourceComponent?: Component;
     videoComponent?: Component;
+    videoParams?: {
+        [key: string]: any;
+    };
     className?: string;
 };
 /**
@@ -20,9 +23,11 @@ export type VideoFileProps = {
  * @property {{[key: string]: string}} [otherSources]
  * @property {Component} [sourceComponent]
  * @property {Component} [videoComponent]
+ * @property {{[key:string]:any}} [videoParams]
  * @property {string} [className]
  */
 /**
  * @param {VideoFileProps} props
+ * https://www.w3schools.com/tags/tag_video.asp
  */
-declare function VideoFile({ src, otherSources, sourceComponent, videoComponent, sourceType, ...restProps }: VideoFileProps): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+declare function VideoFile({ src, otherSources, videoParams, sourceComponent, videoComponent, sourceType, ...restProps }: VideoFileProps): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
