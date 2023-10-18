@@ -1,3 +1,4 @@
+//@ts-check
 import { expect } from "chai";
 import query from "css-query-selector";
 
@@ -8,11 +9,14 @@ describe("Test delegate", () => {
     document.body.innerHTML = `
       <div class="test"></div>
     `;
-    delegate(document.body, "click", ".test", (e) => {
-      expect(e.target.className).to.equal("test");
-      expect(e.currentTarget.className).to.equal("test");
+    delegate(document.body, "click", ".test", (/**@type MouseEvent*/ e) => {
+      const t = /** @type HTMLElement */ (e.target);
+      const ct = /** @type HTMLElement */ (e.currentTarget);
+      expect(t.className).to.equal("test");
+      expect(ct.className).to.equal("test");
       done();
     });
-    query.one(".test").dispatchEvent(new Event("click", { bubbles: true }));
+    const fakeClick = new MouseEvent("click", { bubbles: true });
+    query.one(".test").dispatchEvent(fakeClick);
   });
 });
