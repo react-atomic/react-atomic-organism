@@ -1,12 +1,8 @@
 import { expect } from "chai";
-import jsdom from "jsdom-global";
 
 import formSerialize from "../index";
 
 describe("Test formSerialize", () => {
-  let uGlobal;
-  beforeEach(() => (uGlobal = jsdom()));
-  afterEach(() => uGlobal());
   it("simple test", () => {
     const body = document.body;
     body.innerHTML = `
@@ -20,10 +16,6 @@ describe("Test formSerialize", () => {
 });
 
 describe("Test formSerialize arrayMode", () => {
-  let uGlobal;
-  beforeEach(() => (uGlobal = jsdom()));
-  afterEach(() => uGlobal());
-
   it("auto", () => {
     const body = document.body;
     body.innerHTML = `
@@ -136,9 +128,6 @@ describe("Test formSerialize arrayMode", () => {
 });
 
 describe("Test formSerialize with multi select", () => {
-  let uGlobal;
-  beforeEach(() => (uGlobal = jsdom()));
-  afterEach(() => uGlobal());
   it("with simple", () => {
     const body = document.body;
     body.innerHTML = `
@@ -212,9 +201,6 @@ describe("Test formSerialize with multi select", () => {
 });
 
 describe("Test formSerialize with checkbox", () => {
-  let uGlobal;
-  beforeEach(() => (uGlobal = jsdom()));
-  afterEach(() => uGlobal());
   it("data-checked-to-value", () => {
     const body = document.body;
     body.innerHTML = `

@@ -1,5 +1,9 @@
+// @ts-check
 import set from "set-object-value";
 
+/**
+ * @param {any} formParams
+ */
 const maybeArray = (formParams, { name, value, arrayMode }) => {
   switch (arrayMode) {
     case "arrayKeyKeep":
@@ -26,12 +30,16 @@ const maybeArray = (formParams, { name, value, arrayMode }) => {
   }
 };
 
+/**
+ * @param {HTMLFormElement} formEl
+ * @param {string=} arrayMode
+ */
 const formSerialize = (formEl, arrayMode) => {
   arrayMode = null != arrayMode ? arrayMode : "auto";
   const formParams = {};
-  const elements = [...formEl.elements];
+  const elements = [.../**@type any*/(formEl.elements)];
   elements.forEach((el) => {
-    const { name, value, type, checked } = el;
+    const { name, value, type, checked } = /**@type any*/ (el);
     const booleanValue = el.getAttribute("data-boolean")
       ? !!(-1 !== "|0|null|true|false|".indexOf("|" + value.toLowerCase() + "|")
           ? JSON.parse(value.toLowerCase())
@@ -50,8 +58,10 @@ const formSerialize = (formEl, arrayMode) => {
           }
           break;
         case "select-multiple":
-          const options = el.querySelectorAll("option[selected]");
-          [...options].forEach((opt) => {
+          const options = /**@type NodeListOf<HTMLOptionElement>*/ (
+            el.querySelectorAll("option[selected]")
+          );
+          [.../**@type any*/(options)].forEach((opt) => {
             const optValue = opt.value || opt.text;
             maybeArray(formParams, { name, value: optValue, arrayMode });
           });
