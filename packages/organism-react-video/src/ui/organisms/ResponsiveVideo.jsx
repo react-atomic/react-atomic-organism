@@ -4,27 +4,42 @@ import * as React from "react";
 const { cloneElement } = React;
 import { SemanticUI } from "react-atomic-molecule";
 import get from "get-object-value";
+import callfunc from "call-func";
+import { useRefUpdate } from "reshow-hooks";
 
 /**
- * @param {any} props
+ * @typedef {object} ResponsiveVideoProps
+ * @property {boolean=} mask
+ * @property {boolean=} showControllBar
+ * @property {number=} corp
+ * @property {Function=} restart
+ * @property {React.ReactElement?} [children]
+ */
+
+/**
+ * @param {ResponsiveVideoProps} props
  */
 const ResponsiveVideo = ({
   mask = true,
-  corp = 23,
   showControllBar = false,
+  corp,
   children,
   restart,
 }) => {
-  const thisRestart = "function" === typeof restart ? restart : () => {};
+  corp = corp ?? 23;
+  const lastRestart = useRefUpdate(restart);
+  const handler = {
+    touch: () => callfunc(lastRestart.current),
+  };
   let thisMask = null;
   if (mask) {
     thisMask = (
       <SemanticUI
         className="play-mask"
         style={Styles.mask}
-        onTouchStart={thisRestart}
-        onTouchEnd={thisRestart}
-        onClick={thisRestart}
+        onTouchStart={handler.touch}
+        onTouchEnd={handler.touch}
+        onClick={handler.touch}
       />
     );
   }
@@ -42,13 +57,14 @@ const ResponsiveVideo = ({
         className="rwd-video-inner"
         style={{ ...Styles.inner, ...showControllBarStyle }}
       >
-        {cloneElement(children, {
-          style: {
-            ...get(children, ["props", "style"]),
-            ...Styles.videoContainer,
-            margin: `-${corp}vw 0`,
-          },
-        })}
+        {children &&
+          cloneElement(children, {
+            style: {
+              ...get(children, ["props", "style"]),
+              ...Styles.videoContainer,
+              margin: `-${corp}vw 0`,
+            },
+          })}
       </SemanticUI>
       {thisMask}
     </SemanticUI>

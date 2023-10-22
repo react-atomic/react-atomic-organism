@@ -1,5 +1,5 @@
 {
-  "version": "0.2.5",
+  "version": "0.2.7",
   "name": "organism-react-video",
   "repository": {
     "type": "git",
@@ -9,6 +9,7 @@
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-video",
   "description": "React video player",
   "keywords": [
+    "video",
     "react",
     "organism",
     "atomic-ui"

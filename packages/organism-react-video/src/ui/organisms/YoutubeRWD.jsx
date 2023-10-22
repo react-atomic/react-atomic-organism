@@ -31,7 +31,22 @@ const defaultVideoParams = {
 };
 
 /**
- * @param {YoutubeRWDProps} props
+ * @typedef {import("../organisms/ResponsiveVideo").ResponsiveVideoProps} ResponsiveVideoProps
+ */
+
+/**
+ * @typedef {object} YoutubeRWDExtProps
+ * @property {string} [videoId]
+ * @property {{[key: string]: any}} [videoParams]
+ * @property {string} [hostname]
+ */
+
+/**
+ * @typedef {ResponsiveVideoProps&YoutubeRWDExtProps} YoutubeRWDProps
+ */
+
+/**
+ * @param {YoutubeRWDExtProps} props
  */
 const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
   const nextVideoParams = { ...videoParams };
@@ -46,23 +61,6 @@ const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
     "https://www.youtube.com/embed/" + videoId + "?" + aParams.join("&");
   return src;
 };
-
-class YoutubeRWDProps {
-  /**
-   * @type {string?}
-   */
-  videoId;
-
-  /**
-   * @type {{[key: string]: any}?}
-   */
-  videoParams;
-
-  /**
-   * @type {string?}
-   */
-  hostname;
-}
 
 /**
  * @param {YoutubeRWDProps} props
