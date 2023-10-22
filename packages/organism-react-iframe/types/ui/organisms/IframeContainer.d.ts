@@ -2,7 +2,7 @@ export default IframeContainer;
 export type IframeContainerProps = {
     src?: string;
     messageKey?: string;
-    loading?: string;
+    loading?: "eager" | "lazy";
     allow?: string;
     onLoad?: Function;
     style?: React.CSSProperties;

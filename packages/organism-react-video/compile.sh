@@ -1,23 +1,35 @@
 #!/bin/sh
-#find ./assets -name "*.js" | xargs rm -rf
-
-production(){
-    echo "Production Mode";
-    NODE_ENV=production webpack -p 
-}
 
 develop(){
     echo "Develop Mode";
     npm run build
 }
 
+killBy(){
+    ps auxwwww | grep $1 | grep -v grep | awk '{print $2}' | xargs -I{} kill -9 {}
+}
+
+stop(){
+    DIR="$( cd "$(dirname "$0")" ; pwd -P )"
+    killBy ${DIR}/node_modules/.bin/babel && echo "Stop done" 
+}
+
+watch(){
+    stop 
+    echo "Watch Mode";
+    npm run build:es -- --watch &
+}
+
 case "$1" in
-  p)
-    production
+  watch)
+    watch 
+    ;;
+  stop)
+    stop 
     ;;
   *)
     develop
-    exit
+    ;; 
 esac
 
 exit $?

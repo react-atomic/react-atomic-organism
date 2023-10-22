@@ -10,9 +10,8 @@ import { useRefUpdate } from "reshow-hooks";
 /**
  * @typedef {object} ResponsiveVideoProps
  * @property {boolean=} mask
- * @property {boolean=} showControllBar
- * @property {number=} corp
- * @property {Function=} restart
+ * @property {string=} aspectRatio
+ * @property {Function=} onClick
  * @property {React.ReactElement?} [children]
  */
 
@@ -21,15 +20,13 @@ import { useRefUpdate } from "reshow-hooks";
  */
 const ResponsiveVideo = ({
   mask = true,
-  showControllBar = false,
-  corp,
+  aspectRatio = "16/9",
   children,
-  restart,
+  onClick,
 }) => {
-  corp = corp ?? 23;
-  const lastRestart = useRefUpdate(restart);
+  const lastRestart = useRefUpdate(onClick);
   const handler = {
-    touch: () => callfunc(lastRestart.current),
+    click: () => callfunc(lastRestart.current),
   };
   let thisMask = null;
   if (mask) {
@@ -37,32 +34,23 @@ const ResponsiveVideo = ({
       <SemanticUI
         className="play-mask"
         style={Styles.mask}
-        onTouchStart={handler.touch}
-        onTouchEnd={handler.touch}
-        onClick={handler.touch}
+        onTouchStart={handler.click}
+        onClick={handler.click}
       />
     );
   }
 
-  const showControllBarStyle = {};
-  if (showControllBar) {
-    showControllBarStyle["marginBottom"] = -corp + "vw";
-  } else {
-    showControllBarStyle["marginBottom"] = -(corp * 2) + "vw";
-  }
-
   return (
-    <SemanticUI className="rwd-video" style={Styles.container}>
-      <SemanticUI
-        className="rwd-video-inner"
-        style={{ ...Styles.inner, ...showControllBarStyle }}
-      >
+    <SemanticUI
+      className="rwd-video"
+      style={{ ...Styles.container, aspectRatio }}
+    >
+      <SemanticUI className="rwd-video-inner" style={Styles.inner}>
         {children &&
           cloneElement(children, {
             style: {
               ...get(children, ["props", "style"]),
               ...Styles.videoContainer,
-              margin: `-${corp}vw 0`,
             },
           })}
       </SemanticUI>
@@ -78,15 +66,13 @@ export default ResponsiveVideo;
  */
 const Styles = {
   container: {
-    overflow: "hidden",
     position: "relative",
+    overflow: "hidden",
     zIndex: 0,
   },
   inner: {
-    position: "relative",
     padding: "0 0 100%",
     height: 0,
-    overflow: "hidden",
     zIndex: 0,
   },
   videoContainer: {

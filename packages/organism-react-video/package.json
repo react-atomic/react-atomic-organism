@@ -1,5 +1,5 @@
 {
-  "version": "0.2.7",
+  "version": "0.2.9",
   "name": "organism-react-video",
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   "dependencies": {
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*",
+    "reshow-hooks": "*",
     "ricon": "*",
     "win-doc": "*"
   },

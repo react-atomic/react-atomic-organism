@@ -15,7 +15,7 @@ let iframeCount = 0;
  * @typedef {object} IframeContainerProps
  * @property {string} [src]
  * @property {string} [messageKey]
- * @property {string} [loading]
+ * @property {"eager"|"lazy"} [loading]
  * @property {string} [allow]
  * @property {Function} [onLoad]
  * @property {React.CSSProperties} [style]

@@ -4,6 +4,8 @@ const { useEffect, useImperativeHandle, forwardRef, useRef, useState } = React;
 import { IframeContainer } from "organism-react-iframe";
 import { doc } from "win-doc";
 import { KEYS } from "reshow-constant";
+import { useRefUpdate } from "reshow-hooks";
+import callfunc from "call-func";
 
 import ResponsiveVideo from "../organisms/ResponsiveVideo";
 
@@ -36,6 +38,7 @@ const defaultVideoParams = {
 
 /**
  * @typedef {object} YoutubeRWDExtProps
+ * @property {"eager"|"lazy"} [loading]
  * @property {string} [videoId]
  * @property {{[key: string]: any}} [videoParams]
  * @property {string} [hostname]
@@ -66,7 +69,8 @@ const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
  * @param {YoutubeRWDProps} props
  */
 const useYoutubeRWD = (props) => {
-  const { videoId, videoParams, ...restProps } = props;
+  const lastProps = useRefUpdate(props);
+  const { videoId, videoParams, onClick, ...restProps } = lastProps.current;
   const [state, setState] = useState({ load: false, hostname: "" });
   useEffect(() => {
     const loc = doc().location;
@@ -97,11 +101,15 @@ const useYoutubeRWD = (props) => {
     load: () => {
       expose.restart();
     },
+    click: (/**@type React.MouseEvent*/ e) => {
+      const { onClick } = lastProps.current;
+      callfunc(onClick ? onClick : expose.restart, [e]);
+    },
   };
   return {
     expose,
     handler,
-    restProps,
+    nextProps: restProps,
     lastIframe,
     state,
     src: state.load
@@ -119,15 +127,17 @@ const useYoutubeRWD = (props) => {
  * https://developers.google.com/youtube/player_parameters
  */
 const YoutubeRWD = forwardRef((props, ref) => {
-  const { expose, handler, restProps, lastIframe, state, src } =
+  const { expose, handler, nextProps, lastIframe, state, src } =
     useYoutubeRWD(props);
-  if (state.load) {
+  const { loading, ...restProps } = nextProps;
+  useImperativeHandle(ref, () => expose, []);
+  if (!state.load) {
     return null;
   }
-  useImperativeHandle(ref, () => expose, []);
   return (
-    <ResponsiveVideo {...restProps} restart={expose.restart}>
+    <ResponsiveVideo {...restProps} onClick={handler.click}>
       <IframeContainer
+        loading={loading}
         allow="autoplay; fullscreen; encrypted-media"
         src={src}
         ref={lastIframe}

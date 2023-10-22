@@ -3529,9 +3529,9 @@ optionator@^0.9.3:
     type-check "^0.4.0"
 
 organism-react-iframe@*:
-  version "0.12.7"
-  resolved "https://registry.yarnpkg.com/organism-react-iframe/-/organism-react-iframe-0.12.7.tgz#13779bb103898a7cd16d84fa40a8dfb5aadf5e2a"
-  integrity sha512-bXWHqYePkRn/+D1PRdaxsOpGr0JfS+3BZYKXS14wKrY6bslUBZ+kil5TL7/Pvf+Gli6jpmRJx2bABdAIqAyk9Q==
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/organism-react-iframe/-/organism-react-iframe-0.12.8.tgz#b0b55541fea67560d897b8b8b3e81637c759dbf9"
+  integrity sha512-ATKyCDoYOtUDe9BNyf2wQXJlo3NUfThQwQkNrs7MWwApaz13u4i5P1N+u+IBqMMNY0CfsfegXNc/f8/cvl8Sbw==
   dependencies:
     call-func "*"
     create-el "*"
