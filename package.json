@@ -1,5 +1,5 @@
 {
-  "version": "0.16.31",
+  "version": "0.16.32",
   "name": "react-atomic-organism",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "prop-types": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
-    "reshow-hooks": "^0.17.23",
+    "reshow-hooks": "*",
     "ricon": "*",
     "seturl": "*",
     "win-doc": "*"

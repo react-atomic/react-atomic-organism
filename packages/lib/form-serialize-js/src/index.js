@@ -33,6 +33,7 @@ const maybeArray = (formParams, { name, value, arrayMode }) => {
 /**
  * @param {HTMLFormElement} formEl
  * @param {string=} arrayMode
+ * @returns {{[key: string]: any}}
  */
 const formSerialize = (formEl, arrayMode) => {
   arrayMode = null != arrayMode ? arrayMode : "auto";

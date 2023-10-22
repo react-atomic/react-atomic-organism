@@ -1,232 +1,324 @@
-import { PureComponent } from "react";
-import { mixClass, build, Form, Field } from "react-atomic-molecule";
+// @ts-check
+import {
+  useImperativeHandle,
+  useRef,
+  useState,
+  useMemo,
+  useEffect,
+  forwardRef,
+} from "react";
+import { mixClass, build } from "react-atomic-molecule";
+import { useRefUpdate } from "reshow-hooks";
 import callfunc from "call-func";
 import formSerialize from "form-serialize-js";
 import { getSN } from "get-random-id";
+import { NEW_OBJ } from "reshow-constant";
 
-const constraintObj = {};
+/**
+ * @typedef {import("reshow-build").Component} Component
+ */
+
+/**
+ * @typedef {import("reshow-build").RefType} RefType
+ */
+
+/**
+ * @typedef {Element&object} ValidityElement
+ * @property {Function} checkValidity
+ * @property {Function} reportValidity
+ */
+
+/**
+ * @typedef {Element&object} FormElement
+ * @property {form} HTMLFormElement
+ */
+
+const constraintObj = NEW_OBJ();
 const constraintIdKey = "data-constraint-id";
 
-class ConstraintField extends PureComponent {
-  static defaultProps = {
-    component: Field,
-  };
+/**
+ * @typedef {object} ConstraintFieldProps
+ * @property {boolean=} builtInOnly
+ * @property {RefType=} compRef
+ * @property {Function=} onDisplayError
+ * @property {boolean=} hideMessageComponent
+ * @property {Function=} onValidate
+ * @property {Function=} onError
+ * @property {RefType=} ref
+ * @property {RefType=} refCb
+ * @property {Component=} component
+ */
 
-  state = {
-    "data-message-type": null,
-    "data-message": null,
-  };
+/**
+ * @param {ConstraintFieldProps} props
+ */
+const useConstraintField = (props) => {
+  const lastProps = useRefUpdate(props);
+  const { builtInOnly, compRef, ...restProps } = lastProps.current;
+  const lastComp = /** @type any */ (useRef());
+  const lastEl = /** @type any */ (useRef());
+  const [state, setState] = useState({});
 
-  checkValidity(el) {
-    const { onValidate, onError } = this.props;
-    el = el || this.el;
-    let customState;
-    const setCustomState = (s) => (customState = s);
-    const checkValidityParams = [
-      { el, constraintField: this, setState: setCustomState },
-    ];
-    const isOK = onValidate
-      ? callfunc(onValidate, checkValidityParams)
-      : this.compRef && this.compRef.checkValidity
-      ? callfunc(this.compRef.checkValidity, checkValidityParams, this.compRef)
-      : el.checkValidity();
-    if (!isOK) {
-      const state = { customState };
-      for (let k in el.validity) {
-        if (el.validity[k]) {
-          state[k] = true;
-        }
-      }
-      const onErrorParams = [{ el, state }];
-      this.handleDisplayError(
-        el,
-        onError
-          ? callfunc(onError, onErrorParams)
-          : this.compRef && this.compRef.handleError
-          ? callfunc(this.compRef.handleError, onErrorParams, this.compRef)
-          : customState,
-        el.validationMessage
-      );
-    }
-
-    // ignore isOK is `undefined` or `null` and trust it's true
-    const lastIsOK = isOK == null || isOK;
-
-    if (lastIsOK) {
-      this.handleDisplayError(el, "");
-    }
-    return lastIsOK;
-  }
-
-  handleDisplayError(el, message, nativeMessage) {
-    const { onDisplayError, hideMessageComponent } = this.props;
-    const hideMessage =
-      el.form.getAttribute("data-hide-message-component") ||
-      hideMessageComponent;
-    if ("" !== message) {
-      this.setState({
-        "data-message-type": "error",
-        "data-message": hideMessage ? null : message,
-      });
-    } else {
-      this.setState({
-        "data-message-type": null,
-        "data-message": null,
-      });
-    }
-    if (onDisplayError) {
-      callfunc(onDisplayError, [el, message || nativeMessage]);
-    } else if (this.compRef && this.compRef.handleDisplayError) {
-      this.compRef.handleDisplayError(el, message || nativeMessage);
-    } else {
-      if (message != null) {
-        el.setCustomValidity(message);
-      }
-      el.reportValidity();
-    }
-  }
-
-  handleCompRef = (el) => {
-    const { compRef } = this.props;
-    this.compRef = el;
-    callfunc(compRef, [el]);
-  };
-
-  handleEl = (el) => {
-    const { refCb } = this.props;
-    if (el) {
-      const thisConstraintId = this.getConstraintId();
-      el.setAttribute(constraintIdKey, thisConstraintId);
-    }
-    this.el = el;
-    callfunc(refCb, [el]);
-  };
-
-  getConstraintId() {
-    if (!this.constraintId) {
-      const id = getSN("constraint");
-      constraintObj[id] = this;
-      this.constraintId = id;
-    }
-    return this.constraintId;
-  }
-
-  componentWillUnmount() {
-    if (this.constraintId) {
-      delete constraintObj[this.constraintId];
-    }
-  }
-
-  render() {
-    const {
-      component,
-      compRef,
-      onValidate,
-      onError,
-      onDisplayError,
-      ...otherProps
-    } = this.props;
-    otherProps[constraintIdKey] = this.getConstraintId();
-    if (compRef) {
-      // could pass compRef to true to force enable handleRef
-      // this is for avoid pass ref to function component
-      otherProps.ref = this.handleCompRef;
-    }
-    return build(component)({
-      ...otherProps,
-      ...this.state,
-      refCb: this.handleEl,
-    });
-  }
-}
-
-class ConstraintForm extends PureComponent {
-  state = { error: false };
-
-  static defaultProps = {
-    component: Form,
-  };
-
-  checkValidity() {
-    const elements = [...this.form.elements];
-    const results = {};
-    let errorEl = null;
-    const hasError = elements.some((el) => {
-      const id = el.getAttribute(constraintIdKey);
-      if (id && !results[id]) {
-        const obj = constraintObj[id];
-        if (obj) {
-          results[id] = obj.checkValidity(el);
-        } else {
-          results[id] = true;
-        }
-        if (!results[id]) {
-          errorEl = el;
-          return true;
-        }
+  const handler = {
+    /**
+     * @param {FormElement} el
+     * @param {string} message
+     * @param {string} nativeMessage
+     */
+    displayError: (el, message, nativeMessage) => {
+      const { onDisplayError, hideMessageComponent } = lastProps.current;
+      const hideMessage =
+        el.form.getAttribute("data-hide-message-component") ||
+        hideMessageComponent;
+      if ("" !== message) {
+        setState({
+          "data-message-type": "error",
+          "data-message": hideMessage ? null : message,
+        });
       } else {
-        if (el.checkValidity) {
-          el.checkValidity();
-          if (!el.validity.valid) {
-            errorEl = el;
-            el.reportValidity();
-            return true;
+        setState({
+          "data-message-type": null,
+          "data-message": null,
+        });
+      }
+      if (onDisplayError) {
+        callfunc(onDisplayError, [el, message || nativeMessage]);
+      } else if (expose.getComponent()?.handleDisplayError) {
+        expose.getComponent().handleDisplayError(el, message || nativeMessage);
+      } else {
+        if (message != null) {
+          el.setCustomValidity(message);
+        }
+        el.reportValidity();
+      }
+    },
+    /**
+     * @param {Element} el
+     */
+    el: (el) => {
+      const { refCb } = lastProps.current;
+      lastEl.current = el;
+      callfunc(refCb, [el]);
+    },
+    /**
+     * @param {any} el
+     */
+    compRef: (el) => {
+      const { compRef } = lastProps.current;
+      lastComp.current = el;
+      callfunc(compRef, [el]);
+    },
+  };
+  const expose = {
+    checkValidity: (/**@type any*/ el) => {
+      const { onValidate, onError } = lastProps.current;
+      el = el || expose.getEl();
+      let customState;
+      const setCustomState = (/**@type any*/ s) => (customState = s);
+      const checkValidityParams = [
+        { el, constraintField: this, setState: setCustomState },
+      ];
+      const isOK = onValidate
+        ? callfunc(onValidate, checkValidityParams)
+        : expose.getComponent()?.checkValidity
+        ? callfunc(
+            expose.getComponent()?.checkValidity,
+            checkValidityParams,
+            expose.getComponent()
+          )
+        : el.checkValidity();
+      if (!isOK) {
+        const state = { customState };
+        for (let k in el.validity) {
+          if (el.validity[k]) {
+            state[k] = true;
           }
         }
+        const onErrorParams = [{ el, state }];
+        handler.displayError(
+          el,
+          onError
+            ? callfunc(onError, onErrorParams)
+            : expose.getComponent()?.handleError
+            ? callfunc(
+                expose.getComponent().handleError,
+                onErrorParams,
+                expose.getComponent()
+              )
+            : customState,
+          el.validationMessage
+        );
       }
-      return false;
-    });
-    return { hasError, errorEl, results };
-  }
+      // ignore isOK is `undefined` or `null` and trust it's true
+      const lastIsOK = isOK == null || isOK;
 
-  submit() {
-    this.getEl()?.dispatchEvent(new Event("submit", { bubbles: true }));
-  }
-
-  getEl() {
-    return this.form;
-  }
-
-  getSerialize() {
-    return formSerialize(this.form);
-  }
-
-  handleRefCb = (el) => {
-    const { refCb } = this.props;
-    this.form = el;
-    callfunc(refCb, [el]);
+      if (lastIsOK) {
+        handler.handleDisplayError(el, "");
+      }
+      return lastIsOK;
+    },
+    /**
+     * @returns {HTMLElement}
+     */
+    getEl: () => {
+      return lastEl.current;
+    },
+    getComponent: () => {
+      if (builtInOnly) {
+        return lastEl.current;
+      } else {
+        return lastComp.current;
+      }
+    },
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { onSubmit, stop } = this.props;
-    const { hasError } = this.checkValidity();
-    if (hasError) {
-      this.setState({ error: hasError });
-    } else {
-      e.instance = this;
-      const isContinue = callfunc(onSubmit, [e]);
-      if (false !== isContinue) {
-        this.form.submit();
-      }
-    }
+  const thisConstraintId = useMemo(() => {
+    const id = getSN("constraint");
+    constraintObj[id] = expose;
+    return id;
+  }, []);
+  useEffect(() => {
+    return () => {
+      delete constraintObj[thisConstraintId];
+    };
+  }, []);
+  const nextCommonProps = {
+    ...state,
+    ...restProps,
+    [constraintIdKey]: thisConstraintId,
   };
-
-  render() {
-    const { className, onSubmit, component, ...otherProps } = this.props;
-    const { error } = this.state;
-    const classes = mixClass(className, {
-      error,
-    });
-
-    return build(component)({
-      ...otherProps,
-      className: classes,
-      refCb: this.handleRefCb,
-      onSubmit: this.handleSubmit,
-    });
+  const nextProps = builtInOnly
+    ? { ...nextCommonProps, ref: handler.el }
+    : { ...nextCommonProps, refCb: handler.el };
+  if (!builtInOnly && compRef) {
+    nextProps.ref = handler.compRef;
   }
-}
+  return { nextProps, expose };
+};
+
+const ConstraintField = forwardRef((props, ref) => {
+  const { nextProps, expose } = useConstraintField(props);
+  const { component, ...restProps } = nextProps;
+  useImperativeHandle(ref, () => expose, []);
+  return build(component)({
+    ...restProps,
+  });
+});
+
+/**
+ * @typedef {object} ConstraintFormProps
+ * @property {string=} className
+ * @property {boolean=} builtInOnly
+ * @property {Component=} component
+ * @property {Function=} onSubmit
+ * @property {RefType=} refCb
+ */
+
+/**
+ * @param {ConstraintFormProps} props
+ */
+const useConstraintForm = (props) => {
+  /**
+   * @type HTMLFormElement
+   */
+  const lastEl = /** @type any */ (useRef());
+  const lastProps = useRefUpdate(props);
+  const { className, builtInOnly, ...restProps } = lastProps.current || {};
+
+  const [hasError, setHasError] = useState(false);
+  const classes = mixClass(className, {
+    error: hasError,
+  });
+  const expose = {
+    checkValidity: () => {
+      const elements = [.../**@type any*/ (expose.getEl().elements)];
+      const results = {};
+      let errorEl = null;
+      const hasError = elements.some((/**@type ValidityElement*/ el) => {
+        const id = el.getAttribute(constraintIdKey);
+        if (id && !results[id]) {
+          const obj = constraintObj[id];
+          if (obj) {
+            results[id] = obj.checkValidity(el);
+          } else {
+            results[id] = true;
+          }
+          if (!results[id]) {
+            errorEl = el;
+            return true;
+          }
+        } else {
+          if (el.checkValidity) {
+            el.checkValidity();
+            if (!el.validity.valid) {
+              errorEl = el;
+              el.reportValidity();
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+      return { hasError, errorEl, results };
+    },
+    /**
+     * @returns {HTMLFormElement}
+     */
+    getEl: () => {
+      return lastEl.current;
+    },
+    submit: () => {
+      expose.getEl()?.dispatchEvent(new Event("submit", { bubbles: true }));
+    },
+    getSerialize: () => {
+      return formSerialize(expose.getEl());
+    },
+  };
+  const handler = {
+    /**
+     * @typedef {SubmitEvent&object} ConstraintFormSubmitEvent
+     * @property {any} instance
+     */
+    /**
+     * @param {ConstraintFormSubmitEvent} e
+     */
+    submit: (e) => {
+      const { onSubmit } = lastProps.current;
+      e.preventDefault();
+      const { hasError } = expose.checkValidity();
+      if (hasError) {
+        setHasError(hasError);
+      } else {
+        e.instance = expose;
+        const isContinue = callfunc(onSubmit, [e]);
+        if (false !== isContinue) {
+          expose.getEl().submit();
+        }
+      }
+    },
+    el: (/**@type HTMLFormElement*/ el) => {
+      const { refCb } = lastProps.current;
+      lastEl.current = el;
+      callfunc(refCb, [el]);
+    },
+  };
+  const nextProps = builtInOnly
+    ? { ...restProps, ref: handler.el }
+    : { ...restProps, refCb: handler.el };
+
+  return { className: classes, handler, expose, nextProps };
+};
+
+const ConstraintForm = forwardRef((props, ref) => {
+  const { className, handler, expose, nextProps } = useConstraintForm(props);
+  const { component = "fieldset", ...restProps } = nextProps;
+  useImperativeHandle(ref, () => expose, []);
+  return build(component)({
+    ...restProps,
+    className,
+    onSubmit: handler.submit,
+  });
+});
 
 export { ConstraintField };
 export default ConstraintForm;
