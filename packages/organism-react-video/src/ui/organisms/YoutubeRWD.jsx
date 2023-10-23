@@ -50,6 +50,7 @@ const defaultVideoParams = {
 
 /**
  * @param {YoutubeRWDExtProps} props
+ * @see https://developers.google.com/youtube/player_parameters
  */
 const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
   const nextVideoParams = { ...videoParams };
@@ -60,8 +61,11 @@ const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
   KEYS(nextVideoParams).forEach((key) =>
     aParams.push(key + "=" + encodeURIComponent(nextVideoParams[key]))
   );
-  const src =
-    "https://www.youtube.com/embed/" + videoId + "?" + aParams.join("&");
+  let src = `https://www.youtube.com/embed/${videoId}?${aParams.join("&")}`;
+  if (null != nextVideoParams["loop"]) {
+    src += `&playlist=${videoId}`;
+  }
+
   return src;
 };
 
@@ -124,7 +128,6 @@ const useYoutubeRWD = (props) => {
 
 /**
  * @type React.FC<YoutubeRWDProps>
- * https://developers.google.com/youtube/player_parameters
  */
 const YoutubeRWD = forwardRef((props, ref) => {
   const { expose, handler, nextProps, lastIframe, state, src } =

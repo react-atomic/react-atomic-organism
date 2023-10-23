@@ -11,7 +11,6 @@ export type YoutubeRWDExtProps = {
 export type YoutubeRWDProps = ResponsiveVideoProps & YoutubeRWDExtProps;
 /**
  * @type React.FC<YoutubeRWDProps>
- * https://developers.google.com/youtube/player_parameters
  */
 declare const YoutubeRWD: React.FC<YoutubeRWDProps>;
 import * as React from "react";
