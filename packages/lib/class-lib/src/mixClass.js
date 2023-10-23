@@ -2,12 +2,7 @@
 
 import { KEYS, IS_ARRAY, STRING, NUMBER, OBJECT } from "reshow-constant";
 import dedup from "array.dedup";
-
-/**
- * @param {any} maybeString
- * @returns {string[]}
- */
-const strToArray = (maybeString) => (maybeString + "").split(" ");
+import { strToArray } from "./strToArray";
 
 /**
  * @param {any[]} args

@@ -2,13 +2,14 @@
 
 import { wildcardSearch } from "get-safe-reg";
 import { NEW_OBJ } from "reshow-constant";
+import { strToArray } from "./strToArray";
 
 /**
  * @param {string=} className
  * @returns {{[key: string]: any}}
  */
 export const toTailwindObj = (className) => {
-  const classes = (className ?? "").split(" ");
+  const classes = strToArray(className);
   const r = NEW_OBJ();
   classes.forEach((item) => {
     const parseResult = wildcardSearch(item, ":key-:val");
