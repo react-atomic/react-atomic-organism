@@ -18,7 +18,7 @@ declare function SearchBox({ inputComponent, className, compHd, compBd, compFt, 
 }): import("react/jsx-runtime").JSX.Element;
 declare namespace SearchBox {
     namespace defaultProps {
-        const autoComplete: string;
+        let autoComplete: string;
     }
 }
 import { InputBox } from "react-atomic-molecule";

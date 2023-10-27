@@ -19,6 +19,7 @@
     "get-object-value": "*",
     "get-random-id": "*",
     "prop-types": "*",
+    "react-atomic-atom": "*",
     "react-atomic-molecule": "*",
     "reshow-constant": "*",
     "reshow-hooks": "*",
@@ -27,7 +28,7 @@
     "win-doc": "*"
   },
   "devDependencies": {
-    "lerna": "^5.0.0",
+    "lerna": "^7.0.0",
     "react": "^18.x",
     "react-dom": "^18.x",
     "reshow-unit": "*"

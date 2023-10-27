@@ -84,3 +84,5 @@ workflows:
                 - "packages/organism-react-popup"
                 - "packages/organism-react-sort-by"
                 - "packages/organism-react-tag-input"
+                - "packages/organism-react-turnstile"
+

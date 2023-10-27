@@ -7,7 +7,7 @@ declare class FormattedJSON extends Component<any, any, any> {
 }
 declare namespace FormattedJSON {
     namespace defaultProps {
-        const atom: string;
+        let atom: string;
     }
 }
 import { Component } from "react";

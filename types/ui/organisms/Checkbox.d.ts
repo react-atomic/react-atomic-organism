@@ -22,10 +22,10 @@ declare class Checkbox extends PureComponent<any, any, any> {
 }
 declare namespace Checkbox {
     namespace defaultProps {
-        const atom: string;
-        const type: string;
-        const checked: boolean;
-        const disabled: boolean;
+        let atom: string;
+        let type: string;
+        let checked: boolean;
+        let disabled: boolean;
     }
 }
 import { PureComponent } from "react";
