@@ -5,7 +5,7 @@ import get from "get-object-value";
 /**
  * @typedef {object} VerifyTurnstileProps
  * @property {string=} secret
- * @property {string=} response
+ * @property {string?=} response
  * @property {string=} url 
  */
 
