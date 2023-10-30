@@ -1,5 +1,5 @@
 {
-  "version": "0.3.3",
+  "version": "0.3.4",
   "name": "win-doc",
   "repository": {
     "type": "git",
@@ -7,8 +7,6 @@
     "directory": "packages/lib/win-doc"
   },
   "description": "Simple to avoid global not found error",
-  "main": "./build/cjs/src/index.js",
-  "module": "./build/es/src/index.mjs",
   "keywords": [],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
@@ -21,13 +19,16 @@
     "reshow-constant": "*"
   },
   "exports": {
-    "require": "./build/cjs/src/index.js",
-    "import": "./build/es/src/index.mjs"
+    "types": "./types/index.d.ts",
+    "require": "./build/cjs/index.js",
+    "import": "./build/es/index.mjs"
   },
+  "main": "./build/cjs/index.js",
+  "module": "./build/es/index.mjs",
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
-    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
-    "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs --ignore /**/__tests__ --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es --out-file-extension .mjs --root-mode upward",
     "build:type": "npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
@@ -36,10 +37,5 @@
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
-  "files": [
-    "types",
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["types", "build", "package.json", "README.md"]
 }

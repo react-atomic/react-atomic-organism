@@ -1,6 +1,6 @@
 export default PageLoadProgressHandler;
 export type StoreProps = {
-    store: import("reshow-flux-base").StoreObject;
+    store: import("reshow-flux-base").StoreObject<any>;
 };
 export type PageLoadProgressProps = {
     name?: string;

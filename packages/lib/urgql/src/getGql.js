@@ -75,7 +75,7 @@ export const getGqlClient = (
   }
   if (cache) {
     exchanges.push(
-      cacheExchange({ keys }),
+      /**@type any*/ (cacheExchange({ keys })),
       /**@type SSRCacheType */ (cacheObj).current
     );
   }

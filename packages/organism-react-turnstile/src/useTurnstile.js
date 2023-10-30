@@ -3,9 +3,60 @@
 import { useEffect, useMemo, useRef } from "react";
 import { js as insertJS } from "create-el";
 import { win } from "win-doc";
+import get from "get-object-value";
 import build from "reshow-build";
-import { useTimer } from "reshow-hooks";
 import callfunc from "call-func";
+
+class TurnstileAdapter {
+
+  /**
+   * @type {string}
+   */
+  widgetId;
+
+  /**
+   * @param {string} func
+   * @param {any[]=} args 
+   */
+  call(func, args) {
+    const turnstile = get(win(), ["turnstile"]);
+    return callfunc(get(turnstile, [func]), args, turnstile)
+  }
+
+  /**
+   * Render
+   *
+   * @see https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#explicitly-render-the-turnstile-widget
+   * @see https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#reset-a-widget
+   *
+   * @param {HTMLElement} el 
+   * @param {any} options 
+   */
+  render(el, options) {
+    const nextOptions = {
+      "refresh-expired": "auto",
+      ...options
+    };
+    this.widgetId = this.call("render", [el, nextOptions]);
+  } 
+
+  /**
+   * Reset
+   *
+   * @see https://community.cloudflare.com/t/implicit-turnstile-widget-doesn-t-respect-valid-token-time/425129/9
+   */
+  reset() {
+    if (this.widgetId) {
+      this.call("reset", [this.widgetId]);
+    }
+  }
+
+  remove() {
+    if (this.widgetId) {
+      this.call("remove", [this.widgetId]);
+    }
+  }
+}
 
 /**
  * @typedef {import("reshow-build").Component} Component
@@ -38,26 +89,13 @@ const useTurnstile = ({
 }) => {
   const isInit = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
   const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
-  const lastWidgetId = useRef();
-  const [resetTokenTimer, stopTokenTimer] = useTimer(true);
+  const lastTurnstile = useRef(new TurnstileAdapter());
   const thisWin = /**@type any*/ (win());
   useEffect(() => {
-    /**
-     * @see https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#explicitly-render-the-turnstile-widget
-     */
     const onloadTurnstileCallback = () => {
-      lastWidgetId.current = thisWin.turnstile.render(lastEl.current, {
-        sitekey,
+      lastTurnstile.current.render(lastEl.current, {
+        sitekey
       });
-      // https://community.cloudflare.com/t/implicit-turnstile-widget-doesn-t-respect-valid-token-time/425129/9
-      let isInitReset = false;
-      resetTokenTimer(() => {
-        if (isInitReset) {
-          thisWin.turnstile.reset(lastWidgetId.current);
-        } else {
-          isInitReset = true;
-        }
-      }, 60000);
     };
     if (!isLoadTurnstile) {
       thisWin.onloadTurnstileCallback = handleOnload;
@@ -75,13 +113,12 @@ const useTurnstile = ({
       }
     }
     return () => {
-      stopTokenTimer();
-      thisWin.turnstile?.remove(lastWidgetId.current);
+      lastTurnstile.current.remove();
     };
   }, []);
   return [
     useMemo(() => build(component)({ ref: lastEl }), []),
-    () => thisWin.turnstile.reset(lastWidgetId.current),
+    () => lastTurnstile.current.reset(),
   ];
 };
 

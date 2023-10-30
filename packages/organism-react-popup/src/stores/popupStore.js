@@ -1,10 +1,23 @@
 // @ts-check
+
+/***
+ * reshow-flux-base/ActionObject
+ *  
+ * @typedef {import('reshow-flux-base').ActionObject} ActionObject
+ */
+
+/***
+ * reshow-flux/StateMap
+ *
+ * @typedef {import('reshow-flux').StateMap} StateMap
+ */
+
 import { Map, ImmutableStore, mergeMap } from "reshow-flux";
 import get from "get-object-value";
 import set from "set-object-value";
-import { KEYS, IS_ARRAY, OBJECT } from "reshow-constant";
+import { KEYS, IS_ARRAY, OBJECT, NEW_OBJ } from "reshow-constant";
 
-const groups = {};
+const groups = NEW_OBJ();
 const SHOW_NEXT = "show_next";
 const SHOW_KEY = "shows";
 const NODE_KEY = "nodes";
@@ -24,6 +37,10 @@ const getName = (node, defaultVal = "default") => {
 };
 
 class handlePopup {
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   updateDom(state, action) {
     const popupNode = get(action, ["params", "popup"]);
     const key = getName(popupNode);
@@ -41,11 +58,16 @@ class handlePopup {
       if (!IS_ARRAY(nodeGroups)) {
         nodeGroups = [nodeGroups];
       }
-      nodeGroups.forEach((nodegroup) => set(groups, [nodegroup, key], true));
+      nodeGroups.forEach((/**@type string*/ nodegroup) =>
+        set(groups, [nodegroup, key], true)
+      );
     }
     return state.set(SHOW_KEY, shows).set(NODE_KEY, nodes).set(SHOW_NEXT, key);
   }
 
+  /**
+   * @param {ActionObject} action
+   */
   getKey(action) {
     const popup = get(action, ["params", "popup"], "default");
     let key;
@@ -57,16 +79,28 @@ class handlePopup {
     return key;
   }
 
-  closeAll(state, action) {
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} _action
+   */
+  closeAll(state, _action) {
     return state.set(SHOW_KEY, Map());
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   closeOne(state, action) {
     const key = this.getKey(action);
     const shows = state.get(SHOW_KEY).delete(key);
     return state.set(SHOW_KEY, shows);
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   closeGroup(state, action) {
     const groupKey = get(action, ["params", "group"]);
     const group = get(groups, [groupKey]);
@@ -79,10 +113,18 @@ class handlePopup {
     return state.set(SHOW_KEY, shows);
   }
 
-  cleanAll(state, action) {
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} _action
+   */
+  cleanAll(state, _action) {
     return state.set(SHOW_KEY, Map()).set(NODE_KEY, Map());
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   cleanOne(state, action) {
     const key = this.getKey(action);
     const nodes = state.get(NODE_KEY).delete(key);
@@ -90,6 +132,10 @@ class handlePopup {
     return state.set(NODE_KEY, nodes).set(SHOW_KEY, shows);
   }
 
+  /**
+   * @param {StateMap} state
+   * @param {ActionObject} action
+   */
   cleanGroup(state, action) {
     const groupKey = get(action, ["params", "group"]);
     const group = get(groups, [groupKey]);
@@ -108,28 +154,31 @@ class handlePopup {
 }
 
 const oPopup = new handlePopup();
-const [store, popupDispatch] = ImmutableStore((state, action) => {
-  switch (action.type) {
-    case "dom/update":
-      return oPopup.updateDom(state, action);
-    case "dom/closeAll":
-      return oPopup.closeAll(state, action);
-    case "dom/cleanAll":
-      return oPopup.cleanAll(state, action);
-    case "dom/closeOne":
-      return oPopup.closeOne(state, action);
-    case "dom/cleanOne":
-      return oPopup.cleanOne(state, action);
-    case "dom/closeGroup":
-      return oPopup.closeGroup(state, action);
-    case "dom/cleanGroup":
-      return oPopup.cleanGroup(state, action);
-    case "config/set":
-      return mergeMap(state, /** @type object */(action.params));
-    default:
-      return state;
-  }
-}, Map({ shows: Map(), nodes: Map() }));
+const [store, popupDispatch] = ImmutableStore(
+  (/**@type StateMap*/ state, /**@type ActionObject*/ action) => {
+    switch (action.type) {
+      case "dom/update":
+        return oPopup.updateDom(state, action);
+      case "dom/closeAll":
+        return oPopup.closeAll(state, action);
+      case "dom/cleanAll":
+        return oPopup.cleanAll(state, action);
+      case "dom/closeOne":
+        return oPopup.closeOne(state, action);
+      case "dom/cleanOne":
+        return oPopup.cleanOne(state, action);
+      case "dom/closeGroup":
+        return oPopup.closeGroup(state, action);
+      case "dom/cleanGroup":
+        return oPopup.cleanGroup(state, action);
+      case "config/set":
+        return mergeMap(state, action.params);
+      default:
+        return state;
+    }
+  },
+  /**@type StateMap*/ (Map({ shows: Map(), nodes: Map() }))
+);
 
 export default store;
 export { popupDispatch, SHOW_NEXT, SHOW_KEY, NODE_KEY };
