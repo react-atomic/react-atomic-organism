@@ -8,7 +8,6 @@ import build from "reshow-build";
 import callfunc from "call-func";
 
 class TurnstileAdapter {
-
   /**
    * @type {string}
    */
@@ -16,11 +15,11 @@ class TurnstileAdapter {
 
   /**
    * @param {string} func
-   * @param {any[]=} args 
+   * @param {any[]=} args
    */
   call(func, args) {
     const turnstile = get(win(), ["turnstile"]);
-    return callfunc(get(turnstile, [func]), args, turnstile)
+    return callfunc(get(turnstile, [func]), args, turnstile);
   }
 
   /**
@@ -29,16 +28,16 @@ class TurnstileAdapter {
    * @see https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#explicitly-render-the-turnstile-widget
    * @see https://developers.cloudflare.com/turnstile/get-started/client-side-rendering/#reset-a-widget
    *
-   * @param {HTMLElement} el 
-   * @param {any} options 
+   * @param {HTMLElement} el
+   * @param {any} options
    */
   render(el, options) {
     const nextOptions = {
       "refresh-expired": "auto",
-      ...options
+      ...options,
     };
     this.widgetId = this.call("render", [el, nextOptions]);
-  } 
+  }
 
   /**
    * Reset
@@ -94,7 +93,7 @@ const useTurnstile = ({
   useEffect(() => {
     const onloadTurnstileCallback = () => {
       lastTurnstile.current.render(lastEl.current, {
-        sitekey
+        sitekey,
       });
     };
     if (!isLoadTurnstile) {
