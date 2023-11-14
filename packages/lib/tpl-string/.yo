@@ -1,0 +1,2 @@
+isUseBabel=true
+isUseWebpack=false

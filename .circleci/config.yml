@@ -68,6 +68,7 @@ workflows:
                 - "packages/lib/non-worker"
                 - "packages/lib/set-object-value"
                 - "packages/lib/seturl"
+                - "packages/lib/tpl-string"
                 - "packages/lib/to-percent-js"
                 - "packages/lib/with-array"
                 - "packages/organism-react-ajax"
