@@ -1,1 +1,1 @@
-export { default as tpl } from "./tpl";
+export { default as tpl, default } from "./tpl";
