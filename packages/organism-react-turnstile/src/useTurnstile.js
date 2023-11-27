@@ -9,7 +9,7 @@ import callfunc from "call-func";
 
 class TurnstileAdapter {
   /**
-   * @type {string}
+   * @type {string=}
    */
   widgetId;
 
@@ -19,7 +19,9 @@ class TurnstileAdapter {
    */
   call(func, args) {
     const turnstile = get(win(), ["turnstile"]);
-    return callfunc(get(turnstile, [func]), args, turnstile);
+    try {
+      return callfunc(get(turnstile, [func]), args, turnstile);
+    } catch (e) {}
   }
 
   /**
@@ -52,6 +54,7 @@ class TurnstileAdapter {
 
   remove() {
     if (this.widgetId) {
+      this.widgetId = undefined;
       this.call("remove", [this.widgetId]);
     }
   }
@@ -77,8 +80,13 @@ const handleOnload = () => {
 };
 
 /**
+ * @callback CleanTurnstile
+ * @param {boolean} [bRemove]
+ */
+
+/**
  * @param {TurnstileProps} props
- * @returns {[React.ReactElement|null, Function]}
+ * @returns {[React.ReactElement|null, CleanTurnstile]}
  */
 const useTurnstile = ({
   js = "https://challenges.cloudflare.com/turnstile/v0/api.js",
@@ -117,7 +125,8 @@ const useTurnstile = ({
   }, []);
   return [
     useMemo(() => build(component)({ ref: lastEl }), []),
-    () => lastTurnstile.current.reset(),
+    (bRemove) =>
+      bRemove ? lastTurnstile.current.remove() : lastTurnstile.current.reset(),
   ];
 };
 

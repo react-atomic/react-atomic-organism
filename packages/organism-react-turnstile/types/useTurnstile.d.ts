@@ -7,8 +7,13 @@ export type TurnstileProps = {
     sitekey?: string | undefined;
     component?: Component | undefined;
 };
+export type CleanTurnstile = (bRemove?: boolean) => any;
+/**
+ * @callback CleanTurnstile
+ * @param {boolean} [bRemove]
+ */
 /**
  * @param {TurnstileProps} props
- * @returns {[React.ReactElement|null, Function]}
+ * @returns {[React.ReactElement|null, CleanTurnstile]}
  */
-declare function useTurnstile({ js, onloadCallbackName, component, sitekey, }: TurnstileProps): [React.ReactElement | null, Function];
+declare function useTurnstile({ js, onloadCallbackName, component, sitekey, }: TurnstileProps): [React.ReactElement | null, CleanTurnstile];
