@@ -15,6 +15,7 @@ import build from "reshow-build";
  * @property {Component} [videoComponent]
  * @property {{[key:string]:any}} [videoParams]
  * @property {string} [className]
+ * @property {React.CSSProperties} [style]
  */
 
 /**

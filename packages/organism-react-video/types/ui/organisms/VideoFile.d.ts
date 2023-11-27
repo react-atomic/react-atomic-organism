@@ -12,6 +12,7 @@ export type VideoFileProps = {
         [key: string]: any;
     };
     className?: string;
+    style?: React.CSSProperties;
 };
 /**
  * @typedef {import('reshow-build').Component} Component
@@ -25,6 +26,7 @@ export type VideoFileProps = {
  * @property {Component} [videoComponent]
  * @property {{[key:string]:any}} [videoParams]
  * @property {string} [className]
+ * @property {React.CSSProperties} [style]
  */
 /**
  * @param {VideoFileProps} props
