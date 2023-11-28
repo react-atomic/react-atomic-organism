@@ -93,10 +93,11 @@ const calWindowOffset = (domInfo, scrollInfo) => {
 
 /**
  * @param {HTMLElement} dom
- * @param {boolean} [debug]
+ * @param {boolean?} [debug]
+ * @param {number} [margin]
  * @returns {WindowOffsetType|undefined}
  */
-const getWindowOffset = (dom, debug) => {
+const getWindowOffset = (dom, debug, margin) => {
   if (!dom) {
     console.warn("getWindowOffset not assign dom");
     return;
@@ -125,10 +126,11 @@ const getWindowOffset = (dom, debug) => {
     (cookScrollInfo.bottom) += overflowNodeScrollInfo.top;
     cookScrollInfo.left += overflowNodeScrollInfo.left;
   }
-  const domInfoWithScreen = isOnScreen(domInfo, cookScrollInfo);
+  const domInfoWithScreen = isOnScreen(domInfo, cookScrollInfo, margin);
   const domOverflowInfoWithScreen = isOnScreen(
     domOverflowInfo,
-    getScrollInfo(domOverflowInfo.domScroller)
+    getScrollInfo(domOverflowInfo.domScroller),
+    margin
   );
   domInfoWithScreen.isOnScreen =
     domInfoWithScreen.isOnScreen && domOverflowInfoWithScreen.isOnScreen;
