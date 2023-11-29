@@ -86,7 +86,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     console.warn("Not set any locs", { toLoc });
     return false;
   }
-  const targetInfo = winInfo ? winInfo.domOverflowInfo : getDomPositionInfo(targetEl).domOverflowInfo;
+  const targetInfo = winInfo ? winInfo.domInfo : getDomPositionInfo(targetEl).domInfo;
   if (!targetInfo) {
     console.warn("[alertUI] can't get target info.", { targetEl, winInfo });
     return false;
