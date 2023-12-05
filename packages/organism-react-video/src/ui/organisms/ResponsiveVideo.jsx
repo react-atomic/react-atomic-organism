@@ -71,8 +71,11 @@ const Styles = {
     zIndex: 0,
   },
   inner: {
-    padding: "0 0 100%",
-    height: 0,
+    position: "absolute",
+    top: -2,
+    bottom: -2,
+    left: -2,
+    right: -2,
     zIndex: 0,
   },
   videoContainer: {
