@@ -45,6 +45,13 @@ const VideoFile = ({
   videoParams = videoParams || { controls: true };
   if (videoParams["autoPlay"]) {
     videoParams["muted"] = true;
+    if (null == videoParams["playsInline"]) {
+      /**
+       * https://stackoverflow.com/questions/43570460/html5-video-autoplay-on-iphone
+       * https://webkit.org/blog/6784/new-video-policies-for-ios/
+       */
+      videoParams["playsInline"] = true;
+    }
   }
   return videoEl({ ...videoParams, ...restProps }, thisSources);
 };
