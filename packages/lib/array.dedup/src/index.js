@@ -24,7 +24,10 @@ const dedup = (array, reverse, cb) => {
 
   // This way could keep array in same position
   if (reverse) {
-    return /**@type any[]*/ (array).reverse().filter(handelFilter).reverse();
+    return /**@type any[]*/ ([...array])
+      .reverse()
+      .filter(handelFilter)
+      .reverse();
   } else {
     return /**@type any[]*/ (array).filter(handelFilter);
   }
