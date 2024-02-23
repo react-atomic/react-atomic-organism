@@ -1,5 +1,5 @@
 {
-  "version": "0.4.1",
+  "version": "0.4.2",
   "name": "urgql",
   "repository": {
     "type": "git",
@@ -7,7 +7,7 @@
     "directory": "packages/lib/urgql"
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/urgql",
-  "description": "TODO: description",
+  "description": "Urql cache util",
   "keywords": [
     "urgql"
   ],
