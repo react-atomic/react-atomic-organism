@@ -33,7 +33,7 @@ export type OperationResult = import("@urql/core").OperationResult<any, any>;
 export type OperationResultOrData = OperationResult | OperationResult["data"];
 export type UrGqlVariables = import("@urql/core").AnyVariables;
 export type UrGqlQuery = import("@urql/core").TypedDocumentNode<any, UrGqlVariables>;
-export type GqlResultCallback = (isDebug?: boolean, isVerbose?: boolean) => Promise<OperationResultOrData>;
+export type GqlResultCallback = (isDebug?: boolean | null, isVerbose?: boolean | null, isCache?: boolean | null) => Promise<OperationResultOrData>;
 export type handleGqlCallback = (query: UrGqlQuery, variables?: UrGqlVariables, options?: GqlResultOptions) => {
     execute: GqlResultCallback;
     results: GqlResultCallback;

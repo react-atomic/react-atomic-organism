@@ -135,8 +135,9 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
 
 /**
  * @callback GqlResultCallback
- * @param {boolean} [isDebug]
- * @param {boolean} [isVerbose]
+ * @param {boolean?} [isDebug]
+ * @param {boolean?} [isVerbose]
+ * @param {boolean?} [isCache]
  * @returns {Promise<OperationResultOrData>}
  */
 
