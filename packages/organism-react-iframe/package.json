@@ -8,7 +8,10 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-iframe",
   "description": "Rendering to iFrames in React",
-  "keywords": ["react", "react-component"],
+  "keywords": [
+    "react",
+    "react-component"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
@@ -51,5 +54,10 @@
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
-  "files": ["types", "build", "package.json", "README.md"]
+  "files": [
+    "types",
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

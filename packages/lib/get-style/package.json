@@ -8,7 +8,9 @@
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/lib/get-style",
   "description": "Get dom really style. (getComputedStyle cross browsers)",
-  "keywords": ["style"],
+  "keywords": [
+    "style"
+  ],
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
