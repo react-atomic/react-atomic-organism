@@ -55,7 +55,7 @@ export const longCache = {
  * @returns {Client}
  */
 export const getGqlClient = (
-  { cache = true, keys = {}, url, fetch, debug },
+  { keys = {}, cache, url, fetch, debug },
   cacheObj
 ) => {
   /**
@@ -73,7 +73,7 @@ export const getGqlClient = (
   if (null !== fetch) {
     options.fetch = fetch;
   }
-  if (cache) {
+  if (false !== cache) {
     exchanges.push(
       /**@type any*/ (cacheExchange({ keys })),
       /**@type SSRCacheType */ (cacheObj).current
@@ -197,27 +197,29 @@ export const handleGql =
         const next = cookResult(rawResult);
         const nextKey = next.operation.key;
         const now = getTimestamp();
-        if (next.error) {
-          resetCache(nextKey, now, errorExpireSecs, ssrCache);
-          if (longCache.current.has(nextKey)) {
-            expireCallback(
-              longCache.createTime[nextKey],
-              failExpireSecs * 1000,
-              null,
-              () => {
-                longCache.current.delete(nextKey);
-                delete longCache.createTime[nextKey];
+        if (false !== clientOptions.cache) {
+          if (next.error) {
+            resetCache(nextKey, now, errorExpireSecs, ssrCache);
+            if (longCache.current.has(nextKey)) {
+              expireCallback(
+                longCache.createTime[nextKey],
+                failExpireSecs * 1000,
+                null,
+                () => {
+                  longCache.current.delete(nextKey);
+                  delete longCache.createTime[nextKey];
+                }
+              );
+              if (longCache.createTime[nextKey]) {
+                const failBack = longCache.current.get(nextKey);
+                return toVerbose(failBack);
               }
-            );
-            if (longCache.createTime[nextKey]) {
-              const failBack = longCache.current.get(nextKey);
-              return toVerbose(failBack);
             }
+          } else {
+            longCache.current.set(nextKey, next);
+            longCache.createTime[nextKey] = now;
+            resetCache(nextKey, now, dataExpireSecs, ssrCache);
           }
-        } else {
-          longCache.current.set(nextKey, next);
-          longCache.createTime[nextKey] = now;
-          resetCache(nextKey, now, dataExpireSecs, ssrCache);
         }
         return toVerbose(next);
       },

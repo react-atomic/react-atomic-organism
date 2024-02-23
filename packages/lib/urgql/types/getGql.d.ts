@@ -3,7 +3,7 @@
  * @type {LongCacheType}
  */
 export const longCache: LongCacheType;
-export function getGqlClient({ cache, keys, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCacheType): Client;
+export function getGqlClient({ keys, cache, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCacheType): Client;
 export function handleGql(clientOptions: GqlClientOptions, defaultGqlResultOptions?: GqlResultOptions): handleGqlCallback;
 export type SSRCacheType = {
     current: import("@urql/core").SSRExchange;

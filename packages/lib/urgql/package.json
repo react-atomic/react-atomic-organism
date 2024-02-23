@@ -1,5 +1,5 @@
 {
-  "version": "0.3.2",
+  "version": "0.4.0",
   "name": "urgql",
   "repository": {
     "type": "git",
@@ -22,8 +22,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.22.5",
-    "react-atomic-atom": "^3.0.4",
-    "reshow-unit-dom": "^0.2.3",
+    "react-atomic-atom": "*",
+    "reshow-unit-dom": "*",
     "whatwg-fetch": "3.6.2"
   },
   "exports": {
