@@ -169,30 +169,51 @@ export const handleGql =
     let shouldVerbose = isVerbose;
     /**
      * @param {{data:any}} next
+     * @param {boolean?} [isVerbose]
      * @returns {OperationResultOrData}
      */
-    const toVerbose = (next) => (shouldVerbose ? next : next?.data);
+    const toVerbose = (next, isVerbose) =>
+      isVerbose || shouldVerbose ? next : next?.data;
+
+    /**
+     * @param {boolean?} [isDebug]
+     * @param {boolean?} [isCache]
+     */
+    const resetClientOptions = (isDebug, isCache) => {
+      const nextClientOptions = { ...clientOptions };
+      if (null != isDebug) {
+        nextClientOptions.debug = isDebug;
+      }
+      if (null != isCache) {
+        nextClientOptions.debug = isCache;
+      }
+      return nextClientOptions;
+    };
 
     return {
-      execute: async (isDebug = false, isVerbose = false) => {
-        if (isDebug) {
-          clientOptions.debug = true;
-        }
-        if (isVerbose) {
-          shouldVerbose = true;
-        }
-        const clinet = getGqlClient(clientOptions, ssrCache);
+      /**
+       * @param {boolean?} [isDebug]
+       * @param {boolean?} [isVerbose]
+       * @param {boolean?} [isCache]
+       */
+      execute: async (isDebug, isVerbose, isCache) => {
+        const clinet = getGqlClient(
+          resetClientOptions(isDebug, isCache),
+          ssrCache
+        );
         const rawResult = await clinet.mutation(query, variables).toPromise();
-        return toVerbose(cookResult(rawResult));
+        return toVerbose(cookResult(rawResult), isVerbose);
       },
-      results: async (isDebug = false, isVerbose = false) => {
-        if (isDebug) {
-          clientOptions.debug = true;
-        }
-        if (isVerbose) {
-          shouldVerbose = true;
-        }
-        const clinet = getGqlClient(clientOptions, ssrCache);
+      /**
+       * @param {boolean?} [isDebug]
+       * @param {boolean?} [isVerbose]
+       * @param {boolean?} [isCache]
+       */
+      results: async (isDebug, isVerbose, isCache) => {
+        const clinet = getGqlClient(
+          resetClientOptions(isDebug, isCache),
+          ssrCache
+        );
         const rawResult = await clinet.query(query, variables).toPromise();
         const next = cookResult(rawResult);
         const nextKey = next.operation.key;
@@ -212,7 +233,7 @@ export const handleGql =
               );
               if (longCache.createTime[nextKey]) {
                 const failBack = longCache.current.get(nextKey);
-                return toVerbose(failBack);
+                return toVerbose(failBack, isVerbose);
               }
             }
           } else {
@@ -221,7 +242,7 @@ export const handleGql =
             resetCache(nextKey, now, dataExpireSecs, ssrCache);
           }
         }
-        return toVerbose(next);
+        return toVerbose(next, isVerbose);
       },
     };
   };
