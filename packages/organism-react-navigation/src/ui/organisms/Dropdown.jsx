@@ -1,5 +1,7 @@
 //@ts-check
 
+import * as React from "react";
+
 import DropdownUI from "../molecules/DropdownUI";
 import { useDropdown } from "../../hooks/useDropdown";
 

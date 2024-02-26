@@ -1,4 +1,9 @@
-import { PureComponent } from "react";
+//@ts-check
+
+import * as React from "react";
+
+const { PureComponent } = React;
+
 import {
   mixClass,
   Icon,
@@ -41,6 +46,9 @@ class Accordion extends PureComponent {
     isActives: {},
   };
 
+  /**
+   * @param {string} name
+   */
   handleClick(name) {
     this.setState(({ isActives }) => {
       isActives[name] = !get(isActives, [name], false);
@@ -55,41 +63,47 @@ class Accordion extends PureComponent {
     const classes = mixClass("accordion", className);
     return (
       <SemanticUI className={classes}>
-        {items.map((item, key) => {
-          const itemProps = get(item, ["props"], {});
-          const name = itemProps.name || key;
-          const isActive = !!isActives[name];
-          const titleClasses = mixClass({
-            active: isActive,
-          });
-          const contentClasses = mixClass({
-            active: isActive,
-          });
-          const icon = (
-            <Icon style={Styles.icon}>{isActive ? iconOpen : iconClose}</Icon>
-          );
-          let iconLeft;
-          let iconRight;
-          if (iconLocRight) {
-            iconRight = icon;
-          } else if (iconLocLeft) {
-            iconLeft = icon;
+        {items.map(
+          /**
+           * @param {any} item
+           * @param {number} key
+           */
+          (item, key) => {
+            const itemProps = get(item, ["props"], {});
+            const name = itemProps.name || key;
+            const isActive = !!isActives[name];
+            const titleClasses = mixClass({
+              active: isActive,
+            });
+            const contentClasses = mixClass({
+              active: isActive,
+            });
+            const icon = (
+              <Icon style={Styles.icon}>{isActive ? iconOpen : iconClose}</Icon>
+            );
+            let iconLeft;
+            let iconRight;
+            if (iconLocRight) {
+              iconRight = icon;
+            } else if (iconLocLeft) {
+              iconLeft = icon;
+            }
+            return (
+              <AccordionItem
+                {...{
+                  ...item,
+                  name,
+                  titleClasses,
+                  contentClasses,
+                  iconLeft,
+                  iconRight,
+                  key: name,
+                  onClick: this.handleClick.bind(this, name),
+                }}
+              />
+            );
           }
-          return (
-            <AccordionItem
-              {...{
-                ...item,
-                name,
-                titleClasses,
-                contentClasses,
-                iconLeft,
-                iconRight,
-                key: name,
-                onClick: this.handleClick.bind(this, name),
-              }}
-            />
-          );
-        })}
+        )}
       </SemanticUI>
     );
   }
