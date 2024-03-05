@@ -1,5 +1,5 @@
 {
-  "version": "0.3.4",
+  "version": "0.3.6",
   "name": "get-random-id",
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
     "reshow-unit-dom": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
