@@ -38,7 +38,7 @@ export const longCache = {
 /**
  * @typedef {object} GqlClientOptions
  * @property {string} url
- * @property {boolean} [cache]
+ * @property {boolean} [disableCache]
  * @property {import("@urql/exchange-graphcache").KeyingConfig} [keys]
  * @property {boolean} [debug]
  * @property {Function} [fetch]
@@ -55,7 +55,7 @@ export const longCache = {
  * @returns {Client}
  */
 export const getGqlClient = (
-  { keys = {}, cache, url, fetch, debug },
+  { keys = {}, disableCache, url, fetch, debug },
   cacheObj
 ) => {
   /**
@@ -73,7 +73,7 @@ export const getGqlClient = (
   if (null !== fetch) {
     options.fetch = fetch;
   }
-  if (false !== cache) {
+  if (!disableCache) {
     exchanges.push(
       /**@type any*/ (cacheExchange({ keys })),
       /**@type SSRCacheType */ (cacheObj).current
@@ -137,7 +137,7 @@ const resetCache = (key, createTime, expireSecs, cacheObj) => {
  * @callback GqlResultCallback
  * @param {boolean?} [isDebug]
  * @param {boolean?} [isVerbose]
- * @param {boolean?} [isCache]
+ * @param {boolean?} [isDisableCache]
  * @returns {Promise<OperationResultOrData>}
  */
 
@@ -178,15 +178,15 @@ export const handleGql =
 
     /**
      * @param {boolean?} [isDebug]
-     * @param {boolean?} [isCache]
+     * @param {boolean?} [disableCache]
      */
-    const resetClientOptions = (isDebug, isCache) => {
+    const resetClientOptions = (isDebug, disableCache) => {
       const nextClientOptions = { ...clientOptions };
       if (null != isDebug) {
         nextClientOptions.debug = isDebug;
       }
-      if (null != isCache) {
-        nextClientOptions.debug = isCache;
+      if (null != disableCache) {
+        nextClientOptions.debug = disableCache;
       }
       return nextClientOptions;
     };
@@ -195,11 +195,11 @@ export const handleGql =
       /**
        * @param {boolean?} [isDebug]
        * @param {boolean?} [isVerbose]
-       * @param {boolean?} [isCache]
+       * @param {boolean?} [disableCache]
        */
-      execute: async (isDebug, isVerbose, isCache) => {
+      execute: async (isDebug, isVerbose, disableCache) => {
         const clinet = getGqlClient(
-          resetClientOptions(isDebug, isCache),
+          resetClientOptions(isDebug, disableCache),
           ssrCache
         );
         const rawResult = await clinet.mutation(query, variables).toPromise();
@@ -208,18 +208,18 @@ export const handleGql =
       /**
        * @param {boolean?} [isDebug]
        * @param {boolean?} [isVerbose]
-       * @param {boolean?} [isCache]
+       * @param {boolean?} [disableCache]
        */
-      results: async (isDebug, isVerbose, isCache) => {
+      results: async (isDebug, isVerbose, disableCache) => {
         const clinet = getGqlClient(
-          resetClientOptions(isDebug, isCache),
+          resetClientOptions(isDebug, disableCache),
           ssrCache
         );
         const rawResult = await clinet.query(query, variables).toPromise();
         const next = cookResult(rawResult);
         const nextKey = next.operation.key;
         const now = getTimestamp();
-        if (false !== clientOptions.cache) {
+        if (!clientOptions.disableCache) {
           if (next.error) {
             resetCache(nextKey, now, errorExpireSecs, ssrCache);
             if (longCache.current.has(nextKey)) {

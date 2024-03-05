@@ -3,7 +3,7 @@
  * @type {LongCacheType}
  */
 export const longCache: LongCacheType;
-export function getGqlClient({ keys, cache, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCacheType): Client;
+export function getGqlClient({ keys, disableCache, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCacheType): Client;
 export function handleGql(clientOptions: GqlClientOptions, defaultGqlResultOptions?: GqlResultOptions): handleGqlCallback;
 export type SSRCacheType = {
     current: import("@urql/core").SSRExchange;
@@ -15,7 +15,7 @@ export type LongCacheType = {
 };
 export type GqlClientOptions = {
     url: string;
-    cache?: boolean;
+    disableCache?: boolean;
     keys?: import("@urql/exchange-graphcache").KeyingConfig;
     debug?: boolean;
     fetch?: Function;
@@ -33,7 +33,7 @@ export type OperationResult = import("@urql/core").OperationResult<any, any>;
 export type OperationResultOrData = OperationResult | OperationResult["data"];
 export type UrGqlVariables = import("@urql/core").AnyVariables;
 export type UrGqlQuery = import("@urql/core").TypedDocumentNode<any, UrGqlVariables>;
-export type GqlResultCallback = (isDebug?: boolean | null, isVerbose?: boolean | null, isCache?: boolean | null) => Promise<OperationResultOrData>;
+export type GqlResultCallback = (isDebug?: boolean | null, isVerbose?: boolean | null, isDisableCache?: boolean | null) => Promise<OperationResultOrData>;
 export type handleGqlCallback = (query: UrGqlQuery, variables?: UrGqlVariables, options?: GqlResultOptions) => {
     execute: GqlResultCallback;
     results: GqlResultCallback;
