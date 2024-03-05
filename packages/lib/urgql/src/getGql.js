@@ -186,7 +186,7 @@ export const handleGql =
         nextClientOptions.debug = isDebug;
       }
       if (null != disableCache) {
-        nextClientOptions.debug = disableCache;
+        nextClientOptions.disableCache = disableCache;
       }
       return nextClientOptions;
     };
