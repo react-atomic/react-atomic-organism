@@ -451,8 +451,9 @@ const oAjax = new handleAjax();
  */
 
 /**
- * @template StateType
- * @param {import("reshow-flux").ReducerTypeWithMap} reduce
+ * @template [StateType=StateMap]
+ * @template [ActionType=ActionObject|object]
+ * @param {import("reshow-flux").ReducerTypeWithMap<StateType, ActionType>} reduce
  * @param {import("reshow-flux-base").InitStateType<StateType>} initState
  * @returns {[store & AjaxStore, dispatch]}
  */
@@ -503,7 +504,7 @@ const [store, ajaxDispatch] = AjaxStore(
         },
       });
     };
-    return Map({ onUrlChange });
+    return /**@type StateMap*/ (Map({ onUrlChange }));
   }
 );
 
