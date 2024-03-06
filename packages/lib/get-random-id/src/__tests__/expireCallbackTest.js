@@ -79,8 +79,19 @@ describe("Test expireCallback", () => {
     expect(acture).to.equal("foo");
   });
 
-  it("test expire time is zero", () => {
+  it("test expire time is zero and pass 1sec", () => {
     timer.tick(1);
+    const acture = expireCallback(
+      0,
+      0,
+      () => "foo",
+      () => "bar"
+    );
+    expect(acture).to.equal("bar");
+  });
+
+  it("test expire time is zero and pass 2sec", () => {
+    timer.tick(2);
     const acture = expireCallback(
       0,
       0,

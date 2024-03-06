@@ -1,5 +1,5 @@
 {
-  "version": "0.5.1",
+  "version": "0.5.2",
   "name": "urgql",
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@urql/core": "4.1.1",
     "@urql/exchange-graphcache": "6.3.3",
-    "get-random-id": "^0.3.3",
+    "get-random-id": "^0.4.0",
     "reshow-constant": "^0.17.6",
     "reshow-runtime": "^0.17.15"
   },
