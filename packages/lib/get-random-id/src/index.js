@@ -14,8 +14,8 @@ const getTimestamp = (t) => +getDateObject(/** @type {number|string}*/ (t));
 
 /**
  * milliseconds (thousandths of a second)
- * @param {number} createTime
- * @param {number} expireMilliseconds
+ * @param {number?} createTime
+ * @param {number?} expireMilliseconds
  * @param {function|null} run
  * @param {function|null} expireCb
  */
@@ -23,7 +23,7 @@ const expireCallback = (createTime, expireMilliseconds, run, expireCb) => {
   const now = getTimestamp();
   let isExpire = true;
   if (null != createTime && !isNaN(createTime)) {
-    if (!expireMilliseconds || now - createTime <= expireMilliseconds) {
+    if (null == expireMilliseconds || now - createTime <= expireMilliseconds) {
       isExpire = false;
     }
   }

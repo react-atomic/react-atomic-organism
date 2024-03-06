@@ -1,18 +1,23 @@
+//@ts-check
 import { expect } from "chai";
-import { getSinon as sinon, cleanIt } from "reshow-unit";
+import { getSinon as sinon, cleanIt } from "reshow-unit-dom";
 
-import { getTimestamp, expireCallback } from "../index";
-
+import { expireCallback } from "../index";
+/**
+ * @type import("sinon").SinonFakeTimers
+ */
+let timer;
 describe("Test expireCallback", () => {
   beforeEach(() => {
-    sinon({ useFakeTimers: true });
+    timer = sinon({ useFakeTimers: true }).clock;
   });
 
   afterEach(() => {
     cleanIt();
   });
 
-  it("test run", () => {
+  it("test run with pass 0", () => {
+    timer.tick(0);
     const acture = expireCallback(
       0,
       1,
@@ -20,6 +25,28 @@ describe("Test expireCallback", () => {
       () => "bar"
     );
     expect(acture).to.equal("foo");
+  });
+
+  it("test run with pass 1", () => {
+    timer.tick(1);
+    const acture = expireCallback(
+      0,
+      1,
+      () => "foo",
+      () => "bar"
+    );
+    expect(acture).to.equal("foo");
+  });
+
+  it("test run with pass 2", () => {
+    timer.tick(2);
+    const acture = expireCallback(
+      0,
+      1,
+      () => "foo",
+      () => "bar"
+    );
+    expect(acture).to.equal("bar");
   });
 
   it("test with expire", () => {
@@ -50,5 +77,16 @@ describe("Test expireCallback", () => {
       () => "bar"
     );
     expect(acture).to.equal("foo");
+  });
+
+  it("test expire time is zero", () => {
+    timer.tick(1);
+    const acture = expireCallback(
+      0,
+      0,
+      () => "foo",
+      () => "bar"
+    );
+    expect(acture).to.equal("bar");
   });
 });
