@@ -29,6 +29,6 @@ describe("verifyTurnstile Test", () => {
   it("basic test", async () => {
     stub.onCall(0).returns(jsonOk({success: true}));
     const result = await verifyTurnstile();
-    expect(result).to.be.true;
+    expect(result.success).to.be.true;
   });
 });

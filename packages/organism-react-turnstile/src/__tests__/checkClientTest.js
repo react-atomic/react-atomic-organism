@@ -30,6 +30,6 @@ describe("checkClient Test", () => {
 
   it("basic test", async () => {
     const result = await checkClient();
-    expect(result).to.be.true;
+    expect(result.success).to.be.true;
   });
 });
