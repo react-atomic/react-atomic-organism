@@ -4,6 +4,10 @@ export type VerifyTurnstileProps = {
     response?: (string | null) | undefined;
     url?: string | undefined;
 };
+export type VerifyTurnstileResult = {
+    success: boolean;
+    "error-codes": string[];
+};
 /**
  * @typedef {object} VerifyTurnstileProps
  * @property {string=} secret
@@ -11,6 +15,13 @@ export type VerifyTurnstileProps = {
  * @property {string=} url
  */
 /**
- * @param {VerifyTurnstileProps} props
+ * @see https://developers.cloudflare.com/turnstile/get-started/server-side-validation/#accepted-parameters
+ * @typedef {object} VerifyTurnstileResult
+ * @property {boolean} success
+ * @property {string[]} error-codes
  */
-declare function verifyTurnstile({ secret, response, url, }?: VerifyTurnstileProps): Promise<any>;
+/**
+ * @param {VerifyTurnstileProps} props
+ * @returns {Promise<boolean|VerifyTurnstileResult>}
+ */
+declare function verifyTurnstile({ secret, response, url, }?: VerifyTurnstileProps): Promise<boolean | VerifyTurnstileResult>;
