@@ -28,7 +28,7 @@ const mutationGql = gql`
   }
 `;
 
-describe("Execute Test", () => {
+describe("handleGql Test", () => {
   it("query test", async () => {
     const actual = await handleGql(
       { url: "http://0.0.0.0" },

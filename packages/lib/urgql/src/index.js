@@ -7,4 +7,5 @@
  */
 
 export { handleGql } from "./getGql";
+export { handleGqlError } from "./getGqlError";
 export { gql } from "@urql/core";
