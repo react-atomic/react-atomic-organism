@@ -103,8 +103,10 @@ const useTurnstile = ({
       lastTurnstile.current.render(lastEl.current, {
         sitekey,
       });
+      setTimeout(() => lastTurnstile.current.reset(), 300);
     };
     if (!isLoadTurnstile) {
+      initCallback.push(onloadTurnstileCallback);
       thisWin.onloadTurnstileCallback = handleOnload;
       const jsSrc = `${js}?onload=${onloadCallbackName}`;
       insertJS()()(jsSrc);
