@@ -67,21 +67,25 @@ export const getNearLocation = (center, floatInfo) => {
 /**
  * @param {HTMLElement} targetEl
  * @param {HTMLElement|Coordinate} floatElOrFloatXY
+ * @param {boolean=} compareCenter
  * @returns {NearLocType}
  */
-export default function nearWhere(targetEl, floatElOrFloatXY) {
+export default function nearWhere(targetEl, floatElOrFloatXY, compareCenter) {
   const tarCenter = getDomCenter(targetEl);
   let floatXY;
   const floatEl = /**@type HTMLElement*/ (floatElOrFloatXY);
   if (floatEl.nodeName) {
-    const floatElInfo = getDomPositionInfo(floatEl)?.domInfo || {
-      top: 0,
-      left: 0,
-    };
-    floatXY = { x: floatElInfo.left, y: floatElInfo.top };
+    if (compareCenter) {
+      floatXY = getDomCenter(floatEl);
+    } else {
+      const floatElInfo = getDomPositionInfo(floatEl)?.domInfo;
+      if (null != floatElInfo) {
+        floatXY = { x: floatElInfo.left, y: floatElInfo.top };
+      }
+    }
   }
   if (null == floatXY) {
     floatXY = /**@type Coordinate*/ (floatElOrFloatXY);
   }
   return getNearLocation(tarCenter, floatXY);
-};
+}
