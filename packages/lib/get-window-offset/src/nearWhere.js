@@ -22,7 +22,7 @@ const calDomCenter = (left, top, width, height) => {
  * @param {HTMLElement} dom
  * @returns {Coordinate}
  */
-const getDomCenter = (dom) => {
+export const getDomCenter = (dom) => {
   const { left, top, width, height } = getDomPositionInfo(dom)?.domInfo || {};
   const domCenter = calDomCenter(left, top, width, height);
   return domCenter;
@@ -33,7 +33,7 @@ const getDomCenter = (dom) => {
  * @param {Coordinate} floatInfo
  * @returns {NearLocType}
  */
-const getNearLocation = (center, floatInfo) => {
+export const getNearLocation = (center, floatInfo) => {
   const loc = {
     center: false,
     centerCenter: false,
@@ -69,7 +69,7 @@ const getNearLocation = (center, floatInfo) => {
  * @param {HTMLElement|Coordinate} floatElOrFloatXY
  * @returns {NearLocType}
  */
-const nearWhere = (targetEl, floatElOrFloatXY) => {
+export default function nearWhere(targetEl, floatElOrFloatXY) {
   const tarCenter = getDomCenter(targetEl);
   let floatXY;
   const floatEl = /**@type HTMLElement*/ (floatElOrFloatXY);
@@ -85,6 +85,3 @@ const nearWhere = (targetEl, floatElOrFloatXY) => {
   }
   return getNearLocation(tarCenter, floatXY);
 };
-
-export default nearWhere;
-export { getNearLocation };
