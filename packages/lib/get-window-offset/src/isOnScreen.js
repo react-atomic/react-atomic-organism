@@ -19,6 +19,8 @@ const isOnScreen = (domInfo, scrollInfo, margin = 0) => {
     atBottom: domInfo.top >= scrollInfo.bottom - margin,
     atLeft: domInfo.right <= scrollInfo.left + margin,
     isOnScreen: false,
+    scrollInfo,
+    margin,
   };
   nextDomInfo.isOnScreen = !(
     nextDomInfo.atTop ||

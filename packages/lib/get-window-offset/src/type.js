@@ -104,8 +104,9 @@ export class IsOnScreenType extends DomInfoType {
    */
   atLeft;
   /**
-   * @type boolean
+   * @type number
    */
+  margin;
 }
 
 export class DomPositionInfoType {
@@ -144,7 +145,7 @@ export class CalWindowOffsetResult {
 
 export class WindowOffsetType extends CalWindowOffsetResult {
   /**
-   * @type IsOnScreenType
+   * @type {?IsOnScreenType}
    */
   domOverflowInfo;
   /**

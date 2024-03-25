@@ -1,10 +1,15 @@
 // @ts-check
 
-import getScrollInfo from "get-scroll-info";
+import getScrollInfo, { ScrollInfoType } from "get-scroll-info";
 import isOnScreen from "./isOnScreen";
 import getDomPositionInfo from "./getDomPositionInfo";
 import pos from "./positions";
-import { CalWindowOffsetResult, WindowOffsetType, DomInfoType } from "./type";
+import {
+  SimplePosType,
+  CalWindowOffsetResult,
+  WindowOffsetType,
+  DomInfoType,
+} from "./type";
 
 const T = "T";
 const R = "R";
@@ -39,17 +44,46 @@ const getRevertLoc = (fromLoc) => {
 };
 
 /**
+ * @param {HTMLElement} overflowNode
+ * @param {ScrollInfoType} overflowScrollInfo
+ * @returns {ScrollInfoType=}
+ */
+const getVisibleArea = (overflowNode, overflowScrollInfo) => {
+  if (!overflowNode.parentNode) {
+    return;
+  }
+  const root = /**@type HTMLElement*/ (overflowNode.parentNode);
+
+  const rect = overflowNode.getBoundingClientRect();
+  const viewportWidth = root.offsetWidth;
+  const viewportHeight = root.offsetHeight;
+  const visibleWidth = Math.min(rect.right - rect.left, viewportWidth);
+  const visibleHeight = Math.min(rect.bottom - rect.top, viewportHeight);
+  overflowScrollInfo.right = overflowScrollInfo.left + visibleWidth;
+  overflowScrollInfo.bottom = overflowScrollInfo.top + visibleHeight;
+  return overflowScrollInfo;
+};
+
+/**
  * @param {DomInfoType} domInfo
  * @param {import("get-scroll-info").ScrollInfoType} scrollInfo
- * @returns {CalWindowOffsetResult}
+ * @returns {SimplePosType}
  */
-const calWindowOffset = (domInfo, scrollInfo) => {
+const calDistance = (domInfo, scrollInfo) => {
   const distance = {
     top: domInfo.top - scrollInfo.top,
     right: scrollInfo.right - domInfo.right,
     bottom: scrollInfo.bottom - domInfo.bottom,
     left: domInfo.left - scrollInfo.left,
   };
+  return distance;
+};
+
+/**
+ * @param {SimplePosType} distance
+ * @returns {CalWindowOffsetResult}
+ */
+const calWindowOffset = (distance) => {
   const maxDistance = Math.max(
     distance.top,
     distance.right,
@@ -113,27 +147,43 @@ const getWindowOffset = (dom, debug, margin) => {
     cookScrollInfo.right = scrollInfo.scrollNodeWidth;
     cookScrollInfo.bottom = scrollInfo.scrollNodeHeight;
     cookScrollInfo.left = fixedScrollInfo.left;
-  } else if (overflowNode) {
-    const overflowNodeScrollInfo = getScrollInfo(overflowNode);
-    cookScrollInfo.top += overflowNodeScrollInfo.top;
-    /**
-     * @type number
-     */
-    (cookScrollInfo.right) += overflowNodeScrollInfo.left;
-    /**
-     * @type number
-     */
-    (cookScrollInfo.bottom) += overflowNodeScrollInfo.top;
-    cookScrollInfo.left += overflowNodeScrollInfo.left;
   }
   const domInfoWithScreen = isOnScreen(domInfo, cookScrollInfo, margin);
-  const domOverflowInfoWithScreen = isOnScreen(
-    domOverflowInfo,
-    getScrollInfo(domOverflowInfo.domScroller),
-    margin
-  );
-  domInfoWithScreen.isOnScreen =
-    domInfoWithScreen.isOnScreen && domOverflowInfoWithScreen.isOnScreen;
+  const distance = calDistance(domInfo, cookScrollInfo);
+  /**
+   * @type WindowOffsetType
+   */
+  const result = {
+    domInfo: domInfoWithScreen,
+    domOverflowInfo: null,
+    scrollInfo,
+    ...calWindowOffset(distance),
+  };
+  let domOverflowInfoWithScreen;
+  if (overflowNode) {
+    const domOverflowScrollInfo = getScrollInfo(domOverflowInfo.domScroller);
+    domOverflowInfoWithScreen = isOnScreen(
+      domOverflowInfo,
+      domOverflowScrollInfo,
+      margin
+    );
+    domInfoWithScreen.isOnScreen =
+      domInfoWithScreen.isOnScreen && domOverflowInfoWithScreen.isOnScreen;
+    const overflowDistance = calDistance(
+      domOverflowInfo,
+      getVisibleArea(overflowNode, domOverflowScrollInfo) ||
+        domOverflowScrollInfo
+    );
+    distance.top += overflowDistance.top;
+    distance.right += overflowDistance.right;
+    distance.bottom += overflowDistance.bottom;
+    distance.left += overflowDistance.left;
+    const overflowNodeWindowOffset = calWindowOffset(overflowDistance);
+    result.domOverflowInfo = domOverflowInfoWithScreen;
+    result.locs = overflowNodeWindowOffset.locs;
+    result.firstKey = overflowNodeWindowOffset.firstKey;
+    result.secondKey = overflowNodeWindowOffset.secondKey;
+  }
   if ((!domInfoWithScreen.isOnScreen && false !== debug) || true === debug) {
     // should not break function here
     // not use return here
@@ -146,15 +196,15 @@ const getWindowOffset = (dom, debug, margin) => {
         domInfo,
         scrollInfo,
         cookScrollInfo,
+        overflowNode,
+        domOverflowInfo,
+        domInfoWithScreen,
+        domOverflowInfoWithScreen,
+        result,
+        distance,
       }
     );
   }
-  const result = {
-    domInfo: domInfoWithScreen,
-    domOverflowInfo: domOverflowInfoWithScreen,
-    scrollInfo,
-    ...calWindowOffset(domInfo, cookScrollInfo),
-  };
   return result;
 };
 

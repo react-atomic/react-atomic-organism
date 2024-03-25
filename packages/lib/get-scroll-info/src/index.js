@@ -153,8 +153,8 @@ const getScrollInfo = (inputEl, margin = 50) => {
       w = el.clientWidth;
     }
   } else {
-    w = el.scrollWidth ?? el.clientWidth;
-    h = el.scrollHeight ?? el.clientHeight;
+    w = el.clientWidth ?? el.scrollWidth;
+    h = el.clientHeight ?? el.scrollHeight;
   }
 
   const scrollLeft = el.scrollLeft;
