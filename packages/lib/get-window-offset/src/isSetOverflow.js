@@ -20,19 +20,23 @@ const isSetOverflow = (node) => {
     return false;
   }
   /**
-   * @type any
+   * @type {HTMLElement}
    */
-  let thisParent = node.parentNode;
+  let thisParent = /**@type HTMLElement*/ (node.parentNode);
   while (thisParent.nodeName != "BODY") {
     const overflowX = getStyle(thisParent, "overflow-x");
     const overflowY = getStyle(thisParent, "overflow-y");
-    if ("visible" !== overflowY || "visible" !== overflowX) {
+    if (
+      "visible" !== overflowY ||
+      "visible" !== overflowX ||
+      thisParent?.dataset?.overflow
+    ) {
       const oScroll = getScrollInfo(thisParent);
       if (oScroll.top || oScroll.left) {
         return thisParent;
       }
     }
-    thisParent = thisParent.parentNode;
+    thisParent = /**@type HTMLElement*/ (thisParent.parentNode);
   }
   return false;
 };
