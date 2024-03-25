@@ -24,13 +24,12 @@ const isSetOverflow = (node) => {
    */
   let thisParent = /**@type HTMLElement*/ (node.parentNode);
   while (thisParent.nodeName != "BODY") {
+    if (thisParent.dataset.overflow) {
+      return thisParent;
+    }
     const overflowX = getStyle(thisParent, "overflow-x");
     const overflowY = getStyle(thisParent, "overflow-y");
-    if (
-      "visible" !== overflowY ||
-      "visible" !== overflowX ||
-      thisParent?.dataset?.overflow
-    ) {
+    if ("visible" !== overflowY || "visible" !== overflowX) {
       const oScroll = getScrollInfo(thisParent);
       if (oScroll.top || oScroll.left) {
         return thisParent;
