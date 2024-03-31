@@ -157,9 +157,11 @@ const getWindowOffset = (dom, debug, margin) => {
     domInfo: domInfoWithScreen,
     domOverflowInfo: null,
     scrollInfo,
+    distance,
     ...calWindowOffset(distance),
   };
   let domOverflowInfoWithScreen;
+  let overflowDistance;
   if (overflowNode) {
     const domOverflowScrollInfo = getScrollInfo(domOverflowInfo.domScroller);
     domOverflowInfoWithScreen = isOnScreen(
@@ -169,20 +171,17 @@ const getWindowOffset = (dom, debug, margin) => {
     );
     domInfoWithScreen.isOnScreen =
       domInfoWithScreen.isOnScreen && domOverflowInfoWithScreen.isOnScreen;
-    const overflowDistance = calDistance(
+    overflowDistance = calDistance(
       domOverflowInfo,
       getVisibleArea(overflowNode, domOverflowScrollInfo) ||
         domOverflowScrollInfo
     );
-    distance.top += overflowDistance.top;
-    distance.right += overflowDistance.right;
-    distance.bottom += overflowDistance.bottom;
-    distance.left += overflowDistance.left;
     const overflowNodeWindowOffset = calWindowOffset(overflowDistance);
     result.domOverflowInfo = domOverflowInfoWithScreen;
     result.locs = overflowNodeWindowOffset.locs;
     result.firstKey = overflowNodeWindowOffset.firstKey;
     result.secondKey = overflowNodeWindowOffset.secondKey;
+    result.distance = overflowDistance;
   }
   if ((!domInfoWithScreen.isOnScreen && false !== debug) || true === debug) {
     // should not break function here
@@ -202,6 +201,7 @@ const getWindowOffset = (dom, debug, margin) => {
         domOverflowInfoWithScreen,
         result,
         distance,
+        overflowDistance,
       }
     );
   }

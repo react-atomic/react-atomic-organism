@@ -156,4 +156,8 @@ export class WindowOffsetType extends CalWindowOffsetResult {
    * @type ScrollInfoType
    */
   scrollInfo;
+  /**
+   * @type SimplePosType
+   */
+  distance;
 }

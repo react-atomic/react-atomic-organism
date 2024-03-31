@@ -143,6 +143,10 @@ export class WindowOffsetType extends CalWindowOffsetResult {
      * @type ScrollInfoType
      */
     scrollInfo: ScrollInfoType;
+    /**
+     * @type SimplePosType
+     */
+    distance: SimplePosType;
 }
 export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
 export type MaybeHTMLElement = SAFE_UNDEFINED | HTMLElement;
