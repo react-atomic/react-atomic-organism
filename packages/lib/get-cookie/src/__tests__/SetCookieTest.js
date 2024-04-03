@@ -1,7 +1,8 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import getCookie, { setCookie, getCookieSetStr } from "../index";
+import getCookie, { setCookie } from "../index";
+import { getCookieSetStr } from "../getCookieSetStr";
 
 describe("test set cookie", () => {
   it("simple test", () => {
@@ -14,7 +15,7 @@ describe("test set cookie", () => {
     const clock = sinon.useFakeTimers(now.getTime());
     const s = getCookieSetStr("foo", "bar", 1, "localhost");
     clock.restore();
-    now.setTime(now.getTime() + 1 * 24 * 60 * 60 * 1000);
+    now.setTime(now.getTime() + 1);
     const expected = `foo=bar;expires=${now.toUTCString()};domain=localhost;path=/`;
     expect(s).to.equal(expected);
   });
@@ -24,7 +25,7 @@ describe("test set cookie", () => {
     const clock = sinon.useFakeTimers(now.getTime());
     const s = getCookieSetStr("foo", "bar", 1);
     clock.restore();
-    now.setTime(now.getTime() + 1 * 24 * 60 * 60 * 1000);
+    now.setTime(now.getTime() + 1);
     const expected = `foo=bar;expires=${now.toUTCString()};path=/`;
     expect(s).to.equal(expected);
   });

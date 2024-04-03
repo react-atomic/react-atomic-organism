@@ -2,6 +2,7 @@
 
 import getSafeReg, { cacheReg } from "get-safe-reg";
 import { doc } from "win-doc";
+import { getCookieSetStr } from "./getCookieSetStr";
 
 let isCookieSupport = true;
 
@@ -49,8 +50,9 @@ const notSupport = (e) => {
 };
 
 /**
- * @param {string} [name]
+ * @param {string} name
  * @param {string} [cookie]
+ * @returns {string|null}
  */
 const getCookie = (name, cookie) => {
   cookie = docCookie(cookie);
@@ -63,34 +65,26 @@ const getCookie = (name, cookie) => {
  * @param {string} cvalue
  * @param {number} [exdays]
  * @param {string} [domain]
- * @returns {string}
- */
-const getCookieSetStr = (cname, cvalue, exdays, domain) => {
-  exdays = exdays || 0;
-  domain = domain || "";
-  let expires = "";
-  if (exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    expires = "expires=" + d.toUTCString() + ";";
-  }
-  if (domain) {
-    domain = "domain=" + domain + ";" || "";
-  }
-  const cStr = cname + "=" + cvalue + ";" + expires + domain + "path=/";
-  return cStr;
-};
-
-/**
- * @param {string} cname
- * @param {string} cvalue
- * @param {number} [exdays]
- * @param {string} [domain]
  */
 const setCookie = (cname, cvalue, exdays, domain) => {
   if (isCookieSupport) {
     try {
-      doc().cookie = getCookieSetStr(cname, cvalue, exdays, domain);
+      const dayToMillisecond = exdays ? exdays * 24 * 60 * 60 * 1000 : 0;
+      doc().cookie = getCookieSetStr(cname, cvalue, dayToMillisecond, domain);
+    } catch (e) {
+      notSupport(e);
+    }
+  }
+};
+
+/**
+ * @param {string} cname
+ * @param {string} [domain]
+ */
+export const deleteCookie = (cname, domain) => {
+  if (isCookieSupport) {
+    try {
+      doc().cookie = getCookieSetStr(cname, undefined, -86400, domain);
     } catch (e) {
       notSupport(e);
     }
@@ -98,9 +92,4 @@ const setCookie = (cname, cvalue, exdays, domain) => {
 };
 
 export default getCookie;
-export {
-  getRegString as getCookieRegString,
-  getCookieReg,
-  setCookie,
-  getCookieSetStr,
-};
+export { getRegString as getCookieRegString, getCookieReg, setCookie };
