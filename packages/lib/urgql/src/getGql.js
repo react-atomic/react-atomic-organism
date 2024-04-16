@@ -73,7 +73,7 @@ export const getGqlClient = (
   if (null !== fetch) {
     options.fetch = fetch;
   }
-  if (!disableCache) {
+  if (!disableCache && cacheObj?.current) {
     exchanges.push(
       /**@type any*/ (cacheExchange({ keys })),
       /**@type SSRCacheType */ (cacheObj).current
@@ -188,6 +188,9 @@ export const handleGql =
       if (null != disableCache) {
         nextClientOptions.disableCache = disableCache;
       }
+      if (!dataExpireSecs) {
+        nextClientOptions.disableCache = true;
+      }
       return nextClientOptions;
     };
 
@@ -195,13 +198,9 @@ export const handleGql =
       /**
        * @param {boolean?} [isDebug]
        * @param {boolean?} [isVerbose]
-       * @param {boolean?} [disableCache]
        */
-      execute: async (isDebug, isVerbose, disableCache) => {
-        const clinet = getGqlClient(
-          resetClientOptions(isDebug, disableCache),
-          ssrCache
-        );
+      execute: async (isDebug, isVerbose) => {
+        const clinet = getGqlClient(resetClientOptions(isDebug, true));
         const rawResult = await clinet.mutation(query, variables).toPromise();
         return toVerbose(cookResult(rawResult), isVerbose);
       },
@@ -211,37 +210,36 @@ export const handleGql =
        * @param {boolean?} [disableCache]
        */
       results: async (isDebug, isVerbose, disableCache) => {
-        const clinet = getGqlClient(
-          resetClientOptions(isDebug, disableCache),
-          ssrCache
-        );
+        const nextClientOptions = resetClientOptions(isDebug, disableCache);
+        const clinet = getGqlClient(nextClientOptions, ssrCache);
         const rawResult = await clinet.query(query, variables).toPromise();
         const next = cookResult(rawResult);
         const nextKey = next.operation.key;
         const now = getTimestamp();
-        if (!clientOptions.disableCache) {
-          if (next.error) {
-            resetCache(nextKey, now, errorExpireSecs, ssrCache);
-            if (longCache.current.has(nextKey)) {
-              expireCallback(
-                longCache.createTime[nextKey],
-                failExpireSecs * 1000,
-                null,
-                () => {
-                  longCache.current.delete(nextKey);
-                  delete longCache.createTime[nextKey];
-                }
-              );
-              if (longCache.createTime[nextKey]) {
-                const failBack = longCache.current.get(nextKey);
-                return toVerbose(failBack, isVerbose);
+        if (next.error) {
+          resetCache(nextKey, now, errorExpireSecs, ssrCache);
+          if (
+            longCache.current.has(nextKey) &&
+            !nextClientOptions.disableCache
+          ) {
+            expireCallback(
+              longCache.createTime[nextKey],
+              failExpireSecs * 1000,
+              null,
+              () => {
+                longCache.current.delete(nextKey);
+                delete longCache.createTime[nextKey];
               }
+            );
+            if (longCache.createTime[nextKey]) {
+              const failBack = longCache.current.get(nextKey);
+              return toVerbose(failBack, isVerbose);
             }
-          } else {
-            longCache.current.set(nextKey, next);
-            longCache.createTime[nextKey] = now;
-            resetCache(nextKey, now, dataExpireSecs, ssrCache);
           }
+        } else {
+          resetCache(nextKey, now, dataExpireSecs, ssrCache);
+          longCache.current.set(nextKey, next);
+          longCache.createTime[nextKey] = now;
         }
         return toVerbose(next, isVerbose);
       },
