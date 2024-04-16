@@ -6,15 +6,26 @@ import { getTimestamp, expireCallback } from "get-random-id";
 import { NEW_OBJ } from "reshow-constant";
 
 /**
- * @typedef {object} SSRCacheType
+ * @typedef {object} SSRCache
  * @property {import("@urql/core").SSRExchange} current
+ */
+
+/**
+ * @typedef {object} CacheCreateTime
  * @property {Record<number, EpochTimeStamp>} createTime
  */
 
 /**
- * @typedef {object} LongCacheType
+ * @typedef { SSRCache & CacheCreateTime } SSRCacheType
+ */
+
+/**
+ * @typedef {object} LongCache
  * @property {Map<number, any>} current
- * @property {Record<number, EpochTimeStamp>} createTime
+ */
+
+/**
+ * @typedef { LongCache & CacheCreateTime } LongCacheType
  */
 
 /**
@@ -51,13 +62,10 @@ export const longCache = {
 
 /**
  * @param {GqlClientOptions} props
- * @param {SSRCacheType} [cacheObj]
+ * @param {SSRCache} [cacheObj]
  * @returns {Client}
  */
-export const getGqlClient = (
-  { keys = {}, disableCache, url, fetch, debug },
-  cacheObj
-) => {
+export const getGqlClient = ({ keys = {}, url, fetch, debug }, cacheObj) => {
   /**
    * @type Exchange[]
    */
@@ -73,7 +81,7 @@ export const getGqlClient = (
   if (null !== fetch) {
     options.fetch = fetch;
   }
-  if (!disableCache && cacheObj?.current) {
+  if (cacheObj?.current) {
     exchanges.push(
       /**@type any*/ (cacheExchange({ keys })),
       /**@type SSRCacheType */ (cacheObj).current
@@ -92,7 +100,7 @@ export const getGqlClient = (
  * @param {number} expireSecs
  * @param {SSRCacheType} cacheObj
  */
-const resetCache = (key, createTime, expireSecs, cacheObj) => {
+const cleanCache = (key, createTime, expireSecs, cacheObj) => {
   const cacheData = cacheObj.current.extractData();
   const curItem = cacheData[key];
   if (!curItem) {
@@ -188,9 +196,6 @@ export const handleGql =
       if (null != disableCache) {
         nextClientOptions.disableCache = disableCache;
       }
-      if (!dataExpireSecs) {
-        nextClientOptions.disableCache = true;
-      }
       return nextClientOptions;
     };
 
@@ -211,13 +216,16 @@ export const handleGql =
        */
       results: async (isDebug, isVerbose, disableCache) => {
         const nextClientOptions = resetClientOptions(isDebug, disableCache);
-        const clinet = getGqlClient(nextClientOptions, ssrCache);
+        const clinet =
+          nextClientOptions.disableCache || !dataExpireSecs
+            ? getGqlClient(nextClientOptions)
+            : getGqlClient(nextClientOptions, ssrCache);
         const rawResult = await clinet.query(query, variables).toPromise();
         const next = cookResult(rawResult);
         const nextKey = next.operation.key;
         const now = getTimestamp();
         if (next.error) {
-          resetCache(nextKey, now, errorExpireSecs, ssrCache);
+          cleanCache(nextKey, now, errorExpireSecs, ssrCache);
           if (
             longCache.current.has(nextKey) &&
             !nextClientOptions.disableCache
@@ -237,7 +245,7 @@ export const handleGql =
             }
           }
         } else {
-          resetCache(nextKey, now, dataExpireSecs, ssrCache);
+          cleanCache(nextKey, now, dataExpireSecs, ssrCache);
           longCache.current.set(nextKey, next);
           longCache.createTime[nextKey] = now;
         }

@@ -3,16 +3,19 @@
  * @type {LongCacheType}
  */
 export const longCache: LongCacheType;
-export function getGqlClient({ keys, disableCache, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCacheType): Client;
+export function getGqlClient({ keys, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCache): Client;
 export function handleGql(clientOptions: GqlClientOptions, defaultGqlResultOptions?: GqlResultOptions): handleGqlCallback;
-export type SSRCacheType = {
+export type SSRCache = {
     current: import("@urql/core").SSRExchange;
+};
+export type CacheCreateTime = {
     createTime: Record<number, EpochTimeStamp>;
 };
-export type LongCacheType = {
+export type SSRCacheType = SSRCache & CacheCreateTime;
+export type LongCache = {
     current: Map<number, any>;
-    createTime: Record<number, EpochTimeStamp>;
 };
+export type LongCacheType = LongCache & CacheCreateTime;
 export type GqlClientOptions = {
     url: string;
     disableCache?: boolean;
