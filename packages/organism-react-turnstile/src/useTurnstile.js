@@ -35,6 +35,8 @@ class TurnstileAdapter {
    */
   render(el, options) {
     const nextOptions = {
+      retry: "auto",
+      "retry-interval": 500,
       "refresh-expired": "auto",
       ...options,
     };
@@ -70,13 +72,14 @@ class TurnstileAdapter {
  * @property {string=} onloadCallbackName
  * @property {string=} inputWrapperId
  * @property {string=} sitekey
+ * @property {Function=} errorCallback
  * @property {Component=} component
  */
 
 let isLoadTurnstile = false;
 const initCallback = [];
 const handleOnload = () => {
-  initCallback.forEach((cb) => callfunc(cb));
+  initCallback.forEach((cb) => callfunc(cb.current));
 };
 
 /**
@@ -93,21 +96,26 @@ const useTurnstile = ({
   onloadCallbackName = "onloadTurnstileCallback",
   component = "div",
   sitekey,
+  errorCallback,
 }) => {
   const isInit = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
   const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
   const lastTurnstile = useRef(new TurnstileAdapter());
   const thisWin = /**@type any*/ (win());
   useEffect(() => {
-    const onloadTurnstileCallback = () => {
-      lastTurnstile.current.render(lastEl.current, {
-        sitekey,
-      });
-      setTimeout(() => lastTurnstile.current.reset(), 300);
+    const onloadTurnstileCallback = {
+      current: () => {
+        const renderOpts = {
+          sitekey,
+          "error-callback": () => callfunc(errorCallback),
+        };
+        lastTurnstile.current.render(lastEl.current, renderOpts);
+        setTimeout(() => lastTurnstile.current.reset(), 300);
+      },
     };
     if (!isLoadTurnstile) {
       initCallback.push(onloadTurnstileCallback);
-      thisWin.onloadTurnstileCallback = handleOnload;
+      thisWin[onloadCallbackName] = handleOnload;
       const jsSrc = `${js}?onload=${onloadCallbackName}`;
       insertJS()()(jsSrc);
       isLoadTurnstile = true;
@@ -117,7 +125,7 @@ const useTurnstile = ({
         if (!thisWin.turnstile?.render) {
           initCallback.push(onloadTurnstileCallback);
         } else {
-          onloadTurnstileCallback();
+          onloadTurnstileCallback.current();
         }
       }
     }
