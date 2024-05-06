@@ -76,9 +76,11 @@ class TurnstileAdapter {
  * @property {Component=} component
  */
 
+let isInitTurnstile = false;
 let isLoadTurnstile = false;
 const initCallback = [];
 const handleOnload = () => {
+  isLoadTurnstile = true;
   initCallback.forEach((cb) => callfunc(cb.current));
 };
 
@@ -109,20 +111,22 @@ const useTurnstile = ({
           sitekey,
           "error-callback": () => callfunc(errorCallback),
         };
-        lastTurnstile.current.render(lastEl.current, renderOpts);
-        setTimeout(() => lastTurnstile.current.reset(), 300);
+        setTimeout(
+          () => lastTurnstile.current.render(lastEl.current, renderOpts),
+          500
+        );
       },
     };
-    if (!isLoadTurnstile) {
+    if (!isInitTurnstile) {
+      isInitTurnstile = true;
       initCallback.push(onloadTurnstileCallback);
       thisWin[onloadCallbackName] = handleOnload;
       const jsSrc = `${js}?onload=${onloadCallbackName}`;
       insertJS()()(jsSrc);
-      isLoadTurnstile = true;
     } else {
       if (!isInit.current) {
         isInit.current = true;
-        if (!thisWin.turnstile?.render) {
+        if (!thisWin.turnstile?.render || !isLoadTurnstile) {
           initCallback.push(onloadTurnstileCallback);
         } else {
           onloadTurnstileCallback.current();
