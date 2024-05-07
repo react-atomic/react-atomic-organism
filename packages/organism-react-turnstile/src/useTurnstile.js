@@ -73,6 +73,7 @@ class TurnstileAdapter {
  * @property {string=} inputWrapperId
  * @property {string=} sitekey
  * @property {Function=} errorCallback
+ * @property {Function=} callback
  * @property {Component=} component
  */
 
@@ -99,21 +100,27 @@ const useTurnstile = ({
   component = "div",
   sitekey,
   errorCallback,
+  callback,
 }) => {
   const isInit = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
   const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
+  const lastCallback = /**@type any*/ (useRef());
   const lastTurnstile = useRef(new TurnstileAdapter());
   const thisWin = /**@type any*/ (win());
+  lastCallback.current = {
+    errorCallback,
+    callback,
+  };
   useEffect(() => {
     const onloadTurnstileCallback = {
       current: () => {
         const renderOpts = {
           sitekey,
-          "error-callback": () => callfunc(errorCallback),
+          callback: () => callfunc(lastCallback.current.callback),
+          "error-callback": () => callfunc(lastCallback.current.errorCallback),
         };
-        setTimeout(
-          () => lastTurnstile.current.render(lastEl.current, renderOpts),
-          500
+        setTimeout(() =>
+          lastTurnstile.current.render(lastEl.current, renderOpts)
         );
       },
     };
