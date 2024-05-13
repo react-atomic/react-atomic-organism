@@ -10,7 +10,7 @@ export type YoutubeRWDExtProps = {
 };
 export type YoutubeRWDProps = ResponsiveVideoProps & YoutubeRWDExtProps;
 /**
- * @type React.FC<YoutubeRWDProps>
+ * @type React.ForwardRefExoticComponent<?, YoutubeRWDProps>
  */
-declare const YoutubeRWD: React.FC<YoutubeRWDProps>;
+declare const YoutubeRWD: React.ForwardRefExoticComponent<unknown, YoutubeRWDProps>;
 import * as React from "react";

@@ -1,9 +1,9 @@
 {
-  "version": "0.3.2",
+  "version": "0.3.3",
   "name": "organism-react-video",
   "repository": {
     "type": "git",
-    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "url": "git+https://github.com/react-atomic/react-atomic-organism.git",
     "directory": "packages/organism-react-video"
   },
   "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-video",

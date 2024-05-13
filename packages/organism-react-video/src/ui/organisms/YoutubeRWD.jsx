@@ -127,7 +127,7 @@ const useYoutubeRWD = (props) => {
 };
 
 /**
- * @type React.FC<YoutubeRWDProps>
+ * @type React.ForwardRefExoticComponent<?, YoutubeRWDProps>
  */
 const YoutubeRWD = forwardRef((props, ref) => {
   const { expose, handler, nextProps, lastIframe, state, src } =
