@@ -30,9 +30,9 @@ declare function resetUrl(url: string | SAFE_UNDEFINED): string;
  * @param {string|number} key
  * @param {string|number} value
  * @param {string} url
- * @param {boolean} KeepRawValue
+ * @param {boolean=} KeepRawValue
  */
-declare function setUrl(key: string | number, value: string | number, url: string, KeepRawValue: boolean): string;
+declare function setUrl(key: string | number, value: string | number, url: string, KeepRawValue?: boolean | undefined): string;
 /**
  * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
  */

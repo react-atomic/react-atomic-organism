@@ -117,7 +117,7 @@ const unsetUrl = (key, url) => {
  * @param {string|number} key
  * @param {string|number} value 
  * @param {string} url 
- * @param {boolean} KeepRawValue 
+ * @param {boolean=} KeepRawValue 
  */
 const setUrl = (key, value, url, KeepRawValue) => {
   const multi = IS_ARRAY(value);
