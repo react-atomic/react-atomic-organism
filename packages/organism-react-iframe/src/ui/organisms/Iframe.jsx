@@ -33,9 +33,8 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
 };
 
 /**
- * Add this type in top of your file, or if commonly used in some types file.
  * @template T
- * @typedef {[T, import('react').Dispatch<import('react').SetStateAction<T>>]} useState
+ * @typedef {[T, React.Dispatch<React.SetStateAction<T>>]} useState
  */
 
 /**
