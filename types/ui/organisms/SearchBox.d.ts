@@ -1,6 +1,7 @@
 export default SearchBox;
-declare function SearchBox({ inputComponent, className, compHd, compBd, compFt, wrapRefCb, wrapStyle, onWrapClick, results, onItemClick, itemLocator, itemsLocator, inputWrapStyle, resultsStyle, ...restProps }: {
+declare function SearchBox({ autoComplete, inputComponent, className, compHd, compBd, compFt, wrapRefCb, wrapStyle, onWrapClick, results, onItemClick, itemLocator, itemsLocator, inputWrapStyle, resultsStyle, ...restProps }: {
     [x: string]: any;
+    autoComplete?: string;
     inputComponent?: typeof InputBox;
     className: any;
     compHd: any;
@@ -16,9 +17,4 @@ declare function SearchBox({ inputComponent, className, compHd, compBd, compFt, 
     inputWrapStyle: any;
     resultsStyle: any;
 }): import("react/jsx-runtime").JSX.Element;
-declare namespace SearchBox {
-    namespace defaultProps {
-        let autoComplete: string;
-    }
-}
 import { InputBox } from "react-atomic-molecule";

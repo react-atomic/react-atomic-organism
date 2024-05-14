@@ -1,8 +1,13 @@
-import React from "react";
 import { build, mixClass, SemanticUI } from "react-atomic-molecule";
 
 const Hero = (props) => {
-  const { className, component, backgroundImage, style, ...others } = props;
+  const {
+    className,
+    component = SemanticUI,
+    backgroundImage,
+    style,
+    ...others
+  } = props;
   const thisStyle = {};
   if (backgroundImage) {
     thisStyle.backgroundImage = "url(" + backgroundImage + ")";
@@ -18,8 +23,6 @@ const Hero = (props) => {
     ...others,
   });
 };
-
-Hero.defaultProps = { component: SemanticUI };
 
 export default Hero;
 

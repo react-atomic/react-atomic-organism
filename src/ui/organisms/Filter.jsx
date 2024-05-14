@@ -700,7 +700,7 @@ const useFilter = (props) => {
 };
 
 /**
- * @type React.FC<FilterProps>
+ * @type React.ForwardRefExoticComponent<?, FilterProps>
  * @returns {React.ReactElement}
  */
 export const Filter = forwardRef((props, ref) => {

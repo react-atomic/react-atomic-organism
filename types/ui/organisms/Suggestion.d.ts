@@ -3,28 +3,24 @@ declare class Suggestion extends PureComponent<any, any, any> {
     static defaultProps: {
         itemClickToClose: boolean;
         couldCreate: boolean;
-        component: {
-            ({ inputComponent, className, compHd, compBd, compFt, wrapRefCb, wrapStyle, onWrapClick, results, onItemClick, itemLocator, itemsLocator, inputWrapStyle, resultsStyle, ...restProps }: {
-                [x: string]: any;
-                inputComponent?: typeof import("react-atomic-molecule/types/ui/molecules/InputBox").default;
-                className: any;
-                compHd: any;
-                compBd: any;
-                compFt: any;
-                wrapRefCb: any;
-                wrapStyle: any;
-                onWrapClick: any;
-                results: any;
-                onItemClick: any;
-                itemLocator: any;
-                itemsLocator: any;
-                inputWrapStyle: any;
-                resultsStyle: any;
-            }): import("react/jsx-runtime").JSX.Element;
-            defaultProps: {
-                autoComplete: string;
-            };
-        };
+        component: ({ autoComplete, inputComponent, className, compHd, compBd, compFt, wrapRefCb, wrapStyle, onWrapClick, results, onItemClick, itemLocator, itemsLocator, inputWrapStyle, resultsStyle, ...restProps }: {
+            [x: string]: any;
+            autoComplete?: string;
+            inputComponent?: typeof import("react-atomic-molecule").InputBox;
+            className: any;
+            compHd: any;
+            compBd: any;
+            compFt: any;
+            wrapRefCb: any;
+            wrapStyle: any;
+            onWrapClick: any;
+            results: any;
+            onItemClick: any;
+            itemLocator: any;
+            itemsLocator: any;
+            inputWrapStyle: any;
+            resultsStyle: any;
+        }) => import("react/jsx-runtime").JSX.Element;
         itemsLocator: (d: any) => any;
         itemLocator: (d: any) => any;
         itemFilter: (arr: any, currentValue: any, itemLocator: any) => any;

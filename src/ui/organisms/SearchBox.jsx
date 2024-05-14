@@ -11,6 +11,7 @@ import { win } from "win-doc";
 import get from "get-object-value";
 
 const SearchBox = ({
+  autoComplete = win().chrome ? "none" : "off",
   inputComponent = InputBox,
   className,
   compHd,
@@ -63,6 +64,7 @@ const SearchBox = ({
       {compHd}
       {/*className: prompt is for semantic-ui. https://semantic-ui.com/modules/search.html*/}
       {build(inputComponent)({
+        autoComplete,
         wrapStyle: inputWrapStyle,
         atom: "input",
         className: "prompt",
@@ -74,10 +76,6 @@ const SearchBox = ({
       {compFt}
     </SemanticUI>
   );
-};
-
-SearchBox.defaultProps = {
-  autoComplete: win().chrome ? "none" : "off",
 };
 
 export default SearchBox;

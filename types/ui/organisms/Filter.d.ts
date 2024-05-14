@@ -1,8 +1,8 @@
 /**
- * @type React.FC<FilterProps>
+ * @type React.ForwardRefExoticComponent<?, FilterProps>
  * @returns {React.ReactElement}
  */
-export const Filter: React.FC<FilterProps>;
+export const Filter: React.ForwardRefExoticComponent<unknown, FilterProps>;
 export type FilterExpose = {
     submit: Function;
     disabled: Function;
