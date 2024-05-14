@@ -1,5 +1,5 @@
 //@ts-check
-import build from "reshow-build";
+import build, { mergeRef } from "reshow-build";
 import {
   useEffect,
   useImperativeHandle,
@@ -12,6 +12,12 @@ import get from "get-object-value";
 let iframeCount = 0;
 
 /**
+ * @typedef {object} IframeContainerExpose
+ * @property {Function} postHeight
+ * @property {function():HTMLElement} getEl
+ */
+
+/**
  * @typedef {object} IframeContainerProps
  * @property {string} [src]
  * @property {string} [messageKey]
@@ -19,7 +25,6 @@ let iframeCount = 0;
  * @property {string} [allow]
  * @property {Function} [onLoad]
  * @property {React.CSSProperties} [style]
- * @property {any} [ref]
  * @property {any} [refCb]
  * @property {import("reshow-build").Component} [component]
  */
@@ -31,6 +36,7 @@ const useIframeContainer = (props) => {
   const {
     src,
     style,
+    refCb,
     messageKey = "iframeH",
     loading = "lazy",
     component = "iframe",
@@ -38,6 +44,7 @@ const useIframeContainer = (props) => {
   } = props;
   const [iframeH, setIframeH] = useState("auto");
   const thisMessageKey = /**@type any*/ (useRef());
+  const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
 
   useEffect(() => {
     thisMessageKey.current = messageKey + "-" + iframeCount;
@@ -77,6 +84,9 @@ const useIframeContainer = (props) => {
     ...style,
   };
 
+  /**
+   * @type {IframeContainerExpose}
+   */
   const expose = {
     postHeight: (/**@type window*/ win) => {
       setTimeout(() => {
@@ -89,7 +99,18 @@ const useIframeContainer = (props) => {
         );
       });
     },
+    getEl: () => lastEl.current,
   };
+
+  const handleRefCb = (/**@type HTMLElement*/ el) => {
+    return mergeRef(el, [refCb, lastEl]);
+  };
+
+  if (component === "iframe") {
+    nextRestProps.ref = handleRefCb;
+  } else if (refCb) {
+    nextRestProps.refCb = handleRefCb;
+  }
 
   return {
     style: thisStyle,
@@ -100,15 +121,11 @@ const useIframeContainer = (props) => {
 };
 
 /**
- * @type React.FC<IframeContainerProps>
+ * @type React.ForwardRefExoticComponent<?, IframeContainerProps>
  */
 const IframeContainer = forwardRef((props, ref) => {
   const { style, restProps, component, expose } = useIframeContainer(props);
   useImperativeHandle(ref, () => expose, []);
-  if (component === "iframe") {
-    restProps.ref = restProps.refCb || ref;
-    delete restProps.refCb;
-  }
   return build(component)({ ...restProps, style });
 });
 

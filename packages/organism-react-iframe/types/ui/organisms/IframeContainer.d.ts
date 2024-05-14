@@ -1,4 +1,8 @@
 export default IframeContainer;
+export type IframeContainerExpose = {
+    postHeight: Function;
+    getEl: () => HTMLElement;
+};
 export type IframeContainerProps = {
     src?: string;
     messageKey?: string;
@@ -6,11 +10,10 @@ export type IframeContainerProps = {
     allow?: string;
     onLoad?: Function;
     style?: React.CSSProperties;
-    ref?: any;
     refCb?: any;
     component?: import("reshow-build").Component;
 };
 /**
- * @type React.FC<IframeContainerProps>
+ * @type React.ForwardRefExoticComponent<?, IframeContainerProps>
  */
-declare const IframeContainer: React.FC<IframeContainerProps>;
+declare const IframeContainer: React.ForwardRefExoticComponent<unknown, IframeContainerProps>;

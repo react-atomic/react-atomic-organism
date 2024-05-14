@@ -1,10 +1,8 @@
-import {
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-  forwardRef,
-} from "react";
+//@ts-check
+
+import * as React from "react";
+const { useEffect, useImperativeHandle, useRef, useState, forwardRef } = React;
+
 import { createPortal } from "react-dom";
 import get from "get-object-value";
 import getOffset from "getoffset";
@@ -34,6 +32,15 @@ const IframeInner = ({ children, inlineCSS, onLoad }) => {
   );
 };
 
+/**
+ * Add this type in top of your file, or if commonly used in some types file.
+ * @template T
+ * @typedef {[T, import('react').Dispatch<import('react').SetStateAction<T>>]} useState
+ */
+
+/**
+ * @param {any} props
+ */
 const useIframe = ({
   disableSmoothScroll = false,
   keepTargetInIframe = false,
@@ -51,36 +58,57 @@ const useIframe = ({
   immutable,
   ...others
 }) => {
-  const root = useRef();
+  const root = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
   const _mount = useMounted();
   const [onLoadTimer] = useTimer();
-  const html = useRef();
-  const execStop = useRef();
-  const thisIframe = useRef();
-  const lastEl = useRef();
-  const renderCache = useRef();
+  const html = /**@type {React.MutableRefObject<string>}*/ (useRef());
+  const execStop = /**@type {React.MutableRefObject<Function>}*/ (useRef());
+  const thisIframe =
+    /**@type {React.MutableRefObject<import("./IframeContainer").IframeContainerExpose>}*/ (
+      useRef()
+    );
+  const renderCache = /**@type {React.MutableRefObject<React.ReactPortal>}*/ (
+    useRef()
+  );
+  /**
+   * @type {useState<HTMLElement|undefined>}
+   */
   const [thisEl, setThisEl] = useState();
+  /**
+   * @returns {HTMLElement=}
+   */
   const getRoot = () => root.current;
 
   useEffect(() => {
-    setThisEl(lastEl.current);
     return () => {
       callfunc(execStop.current);
       callfunc(onUnmount);
     };
   }, []);
 
+  /**
+   * @param {HTMLElement=} el
+   */
   const handleScript = (el) => {
+    if (!el) {
+      return;
+    }
     const win = expose.getWindow();
     if (win) {
-      execStop.current = exec(el, win, getRoot().parentNode, (e, script) => {
-        console.warn("script error", [e, script]);
-      });
+      const rootParentNode = /**@type HTMLElement*/ (getRoot()?.parentNode);
+      execStop.current = exec(
+        el,
+        win,
+        rootParentNode,
+        (/**@type any*/ e, /**@type any*/ script) => {
+          console.warn("script error", [e, script]);
+        }
+      );
     }
   };
 
   const expose = {
-    appendHtml: (html) => {
+    appendHtml: (/**@type string*/ html) => {
       const div = doc().createElement("div");
       div.innerHTML = html;
       const myRoot = get(
@@ -91,22 +119,25 @@ const useIframe = ({
       myRoot.appendChild(div);
       handleScript(div);
     },
-    getWindow: () => get(lastEl.current, ["contentWindow", "window"]),
+    getWindow: () =>
+      get(thisIframe.current.getEl(), ["contentWindow", "window"]),
     getDoc: () => get(expose.getWindow(), ["document"]),
-    getBody: () => get(expose.getDoc(), ["body"]),
+    getBody: () => {
+      return get(expose.getDoc(), ["body"]);
+    },
     getRoot,
-    scrollToEl: (el) => {
+    scrollToEl: (/**@type HTMLElement*/ el) => {
       const pos = getOffset(el);
-      if (pos.rect) {
+      if (pos?.rect) {
         smoothScrollTo(pos.rect.top);
       }
     },
     postHeight: () => thisIframe.current?.postHeight(expose.getWindow()),
   };
 
-  const handleBodyClick = (e) => {
+  const handleBodyClick = (/**@type {React.MouseEvent}*/ e) => {
     const query = queryFrom(() => expose.getBody());
-    const evTarget = e.target;
+    const evTarget = /**@type HTMLElement*/ (e.target);
     const link =
       evTarget.nodeName === "A" ? evTarget : query.ancestor(evTarget, "a");
     if (!link) {
@@ -178,13 +209,13 @@ const useIframe = ({
     if (!getRoot()) {
       init();
     }
-    const thisRoot = getRoot();
-    html.current = thisRoot.innerHTML;
+    const thisRoot = /**@type HTMLElement*/ (getRoot());
+    html.current = thisRoot?.innerHTML || "";
     const callback = () => {
       if (!_mount()) {
         return;
       }
-      const myHtml = thisRoot.innerHTML;
+      const myHtml = thisRoot?.innerHTML;
       if (myHtml !== html.current) {
         handleScript(thisRoot);
         handleLinkClick();
@@ -210,10 +241,10 @@ const useIframe = ({
   };
 
   const handler = {
-    refCb: (myEl) => {
+    refCb: (/**@type HTMLElement*/ myEl) => {
       if (myEl) {
-        lastEl.current = myEl;
         callfunc(refCb, [myEl]);
+        setThisEl(myEl);
       }
     },
   };
@@ -243,6 +274,9 @@ const useIframe = ({
   };
 };
 
+/**
+ * @type React.ForwardRefExoticComponent<?, any>
+ */
 const Iframe = forwardRef((props, ref) => {
   const { expose, others, thisIframe, handler, thisEl, renderIframe } =
     useIframe(props);
@@ -250,7 +284,12 @@ const Iframe = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => expose, []);
 
   return (
-    <IframeContainer component={<SemanticUI atom="iframe" />} {...others} ref={thisIframe} refCb={handler.refCb}>
+    <IframeContainer
+      component={<SemanticUI atom="iframe" />}
+      {...others}
+      ref={thisIframe}
+      refCb={handler.refCb}
+    >
       {thisEl && renderIframe()}
     </IframeContainer>
   );

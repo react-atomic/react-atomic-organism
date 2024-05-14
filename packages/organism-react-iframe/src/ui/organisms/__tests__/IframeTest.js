@@ -1,12 +1,12 @@
 import { ResourceLoader } from "jsdom";
 import { expect } from "chai";
-import { render, jsdom, cleanIt } from "reshow-unit";
+import { render, jsdom, cleanIt, waitFor, act } from "reshow-unit";
 
 import Iframe from "../Iframe";
 describe("Test Iframe", () => {
   beforeEach(() => {
     const resourceLoader = new ResourceLoader({});
-    resourceLoader.fetch = (url, options) =>
+    resourceLoader.fetch = (_url, _options) =>
       Promise.resolve(Buffer.from('window.dlog = "fake-dlog";'));
     jsdom("", {
       runScripts: "dangerously",
@@ -18,9 +18,9 @@ describe("Test Iframe", () => {
     cleanIt();
   });
 
-  it("simple test", (done) => {
+  it("simple test", async () => {
     let compEl;
-    const Comp = (props) => (
+    const Comp = () => (
       <Iframe ref={(el) => (compEl = el)}>
         <span>test</span>
       </Iframe>
@@ -28,33 +28,38 @@ describe("Test Iframe", () => {
     const el = document.createElement("div");
     document.body.appendChild(el);
     const wrap = render(<Comp />, { attachTo: el });
-    expect(wrap.html()).to.have.string(`loading="lazy"`);
-    setTimeout(() => {
-      const html = compEl.getBody().innerHTML;
+    await act(() => {
+      expect(wrap.html()).to.have.string(`loading="lazy"`);
+    });
+    await waitFor(() => {
+      const html = compEl.getBody()?.innerHTML;
       expect(html).to.have.string("<span>test</span>");
-      done();
-    }, 100);
+    }, 500);
   });
 
-  it("test with script", (done) => {
+  it("test with script", async () => {
     let compEl;
-    const Comp = (props) => (
+    const Comp = () => (
       <Iframe ref={(el) => (compEl = el)}>
         <script src="https://cdn.jsdelivr.net/npm/organism-react-ajax@0.6.13/build/dlog.min.js"></script>
       </Iframe>
     );
     const el = document.createElement("div");
     document.body.appendChild(el);
-    const wrap = render(<Comp />, { attachTo: el });
-    setTimeout(() => {
+    await act(() => {
+      render(<Comp />, { attachTo: el });
+    });
+    await waitFor(() => {
       const dlog = compEl.getWindow().dlog;
       expect(dlog).to.equal("fake-dlog");
-      done();
-    }, 300);
+    }, 500);
   });
 
-  it("unset loading", () => {
+  it("unset loading", async () => {
     const wrap = render(<Iframe loading={null} />);
-    expect(wrap.html()).to.not.have.string(`loading="lazy"`);
+    await act(() => {}, 100);
+    await waitFor(() => {
+      expect(wrap.html()).to.not.have.string(`loading="lazy"`);
+    }, 500);
   });
 });
