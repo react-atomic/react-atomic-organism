@@ -1,7 +1,7 @@
 export default IframeContainer;
 export type IframeContainerExpose = {
     postHeight: Function;
-    getEl: () => HTMLElement;
+    getEl: () => HTMLIFrameElement;
 };
 export type IframeContainerProps = {
     src?: string;

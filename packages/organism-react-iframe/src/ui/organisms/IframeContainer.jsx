@@ -14,7 +14,7 @@ let iframeCount = 0;
 /**
  * @typedef {object} IframeContainerExpose
  * @property {Function} postHeight
- * @property {function():HTMLElement} getEl
+ * @property {function():HTMLIFrameElement} getEl
  */
 
 /**
@@ -44,7 +44,9 @@ const useIframeContainer = (props) => {
   } = props;
   const [iframeH, setIframeH] = useState("auto");
   const thisMessageKey = /**@type any*/ (useRef());
-  const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
+  const lastEl = /**@type React.MutableRefObject<HTMLIFrameElement>*/ (
+    useRef()
+  );
 
   useEffect(() => {
     thisMessageKey.current = messageKey + "-" + iframeCount;
