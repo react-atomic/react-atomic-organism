@@ -10,6 +10,10 @@ import callfunc from "call-func";
 import ResponsiveVideo from "../organisms/ResponsiveVideo";
 
 /**
+ * @typedef {import('organism-react-iframe').IframeContainerExpose} IframeContainerExpose
+ */
+
+/**
  * @param {string} func
  * @param {any[]} args
  */
@@ -41,7 +45,8 @@ const defaultVideoParams = {
  * @property {"eager"|"lazy"} [loading]
  * @property {string} [videoId]
  * @property {{[key: string]: any}} [videoParams]
- * @property {string} [hostname]
+ * @property {string|boolean} [hostname]
+ * @property {boolean} [disable]
  */
 
 /**
@@ -54,51 +59,82 @@ const defaultVideoParams = {
  */
 const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
   const nextVideoParams = { ...videoParams };
-  if (nextVideoParams["enablejsapi"]) {
+  if (nextVideoParams["enablejsapi"] && hostname) {
     nextVideoParams["origin"] = hostname;
+  }
+  if (nextVideoParams["loop"]) {
+    nextVideoParams.playlist = videoId;
   }
   const aParams = [];
   KEYS(nextVideoParams).forEach((key) =>
     aParams.push(key + "=" + encodeURIComponent(nextVideoParams[key]))
   );
-  let src = `https://www.youtube.com/embed/${videoId}?${aParams.join("&")}`;
-  if (null != nextVideoParams["loop"]) {
-    src += `&playlist=${videoId}`;
-  }
+  const src = `https://www.youtube.com/embed/${videoId}?${aParams.join("&")}`;
 
   return src;
 };
+
+/**
+ * @typedef {object} YoutubeRWDExpose
+ * @property {Function} restart
+ * @property {Function} pause
+ * @property {ExecPost} exec
+ */
+
+/**
+ * @callback ExecPost
+ * @param {string} cmd
+ * @param {any[]=} args
+ */
 
 /**
  * @param {YoutubeRWDProps} props
  */
 const useYoutubeRWD = (props) => {
   const lastProps = useRefUpdate(props);
-  const { videoId, videoParams, onClick, ...restProps } = lastProps.current;
-  const [state, setState] = useState({ load: false, hostname: "" });
+  const {
+    videoId,
+    videoParams,
+    onClick,
+    hostname: propsHostname,
+    ...restProps
+  } = lastProps.current;
+  const lastHostname = /**@type React.MutableRefObject<string|boolean>*/ (
+    useRef()
+  );
+  const [state, setState] = useState({ load: false });
   useEffect(() => {
     const loc = doc().location;
-    setState({ load: true, hostname: loc.protocol + "//" + loc.hostname });
+    let strLoc = loc.protocol + "//" + loc.hostname;
+    if (loc.port) {
+      strLoc += `:${loc.port}`;
+    }
+    lastHostname.current = null == propsHostname ? strLoc : propsHostname;
+    setState({ load: true });
   }, []);
 
+  const lastIframe =
+    /**@type {React.MutableRefObject<IframeContainerExpose>}*/ (useRef());
+
   /**
-   * @type {React.MutableRefObject<HTMLIFrameElement>?}
+   * @type {YoutubeRWDExpose}
    */
-  const lastIframe = /**@type any*/ (useRef());
   const expose = {
     restart: () => {
       expose.exec("playVideo");
     },
-    /**
-     * @param {string} cmd
-     * @param {any[]} args
-     */
+    pause: () => {
+      expose.exec("pauseVideo");
+    },
     exec: (cmd, args = []) => {
-      if (!lastIframe?.current) {
-        return;
+      const iframe = lastIframe.current.getEl();
+      if (iframe) {
+        const thisCmd = message(cmd, args);
+        const origin = /**@type string*/ (
+          lastHostname.current ? lastHostname.current : "*"
+        );
+        return iframe.contentWindow?.window.postMessage(thisCmd, origin);
       }
-      const thisCmd = message(cmd, args);
-      lastIframe.current?.contentWindow?.postMessage(thisCmd, "*");
     },
   };
   const handler = {
@@ -110,6 +146,7 @@ const useYoutubeRWD = (props) => {
       callfunc(onClick ? onClick : expose.restart, [e]);
     },
   };
+  const thisVideoParams = { ...defaultVideoParams, ...videoParams };
   return {
     expose,
     handler,
@@ -119,8 +156,8 @@ const useYoutubeRWD = (props) => {
     src: state.load
       ? getYoutubeUrl({
           videoId,
-          videoParams: { ...defaultVideoParams, ...videoParams },
-          hostname: state.hostname,
+          videoParams: thisVideoParams,
+          hostname: lastHostname.current,
         })
       : undefined,
   };
