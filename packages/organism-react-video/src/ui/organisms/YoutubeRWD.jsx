@@ -99,6 +99,10 @@ const useYoutubeRWD = (props) => {
     hostname: propsHostname,
     ...restProps
   } = lastProps.current;
+  const thisVideoParams = useRefUpdate({
+    ...defaultVideoParams,
+    ...videoParams,
+  });
   const lastHostname = /**@type React.MutableRefObject<string|boolean>*/ (
     useRef()
   );
@@ -139,14 +143,15 @@ const useYoutubeRWD = (props) => {
   };
   const handler = {
     load: () => {
-      expose.restart();
+      if (thisVideoParams.current.autoplay) {
+        expose.restart();
+      }
     },
     click: (/**@type React.MouseEvent*/ e) => {
       const { onClick } = lastProps.current;
       callfunc(onClick ? onClick : expose.restart, [e]);
     },
   };
-  const thisVideoParams = { ...defaultVideoParams, ...videoParams };
   return {
     expose,
     handler,
@@ -156,7 +161,7 @@ const useYoutubeRWD = (props) => {
     src: state.load
       ? getYoutubeUrl({
           videoId,
-          videoParams: thisVideoParams,
+          videoParams: thisVideoParams.current,
           hostname: lastHostname.current,
         })
       : undefined,
