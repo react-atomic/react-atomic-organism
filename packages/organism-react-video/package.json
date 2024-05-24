@@ -1,5 +1,5 @@
 {
-  "version": "0.3.4",
+  "version": "0.3.8",
   "name": "organism-react-video",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "get-random-id": "*",
     "organism-react-iframe": "*",
     "react-atomic-molecule": "*",
     "reshow-hooks": "*",

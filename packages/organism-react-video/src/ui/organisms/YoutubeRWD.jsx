@@ -2,12 +2,22 @@
 import * as React from "react";
 const { useEffect, useImperativeHandle, forwardRef, useRef, useState } = React;
 import { IframeContainer } from "organism-react-iframe";
-import { doc } from "win-doc";
+import { doc, win } from "win-doc";
 import { KEYS } from "reshow-constant";
 import { useRefUpdate } from "reshow-hooks";
 import callfunc from "call-func";
+import { getSN } from "get-random-id";
 
 import ResponsiveVideo from "../organisms/ResponsiveVideo";
+
+/**
+ * Iframe api
+ * https://www.youtube.com/iframe_api
+ * https://www.youtube.com/s/player/eff63141/www-widgetapi.vflset/www-widgetapi.js
+ *
+ * Play State
+ * https://developers.google.com/youtube/iframe_api_reference#Playback_status
+ */
 
 /**
  * @typedef {import('organism-react-iframe').IframeContainerExpose} IframeContainerExpose
@@ -15,11 +25,14 @@ import ResponsiveVideo from "../organisms/ResponsiveVideo";
 
 /**
  * @param {string} func
- * @param {any[]} args
+ * @param {any[]=} args
+ * @param {string=} id
+ * @returns {string}
  */
-const message = (func, args) =>
+const message = (func, args, id) =>
   JSON.stringify({
     event: "command",
+    id,
     func,
     args,
   });
@@ -41,20 +54,23 @@ const defaultVideoParams = {
  */
 
 /**
- * @typedef {object} YoutubeRWDExtProps
+ * @typedef {object} YoutubeRWDExtendsProps
  * @property {"eager"|"lazy"} [loading]
  * @property {string} [videoId]
  * @property {{[key: string]: any}} [videoParams]
  * @property {string|boolean} [hostname]
  * @property {boolean} [disable]
+ * @property {string} [id]
+ * @property {Function} [onStateChange]
+ * @property {Function} [onLoad]
  */
 
 /**
- * @typedef {ResponsiveVideoProps&YoutubeRWDExtProps} YoutubeRWDProps
+ * @typedef {ResponsiveVideoProps & YoutubeRWDExtendsProps} YoutubeRWDProps
  */
 
 /**
- * @param {YoutubeRWDExtProps} props
+ * @param {YoutubeRWDExtendsProps} props
  * @see https://developers.google.com/youtube/player_parameters
  */
 const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
@@ -75,10 +91,28 @@ const getYoutubeUrl = ({ videoId, videoParams, hostname }) => {
 };
 
 /**
+ * @interface
+ */
+class PlayerState {
+  /**
+   * @type number
+   */
+  state;
+  /**
+   * @type boolean
+   */
+  isPlaying;
+}
+
+/**
  * @typedef {object} YoutubeRWDExpose
  * @property {Function} restart
  * @property {Function} pause
+ * @property {function():PlayerState} togglePlayback
+ * @property {function(string):void} postMessage
  * @property {ExecPost} exec
+ * @property {function():HTMLIFrameElement} getIframe
+ * @property {function():PlayerState} getPlayerState
  */
 
 /**
@@ -95,10 +129,17 @@ const useYoutubeRWD = (props) => {
   const {
     videoId,
     videoParams,
-    onClick,
     hostname: propsHostname,
+    onStateChange,
+    onClick,
+    onLoad,
     ...restProps
   } = lastProps.current;
+  const lastPlayerState = useRef({ state: -1, isPlaying: false });
+  const lastMessageId = useRef(lastProps.current.id);
+  if (null == lastMessageId.current) {
+    lastMessageId.current = getSN("youtube-widget");
+  }
   const thisVideoParams = useRefUpdate({
     ...defaultVideoParams,
     ...videoParams,
@@ -106,6 +147,8 @@ const useYoutubeRWD = (props) => {
   const lastHostname = /**@type React.MutableRefObject<string|boolean>*/ (
     useRef()
   );
+  const lastIframe =
+    /**@type {React.MutableRefObject<IframeContainerExpose>}*/ (useRef());
   const [state, setState] = useState({ load: false });
   useEffect(() => {
     const loc = doc().location;
@@ -115,10 +158,12 @@ const useYoutubeRWD = (props) => {
     }
     lastHostname.current = null == propsHostname ? strLoc : propsHostname;
     setState({ load: true });
+    const gWin = win();
+    gWin.addEventListener("message", handler.message);
+    return () => {
+      gWin.removeEventListener("message", handler.message);
+    };
   }, []);
-
-  const lastIframe =
-    /**@type {React.MutableRefObject<IframeContainerExpose>}*/ (useRef());
 
   /**
    * @type {YoutubeRWDExpose}
@@ -130,26 +175,76 @@ const useYoutubeRWD = (props) => {
     pause: () => {
       expose.exec("pauseVideo");
     },
-    exec: (cmd, args = []) => {
+    togglePlayback: () => {
+      if (lastPlayerState.current.isPlaying) {
+        expose.pause();
+      } else {
+        expose.restart();
+      }
+      return lastPlayerState.current;
+    },
+    postMessage: (message) => {
       const iframe = lastIframe.current.getEl();
       if (iframe) {
-        const thisCmd = message(cmd, args);
         const origin = /**@type string*/ (
           lastHostname.current ? lastHostname.current : "*"
         );
-        return iframe.contentWindow?.window.postMessage(thisCmd, origin);
+        return iframe.contentWindow?.window.postMessage(message, origin);
       }
     },
+    exec: (cmd, args) => {
+      const cmdMessage = message(cmd, args, lastMessageId.current);
+      return expose.postMessage(cmdMessage);
+    },
+    getIframe: () => {
+      return lastIframe.current?.getEl();
+    },
+    getPlayerState: () => lastPlayerState.current,
   };
   const handler = {
-    load: () => {
+    listening: () => {
+      const message = JSON.stringify({
+        event: "listening",
+        channel: "widget",
+        id: lastMessageId.current,
+      });
+      expose.postMessage(message);
+      expose.exec("addEventListener", ["onStateChange"]);
+    },
+    load: (/**@type Event*/ e) => {
       if (thisVideoParams.current.autoplay) {
         expose.restart();
       }
+      handler.listening();
+      callfunc(lastProps.current.onLoad, [e]);
     },
     click: (/**@type React.MouseEvent*/ e) => {
-      const { onClick } = lastProps.current;
-      callfunc(onClick ? onClick : expose.restart, [e]);
+      callfunc(lastProps.current.onClick, [e]);
+    },
+    message: (/**@type MessageEvent*/ e) => {
+      if (null == e) {
+        return null;
+      }
+      let data = e.data;
+      if ("string" === typeof data) {
+        try {
+          data = JSON.parse(e.data);
+        } catch (e) {}
+      }
+      if (data?.id === lastMessageId.current) {
+        const playerState = data?.info?.playerState;
+        if (null != playerState) {
+          let isPlaying = false;
+          switch (playerState) {
+            case 1:
+            case 3:
+              isPlaying = true;
+              break;
+          }
+          lastPlayerState.current = { state: playerState, isPlaying };
+        }
+        callfunc(lastProps.current.onStateChange, [data]);
+      }
     },
   };
   return {

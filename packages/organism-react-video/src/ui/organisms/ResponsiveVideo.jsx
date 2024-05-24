@@ -2,13 +2,15 @@
 
 import * as React from "react";
 const { cloneElement } = React;
-import { SemanticUI } from "react-atomic-molecule";
+import { SemanticUI, mixClass } from "react-atomic-molecule";
 import get from "get-object-value";
 import callfunc from "call-func";
 import { useRefUpdate } from "reshow-hooks";
 
 /**
  * @typedef {object} ResponsiveVideoProps
+ * @property {string=} className
+ * @property {React.CSSProperties=} style
  * @property {boolean=} mask
  * @property {string=} aspectRatio
  * @property {Function=} onClick
@@ -23,6 +25,8 @@ const ResponsiveVideo = ({
   aspectRatio = "16/9",
   children,
   onClick,
+  style,
+  className,
 }) => {
   const lastRestart = useRefUpdate(onClick);
   const handler = {
@@ -42,8 +46,8 @@ const ResponsiveVideo = ({
 
   return (
     <SemanticUI
-      className="rwd-video"
-      style={{ ...Styles.container, aspectRatio }}
+      className={mixClass("rwd-video", className)}
+      style={{ ...Styles.container, ...style, aspectRatio }}
     >
       <SemanticUI className="rwd-video-inner" style={Styles.inner}>
         {children &&
