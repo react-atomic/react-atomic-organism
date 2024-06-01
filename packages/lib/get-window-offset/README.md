@@ -10,4 +10,5 @@ This is a simple library to tell you where could get best space by a target to p
 ## Live Demo
    * https://react-atomic-ui.js.org/#/popup#get-window-offset
 
-
+## CSS anchor positioning API 
+   * https://developer.chrome.com/blog/anchor-positioning-api
