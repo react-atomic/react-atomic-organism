@@ -1,86 +1,79 @@
+// @ts-check
+
+import { D3JS } from "./handleGetD3";
+
 import memoizeOne from "memoize-one";
 import get from "get-object-value";
 import arrayMinMax from "array.min.max";
 import { KEYS } from "reshow-constant";
 
-const D3JS = {
-  curveCatmullRom: null,
-  curveBasis: null,
-  curveMonotoneX: null,
-  line: null,
-  pie: null,
-  arc: null,
-  area: null,
-  stack: null,
-  scaleLinear: null,
-  scaleBand: null,
-  scaleOrdinal: null,
-  stackOrderNone: null,
-  stackOffsetNone: null,
-  drag: null,
-  select: null,
-  zoom: null,
-  zoomTransform: null,
-  zoomIdentity: null,
+/**
+ * @typedef {import("d3").curveBasis} Curve
+ */
 
-  schemeAccent: null,
-  schemeBlues: null,
-  schemeBrBG: null,
-  schemeBuGn: null,
-  schemeBuPu: null,
-  schemeCategory10: null,
-  schemeDark2: null,
-  schemeGnBu: null,
-  schemeGreens: null,
-  schemeGreys: null,
-  schemeOrRd: null,
-  schemeOranges: null,
-  schemePRGn: null,
-  schemePaired: null,
-  schemePastel1: null,
-  schemePastel2: null,
-  schemePiYG: null,
-  schemePuBu: null,
-  schemePuBuGn: null,
-  schemePuOr: null,
-  schemePuRd: null,
-  schemePurples: null,
-  schemeRdBu: null,
-  schemeRdGy: null,
-  schemeRdPu: null,
-  schemeRdYlBu: null,
-  schemeRdYlGn: null,
-  schemeReds: null,
-  schemeSet1: null,
-  schemeSet2: null,
-  schemeSet3: null,
-  schemeSpectral: null,
-  schemeTableau10: null,
-  schemeYlGn: null,
-  schemeYlGnBu: null,
-  schemeYlOrBr: null,
-  schemeYlOrRd: null,
-};
+/**
+ * @typedef {import("d3").ScaleLinear} D3ScaleLinear
+ */
 
-const handleGetD3 = (d3js) => {
-  const importKeyArr = KEYS(D3JS);
-  let i = importKeyArr.length;
-  while (i--) {
-    const key = importKeyArr[i];
-    D3JS[key] = d3js[key];
-  }
-};
+class Scaler {
+  /**
+   * @type D3ScaleLinear
+   */
+  scaler;
 
-// https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
+  /**
+   * @type {?number=}
+   */
+  length;
+
+  /**
+   * @type {?any[]=}
+   */
+  list;
+}
+
+/**
+ * @see https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
+ * @param {Curve=} curve
+ * @param {Curve=} def
+ * @returns {Curve}
+ */
 const getCurveType = (curve, def) =>
   curve && curve.type ? curve.type : def || D3JS.curveCatmullRom.alpha(0.5);
 
+class Coordinate {
+  /**
+   * @type {number}
+   */
+  x;
+  /**
+   * @type {number}
+   */
+  y;
+}
+
+/**
+ * @param {Coordinate} d
+ * @returns {number}
+ */
 const defaultXLocator = (d) => (d || {}).x;
+/**
+ * @param {Coordinate} d
+ * @returns {number}
+ */
 const defaultYLocator = (d) => (d || {}).y;
 
-const getPointsCenter = (points, xLocator, yLocator) => {
-  xLocator = xLocator || defaultXLocator;
-  yLocator = yLocator || defaultYLocator;
+/**
+ * @param {Coordinate[]} points
+ * @param {Function} xLocator
+ * @param {Function} yLocator
+ * @returns {Coordinate}
+ */
+const getPointsCenter = (
+  points,
+  xLocator = defaultXLocator,
+  yLocator = defaultYLocator
+) => {
   const xCal = new arrayMinMax().process(xLocator)(points);
   const yCal = new arrayMinMax().process(yLocator)(points);
   return {
@@ -90,9 +83,18 @@ const getPointsCenter = (points, xLocator, yLocator) => {
 };
 
 // https://github.com/d3/d3-shape/blob/master/README.md#lines
-const _line = (start, end, curve, xLocator, yLocator) => {
-  xLocator = xLocator || defaultXLocator;
-  yLocator = yLocator || defaultYLocator;
+/**
+ * @param {Coordinate} start
+ * @param {Coordinate} end
+ * @param {Curve} curve
+ */
+const _line = (
+  start,
+  end,
+  curve,
+  xLocator = defaultXLocator,
+  yLocator = defaultYLocator
+) => {
   let c;
   let points = [start, end];
   let l = D3JS.line().x(xLocator).y(yLocator);
@@ -114,19 +116,30 @@ const _line = (start, end, curve, xLocator, yLocator) => {
 };
 const line = memoizeOne(_line);
 
-const curve = (data, xLocator, yLocator, xScale, yScale) => {
+/**
+ * @param {any} data
+ * @param {Scaler} xScale
+ * @param {Scaler} yScale
+ */
+const curve = (
+  data,
+  xScale,
+  yScale,
+  xLocator = defaultXLocator,
+  yLocator = defaultYLocator
+) => {
   xLocator = xLocator || defaultXLocator;
   yLocator = yLocator || defaultYLocator;
   const l = D3JS.line()
     .curve(getCurveType())
-    .x((d) => {
+    .x((/**@type any*/ d) => {
       let num = xScale.scaler(xLocator(d));
       if (xScale.length) {
         num += xScale.length;
       }
       return num;
     })
-    .y((d) => {
+    .y((/**@type any*/ d) => {
       let num = yScale.scaler(yLocator(d));
       if (yScale.length) {
         num += yScale.length;
@@ -136,14 +149,19 @@ const curve = (data, xLocator, yLocator, xScale, yScale) => {
   return l(data);
 };
 
-const _hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
-  xLocator = xLocator || defaultXLocator;
-  if (!y0Locator) {
-    y0Locator = (d) => d.y0;
-  }
-  if (!y1Locator) {
-    y1Locator = (d) => d.y1;
-  }
+/**
+ * @param {any} data
+ * @param {Curve} curve
+ */
+const _hArea = (
+  data,
+  curve,
+  {
+    y0Locator = (/**@type any*/ d) => d.y0,
+    y1Locator = (/**@type any*/ d) => d.y1,
+    xLocator = defaultXLocator,
+  } = {}
+) => {
   let series = D3JS.area().x(xLocator).y0(y0Locator).y1(y1Locator);
   if (curve) {
     series = series.curve(getCurveType(curve, D3JS.curveMonotoneX));
@@ -152,16 +170,29 @@ const _hArea = (data, xLocator, y0Locator, y1Locator, curve) => {
 };
 const hArea = memoizeOne(_hArea);
 
-// https://github.com/d3/d3-shape/blob/master/README.md#pies
-const pie = (data, inner, outer, valueLocator) => {
-  if (!valueLocator) {
-    valueLocator = (d) => d.value;
-  }
+/**
+ * @see https://github.com/d3/d3-shape/blob/master/README.md#pies
+ * @param {any} data
+ * @param {number} inner
+ * @param {number} outer
+ */
+const pie = (
+  data,
+  inner,
+  outer,
+  valueLocator = (/**@type any*/ d) => d.value
+) => {
   let p = D3JS.pie().value(valueLocator)(data);
   return arc(p, inner, outer);
 };
 
-// https://github.com/d3/d3-shape/blob/master/README.md#arcs
+/**
+ * @see https://d3js.org/d3-shape/arc#arc
+ * @param {any} data
+ * @param {number} inner
+ * @param {number} outer
+ * @param {number=} cornerRadius
+ */
 const arc = (data, inner, outer, cornerRadius) => {
   let d3Arc = D3JS.arc();
   if (!inner) {
@@ -179,7 +210,7 @@ const arc = (data, inner, outer, cornerRadius) => {
     outerRadius: outer,
     innerRadius: inner,
   };
-  const items = data.map((item) => {
+  const items = data.map((/**@type any*/ item) => {
     const params = {
       ...item,
       ...radius,
@@ -199,6 +230,10 @@ const arc = (data, inner, outer, cornerRadius) => {
 };
 
 // https://github.com/d3/d3-shape/blob/master/README.md#stacks
+/**
+ * @param {any} data
+ * @param {any[]} keyList
+ */
 const stack = (data, keyList) => {
   if (!keyList) {
     keyList = KEYS(data[0]);
@@ -213,20 +248,25 @@ const stack = (data, keyList) => {
 // scheme
 // https://github.com/d3/d3-scale/blob/master/README.md#scaleOrdinal
 // https://github.com/d3/d3-scale-chromatic
-const colors = (scheme) => {
-  const defaultScheme = "schemeCategory10";
-  if (!scheme) {
-    scheme = defaultScheme;
-  }
-  return D3JS.scaleOrdinal(get(D3JS, [scheme], defaultScheme));
+const defaultColorScheme = "schemeCategory10";
+const colors = (scheme = defaultColorScheme) => {
+  return D3JS.scaleOrdinal(get(D3JS, [scheme], defaultColorScheme));
 };
 
 // text label
 // https://github.com/d3/d3-scale/blob/master/README.md#band-scales
-const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
-  if (!labelLocator) {
-    labelLocator = (d) => d.label;
-  }
+/**
+ * @param {any} data
+ * @param {number} start
+ * @param {number} end
+ */
+const scaleBand = (
+  data,
+  start,
+  end,
+  labelLocator = (/**@type any*/ d) => d.label,
+  tickNum = 10
+) => {
   let list = {};
   /**
    * Use range() could benifit for max width, when you have lot of items.
@@ -236,7 +276,7 @@ const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
     .paddingInner(0.05)
     .align(0.1)
     .domain(
-      data.map((d) => {
+      data.map((/**@type any*/ d) => {
         const key = labelLocator(d);
         list[key] = null;
         return key;
@@ -245,6 +285,9 @@ const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
   const length = band.bandwidth();
   const halfLength = Math.round(length / 2);
   const allKeys = KEYS(list);
+  /**
+   * @type {any[]=}
+   */
   let listKeys = allKeys;
   if (tickNum && listKeys.length > tickNum) {
     let newKeys = [];
@@ -264,25 +307,39 @@ const scaleBand = (data, start, end, labelLocator, tickNum = 10) => {
       value: start + halfLength,
     };
   });
-  band.invertIndex = (v) => {
+  band.invertIndex = (/**@type number*/ v) => {
     const step = band.step();
     const index = Math.floor(v / step);
     return index;
   };
-  band.invert = (v) => allKeys[band.invertIndex(v)];
+  band.invert = (/**@type any*/ v) => allKeys[band.invertIndex(v)];
   return {
     scaler: band,
-    list: list,
-    length: length,
+    list,
+    length,
   };
 };
 
-// numeric label
-// https://github.com/d3/d3-scale/blob/master/README.md#linear-scales
-const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
-  let cookData;
+/**
+ * Numeric label
+ * @see https://d3js.org/d3-scale/linear#scaleLinear
+ * @param {any} data
+ * @param {number} start
+ * @param {number} end
+ * @param {?Function=} labelLocator
+ * @param {?number=} tickNum
+ * @param {?number[]=} more
+ */
+const scaleLinear = (
+  data,
+  start,
+  end,
+  labelLocator = (/**@type any*/ d) => d,
+  tickNum,
+  more
+) => {
   const oMinMax = new arrayMinMax();
-  oMinMax.process(labelLocator)(data);
+  oMinMax.process(labelLocator || undefined)(data);
   oMinMax.process()(more);
   const scaler = D3JS.scaleLinear()
     .rangeRound([start, end])
@@ -290,7 +347,7 @@ const scaleLinear = (data, start, end, labelLocator, tickNum, more) => {
     .nice();
   const ticks = scaler.ticks(tickNum);
   const list = {};
-  ticks.forEach((k) => (list[k] = { value: scaler(k) }));
+  ticks.forEach((/**@type any*/ k) => (list[k] = { value: scaler(k) }));
   return {
     scaler,
     list,
@@ -330,15 +387,20 @@ const d3Zoom = ({ el, scaleExtent, callback }) => {
   return zoom;
 };
 
+/**
+ * @param {any} el
+ */
 const getZoom = (el) => D3JS.zoomTransform(d3Select(el).node());
 
 const toZoomTransform = ({ x, y, k }) =>
   D3JS.zoomIdentity.translate(x, y).scale(k);
 
+/**
+ * @param {any} el
+ */
 const d3Select = (el) => D3JS.select(el);
 
 export {
-  handleGetD3,
   line,
   curve,
   hArea,

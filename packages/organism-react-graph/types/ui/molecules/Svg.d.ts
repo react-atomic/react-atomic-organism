@@ -1,9 +1,7 @@
 export default Svg;
-declare function Svg(props: any): JSX.Element;
-declare namespace Svg {
-    namespace defaultProps {
-        const ui: boolean;
-        const atom: string;
-        const width: string;
-    }
-}
+declare function Svg({ ui, atom, width, ...props }: {
+    [x: string]: any;
+    ui?: boolean;
+    atom?: string;
+    width?: string;
+}): import("react/jsx-runtime").JSX.Element;

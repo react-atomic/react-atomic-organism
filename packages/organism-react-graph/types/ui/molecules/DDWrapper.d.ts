@@ -1,5 +1,5 @@
 export default DDWrapper;
-declare function DDWrapper(props: any): JSX.Element;
+declare function DDWrapper(props: any): import("react/jsx-runtime").JSX.Element;
 export function useDDWrapper(props: any): {
     handler: {
         drag: (e: any) => void;

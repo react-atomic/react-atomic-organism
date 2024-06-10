@@ -1,11 +1,8 @@
 import React from "react";
 import { SemanticUI } from "react-atomic-molecule";
 
-const Path = (props) => <SemanticUI {...props} />;
-
-Path.defaultProps = {
-  ui: false,
-  atom: "path",
-};
+const Path = ({ ui = false, atom = "path", ...props }) => (
+  <SemanticUI {...props} ui={ui} atom={atom} />
+);
 
 export default Path;

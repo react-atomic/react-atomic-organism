@@ -1,8 +1,6 @@
 export default Path;
-declare function Path(props: any): JSX.Element;
-declare namespace Path {
-    namespace defaultProps {
-        const ui: boolean;
-        const atom: string;
-    }
-}
+declare function Path({ ui, atom, ...props }: {
+    [x: string]: any;
+    ui?: boolean;
+    atom?: string;
+}): import("react/jsx-runtime").JSX.Element;

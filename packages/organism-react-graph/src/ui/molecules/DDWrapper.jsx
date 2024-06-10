@@ -1,4 +1,6 @@
-import React, { useCallback, useState, useEffect, useRef } from "react";
+// @ts-check
+
+import { useState, useRef } from "react";
 
 import { build } from "react-atomic-molecule";
 
@@ -9,11 +11,16 @@ import callfunc from "call-func";
 import DragAndDrop from "./DragAndDrop";
 
 const useDDWrapper = (props) => {
-  const { onDrag: propsOnDrag, onDragEnd: propsOnDragEnd } = props;
+  const {
+    onDrag: propsOnDrag,
+    onDragEnd: propsOnDragEnd,
+    startPoint: propsStartPoint,
+  } = props;
   const [{ absX, absY, startPoint, isDraging }, setState] = useState(() => ({
     absX: 0,
     absY: 0,
     isDraging: false,
+    startPoint: propsStartPoint,
   }));
   const isMount = useMounted();
   const dnd = useRef();

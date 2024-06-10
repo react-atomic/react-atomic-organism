@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { js } from "create-el";
 import { win } from "win-doc";
-import { KEYS } from "reshow-constant";
 import { useMounted } from "reshow-hooks";
 import callfunc from "call-func";
 import * as d3Lib from "./d3lib";
+import { handleGetD3 } from "./handleGetD3";
 
 const d3js = "https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js";
 const askQueue = [];
@@ -20,8 +20,7 @@ const useD3 = (onD3Load) => {
   }, [isLoad]);
   useEffect(() => {
     const done = () => {
-      const { handleGetD3, ...libs } = d3Lib;
-      d3 = libs;
+      d3 = d3Lib;
       handleGetD3(win().d3);
       let i = askQueue.length;
       /**
