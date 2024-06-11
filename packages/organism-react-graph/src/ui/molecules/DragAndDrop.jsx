@@ -188,6 +188,7 @@ const DragAndDrop = forwardRef((props, ref) => {
       return null;
     }
     const {
+      builtInOnly,
       keepLastAbsXY,
       component,
       style,
@@ -199,21 +200,27 @@ const DragAndDrop = forwardRef((props, ref) => {
       onD3Load,
       ...others
     } = props;
-    const { style: compStyle, refCb: compRefcb } = component?.props || {};
+    const { style: compStyle, refCb: compRefCb } = component?.props || {};
     others.style = {
       ...Styles.container,
       ...(isDraging ? Styles.drag : {}),
       ...style,
       ...compStyle,
     };
-    if (refCb || compRefcb) {
-      others.refCb = (/**@type HTMLElement*/ el) => {
-        handleElChange(el);
-        callfunc(refCb, [el]);
-        callfunc(compRefcb, [el]);
-      };
+    const handleRef = (/**@type HTMLElement*/ el) => {
+      handleElChange(el);
+      callfunc(refCb, [el]);
+      callfunc(compRefCb, [el]);
+    };
+
+    if (builtInOnly) {
+      others.ref = handleRef;
     } else {
-      others.onGetEl = handleElChange;
+      if (refCb || compRefCb) {
+        others.refCb = handleRef;
+      } else {
+        others.onGetEl = handleRef;
+      }
     }
     return build(component)(others);
   }, [isLoad, props, isDraging]);

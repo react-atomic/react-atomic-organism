@@ -1,38 +1,46 @@
 // @ts-check
 
-import { useState, useRef } from "react";
+import * as React from "react";
+const { useState } = React;
 
 import { build } from "react-atomic-molecule";
 
-import { useMounted } from "reshow-hooks";
+import { useMounted, useRefUpdate } from "reshow-hooks";
 
 import callfunc from "call-func";
 
 import DragAndDrop from "./DragAndDrop";
+import { StartPointInfo } from "../../types";
 
-const useDDWrapper = (props) => {
-  const {
-    onDrag: propsOnDrag,
-    onDragEnd: propsOnDragEnd,
-    startPoint: propsStartPoint,
-  } = props;
+/**
+ * @typedef {object} DDWrapper
+ * @property {boolean=} builtInOnly
+ * @property {boolean=} fixedX
+ * @property {boolean=} fixedY
+ * @property {number=} minX
+ * @property {number=} maxX
+ * @property {number=} minY
+ * @property {number=} maxY
+ * @property {StartPointInfo=} startPoint
+ * @property {Function=} onDrag
+ * @property {Function=} onDragEnd
+ * @property {Function=} refCb
+ * @property {any=} children
+ * @property {React.CSSProperties} style
+ */
+
+export const useDDWrapper = (/**@type DDWrapper*/ props) => {
+  const lastProps = useRefUpdate(props);
   const [{ absX, absY, startPoint, isDraging }, setState] = useState(() => ({
     absX: 0,
     absY: 0,
     isDraging: false,
-    startPoint: propsStartPoint,
+    startPoint: props.startPoint,
   }));
   const isMount = useMounted();
-  const dnd = useRef();
-  const comp = useRef();
 
-  const move = (e) => {
-    const { absX, absY, start, clientX, clientY, ...other } = e;
-    let sortTarget;
-    const floatXY = {
-      x: clientX,
-      y: clientY,
-    };
+  const move = (/**@type any*/ e) => {
+    const { absX, absY, start } = e;
     if (isMount()) {
       setState((prev) => ({
         ...prev,
@@ -41,14 +49,14 @@ const useDDWrapper = (props) => {
         absY,
         startPoint: start,
       }));
-      callfunc(propsOnDrag, [e]);
+      callfunc(lastProps.current.onDrag, [e]);
     }
   };
 
   const handler = {
-    drag: (e) => move(e),
-    dragEnd: (e) => {
-      callfunc(propsOnDragEnd, [e]);
+    drag: (/**@type any*/ e) => move(e),
+    dragEnd: (/**@type any*/ e) => {
+      callfunc(lastProps.current.onDragEnd, [e]);
       setState((prev) => ({
         ...prev,
         isDraging: false,
@@ -60,34 +68,64 @@ const useDDWrapper = (props) => {
     absX,
     absY,
     startPoint,
-    dnd,
-    comp,
     isDraging,
   };
 };
 
-const DDWrapper = (props) => {
-  const { handler, absX, absY, startPoint, dnd, comp, isDraging } =
-    useDDWrapper(props);
+const DDWrapper = (/**@type DDWrapper*/ props) => {
+  const { handler, absX, absY, startPoint, isDraging } = useDDWrapper(props);
   const {
+    builtInOnly,
     refCb,
-    type,
     children,
     style: propsStyle,
     onDrag,
     onDragEnd,
-    ...otherProps
+    fixedX,
+    fixedY,
+    minX,
+    maxX,
+    minY,
+    maxY,
+    ...restProps
   } = props;
 
-  const moveStyle = isDraging
-    ? {
-        ...Styles.move,
-        transform: absX || absY ? `translate(${absX}px, ${absY}px)` : null,
-        left: startPoint?.elStartX,
-        top: startPoint?.elStartY,
-      }
-    : {};
+  /**
+   * @type any
+   */
+  let moveStyle = {};
+  if (isDraging) {
+    let toX = absX;
+    let toY = absY;
+    if (fixedX) {
+      toX = 0;
+    } else if (fixedY) {
+      toY = 0;
+    }
+    if (null != minX && toX < minX) {
+      toX = minX;
+    }
+    if (null != maxX && toX > maxX) {
+      toX = maxX;
+    }
+    if (null != minX && toX < minX) {
+      toX = minX;
+    }
+    if (null != maxX && toX > maxX) {
+      toX = maxX;
+    }
+    moveStyle = {
+      ...Styles.move,
+      transform: toX || toY ? `translate(${toX}px, ${toY}px)` : null,
+      left: startPoint?.elStartX,
+      top: startPoint?.elStartY,
+    };
+  }
 
+  /**
+   * @param {React.CSSProperties} style
+   * @returns {React.CSSProperties}
+   */
   const mergeStyle = (style) => {
     return {
       ...propsStyle,
@@ -96,19 +134,25 @@ const DDWrapper = (props) => {
     };
   };
 
-  const dragEl = build(children)({
-    ...otherProps,
+  const handleRef = (/**@type HTMLElement*/ el) => {
+    callfunc(children?.props?.refCb, [el]);
+    callfunc(refCb, [el]);
+  };
+
+  /**
+   * @type any
+   */
+  const nextProps = {
+    ...restProps,
     style: mergeStyle(moveStyle),
-    refCb: (el) => {
-      callfunc(children?.props?.refCb, [el]);
-      callfunc(refCb, [el]);
-      comp.current = el;
-    },
-  });
+  };
+
+  const dragEl = build(children)(nextProps);
 
   return (
     <DragAndDrop
-      ref={dnd}
+      builtInOnly={builtInOnly}
+      refCb={handleRef}
       onDrag={handler.drag}
       onDragEnd={handler.dragEnd}
       component={dragEl}
@@ -117,8 +161,6 @@ const DDWrapper = (props) => {
 };
 
 export default DDWrapper;
-
-export { useDDWrapper };
 
 const Styles = {
   move: {

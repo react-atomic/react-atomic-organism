@@ -1,14 +1,29 @@
-export default DDWrapper;
-declare function DDWrapper(props: any): import("react/jsx-runtime").JSX.Element;
-export function useDDWrapper(props: any): {
+export function useDDWrapper(props: DDWrapper): {
     handler: {
         drag: (e: any) => void;
         dragEnd: (e: any) => void;
     };
     absX: number;
     absY: number;
-    startPoint: any;
-    dnd: import("react").MutableRefObject<undefined>;
-    comp: import("react").MutableRefObject<undefined>;
+    startPoint: StartPointInfo;
     isDraging: boolean;
 };
+export default DDWrapper;
+export type DDWrapper = {
+    builtInOnly?: boolean | undefined;
+    fixedX?: boolean | undefined;
+    fixedY?: boolean | undefined;
+    minX?: number | undefined;
+    maxX?: number | undefined;
+    minY?: number | undefined;
+    maxY?: number | undefined;
+    startPoint?: StartPointInfo | undefined;
+    onDrag?: Function | undefined;
+    onDragEnd?: Function | undefined;
+    refCb?: Function | undefined;
+    children?: any | undefined;
+    style: React.CSSProperties;
+};
+import { StartPointInfo } from "../../types";
+declare function DDWrapper(props: DDWrapper): import("react/jsx-runtime").JSX.Element;
+import * as React from "react";

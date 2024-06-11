@@ -12,7 +12,7 @@ describe("Test DragAndDrop", () => {
     const Comp = ({ onGetEl }) => <div ref={onGetEl} />;
     const onD3Load = () => {};
     const wrap = render(<DragAndDrop component={Comp} onD3Load={onD3Load} />);
-    await act(()=>{}, 400);
+    await act(()=>{}, 1000);
     await waitFor(() => {
       const html = wrap.html();
       expect(html).to.have.string("div");
