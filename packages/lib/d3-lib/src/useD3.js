@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { js } from "create-el";
-import { win } from "win-doc";
+import { win, hasWin } from "win-doc";
 import { useMounted } from "reshow-hooks";
 import callfunc from "call-func";
 import * as d3Lib from "./d3lib";
@@ -33,7 +33,7 @@ const useD3 = (onD3Load) => {
       askQueue.splice(0, askQueue.length);
     };
 
-    if (!win().__null && !isLoad) {
+    if (hasWin() && !isLoad) {
       askQueue.push(() => {
         if (_mounted()) {
           setIsLoad(true);
