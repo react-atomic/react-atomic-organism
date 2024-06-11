@@ -11,6 +11,7 @@ export function useDDWrapper(props: DDWrapper): {
 export default DDWrapper;
 export type DDWrapper = {
     builtInOnly?: boolean | undefined;
+    renderFirst?: boolean | undefined;
     fixedX?: boolean | undefined;
     fixedY?: boolean | undefined;
     minX?: number | undefined;
@@ -22,7 +23,7 @@ export type DDWrapper = {
     onDragEnd?: Function | undefined;
     refCb?: Function | undefined;
     children?: any | undefined;
-    style: React.CSSProperties;
+    style?: React.CSSProperties | undefined;
 };
 import { StartPointInfo } from "../../types";
 declare function DDWrapper(props: DDWrapper): import("react/jsx-runtime").JSX.Element;

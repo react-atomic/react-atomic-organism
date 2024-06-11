@@ -184,11 +184,9 @@ const DragAndDrop = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => expose, []);
 
   return useMemo(() => {
-    if (!isLoad) {
-      return null;
-    }
     const {
       builtInOnly,
+      renderFirst,
       keepLastAbsXY,
       component,
       style,
@@ -200,6 +198,9 @@ const DragAndDrop = forwardRef((props, ref) => {
       onD3Load,
       ...others
     } = props;
+    if (!isLoad) {
+      return renderFirst ? build(component)() : null;
+    }
     const { style: compStyle, refCb: compRefCb } = component?.props || {};
     others.style = {
       ...Styles.container,

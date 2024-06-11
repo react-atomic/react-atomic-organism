@@ -15,6 +15,7 @@ import { StartPointInfo } from "../../types";
 /**
  * @typedef {object} DDWrapper
  * @property {boolean=} builtInOnly
+ * @property {boolean=} renderFirst
  * @property {boolean=} fixedX
  * @property {boolean=} fixedY
  * @property {number=} minX
@@ -26,7 +27,7 @@ import { StartPointInfo } from "../../types";
  * @property {Function=} onDragEnd
  * @property {Function=} refCb
  * @property {any=} children
- * @property {React.CSSProperties} style
+ * @property {React.CSSProperties=} style
  */
 
 export const useDDWrapper = (/**@type DDWrapper*/ props) => {
@@ -76,6 +77,7 @@ const DDWrapper = (/**@type DDWrapper*/ props) => {
   const { handler, absX, absY, startPoint, isDraging } = useDDWrapper(props);
   const {
     builtInOnly,
+    renderFirst,
     refCb,
     children,
     style: propsStyle,
@@ -152,6 +154,7 @@ const DDWrapper = (/**@type DDWrapper*/ props) => {
   return (
     <DragAndDrop
       builtInOnly={builtInOnly}
+      renderFirst={renderFirst}
       refCb={handleRef}
       onDrag={handler.drag}
       onDragEnd={handler.dragEnd}
