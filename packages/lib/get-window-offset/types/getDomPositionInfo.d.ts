@@ -4,4 +4,4 @@ export default getDomPositionInfo;
  * @returns {DomPositionInfoType}
  */
 declare function getDomPositionInfo(dom: HTMLElement): DomPositionInfoType;
-import { DomPositionInfoType } from "./type";
+import { DomPositionInfoType } from "./types";

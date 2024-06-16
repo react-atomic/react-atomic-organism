@@ -7,7 +7,7 @@
 const isPrototypePolluted = (arrPath) => {
   const joinPath = `|${arrPath.join("|")}|`;
   return ["__proto__", "constructor", "prototype"].some(
-    (key) => -1 !== joinPath.indexOf(`|${key}|`)
+    (key) => -1 !== joinPath.indexOf(`|${key}|`),
   );
 };
 

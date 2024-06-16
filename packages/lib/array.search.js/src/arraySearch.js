@@ -82,7 +82,7 @@ const getMatchFunc = (exact) =>
 /**
  * @callback KeywordCallback
  * @param {any} needle
- * @param {any} [cb] 
+ * @param {any} [cb]
  */
 
 /**

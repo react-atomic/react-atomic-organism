@@ -44,7 +44,7 @@ class StepNumber extends PopupFloatEl {
           ...style,
         },
         null,
-        false
+        false,
       ),
       styles,
     ];

@@ -6,7 +6,7 @@ describe("test delete cookie", () => {
   it("simple test", () => {
     setCookie("foo", "bar");
     expect(getCookie("foo")).to.equal("bar");
-    deleteCookie("foo"); 
+    deleteCookie("foo");
     expect(getCookie("foo")).to.be.null;
   });
 });

@@ -38,7 +38,7 @@ const maybeArray = (formParams, { name, value, arrayMode }) => {
 const formSerialize = (formEl, arrayMode) => {
   arrayMode = null != arrayMode ? arrayMode : "auto";
   const formParams = {};
-  const elements = [.../**@type any*/(formEl.elements)];
+  const elements = [.../**@type any*/ (formEl.elements)];
   elements.forEach((el) => {
     const { name, value, type, checked } = /**@type any*/ (el);
     const booleanValue = el.getAttribute("data-boolean")
@@ -62,7 +62,7 @@ const formSerialize = (formEl, arrayMode) => {
           const options = /**@type NodeListOf<HTMLOptionElement>*/ (
             el.querySelectorAll("option[selected]")
           );
-          [.../**@type any*/(options)].forEach((opt) => {
+          [.../**@type any*/ (options)].forEach((opt) => {
             const optValue = opt.value || opt.text;
             maybeArray(formParams, { name, value: optValue, arrayMode });
           });

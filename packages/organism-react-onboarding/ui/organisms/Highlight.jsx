@@ -41,7 +41,7 @@ class Highlight extends PopupFloatEl {
           ...style,
         },
         null,
-        false
+        false,
       ),
       styles,
     ];

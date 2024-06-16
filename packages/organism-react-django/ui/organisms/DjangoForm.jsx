@@ -139,7 +139,7 @@ const DjangoForm = ({
       ...props,
       className: mixClass(formMessageType, className),
     },
-    thisChild
+    thisChild,
   );
 };
 

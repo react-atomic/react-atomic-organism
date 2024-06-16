@@ -6,8 +6,8 @@ import mixClass from "./mixClass";
 
 /**
  * @param {string} classes
- * @param {string} name 
- * @returns {string} 
+ * @param {string} name
+ * @returns {string}
  */
 const toggleClass = (classes, name) => {
   if (hasClass(classes, name)) {

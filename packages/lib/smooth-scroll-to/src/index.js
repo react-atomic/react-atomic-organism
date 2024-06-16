@@ -54,7 +54,7 @@ const smoothScrollTo = (
 
   aniTimer(
     {
-      isContinue: (/**@type number*/elapsedTime) => {
+      isContinue: (/**@type number*/ elapsedTime) => {
         if (isRunning[scrollKey]) {
           const progress = easeInOutCubic(elapsedTime, from, go, duration);
           scrollNode[scrollKey] = progress;

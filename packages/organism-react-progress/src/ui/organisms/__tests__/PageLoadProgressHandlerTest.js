@@ -6,7 +6,6 @@ import { PopupPool } from "organism-react-popup";
 import PageLoadProgressHandler from "../PageLoadProgressHandler";
 import { createReducer } from "reshow-flux-base";
 
-
 describe("Test PageLoadProgressHandler", () => {
   it("basic test", async () => {
     const [fakeStore] = createReducer();

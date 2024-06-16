@@ -121,12 +121,12 @@ const useConstraintField = (props) => {
       const isOK = onValidate
         ? callfunc(onValidate, checkValidityParams)
         : expose.getComponent()?.checkValidity
-        ? callfunc(
-            expose.getComponent()?.checkValidity,
-            checkValidityParams,
-            expose.getComponent()
-          )
-        : el.checkValidity();
+          ? callfunc(
+              expose.getComponent()?.checkValidity,
+              checkValidityParams,
+              expose.getComponent(),
+            )
+          : el.checkValidity();
       if (!isOK) {
         const state = { customState };
         for (let k in el.validity) {
@@ -140,13 +140,13 @@ const useConstraintField = (props) => {
           onError
             ? callfunc(onError, onErrorParams)
             : expose.getComponent()?.handleError
-            ? callfunc(
-                expose.getComponent().handleError,
-                onErrorParams,
-                expose.getComponent()
-              )
-            : customState,
-          el.validationMessage
+              ? callfunc(
+                  expose.getComponent().handleError,
+                  onErrorParams,
+                  expose.getComponent(),
+                )
+              : customState,
+          el.validationMessage,
         );
       }
       // ignore isOK is `undefined` or `null` and trust it's true

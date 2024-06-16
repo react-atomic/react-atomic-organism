@@ -2,11 +2,13 @@
 
 import { expect } from "chai";
 
-import { queryTubeSearch } from "../queryTubeSearch"; 
+import { queryTubeSearch } from "../queryTubeSearch";
 
-describe("QueryTubeSearch Test",  () => {
+describe("QueryTubeSearch Test", () => {
   it("basic test", async () => {
-    const data = await queryTubeSearch("united states live news", {isLive: true});
+    const data = await queryTubeSearch("united states live news", {
+      isLive: true,
+    });
     expect(!!data.length).to.be.true;
   });
 });

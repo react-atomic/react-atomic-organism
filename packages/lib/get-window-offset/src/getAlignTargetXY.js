@@ -3,8 +3,8 @@ import pos from "./positions";
 import { OffsetType } from "getoffset";
 
 /**
- * @param {OffsetType} domInfo 
- * @param {string} loc 
+ * @param {OffsetType} domInfo
+ * @param {string} loc
  * @returns {[number, number]}
  */
 const getAlignTargetXY = (domInfo, loc) => {
@@ -50,7 +50,7 @@ const getAlignTargetXY = (domInfo, loc) => {
       console.error("Not support align type. [" + loc + "]");
       break;
   }
-  return /** @type [number, number]*/(xy);
+  return /** @type [number, number]*/ (xy);
 };
 
 export default getAlignTargetXY;

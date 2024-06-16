@@ -2,9 +2,9 @@
 
 import { expect } from "chai";
 
-import { queryTubeWatch } from "../queryTubeWatch"; 
+import { queryTubeWatch } from "../queryTubeWatch";
 
-describe("QueryTubeWatch Test",  () => {
+describe("QueryTubeWatch Test", () => {
   it("test video is ok", async () => {
     const actual = await queryTubeWatch("CjxugyZCfuw");
     expect(actual.success).to.be.true;

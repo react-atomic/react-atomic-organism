@@ -20,7 +20,7 @@ describe("Test Arc Component", () => {
     await waitFor(() => {
       const html = wrap.html();
       expect(html).to.equal(
-        '<svg><g class="arc"><path d="M3.061616997868383e-15,-50A50,50,0,1,1,3.061616997868383e-15,50L0,0Z"></path></g></svg>'
+        '<svg><g class="arc"><path d="M3.061616997868383e-15,-50A50,50,0,1,1,3.061616997868383e-15,50L0,0Z"></path></g></svg>',
       );
     });
   });

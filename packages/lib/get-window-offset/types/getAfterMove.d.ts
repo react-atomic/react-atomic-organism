@@ -5,4 +5,4 @@ export default getAfterMove;
  * @returns {SimplePosType}
  */
 declare function getAfterMove(domInfo: SimplePosType, moveXY: [number, number]): SimplePosType;
-import { SimplePosType } from "./type";
+import { SimplePosType } from "./types";

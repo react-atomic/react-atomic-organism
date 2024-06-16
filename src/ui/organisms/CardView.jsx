@@ -71,7 +71,7 @@ const CardView = (props) => {
         src: imageSrc,
         className: "rounded",
         ...imageProps,
-      })
+      }),
     );
     // fixed can't use padding with % in firefox and edge
     // http://stackoverflow.com/questions/23717953/padding-bottom-top-in-flexbox-layout

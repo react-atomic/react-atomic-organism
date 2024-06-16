@@ -39,7 +39,7 @@ const SearchBox = ({
             "result",
             {
               active: restProps["data-selected-index"] === key,
-            }
+            },
           );
           const itemNextProps = { className: itemClasses, key };
           if (FUNCTION === typeof onItemClick) {

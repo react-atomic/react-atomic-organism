@@ -21,7 +21,7 @@ export const queryTubeSearch = async (
     isLive = false,
     hl = "en",
     gl = "us",
-  }
+  },
 ) => {
   const url = new URL(host);
   url.searchParams.set("search_query", keyword);
@@ -44,7 +44,7 @@ export const queryTubeSearch = async (
       firstItem(item, "$..title..simpleText");
     const description =
       jsonQuery(item, "$..detailedMetadataSnippets..snippetText..text").join(
-        ""
+        "",
       ) ||
       jsonQuery(item, "$..description..text").join("") ||
       jsonQuery(item, "$..descriptionSnippet..text").join("");

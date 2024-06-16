@@ -9,7 +9,7 @@ import getWindowOffset from "./getWindowOffset";
 import alignWith from "./alignWith";
 import isFullOnScreen from "./isFullOnScreen";
 import getPositionString from "./getPositionString";
-import { WindowOffsetType } from "./type";
+import { WindowOffsetType } from "./types";
 
 const fixFixedNode =
   (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) =>
@@ -86,7 +86,9 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
     console.warn("Not set any locs", { toLoc });
     return false;
   }
-  const targetInfo = winInfo ? winInfo.domInfo : getDomPositionInfo(targetEl).domInfo;
+  const targetInfo = winInfo
+    ? winInfo.domInfo
+    : getDomPositionInfo(targetEl).domInfo;
   if (!targetInfo) {
     console.warn("[alertUI] can't get target info.", { targetEl, winInfo });
     return false;

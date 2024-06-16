@@ -103,7 +103,7 @@ export const D3JS = {
 };
 
 /**
- * @typedef {keyof D3JS} D3KeyList 
+ * @typedef {keyof D3JS} D3KeyList
  */
 
 /**

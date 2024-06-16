@@ -5,4 +5,4 @@ export default isFullOnScreen;
  * @returns {boolean}
  */
 declare function isFullOnScreen(domInfo: SimplePosType, scrollInfo: SimplePosType): boolean;
-import { SimplePosType } from "./type";
+import { SimplePosType } from "./types";

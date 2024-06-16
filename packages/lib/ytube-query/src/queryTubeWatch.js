@@ -8,7 +8,7 @@ import { jsonQuery, firstItem } from "./jsonQuery";
  */
 export const queryTubeWatch = async (
   videoId,
-  host = "https://www.youtube.com/watch?v="
+  host = "https://www.youtube.com/watch?v=",
 ) => {
   const url = `${host}${videoId}&hl=en`;
   const { ytInitialPlayerResponse } = await getTubeData(url, [

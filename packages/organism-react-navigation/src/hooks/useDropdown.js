@@ -74,9 +74,13 @@ export const useDropdown = (props) => {
   const [stateListStyle, setStateListStyle] = useState({});
   const [hideList, setHideList] = useState(false);
   useEffect(() => {
-    handleClose.current = (/** @type Event */e) => {
+    handleClose.current = (/** @type Event */ e) => {
       const target = e.target;
-      if (/** @type HTMLElement */(thisEl.current).contains(/** @type HTMLElement*/ (target))) {
+      if (
+        /** @type HTMLElement */ (thisEl.current).contains(
+          /** @type HTMLElement*/ (target)
+        )
+      ) {
         return;
       }
       expose.close();
@@ -86,7 +90,10 @@ export const useDropdown = (props) => {
     }
     return () => {
       if (!simple) {
-        doc().removeEventListener("click", /** @type EventListener*/ (handleClose.current));
+        doc().removeEventListener(
+          "click",
+          /** @type EventListener*/ (handleClose.current)
+        );
       }
     };
   }, []);
@@ -104,7 +111,10 @@ export const useDropdown = (props) => {
           setStateListStyle({ ...runTimeListStyle });
         }, 300);
       }
-      doc().addEventListener("click", /** @type EventListener*/ (handleClose.current));
+      doc().addEventListener(
+        "click",
+        /** @type EventListener*/ (handleClose.current)
+      );
       runTimeListStyle.display = "block";
       isActive.current = true;
       setStateListStyle(runTimeListStyle);
@@ -116,7 +126,10 @@ export const useDropdown = (props) => {
       if (alwaysOpen && !force) {
         return;
       }
-      doc().removeEventListener("click", /** @type EventListener*/ (handleClose.current));
+      doc().removeEventListener(
+        "click",
+        /** @type EventListener*/ (handleClose.current)
+      );
       isActive.current = false;
       setStateListStyle({});
     },

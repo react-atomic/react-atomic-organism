@@ -15,7 +15,7 @@ class PositionInfo {
    */
   left;
   /**
-   * @type string 
+   * @type string
    */
   className;
 }
@@ -78,7 +78,7 @@ class PopupFloatEl extends PopupOverlay {
     const faultPos = {
       top: -9999,
       left: -9999,
-      className: ""
+      className: "",
     };
     const { targetEl, alignParams } = this.props;
     if (!this.floatEl || !targetEl) {
@@ -133,7 +133,7 @@ class PopupFloatEl extends PopupOverlay {
   constructor(props) {
     super(props);
     // Need exted state form parent class (PopupOverlay)
-    this.state.refCb = this.setFloatEl
+    this.state.refCb = this.setFloatEl;
   }
 
   componentDidMount() {

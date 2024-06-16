@@ -59,7 +59,7 @@ const alignWith = (targetInfo, floatElInfo, loc) => {
       console.error("Not support align type.");
       break;
   }
-  return /** @type [number, number]*/(moveXY);
+  return /** @type [number, number]*/ (moveXY);
 };
 
 export default alignWith;

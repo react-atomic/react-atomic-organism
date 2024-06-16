@@ -27,7 +27,7 @@ const CDN = (props) => {
           href: linkHref,
           ...linkProps,
         },
-        img
+        img,
       )
     : img;
   return result;

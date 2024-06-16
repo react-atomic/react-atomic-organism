@@ -48,9 +48,9 @@ declare class Suggestion extends PureComponent<any, any, any> {
     valueLocator: (rawItem: any) => any;
     shouldRenderSuggestions(): any;
     clearTimer(): void;
-    timerClose: number;
-    timerSubmit: number;
-    timerResetValue: number;
+    timerClose: NodeJS.Timeout;
+    timerSubmit: NodeJS.Timeout;
+    timerResetValue: NodeJS.Timeout;
     getValue(): string;
     getSelIndex(): number;
     getIsOpen(): any;

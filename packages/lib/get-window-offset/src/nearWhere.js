@@ -1,7 +1,7 @@
 // @ts-check
 
 import getDomPositionInfo from "./getDomPositionInfo";
-import { Coordinate, NearLocType } from "./type";
+import { Coordinate, NearLocType } from "./types";
 
 /**
  * @param {number} left

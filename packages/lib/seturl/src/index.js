@@ -11,7 +11,6 @@ const defaultValue = T_UNDEFINED;
  * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
  */
 
-
 class URLType {
   /**
    * @type string
@@ -26,7 +25,6 @@ class URLType {
    */
   path;
 }
-
 
 /**
  * @param {string} url
@@ -53,7 +51,7 @@ const resetUrl = (url) => (url ? url : doc().URL);
  */
 const getUrl = (keys, origUrl) => {
   const { query = "" } = parseUrl(resetUrl(origUrl));
-  const getOne = (/**@type string*/key) => {
+  const getOne = (/**@type string*/ key) => {
     const keyEq = key + "=";
     if (query.indexOf(keyEq) === query.lastIndexOf(keyEq)) {
       const reg = getKeyReg(key);
@@ -77,7 +75,7 @@ const getUrl = (keys, origUrl) => {
 
 /**
  * @param {string} key
- * @param {string} query 
+ * @param {string} query
  */
 const getMultiKey = (key, query) => {
   const reg = getMultiMatchReg(key);
@@ -91,7 +89,7 @@ const getMultiKey = (key, query) => {
 
 /**
  * @param {string} key
- * @param {string} origUrl 
+ * @param {string} origUrl
  */
 const getUrlArray = (key, origUrl) => {
   const { query = "" } = parseUrl(resetUrl(origUrl));
@@ -100,7 +98,7 @@ const getUrlArray = (key, origUrl) => {
 
 /**
  * @param {string|number} key
- * @param {string} [url] 
+ * @param {string} [url]
  * @returns {string}
  */
 const unsetUrl = (key, url) => {
@@ -115,9 +113,9 @@ const unsetUrl = (key, url) => {
 
 /**
  * @param {string|number} key
- * @param {string|number} value 
- * @param {string} url 
- * @param {boolean=} KeepRawValue 
+ * @param {string|number} value
+ * @param {string} url
+ * @param {boolean=} KeepRawValue
  */
 const setUrl = (key, value, url, KeepRawValue) => {
   const multi = IS_ARRAY(value);

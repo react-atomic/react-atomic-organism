@@ -4,7 +4,7 @@ import getStyle from "get-style";
 import getScrollInfo from "get-scroll-info";
 
 /**
- * @typedef {import("./type").MaybeHTMLElement} MaybeHTMLElement
+ * @typedef {import("./types").MaybeHTMLElement} MaybeHTMLElement
  */
 
 /**

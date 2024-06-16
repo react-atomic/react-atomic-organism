@@ -6,4 +6,4 @@ export default getWindowOffset;
  * @returns {WindowOffsetType|undefined}
  */
 declare function getWindowOffset(dom: HTMLElement, debug?: boolean | null, margin?: number): WindowOffsetType | undefined;
-import { WindowOffsetType } from "./type";
+import { WindowOffsetType } from "./types";

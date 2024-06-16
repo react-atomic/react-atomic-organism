@@ -25,7 +25,7 @@ declare class AlignParamsType {
      */
     exclude: string[];
 }
-import { WindowOffsetType } from "./type";
+import { WindowOffsetType } from "./types";
 declare class AlignUIResultType {
     /**
      * @type string|undefined

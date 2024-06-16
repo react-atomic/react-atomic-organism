@@ -1,6 +1,6 @@
 //@ts-check
 export { default } from "./getWindowOffset";
-export { WindowOffsetType } from "./type";
+export { WindowOffsetType, Coordinate } from "./types";
 export { default as alignUI } from "./alignUI";
 export { default as positions } from "./positions";
 export { default as getPositionString } from "./getPositionString";

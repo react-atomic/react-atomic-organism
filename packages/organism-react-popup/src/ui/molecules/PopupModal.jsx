@@ -63,7 +63,7 @@ class PopupModal extends PopupOverlay {
   handleContainerClick = (e) => {
     const t = e.target;
     const cur = e.currentTarget;
-    if (cur.isSameNode(/** @type Node*/(t))) {
+    if (cur.isSameNode(/** @type Node*/ (t))) {
       this.handleClose();
     }
   };

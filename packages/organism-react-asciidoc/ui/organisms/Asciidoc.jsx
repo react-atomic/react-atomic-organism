@@ -107,7 +107,7 @@ const useAsciidoc = ({
         </script>
         `,
       ].join(""),
-    [thisCss, thisJs, children, options]
+    [thisCss, thisJs, children, options],
   );
 
   return {

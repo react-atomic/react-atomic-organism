@@ -2,7 +2,7 @@
 
 /***
  * reshow-flux-base/ActionObject
- *  
+ *
  * @typedef {import('reshow-flux-base').ActionObject} ActionObject
  */
 

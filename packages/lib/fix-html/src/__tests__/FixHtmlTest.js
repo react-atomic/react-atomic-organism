@@ -7,7 +7,7 @@ describe("Test fixHtml", () => {
   it("simple test", () => {
     const a = fixHtml();
     expect(a).to.equal(
-      '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body></body></html>'
+      '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body></body></html>',
     );
   });
 
@@ -15,7 +15,7 @@ describe("Test fixHtml", () => {
     const input = '<a a=" b="c">"=""</a><span a=" b="c">foo';
     const a = fixHtml(input, sanitizeHtml);
     expect(a).to.equal(
-      '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body><a>"=""</a><span>foo</span></body></html>'
+      '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body><a>"=""</a><span>foo</span></body></html>',
     );
   });
 
@@ -34,7 +34,7 @@ describe("Test fixHtml", () => {
       '<img alt=" height=" 60" src="https://fs.xxx.com.tw/upload/harddisc/file_name_541.png" width="120" />';
     const a = fixHtml(input, sanitizeHtml);
     expect(a).to.equal(
-      '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body><img alt=" height=" src="https://fs.xxx.com.tw/upload/harddisc/file_name_541.png" width="120" /></body></html>'
+      '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body><img alt=" height=" src="https://fs.xxx.com.tw/upload/harddisc/file_name_541.png" width="120" /></body></html>',
     );
   });
 

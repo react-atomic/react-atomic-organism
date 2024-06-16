@@ -578,13 +578,13 @@ class Step extends PureComponent {
             className={actionClassName}
           >
             {actionText}
-          </Button>
+          </Button>,
         );
       });
       child.push(
         <SemanticUI className="actions" styles={injects.actions}>
           {buttons}
-        </SemanticUI>
+        </SemanticUI>,
       );
     }
     this._float = createElement(
@@ -603,7 +603,7 @@ class Step extends PureComponent {
         },
         styles: injects.modal,
       },
-      Children.map(child, (c) => c)
+      Children.map(child, (c) => c),
     );
     return null;
   }

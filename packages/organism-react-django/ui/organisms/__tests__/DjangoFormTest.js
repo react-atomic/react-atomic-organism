@@ -19,7 +19,7 @@ describe("Test DjangoForm Component", () => {
     const data = djangoFormParser({ form });
     const wrapper = shallow(<DjangoForm {...data.form} />);
     expect(wrapper.html()).to.have.string(
-      '<form method="post" class="form ui">'
+      '<form method="post" class="form ui">',
     );
   });
 });

@@ -28,7 +28,7 @@
     "win-doc": "*"
   },
   "devDependencies": {
-    "lerna": "^7.0.0",
+    "lerna": "^8.1.x",
     "react": "^18.x",
     "react-dom": "^18.x",
     "reshow-unit": "*"
@@ -36,12 +36,13 @@
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.mjs",
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
   "scripts": {
     "up-all": "lerna exec yarn upgrade",
-    "format": "prettier-eslint --write '**/src/**/*.js' '**/ui/**/*.js*'",
+    "format": "prettier-eslint --write '**/src/**/*.js'",
     "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs",

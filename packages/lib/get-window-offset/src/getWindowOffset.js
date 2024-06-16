@@ -9,7 +9,7 @@ import {
   CalWindowOffsetResult,
   WindowOffsetType,
   DomInfoType,
-} from "./type";
+} from "./types";
 
 const T = "T";
 const R = "R";

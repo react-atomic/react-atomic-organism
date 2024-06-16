@@ -1,6 +1,6 @@
 // @ts-check
 
-import { SimplePosType } from "./type";
+import { SimplePosType } from "./types";
 
 /**
  * @param {SimplePosType} domInfo

@@ -10,7 +10,7 @@ const jsonReg = /{.*}/;
 export const getTubeData = async (
   url,
   keys = ["ytInitialData"],
-  timeout = 3000
+  timeout = 3000,
 ) => {
   const abortController = new AbortController();
   const signal = abortController.signal;

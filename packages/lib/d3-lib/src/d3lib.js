@@ -72,7 +72,7 @@ const defaultYLocator = (d) => (d || {}).y;
 const getPointsCenter = (
   points,
   xLocator = defaultXLocator,
-  yLocator = defaultYLocator
+  yLocator = defaultYLocator,
 ) => {
   const xCal = new arrayMinMax().process(xLocator)(points);
   const yCal = new arrayMinMax().process(yLocator)(points);
@@ -93,7 +93,7 @@ const _line = (
   end,
   curve,
   xLocator = defaultXLocator,
-  yLocator = defaultYLocator
+  yLocator = defaultYLocator,
 ) => {
   let c;
   let points = [start, end];
@@ -126,7 +126,7 @@ const curve = (
   xScale,
   yScale,
   xLocator = defaultXLocator,
-  yLocator = defaultYLocator
+  yLocator = defaultYLocator,
 ) => {
   xLocator = xLocator || defaultXLocator;
   yLocator = yLocator || defaultYLocator;
@@ -160,7 +160,7 @@ const _hArea = (
     y0Locator = (/**@type any*/ d) => d.y0,
     y1Locator = (/**@type any*/ d) => d.y1,
     xLocator = defaultXLocator,
-  } = {}
+  } = {},
 ) => {
   let series = D3JS.area().x(xLocator).y0(y0Locator).y1(y1Locator);
   if (curve) {
@@ -180,7 +180,7 @@ const pie = (
   data,
   inner,
   outer,
-  valueLocator = (/**@type any*/ d) => d.value
+  valueLocator = (/**@type any*/ d) => d.value,
 ) => {
   let p = D3JS.pie().value(valueLocator)(data);
   return arc(p, inner, outer);
@@ -265,7 +265,7 @@ const scaleBand = (
   start,
   end,
   labelLocator = (/**@type any*/ d) => d.label,
-  tickNum = 10
+  tickNum = 10,
 ) => {
   let list = {};
   /**
@@ -280,7 +280,7 @@ const scaleBand = (
         const key = labelLocator(d);
         list[key] = null;
         return key;
-      })
+      }),
     );
   const length = band.bandwidth();
   const halfLength = Math.round(length / 2);
@@ -336,7 +336,7 @@ const scaleLinear = (
   end,
   labelLocator = (/**@type any*/ d) => d,
   tickNum,
-  more
+  more,
 ) => {
   const oMinMax = new arrayMinMax();
   oMinMax.process(labelLocator || undefined)(data);

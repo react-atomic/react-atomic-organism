@@ -164,7 +164,7 @@ class Dropzone extends Component {
         icons.push(
           <Icon style={Styles.icon} key={key}>
             <FileIcon>{fileType.trim()}</FileIcon>
-          </Icon>
+          </Icon>,
         );
       });
       if (icons.length) {

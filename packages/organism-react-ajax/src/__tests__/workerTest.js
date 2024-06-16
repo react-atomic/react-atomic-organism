@@ -2,7 +2,6 @@ import { getSinon } from "reshow-unit";
 import { expect } from "chai";
 import superagent from "superagent";
 
-
 import worker from "../worker";
 
 describe("Worker Test", () => {

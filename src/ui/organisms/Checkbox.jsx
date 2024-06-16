@@ -87,8 +87,8 @@ class Checkbox extends PureComponent {
     const afterChecked = disabled
       ? stateChecked
       : type === "radio"
-      ? true
-      : !stateChecked;
+        ? true
+        : !stateChecked;
     const callbackParams = [e, beforeChecked, afterChecked, this];
     const isContinue = callfunc(beforeClick, callbackParams);
     if (!disabled && false !== isContinue) {
@@ -110,7 +110,7 @@ class Checkbox extends PureComponent {
           checked,
         },
         this,
-      ])
+      ]),
     );
   }
 

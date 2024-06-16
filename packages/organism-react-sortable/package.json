@@ -1,0 +1,58 @@
+{
+  "version": "0.0.0",
+  "name": "organism-react-sortable",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/react-atomic/react-atomic-organism",
+    "directory": "packages/organism-react-sortable"
+  },
+  "homepage": "https://github.com/react-atomic/react-atomic-organism/tree/main/packages/organism-react-sortable",
+  "description": "TODO: description",
+  "keywords": [
+    "organism-react-sortable"
+  ],
+  "author": "Hill <hill@kimo.com>",
+  "license": "ISC",
+  "dependencies": {
+    "get-window-offset": "*",
+    "organism-react-graph": "*",
+    "reshow-constant": "*",
+    "reshow-runtime": "*"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.x",
+    "react": "^18.x",
+    "react-atomic-atom": "*",
+    "react-dom": "^18.x",
+    "reshow-unit": "*"
+  },
+  "exports": {
+    "types": "./types/index.d.ts",
+    "require": "./build/cjs/src/index.js",
+    "import": "./build/es/src/index.mjs"
+  },
+  "main": "./build/cjs/src/index.js",
+  "module": "./build/es/src/index.mjs",
+  "scripts": {
+    "update-compile-sh": "yo reshow:compile-sh",
+    "start": "ws",
+    "format": "prettier-eslint --write 'src/**/*.js'",
+    "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
+    "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
+    "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
+    "build:type": "npx -p typescript tsc src/*.js src/ui/**/*.jsx --jsx react-jsx --lib esnext,dom --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
+    "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
+    "mocha": "npm run mochaFor -- 'build/{cjs,es}/**/__tests__/*.{js,mjs}'",
+    "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/{cjs,es}/**/__tests__/*.{js,mjs}'",
+    "test": "npm run build && npm run mocha",
+    "prepublishOnly": "npm run test"
+  },
+  "types": "./types/index.d.ts",
+  "files": [
+    "types",
+    "build",
+    "package.json",
+    "README.md"
+  ]
+}

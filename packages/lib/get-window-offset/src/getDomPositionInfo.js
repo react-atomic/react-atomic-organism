@@ -3,7 +3,7 @@
 import getOffset from "getoffset";
 import isFixed from "./isFixed";
 import isSetOverflow from "./isSetOverflow";
-import { DomPositionInfoType, DomInfoType } from "./type";
+import { DomPositionInfoType, DomInfoType } from "./types";
 
 /**
  * @param {HTMLElement} dom

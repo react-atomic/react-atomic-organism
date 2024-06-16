@@ -292,7 +292,7 @@ class Suggestion extends PureComponent {
           e.preventDefault();
           if (this.results && this.results.length) {
             setTimeout(() =>
-              this.handleItemClick(e, get(this.results, [selIndex]))
+              this.handleItemClick(e, get(this.results, [selIndex])),
             );
           } else {
             this.handleSubmit(e);
@@ -399,7 +399,7 @@ class Suggestion extends PureComponent {
       get(component, ["props", "className"]),
       {
         disabled,
-      }
+      },
     );
     return build(component)({
       ...props,

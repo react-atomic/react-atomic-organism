@@ -17,7 +17,7 @@ const toMap = (a, path) => {
        * @param {any} v
        * @param {number} k
        */
-      (v, k) => (nextMap[k] = toJS(v))
+      (v, k) => (nextMap[k] = toJS(v)),
     );
   } else {
     KEYS(next).forEach((k) => (nextMap[k] = toJS(next[k])));

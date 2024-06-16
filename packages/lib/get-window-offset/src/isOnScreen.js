@@ -1,7 +1,7 @@
 //@ts-check
 
 import { ScrollInfoType } from "get-scroll-info";
-import { DomInfoType, IsOnScreenType } from "./type";
+import { DomInfoType, IsOnScreenType } from "./types";
 
 /**
  * @param {DomInfoType} domInfo

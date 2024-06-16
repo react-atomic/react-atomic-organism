@@ -1,10 +1,10 @@
 // @ts-check
 
-import { SimplePosType } from "./type";
+import { SimplePosType } from "./types";
 
 /**
  * @param {SimplePosType} domInfo
- * @param {SimplePosType} scrollInfo 
+ * @param {SimplePosType} scrollInfo
  * @returns {boolean}
  */
 const isFullOnScreen = (domInfo, scrollInfo) => {

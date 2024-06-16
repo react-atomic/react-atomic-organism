@@ -36,9 +36,16 @@ describe("test dedup", () => {
 
   describe("test dedup with object", () => {
     it("should dedup object", () => {
-      const a = [{key: "aa", bar: "a"}, {key: "bb", bar: "b"}, {key: "aa", bar: "c"}];
-      const acture = dedup(a, true, (i)=>i.key);
-      expect(acture).to.deep.equal([{key: "bb", bar: "b"}, {key: "aa", bar: "c"}]);
+      const a = [
+        { key: "aa", bar: "a" },
+        { key: "bb", bar: "b" },
+        { key: "aa", bar: "c" },
+      ];
+      const acture = dedup(a, true, (i) => i.key);
+      expect(acture).to.deep.equal([
+        { key: "bb", bar: "b" },
+        { key: "aa", bar: "c" },
+      ]);
     });
   });
 });
