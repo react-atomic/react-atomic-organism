@@ -96,10 +96,10 @@ const Ellipsis = (props) => (
 const Pagination = (pg) => {
   injects = useLazyInject(InjectStyles, injects);
   const {
-    linkComponent,
+    linkComponent = "a",
+    forwardText = "> Next",
+    backwardText = "<",
     onPageChange,
-    forwardText,
-    backwardText,
     ui,
     currentPageProps = {},
   } = pg;
@@ -181,11 +181,6 @@ const Pagination = (pg) => {
       {lastPage}
     </Menu>
   );
-};
-Pagination.defaultProps = {
-  linkComponent: "a",
-  forwardText: "> Next",
-  backwardText: "<",
 };
 export default Pagination;
 

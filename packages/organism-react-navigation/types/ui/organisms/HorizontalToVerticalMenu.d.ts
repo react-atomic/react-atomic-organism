@@ -19,7 +19,7 @@ export type HorizontalToVerticalMenuProps = {
         forEach<C_1>(children: C_1 | readonly C_1[], fn: (child: C_1, index: number) => void): void;
         count(children: any): number;
         only<C_2>(children: C_2): C_2 extends any[] ? never : C_2;
-        toArray(children: any): any[];
+        toArray(children: React.ReactNode | React.ReactNode[]): (string | number | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal)[];
     } | undefined;
 };
 import * as React from "react";

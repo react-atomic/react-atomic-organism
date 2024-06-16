@@ -132,7 +132,7 @@ export const getHorizontalToVerticalMenu = (Styles, merge) => {
     }
     Children.forEach(children, (child, key) => {
       thisChildren.push(
-        build(/**@type Component*/ (child))({ key, handleOn: handler.on })
+        build(/**@type any*/ (child))({ key, handleOn: handler.on })
       );
     });
     if (nav) {

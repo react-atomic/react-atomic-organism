@@ -7,8 +7,8 @@ declare class paginationCalculator {
     calBegin(page: any): any;
     calNav(page: any): void;
     calPageList(page: any, num: any): {
-        0: number;
-        1: number;
+        "0": number;
+        "1": number;
     };
     fixedPageList({ page, pages, liCount, num }: {
         page: any;
@@ -30,8 +30,8 @@ export const PER_PAGE_NUM: "perPageNum";
 declare class Page {
     constructor(currentPage: any, url: any, cal: any);
     set(key: any, value: any): void;
-    0: any;
-    1: any;
+    "0": any;
+    "1": any;
     perPageNum: any;
     total: any;
     totalPage: any;
