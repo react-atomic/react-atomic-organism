@@ -4,4 +4,5 @@ export { default as debounce } from "./debounce";
 export { default as defaultCall } from "./defaultCall";
 export { default as getEventKey } from "./getEventKey";
 export { default } from "./callfunc";
+export type DebounceExecutor = import("./debounce").DebounceExecutor;
 export { register, cleanAllRegister } from "./register";
