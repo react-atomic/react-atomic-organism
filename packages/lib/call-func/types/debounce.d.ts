@@ -19,7 +19,7 @@ export type DebounceExecutor = (option?: DebounceExecutorOption | undefined) => 
  * only run lasttime.
  *
  * @param {Function} func
- * @param {number} defaultDelay
+ * @param {number=} defaultDelay
  * @returns {DebounceExecutor}
  */
-declare function debounce(func: Function, defaultDelay: number): DebounceExecutor;
+declare function debounce(func: Function, defaultDelay?: number | undefined): DebounceExecutor;

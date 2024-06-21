@@ -17,7 +17,7 @@ import callfunc from "./callfunc";
  * only run lasttime.
  *
  * @param {Function} func
- * @param {number} defaultDelay
+ * @param {number=} defaultDelay
  * @returns {DebounceExecutor}
  */
 const debounce = (func, defaultDelay) => {
