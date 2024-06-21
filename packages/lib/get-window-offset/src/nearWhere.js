@@ -30,10 +30,10 @@ export const getDomCenter = (dom) => {
 
 /**
  * @param {Coordinate} center
- * @param {Coordinate} floatInfo
+ * @param {Coordinate} floatXY
  * @returns {NearLocType}
  */
-export const getNearLocation = (center, floatInfo) => {
+export const getNearLocation = (center, floatXY) => {
   const loc = {
     center: false,
     centerCenter: false,
@@ -42,16 +42,16 @@ export const getNearLocation = (center, floatInfo) => {
     left: false,
     right: false,
   };
-  if (floatInfo.x > center.x) {
+  if (floatXY.x > center.x) {
     loc.right = true;
-  } else if (floatInfo.x < center.x) {
+  } else if (floatXY.x < center.x) {
     loc.left = true;
   } else {
     loc.center = true;
   }
-  if (floatInfo.y > center.y) {
+  if (floatXY.y > center.y) {
     loc.bottom = true;
-  } else if (floatInfo.y < center.y) {
+  } else if (floatXY.y < center.y) {
     loc.top = true;
   } else {
     loc.center = true;
@@ -65,12 +65,23 @@ export const getNearLocation = (center, floatInfo) => {
 };
 
 /**
+ * @typedef {object} NearWhereConfig
+ * @property {boolean=} compareCenter
+ * @property {Coordinate=} adjustXY
+ */
+
+/**
  * @param {HTMLElement} targetEl
  * @param {HTMLElement|Coordinate} floatElOrFloatXY
- * @param {boolean=} compareCenter
+ * @param {NearWhereConfig=} nearWhereConfig
  * @returns {NearLocType}
  */
-export default function nearWhere(targetEl, floatElOrFloatXY, compareCenter) {
+export default function nearWhere(
+  targetEl,
+  floatElOrFloatXY,
+  nearWhereConfig = {}
+) {
+  const { compareCenter, adjustXY } = nearWhereConfig;
   const tarCenter = getDomCenter(targetEl);
   let floatXY;
   const floatEl = /**@type HTMLElement*/ (floatElOrFloatXY);
@@ -86,6 +97,9 @@ export default function nearWhere(targetEl, floatElOrFloatXY, compareCenter) {
   }
   if (null == floatXY) {
     floatXY = /**@type Coordinate*/ (floatElOrFloatXY);
+  }
+  if (null != adjustXY) {
+    floatXY = { x: floatXY.x + adjustXY.x, y: floatXY.y + adjustXY.y };
   }
   return getNearLocation(tarCenter, floatXY);
 }
