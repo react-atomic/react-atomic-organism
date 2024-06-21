@@ -4,46 +4,56 @@ import * as React from "react";
 import { nearWhere } from "get-window-offset";
 import query from "css-query-selector";
 import build from "reshow-build";
+import { getSortId } from "../../getSortId";
 const { useState, useRef } = React;
+
+/**
+ * @typedef {import("../../types").SortData} SortData
+ */
 
 /**
  * @typedef {import("get-window-offset").Coordinate} Coordinate
  */
 
-const useSortable = ({ setSortElement, fixedX, fixedY }) => {
+const useSortable = ({
+  setSortData = (/**@type SortData*/ _p) => {},
+  fixedX,
+  fixedY,
+}) => {
   const [isDraging, setIsDraging] = useState(false);
   const comp = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
 
   /**
    * @param {HTMLElement} targetEl
-   * @param {Coordinate} pointXY
+   * @param {HTMLElement} floatEl
+   * @param {Coordinate} adjustXY
    */
-  const handleSortElement = (targetEl, pointXY) => {
-    const near = nearWhere(targetEl, pointXY);
+  const handleSortElement = (targetEl, floatEl, adjustXY) => {
+    const near = nearWhere(targetEl, floatEl, { adjustXY });
     const sortEl = comp.current;
-    const nextId = /**@type HTMLElement*/ (targetEl.nextSibling)?.getAttribute(
-      "name",
-    );
-    const prevId = /**@type HTMLElement*/ (
-      targetEl.previousSibling
-    )?.getAttribute("name");
-    const sortId = sortEl?.getAttribute("name");
+    const nextId = getSortId(/**@type HTMLElement*/ (targetEl.nextSibling));
+    const prevId = getSortId(/**@type HTMLElement*/ (targetEl.previousSibling));
+    const sortId = getSortId(sortEl);
 
     let reverse;
-    if (targetEl.getAttribute("data-first")) {
-      reverse = false;
-    } else if (targetEl.getAttribute("data-last")) {
-      reverse = near.top ? false : true;
-    } else {
+    const targetParentNode = targetEl.parentNode;
+    if (null != targetParentNode) {
+      if (targetParentNode.firstChild?.isSameNode(targetEl)) {
+        reverse = false;
+      } else if (targetParentNode.lastChild?.isSameNode(targetEl)) {
+        reverse = near.top ? false : true;
+      }
+    }
+    if (null == reverse) {
       reverse = (nextId === sortId || prevId === sortId) && near.top;
     }
 
-    setSortElement({
+    setSortData({
       targetEl,
-      targetId: targetEl.getAttribute("name"),
+      targetId: getSortId(targetEl) || "",
       sortEl,
-      sortId,
-      reverse,
+      sortId: sortId || "",
+      reverseOrder: reverse,
     });
   };
 
@@ -54,11 +64,11 @@ const useSortable = ({ setSortElement, fixedX, fixedY }) => {
     if (!pointerTarget) {
       return false;
     }
-    const type = pointerTarget.getAttribute("data-type");
+    const type = pointerTarget.getAttribute("data-sort-type");
     if (!type) {
       const sortTarget = query.ancestor(
         pointerTarget,
-        '[data-type="sortable"]',
+        '[data-sort-type="sortable"]'
       );
       if (sortTarget) {
         return sortTarget;
@@ -104,11 +114,10 @@ const useSortable = ({ setSortElement, fixedX, fixedY }) => {
         });
       }
       if (sortTarget) {
-        const pointXY = {
-          x: pointerTarget.pointXY[0],
-          y: pointerTarget.pointXY[1],
-        };
-        handleSortElement(sortTarget, pointXY);
+        handleSortElement(sortTarget, comp.current, {
+          x: e.offsetX,
+          y: e.offsetY,
+        });
       }
     },
     dragEnd: () => {
@@ -121,8 +130,11 @@ const useSortable = ({ setSortElement, fixedX, fixedY }) => {
 export const Sort = (/**@type any*/ props) => {
   const { handler, isDraging, comp } = useSortable(props);
   const {
+    builtInOnly,
+    fixedX,
+    renderFirst,
     children,
-    setSortElement,
+    setSortData,
     style: propsStyle,
     activeStyle: propsActiveStyle,
     ...otherProps
@@ -131,7 +143,7 @@ export const Sort = (/**@type any*/ props) => {
   const mergeStyle = (/**@type React.CSSProperties*/ style) => {
     return {
       ...propsStyle,
-      ...children.props?.style,
+      ...children?.props?.style,
       ...style,
     };
   };
@@ -139,21 +151,28 @@ export const Sort = (/**@type any*/ props) => {
   const item = build(
     build(children)({
       ...otherProps,
-      "data-type": "sortable",
-    }),
+      "data-sort-type": "sortable",
+    })
   );
 
   const activeStyle = isDraging ? propsActiveStyle : null;
 
   const shadowEl = isDraging ? item({ style: mergeStyle(activeStyle) }) : null;
+  const handleFloatRef = (/**@type HTMLElement*/ el) => (comp.current = el);
   const dragEl = item({
     style: mergeStyle(),
-    refCb: (/**@type any*/ el) => (comp.current = el),
   });
 
   return (
     <>
-      <DDWrapper onDrag={handler.drag} onDragEnd={handler.dragEnd}>
+      <DDWrapper
+        onDrag={handler.drag}
+        onDragEnd={handler.dragEnd}
+        builtInOnly={builtInOnly}
+        fixedX={fixedX}
+        renderFirst={renderFirst}
+        refCb={handleFloatRef}
+      >
         {dragEl}
       </DDWrapper>
       {shadowEl}

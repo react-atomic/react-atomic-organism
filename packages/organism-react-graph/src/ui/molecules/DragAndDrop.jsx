@@ -1,5 +1,11 @@
 // @ts-check
 
+/**
+ * clientX vs offsetX
+ * https://i.sstatic.net/vqNHJ.png
+ */
+
+
 import {
   useImperativeHandle,
   useRef,

@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "name": "organism-react-sortable",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "get-window-offset": "*",
     "organism-react-graph": "*",
     "reshow-constant": "*",
+    "reshow-hooks": "^0.17.52",
     "reshow-runtime": "*"
   },
   "devDependencies": {

@@ -1830,9 +1830,9 @@
   integrity sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==
 
 "@types/node@*":
-  version "20.14.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.2.tgz#a5f4d2bcb4b6a87bffcaa717718c5a0f208f4a18"
-  integrity sha512-xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==
+  version "20.14.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.14.6.tgz#f3c19ffc98c2220e18de259bb172dd4d892a6075"
+  integrity sha512-JbA0XIJPL1IiNnU7PFxDXyfAwcwVVrOoqyzzyQTyMeVhBzkJVMSkC1LlVsRQ2lpqiY4n6Bb9oCS6lzDKVQxbZw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -2491,9 +2491,9 @@ camelcase@^8.0.0:
   integrity sha512-8WB3Jcas3swSvjIeA2yvCJ+Miyz5l1ZmB6HFb9R1317dt9LCQoswg/BGrmAmkWVEszSrrg4RwmO46qIm2OEnSA==
 
 caniuse-lite@^1.0.30001629:
-  version "1.0.30001634"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001634.tgz#aa563c8e7aeaf552f7ead60371bc8d803425deaa"
-  integrity sha512-fbBYXQ9q3+yp1q1gBk86tOFs4pyn/yxFm5ZNP18OXJDfA3txImOY9PhfxVggZ4vRHDqoU8NrKU81eN0OtzOgRA==
+  version "1.0.30001636"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001636.tgz#b15f52d2bdb95fad32c2f53c0b68032b85188a78"
+  integrity sha512-bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==
 
 chai@^4.x:
   version "4.4.1"
@@ -3158,9 +3158,9 @@ ejs@^3.1.7:
     jake "^10.8.5"
 
 electron-to-chromium@^1.4.796:
-  version "1.4.803"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.803.tgz#cf55808a5ee12e2a2778bbe8cdc941ef87c2093b"
-  integrity sha512-61H9mLzGOCLLVsnLiRzCbc63uldP0AniRYPV3hbGVtONA1pI7qSGILdbofR7A8TMbOypDocEAjH/e+9k1QIe3g==
+  version "1.4.807"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.807.tgz#4d6c5ea1516f0164ac5bfd487ccd4ee9507c8f01"
+  integrity sha512-kSmJl2ZwhNf/bcIuCH/imtNOKlpkLDn2jqT5FJ+/0CXjhnFaOa9cOe9gHKKy71eM49izwuQjZhKk+lWQ1JxB7A==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -3786,14 +3786,15 @@ glob@8.1.0, glob@^8.0.1:
     once "^1.3.0"
 
 glob@^10.2.2, glob@^10.3.10:
-  version "10.4.1"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-10.4.1.tgz#0cfb01ab6a6b438177bfe6a58e2576f6efe909c2"
-  integrity sha512-2jelhlq3E4ho74ZyVLN03oKdAZVUa6UDZzFLVH1H7dnoax+y9qyaq8zBkfDIggjniU19z0wU18y16jMB2eyVIw==
+  version "10.4.2"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-10.4.2.tgz#bed6b95dade5c1f80b4434daced233aee76160e5"
+  integrity sha512-GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==
   dependencies:
     foreground-child "^3.1.0"
     jackspeak "^3.1.2"
     minimatch "^9.0.4"
     minipass "^7.1.2"
+    package-json-from-dist "^1.0.0"
     path-scurry "^1.11.1"
 
 glob@^7.1.3, glob@^7.1.4, glob@^7.1.6, glob@^7.2.0:
@@ -4048,9 +4049,9 @@ humanize-ms@^1.2.1:
     ms "^2.0.0"
 
 hyphenate-style-name@^1.0.4:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.0.5.tgz#70b68605ee601b7142362239a0236159a8b2dc33"
-  integrity sha512-fedL7PRwmeVkgyhu9hLeTBaI6wcGk7JGJswdaRsa5aUbkXI1kr1xZwTPBtaYPpwf56878iDek6VbVnuWMebJmw==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.1.0.tgz#1797bf50369588b47b72ca6d5e65374607cf4436"
+  integrity sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==
 
 iconv-lite@0.6.3, iconv-lite@^0.6.2:
   version "0.6.3"
@@ -5918,6 +5919,11 @@ package-hash@^4.0.0:
     lodash.flattendeep "^4.4.0"
     release-zalgo "^1.0.0"
 
+package-json-from-dist@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz#e501cd3094b278495eb4258d4c9f6d5ac3019f00"
+  integrity sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==
+
 pacote@^17.0.5:
   version "17.0.7"
   resolved "https://registry.yarnpkg.com/pacote/-/pacote-17.0.7.tgz#14b59a9bf5e3442c891af86825b97b7d72f48fba"
@@ -6546,9 +6552,9 @@ requires-port@^1.0.0:
   integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
 
 reshow-build@*:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/reshow-build/-/reshow-build-1.0.1.tgz#25833b12be0fa72a32fafe9066c8ba58330613c3"
-  integrity sha512-O4q+9CLqXzoRYoFo5MQaQGDvR+nO/Oaju3bb8KT/AtxvexmkqKczVoldRAQzSmTZPxzMnX7E4G4dMPT/6Kc/Hw==
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/reshow-build/-/reshow-build-1.1.0.tgz#5f024c7edcab2f911c118877428173309064e5d7"
+  integrity sha512-g67HDSWcHbp5EH/SWiWyy8UsSZreZ5Wd1e/VP2pMUH/AW0tUqxNUzh6rW1ropwduI+FV9CCLJiaqOJu1IuCz4A==
   dependencies:
     array.merge "*"
     reshow-constant "*"
@@ -6562,14 +6568,14 @@ reshow-build@^0.17.16:
     reshow-constant "*"
 
 reshow-constant@*, reshow-constant@^0.17.4:
-  version "0.17.11"
-  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.11.tgz#cf298d7c6f79a0d00b2d26d89a7ab7e325adf12b"
-  integrity sha512-rFcJmDbvDEkaE9T2zHkgRvbjQ3iXPSpBqqwmjvpASuzZyWXTEs9nSLx9e8WxI2eHBlluoA3ybnzr/zBmAOrpOg==
+  version "0.17.12"
+  resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.12.tgz#87d8820af9d7fa772df48fb376e0aada5b9e4665"
+  integrity sha512-EDD9KECc0P5TjCW27u3fUbqY2QbpaSnMBh0nyieuxhgAf13XRnckTs6Ttcf1oFlCeXsgqv5IYMF2RDXg2xyOVg==
 
 reshow-hooks@*:
-  version "0.17.51"
-  resolved "https://registry.yarnpkg.com/reshow-hooks/-/reshow-hooks-0.17.51.tgz#cb3eb7c99bc498434c41f519199fc282f14edadd"
-  integrity sha512-IVNjfH4PUF1WCfiSUPTisuE84EA4UJ/4pptnq9XasobT9YxsND1dYhEeMwkWj7lOLxwGsbxlWcf72qe2JFH6vg==
+  version "0.17.52"
+  resolved "https://registry.yarnpkg.com/reshow-hooks/-/reshow-hooks-0.17.52.tgz#e8ad5b37b4a867fe9208708e59ed91d2e1e7bc13"
+  integrity sha512-YMKT6InjGsyt2F7lbmaSFrUwD8H0SnRFlIJXzck2GzLMVKdphkm/z0VzGTEiBtK8ErRha1fxZzR9/Its59rjRg==
   dependencies:
     call-func "*"
     reshow-build "*"
@@ -7662,7 +7668,6 @@ workerpool@6.2.1:
   integrity sha512-ILEIE97kDZvF9Wb9f6h5aXK4swSlKGUcOEGiIYb2OOu/IrDU9iwj0fD//SsA6E5ibwJxpEvhullJY4Sl4GcpAw==
 
 "wrap-ansi-cjs@npm:wrap-ansi@^7.0.0", wrap-ansi@^7.0.0:
-  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
