@@ -22,7 +22,10 @@ import callfunc from "./callfunc";
  */
 const debounce = (func, defaultDelay) => {
   let timer;
-  return (option) => {
+  /**
+   * @type {DebounceExecutor}
+   */
+  const cb = (option) => {
     const { delay = 250, args, scope } = option || {};
     clearTimeout(timer);
     timer = setTimeout(
@@ -30,6 +33,7 @@ const debounce = (func, defaultDelay) => {
       defaultDelay ?? delay
     );
   };
+  return cb;
 };
 
 export default debounce;
