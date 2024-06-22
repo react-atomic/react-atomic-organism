@@ -5,7 +5,6 @@
  * https://i.sstatic.net/vqNHJ.png
  */
 
-
 import {
   useImperativeHandle,
   useRef,
@@ -19,6 +18,10 @@ import getOffset, { unifyTouch } from "getoffset";
 import callfunc from "call-func";
 import { doc } from "win-doc";
 import { useRefUpdate } from "reshow-hooks";
+
+/**
+ * @typedef {import("reshow-build").Component} Component
+ */
 
 /**
  * @typedef {import("getoffset").OffsetType} OffsetType
@@ -175,6 +178,18 @@ const useDragAndDrop = (/**@type any*/ props) => {
 
 /**
  * @typedef {object} DragAndDropProps
+ * @property {boolean=} builtInOnly
+ * @property {boolean=} renderFirst
+ * @property {boolean=} keepLastAbsXY
+ * @property {Component=} component
+ * @property {import("react").CSSProperties=} style
+ * @property {import("../../types").DragAndDropStyle=} dragAndDropStyle
+ * @property {import("../../types").SetZoom=} zoom
+ * @property {Function=} refCb
+ * @property {Function=} onDragStart
+ * @property {Function=} onDrag
+ * @property {Function=} onDragEnd
+ * @property {Function=} onD3Load
  */
 
 /**
@@ -190,29 +205,48 @@ const DragAndDrop = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => expose, []);
 
   return useMemo(() => {
+    /**
+     * @type {DragAndDropProps}
+     */
     const {
       builtInOnly,
       renderFirst,
       keepLastAbsXY,
       component,
-      style,
       zoom,
       refCb,
       onDragStart,
       onDrag,
       onDragEnd,
       onD3Load,
-      ...others
+      dragAndDropStyle = {
+        droppable: {
+          cursor: "grab",
+        },
+        dragging: {
+          cursor: "grabbing",
+        },
+      },
+      ...restProps
     } = props;
     if (!isLoad) {
       return renderFirst ? build(component)() : null;
     }
-    const { style: compStyle, refCb: compRefCb } = component?.props || {};
-    others.style = {
-      ...Styles.container,
-      ...(isDraging ? Styles.drag : {}),
-      ...style,
-      ...compStyle,
+    const { style: compStyle, refCb: compRefCb } =
+      /**@type any*/ (component)?.props || {};
+
+    /**
+     * @type any
+     */
+    const nextProps = {
+      ...restProps,
+      style: {
+        ...Styles.container,
+        ...dragAndDropStyle.droppable,
+        ...(isDraging ? dragAndDropStyle.dragging : {}),
+        ...restProps.style,
+        ...compStyle,
+      },
     };
     const handleRef = (/**@type HTMLElement*/ el) => {
       handleElChange(el);
@@ -221,15 +255,15 @@ const DragAndDrop = forwardRef((props, ref) => {
     };
 
     if (builtInOnly) {
-      others.ref = handleRef;
+      nextProps.ref = handleRef;
     } else {
       if (refCb || compRefCb) {
-        others.refCb = handleRef;
+        nextProps.refCb = handleRef;
       } else {
-        others.onGetEl = handleRef;
+        nextProps.onGetEl = handleRef;
       }
     }
-    return build(component)(others);
+    return build(component)(nextProps);
   }, [isLoad, props, isDraging]);
 });
 
@@ -239,10 +273,6 @@ export default DragAndDrop;
 
 const Styles = {
   container: {
-    cursor: "grab",
     pointerEvents: "all",
-  },
-  drag: {
-    cursor: "grabbing",
   },
 };
