@@ -16,6 +16,7 @@ import { StartPointInfo } from "../../types";
  * @typedef {object} DDWrapper
  * @property {boolean=} builtInOnly
  * @property {boolean=} renderFirst
+ * @property {import("../../types").DragAndDropStyle} dragAndDropStyle
  * @property {boolean=} fixedX
  * @property {boolean=} fixedY
  * @property {number=} minX
@@ -78,6 +79,7 @@ const DDWrapper = (/**@type DDWrapper*/ props) => {
   const {
     builtInOnly,
     renderFirst,
+    dragAndDropStyle,
     refCb,
     children,
     style: propsStyle,
@@ -153,6 +155,7 @@ const DDWrapper = (/**@type DDWrapper*/ props) => {
 
   return (
     <DragAndDrop
+      dragAndDropStyle={dragAndDropStyle}
       builtInOnly={builtInOnly}
       renderFirst={renderFirst}
       refCb={handleRef}

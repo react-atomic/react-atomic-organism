@@ -13,4 +13,5 @@ export { default as Svg } from "./ui/molecules/Svg";
 export { default as Path } from "./ui/molecules/Path";
 export { default as Group } from "./ui/molecules/Group";
 export { default as getDistance } from "./getDistance";
+export type DragAndDropStyle = import("./types").DragAndDropStyle;
 export { default as DDWrapper, useDDWrapper } from "./ui/molecules/DDWrapper";

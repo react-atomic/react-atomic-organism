@@ -1,3 +1,9 @@
+//@ts-check
+
+/**
+ * @typedef {import("./types").DragAndDropStyle} DragAndDropStyle
+ */
+
 // organisms
 export { default as Arc } from "./ui/organisms/Arc";
 export { default as Area } from "./ui/organisms/Area";
