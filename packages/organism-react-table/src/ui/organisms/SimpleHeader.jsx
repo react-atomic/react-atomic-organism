@@ -15,11 +15,12 @@ const SimpleHeader = ({
   const arr = [];
   let emptyHeaderCount = 0;
 
+
   Children.forEach(children, (child, key) => {
     if (!child) {
       return;
     }
-    const { header = "th", ...myProps } = {
+    const { header = "", ...myProps } = {
       "data-atom": "th",
       key,
       ...get(child, ["props"], {}),

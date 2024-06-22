@@ -1,4 +1,5 @@
 //@ts-check
+
 import SimpleHeader from "./SimpleHeader";
 import SimpleBody from "./SimpleBody";
 import build from "reshow-build";

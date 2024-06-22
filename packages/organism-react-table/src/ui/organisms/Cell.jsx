@@ -4,9 +4,9 @@ import build from "reshow-build";
 
 const Cell = ({
   "data-cell-component": cellComponent = "div",
-  "data-row-index": rowIndex,
-  "data-col-index": columnIndex,
-  columnKey,
+  "data-row-index": rowIndex = null,
+  "data-col-index": columnIndex = null,
+  columnKey = null,
   ...restProps
 }) =>
   build(cellComponent)({

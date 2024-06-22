@@ -1,3 +1,6 @@
+//@ts-check
+
+import * as React from "react";
 import { expect } from "chai";
 import { render } from "reshow-unit";
 
@@ -12,26 +15,40 @@ describe("Test Table", () => {
     expect(html).to.have.string("table");
     expect(html).not.have.string("tbody");
   });
-  it("has row", () => {
-    const rows = [["a1"], ["a2"]];
+
+  it("Test Has Row", () => {
+    const rows = [["row1"], ["row2"]];
+    const Dom = () => (
+      <Table rows={rows}>
+        <Column
+          cell={({
+            "data-row-index": rowIndex,
+            "data-col-index": columnIndex,
+          }) => {
+            return rows[rowIndex][columnIndex];
+          }}
+        />
+      </Table>
+    );
+    const wrap = render(<Dom />);
+    const html = wrap.html();
+    expect(html).to.have.string("tbody");
+  });
+
+  it("Test empty header", () => {
     const Dom = () => {
       return (
-        <Table rows={rows}>
-          <Column
-            header={<Cell>c1</Cell>}
-            cell={({
-              "data-row-index": rowIndex,
-              "data-col-index": columnIndex,
-            }) => {
-              return rows[rowIndex][columnIndex];
-            }}
-          />
+        <Table>
+          <Column />
+          <Column header={<Cell>h1</Cell>} />
         </Table>
       );
     };
     const wrap = render(<Dom />);
     const html = wrap.html();
     console.log({ html });
-    expect(html).to.have.string("tbody");
+    expect(html).to.have.string(
+      `<th data-atom="th"></th><th data-atom="th">h1</th>`
+    );
   });
 });
