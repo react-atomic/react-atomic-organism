@@ -3,12 +3,12 @@
  */
 export class SortData {
   /**
-   * @type {?string=}
+   * @type {?string|number=}
    */
   sortId;
 
   /**
-   * @type {?string=}
+   * @type {?string|number=}
    */
   targetId;
 
@@ -26,4 +26,9 @@ export class SortData {
    * @type {?HTMLElement=}
    */
   sortEl;
+
+  /**
+   * @type {boolean}
+   */
+  isDraging;
 }

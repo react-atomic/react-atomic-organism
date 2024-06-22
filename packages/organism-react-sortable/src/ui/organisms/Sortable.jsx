@@ -1,11 +1,11 @@
 // @ts-check
-import { DDWrapper } from "organism-react-graph";
 import * as React from "react";
+const { useState, useRef } = React;
+import { DDWrapper } from "organism-react-graph";
 import { nearWhere } from "get-window-offset";
 import query from "css-query-selector";
 import build from "reshow-build";
 import { getSortId } from "../../getSortId";
-const { useState, useRef } = React;
 
 /**
  * @typedef {import("../../types").SortData} SortData
@@ -15,11 +15,15 @@ const { useState, useRef } = React;
  * @typedef {import("get-window-offset").Coordinate} Coordinate
  */
 
-const useSortable = ({
-  setSortData = (/**@type SortData*/ _p) => {},
-  fixedX,
-  fixedY,
-}) => {
+/**
+ * @template T
+ * @typedef {import("reshow-constant").SetStateAction<T>} SetStateAction
+ */
+
+/**
+ * @param {SortableProps} props
+ */
+const useSortable = ({ setSortData = (_p) => _p, fixedX, fixedY }) => {
   const [isDraging, setIsDraging] = useState(false);
   const comp = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
 
@@ -39,22 +43,23 @@ const useSortable = ({
     const targetParentNode = targetEl.parentNode;
     if (null != targetParentNode) {
       if (targetParentNode.firstChild?.isSameNode(targetEl)) {
-        reverse = false;
+        reverse = true;
       } else if (targetParentNode.lastChild?.isSameNode(targetEl)) {
-        reverse = near.top ? false : true;
+        reverse = false;
       }
     }
     if (null == reverse) {
-      reverse = (nextId === sortId || prevId === sortId) && near.top;
+      reverse = (nextId === sortId || prevId === sortId) && near.bottom;
     }
 
-    setSortData({
+    setSortData((prev) => ({
+      ...prev,
       targetEl,
       targetId: getSortId(targetEl) || "",
       sortEl,
       sortId: sortId || "",
       reverseOrder: reverse,
-    });
+    }));
   };
 
   /**
@@ -85,7 +90,19 @@ const useSortable = ({
       if (!comp.current) {
         return;
       }
-      setIsDraging(true);
+      setIsDraging((prevIsDraging) => {
+        if (true !== prevIsDraging) {
+          setTimeout(() =>
+            setSortData((prev) => ({
+              ...prev,
+              isDraging: true,
+            }))
+          );
+          return true;
+        } else {
+          return prevIsDraging;
+        }
+      });
       const { getPointerTarget, getClientPointerTarget, getAllPointer } = e;
       let pointerTarget;
       if (fixedX) {
@@ -121,26 +138,54 @@ const useSortable = ({
       }
     },
     dragEnd: () => {
-      setIsDraging(false);
+      setIsDraging((prevIsDraging) => {
+        if (false !== prevIsDraging) {
+          setTimeout(() =>
+            setSortData((prev) => ({
+              ...prev,
+              isDraging: false,
+            }))
+          );
+          return false;
+        } else {
+          return prevIsDraging;
+        }
+      });
     },
   };
   return { isDraging, handler, comp };
 };
 
-export const Sort = (/**@type any*/ props) => {
+/**
+ * @typedef {object} SortableProps
+ * @property {SetStateAction<SortData>=} setSortData
+ * @property {boolean=} fixedX
+ * @property {boolean=} fixedY
+ * @property {boolean=} builtInOnly
+ * @property {boolean=} renderFirst
+ * @property {React.ReactElement=} children
+ * @property {React.CSSProperties=} style
+ * @property {React.CSSProperties=} activeStyle
+ * @property {React.CSSProperties=} activeFlotStyle
+ * @property {import("organism-react-graph").DragAndDropStyle=} dragAndDropStyle
+ */
+
+export const Sort = (/**@type SortableProps*/ props) => {
   const { handler, isDraging, comp } = useSortable(props);
   const {
-    builtInOnly,
     fixedX,
+    builtInOnly,
     renderFirst,
     children,
     setSortData,
     style: propsStyle,
-    activeStyle: propsActiveStyle,
-    ...otherProps
+    activeStyle: propsActiveStyle = { cursor: "grabbing" },
+    activeFlotStyle: propsActiveFlotStyle = { cursor: "grabbing" },
+    dragAndDropStyle,
+    ...restProps
   } = props;
 
-  const mergeStyle = (/**@type React.CSSProperties*/ style) => {
+  const mergeStyle = (/**@type {React.CSSProperties=}*/ style) => {
     return {
       ...propsStyle,
       ...children?.props?.style,
@@ -150,28 +195,34 @@ export const Sort = (/**@type any*/ props) => {
 
   const item = build(
     build(children)({
-      ...otherProps,
+      ...restProps,
       "data-sort-type": "sortable",
     })
   );
 
-  const activeStyle = isDraging ? propsActiveStyle : null;
+  const activeStyle = isDraging ? propsActiveStyle : undefined;
+  const activeFlotStyle = isDraging ? propsActiveFlotStyle : undefined;
 
-  const shadowEl = isDraging ? item({ style: mergeStyle(activeStyle) }) : null;
+  const shadowEl = isDraging
+    ? item({
+        style: mergeStyle(activeStyle),
+      })
+    : null;
   const handleFloatRef = (/**@type HTMLElement*/ el) => (comp.current = el);
   const dragEl = item({
-    style: mergeStyle(),
+    style: mergeStyle(activeFlotStyle),
   });
 
   return (
     <>
       <DDWrapper
+        refCb={handleFloatRef}
         onDrag={handler.drag}
         onDragEnd={handler.dragEnd}
         builtInOnly={builtInOnly}
         fixedX={fixedX}
         renderFirst={renderFirst}
-        refCb={handleFloatRef}
+        dragAndDropStyle={dragAndDropStyle}
       >
         {dragEl}
       </DDWrapper>

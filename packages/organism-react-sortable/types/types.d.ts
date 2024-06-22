@@ -3,13 +3,13 @@
  */
 export class SortData {
     /**
-     * @type {?string=}
+     * @type {?string|number=}
      */
-    sortId: (string | null) | undefined;
+    sortId: ((string | number) | null) | undefined;
     /**
-     * @type {?string=}
+     * @type {?string|number=}
      */
-    targetId: (string | null) | undefined;
+    targetId: ((string | number) | null) | undefined;
     /**
      * @type {?boolean=}
      */
@@ -22,4 +22,8 @@ export class SortData {
      * @type {?HTMLElement=}
      */
     sortEl: (HTMLElement | null) | undefined;
+    /**
+     * @type {boolean}
+     */
+    isDraging: boolean;
 }
