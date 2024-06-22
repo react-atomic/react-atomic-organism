@@ -12,7 +12,7 @@ export default DDWrapper;
 export type DDWrapper = {
     builtInOnly?: boolean | undefined;
     renderFirst?: boolean | undefined;
-    dragAndDropStyle: import("../../types").DragAndDropStyle;
+    dragAndDropStyle?: import("../../types").DragAndDropStyle | undefined;
     fixedX?: boolean | undefined;
     fixedY?: boolean | undefined;
     minX?: number | undefined;

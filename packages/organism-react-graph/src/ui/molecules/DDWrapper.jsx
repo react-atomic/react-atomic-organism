@@ -16,7 +16,7 @@ import { StartPointInfo } from "../../types";
  * @typedef {object} DDWrapper
  * @property {boolean=} builtInOnly
  * @property {boolean=} renderFirst
- * @property {import("../../types").DragAndDropStyle} dragAndDropStyle
+ * @property {import("../../types").DragAndDropStyle=} dragAndDropStyle
  * @property {boolean=} fixedX
  * @property {boolean=} fixedY
  * @property {number=} minX
