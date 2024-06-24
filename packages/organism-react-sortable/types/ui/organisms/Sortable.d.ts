@@ -6,6 +6,7 @@ export type SortableProps = {
     setSortData?: SetStateAction<SortData> | undefined;
     fixedX?: boolean | undefined;
     fixedY?: boolean | undefined;
+    autoSelect?: boolean | undefined;
     builtInOnly?: boolean | undefined;
     renderFirst?: boolean | undefined;
     children?: React.ReactElement | undefined;

@@ -23,9 +23,15 @@ import { getSortId } from "../../getSortId";
 /**
  * @param {SortableProps} props
  */
-const useSortable = ({ setSortData = (_p) => _p, fixedX, fixedY }) => {
+const useSortable = ({
+  setSortData = (_p) => _p,
+  fixedX,
+  fixedY,
+  autoSelect,
+}) => {
   const [isDraging, setIsDraging] = useState(false);
   const comp = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
+  const lastRange = /**@type {React.MutableRefObject<Range>}*/ (useRef());
 
   /**
    * @param {HTMLElement} targetEl
@@ -98,6 +104,16 @@ const useSortable = ({ setSortData = (_p) => _p, fixedX, fixedY }) => {
               isDraging: true,
             }))
           );
+          if (autoSelect) {
+            if (null == lastRange.current) {
+              lastRange.current = document.createRange();
+            }
+            lastRange.current.setStart(comp.current, 0);
+            lastRange.current.setEnd(comp.current, 1);
+            const sel = window.getSelection();
+            sel?.removeAllRanges();
+            sel?.addRange(lastRange.current);
+          }
           return true;
         } else {
           return prevIsDraging;
@@ -151,6 +167,10 @@ const useSortable = ({ setSortData = (_p) => _p, fixedX, fixedY }) => {
           return prevIsDraging;
         }
       });
+      if (autoSelect) {
+        const sel = window.getSelection();
+        sel?.removeAllRanges();
+      }
     },
   };
   return { isDraging, handler, comp };
@@ -161,6 +181,7 @@ const useSortable = ({ setSortData = (_p) => _p, fixedX, fixedY }) => {
  * @property {SetStateAction<SortData>=} setSortData
  * @property {boolean=} fixedX
  * @property {boolean=} fixedY
+ * @property {boolean=} autoSelect
  * @property {boolean=} builtInOnly
  * @property {boolean=} renderFirst
  * @property {React.ReactElement=} children
@@ -173,6 +194,7 @@ const useSortable = ({ setSortData = (_p) => _p, fixedX, fixedY }) => {
 export const Sort = (/**@type SortableProps*/ props) => {
   const { handler, isDraging, comp } = useSortable(props);
   const {
+    autoSelect,
     fixedX,
     builtInOnly,
     renderFirst,
