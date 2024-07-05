@@ -89,7 +89,7 @@ export function unifyTouch(e: object): any;
  * @param {HTMLElement|import('reshow-constant').SAFE_UNDEFINED} [scrollNode]
  * @returns {OffsetType|undefined}
  */
-declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | import('reshow-constant').SAFE_UNDEFINED): OffsetType | undefined;
+declare function getOffset(dom: HTMLElement, scrollNode?: HTMLElement | import("reshow-constant").SAFE_UNDEFINED): OffsetType | undefined;
 declare class Coordinate {
     /**
      * @type number
