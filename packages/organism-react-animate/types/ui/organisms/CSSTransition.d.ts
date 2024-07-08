@@ -23,4 +23,4 @@ declare function CSSTransition({ stepKeys, actionKeys, classNames, delay, before
     onExit: any;
     onExiting: any;
     onExited: any;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

@@ -14,9 +14,9 @@ declare class Replace extends PureComponent<any, any, any> {
         childs: {};
     };
     handleNext: () => void;
-    _time: number;
+    _time: NodeJS.Timeout;
     componentDidMount(): void;
     componentWillUnmount(): void;
-    render(): JSX.Element;
+    render(): import("react/jsx-runtime").JSX.Element;
 }
 import { PureComponent } from "react";

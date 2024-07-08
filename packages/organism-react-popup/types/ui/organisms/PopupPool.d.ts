@@ -1,5 +1,5 @@
 export default PopupPool;
-export type Component = import('reshow-build').Component;
+export type Component = import("reshow-build").Component;
 /**
  * @typedef {import('reshow-build').Component} Component
  */

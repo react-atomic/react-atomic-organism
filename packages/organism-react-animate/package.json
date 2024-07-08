@@ -1,5 +1,5 @@
 {
-  "version": "0.12.2",
+  "version": "0.12.3",
   "name": "organism-react-animate",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "call-func": "*",
+    "class-lib": "*",
     "get-object-value": "*",
     "keyframe-css": "*",
     "react-atomic-molecule": "*",

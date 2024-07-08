@@ -1,2 +1,2 @@
 export default Animate;
-declare function Animate(props: any): JSX.Element;
+declare function Animate(props: any): import("react/jsx-runtime").JSX.Element;

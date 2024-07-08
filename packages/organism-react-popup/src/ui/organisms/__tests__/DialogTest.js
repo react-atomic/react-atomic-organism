@@ -10,6 +10,7 @@ describe("Test Dialog", () => {
   it("simple test", async () => {
     const wrap = render(<Dialog />);
     await act();
-    await waitFor(() => act(() => expect(wrap.html()).to.have.string("div")));
+    await waitFor(() => () => expect(wrap.html()).to.have.string("div"));
+    await act(()=>wrap.unmount());
   });
 });

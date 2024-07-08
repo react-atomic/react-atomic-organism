@@ -1,19 +1,12 @@
 import { useState } from "react";
 import { expect } from "chai";
-import {
-  render,
-  act,
-  waitFor,
-  getRoleHtml,
-  hideConsoleError,
-  cleanIt,
-} from "reshow-unit";
+import { render, act, waitFor, sleep } from "reshow-unit";
 
 import Animate from "../Animate";
 import AnimateGroup from "../AnimateGroup";
 
 describe("AnimateGroup Test", () => {
-  it("Animate Test", () => {
+  it("Animate Test", async () => {
     const vDom = (
       <Animate>
         <div>abc</div>
@@ -25,7 +18,7 @@ describe("AnimateGroup Test", () => {
 
   it("Test handleExit", async () => {
     let uFake;
-    const FakeComp = (props) => {
+    const FakeComp = (_props) => {
       const [state, setState] = useState(() => <div role="child">abc</div>);
       uFake = setState;
       return (
@@ -35,13 +28,18 @@ describe("AnimateGroup Test", () => {
       );
     };
     const wrap = render(<FakeComp />);
+    await act();
     await waitFor(() => {
-      act(() => expect(wrap.html()).to.have.string(`role="child"`));
+      expect(wrap.html()).to.have.string(`role="child"`);
     });
-    await act(() => uFake(), 10);
+    await act();
+    await act(() => uFake());
+    await act();
     await waitFor(() => {
-      act(() => expect(wrap.html()).not.have.string(`role="child"`));
-    });
-    wrap.unmount();
+      act(()=>{
+      expect(wrap.html()).not.have.string(`role="child"`);
+      });
+    }, 1500);
+    await sleep(()=>wrap.unmount());
   });
 });

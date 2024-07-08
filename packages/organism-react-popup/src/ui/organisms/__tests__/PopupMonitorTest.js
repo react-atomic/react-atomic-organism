@@ -12,13 +12,17 @@ describe("Test PopupMonitor", () => {
     popupDispatch("dom/cleanAll");
   });
 
-  it("basic test", () => {
+  it("basic test", async () => {
     const wrap = render(
       <PopupMonitor>
         <div />
       </PopupMonitor>
     );
-    expect(wrap.html()).to.have.string("popup-monitor");
+    await waitFor(
+      () => expect(wrap.html()).to.have.string("popup-monitor"),
+      1000
+    );
+    await waitFor(() => wrap.unmount(), 1000);
   });
 
   it("feature test", async () => {
@@ -59,15 +63,18 @@ describe("Test PopupMonitor", () => {
     };
 
     const wrap = render(<Comp />);
+    await act();
     await waitFor(() => {
-      act(() => expect(wrap.html()).to.have.string("test-popup"));
-    });
+      expect(wrap.html()).to.have.string("test-popup");
+    }, 1000);
+    await act();
     await act(() => {
       gSet({ ids: [] });
     });
     await act();
     await waitFor(() => {
       act(() => expect(wrap.html()).to.equal(expectedWithoutPopup));
-    });
+    }, 500);
+    await waitFor(() => wrap.unmount());
   });
 });

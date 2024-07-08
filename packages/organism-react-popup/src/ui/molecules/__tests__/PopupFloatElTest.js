@@ -8,7 +8,7 @@ import PopupPool from "../../organisms/PopupPool";
 
 describe("Test PopupFloatEl", () => {
   it("basic test", async () => {
-    const VDom = (props) => {
+    const VDom = (_props) => {
       const [dom, setDom] = useState();
       useEffect(() => {
         setDom(
@@ -25,8 +25,10 @@ describe("Test PopupFloatEl", () => {
       );
     };
     const wrap = render(<VDom />);
+    await act();
     await waitFor(() => {
       expect(wrap.html()).to.have.string('id="my-float"');
     });
+    await act();
   });
 });

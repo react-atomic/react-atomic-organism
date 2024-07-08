@@ -13,11 +13,10 @@ describe("Test Transition", () => {
       </Transition>
     );
     const wrap = render(vDom);
-    await waitFor(() => {
-      act(() => {
-        expect(wrap.html()).to.have.string(`${dataStatusKey}="exited"`);
-      });
+    await act(() => {
+      expect(wrap.html()).to.have.string(`${dataStatusKey}="exited"`);
     });
+    await act();
   });
 
   it("test in=true", async () => {
@@ -27,10 +26,8 @@ describe("Test Transition", () => {
       </Transition>
     );
     const wrap = render(vDom);
-    await waitFor(() => {
-      act(() => {
-        expect(wrap.html()).to.have.string(`${dataStatusKey}="entered"`);
-      }, 5);
+    await act(() => {
+      expect(wrap.html()).to.have.string(`${dataStatusKey}="entered"`);
     });
     await waitFor(() => {
       act(() => {

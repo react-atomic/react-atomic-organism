@@ -8,7 +8,7 @@ import PopupPool from "../../organisms/PopupPool";
 
 describe("Test PopupModal", () => {
   it("basic test", async () => {
-    const VDom = (props) => {
+    const VDom = (_props) => {
       const [dom, setDom] = useState();
       useEffect(() => {
         setDom(
@@ -25,9 +25,10 @@ describe("Test PopupModal", () => {
       );
     };
     const wrap = render(<VDom />);
+    await act();
     await waitFor(() => {
       expect(wrap.html()).to.have.string('id="my-id"');
     });
-    wrap.unmount();
+    await act(()=>wrap.unmount());
   });
 });
