@@ -4,6 +4,7 @@ import { Client, ssrExchange, fetchExchange, debugExchange } from "@urql/core";
 import { cacheExchange } from "@urql/exchange-graphcache";
 import { getTimestamp, expireCallback } from "get-random-id";
 import { NEW_OBJ } from "reshow-constant";
+import callfunc from "call-func";
 
 /**
  * @typedef {object} SSRCache
@@ -125,7 +126,8 @@ const cleanCache = (key, createTime, expireSecs, cacheObj) => {
  * @property {number} [dataExpireSecs]
  * @property {number} [errorExpireSecs]
  * @property {number} [failExpireSecs]
- * @property {function(any):any} [cookResult]
+ * @property {function(OperationResult):any} [cookResult]
+ * @property {function(OperationResult):void} [onError]
  */
 
 /**
@@ -159,20 +161,21 @@ const cleanCache = (key, createTime, expireSecs, cacheObj) => {
 
 /**
  * @param {GqlClientOptions} clientOptions
- * @param {GqlResultOptions} [defaultGqlResultOptions]
+ * @param {GqlResultOptions} [defaultOptions]
  * @returns {handleGqlCallback}
  */
 export const handleGql =
-  (clientOptions, defaultGqlResultOptions) =>
+  (clientOptions, defaultOptions) =>
   (query, variables = {}, options) => {
     const {
       isVerbose = false,
       dataExpireSecs = 60,
       errorExpireSecs = 10,
       failExpireSecs = 86400,
+      onError,
       cookResult = (/** @type OperationResult*/ v) => v,
     } = {
-      ...defaultGqlResultOptions,
+      ...defaultOptions,
       ...options,
     };
     let shouldVerbose = isVerbose;
@@ -207,6 +210,9 @@ export const handleGql =
       execute: async (isDebug, isVerbose) => {
         const clinet = getGqlClient(resetClientOptions(isDebug, true));
         const rawResult = await clinet.mutation(query, variables).toPromise();
+        if (rawResult.error) {
+          callfunc(onError, [rawResult]);
+        }
         return toVerbose(cookResult(rawResult), isVerbose);
       },
       /**
@@ -225,6 +231,7 @@ export const handleGql =
         const nextKey = next.operation.key;
         const now = getTimestamp();
         if (next.error) {
+          callfunc(onError, [rawResult]);
           cleanCache(nextKey, now, errorExpireSecs, ssrCache);
           if (
             longCache.current.has(nextKey) &&

@@ -4,7 +4,7 @@
  */
 export const longCache: LongCacheType;
 export function getGqlClient({ keys, url, fetch, debug }: GqlClientOptions, cacheObj?: SSRCache): Client;
-export function handleGql(clientOptions: GqlClientOptions, defaultGqlResultOptions?: GqlResultOptions): handleGqlCallback;
+export function handleGql(clientOptions: GqlClientOptions, defaultOptions?: GqlResultOptions): handleGqlCallback;
 export type SSRCache = {
     current: import("@urql/core").SSRExchange;
 };
@@ -30,7 +30,8 @@ export type GqlResultOptions = {
     dataExpireSecs?: number;
     errorExpireSecs?: number;
     failExpireSecs?: number;
-    cookResult?: (arg0: any) => any;
+    cookResult?: (arg0: OperationResult) => any;
+    onError?: (arg0: OperationResult) => void;
 };
 export type OperationResult = import("@urql/core").OperationResult<any, any>;
 export type OperationResultOrData = OperationResult | OperationResult["data"];
