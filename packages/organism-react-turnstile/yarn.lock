@@ -1056,7 +1056,7 @@ core-js@^3.33.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.37.1.tgz#d21751ddb756518ac5a00e4d66499df981a62db9"
   integrity sha512-Xn6qmxrQZyB0FFY8E3bgRXei3lWDJHhvI+u0q9TKIYM49G8pAr0FgnnrFRAmsbptZL1yxRADVXn+x5AGsbBfyw==
 
-create-el@^0.2.6:
+create-el@*:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/create-el/-/create-el-0.2.6.tgz#52c6ac611abfa21e41efd598f451701d29e128d8"
   integrity sha512-qVh/oIhbNa3qvR6rCk4uHZ76kmkcGY+lu+8/G4C/Vrq9ahS6HtBKnz0twjbtLipSzuuCFNrV3OqdcPYZ6bc0mw==
@@ -1568,7 +1568,7 @@ get-intrinsic@^1.1.3, get-intrinsic@^1.2.1, get-intrinsic@^1.2.2, get-intrinsic@
     has-symbols "^1.0.3"
     hasown "^2.0.0"
 
-get-object-value@*, get-object-value@^0.6.8:
+get-object-value@*:
   version "0.6.9"
   resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.6.9.tgz#69c5a070c0cd98196db720dd71ba74077bfa2888"
   integrity sha512-3fr9lkf3xxQ4yHUaJMuPwFrNldUlkzSb8qFzKM505ZIbTLy3F4OXZL6d0OBLS5W51am+d66kJFq3qq0RDYotdA==
@@ -1586,13 +1586,6 @@ get-random-id@*:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/get-random-id/-/get-random-id-0.4.0.tgz#6a17fcdcac23d4a88ed0e307460936f4f22f5ae7"
   integrity sha512-pSLn6Jzo52PqFzLQfd4PLwQ98JOhw1gwazUoYO5sfRFZc2xkGtBMizK04bGcUftBzUTj4Xa2W3FB5bvznn8tyA==
-  dependencies:
-    call-func "*"
-
-get-random-id@^0.3.4:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/get-random-id/-/get-random-id-0.3.6.tgz#9afbe593f943d5e107b79603331833a0967ef1c5"
-  integrity sha512-CZm4e1dLvJJfG/DzMvAxVLGEtL/DkR9bQawyC4kaaWWLmBgW9CO6aFo8H8/FMegJqCB3fcPxPuBWrrq79cO38Q==
   dependencies:
     call-func "*"
 
@@ -2893,7 +2886,7 @@ reshow-constant@*:
   resolved "https://registry.yarnpkg.com/reshow-constant/-/reshow-constant-0.17.14.tgz#6a7b540bca8995f991861cfd25ba5e4f4e763260"
   integrity sha512-8cVlpvwA9CYN2ZYA7bThRN1EVOxsVR0U8iqCP7LQ2cDJEPdzR/E9+lx21EsaG5YId6WLgmvjdiestgw2IsKJYQ==
 
-reshow-hooks@^0.17.47:
+reshow-hooks@*:
   version "0.17.57"
   resolved "https://registry.yarnpkg.com/reshow-hooks/-/reshow-hooks-0.17.57.tgz#1624bc75cd448520959ca86ed776693a512c34cd"
   integrity sha512-3P5k5Rx6M4nyeVXcJVOh3vf8wuIm8iXABPYtAfRjSFASdMTxTo7+Lh5jfuttz/BbN1ouwz7F9a64zSGYUzBepA==

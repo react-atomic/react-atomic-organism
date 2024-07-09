@@ -6,6 +6,7 @@ import { win } from "win-doc";
 import get from "get-object-value";
 import build from "reshow-build";
 import callfunc from "call-func";
+import { useTimer, useRefUpdate } from "reshow-hooks";
 
 class TurnstileAdapter {
   /**
@@ -74,13 +75,14 @@ class TurnstileAdapter {
  * @property {string=} sitekey
  * @property {Function=} errorCallback
  * @property {Function=} callback
+ * @property {number=} callbackTimeout
  * @property {Component=} component
  */
 
 let isInitTurnstile = false;
 let isLoadTurnstile = false;
 const initCallback = [];
-const handleOnload = () => {
+const handleGlobalOnload = () => {
   isLoadTurnstile = true;
   initCallback.forEach((cb) => callfunc(cb.current));
 };
@@ -101,33 +103,47 @@ const useTurnstile = ({
   sitekey,
   errorCallback,
   callback,
+  callbackTimeout = 30000,
 }) => {
   const isInit = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
+  const isCall = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
   const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
-  const lastCallback = /**@type any*/ (useRef());
-  const lastTurnstile = useRef(new TurnstileAdapter());
-  const thisWin = /**@type any*/ (win());
-  lastCallback.current = {
+  const lastCallback = useRefUpdate({
     errorCallback,
     callback,
-  };
+  });
+  const lastTurnstile = useRef(new TurnstileAdapter());
+  const thisWin = /**@type any*/ (win());
+  const [runCallback, stopCallback] = useTimer();
   useEffect(() => {
     const onloadTurnstileCallback = {
       current: () => {
+        const handleOnload = ({ callFrom }) => {
+          stopCallback();
+          isInit.current = true;
+          callfunc(lastCallback.current.callback, [
+            { isCall: isCall.current, callFrom },
+          ]);
+          isCall.current = true;
+        };
         const renderOpts = {
           sitekey,
-          callback: () => callfunc(lastCallback.current.callback),
+          callback: () => handleOnload({ callFrom: "load" }),
           "error-callback": () => callfunc(lastCallback.current.errorCallback),
         };
         setTimeout(() =>
           lastTurnstile.current.render(lastEl.current, renderOpts)
+        );
+        runCallback(
+          () => handleOnload({ callFrom: "timoeout" }),
+          callbackTimeout
         );
       },
     };
     if (!isInitTurnstile) {
       isInitTurnstile = true;
       initCallback.push(onloadTurnstileCallback);
-      thisWin[onloadCallbackName] = handleOnload;
+      thisWin[onloadCallbackName] = handleGlobalOnload;
       const jsSrc = `${js}?onload=${onloadCallbackName}`;
       insertJS()()(jsSrc);
     } else {

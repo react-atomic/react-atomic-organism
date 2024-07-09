@@ -1,5 +1,5 @@
 {
-  "version": "0.2.6",
+  "version": "0.3.0",
   "name": "organism-react-turnstile",
   "repository": {
     "type": "git",
@@ -14,11 +14,11 @@
   "author": "Hill <hill@kimo.com>",
   "license": "ISC",
   "dependencies": {
-    "create-el": "^0.2.6",
-    "get-object-value": "^0.6.8",
-    "get-random-id": "^0.3.4",
+    "create-el": "*",
+    "get-object-value": "*",
+    "get-random-id": "*",
     "reshow-constant": "*",
-    "reshow-hooks": "^0.17.47",
+    "reshow-hooks": "*",
     "reshow-runtime": "*"
   },
   "devDependencies": {
