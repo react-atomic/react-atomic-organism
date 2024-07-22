@@ -1,5 +1,5 @@
 {
-  "version": "0.6.9",
+  "version": "0.7.0",
   "name": "get-object-value",
   "repository": {
     "type": "git",
@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.x",
-    "chai": "*",
-    "mocha": "*"
+    "reshow-map": "*",
+    "reshow-unit-dom": "*"
   },
   "exports": {
     "types": "./types/index.d.ts",
