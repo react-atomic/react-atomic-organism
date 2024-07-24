@@ -19,6 +19,10 @@ class URLType {
   /**
    * @type string
    */
+  hostname;
+  /**
+   * @type string
+   */
   query;
   /**
    * @type string
@@ -32,8 +36,14 @@ class URLType {
  */
 const parseUrl = (url) => {
   const oUrl = getUrlAnaly(url);
+  /**
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Location
+   * host is the host name and port number
+   * hostname is the host name (without the port number or square brackets)
+   */
   return {
-    host: oUrl[11],
+    host: oUrl[10],
+    hostname: oUrl[11],
     query: oUrl[16],
     path: oUrl[13],
   };

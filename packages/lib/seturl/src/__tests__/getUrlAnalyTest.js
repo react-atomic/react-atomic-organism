@@ -37,8 +37,8 @@ describe("test url analy", () => {
 
   it("test get HostName", () => {
     const test = "http://user:password@www.host.com:80/yyy*?abc=aaa";
-    const { host } = parseUrl(test);
-    expect(host).to.equal("www.host.com");
+    const { hostname } = parseUrl(test);
+    expect(hostname).to.equal("www.host.com");
   });
 
   it("test get path", () => {

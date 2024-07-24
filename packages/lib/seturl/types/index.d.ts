@@ -44,6 +44,10 @@ declare class URLType {
     /**
      * @type string
      */
+    hostname: string;
+    /**
+     * @type string
+     */
     query: string;
     /**
      * @type string
