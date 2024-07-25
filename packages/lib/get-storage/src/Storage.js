@@ -1,8 +1,12 @@
-import { toJS } from "get-object-value";
-import { OBJECT, KEYS } from "reshow-constant";
+//@ts-check
+import { toJS, forEachMap } from "get-object-value";
 
-const toInt = (d) => parseInt(d, 10);
+const toInt = (/**@type string*/ d) => parseInt(d, 10);
 
+/**
+ * @param {string} s
+ * @returns {[number, string]}
+ */
 const parseField = (s) => {
   const iStar = s.indexOf(",");
   const len = toInt(s.substring(0, iStar));
@@ -10,6 +14,9 @@ const parseField = (s) => {
   return [len, val];
 };
 
+/**
+ * @param {string} s
+ */
 const encode = (s) => {
   const _v = JSON.stringify(toJS(s));
   const vLen = _v.length;
@@ -17,17 +24,28 @@ const encode = (s) => {
   return result;
 };
 
+/**
+ * @param {string} s
+ */
 const decode = (s) => {
   const [vLen, value] = parseField(s);
   return vLen === value.length ? JSON.parse(value) : null;
 };
 
 class Storage {
+  /**
+   * @param {function} _storage
+   * @param {boolean=}  _disableEncode
+   */
   constructor(_storage, _disableEncode) {
     this._storage = _storage;
     this._de = _disableEncode;
   }
 
+  /**
+   * @param {string} k
+   * @param {any} v
+   */
   set(k, v) {
     const origV = this.get(k);
     if (v !== origV) {
@@ -39,19 +57,27 @@ class Storage {
     }
   }
 
+  /**
+   * @param {object} arr
+   */
   merge(arr) {
-    if (!arr || OBJECT !== typeof arr) {
-      return this;
-    }
-    const pKeys = KEYS(arr);
-    if (!pKeys || !pKeys.length) {
-      return this;
-    }
     let nextObj;
-    pKeys.forEach((key) => (nextObj = this.set(key, arr[key])));
+    forEachMap(
+      arr,
+      /**
+       * @param {any} v
+       * @param {string} k
+       */
+      (v, k) => {
+        nextObj = this.set(k, v);
+      }
+    );
     return nextObj;
   }
 
+  /**
+   * @param {string} k
+   */
   get(k) {
     const s = this._storage(k)();
     if (!s) {
