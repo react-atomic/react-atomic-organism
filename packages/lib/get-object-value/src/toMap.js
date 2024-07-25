@@ -30,7 +30,7 @@ export const setMap = (maybeMap, k, v) => {
 
 /**
  * @param {any} a
- * @param {any[]} path
+ * @param {any[]=} path
  * @returns {any}
  */
 const toMap = (a, path) => {
