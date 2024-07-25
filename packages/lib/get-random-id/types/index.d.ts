@@ -9,9 +9,9 @@ declare function getRandom(): string;
  */
 export function expireCallback(createTime: number | null, expireMilliseconds: number | null, run: Function | null, expireCb: Function | null): any;
 /**
- * @param {number|string} t
+ * @param {number|string} [t]
  */
-export function getDateObject(t: number | string): Date;
+export function getDateObject(t?: number | string): Date;
 /**
  * @param {number|string} [t]
  */

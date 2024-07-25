@@ -3,7 +3,7 @@
 import callfunc from "call-func";
 
 /**
- * @param {number|string} t
+ * @param {number|string} [t]
  */
 const getDateObject = (t) => (null != t ? new Date(t) : new Date());
 
