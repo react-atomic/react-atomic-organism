@@ -1,5 +1,5 @@
 {
-  "version": "0.7.0",
+  "version": "0.7.1",
   "name": "seturl",
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "reshow-unit-dom": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
@@ -40,10 +41,5 @@
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
-  "files": [
-    "types",
-    "build",
-    "package.json",
-    "README.md"
-  ]
+  "files": ["types", "build", "package.json", "README.md"]
 }

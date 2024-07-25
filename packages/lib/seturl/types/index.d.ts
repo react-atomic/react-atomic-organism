@@ -22,10 +22,10 @@ export function parseUrl(url: string): URLType;
  */
 export function unsetUrl(key: string | number, url?: string): string;
 /**
- * @param {string|SAFE_UNDEFINED} url
+ * @param {string|SAFE_UNDEFINED} [url]
  * @returns {string}
  */
-declare function resetUrl(url: string | SAFE_UNDEFINED): string;
+declare function resetUrl(url?: string | SAFE_UNDEFINED): string;
 /**
  * @param {string|number} key
  * @param {string|number} value

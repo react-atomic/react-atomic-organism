@@ -50,7 +50,7 @@ const parseUrl = (url) => {
 };
 
 /**
- * @param {string|SAFE_UNDEFINED} url
+ * @param {string|SAFE_UNDEFINED} [url]
  * @returns {string}
  */
 const resetUrl = (url) => (url ? url : doc().URL);
