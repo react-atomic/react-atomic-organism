@@ -12,12 +12,16 @@ import getPositionString from "./getPositionString";
 import { WindowOffsetType } from "./types";
 
 const fixFixedNode =
-  (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) =>
-    [move[0] + scrollInfo.left, move[1] + scrollInfo.top];
+  (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) => [
+    move[0] + scrollInfo.left,
+    move[1] + scrollInfo.top,
+  ];
 
 const fixScrollNode =
-  (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) =>
-    [move[0] - scrollInfo.left, move[1] - scrollInfo.top];
+  (/** @type ScrollInfoType*/ scrollInfo) => (/**@type number[]*/ move) => [
+    move[0] - scrollInfo.left,
+    move[1] - scrollInfo.top,
+  ];
 
 class AlignParamsType {
   /**
@@ -43,6 +47,10 @@ class AlignUIResultType {
    * @type string|undefined
    */
   loc;
+  /**
+   * @type string[]|undefined
+   */
+  locs;
   /**
    * @type [number, number]
    */
@@ -82,6 +90,7 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
       locs = locs.concat(winInfo.locs);
     }
   }
+
   if (!locs.length) {
     console.warn("Not set any locs", { toLoc });
     return false;
@@ -152,7 +161,11 @@ const alignUI = (targetEl, floatEl, alignParams, winInfo) => {
   if (!move) {
     return false;
   }
+  /**
+   * @type AlignUIResultType
+   */
   const result = {
+    locs,
     loc,
     move,
     toLoc: toLoc || loc,

@@ -32,6 +32,10 @@ declare class AlignUIResultType {
      */
     loc: string | undefined;
     /**
+     * @type string[]|undefined
+     */
+    locs: string[] | undefined;
+    /**
      * @type [number, number]
      */
     move: [number, number];
