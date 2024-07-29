@@ -1,6 +1,6 @@
 //@ts-check
 
-import { UNDEFINED, IS_ARRAY, T_UNDEFINED } from "reshow-constant";
+import { IS_ARRAY, T_UNDEFINED } from "reshow-constant";
 import callfunc from "call-func";
 import getDefaultValue from "./getDefaultValue";
 
@@ -33,7 +33,7 @@ const get = (o, path = [], defaultValue = T_UNDEFINED) => {
       const index = path[j - i];
       if (null != current) {
         const next = getter(current, /** @type any*/ (index));
-        if (UNDEFINED !== typeof next) {
+        if (null != next) {
           current = next;
         } else {
           current = getDefaultValue(defaultValue, {
