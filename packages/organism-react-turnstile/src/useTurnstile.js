@@ -7,6 +7,7 @@ import get from "get-object-value";
 import build from "reshow-build";
 import callfunc from "call-func";
 import { useTimer, useRefUpdate } from "reshow-hooks";
+import { UNDEFINED } from "reshow-constant";
 
 class TurnstileAdapter {
   /**
@@ -72,7 +73,7 @@ class TurnstileAdapter {
  * @property {string=} js
  * @property {string=} onloadCallbackName
  * @property {string=} inputWrapperId
- * @property {string=} sitekey
+ * @property {?string=} sitekey
  * @property {Function=} errorCallback
  * @property {Function=} callback
  * @property {number=} callbackTimeout
@@ -119,6 +120,9 @@ const useTurnstile = ({
   const [runCallback, stopCallback] = useTimer();
   useEffect(() => {
     if (!sitekey) {
+      if (UNDEFINED === typeof sitekey) {
+        throw "sitekey should have value or null";
+      }
       return;
     }
     if (null == lastTurnstile.current) {

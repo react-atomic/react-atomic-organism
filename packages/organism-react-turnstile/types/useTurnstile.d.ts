@@ -4,7 +4,7 @@ export type TurnstileProps = {
     js?: string | undefined;
     onloadCallbackName?: string | undefined;
     inputWrapperId?: string | undefined;
-    sitekey?: string | undefined;
+    sitekey?: (string | null) | undefined;
     errorCallback?: Function | undefined;
     callback?: Function | undefined;
     callbackTimeout?: number | undefined;
