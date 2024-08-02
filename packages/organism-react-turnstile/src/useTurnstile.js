@@ -112,10 +112,18 @@ const useTurnstile = ({
     errorCallback,
     callback,
   });
-  const lastTurnstile = useRef(new TurnstileAdapter());
+  const lastTurnstile = /**@type React.MutableRefObject<TurnstileAdapter>*/ (
+    useRef()
+  );
   const thisWin = /**@type any*/ (win());
   const [runCallback, stopCallback] = useTimer();
   useEffect(() => {
+    if (!sitekey) {
+      return;
+    }
+    if (null == lastTurnstile.current) {
+      lastTurnstile.current = new TurnstileAdapter();
+    }
     const onloadTurnstileCallback = {
       current: () => {
         const handleOnload = ({ callFrom }) => {
@@ -160,11 +168,15 @@ const useTurnstile = ({
       lastTurnstile.current.remove();
     };
   }, []);
-  return [
-    useMemo(() => build(component)({ ref: lastEl }), []),
-    (bRemove) =>
-      bRemove ? lastTurnstile.current.remove() : lastTurnstile.current.reset(),
-  ];
+  return sitekey
+    ? [
+        useMemo(() => build(component)({ ref: lastEl }), []),
+        (bRemove) =>
+          bRemove
+            ? lastTurnstile.current.remove()
+            : lastTurnstile.current.reset(),
+      ]
+    : [null, () => {}];
 };
 
 export default useTurnstile;
