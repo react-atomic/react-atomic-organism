@@ -1,6 +1,6 @@
 // @ts-check
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useCallback } from "react";
 import { js as insertJS } from "create-el";
 import { win } from "win-doc";
 import get from "get-object-value";
@@ -175,10 +175,13 @@ const useTurnstile = ({
   return sitekey
     ? [
         useMemo(() => build(component)({ ref: lastEl }), []),
-        (bRemove) =>
-          bRemove
-            ? lastTurnstile.current.remove()
-            : lastTurnstile.current.reset(),
+        useCallback(
+          (bRemove) =>
+            bRemove
+              ? lastTurnstile.current.remove()
+              : lastTurnstile.current.reset(),
+          []
+        ),
       ]
     : [null, () => {}];
 };
