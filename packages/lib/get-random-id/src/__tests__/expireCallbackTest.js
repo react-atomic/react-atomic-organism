@@ -16,88 +16,93 @@ describe("Test expireCallback", () => {
     cleanIt();
   });
 
-  it("test run with pass 0", () => {
-    timer.tick(0);
-    const acture = expireCallback(
-      0,
-      1,
-      () => "foo",
-      () => "bar"
-    );
-    expect(acture).to.equal("foo");
-  });
-
-  it("test run with pass 1", () => {
-    timer.tick(1);
-    const acture = expireCallback(
-      0,
-      1,
-      () => "foo",
-      () => "bar"
-    );
-    expect(acture).to.equal("foo");
-  });
-
-  it("test run with pass 2", () => {
-    timer.tick(2);
-    const acture = expireCallback(
-      0,
-      1,
-      () => "foo",
-      () => "bar"
-    );
-    expect(acture).to.equal("bar");
-  });
-
   it("test with expire", () => {
     const acture = expireCallback(
       0,
       -1,
-      () => "foo",
-      () => "bar"
+      () => "not expire",
+      () => "expire"
     );
-    expect(acture).to.equal("bar");
+    expect(acture).to.equal("expire");
   });
 
   it("test create time not valid", () => {
+    timer.tick(0);
     const acture = expireCallback(
       null,
       0,
-      () => "foo",
-      () => "bar"
+      () => "not expire",
+      () => "expire"
     );
-    expect(acture).to.equal("bar");
+    expect(acture).to.equal("expire");
   });
 
   it("test expire time not valid", () => {
     const acture = expireCallback(
       0,
       null,
-      () => "foo",
-      () => "bar"
+      () => "not expire",
+      () => "expire"
     );
-    expect(acture).to.equal("foo");
+    expect(acture).to.equal("expire");
   });
 
-  it("test expire time is zero and pass 1sec", () => {
-    timer.tick(1);
-    const acture = expireCallback(
-      0,
-      0,
-      () => "foo",
-      () => "bar"
-    );
-    expect(acture).to.equal("bar");
+  describe("Test expire time is set to one", () => {
+    it("test time pass 0 sec", () => {
+      timer.tick(0);
+      const acture = expireCallback(
+        0,
+        1,
+        () => "not expire",
+        () => "expire"
+      );
+      expect(acture).to.equal("not expire");
+    });
+
+    it("test time pass 1 sec", () => {
+      timer.tick(1);
+      const acture = expireCallback(
+        0,
+        1,
+        () => "not expire",
+        () => "expire"
+      );
+      expect(acture).to.equal("not expire");
+    });
+
+    it("test time pass 2 sec", () => {
+      timer.tick(2);
+      const acture = expireCallback(
+        0,
+        1,
+        () => "not expire",
+        () => "expire"
+      );
+      expect(acture).to.equal("expire");
+    });
   });
 
-  it("test expire time is zero and pass 2sec", () => {
-    timer.tick(2);
-    const acture = expireCallback(
-      0,
-      0,
-      () => "foo",
-      () => "bar"
-    );
-    expect(acture).to.equal("bar");
+  describe("Test expire time is set to zero", () => {
+    it("pass 0 sec", () => {
+      timer.tick(0);
+      const acture = expireCallback(
+        0,
+        0,
+        () => "not expire",
+        () => "expire"
+      );
+      expect(acture).to.equal("not expire");
+    });
+
+    it("pass 1 sec", () => {
+      timer.tick(1);
+      const acture = expireCallback(
+        0,
+        0,
+        () => "not expire",
+        () => "expire"
+      );
+      expect(acture).to.equal("expire");
+    });
   });
 });

@@ -22,10 +22,14 @@ const getTimestamp = (t) => +getDateObject(/** @type {number|string}*/ (t));
 const expireCallback = (createTime, expireMilliseconds, run, expireCb) => {
   const now = getTimestamp();
   let isExpire = true;
-  if (null != createTime && !isNaN(createTime)) {
-    if (null == expireMilliseconds || now - createTime <= expireMilliseconds) {
-      isExpire = false;
-    }
+  if (null == createTime || isNaN(createTime)) {
+    createTime = now -1;
+  }
+  if (null == expireMilliseconds || isNaN(expireMilliseconds)) {
+    expireMilliseconds = -1;
+  }
+  if (now - createTime <= expireMilliseconds) {
+    isExpire = false;
   }
   return isExpire ? callfunc(expireCb) : callfunc(run);
 };
