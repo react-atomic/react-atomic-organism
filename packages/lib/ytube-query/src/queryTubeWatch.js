@@ -1,6 +1,6 @@
 // @ts-check
 import { getTubeData } from "./getTubeData";
-import { jsonQuery, firstItem } from "./jsonQuery";
+import { firstItem } from "./jsonQuery";
 
 /**
  * @param {string} videoId
