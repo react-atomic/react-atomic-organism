@@ -1,6 +1,11 @@
 export default Select;
+export type SelectProps = import("../../hooks/useSelect").SelectProps;
 /**
- * @type React.FC<any>
+ * @typedef {import("../../hooks/useSelect").SelectProps} SelectProps
+ */
+/**
+ * @type React.FC<SelectProps>
  * @returns {React.ReactElement}
  */
-declare const Select: React.FC<any>;
+declare const Select: React.FC<SelectProps>;
+import * as React from "react";

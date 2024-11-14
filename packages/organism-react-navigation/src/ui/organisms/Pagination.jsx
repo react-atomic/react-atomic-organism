@@ -16,8 +16,6 @@ const getFromTo = (from, to) => {
   return plusOne(from) + "-" + plusOne(to);
 };
 
-const keys = Object.keys;
-
 const BasePage = (props) => {
   const { onPageChange, component, className, children, style, url, rel } =
     props;
@@ -128,23 +126,23 @@ const Pagination = (pg) => {
       {firstPage}
       {firstEllipsis}
       {pgList.map((v, k) => {
-        const current = pg.currentPage;
+        const current = pg.currentPageObject;
         if (v.currentPage) {
           if (
-            (current.backward &&
-              current.backward.currentPage === v.currentPage) ||
-            (current.forward && current.forward.currentPage === v.currentPage)
+            (current.backwardPageObject &&
+              current.backwardPageObject.currentPage === v.currentPage) ||
+            (current.forwardPageObject && current.forwardPageObject.currentPage === v.currentPage)
           ) {
             return null;
           }
           return <Page {...pageProps} key={k} {...v} />;
         } else {
           const re = [];
-          if (current.backward) {
+          if (current.backwardPageObject) {
             re.push(
               <Backward
                 text={backwardText}
-                {...current.backward}
+                {...current.backwardPageObject}
                 {...pageProps}
                 style={{ ...pageProps.style, display: "flex" }}
               />
@@ -163,11 +161,11 @@ const Pagination = (pg) => {
               }}
             />
           );
-          if (current.forward) {
+          if (current.forwardPageObject) {
             re.push(
               <Forward
                 isLastPage={pgList.length - 2 === k}
-                {...current.forward}
+                {...current.forwardPageObject}
                 text={forwardText}
                 {...pageProps}
                 style={{ ...pageProps.style, display: "flex" }}

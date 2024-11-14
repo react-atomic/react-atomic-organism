@@ -1,3 +1,4 @@
+// @ts-check
 import { expect } from "chai";
 
 import paginationCalculator, {
@@ -11,14 +12,9 @@ describe("Test Pagination Calculator", () => {
     const pg = new paginationCalculator();
     pg.set(TOTAL, 500);
     pg.set(PER_PAGE_NUM, 10);
-    let pgList = pg.genPageList(10);
-    //  console.log({pgList}, JSON.stringify(pgList.list));
-    /*
-    pg.set('total', 300);
-    pgList = pg.genPageList(10);
-//    console.log({pgList});
-
-*/
+    const pgList = pg.genPageList(10);
+    expect(pgList).have.keys(["currentPageObject", "lastPageObject", "list"])
+    // console.dir(pgList.list, {depth: null});
   });
 
   it("calPageList test", () => {

@@ -1,12 +1,18 @@
 // @ts-check
-import { forwardRef, useImperativeHandle } from "react";
+
+import * as React from "react";
+const { forwardRef, useImperativeHandle } = React;
 
 import SelectUI from "../molecules/SelectUI";
 import Dropdown from "../organisms/Dropdown";
 import { useSelect } from "../../hooks/useSelect";
 
 /**
- * @type React.FC<any>
+ * @typedef {import("../../hooks/useSelect").SelectProps} SelectProps
+ */
+
+/**
+ * @type React.FC<SelectProps>
  * @returns {React.ReactElement}
  */
 const Select = forwardRef((props, ref) => {
