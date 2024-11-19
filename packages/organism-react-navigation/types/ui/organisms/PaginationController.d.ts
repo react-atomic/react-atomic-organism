@@ -6,12 +6,43 @@ declare class PaginationController extends PureComponent<any, any, any> {
     constructor(props: any);
     constructor(props: any, context: any);
     getPaginationData(): {
-        currentPageObject: {
-            set(key: string, value: any): void;
-            "1": number | null;
+        pageList: {
+            navigate: string;
+            begin: number | null;
+            perPageNum: number;
+            end: number | null;
             type: string | null;
-            url: string;
+            url: string | null;
             currentPage: number;
+        }[];
+        navigate: {
+            currentPage?: {
+                navigate: string;
+                begin: number | null;
+                perPageNum: number;
+                end: number | null;
+                type: string | null;
+                url: string | null;
+                currentPage: number;
+            } | undefined;
+            firstPage?: {
+                navigate: string;
+                begin: number | null;
+                perPageNum: number;
+                end: number | null;
+                type: string | null;
+                url: string | null;
+                currentPage: number;
+            } | undefined;
+            lastPage?: {
+                navigate: string;
+                begin: number | null;
+                perPageNum: number;
+                end: number | null;
+                type: string | null;
+                url: string | null;
+                currentPage: number;
+            } | undefined;
         };
     };
     cal: paginationCalculator;

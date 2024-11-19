@@ -9,6 +9,13 @@ import {
   Item,
   Menu,
 } from "react-atomic-molecule";
+import {
+  CURRENT_PAGE,
+  BACKWARD_PAGE,
+  FORWARD_PAGE,
+  BEGIN,
+  END
+} from "../../paginationCalculator";
 
 const isArray = Array.isArray;
 const plusOne = (i) => i + 1;
@@ -28,8 +35,8 @@ const BasePage = (props) => {
     ? () =>
         callfunc(onPageChange, [
           {
-            begin: props[0],
-            end: props[1],
+            begin: props[BEGIN],
+            end: props[END],
             page: props["currentPage"],
             perPageNum: props["perPageNum"],
           },
@@ -38,13 +45,13 @@ const BasePage = (props) => {
   return build(component)(
     {
       rel,
-      title: getFromTo(props[0], props[1]),
+      title: getFromTo(props[BEGIN], props[END]),
       className: classes,
       href: url,
       style,
       onClick,
-      "data-begin": props[0],
-      "data-end": props[1],
+      "data-begin": props[BEGIN],
+      "data-end": props[END],
       "data-page": props["currentPage"],
       "data-per-page-num": props["perPageNum"],
     },
@@ -71,7 +78,7 @@ const Backward = ({ text, ...props }) => {
 const Current = (props) => (
   <Item
     style={props.style}
-    title={getFromTo(props[0], props[1])}
+    title={getFromTo(props[BEGIN], props[END])}
     className={mixClass("active", props.className)}
   >
     {props.currentPage}
@@ -100,6 +107,8 @@ const Pagination = (pg) => {
     onPageChange,
     ui,
     currentPageProps = {},
+    pageList,
+    navigate,
   } = pg;
   let firstPage;
   let firstEllipsis;
@@ -109,70 +118,61 @@ const Pagination = (pg) => {
   pageProps.onPageChange = onPageChange;
   pageProps.component = linkComponent;
   const ellipsisProps = { ...pageProps, onPageChange: null };
-  if (pg.firstPage) {
-    firstPage = <FirstPage {...pg.firstPage} {...pageProps} />;
+  if (navigate.firstPage) {
+    firstPage = <FirstPage {...navigate.firstPage} {...pageProps} />;
     firstEllipsis = <Ellipsis {...ellipsisProps} />;
   }
-  if (pg.lastPage) {
-    lastPage = <LastPage {...pg.lastPage} {...pageProps} />;
+  if (navigate.lastPage) {
+    lastPage = <LastPage {...navigate.lastPage} {...pageProps} />;
     lastEllipsis = <Ellipsis {...ellipsisProps} />;
   }
-  const pgList = pg.list;
-  if (!isArray(pgList)) {
+  if (!isArray(pageList)) {
     console.error("Page list not array", pg);
   }
+
   return (
     <Menu className="compact pagination" ui={ui}>
       {firstPage}
       {firstEllipsis}
-      {pgList.map((v, k) => {
-        const current = pg.currentPageObject;
-        if (v.currentPage) {
-          if (
-            (current.backwardPageObject &&
-              current.backwardPageObject.currentPage === v.currentPage) ||
-            (current.forwardPageObject && current.forwardPageObject.currentPage === v.currentPage)
-          ) {
-            return null;
-          }
-          return <Page {...pageProps} key={k} {...v} />;
-        } else {
-          const re = [];
-          if (current.backwardPageObject) {
-            re.push(
+      {pageList.map((v, k) => {
+        switch (v.navigate) {
+          case CURRENT_PAGE:
+            return (
+              <Current
+                {...pageProps}
+                key={k}
+                {...v}
+                {...currentPageProps}
+                style={{
+                  ...pageProps.style,
+                  ...currentPageProps.style,
+                  display: "flex",
+                }}
+              />
+            );
+          case BACKWARD_PAGE:
+            return (
               <Backward
+                {...pageProps}
+                key={k}
+                {...v}
+                style={{ ...pageProps.style, display: "flex" }}
                 text={backwardText}
-                {...current.backwardPageObject}
-                {...pageProps}
-                style={{ ...pageProps.style, display: "flex" }}
               />
             );
-          }
-          re.push(
-            <Current
-              key={k}
-              {...pageProps}
-              {...current}
-              {...currentPageProps}
-              style={{
-                ...pageProps.style,
-                ...currentPageProps.style,
-                display: "flex",
-              }}
-            />
-          );
-          if (current.forwardPageObject) {
-            re.push(
+          case FORWARD_PAGE:
+            return (
               <Forward
-                isLastPage={pgList.length - 2 === k}
-                {...current.forwardPageObject}
-                text={forwardText}
                 {...pageProps}
+                key={k}
+                {...v}
                 style={{ ...pageProps.style, display: "flex" }}
+                text={forwardText}
+                isLastPage={pageList.length - 2 === k}
               />
             );
-          }
-          return re;
+          default:
+            return <Page {...pageProps} key={k} {...v} />;
         }
       })}
       {lastEllipsis}

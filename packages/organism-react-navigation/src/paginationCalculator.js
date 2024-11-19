@@ -2,23 +2,16 @@
 import get from "get-object-value";
 import { toInt } from "to-percent-js";
 
-const keys = Object.keys;
-
-export const BEGIN = "0";
+export const BEGIN = "begin";
+export const END = "end";
 export const PER_PAGE_NUM = "perPageNum";
 export const TOTAL = "total";
 export const TOTAL_PAGE = "totalPage";
 export const CURRENT_PAGE = "currentPage";
-const CURRENT_PAGE_OBJECT = "currentPageObject";
-const END = "1";
-const BACKWARD_PAGE = "backwardPage";
-const FORWARD_PAGE = "forwardPage";
-const BACKWARD_PAGE_OBJECT = "backwardPageObject";
-const FORWARD_PAGE_OBJECT = "forwardPageObject";
-const LAST_PAGE = "lastPage";
+export const BACKWARD_PAGE = "backwardPage";
+export const FORWARD_PAGE = "forwardPage";
 const FIRST_PAGE = "firstPage";
-const FIRST_PAGE_OBJECT = "firstPageObject";
-const LAST_PAGE_OBJECT = "lastPageObject";
+const LAST_PAGE = "lastPage";
 
 /**
  * type: [begin|page]
@@ -40,22 +33,28 @@ const QUERY_PAGE = "page";
 
 class Page {
   /**
+   * @type {string}
+   */
+  navigate;
+
+  /**
+   * @type {number?}
+   * will sync need keep null
+   */
+  begin;
+
+  /**
+   * @type {number}
+   * will sync need keep null
+   */
+  perPageNum;
+
+  /**
    * @param {number=} currentPage
    * @param {string=} url
    * @param {PaginationCalculator=} cal
    */
   constructor(currentPage, url, cal) {
-    // sync keys
-    /**
-     * @type {number?}
-     * will sync need keep null
-     */
-    this[BEGIN];
-    /**
-     * @type {number}
-     * will sync need keep null
-     */
-    this[PER_PAGE_NUM];
     /**
      * @type {number}
      * will sync need keep null
@@ -80,20 +79,16 @@ class Page {
      * @type {string?}
      */
     this[TYPE] = null;
+    /**
+     * @type {string?}
+     */
     this[URL] = url || null;
+
     if (null != currentPage) {
       // force use type with page. need let currentPage have value and begin keep null
       this[CURRENT_PAGE] = currentPage;
       cal?.process(this, { ...cal.props, [BEGIN]: null });
     }
-  }
-
-  /**
-   * @param {string} key
-   * @param {any} value
-   */
-  set(key, value) {
-    this[key] = value;
   }
 }
 
@@ -134,7 +129,7 @@ export default class paginationCalculator {
     if (null != copyFrom) {
       syncKeys.forEach((key) => {
         if (null != copyFrom[key] && null == page[key]) {
-          page.set(key, copyFrom[key]);
+          page[key] = copyFrom[key];
         }
       });
     }
@@ -191,7 +186,7 @@ export default class paginationCalculator {
       console.error(
         `Page list number need greater than 2, You set to [${listNum}].`
       );
-      return { [BEGIN]: 0, [END]: 0 };
+      return { [BEGIN]: 1, [END]: 1 };
     }
     const middle = Math.floor(listNum / 2);
     page[CURRENT_PAGE] = page[CURRENT_PAGE] ?? 1;
@@ -215,8 +210,14 @@ export default class paginationCalculator {
     return { [BEGIN]: begin, [END]: end };
   }
 
+  /**
+   * @returns {Page[]}
+   */
   fixedPageList({ page, pages, liCount, listNum }) {
-    const list = keys(pages).map((key) => pages[key]);
+    /**
+     * @type {Page[]}
+     */
+    const list = pages.filter((/**@type Page*/ item) => item);
     if (listNum >= liCount[END]) {
       return list;
     }
@@ -231,19 +232,30 @@ export default class paginationCalculator {
       end = -2;
     }
 
-    if (
-      list[lastKey][CURRENT_PAGE] === page[LAST_PAGE] ||
-      list[lastKey] === CURRENT_PAGE
-    ) {
+    if (list[lastKey].navigate === CURRENT_PAGE) {
       end = undefined;
     }
     return list.slice(start, end);
   }
 
   /**
+   * @typedef {object} NavigateTS
+   * @property {Page=} currentPage
+   * @property {Page=} firstPage
+   * @property {Page=} lastPage
+   */
+
+  /**
+   * @typedef {object} PageListTS
+   * @property {Page[]} pageList
+   * @property {NavigateTS} navigate
+   */
+
+  /**
    * @param {number} listNum
    * @param {Page=} page
    * @param {string=} url
+   * @returns {PageListTS}
    */
   genPageList(listNum, page, url) {
     if (isNaN(listNum) || !listNum) {
@@ -253,13 +265,14 @@ export default class paginationCalculator {
       page = this.process(this.getPage());
     }
     this.calNav(page);
-    const result = {
-      [CURRENT_PAGE_OBJECT]: page,
+    const pages = [];
+    const navigate = {
+      [CURRENT_PAGE]: page,
     };
-    const pages = {};
     const current = page[CURRENT_PAGE];
     const liCount = this.calPageList(page, listNum);
-    pages[current] = CURRENT_PAGE; // this line can not inside foreach, licount may not contain current
+    page.navigate = CURRENT_PAGE;
+    pages[current] = page; // this line can not inside foreach, licount may not contain current
 
     for (let i = liCount[BEGIN], j = liCount[END]; i <= j; i++) {
       if (i !== current) {
@@ -268,39 +281,34 @@ export default class paginationCalculator {
     }
     if (page[FIRST_PAGE]) {
       if (get(liCount, [BEGIN], -1) > page[FIRST_PAGE]) {
-        const firstPage = this.getPage(page[FIRST_PAGE], url, this);
+        const firstPageObj = this.getPage(page[FIRST_PAGE], url, this);
+        firstPageObj.navigate = FIRST_PAGE;
         if (2 === liCount[BEGIN]) {
           // index 1 is mean first page
-          pages[1] = firstPage;
+          pages[1] = firstPageObj;
         } else {
-          result[FIRST_PAGE_OBJECT] = firstPage;
+          navigate[FIRST_PAGE] = firstPageObj;
         }
       }
     }
     if (page[FORWARD_PAGE]) {
-      result[CURRENT_PAGE_OBJECT][FORWARD_PAGE_OBJECT] = this.getPage(
-        page[FORWARD_PAGE],
-        url,
-        this
-      );
+      pages[page[FORWARD_PAGE]].navigate = FORWARD_PAGE;
     }
     if (page[BACKWARD_PAGE]) {
-      result[CURRENT_PAGE_OBJECT][BACKWARD_PAGE_OBJECT] = this.getPage(
-        page[BACKWARD_PAGE],
-        url,
-        this
-      );
+      pages[page[BACKWARD_PAGE]].navigate = BACKWARD_PAGE;
     }
-    if (page && page[LAST_PAGE] && null == pages[page[LAST_PAGE]]) {
+    if (page[LAST_PAGE] && null == pages[page[LAST_PAGE]]) {
       const lastPage = this.getPage(page[LAST_PAGE], url, this);
       if (liCount[END] === page[LAST_PAGE]) {
         pages[liCount[END]] = lastPage;
       } else {
-        result[LAST_PAGE_OBJECT] = lastPage;
+        navigate[LAST_PAGE] = lastPage;
       }
     }
-    result.list = this.fixedPageList({ page, pages, listNum, liCount });
-    return result;
+    return {
+      navigate,
+      pageList: this.fixedPageList({ page, pages, listNum, liCount }),
+    };
   }
 
   /**

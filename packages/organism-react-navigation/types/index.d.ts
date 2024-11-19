@@ -14,5 +14,11 @@ export { default as SelectField } from "./ui/molecules/SelectField";
 export { default as SelectUI } from "./ui/molecules/SelectUI";
 export { default as paginationCalculator } from "./paginationCalculator";
 export { default as defaultLocator } from "./defaultLocator";
+export namespace options {
+    export { TOTAL };
+    export { PER_PAGE_NUM };
+}
+import { TOTAL } from "./paginationCalculator";
+import { PER_PAGE_NUM } from "./paginationCalculator";
 export { default as HorizontalToVerticalMenu, getHorizontalToVerticalMenu } from "./ui/organisms/HorizontalToVerticalMenu";
 export { default as navigationStore, navigationDispatch } from "./stores/navigationStore";

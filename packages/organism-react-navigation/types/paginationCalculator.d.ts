@@ -1,8 +1,11 @@
-export const BEGIN: "0";
+export const BEGIN: "begin";
+export const END: "end";
 export const PER_PAGE_NUM: "perPageNum";
 export const TOTAL: "total";
 export const TOTAL_PAGE: "totalPage";
 export const CURRENT_PAGE: "currentPage";
+export const BACKWARD_PAGE: "backwardPage";
+export const FORWARD_PAGE: "forwardPage";
 /**
  * @typedef {object} PageObject
  */
@@ -40,19 +43,39 @@ export default class paginationCalculator {
         [BEGIN]: number;
         [END]: number;
     };
+    /**
+     * @returns {Page[]}
+     */
     fixedPageList({ page, pages, liCount, listNum }: {
         page: any;
         pages: any;
         liCount: any;
         listNum: any;
-    }): any[];
+    }): Page[];
+    /**
+     * @typedef {object} NavigateTS
+     * @property {Page=} currentPage
+     * @property {Page=} firstPage
+     * @property {Page=} lastPage
+     */
+    /**
+     * @typedef {object} PageListTS
+     * @property {Page[]} pageList
+     * @property {NavigateTS} navigate
+     */
     /**
      * @param {number} listNum
      * @param {Page=} page
      * @param {string=} url
+     * @returns {PageListTS}
      */
     genPageList(listNum: number, page?: Page | undefined, url?: string | undefined): {
-        currentPageObject: Page;
+        pageList: Page[];
+        navigate: {
+            currentPage?: Page | undefined;
+            firstPage?: Page | undefined;
+            lastPage?: Page | undefined;
+        };
     };
     /**
      * @param {Page} page
@@ -86,20 +109,31 @@ declare class Page {
      */
     constructor(currentPage?: number | undefined, url?: string | undefined, cal?: PaginationCalculator | undefined);
     /**
-     * @param {string} key
-     * @param {any} value
+     * @type {string}
      */
-    set(key: string, value: any): void;
+    navigate: string;
+    /**
+     * @type {number?}
+     * will sync need keep null
+     */
+    begin: number | null;
+    /**
+     * @type {number}
+     * will sync need keep null
+     */
+    perPageNum: number;
     /**
      * @type {number?}
      */
-    "1": number | null;
+    end: number | null;
     /**
      * @type {string?}
      */
     type: string | null;
-    url: string;
+    /**
+     * @type {string?}
+     */
+    url: string | null;
     currentPage: number;
 }
-declare const END: "1";
 export {};

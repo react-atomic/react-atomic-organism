@@ -51,7 +51,7 @@ class PaginationController extends PureComponent {
     } = this.props;
     const data = this.getPaginationData();
     if (hideOnlyOne) {
-      const liLen = get(data.list, ["length"], 0);
+      const liLen = get(data.pageList, ["length"], 0);
       if (liLen < 2) {
         return null;
       }
