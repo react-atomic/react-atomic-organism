@@ -8,9 +8,9 @@ declare class PaginationController extends PureComponent<any, any, any> {
     getPaginationData(): {
         pageList: {
             navigate: string;
-            begin: number | null;
+            begin: number;
+            end: number;
             perPageNum: number;
-            end: number | null;
             type: string | null;
             url: string | null;
             currentPage: number;
@@ -18,27 +18,27 @@ declare class PaginationController extends PureComponent<any, any, any> {
         navigate: {
             currentPage?: {
                 navigate: string;
-                begin: number | null;
+                begin: number;
+                end: number;
                 perPageNum: number;
-                end: number | null;
                 type: string | null;
                 url: string | null;
                 currentPage: number;
             } | undefined;
             firstPage?: {
                 navigate: string;
-                begin: number | null;
+                begin: number;
+                end: number;
                 perPageNum: number;
-                end: number | null;
                 type: string | null;
                 url: string | null;
                 currentPage: number;
             } | undefined;
             lastPage?: {
                 navigate: string;
-                begin: number | null;
+                begin: number;
+                end: number;
                 perPageNum: number;
-                end: number | null;
                 type: string | null;
                 url: string | null;
                 currentPage: number;

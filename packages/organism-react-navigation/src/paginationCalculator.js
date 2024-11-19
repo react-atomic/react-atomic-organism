@@ -38,14 +38,17 @@ class Page {
   navigate;
 
   /**
-   * @type {number?}
-   * will sync need keep null
+   * @type {number}
    */
   begin;
 
   /**
    * @type {number}
-   * will sync need keep null
+   */
+  end;
+
+  /**
+   * @type {number}
    */
   perPageNum;
 
@@ -67,10 +70,6 @@ class Page {
     this[CURRENT_PAGE];
 
     // non-sync keys
-    /**
-     * @type {number?}
-     */
-    this[END] = null;
     /**
      * @type {number}
      */

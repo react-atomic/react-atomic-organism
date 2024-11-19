@@ -113,19 +113,17 @@ declare class Page {
      */
     navigate: string;
     /**
-     * @type {number?}
-     * will sync need keep null
+     * @type {number}
      */
-    begin: number | null;
+    begin: number;
     /**
      * @type {number}
-     * will sync need keep null
+     */
+    end: number;
+    /**
+     * @type {number}
      */
     perPageNum: number;
-    /**
-     * @type {number?}
-     */
-    end: number | null;
     /**
      * @type {string?}
      */
