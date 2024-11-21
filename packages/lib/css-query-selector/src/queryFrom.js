@@ -12,7 +12,7 @@ const arrayFrom = (a) => (a ? [...a] : []);
 /**
  * @param {HTMLElement[]} all
  * @param {HTMLElement} el
- * @returns {HTMLElement}
+ * @returns {HTMLElement=}
  */
 const findHit = (all, el) => {
   let hit;
@@ -35,15 +35,16 @@ const findHit = (all, el) => {
 
 /**
  * @param {any} base
- * @returns {QueryUtil}
+ * @returns {QueryUtil=}
  */
-const queryFrom = (base) => {
+export default function queryFrom(base) {
   if (!base) {
     return;
   }
 
   /**
-   * @type {null|CallableFunction}
+   * @type {CallableFunction}
+   * @returns {HTMLElement}
    */
   const myBase = FUNCTION === typeof base ? base : () => defaultQuery?.el(base);
 
@@ -61,20 +62,24 @@ const queryFrom = (base) => {
 
   /**
    * @param {string|string[]} sel
-   * @returns {HTMLElement[]}
+   * @returns {HTMLElement[]|void}
    */
-  const queryAll = (sel) =>
-    sel &&
-    (STRING === typeof sel
-      ? _all(/** @type {string}*/ (sel))
-      : /** @type {string[]}*/ (sel).reduce(
+  const queryAll = (sel) => {
+    if (sel) {
+      if (STRING === typeof sel) {
+        return _all(/** @type {string}*/ (sel));
+      } else {
+        return /** @type {string[]}*/ (sel).reduce(
           /**
            * @param {HTMLElement[]} accumulator
            * @param {string} currentValue
            */
           (accumulator, currentValue) => accumulator.concat(_all(currentValue)),
           []
-        ));
+        );
+      }
+    }
+  };
 
   /**
    * @param {string|HTMLElement} el
@@ -88,7 +93,7 @@ const queryFrom = (base) => {
   /**
    * @param {HTMLElement} el
    * @param {string} ancestor
-   * @returns {Element|boolean}
+   * @returns {Element=}
    */
   const _queryAncestorPolyfill = (el, ancestor) => {
     let lastHit;
@@ -112,7 +117,7 @@ const queryFrom = (base) => {
   /**
    * @param {HTMLElement} el
    * @param {string} ancestor
-   * @returns {Element|boolean}
+   * @returns {Element|undefined|null|boolean}
    */
   const queryAncestor = (el, ancestor) => {
     el = queryEl(el);
@@ -132,8 +137,4 @@ const queryFrom = (base) => {
     one: queryOne,
   };
 };
-
-const defaultQuery = queryFrom(doc);
-
-export default queryFrom;
-export { defaultQuery };
+export const defaultQuery = queryFrom(doc);

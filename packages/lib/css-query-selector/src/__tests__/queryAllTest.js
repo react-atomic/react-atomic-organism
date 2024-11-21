@@ -17,7 +17,7 @@ describe("Test query all", () => {
     const acture2 = query.all(undefined);
     const acture3 = query.all();
     expect([acture1, acture2, acture3]).to.deep.equal([
-      null,
+      undefined,
       undefined,
       undefined,
     ]);

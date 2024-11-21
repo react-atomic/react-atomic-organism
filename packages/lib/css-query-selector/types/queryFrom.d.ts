@@ -1,10 +1,3 @@
-export default queryFrom;
-export type QueryUtil = {
-    all: Function;
-    ancestor: Function;
-    el: Function;
-    one: Function;
-};
 /**
  * @typedef {object} QueryUtil
  * @property {Function} all
@@ -14,12 +7,18 @@ export type QueryUtil = {
  */
 /**
  * @param {any} base
- * @returns {QueryUtil}
+ * @returns {QueryUtil=}
  */
-declare function queryFrom(base: any): QueryUtil;
+export default function queryFrom(base: any): QueryUtil | undefined;
 export namespace defaultQuery {
-    const all: Function;
-    const ancestor: Function;
-    const el: Function;
-    const one: Function;
+    let all: Function;
+    let ancestor: Function;
+    let el: Function;
+    let one: Function;
 }
+export type QueryUtil = {
+    all: Function;
+    ancestor: Function;
+    el: Function;
+    one: Function;
+};
