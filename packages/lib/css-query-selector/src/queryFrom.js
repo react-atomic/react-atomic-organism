@@ -1,6 +1,6 @@
 //@ts-check
 
-import { doc } from "win-doc";
+import { doc, hasWin } from "win-doc";
 import { FUNCTION, STRING } from "reshow-constant";
 
 /**
@@ -44,9 +44,13 @@ export default function queryFrom(base) {
 
   /**
    * @type {CallableFunction}
-   * @returns {HTMLElement}
+   * @returns {HTMLElement=}
    */
-  const myBase = FUNCTION === typeof base ? base : () => defaultQuery?.el(base);
+  const myBase = hasWin()
+    ? FUNCTION === typeof base
+      ? base
+      : () => defaultQuery?.el(base)
+    : () => undefined;
 
   /**
    * @param {string} sel
@@ -136,5 +140,5 @@ export default function queryFrom(base) {
     el: queryEl,
     one: queryOne,
   };
-};
+}
 export const defaultQuery = queryFrom(doc);
