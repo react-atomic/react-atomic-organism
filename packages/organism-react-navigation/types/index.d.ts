@@ -18,6 +18,8 @@ export namespace options {
     export { TOTAL };
     export { PER_PAGE_NUM };
 }
+export type PageListTS = import("./paginationCalculator").PageListTS;
+export type NavigateTS = import("./paginationCalculator").NavigateTS;
 import { TOTAL } from "./paginationCalculator";
 import { PER_PAGE_NUM } from "./paginationCalculator";
 export { default as HorizontalToVerticalMenu, getHorizontalToVerticalMenu } from "./ui/organisms/HorizontalToVerticalMenu";

@@ -26,6 +26,19 @@ const QUERY_B = "b";
 const QUERY_PAGE = "page";
 
 /**
+ * @typedef {object} NavigateTS
+ * @property {Page=} currentPage
+ * @property {Page=} firstPage
+ * @property {Page=} lastPage
+ */
+
+/**
+ * @typedef {object} PageListTS
+ * @property {Page[]} pageList
+ * @property {NavigateTS} navigate
+ */
+
+/**
  * @typedef {object} PaginationCalculator
  * @property {Function} process
  * @property {Record<string,any>} props
@@ -236,19 +249,6 @@ export default class paginationCalculator {
     }
     return list.slice(start, end);
   }
-
-  /**
-   * @typedef {object} NavigateTS
-   * @property {Page=} currentPage
-   * @property {Page=} firstPage
-   * @property {Page=} lastPage
-   */
-
-  /**
-   * @typedef {object} PageListTS
-   * @property {Page[]} pageList
-   * @property {NavigateTS} navigate
-   */
 
   /**
    * @param {number} listNum

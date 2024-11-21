@@ -5,46 +5,7 @@ declare class PaginationController extends PureComponent<any, any, any> {
     };
     constructor(props: any);
     constructor(props: any, context: any);
-    getPaginationData(): {
-        pageList: {
-            navigate: string;
-            begin: number;
-            end: number;
-            perPageNum: number;
-            type: string | null;
-            url: string | null;
-            currentPage: number;
-        }[];
-        navigate: {
-            currentPage?: {
-                navigate: string;
-                begin: number;
-                end: number;
-                perPageNum: number;
-                type: string | null;
-                url: string | null;
-                currentPage: number;
-            } | undefined;
-            firstPage?: {
-                navigate: string;
-                begin: number;
-                end: number;
-                perPageNum: number;
-                type: string | null;
-                url: string | null;
-                currentPage: number;
-            } | undefined;
-            lastPage?: {
-                navigate: string;
-                begin: number;
-                end: number;
-                perPageNum: number;
-                type: string | null;
-                url: string | null;
-                currentPage: number;
-            } | undefined;
-        };
-    };
+    getPaginationData(): import("../../paginationCalculator").PageListTS;
     cal: paginationCalculator;
     render(): import("react/jsx-runtime").JSX.Element;
 }

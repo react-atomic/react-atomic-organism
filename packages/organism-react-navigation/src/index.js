@@ -28,8 +28,14 @@ export { default as SelectUI } from "./ui/molecules/SelectUI";
 export { default as paginationCalculator } from "./paginationCalculator";
 export { default as defaultLocator } from "./defaultLocator";
 
-import { TOTAL, PER_PAGE_NUM } from "./paginationCalculator";
+/**
+ * @typedef {import("./paginationCalculator").PageListTS} PageListTS
+ */
 
+/**
+ * @typedef {import("./paginationCalculator").NavigateTS} NavigateTS
+ */
+import { TOTAL, PER_PAGE_NUM } from "./paginationCalculator";
 export const options = {
   TOTAL,
   PER_PAGE_NUM,

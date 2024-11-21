@@ -53,30 +53,12 @@ export default class paginationCalculator {
         listNum: any;
     }): Page[];
     /**
-     * @typedef {object} NavigateTS
-     * @property {Page=} currentPage
-     * @property {Page=} firstPage
-     * @property {Page=} lastPage
-     */
-    /**
-     * @typedef {object} PageListTS
-     * @property {Page[]} pageList
-     * @property {NavigateTS} navigate
-     */
-    /**
      * @param {number} listNum
      * @param {Page=} page
      * @param {string=} url
      * @returns {PageListTS}
      */
-    genPageList(listNum: number, page?: Page | undefined, url?: string | undefined): {
-        pageList: Page[];
-        navigate: {
-            currentPage?: Page | undefined;
-            firstPage?: Page | undefined;
-            lastPage?: Page | undefined;
-        };
-    };
+    genPageList(listNum: number, page?: Page | undefined, url?: string | undefined): PageListTS;
     /**
      * @param {Page} page
      * @param {Page=} copyFrom
@@ -91,11 +73,31 @@ export default class paginationCalculator {
      */
     getPage(currentPage?: any | undefined, url?: string | undefined, cal?: PaginationCalculator | undefined): Page;
 }
+export type NavigateTS = {
+    currentPage?: Page | undefined;
+    firstPage?: Page | undefined;
+    lastPage?: Page | undefined;
+};
+export type PageListTS = {
+    pageList: Page[];
+    navigate: NavigateTS;
+};
 export type PaginationCalculator = {
     process: Function;
     props: Record<string, any>;
 };
 export type PageObject = object;
+/**
+ * @typedef {object} NavigateTS
+ * @property {Page=} currentPage
+ * @property {Page=} firstPage
+ * @property {Page=} lastPage
+ */
+/**
+ * @typedef {object} PageListTS
+ * @property {Page[]} pageList
+ * @property {NavigateTS} navigate
+ */
 /**
  * @typedef {object} PaginationCalculator
  * @property {Function} process
