@@ -1,3 +1,6 @@
+// @ts-check
+
+import * as React from "react";
 import callfunc from "call-func";
 import get from "get-object-value";
 
@@ -9,21 +12,17 @@ import {
   Item,
   Menu,
 } from "react-atomic-molecule";
-import {
-  CURRENT_PAGE,
-  BACKWARD_PAGE,
-  FORWARD_PAGE,
-  BEGIN,
-  END
-} from "../../paginationCalculator";
+import { options } from "count-pagination";
+
+const { CURRENT_PAGE, BACKWARD_PAGE, FORWARD_PAGE, BEGIN, END } = options;
 
 const isArray = Array.isArray;
-const plusOne = (i) => i + 1;
-const getFromTo = (from, to) => {
+const plusOne = (/**@type number*/ i) => i + 1;
+const getFromTo = (/**@type number*/ from, /**@type number*/ to) => {
   return plusOne(from) + "-" + plusOne(to);
 };
 
-const BasePage = (props) => {
+const BasePage = (/**@type any*/ props) => {
   const { onPageChange, component, className, children, style, url, rel } =
     props;
   const classes = mixClass(
@@ -59,7 +58,9 @@ const BasePage = (props) => {
   );
 };
 
-const Page = (props) => <BasePage {...props}>{props.currentPage}</BasePage>;
+const Page = (/**@type any*/ props) => (
+  <BasePage {...props}>{props.currentPage}</BasePage>
+);
 
 const Forward = ({ isLastPage, text, ...props }) => (
   <BasePage {...props} rel="next">
@@ -75,7 +76,7 @@ const Backward = ({ text, ...props }) => {
   );
 };
 
-const Current = (props) => (
+const Current = (/**@type any*/ props) => (
   <Item
     style={props.style}
     title={getFromTo(props[BEGIN], props[END])}
@@ -85,11 +86,11 @@ const Current = (props) => (
   </Item>
 );
 
-const FirstPage = (props) => <Page {...props} />;
+const FirstPage = (/**@type any*/ props) => <Page {...props} />;
 
-const LastPage = (props) => <Page {...props} />;
+const LastPage = (/**@type any*/ props) => <Page {...props} />;
 
-const Ellipsis = (props) => (
+const Ellipsis = (/**@type any*/ props) => (
   <Item
     className="disabled ellipsis"
     style={{ minWidth: 0, width: 0, ...props.style }}
@@ -98,7 +99,7 @@ const Ellipsis = (props) => (
   </Item>
 );
 
-const Pagination = (pg) => {
+const Pagination = (/**@type any*/ pg) => {
   injects = useLazyInject(InjectStyles, injects);
   const {
     linkComponent = "a",
@@ -134,7 +135,7 @@ const Pagination = (pg) => {
     <Menu className="compact pagination" ui={ui}>
       {firstPage}
       {firstEllipsis}
-      {pageList.map((v, k) => {
+      {pageList.map((/**@type any*/ v, /**@type number*/ k) => {
         switch (v.navigate) {
           case CURRENT_PAGE:
             return (

@@ -7,9 +7,12 @@ const defaultObj = { __null: true };
 /**
  * @param {object|undefined} w
  * @param {any} def
- * @returns {document}
+ * @returns {Document}
  */
 const doc = (w = T_UNDEFINED, def = defaultObj) => {
+  /**
+   * @type {Document}
+   */
   const oDoc = (w || win()).document;
   return UNDEFINED !== typeof oDoc ? oDoc : def;
 };

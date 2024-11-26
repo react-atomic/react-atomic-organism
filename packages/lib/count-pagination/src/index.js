@@ -1,17 +1,28 @@
 // @ts-check
+
 import get from "get-object-value";
 import { toInt } from "to-percent-js";
 
-export const BEGIN = "begin";
-export const END = "end";
-export const PER_PAGE_NUM = "perPageNum";
-export const TOTAL = "total";
-export const TOTAL_PAGE = "totalPage";
-export const CURRENT_PAGE = "currentPage";
-export const BACKWARD_PAGE = "backwardPage";
-export const FORWARD_PAGE = "forwardPage";
+const BEGIN = "begin";
+const END = "end";
+const PER_PAGE_NUM = "perPageNum";
+const TOTAL = "total";
+const TOTAL_PAGE = "totalPage";
+const CURRENT_PAGE = "currentPage";
+const BACKWARD_PAGE = "backwardPage";
+const FORWARD_PAGE = "forwardPage";
+export const options = {
+  BEGIN,
+  END,
+  TOTAL,
+  PER_PAGE_NUM,
+  CURRENT_PAGE,
+  BACKWARD_PAGE,
+  FORWARD_PAGE,
+};
 const FIRST_PAGE = "firstPage";
 const LAST_PAGE = "lastPage";
+const NAVIGATE = "navigate";
 
 /**
  * type: [begin|page]
@@ -44,65 +55,56 @@ const QUERY_PAGE = "page";
  * @property {Record<string,any>} props
  */
 
-class Page {
+const Page = {
+  /**
+   * @type {number?}
+   * will sync need keep null
+   */
+  [BEGIN]: null,
+
+  /**
+   * @type {number?}
+   * will sync need keep null
+   */
+  [PER_PAGE_NUM]: null,
+
+  /**
+   * @type {number?}
+   * will sync need keep null
+   */
+  [TOTAL]: null,
+  /**
+   * @type {number?}
+   * will sync need keep null
+   */
+  [CURRENT_PAGE]: null,
+
+  // non-sync keys
   /**
    * @type {string}
    */
-  navigate;
+  [NAVIGATE]: "",
 
   /**
    * @type {number}
    */
-  begin;
+  [END]: 1,
 
   /**
    * @type {number}
    */
-  end;
+  [TOTAL_PAGE]: 0,
 
   /**
-   * @type {number}
+   * @type {string?}
    */
-  perPageNum;
+  [TYPE]: null,
 
   /**
-   * @param {number=} currentPage
-   * @param {string=} url
-   * @param {PaginationCalculator=} cal
+   * @type {string?}
    */
-  constructor(currentPage, url, cal) {
-    /**
-     * @type {number}
-     * will sync need keep null
-     */
-    this[TOTAL];
-    /**
-     * @type {number}
-     * will sync need keep null
-     */
-    this[CURRENT_PAGE];
-
-    // non-sync keys
-    /**
-     * @type {number}
-     */
-    this[TOTAL_PAGE];
-    /**
-     * @type {string?}
-     */
-    this[TYPE] = null;
-    /**
-     * @type {string?}
-     */
-    this[URL] = url || null;
-
-    if (null != currentPage) {
-      // force use type with page. need let currentPage have value and begin keep null
-      this[CURRENT_PAGE] = currentPage;
-      cal?.process(this, { ...cal.props, [BEGIN]: null });
-    }
-  }
-}
+  [URL]: null,
+};
 
 /**
  * @typedef {object} PageObject
@@ -152,7 +154,9 @@ export default class paginationCalculator {
    * @returns {Page}
    */
   calBegin(page) {
-    page[TOTAL_PAGE] = Math.ceil(page[TOTAL] / page[PER_PAGE_NUM]);
+    const total = /**@type number*/ (page[TOTAL]);
+    const perPageNum = /**@type number*/ (page[PER_PAGE_NUM]);
+    page[TOTAL_PAGE] = Math.ceil(total / perPageNum);
     if (isNaN(page[TOTAL_PAGE]) || 1 > page[TOTAL_PAGE]) {
       page[TOTAL_PAGE] = 1;
     }
@@ -162,13 +166,13 @@ export default class paginationCalculator {
     if (page[CURRENT_PAGE] > page[TOTAL_PAGE]) {
       page[CURRENT_PAGE] = page[TOTAL_PAGE];
     }
-    page[BEGIN] = (page[CURRENT_PAGE] - 1) * page[PER_PAGE_NUM];
-    page[END] = page[BEGIN] + page[PER_PAGE_NUM] - 1;
+    page[BEGIN] = (page[CURRENT_PAGE] - 1) * perPageNum;
+    page[END] = page[BEGIN] + perPageNum - 1;
     const fixTotal = () => (page[TOTAL] ? page[TOTAL] - 1 : 0);
-    if (page[BEGIN] >= page[TOTAL]) {
+    if (page[BEGIN] >= total) {
       page[BEGIN] = fixTotal();
     }
-    if (page[END] >= page[TOTAL]) {
+    if (page[END] >= total) {
       page[END] = fixTotal();
     }
     return page;
@@ -178,12 +182,13 @@ export default class paginationCalculator {
    * @param {Page} page
    */
   calNav(page) {
+    const currentPage = /**@type number*/ (page[CURRENT_PAGE]);
     if (1 !== page[CURRENT_PAGE]) {
-      page[BACKWARD_PAGE] = page[CURRENT_PAGE] - 1;
+      page[BACKWARD_PAGE] = currentPage - 1;
       page[FIRST_PAGE] = 1;
     }
-    if (page[TOTAL_PAGE] > page[CURRENT_PAGE]) {
-      page[FORWARD_PAGE] = page[CURRENT_PAGE] + 1;
+    if (page[TOTAL_PAGE] > currentPage) {
+      page[FORWARD_PAGE] = currentPage + 1;
       page[LAST_PAGE] = page[TOTAL_PAGE];
     }
   }
@@ -268,7 +273,7 @@ export default class paginationCalculator {
     const navigate = {
       [CURRENT_PAGE]: page,
     };
-    const current = page[CURRENT_PAGE];
+    const current = /**@type number*/ (page[CURRENT_PAGE]);
     const liCount = this.calPageList(page, listNum);
     page.navigate = CURRENT_PAGE;
     pages[current] = page; // this line can not inside foreach, licount may not contain current
@@ -327,7 +332,8 @@ export default class paginationCalculator {
       console.error(`Per page number can't set to empty.`);
     }
     if (null != page[BEGIN]) {
-      page[CURRENT_PAGE] = Math.floor(page[BEGIN] / page[PER_PAGE_NUM]) + 1;
+      const perPageNum = /**@type number*/ (page[PER_PAGE_NUM]);
+      page[CURRENT_PAGE] = Math.floor(page[BEGIN] / perPageNum) + 1;
       page[TYPE] = TYPE_BEGIN;
     } else if (null != page[CURRENT_PAGE]) {
       page[TYPE] = TYPE_PAGE;
@@ -345,6 +351,14 @@ export default class paginationCalculator {
    * @returns {Page}
    */
   getPage(currentPage, url, cal) {
-    return new Page(currentPage, url, cal);
+    const o = { ...Page };
+    if (null != url) {
+      o[URL] = url;
+    }
+    if (null != currentPage) {
+      o[CURRENT_PAGE] = currentPage;
+      cal?.process(o, { ...cal.props, [BEGIN]: null });
+    }
+    return o;
   }
 }

@@ -5,9 +5,9 @@ declare class PaginationController extends PureComponent<any, any, any> {
     };
     constructor(props: any);
     constructor(props: any, context: any);
-    getPaginationData(): import("../../paginationCalculator").PageListTS;
+    getPaginationData(): import("count-pagination").PageListTS;
     cal: paginationCalculator;
     render(): import("react/jsx-runtime").JSX.Element;
 }
 import { PureComponent } from "react";
-import paginationCalculator from "../../paginationCalculator";
+import paginationCalculator from "count-pagination";

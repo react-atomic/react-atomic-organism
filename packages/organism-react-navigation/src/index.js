@@ -25,21 +25,7 @@ export { default as SelectField } from "./ui/molecules/SelectField";
 export { default as SelectUI } from "./ui/molecules/SelectUI";
 
 // library
-export { default as paginationCalculator } from "./paginationCalculator";
 export { default as defaultLocator } from "./defaultLocator";
-
-/**
- * @typedef {import("./paginationCalculator").PageListTS} PageListTS
- */
-
-/**
- * @typedef {import("./paginationCalculator").NavigateTS} NavigateTS
- */
-import { TOTAL, PER_PAGE_NUM } from "./paginationCalculator";
-export const options = {
-  TOTAL,
-  PER_PAGE_NUM,
-};
 
 // Stores
 export {

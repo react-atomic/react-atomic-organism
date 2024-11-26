@@ -1,15 +1,21 @@
+// @ts-check
 import { PureComponent } from "react";
 import { SemanticUI } from "react-atomic-molecule";
 import { toInt } from "to-percent-js";
 import get from "get-object-value";
+import * as React from "react";
 
 import Pagination from "../organisms/Pagination";
 import paginationCalculator, {
+  options
+} from "count-pagination";
+
+const {
   TOTAL,
   BEGIN,
   CURRENT_PAGE,
   PER_PAGE_NUM,
-} from "../../paginationCalculator";
+} = options; 
 
 class PaginationController extends PureComponent {
   static defaultProps = { perPageNum: 10 };

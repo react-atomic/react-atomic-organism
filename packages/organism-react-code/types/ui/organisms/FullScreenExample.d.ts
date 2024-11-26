@@ -11,4 +11,4 @@ declare function FullScreenExample({ button, anchorLocator, updateUrl, resetUrl,
     id: any;
     onClose: any;
     path: any;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

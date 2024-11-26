@@ -63,7 +63,7 @@ class Accordion extends PureComponent {
     const classes = mixClass("accordion", className);
     return (
       <SemanticUI className={classes}>
-        {items.map(
+        {(items || []).map(
           /**
            * @param {any} item
            * @param {number} key

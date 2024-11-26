@@ -1,12 +1,8 @@
 // @ts-check
 import { expect } from "chai";
 
-import paginationCalculator, {
-  BEGIN,
-  END,
-  PER_PAGE_NUM,
-  TOTAL,
-} from "../paginationCalculator";
+import paginationCalculator, { options } from "../index";
+const { BEGIN, END, PER_PAGE_NUM, TOTAL } = options;
 
 describe("Test Pagination Calculator", () => {
   it("basic test", () => {
@@ -14,16 +10,16 @@ describe("Test Pagination Calculator", () => {
     pg.set(TOTAL, 500);
     pg.set(PER_PAGE_NUM, 10);
     const pgList = pg.genPageList(10);
-    // console.dir(pgList.list, {depth: null});
-    // console.dir(pgList.pageObject, {depth: null});
-    expect(pgList).have.keys(["navigate", "pageList"])
-    expect(pgList.navigate).have.keys(["currentPage", "lastPage"])
+    // console.dir(pgList.pageList, {depth: null});
+    // console.dir(pgList.navigate, {depth: null});
+    expect(pgList).have.keys(["navigate", "pageList"]);
+    expect(pgList.navigate).have.keys(["currentPage", "lastPage"]);
   });
 
   it("calPageList test", () => {
     const pg = new paginationCalculator();
     const page = pg.getPage();
-    page.begin = 1
+    page.begin = 1;
     const liCount = pg.calPageList(page, 3);
     expect(liCount).to.deep.equal({ [BEGIN]: 1, [END]: 1 });
   });
@@ -46,6 +42,11 @@ describe("Test Pagination Calculator", () => {
     const page = pg.getPage();
     page.perPageNum = 10;
     pg.process(page);
-    expect(page).to.include({ [BEGIN]: 0, [END]: 0, currentPage: 1, type: "page" });
+    expect(page).to.include({
+      [BEGIN]: 0,
+      [END]: 0,
+      currentPage: 1,
+      type: "page",
+    });
   });
 });

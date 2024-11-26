@@ -1,5 +1,5 @@
 {
-  "version": "0.17.5",
+  "version": "0.18.0",
   "name": "organism-react-code",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
   "author": "Hill <hill@kimo.com>",
   "license": "MIT",
   "dependencies": {
+    "anchor-lib": "*",
     "call-func": "*",
     "marked": "^4.x",
     "organism-react-ajax": "*",
@@ -31,6 +32,7 @@
     "reshow-unit": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },

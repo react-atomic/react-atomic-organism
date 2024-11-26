@@ -1,7 +1,7 @@
 /**
  * @param {object|undefined} w
  * @param {any} def
- * @returns {document}
+ * @returns {Document}
  */
 export function doc(w?: object | undefined, def?: any): Document;
 /**
