@@ -703,7 +703,7 @@ const useFilter = (props) => {
  * @type React.ForwardRefExoticComponent<?, FilterProps>
  * @returns {React.ReactElement}
  */
-export const Filter = forwardRef((props, ref) => {
+export const Filter = forwardRef((/**@type FilterProps*/ props, ref) => {
   const { expose, component, name, isOpen, nextProps, restProps } =
     useFilter(props);
   useImperativeHandle(ref, () => expose, []);

@@ -10,12 +10,14 @@ declare class Storage {
     /**
      * @param {string} k
      * @param {any} v
+     * @returns {Storage}
      */
     set(k: string, v: any): Storage;
     /**
      * @param {object} arr
+     * @returns {Storage}
      */
-    merge(arr: object): undefined;
+    merge(arr: object): Storage;
     /**
      * @param {string} k
      */

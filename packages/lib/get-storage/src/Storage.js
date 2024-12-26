@@ -45,6 +45,7 @@ class Storage {
   /**
    * @param {string} k
    * @param {any} v
+   * @returns {Storage}
    */
   set(k, v) {
     const origV = this.get(k);
@@ -59,6 +60,7 @@ class Storage {
 
   /**
    * @param {object} arr
+   * @returns {Storage}
    */
   merge(arr) {
     let nextObj;
@@ -72,7 +74,7 @@ class Storage {
         nextObj = this.set(k, v);
       }
     );
-    return nextObj;
+    return nextObj ? nextObj : new Storage(this._storage, this._de);
   }
 
   /**
