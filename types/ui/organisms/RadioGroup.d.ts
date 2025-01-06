@@ -1,5 +1,5 @@
 export default RadioGroup;
-declare class RadioGroup extends PureComponent<any, any, any> {
+declare class RadioGroup {
     static propTypes: {
         options: any;
         name: any;
@@ -30,6 +30,5 @@ declare class RadioGroup extends PureComponent<any, any, any> {
     handleClick: (e: any, before: any, after: any, ref: any) => boolean;
     handleError(e: any): any;
     handleDisplayError(el: any, error: any): void;
-    render(): import("react/jsx-runtime").JSX.Element;
+    render(): any;
 }
-import { PureComponent } from "react";

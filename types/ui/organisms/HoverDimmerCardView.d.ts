@@ -1,11 +1,10 @@
 export default HoverDimmerCardView;
-declare class HoverDimmerCardView extends PureComponent<any, any, any> {
+declare class HoverDimmerCardView {
     constructor(props: any);
     state: {
         show: boolean;
     };
     handleHover: () => void;
     handleLeave: () => void;
-    render(): import("react/jsx-runtime").JSX.Element;
+    render(): any;
 }
-import { PureComponent } from "react";

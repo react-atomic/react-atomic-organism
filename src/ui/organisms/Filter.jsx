@@ -183,7 +183,7 @@ const useFilterResult = (props) => {
 /**
  * @typedef {object} FilterProps
  * @property {any} component
- * @property {React.Ref<any>} [ref]
+ * @property {import("react").Ref<any>} [ref]
  * @property {boolean} [disabled]
  * @property {boolean} [builtInOnly]
  * @property {boolean} [itemClickToClose]
@@ -191,8 +191,8 @@ const useFilterResult = (props) => {
  * @property {boolean} [couldCreate]
  * @property {boolean} [doNotResetValue]
  * @property {boolean} [shouldJsonEncode]
- * @property {React.RefCallback<any>} [refCb]
- * @property {React.RefCallback<any>} [wrapperRefCb]
+ * @property {import("react").RefCallback<any>} [refCb]
+ * @property {import("react").RefCallback<any>} [wrapperRefCb]
  * @property {string} [className]
  * @property {string} [name]
  * @property {Function|boolean} [shouldRenderSuggestions]
@@ -275,11 +275,11 @@ const useFilter = (props) => {
   /**
    * @type any
    */
-  const thisInput = useRef();
+  const thisInput = useRef(null);
   /**
    * @type any
    */
-  const thisInputWrapper = useRef();
+  const thisInputWrapper = useRef(null);
   useEffect(() => {
     if (lastState.current.disabled !== propsDisabled) {
       expose.disabled(propsDisabled);
@@ -700,8 +700,8 @@ const useFilter = (props) => {
 };
 
 /**
- * @type React.ForwardRefExoticComponent<?, FilterProps>
- * @returns {React.ReactElement}
+ * @type import("react").ForwardRefExoticComponent<?, FilterProps>
+ * @returns {import("react").ReactElement}
  */
 export const Filter = forwardRef((/**@type FilterProps*/ props, ref) => {
   const { expose, component, name, isOpen, nextProps, restProps } =

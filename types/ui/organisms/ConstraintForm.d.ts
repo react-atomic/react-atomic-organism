@@ -21,5 +21,5 @@ export type ConstraintFormProps = {
     onSubmit?: Function | undefined;
     refCb?: RefType | undefined;
 };
-export const ConstraintField: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;
-declare const ConstraintForm: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;
+export const ConstraintField: any;
+declare const ConstraintForm: any;

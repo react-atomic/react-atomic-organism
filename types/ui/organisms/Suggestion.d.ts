@@ -1,5 +1,5 @@
 export default Suggestion;
-declare class Suggestion extends PureComponent<any, any, any> {
+declare class Suggestion {
     static defaultProps: {
         itemClickToClose: boolean;
         couldCreate: boolean;
@@ -20,7 +20,7 @@ declare class Suggestion extends PureComponent<any, any, any> {
             itemsLocator: any;
             inputWrapStyle: any;
             resultsStyle: any;
-        }) => import("react/jsx-runtime").JSX.Element;
+        }) => any;
         itemsLocator: (d: any) => any;
         itemLocator: (d: any) => any;
         itemFilter: (arr: any, currentValue: any, itemLocator: any) => any;
@@ -32,8 +32,6 @@ declare class Suggestion extends PureComponent<any, any, any> {
         value: any;
         prevPropsValue: any;
     };
-    constructor(props: any);
-    constructor(props: any, context: any);
     state: {
         value: string;
         selIndex: number;
@@ -54,7 +52,7 @@ declare class Suggestion extends PureComponent<any, any, any> {
     getValue(): string;
     getSelIndex(): number;
     getIsOpen(): any;
-    setValue(value: any, e: any, isOpen: any): void;
+    setValue(value: any, e: any, isOpen: any): any;
     handleChange: (e: any) => void;
     handleSubmit: (e: any) => void;
     handleResetValue: (value: any, e: any) => void;
@@ -78,6 +76,5 @@ declare class Suggestion extends PureComponent<any, any, any> {
     handleResults(): any;
     componentDidUpdate(prevProps: any): void;
     componentWillUnmount(): void;
-    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    render(): any;
 }
-import { PureComponent } from "react";

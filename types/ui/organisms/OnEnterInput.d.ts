@@ -1,11 +1,8 @@
 export default OnEnterInput;
-declare class OnEnterInput extends PureComponent<any, any, any> {
+declare class OnEnterInput {
     static defaultProps: {
         atom: string;
     };
-    constructor(props: any);
-    constructor(props: any, context: any);
     handleEnter: (e: any) => void;
-    render(): import("react/jsx-runtime").JSX.Element;
+    render(): any;
 }
-import { PureComponent } from "react";

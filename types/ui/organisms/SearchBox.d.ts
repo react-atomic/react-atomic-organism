@@ -16,5 +16,5 @@ declare function SearchBox({ autoComplete, inputComponent, className, compHd, co
     itemsLocator: any;
     inputWrapStyle: any;
     resultsStyle: any;
-}): import("react/jsx-runtime").JSX.Element;
+}): any;
 import { InputBox } from "react-atomic-molecule";
