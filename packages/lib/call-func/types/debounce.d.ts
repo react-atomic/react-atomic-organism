@@ -3,6 +3,7 @@ export type DebounceExecutorOption = {
     delay?: number | undefined;
     args?: any[] | undefined;
     scope?: any | undefined;
+    cancelCallback?: Function | undefined;
 };
 export type DebounceExecutor = (option?: DebounceExecutorOption | undefined) => any;
 /**
@@ -10,6 +11,7 @@ export type DebounceExecutor = (option?: DebounceExecutorOption | undefined) => 
  * @property {number=} delay
  * @property {any[]=} args
  * @property {any=} scope
+ * @property {Function=} cancelCallback
  */
 /**
  * @callback DebounceExecutor

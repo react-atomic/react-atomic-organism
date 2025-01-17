@@ -6,6 +6,7 @@ import callfunc from "./callfunc";
  * @property {number=} delay
  * @property {any[]=} args
  * @property {any=} scope
+ * @property {Function=} cancelCallback
  */
 
 /**
@@ -26,12 +27,15 @@ const debounce = (func, defaultDelay) => {
    * @type {DebounceExecutor}
    */
   const cb = (option) => {
-    const { delay = 250, args, scope } = option || {};
-    clearTimeout(timer);
-    timer = setTimeout(
-      () => callfunc(func, args, scope),
-      defaultDelay ?? delay
-    );
+    const { delay = 250, args, scope, cancelCallback } = option || {};
+    if (timer) {
+      clearTimeout(timer);
+      callfunc(cancelCallback);
+    }
+    timer = setTimeout(() => {
+      timer = null;
+      callfunc(func, args, scope);
+    }, defaultDelay ?? delay);
   };
   return cb;
 };
