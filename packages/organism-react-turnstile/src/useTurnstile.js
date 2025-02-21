@@ -40,6 +40,7 @@ class TurnstileAdapter {
       retry: "auto",
       "retry-interval": 500,
       "refresh-expired": "auto",
+      "refresh-timeout": "auto",
       ...options,
     };
     this.widgetId = this.call("render", [el, nextOptions]);
