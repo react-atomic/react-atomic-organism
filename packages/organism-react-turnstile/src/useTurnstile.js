@@ -1,6 +1,6 @@
 // @ts-check
 
-import { useEffect, useMemo, useRef, useCallback } from "react";
+import { useEffect, useMemo, useRef, useCallback, useState } from "react";
 import { js as insertJS } from "create-el";
 import { win } from "win-doc";
 import get from "get-object-value";
@@ -109,7 +109,8 @@ const useTurnstile = ({
 }) => {
   const isInit = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
   const isCall = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
-  const lastEl = /**@type React.MutableRefObject<HTMLElement>*/ (useRef());
+  const [el, setEl] =
+    /**@type {import("reshow-constant").useState<HTMLElement>}*/ (useState());
   const lastCallback = useRefUpdate({
     errorCallback,
     callback,
@@ -144,9 +145,7 @@ const useTurnstile = ({
           callback: () => handleOnload({ callFrom: "load" }),
           "error-callback": () => callfunc(lastCallback.current.errorCallback),
         };
-        setTimeout(() =>
-          lastTurnstile.current.render(lastEl.current, renderOpts)
-        );
+        setTimeout(() => lastTurnstile.current.render(el, renderOpts));
         runCallback(
           () => handleOnload({ callFrom: "timoeout" }),
           callbackTimeout
@@ -172,10 +171,10 @@ const useTurnstile = ({
     return () => {
       lastTurnstile.current.remove();
     };
-  }, []);
+  }, [el]);
   return sitekey
     ? [
-        useMemo(() => build(component)({ ref: lastEl }), []),
+        useMemo(() => build(component)({ ref: setEl }), []),
         useCallback(
           (bRemove) =>
             bRemove
