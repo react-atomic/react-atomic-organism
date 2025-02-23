@@ -127,6 +127,9 @@ const useTurnstile = ({
       }
       return;
     }
+    if (!el) {
+      return;
+    }
     if (null == lastTurnstile.current) {
       lastTurnstile.current = new TurnstileAdapter();
     }
@@ -178,8 +181,8 @@ const useTurnstile = ({
         useCallback(
           (bRemove) =>
             bRemove
-              ? lastTurnstile.current.remove()
-              : lastTurnstile.current.reset(),
+              ? lastTurnstile.current?.remove()
+              : lastTurnstile.current?.reset(),
           []
         ),
       ]
