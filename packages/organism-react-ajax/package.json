@@ -1,5 +1,5 @@
 {
-  "version": "0.17.19",
+  "version": "0.17.20",
   "name": "organism-react-ajax",
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "reshow-unit": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },

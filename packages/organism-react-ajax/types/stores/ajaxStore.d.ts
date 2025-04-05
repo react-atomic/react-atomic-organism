@@ -9,18 +9,12 @@ export type GetRawUrlProps = {
 export type AjaxStore = {
     urlDispatch: Function;
 };
-declare const store: {
-    getMap: (arg0: import("reshow-flux/types/ImmutableStore").MapKeyType) => any;
-    reset: () => import("reshow-flux/types/ImmutableStore").StateMap;
-    getState: () => import("reshow-flux/types/ImmutableStore").StateMap;
-    addListener: import("reshow-flux-base/types/type").EmitterAddCall<import("reshow-flux/types/ImmutableStore").StateMap, any>;
-    removeListener: import("reshow-flux-base/types/type").EmitterRemoveCall<import("reshow-flux/types/ImmutableStore").StateMap, any>;
-} & AjaxStore;
+declare const store: import("reshow-flux/types/ImmutableStore").StoreObject<import("reshow-flux/types/ImmutableStore").StateMap, any> & import("reshow-flux/types/ImmutableStore").StoreObjectWithMap & AjaxStore;
 /**
  * @param {any} worker
  */
 export function initAjaxWorkerEvent(worker: any): void;
-export const ajaxDispatch: import("reshow-flux-base/types/createReducer").DispatchType<import("reshow-flux/types/ImmutableStore").StateMap, any>;
+export const ajaxDispatch: import("reshow-flux-base/types/createReducer").DispatchFunction<import("reshow-flux/types/ImmutableStore").StateMap, any>;
 /**
  * @typedef {object} GetRawUrlProps
  * @property {string} [url]
