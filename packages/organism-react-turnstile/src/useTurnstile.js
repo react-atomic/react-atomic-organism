@@ -187,7 +187,7 @@ const useTurnstile = ({
           []
         ),
       ]
-    : [null, () => {}];
+    : [null, useCallback(() => {}, [])];
 };
 
 export default useTurnstile;
