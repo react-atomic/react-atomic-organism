@@ -1,6 +1,7 @@
 // @ts-check
 
-import { useEffect, useMemo, useRef, useCallback, useState } from "react";
+import * as React from "react";
+const { useEffect, useMemo, useRef, useCallback, useState } = React;
 import { js as insertJS } from "create-el";
 import { win } from "win-doc";
 import get from "get-object-value";
@@ -107,16 +108,16 @@ const useTurnstile = ({
   callback,
   callbackTimeout = 30000,
 }) => {
-  const isInit = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
-  const isCall = /**@type React.MutableRefObject<Boolean>*/ (useRef(false));
+  const isInit = /**@type React.RefObject<Boolean>*/ (useRef(false));
+  const isCall = /**@type React.RefObject<Boolean>*/ (useRef(false));
   const [el, setEl] =
     /**@type {import("reshow-constant").useState<HTMLElement>}*/ (useState());
   const lastCallback = useRefUpdate({
     errorCallback,
     callback,
   });
-  const lastTurnstile = /**@type React.MutableRefObject<TurnstileAdapter>*/ (
-    useRef()
+  const lastTurnstile = /**@type React.RefObject<TurnstileAdapter?>*/ (
+    useRef(null)
   );
   const thisWin = /**@type any*/ (win());
   const [runCallback, stopCallback] = useTimer();
@@ -148,7 +149,7 @@ const useTurnstile = ({
           callback: () => handleOnload({ callFrom: "load" }),
           "error-callback": () => callfunc(lastCallback.current.errorCallback),
         };
-        setTimeout(() => lastTurnstile.current.render(el, renderOpts));
+        setTimeout(() => lastTurnstile.current?.render(el, renderOpts));
         runCallback(
           () => handleOnload({ callFrom: "timoeout" }),
           callbackTimeout
@@ -172,7 +173,7 @@ const useTurnstile = ({
       }
     }
     return () => {
-      lastTurnstile.current.remove();
+      lastTurnstile.current?.remove();
     };
   }, [el]);
   return sitekey
