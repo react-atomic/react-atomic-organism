@@ -13,9 +13,9 @@ jobs:
     steps:
       - checkout
       - node/install:
-          node-version: "18"
+          node-version: "20"
           install-yarn: true
-#          yarn-version: "1.22.18"
+      #   yarn-version: "1.22.18"
       - run:
           name: "Display information"
           command: |
@@ -71,6 +71,7 @@ workflows:
                 - "packages/lib/tpl-string"
                 - "packages/lib/to-percent-js"
                 - "packages/lib/with-array"
+                - "packages/lib/ytube-query"
                 - "packages/organism-react-ajax"
                 - "packages/organism-react-animate"
                 - "packages/organism-react-code"
@@ -86,4 +87,3 @@ workflows:
                 - "packages/organism-react-sort-by"
                 - "packages/organism-react-tag-input"
                 - "packages/organism-react-turnstile"
-
