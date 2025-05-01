@@ -21,7 +21,7 @@ export const queryTubeSearch = async (
     isLive = false,
     hl = "en",
     gl = "us",
-  },
+  }
 ) => {
   const url = new URL(host);
   url.searchParams.set("search_query", keyword);
@@ -38,17 +38,26 @@ export const queryTubeSearch = async (
     const itemData =
       firstItem(item, "$..compactVideoRenderer") ||
       firstItem(item, "$..videoRenderer");
-    const watchingLabel = jsonQuery(itemData, "$..viewCountText..text");
-    const title =
-      firstItem(item, "$..title..text") ||
-      firstItem(item, "$..title..simpleText");
-    const description =
-      jsonQuery(item, "$..detailedMetadataSnippets..snippetText..text").join(
-        "",
-      ) ||
-      jsonQuery(item, "$..description..text").join("") ||
-      jsonQuery(item, "$..descriptionSnippet..text").join("");
     if (itemData) {
+      const watchingLabel = jsonQuery(itemData, "$..viewCountText..text");
+      const title = (
+        firstItem(itemData, "$..title..text") ||
+        firstItem(itemData, "$..title..simpleText")
+      )?.trim();
+      const description = (
+        jsonQuery(
+          itemData,
+          "$..detailedMetadataSnippets..snippetText..text"
+        ).join("") ||
+        jsonQuery(itemData, "$..description..text").join("") ||
+        jsonQuery(itemData, "$..descriptionSnippet..text").join("")
+      )?.trim();
+      const channelData =
+        firstItem(itemData, "$..longBylineText") ||
+        firstItem(itemData, "$..shortBylineText");
+      const channelName = firstItem(channelData, "$..text")?.trim();
+      const channelUrl = firstItem(channelData, "$..canonicalBaseUrl")?.trim();
+      const channelId = firstItem(channelData, "$..browseId")?.trim();
       arr.push({
         videoId: itemData.videoId,
         watching:
@@ -57,6 +66,9 @@ export const queryTubeSearch = async (
             : 0,
         title,
         description,
+        channelName,
+        channelUrl,
+        channelId,
       });
     }
   }

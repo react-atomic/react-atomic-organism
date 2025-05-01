@@ -3,6 +3,9 @@ export function queryTubeSearch(keyword: string, { host, isLive, hl, gl, }: Sear
     watching: any;
     title: any;
     description: any;
+    channelName: any;
+    channelUrl: any;
+    channelId: any;
 }[]>;
 export type SearchOptions = {
     host?: string | undefined;

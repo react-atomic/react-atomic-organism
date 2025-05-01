@@ -10,5 +10,8 @@ describe("QueryTubeSearch Test", () => {
       isLive: true,
     });
     expect(!!data.length).to.be.true;
+    data.forEach((item) => {
+      expect(item).to.have.all.keys(["videoId", "watching", "title", "description", "channelId", "channelName", "channelUrl"]);
+    });
   });
 });
