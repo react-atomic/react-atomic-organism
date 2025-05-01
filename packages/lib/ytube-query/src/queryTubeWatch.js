@@ -8,7 +8,7 @@ import { firstItem } from "./jsonQuery";
  */
 export const queryTubeWatch = async (
   videoId,
-  host = "https://www.youtube.com/watch?v=",
+  host = "https://www.youtube.com/watch?v="
 ) => {
   const url = `${host}${videoId}&hl=en`;
   const { ytInitialPlayerResponse } = await getTubeData(url, [
@@ -18,7 +18,7 @@ export const queryTubeWatch = async (
   const status = firstItem(ytInitialPlayerResponse, "$..status");
   const reason = firstItem(ytInitialPlayerResponse, "$..reason");
   return {
-    success: null == reason ? true : false,
+    success: null == reason || status === "LOGIN_REQUIRED" ? true : false,
     status,
     reason,
     videoId,
