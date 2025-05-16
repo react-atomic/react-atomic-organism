@@ -32,8 +32,12 @@ describe("Test Get Object Value", () => {
       foo: 111,
     };
     const acture = get(a, ["foo", "bar"]);
-    expect(acture).to.equal(undefined);
+    expect(acture).to.be.undefined;
+    expect(get(1, ["foo"])).to.be.undefined;
+    expect(get(1, [0])).to.be.undefined;
+    expect(get("1", [0])).to.equal("1");
   });
+
 
   it("test get map", () => {
     const a = {
@@ -49,5 +53,28 @@ describe("Test Get Object Value", () => {
     };
     const acture = get(a, ["foo-any", "b", "c", "foo-any"]);
     expect(acture).to.equal("d");
+  });
+
+  it( "test get is not function ", () => { 
+    const a = {
+      get: "foo",
+      size: 999,
+    };
+    const acture = get(a, ["size"]);
+    expect(acture).to.equal(999);
+  });
+
+  it("test path is not array", () => {
+    const acture = ()=>get("foo", "foo");
+    // expect to throw error
+    expect(acture).to.throw(TypeError);
+  });
+
+
+  it("test key not exists", () => {
+    const acture = get(Symbol(), ["bar"]);
+    expect(acture).to.be.undefined;
+    const acture2 = get({foo: "bar"}, ["bar"]);
+    expect(acture2).to.be.undefined;
   });
 });
