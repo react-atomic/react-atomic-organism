@@ -1,5 +1,5 @@
 export default YoutubeRWD;
-export type IframeContainerExpose = import('organism-react-iframe').IframeContainerExpose;
+export type IframeContainerExpose = import("organism-react-iframe").IframeContainerExpose;
 export type ResponsiveVideoProps = import("../organisms/ResponsiveVideo").ResponsiveVideoProps;
 export type YoutubeRWDExtendsProps = {
     loading?: "eager" | "lazy";
@@ -12,6 +12,7 @@ export type YoutubeRWDExtendsProps = {
     id?: string;
     onStateChange?: Function;
     onLoad?: Function;
+    onError?: Function;
 };
 export type YoutubeRWDProps = ResponsiveVideoProps & YoutubeRWDExtendsProps;
 export type YoutubeRWDExpose = {
@@ -20,7 +21,7 @@ export type YoutubeRWDExpose = {
     togglePlayback: () => PlayerState;
     postMessage: (arg0: string) => void;
     exec: ExecPost;
-    getIframe: () => HTMLIFrameElement;
+    getIframe: () => HTMLIFrameElement | undefined;
     getPlayerState: () => PlayerState;
 };
 export type ExecPost = (cmd: string, args?: any[] | undefined) => any;
@@ -41,4 +42,3 @@ declare class PlayerState {
      */
     isPlaying: boolean;
 }
-import * as React from "react";

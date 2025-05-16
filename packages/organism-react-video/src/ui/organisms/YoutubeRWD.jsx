@@ -63,6 +63,7 @@ const defaultVideoParams = {
  * @property {string} [id]
  * @property {Function} [onStateChange]
  * @property {Function} [onLoad]
+ * @property {Function} [onError]
  */
 
 /**
@@ -111,7 +112,7 @@ class PlayerState {
  * @property {function():PlayerState} togglePlayback
  * @property {function(string):void} postMessage
  * @property {ExecPost} exec
- * @property {function():HTMLIFrameElement} getIframe
+ * @property {function():HTMLIFrameElement|undefined} getIframe
  * @property {function():PlayerState} getPlayerState
  */
 
@@ -144,11 +145,12 @@ const useYoutubeRWD = (props) => {
     ...defaultVideoParams,
     ...videoParams,
   });
-  const lastHostname = /**@type React.MutableRefObject<string|boolean>*/ (
-    useRef()
+  const lastHostname = /**@type React.RefObject<string|boolean|undefined>*/ (
+    useRef(undefined)
   );
-  const lastIframe =
-    /**@type {React.MutableRefObject<IframeContainerExpose>}*/ (useRef());
+  const lastIframe = /**@type {React.RefObject<IframeContainerExpose|null>}*/ (
+    useRef(null)
+  );
   const [state, setState] = useState({ load: false });
   useEffect(() => {
     const loc = doc().location;
@@ -184,7 +186,7 @@ const useYoutubeRWD = (props) => {
       return lastPlayerState.current;
     },
     postMessage: (message) => {
-      const iframe = lastIframe.current.getEl();
+      const iframe = lastIframe.current?.getEl();
       if (iframe) {
         const origin = /**@type string*/ (
           lastHostname.current ? lastHostname.current : "*"
@@ -269,7 +271,7 @@ const useYoutubeRWD = (props) => {
 const YoutubeRWD = forwardRef((props, ref) => {
   const { expose, handler, nextProps, lastIframe, state, src } =
     useYoutubeRWD(props);
-  const { loading, ...restProps } = nextProps;
+  const { loading, onError, ...restProps } = nextProps;
   useImperativeHandle(ref, () => expose, []);
   if (!state.load) {
     return null;
@@ -282,6 +284,7 @@ const YoutubeRWD = forwardRef((props, ref) => {
         src={src}
         ref={lastIframe}
         onLoad={handler.load}
+        onError={onError}
       />
     </ResponsiveVideo>
   );

@@ -1,5 +1,5 @@
 export default VideoFile;
-export type Component = import('reshow-build').Component;
+export type Component = import("reshow-build").Component;
 export type VideoFileProps = {
     src: string;
     sourceType?: string;
@@ -32,4 +32,4 @@ export type VideoFileProps = {
  * @param {VideoFileProps} props
  * https://www.w3schools.com/tags/tag_video.asp
  */
-declare function VideoFile({ src, otherSources, videoParams, sourceComponent, videoComponent, sourceType, ...restProps }: VideoFileProps): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+declare function VideoFile({ src, otherSources, videoParams, sourceComponent, videoComponent, sourceType, ...restProps }: VideoFileProps): any;

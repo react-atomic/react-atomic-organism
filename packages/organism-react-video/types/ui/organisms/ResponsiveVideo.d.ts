@@ -19,5 +19,4 @@ export type ResponsiveVideoProps = {
 /**
  * @param {ResponsiveVideoProps} props
  */
-declare function ResponsiveVideo({ mask, aspectRatio, children, onClick, style, className, }: ResponsiveVideoProps): import("react/jsx-runtime").JSX.Element;
-import * as React from "react";
+declare function ResponsiveVideo({ mask, aspectRatio, children, onClick, style, className, }: ResponsiveVideoProps): any;

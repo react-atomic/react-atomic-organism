@@ -4,4 +4,4 @@ declare function VideoThumbnail({ onClick, playBgColor, playFgColor, src }: {
     playBgColor: any;
     playFgColor: any;
     src: any;
-}): import("react/jsx-runtime").JSX.Element;
+}): any;

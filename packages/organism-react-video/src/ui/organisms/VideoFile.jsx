@@ -1,4 +1,5 @@
 // @ts-check
+import * as React from "react";
 import { KEYS } from "reshow-constant";
 import build from "reshow-build";
 
