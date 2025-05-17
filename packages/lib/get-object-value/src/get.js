@@ -6,8 +6,8 @@ import getDefaultValue from "./getDefaultValue";
 
 /**
  * Explain:
- * 1. o will always has value check from [null != current].
- * 2. if o.get not exist, callfunc will return undefined.
+ * 1. 'o' will always have a value check performed when [null != current].
+ * 2. Call 'o.get' only when it is a function.
  *
  * @see https://github.com/react-atomic/reshow/issues/123
  * @param {object} o
@@ -37,7 +37,7 @@ const get = (o, path = [], defaultValue = T_UNDEFINED) => {
     return current;
   }
   if (!IS_ARRAY(path)) {
-    throw new TypeError(`path should be array, but got ${path}`); 
+    throw new TypeError(`path should be array, but got ${path}`);
   }
   try {
     let i = path.length;
