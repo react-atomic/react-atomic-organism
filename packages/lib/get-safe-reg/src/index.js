@@ -2,6 +2,13 @@
 
 import { IS_ARRAY, NEW_OBJ, T_NULL, T_UNDEFINED } from "reshow-constant";
 
+// SECURITY: Configuration for ReDoS protection
+const SECURITY_LIMITS = {
+  MAX_PATTERN_LENGTH: 8192,
+  MAX_WILDCARDS: 20,
+  MAX_PARAMETERS: 50,
+};
+
 const esc = /[|\\{}()[\]^$+*?.]/g;
 const pathEscReg = /[|{}()^$+]/g;
 const bracketsEscReg = /[|\\{}()[\]^$+.]/g;
@@ -16,6 +23,41 @@ const text = (txt) => (txt ? txt + "" : "");
  * @param {string} regString
  */
 const getSafeReg = (regString) => text(regString).replace(esc, "\\$&");
+
+// SECURITY: Input validation function
+/**
+ * @param {string} path
+ */
+const validateInput = (path) => {
+  if (!path) return "";
+
+  const pathStr = text(path);
+
+  // Check pattern length
+  if (pathStr.length > SECURITY_LIMITS.MAX_PATTERN_LENGTH) {
+    throw new Error(
+      `Pattern length ${pathStr.length} exceeds limit ${SECURITY_LIMITS.MAX_PATTERN_LENGTH}`
+    );
+  }
+
+  // Check wildcard count
+  const wildcardCount = (pathStr.match(/\*/g) || []).length;
+  if (wildcardCount > SECURITY_LIMITS.MAX_WILDCARDS) {
+    throw new Error(
+      `Wildcard count ${wildcardCount} exceeds limit ${SECURITY_LIMITS.MAX_WILDCARDS}`
+    );
+  }
+
+  // Check parameter count
+  const paramCount = (pathStr.match(/:\w+/g) || []).length;
+  if (paramCount > SECURITY_LIMITS.MAX_PARAMETERS) {
+    throw new Error(
+      `Parameter count ${paramCount} exceeds limit ${SECURITY_LIMITS.MAX_PARAMETERS}`
+    );
+  }
+
+  return pathStr;
+};
 
 /**
  * @param {object} cache
@@ -32,13 +74,16 @@ export const cacheReg =
    * @returns {RegExp}
    */
   (regString) => {
-    if (!cache[regString]) {
+    // SECURITY: Validate input
+    const validatedString = validateInput(regString);
+
+    if (!cache[validatedString]) {
       const cookRegString = getRegCallback
-        ? getRegCallback(regString)
-        : regString;
-      cache[regString] = new RegExp(cookRegString, flags);
+        ? getRegCallback(validatedString)
+        : validatedString;
+      cache[validatedString] = new RegExp(cookRegString, flags);
     }
-    return cache[regString];
+    return cache[validatedString];
   };
 
 /**
@@ -46,7 +91,17 @@ export const cacheReg =
  * @param {RegExp} reg
  * @returns {RegExpMatchArray|null}
  */
-export const safeMatch = (testText, reg) => text(testText).match(reg);
+export const safeMatch = (testText, reg) => {
+  // SECURITY: Input length check
+  const textStr = text(testText);
+  if (textStr.length > SECURITY_LIMITS.MAX_PATTERN_LENGTH) {
+    console.warn(
+      `Input text length ${textStr.length} may cause performance issues`
+    );
+  }
+
+  return textStr.match(reg);
+};
 
 /**
  * @typedef {object} RegInput
@@ -77,16 +132,22 @@ const pathCache = {
  * @return {RegInput}
  */
 export const wildcardToRegExp = (path, { type = "" } = {}) => {
-  if (pathCache[type][path] == T_NULL) {
+  // SECURITY: Validate input first
+  const validatedPath = validateInput(path);
+
+  if (pathCache[type][validatedPath] == T_NULL) {
     const escReg = type === "bracketsEsc" ? bracketsEscReg : pathEscReg;
     const keys = [];
-    const nextPath = (path || "")
+    const nextPath = (validatedPath || "")
       .replace(escReg, "\\$&")
       .replace(/\?/g, "<<?>>")
       .concat("/?")
       .replace(/\/\(/g, "(?:/")
       .replace(
-        /(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?|\*/g,
+        // SECURITY FIX: Use character class instead of lazy quantifier to prevent ReDoS
+        // Changed (?:(\(.*?\)))? to (?:(\([^)]*\)))?
+        // This prevents catastrophic backtracking by using a more specific character class
+        /(\/)?(\.)?:(\w+)(?:(\([^)]*\)))?(\?)?|\*/g,
         (_, slash, format, key, capture, optional) => {
           if (_ === "*") {
             keys && keys.push(T_UNDEFINED);
@@ -110,21 +171,41 @@ export const wildcardToRegExp = (path, { type = "" } = {}) => {
       .replace(/<<\?>>/g, ".+");
 
     const regString = "^" + nextPath + "$";
-    const reg = new RegExp(regString, "i");
-    pathCache[type][path] = { reg, keys };
+
+    // SECURITY: Wrap regex creation in try-catch
+    try {
+      const reg = new RegExp(regString, "i");
+      pathCache[type][validatedPath] = { reg, keys };
+    } catch (error) {
+      console.warn("Failed to create regex for pattern:", validatedPath, error);
+      // Fallback to a simple exact match
+      const fallbackReg = new RegExp(
+        "^" + validatedPath.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$",
+        "i"
+      );
+      pathCache[type][validatedPath] = { reg: fallbackReg, keys: [] };
+    }
   }
-  return pathCache[type][path];
+  return pathCache[type][validatedPath];
 };
 
 /**
  * @param {string} testString
  * @param {string} path
  * @param  {wildcardToRegExpOptional} [wildcardOptional]
- * @returns { {[key: string]: any} | boolean }
+ * @returns { Record<string, any> | boolean }
  */
 export const wildcardSearch = (testString, path, wildcardOptional) => {
-  const pathToReg = wildcardToRegExp(path, wildcardOptional);
-  const o = testString.match(pathToReg.reg);
+  // SECURITY: Validate inputs
+  const validatedTestString = text(testString);
+  const validatedPath = validateInput(path);
+
+  if (validatedTestString.length > SECURITY_LIMITS.MAX_PATTERN_LENGTH) {
+    console.warn("Large input string may cause performance issues");
+  }
+
+  const pathToReg = wildcardToRegExp(validatedPath, wildcardOptional);
+  const o = validatedTestString.match(pathToReg.reg);
   if (o && pathToReg.keys.length) {
     const arr = {};
     pathToReg.keys.forEach((key, index) => {
