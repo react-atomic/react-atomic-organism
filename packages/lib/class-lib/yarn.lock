@@ -1250,9 +1250,9 @@ get-package-type@^0.1.0:
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
 
 get-safe-reg@*:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.6.0.tgz#5cf13fec6187d3532be442bd22bc580f89af8b66"
-  integrity sha512-mkr+yU4fD72PMPDWacDBTBGnHtcte1EOs6E1YFO3sgvatrfy+EHlYkUkHorgloFZy0YA4hLm88kKK0pvge6hCA==
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/get-safe-reg/-/get-safe-reg-0.6.1.tgz#35defcecdfe53e322bf255c28a7733dbb5a27956"
+  integrity sha512-k7VMziPsk+kKSnJZG0fVEBjkSwYqQSURU+aGC+074mFtrGbGQ80oa5u+fYQSrju5WUW7aJ1pk1RGifIySEVjRQ==
 
 get-stdin@^8.0.0:
   version "8.0.0"

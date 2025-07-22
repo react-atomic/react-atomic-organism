@@ -41,5 +41,10 @@
     "prepublishOnly": "npm run test"
   },
   "types": "./types/index.d.ts",
-  "files": ["types", "build", "package.json", "README.md"]
+  "files": [
+    "types",
+    "build",
+    "package.json",
+    "README.md"
+  ]
 }

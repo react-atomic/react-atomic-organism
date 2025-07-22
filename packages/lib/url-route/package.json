@@ -1,5 +1,5 @@
 {
-  "version": "0.4.0",
+  "version": "0.4.1",
   "name": "url-route",
   "repository": {
     "type": "git",
@@ -18,11 +18,11 @@
     "seturl": "*"
   },
   "devDependencies": {
-    "types": "./types/index.d.ts",
     "@babel/cli": "^7.x",
     "reshow-unit-dom": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
