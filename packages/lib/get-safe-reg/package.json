@@ -1,5 +1,5 @@
 {
-  "version": "0.5.9",
+  "version": "0.6.0",
   "name": "get-safe-reg",
   "repository": {
     "type": "git",
@@ -17,6 +17,7 @@
     "reshow-unit-dom": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },

@@ -29,14 +29,15 @@ import { KEYS as getKeys, STRING } from "reshow-constant";
  */
 const Route = (routePath, fn) => {
   if (STRING === typeof routePath) {
-    const { host, query, path } = parseUrl(routePath);
-    const { reg, keys } = wildcardToRegExp(host || query ? path : routePath);
+    const strPath = /**@type {string}*/ (routePath);
+    const { host, query, path } = parseUrl(strPath);
+    const { reg, keys } = wildcardToRegExp(host || query ? path : strPath);
 
     return {
       reg,
       keys,
       fn,
-      src: /** @type {string} */ (routePath),
+      src: strPath,
       host,
       query,
       path,
@@ -64,7 +65,7 @@ const paraseParms = (captures, route) => {
         return;
       }
       const item = captures[cKey];
-      const key = keys[index - 1];
+      const key = keys && keys[index - 1];
       const val = STRING === typeof item ? decodeURI(item) : item;
       if (key) {
         params[key] = val;
@@ -89,7 +90,7 @@ const paraseParms = (captures, route) => {
  *
  * @param  {RouteProps[]} routes
  * @param  {string} uri
- * @return {RouteProps}
+ * @return {RouteProps|undefined}
  */
 const match = (routes, uri) => {
   const { host: thisHost, path: thisUri } = parseUrl(uri);
@@ -154,14 +155,18 @@ class Router {
   /**
    * @param {string} pathname
    * @param {number} startAt
-   * @returns {RouteProps}
+   * @returns {RouteProps|undefined}
    */
   match(pathname, startAt) {
     startAt = startAt || 0;
     const routes = this.routes.slice(startAt);
     const route = match(routes, pathname);
     if (route) {
-      route.next = this.match.bind(this, pathname, startAt + route.nextIndex);
+      route.next = this.match.bind(
+        this,
+        pathname,
+        startAt + (route.nextIndex || 0)
+      );
     }
     return route;
   }

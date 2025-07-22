@@ -33,7 +33,7 @@ declare class Router {
     /**
      * @param {string} pathname
      * @param {number} startAt
-     * @returns {RouteProps}
+     * @returns {RouteProps|undefined}
      */
-    match(pathname: string, startAt: number): RouteProps;
+    match(pathname: string, startAt: number): RouteProps | undefined;
 }
