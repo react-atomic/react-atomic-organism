@@ -37,7 +37,7 @@ describe("test searchRegPath", () => {
     const actual1 = wildcardSearch("w-[32rem]", ":key-\\[:val\\]");
     expect(actual1).to.deep.equals({ key: "w", val: "32rem" });
     const actual2 = wildcardSearch("w-[32rem]", ":key-[:val]", {
-      type: "bracketsEsc",
+      escape: "brackets",
     });
     expect(actual2).to.deep.equals({ key: "w", val: "32rem" });
   });
@@ -55,13 +55,13 @@ describe("test searchRegPath", () => {
     const withBracketsEscNotMatch = wildcardSearch(
       "/aaa/../[1]/",
       "/aaa/./[:id]/",
-      { type: "bracketsEsc" }
+      { escape: "brackets" }
     );
     expect(withBracketsEscNotMatch).to.be.false;
     const withBracketsEscShouldMatch = wildcardSearch(
       "/aaa/../[1]/",
       "/aaa/../[:id]/",
-      { type: "bracketsEsc" }
+      { escape: "brackets" }
     );
     expect(withBracketsEscShouldMatch).to.deep.equals({ id: "1" });
   });

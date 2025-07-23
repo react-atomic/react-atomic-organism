@@ -9,10 +9,6 @@ const SECURITY_LIMITS = {
   MAX_PARAMETERS: 50,
 };
 
-const esc = /[|\\{}()[\]^$+*?.]/g;
-const pathEscReg = /[|{}()^$+]/g;
-const bracketsEscReg = /[|\\{}()[\]^$+.]/g;
-
 /**
  * @param {any} txt
  * @returns {string}
@@ -22,7 +18,8 @@ const text = (txt) => (txt ? txt + "" : "");
 /**
  * @param {string} regString
  */
-const getSafeReg = (regString) => text(regString).replace(esc, "\\$&");
+const getSafeReg = (regString) =>
+  text(regString).replace(/[|\\{}()[\]^$+*?.]/g, "\\$&");
 
 // SECURITY: Input validation function
 /**
@@ -110,13 +107,21 @@ export const safeMatch = (testText, reg) => {
  */
 
 /**
- * @typedef {object} wildcardToRegExpOptional
- * @property {('bracketsEsc'|'')} [type=null]
+ * @typedef {"brackets"|"path"|"config"} EscapeType
  */
 
+/**
+ * @typedef {object} wildcardToRegExpOptional
+ * @property {EscapeType} [escape]
+ */
+
+/**
+ * @type {Record<EscapeType, Record<string, RegInput>>}
+ */
 const pathCache = {
-  "": NEW_OBJ(),
-  bracketsEsc: NEW_OBJ(),
+  brackets: NEW_OBJ(),
+  path: NEW_OBJ(),
+  config: NEW_OBJ(),
 };
 /**
  * Normalize the given path string,
@@ -131,12 +136,27 @@ const pathCache = {
  * @param  {wildcardToRegExpOptional} wildcardOptional
  * @return {RegInput}
  */
-export const wildcardToRegExp = (path, { type = "" } = {}) => {
+export const wildcardToRegExp = (path, { escape = "path" } = {}) => {
   // SECURITY: Validate input first
   const validatedPath = validateInput(path);
+  const pathEscReg = /[|{}()^$+]/g;
+  const configEscReg = /[{}[\]^$+.]/g;
+  const bracketsEscReg = /[|\\{}()[\]^$+.]/g;
 
-  if (pathCache[type][validatedPath] == T_NULL) {
-    const escReg = type === "bracketsEsc" ? bracketsEscReg : pathEscReg;
+  if (pathCache[escape][validatedPath] == T_NULL) {
+    let escReg;
+    switch (escape) {
+      case "brackets":
+        escReg = bracketsEscReg;
+        break;
+      case "config":
+        escReg = configEscReg;
+        break;
+      case "path":
+      default:
+        escReg = pathEscReg;
+        break;
+    }
     const keys = [];
     const nextPath = (validatedPath || "")
       .replace(escReg, "\\$&")
@@ -175,7 +195,7 @@ export const wildcardToRegExp = (path, { type = "" } = {}) => {
     // SECURITY: Wrap regex creation in try-catch
     try {
       const reg = new RegExp(regString, "i");
-      pathCache[type][validatedPath] = { reg, keys };
+      pathCache[escape][validatedPath] = { reg, keys };
     } catch (error) {
       console.warn("Failed to create regex for pattern:", validatedPath, error);
       // Fallback to a simple exact match
@@ -183,10 +203,10 @@ export const wildcardToRegExp = (path, { type = "" } = {}) => {
         "^" + validatedPath.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$",
         "i"
       );
-      pathCache[type][validatedPath] = { reg: fallbackReg, keys: [] };
+      pathCache[escape][validatedPath] = { reg: fallbackReg, keys: [] };
     }
   }
-  return pathCache[type][validatedPath];
+  return pathCache[escape][validatedPath];
 };
 
 /**
