@@ -4,10 +4,10 @@ declare function FullScreen({ appear, enter, name, xico, scrolling, page, childr
     appear?: string;
     enter?: string;
     name?: string;
-    xico?: (props: any) => import("react/jsx-runtime").JSX.Element;
+    xico?: (props: any) => any;
     scrolling?: boolean;
     page?: boolean;
     children: any;
     className: any;
     style: any;
-}): import("react/jsx-runtime").JSX.Element;
+}): any;

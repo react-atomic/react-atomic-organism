@@ -1,3 +1,5 @@
+
+
 // @ts-check
 
 import * as React from "react";
@@ -9,9 +11,42 @@ import callfunc from "call-func";
 import PopupFloatEl from "../molecules/PopupFloatEl";
 import DisplayPopupEl from "../organisms/DisplayPopupEl";
 
+/**
+ * @typedef {Object} PopupHoverProps
+ * @property {string} [name] - Component name
+ * @property {any} [component] - React component to render
+ * @property {any} [children] - React children
+ * @property {any} [popup] - Popup content
+ * @property {any} [triggerItem] - Trigger item
+ * @property {function} [callback] - Callback function
+ * @property {boolean} [isKeep] - Keep popup open
+ * @property {function} [onClose] - Close handler
+ * @property {boolean} [toPool] - Use popup pool
+ * @property {Object} [alignParams] - Alignment parameters
+ */
+
+/**
+ * @typedef {Object} PopupHoverState
+ * @property {any} [show] - Show state
+ * @property {any} [triggerItem] - Trigger item state
+ * @property {any} [bust] - Bust state
+ */
+
 const closeTimer = {};
 
+/**
+ * @extends {React.PureComponent<PopupHoverProps, PopupHoverState>}
+ */
 class PopupHover extends PureComponent {
+  /** @type {PopupHoverProps} */
+  props;
+
+  /** @type {PopupHoverState} */
+  state;
+
+  /** @type {function(Partial<PopupHoverState>, function(): void=): void} */
+  setState;
+
   static defaultProps = {
     name: "popup-hover",
     component: SemanticUI,

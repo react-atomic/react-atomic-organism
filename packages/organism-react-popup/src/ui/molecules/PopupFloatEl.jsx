@@ -1,9 +1,24 @@
+
+
 // @ts-check
 
 import getWindowOffset, { alignUI, getPositionString } from "get-window-offset";
 import { toInt } from "to-percent-js";
 
 import PopupOverlay from "../molecules/PopupOverlay";
+
+/**
+ * @typedef {import("./BasePopup").BasePopupProps & Object} PopupFloatElProps
+ * @property {HTMLElement} [targetEl] - Target element to position relative to
+ * @property {Object} [alignParams] - Alignment parameters
+ * @property {number} [retryAt] - Retry timeout
+ * @property {Object} [style] - CSS style object
+ */
+
+/**
+ * @typedef {import("./BasePopup").BasePopupState & PositionInfo & Object} PopupFloatElState
+ * @property {function} [refCb] - Ref callback function
+ */
 
 class PositionInfo {
   /**
@@ -20,7 +35,19 @@ class PositionInfo {
   className;
 }
 
+/**
+ * @extends {PopupOverlay}
+ */
 class PopupFloatEl extends PopupOverlay {
+  /** @type {PopupFloatElProps} */
+  props;
+
+  /** @type {PopupFloatElState} */
+  state;
+
+  /** @type {function(Partial<PopupFloatElState>, function(): void=): void} */
+  setState;
+
   _mount = true;
 
   static defaultProps = {
@@ -128,11 +155,14 @@ class PopupFloatEl extends PopupOverlay {
   }
 
   /**
-   * @param {any} props
+   * @param {PopupFloatElProps} props
    */
   constructor(props) {
+    // @ts-ignore - parent constructor expects props
     super(props);
+
     // Need exted state form parent class (PopupOverlay)
+    this.state = props.state || {};
     this.state.refCb = this.setFloatEl;
   }
 

@@ -1,4 +1,9 @@
 export default PopupFloatEl;
+export type PopupFloatElProps = import("./BasePopup").BasePopupProps & any;
+export type PopupFloatElState = import("./BasePopup").BasePopupState & PositionInfo & any;
+/**
+ * @extends {PopupOverlay}
+ */
 declare class PopupFloatEl extends PopupOverlay {
     static defaultProps: {
         style: {
@@ -9,6 +14,10 @@ declare class PopupFloatEl extends PopupOverlay {
         className: string;
         retryAt: number;
     };
+    /** @type {PopupFloatElState} */
+    state: PopupFloatElState;
+    /** @type {function(Partial<PopupFloatElState>, function(): void=): void} */
+    setState: (arg0: Partial<PopupFloatElState>, arg1: (() => void) | undefined) => void;
     _mount: boolean;
     /**
      * For monitor window resize
@@ -35,7 +44,17 @@ declare class PopupFloatEl extends PopupOverlay {
     componentDidUpdate(): void;
     componentWillUnmount(): void;
 }
-import PopupOverlay from "../molecules/PopupOverlay";
+/**
+ * @typedef {import("./BasePopup").BasePopupProps & Object} PopupFloatElProps
+ * @property {HTMLElement} [targetEl] - Target element to position relative to
+ * @property {Object} [alignParams] - Alignment parameters
+ * @property {number} [retryAt] - Retry timeout
+ * @property {Object} [style] - CSS style object
+ */
+/**
+ * @typedef {import("./BasePopup").BasePopupState & PositionInfo & Object} PopupFloatElState
+ * @property {function} [refCb] - Ref callback function
+ */
 declare class PositionInfo {
     /**
      * @type number
@@ -50,3 +69,4 @@ declare class PositionInfo {
      */
     className: string;
 }
+import PopupOverlay from "../molecules/PopupOverlay";

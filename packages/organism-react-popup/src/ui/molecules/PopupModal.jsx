@@ -19,6 +19,38 @@ import { STRING } from "reshow-constant";
 
 import PopupOverlay from "../molecules/PopupOverlay";
 
+/**
+ * @typedef {import("./BasePopup").BasePopupProps & Object} PopupModalProps
+ * @property {boolean} [basic] - Basic modal style
+ * @property {boolean} [disableClose] - Disable close functionality
+ * @property {boolean} [disableClickClose] - Disable click to close
+ * @property {boolean} [disableEscClose] - Disable escape key to close
+ * @property {boolean} [appear] - Animation appear
+ * @property {boolean} [enter] - Animation enter
+ * @property {boolean} [leave] - Animation leave
+ * @property {Object} [style] - CSS style object
+ * @property {Object} [styles] - Multiple styles
+ * @property {Object} [contentStyle] - Content style
+ * @property {boolean} [modal] - Modal behavior
+ * @property {string} [modalClassName] - Modal CSS class
+ * @property {Object} [modalStyle] - Modal style
+ * @property {boolean} [mask] - Show background mask
+ * @property {boolean} [backgroundScroll] - Allow background scroll
+ * @property {number} [backgroundOpacity] - Background opacity
+ * @property {boolean} [toPool] - Use popup pool
+ * @property {any} [closeEl] - Close element
+ * @property {function} [onClose] - Close handler
+ * @property {string} [className] - CSS class name
+ * @property {string} [contentClassName] - Content CSS class
+ * @property {string} [id] - Element ID
+ */
+
+/**
+ * @typedef {import("./BasePopup").BasePopupState & Object} PopupModalState
+ * @property {Object} [modalStyle] - Modal style state
+ * @property {Object} [maskStyle] - Mask style state
+ */
+
 const observerConfig = {
   attributes: true,
   childList: true,
@@ -32,7 +64,23 @@ const observerConfig = {
  * 2. if you don't need append <Content /> component
  * you could pass center or content to equla false
  */
+/**
+ * @extends {PopupOverlay}
+ */
 class PopupModal extends PopupOverlay {
+
+  /**
+   * @type {PopupModalState}
+   */
+  state = {
+    hasError: false,
+    modalStyle: {},
+    maskStyle: {}
+  };
+
+  /** @type {function(): boolean} */
+  close;
+
   static defaultProps = {
     mask: true,
     name: "modal",
@@ -102,7 +150,7 @@ class PopupModal extends PopupOverlay {
                 get(orgMaskStyle, ["justifyContent"]) !==
                   maskStyle.justifyContent)
             ) {
-              this.setState(({ modalStyle }) => {
+              this.setState(({ modalStyle = {} }) => {
                 modalStyle = {
                   ...modalStyle,
                   marginTop,

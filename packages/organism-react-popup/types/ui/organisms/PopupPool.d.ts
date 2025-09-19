@@ -9,4 +9,4 @@ export type Component = import("reshow-build").Component;
 declare function PopupPool({ component, name, ...restProps }: {
     component?: Component;
     name?: string;
-}): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+}): any;

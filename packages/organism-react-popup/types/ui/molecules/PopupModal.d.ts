@@ -1,4 +1,6 @@
 export default PopupModal;
+export type PopupModalProps = import("./BasePopup").BasePopupProps & any;
+export type PopupModalState = import("./BasePopup").BasePopupState & any;
 /**
  * 1. if you need trace show: true
  * it extend from PopupOverlay
@@ -6,12 +8,19 @@ export default PopupModal;
  * 2. if you don't need append <Content /> component
  * you could pass center or content to equla false
  */
+/**
+ * @extends {PopupOverlay}
+ */
 declare class PopupModal extends PopupOverlay {
     static defaultProps: {
         mask: boolean;
         name: string;
         modalClassName: string;
     };
+    /**
+     * @type {PopupModalState}
+     */
+    state: PopupModalState;
     /**
      * @type any
      */
@@ -32,7 +41,7 @@ declare class PopupModal extends PopupOverlay {
      * @param {React.MouseEvent} e
      */
     handleContainerClick: (e: React.MouseEvent) => void;
-    handleKeyUp: (e: KeyboardEvent) => void;
+    handleKeyUp: (/** @type KeyboardEvent*/ e: KeyboardEvent) => void;
     reCalculate: () => void;
     getBodyResetClass(): string;
     resetBodyCssClass(): void;
@@ -41,10 +50,5 @@ declare class PopupModal extends PopupOverlay {
     unlockScreen(): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
-    /**
-     * @param {boolean} show
-     */
-    shouldShow(show: boolean): import("react/jsx-runtime").JSX.Element;
 }
 import PopupOverlay from "../molecules/PopupOverlay";
-import * as React from "react";

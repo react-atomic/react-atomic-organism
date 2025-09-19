@@ -1,5 +1,25 @@
 export default PopupOverlay;
+export type PopupOverlayProps = import("./BasePopup").BasePopupProps & any;
+/**
+ * @typedef {import("./BasePopup").BasePopupProps & Object} PopupOverlayProps
+ * @property {HTMLElement} [targetEl] - Target element
+ * @property {boolean} [toPool] - Use popup pool
+ * @property {Object} [alignParams] - Alignment parameters
+ * @property {number} [retryAt] - Retry timeout
+ * @property {boolean} [isFollowTransform] - Follow transform
+ * @property {string} [className] - CSS class name
+ * @property {Object} [style] - CSS style object
+ * @property {string} [group] - Group name
+ * @property {boolean} [builtInOnly] - Built-in only
+ * @property {any} [ref] - React ref
+ * @property {function} [refCb] - Ref callback
+ */
+/**
+ * @extends {BasePopup}
+ */
 declare class PopupOverlay extends BasePopup {
+    constructor(props: any);
+    props: any;
     /**
      * @param {string} key
      * @param {object} thisStyle
@@ -8,11 +28,11 @@ declare class PopupOverlay extends BasePopup {
     /**
      * @param {any} props
      */
-    renderOverlay(props: any): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    renderOverlay(props: any): any;
     /**
      * @param {boolean} show
      */
-    shouldShow(show: boolean): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
-    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    shouldShow(show: boolean): any;
+    render(): any;
 }
 import BasePopup from "../molecules/BasePopup";

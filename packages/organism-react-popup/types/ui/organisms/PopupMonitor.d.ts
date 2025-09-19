@@ -6,4 +6,4 @@ declare function PopupMonitor({ component, children, className, getIsShow, popup
     className: any;
     getIsShow: any;
     popup: any;
-}): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+}): any;

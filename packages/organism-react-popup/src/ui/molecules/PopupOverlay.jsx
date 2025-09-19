@@ -7,7 +7,31 @@ import getStyle from "get-style";
 import BasePopup from "../molecules/BasePopup";
 import popupStore, { SHOW_KEY } from "../../stores/popupStore";
 
+/**
+ * @typedef {import("./BasePopup").BasePopupProps & Object} PopupOverlayProps
+ * @property {HTMLElement} [targetEl] - Target element
+ * @property {boolean} [toPool] - Use popup pool
+ * @property {Object} [alignParams] - Alignment parameters
+ * @property {number} [retryAt] - Retry timeout
+ * @property {boolean} [isFollowTransform] - Follow transform
+ * @property {string} [className] - CSS class name
+ * @property {Object} [style] - CSS style object
+ * @property {string} [group] - Group name
+ * @property {boolean} [builtInOnly] - Built-in only
+ * @property {any} [ref] - React ref
+ * @property {function} [refCb] - Ref callback
+ */
+
+/**
+ * @extends {BasePopup}
+ */
 class PopupOverlay extends BasePopup {
+
+  constructor(/**@type any*/props) {
+    super(props);
+    this.props = props;
+  }
+
   /**
    * @param {string} key
    * @param {object} thisStyle
