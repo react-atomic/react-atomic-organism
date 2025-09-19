@@ -1,6 +1,6 @@
 export type Curve = any;
 export type D3ScaleLinear = import("d3-scale").ScaleLinear<any, any, never>;
-export const line: import("memoize-one").MemoizedFn<(start: Coordinate, end: Coordinate, curve: any, xLocator?: (d: Coordinate) => number, yLocator?: (d: Coordinate) => number) => {
+export const line: import("memoize-one").MemoizedFn<(start: Coordinate, end: Coordinate, curve: Curve, xLocator?: (d: Coordinate) => number, yLocator?: (d: Coordinate) => number) => {
     center: any;
     d: any;
 }>;
@@ -10,7 +10,7 @@ export const line: import("memoize-one").MemoizedFn<(start: Coordinate, end: Coo
  * @param {Scaler} yScale
  */
 export function curve(data: any, xScale: Scaler, yScale: Scaler, xLocator?: (d: Coordinate) => number, yLocator?: (d: Coordinate) => number): any;
-export const hArea: import("memoize-one").MemoizedFn<(data: any, curve: any, { y0Locator, y1Locator, xLocator, }?: {
+export const hArea: import("memoize-one").MemoizedFn<(data: any, curve: Curve, { y0Locator, y1Locator, xLocator, }?: {
     y0Locator?: (d: any) => any;
     y1Locator?: (d: any) => any;
     xLocator?: (d: Coordinate) => number;
@@ -21,7 +21,7 @@ export const hArea: import("memoize-one").MemoizedFn<(data: any, curve: any, { y
  * @param {number} inner
  * @param {number} outer
  */
-export function pie(data: any, inner: number, outer: number, valueLocator?: (d: any) => any): {
+export function pie(data: any, inner: number, outer: number, valueLocator?: (/**@type any*/ d: any) => any): {
     outerRadius: number;
     innerRadius: number;
     items: any;
@@ -49,7 +49,7 @@ export function colors(scheme?: string): any;
  * @param {number} start
  * @param {number} end
  */
-export function scaleBand(data: any, start: number, end: number, labelLocator?: (d: any) => any, tickNum?: number): {
+export function scaleBand(data: any, start: number, end: number, labelLocator?: (/**@type any*/ d: any) => any, tickNum?: number): {
     scaler: any;
     list: {};
     length: any;
@@ -125,7 +125,7 @@ declare class Scaler {
     /**
      * @type D3ScaleLinear
      */
-    scaler: import("d3-scale").ScaleLinear<any, any, never>;
+    scaler: D3ScaleLinear;
     /**
      * @type {?number=}
      */
