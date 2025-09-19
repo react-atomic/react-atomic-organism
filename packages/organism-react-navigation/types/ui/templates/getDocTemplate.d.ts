@@ -14,4 +14,4 @@ declare function getDocTemplate(params: object, Styles?: object, merge?: boolean
     footer?: any;
     style?: {};
     body: any;
-}) => import("react").ReactComponentElement<any, Pick<any, string | number | symbol>>;
+}) => React.ReactComponentElement;

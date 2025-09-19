@@ -1,20 +1,23 @@
 export default Accordion;
-declare class Accordion extends React.PureComponent<any, any, any> {
+/**
+ * @extends {React.PureComponent}
+ */
+declare class Accordion {
     static defaultProps: {
-        iconOpen: import("react/jsx-runtime").JSX.Element;
-        iconClose: import("react/jsx-runtime").JSX.Element;
+        iconOpen: any;
+        iconClose: any;
         iconLocRight: boolean;
         iconLocLeft: boolean;
     };
     constructor(props: any);
-    constructor(props: any, context: any);
+    props: any;
     state: {
         isActives: {};
     };
+    setState: any;
     /**
      * @param {string} name
      */
-    handleClick(name: string): void;
-    render(): import("react/jsx-runtime").JSX.Element;
+    handleClick: (name: string) => void;
+    render(): any;
 }
-import * as React from "react";

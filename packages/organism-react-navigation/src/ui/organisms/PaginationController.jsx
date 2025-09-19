@@ -1,9 +1,8 @@
 // @ts-check
-import { PureComponent } from "react";
+import React, { PureComponent } from "react";
 import { SemanticUI } from "react-atomic-molecule";
 import { toInt } from "to-percent-js";
 import get from "get-object-value";
-import * as React from "react";
 
 import Pagination from "../organisms/Pagination";
 import paginationCalculator, {
@@ -15,12 +14,20 @@ const {
   BEGIN,
   CURRENT_PAGE,
   PER_PAGE_NUM,
-} = options; 
+} = options;
 
+/**
+ * @extends {React.PureComponent}
+ */
 class PaginationController extends PureComponent {
   static defaultProps = { perPageNum: 10 };
 
-  getPaginationData() {
+  constructor(/**@type any*/props) {
+    super(props);
+    this.props = props;
+  }
+
+  getPaginationData = () => {
     if (!this.cal) {
       this.cal = new paginationCalculator();
     }

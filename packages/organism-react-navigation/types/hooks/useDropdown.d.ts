@@ -1,9 +1,9 @@
 export function useDropdown(props: DropdownProps): DropdownData;
 export type DropdownHandler = {
-    thisEl: React.Ref<any> & import("react").MutableRefObject<any>;
-    listEl: React.Ref<any> & import("react").MutableRefObject<any>;
-    isActive: import("react").MutableRefObject<any>;
-    dropdownClick: import("react").MouseEventHandler;
+    thisEl: React.Ref<any> & any;
+    listEl: React.Ref<any> & any;
+    isActive: any;
+    dropdownClick: any;
     listClick: Function;
     touchStart: Function;
 };

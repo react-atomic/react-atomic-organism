@@ -1,5 +1,6 @@
 // @ts-check
 
+import React from "react";
 import { mixClass } from "class-lib";
 import { useTimer } from "reshow-hooks";
 import { doc } from "win-doc";

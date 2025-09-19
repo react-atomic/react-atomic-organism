@@ -10,3 +10,4 @@ build
 packages/organism-react-grapesjs/assets/
 webpack.pid
 test_output
+.claude

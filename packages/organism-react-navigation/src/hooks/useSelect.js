@@ -1,5 +1,6 @@
 // @ts-check
 
+import React from "react";
 import { useState, useEffect, useRef } from "react";
 import callfunc from "call-func";
 import defaultLocator from "../defaultLocator";

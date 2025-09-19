@@ -1,7 +1,6 @@
 //@ts-check
 
 import * as React from "react";
-
 const { PureComponent } = React;
 
 import {
@@ -34,6 +33,9 @@ const AccordionItem = ({
   </Item>
 );
 
+/**
+ * @extends {React.PureComponent}
+ */
 class Accordion extends PureComponent {
   static defaultProps = {
     iconOpen: <Dropdown />,
@@ -42,14 +44,19 @@ class Accordion extends PureComponent {
     iconLocLeft: false,
   };
 
-  state = {
-    isActives: {},
-  };
+  constructor(/**@type any*/props) {
+    super(props);
+    this.props = props;
+    this.state = {
+      isActives: {},
+    };
+    this.setState = super.setState.bind(this);
+  }
 
   /**
    * @param {string} name
    */
-  handleClick(name) {
+  handleClick = (name) => {
     this.setState(({ isActives }) => {
       isActives[name] = !get(isActives, [name], false);
       return { ...isActives };

@@ -8,4 +8,3 @@ export type SelectProps = import("../../hooks/useSelect").SelectProps;
  * @returns {React.ReactElement}
  */
 declare const Select: React.FC<SelectProps>;
-import * as React from "react";
