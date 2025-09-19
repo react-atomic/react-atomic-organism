@@ -38,11 +38,11 @@ const useDragAndDrop = (/**@type any*/ props) => {
   const [isLoad, d3] = useD3(props.onD3Load);
 
   const startPoint = useRef();
-  const lastPoint = /**@type {React.MutableRefObject<PointType>}*/ (
+  const lastPoint = /**@type {import("react").MutableRefObject<PointType>}*/ (
     useRef({ absX: 0, absY: 0, offset: undefined })
   );
   const lastProps = useRefUpdate(props);
-  const thisEl = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
+  const thisEl = /**@type {import("react").MutableRefObject<HTMLElement>}*/ (useRef());
   const [isDraging, setIsDraging] = useState(false);
 
   const expose = {
@@ -193,7 +193,7 @@ const useDragAndDrop = (/**@type any*/ props) => {
  */
 
 /**
- * @type React.ForwardRefExoticComponent<?, DragAndDropProps>
+ * @type {import("react").ForwardRefExoticComponent<any, DragAndDropProps>}
  */
 const DragAndDrop = forwardRef((props, ref) => {
   const {

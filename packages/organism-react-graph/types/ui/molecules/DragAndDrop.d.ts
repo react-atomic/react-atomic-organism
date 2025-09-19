@@ -11,7 +11,7 @@ export type DragAndDropProps = {
     renderFirst?: boolean | undefined;
     keepLastAbsXY?: boolean | undefined;
     component?: Component | undefined;
-    style?: import("react").CSSProperties | undefined;
+    style?: any | undefined;
     dragAndDropStyle?: import("../../types").DragAndDropStyle | undefined;
     zoom?: import("../../types").SetZoom | undefined;
     refCb?: Function | undefined;
@@ -36,6 +36,6 @@ export type DragAndDropProps = {
  * @property {Function=} onD3Load
  */
 /**
- * @type React.ForwardRefExoticComponent<?, DragAndDropProps>
+ * @type {import("react").ForwardRefExoticComponent<any, DragAndDropProps>}
  */
-declare const DragAndDrop: React.ForwardRefExoticComponent<unknown, DragAndDropProps>;
+declare const DragAndDrop: any;

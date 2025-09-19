@@ -4,4 +4,4 @@ declare function Svg({ ui, atom, width, ...props }: {
     ui?: boolean;
     atom?: string;
     width?: string;
-}): import("react/jsx-runtime").JSX.Element;
+}): any;

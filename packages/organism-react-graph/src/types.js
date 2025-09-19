@@ -26,19 +26,15 @@ export class Zoom {
 }
 
 /**
- * @typedef {import("react")} React
- */
-
-/**
  * @interface
  */
 export class DragAndDropStyle {
   /**
-   * @type {React.CSSProperties}
+   * @type {import("react").CSSProperties}
    */
   droppable;
   /**
-   * @type {?React.CSSProperties=}
+   * @type {?import("react").CSSProperties=}
    */
   dragging;
 }

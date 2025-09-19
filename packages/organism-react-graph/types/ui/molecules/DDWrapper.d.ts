@@ -3,10 +3,10 @@ export function useDDWrapper(props: DDWrapper): {
         drag: (e: any) => void;
         dragEnd: (e: any) => void;
     };
-    absX: number;
-    absY: number;
-    startPoint: StartPointInfo;
-    isDraging: boolean;
+    absX: any;
+    absY: any;
+    startPoint: any;
+    isDraging: any;
 };
 export default DDWrapper;
 export type DDWrapper = {
@@ -26,6 +26,5 @@ export type DDWrapper = {
     children?: any | undefined;
     style?: React.CSSProperties | undefined;
 };
+declare function DDWrapper(props: DDWrapper): any;
 import { StartPointInfo } from "../../types";
-declare function DDWrapper(props: DDWrapper): import("react/jsx-runtime").JSX.Element;
-import * as React from "react";

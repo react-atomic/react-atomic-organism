@@ -1,6 +1,6 @@
 export default Span;
 declare class Span extends BaseString {
-    render(): import("react/jsx-runtime").JSX.Element;
+    render(): any;
     el: any;
 }
 import BaseString from "../molecules/BaseString";

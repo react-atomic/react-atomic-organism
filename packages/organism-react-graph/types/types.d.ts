@@ -21,20 +21,16 @@ export class Zoom {
     k: number;
 }
 /**
- * @typedef {import("react")} React
- */
-/**
  * @interface
  */
 export class DragAndDropStyle {
     /**
-     * @type {React.CSSProperties}
+     * @type {import("react").CSSProperties}
      */
-    droppable: React.CSSProperties;
+    droppable: any;
     /**
-     * @type {?React.CSSProperties=}
+     * @type {?import("react").CSSProperties=}
      */
-    dragging: (React.CSSProperties | null) | undefined;
+    dragging: (any | null) | undefined;
 }
-export type React = typeof import("react");
 export type SetZoom = Zoom | (() => Zoom);
