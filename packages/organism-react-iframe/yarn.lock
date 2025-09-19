@@ -1198,9 +1198,9 @@
   integrity sha512-xPyYSz1cMPnJQhl0CLMH68j3gprKZaTjG3s5Vi+fDgx+uhG9NOXwbVt52eFS8ECyXhyKcjDLCBEqBExKuiZb7Q==
 
 "@types/node@*":
-  version "24.5.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.5.1.tgz#dab6917c47113eb4502d27d06e89a407ec0eff95"
-  integrity sha512-/SQdmUP2xa+1rdx7VwB9yPq8PaKej8TD5cQ+XfKDPWWC+VDJU4rvVVagXqKUzhKjtFoNA8rXDJAkCxQPAe00+Q==
+  version "24.5.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.5.2.tgz#52ceb83f50fe0fcfdfbd2a9fab6db2e9e7ef6446"
+  integrity sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==
   dependencies:
     undici-types "~7.12.0"
 
@@ -1392,9 +1392,9 @@ array.dedup@*:
   integrity sha512-O8YKfORDrsh2rIS3vIerHLH2ZBDl2cXsxBtxclEhAdCxXgL5qBzboBMb8k5Ig04gKPZQP9OvCTYdE4KsUrugJA==
 
 array.merge@*, array.merge@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.2.1.tgz#784a66daa949576483086bdaf967942769896c6c"
-  integrity sha512-bbId0ZW8nuCb8Wu6PrDDnRWtwAYt5QsOja2puq7Vy6icKyPvsr0gHQB4YVa7O6Uh+xw4hUnz6BYeDPrTPeki0Q==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/array.merge/-/array.merge-0.2.2.tgz#13065139f9ea692d72714006656b952215751495"
+  integrity sha512-C7BsSvBONea1BoWAJb+ppeKKg46lEDyFfSRgh8aNWBJ26NyoDZG6zeNuN6pmf9eJVvQdhmscIU+1hnPx39esiQ==
   dependencies:
     get-object-value "*"
     reshow-constant "*"
@@ -1492,9 +1492,9 @@ balanced-match@^1.0.0:
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
 baseline-browser-mapping@^2.8.3:
-  version "2.8.4"
-  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.8.4.tgz#e553e12272c4965682743705efd8b4b4cf0d709b"
-  integrity sha512-L+YvJwGAgwJBV1p6ffpSTa2KRc69EeeYGYjRVWKs0GKrK+LON0GC0gV+rKSNtALEDvMDqkvCFq9r1r94/Gjwxw==
+  version "2.8.6"
+  resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.8.6.tgz#c37dea4291ed8d01682f85661dbe87967028642e"
+  integrity sha512-wrH5NNqren/QMtKUEEJf7z86YjfqW/2uw3IL3/xpqZUC95SSVIFXYQeeGjL6FT/X68IROu6RMehZQS5foy2BXw==
 
 binary-extensions@^2.0.0:
   version "2.3.0"
@@ -1939,9 +1939,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.5.218:
-  version "1.5.220"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.220.tgz#a9853fa5edcf51f4c7db369144377cf31d783b8f"
-  integrity sha512-TWXijEwR1ggr4BdAKrb1nMNqYLTx1/4aD1fkeZU+FVJGTKu53/T7UyHKXlqEX3Ub02csyHePbHmkvnrjcaYzMA==
+  version "1.5.222"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.222.tgz#965c93783ad989116b74593ae3068b9466fdb237"
+  integrity sha512-gA7psSwSwQRE60CEoLz6JBCQPIxNeuzB2nL8vE03GK/OHxlvykbLyeiumQy1iH5C2f3YbRAZpGCMT12a/9ih9w==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2298,9 +2298,9 @@ get-safe-reg@*:
   integrity sha512-f48o9q9+xu2GZrZiYd97nkjgTwMGLbuBYmnriwFg0JPy5OI3ERuzT6RKxunhcrhWnpDKltfoTcFSUKnp7cGgOw==
 
 get-scroll-info@*:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.6.0.tgz#6c0e793e0afaa80e9d2b59d2bd177eb58f02a2f6"
-  integrity sha512-oiW2+T25v1lo/kH10eBL+ZCLUUJFVdzrN4ankWhF2RVUlXwiNnrqrFuU6OSR91e/UPNF28IA9gQbLxgEnZlhQA==
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/get-scroll-info/-/get-scroll-info-0.6.1.tgz#7fd7c55c0e9e9aa4d6eec4d6cb88cdb3c9a8294f"
+  integrity sha512-WZ5mIcZR1offZson5iIcZ5oLpSNyEC4h7NCmaUglyQriyLpcui9t+z4C+WWmEIUMl0glWOu+FBzwH76z+c02pA==
   dependencies:
     get-random-id "*"
     reshow-constant "*"

@@ -1,12 +1,12 @@
 //@ts-check
-import build, { mergeRef } from "reshow-build";
-import {
+import React, {
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
   forwardRef,
 } from "react";
+import build, { mergeRef } from "reshow-build";
 import get from "get-object-value";
 
 let iframeCount = 0;
