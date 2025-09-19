@@ -1,5 +1,5 @@
 export default Replace;
-declare class Replace extends PureComponent<any, any, any> {
+declare class Replace {
     static defaultProps: {
         interval: number;
     };
@@ -7,8 +7,6 @@ declare class Replace extends PureComponent<any, any, any> {
         childs: any[];
         prevChildren: any;
     };
-    constructor(props: any);
-    constructor(props: any, context: any);
     state: {
         no: number;
         childs: {};
@@ -17,6 +15,5 @@ declare class Replace extends PureComponent<any, any, any> {
     _time: NodeJS.Timeout;
     componentDidMount(): void;
     componentWillUnmount(): void;
-    render(): import("react/jsx-runtime").JSX.Element;
+    render(): any;
 }
-import { PureComponent } from "react";

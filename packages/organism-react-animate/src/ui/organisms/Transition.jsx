@@ -295,7 +295,7 @@ const useTransition = ({
  */
 
 /**
- * @type React.FC<TransitionProps>
+ * @type {import('react').FC<TransitionProps>}
  */
 const Transition = (props) => {
   const { status, otherProps, component, children, statusKey, lastNode } =

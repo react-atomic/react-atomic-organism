@@ -9,6 +9,6 @@ export type TransitionProps = any;
  * @typedef {Object} TransitionProps
  */
 /**
- * @type React.FC<TransitionProps>
+ * @type {import('react').FC<TransitionProps>}
  */
-declare const Transition: React.FC<TransitionProps>;
+declare const Transition: any;

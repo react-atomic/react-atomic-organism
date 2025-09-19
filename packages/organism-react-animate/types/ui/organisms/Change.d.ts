@@ -1,2 +1,2 @@
 export default Change;
-declare function Change(props: any): import("react/jsx-runtime").JSX.Element;
+declare function Change(props: any): any;

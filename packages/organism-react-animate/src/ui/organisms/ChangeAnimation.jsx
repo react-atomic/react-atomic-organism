@@ -14,13 +14,13 @@ const injects = {};
  * @property {string} [statusKey]
  * @property {function} [onEnd]
  * @property {string} [animation]
- * @property {React.ReactElement|string} children
+ * @property {import('react').ReactElement|string} children
  * @property {Object} [otherProps]
  */
 
 /**
  * @param {ChangeAnimationProps} param
- * @returns {React.ReactElement}
+ * @returns {import('react').ReactElement}
  */
 const ChangeAnimation = ({
   statusKey = dataStatusKey,

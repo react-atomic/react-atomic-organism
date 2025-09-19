@@ -1,5 +1,5 @@
 {
-  "version": "0.12.3",
+  "version": "0.12.4",
   "name": "organism-react-animate",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "reshow-unit": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
