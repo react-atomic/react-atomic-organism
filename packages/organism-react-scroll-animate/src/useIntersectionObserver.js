@@ -1,6 +1,6 @@
 //@ts-check
 
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import build from "reshow-build";
 import { win } from "win-doc";
 

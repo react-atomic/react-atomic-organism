@@ -1,5 +1,5 @@
 {
-  "version": "0.16.3",
+  "version": "0.16.4",
   "name": "organism-react-scroll-animate",
   "repository": {
     "type": "git",
@@ -28,9 +28,11 @@
     "reshow-app": "*"
   },
   "exports": {
+    "types": "./types/index.d.ts",
     "require": "./build/cjs/src/index.js",
     "import": "./build/es/src/index.mjs"
   },
+  "types": "./types/index.d.ts",
   "main": "./build/cjs/src/index.js",
   "module": "./build/es/src/index.mjs",
   "scripts": {
@@ -49,7 +51,6 @@
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"
   },
-  "types": "./types/index.d.ts",
   "files": [
     "types",
     "build",
