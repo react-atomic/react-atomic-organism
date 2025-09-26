@@ -133,7 +133,7 @@ const AnimateGroup = (props) => {
   }, [props.children, isLoad]);
   return useMemo(() => {
     if (!isLoad) {
-      return build(component)(restProps);
+      return build(component)({...restProps, className});
     }
 
     /**
