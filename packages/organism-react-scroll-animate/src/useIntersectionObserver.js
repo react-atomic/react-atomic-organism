@@ -11,7 +11,7 @@ import { win } from "win-doc";
  * @returns {React.ReactElement}
  */
 const useIntersectionObserver = (component, onIntersect, options = {}) => {
-  const lastEl = useRef();
+  const lastEl = useRef(null);
   const el = build(component)({ ref: lastEl });
   useEffect(() => {
     const dom = lastEl.current;
@@ -24,7 +24,7 @@ const useIntersectionObserver = (component, onIntersect, options = {}) => {
       observer.unobserve(dom);
     };
   }, [lastEl.current]);
-  return el;
+  return /**@type React.ReactElement*/ (el);
 };
 
 export default useIntersectionObserver;

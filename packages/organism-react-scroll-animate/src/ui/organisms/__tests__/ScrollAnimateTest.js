@@ -5,7 +5,7 @@ import ScrollAnimate from "../ScrollAnimate";
 
 describe("Test Scroll Animate", () => {
   it("simple test", () => {
-    const wrap = render(<ScrollAnimate attachDestRetry={1} />);
+    const wrap = render(<ScrollAnimate attachDestRetry={1} appear="spin" />);
     const html = wrap.html();
     expect(html).to.have.string("spy");
   });
