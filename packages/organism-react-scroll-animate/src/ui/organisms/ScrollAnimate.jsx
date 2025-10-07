@@ -33,7 +33,7 @@ const useScrollContent = (/**@type any*/ props) => {
     } else {
       setState({
         el: null,
-        style: { ...propsStyle, minHeight },
+        style: null == minHeight ? propsStyle : { ...propsStyle, minHeight },
       });
     }
   }, [minHeight, isOnScreen, once, isKeep, isShown, children]);
