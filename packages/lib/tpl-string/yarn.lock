@@ -1524,6 +1524,14 @@ call-bound@^1.0.3:
     call-bind-apply-helpers "^1.0.2"
     get-intrinsic "^1.3.0"
 
+call-func@*:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/call-func/-/call-func-0.5.3.tgz#e1bb7c12b383e38f2ffc12e77fc72614e1136983"
+  integrity sha512-VnJ6pYpqCNhGm3VKmlg3iu1PJ31NLM30C/0eP64L3vx0qsFAoyplFtPtLkdqQVhi5FvnfQYzI74Jfu8OWNk2vw==
+  dependencies:
+    reshow-constant "*"
+    reshow-runtime "*"
+
 callsites@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
@@ -2141,6 +2149,15 @@ get-intrinsic@^1.2.4, get-intrinsic@^1.3.0:
     has-symbols "^1.1.0"
     hasown "^2.0.2"
     math-intrinsics "^1.1.0"
+
+get-object-value@*:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/get-object-value/-/get-object-value-0.8.1.tgz#3c5392443887e61d145bec94f0cf8c8aa2b0ffa8"
+  integrity sha512-VL7QeO97OZxJvDg0YFPZGDkSkYhslh+5qudNZDLsjGAv7mRsfrcq+c/b/kRJI0c9N6pxdXa6zdtgNRjnNwTHHg==
+  dependencies:
+    call-func "*"
+    reshow-constant "*"
+    reshow-runtime "*"
 
 get-package-type@^0.1.0:
   version "0.1.0"
