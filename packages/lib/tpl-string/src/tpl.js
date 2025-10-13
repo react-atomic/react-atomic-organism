@@ -2,6 +2,7 @@
 
 import get from "get-object-value";
 
+// String.replace() resets lastIndex, so it's safe to use a global regex here.
 const tagReg = /(\{\{)([^\}]*)(\}\})/g;
 
 /**
