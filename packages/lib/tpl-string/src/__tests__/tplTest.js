@@ -22,4 +22,10 @@ describe("Tpl Test", () => {
     expect(result2).to.equal("greeting Bob");
     expect(result3).to.equal("greeting Charlie");
   });
+
+  it("keep string if not found", () => {
+    const s = "hello {{ world }} {{mark}}";
+    const actual = tpl(s, { world: "there" });
+    expect(actual).to.equal("hello there {{mark}}");
+  });
 });

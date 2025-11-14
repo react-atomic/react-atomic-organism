@@ -3,7 +3,7 @@
 import get from "get-object-value";
 
 // String.replace() resets lastIndex, so it's safe to use a global regex here.
-const tagReg = /(\{\{)([^\}]*)(\}\})/g;
+const tagReg = /\{\{(.*?)\}\}/g;
 
 /**
  * @param {string} s
@@ -11,7 +11,7 @@ const tagReg = /(\{\{)([^\}]*)(\}\})/g;
  * @returns {string}
  */
 const tpl = (s, payload) => {
-  const result = s.replace(tagReg, (...m) => get(payload, [m[2]]));
+  const result = s.replace(tagReg, (...m) => get(payload, [m[1].trim()], m[0]));
   return result;
 };
 
