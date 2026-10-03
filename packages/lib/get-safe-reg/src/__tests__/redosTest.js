@@ -93,15 +93,60 @@ describe("ReDoS (Regular Expression Denial of Service) Security Tests", () => {
   });
 
   describe("Regex Error Handling", () => {
-    it("should handle malformed regex patterns gracefully", () => {
-      // This test verifies the try-catch error handling
+    it("should fall back to an exact-match regex for uncompilable patterns", () => {
       const problematicPattern = ":param" + "[".repeat(100); // Unmatched brackets
-      
-      expect(() => {
-        const result = wildcardToRegExp(problematicPattern);
-        // Should either succeed with escaped brackets or fall back to exact match
-        expect(result).to.have.property("reg");
-      }).to.not.throw();
+
+      // The pattern cannot compile; the catch block must degrade to a literal
+      // match rather than throwing or returning an unusable value.
+      const warn = console.warn;
+      console.warn = () => {};
+      let result;
+      try {
+        result = wildcardToRegExp(problematicPattern);
+      } finally {
+        console.warn = warn;
+      }
+
+      expect(result.reg).to.be.instanceOf(RegExp);
+      // The fallback escapes every metacharacter, so it matches the literal input
+      expect(result.reg.test(problematicPattern)).to.be.true;
+      // And it does NOT match a string the original pattern would have captured
+      expect(result.reg.test("somevalue")).to.be.false;
+      // Parameter semantics are dropped by the fallback, not silently faked
+      expect(result.keys).to.deep.equal([]);
+    });
+
+    it("should cache the fallback so repeated calls stay stable", () => {
+      const problematicPattern = ":cache" + "[".repeat(100);
+
+      const warn = console.warn;
+      console.warn = () => {};
+      let first, second;
+      try {
+        first = wildcardToRegExp(problematicPattern);
+        second = wildcardToRegExp(problematicPattern);
+      } finally {
+        console.warn = warn;
+      }
+
+      expect(second.reg).to.equal(first.reg);
+    });
+
+    it("should treat [ as a regex class in path mode and a literal elsewhere", () => {
+      // path mode exposes raw regex syntax, so [0-1] is a live character class
+      const pathMode = wildcardToRegExp("/*/a.[0-1]3");
+      expect(pathMode.reg.test("/ddd/a.13")).to.be.true;
+      expect(pathMode.reg.test("/ddd/a.93")).to.be.false;
+
+      // brackets mode escapes it, so [abc] only ever matches itself
+      const bracketsMode = wildcardToRegExp("[abc]", { escape: "brackets" });
+      expect(bracketsMode.reg.test("[abc]")).to.be.true;
+      expect(bracketsMode.reg.test("a")).to.be.false;
+
+      // config mode escapes it too
+      const configMode = wildcardToRegExp("[abc]", { escape: "config" });
+      expect(configMode.reg.test("[abc]")).to.be.true;
+      expect(configMode.reg.test("a")).to.be.false;
     });
   });
 
