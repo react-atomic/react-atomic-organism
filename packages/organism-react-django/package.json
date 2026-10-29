@@ -16,16 +16,15 @@
     "react-atomic-organism": "*"
   },
   "devDependencies": {
-    "@babel/cli": "^7.x",
+    "@babel/cli": "^8.0.6",
+    "@babel/core": "^8.0.9",
     "chai": "*",
-    "enzyme": "*",
-    "enzyme-adapter-react-16": "*",
     "jsdom": "*",
-    "jsdom-global": "*",
+    "global-jsdom": "*",
     "mocha": "*",
-    "react": "^16.x",
-    "react-dom": "^16.x",
-    "react-test-renderer": "*"
+    "reshow-unit": "^0.19.2",
+    "react": "^19.x",
+    "react-dom": "^19.x"
   },
   "scripts": {
     "clean": "find ./build -name '*.*' | xargs rm -rf",
@@ -36,7 +35,7 @@
     "build:es:src": "BABEL_ENV=es babel src -d build/es/src --root-mode upward",
     "build:es:ui": "BABEL_ENV=es babel ui -d build/es/ui --root-mode upward",
     "build": "npm run clean && npm run build:cjs && npm run build:es",
-    "mochaFor": "mocha -r jsdom-global/register",
+    "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
     "test": "npm run build && npm run mocha",
     "prepublishOnly": "npm run test"

@@ -1,8 +1,8 @@
-export default getAlignTargetXY;
+import { OffsetType } from "getoffset";
 /**
  * @param {OffsetType} domInfo
  * @param {string} loc
  * @returns {[number, number]}
  */
-declare function getAlignTargetXY(domInfo: OffsetType, loc: string): [number, number];
-import { OffsetType } from "getoffset";
+declare const getAlignTargetXY: (domInfo: OffsetType, loc: string) => [number, number];
+export default getAlignTargetXY;

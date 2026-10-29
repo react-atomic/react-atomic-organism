@@ -1,23 +1,24 @@
-export default Accordion;
+import * as React from "react";
+declare const PureComponent: typeof React.PureComponent;
 /**
  * @extends {React.PureComponent}
  */
-declare class Accordion {
-    static defaultProps: {
-        iconOpen: any;
-        iconClose: any;
-        iconLocRight: boolean;
-        iconLocLeft: boolean;
-    };
-    constructor(props: any);
+declare class Accordion extends PureComponent {
     props: any;
     state: {
         isActives: {};
     };
-    setState: any;
+    static defaultProps: {
+        iconOpen: React.JSX.Element;
+        iconClose: React.JSX.Element;
+        iconLocRight: boolean;
+        iconLocLeft: boolean;
+    };
+    constructor(/**@type any*/ props: any);
     /**
      * @param {string} name
      */
     handleClick: (name: string) => void;
-    render(): any;
+    render(): React.JSX.Element;
 }
+export default Accordion;

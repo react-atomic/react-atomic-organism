@@ -1,4 +1,5 @@
-export default Rect;
-declare class Rect {
-    render(): any;
+import React, { PureComponent } from "react";
+declare class Rect extends PureComponent {
+    render(): React.JSX.Element;
 }
+export default Rect;

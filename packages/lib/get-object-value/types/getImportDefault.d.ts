@@ -1,2 +1,2 @@
+declare const getImportDefault: (o: any) => any;
 export default getImportDefault;
-declare function getImportDefault(o: any): any;

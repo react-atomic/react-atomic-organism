@@ -1,7 +1,7 @@
-export default prefixClass;
 /**
  * @param {string} prefix
  * @param {string} className
  * @returns {string}
  */
-declare function prefixClass(prefix: string, className: string): string;
+declare const prefixClass: (prefix: string, className: string) => string;
+export default prefixClass;

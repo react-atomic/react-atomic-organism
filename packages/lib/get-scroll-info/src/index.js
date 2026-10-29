@@ -11,8 +11,7 @@ const lastScrollStore = NEW_OBJ();
  */
 
 /**
- * @typedef {object & Document} ThisDocument
- * @property {function} webkitIsFullScreen
+ * @typedef {Document & {webkitIsFullScreen: Function}} ThisDocument
  */
 
 /**
@@ -24,7 +23,7 @@ let isWebkit;
 let docEl;
 
 const initDoc = () => {
-  oDoc = doc();
+  oDoc = /** @type {ThisDocument} */ (doc());
   oWin = win();
   isWebkit = UNDEFINED !== typeof oDoc.webkitIsFullScreen;
   docEl = oDoc.documentElement;
@@ -40,7 +39,7 @@ const getScrollNode = (el) => {
   }
   if (!el && oDoc) {
     if (oDoc.scrollingElement) {
-      el = oDoc.scrollingElement;
+      el = /** @type {HTMLElement} */ (oDoc.scrollingElement);
     } else if (isWebkit) {
       el = oDoc.body;
     } else {

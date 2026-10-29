@@ -1,16 +1,14 @@
-export default CancelButton;
-declare class CancelButton extends PureComponent<any, any, any> {
+import React, { PureComponent } from "react";
+declare class CancelButton extends PureComponent {
+    el: any;
     static defaultProps: {
         show: boolean;
     };
-    constructor(props: any);
-    constructor(props: any, context: any);
     state: {
         r: number;
     };
     handleEl: (el: any) => any;
-    el: any;
     componentDidMount(): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
-import { PureComponent } from "react";
+export default CancelButton;

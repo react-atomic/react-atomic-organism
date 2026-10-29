@@ -1,2 +1,2 @@
+declare const NotFoundComponent: (props: any) => import("react").JSX.Element;
 export default NotFoundComponent;
-declare function NotFoundComponent(props: any): JSX.Element;

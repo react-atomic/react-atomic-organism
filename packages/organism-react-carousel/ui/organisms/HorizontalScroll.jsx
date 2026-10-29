@@ -11,7 +11,7 @@ import CarouselSwipe from "../organisms/CarouselSwipe";
 
 const HorizontalScroll = forwardRef(({ listClassName, ...props }, ref) => {
   const [height, setHeight] = useState("auto");
-  const listEl = useRef();
+  const listEl = useRef(undefined);
   const expose = {
     resetScroll: () => {
       const el = listEl.current?.getEl();

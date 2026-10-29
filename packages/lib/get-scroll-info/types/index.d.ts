@@ -1,4 +1,13 @@
-export class ScrollInfoType {
+export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
+export type ThisDocument = Document & {
+    webkitIsFullScreen: Function;
+};
+/**
+ * @param {SAFE_UNDEFINED|HTMLElement} [el]
+ * @returns {HTMLElement}
+ */
+declare const getScrollNode: (el?: SAFE_UNDEFINED | HTMLElement) => HTMLElement;
+export declare class ScrollInfoType {
     /**
      * @type number
      */
@@ -68,16 +77,10 @@ export class ScrollInfoType {
      */
     scrollEl: HTMLElement;
 }
-export default getScrollInfo;
-export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
-export type ThisDocument = object & Document;
 /**
  * @param {SAFE_UNDEFINED|HTMLElement} [inputEl]
  * @returns {ScrollInfoType}
  */
-declare function getScrollInfo(inputEl?: SAFE_UNDEFINED | HTMLElement, margin?: number): ScrollInfoType;
-/**
- * @param {SAFE_UNDEFINED|HTMLElement} [el]
- * @returns {HTMLElement}
- */
-export function getScrollNode(el?: SAFE_UNDEFINED | HTMLElement): HTMLElement;
+declare const getScrollInfo: (inputEl?: SAFE_UNDEFINED | HTMLElement, margin?: number) => ScrollInfoType;
+export default getScrollInfo;
+export { getScrollNode };

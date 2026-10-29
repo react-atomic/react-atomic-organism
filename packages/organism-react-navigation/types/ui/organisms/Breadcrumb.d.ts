@@ -1,2 +1,2 @@
+declare const Breadcrumb: (props: any) => import("react").JSX.Element;
 export default Breadcrumb;
-declare function Breadcrumb(props: any): any;

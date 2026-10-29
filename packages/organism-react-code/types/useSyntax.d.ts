@@ -1,2 +1,2 @@
+declare const useSyntax: () => any;
 export default useSyntax;
-declare function useSyntax(): any;

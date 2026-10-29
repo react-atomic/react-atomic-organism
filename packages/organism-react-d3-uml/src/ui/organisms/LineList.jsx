@@ -13,7 +13,7 @@ const LineList = forwardRef((props, ref) => {
   const { lineDefaultProps, host } = props;
   const [lines, setLines] = useState([]);
   const setLinesCb = useRef([]);
-  const lastLines = useRef();
+  const lastLines = useRef(undefined);
   const expose = {
     setLines,
     getLines: () => lastLines.current,

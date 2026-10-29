@@ -1,2 +1,2 @@
+declare const getUrlAnaly: (url: any) => any;
 export default getUrlAnaly;
-declare function getUrlAnaly(url: any): any;

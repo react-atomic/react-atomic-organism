@@ -1,8 +1,8 @@
-export default isFullOnScreen;
+import { SimplePosType } from "./types";
 /**
  * @param {SimplePosType} domInfo
  * @param {SimplePosType} scrollInfo
  * @returns {boolean}
  */
-declare function isFullOnScreen(domInfo: SimplePosType, scrollInfo: SimplePosType): boolean;
-import { SimplePosType } from "./types";
+declare const isFullOnScreen: (domInfo: SimplePosType, scrollInfo: SimplePosType) => boolean;
+export default isFullOnScreen;

@@ -1,15 +1,15 @@
 /**
  * @interface
  */
-export class SortData {
+export declare class SortData {
     /**
      * @type {?string|number=}
      */
-    sortId: ((string | number) | null) | undefined;
+    sortId: ((string | null) | number) | undefined;
     /**
      * @type {?string|number=}
      */
-    targetId: ((string | number) | null) | undefined;
+    targetId: ((string | null) | number) | undefined;
     /**
      * @type {?boolean=}
      */

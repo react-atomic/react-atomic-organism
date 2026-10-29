@@ -1,6 +1,6 @@
-export default SelectField;
-declare function SelectField({ selectComponent, inputProps, ...props }: {
+declare const SelectField: ({ selectComponent, inputProps, ...props }: {
     [x: string]: any;
-    selectComponent?: React.FC<import("../../hooks/useSelect").SelectProps>;
     inputProps: any;
-}): any;
+    selectComponent?: import("react").FC<import("../../hooks/useSelect").SelectProps>;
+}) => import("react").JSX.Element;
+export default SelectField;

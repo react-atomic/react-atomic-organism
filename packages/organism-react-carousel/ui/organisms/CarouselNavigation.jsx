@@ -15,12 +15,12 @@ const CarouselNavigation = (props) => {
     style,
     className,
     carouselAttr,
-    container,
+    container = SemanticUI,
     children,
     thumbAttr,
     thumbListStyle,
     carouselListStyle,
-    infinity,
+    infinity = true,
     selected: propsSelected,
     onChange,
     onSelected,
@@ -30,8 +30,8 @@ const CarouselNavigation = (props) => {
 
   const [selected, setSelected] = useState();
   const [childs, setChilds] = useState();
-  const thisBackward = useRef();
-  const thisForward = useRef();
+  const thisBackward = useRef(undefined);
+  const thisForward = useRef(undefined);
 
   const thisThumbAttr = {
     ...carouselAttr,
@@ -217,11 +217,6 @@ const CarouselNavigation = (props) => {
       thisChildren
     );
   }, [childs, selected]);
-};
-
-CarouselNavigation.defaultProps = {
-  container: SemanticUI,
-  infinity: true,
 };
 
 export default CarouselNavigation;

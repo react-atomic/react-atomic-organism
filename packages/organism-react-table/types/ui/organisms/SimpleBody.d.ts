@@ -1,14 +1,9 @@
-export default SimpleBody;
-declare function SimpleBody({ trComponent, rowCount, children, tbodyComponent, tdComponent, }: {
-    trComponent?: ({ "data-cell-component": cellComponent, "data-row-index": rowIndex, "data-col-index": columnIndex, columnKey, ...restProps }: {
-        [x: string]: any;
-        "data-cell-component"?: string;
-        "data-row-index"?: any;
-        "data-col-index"?: any;
-        columnKey?: any;
-    }) => import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
-    rowCount?: number;
+import Cell from "../organisms/Cell";
+declare const SimpleBody: ({ trComponent, rowCount, children, tbodyComponent, tdComponent, }: {
     children?: any;
+    rowCount?: number;
     tbodyComponent?: string;
     tdComponent?: string;
-}): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    trComponent?: typeof Cell;
+}) => import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
+export default SimpleBody;

@@ -1,26 +1,26 @@
-export default CSSTransition;
-declare function CSSTransition({ stepKeys, actionKeys, classNames, delay, beforeEnter, afterEnter, onEnter, onEntering, onEntered, beforeExit, afterExit, onExit, onExiting, onExited, ...props }: {
+declare const CSSTransition: ({ stepKeys, actionKeys, classNames, delay, beforeEnter, afterEnter, onEnter, onEntering, onEntered, beforeExit, afterExit, onExit, onExiting, onExited, ...props }: {
     [x: string]: any;
-    stepKeys?: {
-        appear: string;
-        enter: string;
-        exit: string;
-    };
     actionKeys?: {
         start: string;
         active: string;
         done: string;
     };
+    afterEnter: any;
+    afterExit: any;
+    beforeEnter: any;
+    beforeExit: any;
     classNames: any;
     delay: any;
-    beforeEnter: any;
-    afterEnter: any;
     onEnter: any;
-    onEntering: any;
     onEntered: any;
-    beforeExit: any;
-    afterExit: any;
+    onEntering: any;
     onExit: any;
-    onExiting: any;
     onExited: any;
-}): any;
+    onExiting: any;
+    stepKeys?: {
+        appear: string;
+        enter: string;
+        exit: string;
+    };
+}) => import("react").JSX.Element;
+export default CSSTransition;

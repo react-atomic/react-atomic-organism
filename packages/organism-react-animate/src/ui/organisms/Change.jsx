@@ -13,7 +13,7 @@ const Change = (props) => {
   } = props;
   const [children, setChildren] = useState(propsChildren);
   const _mount = useMounted();
-  const scheduleChildren = useRef();
+  const scheduleChildren = useRef(undefined);
   const isRunning = useRef(false);
   const nextCall = useRef(false);
   const prevPropsChildren = usePrevious(propsChildren);

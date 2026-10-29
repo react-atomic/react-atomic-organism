@@ -5,7 +5,7 @@ import { UNDEFINED, T_UNDEFINED } from "reshow-constant";
 const defaultObj = { __null: true };
 
 /**
- * @param {object|undefined} w
+ * @param {any} w
  * @param {any} def
  * @returns {Document}
  */
@@ -25,7 +25,7 @@ const hasWin = (key = "__null") => !win()[key];
 
 /**
  * @param {any} def
- * @returns {window}
+ * @returns {Window}
  */
 const win = (def = defaultObj) =>
   /**

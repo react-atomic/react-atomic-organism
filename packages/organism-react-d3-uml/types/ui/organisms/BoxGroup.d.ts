@@ -1,6 +1,10 @@
-export default BoxGroup;
-declare class BoxGroup extends Component<any, any, any> {
-    constructor(props: any);
+import React, { Component } from "react";
+declare class BoxGroup extends Component {
+    lastX: any;
+    lastY: any;
+    el: any;
+    id: number;
+    _mount: boolean;
     state: {
         absX: number;
         absY: number;
@@ -13,12 +17,9 @@ declare class BoxGroup extends Component<any, any, any> {
         absY: any;
     }) => void;
     handleDragEnd: (e: any) => void;
-    lastX: any;
-    lastY: any;
     handleEdit: (e: any) => void;
     handleDel: (e: any) => void;
     handleSetRef: (el: any) => void;
-    el: any;
     handleGetEl: () => any;
     addBox(obj: any): void;
     getXY(): {
@@ -35,10 +36,9 @@ declare class BoxGroup extends Component<any, any, any> {
     getId(): number;
     getEl(): any;
     setBoxNameInvertMap(id: any, name: any): void;
-    id: number;
+    constructor(props: any);
     componentDidMount(): void;
-    _mount: boolean;
     componentWillUnmount(): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
-import { Component } from "react";
+export default BoxGroup;

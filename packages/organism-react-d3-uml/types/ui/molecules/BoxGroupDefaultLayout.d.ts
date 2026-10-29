@@ -1,5 +1,7 @@
-export default BoxGroupDefaultLayout;
+import React from "react";
+import BaseLayout from "../molecules/BaseLayout";
 declare class BoxGroupDefaultLayout extends BaseLayout {
+    el: any;
     state: {
         rectW: number;
         rectH: number;
@@ -10,7 +12,6 @@ declare class BoxGroupDefaultLayout extends BaseLayout {
     update(prevState: any): void;
     componentDidMount(): void;
     componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void;
-    render(): JSX.Element;
-    el: any;
+    render(): React.JSX.Element;
 }
-import BaseLayout from "../molecules/BaseLayout";
+export default BoxGroupDefaultLayout;

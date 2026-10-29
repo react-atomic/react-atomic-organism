@@ -37,12 +37,12 @@ import { useRefUpdate } from "reshow-hooks";
 const useDragAndDrop = (/**@type any*/ props) => {
   const [isLoad, d3] = useD3(props.onD3Load);
 
-  const startPoint = useRef();
+  const startPoint = useRef(undefined);
   const lastPoint = /**@type {import("react").MutableRefObject<PointType>}*/ (
     useRef({ absX: 0, absY: 0, offset: undefined })
   );
   const lastProps = useRefUpdate(props);
-  const thisEl = /**@type {import("react").MutableRefObject<HTMLElement>}*/ (useRef());
+  const thisEl = /**@type {import("react").MutableRefObject<HTMLElement>}*/ (useRef(undefined));
   const [isDraging, setIsDraging] = useState(false);
 
   const expose = {

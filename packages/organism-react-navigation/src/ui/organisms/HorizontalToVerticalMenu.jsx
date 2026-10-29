@@ -26,7 +26,7 @@ import get from "get-object-value";
  * @property {number=} height
  * @property {Component=} component
  * @property {React.CSSProperties=} style
- * @property {React.Children=} children
+ * @property {React.ReactNode=} children
  */
 
 /**

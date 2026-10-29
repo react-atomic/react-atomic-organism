@@ -1,15 +1,12 @@
-import React, { Component } from "react";
-import gJsdom from "jsdom-global";
+import React from "react";
 
 import { expect } from "chai";
-import { shallow, mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { render, waitFor } from "reshow-unit";
 
 import Asciidoc from "../Asciidoc";
 
 describe("Test Asciidoc", () => {
-  it("simple test", (done) => {
+  it("simple test", async () => {
     const adoc = `
 :toc:
 :toc-placement!:
@@ -18,19 +15,12 @@ toc::[]
 = h1 - test
 test
 `;
-    class Comp extends Component {
-      render() {
-        return <Asciidoc ref={(el) => (this.el = el)}>{adoc}</Asciidoc>;
-      }
-    }
-    const el = document.createElement("div");
-    document.body.appendChild(el);
-    const wrap = mount(<Comp />, { attachTo: el });
-    setTimeout(() => {
-      const obj = wrap.instance();
-      const html = obj.el.getBody().innerHTML;
-      expect(html).to.have.string("div");
-      done();
-    }, 100);
+    let asciidoc;
+    const wrap = render(
+      <Asciidoc ref={(el) => (asciidoc = el)}>{adoc}</Asciidoc>,
+    );
+    await waitFor(() => {
+      expect(asciidoc.getBody().innerHTML).to.have.string("div");
+    });
   });
 });

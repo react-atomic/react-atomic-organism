@@ -7,8 +7,8 @@ import HTMLToCanvas from "../organisms/HTMLToCanvas";
 import getAsset from "../../src/getAsset";
 
 const HTMLToPDF = ({ downloadFileName = "html.pdf", ...props }, ref) => {
-  const canvas = useRef();
-  const doc = useRef();
+  const canvas = useRef(undefined);
+  const doc = useRef(undefined);
   const PDF_WIDTH = 595.28;
   const PDF_HEIGHT = 841.89;
   const execDownload =

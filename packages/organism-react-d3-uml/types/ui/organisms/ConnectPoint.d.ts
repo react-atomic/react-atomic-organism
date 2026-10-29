@@ -1,9 +1,10 @@
-export default ConnectPoint;
-declare class ConnectPoint extends Component<any, any, any> {
+import React, { Component } from "react";
+import ConnectPointDefaultLayout from "../molecules/ConnectPointDefaultLayout";
+declare class ConnectPoint extends Component {
+    id: number;
     static defaultProps: {
         component: typeof ConnectPointDefaultLayout;
     };
-    constructor(props: any);
     state: {
         start: any;
         absX: number;
@@ -29,11 +30,10 @@ declare class ConnectPoint extends Component<any, any, any> {
     getBoxGroupName(): any;
     getId(): number;
     isShow(): any;
-    id: number;
+    constructor(props: any);
     componentDidMount(): void;
     componentWillUnmount(): void;
     componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
-import { Component } from "react";
-import ConnectPointDefaultLayout from "../molecules/ConnectPointDefaultLayout";
+export default ConnectPoint;

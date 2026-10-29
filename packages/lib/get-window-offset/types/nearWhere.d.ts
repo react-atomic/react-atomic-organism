@@ -1,3 +1,19 @@
+import { Coordinate, NearLocType } from "./types";
+/**
+ * @param {HTMLElement} dom
+ * @returns {Coordinate}
+ */
+export declare const getDomCenter: (dom: HTMLElement) => Coordinate;
+/**
+ * @param {Coordinate} center
+ * @param {Coordinate} floatXY
+ * @returns {NearLocType}
+ */
+export declare const getNearLocation: (center: Coordinate, floatXY: Coordinate) => NearLocType;
+export type NearWhereConfig = {
+    compareCenter?: boolean | undefined;
+    adjustXY?: Coordinate | undefined;
+};
 /**
  * @typedef {object} NearWhereConfig
  * @property {boolean=} compareCenter
@@ -10,11 +26,3 @@
  * @returns {NearLocType}
  */
 export default function nearWhere(targetEl: HTMLElement, floatElOrFloatXY: HTMLElement | Coordinate, nearWhereConfig?: NearWhereConfig | undefined): NearLocType;
-export function getDomCenter(dom: HTMLElement): Coordinate;
-export function getNearLocation(center: Coordinate, floatXY: Coordinate): NearLocType;
-export type NearWhereConfig = {
-    compareCenter?: boolean | undefined;
-    adjustXY?: Coordinate | undefined;
-};
-import { Coordinate } from "./types";
-import { NearLocType } from "./types";

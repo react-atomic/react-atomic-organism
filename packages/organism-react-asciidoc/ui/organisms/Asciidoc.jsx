@@ -26,7 +26,7 @@ const useAsciidoc = ({
   attributes,
   children,
 }) => {
-  const lastIframe = useRef();
+  const lastIframe = useRef(undefined);
   const [onloadTimer] = useTimer();
   useEffect(() => {
     const oWin = lastIframe.current.getWindow();

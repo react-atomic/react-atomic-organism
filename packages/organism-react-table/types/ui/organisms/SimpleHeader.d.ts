@@ -1,8 +1,8 @@
-export default SimpleHeader;
-declare function SimpleHeader({ theadTrComponent, children, theadComponent, trComponent, thComponent, }: {
-    theadTrComponent?: any;
+declare const SimpleHeader: ({ theadTrComponent, children, theadComponent, trComponent, thComponent, }: {
     children?: any;
-    theadComponent?: string;
-    trComponent?: string;
     thComponent?: string;
-}): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    theadComponent?: string;
+    theadTrComponent?: any;
+    trComponent?: string;
+}) => import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
+export default SimpleHeader;

@@ -1,6 +1,6 @@
-export default getMediaSource;
-declare function getMediaSource({ url, onUpdate, sourceType }: {
-    url: any;
+declare const getMediaSource: ({ url, onUpdate, sourceType }: {
     onUpdate: any;
     sourceType?: string;
-}): string;
+    url: any;
+}) => string;
+export default getMediaSource;

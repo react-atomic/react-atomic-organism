@@ -4,7 +4,7 @@ import { popupDispatch } from "../../stores/popupStore";
 
 const DisplayPopupEl = (props) => {
   const _mounted = useMounted();
-  const popup = useRef();
+  const popup = useRef(undefined);
   useEffect(() => {
     return () => {
       if (popup.current) {

@@ -1,10 +1,14 @@
+import { OffsetType } from "getoffset";
+import { ScrollInfoType } from "get-scroll-info";
+export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
+export type MaybeHTMLElement = SAFE_UNDEFINED | HTMLElement;
 /**
  * @typedef {import("reshow-constant").SAFE_UNDEFINED} SAFE_UNDEFINED
  */
 /**
  * @typedef {SAFE_UNDEFINED|HTMLElement} MaybeHTMLElement
  */
-export class NearLocType {
+export declare class NearLocType {
     /**
      * @type boolean
      */
@@ -30,7 +34,7 @@ export class NearLocType {
      */
     right: boolean;
 }
-export class Coordinate {
+export declare class Coordinate {
     /**
      * @type number
      */
@@ -40,7 +44,7 @@ export class Coordinate {
      */
     y: number;
 }
-export class SimplePosType {
+export declare class SimplePosType {
     /**
      * @type number
      */
@@ -58,7 +62,7 @@ export class SimplePosType {
      */
     left: number;
 }
-export class DomInfoType extends OffsetType {
+export declare class DomInfoType extends OffsetType {
     /**
      * @type MaybeHTMLElement
      */
@@ -72,7 +76,7 @@ export class DomInfoType extends OffsetType {
      */
     overflowNode: MaybeHTMLElement;
 }
-export class IsOnScreenType extends DomInfoType {
+export declare class IsOnScreenType extends DomInfoType {
     /**
      * @type boolean
      */
@@ -98,7 +102,7 @@ export class IsOnScreenType extends DomInfoType {
      */
     margin: number;
 }
-export class DomPositionInfoType {
+export declare class DomPositionInfoType {
     /**
      * @type DomInfoType
      */
@@ -116,7 +120,7 @@ export class DomPositionInfoType {
      */
     overflowNode: MaybeHTMLElement;
 }
-export class CalWindowOffsetResult {
+export declare class CalWindowOffsetResult {
     /**
      * @type string[]
      */
@@ -130,7 +134,7 @@ export class CalWindowOffsetResult {
      */
     secondKey: string;
 }
-export class WindowOffsetType extends CalWindowOffsetResult {
+export declare class WindowOffsetType extends CalWindowOffsetResult {
     /**
      * @type {?IsOnScreenType}
      */
@@ -148,7 +152,3 @@ export class WindowOffsetType extends CalWindowOffsetResult {
      */
     distance: SimplePosType;
 }
-export type SAFE_UNDEFINED = import("reshow-constant").SAFE_UNDEFINED;
-export type MaybeHTMLElement = SAFE_UNDEFINED | HTMLElement;
-import { OffsetType } from "getoffset";
-import { ScrollInfoType } from "get-scroll-info";

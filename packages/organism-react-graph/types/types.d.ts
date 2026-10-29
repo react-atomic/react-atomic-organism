@@ -1,7 +1,7 @@
 /**
  * @interface
  */
-export class StartPointInfo {
+export declare class StartPointInfo {
     /**
      * @type number
      */
@@ -14,7 +14,7 @@ export class StartPointInfo {
 /**
  * @interface
  */
-export class Zoom {
+export declare class Zoom {
     /**
      * @type number
      */
@@ -23,14 +23,17 @@ export class Zoom {
 /**
  * @interface
  */
-export class DragAndDropStyle {
+export declare class DragAndDropStyle {
     /**
      * @type {import("react").CSSProperties}
      */
-    droppable: any;
+    droppable: import("react").CSSProperties;
     /**
      * @type {?import("react").CSSProperties=}
      */
-    dragging: (any | null) | undefined;
+    dragging: (import("react").CSSProperties | null) | undefined;
 }
 export type SetZoom = Zoom | (() => Zoom);
+/**
+ * @typedef {Zoom|(() => Zoom)} SetZoom
+ */

@@ -1,4 +1,3 @@
-export default initMap;
 /**
  * Why need initMap?
  * const o = {};
@@ -12,4 +11,5 @@ export default initMap;
  * After:
  * initMap(o)("foo", []).push('bar');
  */
-declare function initMap(o: any): (k: any, defaultValue: any) => any;
+declare const initMap: (o: any) => (k: any, defaultValue: any) => any;
+export default initMap;

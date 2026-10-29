@@ -55,8 +55,8 @@ const getTypingNextWordAniClassName = (el, sec) => {
 
 const TypingItem = ({ children, sec, ...restProps }) => {
   const [classes, setClasses] = useState();
-  const lastClasses = useRef();
-  const lastEl = useRef();
+  const lastClasses = useRef(undefined);
+  const lastEl = useRef(undefined);
 
   useEffect(() => {
     const next = getTypingNextWordAniClassName(lastEl.current, sec);

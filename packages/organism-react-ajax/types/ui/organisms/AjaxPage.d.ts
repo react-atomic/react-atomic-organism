@@ -1,2 +1,3 @@
+import React from "react";
+declare const AjaxPage: (props: any) => React.JSX.Element;
 export default AjaxPage;
-declare function AjaxPage(props: any): import("react/jsx-runtime").JSX.Element;

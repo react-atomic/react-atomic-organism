@@ -1,4 +1,3 @@
-export default Router;
 export type RouteProps = {
     reg: RegExp;
     fn: CallableFunction;
@@ -37,3 +36,4 @@ declare class Router {
      */
     match(pathname: string, startAt: number): RouteProps | undefined;
 }
+export default Router;

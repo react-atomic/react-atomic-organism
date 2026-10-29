@@ -242,7 +242,10 @@ class handleAjax {
 
   done() {
     // update progress should run very end.
-    setTimeout(() => ajaxDispatch({ isRunning: 0 }), 500);
+    setTimeout(
+      () => ajaxDispatch(/** @type {any} */ ({ isRunning: 0 })),
+      500
+    );
   }
 
   /**
@@ -256,17 +259,17 @@ class handleAjax {
     if (cb) {
       const cbKey = getSN("cb");
       Callbacks[cbKey] = cb;
-      /** @type object*/ (action.params).callback = cbKey;
+      /** @type any */ (action.params).callback = cbKey;
     }
     const err = get(action, ["params", "errorCallback"]);
     if (err) {
       const errCbKey = getSN("err");
       Callbacks[errCbKey] = err;
-      /** @type object*/ (action.params).errorCallback = errCbKey;
+      /** @type any */ (action.params).errorCallback = errCbKey;
     }
     const wcb = get(action, ["params", "workerCallback"]);
     if (wcb) {
-      /** @type object*/ (action.params).workerCallback = wcb + "";
+      /** @type any */ (action.params).workerCallback = wcb + "";
     }
     return action;
   }
@@ -452,10 +455,10 @@ const oAjax = new handleAjax();
 
 /**
  * @template [StateType=StateMap]
- * @template [ActionType=ActionObject|object]
+ * @template [ActionType=ActionObject]
  * @param {import("reshow-flux").ReducerTypeWithMap<StateType, ActionType>} reduce
  * @param {import("reshow-flux-base").InitStateType<StateType>} initState
- * @returns {[store & AjaxStore, dispatch]}
+ * @returns {[typeof store & AjaxStore, typeof dispatch]}
  */
 const AjaxStore = (reduce, initState) => {
   const [store, dispatch] = ImmutableStore(reduce, initState);

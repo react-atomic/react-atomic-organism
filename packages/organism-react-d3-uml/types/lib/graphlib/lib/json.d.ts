@@ -1,9 +1,4 @@
-declare namespace _default {
-    export { write };
-    export { read };
-}
-export default _default;
-export function write(g: any): {
+declare const write: (g: any) => {
     options: {
         directed: any;
         multigraph: any;
@@ -12,5 +7,10 @@ export function write(g: any): {
     nodes: any;
     edges: any;
 };
-export function read(json: any): Graph;
-import Graph from "./graph";
+declare const read: (json: any) => any;
+export { write, read };
+declare const _default: {
+    write: typeof write;
+    read: typeof read;
+};
+export default _default;

@@ -3,14 +3,12 @@ import VideoFile from "../organisms/VideoFile";
 import ResponsiveVideo from "../organisms/ResponsiveVideo";
 
 const Video = memo((props) => {
-  const { showControllBar, aspectRatio, mask, ...others } = props;
+  const { showControllBar, aspectRatio, mask = false, ...others } = props;
   return (
     <ResponsiveVideo {...{ showControllBar, aspectRatio, mask }}>
       <VideoFile {...others} />
     </ResponsiveVideo>
   );
 });
-
-Video.defaultProps = { mask: false };
 
 export default Video;

@@ -1,2 +1,2 @@
+declare const addBorderSegments: (g: any) => void;
 export default addBorderSegments;
-declare function addBorderSegments(g: any): void;

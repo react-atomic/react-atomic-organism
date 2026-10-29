@@ -14,7 +14,7 @@ const scrollToSelect = (selectEl, menuEl, isTop) => {
 };
 
 const useScrollToSelect = (props = []) => {
-  const lastRoot = useRef();
+  const lastRoot = useRef(undefined);
   const selIndex = props["data-selected-index"];
   useEffect(() => {
     scrollToSelect(

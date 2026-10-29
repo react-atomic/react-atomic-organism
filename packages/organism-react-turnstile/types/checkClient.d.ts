@@ -1,4 +1,3 @@
-export default checkClient;
 export type VerifyTurnstileResult = import("./verifyTurnstile").VerifyTurnstileResult;
 /**
  * @typedef {import("./verifyTurnstile").VerifyTurnstileResult} VerifyTurnstileResult
@@ -6,7 +5,8 @@ export type VerifyTurnstileResult = import("./verifyTurnstile").VerifyTurnstileR
 /**
  * @returns {Promise<VerifyTurnstileResult>}
  */
-declare function checkClient({ js, domain, }?: {
-    js?: string;
+declare const checkClient: ({ js, domain, }?: {
     domain?: string;
-}): Promise<VerifyTurnstileResult>;
+    js?: string;
+}) => Promise<VerifyTurnstileResult>;
+export default checkClient;

@@ -12,7 +12,7 @@ const displayName = "PageLoadProgress";
 
 /**
  * @typedef {object} StoreProps
- * @property {import("reshow-flux-base").StoreObject} store
+ * @property {import("reshow-flux-base").StoreObject<any, any>} store
  */
 
 /**

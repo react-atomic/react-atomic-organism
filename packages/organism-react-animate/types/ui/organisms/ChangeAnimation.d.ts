@@ -1,9 +1,8 @@
-export default ChangeAnimation;
 export type ChangeAnimationProps = {
     statusKey?: string;
     onEnd?: Function;
     animation?: string;
-    children: any | string;
+    children: import('react').ReactElement | string;
     otherProps?: any;
 };
 /**
@@ -18,4 +17,5 @@ export type ChangeAnimationProps = {
  * @param {ChangeAnimationProps} param
  * @returns {import('react').ReactElement}
  */
-declare function ChangeAnimation({ statusKey, onEnd, animation, children, ...otherProps }: ChangeAnimationProps): any;
+declare const ChangeAnimation: ({ statusKey, onEnd, animation, children, ...otherProps }: ChangeAnimationProps) => import('react').ReactElement;
+export default ChangeAnimation;

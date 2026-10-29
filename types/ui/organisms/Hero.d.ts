@@ -1,2 +1,2 @@
+declare const Hero: (props: any) => import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
 export default Hero;
-declare function Hero(props: any): any;

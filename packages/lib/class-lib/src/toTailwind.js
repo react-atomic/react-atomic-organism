@@ -13,8 +13,8 @@ export const toTailwindObj = (className) => {
   const r = NEW_OBJ();
   classes.forEach((item) => {
     const parseResult = wildcardSearch(item, ":key-:val");
-    if (/** @type {object} */ (parseResult).key) {
-      const oParseResult = /** @type {object} */ (parseResult);
+    if (/** @type {any} */ (parseResult).key) {
+      const oParseResult = /** @type {any} */ (parseResult);
       r[oParseResult.key] = oParseResult.val;
     } else {
       r[item] = true;

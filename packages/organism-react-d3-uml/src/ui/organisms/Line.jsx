@@ -16,7 +16,7 @@ const Line = forwardRef((props, ref) => {
     props: paramProps,
     init,
     host,
-    component,
+    component = LineDefaultLayout,
     ...other
   } = props;
   const [isHover, setIsHover] = useState();
@@ -90,9 +90,5 @@ const Line = forwardRef((props, ref) => {
 });
 
 Line.displayName = "UmlLine";
-
-Line.defaultProps = {
-  component: LineDefaultLayout,
-};
 
 export default Line;

@@ -1,6 +1,7 @@
-export default Dropdown;
+import * as React from "react";
 /**
  * @param {any} props
  * @returns {React.ReactElement}
  */
-declare function Dropdown(props: any): React.ReactElement;
+declare const Dropdown: (props: any) => React.ReactElement;
+export default Dropdown;

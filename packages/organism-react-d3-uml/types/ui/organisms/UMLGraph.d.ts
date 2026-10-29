@@ -1,5 +1,12 @@
-export default UMLGraph;
-declare class UMLGraph extends Component<any, any, any> {
+import React, { Component } from "react";
+declare class UMLGraph extends Component {
+    isInit: boolean;
+    lineList: any;
+    zoom: any;
+    zoomEl: any;
+    vector: any;
+    html: any;
+    htmlObj: any;
     static defaultProps: {
         boxGroupsLocator: (d: any) => any;
         boxGroupXLocator: () => void;
@@ -14,28 +21,26 @@ declare class UMLGraph extends Component<any, any, any> {
         connToBoxGroupLocator: (d: any) => any;
         connFromBoxLocator: (d: any) => any;
         connToBoxLocator: (d: any) => any;
-        arrowHeadComponent: import("react").MemoExoticComponent<({ multi, id, viewBox, d, refX, refY, markerUnits, markerWidth, markerHeight, orient, fill, }: {
+        arrowHeadComponent: React.MemoExoticComponent<({ multi, id, viewBox, d, refX, refY, markerUnits, markerWidth, markerHeight, orient, fill, }: {
+            d?: string;
+            fill?: string;
+            id?: string;
+            markerHeight?: number;
+            markerUnits?: string;
+            markerWidth?: number;
             multi?: {
                 "": {};
             };
-            id?: string;
-            viewBox?: string;
-            d?: string;
+            orient?: string;
             refX?: number;
             refY?: number;
-            markerUnits?: string;
-            markerWidth?: number;
-            markerHeight?: number;
-            orient?: string;
-            fill?: string;
-        }) => JSX.Element>;
+            viewBox?: string;
+        }) => React.JSX.Element>;
         autoArrange: boolean;
         editToCenter: boolean;
         editToCenterDelay: number;
         disableDagreWorker: boolean;
     };
-    constructor(props: any);
-    constructor(props: any, context: any);
     boxGroupNameInvertMap: {};
     boxGroupMap: {};
     boxQueue: {};
@@ -62,7 +67,7 @@ declare class UMLGraph extends Component<any, any, any> {
     getBoxComponent(name: any, groupName: any): any;
     getBoxGroupComponent(name: any): any;
     getVectorEl(): any;
-    getBoundingClientRect(): import("getoffset").Offset;
+    getBoundingClientRect(): import("getoffset").OffsetType;
     getConnectStartPoint(): any;
     getConnectEndPoint(): any;
     getTransform: () => any;
@@ -89,22 +94,15 @@ declare class UMLGraph extends Component<any, any, any> {
     handleConnAdd: (payload: any) => void;
     handleConnWillAdd: (payload: any) => boolean;
     handleLoad: () => void;
-    isInit: boolean;
     handleSetLineListRef: (el: any) => void;
-    lineList: any;
     handleZoomRef: (o: any) => void;
-    zoom: any;
     handleSetZoomEl: (el: any) => void;
-    zoomEl: any;
     handleGetZoomEl: () => any;
     handleSetVector: (el: any) => void;
-    vector: any;
     handleSetHtmlEl: (el: any) => void;
-    html: any;
     handleSetHtmlObj: (o: any) => void;
-    htmlObj: any;
     componentDidMount(): void;
     componentWillUnmount(): void;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
-import { Component } from "react";
+export default UMLGraph;

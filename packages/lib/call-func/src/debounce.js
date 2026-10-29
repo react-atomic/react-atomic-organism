@@ -6,7 +6,7 @@ import callfunc from "./callfunc";
  * @property {number=} delay
  * @property {any[]=} args
  * @property {any=} scope
- * @property {function(ReturnType<typeof setTimeout>)=} waitCallback
+ * @property {(timer: ReturnType<typeof setTimeout>) => void} [waitCallback]
  */
 
 /**
@@ -27,7 +27,8 @@ const debounce = (func, defaultDelay) => {
    * @type {DebounceExecutor}
    */
   const cb = (option) => {
-    const { delay = 250, args, scope, waitCallback } = option || {};
+    const { delay = 250, args, scope, waitCallback } =
+      option || /** @type {DebounceExecutorOption} */ ({});
     if (timer) {
       clearTimeout(timer);
     }

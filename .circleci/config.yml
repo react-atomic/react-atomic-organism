@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
       - node/install:
-          node-version: "20"
+          node-version: "24"
           install-yarn: true
       #   yarn-version: "1.22.18"
       - run:

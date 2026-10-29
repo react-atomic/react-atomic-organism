@@ -14,7 +14,7 @@ let iframeCount = 0;
 /**
  * @typedef {object} IframeContainerExpose
  * @property {Function} postHeight
- * @property {function():HTMLIFrameElement} getEl
+ * @property {() => HTMLIFrameElement} getEl
  */
 
 /**
@@ -43,9 +43,9 @@ const useIframeContainer = (props) => {
     ...restProps
   } = props;
   const [iframeH, setIframeH] = useState("auto");
-  const thisMessageKey = /**@type any*/ (useRef());
+  const thisMessageKey = /**@type any*/ (useRef(undefined));
   const lastEl = /**@type React.MutableRefObject<HTMLIFrameElement>*/ (
-    useRef()
+    useRef(undefined)
   );
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const useIframeContainer = (props) => {
    * @type {IframeContainerExpose}
    */
   const expose = {
-    postHeight: (/**@type window*/ win) => {
+    postHeight: (/**@type Window*/ win) => {
       setTimeout(() => {
         win?.parent?.window.postMessage(
           {
@@ -123,7 +123,7 @@ const useIframeContainer = (props) => {
 };
 
 /**
- * @type React.ForwardRefExoticComponent<?, IframeContainerProps>
+ * @type React.ForwardRefExoticComponent<any, IframeContainerProps>
  */
 const IframeContainer = forwardRef((props, ref) => {
   const { style, restProps, component, expose } = useIframeContainer(props);

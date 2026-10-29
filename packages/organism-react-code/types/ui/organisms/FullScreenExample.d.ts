@@ -1,14 +1,17 @@
-export default FullScreenExample;
-declare function FullScreenExample({ button, anchorLocator, updateUrl, resetUrl, children, id, onClose, path, ...restProps }: {
+declare const getLastHash: () => {
+    lastAnchor: string;
+};
+declare const defaultUpdateUrl: (id: any) => void;
+declare const defaultResetUrl: (id: any) => void;
+declare const FullScreenExample: ({ button, anchorLocator, updateUrl, resetUrl, children, id, onClose, path, ...restProps }: {
     [x: string]: any;
+    anchorLocator?: typeof getLastHash;
     button?: string;
-    anchorLocator?: () => {
-        lastAnchor: string;
-    };
-    updateUrl?: (id: any) => void;
-    resetUrl?: (id: any) => void;
     children: any;
     id: any;
     onClose: any;
     path: any;
-}): import("react/jsx-runtime").JSX.Element;
+    resetUrl?: typeof defaultResetUrl;
+    updateUrl?: typeof defaultUpdateUrl;
+}) => import("react").JSX.Element;
+export default FullScreenExample;

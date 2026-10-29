@@ -1,4 +1,5 @@
-export default BasePopup;
+import * as React from "react";
+declare const PureComponent: typeof React.PureComponent;
 export type BasePopupProps = {
     /**
      * - Name of the popup
@@ -27,10 +28,20 @@ export type BasePopupState = {
 /**
  * @augments {PureComponent<BasePopupProps, BasePopupState>}
  */
-declare class BasePopup {
+declare class BasePopup extends PureComponent<BasePopupProps, BasePopupState> {
+    props: BasePopupProps;
+    /**
+     * @type {BasePopupState}
+     * @public
+     */
+    state: BasePopupState;
     static defaultProps: {
         name: string;
     };
+    /**
+     * @param {BasePopupProps} props
+     */
+    constructor(props: BasePopupProps);
     /**
      * @param {any} _error
      */
@@ -38,20 +49,10 @@ declare class BasePopup {
         hasError: boolean;
     };
     /**
-     * @param {BasePopupProps} props
-     */
-    constructor(props: BasePopupProps);
-    /**
-     * @type {BasePopupState}
-     * @public
-     */
-    public state: BasePopupState;
-    props: BasePopupProps;
-    setState: any;
-    /**
      * @param {any} error
      * @param {any} info
      */
     componentDidCatch(error: any, info: any): void;
     close(): boolean;
 }
+export default BasePopup;

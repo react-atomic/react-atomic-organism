@@ -1,4 +1,3 @@
-export default getDefaultValue;
 export type DefaultValueOption = {
     obj?: any;
     prev?: any;
@@ -14,4 +13,5 @@ export type DefaultValueOption = {
  * @param {DefaultValueOption} [options]
  * @returns {any}
  */
-declare function getDefaultValue(v: any, options?: DefaultValueOption): any;
+declare const getDefaultValue: (v: any, options?: DefaultValueOption) => any;
+export default getDefaultValue;

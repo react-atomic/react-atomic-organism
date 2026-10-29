@@ -1,4 +1,4 @@
-export default ScrollAnimate;
+import React from "react";
 export type ScrollAnimateProps = {
     monitorScroll?: boolean;
     /**
@@ -20,4 +20,5 @@ export type ScrollAnimateProps = {
 /**
  * @param {ScrollAnimateProps & Record<any,any>} inputProps
  */
-declare function ScrollAnimate({ monitorScroll, container, ...props }: ScrollAnimateProps & Record<any, any>): any;
+declare const ScrollAnimate: ({ monitorScroll, container, ...props }: ScrollAnimateProps & Record<any, any>) => React.JSX.Element;
+export default ScrollAnimate;

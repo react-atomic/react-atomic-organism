@@ -10,7 +10,7 @@ import getDefaultValue from "./getDefaultValue";
  * 2. Call 'o.get' only when it is a function.
  *
  * @see https://github.com/react-atomic/reshow/issues/123
- * @param {object} o
+ * @param {any} o
  * @param {string|number} k
  * @returns {any}
  */

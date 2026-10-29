@@ -1,7 +1,5 @@
-export default BaseLayout;
-declare class BaseLayout extends Component<any, any, any> {
-    constructor(props: any);
-    constructor(props: any, context: any);
+import { Component } from "react";
+declare class BaseLayout extends Component {
     getEl(): void;
 }
-import { Component } from "react";
+export default BaseLayout;

@@ -5,7 +5,7 @@ const isArray = Array.isArray;
 
 /**
  * @param {any} [arr]
- * @param {boolean|function(any):boolean} [undefinedOnly]
+ * @param {boolean|((value: any) => boolean)} [undefinedOnly]
  * @param {any[]} [excludeKey]
  * @returns {any}
  */
@@ -24,7 +24,7 @@ const removeEmpty = (arr, undefinedOnly, excludeKey) => {
     }
     if (
       value ||
-      (undefinedOnly && /** @type function*/ (undefinedOnly)(value))
+      (undefinedOnly && /** @type {(value: any) => boolean} */ (undefinedOnly)(value))
     ) {
       result[key] = value;
     }

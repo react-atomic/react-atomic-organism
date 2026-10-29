@@ -1,14 +1,5 @@
-export function useDDWrapper(props: DDWrapper): {
-    handler: {
-        drag: (e: any) => void;
-        dragEnd: (e: any) => void;
-    };
-    absX: any;
-    absY: any;
-    startPoint: any;
-    isDraging: any;
-};
-export default DDWrapper;
+import * as React from "react";
+import { StartPointInfo } from "../../types";
 export type DDWrapper = {
     builtInOnly?: boolean | undefined;
     renderFirst?: boolean | undefined;
@@ -26,5 +17,33 @@ export type DDWrapper = {
     children?: any | undefined;
     style?: React.CSSProperties | undefined;
 };
-declare function DDWrapper(props: DDWrapper): any;
-import { StartPointInfo } from "../../types";
+/**
+ * @typedef {object} DDWrapper
+ * @property {boolean=} builtInOnly
+ * @property {boolean=} renderFirst
+ * @property {import("../../types").DragAndDropStyle=} dragAndDropStyle
+ * @property {boolean=} fixedX
+ * @property {boolean=} fixedY
+ * @property {number=} minX
+ * @property {number=} maxX
+ * @property {number=} minY
+ * @property {number=} maxY
+ * @property {StartPointInfo=} startPoint
+ * @property {Function=} onDrag
+ * @property {Function=} onDragEnd
+ * @property {Function=} refCb
+ * @property {any=} children
+ * @property {React.CSSProperties=} style
+ */
+export declare const useDDWrapper: (props: DDWrapper) => {
+    handler: {
+        drag: (/**@type any*/ e: any) => void;
+        dragEnd: (/**@type any*/ e: any) => void;
+    };
+    absX: number;
+    absY: number;
+    startPoint: StartPointInfo;
+    isDraging: boolean;
+};
+declare const DDWrapper: (/**@type DDWrapper*/ props: DDWrapper) => React.JSX.Element;
+export default DDWrapper;

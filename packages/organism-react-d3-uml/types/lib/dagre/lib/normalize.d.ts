@@ -1,2 +1,3 @@
-export function run(g: any): void;
-export function undo(g: any): void;
+export { run, undo };
+declare function run(g: any): void;
+declare function undo(g: any): void;

@@ -1,10 +1,8 @@
-export default Index;
-declare class Index extends Component<any, any, any> {
-    constructor(props: any);
-    constructor(props: any, context: any);
+import React, { Component } from "react";
+declare class Index extends Component {
+    el: any;
     handleStart: () => void;
     handleStop: () => void;
-    render(): JSX.Element;
-    el: any;
+    render(): React.JSX.Element;
 }
-import { Component } from "react";
+export default Index;

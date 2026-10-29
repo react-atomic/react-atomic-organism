@@ -109,11 +109,11 @@ class PlayerState {
  * @typedef {object} YoutubeRWDExpose
  * @property {Function} restart
  * @property {Function} pause
- * @property {function():PlayerState} togglePlayback
- * @property {function(string):void} postMessage
+ * @property {() => PlayerState} togglePlayback
+ * @property {(msg: string) => void} postMessage
  * @property {ExecPost} exec
- * @property {function():HTMLIFrameElement|undefined} getIframe
- * @property {function():PlayerState} getPlayerState
+ * @property {() => HTMLIFrameElement|undefined} getIframe
+ * @property {() => PlayerState} getPlayerState
  */
 
 /**
@@ -266,7 +266,7 @@ const useYoutubeRWD = (props) => {
 };
 
 /**
- * @type React.ForwardRefExoticComponent<?, YoutubeRWDProps>
+ * @type React.ForwardRefExoticComponent<any, YoutubeRWDProps>
  */
 const YoutubeRWD = forwardRef((props, ref) => {
   const { expose, handler, nextProps, lastIframe, state, src } =

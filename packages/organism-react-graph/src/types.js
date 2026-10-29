@@ -42,5 +42,5 @@ export class DragAndDropStyle {
 
 
 /**
- * @typedef {Zoom|function():Zoom} SetZoom
+ * @typedef {Zoom|(() => Zoom)} SetZoom
  */

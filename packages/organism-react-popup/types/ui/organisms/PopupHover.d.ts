@@ -1,4 +1,6 @@
-export default PopupHover;
+import * as React from "react";
+declare const PureComponent: typeof React.PureComponent;
+import { SemanticUI } from "react-atomic-molecule";
 export type PopupHoverProps = {
     /**
      * - Component name
@@ -58,19 +60,14 @@ export type PopupHoverState = {
 /**
  * @extends {React.PureComponent<PopupHoverProps, PopupHoverState>}
  */
-declare class PopupHover {
+declare class PopupHover extends PureComponent {
+    isKeep: boolean;
+    dom: HTMLElement;
     static defaultProps: {
         name: string;
         component: typeof SemanticUI;
     };
-    /** @type {PopupHoverProps} */
-    props: PopupHoverProps;
-    /** @type {PopupHoverState} */
-    state: PopupHoverState;
-    /** @type {function(Partial<PopupHoverState>, function(): void=): void} */
-    setState: (arg0: Partial<PopupHoverState>, arg1: (() => void) | undefined) => void;
     floatMouseOver: () => void;
-    isKeep: boolean;
     floatMouseOut: () => void;
     mouseOver: () => void;
     mouseOut: () => void;
@@ -80,7 +77,6 @@ declare class PopupHover {
      * @param {HTMLElement} dom
      */
     handleDom: (dom: HTMLElement) => HTMLElement;
-    dom: HTMLElement;
-    render(): any;
+    render(): React.ReactElement<unknown, string | React.JSXElementConstructor<any>>;
 }
-import { SemanticUI } from "react-atomic-molecule";
+export default PopupHover;

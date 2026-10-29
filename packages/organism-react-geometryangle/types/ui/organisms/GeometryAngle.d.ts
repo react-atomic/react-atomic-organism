@@ -1,2 +1,3 @@
+import React from "react";
+declare const GeometryAngle: React.ForwardRefExoticComponent<React.RefAttributes<any>>;
 export default GeometryAngle;
-declare const GeometryAngle: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;

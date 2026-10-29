@@ -3,7 +3,7 @@ import { SemanticUI } from "react-atomic-molecule";
 import { useD3 } from "d3-lib";
 
 const Line = forwardRef((props, ref) => {
-  const lastCenter = useRef();
+  const lastCenter = useRef(undefined);
 
   const expose = {
     getCenter: () => lastCenter.current,

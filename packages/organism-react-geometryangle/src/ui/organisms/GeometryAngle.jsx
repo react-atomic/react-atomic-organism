@@ -109,8 +109,8 @@ const GeometryAngle = forwardRef(
     },
     ref
   ) => {
-    const lastDom = useRef();
-    const lastFss = useRef();
+    const lastDom = useRef(undefined);
+    const lastFss = useRef(undefined);
     const expose = {
       start: () => lastFss.current.start(),
       stop: () => lastFss.current.stop(),

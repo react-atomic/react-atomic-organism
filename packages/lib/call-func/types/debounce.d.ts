@@ -1,9 +1,8 @@
-export default debounce;
 export type DebounceExecutorOption = {
     delay?: number | undefined;
     args?: any[] | undefined;
     scope?: any | undefined;
-    waitCallback?: ((arg0: ReturnType<typeof setTimeout>) => any) | undefined;
+    waitCallback?: (timer: ReturnType<typeof setTimeout>) => void;
 };
 export type DebounceExecutor = (option?: DebounceExecutorOption | undefined) => any;
 /**
@@ -11,7 +10,7 @@ export type DebounceExecutor = (option?: DebounceExecutorOption | undefined) => 
  * @property {number=} delay
  * @property {any[]=} args
  * @property {any=} scope
- * @property {function(ReturnType<typeof setTimeout>)=} waitCallback
+ * @property {(timer: ReturnType<typeof setTimeout>) => void} [waitCallback]
  */
 /**
  * @callback DebounceExecutor
@@ -24,4 +23,5 @@ export type DebounceExecutor = (option?: DebounceExecutorOption | undefined) => 
  * @param {number=} defaultDelay
  * @returns {DebounceExecutor}
  */
-declare function debounce(func: Function, defaultDelay?: number | undefined): DebounceExecutor;
+declare const debounce: (func: Function, defaultDelay?: number | undefined) => DebounceExecutor;
+export default debounce;

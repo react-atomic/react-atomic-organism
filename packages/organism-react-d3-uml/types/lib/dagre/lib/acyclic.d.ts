@@ -1,2 +1,3 @@
-export function run(g: any): void;
-export function undo(g: any): void;
+declare const run: (g: any) => void;
+declare const undo: (g: any) => void;
+export { run, undo };

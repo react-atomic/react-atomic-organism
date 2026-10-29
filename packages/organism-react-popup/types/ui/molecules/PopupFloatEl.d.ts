@@ -1,49 +1,6 @@
-export default PopupFloatEl;
-export type PopupFloatElProps = import("./BasePopup").BasePopupProps & any;
-export type PopupFloatElState = import("./BasePopup").BasePopupState & PositionInfo & any;
-/**
- * @extends {PopupOverlay}
- */
-declare class PopupFloatEl extends PopupOverlay {
-    static defaultProps: {
-        style: {
-            position: string;
-            right: string;
-        };
-        name: string;
-        className: string;
-        retryAt: number;
-    };
-    /** @type {PopupFloatElState} */
-    state: PopupFloatElState;
-    /** @type {function(Partial<PopupFloatElState>, function(): void=): void} */
-    setState: (arg0: Partial<PopupFloatElState>, arg1: (() => void) | undefined) => void;
-    _mount: boolean;
-    /**
-     * For monitor window resize
-     */
-    handleResize: () => void;
-    handleMoveTo: () => void;
-    floatTop: number;
-    floatLeft: number;
-    floatClassName: string;
-    /**
-     * @returns {PositionInfo|undefined}
-     */
-    calPos: () => PositionInfo | undefined;
-    /**
-     * @param {HTMLElement} el
-     */
-    setFloatEl: (el: HTMLElement) => void;
-    floatEl: HTMLElement;
-    /**
-     * For extend class
-     */
-    getFloatEl(): HTMLElement;
-    componentDidMount(): void;
-    componentDidUpdate(): void;
-    componentWillUnmount(): void;
-}
+import PopupOverlay from "../molecules/PopupOverlay";
+export type PopupFloatElProps = import("./BasePopup").BasePopupProps & Object;
+export type PopupFloatElState = import("./BasePopup").BasePopupState & PositionInfo & Object;
 /**
  * @typedef {import("./BasePopup").BasePopupProps & Object} PopupFloatElProps
  * @property {HTMLElement} [targetEl] - Target element to position relative to
@@ -69,4 +26,48 @@ declare class PositionInfo {
      */
     className: string;
 }
-import PopupOverlay from "../molecules/PopupOverlay";
+/**
+ * @extends {PopupOverlay}
+ */
+declare class PopupFloatEl extends PopupOverlay {
+    floatTop: number;
+    floatLeft: number;
+    floatClassName: string;
+    floatEl: HTMLElement;
+    state: any;
+    _mount: boolean;
+    static defaultProps: {
+        style: {
+            position: string;
+            right: string;
+        };
+        name: string;
+        className: string;
+        retryAt: number;
+    };
+    /**
+     * For monitor window resize
+     */
+    handleResize: () => void;
+    handleMoveTo: () => void;
+    /**
+     * @returns {PositionInfo|undefined}
+     */
+    calPos: () => PositionInfo | undefined;
+    /**
+     * @param {HTMLElement} el
+     */
+    setFloatEl: (el: HTMLElement) => void;
+    /**
+     * For extend class
+     */
+    getFloatEl(): HTMLElement;
+    /**
+     * @param {PopupFloatElProps} props
+     */
+    constructor(props: PopupFloatElProps);
+    componentDidMount(): void;
+    componentDidUpdate(): void;
+    componentWillUnmount(): void;
+}
+export default PopupFloatEl;

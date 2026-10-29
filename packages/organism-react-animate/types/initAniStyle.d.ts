@@ -1,6 +1,6 @@
-export function InjectStyles({ statusKey }: {
+declare const InjectStyles: ({ statusKey }: {
     statusKey: any;
-}): {
+}) => {
     hide: (string | {
         visibility: string;
     })[];
@@ -8,3 +8,4 @@ export function InjectStyles({ statusKey }: {
         display: string;
     })[];
 };
+export { InjectStyles };

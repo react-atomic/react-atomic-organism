@@ -1,12 +1,11 @@
-export default ConnectController;
 declare class ConnectController {
-    constructor(props: any);
     lineTimer: any;
     connects: {};
     queue: any;
     updateCbQueue: any[];
     host: any;
     lineObjs: {};
+    constructor(props: any);
     getLine(id: any): any;
     getLineObj(id: any): any;
     getIsHover(id: any): any;
@@ -28,27 +27,27 @@ declare class ConnectController {
         invertMergeId: string;
     };
     getConnectNames(from: any, to: any): {
-        fromBoxName: any;
-        toBoxName: any;
-        fromBoxGroupName: any;
-        toBoxGroupName: any;
-        fromBoxGroupId: any;
-        toBoxGroupId: any;
         fromBoxId?: undefined;
         toBoxId?: undefined;
         mergeId?: undefined;
         invertMergeId?: undefined;
-    } | {
         fromBoxName: any;
         toBoxName: any;
         fromBoxGroupName: any;
         toBoxGroupName: any;
         fromBoxGroupId: any;
         toBoxGroupId: any;
+    } | {
         fromBoxId: any;
         toBoxId: any;
         mergeId: string;
         invertMergeId: string;
+        fromBoxName: any;
+        toBoxName: any;
+        fromBoxGroupName: any;
+        toBoxGroupName: any;
+        fromBoxGroupId: any;
+        toBoxGroupId: any;
     };
     getConnects(): any[];
     addConnected(lineId: any, from: any, to: any, init: any): any;
@@ -56,3 +55,4 @@ declare class ConnectController {
     setState(callback: any, updateCb: any, delay: any): void;
     getUniqueFromTo(): {};
 }
+export default ConnectController;

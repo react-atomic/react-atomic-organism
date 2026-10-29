@@ -1,4 +1,3 @@
-export default useProgress;
 export type UseProgressExpose = {
     complete: Function;
     reset: Function;
@@ -28,4 +27,5 @@ export type UseProgressReturn = {
  * @param {number} [propsPercent]
  * @returns {UseProgressReturn}
  */
-declare function useProgress(propsDelay?: number, propsPercent?: number): UseProgressReturn;
+declare const useProgress: (propsDelay?: number, propsPercent?: number) => UseProgressReturn;
+export default useProgress;

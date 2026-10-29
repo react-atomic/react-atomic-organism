@@ -1,17 +1,8 @@
-export default getDocTemplate;
 /**
- * @param {object} params
- * @param {object} Styles
+ * @param {any} params
+ * @param {any} Styles
  * @param {boolean} merge
- * @returns {DocTemplate}
+ * @returns {any}
  */
-declare function getDocTemplate(params: object, Styles?: object, merge?: boolean): ({ className, id, menu, right, footer, style, body, ...restProps }: {
-    [x: string]: any;
-    className?: string;
-    id?: any;
-    menu?: any;
-    right?: any;
-    footer?: any;
-    style?: {};
-    body: any;
-}) => React.ReactComponentElement;
+declare const getDocTemplate: (params: any, Styles?: any, merge?: boolean) => any;
+export default getDocTemplate;

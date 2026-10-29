@@ -1,10 +1,11 @@
-export default FormattedJSON;
-declare class FormattedJSON {
-    render(): any;
+import React, { Component } from "react";
+declare class FormattedJSON extends Component {
+    render(): React.JSX.Element;
     formatJSON(input: any, space: any): string;
 }
 declare namespace FormattedJSON {
-    namespace defaultProps {
-        let atom: string;
-    }
+    var defaultProps: {
+        atom: string;
+    };
 }
+export default FormattedJSON;

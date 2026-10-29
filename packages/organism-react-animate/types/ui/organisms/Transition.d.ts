@@ -1,14 +1,14 @@
-export default Transition;
 export type TimeoutType = {
     exit: number;
     enter: number;
     appear: number;
 };
-export type TransitionProps = any;
+export type TransitionProps = Object;
 /**
  * @typedef {Object} TransitionProps
  */
 /**
  * @type {import('react').FC<TransitionProps>}
  */
-declare const Transition: any;
+declare const Transition: import('react').FC<TransitionProps>;
+export default Transition;

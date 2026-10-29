@@ -124,8 +124,8 @@ const useTabView = (props) => {
   const [lastSelected, setHookLastSelected] = useState({
     current: propsSelected,
   });
-  const lastPropsSelected = useRef();
-  const thisSelected = useRef();
+  const lastPropsSelected = useRef(undefined);
+  const thisSelected = useRef(undefined);
 
   const setLastSelected = (val) =>
     setHookLastSelected(({ prev, current }) => ({

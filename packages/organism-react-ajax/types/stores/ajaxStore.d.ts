@@ -1,20 +1,19 @@
-export default store;
 export type ActionObject = import("reshow-flux-base").ActionObject;
 export type StateMap = import("reshow-flux").StateMap;
+/**
+ * @param {any} s
+ * @returns {boolean}
+ */
+declare const hasUrl: (s: any) => boolean;
+/**
+ * @param {any} worker
+ */
+declare const initAjaxWorkerEvent: (worker: any) => void;
 export type GetRawUrlProps = {
     url?: string;
     path?: string;
     baseUrl?: string;
 };
-export type AjaxStore = {
-    urlDispatch: Function;
-};
-declare const store: import("reshow-flux/types/ImmutableStore").StoreObject<import("reshow-flux/types/ImmutableStore").StateMap, any> & import("reshow-flux/types/ImmutableStore").StoreObjectWithMap & AjaxStore;
-/**
- * @param {any} worker
- */
-export function initAjaxWorkerEvent(worker: any): void;
-export const ajaxDispatch: import("reshow-flux-base/types/createReducer").DispatchFunction<import("reshow-flux/types/ImmutableStore").StateMap, any>;
 /**
  * @typedef {object} GetRawUrlProps
  * @property {string} [url]
@@ -25,9 +24,10 @@ export const ajaxDispatch: import("reshow-flux-base/types/createReducer").Dispat
  * @param {GetRawUrlProps} props
  * @returns{string}
  */
-export function getRawUrl(props: GetRawUrlProps): string;
-/**
- * @param {any} s
- * @returns {boolean}
- */
-export function hasUrl(s: any): boolean;
+declare const getRawUrl: (props: GetRawUrlProps) => string;
+export type AjaxStore = {
+    urlDispatch: Function;
+};
+declare const store: import("reshow-flux/types/ImmutableStore").StoreObject<import("reshow-flux/types/ImmutableStore").StateMap, import("reshow-flux-base/types/type").ActionObject> & import("reshow-flux/types/ImmutableStore").StoreObjectWithMap & AjaxStore, ajaxDispatch: import("reshow-flux-base/types/createReducer").DispatchFunction<import("reshow-flux/types/ImmutableStore").StateMap, import("reshow-flux-base/types/type").ActionObject>;
+export default store;
+export { initAjaxWorkerEvent, ajaxDispatch, getRawUrl, hasUrl };

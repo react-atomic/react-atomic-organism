@@ -14,21 +14,24 @@ const KChart = (props) => {
     children,
 
     // lines
-    linesLocator,
-    linesValuesLocator,
-    xValueLocator,
-    yValueLocator,
+    linesLocator = (d) => d.lines,
+    linesValuesLocator = (d) => d.values,
+    xValueLocator = (d) => d.x,
+    yValueLocator = (d) => d.y,
 
     // areas
-    areasLocator,
-    areasValuesLocator,
+    areasLocator = (d) => d.areas,
+    areasValuesLocator = (d) => d.values,
     areaY0Locator,
     areaY1Locator,
 
     thresholds,
     data,
-    hideAxis,
-    kChartOverlays,
+    hideAxis = false,
+    kChartOverlays = {
+      areas: {},
+      candlesticks: {},
+    },
     tradeRowsLocator,
     tradeDateLocator,
     tradeOpenLocator,
@@ -115,20 +118,6 @@ const KChart = (props) => {
       {children}
     </LineChart>
   );
-};
-
-KChart.defaultProps = {
-  hideAxis: false,
-  xValueLocator: (d) => d.x,
-  yValueLocator: (d) => d.y,
-  areasValuesLocator: (d) => d.values,
-  linesValuesLocator: (d) => d.values,
-  linesLocator: (d) => d.lines,
-  areasLocator: (d) => d.areas,
-  kChartOverlays: {
-    areas: {},
-    candlesticks: {},
-  },
 };
 
 export default KChart;

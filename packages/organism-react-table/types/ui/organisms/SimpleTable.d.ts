@@ -1,10 +1,10 @@
-export default SimpleTable;
-declare function SimpleTable({ tableComponent, wrapperComponent, className, style, wrap, ...restProps }: {
+import * as React from "react";
+declare const SimpleTable: ({ tableComponent, wrapperComponent, className, style, wrap, ...restProps }: {
     [x: string]: any;
-    tableComponent?: string;
-    wrapperComponent?: string;
     className: any;
     style: any;
+    tableComponent?: string;
     wrap: any;
-}): React.ReactElement<any, string | React.JSXElementConstructor<any>>;
-import * as React from "react";
+    wrapperComponent?: string;
+}) => React.ReactElement<unknown, string | React.JSXElementConstructor<any>>;
+export default SimpleTable;

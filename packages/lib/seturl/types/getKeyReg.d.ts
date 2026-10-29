@@ -1,3 +1,4 @@
-declare function _default(name: any): RegExp;
+declare const getMultiMatchReg: (name: any) => RegExp;
 export default _default;
-export function getMultiMatchReg(name: any): RegExp;
+declare function _default(name: any): RegExp;
+export { getMultiMatchReg };

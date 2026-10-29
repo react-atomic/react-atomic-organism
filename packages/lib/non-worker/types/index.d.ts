@@ -1,19 +1,19 @@
-export default NonWorker;
+import "array.polyfill";
 declare class NonWorker {
-    /**
-     * @param {any} callback
-     */
-    constructor(callback: any);
-    /**
-     * @type {function[]}
-     */
-    callbacks: Function[];
     /**
      * Call from inside worker
      * @param {any} data
      */
     post: typeof postMessage;
     onmessage: any;
+    /**
+     * @type {function[]}
+     */
+    callbacks: Function[];
+    /**
+     * @param {any} callback
+     */
+    constructor(callback: any);
     /**
      * Register for outside
      * @param {string} _type
@@ -26,3 +26,4 @@ declare class NonWorker {
      */
     postMessage: (data: any) => void;
 }
+export default NonWorker;

@@ -1,2 +1,3 @@
+import React from "react";
+declare const Line: React.ForwardRefExoticComponent<React.RefAttributes<any>>;
 export default Line;
-declare const Line: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;

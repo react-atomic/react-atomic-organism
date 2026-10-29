@@ -41,6 +41,20 @@ const DefaultXIcon = (props) => {
   );
 };
 
+/**
+ * @param {{
+ *   appear?: string,
+ *   enter?: string,
+ *   name?: string,
+ *   xico?: (props: any) => any,
+ *   scrolling?: boolean,
+ *   page?: boolean,
+ *   children?: any,
+ *   className?: string,
+ *   style?: any,
+ *   [key: string]: any
+ * }} props
+ */
 const FullScreen = ({
   appear = "fadeIn-500",
   enter = "fadeIn-500",

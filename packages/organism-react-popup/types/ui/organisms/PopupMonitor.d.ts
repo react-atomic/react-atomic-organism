@@ -1,9 +1,10 @@
-export default PopupMonitor;
-declare function PopupMonitor({ component, children, className, getIsShow, popup, ...otherProps }: {
+import React from "react";
+declare const PopupMonitor: ({ component, children, className, getIsShow, popup, ...otherProps }: {
     [x: string]: any;
-    component: any;
     children: any;
     className: any;
+    component: any;
     getIsShow: any;
     popup: any;
-}): any;
+}) => React.ReactElement<unknown, string | React.JSXElementConstructor<any>>;
+export default PopupMonitor;

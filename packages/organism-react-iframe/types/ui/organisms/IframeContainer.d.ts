@@ -1,4 +1,4 @@
-export default IframeContainer;
+import React from "react";
 export type IframeContainerExpose = {
     postHeight: Function;
     getEl: () => HTMLIFrameElement;
@@ -14,6 +14,7 @@ export type IframeContainerProps = {
     component?: import("reshow-build").Component;
 };
 /**
- * @type React.ForwardRefExoticComponent<?, IframeContainerProps>
+ * @type React.ForwardRefExoticComponent<any, IframeContainerProps>
  */
-declare const IframeContainer: React.ForwardRefExoticComponent<unknown, IframeContainerProps>;
+declare const IframeContainer: React.ForwardRefExoticComponent<any, IframeContainerProps>;
+export default IframeContainer;

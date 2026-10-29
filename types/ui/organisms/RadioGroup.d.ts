@@ -1,5 +1,9 @@
-export default RadioGroup;
-declare class RadioGroup {
+import React, { PureComponent } from "react";
+declare class RadioGroup extends PureComponent {
+    state: {
+        value: any;
+        error: string;
+    };
     static propTypes: {
         options: any;
         name: any;
@@ -10,25 +14,22 @@ declare class RadioGroup {
         checkedCallback: any;
         I18NValueMissing: string;
     };
-    static getDerivedStateFromProps(nextProps: any, prevState: any): {
-        options: any;
-        value: any;
-        prePropsValue: any;
-    };
-    constructor(props: any);
-    state: {
-        value: any;
-        error: string;
-    };
     isChecked(item: any, nextValue: any, current: any): any;
     altValue(item: any): any;
     checkValidity({ setState }: {
         setState: any;
     }): boolean;
-    getChecked(): undefined;
+    getChecked(): any;
     getValue(): any;
     handleClick: (e: any, before: any, after: any, ref: any) => boolean;
     handleError(e: any): any;
     handleDisplayError(el: any, error: any): void;
-    render(): any;
+    constructor(props: any);
+    static getDerivedStateFromProps(nextProps: any, prevState: any): {
+        options: any;
+        value: any;
+        prePropsValue: any;
+    };
+    render(): React.JSX.Element;
 }
+export default RadioGroup;

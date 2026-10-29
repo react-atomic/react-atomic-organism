@@ -1,10 +1,7 @@
-import React, { Component } from "react";
-import jsdom from "jsdom-global";
+import React from "react";
 
 import { expect } from "chai";
-import { shallow, mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { jsdom, act, render, waitFor } from "reshow-unit";
 
 import { openCodeEditor } from "../CodeEditor";
 import { PopupPool, popupDispatch } from "organism-react-popup";
@@ -31,29 +28,24 @@ describe("Test CodeEditor", () => {
     }, 300);
   });
 
-  it("simple test", (done) => {
-    const dom = <PopupPool />;
-    wrapper = mount(dom);
+  it("simple test", async () => {
+    wrapper = render(<PopupPool />);
     openCodeEditor();
-    setTimeout(() => {
-      wrapper.update();
-      const html = wrapper.html();
-      expect(html).to.have.string("full-screen");
-      done();
-    }, 100);
+    await act();
+    await waitFor(() => {
+      expect(wrapper.html()).to.have.string("full-screen");
+    });
   });
 
   it("test set html", (done) => {
-    const dom = <PopupPool />;
-    wrapper = mount(dom);
+    wrapper = render(<PopupPool />);
     openCodeEditor("<div />", (html) => {
       expect(html).to.equal("");
       done();
     });
-    wrapper.update();
     setTimeout(() => {
-      wrapper.update();
-      const iframe = wrapper.find("iframe.codemirror");
+      const iframe = document.querySelector("iframe.codemirror");
+      expect(iframe).to.not.equal(null);
       popupDispatch("dom/closeAll");
     }, 1000);
   });

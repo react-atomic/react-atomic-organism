@@ -53,7 +53,7 @@ const useMultiChart = (props) => {
     xAxisAttr,
   } = resetProps(props);
 
-  const lastEl = useRef();
+  const lastEl = useRef(undefined);
 
   useEffect(() => {
     const handleResize = () => {

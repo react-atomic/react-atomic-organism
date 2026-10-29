@@ -34,7 +34,7 @@ const FullScreenExample = ({
   ...restProps
 }) => {
   const [showFullScreen, setShowFullScreen] = useState();
-  const lastTrigger = useRef();
+  const lastTrigger = useRef(undefined);
 
   useEffect(() => {
     const { lastAnchor } = callfunc(anchorLocator, [path]) || {};

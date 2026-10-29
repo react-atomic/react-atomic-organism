@@ -1,5 +1,11 @@
-export default getRandom;
-declare function getRandom(): string;
+/**
+ * @param {number|string} [t]
+ */
+declare const getDateObject: (t?: number | string) => Date;
+/**
+ * @param {number|string} [t]
+ */
+declare const getTimestamp: (t?: number | string) => number;
 /**
  * milliseconds (thousandths of a second)
  * @param {number?} createTime
@@ -7,17 +13,12 @@ declare function getRandom(): string;
  * @param {function|null} run
  * @param {function|null} expireCb
  */
-export function expireCallback(createTime: number | null, expireMilliseconds: number | null, run: Function | null, expireCb: Function | null): any;
-/**
- * @param {number|string} [t]
- */
-export function getDateObject(t?: number | string): Date;
-/**
- * @param {number|string} [t]
- */
-export function getTimestamp(t?: number | string): number;
+declare const expireCallback: (createTime: number | null, expireMilliseconds: number | null, run: Function | null, expireCb: Function | null) => any;
 /**
  * @param {string} [name]
  * @param {string} [separator]
  */
-export function getSN(name?: string, separator?: string): string;
+declare const getSN: (name?: string, separator?: string) => string;
+declare const getRandom: () => string;
+export default getRandom;
+export { expireCallback, getDateObject, getTimestamp, getSN };

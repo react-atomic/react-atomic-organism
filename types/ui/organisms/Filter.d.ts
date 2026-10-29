@@ -1,8 +1,3 @@
-/**
- * @type import("react").ForwardRefExoticComponent<?, FilterProps>
- * @returns {import("react").ReactElement}
- */
-export const Filter: any;
 export type FilterExpose = {
     submit: Function;
     disabled: Function;
@@ -37,9 +32,17 @@ export type FilterResultProps = {
     itemFilter?: Function;
     valueLocator?: Function;
 };
+export type FilterHandlerArgs = {
+    propsResults?: any;
+    propsPreview?: number | boolean;
+    itemsLocator: Function;
+    itemFilter: Function;
+    propsFilter?: any;
+    value?: any;
+};
 export type FilterProps = {
     component: any;
-    ref?: any;
+    ref?: import("react").Ref<any>;
     disabled?: boolean;
     builtInOnly?: boolean;
     itemClickToClose?: boolean;
@@ -47,8 +50,8 @@ export type FilterProps = {
     couldCreate?: boolean;
     doNotResetValue?: boolean;
     shouldJsonEncode?: boolean;
-    refCb?: any;
-    wrapperRefCb?: any;
+    refCb?: import("react").RefCallback<any>;
+    wrapperRefCb?: import("react").RefCallback<any>;
     className?: string;
     name?: string;
     shouldRenderSuggestions?: Function | boolean;
@@ -67,3 +70,8 @@ export type FilterProps = {
     valueLocator?: Function;
     itemFilter?: Function;
 };
+/**
+ * @type {import("react").ForwardRefExoticComponent<FilterProps>}
+ * @returns {import("react").ReactElement}
+ */
+export declare const Filter: import("react").ForwardRefExoticComponent<FilterProps>;

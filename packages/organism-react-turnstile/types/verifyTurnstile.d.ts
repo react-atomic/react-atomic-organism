@@ -1,4 +1,3 @@
-export default verifyTurnstile;
 export type VerifyTurnstileProps = {
     secret?: string | undefined;
     response?: (string | null) | undefined;
@@ -44,4 +43,5 @@ export type VerifyTurnstileResult = {
  * @param {VerifyTurnstileProps} props
  * @returns {Promise<VerifyTurnstileResult>}
  */
-declare function verifyTurnstile({ secret, response, url, }?: VerifyTurnstileProps): Promise<VerifyTurnstileResult>;
+declare const verifyTurnstile: ({ secret, response, url, }?: VerifyTurnstileProps) => Promise<VerifyTurnstileResult>;
+export default verifyTurnstile;

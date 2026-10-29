@@ -151,7 +151,8 @@ const Styles = {
     zIndex: 9999,
   },
   xicon: {
-    top: 20,
+    top: "50%",
+    transform: "translateY(-50%)",
     right: 10,
     opacity: ".5",
   },

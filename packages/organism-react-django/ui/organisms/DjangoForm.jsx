@@ -35,9 +35,10 @@ const DjangoForm = ({
   fields,
   header,
   csrfToken,
-  formComponent,
+  formComponent = <Form />,
   hasError,
-  unHandle,
+  unHandle = defaultUnHandle,
+  method = "post",
   ...props
 }) => {
   let thisHeader = null;
@@ -137,16 +138,11 @@ const DjangoForm = ({
     formComponent,
     {
       ...props,
+      method,
       className: mixClass(formMessageType, className),
     },
     thisChild,
   );
-};
-
-DjangoForm.defaultProps = {
-  formComponent: <Form />,
-  unHandle: defaultUnHandle,
-  method: "post",
 };
 
 export default DjangoForm;

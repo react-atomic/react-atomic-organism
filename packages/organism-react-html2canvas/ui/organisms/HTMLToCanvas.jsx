@@ -30,9 +30,9 @@ const HTMLToCanvas = forwardRef((props, ref) => {
     autoGenCanvas,
     onCanvas,
   } = props;
-  const iframe = useRef();
-  const preview = useRef();
-  const _timer = useRef();
+  const iframe = useRef(undefined);
+  const preview = useRef(undefined);
+  const _timer = useRef(undefined);
 
   const getCanvas = (canvasCallback, htmlEl, options = DEFAULT_OPTIONS) => {
     const oIframe = iframe.current;

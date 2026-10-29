@@ -1,4 +1,4 @@
-export default useTurnstile;
+import * as React from "react";
 export type Component = import("reshow-build").Component;
 export type TurnstileProps = {
     js?: string | undefined;
@@ -19,4 +19,5 @@ export type CleanTurnstile = (bRemove?: boolean) => any;
  * @param {TurnstileProps} props
  * @returns {[React.ReactElement|null, CleanTurnstile]}
  */
-declare function useTurnstile({ js, onloadCallbackName, component, sitekey, errorCallback, callback, callbackTimeout, }: TurnstileProps): [React.ReactElement | null, CleanTurnstile];
+declare const useTurnstile: ({ js, onloadCallbackName, component, sitekey, errorCallback, callback, callbackTimeout, }: TurnstileProps) => [React.ReactElement | null, CleanTurnstile];
+export default useTurnstile;

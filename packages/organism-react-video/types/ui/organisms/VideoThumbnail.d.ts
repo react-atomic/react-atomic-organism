@@ -1,7 +1,8 @@
-export default VideoThumbnail;
-declare function VideoThumbnail({ onClick, playBgColor, playFgColor, src }: {
+import React from "react";
+declare const VideoThumbnail: ({ onClick, playBgColor, playFgColor, src }: {
     onClick: any;
     playBgColor: any;
     playFgColor: any;
     src: any;
-}): any;
+}) => React.JSX.Element;
+export default VideoThumbnail;

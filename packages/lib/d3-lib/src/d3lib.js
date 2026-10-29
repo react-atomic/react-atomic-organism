@@ -8,7 +8,13 @@ import arrayMinMax from "array.min.max";
 import { KEYS } from "reshow-constant";
 
 /**
- * @typedef {import("d3").curveBasis} Curve
+ * @typedef {import("d3").CurveFactory} CurveFactoryType
+ */
+
+/**
+ * @typedef {object} Curve
+ * @property {CurveFactoryType} [type]
+ * @property {{x: number, y: number}} [center]
  */
 
 /**
@@ -35,8 +41,8 @@ class Scaler {
 /**
  * @see https://web.archive.org/web/20190414162355/http://bl.ocks.org/d3indepth/b6d4845973089bc1012dec1674d3aff8
  * @param {Curve=} curve
- * @param {Curve=} def
- * @returns {Curve}
+ * @param {CurveFactoryType=} def
+ * @returns {CurveFactoryType}
  */
 const getCurveType = (curve, def) =>
   curve && curve.type ? curve.type : def || D3JS.curveCatmullRom.alpha(0.5);

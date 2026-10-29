@@ -82,9 +82,9 @@ class Body extends PureComponent {
 }
 
 const QQVideo = (props) => {
-  const { showControllBar, mask, corp, ...others } = props;
+  const { showControllBar, mask = false, corp, ...others } = props;
   const [isLoad, setIsLoad] = useState();
-  const thisIframe = useRef();
+  const thisIframe = useRef(undefined);
   const handleRef = useCallback(
     (el) => {
       thisIframe.current = el;
@@ -101,10 +101,6 @@ const QQVideo = (props) => {
       </Iframe>
     </ResponsiveVideo>
   );
-};
-
-QQVideo.defaultProps = {
-  mask: false,
 };
 
 export default QQVideo;

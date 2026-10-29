@@ -15,10 +15,10 @@ import get from "get-object-value";
 let injects;
 
 /**
- * @param {object} params
- * @param {object} Styles
+ * @param {any} params
+ * @param {any} Styles
  * @param {boolean} merge
- * @returns {DocTemplate}
+ * @returns {any}
  */
 const getDocTemplate = (params, Styles = {}, merge = true) => {
   /* Defined containerClass */

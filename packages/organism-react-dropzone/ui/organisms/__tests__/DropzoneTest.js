@@ -1,16 +1,14 @@
-import jsdom from "jsdom-global";
-import React, { PureComponent } from "react";
+import React from "react";
 import { expect } from "chai";
-import { mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { render, waitFor } from "reshow-unit";
 
 import Dropzone from "../Dropzone";
 
 describe("Test Dropzone", () => {
-  it("simple test", () => {
-    const wrap = mount(<Dropzone postUrl="http://xxx" />);
-    const html = wrap.html();
-    expect(html).to.have.string('class="dropzone ui"');
+  it("simple test", async () => {
+    const wrap = render(<Dropzone postUrl="http://xxx" />);
+    await waitFor(() => {
+      expect(wrap.html()).to.have.string('class="dropzone ui"');
+    });
   });
 });

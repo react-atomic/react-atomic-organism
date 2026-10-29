@@ -1,36 +1,25 @@
-export default Suggestion;
-declare class Suggestion {
+import { PureComponent } from "react";
+import SearchBox from "../organisms/SearchBox";
+declare const defaultItemFilter: (arr: any, currentValue: any, itemLocator: any) => any;
+declare const defaultItemLocator: (d: any) => any;
+declare const defaultItemsLocator: (d: any) => any;
+declare class Suggestion extends PureComponent {
+    timerClose: number;
+    timerSubmit: number;
+    timerResetValue: number;
+    originalValue: any;
+    input: any;
+    inputWrap: any;
     static defaultProps: {
         itemClickToClose: boolean;
         couldCreate: boolean;
-        component: ({ autoComplete, inputComponent, className, compHd, compBd, compFt, wrapRefCb, wrapStyle, onWrapClick, results, onItemClick, itemLocator, itemsLocator, inputWrapStyle, resultsStyle, ...restProps }: {
-            [x: string]: any;
-            autoComplete?: string;
-            inputComponent?: typeof import("react-atomic-molecule").InputBox;
-            className: any;
-            compHd: any;
-            compBd: any;
-            compFt: any;
-            wrapRefCb: any;
-            wrapStyle: any;
-            onWrapClick: any;
-            results: any;
-            onItemClick: any;
-            itemLocator: any;
-            itemsLocator: any;
-            inputWrapStyle: any;
-            resultsStyle: any;
-        }) => any;
-        itemsLocator: (d: any) => any;
-        itemLocator: (d: any) => any;
-        itemFilter: (arr: any, currentValue: any, itemLocator: any) => any;
+        component: typeof SearchBox;
+        itemsLocator: typeof defaultItemsLocator;
+        itemLocator: typeof defaultItemLocator;
+        itemFilter: typeof defaultItemFilter;
         valueLocator: any;
         filter: boolean;
         preview: boolean;
-    };
-    static getDerivedStateFromProps(nextProps: any, prevState: any): {
-        value: any;
-        prevPropsValue: any;
     };
     state: {
         value: string;
@@ -46,17 +35,13 @@ declare class Suggestion {
     valueLocator: (rawItem: any) => any;
     shouldRenderSuggestions(): any;
     clearTimer(): void;
-    timerClose: NodeJS.Timeout;
-    timerSubmit: NodeJS.Timeout;
-    timerResetValue: NodeJS.Timeout;
     getValue(): string;
     getSelIndex(): number;
     getIsOpen(): any;
-    setValue(value: any, e: any, isOpen: any): any;
+    setValue(value: any, e: any, isOpen: any): void;
     handleChange: (e: any) => void;
     handleSubmit: (e: any) => void;
     handleResetValue: (value: any, e: any) => void;
-    originalValue: any;
     handleClose: (e: any) => void;
     handleCouldCreate: () => {
         value: string;
@@ -68,13 +53,16 @@ declare class Suggestion {
     handleItemClick: (e: {}, item: any) => void;
     handleKeyDown: (e: any) => any;
     handleRefCb: (el: any) => void;
-    input: any;
     handleWrapRefCb: (el: any) => void;
-    inputWrap: any;
     handlePreview(results: any): any;
     handleFilter(results: any): any;
     handleResults(): any;
+    static getDerivedStateFromProps(nextProps: any, prevState: any): {
+        value: any;
+        prevPropsValue: any;
+    };
     componentDidUpdate(prevProps: any): void;
     componentWillUnmount(): void;
-    render(): any;
+    render(): import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
 }
+export default Suggestion;

@@ -1,2 +1,3 @@
+import React from "react";
+declare const AjaxForm: React.ForwardRefExoticComponent<React.RefAttributes<any>>;
 export default AjaxForm;
-declare const AjaxForm: import("react").ForwardRefExoticComponent<import("react").RefAttributes<any>>;

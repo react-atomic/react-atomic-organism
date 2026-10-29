@@ -1,13 +1,14 @@
-export default List;
 declare class List {
     _sentinel: {
-        _next: any;
-        _prev: any;
+        _next: /*elided*/ any;
+        _prev: /*elided*/ any;
     };
+    constructor();
     dequeue(): {
-        _next: any;
-        _prev: any;
+        _next: /*elided*/ any;
+        _prev: /*elided*/ any;
     };
     enqueue(entry: any): void;
     toString(): string;
 }
+export default List;

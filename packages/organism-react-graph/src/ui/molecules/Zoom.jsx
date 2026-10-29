@@ -14,10 +14,10 @@ const useZoom = (props) => {
   const { onGetEl, onZoom, onD3Load, scaleExtent = [-1, 8], ...others } = props;
   const [isLoad, d3] = useD3(onD3Load);
   const [transform, setTransform] = useState(null);
-  const lastEvent = useRef();
-  const lastTransform = useRef();
-  const lastD3ZoomObject = useRef();
-  const lastEnable = useRef();
+  const lastEvent = useRef(undefined);
+  const lastTransform = useRef(undefined);
+  const lastD3ZoomObject = useRef(undefined);
+  const lastEnable = useRef(undefined);
   useEffect(() => {
     lastTransform.current = transform;
     lastEvent.current && callfunc(onZoom, [lastEvent.current]);

@@ -1,20 +1,20 @@
+declare const positions: {
+    TL: string;
+    TC: string;
+    TR: string;
+    RT: string;
+    RC: string;
+    RB: string;
+    BL: string;
+    BC: string;
+    BR: string;
+    LT: string;
+    LC: string;
+    LB: string;
+    CC: string;
+    CT: string;
+    CR: string;
+    CB: string;
+    CL: string;
+};
 export default positions;
-declare namespace positions {
-    let TL: string;
-    let TC: string;
-    let TR: string;
-    let RT: string;
-    let RC: string;
-    let RB: string;
-    let BL: string;
-    let BC: string;
-    let BR: string;
-    let LT: string;
-    let LC: string;
-    let LB: string;
-    let CC: string;
-    let CT: string;
-    let CR: string;
-    let CB: string;
-    let CL: string;
-}

@@ -1,4 +1,3 @@
-export default smoothScrollTo;
 /**
  *  !!Important!! any logic change need take care isRunning
  *
@@ -9,4 +8,5 @@ export default smoothScrollTo;
  *  @param {string} [scrollKey]
  *  @returns {function} cancel handler
  */
-declare function smoothScrollTo(to: number, duration?: number, el?: HTMLElement, callback?: Function, scrollKey?: string): Function;
+declare const smoothScrollTo: (to: number, duration?: number, el?: HTMLElement, callback?: Function, scrollKey?: string) => Function;
+export default smoothScrollTo;

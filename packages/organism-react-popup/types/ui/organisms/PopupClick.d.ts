@@ -1,5 +1,5 @@
-export default PopupClick;
-declare class PopupClick {
+import React, { Component } from "react";
+declare class PopupClick extends Component {
     static defaultProps: {
         once: boolean;
     };
@@ -7,5 +7,6 @@ declare class PopupClick {
     open(): void;
     close(): void;
     componentDidMount(): void;
-    render(): any;
+    render(): React.ReactElement<unknown, string | React.JSXElementConstructor<any>>;
 }
+export default PopupClick;

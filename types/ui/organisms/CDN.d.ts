@@ -1,8 +1,9 @@
-export default CDN;
-declare function CDN(props: any): any;
+import React from "react";
+declare function CDN(props: any): React.JSX.Element;
 declare namespace CDN {
-    namespace defaultProps {
-        let cdnHost: string;
-        let linkComponent: any;
-    }
+    var defaultProps: {
+        cdnHost: string;
+        linkComponent: React.JSX.Element;
+    };
 }
+export default CDN;

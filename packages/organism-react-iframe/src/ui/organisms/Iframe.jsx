@@ -57,17 +57,17 @@ const useIframe = ({
   immutable,
   ...others
 }) => {
-  const root = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
+  const root = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef(undefined));
   const _mount = useMounted();
   const [onLoadTimer] = useTimer();
-  const html = /**@type {React.MutableRefObject<string>}*/ (useRef());
-  const execStop = /**@type {React.MutableRefObject<Function>}*/ (useRef());
+  const html = /**@type {React.MutableRefObject<string>}*/ (useRef(undefined));
+  const execStop = /**@type {React.MutableRefObject<Function>}*/ (useRef(undefined));
   const thisIframe =
     /**@type {React.MutableRefObject<import("./IframeContainer").IframeContainerExpose>}*/ (
-      useRef()
+      useRef(undefined)
     );
   const renderCache = /**@type {React.MutableRefObject<React.ReactPortal>}*/ (
-    useRef()
+    useRef(undefined)
   );
   /**
    * @type {useState<HTMLElement|undefined>}
@@ -274,7 +274,7 @@ const useIframe = ({
 };
 
 /**
- * @type React.ForwardRefExoticComponent<?, any>
+ * @type React.ForwardRefExoticComponent<any, any>
  */
 const Iframe = forwardRef((props, ref) => {
   const { expose, others, thisIframe, handler, thisEl, renderIframe } =

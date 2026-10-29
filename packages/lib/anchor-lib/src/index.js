@@ -10,7 +10,7 @@ const urlDecode = (/**@type string*/ s) => decodeURIComponent(s);
 
 /**
  * @param {string} anchor
- * @returns {function(number?)}
+ * @returns {(delay?: number) => void}
  */
 export const goToAnchor = (anchor) => (goAnchorDelay) => {
   if (!goAnchorDelay) {
@@ -81,13 +81,13 @@ export const getAnchorPath = (path) => {
 
 /**
  * @param {string} path
- * @returns {function(number?):string}
+ * @returns {(delay?: number) => string}
  */
 export const disableHandleAnchor = (path) => () => path;
 
 /**
  * @param {string} rawPath
- * @returns {function(number?):string}
+ * @returns {(delay?: number) => string}
  */
 export default function handleAndStripAnchor(rawPath) {
   const { anchor, path } = getAnchorPath(rawPath);

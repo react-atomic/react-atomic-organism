@@ -1,2 +1,3 @@
-export function run(g: any): void;
-export function cleanup(g: any): void;
+export { run, cleanup };
+declare function run(g: any): void;
+declare function cleanup(g: any): void;

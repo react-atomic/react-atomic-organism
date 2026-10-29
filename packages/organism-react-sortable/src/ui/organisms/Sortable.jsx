@@ -30,8 +30,8 @@ const useSortable = ({
   autoSelect,
 }) => {
   const [isDraging, setIsDraging] = useState(false);
-  const comp = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef());
-  const lastRange = /**@type {React.MutableRefObject<Range>}*/ (useRef());
+  const comp = /**@type {React.MutableRefObject<HTMLElement>}*/ (useRef(undefined));
+  const lastRange = /**@type {React.MutableRefObject<Range>}*/ (useRef(undefined));
 
   /**
    * @param {HTMLElement} targetEl
@@ -178,7 +178,7 @@ const useSortable = ({
 
 /**
  * @typedef {object} SortableProps
- * @property {SetStateAction<SortData>=} setSortData
+ * @property {React.Dispatch<React.SetStateAction<SortData>>=} setSortData
  * @property {boolean=} fixedX
  * @property {boolean=} fixedY
  * @property {boolean=} autoSelect

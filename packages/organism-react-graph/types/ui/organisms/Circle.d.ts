@@ -1,4 +1,5 @@
-export default Circle;
-declare class Circle {
-    render(): any;
+import React, { PureComponent } from "react";
+declare class Circle extends PureComponent {
+    render(): React.JSX.Element;
 }
+export default Circle;

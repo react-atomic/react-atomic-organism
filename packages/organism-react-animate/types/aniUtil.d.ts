@@ -1,3 +1,10 @@
+/**
+ * @param {string} key
+ * @param {string} aniName
+ * @param {number} timeout
+ * @param {function} callback
+ */
+declare const initAni: (key: string, aniName: string, timeout: number, callback: Function) => void;
 export type AnimationData = {
     className: string;
     key: string;
@@ -5,13 +12,6 @@ export type AnimationData = {
     timeout: number;
     delay: number;
 };
-/**
- * @param {string} key
- * @param {string} aniName
- * @param {number} timeout
- * @param {function} callback
- */
-export function initAni(key: string, aniName: string, timeout: number, callback: Function): void;
 /**
  * @typedef {object} AnimationData
  * @property {string} className
@@ -24,4 +24,5 @@ export function initAni(key: string, aniName: string, timeout: number, callback:
  * @param {string} s
  * @returns {AnimationData}
  */
-export function parseAniValue(s?: string): AnimationData;
+declare const parseAniValue: (s?: string) => AnimationData;
+export { initAni, parseAniValue };

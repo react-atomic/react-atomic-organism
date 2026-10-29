@@ -1,9 +1,9 @@
-export default BaseString;
+import { PureComponent } from "react";
 /**
  * @extends {React.PureComponent<Props>}
  * @return {React.ReactElement} - React component
  */
-declare class BaseString {
+declare class BaseString extends PureComponent {
     state: {};
     resetProps(thisProps: any, thisState: any): any;
     getEl(): any;
@@ -11,3 +11,4 @@ declare class BaseString {
     componentDidUpdate(prevProps: any, prevState: any, snapshot: any): void;
     componentDidMount(): void;
 }
+export default BaseString;

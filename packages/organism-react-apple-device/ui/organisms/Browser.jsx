@@ -7,22 +7,18 @@ const Bar = (props) => (
   </div>
 );
 
-const Button = (props) => (
+const Button = ({ size = 10, style }) => (
   <div
     style={{
-      width: props.size + "px",
-      height: props.size + "px",
-      borderRadius: props.size + "px",
-      marginLeft: props.size + "px",
+      width: size + "px",
+      height: size + "px",
+      borderRadius: size + "px",
+      marginLeft: size + "px",
       ...Styles.button,
-      ...props.style,
+      ...style,
     }}
   />
 );
-
-Button.defaultProps = {
-  size: 10,
-};
 
 const ActionButtons = () => (
   <div style={Styles.buttons}>

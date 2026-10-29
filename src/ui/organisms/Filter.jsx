@@ -124,6 +124,9 @@ const useFilterResult = (props) => {
    * @type {FilterResultHandler}
    */
   const handler = {
+    /**
+     * @param {FilterHandlerArgs} params
+     */
     preview: ({
       propsResults,
       propsPreview,
@@ -145,6 +148,9 @@ const useFilterResult = (props) => {
     },
     /**
      * @returns {object}
+     */
+    /**
+     * @param {FilterHandlerArgs} params
      */
     results: ({
       itemsLocator,
@@ -179,6 +185,16 @@ const useFilterResult = (props) => {
     : null;
   return lastResults;
 };
+
+/**
+ * @typedef {object} FilterHandlerArgs
+ * @property {any} [propsResults]
+ * @property {number|boolean} [propsPreview]
+ * @property {Function} itemsLocator
+ * @property {Function} itemFilter
+ * @property {any} [propsFilter]
+ * @property {any} [value]
+ */
 
 /**
  * @typedef {object} FilterProps
@@ -317,7 +333,7 @@ const useFilter = (props) => {
    * @property {function} blur
    * @property {function} focus
    * @property {function} resetValue
-   * @property {function():{okToCreate: boolean; originalValue: any}} checkCouldCreate
+   * @property {() => {okToCreate: boolean, originalValue: any}} checkCouldCreate
    * @property {function} wrapperClick
    * @property {function} itemClick
    * @property {function} keyDown
@@ -668,6 +684,7 @@ const useFilter = (props) => {
     onBlur: handler.blur,
   };
 
+  /** @type {any} */
   const nextProps = builtInOnly
     ? builtInProps
     : {
@@ -700,7 +717,7 @@ const useFilter = (props) => {
 };
 
 /**
- * @type import("react").ForwardRefExoticComponent<?, FilterProps>
+ * @type {import("react").ForwardRefExoticComponent<FilterProps>}
  * @returns {import("react").ReactElement}
  */
 export const Filter = forwardRef((/**@type FilterProps*/ props, ref) => {

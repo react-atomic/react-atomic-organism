@@ -1,5 +1,6 @@
-export default FullScreenUrl;
-declare function FullScreenUrl({ id, ...props }: {
+import * as React from "react";
+declare const FullScreenUrl: ({ id, ...props }: {
     [x: string]: any;
     id?: string;
-}): import("react/jsx-runtime").JSX.Element;
+}) => React.JSX.Element;
+export default FullScreenUrl;

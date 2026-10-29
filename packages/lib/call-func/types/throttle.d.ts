@@ -1,5 +1,5 @@
-export default throttle;
 /**
  * reduce run times.
  */
-declare function throttle(func: any, threshhold: any, needRunLast: any): (option: any) => void;
+declare const throttle: (func: any, threshhold: any, needRunLast: any) => (option: any) => void;
+export default throttle;

@@ -1,16 +1,8 @@
+export type ActionObject = import('reshow-flux-base').ActionObject;
+export type StateMap = import('reshow-flux').StateMap;
+declare const SHOW_NEXT = "show_next";
+declare const SHOW_KEY = "shows";
+declare const NODE_KEY = "nodes";
+declare const store: import("reshow-flux/types/ImmutableStore").ImmutableStoreObject<any, import("reshow-flux-base/types/type").ActionObject>, popupDispatch: import("reshow-flux-base/types/createReducer").DispatchFunction<any, import("reshow-flux-base/types/type").ActionObject>;
 export default store;
-/**
- * *
- * reshow-flux-base/ActionObject
- */
-export type ActionObject = import("reshow-flux-base").ActionObject;
-/**
- * *
- * reshow-flux/StateMap
- */
-export type StateMap = import("reshow-flux").StateMap;
-declare const store: import("reshow-flux/types/ImmutableStore").ImmutableStoreObject<any, import("reshow-flux-base/types/type").ActionObject>;
-export const popupDispatch: import("reshow-flux-base/types/createReducer").DispatchFunction<any, import("reshow-flux-base/types/type").ActionObject>;
-export const SHOW_NEXT: "show_next";
-export const SHOW_KEY: "shows";
-export const NODE_KEY: "nodes";
+export { popupDispatch, SHOW_NEXT, SHOW_KEY, NODE_KEY };

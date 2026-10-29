@@ -1,2 +1,2 @@
+declare const isRequired: (name: any) => never;
 export default isRequired;
-declare function isRequired(name: any): never;

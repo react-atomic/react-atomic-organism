@@ -1,4 +1,4 @@
-export default KeyButton;
-declare function KeyButton({ name }: {
+declare const KeyButton: ({ name }: {
     name: any;
-}): JSX.Element;
+}) => import("react").JSX.Element;
+export default KeyButton;

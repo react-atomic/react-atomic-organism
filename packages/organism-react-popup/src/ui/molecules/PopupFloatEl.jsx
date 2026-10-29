@@ -39,15 +39,6 @@ class PositionInfo {
  * @extends {PopupOverlay}
  */
 class PopupFloatEl extends PopupOverlay {
-  /** @type {PopupFloatElProps} */
-  props;
-
-  /** @type {PopupFloatElState} */
-  state;
-
-  /** @type {function(Partial<PopupFloatElState>, function(): void=): void} */
-  setState;
-
   _mount = true;
 
   static defaultProps = {

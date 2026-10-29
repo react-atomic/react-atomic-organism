@@ -45,7 +45,7 @@ const Dialog = ({
   /**
    * @type any
    */
-  const thisPopup = useRef();
+  const thisPopup = useRef(undefined);
 
   const handleClick =
     (/** @type React.ReactElement*/ button) => (/** @type DialogEvent*/ e) => {

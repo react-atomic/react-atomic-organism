@@ -1,2 +1,3 @@
+import React from "react";
+declare const Video: React.NamedExoticComponent<object>;
 export default Video;
-declare const Video: any;

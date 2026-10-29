@@ -1,2 +1,2 @@
+declare const arrayToCsv: (arr: any) => any;
 export default arrayToCsv;
-declare function arrayToCsv(arr: any): any;

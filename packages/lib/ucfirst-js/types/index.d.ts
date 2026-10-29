@@ -1,6 +1,6 @@
-export default ucfirst;
 /**
  * @param {string} s
  * @returns {string}
  */
-declare function ucfirst(s: string): string;
+declare const ucfirst: (s: string) => string;
+export default ucfirst;

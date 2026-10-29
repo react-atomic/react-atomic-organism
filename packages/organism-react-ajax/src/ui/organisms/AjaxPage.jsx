@@ -23,7 +23,7 @@ const AjaxPage = (props) => {
     webSocketUrl,
   } = props;
 
-  const lastThemePath = useRef();
+  const lastThemePath = useRef(undefined);
 
   useEffect(() => {
     ajaxDispatch({ ajax, baseUrl, staticVersion, callback });

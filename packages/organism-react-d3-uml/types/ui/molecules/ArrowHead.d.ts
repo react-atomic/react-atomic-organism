@@ -1,16 +1,17 @@
-declare const _default: import("react").MemoExoticComponent<({ multi, id, viewBox, d, refX, refY, markerUnits, markerWidth, markerHeight, orient, fill, }: {
+declare const ArrowHead: ({ multi, id, viewBox, d, refX, refY, markerUnits, markerWidth, markerHeight, orient, fill, }: {
+    d?: string;
+    fill?: string;
+    id?: string;
+    markerHeight?: number;
+    markerUnits?: string;
+    markerWidth?: number;
     multi?: {
         "": {};
     };
-    id?: string;
-    viewBox?: string;
-    d?: string;
+    orient?: string;
     refX?: number;
     refY?: number;
-    markerUnits?: string;
-    markerWidth?: number;
-    markerHeight?: number;
-    orient?: string;
-    fill?: string;
-}) => JSX.Element>;
+    viewBox?: string;
+}) => import("react").JSX.Element;
+declare const _default: import("react").MemoExoticComponent<typeof ArrowHead>;
 export default _default;

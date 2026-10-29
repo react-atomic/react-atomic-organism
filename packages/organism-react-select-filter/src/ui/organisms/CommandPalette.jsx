@@ -7,7 +7,10 @@ import {
   useEffect,
 } from "react";
 import { mixClass } from "react-atomic-molecule";
-import { FullScreen } from "organism-react-popup";
+import { FullScreen as TypedFullScreen } from "organism-react-popup";
+
+// published organism-react-popup<0.18 types mark className/style as required
+const FullScreen = /** @type {React.ComponentType<any>} */ (TypedFullScreen);
 import callfunc from "call-func";
 import { win } from "win-doc";
 
@@ -24,7 +27,7 @@ const shouldRenderSuggestions = () => true;
 const CommandPalettePropTypes = {};
 
 /**
- * @type React.FC<CommandPalettePropTypes>
+ * @type {React.FC<any>}
  */
 const CommandPalette = forwardRef((props, ref) => {
   const {

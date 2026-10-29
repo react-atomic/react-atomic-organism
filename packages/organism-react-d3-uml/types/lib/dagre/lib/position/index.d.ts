@@ -1,2 +1,2 @@
+declare const position: (g: any) => void;
 export default position;
-declare function position(g: any): void;

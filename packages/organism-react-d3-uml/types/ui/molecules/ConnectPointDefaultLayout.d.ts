@@ -1,8 +1,9 @@
-export default ConnectPointDefaultLayout;
+import React from "react";
+import BaseLayout from "../molecules/BaseLayout";
 declare class ConnectPointDefaultLayout extends BaseLayout {
+    el: any;
     getEl(): any;
     handleEl: (el: any) => void;
-    el: any;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
-import BaseLayout from "../molecules/BaseLayout";
+export default ConnectPointDefaultLayout;

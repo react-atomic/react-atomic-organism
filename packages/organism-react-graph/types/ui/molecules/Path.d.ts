@@ -1,6 +1,7 @@
-export default Path;
-declare function Path({ ui, atom, ...props }: {
+import React from "react";
+declare const Path: ({ ui, atom, ...props }: {
     [x: string]: any;
-    ui?: boolean;
     atom?: string;
-}): any;
+    ui?: boolean;
+}) => React.JSX.Element;
+export default Path;

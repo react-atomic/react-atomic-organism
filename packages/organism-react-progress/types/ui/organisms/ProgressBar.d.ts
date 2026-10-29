@@ -1,4 +1,3 @@
-export default ProgressBar;
 export type ProgressBarProps = {
     style?: object;
     percent?: number;
@@ -17,3 +16,4 @@ export type ProgressBarProps = {
  * @returns {React.ReactElement}
  */
 declare const ProgressBar: React.FC<ProgressBarProps>;
+export default ProgressBar;

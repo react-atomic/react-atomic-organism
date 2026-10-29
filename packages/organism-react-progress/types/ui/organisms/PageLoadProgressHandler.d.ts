@@ -1,6 +1,6 @@
-export default PageLoadProgressHandler;
+import * as React from "react";
 export type StoreProps = {
-    store: import("reshow-flux-base").StoreObject<any>;
+    store: import("reshow-flux-base").StoreObject<any, any>;
 };
 export type PageLoadProgressProps = {
     name?: string;
@@ -16,4 +16,4 @@ export type PageLoadProgressProps = {
  * @type React.FC<PageLoadProgressProps&StoreProps>
  */
 declare const PageLoadProgressHandler: React.FC<PageLoadProgressProps & StoreProps>;
-import * as React from "react";
+export default PageLoadProgressHandler;

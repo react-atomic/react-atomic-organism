@@ -10,9 +10,9 @@ import callFunc from "call-func";
 /**
  * @typedef {object} SortListProps
  * @property {any[]} items
- * @property {function(any):string=} sortIdLocator
- * @property {function(any[]):void=} onSort
- * @property {function(any[]):void=} onSortEnd
+ * @property {((item: any) => string)=} sortIdLocator
+ * @property {((items: any[]) => void)=} onSort
+ * @property {((items: any[]) => void)=} onSortEnd
  */
 
 /**

@@ -1,4 +1,4 @@
-export default ResponsiveVideo;
+import * as React from "react";
 export type ResponsiveVideoProps = {
     className?: string | undefined;
     style?: React.CSSProperties | undefined;
@@ -19,4 +19,5 @@ export type ResponsiveVideoProps = {
 /**
  * @param {ResponsiveVideoProps} props
  */
-declare function ResponsiveVideo({ mask, aspectRatio, children, onClick, style, className, }: ResponsiveVideoProps): any;
+declare const ResponsiveVideo: ({ mask, aspectRatio, children, onClick, style, className, }: ResponsiveVideoProps) => React.JSX.Element;
+export default ResponsiveVideo;

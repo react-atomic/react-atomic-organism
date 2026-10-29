@@ -126,8 +126,8 @@ const cleanCache = (key, createTime, expireSecs, cacheObj) => {
  * @property {number} [dataExpireSecs]
  * @property {number} [errorExpireSecs]
  * @property {number} [failExpireSecs]
- * @property {function(OperationResult):any} [cookResult]
- * @property {function(OperationResult):void} [onError]
+ * @property {(result: OperationResult) => any} [cookResult]
+ * @property {(result: OperationResult) => void} [onError]
  */
 
 /**

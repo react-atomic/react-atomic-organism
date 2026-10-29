@@ -14,9 +14,9 @@ const getX = (e) => {
 
 const CarouselSwipe = forwardRef((props, ref) => {
   const { onHeight, className, disableScroll, ...others } = props;
-  const lastEl = useRef();
-  const lastDragging = useRef();
-  const startX = useRef();
+  const lastEl = useRef(undefined);
+  const lastDragging = useRef(undefined);
+  const startX = useRef(undefined);
   const expose = {
     getEl: () => lastEl.current,
   };

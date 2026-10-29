@@ -1,15 +1,16 @@
-export default PaginationController;
+import React, { PureComponent } from "react";
+import paginationCalculator from "count-pagination";
 /**
  * @extends {React.PureComponent}
  */
-declare class PaginationController {
+declare class PaginationController extends PureComponent {
+    props: any;
+    cal: paginationCalculator;
     static defaultProps: {
         perPageNum: number;
     };
-    constructor(props: any);
-    props: any;
+    constructor(/**@type any*/ props: any);
     getPaginationData: () => import("count-pagination").PageListTS;
-    cal: paginationCalculator;
-    render(): any;
+    render(): React.JSX.Element;
 }
-import paginationCalculator from "count-pagination";
+export default PaginationController;

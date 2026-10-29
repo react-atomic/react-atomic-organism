@@ -1,2 +1,2 @@
+declare const arrayMerge: (...args: any[]) => any;
 export default arrayMerge;
-declare function arrayMerge(...args: any[]): any;

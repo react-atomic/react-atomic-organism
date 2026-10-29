@@ -36,14 +36,14 @@ const useTags = ({
     );
   });
 
-  const lastTags = useRef();
+  const lastTags = useRef(undefined);
   lastTags.current = {
     uniqueTags: tagState.get("uniqueTags") || [],
     tags: tagState.get("tags") || [],
     group: tagState.get("group") || {},
     maxTags,
   };
-  const lastOpt = useRef();
+  const lastOpt = useRef(undefined);
   lastOpt.current = {
     couldDuplicate,
     disabled,

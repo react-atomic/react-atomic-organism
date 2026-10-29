@@ -1,2 +1,2 @@
+declare const Animate: (props: any) => import("react").JSX.Element;
 export default Animate;
-declare function Animate(props: any): any;

@@ -63,15 +63,15 @@ export const useDropdown = (props) => {
   const [titleTimer] = useTimer();
   const [menuTimer] = useTimer();
   /** @type {React.MutableRefObject<EventListener | unknown>} */
-  const handleClose = useRef();
+  const handleClose = useRef(undefined);
   /** @type {React.MutableRefObject<HTMLElement | unknown>} */
-  const thisEl = useRef();
+  const thisEl = useRef(undefined);
   /** @type {React.MutableRefObject<HTMLElement | unknown>} */
-  const listEl = useRef();
+  const listEl = useRef(undefined);
   /** @type {React.MutableRefObject<Boolean | unknown>} */
-  const isActive = useRef();
+  const isActive = useRef(undefined);
   /** @type {React.MutableRefObject<Boolean | unknown>} */
-  const isListClick = useRef();
+  const isListClick = useRef(undefined);
   const [stateListStyle, setStateListStyle] = useState({});
   const [hideList, setHideList] = useState(false);
   useEffect(() => {

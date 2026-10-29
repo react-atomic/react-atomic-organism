@@ -1,10 +1,10 @@
-export default AlertsNotifier;
-declare function AlertsNotifier(props: any): any;
+declare const defaultName = "alerts";
+declare function AlertsNotifier(props: any): import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
 declare namespace AlertsNotifier {
     export { defaultName as displayName };
-    export namespace propTypes {
-        let alerts: any;
-        let onDismiss: any;
-    }
+    export var propTypes: {
+        alerts: any;
+        onDismiss: any;
+    };
 }
-declare const defaultName: "alerts";
+export default AlertsNotifier;

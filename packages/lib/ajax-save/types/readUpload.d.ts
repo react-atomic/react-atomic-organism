@@ -1,5 +1,5 @@
-export default readUpload;
 /**
  * @param {Blob} file
  */
-declare function readUpload(file: Blob): Promise<any>;
+declare const readUpload: (file: Blob) => Promise<any>;
+export default readUpload;

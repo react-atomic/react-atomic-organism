@@ -48,7 +48,7 @@ const handleScriptOnload =
 
 /**
  * @param {HTMLElement} el
- * @param {window} [oWin]
+ * @param {Window} [oWin]
  * @param {Element} [jsBase]
  * @param {Function} [errCb]
  * @param {Function} [cb]

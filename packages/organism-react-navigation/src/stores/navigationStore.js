@@ -7,6 +7,11 @@ const [store, navigationDispatch] = ImmutableStore((state, action) => {
   return state.set(type, settings);
 });
 
+/**
+ * @type {import("reshow-flux-base").DispatchFunction<any, any>}
+ */
+const typedDispatch = navigationDispatch;
+
 export default store;
 
-export { navigationDispatch };
+export { typedDispatch as navigationDispatch };

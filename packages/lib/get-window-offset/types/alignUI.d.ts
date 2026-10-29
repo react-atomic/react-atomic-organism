@@ -1,12 +1,4 @@
-export default alignUI;
-/**
- * @param {HTMLElement} targetEl
- * @param {HTMLElement} floatEl
- * @param {AlignParamsType} alignParams
- * @param {WindowOffsetType} winInfo
- * @returns {AlignUIResultType|false}
- */
-declare function alignUI(targetEl: HTMLElement, floatEl: HTMLElement, alignParams: AlignParamsType, winInfo: WindowOffsetType): AlignUIResultType | false;
+import { WindowOffsetType } from "./types";
 declare class AlignParamsType {
     /**
      * @type string
@@ -25,7 +17,6 @@ declare class AlignParamsType {
      */
     exclude: string[];
 }
-import { WindowOffsetType } from "./types";
 declare class AlignUIResultType {
     /**
      * @type string|undefined
@@ -48,3 +39,12 @@ declare class AlignUIResultType {
      */
     locClassName: string | undefined;
 }
+/**
+ * @param {HTMLElement} targetEl
+ * @param {HTMLElement} floatEl
+ * @param {AlignParamsType} alignParams
+ * @param {WindowOffsetType} winInfo
+ * @returns {AlignUIResultType|false}
+ */
+declare const alignUI: (targetEl: HTMLElement, floatEl: HTMLElement, alignParams: AlignParamsType, winInfo: WindowOffsetType) => AlignUIResultType | false;
+export default alignUI;

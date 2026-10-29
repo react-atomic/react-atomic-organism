@@ -1,1 +1,1 @@
-export function getClassReg(name: any): RegExp;
+export declare const getClassReg: (name: any) => RegExp;

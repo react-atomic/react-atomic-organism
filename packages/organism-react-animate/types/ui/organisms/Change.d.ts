@@ -1,2 +1,2 @@
+declare const Change: (props: any) => import("react").JSX.Element;
 export default Change;
-declare function Change(props: any): any;

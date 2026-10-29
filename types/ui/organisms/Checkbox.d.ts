@@ -1,12 +1,13 @@
-export default Checkbox;
-declare class Checkbox {
+import React, { PureComponent } from "react";
+declare class Checkbox extends PureComponent {
+    el: any;
+    state: {};
+    constructor(props: any);
     static getDerivedStateFromProps(nextProps: any, prevState: any): {
         prePropsChecked: any;
         checked: any;
         id: any;
     };
-    constructor(props: any);
-    state: {};
     getValue(): any;
     getName(): any;
     getInput(): any;
@@ -17,14 +18,14 @@ declare class Checkbox {
     handleClick: (e: any) => void;
     processChange(checked: any): void;
     handleChange: (e: any) => void;
-    render(): any;
-    el: any;
+    render(): React.JSX.Element;
 }
 declare namespace Checkbox {
-    namespace defaultProps {
-        let atom: string;
-        let type: string;
-        let checked: boolean;
-        let disabled: boolean;
-    }
+    var defaultProps: {
+        atom: string;
+        type: string;
+        checked: boolean;
+        disabled: boolean;
+    };
 }
+export default Checkbox;

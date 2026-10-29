@@ -54,8 +54,7 @@ const Keys = (props) => {
   );
 };
 
-const Keyboard = (props) => {
-  const height = props.height;
+const Keyboard = ({ height = 35, style }) => {
   const divHeight = Math.floor(height / 8);
   return (
     <div
@@ -63,7 +62,7 @@ const Keyboard = (props) => {
         ...Styles.container,
         height: height,
         background: keyboardColor,
-        ...props.style,
+        ...style,
       }}
     >
       <div
@@ -91,10 +90,6 @@ const Keyboard = (props) => {
       />
     </div>
   );
-};
-
-Keyboard.defaultProps = {
-  height: 35,
 };
 
 export default Keyboard;

@@ -78,7 +78,7 @@ class PopupModal extends PopupOverlay {
     maskStyle: {}
   };
 
-  /** @type {function(): boolean} */
+  /** @type {() => boolean} */
   close;
 
   static defaultProps = {

@@ -1,4 +1,3 @@
-export default callFunc;
 /**
  * @param {Function|any} maybeFunc
  * @param {any[]|null} [functionArguments]
@@ -6,4 +5,5 @@ export default callFunc;
  * @param {any} [defaultReturns]
  * @returns {any}
  */
-declare function callFunc(maybeFunc: Function | any, functionArguments?: any[] | null, scope?: any, defaultReturns?: any): any;
+declare const callFunc: (maybeFunc: Function | any, functionArguments?: any[] | null, scope?: any, defaultReturns?: any) => any;
+export default callFunc;

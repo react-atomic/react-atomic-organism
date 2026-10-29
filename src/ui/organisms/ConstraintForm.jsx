@@ -23,14 +23,19 @@ import { NEW_OBJ } from "reshow-constant";
  */
 
 /**
- * @typedef {Element&object} ValidityElement
- * @property {Function} checkValidity
- * @property {Function} reportValidity
+ * @typedef {Element & {
+ *   checkValidity: () => boolean,
+ *   reportValidity: () => boolean,
+ *   validity: ValidityState,
+ * }} ValidityElement
  */
 
 /**
- * @typedef {Element&object} FormElement
- * @property {form} HTMLFormElement
+ * @typedef {Element & {
+ *   form: HTMLFormElement,
+ *   setCustomValidity: (message: string) => void,
+ *   reportValidity: () => boolean,
+ * }} FormElement
  */
 
 const constraintObj = NEW_OBJ();
@@ -55,15 +60,15 @@ const constraintIdKey = "data-constraint-id";
 const useConstraintField = (props) => {
   const lastProps = useRefUpdate(props);
   const { builtInOnly, compRef, ...restProps } = lastProps.current;
-  const lastComp = /** @type any */ (useRef());
-  const lastEl = /** @type any */ (useRef());
+  const lastComp = /** @type any */ (useRef(undefined));
+  const lastEl = /** @type any */ (useRef(undefined));
   const [state, setState] = useState({});
 
   const handler = {
     /**
      * @param {FormElement} el
      * @param {string} message
-     * @param {string} nativeMessage
+     * @param {string} [nativeMessage]
      */
     displayError: (el, message, nativeMessage) => {
       const { onDisplayError, hideMessageComponent } = lastProps.current;
@@ -128,6 +133,7 @@ const useConstraintField = (props) => {
             )
           : el.checkValidity();
       if (!isOK) {
+        /** @type {Record<string, any>} */
         const state = { customState };
         for (let k in el.validity) {
           if (el.validity[k]) {
@@ -153,7 +159,7 @@ const useConstraintField = (props) => {
       const lastIsOK = isOK == null || isOK;
 
       if (lastIsOK) {
-        handler.handleDisplayError(el, "");
+        handler.displayError(el, "");
       }
       return lastIsOK;
     },
@@ -221,7 +227,7 @@ const useConstraintForm = (props) => {
   /**
    * @type HTMLFormElement
    */
-  const lastEl = /** @type any */ (useRef());
+  const lastEl = /** @type any */ (useRef(undefined));
   const lastProps = useRefUpdate(props);
   const { className, builtInOnly, ...restProps } = lastProps.current || {};
 
@@ -232,6 +238,7 @@ const useConstraintForm = (props) => {
   const expose = {
     checkValidity: () => {
       const elements = [.../**@type any*/ (expose.getEl().elements)];
+      /** @type {Record<string, any>} */
       const results = {};
       let errorEl = null;
       const hasError = elements.some((/**@type ValidityElement*/ el) => {
@@ -276,8 +283,7 @@ const useConstraintForm = (props) => {
   };
   const handler = {
     /**
-     * @typedef {SubmitEvent&object} ConstraintFormSubmitEvent
-     * @property {any} instance
+     * @typedef {SubmitEvent & {instance?: any}} ConstraintFormSubmitEvent
      */
     /**
      * @param {ConstraintFormSubmitEvent} e

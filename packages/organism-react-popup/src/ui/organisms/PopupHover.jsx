@@ -38,15 +38,6 @@ const closeTimer = {};
  * @extends {React.PureComponent<PopupHoverProps, PopupHoverState>}
  */
 class PopupHover extends PureComponent {
-  /** @type {PopupHoverProps} */
-  props;
-
-  /** @type {PopupHoverState} */
-  state;
-
-  /** @type {function(Partial<PopupHoverState>, function(): void=): void} */
-  setState;
-
   static defaultProps = {
     name: "popup-hover",
     component: SemanticUI,

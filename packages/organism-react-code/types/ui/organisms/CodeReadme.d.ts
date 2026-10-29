@@ -1,4 +1,5 @@
-export default CodeReadme;
-declare function CodeReadme({ url }: {
+import React from "react";
+declare const CodeReadme: ({ url }: {
     url: any;
-}): import("react/jsx-runtime").JSX.Element;
+}) => React.JSX.Element;
+export default CodeReadme;

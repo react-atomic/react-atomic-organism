@@ -43,7 +43,7 @@ const getMenuByArray = (onClick) => (arr, component, type, menuOrder) => {
 
 const SideMenuItem = (props) => {
   const { buildComp, className, name, text, type, ...others } = props;
-  const lastV = useRef();
+  const lastV = useRef(undefined);
   const active = useStore(navigationStore, (emit = {}) => {
     const { storeState, notify } = emit.current || {};
     if (emit.current) {
@@ -204,7 +204,7 @@ const useSideMenu = (props) => {
     shrink,
     ...others
   } = props || {};
-  const lastOn = useRef();
+  const lastOn = useRef(undefined);
 
   useEffect(() => {
     if (null != propsOn) {

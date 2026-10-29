@@ -30,10 +30,14 @@
     "win-doc": "*"
   },
   "devDependencies": {
-    "@babel/cli": "^7.x",
-    "react": "^18.x",
-    "react-dom": "^18.x",
-    "reshow-unit": "*"
+    "@babel/cli": "^8.0.6",
+    "@babel/core": "^8.0.9",
+    "@types/react": "^19.x",
+    "@types/react-dom": "^19.x",
+    "react": "^19.x",
+    "react-dom": "^19.x",
+    "reshow-unit": "*",
+    "typescript": "^7.0.2"
   },
   "exports": {
     "require": "./build/cjs/src/index.js",
@@ -48,7 +52,7 @@
     "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
-    "build:type": "npx -p typescript tsc src/*.js src/**/*.js src/ui/**/*.jsx --jsx react-jsx --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build:type": "tsc src/*.js $(find src -name \"*.js\" -not -path \"*/__tests__/*\") $(find src -name \"*.jsx\" -not -path \"*/__tests__/*\") --jsx react-jsx --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types --resolvePackageJsonExports false --strict false",
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",

@@ -1,9 +1,7 @@
 import React from "react";
 
 import { expect } from "chai";
-import { shallow, mount, configure } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-configure({ adapter: new Adapter() });
+import { render, waitFor } from "reshow-unit";
 
 import DjangoForm from "../DjangoForm";
 import djangoFormParser from "../../../src/djangoFormParser";
@@ -15,11 +13,11 @@ const form = `
 `;
 
 describe("Test DjangoForm Component", () => {
-  it("simple test", () => {
+  it("simple test", async () => {
     const data = djangoFormParser({ form });
-    const wrapper = shallow(<DjangoForm {...data.form} />);
-    expect(wrapper.html()).to.have.string(
-      '<form method="post" class="form ui">',
-    );
+    const wrap = render(<DjangoForm {...data.form} />);
+    await waitFor(() => {
+      expect(wrap.html()).to.have.string('<form method="post" class="form ui"');
+    });
   });
 });

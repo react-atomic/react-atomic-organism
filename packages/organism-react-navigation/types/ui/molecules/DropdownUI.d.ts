@@ -1,2 +1,2 @@
+declare const DropdownUI: (props: any) => import("react").JSX.Element;
 export default DropdownUI;
-declare function DropdownUI(props: any): any;

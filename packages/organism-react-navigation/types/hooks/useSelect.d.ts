@@ -1,4 +1,3 @@
-export function useSelect(props: SelectProps): SelectData;
 export type SelectBaseEvent = {
     value?: string;
     selected?: any;
@@ -27,3 +26,43 @@ export type SelectProps = {
     onChange: Function;
     onBeforeChange: Function;
 };
+/**
+ * @typedef {object} SelectBaseEvent
+ * @property {string} [value]
+ * @property {Object} [selected]
+ * @property {Object} [item]
+ */
+/**
+ * @typedef {SelectBaseEvent | SelectBaseEvent & Event} SelectEvent
+ */
+/**
+ * @typedef {object} SelectHandler
+ * @property {Function} select
+ */
+/**
+ * @typedef {object} SelectExpose
+ * @property {Function} getValue
+ * @property {Function} select
+ */
+/**
+ * @typedef {object} SelectData
+ * @property {SelectHandler} handler
+ * @property {SelectExpose} expose
+ * @property {Function} labelLocator
+ * @property {Function} valueLocator
+ * @property {object} [restProps]
+ */
+/**
+ * @typedef {object} SelectProps
+ * @property {any} value
+ * @property {any} defaultValue
+ * @property {Function} labelLocator
+ * @property {Function} valueLocator
+ * @property {Function} onChange
+ * @property {Function} onBeforeChange
+ */
+/**
+ * @param {SelectProps} props
+ * @returns {SelectData};
+ */
+export declare const useSelect: (props: SelectProps) => SelectData;

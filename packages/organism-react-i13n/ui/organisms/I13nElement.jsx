@@ -16,7 +16,7 @@ const [process, close] = windowOnload();
 const urlDecode = decodeURIComponent;
 
 const MonitorPvidContainer = (props) => {
-  const pvid = useRef();
+  const pvid = useRef(undefined);
   return (
     <Return initStates={["data", "pvid"]}>
       {({ pvid: nextPvid, I13N }) => {
@@ -35,7 +35,7 @@ const MonitorBrowserBFContainer = ({
   toggleBfChange: nextToggleBfChange,
 }) => {
   const prevToggleBfChange = usePrevious(nextToggleBfChange);
-  const bfApplyUrl = useRef();
+  const bfApplyUrl = useRef(undefined);
   if (prevToggleBfChange !== nextToggleBfChange) {
     i13nDispatch("action", {
       I13N: {

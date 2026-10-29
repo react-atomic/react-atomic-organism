@@ -1,5 +1,5 @@
-export default CommandPalette;
 /**
- * @type React.FC<CommandPalettePropTypes>
+ * @type {React.FC<any>}
  */
 declare const CommandPalette: React.FC<any>;
+export default CommandPalette;

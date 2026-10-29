@@ -1,8 +1,11 @@
 const React = require("react");
 setTimeout(() => {
+  const { createRoot } = require("react-dom/client");
   const ReactDOM = require("react-dom");
-  const MyApp = React.createFactory(require("../ui/pages/index"));
+  const MyApp = require("../ui/pages/index");
   window.app = MyApp;
   window.ReactDOM = ReactDOM;
-  ReactDOM.render(new MyApp(REACT_DATA), document.getElementById("app"));
+  createRoot(document.getElementById("app")).render(
+    React.createElement(MyApp, REACT_DATA)
+  );
 });

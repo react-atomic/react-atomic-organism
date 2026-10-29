@@ -16,13 +16,13 @@ class Coordinate {
 }
 
 /**
- * @param {object} e
+ * @param {any} e
  */
 const unifyTouch = (e) =>
   e && e.changedTouches ? get(e, ["changedTouches", 0]) : e;
 
 /**
- * @param {object} e
+ * @param {any} e
  * @param {HTMLElement} dom
  * @param {HTMLElement} scrollNode
  * @returns {[number, number]}
@@ -50,8 +50,8 @@ const mouse = (e, dom, scrollNode) => {
 };
 
 /**
- * @param {object} dom
- * @param {object} [zoom]
+ * @param {any} dom
+ * @param {any} [zoom]
  */
 const toSvgXY =
   (dom, zoom) =>
@@ -72,8 +72,8 @@ const toSvgXY =
   };
 
 /**
- * @param {object} dom
- * @param {object} zoom
+ * @param {any} dom
+ * @param {any} zoom
  */
 const getSvgMatrixXY =
   (dom, zoom) =>
@@ -116,7 +116,7 @@ const getZoomXY =
   };
 
 /**
- * @param {object} dom
+ * @param {any} dom
  * @returns {Coordinate}
  */
 const getRectWithElOffset = (dom) => {

@@ -55,6 +55,10 @@ const QUERY_PAGE = "page";
  * @property {Record<string,any>} props
  */
 
+/**
+ * @typedef {typeof Page} Page
+ */
+
 const Page = {
   /**
    * @type {number?}
@@ -325,7 +329,7 @@ export default class paginationCalculator {
       page = this.process(this.getPage());
     }
     if (null == copyFrom) {
-      copyFrom = this.props;
+      copyFrom = /** @type {Page} */ (this.props);
     }
     this.sync(page, copyFrom);
     if (!page[PER_PAGE_NUM]) {

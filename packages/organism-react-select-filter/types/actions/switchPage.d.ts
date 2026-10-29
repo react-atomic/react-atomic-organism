@@ -1,5 +1,5 @@
-export default switchPage;
 /**
  * @param {string} url
  */
-declare function switchPage(url: string): void;
+declare const switchPage: (url: string) => void;
+export default switchPage;

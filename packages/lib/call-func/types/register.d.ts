@@ -1,2 +1,3 @@
-export function register(el: any): any;
-export function cleanAllRegister(type: any): void;
+declare const register: (el: any) => any;
+declare const cleanAllRegister: (type: any) => void;
+export { register, cleanAllRegister };

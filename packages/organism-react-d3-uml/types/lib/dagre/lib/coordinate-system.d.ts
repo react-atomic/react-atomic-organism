@@ -1,2 +1,3 @@
-export function adjust(g: any): void;
-export function undo(g: any): void;
+export { adjust, undo };
+declare function adjust(g: any): void;
+declare function undo(g: any): void;

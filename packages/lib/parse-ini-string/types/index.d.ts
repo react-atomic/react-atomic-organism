@@ -1,5 +1,5 @@
-export default parse;
 /**
  * @param {string} s
  */
-declare function parse(s: string): {};
+declare const parse: (s: string) => {};
+export default parse;

@@ -1,5 +1,6 @@
-export default Table;
+import * as React from "react";
 /**
  * @param {any} props
  */
-declare function Table(props: any): import("react/jsx-runtime").JSX.Element;
+declare const Table: (props: any) => React.JSX.Element;
+export default Table;

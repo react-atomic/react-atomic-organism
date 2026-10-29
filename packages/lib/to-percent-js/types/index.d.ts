@@ -1,32 +1,33 @@
-export default toPercent;
+/**
+ * @param {any} num
+ * @returns {string}
+ */
+declare const toPercent: (num: any) => string;
+/**
+ * @param {any} num
+ * @returns {string}
+ */
+declare const percent: (num: any) => string;
 /**
  * @param {number} f
  * @param {number} [precision]
  * @returns {string}
  */
-export function round(f: number, precision?: number): string;
-/**
- * @param {any} num
- * @returns {string}
- */
-export function percent(num: any): string;
+declare const round: (f: number, precision?: number) => string;
 /**
  * @param {any} num
  * @returns {number}
  */
-export function toNum(num: any): number;
+declare const toNum: (num: any) => number;
+/**
+ * @param {any} num
+ * @returns {number}
+ */
+declare const toInt: (num: any) => number;
 /**
  * @param {any} s
  * @returns {number}
  */
-export function getNum(s: any): number;
-/**
- * @param {any} num
- * @returns {number}
- */
-export function toInt(num: any): number;
-/**
- * @param {any} num
- * @returns {string}
- */
-declare function toPercent(num: any): string;
+declare const getNum: (s: any) => number;
+export { round, percent, toNum, getNum, toInt };
+export default toPercent;

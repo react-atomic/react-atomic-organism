@@ -1,6 +1,7 @@
-export default Group;
-declare function Group({ ui, atom, ...props }: {
+import React from "react";
+declare const Group: ({ ui, atom, ...props }: {
     [x: string]: any;
-    ui?: boolean;
     atom?: string;
-}): any;
+    ui?: boolean;
+}) => React.JSX.Element;
+export default Group;

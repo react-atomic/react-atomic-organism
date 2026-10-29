@@ -1,6 +1,7 @@
-export default PopupModal;
-export type PopupModalProps = import("./BasePopup").BasePopupProps & any;
-export type PopupModalState = import("./BasePopup").BasePopupState & any;
+import * as React from "react";
+import PopupOverlay from "../molecules/PopupOverlay";
+export type PopupModalProps = import("./BasePopup").BasePopupProps & Object;
+export type PopupModalState = import("./BasePopup").BasePopupState & Object;
 /**
  * 1. if you need trace show: true
  * it extend from PopupOverlay
@@ -12,15 +13,18 @@ export type PopupModalState = import("./BasePopup").BasePopupState & any;
  * @extends {PopupOverlay}
  */
 declare class PopupModal extends PopupOverlay {
+    el: HTMLElement;
+    /**
+     * @type {PopupModalState}
+     */
+    state: PopupModalState;
+    /** @type {() => boolean} */
+    close: () => boolean;
     static defaultProps: {
         mask: boolean;
         name: string;
         modalClassName: string;
     };
-    /**
-     * @type {PopupModalState}
-     */
-    state: PopupModalState;
     /**
      * @type any
      */
@@ -35,7 +39,6 @@ declare class PopupModal extends PopupOverlay {
      * @param {HTMLElement} el
      */
     handleModalRefCb: (el: HTMLElement) => HTMLElement;
-    el: HTMLElement;
     handleClose: () => void;
     /**
      * @param {React.MouseEvent} e
@@ -50,5 +53,9 @@ declare class PopupModal extends PopupOverlay {
     unlockScreen(): void;
     componentDidMount(): void;
     componentWillUnmount(): void;
+    /**
+     * @param {boolean} show
+     */
+    shouldShow(show: boolean): React.JSX.Element;
 }
-import PopupOverlay from "../molecules/PopupOverlay";
+export default PopupModal;

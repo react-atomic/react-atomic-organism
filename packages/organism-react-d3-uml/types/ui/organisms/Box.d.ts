@@ -1,6 +1,7 @@
-export default Box;
-declare class Box extends Component<any, any, any> {
-    constructor(props: any);
+import React, { Component } from "react";
+declare class Box extends Component {
+    elRef: any;
+    id: number;
     isConnectPointDrag: boolean;
     points: {};
     hoverTimer: boolean;
@@ -26,10 +27,9 @@ declare class Box extends Component<any, any, any> {
     handleMouseLeave: () => void;
     handlePointDrag: (bool: any) => void;
     handleEl: (el: any) => void;
-    elRef: any;
-    id: number;
+    constructor(props: any);
     componentDidMount(): void;
     componentWillUnmount(): void;
-    render(): import("react").ReactElement<any, string | import("react").JSXElementConstructor<any>>;
+    render(): React.ReactElement<unknown, string | React.JSXElementConstructor<any>>;
 }
-import { Component } from "react";
+export default Box;

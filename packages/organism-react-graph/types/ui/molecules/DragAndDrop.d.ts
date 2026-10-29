@@ -1,4 +1,3 @@
-export default DragAndDrop;
 export type Component = import("reshow-build").Component;
 export type OffsetType = import("getoffset").OffsetType;
 export type PointType = {
@@ -11,7 +10,7 @@ export type DragAndDropProps = {
     renderFirst?: boolean | undefined;
     keepLastAbsXY?: boolean | undefined;
     component?: Component | undefined;
-    style?: any | undefined;
+    style?: import("react").CSSProperties | undefined;
     dragAndDropStyle?: import("../../types").DragAndDropStyle | undefined;
     zoom?: import("../../types").SetZoom | undefined;
     refCb?: Function | undefined;
@@ -38,4 +37,5 @@ export type DragAndDropProps = {
 /**
  * @type {import("react").ForwardRefExoticComponent<any, DragAndDropProps>}
  */
-declare const DragAndDrop: any;
+declare const DragAndDrop: import("react").ForwardRefExoticComponent<any, DragAndDropProps>;
+export default DragAndDrop;

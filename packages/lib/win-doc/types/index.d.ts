@@ -1,16 +1,17 @@
 /**
- * @param {object|undefined} w
+ * @param {any} w
  * @param {any} def
  * @returns {Document}
  */
-export function doc(w?: object | undefined, def?: any): Document;
-/**
- * @param {any} def
- * @returns {window}
- */
-export function win(def?: any): Window & typeof globalThis;
+declare const doc: (w?: any, def?: any) => Document;
 /**
  * @param {string} key
  * @returns {boolean}
  */
-export function hasWin(key?: string): boolean;
+declare const hasWin: (key?: string) => boolean;
+/**
+ * @param {any} def
+ * @returns {Window}
+ */
+declare const win: (def?: any) => Window;
+export { doc, win, hasWin };

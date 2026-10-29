@@ -1,5 +1,5 @@
-export default YoutubeRWD;
-export type IframeContainerExpose = import("organism-react-iframe").IframeContainerExpose;
+import * as React from "react";
+export type IframeContainerExpose = import('organism-react-iframe').IframeContainerExpose;
 export type ResponsiveVideoProps = import("../organisms/ResponsiveVideo").ResponsiveVideoProps;
 export type YoutubeRWDExtendsProps = {
     loading?: "eager" | "lazy";
@@ -15,20 +15,6 @@ export type YoutubeRWDExtendsProps = {
     onError?: Function;
 };
 export type YoutubeRWDProps = ResponsiveVideoProps & YoutubeRWDExtendsProps;
-export type YoutubeRWDExpose = {
-    restart: Function;
-    pause: Function;
-    togglePlayback: () => PlayerState;
-    postMessage: (arg0: string) => void;
-    exec: ExecPost;
-    getIframe: () => HTMLIFrameElement | undefined;
-    getPlayerState: () => PlayerState;
-};
-export type ExecPost = (cmd: string, args?: any[] | undefined) => any;
-/**
- * @type React.ForwardRefExoticComponent<?, YoutubeRWDProps>
- */
-declare const YoutubeRWD: React.ForwardRefExoticComponent<unknown, YoutubeRWDProps>;
 /**
  * @interface
  */
@@ -42,3 +28,18 @@ declare class PlayerState {
      */
     isPlaying: boolean;
 }
+export type YoutubeRWDExpose = {
+    restart: Function;
+    pause: Function;
+    togglePlayback: () => PlayerState;
+    postMessage: (msg: string) => void;
+    exec: ExecPost;
+    getIframe: () => HTMLIFrameElement | undefined;
+    getPlayerState: () => PlayerState;
+};
+export type ExecPost = (cmd: string, args?: any[] | undefined) => any;
+/**
+ * @type React.ForwardRefExoticComponent<any, YoutubeRWDProps>
+ */
+declare const YoutubeRWD: React.ForwardRefExoticComponent<any, YoutubeRWDProps>;
+export default YoutubeRWD;

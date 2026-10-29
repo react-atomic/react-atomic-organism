@@ -1,2 +1,2 @@
+declare const useScrollToSelect: (props?: any[]) => import("react").RefObject<any>[];
 export default useScrollToSelect;
-declare function useScrollToSelect(props?: any[]): import("react").MutableRefObject<undefined>[];

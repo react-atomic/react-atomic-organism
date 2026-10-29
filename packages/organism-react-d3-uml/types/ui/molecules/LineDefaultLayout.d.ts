@@ -1,5 +1,8 @@
-export default LineDefaultLayout;
+import React from "react";
+import BaseLayout from "../molecules/BaseLayout";
 declare class LineDefaultLayout extends BaseLayout {
+    el: any;
+    lineEl: any;
     static defaultProps: {
         markerEnd: string;
         curve: boolean;
@@ -7,9 +10,7 @@ declare class LineDefaultLayout extends BaseLayout {
     getEl(): any;
     getLinePoint(len: any, maxPercent: any): any;
     handleEl: (el: any) => void;
-    el: any;
     handleLineEl: (el: any) => void;
-    lineEl: any;
-    render(): JSX.Element;
+    render(): React.JSX.Element;
 }
-import BaseLayout from "../molecules/BaseLayout";
+export default LineDefaultLayout;

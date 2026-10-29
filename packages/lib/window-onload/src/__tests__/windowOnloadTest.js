@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import jsdom from "jsdom-global";
+import jsdom from "global-jsdom";
 
 import windowOnLoad from "../index";
 

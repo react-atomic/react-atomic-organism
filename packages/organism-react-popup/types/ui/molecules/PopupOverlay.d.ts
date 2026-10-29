@@ -1,5 +1,5 @@
-export default PopupOverlay;
-export type PopupOverlayProps = import("./BasePopup").BasePopupProps & any;
+import BasePopup from "../molecules/BasePopup";
+export type PopupOverlayProps = import("./BasePopup").BasePopupProps & Object;
 /**
  * @typedef {import("./BasePopup").BasePopupProps & Object} PopupOverlayProps
  * @property {HTMLElement} [targetEl] - Target element
@@ -18,8 +18,8 @@ export type PopupOverlayProps = import("./BasePopup").BasePopupProps & any;
  * @extends {BasePopup}
  */
 declare class PopupOverlay extends BasePopup {
-    constructor(props: any);
     props: any;
+    constructor(/**@type any*/ props: any);
     /**
      * @param {string} key
      * @param {object} thisStyle
@@ -28,11 +28,11 @@ declare class PopupOverlay extends BasePopup {
     /**
      * @param {any} props
      */
-    renderOverlay(props: any): any;
+    renderOverlay(props: any): import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
     /**
      * @param {boolean} show
      */
-    shouldShow(show: boolean): any;
-    render(): any;
+    shouldShow(show: boolean): import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
+    render(): import("react").ReactElement<unknown, string | import("react").JSXElementConstructor<any>>;
 }
-import BasePopup from "../molecules/BasePopup";
+export default PopupOverlay;

@@ -1,4 +1,5 @@
 // @ts-check
+// @ts-ignore - side-effect only polyfill without type declarations
 import "array.polyfill";
 import { hasWin } from "win-doc";
 

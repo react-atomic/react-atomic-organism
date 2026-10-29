@@ -1,2 +1,2 @@
+declare const toJS: (v: any) => any;
 export default toJS;
-declare function toJS(v: any): any;

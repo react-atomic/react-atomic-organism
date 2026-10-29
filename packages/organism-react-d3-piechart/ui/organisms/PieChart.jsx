@@ -153,15 +153,16 @@ const elements = ({ data, groupIndex, ...props }) => {
 };
 
 const PieChart = ({
-  data,
+  data = [],
+  width = "100%",
   outerRadius,
-  innerRadius,
-  labelTextFill,
-  valueTextFill,
-  sectorBorderColor,
-  showOuterLabels,
-  showInnerLabels,
-  unit,
+  innerRadius = 20,
+  labelTextFill = "#000",
+  valueTextFill = "#000",
+  sectorBorderColor = "#000",
+  showOuterLabels = true,
+  showInnerLabels = true,
+  unit = "%",
   ...props
 }) => {
   const [isLoad, d3] = useD3();
@@ -177,7 +178,7 @@ const PieChart = ({
   }
 
   return (
-    <Svg {...props} viewBox={`0 0 ${wBoxSize} ${hBoxSize}`}>
+    <Svg {...props} width={width} viewBox={`0 0 ${wBoxSize} ${hBoxSize}`}>
       <SemanticUI
         atom="g"
         transform={`translate(${wBoxSize / 2},${hBoxSize / 2})`}
@@ -196,17 +197,5 @@ const PieChart = ({
       </SemanticUI>
     </Svg>
   );
-};
-
-PieChart.defaultProps = {
-  innerRadius: 20,
-  labelTextFill: "#000",
-  valueTextFill: "#000",
-  width: "100%",
-  data: [],
-  showInnerLabels: true,
-  showOuterLabels: true,
-  sectorBorderColor: "#000",
-  unit: "%",
 };
 export default PieChart;

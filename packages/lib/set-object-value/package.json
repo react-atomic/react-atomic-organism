@@ -19,15 +19,17 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@babel/cli": "^7.x",
+    "@babel/cli": "^8.0.6",
+    "@babel/core": "^8.0.9",
     "chai": "*",
-    "mocha": "*"
+    "mocha": "*",
+    "typescript": "^7.0.2"
   },
   "scripts": {
     "clean": "find ./build ./types -name '*.*' | xargs rm -rf",
     "build:cjs": "BABEL_ENV=cjs babel src -d build/cjs/src --ignore /**/__tests__ --root-mode upward",
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
-    "build:type": "npx -p typescript tsc src/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types",
+    "build:type": "tsc src/*.js --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types --resolvePackageJsonExports false --strict false",
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
     "mochaFor": "mocha",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",

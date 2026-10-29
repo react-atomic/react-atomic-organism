@@ -1,2 +1,3 @@
+import React from "react";
+declare const CodeExample: (props: any) => React.JSX.Element;
 export default CodeExample;
-declare function CodeExample(props: any): import("react/jsx-runtime").JSX.Element;

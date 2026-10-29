@@ -1,10 +1,10 @@
+declare const defaultLocator: {
+    value: (d: any) => any;
+    label: (d: any) => any;
+    icon: (d: any) => any;
+    header: (d: any) => any;
+    divider: (d: any) => any;
+    item: (d: any) => any;
+    items: (d: any) => any;
+};
 export default defaultLocator;
-declare namespace defaultLocator {
-    function value(d: any): any;
-    function label(d: any): any;
-    function icon(d: any): any;
-    function header(d: any): any;
-    function divider(d: any): any;
-    function item(d: any): any;
-    function items(d: any): any;
-}

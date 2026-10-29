@@ -1,7 +1,8 @@
-export default Svg;
-declare function Svg({ ui, atom, width, ...props }: {
+import React from "react";
+declare const Svg: ({ ui, atom, width, ...props }: {
     [x: string]: any;
-    ui?: boolean;
     atom?: string;
+    ui?: boolean;
     width?: string;
-}): any;
+}) => React.JSX.Element;
+export default Svg;

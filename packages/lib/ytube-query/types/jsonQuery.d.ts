@@ -1,2 +1,10 @@
-export function jsonQuery(json: any, path: string): any;
-export function firstItem(json: any, path: string): any;
+/**
+ * @param {any} json
+ * @param {string} path
+ */
+export declare const jsonQuery: (json: any, path: string) => any;
+/**
+ * @param {any} json
+ * @param {string} path
+ */
+export declare const firstItem: (json: any, path: string) => any;

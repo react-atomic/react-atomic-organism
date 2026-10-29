@@ -1,7 +1,8 @@
-export default Step;
-declare function Step({ icon, title, description, ...props }: {
+import React from "react";
+declare const Step: ({ icon, title, description, ...props }: {
     [x: string]: any;
+    description: any;
     icon: any;
     title: any;
-    description: any;
-}): any;
+}) => React.JSX.Element;
+export default Step;

@@ -56,7 +56,7 @@ const parseInput = (d, item, input, remove) => {
   d.input = {};
   for (let attr of input.attributes) {
     const value = attr.nodeValue;
-    const valueName = attr.nodeName;
+    let valueName = attr.nodeName;
     if (mapValueName[valueName]) {
       valueName = mapValueName[valueName];
     }

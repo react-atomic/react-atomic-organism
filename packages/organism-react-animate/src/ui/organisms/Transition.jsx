@@ -157,7 +157,7 @@ const useTransition = ({
     return initialStatus;
   });
 
-  const lastNode = useRef();
+  const lastNode = useRef(undefined);
   const lastData = useRef({
     in: null,
     callbackWith: null,

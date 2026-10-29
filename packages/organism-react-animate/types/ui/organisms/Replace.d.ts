@@ -1,19 +1,20 @@
-export default Replace;
-declare class Replace {
+import { PureComponent } from "react";
+declare class Replace extends PureComponent {
+    _time: number;
     static defaultProps: {
         interval: number;
-    };
-    static getDerivedStateFromProps(nextProps: any, prevState: any): {
-        childs: any[];
-        prevChildren: any;
     };
     state: {
         no: number;
         childs: {};
     };
     handleNext: () => void;
-    _time: NodeJS.Timeout;
+    static getDerivedStateFromProps(nextProps: any, prevState: any): {
+        childs: any[];
+        prevChildren: any;
+    };
     componentDidMount(): void;
     componentWillUnmount(): void;
-    render(): any;
+    render(): import("react").JSX.Element;
 }
+export default Replace;
