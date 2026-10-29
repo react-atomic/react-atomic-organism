@@ -50,7 +50,7 @@
     "build:es": "BABEL_ENV=es babel src -d build/es/src --out-file-extension .mjs --root-mode upward",
     "build:type": "tsc src/index.js src/*.js $(find src -name \"*.jsx\" -not -path \"*/__tests__/*\") --jsx react-jsx --declaration --allowJs --emitDeclarationOnly --skipLibCheck --declarationDir types --resolvePackageJsonExports false --strict false",
     "build": "npm run clean && npm run build:cjs && npm run build:es && npm run build:type",
-    "mochaFor": "STRICT_MODE=on mocha -r global-jsdom/register",
+    "mochaFor": "STRICT_MODE=on mocha",
     "mocha": "npm run mochaFor -- 'build/es/**/__tests__/*.mjs'",
     "test:report": "npm run build && npm run mochaFor -- --reporter mocha-junit-reporter --reporter-options mochaFile=./test_output/mocha.xml 'build/es/**/__tests__/*.mjs'",
     "test": "npm run build && npm run mocha",

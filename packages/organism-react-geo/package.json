@@ -33,7 +33,7 @@
     "build": "npm run clean && npm run build:cjs && npm run build:es",
     "mochaFor": "mocha -r global-jsdom/register",
     "mocha": "npm run mochaFor -- 'build/cjs/**/__tests__/*.js'",
-    "test": "npm run build && npm run mocha",
+    "test": "npm run build && bun test",
     "prepublishOnly": "npm run test"
   },
   "files": [
