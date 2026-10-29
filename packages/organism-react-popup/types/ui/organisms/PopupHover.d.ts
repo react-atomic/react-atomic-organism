@@ -1,6 +1,5 @@
 import * as React from "react";
 declare const PureComponent: typeof React.PureComponent;
-import { SemanticUI } from "react-atomic-molecule";
 export type PopupHoverProps = {
     /**
      * - Component name
@@ -65,7 +64,7 @@ declare class PopupHover extends PureComponent {
     dom: HTMLElement;
     static defaultProps: {
         name: string;
-        component: typeof SemanticUI;
+        component: ({ ui, renderChildren, atoms, useCSS, cssList, refCb, atom, children, styles, styleOrder, ...restProps }: import("react-atomic-molecule/types/ui/molecules/SemanticUI").SemanticUIProps & React.HTMLProps<any>) => React.ReactElement | null;
     };
     floatMouseOver: () => void;
     floatMouseOut: () => void;

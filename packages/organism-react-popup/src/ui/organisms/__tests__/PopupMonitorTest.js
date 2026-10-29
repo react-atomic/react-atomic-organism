@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { expect } from "chai";
-import { act, render, waitFor } from "reshow-unit";
+import { act, cleanIt, getSinon, render, waitFor } from "reshow-unit";
 
 import PopupMonitor from "../PopupMonitor";
 import PopupPool from "../PopupPool";
@@ -10,6 +10,16 @@ describe("Test PopupMonitor", () => {
   beforeEach(() => {
     popupStore.reset();
     popupDispatch("dom/cleanAll");
+    /**
+     * hideConsoleWarn from reshow-unit-dom@0.19.1 patches console.error
+     * instead of console.warn, use the shared sinon sandbox instead,
+     * cleanIt() will restore it.
+     */
+    getSinon().stub(console, "warn");
+  });
+
+  afterEach(() => {
+    cleanIt();
   });
 
   it("basic test", async () => {
@@ -27,7 +37,7 @@ describe("Test PopupMonitor", () => {
 
   it("feature test", async () => {
     const expectedWithoutPopup =
-      '<div><div class="popup-monitor ui">Test Monitor</div></div>';
+      '<div><div class="popup-monitor ui">Test Monitor</div><div name="" class="popup-pool"></div></div>';
     const FakeDom = (props) => {
       const [id, setId] = useState();
       useEffect(() => {

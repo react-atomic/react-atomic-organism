@@ -29,8 +29,15 @@ const NODE_KEY = "nodes";
  */
 const getName = (node, defaultVal = "default") => {
   const name = get(node, ["props", "name"], () => {
-    return get(node, ["type", "displayName"], () => {
-      return get(node, ["type", "name"], defaultVal);
+    /**
+     * React 19 jsx runtime no longer applies class defaultProps to
+     * element.props, but the mounted instance still receives them.
+     * Fallback to type.defaultProps to keep both keys consistent.
+     */
+    return get(node, ["type", "defaultProps", "name"], () => {
+      return get(node, ["type", "displayName"], () => {
+        return get(node, ["type", "name"], defaultVal);
+      });
     });
   });
   return name;
@@ -72,7 +79,7 @@ class handlePopup {
     const popup = get(action, ["params", "popup"], "default");
     let key;
     if (OBJECT === typeof popup) {
-      key = getName(popup, popup);
+      key = getName(popup);
     } else {
       key = popup;
     }
